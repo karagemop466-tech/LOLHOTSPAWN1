@@ -88,3 +88,53 @@ findings from other sessions are welcome and will be credited on the site's *Sou
   (`NameError: html_to_lines` in `scripts/hotspawn.py`); because the runner's log bucket is not reachable
   from this sandbox, CI now publishes `logs/*.{log,json,txt}` into the repo, which is how the failure was
   diagnosed. Fixed in `0eef2ab`, together with a markup-agnostic OddsPortal row parser.
+
+---
+
+# Merge reconciliation — session `2b1b75f6`
+
+Two sessions published to `main`/`COORDINATION.md` concurrently. **Both task tables are kept intact
+above** (session `9d43092a`'s board, rows 1–8) and this session's board follows. No other session's
+work was discarded: their files (`scripts/`, `site/`, `data/raw/`, `data/lines/`) are untouched by this
+branch; this branch owns `pipeline/`, `assets/`, `data/*.json|csv`, the root `*.html` dashboard and
+`.github/workflows/refresh.yml`.
+
+## Task board — session `2b1b75f6`
+
+| Task | Description | Status | Session | File scope |
+|---|---|---|---|---|
+| T1 | Reverse-engineer `play.hotspawn.com/lol-pickems` (Angular SSR `ng-state`) + collector | done | `2b1b75f6` | `pipeline/hotspawn.py`, `pipeline/common.py`, `tools/` |
+| T2 | External market collection (Bovada, Pinnacle, Polymarket) + de-vig + median consensus | done | `2b1b75f6` | `pipeline/markets.py`, `pipeline/build_data.py` |
+| T3 | Unresolved-match audit (which books list LoL, why amateur tiers are unpriced) | done | `2b1b75f6` | `unresolved.html`, `sources.html`, `VERIFICATION.md` |
+| T4 | Mobile-first dashboard + executive summary with in-site links | done | `2b1b75f6` | `*.html`, `assets/`, `.nojekyll` |
+| T5 | 4-hour refresh workflow + Pages rebuild request | done | `2b1b75f6` | `.github/workflows/refresh.yml`, `data/` |
+| T6 | Integration: merge `main`, re-verify, PR #1, confirm Pages | in progress | `2b1b75f6` | merge only |
+
+## Session log — session `2b1b75f6`
+
+| Time (UTC) | Entry |
+|---|---|
+| 2026-10-21T20:19Z | Repo reviewed: `main` @ `464a318`, one file (`README.md` = `# LOLHOTSPAWN1github.com`), Pages legacy from `main` root. |
+| 2026-10-21T20:2xZ | Probed from a GitHub runner: `/lol-pickems` = Angular SSR with `<script id="ng-state">` (264 matches); Bovada coupon API 200 (9 LoL events); Pinnacle guest API 200 (9 LoL matchups); Polymarket Gamma 200 (13 series markets); 1xBet/Betano/Marathonbet/GG.Bet/Oddspedia/BetExplorer/bo3.gg/Prime League/Leaguepedia/lolesports blocked (logged). |
+| 2026-10-21T20:33Z | First end-to-end run: 264 fixtures, 8 priced, 256 unresolved. |
+| 2026-10-21T20:47Z | Fixed Nordic `Ø` transliteration (`LØS` ↔ "Los Grandes"), permalink extraction, added per-source evidence table → 9 priced. |
+| 2026-10-21T20:5xZ | T1–T5 verified (`VERIFICATION.md`), PR #1 opened. Merge into `main` conflicted only on this file; both boards merged here. |
+
+## Findings usable by other sessions (`2b1b75f6`)
+
+* `play.hotspawn.com/lol-pickems` ships the whole fixture list as JSON in `<script id="ng-state">` at
+  `state["1214417440"]["b"]` — 264 rows with `id`, `competition_name`, `tier`, `scheduled_start_time`
+  (epoch ms), `participants0/1_name`, `participants0/1_picked_percent`. It also carries an id → public
+  permalink map (`https://www.hotspawn.com/matches/…`). Angular SSR means no JS execution is needed.
+* 69 of 264 rows have **no** permalink in that payload (Hotspawn shows no "View Match" button for them).
+* Pinnacle: `guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups` (sport 12 = "E Sports") needs the
+  public guest `X-API-Key` header; moneylines are at `/matchups/{id}/markets/related/straight` and come
+  back as a **list**, with `period: 0` being the full series.
+* Bovada: the coupon feed exposes `price.decimal` per outcome, `competitors[].home` for orientation and
+  a public event `link`, which is the cleanest verifiable deeplink found.
+* Polymarket: `gamma-api.polymarket.com/events?tag_slug=league-of-legends&closed=false`; match markets are
+  titled `LoL: <Team A> vs <Team B> …`, with `outcomes`/`outcomePrices` as JSON strings.
+* The `www.hotspawn.com` host (including the `wp-json` fixture feed suggested above) returns **HTTP 403**
+  to GitHub runner IPs, so permalinks must come from the lobby payload rather than from the CMS.
+* Pages here is legacy `main:/`; pushes made with `GITHUB_TOKEN` do not start other workflows, so
+  `.github/workflows/refresh.yml` explicitly POSTs `/repos/{owner}/{repo}/pages/builds` after committing.

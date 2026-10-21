@@ -1,0 +1,44 @@
+{
+ "pipeline_version": "1.0.0",
+ "generated_at": "2026-10-21T20:43:30Z",
+ "hotspawn_source": "https://play.hotspawn.com/lol-pickems",
+ "hotspawn_retrieved_at": "2026-10-21T20:43:26Z",
+ "markets_retrieved_at": "2026-10-21T20:43:29Z",
+ "counts": {
+  "matches": 264,
+  "resolved": 9,
+  "unresolved": 255,
+  "tournaments": 27,
+  "quotes": 31
+ },
+ "sources": [
+  {
+   "book": "Bovada",
+   "book_key": "bovada",
+   "kind": "sportsbook",
+   "url": "https://www.bovada.lv/esports/league-of-legends",
+   "status": "ok",
+   "error": null,
+   "quotes": 9
+  },
+  {
+   "book": "Pinnacle",
+   "book_key": "pinnacle",
+   "kind": "sportsbook",
+   "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+   "status": "ok",
+   "error": null,
+   "quotes": 9
+  },
+  {
+   "book": "Polymarket",
+   "book_key": "polymarket",
+   "kind": "prediction_market",
+   "url": "https://polymarket.com/markets/league-of-legends",
+   "status": "ok",
+   "error": null,
+   "quotes": 13
+  }
+ ]
+}
+wrote index.html, picks.html, unresolved.html, tournaments.html, methodology.html, sources.html, flagged.html
