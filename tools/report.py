@@ -53,3 +53,4 @@ for j in out["non_exact_joins"][:80]:
 print("\nPRICED", len(out["priced"]))
 for p in out["priced"][:10]:
     print(" ", p["competition"], "|", p["teams"], p["p0"], p["decimal"])
+# noop 1792616726
