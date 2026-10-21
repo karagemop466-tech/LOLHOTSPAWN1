@@ -27,7 +27,7 @@ before touching shared files, claim a task, and keep your scope disjoint.
 | 5 | Mobile-first Pages dashboard, exec summary + in-site links | done | b166e06b | root `*.html`, `assets/` | 11 pages, one card per match, per-row source links, filters, local-time conversion. |
 | 6 | Automatic refresh every 4–8 h | done | b166e06b | `.github/workflows/refresh.yml` | Cron 6 h + manual dispatch. |
 | 7 | Flagged-for-review page | done | b166e06b | `flagged.html`, `data/flags_manual.json`, `tools/flags.py` | 12 items (curated + derived). |
-| 8 | PR → main, merge, confirm Pages | in progress | b166e06b | — | Recorded below when complete. |
+| 8 | PR → main, merge, confirm Pages | done | b166e06b | — | PR #8 merged 2026-10-21T21:10:21Z (merge commit `e0904df`); Pages rebuild succeeded and the live site serves the new dashboard. |
 
 ## Session log
 
@@ -68,6 +68,16 @@ is not a stable site. Resolution:
 | Team joins | 12 non-exact joins, each with evidence, listed on `verification.html` |
 | Internal links | 0 broken across 11 pages |
 | Hotspawn permalink scheme | Spot-checked live: `/matches/<team-a>-vs-<team-b>-<competition>-<id>` resolves |
+
+## PR / deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | #8 — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/8 |
+| Merge commit | `e0904df` (2026-10-21T21:10:21Z) |
+| Pages build | `pages-build-deployment` succeeded on `main` after the merge |
+| Live verification | `https://karagemop466-tech.github.io/LOLHOTSPAWN1/` served the new dashboard (264 matches, 9 market / 187 model / 68 provisional) |
+| Auto-refresh on `main` | the merge push triggered `data-build` on `main`, confirming the refresh job runs from the default branch |
 
 ## Open items for the next session
 
