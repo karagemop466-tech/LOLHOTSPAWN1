@@ -82,6 +82,8 @@ def pair_quotes(match: dict, quotes: list[dict]) -> list[dict]:
             "kind": q["kind"],
             "url": q["url"],
             "market": q.get("market"),
+            "home": q["home"],
+            "away": q["away"],
             "decimal_team1": q["decimal_home"] if not reversed_ else q["decimal_away"],
             "decimal_team2": q["decimal_away"] if not reversed_ else q["decimal_home"],
             "prob_team1_raw": round(p_home, 5),

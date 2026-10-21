@@ -69,9 +69,17 @@ _SUFFIXES = re.compile(
 _PUNCT = re.compile(r"[^a-z0-9 ]+")
 
 
+_TRANSLIT = {
+    "ø": "o", "Ø": "o", "æ": "ae", "Æ": "ae", "œ": "oe", "Œ": "oe", "ß": "ss",
+    "ł": "l", "Ł": "l", "đ": "d", "Đ": "d", "ð": "d", "Ð": "d", "þ": "th", "Þ": "th",
+    "ı": "i", "İ": "i", "å": "a", "Å": "a", "ę": "e", "Ę": "e", "ą": "a", "Ą": "a",
+}
+
+
 def norm_team(name: str) -> str:
     """Normalise a team name to a comparison key."""
-    s = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode()
+    name = "".join(_TRANSLIT.get(ch, ch) for ch in (name or ""))
+    s = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode()
     s = s.lower().replace("&", " and ")
     s = _PUNCT.sub(" ", s)
     s = re.sub(r"\s+", " ", s).strip()

@@ -255,7 +255,7 @@ def onexbet() -> dict:
     return out
 
 
-ADAPTERS = [bovada, pinnacle, polymarket, onexbet]
+ADAPTERS = [bovada, pinnacle, polymarket]
 
 
 def collect_all() -> dict:

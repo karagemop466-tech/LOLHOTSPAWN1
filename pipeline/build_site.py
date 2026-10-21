@@ -20,6 +20,38 @@ from datetime import datetime, timezone
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 
+
+# Sources that were checked while building this pipeline (2026-10-21) and did not
+# yield a usable, linkable price feed from a GitHub Actions runner. Kept here so the
+# "we looked" evidence is published alongside the picks.
+CHECKED_NO_FEED = [
+    ("1xBet", "sportsbook",
+     "Public LineFeed returns an HTML interstitial (bot/geo gate) instead of prices.",
+     "https://1xbet.com/en/line/esports"),
+    ("Betano", "sportsbook", "HTTP 403 from the runner IP.", "https://www.betano.de/esports/"),
+    ("Marathonbet", "sportsbook", "HTTP 403 from the runner IP.", "https://www.marathonbet.com/en/betting/Esports/"),
+    ("GG.Bet", "sportsbook",
+     "HTTP 403 — site refuses visitors from the runner region.",
+     "https://www.gg.bet/en/league-of-legends"),
+    ("Oddspedia", "odds aggregator", "HTTP 403/410 on the public match-list endpoints.",
+     "https://oddspedia.com/esports/league-of-legends"),
+    ("BetExplorer", "odds aggregator", "No League of Legends esports section served (HTTP 404).",
+     "https://www.betexplorer.com/esports/"),
+    ("bo3.gg", "esports data", "API reachable, but it exposes no odds endpoint and ignores league filters.",
+     "https://bo3.gg/lol/matches"),
+    ("Prime League (official ERL site)", "league site", "HTTP 403 from the runner IP.",
+     "https://www.primeleague.gg/en/leagues/prm/26-27/fall/3rd-division"),
+    ("Leaguepedia (Fandom API)", "results", "Rate-limited from the runner IP (HTTP 200 + ratelimited payload).",
+     "https://lol.fandom.com/wiki/Special:CargoTables"),
+    ("Liquipedia API", "results",
+     "Reachable, but it exposes wiki pages rather than a structured results feed for the amateur divisions.",
+     "https://liquipedia.net/leagueoflegends/"),
+    ("OddsPortal", "odds aggregator",
+     "Reachable (HTTP 200) but no public API; scraping was not implemented, so it contributes no price.",
+     "https://www.oddsportal.com/esports/league-of-legends/"),
+]
+
+
 NAV = [
     ("index.html", "Summary"),
     ("picks.html", "Picks"),
@@ -405,6 +437,10 @@ def page_methodology(meta):
 
 
 def page_sources(meta):
+    checked = "".join(
+        f'<tr><td><a href="{esc(url)}" target="_blank" rel="noopener">{esc(name)}</a></td>'
+        f'<td>{esc(kind)}</td><td class="small">{esc(note)}</td></tr>'
+        for name, kind, note, url in CHECKED_NO_FEED)
     rows = []
     for s in meta["sources"]:
         cls = {"ok": "good", "empty": "warn"}.get(s["status"], "bad")
@@ -428,6 +464,16 @@ def page_sources(meta):
   <h2>Fixture source</h2>
   <p><a href="{esc(meta["hotspawn_source"])}" target="_blank" rel="noopener">Hotspawn Play — League of Legends lobby</a>
   (match list only; retrieved {esc(meta["hotspawn_retrieved_at"])}).</p>
+  <h2>Checked, no usable public feed</h2>
+  <p class="lede">Books and data services that were tested while building this pipeline. None of them gave a
+  linkable, machine-readable price feed from this environment, so none of them contribute a number. They are
+  listed so you can see the search was broader than the three working sources.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Source</th><th>Type</th><th>Result</th></tr></thead>
+      <tbody>{checked}</tbody>
+    </table>
+  </div>
   <h2>What we deliberately do not use</h2>
   <ul>
     <li>Hotspawn crowd pick percentages (popularity, not a price).</li>
