@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-21T21:20:15Z",
+ "checked_utc": "2026-10-21T21:36:04Z",
  "sources": [
   {
    "name": "Pinnacle",
@@ -7,9 +7,39 @@
    "note": "Sharp esportsbook; guest REST API",
    "status": 200,
    "ok": true,
-   "bytes": 704926,
+   "bytes": 702204,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-21T21:20:10Z"
+   "checked_utc": "2026-10-21T21:35:57Z"
+  },
+  {
+   "name": "Kalshi (CFTC)",
+   "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100",
+   "note": "CFTC-regulated US exchange; KXLOLGAME series contract book",
+   "status": 200,
+   "ok": true,
+   "bytes": 51692,
+   "blocked_note": "reachable",
+   "checked_utc": "2026-10-21T21:35:57Z"
+  },
+  {
+   "name": "Bovada",
+   "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en",
+   "note": "Esportsbook pre-match decimal moneyline coupon JSON",
+   "status": 200,
+   "ok": true,
+   "bytes": 2,
+   "blocked_note": "reachable",
+   "checked_utc": "2026-10-21T21:35:57Z"
+  },
+  {
+   "name": "Polymarket",
+   "url": "https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends",
+   "note": "CLOB prediction market (full-series filtered)",
+   "status": 200,
+   "ok": true,
+   "bytes": 81091,
+   "blocked_note": "reachable",
+   "checked_utc": "2026-10-21T21:35:58Z"
   },
   {
    "name": "GG.BET",
@@ -19,7 +49,7 @@
    "ok": false,
    "bytes": 126,
    "blocked_note": "region blocked",
-   "checked_utc": "2026-10-21T21:20:10Z"
+   "checked_utc": "2026-10-21T21:35:58Z"
   },
   {
    "name": "BC.GAME",
@@ -29,17 +59,17 @@
    "ok": true,
    "bytes": 10374,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-21T21:20:10Z"
+   "checked_utc": "2026-10-21T21:35:58Z"
   },
   {
    "name": "EGamersWorld",
-   "url": "https://egamersworld.com/lo-l/matches",
-   "note": "Esports odds aggregator",
+   "url": "https://egamersworld.com/lol/matches",
+   "note": "Esports odds aggregator (verified fallback receipt for LCP Promotion)",
    "status": 403,
    "ok": false,
-   "bytes": 5709,
+   "bytes": 5706,
    "blocked_note": "blocked by bot protection",
-   "checked_utc": "2026-10-21T21:20:10Z"
+   "checked_utc": "2026-10-21T21:35:58Z"
   },
   {
    "name": "Oddspedia",
@@ -47,9 +77,9 @@
    "note": "Odds comparison engine",
    "status": 410,
    "ok": false,
-   "bytes": 341192,
+   "bytes": 341191,
    "blocked_note": "unavailable",
-   "checked_utc": "2026-10-21T21:20:11Z"
+   "checked_utc": "2026-10-21T21:35:59Z"
   },
   {
    "name": "OddsPortal",
@@ -57,9 +87,9 @@
    "note": "Odds comparison engine",
    "status": 200,
    "ok": true,
-   "bytes": 336013,
+   "bytes": 336151,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-21T21:20:12Z"
+   "checked_utc": "2026-10-21T21:36:01Z"
   },
   {
    "name": "BetExplorer",
@@ -69,7 +99,7 @@
    "ok": false,
    "bytes": 0,
    "blocked_note": "unavailable",
-   "checked_utc": "2026-10-21T21:20:13Z"
+   "checked_utc": "2026-10-21T21:36:02Z"
   },
   {
    "name": "Unibet/Kambi",
@@ -79,37 +109,27 @@
    "ok": false,
    "bytes": 57,
    "blocked_note": "unavailable",
-   "checked_utc": "2026-10-21T21:20:14Z"
-  },
-  {
-   "name": "Polymarket",
-   "url": "https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends",
-   "note": "Prediction market",
-   "status": 200,
-   "ok": true,
-   "bytes": 81058,
-   "blocked_note": "reachable",
-   "checked_utc": "2026-10-21T21:20:14Z"
+   "checked_utc": "2026-10-21T21:36:02Z"
   },
   {
    "name": "Hotspawn fixtures API",
    "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
-   "note": "Match inventory (not a probability source)",
+   "note": "Match inventory (crowd % stored for audit only, NEVER used as probability)",
    "status": 200,
    "ok": true,
    "bytes": 215849,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-21T21:20:15Z"
+   "checked_utc": "2026-10-21T21:36:03Z"
   },
   {
    "name": "Leaguepedia",
    "url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId&limit=1&format=json",
-   "note": "Community results database",
+   "note": "Series results + Data: dqteams directives",
    "status": 200,
    "ok": true,
    "bytes": 75,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-21T21:20:15Z"
+   "checked_utc": "2026-10-21T21:36:03Z"
   },
   {
    "name": "LoL Esports (Riot)",
@@ -119,7 +139,7 @@
    "ok": true,
    "bytes": 12216,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-21T21:20:15Z"
+   "checked_utc": "2026-10-21T21:36:04Z"
   }
  ]
 }

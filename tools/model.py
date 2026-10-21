@@ -2,14 +2,18 @@
 """Build our own win probabilities and picks for every Hotspawn LoL pick'em match.
 
 Method order (documented on the site):
-  1. MARKET      - de-vigged moneyline from a bookmaker / prediction market.
+  1. MARKET      - precision-weighted de-vigged consensus across real-money books &
+                   exchanges (Pinnacle, Polymarket full-series CLOB, Kalshi CFTC,
+                   Bovada, and verified specialist esportsbook quotes).
   2. MODEL       - our own Elo line fitted on Leaguepedia series results, used when
                    the two teams are connected by a shared-opponent chain and each
                    side has enough rated series.
   3. PROVISIONAL - Elo line emitted with an explicit low-confidence flag because the
                    data is thin (few rated series, one unrated side, or no shared
                    opponent chain).
-  4. UNRESOLVED  - no defensible probability (no rating for either side, TBD card).
+  4. UNRESOLVED  - no defensible competitive probability (mid-split league removal /
+                   disqualification in official Leaguepedia `dqteams`, unrated teams,
+                   or unannounced TBD slots).
 
 Hotspawn's community pick percentages are stored for transparency but are NEVER
 used by the model or by any pick.
@@ -17,14 +21,14 @@ used by the model or by any pick.
 from __future__ import annotations
 
 import csv
-import json
+import math
 import os
 import re
 import sys
 from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import DATA, RAW, iso, load_json, log, norm_name, now_utc, save_json
+from common import DATA, RAW, ROOT, iso, load_json, log, norm_name, now_utc, save_json
 
 ELO_START = 1500.0
 ELO_K = 24.0
@@ -34,6 +38,32 @@ PROB_FLOOR, PROB_CEIL = 0.05, 0.95
 DECAY_START_DAYS = 45
 DECAY_FULL_DAYS = 450
 GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", "lol", "e", "v"}
+
+VENUE_WEIGHTS = {
+    "Pinnacle": 0.36,
+    "Polymarket": 0.24,
+    "Kalshi": 0.18,
+    "Bovada": 0.12,
+    "Esportsbook": 0.10,
+}
+
+BOOK_TEAM_ALIASES = {
+    "los": "los",
+    "l o s": "los",
+    "loud": "loud",
+    "lyon gaming": "lyon",
+    "six karma": "lyon",
+    "anyones legend": "anyones legend",
+    "bilibili": "bilibili gaming",
+    "hanwha life": "hanwha life esports",
+    "dplus": "dplus kia",
+    "invictus": "invictus gaming",
+    "secret whales": "team secret whales",
+    "flying oyster": "ctbc flying oyster",
+    "cfo": "ctbc flying oyster",
+    "movistar koi": "movistar koi",
+    "koi": "movistar koi",
+}
 
 
 # --------------------------------------------------------------------------- helpers
@@ -48,9 +78,14 @@ def region_of(name: str) -> str:
     return m.group(1) if m else ""
 
 
+def canon_book_team(name: str) -> str:
+    n = norm_name(base_name(name))
+    return BOOK_TEAM_ALIASES.get(n, n)
+
+
 def same_team(a: str, b: str) -> bool:
     """Loose equality used only for bookmaker-vs-Hotspawn name alignment."""
-    na, nb = norm_name(a), norm_name(b)
+    na, nb = canon_book_team(a), canon_book_team(b)
     if not na or not nb:
         return False
     if na == nb:
@@ -62,6 +97,16 @@ def same_team(a: str, b: str) -> bool:
     short_text = " ".join(short)
     long_enough = len(short_text) >= 4 or (len(short_text) >= 2 and any(c.isdigit() for c in short_text))
     return (set(long_) - set(short)) <= GENERIC_TOKENS and long_enough
+
+
+def devig_decimal(d0: float, d1: float) -> tuple[float, float, float] | None:
+    if d0 <= 1.0 or d1 <= 1.0:
+        return None
+    # Reject symmetric 1.80 / 1.80 aggregator default placeholders
+    if abs(d0 - 1.80) < 1e-4 and abs(d1 - 1.80) < 1e-4:
+        return None
+    inv = 1.0 / d0 + 1.0 / d1
+    return (1.0 / d0) / inv, (1.0 / d1) / inv, inv - 1.0
 
 
 # --------------------------------------------------------------------------- elo
@@ -110,7 +155,6 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, 
         r2 = ratings.get(t2, ELO_START)
         exp1 = 1 / (1 + 10 ** ((r2 - r1) / 400))
         if dt >= BACKTEST_CUTOFF:
-            # predict-then-update: this is an out-of-sample prediction
             y = 1.0 if winner == 1 else 0.0
             fav_p = max(exp1, 1 - exp1)
             hit = (exp1 >= 0.5) == (winner == 1)
@@ -118,8 +162,8 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, 
             bt["hits"] += 1 if hit else 0
             bt["brier_sum"] += (exp1 - y) ** 2
             eps = 1e-9
-            bt["logloss_sum"] += -(y * __import__("math").log(max(exp1, eps)) +
-                                   (1 - y) * __import__("math").log(max(1 - exp1, eps)))
+            bt["logloss_sum"] += -(y * math.log(max(exp1, eps)) +
+                                   (1 - y) * math.log(max(1 - exp1, eps)))
             bucket = ("50-60%" if fav_p < 0.60 else "60-70%" if fav_p < 0.70 else
                       "70-80%" if fav_p < 0.80 else "80%+")
             b = bt["buckets"].setdefault(bucket, {"n": 0, "hits": 0, "sum_p": 0.0})
@@ -145,10 +189,15 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, 
         bt["accuracy"] = round(bt["hits"] / bt["n"], 4)
         bt["brier"] = round(bt["brier_sum"] / bt["n"], 4)
         bt["logloss"] = round(bt["logloss_sum"] / bt["n"], 4)
-        for name, b in bt["buckets"].items():
-            b["accuracy"] = round(b["hits"] / b["n"], 4) if b["n"] else None
-            b["mean_predicted"] = round(b["sum_p"] / b["n"], 4) if b["n"] else None
-            b.pop("sum_p", None)
+        ordered_buckets = {}
+        for name in ("50-60%", "60-70%", "70-80%", "80%+"):
+            if name in bt["buckets"]:
+                b = bt["buckets"][name]
+                b["accuracy"] = round(b["hits"] / b["n"], 4) if b["n"] else None
+                b["mean_predicted"] = round(b["sum_p"] / b["n"], 4) if b["n"] else None
+                b.pop("sum_p", None)
+                ordered_buckets[name] = b
+        bt["buckets"] = ordered_buckets
     bt.pop("brier_sum", None)
     bt.pop("logloss_sum", None)
     return ratings, counts, last_seen, uf, bt
@@ -236,20 +285,11 @@ def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
     return None, "none", []
 
 
-# --------------------------------------------------------------------------- market
-def american_to_decimal(price) -> float | None:
-    try:
-        p = float(price)
-    except (TypeError, ValueError):
-        return None
-    if p == 0:
-        return None
-    return round(1 + (p / 100 if p > 0 else 100 / abs(p)), 4)
-
-
-def market_lookup(name0: str, name1: str, start: str | None, pin_index: list,
-                  pm_index: list, within_hours: int = 18):
-    """Find a bookmaker/prediction-market price pair for this fixture."""
+# --------------------------------------------------------------------------- multi-venue market consensus
+def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
+                  pin_index: list, pm_index: list, kalshi_index: list,
+                  bovada_index: list, esportsbook_map: dict, within_hours: int = 36):
+    """Combine all independent real-money venues covering this fixture."""
     def close_in_time(a: str | None, b: str | None) -> bool:
         if not a or not b:
             return True
@@ -260,6 +300,14 @@ def market_lookup(name0: str, name1: str, start: str | None, pin_index: list,
             return True
         return abs((da - db).total_seconds()) <= within_hours * 3600
 
+    venues = []
+    primary_decimal = None
+    primary_american = None
+    primary_start = None
+    primary_league = None
+    primary_api_url = ""
+
+    # 1. Pinnacle
     for item in pin_index:
         a, b = item["names"]
         if close_in_time(start, item["start"]) and (
@@ -268,53 +316,156 @@ def market_lookup(name0: str, name1: str, start: str | None, pin_index: list,
             row = item["row"]
             home_dec = row["prices"]["home"]["decimal"]
             away_dec = row["prices"]["away"]["decimal"]
-            inv = 1 / home_dec + 1 / away_dec
-            p_home = (1 / home_dec) / inv
-            p_away = (1 / away_dec) / inv
-            home_name = next((p["name"] for p in row["participants"]
-                              if p.get("alignment") == "home"), a)
-            aligned = same_team(name0, home_name)
-            return {
-                "book": "Pinnacle",
-                "kind": "bookmaker",
-                "source_url": "https://www.pinnacle.com/en/esports/league-of-legends",
-                "api_url": f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{row['matchup_id']}/markets/related/straight",
-                "market_url": f"https://www.pinnacle.com/en/event/{row['matchup_id']}",
-                "decimal": {"home": home_dec, "away": away_dec},
-                "american": {k: v.get("american") for k, v in row["prices"].items()},
-                "p0": round(p_home if aligned else p_away, 4),
-                "p1": round(p_away if aligned else p_home, 4),
-                "overround": round(inv - 1, 4),
-                "start_utc": item["start"],
-                "league": row.get("league"),
-            }
+            dv = devig_decimal(home_dec, away_dec)
+            if dv:
+                p_home, p_away, overround = dv
+                home_name = next((p["name"] for p in row["participants"]
+                                  if p.get("alignment") == "home"), a)
+                aligned = same_team(name0, home_name)
+                p0_v = p_home if aligned else p_away
+                p1_v = p_away if aligned else p_home
+                d0_v = home_dec if aligned else away_dec
+                d1_v = away_dec if aligned else home_dec
+                primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
+                primary_american = {k: v.get("american") for k, v in row["prices"].items()}
+                primary_start = item["start"]
+                primary_league = row.get("league")
+                primary_api_url = f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{row['matchup_id']}/markets/related/straight"
+                venues.append({
+                    "name": "Pinnacle",
+                    "weight": VENUE_WEIGHTS["Pinnacle"],
+                    "p0": round(p0_v, 4),
+                    "p1": round(p1_v, 4),
+                    "quote": f"{d0_v:.2f}/{d1_v:.2f}",
+                    "overround": round(overround, 4),
+                    "url": f"https://www.pinnacle.com/en/event/{row['matchup_id']}",
+                })
+                break
 
+    # 2. Polymarket CLOB (highest-volume full-series market only)
     for item in pm_index:
         a, b = item["names"]
         if (same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a)):
-            p0 = item["p0"] if same_team(name0, a) else item["p1"]
-            p1 = round(1 - p0, 4)
-            return {
-                "book": "Polymarket",
-                "kind": "prediction market",
-                "source_url": "https://polymarket.com/markets/league-of-legends",
-                "market_url": f"https://polymarket.com/event/{item['slug']}",
-                "decimal": None,
-                "american": None,
-                "p0": round(p0, 4),
-                "p1": p1,
-                "overround": 0.0,
-                "start_utc": item.get("start"),
-            }
-    return None
+            pa = item["p0"] if same_team(name0, a) else item["p1"]
+            pb = item["p1"] if same_team(name0, a) else item["p0"]
+            tot = pa + pb
+            if tot > 0:
+                p0_v, p1_v = pa / tot, pb / tot
+                venues.append({
+                    "name": "Polymarket",
+                    "weight": VENUE_WEIGHTS["Polymarket"],
+                    "p0": round(p0_v, 4),
+                    "p1": round(p1_v, 4),
+                    "quote": f"{p0_v*100:.1f}¢/{p1_v*100:.1f}¢",
+                    "overround": round(tot - 1.0, 4),
+                    "url": f"https://polymarket.com/event/{item['slug']}",
+                })
+                break
+
+    # 3. Kalshi CFTC Regulated Exchange
+    for item in kalshi_index:
+        a, b = item["names"]
+        if (same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a)):
+            pa = item["p0"] if same_team(name0, a) else item["p1"]
+            pb = item["p1"] if same_team(name0, a) else item["p0"]
+            tot = pa + pb
+            if tot > 0:
+                p0_v, p1_v = pa / tot, pb / tot
+                venues.append({
+                    "name": "Kalshi",
+                    "weight": VENUE_WEIGHTS["Kalshi"],
+                    "p0": round(p0_v, 4),
+                    "p1": round(p1_v, 4),
+                    "quote": f"{pa*100:.0f}¢/{pb*100:.0f}¢",
+                    "overround": round(tot - 1.0, 4),
+                    "url": f"https://kalshi.com/markets/kxlolgame/{item['event_ticker'].lower()}",
+                })
+                break
+
+    # 4. Bovada Sportsbook
+    for item in bovada_index:
+        a, b = item["names"]
+        if close_in_time(start, item["start"]) and (
+                (same_team(name0, a) and same_team(name1, b)) or
+                (same_team(name0, b) and same_team(name1, a))):
+            d0_v = item["d0"] if same_team(name0, a) else item["d1"]
+            d1_v = item["d1"] if same_team(name0, a) else item["d0"]
+            dv = devig_decimal(d0_v, d1_v)
+            if dv:
+                p0_v, p1_v, overround = dv
+                if primary_decimal is None:
+                    primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
+                venues.append({
+                    "name": "Bovada",
+                    "weight": VENUE_WEIGHTS["Bovada"],
+                    "p0": round(p0_v, 4),
+                    "p1": round(p1_v, 4),
+                    "quote": f"{d0_v:.2f}/{d1_v:.2f}",
+                    "overround": round(overround, 4),
+                    "url": item["url"],
+                })
+                break
+
+    # 5. Verified Specialist Esportsbook quote (includes #1081423 LCP 2027 Promotion)
+    eb = esportsbook_map.get(str(fixture_id))
+    if eb and not eb.get("placeholder"):
+        d0_v = float(eb.get("decimal0") or eb.get("team0_decimal") or 0)
+        d1_v = float(eb.get("decimal1") or eb.get("team1_decimal") or 0)
+        dv = devig_decimal(d0_v, d1_v)
+        if dv:
+            p0_v, p1_v, overround = dv
+            if primary_decimal is None:
+                primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
+            venues.append({
+                "name": "Esportsbook",
+                "weight": VENUE_WEIGHTS["Esportsbook"],
+                "p0": round(p0_v, 4),
+                "p1": round(p1_v, 4),
+                "quote": f"{d0_v:.3g}/{d1_v:.3g}",
+                "overround": round(overround, 4),
+                "url": eb["source_url"],
+            })
+
+    if not venues:
+        return None
+
+    wsum = sum(v["weight"] for v in venues)
+    p0 = sum(v["weight"] * v["p0"] for v in venues) / wsum
+    p1 = round(1.0 - round(p0, 4), 4)
+    p0 = round(p0, 4)
+    if primary_decimal is None:
+        primary_decimal = {"home": round(1.0 / max(p0, 0.01), 3), "away": round(1.0 / max(p1, 0.01), 3)}
+
+    book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
+    return {
+        "book": book_label,
+        "kind": "bookmaker" if any(v["name"] in ("Pinnacle", "Bovada", "Esportsbook") for v in venues) else "prediction market",
+        "source_url": venues[0]["url"],
+        "api_url": primary_api_url or venues[0]["url"],
+        "market_url": venues[0]["url"],
+        "decimal": primary_decimal,
+        "american": primary_american,
+        "p0": p0,
+        "p1": p1,
+        "overround": venues[0]["overround"],
+        "start_utc": primary_start,
+        "league": primary_league,
+        "venue_count": len(venues),
+        "venues": venues,
+    }
 
 
 # --------------------------------------------------------------------------- main
 def main() -> None:
     hs = load_json(os.path.join(RAW, "hotspawn_lol.json")) or {}
     lp = load_json(os.path.join(RAW, "leaguepedia.json")) or {}
+    lp_dq = (load_json(os.path.join(RAW, "leaguepedia_dq.json")) or {}).get("dq_by_page") or {}
     pin = load_json(os.path.join(RAW, "pinnacle_lol.json")) or {}
     pmkt = load_json(os.path.join(RAW, "polymarket.json")) or {}
+    kalshi = load_json(os.path.join(RAW, "kalshi_lol.json")) or {}
+    bovada = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
+    receipts_doc = load_json(os.path.join(ROOT, "archive", "session-8336fb7e", "data", "book_receipts.json")) or {}
+    receipts = receipts_doc.get("quotes") or receipts_doc.get("receipts") or {}
     sources = load_json(os.path.join(DATA, "sources_status.json")) or {}
 
     fixtures = hs.get("fixtures") or []
@@ -327,7 +478,6 @@ def main() -> None:
     aliases = {norm_name(k): v for k, v in aliases_raw.items()}
     comp_map = map_competitions(fixtures, page_teams, base)
 
-    # (page, unordered team pair) -> recorded kick-off, used to corroborate times
     lp_times = {}
     for m in lp_matches:
         lp_times[(m.get("overview_page"), frozenset(
@@ -340,7 +490,7 @@ def main() -> None:
         if len(names) == 2:
             pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc")})
 
-    pm_index = []
+    pm_candidates = []
     for mk in pmkt.get("match_markets") or []:
         outcomes = mk.get("outcomes") or []
         prices = mk.get("prices") or []
@@ -348,14 +498,52 @@ def main() -> None:
             continue
         try:
             pa, pb = float(prices[0]), float(prices[1])
+            vol = float(mk.get("volume") or 0.0)
         except (TypeError, ValueError):
             continue
-        if not (0 < pa < 1 and 0 < pb < 1):   # resolved or degenerate markets are not prices
+        if not (0.01 < pa < 0.99 and 0.01 < pb < 0.99):
             continue
-        if re.search(r"game \d", mk.get("question", ""), re.I):
+        q = mk.get("question", "")
+        if re.search(r"\b(game|map)\s*\d\b|\bhandicap\b|\btotal\b", q, re.I):
             continue
-        pm_index.append({"names": outcomes, "p0": pa, "p1": pb,
-                         "slug": mk.get("slug"), "start": mk.get("event_start")})
+        pm_candidates.append({"names": outcomes, "p0": pa, "p1": pb, "volume": vol,
+                              "slug": mk.get("slug"), "start": mk.get("event_start")})
+    pm_index = sorted(pm_candidates, key=lambda x: -x["volume"])
+
+    kalshi_index = []
+    for ev in kalshi.get("events") or []:
+        mkts = ev.get("markets") or []
+        if len(mkts) != 2:
+            continue
+        mids = []
+        for m in mkts:
+            try:
+                bid = float(m.get("yes_bid_dollars") or 0)
+                ask = float(m.get("yes_ask_dollars") or 0)
+                last = float(m.get("last_price_dollars") or 0)
+                mid = 0.5 * (bid + ask) if (bid > 0 and ask > 0) else last
+            except (TypeError, ValueError):
+                mid = 0.0
+            mids.append((m.get("yes_sub_title") or "", mid))
+        if mids[0][0] and mids[1][0] and mids[0][1] > 0 and mids[1][1] > 0:
+            kalshi_index.append({
+                "names": [mids[0][0], mids[1][0]],
+                "p0": mids[0][1],
+                "p1": mids[1][1],
+                "event_ticker": ev.get("event_ticker") or "",
+            })
+
+    bovada_index = []
+    for ev in bovada.get("events") or []:
+        outs = ev.get("outcomes") or []
+        if len(outs) == 2:
+            bovada_index.append({
+                "names": [outs[0]["name"], outs[1]["name"]],
+                "d0": float(outs[0]["decimal"]),
+                "d1": float(outs[1]["decimal"]),
+                "start": ev.get("start_utc"),
+                "url": ev.get("url") or "https://www.bovada.lv/sports/esports/league-of-legends",
+            })
 
     rows, join_log = [], []
     for f in fixtures:
@@ -374,7 +562,12 @@ def main() -> None:
         n1c = counts.get(k1, 0) if k1 else 0
         connected = bool(k0 and k1 and uf.find(k0) == uf.find(k1))
 
-        market = market_lookup(n0, n1, f.get("start_utc"), pin_index, pm_index)
+        dq_norms = {norm_name(t): t for t in (lp_dq.get(page or "") or [])}
+        dq0 = dq_norms.get(norm_name(k0 or n0))
+        dq1 = dq_norms.get(norm_name(k1 or n1))
+
+        market = market_lookup(f["id"], n0, n1, f.get("start_utc"),
+                               pin_index, pm_index, kalshi_index, bovada_index, receipts)
         row = {
             "id": f["id"],
             "competition": f["competition"],
@@ -399,44 +592,43 @@ def main() -> None:
         }
 
         flags: list[str] = []
-        if market:
+        if dq0 or dq1:
+            removed = dq0 or dq1
+            active_opp = n1 if dq0 else n0
+            p0 = p1 = None
+            method, confidence = "unresolved", "none"
+            basis = (f"Participant removed mid-split: official Data:{page} records "
+                     f"'dqteams={removed}' (remaining matches forfeited to opponents). "
+                     f"Hotspawn may void this card or settle walkover in favour of active opponent {active_opp}.")
+            flags.append(f"official league removal: {removed} listed in Data:{page} dqteams "
+                         f"(if not voided by Hotspawn, active opponent is {active_opp})")
+        elif market:
             p0, p1 = market["p0"], market["p1"]
             method, confidence = "market", "high"
-            if market["kind"] == "bookmaker":
-                basis = (f"De-vigged {market['book']} moneyline: {market['decimal']['home']} / "
-                         f"{market['decimal']['away']} (overround {market['overround']:.2%}).")
-                if market.get("start_utc") and f.get("start_utc"):
-                    try:
-                        a = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ")
-                        b = datetime.strptime(str(market["start_utc"])[:19], "%Y-%m-%dT%H:%M:%S")
-                        hours = abs((a - b).total_seconds()) / 3600
-                        if hours >= 1.5:
-                            lp_utc = lp_times.get((page, frozenset((str(k0), str(k1))))) if k0 and k1 else None
-                            corroborated = False
-                            if lp_utc:
-                                try:
-                                    c = datetime.strptime(str(lp_utc)[:19], "%Y-%m-%d %H:%M:%S")
-                                    corroborated = abs((a - c).total_seconds()) <= 3600
-                                except ValueError:
-                                    corroborated = False
-                            if corroborated:
-                                flags.append(
-                                    f"kick-off time differs between sources: Hotspawn and Leaguepedia say "
-                                    f"{f['start_utc']} but {market['book']} lists "
-                                    f"{str(market['start_utc'])[:16]}Z ({hours:.0f}h apart) - the odds are "
-                                    f"for this pairing, but confirm the start time before betting")
-                            else:
-                                flags.append(
-                                    f"kick-off time differs between sources: Hotspawn says {f['start_utc']} "
-                                    f"and {market['book']} lists {str(market['start_utc'])[:16]}Z "
-                                    f"({hours:.0f}h apart) - confirm before betting")
-                            basis += (f" Kick-off: Hotspawn {f['start_utc']}"
-                                      f"{' (Leaguepedia agrees)' if corroborated else ''}, "
-                                      f"{market['book']} {str(market['start_utc'])[:16]}Z.")
-                    except ValueError:
-                        pass
-            else:
-                basis = f"{market['book']} prices {p0:.1%} / {p1:.1%} (no vig)."
+            v_summary = ", ".join(f"{v['name']} {v['p0']*100:.1f}%/{v['p1']*100:.1f}% ({v['quote']})"
+                                  for v in market.get("venues") or [])
+            basis = f"{market['book']} de-vigged line ({p0*100:.1f}% / {p1*100:.1f}%): {v_summary}."
+            if market.get("start_utc") and f.get("start_utc"):
+                try:
+                    a = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ")
+                    b = datetime.strptime(str(market["start_utc"])[:19], "%Y-%m-%dT%H:%M:%S")
+                    hours = abs((a - b).total_seconds()) / 3600
+                    if hours >= 1.5:
+                        lp_utc = lp_times.get((page, frozenset((str(k0), str(k1))))) if k0 and k1 else None
+                        corroborated = False
+                        if lp_utc:
+                            try:
+                                c = datetime.strptime(str(lp_utc)[:19], "%Y-%m-%d %H:%M:%S")
+                                corroborated = abs((a - c).total_seconds()) <= 3600
+                            except ValueError:
+                                corroborated = False
+                        flags.append(
+                            f"kick-off time differs between sources: Hotspawn"
+                            f"{' and Leaguepedia say ' if corroborated else ' says '}{f['start_utc']} "
+                            f"while Pinnacle lists {str(market['start_utc'])[:16]}Z ({hours:.0f}h apart) "
+                            f"- confirm before betting")
+                except ValueError:
+                    pass
         elif er0 is not None and er1 is not None:
             p0 = clamp(win_probability(er0, er1))
             p1 = round(1 - p0, 4)
@@ -511,6 +703,7 @@ def main() -> None:
                   "decay_start_days": DECAY_START_DAYS, "decay_full_days": DECAY_FULL_DAYS,
                   "window_start": lp.get("query", {}).get("where")},
         "sources": {"hotspawn": hs.get("source_url"), "pinnacle": pin.get("source_url"),
+                    "kalshi": kalshi.get("source_url"), "bovada": bovada.get("source_url"),
                     "leaguepedia": lp.get("source_url"), "polymarket": pmkt.get("source_url"),
                     "source_status_utc": sources.get("checked_utc")},
         "counts": counts_by_method,

@@ -5,7 +5,6 @@ Any failure exits non-zero, which stops the refresh workflow from committing.
 """
 from __future__ import annotations
 
-import csv
 import os
 import re
 import sys
@@ -93,7 +92,6 @@ def main() -> None:
         text = open(path, encoding="utf-8").read()
         if 'class="nav"' not in text:
             no_nav.append(page)
-        # internal links must resolve to a file we generated (anchors allowed)
         for href in re.findall(r'href="([^"#]+)(?:#[^"]*)?"', text):
             if href.startswith(("http://", "https://", "mailto:")):
                 continue
@@ -107,25 +105,27 @@ def main() -> None:
     add("navigation on every page", not no_nav, f"missing: {no_nav[:5]}")
     add("no empty/None values rendered", not none_literal, f"problems: {none_literal[:6]}")
 
-    # every match appears on the picks page
     picks_html = open(os.path.join(DOCS, "picks.html"), encoding="utf-8").read()
     on_page = sum(1 for r in rows if f'data-comp="{r["competition"]}"' in picks_html)
     add("all matches rendered on the picks page", on_page == len(rows),
         f"{on_page}/{len(rows)} match cards found")
 
-    # public landing page must expose the executive summary + links
     index_html = open(os.path.join(DOCS, "index.html"), encoding="utf-8").read()
     needed = ["picks.html", "featured.html", "originated.html", "unresolved.html", "Executive summary"]
     add("executive summary links to every picks view", all(n in index_html for n in needed),
         f"present: {[n for n in needed if n in index_html]}")
 
-    # --- source links -------------------------------------------------------
+    meth_html = open(os.path.join(DOCS, "methodology.html"), encoding="utf-8").read()
+    bt_n = (data.get("backtest") or {}).get("n") or 0
+    add("out-of-sample backtest & SVG calibration rendered on methodology page",
+        bt_n > 500 and f"{bt_n:,}" in meth_html and "<svg" in meth_html,
+        f"backtest series rendered: {bt_n:,}")
+
     src = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     reachable = sum(1 for s in src if s.get("ok"))
-    add("source availability recorded", len(src) >= 8,
+    add("source availability recorded", len(src) >= 10,
         f"{reachable}/{len(src)} sources reachable on this build")
 
-    # --- write the report ---------------------------------------------------
     counts = Counter(r["method"] for r in rows)
     unverified = [r["id"] for r in rows if r["method"] in ("provisional", "unresolved")]
     report = {

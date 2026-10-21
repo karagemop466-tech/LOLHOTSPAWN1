@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T21:35:35Z",
+ "generated_utc": "2026-10-21T21:36:09Z",
  "checks": [
   {
    "name": "dataset present",
@@ -24,7 +24,7 @@
   {
    "name": "method values are known",
    "ok": true,
-   "detail": "methods used: ['market', 'model', 'provisional']"
+   "detail": "methods used: ['market', 'model', 'provisional', 'unresolved']"
   },
   {
    "name": "no duplicate match ids",
@@ -67,20 +67,26 @@
    "detail": "present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']"
   },
   {
+   "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
+   "ok": true,
+   "detail": "backtest series rendered: 3,823"
+  },
+  {
    "name": "source availability recorded",
    "ok": true,
-   "detail": "7/12 sources reachable on this build"
+   "detail": "9/14 sources reachable on this build"
   }
  ],
  "passed": true,
  "rows_checked": 264,
  "rows_with_source": 264,
  "rows_prob_ok": 264,
- "unverified": 68,
+ "unverified": 73,
  "counts": {
   "provisional": 68,
-  "model": 187,
-  "market": 9
+  "model": 181,
+  "unresolved": 5,
+  "market": 10
  },
- "internal_links": 204
+ "internal_links": 229
 }
