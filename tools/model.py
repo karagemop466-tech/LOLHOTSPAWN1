@@ -39,11 +39,12 @@ GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", 
 # --------------------------------------------------------------------------- helpers
 def base_name(name: str) -> str:
     """Leaguepedia disambiguates with 'Name (Region Team)' - strip that suffix."""
-    return re.sub(r"\s*\([^)]*\)\s*$", "", name or "").strip()
+    text = "" if name is None else str(name)
+    return re.sub(r"\s*\([^)]*\)\s*$", "", text).strip()
 
 
 def region_of(name: str) -> str:
-    m = re.search(r"\(([^)]*)\)\s*$", name or "")
+    m = re.search(r"\(([^)]*)\)\s*$", "" if name is None else str(name))
     return m.group(1) if m else ""
 
 
