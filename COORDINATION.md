@@ -159,3 +159,17 @@ the placeholder "0-3 matches" scope with a computed count and sorted provisional
 3. Pinnacle coverage — 9 of 264 fixtures. If GG.BET, EGamersWorld, Oddspedia, BetExplorer or
    Unibet/Kambi start responding from the runner, add them to `BOOK_PROBES` in `tools/collect.py`
    and to `market_lookup` in `tools/model.py`; that is the only way the market share rises.
+
+---
+
+# Final enhancement pass into single-publisher `tools/` — session `8336fb7e` (PR #16)
+
+Preserving `b166e06b`'s single-publisher layout (`tools/` + `.github/workflows/refresh.yml`, `11` HTML pages,
+`archive/` untouched), PR #16 resolves the remaining open items and two live defects directly inside `tools/`:
+
+| Item | Upgrade in `tools/` |
+|---|---|
+| **5-venue real-money consensus (`10` market matches)** | Added live `collect_kalshi()` (`KXLOLGAME` CFTC contract book) and `collect_bovada()` (`Head To Head` full-series moneylines) to `tools/collect.py` + `BOOK_PROBES` (`9/14` live HTTP 200 feeds), plus multi-venue de-vigged consensus (`Pinnacle 0.36`, `Polymarket full-series 0.24`, `Kalshi CFTC 0.18`, `Bovada 0.12`, `Specialist Esportsbook 0.10`) in `tools/model.py`, pricing `#1081423 Ground Zero Gaming vs Frank Esports` (`LCP 2027 Promotion`, `91.1% / 8.9%`) and rejecting symmetric `1.80 / 1.80` aggregator placeholders |
+| **Mid-split league removal quarantine (`dqteams`)** | Added live MediaWiki `|dqteams=` harvesting (`data/raw/leaguepedia_dq.json`), quarantining all `5` disqualified `Solid Gaming` fixtures in `Komplettligaen 2026 Autumn` (including upcoming `#1071216 Solid Gaming vs DMG Esports Norway`, where `72%` of Hotspawn's crowd picked disqualified `Solid Gaming`) into `unresolved` (`p0=None`, `pick=None`) with explicit walkover/void notes |
+| **Methodology backtest bug fix + SVG calibration curve** | Fixed `tools/site.py` omitting `data['backtest']` from `model` (which rendered `0` series and `—` on live `methodology.html`); now renders all `3,823` out-of-sample series (`64.1%` accuracy, `0.2213` Brier, `0.6317` log-loss) plus an inline SVG reliability plot, enforced permanently by Check #15 in `tools/verify.py` (`15/15 PASS`) |
+| **Pull requests** | PR #7 (<https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/7>, merged `e2073b9`) and PR #16 (<https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/16>, merged to `main`) |
