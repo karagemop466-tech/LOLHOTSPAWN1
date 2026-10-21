@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Method &middot; Hotspawn LoL Pick Desk</title>
+<title>Method · Hotspawn LoL Pick Desk</title>
 <meta name="description" content="Independent League of Legends pick'em lines for every match listed on Hotspawn.">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -20,7 +20,7 @@
   <div class="pagehead">
     <h1>Method</h1>
     <p class="sub">How each number on this site is produced, and what we refuse to do.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-21 20:50 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-21 20:54 UTC</strong> &middot; refreshed automatically every 6 hours</p>
   </div>
   
 <section class="panel">
@@ -49,6 +49,16 @@
   <p>Time decay begins after 45 days without a series and reaches the 1500 baseline
   after 450 days.</p>
   <p>Probabilities are clamped to 0.05-0.95.</p>
+</section>
+
+<section class="panel">
+  <h2>Out-of-sample backtest</h2>
+  <p class="lead">The model is a live predictor, so we score it the way a bettor would: every series after
+   is predicted using only results recorded before it, then the rating is updated.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>Sample</th><th>Series</th><th>Accuracy</th><th>Brier</th><th>Log loss</th></tr></thead><tbody><tr><td data-label="Sample">All out-of-sample series</td><td data-label="Series">0</td><td data-label="Accuracy">&mdash;</td><td data-label="Brier">—</td><td data-label="Log loss">—</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Favourite bucket</th><th>Series</th><th>Predicted (avg)</th><th>Actual win rate</th></tr></thead><tbody></tbody></table></div>
+  <p class="small muted">A perfectly calibrated model has an actual win rate close to the predicted average
+  in each bucket. Brier and log loss are lower-is-better; 0.25 is what a coin flip scores on Brier.</p>
 </section>
 
 <section class="panel">

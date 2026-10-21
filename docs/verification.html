@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Verification &middot; Hotspawn LoL Pick Desk</title>
+<title>Verification · Hotspawn LoL Pick Desk</title>
 <meta name="description" content="Independent League of Legends pick'em lines for every match listed on Hotspawn.">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -20,23 +20,23 @@
   <div class="pagehead">
     <h1>Verification</h1>
     <p class="sub">The checks every build must pass, and the evidence for each name match.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-21 20:50 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-21 20:54 UTC</strong> &middot; refreshed automatically every 6 hours</p>
   </div>
   
 <section class="panel">
   <h2>Verification gate</h2>
   <p class="lead">Every build must pass these assertions before it can be committed. A failure stops the
   refresh instead of publishing a broken page.</p>
-  <div class="tablewrap"><table class=""><thead><tr><th>Check</th><th>Result</th><th>Detail</th></tr></thead><tbody></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Check</th><th>Result</th><th>Detail</th></tr></thead><tbody><tr><td data-label="Check">dataset present</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">264 matches loaded</td></tr><tr><td data-label="Check">every row links to its Hotspawn match card</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">264/264 rows carry a Hotspawn URL</td></tr><tr><td data-label="Check">probabilities sum to 100% (tolerance 0.2pp)</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">264 priced rows verified; problems: []</td></tr><tr><td data-label="Check">pick matches the higher probability</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">264 rows consistent; problems: []</td></tr><tr><td data-label="Check">method values are known</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">methods used: [&#x27;market&#x27;, &#x27;model&#x27;, &#x27;provisional&#x27;]</td></tr><tr><td data-label="Check">no duplicate match ids</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">264 unique ids; duplicates: []</td></tr><tr><td data-label="Check">picks.csv mirrors the dataset</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">csv rows=264 json rows=264</td></tr><tr><td data-label="Check">all site pages exist</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">11/11 pages</td></tr><tr><td data-label="Check">no broken internal links</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">0 problems: []</td></tr><tr><td data-label="Check">navigation on every page</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">missing: []</td></tr><tr><td data-label="Check">no empty/None values rendered</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">problems: []</td></tr><tr><td data-label="Check">all matches rendered on the picks page</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">264/264 match cards found</td></tr><tr><td data-label="Check">executive summary links to every picks view</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">present: [&#x27;picks.html&#x27;, &#x27;featured.html&#x27;, &#x27;originated.html&#x27;, &#x27;unresolved.html&#x27;, &#x27;Executive summary&#x27;]</td></tr><tr><td data-label="Check">source availability recorded</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">7/12 sources reachable on this build</td></tr></tbody></table></div>
 </section>
 
 <section class="panel">
   <h2>Row coverage</h2>
   <div class="stats tight">
     <div class="stat "><div class="sv">264</div><div class="sl">Rows checked</div><div class=sn>every match on the list</div></div>
-    <div class="stat ok"><div class="sv">0</div><div class="sl">Rows with a source link</div><div class=sn>Hotspawn card on every row</div></div>
-    <div class="stat market"><div class="sv">0</div><div class="sl">Probabilities summing to 100%</div><div class=sn>A + B = 1 checked to 0.1pp</div></div>
-    <div class="stat provisional"><div class="sv">0</div><div class="sl">Unverified fields</div><div class=sn>left blank, never inferred</div></div>
+    <div class="stat ok"><div class="sv">264</div><div class="sl">Rows with a source link</div><div class=sn>Hotspawn card on every row</div></div>
+    <div class="stat market"><div class="sv">264</div><div class="sl">Probabilities summing to 100%</div><div class=sn>A + B = 1 checked to 0.1pp</div></div>
+    <div class="stat provisional"><div class="sv">73</div><div class="sl">Unverified fields</div><div class=sn>left blank, never inferred</div></div>
   </div>
 </section>
 

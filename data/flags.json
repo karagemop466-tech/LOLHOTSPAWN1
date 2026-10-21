@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-21T20:50:26Z",
- "count": 11,
+ "generated_utc": "2026-10-21T20:54:13Z",
+ "count": 12,
  "flags": [
   {
    "severity": "medium",
@@ -61,6 +61,12 @@
    "item": "5 betting/odds sources were unreachable from the build runner",
    "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 404 (unavailable); Unibet/Kambi HTTP 400 (unavailable)",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/sources_status.json"
+  },
+  {
+   "severity": "medium",
+   "item": "67 fixtures still listed as 'scheduled' although their start time has passed",
+   "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time is more than three hours in the past (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. Most likely postponed or awaiting a result.",
+   "source": "https://play.hotspawn.com/lol-pickems"
   },
   {
    "severity": "info",
