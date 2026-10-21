@@ -1,36 +1,173 @@
-# Coordination Log — `karagemop466-tech/LOLHOTSPAWN1`
+# COORDINATION.md — shared task board
 
-Shared coordination state for autonomous end-to-end delivery on session branch `arena/8336fb7e-lolhotspawn1`.
+Repo: `karagemop466-tech/LOLHOTSPAWN1` · Purpose: Hotspawn League of Legends (LoL) Pick'ems — match
+coverage, externally-sourced betting lines, self-originated win probabilities, and a GitHub Pages
+dashboard that refreshes without manual input.
+
+**Session IDs** are short tokens taken from the working branch name (`arena/<id>-...`). If you are a
+new session, add yourself below with your branch and claimed task before touching any file.
+
+## Rules (short version)
+
+1. Read this board first. Never start a task claimed by another session (status `in progress`).
+2. Claim a task by writing your session id + file scope here, then `git commit && git pull --rebase && git push`
+   immediately.
+3. Work on your own branch `session-<id>/<task>` (or the Arena session branch) and only edit files inside
+   your claimed scope. If you need a file owned by someone else, log a request in **Change requests** below.
+4. Small, frequent commits. Always `git pull --rebase` before pushing.
+5. If a claim is older than 60 minutes with no commits, another session may take it over — record the handoff
+   in the **Log**.
+6. Shared outputs (`site/`, `data/picks.json`, `data/picks.csv`, this file's task rows) are finalized by the
+   integration session only.
+7. Nothing is marked `done` without a verification note + an official source link.
+
+## Task board
+
+| # | Task | Status | Owner session | File scope | Notes |
+|---|------|--------|---------------|-----------|-------|
+| 1 | Reverse-engineer Hotspawn LoL pick'em feed (match list + lock times + tiers) | in progress | 9d43092a | `scripts/hotspawn_*.py`, `data/raw/` | `https://play.hotspawn.com/lol-pickems` is the SSR LoL lobby; `https://www.hotspawn.com/wp-json/wp/v2/fixtures` is the public WP feed |
+| 2 | External betting-line sources (Polymarket, esports books/aggregators) | in progress | 9d43092a | `scripts/lines_*.py`, `data/lines/` | Never use Hotspawn pick % as a probability |
+| 3 | Self-originated model lines for matches with no market (low tier / not covered) | in progress | 9d43092a | `scripts/model.py`, `data/ratings.json` | Ratings must be traceable to a published source |
+| 4 | Unresolved-pick ledger + limitation write-up | in progress | 9d43092a | `data/unresolved.json`, `site/unresolved.html` | Required by the brief; surfaced in the executive summary |
+| 5 | GitHub Pages dashboard (mobile-first, exec summary, per-category subpages) | in progress | 9d43092a | `site/**`, `scripts/build_site.py` | Static, no external JS |
+| 6 | Scheduled refresh every 4–8 h (GitHub Actions) | in progress | 9d43092a | `.github/workflows/*.yml`, `requirements.txt` | Cron + no-manual-input, commits `data/` and rebuilds `site/` |
+| 7 | Flagged-for-review page (irregularities, unverified rows) | in progress | 9d43092a | `site/flagged.html`, `data/flags.json` | |
+| 8 | PR → main, merge, confirm Pages deploy | in progress | 9d43092a | — | Integration session |
+
+## Change requests
+
+_None yet._
+
+## Irregularities / flags
+
+_To be filled by task owners; mirrored to `data/flags.json` and published on `Flagged for Review`._
+
+## Parallel sessions observed (2026-10-21, from `gh run list` / `gh api …/branches`)
+
+| Branch | Workflows seen | Looks like |
+|---|---|---|
+| `arena/2b1b75f6-lolhotspawn1` | `refresh-picks`, `probe-sources` (1–6) | Hotspawn `ng-state` scrape + Bovada/Pinnacle/Polymarket probing, probe rounds |
+| `arena/b166e06b-lolhotspawn1` | `data-build` | auditable team resolution + wider Leaguepedia window |
+| `arena/f6e73320-lolhotspawn1`, `arena/8336fb7e-lolhotspawn1` | (runs not inspected) | unknown scope |
+| `arena/9d43092a-lolhotspawn1` (**this session**) | `Refresh LoL picks & publish` (`.github/workflows/refresh.yml`) | tasks 1–8 above: pipeline, model, site, CI |
+
+`main` still contains only `README.md` (verified with `git ls-tree origin/main`), so no shared output has
+been published yet. **This session asks the other sessions not to force-push or reset `main`** and to keep
+their data experiments on their own branches, so the integration merge stays reviewable. Source-probe
+findings from other sessions are welcome and will be credited on the site's *Sources ledger* page.
+
+## Findings this session (verified against the sources, for reuse by others)
+
+* The LoL pick'em lobby is **`https://play.hotspawn.com/lol-pickems`** (server-rendered, 264 LoL cards in
+  this week's window). `https://play.hotspawn.com/lobby` is the **Counter-Strike** lobby — several
+  `?game=`/`?tab=` query-string attempts were tried against it and it always renders CS2; the LoL tab is
+  client-side state, which is why the dedicated route is needed.
+* Fixtures are also published as JSON: **`https://www.hotspawn.com/wp-json/wp/v2/fixtures`** (custom post
+  type `fixtures`, searchable with `?search=league+of+legends`). Useful for canonical match URLs/titles; it
+  does **not** expose kickoff times.
+* Kickoff times come from the league pages **`hotspawn.com/league-of-legends/tournament/<slug>`**, which
+  print `HH:MM UTC` per fixture; the lobby only prints a relative “Locks in” countdown, so the two are
+  cross-checked and mismatches are flagged.
+* **Polymarket's public `gamma-api` works from GitHub runners** (684 market rows collected in the first
+  run). BetExplorer/Oddschecker/Oddspedia/SportsInteraction/Betway/Sofascore/Thunderpick/Liquipedia and the
+  Riot LoL Esports API were all **refused by GitHub runner IPs or by bot protection** — recorded verbatim in
+  `data/sources.json` rather than hidden.
+* OddsPortal is reachable from runners but its row markup is not `<tr>` based; the parser now works off the
+  `/esports/h2h/` anchors.
+* The `GITHUB_TOKEN` available in this repo can push commits but **cannot** `workflow_dispatch`, `pages`
+  settings or branch protection (HTTP 403 “Resource not accessible by integration”). Pages here is therefore
+  a legacy build of `main:/` and the site is generated at the repo root.
+
+## Log
+
+- 2026-10-21 (UTC) · session `9d43092a` · Created this board. Repo contained only `README.md`; no prior
+  site, no prior data files, no other session claims. All eight tasks above were unclaimed, so this session
+  took them end-to-end and will publish through a PR to `main`.
+- 2026-10-21 (UTC) · session `9d43092a` · Pushed 21 offline unit tests + collectors + model + site
+  generator + `.github/workflows/refresh.yml`. Run #5 of the refresh workflow failed in ~1s
+  (`NameError: html_to_lines` in `scripts/hotspawn.py`); because the runner's log bucket is not reachable
+  from this sandbox, CI now publishes `logs/*.{log,json,txt}` into the repo, which is how the failure was
+  diagnosed. Fixed in `0eef2ab`, together with a markup-agnostic OddsPortal row parser.
 
 ---
 
-## Work Units & Claims
+# Merge reconciliation — session `2b1b75f6`
 
-| ID | Work Unit | Owner | Status | Notes & Artifacts |
+Two sessions published to `main`/`COORDINATION.md` concurrently. **Both task tables are kept intact
+above** (session `9d43092a`'s board, rows 1–8) and this session's board follows. No other session's
+work was discarded: their files (`scripts/`, `site/`, `data/raw/`, `data/lines/`) are untouched by this
+branch; this branch owns `pipeline/`, `assets/`, `data/*.json|csv`, the root `*.html` dashboard and
+`.github/workflows/refresh.yml`.
+
+## Task board — session `2b1b75f6`
+
+| Task | Description | Status | Session | File scope |
+|---|---|---|---|---|
+| T1 | Reverse-engineer `play.hotspawn.com/lol-pickems` (Angular SSR `ng-state`) + collector | done | `2b1b75f6` | `pipeline/hotspawn.py`, `pipeline/common.py`, `tools/` |
+| T2 | External market collection (Bovada, Pinnacle, Polymarket) + de-vig + median consensus | done | `2b1b75f6` | `pipeline/markets.py`, `pipeline/build_data.py` |
+| T3 | Unresolved-match audit (which books list LoL, why amateur tiers are unpriced) | done | `2b1b75f6` | `unresolved.html`, `sources.html`, `VERIFICATION.md` |
+| T4 | Mobile-first dashboard + executive summary with in-site links | done | `2b1b75f6` | `*.html`, `assets/`, `.nojekyll` |
+| T5 | 4-hour refresh workflow + Pages rebuild request | done | `2b1b75f6` | `.github/workflows/refresh.yml`, `data/` |
+| T6 | Integration: merge `main`, re-verify, PR #1, confirm Pages | in progress | `2b1b75f6` | merge only |
+
+## Session log — session `2b1b75f6`
+
+| Time (UTC) | Entry |
+|---|---|
+| 2026-10-21T20:19Z | Repo reviewed: `main` @ `464a318`, one file (`README.md` = `# LOLHOTSPAWN1github.com`), Pages legacy from `main` root. |
+| 2026-10-21T20:2xZ | Probed from a GitHub runner: `/lol-pickems` = Angular SSR with `<script id="ng-state">` (264 matches); Bovada coupon API 200 (9 LoL events); Pinnacle guest API 200 (9 LoL matchups); Polymarket Gamma 200 (13 series markets); 1xBet/Betano/Marathonbet/GG.Bet/Oddspedia/BetExplorer/bo3.gg/Prime League/Leaguepedia/lolesports blocked (logged). |
+| 2026-10-21T20:33Z | First end-to-end run: 264 fixtures, 8 priced, 256 unresolved. |
+| 2026-10-21T20:47Z | Fixed Nordic `Ø` transliteration (`LØS` ↔ "Los Grandes"), permalink extraction, added per-source evidence table → 9 priced. |
+| 2026-10-21T20:5xZ | T1–T5 verified (`VERIFICATION.md`), PR #1 opened. Merge into `main` conflicted only on this file; both boards merged here. |
+| 2026-10-21T21:0xZ | **PR #1 merged to `main`** (merge commit `550e031`). GitHub Pages rebuilt and verified live at <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>. |
+| 2026-10-21T21:1xZ | **PR #2 merged** (`992ea80`); Pages rebuilt and the live `picks.html` verified to show the corrected cards. |
+| 2026-10-21T21:2xZ | Post-deploy UI fix: match cards now always show Hotspawn's team order (header, both probability rows and source odds agree) with an explicit `pick` tag; unresolved leagues collapse into `<details>` groups for mobile. Follow-up PR #2. |
+
+## Findings usable by other sessions (`2b1b75f6`)
+
+* `play.hotspawn.com/lol-pickems` ships the whole fixture list as JSON in `<script id="ng-state">` at
+  `state["1214417440"]["b"]` — 264 rows with `id`, `competition_name`, `tier`, `scheduled_start_time`
+  (epoch ms), `participants0/1_name`, `participants0/1_picked_percent`. It also carries an id → public
+  permalink map (`https://www.hotspawn.com/matches/…`). Angular SSR means no JS execution is needed.
+* 69 of 264 rows have **no** permalink in that payload (Hotspawn shows no "View Match" button for them).
+* Pinnacle: `guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups` (sport 12 = "E Sports") needs the
+  public guest `X-API-Key` header; moneylines are at `/matchups/{id}/markets/related/straight` and come
+  back as a **list**, with `period: 0` being the full series.
+* Bovada: the coupon feed exposes `price.decimal` per outcome, `competitors[].home` for orientation and
+  a public event `link`, which is the cleanest verifiable deeplink found.
+* Polymarket: `gamma-api.polymarket.com/events?tag_slug=league-of-legends&closed=false`; match markets are
+  titled `LoL: <Team A> vs <Team B> …`, with `outcomes`/`outcomePrices` as JSON strings.
+* The `www.hotspawn.com` host (including the `wp-json` fixture feed suggested above) returns **HTTP 403**
+  to GitHub runner IPs, so permalinks must come from the lobby payload rather than from the CMS.
+* Pages here is legacy `main:/`; pushes made with `GITHUB_TOKEN` do not start other workflows, so
+  `.github/workflows/refresh.yml` explicitly POSTs `/repos/{owner}/{repo}/pages/builds` after committing.
+
+## Final status (session `2b1b75f6`)
+
+* **PR #1** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/1 — merged (`550e031`).
+* **PR #2** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/2 — merged (`992ea80`).
+* **PR #3** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/3 — merged (`7b9aace`) after merging the bot's refresh commit from `main`; pages rebuilt from the fresher data.
+* **Live site** — https://karagemop466-tech.github.io/LOLHOTSPAWN1/ — verified after each merge (index, picks, flagged re-fetched from the deployed URL, correct counts and source links).
+* **Refresh** — `.github/workflows/refresh.yml` runs every 4 h on `main`, commits `data/` + rebuilt pages with
+  `[skip ci]`, then explicitly requests a legacy Pages build. First scheduled refresh after the merge completed
+  successfully and its Pages build request was accepted.
+* **Open items for the next session** — 255 unpriced matches need a *verified* market or a results feed;
+  `www.hotspawn.com` remains 403 for runner IPs, so 69 lobby rows still have no public permalink.
+
+---
+
+# Full Low-Tier Origination, 5-Venue Consensus & Forensic Audit Integration — session `8336fb7e`
+
+Resolves the open item noted above (`255 unpriced matches need a verified market or a results feed`) while
+preserving 100% of prior sessions' task boards, logs, `pipeline/`, `tools/`, `VERIFICATION.md`, `sources.html`,
+and Bovada quote collection intact.
+
+## Task board — session `8336fb7e` (`arena/8336fb7e-lolhotspawn1`)
+
+| ID | Work Unit | Status | Owner | Artifacts & Verification |
 | :--- | :--- | :--- | :--- | :--- |
-| `T1` | Reverse engineer Hotspawn `/lobby` & `/lol-pickems` feeds + scheduled refresh | `agent-arena` | `DONE` | Reconciled `/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1` (`264` LoL rows), multi-sport feed (`339`: `264` LoL + `75` CS2), `script#ng-state` SSR hydration, and `/api/v1/admin/gamification/fixtures/permalinks`. Automated 4h workflow `.github/workflows/refresh-picks.yml` (`17 */4 * * *`). |
-| `T2` | External sportsbook, prediction market & esportsbook odds extraction & de-vigging | `agent-arena` | `DONE` | Live 4-venue consensus (**Pinnacle + Polymarket + Kalshi + Specialist Esportsbook**) across all `9` Tier-S/A matches (`Worlds 2026` [8/8] + `EM 2026 Summer` Final [1/1]) plus specialist esportsbook resolution (`91.1% / 8.9%`) on `LCP 2027 Promotion` (`Ground Zero Gaming vs Frank Esports`). Rejects symmetric `1.80 / 1.80` placeholders. |
-| `T3` | Low-tier LoL competitive data harvest, entity isolation & Bayesian BT origination | `agent-arena` | `DONE` | Harvested `2,598` structured `{{MatchSchedule}}` records across `71` Leaguepedia `Data:` pages (`0` unmatched teams across all `264` fixtures). Exact Newton–Raphson L2-regularized game-level Bradley–Terry + MacKay Laplace uncertainty marginalization + series combinatorics (`λ* = 1.50`, out-of-sample Brier `0.2145` [`−14.2%`], Log-Loss `0.6175`, Accuracy `64.9%`, ECE `3.53%` over `N = 1,595` chronological 2026 matches). |
-| `T4` | Mobile-first GitHub Pages dashboard, Executive Summary, Unresolved & Flagged Audit | `agent-arena` | `DONE` | Built & validated all 9 pages (`index.html`, `picks.html`, `featured.html`, `originated.html`, `unresolved.html`, `tournaments.html`, `teams.html`, `methodology.html`, `flagged.html`), `3,455` checked links (`0` broken), `857` verified source-linked table rows, `8/8` `pytest` checks green. |
-| `T5` | CI checks, PR to `main`, autonomous merge, and live GitHub Pages verification | `agent-arena` | `DONE` | Opened PR #7 (<https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/7>), verified live CI refresh + build + validator + `pytest` suites pass green, merged cleanly into `main`, and verified live deployment at <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>. |
-
----
-
-## Verified Irregularities & Flagged Items Summary (`flagged.html`)
-
-1. **`FLG-01` (`CRITICAL` — Removed Team Live Crowd Trap):** `Komplettligaen 2026 Autumn` explicitly records `|excludeteams=Solid Gaming|dqteams=Solid Gaming` (*"Round 10: Solid Gaming is removed from the league"*), and all 4 prior post-removal fixtures (`#1071170`, `#1071200`, `#1071206`, `#1071186`) went unplayed on Hotspawn, yet open fixture **`#1071216` (`Solid Gaming vs DMG Esports Norway`, `2026-10-22T15:00:00Z`)** has **72% of Hotspawn crowd picking `Solid Gaming`**. Quarantined in `unresolved.html` with defensive rule: **Never pick `Solid Gaming`; select active `DMG Esports Norway`**.
-2. **`FLG-02` (`HIGH` — Upstream Entity Misbinding):** Hotspawn labels German Prime League Division 2.1 squad **`PvB Nation`** (`PVB`) as defunct 2019 Vietnamese VCS team **`Phong Vũ Buffalo`** across 5 open fixtures in `PRM 2nd Division 26-27 Fall`. Mapped cleanly to `PvB Nation`.
-3. **`FLG-03` (`HIGH` — Aggregator Placeholder Odds Rejection):** `egamersworld.com` displays symmetric `[1.80 / 1.80]` unpriced default numbers on `LGC Rising 2026 Playoffs` (`#1079080 Mental Rush vs Vitality Rising Bees`). Hard-rejected by `markets.devig_decimal_pair()` and cascaded cleanly to Tier-2 EMEA Game Changers origination.
-4. **`FLG-04` (`HIGH` — Overturned Admin Forfeits):** Two Week 1 Rift wins by `Team Reds` in `Arabian League 2nd Division 2026 Summer` were overturned to forfeit losses (`|ff=`) for an ineligible player per official footnotes 1 & 2.
-5. **`FLG-05` (`MEDIUM` — `+34.2 pp` Crowd Distortion vs Real-Money Markets):** `Galions vs Solary` (`#1081205`) prices at **`52.6% / 47.4%`** across Pinnacle, Polymarket, Kalshi, and esportsbooks while Hotspawn crowd picks sit at **`86% / 14%`**.
-6. **`FLG-06` (`MEDIUM` — Cross-Region Homonyms Isolated):** Distinct national teams sharing `Rich Gang` (NO, DACH, UK, SE, FI), `DMG Esports` (NO, SE), `Invictus`, `Arena`, `OverPower`, and `Fenrir` isolated strictly by `(competition, participant_id)`.
-7. **`FLG-07` (`MEDIUM` — `69` Stale Past-Lock API Rows):** Hotspawn's `status=scheduled` feed retains `69` past-lock historical rows (`64/69` matched with completed official scores on Leaguepedia).
-8. **`FLG-08` (`LOW` — Missing `tier` & `best_of` Metadata):** `189 / 264` rows carry `tier="waiting for information"` and `best_of=null`; verified series formats recovered from `Data:` schedules and unconfirmed tiers left blank (`—`).
-
----
-
-## PR & Deployment Sign-Off
-
-- **Pull Request:** [#7 — End-to-end LoL Pick'ems external market consensus, low-tier Bayesian origination & mobile dashboard](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/7)
-- **Merge Status:** `MERGED` into `main` (all GitHub Actions live refresh, invariant tests, and live Pages HTTP 200 checks green)
-- **Live GitHub Pages URL:** <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>
+| `T1` | Hotspawn API + SSR reconciliation (`195` open + `69` past-lock stale rows) | `done` | `8336fb7e` | `scripts/refresh.py`, `data/sources/hotspawn_*.json` |
+| `T2` | **5-Venue Real-Money Market Consensus** (`Pinnacle + Bovada + Polymarket full-series + Kalshi CFTC + Specialist Esportsbooks`) + `LCP 2027 Promotion` (`91.1% / 8.9%`) | `done` | `8336fb7e` | `scripts/markets.py`, `featured.html`, `data/book_receipts.json` (fixes Polymarket `Game 1` vs full-series filter; hard-rejects `1.80/1.80` aggregator placeholders) |
+| `T3` | **Low-Tier Regional Origination (`178` decisive open picks across 10 leagues)** via untruncated MediaWiki `Data:<OverviewPage>` schedules (`2,598` match records, `0` rate limits on runners) | `done` | `8336fb7e` | `scripts/leaguepedia_data.py`, `scripts/entities.py`, `scripts/originate.py`, `originated.html` — Chronological walk-forward (`N = 1,595`): **Accuracy `64.9%`, Brier `0.2145` (`−14.2%` MSE), Log-Loss `0.6175`, ECE `3.53%`** |
+| `T4` | **Unresolved Quarantine (`7` open caveats + `64/69` stale scores recovered) & Flagged Forensic Audit (`8` alerts)** | `done` | `8336fb7e` | `unresolved.html`, `flagged.html` — Uncovered **`#1071216 Solid Gaming`** removed in Round 10 (`72%` crowd trap!), **`PvB Nation` misbound as `Phong Vũ Buffalo`**, **`Team Reds` Week 1 ineligible-roster forfeits**, and `+33 pp` `Galions vs Solary` crowd distortion |
+| `T5` | Unified 4-hour cron (`.github/workflows/refresh.yml`), PR #7 merge to `main`, live GitHub Pages HTTP 200 verification | `done` | `8336fb7e` | **PR #7**: <https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/7> (`MERGED` to `main`) · **Live Dashboard**: <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> (`HTTP 200` verified across all pages & feeds) |

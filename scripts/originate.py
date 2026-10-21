@@ -371,7 +371,7 @@ def run_pipeline(
         elif isinstance(v, dict) and str(v.get("url", "")).startswith("http"):
             permalink_map[str(k)] = str(v["url"])
 
-    pin_quotes, poly_quotes, kal_quotes, book_receipts = load_all_market_sources(sources_dir, data_dir)
+    pin_quotes, poly_quotes, kal_quotes, book_receipts, bov_quotes = load_all_market_sources(sources_dir, data_dir)
     by_overview = parse_all_match_schedules(lp_data.get("data_wikitext") or {})
     redirects: dict[str, str] = lp_data.get("team_redirects") or {}
     canonical_map: dict[str, list[str]] = lp_data.get("canonical_map") or {}
@@ -549,7 +549,7 @@ def run_pipeline(
 
         # Build verified primary source list (ALWAYS official/trusted external URLs on EVERY row)
         sources: list[dict[str, str]] = []
-        market_res = resolve_market_tier1(fx, pin_quotes, poly_quotes, kal_quotes, book_receipts) if is_open else None
+        market_res = resolve_market_tier1(fx, pin_quotes, poly_quotes, kal_quotes, book_receipts, bov_quotes) if is_open else None
 
         if market_res is not None:
             for v in market_res["venues"]:
@@ -642,6 +642,8 @@ def run_pipeline(
             for v in market_res["venues"]:
                 if v["venue_key"] == "pinnacle":
                     venue_bits.append(f"Pinnacle {v['am0']:+d}/{v['am1']:+d} ({v['p0']*100:.1f}%)")
+                elif v["venue_key"] == "bovada":
+                    venue_bits.append(f"Bovada {v['dec0']:.3g}/{v['dec1']:.3g} ({v['p0']*100:.1f}%)")
                 elif v["venue_key"] == "polymarket":
                     venue_bits.append(f"Polymarket {v['p0']*100:.1f}% (${v['volume_usd']:,.0f} vol)")
                 elif v["venue_key"] == "kalshi":

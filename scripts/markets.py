@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Tier-1 external real-money sportsbooks, esportsbooks, and prediction markets engine.
 
-Ingests and cross-validates four independent real-money external pricing sources:
+Ingests and cross-validates five independent real-money external pricing sources:
   1. Pinnacle Guest API (`guest.api.arcadia.pinnacle.com`) — sharp full-match moneyline (`period=0`)
-  2. Polymarket Gamma CLOB (`gamma-api.polymarket.com`) — active two-way LoL match contracts
-  3. Kalshi v2 CFTC Exchange (`api.elections.kalshi.com`) — regulated `KXLOLGAME` binary contracts
-  4. Verified Specialist LoL Esportsbook Quotes (`data/book_receipts.json`) — strictly rejecting
+  2. Bovada Sportsbook API (`www.bovada.lv/services/sports/...`) — full-series moneyline + match deep links
+  3. Polymarket Gamma CLOB (`gamma-api.polymarket.com`) — active two-way full-match LoL contracts
+  4. Kalshi v2 CFTC Exchange (`api.elections.kalshi.com`) — regulated `KXLOLGAME` binary contracts
+  5. Verified Specialist LoL Esportsbook Quotes (`data/book_receipts.json`) — strictly rejecting
      symmetric `1.80 / 1.80` aggregator unpriced placeholders.
 
 Strict invariants enforced:
@@ -120,7 +121,7 @@ def parse_pinnacle_quotes(pinnacle_raw: dict[str, Any]) -> list[dict[str, Any]]:
     quotes: list[dict[str, Any]] = []
     seen: set[int] = set()
     markets_map = pinnacle_raw.get("lol_straight_markets") or pinnacle_raw.get("markets_by_league") or {}
-    for lg_id, lg_markets in markets_map.items():
+    for _, lg_markets in markets_map.items():
         for mk in lg_markets:
             mid = mk.get("matchupId")
             if mid not in matchup_by_id or mid in seen:
@@ -152,8 +153,35 @@ def parse_pinnacle_quotes(pinnacle_raw: dict[str, Any]) -> list[dict[str, Any]]:
                 "prob_a": p_home,
                 "prob_b": p_away,
                 "overround": round(overround, 4),
-                "source_url": "https://www.pinnacle.com/en/esports-hub/league-of-legends/",
-                "api_url": f"https://guest.api.arcadia.pinnacle.com/0.1/leagues/{(pinnacle_raw.get('leagues') or [{}])[0].get('id', 9587)}/markets/straight",
+                "source_url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+            })
+    return quotes
+
+
+def parse_bovada_quotes(quotes_raw: dict[str, Any]) -> list[dict[str, Any]]:
+    """Extract live Bovada full-series moneyline quotes from `data/quotes.json`."""
+    quotes: list[dict[str, Any]] = []
+    for src in (quotes_raw.get("sources") or []):
+        if (src.get("book_key") or "").lower() != "bovada" and (src.get("book") or "").lower() != "bovada":
+            continue
+        for q in (src.get("quotes") or []):
+            dh = float(q.get("decimal_home") or 0.0)
+            da = float(q.get("decimal_away") or 0.0)
+            if dh <= 1.0 or da <= 1.0:
+                continue
+            p_home, p_away, overround = devig_decimal_pair(dh, da, reject_placeholder_180=True)
+            quotes.append({
+                "venue": "Bovada",
+                "venue_key": "bovada",
+                "start_time": q.get("start_utc") or "",
+                "team_a": str(q.get("home") or "").strip(),
+                "team_b": str(q.get("away") or "").strip(),
+                "decimal_a": round(dh, 4),
+                "decimal_b": round(da, 4),
+                "prob_a": p_home,
+                "prob_b": p_away,
+                "overround": round(overround, 4),
+                "source_url": q.get("url") or "https://www.bovada.lv/esports/league-of-legends",
             })
     return quotes
 
@@ -283,7 +311,6 @@ def _align_quote_to_fixture(
     if not direct and not flipped:
         return None
 
-    # Check start date tolerance (±7 days max to never match wrong split rematch)
     st = quote.get("start_time") or ""
     if st:
         try:
@@ -318,9 +345,10 @@ def _align_quote_to_fixture(
 
 # Institutional sharp-venue weights when combining simultaneous real-money markets
 VENUE_WEIGHTS: dict[str, float] = {
-    "pinnacle": 0.42,
-    "polymarket": 0.28,
-    "kalshi": 0.20,
+    "pinnacle": 0.36,
+    "polymarket": 0.24,
+    "kalshi": 0.18,
+    "bovada": 0.12,
     "esportsbook": 0.10,
 }
 
@@ -331,18 +359,16 @@ def resolve_market_tier1(
     polymarket_quotes: list[dict[str, Any]],
     kalshi_quotes: list[dict[str, Any]],
     book_receipts: dict[str, dict[str, Any]],
+    bovada_quotes: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any] | None:
-    """Resolve Tier-1 external market line for `fixture` if covered by >=1 real-money book/exchange.
-
-    Returns `None` if zero valid external market quotes exist so `originate.py` routes to Tier 2.
-    """
+    """Resolve Tier-1 external market line for `fixture` if covered by >=1 real-money book/exchange."""
     fid = str(fixture["id"])
     t0 = fixture["participants0_name"]
     t1 = fixture["participants1_name"]
     sched_ms = int(fixture["scheduled_start_time"])
 
     matched: list[dict[str, Any]] = []
-    for pool in (pinnacle_quotes, polymarket_quotes, kalshi_quotes):
+    for pool in (pinnacle_quotes, bovada_quotes or [], polymarket_quotes, kalshi_quotes):
         for q in pool:
             aligned = _align_quote_to_fixture(q, t0, t1, sched_ms)
             if aligned is not None:
@@ -376,16 +402,22 @@ def resolve_market_tier1(
     }
 
 
-def load_all_market_sources(sources_dir: Path, data_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], dict[str, dict[str, Any]]]:
+def load_all_market_sources(
+    sources_dir: Path, data_dir: Path
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], dict[str, dict[str, Any]], list[dict[str, Any]]]:
     pin_path = sources_dir / "pinnacle_lol.json"
     poly_path = sources_dir / "polymarket_lol.json"
     kal_path = sources_dir / "kalshi_lol.json"
     bk_path = data_dir / "book_receipts.json"
     if not bk_path.exists():
         bk_path = Path("data/book_receipts.json")
+    q_path = data_dir / "quotes.json"
+    if not q_path.exists():
+        q_path = Path("data/quotes.json")
 
     pin = parse_pinnacle_quotes(json.loads(pin_path.read_text(encoding="utf-8"))) if pin_path.exists() else []
     poly = parse_polymarket_quotes(json.loads(poly_path.read_text(encoding="utf-8"))) if poly_path.exists() else []
     kal = parse_kalshi_quotes(json.loads(kal_path.read_text(encoding="utf-8"))) if kal_path.exists() else []
     bks = parse_book_receipts(json.loads(bk_path.read_text(encoding="utf-8"))) if bk_path.exists() else {}
-    return pin, poly, kal, bks
+    bov = parse_bovada_quotes(json.loads(q_path.read_text(encoding="utf-8"))) if q_path.exists() else []
+    return pin, poly, kal, bks, bov

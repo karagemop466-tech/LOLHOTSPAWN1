@@ -43,7 +43,7 @@ def fmt_utc(iso_str: str) -> str:
 
 def status_badge(status: str) -> str:
     if status == "market_consensus":
-        return '<span class="badge badge-market">4-Venue Consensus</span>'
+        return '<span class="badge badge-market">5-Venue Consensus</span>'
     if status == "esportsbook_line":
         return '<span class="badge badge-market">Esportsbook Line</span>'
     if status == "originated":
@@ -517,6 +517,7 @@ def page_shell(
       <a href="data/picks.csv">data/picks.csv</a> ·
       <a href="data/calibration.json">data/calibration.json</a> ·
       <a href="data/flagged.json">data/flagged.json</a> ·
+      <a href="sources.html">Sources Ledger</a> ·
       Live target: <a href="https://play.hotspawn.com/lol-pickems" target="_blank" rel="noopener noreferrer">play.hotspawn.com/lol-pickems ↗</a>
     </div>
   </footer>
@@ -727,6 +728,7 @@ def build_all_pages(data_dir: Path = Path("data"), out_dir: Path = Path(".")) ->
     for r in market_rows:
         vmap = {v["venue_key"]: v for v in (r["market_detail"] or {}).get("venues", [])}
         pin_v = vmap.get("pinnacle")
+        bov_v = vmap.get("bovada")
         pol_v = vmap.get("polymarket")
         kal_v = vmap.get("kalshi")
         ebk_v = vmap.get("esportsbook")
@@ -736,6 +738,7 @@ def build_all_pages(data_dir: Path = Path("data"), out_dir: Path = Path(".")) ->
           <td><time data-utc="{esc(r['scheduled_utc'])}" data-show-local="1">{fmt_utc(r['scheduled_utc'])}</time><div class="odds-sub">{esc(r['competition'])}</div></td>
           <td><strong>{esc(r['team0'])}</strong> vs <strong>{esc(r['team1'])}</strong><div class="odds-sub">{esc(r['best_of_display'])} · {r['offered_points']} pts</div></td>
           <td>{f"{pin_v['p0']*100:.1f}% ({pin_v['am0']:+d}/{pin_v['am1']:+d})" if pin_v else "—"}</td>
+          <td>{f"{bov_v['p0']*100:.1f}% ({bov_v['dec0']:.3g}/{bov_v['dec1']:.3g})" if bov_v else "—"}</td>
           <td>{f"{pol_v['p0']*100:.1f}% (${pol_v['volume_usd']:,.0f})" if pol_v else "—"}</td>
           <td>{f"{kal_v['p0']*100:.1f}%" if kal_v else "—"}</td>
           <td>{f"{ebk_v['p0']*100:.1f}% ({ebk_v['dec0']:.3g}/{ebk_v['dec1']:.3g})" if ebk_v else "—"}</td>
@@ -751,8 +754,8 @@ def build_all_pages(data_dir: Path = Path("data"), out_dir: Path = Path(".")) ->
       <h1>Sportsbook &amp; Prediction Exchange Picks ({len(market_rows)} Open Matches)</h1>
       <p class="lead">
         Nine high-profile matches across <strong>Worlds 2026 Swiss Stage Round 1</strong> and the <strong>EMEA Masters 2026 Summer Grand Final</strong>
-        are priced simultaneously on <strong>four real-money venues</strong> (Pinnacle, Polymarket CLOB, Kalshi CFTC Exchange, and specialist esportsbooks).
-        The 10th match — <strong>LCP 2027 Promotion: Ground Zero Gaming vs Frank Esports</strong> — is absent on Polymarket and Kalshi
+        are priced simultaneously across <strong>five independent real-money venues</strong> (Pinnacle, Bovada, Polymarket CLOB, Kalshi CFTC Exchange, and specialist esportsbooks).
+        The 10th match — <strong>LCP 2027 Promotion: Ground Zero Gaming vs Frank Esports</strong> — is absent on Polymarket, Kalshi, Pinnacle, and Bovada
         yet resolved directly from live specialist LoL esportsbook decimal odds (<code>1.025 vs 10.50</code> &rarr; <strong>91.1% vs 8.9%</strong>).
       </p>
       <div class="chart-card">
@@ -771,6 +774,7 @@ def build_all_pages(data_dir: Path = Path("data"), out_dir: Path = Path(".")) ->
               <th>Kickoff</th>
               <th>Matchup</th>
               <th>Pinnacle (De-Vig)</th>
+              <th>Bovada (De-Vig)</th>
               <th>Polymarket CLOB</th>
               <th>Kalshi Exchange</th>
               <th>Esportsbook</th>
