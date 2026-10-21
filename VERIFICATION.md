@@ -1,6 +1,6 @@
 # Verification log
 
-Snapshot referenced: **2026-10-21T20:47Z** (see `data/meta.json` for the live timestamp).
+Snapshot referenced: **2026-10-21T20:43:30Z** (see `data/meta.json` for the live timestamp).
 Everything below was produced by `pipeline/` running on a GitHub Actions runner, then re-read from the
 committed `data/*.json`. Anything that could not be checked against a primary source is listed under
 *Flagged for review* and is also published on `flagged.html`.
@@ -59,13 +59,14 @@ sets the confidence label (≤5 pp high, ≤12 pp medium, otherwise low).
 |---|---|---|---|
 | Gen.G vs Invictus Gaming | 1.1818 / 4.50 → 84.62% / 22.22% → **79.20%** Gen.G | 1.2299 / 4.23 → 81.31% / 23.64% → **77.47%** Gen.G | **78.34% Gen.G** |
 | G2 Esports vs Dplus KIA | 2.20 / 1.6452 → 45.45% / 60.78% → **42.79%** G2 | 2.26 / 1.6757 → 44.25% / 59.68% → **42.58%** G2 | **42.68% G2 → Dplus KIA 57.32%** |
-| Galions vs Solary | 1.9524 / 1.80 → 51.22% / 55.56% → **47.97%** Galions | 1.7874 / 2.05 → 55.95% / 48.78% → **53.42%** Galions | **50.70% Galions** (5.4 pp dispersion → medium) |
+| Galions vs Solary | 1.87 / 1.87 → 53.48% / 53.48% → **50.00%** Galions | 1.7874 / 2.05 → 55.95% / 48.78% → **53.42%** Galions | **51.71% Galions** (3.4 pp dispersion → high) |
 
 Worked example (Gen.G, Bovada): `1/1.1818 = 84.62%`, `1/4.5 = 22.22%`, sum `106.84%` → de-vig
 `84.62/106.84 = 79.20%`. Overround is stored per quote (`overround` field) and ranges 3.9%–6.9%,
 which is normal for esports moneylines.
 
-All 9 published picks trace to a linked quote; raw decimal odds for **both** sides are stored per source and
+Prices move: the Bovada Galions line went 1.9524/1.80 → 1.87/1.87 between two runs 10 minutes apart, which is
+exactly why the site is rebuilt from live prices instead of being hard-coded. All 9 published picks trace to a linked quote; raw decimal odds for **both** sides are stored per source and
 shown on every card, so each row can be re-derived by hand. Pinnacle's public site exposes one league page
 rather than per-match deep links, so its card links to the League of Legends matchups page.
 
