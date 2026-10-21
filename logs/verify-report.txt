@@ -1,12 +1,20 @@
-verify: 0 rows, 0 unresolved, 0 flags, 8 html pages
-errors: 9
-  ✗ data.html: broken internal link -> data/picks.json
-  ✗ data.html: broken internal link -> data/picks.csv
-  ✗ data.html: broken internal link -> data/unresolved.json
-  ✗ data.html: broken internal link -> data/flags.json
-  ✗ data.html: broken internal link -> data/ratings.json
-  ✗ data.html: broken internal link -> data/sources.json
-  ✗ data.html: broken internal link -> data/summary.json
-  ✗ data.html: broken internal link -> data/hotspawn.json
-  ✗ no picks at all: the lobby scrape produced nothing
-warnings: 0
+verify: 195 rows, 187 unresolved, 585 flags, 26 html pages
+errors: 8
+  ✗ lobby-31: no official source link at all
+  ✗ lobby-33: no official source link at all
+  ✗ lobby-37: no official source link at all
+  ✗ lobby-38: no official source link at all
+  ✗ lobby-39: no official source link at all
+  ✗ lobby-40: no official source link at all
+  ✗ lobby-41: no official source link at all
+  ✗ lobby-42: no official source link at all
+warnings: 9
+  ! lobby-31: market row without a raw price (prob from model fallback)
+  ! lobby-33: market row without a raw price (prob from model fallback)
+  ! lobby-37: market row without a raw price (prob from model fallback)
+  ! lobby-38: market row without a raw price (prob from model fallback)
+  ! lobby-39: market row without a raw price (prob from model fallback)
+  ! lobby-40: market row without a raw price (prob from model fallback)
+  ! lobby-41: market row without a raw price (prob from model fallback)
+  ! lobby-42: market row without a raw price (prob from model fallback)
+  ! lobby reports 264 LoL pick'em cards, parser produced 195 — difference 69

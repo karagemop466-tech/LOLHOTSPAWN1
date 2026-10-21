@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T20:40:33Z",
+  "generated_at": "2026-10-21T20:43:10Z",
   "hosts": {
     "api.sofascore.com": {
       "host": "api.sofascore.com",
@@ -73,17 +73,38 @@
     },
     "gamma-api.polymarket.com": {
       "host": "gamma-api.polymarket.com",
-      "attempts": 3,
-      "ok": 3,
+      "attempts": 16,
+      "ok": 16,
       "failed": 0,
       "skipped_no_network": 0,
       "sample_urls": [
         "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends&limit_per_type=25&events_status=active",
         "https://gamma-api.polymarket.com/public-search?q=worlds%202026%20lol&limit_per_type=25&events_status=active",
-        "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends%20worlds&limit_per_type=25&events_status=active"
+        "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends%20worlds&limit_per_type=25&events_status=active",
+        "https://gamma-api.polymarket.com/public-search?q=4%20Nations%202026%20Halloween%20Heist&limit_per_type=25&events_status=active",
+        "https://gamma-api.polymarket.com/public-search?q=Arabian%20League%202nd%20Division%202026%20Summer&limit_per_type=25&events_status=active",
+        "https://gamma-api.polymarket.com/public-search?q=Arabian%20Regional%20Championship%202026%3A%20Lebanon-Libya-Syria-Palestine&limit_per_type=25&events_status=active"
       ],
       "errors": [],
       "success_rate": 1.0
+    },
+    "hotspawn.com": {
+      "host": "hotspawn.com",
+      "attempts": 3,
+      "ok": 0,
+      "failed": 3,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=1&orderby=modified&order=desc&_fields=id,date,modified,slug,link,title",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=1&orderby=modified&order=desc&_fields=id,date,modified,slug,link,title",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=1&orderby=modified&order=desc&_fields=id,date,modified,slug,link,title"
+      ],
+      "errors": [
+        "HTTP 403",
+        "HTTP 403",
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
     },
     "liquipedia.net": {
       "host": "liquipedia.net",
@@ -115,13 +136,14 @@
     },
     "oddsportal.com": {
       "host": "oddsportal.com",
-      "attempts": 2,
-      "ok": 2,
+      "attempts": 3,
+      "ok": 3,
       "failed": 0,
       "skipped_no_network": 0,
       "sample_urls": [
         "https://www.oddsportal.com/esports/league-of-legends/",
-        "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/"
+        "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+        "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-emea-masters/"
       ],
       "errors": [],
       "success_rate": 1.0
@@ -264,9 +286,10 @@
   "oddsportal": {
     "index_url": "https://www.oddsportal.com/esports/league-of-legends/",
     "tournaments": [
-      "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/"
+      "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+      "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-emea-masters/"
     ],
-    "rows": 0,
+    "rows": 16,
     "status": "ok"
   },
   "polymarket": {
@@ -288,10 +311,88 @@
         "url": "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends%20worlds&limit_per_type=25&events_status=active",
         "events": 25,
         "error": null
+      },
+      {
+        "query": "4 Nations 2026 Halloween Heist",
+        "url": "https://gamma-api.polymarket.com/public-search?q=4%20Nations%202026%20Halloween%20Heist&limit_per_type=25&events_status=active",
+        "events": 1,
+        "error": null
+      },
+      {
+        "query": "Arabian League 2nd Division 2026 Summer",
+        "url": "https://gamma-api.polymarket.com/public-search?q=Arabian%20League%202nd%20Division%202026%20Summer&limit_per_type=25&events_status=active",
+        "events": 2,
+        "error": null
+      },
+      {
+        "query": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+        "url": "https://gamma-api.polymarket.com/public-search?q=Arabian%20Regional%20Championship%202026%3A%20Lebanon-Libya-Syria-Palestine&limit_per_type=25&events_status=active",
+        "events": 1,
+        "error": null
+      },
+      {
+        "query": "EM 2026 Summer Main Event",
+        "url": "https://gamma-api.polymarket.com/public-search?q=EM%202026%20Summer%20Main%20Event&limit_per_type=25&events_status=active",
+        "events": 1,
+        "error": null
+      },
+      {
+        "query": "Komplettligaen 2026 Autumn",
+        "url": "https://gamma-api.polymarket.com/public-search?q=Komplettligaen%202026%20Autumn&limit_per_type=25&events_status=active",
+        "events": 1,
+        "error": null
+      },
+      {
+        "query": "LCP 2027 Promotion",
+        "url": "https://gamma-api.polymarket.com/public-search?q=LCP%202027%20Promotion&limit_per_type=25&events_status=active",
+        "events": 2,
+        "error": null
+      },
+      {
+        "query": "LGC Rising 2026 Playoffs",
+        "url": "https://gamma-api.polymarket.com/public-search?q=LGC%20Rising%202026%20Playoffs&limit_per_type=25&events_status=active",
+        "events": 20,
+        "error": null
+      },
+      {
+        "query": "LigaGG CELOL B 2026 Split 2 Playoffs",
+        "url": "https://gamma-api.polymarket.com/public-search?q=LigaGG%20CELOL%20B%202026%20Split%202%20Playoffs&limit_per_type=25&events_status=active",
+        "events": 25,
+        "error": null
+      },
+      {
+        "query": "PRM 2nd Division 26-27 Fall",
+        "url": "https://gamma-api.polymarket.com/public-search?q=PRM%202nd%20Division%2026-27%20Fall&limit_per_type=25&events_status=active",
+        "events": 5,
+        "error": null
+      },
+      {
+        "query": "PRM 3rd Division 26-27 Fall",
+        "url": "https://gamma-api.polymarket.com/public-search?q=PRM%203rd%20Division%2026-27%20Fall&limit_per_type=25&events_status=active",
+        "events": 5,
+        "error": null
+      },
+      {
+        "query": "RIVALS LEAGUE Season 2",
+        "url": "https://gamma-api.polymarket.com/public-search?q=RIVALS%20LEAGUE%20Season%202&limit_per_type=25&events_status=active",
+        "events": 3,
+        "error": null
+      },
+      {
+        "query": "Tunisian Super League 2026",
+        "url": "https://gamma-api.polymarket.com/public-search?q=Tunisian%20Super%20League%202026&limit_per_type=25&events_status=active",
+        "events": 3,
+        "error": null
+      },
+      {
+        "query": "Worlds 2026 Main Event",
+        "url": "https://gamma-api.polymarket.com/public-search?q=Worlds%202026%20Main%20Event&limit_per_type=25&events_status=active",
+        "events": 25,
+        "error": null
       }
     ],
-    "events": 36,
-    "markets": 684,
+    "events": 120,
+    "markets": 2958,
     "status": "ok"
   }
 }

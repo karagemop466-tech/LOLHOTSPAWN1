@@ -1,43 +1,37 @@
-[20:40:14] 1/4 Hotspawn collection
-[20:40:15] !! hotspawn collection failed: NameError: name 'html_to_lines' is not defined
-hotspawn collection failed: NameError: name 'html_to_lines' is not defined
-Traceback (most recent call last):
-  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/scripts/pipeline.py", line 416, in guard
-    return fn(), None
-           ^^^^
-  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/scripts/pipeline.py", line 431, in <lambda>
-    lambda: hs.collect(fetcher, out_dir=args.out, deep=not args.shallow))
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/scripts/hotspawn.py", line 383, in collect
-    lines = html_to_lines(markup)
-            ^^^^^^^^^^^^^
-NameError: name 'html_to_lines' is not defined
-
-[20:40:15] 2/4 external market lines
-[20:40:17]   oddsportal league-of-legends-world-championship: 0 rows
-[20:40:19] 3/4 probing esports books / other line sources
-[20:40:19]   probe BetExplorer (esports book aggregator): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
-[20:40:21]   probe Oddschecker (odds comparison): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
-[20:40:22]   probe Oddspedia (livescore + odds): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
-[20:40:24]   probe SportsInteraction (odds comparison): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
-[20:40:26]   probe Pinnacle (sportsbook): page reached but no machine-readable LoL odds table
-[20:40:27]   probe Betway Esports (sportsbook): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
-[20:40:28]   probe Sofascore (LoL livescore API): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
-[20:40:30]   probe Thunderpick (Hotspawn partner book): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
-[20:40:32]   probe Liquipedia LoL (schedule/results wiki): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
-[20:40:33]   probe LoL Esports official API (Riot): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
-[20:40:33] 4/4 resolving picks
+[20:42:29] 1/4 Hotspawn collection
+[20:42:31] lobby: parsed 195 pick'em cards (page reports {'matches_this_week': 138, 'tiers_count': 264, 'reset_in_s': 361668})
+[20:42:31] fixtures API: matched 0/0 lobby fixture ids
+[20:42:41] league pages: fetching 0 tournaments
+[20:42:41] 2/4 external market lines
+[20:42:44]   oddsportal league-of-legends-world-championship: 16 rows
+[20:42:45]   oddsportal league-of-legends-emea-masters: 0 rows
+[20:42:56] 3/4 probing esports books / other line sources
+[20:42:57]   probe BetExplorer (esports book aggregator): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
+[20:42:59]   probe Oddschecker (odds comparison): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
+[20:43:00]   probe Oddspedia (livescore + odds): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
+[20:43:02]   probe SportsInteraction (odds comparison): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
+[20:43:03]   probe Pinnacle (sportsbook): page reached but no machine-readable LoL odds table
+[20:43:03]   probe Betway Esports (sportsbook): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
+[20:43:05]   probe Sofascore (LoL livescore API): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
+[20:43:06]   probe Thunderpick (Hotspawn partner book): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
+[20:43:08]   probe Liquipedia LoL (schedule/results wiki): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
+[20:43:10]   probe LoL Esports official API (Riot): unreachable from this runner (bot protection, geo-block or DNS). No line collected.
+[20:43:10] 4/4 resolving picks
 {
-  "matches_on_hotspawn_lol_lobby": 0,
-  "picks_resolved": 0,
-  "from_market_lines": 0,
+  "matches_on_hotspawn_lol_lobby": 195,
+  "picks_resolved": 8,
+  "from_market_lines": 8,
   "from_our_own_model": 0,
-  "unresolved": 0,
-  "coverage_pct": 0.0,
-  "leagues": 0,
+  "unresolved": 187,
+  "coverage_pct": 4.1,
+  "leagues": 13,
   "rated_teams": 0,
   "verified_results_used": 0,
-  "flags": 0,
-  "lobby_reported_totals": null,
+  "flags": 585,
+  "lobby_reported_totals": {
+    "matches_this_week": 138,
+    "tiers_count": 264,
+    "reset_in_s": 361668
+  },
   "feed_only_fixtures": 0
 }
