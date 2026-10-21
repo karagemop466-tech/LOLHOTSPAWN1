@@ -4,18 +4,19 @@ on:
   schedule:
     - cron: '17 */4 * * *'
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
-      - arena/8336fb7e-lolhotspawn1
-    paths:
-      - 'scripts/**'
-      - '.github/workflows/refresh-picks.yml'
+      - main
 
 permissions:
   contents: write
 
+concurrency:
+  group: refresh-lol-pickems-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  harvest:
+  refresh-and-validate:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -33,17 +34,25 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Leaguepedia Data schedule & roster harvest
-        run: python3 scripts/leaguepedia_data.py
+      - name: Refresh live sources, originate probabilities, rebuild HTML & validate
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python3 scripts/refresh.py --fetch-live
 
-      - name: Commit refreshed live data snapshot to session branch
-        if: github.ref_name == 'arena/8336fb7e-lolhotspawn1'
+      - name: Deterministic build & strict audit on pull requests
+        if: github.event_name == 'pull_request'
+        run: python3 scripts/refresh.py
+
+      - name: Run full invariant & link test suite
+        run: pytest -v
+
+      - name: Commit refreshed picks and static HTML pages
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin arena/8336fb7e-lolhotspawn1
-          git add data/
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git add data/ *.html .nojekyll
           if ! git diff --cached --quiet; then
-            git commit -m "chore(data): harvest untruncated Leaguepedia Data match schedules [skip ci]"
-            git push origin arena/8336fb7e-lolhotspawn1
+            git commit -m "chore(picks): automated 4h refresh of Hotspawn LoL lines & probabilities"
+            git push origin "${GITHUB_REF_NAME}"
           fi
