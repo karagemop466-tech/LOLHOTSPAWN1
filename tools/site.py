@@ -111,7 +111,7 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
   <p>Independent research dashboard. Every row links to its official source. Zero Hotspawn crowd-pick input.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
-  <a href="tournaments.html">Tournaments</a></p>
+  <a href="competitions.html">Tournaments</a></p>
 </footer>
 <script src="assets/app.js"></script>
 </body>
@@ -755,7 +755,6 @@ def main() -> None:
         "originated.html": build_originated(rows, counts),
         "unresolved.html": build_unresolved(rows, counts),
         "competitions.html": comp_html,
-        "tournaments.html": comp_html,
         "teams.html": build_teams(rows),
         "methodology.html": build_methodology(model),
         "sources.html": build_sources(src),

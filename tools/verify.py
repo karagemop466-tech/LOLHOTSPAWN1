@@ -78,7 +78,7 @@ def main() -> None:
 
     # --- site ---------------------------------------------------------------
     pages = ["index.html", "picks.html", "featured.html", "originated.html", "unresolved.html",
-             "competitions.html", "tournaments.html", "teams.html", "methodology.html", "sources.html",
+             "competitions.html", "teams.html", "methodology.html", "sources.html",
              "verification.html", "flagged.html"]
     missing_pages = [p for p in pages if not os.path.exists(os.path.join(DOCS, p))]
     add("all site pages exist", not missing_pages, f"{len(pages) - len(missing_pages)}/{len(pages)} pages")
