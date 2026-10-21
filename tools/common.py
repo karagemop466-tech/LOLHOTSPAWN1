@@ -89,6 +89,9 @@ def load_json(path: str, default=None):
 
 def norm_name(value: str | None) -> str:
     """Normalise a team name for join keys (accents, punctuation, org suffixes)."""
+    if value is None:
+        return ""
+    value = str(value)
     if not value:
         return ""
     s = unicodedata.normalize("NFKD", value)
