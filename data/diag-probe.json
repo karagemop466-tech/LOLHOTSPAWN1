@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T21:03:54Z",
+  "generated_at": "2026-10-21T21:14:15Z",
   "purpose": "evidence for which line/result sources are reachable from a GitHub runner; no pick depends on anything in this file",
   "summary": {
     "browser hotspawn.com": "no body (blocked, error or empty)",
@@ -13,7 +13,7 @@
   },
   "results": [
     {
-      "label": "hotspawn fixtures feed — browser UA",
+      "label": "hotspawn fixtures feed — browser UA (expected 403)",
       "url": "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=3&_fields=id,slug,link,title",
       "kind": "json",
       "preset": "browser",
@@ -72,12 +72,111 @@
       "outcome": "no body (blocked, error or empty)"
     },
     {
-      "label": "hotspawn league page (Worlds)",
+      "label": "hotspawn league page (Worlds) — browser UA",
       "url": "https://www.hotspawn.com/league-of-legends/tournament/worlds-2026-main-event",
       "kind": "html",
       "preset": "browser",
       "host": "hotspawn.com",
       "outcome": "no body (blocked, error or empty)"
+    },
+    {
+      "label": "hotspawn league page (Worlds) — curl UA",
+      "url": "https://www.hotspawn.com/league-of-legends/tournament/worlds-2026-main-event",
+      "kind": "html",
+      "preset": "curl",
+      "host": "hotspawn.com",
+      "outcome": "ok",
+      "chars": 546741,
+      "markers": {
+        "hotspawn /matches/ anchors": 8,
+        "oddsportal /esports/h2h/ anchors": 0,
+        "HH:MM UTC stamps": 117,
+        "'Finished' text": 8,
+        "score-like 'a : b'": 237,
+        "__NEXT_DATA__": false,
+        "self.__next_f": false
+      },
+      "anchor_pat": "/matches/",
+      "text_window": ".com/matches\nMatches\n/login/\nSign In\nSearch\nONE LOGIN all things HOTSPAWN\nhttps://www.hotspawn.com/login\nCreate your free account\nPlay Pick'ems | follow tournaments | get predictions\nhttps://www.hotspawn.com/\nHome\nhttps://www.hotspawn.com/league-of-legends\nLeague Of Legends\nhttps://www.hotspawn.com/tournaments\nTournaments\nhttps://www.hotspawn.com/league-of-legends/tournament/worlds-2026-main-event\nWorlds 2026 Main Event\nDetails\nDates:\nOct 23 - Nov 14\nSeries:\nhttps://www.hotspawn.com/series/tournaments/worlds\nWorlds\nTotal prize pool:\n$5000000\nPlayer share:\n$5000000\nClub share:\n$N/A\nType:\nOffline\nLocation:\nLos Angeles\nOrganiser:\nhttps://www.hotspawn.com/organizer/riot-games\nRiot Games\nStage:\nWaiting for information\nFormat:\nN/A\nLive & Upcoming\nFinished\n❮\n23 Oct\n24 Oct\n25 Oct\n26 Oct\n27 Oct\n28 Oct\n29 Oct\n30 Oct\n31 Oct\n03 Nov\n04 Nov\n05 Nov\n06 Nov\n07 Nov\n08 Nov\n14 Nov\n❯\nhttps://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878\n17:00 UTC\nGen.G\nUPCOMING\nInvictus Gaming\nhttps://www.hotspawn.com/matches/hanwha-life-esports-vs-top-esports-worlds-2026-main-event-1067677\n18:00 UTC\nHanwha Life Esports\nUPCOMING\nTop Esports\nhttps://www.hotspawn.com/matches/bilibili-gaming-vs-movistar-koi-worlds-2026-main-event-1067680\n19:00 UTC\nBilibili Gaming\nUPCOMING\nMovistar KOI\nhttps://www.hotspawn.com/matches/anyones-legend-vs-karmine-corp-worlds-2026-main-event-1067675\n20:00 UTC\nAnyone's Legend\nUPCOMING\nKarmine Corp\nhttps://www.hotspawn.com/matches/g2-esports-vs-dplus-kia-worlds-2026-main-event-1067676\n21:00 UTC\nG2 Esports\nUPCOMING\nDplus KIA\nhttps://www.hotspawn.com/matches/team-liquid-vs-ctbc-flying-oyster-worlds-2026-main-event-1067879\n22:00 UTC\nTeam Liquid\nUPCOMING\nCTBC Flying Oyster\nhttps://www.hotspawn.com/matches/los-vs-t1-worlds-2026-main-event-1067678\n23:00 UTC\nLØS\nUPCOMING\nT1\nhttps://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679\n00:00 UTC\nTeam Secret Whales\nUPCOMING\nLYON\n17:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\n18:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\n19:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\n20:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\n21:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\n22:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\n23:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\n00:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\n17:00 UTC\nW"
+    },
+    {
+      "label": "hotspawn league page (Komplettligaen) — curl UA",
+      "url": "https://www.hotspawn.com/league-of-legends/tournament/komplettligaen-2026-autumn",
+      "kind": "html",
+      "preset": "curl",
+      "host": "hotspawn.com",
+      "outcome": "ok",
+      "chars": 539326,
+      "markers": {
+        "hotspawn /matches/ anchors": 69,
+        "oddsportal /esports/h2h/ anchors": 0,
+        "HH:MM UTC stamps": 145,
+        "'Finished' text": 8,
+        "score-like 'a : b'": 293,
+        "__NEXT_DATA__": false,
+        "self.__next_f": false
+      },
+      "anchor_pat": "/matches/",
+      "text_window": "wn.com\nCommunity\nhttps://www.hotspawn.com/news-2\nNews\nhttps://www.hotspawn.com/tournaments\nTournaments\nhttps://www.hotspawn.com/matches\nMatches\n/login/\nSign In\nSearch\nONE LOGIN all things HOTSPAWN\nhttps://www.hotspawn.com/login\nCreate your free account\nPlay Pick'ems | follow tournaments | get predictions\nhttps://www.hotspawn.com/\nHome\nhttps://www.hotspawn.com/league-of-legends\nLeague Of Legends\nhttps://www.hotspawn.com/tournaments\nTournaments\nhttps://www.hotspawn.com/league-of-legends/tournament/komplettligaen-2026-autumn\nKomplettligaen 2026 Autumn\nDetails\nDates:\nSep 6 - Oct 22\nSeries:\nhttps://www.hotspawn.com/series/tournaments/komplettligaen\nKomplettligaen\nTotal prize pool:\n$N/A\nPlayer share:\n$N/A\nClub share:\n$N/A\nType:\nUnknown\nLocation:\nN/A\nOrganiser:\nN/A\nStage:\nWaiting for information\nFormat:\nWaiting for information\nLive & Upcoming\nFinished\nToday, 21 Oct 2026\nhttps://www.hotspawn.com/matches/phenti-vs-ves-japan-komplettligaen-2026-autumn-1071217\n15:00 UTC\nPhenti\nUPCOMING\nVES Japan\n❮\n06 Sep\n08 Sep\n10 Sep\n13 Sep\n15 Sep\n16 Sep\n17 Sep\n20 Sep\n22 Sep\n23 Sep\n24 Sep\n25 Sep\n26 Sep\n27 Sep\n29 Sep\n01 Oct\n02 Oct\n04 Oct\n05 Oct\n06 Oct\n07 Oct\n08 Oct\n11 Oct\n12 Oct\n13 Oct\n14 Oct\n18 Oct\n19 Oct\n20 Oct\n22 Oct\n23 Oct\n❯\n15:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\n15:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\nhttps://www.hotspawn.com/matches/volda-e-sport-vs-playwell-rod-q-komplettligaen-2026-autumn-1071133\n15:00 UTC\nVolda E-Sport\nUPCOMING\nPlaywell Rød Q\n15:00 UTC\nWaiting for information\nUPCOMING\nWaiting for information\nhttps://www.hotspawn.com/matches/dmg-esports-norway-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071132\n15:00 UTC\nDMG Esports Norway\nUPCOMING\nNTNUI Kometkameratene\nhttps://www.hotspawn.com/matches/ves-japan-vs-rich-gang-komplettligaen-2026-autumn-1071295\n17:00 UTC\nVES Japan\nUPCOMING\nRich Gang\nhttps://www.hotspawn.com/matches/your-saviours-vs-phenti-komplettligaen-2026-autumn-1071296\n17:00 UTC\nYour Saviours\nUPCOMING\nPhenti\nhttps://www.hotspawn.com/matches/solid-gaming-vs-mixlag-fra-trondheim-komplettligaen-2026-autumn-1071297\n18:15 UTC\nSolid Gaming\nUPCOMING\nMixlag fra Trondheim\nhttps://www.hotspawn.com/matches/ascent-gaming-vs-cng-royal-komplettligaen-2026-autumn-1071131\n16:00 UTC\nAscent Gaming\nUPCOMING\nCNG Royal\nhttps://www.hotspawn.com/matches/rich-gang-vs-volda-e-sport-komplettligaen-2026-autumn-1071164\n15:00 UTC\nRich Gang\nUPCOMING\nVolda E-Sport\nhttps://www.hotspawn.com/matches/cng-royal-vs-dmg-esports-norw"
+    },
+    {
+      "label": "hotspawn match page — curl UA",
+      "url": "https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205",
+      "kind": "html",
+      "preset": "curl",
+      "host": "hotspawn.com",
+      "outcome": "ok",
+      "chars": 479186,
+      "markers": {
+        "hotspawn /matches/ anchors": 17,
+        "oddsportal /esports/h2h/ anchors": 0,
+        "HH:MM UTC stamps": 1,
+        "'Finished' text": 3,
+        "score-like 'a : b'": 100,
+        "__NEXT_DATA__": false,
+        "self.__next_f": false
+      },
+      "anchor_pat": "/matches/",
+      "text_window": "of Duty\n/valorant/guides\nValorant\nhttps://community.hotspawn.com\nCommunity\nhttps://www.hotspawn.com/news-2\nNews\nhttps://www.hotspawn.com/tournaments\nTournaments\nhttps://www.hotspawn.com/matches\nMatches\n/login/\nSign In\nSearch\nONE LOGIN all things HOTSPAWN\nhttps://www.hotspawn.com/login\nCreate your free account\nPlay Pick'ems | follow tournaments | get predictions\nhttps://www.hotspawn.com/\nHome\nhttps://www.hotspawn.com/league-of-legends\nLeague Of Legends\nhttps://www.hotspawn.com/tournaments\nTournaments\nhttps://www.hotspawn.com/league-of-legends/tournament/em-2026-summer-main-event\nEM 2026 Summer Main Event\nhttps://www.hotspawn.com/league-of-legends/tournament/em-2026-summer-main-event\nFixtures\nGalions vs Solary\nhttps://www.hotspawn.com/league-of-legends/teams/solary-17825\nSolary\n0\n12:00\n22 OCT\n0\nhttps://www.hotspawn.com/league-of-legends/teams/galions-203085\nGalions\nhttps://www.hotspawn.com/matches/solary-vs-anubis-gaming-em-2026-summer-main-event-1079335\nPrev\n14 Oct\n3 : 1\nhttps://www.hotspawn.com/league-of-legends/tournament/em-2026-summer-main-event\nEM 2026 Summer Main Event\nhttps://www.hotspawn.com/?fixtures=waiting-for-information-2092\nVS\nNext\n23 Oct\nhttps://www.hotspawn.com/league-of-legends/tournament/em-2026-summer-main-event\nEM 2026 Summer Main Event\nhttps://www.hotspawn.com/matches/solary-vs-anubis-gaming-em-2026-summer-main-event-1079335\nPrev\n14 Oct\n3 : 1\nhttps://www.hotspawn.com/?fixtures=waiting-for-information-2092\nUpcoming\nNext\n23 Oct\nNo stream available.\nPick’Ems\nPredict the winner of this match\nLock your pick · climb the leaderboard · free account\nhttps://play.hotspawn.com/\nPlay Pick'Ems\nBuild\nhttps://www.hotspawn.com/league-of-legends/teams/solary-17825\nSolary Lineup\nhttps://www.hotspawn.com/league-of-legends/players/zicssi-64914\nZicssi\nhttps://www.hotspawn.com/league-of-legends/players/kryze-20234\nKryze\nhttps://www.hotspawn.com/league-of-legends/players/jool-27875\nJool\nhttps://www.hotspawn.com/league-of-legends/players/piero-65515\nPiero\nSolary Latest Form\nW\nL\n14/10/26\nhttps://www.hotspawn.com/matches/solary-vs-anubis-gaming-em-2026-summer-main-event-1079335\n3 - 1\n10/10/26\nhttps://www.hotspawn.com/matches/solary-vs-g2-nord-em-2026-summer-main-event-1079333\n3 - 1\n06/10/26\nhttps://www.hotspawn.com/matches/solary-vs-valerion-em-2026-summer-main-event-1079325\n3 - 0\n04/10/26\nhttps://www.hotspawn.com/matches/solary-vs-barca-esports-em-2026-summer-main-event-1073580\n3 - 0\n02/10/26\nhttps://www.hotspawn.com/matches/solary-vs-t1-esports-academy-world-s"
+    },
+    {
+      "label": "hotspawn fixture feed, no search, curl UA",
+      "url": "https://www.hotspawn.com/wp-json/wp/v2/fixtures?per_page=3&orderby=date&order=desc&_fields=id,slug,link,title,date",
+      "kind": "json",
+      "preset": "curl",
+      "host": "hotspawn.com",
+      "outcome": "ok",
+      "chars": 1072,
+      "parse": "ok",
+      "type": "list",
+      "items": 3,
+      "first_keys": [
+        "date",
+        "id",
+        "link",
+        "slug",
+        "title"
+      ],
+      "first_preview": "{\"id\": 204791, \"date\": \"2026-10-21T21:00:19\", \"slug\": \"baks-vs-brute-counter-strike-2-match-at-cct-europe-2026-series-11-1079657\", \"link\": \"https://www.hotspawn.com/matches/baks-vs-brute-cct-europe-2026-series-11-1079657\", \"title\": {\"rendered\": \"BakS vs BRUTE Counter-Strike 2 match at CCT Europe 2026 Series #11 &#8211; 1079657\"}}"
+    },
+    {
+      "label": "hotspawn tournaments taxonomy — curl UA",
+      "url": "https://www.hotspawn.com/wp-json/wp/v2/tournaments?per_page=5&_fields=id,slug,name,link",
+      "kind": "json",
+      "preset": "curl",
+      "host": "hotspawn.com",
+      "outcome": "ok",
+      "chars": 807,
+      "parse": "ok",
+      "type": "list",
+      "items": 5,
+      "first_keys": [
+        "id",
+        "link",
+        "name",
+        "slug"
+      ],
+      "first_preview": "{\"id\": 3979, \"link\": \"https://www.hotspawn.com/t/tournaments/1337-community-league-season-1\", \"name\": \"1337 Community League Season 1\", \"slug\": \"1337-community-league-season-1\"}"
     },
     {
       "label": "hotspawn match page",
@@ -110,7 +209,7 @@
       "preset": "browser",
       "host": "play.hotspawn.com",
       "outcome": "ok",
-      "chars": 1985580,
+      "chars": 1985582,
       "markers": {
         "hotspawn /matches/ anchors": 390,
         "oddsportal /esports/h2h/ anchors": 0,
@@ -121,7 +220,7 @@
         "self.__next_f": false
       },
       "anchor_pat": "/matches/",
-      "text_window": ")\nSolid Gaming (5)\nspongecord prime (4)\nSupreme Leaders (5)\nSYR T1 (1)\nSyrian Rift Masters (1)\nT1 (1)\nTeam 300 (5)\nTeam 300 White (4)\nTeam cd (4)\nTeam Fifty Fifty (1)\nTeam Liquid (1)\nTeam Lucidity Esports (5)\nTeam Reds (2)\nTeam Secret Whales (1)\nTeam VDS (3)\nTeam Vertex (3)\nTeam VS Esport (3)\nTeamBah (1)\nTeamOrangeGaming Academy (3)\nThe Bandits Academy (3)\nThe Bandits Prime (5)\nThe Bandits UK (2)\nTop Esports (1)\nTorin (1)\nTriforce Esport (4)\nTung Sahur Mid (4)\nTurbo Gaming (3)\nVenus (1)\nVES Japan (2)\nVfB eSports (6)\nVfB x Engines Stuttgart (4)\nViktus (2)\nVitality Rising Bees (1)\nVoid Walkers (3)\nVolda E-Sport (2)\nWhalepower Humpbacks (5)\nWhisky (3)\nX-Funkass (1)\nYour Saviours (1)\nZahrouni Esports (5)\nالتريس (1)\nClosing Soon\nOct 22, 12:00\nEM 2026 Summer Main Event\nPoints available\n20 pts\nTier\nA ×2\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n14:50:48\nhttps://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205\nView Match\nWho will win?\nGalions\n86% picked\nSolary\n14% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:50:48\nhttps://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214\nView Match\nWho will win?\nAscent Gaming\n93% picked\nNTNUI Kometkameratene\n7% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:50:48\nhttps://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216\nView Match\nWho will win?\nSolid Gaming\n72% picked\nDMG Esports Norway\n28% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:50:48\nhttps://www.hotspawn.com/matches/volda-e-sport-vs-cng-royal-komplettligaen-2026-autumn-1071218\nView Match\nWho will win?\nVolda E-Sport\n93% picked\nCNG Royal\n7% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:50:48\nhttps://www.hotspawn.com/matches/your-saviours-vs-mixlag-fra-trondheim-komplettligaen-2026-autumn-1071219\nView Match\nWho will win?\nYour Saviours\n86% picked\nMixlag fra Trondheim\n14% picked\nOct 22, 16:30\nRIVALS LEAGUE Season 2\nPoints available\n10 pts\nTier\nWAITING FOR INFORMATION\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n19:20:48\nhttps://www.hotspawn.com/matches/tu"
+      "text_window": ")\nSolid Gaming (5)\nspongecord prime (4)\nSupreme Leaders (5)\nSYR T1 (1)\nSyrian Rift Masters (1)\nT1 (1)\nTeam 300 (5)\nTeam 300 White (4)\nTeam cd (4)\nTeam Fifty Fifty (1)\nTeam Liquid (1)\nTeam Lucidity Esports (5)\nTeam Reds (2)\nTeam Secret Whales (1)\nTeam VDS (3)\nTeam Vertex (3)\nTeam VS Esport (3)\nTeamBah (1)\nTeamOrangeGaming Academy (3)\nThe Bandits Academy (3)\nThe Bandits Prime (5)\nThe Bandits UK (2)\nTop Esports (1)\nTorin (1)\nTriforce Esport (4)\nTung Sahur Mid (4)\nTurbo Gaming (3)\nVenus (1)\nVES Japan (2)\nVfB eSports (6)\nVfB x Engines Stuttgart (4)\nViktus (2)\nVitality Rising Bees (1)\nVoid Walkers (3)\nVolda E-Sport (2)\nWhalepower Humpbacks (5)\nWhisky (3)\nX-Funkass (1)\nYour Saviours (1)\nZahrouni Esports (5)\nالتريس (1)\nClosing Soon\nOct 22, 12:00\nEM 2026 Summer Main Event\nPoints available\n20 pts\nTier\nA ×2\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n14:40:23\nhttps://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205\nView Match\nWho will win?\nGalions\n86% picked\nSolary\n14% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:40:23\nhttps://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214\nView Match\nWho will win?\nAscent Gaming\n93% picked\nNTNUI Kometkameratene\n7% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:40:23\nhttps://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216\nView Match\nWho will win?\nSolid Gaming\n72% picked\nDMG Esports Norway\n28% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:40:23\nhttps://www.hotspawn.com/matches/volda-e-sport-vs-cng-royal-komplettligaen-2026-autumn-1071218\nView Match\nWho will win?\nVolda E-Sport\n93% picked\nCNG Royal\n7% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:40:23\nhttps://www.hotspawn.com/matches/your-saviours-vs-mixlag-fra-trondheim-komplettligaen-2026-autumn-1071219\nView Match\nWho will win?\nYour Saviours\n86% picked\nMixlag fra Trondheim\n14% picked\nOct 22, 16:30\nRIVALS LEAGUE Season 2\nPoints available\n10 pts\nTier\nWAITING FOR INFORMATION\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n19:10:23\nhttps://www.hotspawn.com/matches/tu"
     },
     {
       "label": "lobby page, wide limit param",
@@ -130,7 +229,7 @@
       "preset": "browser",
       "host": "play.hotspawn.com",
       "outcome": "ok",
-      "chars": 1985580,
+      "chars": 1985582,
       "markers": {
         "hotspawn /matches/ anchors": 390,
         "oddsportal /esports/h2h/ anchors": 0,
@@ -141,7 +240,7 @@
         "self.__next_f": false
       },
       "anchor_pat": "/matches/",
-      "text_window": ")\nSolid Gaming (5)\nspongecord prime (4)\nSupreme Leaders (5)\nSYR T1 (1)\nSyrian Rift Masters (1)\nT1 (1)\nTeam 300 (5)\nTeam 300 White (4)\nTeam cd (4)\nTeam Fifty Fifty (1)\nTeam Liquid (1)\nTeam Lucidity Esports (5)\nTeam Reds (2)\nTeam Secret Whales (1)\nTeam VDS (3)\nTeam Vertex (3)\nTeam VS Esport (3)\nTeamBah (1)\nTeamOrangeGaming Academy (3)\nThe Bandits Academy (3)\nThe Bandits Prime (5)\nThe Bandits UK (2)\nTop Esports (1)\nTorin (1)\nTriforce Esport (4)\nTung Sahur Mid (4)\nTurbo Gaming (3)\nVenus (1)\nVES Japan (2)\nVfB eSports (6)\nVfB x Engines Stuttgart (4)\nViktus (2)\nVitality Rising Bees (1)\nVoid Walkers (3)\nVolda E-Sport (2)\nWhalepower Humpbacks (5)\nWhisky (3)\nX-Funkass (1)\nYour Saviours (1)\nZahrouni Esports (5)\nالتريس (1)\nClosing Soon\nOct 22, 12:00\nEM 2026 Summer Main Event\nPoints available\n20 pts\nTier\nA ×2\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n14:50:45\nhttps://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205\nView Match\nWho will win?\nGalions\n86% picked\nSolary\n14% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:50:45\nhttps://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214\nView Match\nWho will win?\nAscent Gaming\n93% picked\nNTNUI Kometkameratene\n7% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:50:45\nhttps://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216\nView Match\nWho will win?\nSolid Gaming\n72% picked\nDMG Esports Norway\n28% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:50:45\nhttps://www.hotspawn.com/matches/volda-e-sport-vs-cng-royal-komplettligaen-2026-autumn-1071218\nView Match\nWho will win?\nVolda E-Sport\n93% picked\nCNG Royal\n7% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:50:45\nhttps://www.hotspawn.com/matches/your-saviours-vs-mixlag-fra-trondheim-komplettligaen-2026-autumn-1071219\nView Match\nWho will win?\nYour Saviours\n86% picked\nMixlag fra Trondheim\n14% picked\nOct 22, 16:30\nRIVALS LEAGUE Season 2\nPoints available\n10 pts\nTier\nWAITING FOR INFORMATION\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n19:20:45\nhttps://www.hotspawn.com/matches/tu"
+      "text_window": ")\nSolid Gaming (5)\nspongecord prime (4)\nSupreme Leaders (5)\nSYR T1 (1)\nSyrian Rift Masters (1)\nT1 (1)\nTeam 300 (5)\nTeam 300 White (4)\nTeam cd (4)\nTeam Fifty Fifty (1)\nTeam Liquid (1)\nTeam Lucidity Esports (5)\nTeam Reds (2)\nTeam Secret Whales (1)\nTeam VDS (3)\nTeam Vertex (3)\nTeam VS Esport (3)\nTeamBah (1)\nTeamOrangeGaming Academy (3)\nThe Bandits Academy (3)\nThe Bandits Prime (5)\nThe Bandits UK (2)\nTop Esports (1)\nTorin (1)\nTriforce Esport (4)\nTung Sahur Mid (4)\nTurbo Gaming (3)\nVenus (1)\nVES Japan (2)\nVfB eSports (6)\nVfB x Engines Stuttgart (4)\nViktus (2)\nVitality Rising Bees (1)\nVoid Walkers (3)\nVolda E-Sport (2)\nWhalepower Humpbacks (5)\nWhisky (3)\nX-Funkass (1)\nYour Saviours (1)\nZahrouni Esports (5)\nالتريس (1)\nClosing Soon\nOct 22, 12:00\nEM 2026 Summer Main Event\nPoints available\n20 pts\nTier\nA ×2\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n14:40:21\nhttps://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205\nView Match\nWho will win?\nGalions\n86% picked\nSolary\n14% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:40:21\nhttps://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214\nView Match\nWho will win?\nAscent Gaming\n93% picked\nNTNUI Kometkameratene\n7% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:40:21\nhttps://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216\nView Match\nWho will win?\nSolid Gaming\n72% picked\nDMG Esports Norway\n28% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:40:21\nhttps://www.hotspawn.com/matches/volda-e-sport-vs-cng-royal-komplettligaen-2026-autumn-1071218\nView Match\nWho will win?\nVolda E-Sport\n93% picked\nCNG Royal\n7% picked\nOct 22, 15:00\nKomplettligaen 2026 Autumn\nPoints available\n10 pts\nTier\nC\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n17:40:21\nhttps://www.hotspawn.com/matches/your-saviours-vs-mixlag-fra-trondheim-komplettligaen-2026-autumn-1071219\nView Match\nWho will win?\nYour Saviours\n86% picked\nMixlag fra Trondheim\n14% picked\nOct 22, 16:30\nRIVALS LEAGUE Season 2\nPoints available\n10 pts\nTier\nWAITING FOR INFORMATION\nStage\nWaiting For Information\nSign in for streaks\nLocks in\n19:10:21\nhttps://www.hotspawn.com/matches/tu"
     },
     {
       "label": "oddsportal LoL landing (row markup sample)",
@@ -150,7 +249,7 @@
       "preset": "browser",
       "host": "oddsportal.com",
       "outcome": "ok",
-      "chars": 335982,
+      "chars": 335939,
       "markers": {
         "hotspawn /matches/ anchors": 0,
         "oddsportal /esports/h2h/ anchors": 0,
@@ -169,7 +268,7 @@
       "preset": "browser",
       "host": "oddsportal.com",
       "outcome": "ok",
-      "chars": 328054,
+      "chars": 326544,
       "markers": {
         "hotspawn /matches/ anchors": 0,
         "oddsportal /esports/h2h/ anchors": 0,
@@ -188,7 +287,7 @@
       "preset": "browser",
       "host": "oddsportal.com",
       "outcome": "ok",
-      "chars": 477426,
+      "chars": 477383,
       "markers": {
         "hotspawn /matches/ anchors": 0,
         "oddsportal /esports/h2h/ anchors": 40,
@@ -208,7 +307,7 @@
       "preset": "browser",
       "host": "gamma-api.polymarket.com",
       "outcome": "ok",
-      "chars": 39713,
+      "chars": 42720,
       "parse": "ok",
       "type": "list",
       "items": 5,
@@ -228,7 +327,7 @@
         "comboStatus",
         "competitive"
       ],
-      "first_preview": "{\"id\": \"5411252\", \"question\": \"Exact Score: El Ahly SC 5 - 0 El Qanah Club?\", \"conditionId\": \"0xc73dc9214d4e4c20c0964914f9c661faeeef77a6860cb82e4e97d992eaecafe9\", \"slug\": \"egy1-eas-elq-2026-10-21-exact-score-5-0\", \"endDate\": \"2026-10-21T17:00:00Z\", \"liquidity\": \"0\", \"startDate\": \"2026-10-07T19:01:00Z\", \"description\": \"In the upcoming Egypt Egyptian Premier League game between El Ahly SC and El Qanah Club, scheduled for October 21, 2026 at 1:00 PM ET: This market will resolve based on the final score of the El Ahly SC vs. El Qanah Club match originally scheduled for October 21, 2026 at 1:00 PM "
+      "first_preview": "{\"id\": \"5436637\", \"question\": \"Exact Score: Real Betis Balompié 4 - 3 Feyenoord Rotterdam?\", \"conditionId\": \"0x41717396f70be6610b0081859f013f7628d550fea5584b9a5c74ed6b8e663276\", \"slug\": \"ucl-bet-fey-2026-10-21-exact-score-4-3\", \"endDate\": \"2026-10-21T19:00:00Z\", \"liquidity\": \"0\", \"startDate\": \"2026-10-08T18:00:55Z\", \"description\": \"In the upcoming UEFA Champions League game between Real Betis Balompié and Feyenoord Rotterdam, scheduled for October 21, 2026 at 3:00 PM ET: This market will resolve based on the final score of the Real Betis Balompié vs. Feyenoord Rotterdam match originally schedu"
     },
     {
       "label": "polymarket search (Worlds)",
@@ -237,7 +336,7 @@
       "preset": "browser",
       "host": "gamma-api.polymarket.com",
       "outcome": "ok",
-      "chars": 390337,
+      "chars": 390285,
       "parse": "ok",
       "type": "dict",
       "keys": [

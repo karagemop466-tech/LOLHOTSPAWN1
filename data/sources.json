@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T21:03:53Z",
+  "generated_at": "2026-10-21T21:14:15Z",
   "hosts": {
     "api.sofascore.com": {
       "host": "api.sofascore.com",
@@ -39,7 +39,7 @@
         "https://www.betexplorer.com/esports/league-of-legends/"
       ],
       "errors": [
-        "HTTP 404"
+        "HTTP 429"
       ],
       "success_rate": 0.0
     },
@@ -90,21 +90,20 @@
     },
     "hotspawn.com": {
       "host": "hotspawn.com",
-      "attempts": 3,
-      "ok": 0,
-      "failed": 3,
+      "attempts": 14,
+      "ok": 14,
+      "failed": 0,
       "skipped_no_network": 0,
       "sample_urls": [
         "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=1&orderby=date&order=desc&_fields=id,date,modified,slug,link,title",
-        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=1&orderby=date&order=desc&_fields=id,date,modified,slug,link,title",
-        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=1&orderby=date&order=desc&_fields=id,date,modified,slug,link,title"
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=2&orderby=date&order=desc&_fields=id,date,modified,slug,link,title",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=3&orderby=date&order=desc&_fields=id,date,modified,slug,link,title",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=4&orderby=date&order=desc&_fields=id,date,modified,slug,link,title",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=5&orderby=date&order=desc&_fields=id,date,modified,slug,link,title",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=100&page=6&orderby=date&order=desc&_fields=id,date,modified,slug,link,title"
       ],
-      "errors": [
-        "HTTP 403",
-        "HTTP 403",
-        "HTTP 403"
-      ],
-      "success_rate": 0.0
+      "errors": [],
+      "success_rate": 1.0
     },
     "liquipedia.net": {
       "host": "liquipedia.net",
@@ -392,7 +391,7 @@
       }
     ],
     "events": 120,
-    "markets": 2957,
+    "markets": 2959,
     "status": "ok"
   }
 }
