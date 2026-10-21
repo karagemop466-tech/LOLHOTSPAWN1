@@ -1,0 +1,28 @@
+name: probe-sources-4
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/probe4.yml"
+      - "tools/probe4.py"
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 tools/probe4.py
+      - name: Commit evidence
+        run: |
+          git config user.name "arena-agent"
+          git config user.email "agent@users.noreply.github.com"
+          git add evidence/probe4
+          git commit -m "chore(evidence): probe4 coverage [skip ci]" || echo "nothing to commit"
+          git push
