@@ -1,11 +1,11 @@
-[20:43:18] hotspawn: 264 LoL fixtures
-[20:43:22] pinnacle: 12 LoL matchups, 8 with open moneylines
-[20:44:28] leaguepedia: 34615 series rows (err='')
-[20:44:28] lolesports: 80 Worlds events (status=200)
-[20:44:29] polymarket: 49 match-level markets (status=200)
-[20:44:35] sources: Pinnacle=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Polymarket=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[20:46:03] hotspawn: 264 LoL fixtures
+[20:46:06] pinnacle: 12 LoL matchups, 9 with open moneylines
+[20:47:07] leaguepedia: 34616 series rows (err='')
+[20:47:07] lolesports: 80 Worlds events (status=200)
+[20:47:07] polymarket: 49 match-level markets (status=200)
+[20:47:12] sources: Pinnacle=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Polymarket=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 === MODEL ===
-[20:44:40] rows=264 methods={'provisional': 73, 'model': 182, 'market': 9} joins=32
+[20:47:17] rows=264 methods={'provisional': 73, 'model': 182, 'market': 9} joins=32
 === REPORT ===
 {
  "total": 264,
@@ -110,9 +110,40 @@
 
 UNRESOLVED 0
 
-NON-EXACT JOINS None
+NON-EXACT JOINS 12
+  competition-page | Nameless -> Nameless (Benelux Team) | ambiguous in Leaguepedia (Nameless (Benelux Team), Nameless (Female and Non-Binary Team), 
+  base-name | BiPOLAR -> BiPOLAR (Benelux Team) | Leaguepedia lists this team as 'BiPOLAR (Benelux Team)'
+  competition-page | Venus -> Venus (Benelux Team) | ambiguous in Leaguepedia (Venus (Benelux Team), Venus (Turkish Team)); resolved by the 'Be
+  competition-page | Fenrir -> Fenrir (Icelandic Team) | ambiguous in Leaguepedia (Fenrir (Filipino Team), Fenrir (Icelandic Team), Fenrir (Swedish
+  base-name | Arena -> Arena (Kuwaiti Team) | Leaguepedia lists this team as 'Arena (Kuwaiti Team)'
+  competition-page | OverPower -> Overpower (Kuwaiti Team) | ambiguous in Leaguepedia (OverPower (Bulgarian Team), Overpower (Kuwaiti Team)); resolved 
+  base-name | Inari Esports -> Inari Esports (British Team) | Leaguepedia lists this team as 'Inari Esports (British Team)'
+  base-name | Rich Gang -> Rich Gang (Norwegian Team) | Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'
+  competition-page | Locked IN -> Locked In (Dutch Team) | ambiguous in Leaguepedia (LOCKED IN (French Team), Locked IN (European Team), Locked In (D
+  base-name | LYON -> LYON (2024 American Team) | Leaguepedia lists this team as 'LYON (2024 American Team)'
+  base-name | Infinity Gaming -> Infinity Gaming (Brazilian Team) | Leaguepedia lists this team as 'Infinity Gaming (Brazilian Team)'
+  none | Phong Vũ Buffalo -> None | 
+
+PRICED 9
+  EM 2026 Summer Main Event | ['Galions', 'Solary'] 0.5342 {'home': 2.05, 'away': 1.7874}
+  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7747 {'home': 1.2299, 'away': 4.23}
+  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7907 {'home': 1.2041, 'away': 4.55}
+  Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.7966 {'home': 1.1953, 'away': 4.68}
+  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6403 {'home': 1.5, 'away': 2.67}
+  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.395 None
+  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7083 {'home': 1.3509, 'away': 3.28}
+  Worlds 2026 Main Event | ['LØS', 'T1'] 0.1544 {'home': 6.16, 'away': 1.125}
+  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4311 {'home': 2.23, 'away': 1.6897}
+=== FLAGS ===
+[20:47:17] flags: 11 items
+=== SITE ===
 Traceback (most recent call last):
-  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tools/report.py", line 46, in <module>
-    print(" ", j["method"], j["score"], "|", j["team"], "->", j["resolved"])
-                            ~^^^^^^^^^
-KeyError: 'score'
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tools/site.py", line 684, in <module>
+    main()
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tools/site.py", line 669, in main
+    "teams.html": build_teams(rows),
+                  ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tools/site.py", line 470, in build_teams
+    if not prev or (t["rating_matches"] or 0) > (prev["rating_matches"] or 0):
+                                                 ~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'rating_matches'

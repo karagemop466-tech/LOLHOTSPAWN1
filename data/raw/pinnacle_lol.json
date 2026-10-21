@@ -1,10 +1,36 @@
 {
- "fetched_utc": "2026-10-21T20:43:22Z",
+ "fetched_utc": "2026-10-21T20:46:06Z",
  "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
  "source_note": "Pinnacle guest API, sport 12 (E Sports), moneyline period 0, markets/related/straight",
  "lol_matchup_count": 12,
- "priced_count": 8,
+ "priced_count": 9,
  "markets": [
+  {
+   "matchup_id": 1638748203,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-23T21:00:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": -490,
+     "decimal": 1.2041
+    },
+    "away": {
+     "american": 355,
+     "decimal": 4.55
+    }
+   },
+   "participants": [
+    {
+     "name": "Hanwha Life",
+     "alignment": "home"
+    },
+    {
+     "name": "Top Esports",
+     "alignment": "away"
+    }
+   ]
+  },
   {
    "matchup_id": 1638750814,
    "league": "League of Legends - World Championship",
@@ -27,6 +53,32 @@
     },
     {
      "name": "CTBC Flying Oyster",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
+   "matchup_id": 1638709103,
+   "league": "League of Legends - EMEA Masters",
+   "start_utc": "2026-10-22T16:00:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": 105,
+     "decimal": 2.05
+    },
+    "away": {
+     "american": -127,
+     "decimal": 1.7874
+    }
+   },
+   "participants": [
+    {
+     "name": "Solary",
+     "alignment": "home"
+    },
+    {
+     "name": "Galions",
      "alignment": "away"
     }
    ]
@@ -58,32 +110,6 @@
    ]
   },
   {
-   "matchup_id": 1638748203,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-23T21:00:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": -490,
-     "decimal": 1.2041
-    },
-    "away": {
-     "american": 355,
-     "decimal": 4.55
-    }
-   },
-   "participants": [
-    {
-     "name": "Hanwha Life",
-     "alignment": "home"
-    },
-    {
-     "name": "Top Esports",
-     "alignment": "away"
-    }
-   ]
-  },
-  {
    "matchup_id": 1638748200,
    "league": "League of Legends - World Championship",
    "start_utc": "2026-10-23T17:00:00Z",
@@ -105,58 +131,6 @@
     },
     {
      "name": "Invictus",
-     "alignment": "away"
-    }
-   ]
-  },
-  {
-   "matchup_id": 1638755459,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-24T00:00:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": -512,
-     "decimal": 1.1953
-    },
-    "away": {
-     "american": 368,
-     "decimal": 4.68
-    }
-   },
-   "participants": [
-    {
-     "name": "Bilibili",
-     "alignment": "home"
-    },
-    {
-     "name": "Movistar KOI",
-     "alignment": "away"
-    }
-   ]
-  },
-  {
-   "matchup_id": 1638750902,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-23T19:00:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": -200,
-     "decimal": 1.5
-    },
-    "away": {
-     "american": 167,
-     "decimal": 2.67
-    }
-   },
-   "participants": [
-    {
-     "name": "Anyone's Legend",
-     "alignment": "home"
-    },
-    {
-     "name": "Karmine Corp",
      "alignment": "away"
     }
    ]
@@ -188,6 +162,32 @@
    ]
   },
   {
+   "matchup_id": 1638755459,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-24T00:00:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": -512,
+     "decimal": 1.1953
+    },
+    "away": {
+     "american": 368,
+     "decimal": 4.68
+    }
+   },
+   "participants": [
+    {
+     "name": "Bilibili",
+     "alignment": "home"
+    },
+    {
+     "name": "Movistar KOI",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
    "matchup_id": 1638754606,
    "league": "League of Legends - World Championship",
    "start_utc": "2026-10-23T23:00:00Z",
@@ -209,6 +209,32 @@
     },
     {
      "name": "LYON",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
+   "matchup_id": 1638750902,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-23T19:00:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": -200,
+     "decimal": 1.5
+    },
+    "away": {
+     "american": 167,
+     "decimal": 2.67
+    }
+   },
+   "participants": [
+    {
+     "name": "Anyone's Legend",
+     "alignment": "home"
+    },
+    {
+     "name": "Karmine Corp",
      "alignment": "away"
     }
    ]
