@@ -308,9 +308,21 @@ def collect_leaguepedia(max_rows: int = 60000) -> dict:
 
     # Also query Leaguepedia's unthrottled MediaWiki Data: namespace for official mid-split
     # disqualifications / league removals (`|dqteams=...`) across active competitions.
-    pages = sorted({r["overview_page"] for r in clean if r.get("overview_page") and ("2026" in r["overview_page"] or "2027" in r["overview_page"])})
+    # Query Leaguepedia's MediaWiki API for official mid-split disqualifications / league removals
+    # (`|dqteams=...`) across the exact active tournament pages referenced by scheduled fixtures.
+    hs_doc = load_json(os.path.join(RAW, "hotspawn_lol.json")) or {}
+    hs_teams = {norm_name(re.sub(r"\s*\([^)]*\)\s*$", "", f[s]["name"]))
+                for f in (hs_doc.get("fixtures") or []) for s in ("team0", "team1")}
+    page_overlap: dict[str, int] = {}
+    for r in clean:
+        pg = r.get("overview_page") or ""
+        if pg and ("2026" in pg or "2027" in pg):
+            for t in (r["team1"], r["team2"]):
+                if norm_name(re.sub(r"\s*\([^)]*\)\s*$", "", t)) in hs_teams:
+                    page_overlap[pg] = page_overlap.get(pg, 0) + 1
+    top_pages = [p for p, _ in sorted(page_overlap.items(), key=lambda kv: -kv[1])[:60]]
     dq_by_page: dict[str, list[str]] = {}
-    all_titles = [t for p in pages[:120] for t in (p, f"Data:{p}")]
+    all_titles = [t for p in top_pages for t in (p, f"Data:{p}")]
     for idx in range(0, len(all_titles), 25):
         batch = all_titles[idx:idx + 25]
         qurl = "https://lol.fandom.com/api.php?" + urllib.parse.urlencode({
