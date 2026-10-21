@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Probe hotspawn
-        run: python3 tools/probe7.py > probe-report7.txt 2>&1 || true
+        run: python3 tools/probe7.py > probe-report7.txt 2>&1 || true 2>&1 || true
       - name: Publish diagnostics back to the branch
         run: |
           git config user.name "arena-bot"
