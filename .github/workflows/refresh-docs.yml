@@ -1,0 +1,70 @@
+name: Refresh docs dashboard (Node pipeline, every 6h)
+
+# Secondary publisher — writes ONLY docs/** and data/node/**.
+# The canonical root pages are owned by tools/ via refresh.yml; this workflow
+# never touches them. Both workflows share the `refresh-picks` concurrency
+# group so the two bots serialize and can never push-race each other.
+
+on:
+  schedule:
+    # every 6 hours (within the 4–8h requirement): 00:05, 06:05, 12:05, 18:05 UTC
+    - cron: "5 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/refresh-docs.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-picks
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    # do not re-trigger on bot commits
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Collect + analyze + build docs site
+        run: node scripts/run_all.mjs
+
+      - name: Commit and push refreshed data + docs site
+        run: |
+          set -e
+          BR="${GITHUB_REF_NAME}"
+          COUNTS=$(node -e "const s=require('./data/node/picks.json').summary.counts; console.log('open='+s.open+' picks='+s.picks_total+' mkt='+(s.market_pinnacle+s.market_polymarket_only)+' model='+s.model_only+' unresolved='+s.unresolved_open+' flags='+s.flags_needs_review)")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/node docs
+          if git diff --cached --quiet; then
+            echo "No data changes this run."
+            exit 0
+          fi
+          git commit -m "chore(docs): refresh Node-pipeline dashboard — ${COUNTS} [skip ci]"
+          # Sync with remote. If another run/push landed meanwhile, the freshly
+          # generated files from THIS run win (they are the newest snapshot).
+          if ! git pull --rebase -X theirs origin "$BR"; then
+            echo "Rebase conflict — replaying fresh outputs on top of remote HEAD."
+            git rebase --abort 2>/dev/null || true
+            git fetch origin "$BR"
+            git reset --soft "origin/$BR"
+            git add data/node docs
+            if git diff --cached --quiet; then echo "Remote already has this data."; exit 0; fi
+            git commit -m "chore(docs): refresh Node-pipeline dashboard — ${COUNTS} [skip ci]"
+          fi
+          git push origin "HEAD:$BR"
+          echo "Pushed refresh: ${COUNTS}"

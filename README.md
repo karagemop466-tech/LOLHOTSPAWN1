@@ -80,11 +80,37 @@ summary links to every view, and each source's availability is recorded.
 
 ## Repository layout
 
-- `tools/` — the only publisher (collect → model → report → flags → site → verify)
-- `data/` — generated dataset, CSV, flags, verification result and build log
+- `tools/` — the only publisher of the root pages (collect → model → report → flags → site → verify)
+- `data/` — generated dataset, CSV, flags, verification result and build log (`tools/` scope)
 - `assets/` — `style.css`, `app.js` (tabs, timezone conversion, no dependencies)
+- `scripts/` — secondary Node pipeline (zero dependencies), publishes only `docs/` + `data/node/`
+- `docs/` — the secondary dashboard, served at <https://karagemop466-tech.github.io/LOLHOTSPAWN1/docs/>
+- `data/node/` — the Node pipeline's data scope (`picks.json`, `flags.json`, `model/`, `raw/`, `history/`)
 - `archive/` — superseded sessions, kept as audit evidence; nothing there runs
 - `evidence/snapshot/` — frozen raw responses backing the published numbers
+
+## Secondary dashboard (`docs/`, session `f6e73320`)
+
+A second, fully independent implementation of the same brief runs alongside the canonical site. It is
+an **audit companion, not a competitor**: it never writes root pages, and it refreshes on its own
+workflow (`.github/workflows/refresh-docs.yml`, cron `5 */6 * * *`) inside the shared `refresh-picks`
+concurrency group, so the two bots serialize and cannot race.
+
+- **Pipeline**: `scripts/collect.mjs` → `scripts/analyze.mjs` → `scripts/build_site.mjs` (Node ≥ 18, no
+  dependencies). Data scope: `data/node/**`; published pages: `docs/**` (7 pages, mobile-first).
+- **Lines**: Pinnacle guest API moneylines (devigged; with retry + persistent listing cache + odds-line
+  reconstruction against the intermittent `/matchups` 401), Polymarket series markets (mid-price when
+  spread ≤ 6¢, else renormalized last prices; game-level submarkets filtered out), then an own Elo model
+  over the Hotspawn results archive (1,102 ended fixtures, 462 teams) for everything else.
+- **Differences by design**: quarantines stale fixtures (>24 h past start, never settled) instead of
+  listing them; 12 matches are left **unresolved** (no market + no history) rather than priced
+  provisionally; flags start-time discrepancies between Hotspawn and Pinnacle/Polymarket per match.
+- **Entry point**: `docs/index.html` — executive summary, all-picks list, unresolved, flagged,
+  methodology, results, models.
+
+Where the two dashboards agree (9 Pinnacle-priced matches, same pick sides, same irregularity classes
+found independently) is the strongest verification this repo offers; where they differ, both
+presentations are one click apart and each row carries its source links.
 
 ## Running it locally
 
