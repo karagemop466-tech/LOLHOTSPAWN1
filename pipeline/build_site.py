@@ -69,6 +69,14 @@ def load(name):
         return json.load(f)
 
 
+def tier_label(t):
+    """Hotspawn reports many amateur leagues as 'waiting for information' - show them as Unrated."""
+    t = (t or "").strip()
+    if not t or t.lower() in ("waiting for information", "unrated"):
+        return "Unrated"
+    return t.upper()
+
+
 def esc(v):
     return html.escape(str(v)) if v is not None else ""
 
@@ -177,7 +185,7 @@ def pick_card(m, compact=False):
   <div class="card-head">
     <div>
       <h3>{esc(t1["name"])} <span class="vs">vs</span> {esc(t2["name"])}</h3>
-      <p class="meta">{esc(m["tournament"])} · Tier {esc(m["tier"].upper() if m["tier"] else "—")} · <span data-utc="{esc(m["start_utc"] or "")}">{esc(fmt_time(m["start_utc"]))}</span></p>
+      <p class="meta">{esc(m["tournament"])} · Tier {esc(tier_label(m["tier"]))} · <span data-utc="{esc(m["start_utc"] or "")}">{esc(fmt_time(m["start_utc"]))}</span></p>
     </div>
     <span class="pill conf-{esc(p["confidence"])}">{esc(p["confidence"].title())} confidence</span>
     {('<span class="pill tier">Started</span>' if began else '')}
@@ -210,7 +218,7 @@ def unresolved_row(m):
   <div class="card-head">
     <div>
       <h3>{esc(m["team1"]["name"])} <span class="vs">vs</span> {esc(m["team2"]["name"])}</h3>
-      <p class="meta">{esc(m["tournament"])} · Tier {esc(m["tier"].upper() if m["tier"] else "—")} · {esc(fmt_time(m["start_utc"]))}</p>
+      <p class="meta">{esc(m["tournament"])} · Tier {esc(tier_label(m["tier"]))} · {esc(fmt_time(m["start_utc"]))}</p>
     </div>
     <span class="pill no">No external market</span>
   </div>
@@ -356,7 +364,7 @@ def page_unresolved(matches, meta, tournaments):
         opened = " open" if len(rows) <= 6 else ""
         groups.append(f"""
 <details class="panel league-block"{opened}>
-  <summary><strong>{esc(league)}</strong> <span class="pill tier">{esc(tier.upper() if tier else "—")} tier</span>
+  <summary><strong>{esc(league)}</strong> <span class="pill tier">{esc(tier_label(tier))} tier</span>
     <span class="muted small">{len(rows)} match{'es' if len(rows) != 1 else ''} without an external market</span></summary>
   <div class="cardlist">{''.join(unresolved_row(m) for m in rows)}</div>
 </details>""")
@@ -385,7 +393,7 @@ def page_unresolved(matches, meta, tournaments):
 
 def page_tournaments(matches, meta, tournaments):
     rows = "".join(
-        f'<tr><td>{esc(t["tournament"])}</td><td><span class="pill tier">{esc((t["tier"] or "—").upper())}</span></td>'
+        f'<tr><td>{esc(t["tournament"])}</td><td><span class="pill tier">{esc(tier_label(t["tier"]))}</span></td>'
         f'<td class="num">{t["matches"]}</td><td class="num">{t["resolved"]}</td>'
         f'<td class="num">{t["unresolved"]}</td>'
         f'<td class="num">{100 * t["resolved"] / max(1, t["matches"]):.0f}%</td></tr>'
