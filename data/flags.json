@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T20:57:28Z",
+ "generated_utc": "2026-10-21T21:07:01Z",
  "count": 12,
  "flags": [
   {
@@ -64,7 +64,7 @@
   },
   {
    "severity": "medium",
-   "item": "67 fixtures still listed as 'scheduled' although their start time has passed",
+   "item": "69 fixtures still listed as 'scheduled' although their start time has passed",
    "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time is more than three hours in the past (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. Most likely postponed or awaiting a result.",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
