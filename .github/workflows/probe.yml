@@ -6,11 +6,21 @@ on:
       - ".github/workflows/probe.yml"
       - "tools/probe.sh"
 
+permissions:
+  contents: write
+
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - name: Probe endpoints
         run: bash tools/probe.sh
+      - name: Commit evidence
+        run: |
+          git config user.name "arena-agent"
+          git config user.email "agent@users.noreply.github.com"
+          git add evidence/probe
+          git commit -m "chore(evidence): probe results [skip ci]" || echo "nothing to commit"
+          git push
