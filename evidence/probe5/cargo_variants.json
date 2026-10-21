@@ -1,0 +1,37 @@
+{
+ "v1_no_where": {
+  "url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId%2CMatchSchedule.Team1%2CMatchSchedule.Team2%2CMatchSchedule.Tournament&limit=3",
+  "status": 200,
+  "body": "Error: No field named \"Tournament\" found for the database table \"MatchSchedule\"."
+ },
+ "v2_where_datetime": {
+  "url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId%2CMatchSchedule.Team1%2CMatchSchedule.Team2%2CMatchSchedule.Tournament%2CMatchSchedule.DateTime_UTC&limit=3&where=MatchSchedule.DateTime_UTC+%3E%3D+%272026-05-01+00%3A00%3A00%27",
+  "status": 200,
+  "body": "Error: No field named \"Tournament\" found for the database table \"MatchSchedule\"."
+ },
+ "v3_where_like": {
+  "url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId%2CMatchSchedule.Team1%2CMatchSchedule.Team2%2CMatchSchedule.Tournament&limit=3&where=MatchSchedule.Tournament+LIKE+%27%25Prime+League%25%27",
+  "status": 200,
+  "body": "Error: No field named \"Tournament\" found for the database table \"MatchSchedule\"."
+ },
+ "v4_where_like_rivals": {
+  "url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId%2CMatchSchedule.Team1%2CMatchSchedule.Team2%2CMatchSchedule.Tournament&limit=5&where=MatchSchedule.Tournament+LIKE+%27%25RIVALS+LEAGUE%25%27",
+  "status": 200,
+  "body": "Error: No field named \"Tournament\" found for the database table \"MatchSchedule\"."
+ },
+ "v5_orderby": {
+  "url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId%2CMatchSchedule.Tournament%2CMatchSchedule.DateTime_UTC&limit=3&order_by=MatchSchedule.DateTime_UTC+DESC",
+  "status": 200,
+  "body": "Error: No field named \"Tournament\" found for the database table \"MatchSchedule\"."
+ },
+ "v6_tournaments": {
+  "url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=Tournaments&fields=Tournaments.Name%2CTournaments.DateStart&limit=5&where=Tournaments.DateStart+%3E%3D+%272026-08-01%27",
+  "status": 200,
+  "body": "Error: Format must be set."
+ },
+ "v7_scores": {
+  "url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId%2CMatchSchedule.Team1Score%2CMatchSchedule.Team2Score%2CMatchSchedule.Winner%2CMatchSchedule.BestOf&limit=3",
+  "status": 200,
+  "body": "Error: Format must be set."
+ }
+}
