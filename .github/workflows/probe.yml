@@ -15,11 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Probe hotspawn
-        run: python3 tools/probe3.py > probe-report3.txt 2>&1 || true
+        run: python3 tools/probe4.py > probe-report4.txt 2>&1 || true
       - name: Publish diagnostics back to the branch
         run: |
           git config user.name "arena-bot"
           git config user.email "arena-bot@users.noreply.github.com"
-          git add -f probe-report3.txt
+          git add -f probe-report4.txt
           git commit -m "chore(probe): diagnostics report [skip ci]"
           git push origin HEAD:arena/2b1b75f6-lolhotspawn1
