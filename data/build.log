@@ -1,0 +1,157 @@
+[21:05:36] hotspawn: 264 LoL fixtures
+[21:05:39] pinnacle: 12 LoL matchups, 9 with open moneylines
+[21:06:45] leaguepedia: 34616 series rows (err='')
+[21:06:46] lolesports: 80 Worlds events (status=200)
+[21:06:46] polymarket: 49 match-level markets (status=200)
+[21:06:56] sources: Pinnacle=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Polymarket=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+=== MODEL ===
+[21:07:01] rows=264 methods={'provisional': 73, 'model': 182, 'market': 9} joins=32
+[21:07:01] backtest n=3823 acc=0.6411 brier=0.2213
+=== REPORT ===
+{
+ "total": 264,
+ "counts": {
+  "provisional": 73,
+  "model": 182,
+  "market": 9
+ },
+ "per_competition": {
+  "Benelux Ascend Series 2026 Summer Split": {
+   "provisional": 1,
+   "model": 1
+  },
+  "FPL 2026 Summer Playoffs": {
+   "model": 1
+  },
+  "Benelux Ascend Series Rising 2026 Summer Playoffs": {
+   "model": 5
+  },
+  "LIT 2027 Winter Promotion": {
+   "model": 1
+  },
+  "LigaGG CELOL B 2026 Split 2": {
+   "model": 2
+  },
+  "Komplettligaen 2026 Autumn": {
+   "model": 13
+  },
+  "Benelux Ascend Series 2026 Summer Playoffs": {
+   "provisional": 1
+  },
+  "LigaGG CELOL A 2026 Split 2": {
+   "model": 1
+  },
+  "POP Esports Masters Season 7": {
+   "provisional": 1
+  },
+  "Superstrike League 2026": {
+   "model": 5,
+   "provisional": 1
+  },
+  "Legends Academy powered by \u017babka Season 3 Playoffs": {
+   "model": 1
+  },
+  "RIVALS LEAGUE Season 2": {
+   "model": 19,
+   "provisional": 7
+  },
+  "Hitpoint 2nd Div Challengers 2026 Summer Playoffs": {
+   "model": 1
+  },
+  "Icelandic Esports League 2026 Autumn": {
+   "model": 12
+  },
+  "Benelux Ascend Series 2027 Winter Promotion": {
+   "model": 5
+  },
+  "Arabian League 2nd Division 2026 Summer": {
+   "provisional": 4,
+   "model": 8
+  },
+  "Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait": {
+   "provisional": 2
+  },
+  "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine": {
+   "provisional": 6,
+   "model": 1
+  },
+  "LigaGG CELOL B 2026 Split 2 Playoffs": {
+   "model": 5
+  },
+  "4 Nations 2026 Halloween Heist": {
+   "model": 16,
+   "provisional": 3
+  },
+  "PRM 3rd Division 26-27 Fall": {
+   "provisional": 18,
+   "model": 47
+  },
+  "EM 2026 Summer Main Event": {
+   "market": 1
+  },
+  "PRM 2nd Division 26-27 Fall": {
+   "model": 31,
+   "provisional": 9
+  },
+  "Worlds 2026 Main Event": {
+   "market": 8
+  },
+  "Tunisian Super League 2026": {
+   "provisional": 20,
+   "model": 5
+  },
+  "LGC Rising 2026 Playoffs": {
+   "model": 1
+  },
+  "LCP 2027 Promotion": {
+   "model": 1
+  }
+ }
+}
+
+UNRESOLVED 0
+
+NON-EXACT JOINS 12
+  competition-page | Nameless -> Nameless (Benelux Team) | ambiguous in Leaguepedia (Nameless (Benelux Team), Nameless (Female and Non-Binary Team), 
+  base-name | BiPOLAR -> BiPOLAR (Benelux Team) | Leaguepedia lists this team as 'BiPOLAR (Benelux Team)'
+  competition-page | Venus -> Venus (Benelux Team) | ambiguous in Leaguepedia (Venus (Benelux Team), Venus (Turkish Team)); resolved by the 'Be
+  competition-page | Fenrir -> Fenrir (Icelandic Team) | ambiguous in Leaguepedia (Fenrir (Filipino Team), Fenrir (Icelandic Team), Fenrir (Swedish
+  base-name | Arena -> Arena (Kuwaiti Team) | Leaguepedia lists this team as 'Arena (Kuwaiti Team)'
+  competition-page | OverPower -> Overpower (Kuwaiti Team) | ambiguous in Leaguepedia (OverPower (Bulgarian Team), Overpower (Kuwaiti Team)); resolved 
+  base-name | Inari Esports -> Inari Esports (British Team) | Leaguepedia lists this team as 'Inari Esports (British Team)'
+  base-name | Rich Gang -> Rich Gang (Norwegian Team) | Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'
+  competition-page | Locked IN -> Locked In (Dutch Team) | ambiguous in Leaguepedia (LOCKED IN (French Team), Locked IN (European Team), Locked In (D
+  base-name | LYON -> LYON (2024 American Team) | Leaguepedia lists this team as 'LYON (2024 American Team)'
+  base-name | Infinity Gaming -> Infinity Gaming (Brazilian Team) | Leaguepedia lists this team as 'Infinity Gaming (Brazilian Team)'
+  none | Phong Vũ Buffalo -> None | 
+
+PRICED 9
+  EM 2026 Summer Main Event | ['Galions', 'Solary'] 0.5342 {'home': 2.05, 'away': 1.7874}
+  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7747 {'home': 1.2299, 'away': 4.23}
+  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7907 {'home': 1.2041, 'away': 4.55}
+  Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.7966 {'home': 1.1953, 'away': 4.68}
+  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6403 {'home': 1.5, 'away': 2.67}
+  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4258 {'home': 2.26, 'away': 1.6757}
+  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7083 {'home': 1.3509, 'away': 3.28}
+  Worlds 2026 Main Event | ['LØS', 'T1'] 0.1544 {'home': 6.16, 'away': 1.125}
+  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4311 {'home': 2.23, 'away': 1.6897}
+=== FLAGS ===
+[21:07:01] flags: 12 items
+=== SITE ===
+[21:07:01] site: wrote 11 pages to docs/
+=== VERIFY ===
+[21:07:01] verification passed
+PASS dataset present :: 264 matches loaded
+PASS every row links to its Hotspawn match card :: 264/264 rows carry a Hotspawn URL
+PASS probabilities sum to 100% (tolerance 0.2pp) :: 264 priced rows verified; problems: []
+PASS pick matches the higher probability :: 264 rows consistent; problems: []
+PASS method values are known :: methods used: ['market', 'model', 'provisional']
+PASS no duplicate match ids :: 264 unique ids; duplicates: []
+PASS picks.csv mirrors the dataset :: csv rows=264 json rows=264
+PASS all site pages exist :: 11/11 pages
+PASS no broken internal links :: 0 problems: []
+PASS navigation on every page :: missing: []
+PASS no empty/None values rendered :: problems: []
+PASS all matches rendered on the picks page :: 264/264 match cards found
+PASS executive summary links to every picks view :: present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']
+PASS source availability recorded :: 7/12 sources reachable on this build

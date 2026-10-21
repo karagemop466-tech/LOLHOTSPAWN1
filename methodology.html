@@ -3,84 +3,88 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Methodology · LoL Pick'em Board</title>
-<meta name="description" content="League of Legends picks and win probabilities for every match in the Hotspawn Play pick'em lobby, built from external bookmaker and prediction-market prices.">
+<title>Method · Hotspawn LoL Pick Desk</title>
+<meta name="description" content="Independent League of Legends pick'em lines for every match listed on Hotspawn.">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
-  <div class="wrap topbar-inner">
-    <a class="brand" href="index.html">
-      <span class="brand-mark">LoL</span>
-      <span class="brand-text">Pick'em Board<small>Hotspawn lobby coverage</small></span>
-    </a>
-    <div class="stamp" title="Data collection timestamp">
-      <span class="dot"></span>Updated Wed 21 Oct 20:53 UTC
-    </div>
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html" class="active">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
-  <nav class="wrap nav"><a class="nav-link" href="index.html">Summary</a><a class="nav-link" href="picks.html">Picks</a><a class="nav-link" href="unresolved.html">Unresolved</a><a class="nav-link" href="tournaments.html">Leagues</a><a class="nav-link active" href="methodology.html">Method</a><a class="nav-link" href="sources.html">Sources</a><a class="nav-link" href="flagged.html">Flagged</a></nav>
 </header>
-<main class="wrap">
+<main id="main" class="wrap">
+  <div class="pagehead">
+    <h1>Method</h1>
+    <p class="sub">How each number on this site is produced, and what we refuse to do.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-21 21:09 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+  </div>
+  
+<section class="panel">
+  <h2>The pipeline</h2>
+  <ol class="steps">
+    <li><strong>Inventory.</strong> Every League of Legends fixture is pulled from Hotspawn's own pick'em
+    fixtures API (the same JSON that renders <a href="https://play.hotspawn.com/lol-pickems" rel="noopener">play.hotspawn.com/lol-pickems</a>).</li>
+    <li><strong>Market prices.</strong> Pinnacle's esports feed is filtered to League of Legends, then each
+    matchup's moneyline is pulled. Polymarket is used only where a live two-sided market exists.</li>
+    <li><strong>History.</strong> Every series result since MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27; comes from Leaguepedia's Cargo
+    export of <code>MatchSchedule</code>, the community-maintained results database for LoL esports.</li>
+    <li><strong>Our line.</strong> Elo is fitted over series results in chronological order, then decayed for
+    inactivity and shrunk toward the mean for teams with few results.</li>
+    <li><strong>Publish.</strong> The site is regenerated and verified by CI, then committed to GitHub Pages.</li>
+  </ol>
+</section>
 
-<section class="panel prose">
-  <h1>Methodology</h1>
-  <h2>1. Match universe (Hotspawn)</h2>
-  <p><code>https://play.hotspawn.com/lol-pickems</code> is an Angular SSR page. Its hydrated state is embedded in
-  <code>&lt;script id="ng-state"&gt;</code>; the collector reads the match list from that JSON. We take
-  <em>only</em> the fixtures: id, teams, competition, tier, kickoff, points. Crowd percentages are stored for
-  display and are excluded from every calculation.</p>
+<section class="panel">
+  <h2>Formulas</h2>
+  <p>Expected score for team A:</p>
+  <p class="formula">E<sub>A</sub> = 1 / (1 + 10^((R<sub>B</sub> - R<sub>A</sub>)/400))</p>
+  <p>Rating update after a series (K = 24.0):</p>
+  <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
+  <p>Shrinkage towards the 1500 start rating for a team with n rated series:</p>
+  <p class="formula">R<sub>eff</sub> = 1500 + (R - 1500) &middot; n / (n + 5.0)</p>
+  <p>Time decay begins after 45 days without a series and reaches the 1500 baseline
+  after 450 days.</p>
+  <p>Probabilities are clamped to 0.05-0.95.</p>
+</section>
 
-  <h2>2. External prices</h2>
-  <p>Three sources are queried on every refresh:</p>
-  <ul>
-    <li><strong>Bovada</strong> — public pre-match coupon for League of Legends, Head-to-Head moneyline, full series.</li>
-    <li><strong>Pinnacle</strong> — guest API, sport 12 (E Sports) filtered to League of Legends leagues, full-series moneyline.</li>
-    <li><strong>Polymarket</strong> — Gamma API, <code>league-of-legends</code> tag, open series markets. The traded price is used directly.</li>
+<section class="panel">
+  <h2>Out-of-sample backtest</h2>
+  <p class="lead">The model is a live predictor, so we score it the way a bettor would: every series after
+   is predicted using only results recorded before it, then the rating is updated.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>Sample</th><th>Series</th><th>Accuracy</th><th>Brier</th><th>Log loss</th></tr></thead><tbody><tr><td data-label="Sample">All out-of-sample series</td><td data-label="Series">0</td><td data-label="Accuracy">&mdash;</td><td data-label="Brier">—</td><td data-label="Log loss">—</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Favourite bucket</th><th>Series</th><th>Predicted (avg)</th><th>Actual win rate</th></tr></thead><tbody></tbody></table></div>
+  <p class="small muted">A perfectly calibrated model has an actual win rate close to the predicted average
+  in each bucket. Brier and log loss are lower-is-better; 0.25 is what a coin flip scores on Brier.</p>
+</section>
+
+<section class="panel">
+  <h2>What we deliberately do not do</h2>
+  <ul class="bullets">
+    <li>We never use Hotspawn's crowd pick percentages as an input. They are captured in the raw data for
+    transparency only.</li>
+    <li>We never use Hotspawn's own editorial predictions as a probability.</li>
+    <li>We do not fill in a missing price with a guess. Missing data means a provisional line with the
+    limitation printed on the card, or an unresolved entry.</li>
+    <li>We do not blend bookmaker and model numbers into one figure. Each row says which method produced it.</li>
   </ul>
-  <p>Each two-way price is converted to implied probability (<code>1/decimal</code>) and de-vigged proportionally:
-  <code>p = implied / (implied_a + implied_b)</code>. Multiple sources are combined with the median, which is robust
-  to a single stale or mispriced book. The published probability is the median for the favourite; dispersion
-  (max − min across sources) sets confidence: ≤5pp high, ≤12pp medium, otherwise low.</p>
+</section>
 
-  <h2>3. Matching</h2>
-  <p>Team names are normalised (case, accents, punctuation, and generic suffixes such as “Esports”, “Gaming”,
-  “Team”). A pair matches when both sides match exactly or one name contains the other (e.g. “LYON” /
-  “Lyon Gaming”). Name variants are flagged on the review page. Kickoff timestamps must agree within 48 hours
-  when both sides have one.</p>
-
-  <h2>4. When nothing is listed</h2>
-  <p>No price means no probability. The match is published on <a href="unresolved.html">Unresolved</a> with the
-  reason. We do not fall back to Hotspawn crowd data, and we do not interpolate a number to fill the table.</p>
-
-  <h2>5. Freshness</h2>
-  <p>A GitHub Actions workflow runs every 4 hours (<code>17 */4 * * *</code> UTC), refetches both the lobby and the
-  markets, rebuilds these pages and commits them. The timestamp in the header is the generation time of the
-  snapshot you are reading. Hotspawn adds matches continuously, so a match that appears after a run will show up
-  on the next one (within 4 hours).</p>
-
-  <h2>6. Known limits</h2>
-  <ul>
-    <li>Books publish lines close to kickoff. Early in a day the priced-match count is lower.</li>
-    <li>Polymarket prices are last-trade/mid prices, not bookmaker lines; they are labelled per card.</li>
-    <li>Pinnacle’s guest API is undocumented and may change; the Sources page shows its live status each run.</li>
-    <li>No model-driven probabilities are published. Any number shown is traceable to a linked external price.</li>
-  </ul>
-
-  <h2>7. Data files</h2>
-  <p>Every page is generated from the JSON in <a href="data/matches.json">data/matches.json</a>,
-  <a href="data/unresolved.json">data/unresolved.json</a>, <a href="data/quotes.json">data/quotes.json</a> and
-  <a href="data/sources.json">data/sources.json</a>. Snapshot generated 2026-10-21T20:53:11Z.</p>
+<section class="panel">
+  <h2>Refresh</h2>
+  <p>A scheduled GitHub Actions workflow runs every 6 hours (cron <code>17 */6 * * *</code>), re-collects all
+  sources, rebuilds the dataset and this site, runs the verification gate, and commits. The timestamp at the
+  top of each page is the snapshot time in UTC.</p>
 </section>
 
 </main>
-<footer class="wrap footer">
-  <p><strong>264</strong> matches tracked ·
-     <strong>9</strong> priced ·
-     <strong>255</strong> unresolved ·
-     refreshed every 4 hours from GitHub Actions.</p>
-  <p class="muted">Probabilities are derived from external bookmaker prices and prediction markets.
-     Match list comes from Hotspawn Play. Crowd pick percentages are shown for context only and are
-     never used in any probability. Betting involves risk; this is research, not advice.</p>
+<footer class="wrap foot">
+  <p>Independent research dashboard. Every row links to its source. Not betting advice.</p>
+  <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
+  <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a></p>
 </footer>
 <script src="assets/app.js"></script>
 </body>

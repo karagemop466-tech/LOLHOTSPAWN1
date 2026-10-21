@@ -1,29 +1,16 @@
 name: refresh-picks
 
-# Collects the Hotspawn League of Legends pick'em list plus external market
-# prices, rebuilds the static dashboard and publishes it to GitHub Pages.
-#
-# Cadence: every 4 hours (requirement: 4-8h). GitHub may delay scheduled runs at
-# peak times; the workflow also runs on every push that touches the pipeline and
-# can be started manually from the Actions tab.
-
 on:
   schedule:
-    - cron: "17 */4 * * *"
+    # every 6 hours (within the requested 4-8h window), off the hour to avoid the cron rush
+    - cron: "17 */6 * * *"
   workflow_dispatch:
-  push:
-    branches: ["main", "arena/2b1b75f6-lolhotspawn1"]
-    paths:
-      - "pipeline/**"
-      - ".github/workflows/refresh.yml"
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
-  group: refresh-picks-${{ github.ref_name }}
+  group: refresh-picks
   cancel-in-progress: false
 
 jobs:
@@ -32,55 +19,27 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Collect Hotspawn matches + external market prices
-        run: |
-          set -o pipefail
-          python3 pipeline/build_data.py 2>&1 | tee build.log
-
-      - name: Build static dashboard
-        if: always()
-        run: python3 pipeline/build_site.py 2>&1 | tee -a build.log || true
-
-      - name: Summarise
-        run: |
-          python3 - <<'PY'
-          import json, pathlib
-          meta = json.loads(pathlib.Path("data/meta.json").read_text())
-          c = meta["counts"]
-          print(f"matches={c['matches']} resolved={c['resolved']} unresolved={c['unresolved']} "
-                f"tournaments={c['tournaments']} quotes={c['quotes']}")
-          for s in meta["sources"]:
-              print(f"  {s['book']}: {s['status']} quotes={s['quotes']} {s.get('error') or ''}")
-          PY
-
+      - name: Collect sources
+        run: python3 tools/collect.py
+      - name: Build probabilities and picks
+        run: python3 tools/model.py
+      - name: Derive flagged items
+        run: python3 tools/flags.py
+      - name: Build the GitHub Pages site
+        run: python3 tools/site.py
+      - name: Verify the dataset and the site
+        run: python3 tools/verify.py
       - name: Commit refreshed data and site
-        if: always()
         run: |
-          git config user.name "arena-bot"
-          git config user.email "arena-bot@users.noreply.github.com"
-          git add -A data assets .nojekyll *.html build.log 2>/dev/null || git add -A data build.log
+          git config user.name "arena-agent"
+          git config user.email "agent@users.noreply.github.com"
+          git add -A
           if git diff --cached --quiet; then
-            echo "No changes to publish."
+            echo "no changes"
           else
-            git commit -m "chore(data): refresh picks $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            git commit -m "chore(data): refresh picks and rebuild site [skip ci]"
+            git push
           fi
-
-      # Pushes made with GITHUB_TOKEN do not start other workflows, so the Pages
-      # build is requested explicitly (legacy Pages builder).
-      - name: Request GitHub Pages rebuild
-        if: always() && github.ref_name == 'main'
-        continue-on-error: true
-        run: |
-          curl -sS -X POST \
-            -H "Authorization: Bearer ${{ github.token }}" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/pages/builds" \
-            -o /dev/null -w "pages build request: %{http_code}\n"

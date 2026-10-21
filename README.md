@@ -1,60 +1,54 @@
-# Hotspawn LoL Pick'em Board
+# Hotspawn LoL Pick Desk
 
-A self-refreshing dashboard that mirrors **every League of Legends match in the Hotspawn Play
-pick'em lobby** and publishes a pick plus a bookmaker-derived win probability for every match that
-an external sportsbook or prediction market actually prices.
+Independent win probabilities and picks for **every League of Legends match listed in the Hotspawn
+pick'em** (`https://play.hotspawn.com/lol-pickems`).
 
 **Live site:** https://karagemop466-tech.github.io/LOLHOTSPAWN1/
-(Executive summary → Picks → Unresolved → Leagues → Method → Sources → Flagged.)
 
 ## What it does
 
-| Step | Detail |
+* Pulls the exact fixture list from Hotspawn's own pick'em fixtures API (264 LoL matches at the
+  time of writing).
+* Prices the featured matches from a real bookmaker feed (Pinnacle moneylines, de-vigged), with
+  Polymarket as a prediction-market cross-check.
+* Originates its own Elo line for every other match from Leaguepedia series results.
+* Publishes a mobile-first dashboard where every row links to its source, and flags every
+  limitation instead of hiding it.
+* Refreshes automatically every 6 hours through GitHub Actions (`17 */6 * * *`).
+
+## Pages
+
+| Page | Purpose |
 |---|---|
-| Fixtures | `https://play.hotspawn.com/lol-pickems` — Angular SSR page, match list read from the embedded `<script id="ng-state">` JSON. 264 matches / 27 competitions in the reference snapshot. |
-| Prices | Bovada (US sportsbook), Pinnacle (sharp book), Polymarket (prediction market). Two-way moneylines only, de-vigged proportionally, blended by median. |
-| Output | Pick, win probability, confidence, every source with a link, or an explicit "no external market" reason. |
-| Cadence | GitHub Actions cron `17 */4 * * *` (every 4 hours) + manual dispatch + push. |
-| Pages | Static HTML in the repo root, styled mobile-first, published by GitHub Pages. |
+| `index.html` | Executive summary with in-site links to every picks view |
+| `picks.html` | Every match, filterable and searchable |
+| `featured.html` | Market-backed picks with odds and the de-vig maths |
+| `originated.html` | Our own Elo lines with the inputs shown |
+| `unresolved.html` | Unresolved matches, provisional lines and every limitation |
+| `competitions.html` | Coverage by tournament |
+| `teams.html` | Ratings and name-join evidence |
+| `methodology.html` | Formulas, sources, backtest, exclusions |
+| `verification.html` | The checks every build must pass |
+| `sources.html` | Every source and its HTTP status on the last run |
+| `flagged.html` | Irregularities and unverified items |
 
-**Hotspawn crowd pick percentages are stored for display only and never enter a probability.** If no
-external market exists, the match is published on the *Unresolved* page — we do not invent a number.
-
-## Repository layout
+## Pipeline
 
 ```
-pipeline/           collector, market adapters, data builder, static-site builder (stdlib only)
-  hotspawn.py       ng-state parser for the LoL pick'em lobby
-  markets.py        Bovada / Pinnacle / Polymarket adapters (+ unused 1xBet attempt)
-  build_data.py     matching, de-vigging, consensus, picks, unresolved reasons
-  build_site.py     renders the dashboard pages from data/
-data/               generated JSON/CSV snapshots (committed so the site is static)
-assets/             site CSS + small progressive-enhancement JS
-tools/              one-off diagnostics used to reverse-engineer the sources
-.github/workflows/  refresh.yml (collect → build → commit → Pages), probe.yml (diagnostics)
-*.html              generated dashboard pages
-COORDINATION.md     shared task board for parallel agent sessions
-VERIFICATION.md     line-by-line verification notes and open irregularities
+tools/collect.py   # Hotspawn fixtures, Pinnacle, Leaguepedia, LoL Esports, Polymarket, source probe
+tools/model.py     # team resolution, Elo, picks, data/matches.json + data/picks.csv
+tools/report.py    # diagnostics
+tools/flags.py     # data/flags.json (curated + derived)
+tools/site.py      # static site at the repository root
+tools/verify.py    # hard gate: fails the build instead of publishing bad data
 ```
 
-## Run locally
+Run locally with `python3 tools/collect.py && python3 tools/model.py && python3 tools/flags.py
+&& python3 tools/site.py && python3 tools/verify.py`. No third-party Python packages are used.
 
-```bash
-python3 pipeline/build_data.py     # hits Hotspawn + the three market APIs
-python3 pipeline/build_site.py     # regenerates the HTML in the repo root
-python3 -m http.server 8000        # preview at http://localhost:8000
-```
+## Data notes
 
-Python 3.10+ standard library only — no pip installs, no API keys. Pinnacle's guest key is the
-public one their website uses; Bovada and Polymarket endpoints are public.
-
-## Known limits
-
-* Only tier-1/tier-2 competitions are traded by regulated books. Amateur and semi-pro leagues
-  (PRM 2nd/3rd Division, Tunisian Super League, Icelandic Esports League, 4 Nations, LigaGG, …)
-  are listed but unpriced — see the *Unresolved* page for the per-league reason.
-* Books post lines close to kickoff, so the priced count is lowest right after a daily rollover.
-* Polymarket quotes are market mid/last prices, not bookmaker lines; they are labelled as such.
-
-See `VERIFICATION.md` for the source-by-source verification trail and the irregularities that are
-flagged for human review.
+* Hotspawn's community pick percentages are captured in the raw feed but **never** used by the
+  model or by any published probability.
+* Raw source dumps are not committed (`data/raw/`); every value used in the outputs is preserved in
+  `data/matches.json`, and the exact endpoints are listed in `data/sources_status.json`.

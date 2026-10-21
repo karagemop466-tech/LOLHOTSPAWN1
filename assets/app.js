@@ -1,60 +1,65 @@
-/* Progressive enhancement for the LoL pick'em board: local-time rendering and
-   client-side filtering/sorting on the picks page. Everything works without it. */
 (function () {
   "use strict";
 
-  // 1. Show kickoff times in the visitor's timezone next to the UTC stamp.
-  document.querySelectorAll("[data-utc]").forEach(function (el) {
+  // 1. Show times in the visitor's own timezone (the page ships UTC and upgrades it).
+  document.querySelectorAll("time.utc[data-utc]").forEach(function (el) {
     var raw = el.getAttribute("data-utc");
-    if (!raw) return;
     var d = new Date(raw);
     if (isNaN(d.getTime())) return;
-    var local = d.toLocaleString(undefined, {
-      weekday: "short", day: "numeric", month: "short",
-      hour: "2-digit", minute: "2-digit"
-    });
-    el.textContent = local;
+    try {
+      el.textContent = d.toLocaleString(undefined, {
+        weekday: "short", month: "short", day: "numeric",
+        hour: "2-digit", minute: "2-digit"
+      });
+      el.title = raw;
+    } catch (err) { /* keep UTC text */ }
   });
 
-  // 2. Filtering / sorting of pick cards.
-  var list = document.getElementById("picklist");
-  if (!list) return;
-  var search = document.getElementById("search");
-  var league = document.getElementById("league");
-  var sort = document.getElementById("sort");
-  var cards = Array.prototype.slice.call(list.querySelectorAll(".card"));
-
-  function apply() {
-    var q = (search && search.value || "").toLowerCase().trim();
-    var lg = league && league.value;
-    cards.forEach(function (c) {
-      var text = (c.getAttribute("data-teams") || "").toLowerCase() + " " +
-                 (c.getAttribute("data-league") || "").toLowerCase();
-      var okText = !q || text.indexOf(q) !== -1;
-      var okLeague = !lg || c.getAttribute("data-league") === lg;
-      c.style.display = (okText && okLeague) ? "" : "none";
+  // 2. Mobile menu
+  var btn = document.querySelector(".menu-btn");
+  var nav = document.getElementById("nav");
+  if (btn && nav) {
+    btn.addEventListener("click", function () {
+      var open = nav.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
     });
-    var visible = cards.filter(function (c) { return c.style.display !== "none"; });
-    var mode = sort && sort.value;
-    if (mode === "prob") {
-      visible.sort(function (a, b) {
-        return parseFloat(b.getAttribute("data-prob")) - parseFloat(a.getAttribute("data-prob"));
-      });
-    } else if (mode === "edge") {
-      visible.sort(function (a, b) {
-        return parseFloat(a.getAttribute("data-edge")) - parseFloat(b.getAttribute("data-edge"));
-      });
-    } else {
-      visible.sort(function (a, b) {
-        return (a.getAttribute("data-time") || "").localeCompare(b.getAttribute("data-time") || "");
-      });
-    }
-    visible.forEach(function (c) { list.appendChild(c); });
   }
 
-  [search, league, sort].forEach(function (el) {
-    if (el) el.addEventListener("input", apply);
-    if (el) el.addEventListener("change", apply);
+  // 3. Filters on the picks page (progressive enhancement: everything is visible without JS)
+  var list = document.getElementById("list");
+  if (!list) return;
+  var q = document.getElementById("q");
+  var comp = document.getElementById("comp");
+  var chips = Array.prototype.slice.call(document.querySelectorAll(".chip[data-filter]"));
+  var counter = document.getElementById("count");
+  var empty = document.getElementById("empty");
+  var cards = Array.prototype.slice.call(list.querySelectorAll(".card"));
+  var activeMethod = "";
+
+  function apply() {
+    var term = (q && q.value || "").trim().toLowerCase();
+    var tournament = comp && comp.value || "";
+    var shown = 0;
+    cards.forEach(function (card) {
+      var okMethod = !activeMethod || card.getAttribute("data-method") === activeMethod;
+      var okComp = !tournament || card.getAttribute("data-comp") === tournament;
+      var okTerm = !term || (card.getAttribute("data-text") || "").indexOf(term) !== -1;
+      var show = okMethod && okComp && okTerm;
+      card.hidden = !show;
+      if (show) shown++;
+    });
+    if (counter) counter.textContent = shown + " matches shown";
+    if (empty) empty.hidden = shown !== 0;
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      chips.forEach(function (c) { c.classList.remove("active"); });
+      chip.classList.add("active");
+      activeMethod = chip.getAttribute("data-filter") || "";
+      apply();
+    });
   });
-  apply();
+  if (q) q.addEventListener("input", apply);
+  if (comp) comp.addEventListener("change", apply);
 })();
