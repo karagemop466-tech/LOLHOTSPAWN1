@@ -17,11 +17,11 @@ Never start a task claimed by another session. Keep scopes non-overlapping. Smal
 
 | # | Task | Status | Owner | Files touched |
 |---|------|--------|-------|---------------|
-| T1 | Reverse-engineer Hotspawn data sources (lobby, fixtures API) + odds sources (Pinnacle, Polymarket) | in progress | arena-f6e73320 | `docs/methodology.html`, `README.md` |
-| T2 | Collector scripts: hotspawn fixtures, Pinnacle guest API, Polymarket gamma API | unclaimed | — | `scripts/collect.mjs`, `data/raw/*` |
-| T3 | Analysis engine: devig, team-name matching, own Elo model, pick generation, flags | unclaimed | — | `scripts/analyze.mjs`, `data/picks.json`, `data/model/*` |
-| T4 | Site build: mobile-first dashboard, executive summary, picks, unresolved, flagged, methodology, results pages | unclaimed | — | `scripts/build_site.mjs`, `docs/*` |
-| T5 | Automation: GitHub Actions refresh every 6h (within the 4–8h requirement), commit + Pages deploy | unclaimed | — | `.github/workflows/refresh.yml`, `scripts/run_all.mjs` |
+| T1 | Reverse-engineer Hotspawn data sources (lobby, fixtures API) + odds sources (Pinnacle, Polymarket) | done | arena-f6e73320 | `docs/methodology.html`, `README.md` |
+| T2 | Collector scripts: hotspawn fixtures, Pinnacle guest API, Polymarket gamma API | in progress | arena-f6e73320 | `scripts/collect.mjs`, `data/raw/*` |
+| T3 | Analysis engine: devig, team-name matching, own Elo model, pick generation, flags | in progress | arena-f6e73320 | `scripts/analyze.mjs`, `data/picks.json`, `data/model/*` |
+| T4 | Site build: mobile-first dashboard, executive summary, picks, unresolved, flagged, methodology, results pages | in progress | arena-f6e73320 | `scripts/build_site.mjs`, `docs/*` |
+| T5 | Automation: GitHub Actions refresh every 6h (within the 4–8h requirement), commit + Pages deploy | in progress | arena-f6e73320 | `.github/workflows/refresh.yml`, `scripts/run_all.mjs` |
 | T6 | Verification pass: line-by-line checks, source links per row, flag irregularities | unclaimed | — | `data/flags.json`, `docs/flagged.html` |
 | T7 | Final integration: build check, no broken links, enable Pages, PR → main, merge, record PR link | unclaimed | — | everything above (integration only) |
 
@@ -35,6 +35,7 @@ Never start a task claimed by another session. Keep scopes non-overlapping. Smal
   - Polymarket gamma API: `https://gamma-api.polymarket.com/events?closed=false&tag_slug=league-of-legends` — live LoL events incl. Worlds 2026 markets (`outcomePrices`, `bestBid/bestAsk`, volume).
   - Sandbox bash cannot reach these hosts (egress restricted to github/npm/pypi) → all live fetching runs in GitHub Actions (full egress); local iteration uses committed raw snapshots.
 - 2026-10-21 — arena-f6e73320: claiming T2–T7 as well (single active session; scopes above). Will update statuses as work lands.
+- 2026-10-21 ~21:00 UTC — arena-f6e73320: T1 done (sources verified live, see registry). T2–T5 code written and smoke-tested locally against synthetic fixtures mimicking the verified API shapes (exact/fuzzy name matching, devig, Elo model, unresolved + flag paths, static site render, internal-link check — all exercised; synthetic data deleted before push). Pushing now; the `push` trigger of `.github/workflows/refresh.yml` performs the first LIVE run on this branch (collect → analyze → build → commit real data + docs). After merge to main the schedule (`5 */6 * * *` UTC = every 6h) keeps the site fresh.
 
 ## Sources registry (append per task with links used)
 
