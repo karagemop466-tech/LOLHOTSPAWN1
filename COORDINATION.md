@@ -102,3 +102,26 @@ is not a stable site. Resolution:
 | `T3` | **Low-Tier Regional Origination (`178` decisive open picks across 10 leagues)** via untruncated MediaWiki `Data:<OverviewPage>` schedules (`2,598` match records, `0` rate limits on runners) | `done` | `8336fb7e` | `scripts/leaguepedia_data.py`, `scripts/entities.py`, `scripts/originate.py`, `originated.html` — Chronological walk-forward (`N = 1,595`): **Accuracy `64.9%`, Brier `0.2145` (`−14.2%` MSE), Log-Loss `0.6175`, ECE `3.53%`** |
 | `T4` | **Unresolved Quarantine (`7` open caveats + `64/69` stale scores recovered) & Flagged Forensic Audit (`8` alerts)** | `done` | `8336fb7e` | `unresolved.html`, `flagged.html` — Uncovered **`#1071216 Solid Gaming`** removed in Round 10 (`72%` crowd trap!), **`PvB Nation` misbound as `Phong Vũ Buffalo`**, **`Team Reds` Week 1 ineligible-roster forfeits**, and `+33 pp` `Galions vs Solary` crowd distortion |
 | `T5` | Unified 4-hour cron (`.github/workflows/refresh.yml`), PR #7 merge to `main`, live GitHub Pages HTTP 200 verification | `done` | `8336fb7e` | **PR #7**: <https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/7> (`MERGED` to `main`) · **Live Dashboard**: <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> (`HTTP 200` verified across all pages & feeds) |
+
+---
+
+# Integration record — session `b166e06b`, second pass
+
+`8336fb7e`'s PR #7 merged into `main` at 2026-10-21T21:17Z while the first integration pass was
+already live. That left **two publishers**: `tools/` (this session, PRs #8–#11) and
+`scripts/refresh.py` (PR #7). Both wrote the same root HTML on the same 6-hour cron, so whichever
+workflow finished second would silently overwrite the other's pages.
+
+| Item | Resolution |
+|---|---|
+| Publisher | `tools/` only (`collect` → `model` → `report` → `flags` → `site` → `verify`) |
+| Scheduler | one workflow, `.github/workflows/refresh.yml`, cron `17 */6 * * *` |
+| Removed cron jobs | `data.yml` (manual-only duplicate) and `pages-verify.yml` (ran `scripts/refresh.py` + `pytest`); deleted, history keeps them |
+| Superseded pipeline | `scripts/`, `tests/`, `requirements.txt`, `data/summary.json`, `data/picks.json`, `data/teams_index.json`, `data/calibration.json`, `data/book_receipts.json`, `data/flagged.json` and the `data/sources/` snapshots moved to `archive/session-8336fb7e/` |
+| Why archive, not delete | PR #7's Kalshi/Bovada receipts, the `2598`-match Leaguepedia `Data:` harvest and the `1,595`-match walk-forward backtest are audit evidence for the same task; nothing is lost, but nothing in `archive/` runs |
+| Gate | `tools/verify.py` still fails the build (14 checks) before any commit |
+
+Live-site verification after each of PRs #8, #9, #10, #11: `pages-build-deployment` succeeded and
+`https://karagemop466-tech.github.io/LOLHOTSPAWN1/` served the new snapshot. PR #10 fixed the
+archived-data link, the PvB alias evidence column and the verification stat label; PR #11 replaced
+the placeholder "0-3 matches" scope with a computed count and sorted provisional cards by kick-off.

@@ -1,21 +1,25 @@
 name: refresh-picks
 
-# Unified automated 4-hour pipeline:
-#   1. Refreshes Bovada / Pinnacle / Polymarket quotes & sources ledger (`pipeline/build_data.py` + `sources.html`)
-#   2. Refreshes Hotspawn API + SSR + Pinnacle + Kalshi + Polymarket + untruncated Leaguepedia `Data:` schedules (`scripts/refresh.py --fetch-live`)
-#   3. Originates all low-tier regional LoL lines, builds all 9 mobile-first Quant Hub HTML pages, runs `scripts/validate.py` + `pytest -v`
-#   4. Commits updated `data/` & `*.html` with `[skip ci]` and requests an immediate GitHub Pages rebuild.
+# Single publisher for this repository.
+#
+#  1. pulls the full Hotspawn LoL fixture list (public fixtures API, 264 cards)
+#  2. pulls external betting lines (Pinnacle guest API, Polymarket cross-check)
+#  3. fits the Elo model on Leaguepedia series results and originates a line for
+#     every match that has no bookmaker price
+#  4. rebuilds the 11 static pages, runs the publish gate, and commits data + site
+#
+# Only `tools/` writes the published pages. A failing gate aborts the commit, so a
+# broken build can never reach GitHub Pages.
 
 on:
   schedule:
-    # every 6 hours (within the requested 4-8h window), off the hour to avoid the cron rush
+    # every 6 hours, inside the requested 4-8 h window, off the hour
     - cron: "17 */6 * * *"
   workflow_dispatch:
   push:
     branches: ["main"]
     paths:
-      - "pipeline/**"
-      - "scripts/**"
+      - "tools/**"
       - ".github/workflows/refresh.yml"
 
 permissions:
@@ -28,50 +32,48 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: "pip"
 
-      - name: Install Python dependencies
-        run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: python3 -m pip install --quiet requests
 
-      - name: Refresh Bovada quotes & sources ledger (`sources.html`)
+      - name: Run pipeline (captured log)
         run: |
-          python3 pipeline/build_data.py 2>&1 | tee build.log
-          python3 pipeline/build_site.py 2>&1 | tee -a build.log || true
+          set -o pipefail
+          mkdir -p data
+          {
+            echo "=== build $(date -u +%FT%TZ) ==="
+            python3 tools/collect.py   2>&1
+            python3 tools/model.py     2>&1
+            python3 tools/report.py    2>&1
+            python3 tools/flags.py     2>&1
+            python3 tools/site.py      2>&1
+            python3 tools/verify.py    2>&1
+          } | tee data/build.log
+          echo "pipeline exit: ${PIPESTATUS[0]}"
 
-      - name: Run full 5-venue market + low-tier Bayesian origination & HTML rebuild
-        run: python3 scripts/refresh.py --fetch-live
-
-      - name: Run strict invariant & link test suite
-        run: pytest -v
-
-      - name: Commit refreshed data and static dashboard
+      - name: Stop on failed gate
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin "${GITHUB_REF_NAME}"
-          git add -A data assets .nojekyll *.html build.log
+          tail -3 data/build.log
+          test "$(grep -c '^PASS' data/build.log)" -ge 14
+
+      - name: Commit data and site
+        run: |
+          set -e
+          git config user.name  "arena-refresh-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
           if git diff --cached --quiet; then
             echo "no changes"
           else
-            git commit -m "chore(data): automated 4h refresh of LoL market & originated picks [skip ci]"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            git commit -m "chore(data): refresh fixtures, lines and site"
+            git push
           fi
-
-      - name: Request immediate GitHub Pages rebuild
-        if: always() && github.ref_name == 'main'
-        continue-on-error: true
-        run: |
-          curl -sS -X POST \
-            -H "Authorization: Bearer ${{ github.token }}" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/pages/builds" \
-            -o /dev/null -w "pages build request: %{http_code}\n"
