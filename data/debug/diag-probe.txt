@@ -1,4 +1,4 @@
-diag probe @ 2026-10-21T21:28:43Z
+diag probe @ 2026-10-21T21:35:41Z
 reachable: host + client fingerprint -> outcome
 
 * hotspawn fixtures feed — browser UA (expected 403)
@@ -396,7 +396,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-14:25:57
+14:18:58
 https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205
 View Match
 Who will win?
@@ -414,7 +414,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:25:57
+17:18:58
 https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214
 View Match
 Who will win?
@@ -432,7 +432,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:25:57
+17:18:58
 https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216
 View Match
 Who will win?
@@ -508,7 +508,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-14:25:55
+14:18:55
 https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205
 View Match
 Who will win?
@@ -526,7 +526,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:25:55
+17:18:55
 https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214
 View Match
 Who will win?
@@ -544,7 +544,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:25:55
+17:18:55
 https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216
 View Match
 Who will win?
@@ -566,7 +566,7 @@ Lock
 
 * oddsportal LoL landing (row markup sample)
   https://www.oddsportal.com/esports/league-of-legends/
-  outcome=ok chars=336077
+  outcome=ok chars=335939
   text_head: /
 Odds comparison
 /community/
@@ -670,7 +670,7 @@ vo
 
 * oddsportal LoL results page
   https://www.oddsportal.com/esports/league-of-legends/results/
-  outcome=ok chars=328054
+  outcome=ok chars=326544
   text_head: /
 Odds comparison
 /community/
@@ -774,7 +774,7 @@ vo
 
 * oddsportal Worlds tournament page
   https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/
-  outcome=ok chars=478621
+  outcome=ok chars=477383
   text_window:  betting experience during Esports' most anticipated annual event.
 League of Legends World Championship Format & Structure
 There are several weeks of gruelling, intense competition at the The LoL World Championship, with the tournament beginning with play-ins, where teams from emerging regions and lower seeds from major regions battle for limited spots in the main event. This initial stage already provides you with numerous LoL betting opportunities, especially as teams chase a dream of competing in the main event and performing at above their usual level, naturally resulting in unpredictability. But overall, the initial stage is just a taster for the main event, the League of Legends World Championship.
@@ -839,13 +839,13 @@ CTBC Flying Oyster
 
 * polymarket closed markets
   https://gamma-api.polymarket.com/markets?closed=true&limit=5&order=updatedAt&ascending=false
-  outcome=ok chars=41273
+  outcome=ok chars=32713
   items: 5
-  first_preview: {"id": "5425675", "question": "Exact Score: Reading FC 1 - 5 Leyton Orient FC?", "conditionId": "0xa3d282585a458ab08151b3f30669c853c450f435fedfb06614a57364b22029eb", "slug": "el1-rea-ley-2026-10-21-exact-score-1-5", "endDate": "2026-10-21T19:00:00Z", "liquidity": "0", "startDate": "2026-10-08T08:15:48Z", "description": "In the upcoming League One game between Reading FC and Leyton Orient FC, scheduled for October 21, 2026 at 3:00 PM ET: This market will resolve based on the final score of the Reading FC vs. Leyton Orient FC match originally scheduled for October 21, 2026 at 3:00 PM ET, conside
+  first_preview: {"id": "6020334", "question": "Ibrahim Mbaye: 3+ shots", "conditionId": "0xe8a4f8d27a1cc0ba6a60a857692148e6f25ae9ef8d24e47f7dac19d7d5120607", "slug": "ucl-ast-vf-2026-10-21-shots-ibrahim-mbaye-90123640-gte3", "resolutionSource": "https://www.uefa.com/", "endDate": "2026-10-21T19:00:00Z", "liquidity": "0", "startDate": "2026-10-21T18:15:22Z", "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/champions-league-pic-QIUFsL8vaDdq.png", "icon": "https://polymarket-upload.s3.us-east-2.amazonaws.com/champions-league-pic-QIUFsL8vaDdq.png", "description": "In the upcoming UEFA Champions Leag
 
 * polymarket search (Worlds)
   https://gamma-api.polymarket.com/public-search?q=Worlds%20League%20of%20Legends&limit_per_type=8&events_status=all
-  outcome=ok chars=390411
+  outcome=ok chars=390450
   first_preview: {"events": [{"id": "12842", "ticker": "worlds-2024-lol-winner", "slug": "worlds-2024-lol-winner", "title": "League of Legends: Worlds Winner 2024", "description": "This is a market group over which team will win the 2024 Season World Championship (Worlds 2024) for League of Legends.", "startDate": "2024-09-25T17:22:47.235874Z", "creationDate": "2024-09-25T17:22:47.235864Z", "endDate": "2024-11-02T12:00:00Z", "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/worlds-2024-lol-winner-ir11ENmPQPxs.jpg", "icon": "https://polymarket-upload.s3.us-east-2.amazonaws.com/worlds-2024-lol-winne
 
 * lolesports official API

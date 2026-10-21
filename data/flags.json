@@ -3,8 +3,8 @@
     {
       "field": "fixture_exists",
       "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
-      "count": 40,
-      "match": "40 rows",
+      "count": 37,
+      "match": "37 rows",
       "matches": [
         "Ascent Gaming vs NTNUI Kometkameratene",
         "Solid Gaming vs DMG Esports Norway",
@@ -67,17 +67,17 @@
     {
       "field": "kickoff_utc",
       "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
-      "count": 13,
-      "match": "13 rows",
+      "count": 14,
+      "match": "14 rows",
       "matches": [
         "Atruvia Münster Esports vs Kanji Esports AKA",
         "Babos Gaming Academy vs AIX eSports",
         "Berlin 5 vs Emperors Bremen",
         "Black Lion vs VfB x Engines Stuttgart",
         "BlackDivision vs MT1 Vision",
+        "Defiance eSports vs Purple Emperor Lizards - Atomic",
         "Eintracht Spandau Zwei vs LOOKSMAXXER",
-        "Glacial Guardians vs Kanji Esports KIN",
-        "Duplex Silva Pigeons Edition vs Neko Elite Kittens"
+        "Glacial Guardians vs Kanji Esports KIN"
       ],
       "fixture_ids": [
         1075793,
@@ -85,15 +85,39 @@
         1075795,
         1075796,
         1075797,
+        1075798,
         1075799,
         1075800,
         1075801,
         1075802,
         1075803,
-        1075804,
-        1075805
+        1075804
       ],
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall",
+      "candidates": []
+    },
+    {
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "count": 6,
+      "match": "6 rows",
+      "matches": [
+        "Levelers vs MTN ESPORTS TEAM",
+        "DMG Esports Sweden vs FlameHard",
+        "Olympique Mnihla Academy vs Simplicity Gaming",
+        "Ground Zero Gaming vs Frank Esports",
+        "Defiance eSports vs Purple Emperor Lizards - Atomic",
+        "Babos Gaming vs Reveal Multigaming"
+      ],
+      "fixture_ids": [
+        1082839,
+        1082748,
+        1080945,
+        1081423,
+        1075798,
+        1079060
+      ],
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-regional-championship-2026-lebanon-libya-syria-palestine",
       "candidates": []
     },
     {
@@ -104,52 +128,10 @@
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
     },
     {
-      "match": "DMG Esports Sweden vs FlameHard",
-      "fixture_id": 1082748,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 437700 min — league page used, flagged",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "Olympique Mnihla Academy vs Simplicity Gaming",
-      "fixture_id": 1080945,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 446400 min — league page used, flagged",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
       "match": "Ground Zero Gaming vs Frank Esports",
       "fixture_id": 1081423,
       "field": "kickoff_utc",
       "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 2880 min — league page used, flagged",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/lcp-2027-promotion"
-    },
-    {
-      "match": "Defiance eSports vs Purple Emperor Lizards - Atomic",
-      "fixture_id": 1075798,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 457800 min — league page used, flagged",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Babos Gaming vs Reveal Multigaming",
-      "fixture_id": 1079060,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 457920 min — league page used, flagged",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Levelers vs MTN ESPORTS TEAM",
-      "fixture_id": 1082839,
-      "field": "lobby_offers_finished_match",
-      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-regional-championship-2026-lebanon-libya-syria-palestine"
-    },
-    {
-      "match": "Ground Zero Gaming vs Frank Esports",
-      "fixture_id": 1081423,
-      "field": "lobby_offers_finished_match",
-      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/lcp-2027-promotion"
     },
     {
@@ -209,8 +191,8 @@
       "source_url": "https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057"
     }
   ],
-  "generated_at": "2026-10-21T21:28:42Z",
-  "count": 106,
+  "generated_at": "2026-10-21T21:35:41Z",
+  "count": 104,
   "items": [
     {
       "match": "Ascent Gaming vs NTNUI Kometkameratene",
@@ -717,27 +699,6 @@
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
     },
     {
-      "match": "2 Massive vs Lund Esports Organization OGs",
-      "fixture_id": 1074652,
-      "field": "fixture_exists",
-      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
-      "source_url": "https://www.hotspawn.com/matches/2-massive-vs-lund-esports-organization-ogs-rivals-league-season-2-1074652"
-    },
-    {
-      "match": "FlameHard vs B2U",
-      "fixture_id": 1074654,
-      "field": "fixture_exists",
-      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
-      "source_url": "https://www.hotspawn.com/matches/flamehard-vs-b2u-rivals-league-season-2-1074654"
-    },
-    {
-      "match": "Karolinerna vs Turbo Gaming",
-      "fixture_id": 1074655,
-      "field": "fixture_exists",
-      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
-      "source_url": "https://www.hotspawn.com/matches/karolinerna-vs-turbo-gaming-rivals-league-season-2-1074655"
-    },
-    {
       "match": "Docta Esports Club vs Clã NKZ Revengers",
       "fixture_id": 1081083,
       "field": "fixture_exists",
@@ -810,15 +771,15 @@
     {
       "match": "DMG Esports Sweden vs FlameHard",
       "fixture_id": 1082748,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 437700 min — league page used, flagged",
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
     },
     {
       "match": "Olympique Mnihla Academy vs Simplicity Gaming",
       "fixture_id": 1080945,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 446400 min — league page used, flagged",
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
     },
     {
@@ -887,8 +848,15 @@
     {
       "match": "Defiance eSports vs Purple Emperor Lizards - Atomic",
       "fixture_id": 1075798,
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Defiance eSports vs Purple Emperor Lizards - Atomic",
+      "fixture_id": 1075798,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 457800 min — league page used, flagged",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
@@ -950,8 +918,8 @@
     {
       "match": "Babos Gaming vs Reveal Multigaming",
       "fixture_id": 1079060,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 457920 min — league page used, flagged",
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
     }
   ]
