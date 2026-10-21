@@ -1,0 +1,77 @@
+run started: Wed Oct 21 20:20:11 UTC 2026
+===== hotspawn-fixtures-api
+url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1
+result: 200|application/json; charset=utf-8|215849|https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1
+preview: [{"id":"1053095","competition_id":"35533","competition_name":"Benelux Ascend Series 2026 Summer Split","sport_alias":"lol","sport_name":"League of Legends","status":"scheduled","scheduled_start_time":"1787763600000","lock_time":"1787763300000","lock_offset_sec":300,"offered_points":10,"base_points":10,"best_of":null,"series_format":null,"tier":"waiting for information","stage":"waiting for information","points_breakdown":{"game_multiplier":1,"tier_multiplier":1,"series_multiplier":1,"stage_multi
+
+===== hotspawn-fixtures-noparam
+url: https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures
+result: 200|application/json; charset=utf-8|9622791|https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures
+preview: [{"id":"1","competition_id":"1","competition_name":"test tournament","sport_alias":"cs2","sport_name":"","status":"ended","scheduled_start_time":"1704106860000","lock_time":"1704106500000","lock_offset_sec":360,"offered_points":7,"base_points":2,"best_of":null,"series_format":null,"tier":"s","stage":"tbd","points_breakdown":{"game_multiplier":1.25,"tier_multiplier":3,"series_multiplier":1,"stage_multiplier":1,"tournament_multiplier":1},"start_time":"1704107040000","end_time":"1704077040000","tot
+
+===== hotspawn-play-ssr
+url: https://play.hotspawn.com/lol-pickems
+result: 200|text/html;charset=UTF-8|1985698|https://play.hotspawn.com/lol-pickems
+preview: <!DOCTYPE html><html lang="en" data-beasties-container><head>   <meta charset="utf-8">   <title>League of Legends Pick'ems | Hotspawn Play</title>   <base href="/">   <meta name="viewport" content="width=device-width, initial-scale=1">   <link rel="icon" type="image/x-icon" href="favicon.ico">   <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <style>@font-face{font-family:'Inter';font-style:normal;font-weight:300;fo
+
+===== hotspawn-wp-pickem-ids
+url: https://www.hotspawn.com/wp-json/pickem/v1/fixtures?ids=1071214
+result: 403|text/html; charset=UTF-8|5802|https://www.hotspawn.com/wp-json/pickem/v1/fixtures?ids=1071214
+preview: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="content-security-policy" content="default-src &#39;none&#39;; script-src &#39;nonce-V5wdZt64khdTDzbKggJua2&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s
+
+===== lolesports-schedule
+url: https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=en-US
+result: 200|application/json|44942|https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=en-US
+preview: {"data":{"schedule":{"pages":{"older":"b2xkZXI6OjExNzE3MzIwNTMxOTkxMTM4Nw==","newer":"bmV3ZXI6OjExNTY2MDU0MDcyNjA5NTEyNw=="},"events":[{"startTime":"2026-10-06T16:00:00Z","state":"completed","type":"match","blockName":"Playoffs","league":{"name":"EMEA Masters","slug":"emea_masters"},"match":{"id":"117173205319911387","flags":["hasVod"],"teams":[{"name":"Bushido Wildcats","code":"BW","image":"http://static.lolesports.com/teams/1767799893163_BW-KEDI-SARI-2.png","result":{"outcome":"loss","gameWins
+
+===== pinnacle-sports
+url: https://guest.api.arcadia.pinnacle.com/0.1/sports
+result: 200|application/json|14407|https://guest.api.arcadia.pinnacle.com/0.1/sports
+preview: [   {     "featureOrder": -1,     "id": 1,     "isFeatured": false,     "isHidden": false,     "isSticky": false,     "matchupCount": 0,     "matchupCountSE": 0,     "name": "Badminton",     "primaryMarketType": "moneyline"   },   {     "featureOrder": -1,     "id": 2,     "isFeatured": false,     "isHidden": false,     "isSticky": false,     "matchupCount": 0,     "matchupCountSE": 0,     "name": "Bandy",     "primaryMarketType": "moneyline"   },   {     "featureOrder": 4,     "id": 3,     "isF
+
+===== pinnacle-esports-matchups
+url: https://guest.api.arcadia.pinnacle.com/0.1/sports/18/matchups
+result: 200|application/json|58953|https://guest.api.arcadia.pinnacle.com/0.1/sports/18/matchups
+preview: [   {     "ageLimit": 0,     "altTeaser": false,     "featureOrder": -1,     "hasAltSpread": false,     "hasAltTotal": true,     "hasBetshare": false,     "hasLive": false,     "hasMarkets": true,     "id": 1638783314,     "isBetshareEnabled": false,     "isFeatured": false,     "isHighlighted": false,     "isLive": false,     "isPromoted": false,     "league": {       "ageLimit": 0,       "featureOrder": 1,       "group": "Denmark",       "id": 5096,       "isFeatured": true,       "isHidden": 
+
+===== polymarket-gamma-lol
+url: https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends
+result: 200|application/json|81021|https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends
+preview: [{"id":"131447","ticker":"lol-worlds-2026-winning-region-226","slug":"lol-worlds-2026-winning-region-226","title":"Worlds 2026 Winning Region","description":"This market will resolve according to the region or country of the esports team winning 1st place in the League of Legends 2026 Season World Championship (Worlds 2026).\n\nIf the winner of Worlds 2026 is not determined by December 31, 2026 ET, this market will resolve to \"Other\".\n\nThe resolution source for this market will be official i
+
+===== leaguepedia-cargo
+url: https://lol.fandom.com/api.php?action=cargoquery&format=json&tables=MatchSchedule&fields=MatchSchedule.MatchId,MatchSchedule.Team1,MatchSchedule.Team2,MatchSchedule.DateTime_UTC&limit=3&order_by=MatchSchedule.DateTime_UTC%20DESC
+result: 200|application/json; charset=utf-8|372|https://lol.fandom.com/api.php?action=cargoquery&format=json&tables=MatchSchedule&fields=MatchSchedule.MatchId,MatchSchedule.Team1,MatchSchedule.Team2,MatchSchedule.DateTime_UTC&limit=3&order_by=MatchSchedule.DateTime_UTC%20DESC
+preview: {"error":{"code":"ratelimited","info":"You've exceeded your rate limit. Please wait some time and try again.","*":"See https://lol.fandom.com/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes."}}
+
+===== egamersworld-lol
+url: https://egamersworld.com/lo-l/matches
+result: 403|text/html; charset=UTF-8|5667|https://egamersworld.com/lo-l/matches
+preview: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="content-security-policy" content="default-src &#39;none&#39;; script-src &#39;nonce-R3LkUEY2ZE6kJxgeySmTOV&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s
+
+===== oddsportal-lol
+url: https://www.oddsportal.com/esports/league-of-legends/
+result: 503||0|https://www.oddsportal.com/esports/league-of-legends/
+preview: 
+
+===== gg-bet
+url: https://gg.bet/en/esports/league-of-legends
+result: 403|text/plain|126|https://gg.bet/en/esports/league-of-legends
+preview: This internet site is not accepting visitors from your region. If you have any questions please address them to support@gg.bet
+
+===== bo3gg
+url: https://bo3.gg/matches/league-of-legends
+result: 200|text/html;charset=utf-8|12750|https://bo3.gg/matches/league-of-legends
+preview: <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preconnect" href="https://image-proxy.bo3.gg"><link rel="preconnect" href="https://fonts.googleapis.com"><script src="https://accounts.google.com/gsi/client" async></script><script src="https://connect.facebook.net/en_US/sdk.js" async></script><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Montserrat:ital,wgh
+
+===== golgg
+url: https://gol.gg/tournament/list/
+result: 200|text/html; charset=UTF-8|568902|https://gol.gg/tournament/list/
+preview: <!DOCTYPE html> <html lang="en"> <head> <title>Lol esport tournaments list - Games of legends</title> <base href="https://gol.gg/tournament/" >   <meta name="description" content="Lol esport tournaments list. Major tournaments are covered : LCS, LCK, LPL and international events."/>   <meta name="keywords" content="lol, league of legends, tournaments, esport, game, match, matches, player, team, champion, stat, statistics, winrate, kda, split, summer split, spring split, playoff, lcs, lpl, 
+
+===== leaguepedia-prime-league
+url: https://lol.fandom.com/api.php?action=cargoquery&format=json&tables=Tournaments&fields=Tournaments.Name,Tournaments.DateStart&where=Tournaments.Name%20LIKE%20%27Prime%20League%27&limit=5
+result: 200|application/json; charset=utf-8|372|https://lol.fandom.com/api.php?action=cargoquery&format=json&tables=Tournaments&fields=Tournaments.Name,Tournaments.DateStart&where=Tournaments.Name%20LIKE%20%27Prime%20League%27&limit=5
+preview: {"error":{"code":"ratelimited","info":"You've exceeded your rate limit. Please wait some time and try again.","*":"See https://lol.fandom.com/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes."}}
+
+run finished: Wed Oct 21 20:20:25 UTC 2026
