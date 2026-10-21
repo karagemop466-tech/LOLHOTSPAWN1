@@ -1,0 +1,74 @@
+{
+ "pipeline_version": "1.0.0",
+ "generated_at": "2026-10-21T20:33:57Z",
+ "hotspawn_source": "https://play.hotspawn.com/lol-pickems",
+ "hotspawn_retrieved_at": "2026-10-21T20:33:55Z",
+ "markets_retrieved_at": "2026-10-21T20:33:57Z",
+ "counts": {
+  "matches": 264,
+  "resolved": 8,
+  "unresolved": 256,
+  "tournaments": 27,
+  "quotes": 31
+ },
+ "sources": [
+  {
+   "book": "Bovada",
+   "book_key": "bovada",
+   "kind": "sportsbook",
+   "url": "https://www.bovada.lv/esports/league-of-legends",
+   "status": "ok",
+   "error": null,
+   "quotes": 9
+  },
+  {
+   "book": "Pinnacle",
+   "book_key": "pinnacle",
+   "kind": "sportsbook",
+   "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+   "status": "ok",
+   "error": null,
+   "quotes": 9
+  },
+  {
+   "book": "Polymarket",
+   "book_key": "polymarket",
+   "kind": "prediction_market",
+   "url": "https://polymarket.com/markets/league-of-legends",
+   "status": "ok",
+   "error": null,
+   "quotes": 13
+  },
+  {
+   "book": "1xBet",
+   "book_key": "1xbet",
+   "kind": "sportsbook",
+   "url": "https://1xbet.com/en/line/esports",
+   "status": "error",
+   "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+   "quotes": 0
+  }
+ ]
+}
+Traceback (most recent call last):
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/pipeline/build_site.py", line 519, in <module>
+    main()
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/pipeline/build_site.py", line 508, in main
+    "flagged.html": ("Flagged for review", page_flagged(matches, meta), "flagged.html"),
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/pipeline/build_site.py", line 458, in page_flagged
+    v_html = block("Team-name variants across sources", variants,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/pipeline/build_site.py", line 452, in block
+    lis = "".join(
+          ^^^^^^^^
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/pipeline/build_site.py", line 453, in <genexpr>
+    f'<li>{describe(m)}</li>' for m in items[:40])
+           ^^^^^^^^^^^
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/pipeline/build_site.py", line 461, in <lambda>
+    + ", ".join(f'<a href="{esc(q["url"])}" target="_blank" rel="noopener">{esc(q["book"])}'
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/pipeline/build_site.py", line 462, in <genexpr>
+    f' (“{esc(q["home"])} / {esc(q["away"])}”)</a>' for q in m["quotes"]
+              ~^^^^^^^^
+KeyError: 'home'
