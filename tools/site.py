@@ -621,7 +621,7 @@ def build_verification(rows: list[dict], matching: dict, verification: dict | No
     {stat_card("Rows checked", stats.get("rows_checked", len(rows)), "every match on the list")}
     {stat_card("Rows with a source link", stats.get("rows_with_source", 0), "Hotspawn card on every row", "ok")}
     {stat_card("Probabilities summing to 100%", stats.get("rows_prob_ok", 0), "A + B = 1 checked to 0.1pp", "market")}
-    {stat_card("Unverified fields", stats.get("unverified", 0), "left blank, never inferred", "provisional")}
+    {stat_card("Provisional or unresolved", stats.get("unverified", 0), "flagged, never filled in silently", "provisional")}
   </div>
 </section>
 

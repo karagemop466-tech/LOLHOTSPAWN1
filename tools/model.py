@@ -215,9 +215,12 @@ def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
     if key in aliases:
         target = aliases[key]
         if norm_name(target) in exact:
-            return exact[norm_name(target)], "alias", []
+            return exact[norm_name(target)], "alias", [f"explicit alias to '{target}' recorded in "
+                                                       f"data/aliases.json with fixture-level evidence "
+                                                       f"(see Flagged for review)"]
         if target in page_teams.get(page or "", set()):
-            return target, "alias", []
+            return target, "alias", [f"explicit alias to '{target}' recorded in data/aliases.json "
+                                     f"with fixture-level evidence (see Flagged for review)"]
 
     candidates = sorted(base.get(norm_name(base_name(name)), set()))
     if len(candidates) == 1:
