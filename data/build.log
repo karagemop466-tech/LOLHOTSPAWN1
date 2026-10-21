@@ -1,12 +1,12 @@
-[21:10:14] hotspawn: 264 LoL fixtures
-[21:10:17] pinnacle: 12 LoL matchups, 9 with open moneylines
-[21:11:21] leaguepedia: 34619 series rows (err='')
-[21:11:21] lolesports: 80 Worlds events (status=200)
-[21:11:22] polymarket: 49 match-level markets (status=200)
-[21:11:29] sources: Pinnacle=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Polymarket=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[21:12:31] hotspawn: 264 LoL fixtures
+[21:12:34] pinnacle: 12 LoL matchups, 9 with open moneylines
+[21:13:37] leaguepedia: 34619 series rows (err='')
+[21:13:37] lolesports: 80 Worlds events (status=200)
+[21:13:38] polymarket: 49 match-level markets (status=200)
+[21:13:46] sources: Pinnacle=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Polymarket=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 === MODEL ===
-[21:11:32] rows=264 methods={'provisional': 68, 'model': 187, 'market': 9} joins=32
-[21:11:32] backtest n=3823 acc=0.6409 brier=0.2213
+[21:13:50] rows=264 methods={'provisional': 68, 'model': 187, 'market': 9} joins=32
+[21:13:50] backtest n=3823 acc=0.6409 brier=0.2213
 === REPORT ===
 {
  "total": 264,
@@ -136,11 +136,11 @@ PRICED 9
   Worlds 2026 Main Event | ['LØS', 'T1'] 0.1544 {'home': 6.16, 'away': 1.125}
   Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4311 {'home': 2.23, 'away': 1.6897}
 === FLAGS ===
-[21:11:32] flags: 13 items
+[21:13:50] flags: 13 items
 === SITE ===
-[21:11:32] site: wrote 11 pages to docs/
+[21:13:50] site: wrote 11 pages to docs/
 === VERIFY ===
-[21:11:32] verification passed
+[21:13:50] verification passed
 PASS dataset present :: 264 matches loaded
 PASS every row links to its Hotspawn match card :: 264/264 rows carry a Hotspawn URL
 PASS probabilities sum to 100% (tolerance 0.2pp) :: 264 priced rows verified; problems: []
