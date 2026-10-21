@@ -1,6 +1,6 @@
 {
  "summary": {
-  "generated_at": "2026-10-21T21:24:56.201Z",
+  "generated_at": "2026-10-21T21:25:23.708Z",
   "week": {
    "start": "2026-10-19T00:00:00.000Z",
    "end": "2026-10-26T00:00:00.000Z"
@@ -18,18 +18,18 @@
    "ended_this_week": 32,
    "cancelled": 11,
    "picks_total": 188,
-   "market_pinnacle": 1,
-   "market_polymarket_only": 8,
+   "market_pinnacle": 9,
+   "market_polymarket_only": 0,
    "model_only": 179,
    "unresolved_open": 12,
-   "flags_needs_review": 13,
+   "flags_needs_review": 19,
    "flags_info": 2
   },
   "sources_ok": {
    "hotspawn_fixtures": true,
    "hotspawn_lobby": true,
    "pinnacle_leagues": 2,
-   "pinnacle_lines": 1,
+   "pinnacle_lines": 9,
    "polymarket_lines": 9
   }
  },
@@ -4573,8 +4573,8 @@
     "p0": 0.555,
     "p1": 0.445,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 16622.2296,
-    "volume": 28460.264053,
+    "liquidity": 16567.3296,
+    "volume": 33987.847520999996,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6242,7 +6242,24 @@
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878",
    "hotspawn_url_constructed": false,
-   "market_pinnacle": null,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1638748200,
+    "odds0": -435,
+    "odds1": 323,
+    "dec0": 1.23,
+    "dec1": 4.23,
+    "p0": 0.775,
+    "p1": 0.225,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
    "market_polymarket": {
     "source": "Polymarket",
     "url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23",
@@ -6251,8 +6268,8 @@
     "p0": 0.775,
     "p1": 0.225,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 221588.861,
-    "volume": 72089.777446,
+    "liquidity": 231195.4085,
+    "volume": 72098.03831599999,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6271,9 +6288,9 @@
     "team_id": "6194",
     "team": "Gen.G",
     "p": 0.775,
-    "basis": "market-polymarket",
-    "confidence": "medium",
-    "margin": 0.55
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.549
    }
   },
   {
@@ -6385,7 +6402,11 @@
    "lock_utc": "2026-10-23T17:55:00.000Z",
    "start_ms": 1792778400000,
    "lock_ms": 1792778100000,
-   "start_discrepancy": null,
+   "start_discrepancy": {
+    "hotspawn_utc": "2026-10-23T18:00:00.000Z",
+    "pinnacle_utc": "2026-10-23T21:00:00.000Z",
+    "delta_min": 180
+   },
    "team0": {
     "id": "10170",
     "name": "Hanwha Life Esports"
@@ -6402,17 +6423,34 @@
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/hanwha-life-esports-vs-top-esports-worlds-2026-main-event-1067677",
    "hotspawn_url_constructed": false,
-   "market_pinnacle": null,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1638748203,
+    "odds0": -490,
+    "odds1": 355,
+    "dec0": 1.2,
+    "dec1": 4.55,
+    "p0": 0.791,
+    "p1": 0.209,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
    "market_polymarket": {
     "source": "Polymarket",
     "url": "https://polymarket.com/event/lol-hle1-tes-2026-10-23",
     "event": "lol-hle1-tes-2026-10-23",
     "question": "LoL: Hanwha Life Esports vs Top Esports (BO1) - Worlds Group Stage",
-    "p0": 0.775,
-    "p1": 0.225,
+    "p0": 0.785,
+    "p1": 0.215,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 137907.4253,
-    "volume": 63721.887956,
+    "liquidity": 124380.6377,
+    "volume": 63721.887956000006,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6430,10 +6468,10 @@
     "team_index": 0,
     "team_id": "10170",
     "team": "Hanwha Life Esports",
-    "p": 0.775,
-    "basis": "market-polymarket",
-    "confidence": "medium",
-    "margin": 0.55
+    "p": 0.791,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.581
    }
   },
   {
@@ -6606,7 +6644,11 @@
    "lock_utc": "2026-10-23T18:55:00.000Z",
    "start_ms": 1792782000000,
    "lock_ms": 1792781700000,
-   "start_discrepancy": null,
+   "start_discrepancy": {
+    "hotspawn_utc": "2026-10-23T19:00:00.000Z",
+    "pinnacle_utc": "2026-10-24T00:00:00.000Z",
+    "delta_min": 300
+   },
    "team0": {
     "id": "5746",
     "name": "Bilibili Gaming"
@@ -6623,7 +6665,24 @@
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/bilibili-gaming-vs-movistar-koi-worlds-2026-main-event-1067680",
    "hotspawn_url_constructed": false,
-   "market_pinnacle": null,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1638755459,
+    "odds0": -512,
+    "odds1": 368,
+    "dec0": 1.2,
+    "dec1": 4.68,
+    "p0": 0.797,
+    "p1": 0.203,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
    "market_polymarket": {
     "source": "Polymarket",
     "url": "https://polymarket.com/event/lol-blg-mkoi-2026-10-23",
@@ -6632,7 +6691,7 @@
     "p0": 0.825,
     "p1": 0.175,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 96262.5207,
+    "liquidity": 96164.7883,
     "volume": 15393.926706000002,
     "spread": 0.01,
     "match_quality": "exact"
@@ -6651,10 +6710,10 @@
     "team_index": 0,
     "team_id": "5746",
     "team": "Bilibili Gaming",
-    "p": 0.825,
-    "basis": "market-polymarket",
-    "confidence": "medium",
-    "margin": 0.65
+    "p": 0.797,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.593
    }
   },
   {
@@ -6687,7 +6746,24 @@
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/anyones-legend-vs-karmine-corp-worlds-2026-main-event-1067675",
    "hotspawn_url_constructed": false,
-   "market_pinnacle": null,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1638750902,
+    "odds0": -200,
+    "odds1": 167,
+    "dec0": 1.5,
+    "dec1": 2.67,
+    "p0": 0.64,
+    "p1": 0.36,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
    "market_polymarket": {
     "source": "Polymarket",
     "url": "https://polymarket.com/event/lol-al-kc-2026-10-23",
@@ -6696,7 +6772,7 @@
     "p0": 0.655,
     "p1": 0.345,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 175907.0594,
+    "liquidity": 176422.7714,
     "volume": 147216.829327,
     "spread": 0.01,
     "match_quality": "exact"
@@ -6715,10 +6791,10 @@
     "team_index": 0,
     "team_id": "57842",
     "team": "Anyone's Legend",
-    "p": 0.655,
-    "basis": "market-polymarket",
-    "confidence": "medium",
-    "margin": 0.31
+    "p": 0.64,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.281
    }
   },
   {
@@ -6751,7 +6827,24 @@
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/g2-esports-vs-dplus-kia-worlds-2026-main-event-1067676",
    "hotspawn_url_constructed": false,
-   "market_pinnacle": null,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1638750815,
+    "odds0": 126,
+    "odds1": -148,
+    "dec0": 2.26,
+    "dec1": 1.68,
+    "p0": 0.426,
+    "p1": 0.574,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
    "market_polymarket": {
     "source": "Polymarket",
     "url": "https://polymarket.com/event/lol-g2-dk-2026-10-23",
@@ -6760,8 +6853,8 @@
     "p0": 0.395,
     "p1": 0.605,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 323182.7417,
-    "volume": 290350.251375,
+    "liquidity": 335357.9253,
+    "volume": 290360.751375,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6779,10 +6872,10 @@
     "team_index": 1,
     "team_id": "74448",
     "team": "Dplus KIA",
-    "p": 0.605,
-    "basis": "market-polymarket",
-    "confidence": "medium",
-    "margin": 0.21
+    "p": 0.574,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.148
    }
   },
   {
@@ -6798,7 +6891,11 @@
    "lock_utc": "2026-10-23T21:55:00.000Z",
    "start_ms": 1792792800000,
    "lock_ms": 1792792500000,
-   "start_discrepancy": null,
+   "start_discrepancy": {
+    "hotspawn_utc": "2026-10-23T22:00:00.000Z",
+    "pinnacle_utc": "2026-10-23T18:00:00.000Z",
+    "delta_min": -240
+   },
    "team0": {
     "id": "14945",
     "name": "Team Liquid"
@@ -6815,7 +6912,24 @@
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-liquid-vs-ctbc-flying-oyster-worlds-2026-main-event-1067879",
    "hotspawn_url_constructed": false,
-   "market_pinnacle": null,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1638750814,
+    "odds0": -285,
+    "odds1": 228,
+    "dec0": 1.35,
+    "dec1": 3.28,
+    "p0": 0.708,
+    "p1": 0.292,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
    "market_polymarket": {
     "source": "Polymarket",
     "url": "https://polymarket.com/event/lol-tl2-cfo-2026-10-23",
@@ -6824,8 +6938,8 @@
     "p0": 0.715,
     "p1": 0.285,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 200401.0606,
-    "volume": 19079.010868999998,
+    "liquidity": 216383.4297,
+    "volume": 19380.399758,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6843,10 +6957,10 @@
     "team_index": 0,
     "team_id": "14945",
     "team": "Team Liquid",
-    "p": 0.715,
-    "basis": "market-polymarket",
-    "confidence": "medium",
-    "margin": 0.43
+    "p": 0.708,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.417
    }
   },
   {
@@ -6879,7 +6993,24 @@
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/los-vs-t1-worlds-2026-main-event-1067678",
    "hotspawn_url_constructed": false,
-   "market_pinnacle": null,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1638748205,
+    "odds0": 516,
+    "odds1": -800,
+    "dec0": 6.16,
+    "dec1": 1.13,
+    "p0": 0.154,
+    "p1": 0.846,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
    "market_polymarket": {
     "source": "Polymarket",
     "url": "https://polymarket.com/event/lol-los-t1-2026-10-23",
@@ -6888,7 +7019,7 @@
     "p0": 0.125,
     "p1": 0.875,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 178132.569,
+    "liquidity": 178849.3667,
     "volume": 33114.919901,
     "spread": 0.01,
     "match_quality": "exact"
@@ -6907,10 +7038,10 @@
     "team_index": 1,
     "team_id": "10168",
     "team": "T1",
-    "p": 0.875,
-    "basis": "market-polymarket",
-    "confidence": "medium",
-    "margin": 0.75
+    "p": 0.846,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.691
    }
   },
   {
@@ -6943,7 +7074,24 @@
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679",
    "hotspawn_url_constructed": false,
-   "market_pinnacle": null,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1638754606,
+    "odds0": 123,
+    "odds1": -145,
+    "dec0": 2.23,
+    "dec1": 1.69,
+    "p0": 0.431,
+    "p1": 0.569,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
    "market_polymarket": {
     "source": "Polymarket",
     "url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23",
@@ -6952,7 +7100,7 @@
     "p0": 0.415,
     "p1": 0.585,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 223030.2292,
+    "liquidity": 223012.3482,
     "volume": 16536.638591999996,
     "spread": 0.01,
     "match_quality": "exact"
@@ -6971,10 +7119,10 @@
     "team_index": 1,
     "team_id": "203378",
     "team": "LYON",
-    "p": 0.585,
-    "basis": "market-polymarket",
-    "confidence": "medium",
-    "margin": 0.17
+    "p": 0.569,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.138
    }
   },
   {
