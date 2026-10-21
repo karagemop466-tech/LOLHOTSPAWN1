@@ -3,82 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sources · LoL Pick'em Board</title>
-<meta name="description" content="League of Legends picks and win probabilities for every match in the Hotspawn Play pick'em lobby, built from external bookmaker and prediction-market prices.">
+<title>Sources · Hotspawn LoL Pick Desk</title>
+<meta name="description" content="Independent League of Legends pick'em lines for every match listed on Hotspawn.">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
-  <div class="wrap topbar-inner">
-    <a class="brand" href="index.html">
-      <span class="brand-mark">LoL</span>
-      <span class="brand-text">Pick'em Board<small>Hotspawn lobby coverage</small></span>
-    </a>
-    <div class="stamp" title="Data collection timestamp">
-      <span class="dot"></span>Updated Wed 21 Oct 20:53 UTC
-    </div>
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html" class="active">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
-  <nav class="wrap nav"><a class="nav-link" href="index.html">Summary</a><a class="nav-link" href="picks.html">Picks</a><a class="nav-link" href="unresolved.html">Unresolved</a><a class="nav-link" href="tournaments.html">Leagues</a><a class="nav-link" href="methodology.html">Method</a><a class="nav-link active" href="sources.html">Sources</a><a class="nav-link" href="flagged.html">Flagged</a></nav>
 </header>
-<main class="wrap">
-
+<main id="main" class="wrap">
+  <div class="pagehead">
+    <h1>Sources</h1>
+    <p class="sub">Every data source, its status, and what it provides.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-21 21:13 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+  </div>
+  
 <section class="panel">
-  <h1>Sources</h1>
-  <p class="lede">Live status of every endpoint queried in the snapshot generated 2026-10-21T20:53:11Z.</p>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Source</th><th>Type</th><th>Status</th><th class="num">Quotes</th><th>Notes</th></tr></thead>
-      <tbody><tr>
-  <td><a href="https://www.bovada.lv/esports/league-of-legends" target="_blank" rel="noopener">Bovada</a></td>
-  <td>sportsbook</td>
-  <td><span class="pill good">ok</span></td>
-  <td class="num">9</td>
-  <td class="small"></td>
-</tr><tr>
-  <td><a href="https://www.pinnacle.com/en/esports/league-of-legends/matchups" target="_blank" rel="noopener">Pinnacle</a></td>
-  <td>sportsbook</td>
-  <td><span class="pill good">ok</span></td>
-  <td class="num">9</td>
-  <td class="small"></td>
-</tr><tr>
-  <td><a href="https://polymarket.com/markets/league-of-legends" target="_blank" rel="noopener">Polymarket</a></td>
-  <td>prediction market</td>
-  <td><span class="pill good">ok</span></td>
-  <td class="num">13</td>
-  <td class="small"></td>
-</tr></tbody>
-    </table>
-  </div>
-  <h2>Fixture source</h2>
-  <p><a href="https://play.hotspawn.com/lol-pickems" target="_blank" rel="noopener">Hotspawn Play — League of Legends lobby</a>
-  (match list only; retrieved 2026-10-21T20:53:09Z).</p>
-  <h2>Checked, no usable public feed</h2>
-  <p class="lede">Books and data services that were tested while building this pipeline. None of them gave a
-  linkable, machine-readable price feed from this environment, so none of them contribute a number. They are
-  listed so you can see the search was broader than the three working sources.</p>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Source</th><th>Type</th><th>Result</th></tr></thead>
-      <tbody><tr><td><a href="https://1xbet.com/en/line/esports" target="_blank" rel="noopener">1xBet</a></td><td>sportsbook</td><td class="small">Public LineFeed returns an HTML interstitial (bot/geo gate) instead of prices.</td></tr><tr><td><a href="https://www.betano.de/esports/" target="_blank" rel="noopener">Betano</a></td><td>sportsbook</td><td class="small">HTTP 403 from the runner IP.</td></tr><tr><td><a href="https://www.marathonbet.com/en/betting/Esports/" target="_blank" rel="noopener">Marathonbet</a></td><td>sportsbook</td><td class="small">HTTP 403 from the runner IP.</td></tr><tr><td><a href="https://www.gg.bet/en/league-of-legends" target="_blank" rel="noopener">GG.Bet</a></td><td>sportsbook</td><td class="small">HTTP 403 — site refuses visitors from the runner region.</td></tr><tr><td><a href="https://oddspedia.com/esports/league-of-legends" target="_blank" rel="noopener">Oddspedia</a></td><td>odds aggregator</td><td class="small">HTTP 403/410 on the public match-list endpoints.</td></tr><tr><td><a href="https://www.betexplorer.com/esports/" target="_blank" rel="noopener">BetExplorer</a></td><td>odds aggregator</td><td class="small">No League of Legends esports section served (HTTP 404).</td></tr><tr><td><a href="https://bo3.gg/lol/matches" target="_blank" rel="noopener">bo3.gg</a></td><td>esports data</td><td class="small">API reachable, but it exposes no odds endpoint and ignores league filters.</td></tr><tr><td><a href="https://www.primeleague.gg/en/leagues/prm/26-27/fall/3rd-division" target="_blank" rel="noopener">Prime League (official ERL site)</a></td><td>league site</td><td class="small">HTTP 403 from the runner IP.</td></tr><tr><td><a href="https://lol.fandom.com/wiki/Special:CargoTables" target="_blank" rel="noopener">Leaguepedia (Fandom API)</a></td><td>results</td><td class="small">Rate-limited from the runner IP (HTTP 200 + ratelimited payload).</td></tr><tr><td><a href="https://liquipedia.net/leagueoflegends/" target="_blank" rel="noopener">Liquipedia API</a></td><td>results</td><td class="small">Reachable, but it exposes wiki pages rather than a structured results feed for the amateur divisions.</td></tr><tr><td><a href="https://www.oddsportal.com/esports/league-of-legends/" target="_blank" rel="noopener">OddsPortal</a></td><td>odds aggregator</td><td class="small">Reachable (HTTP 200) but no public API; scraping was not implemented, so it contributes no price.</td></tr></tbody>
-    </table>
-  </div>
-  <h2>What we deliberately do not use</h2>
-  <ul>
-    <li>Hotspawn crowd pick percentages (popularity, not a price).</li>
-    <li>Hotspawn editorial predictions.</li>
-    <li>Any unlinked or reconstructed number.</li>
+  <h2>Sources checked on the last build</h2>
+  <p class="lead">Every source is hit on each refresh so the table stays honest. A blocked source is left in
+  the list rather than quietly dropped.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>Source</th><th>URL</th><th>What it gives us</th><th>HTTP</th><th>Status</th><th>Checked (UTC)</th></tr></thead><tbody><tr><td data-label="Source">Pinnacle</td><td data-label="URL"><a href="https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups" rel="noopener">link</a></td><td data-label="What it gives us">Sharp esportsbook; guest REST API</td><td data-label="HTTP"><span class="pill ok">200</span></td><td data-label="Status">reachable</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">GG.BET</td><td data-label="URL"><a href="https://gg.bet/en/esports/league-of-legends" rel="noopener">link</a></td><td data-label="What it gives us">Established LoL betting site</td><td data-label="HTTP"><span class="pill bad">403</span></td><td data-label="Status">region blocked</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">BC.GAME</td><td data-label="URL"><a href="https://bc.game/sports" rel="noopener">link</a></td><td data-label="What it gives us">Crypto esportsbook</td><td data-label="HTTP"><span class="pill ok">200</span></td><td data-label="Status">reachable</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">EGamersWorld</td><td data-label="URL"><a href="https://egamersworld.com/lo-l/matches" rel="noopener">link</a></td><td data-label="What it gives us">Esports odds aggregator</td><td data-label="HTTP"><span class="pill bad">403</span></td><td data-label="Status">blocked by bot protection</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">Oddspedia</td><td data-label="URL"><a href="https://oddspedia.com/esports/league-of-legends" rel="noopener">link</a></td><td data-label="What it gives us">Odds comparison engine</td><td data-label="HTTP"><span class="pill bad">410</span></td><td data-label="Status">unavailable</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">OddsPortal</td><td data-label="URL"><a href="https://www.oddsportal.com/esports/league-of-legends/" rel="noopener">link</a></td><td data-label="What it gives us">Odds comparison engine</td><td data-label="HTTP"><span class="pill ok">200</span></td><td data-label="Status">reachable</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">BetExplorer</td><td data-label="URL"><a href="https://www.betexplorer.com/esports/league-of-legends/" rel="noopener">link</a></td><td data-label="What it gives us">Odds comparison engine</td><td data-label="HTTP"><span class="pill bad">404</span></td><td data-label="Status">unavailable</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">Unibet/Kambi</td><td data-label="URL"><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports.json" rel="noopener">link</a></td><td data-label="What it gives us">Esportsbook API</td><td data-label="HTTP"><span class="pill bad">400</span></td><td data-label="Status">unavailable</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">Polymarket</td><td data-label="URL"><a href="https://gamma-api.polymarket.com/events?closed=false&amp;limit=5&amp;tag_slug=league-of-legends" rel="noopener">link</a></td><td data-label="What it gives us">Prediction market</td><td data-label="HTTP"><span class="pill ok">200</span></td><td data-label="Status">reachable</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">Hotspawn fixtures API</td><td data-label="URL"><a href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&amp;status=scheduled&amp;tenantId=1" rel="noopener">link</a></td><td data-label="What it gives us">Match inventory (not a probability source)</td><td data-label="HTTP"><span class="pill ok">200</span></td><td data-label="Status">reachable</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">Leaguepedia</td><td data-label="URL"><a href="https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&amp;fields=MatchSchedule.MatchId&amp;limit=1&amp;format=json" rel="noopener">link</a></td><td data-label="What it gives us">Community results database</td><td data-label="HTTP"><span class="pill ok">200</span></td><td data-label="Status">reachable</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr><tr><td data-label="Source">LoL Esports (Riot)</td><td data-label="URL"><a href="https://esports-api.lolesports.com/persisted/gw/getLeagues?hl=en-US" rel="noopener">link</a></td><td data-label="What it gives us">Official Riot esports API</td><td data-label="HTTP"><span class="pill ok">200</span></td><td data-label="Status">reachable</td><td data-label="Checked (UTC)">2026-10-21 21:13</td></tr></tbody></table></div>
+  <h3>Primary sources in use</h3>
+  <ul class="bullets">
+    <li><a href="https://play.hotspawn.com/lol-pickems" rel="noopener">Hotspawn LoL pick'em</a> - the fixture
+    list, via its public fixtures API.</li>
+    <li><a href="https://www.pinnacle.com/en/esports/league-of-legends" rel="noopener">Pinnacle</a> - sharp
+    bookmaker moneylines for the featured matches.</li>
+    <li><a href="https://lol.fandom.com/wiki/Special:CargoExport" rel="noopener">Leaguepedia Cargo export</a> -
+    series results used to fit the Elo model.</li>
+    <li><a href="https://polymarket.com" rel="noopener">Polymarket</a> - prediction-market cross-check.</li>
+    <li><a href="https://esports-api.lolesports.com" rel="noopener">LoL Esports (Riot)</a> - official schedule
+    cross-check for the World Championship.</li>
   </ul>
 </section>
 
 </main>
-<footer class="wrap footer">
-  <p><strong>264</strong> matches tracked ·
-     <strong>9</strong> priced ·
-     <strong>255</strong> unresolved ·
-     refreshed every 4 hours from GitHub Actions.</p>
-  <p class="muted">Probabilities are derived from external bookmaker prices and prediction markets.
-     Match list comes from Hotspawn Play. Crowd pick percentages are shown for context only and are
-     never used in any probability. Betting involves risk; this is research, not advice.</p>
+<footer class="wrap foot">
+  <p>Independent research dashboard. Every row links to its source. Not betting advice.</p>
+  <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
+  <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a></p>
 </footer>
 <script src="assets/app.js"></script>
 </body>

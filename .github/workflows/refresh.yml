@@ -8,7 +8,8 @@ name: refresh-picks
 
 on:
   schedule:
-    - cron: "17 */4 * * *"
+    # every 6 hours (within the requested 4-8h window), off the hour to avoid the cron rush
+    - cron: "17 */6 * * *"
   workflow_dispatch:
   push:
     branches: ["main"]
@@ -19,11 +20,9 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
-  group: refresh-picks-${{ github.ref_name }}
+  group: refresh-picks
   cancel-in-progress: false
 
 jobs:
@@ -61,7 +60,7 @@ jobs:
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git add -A data assets .nojekyll *.html build.log
           if git diff --cached --quiet; then
-            echo "No changes to publish."
+            echo "no changes"
           else
             git commit -m "chore(data): automated 4h refresh of LoL market & originated picks [skip ci]"
             git push origin "HEAD:${GITHUB_REF_NAME}"
