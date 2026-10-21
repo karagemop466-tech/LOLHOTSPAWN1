@@ -12,7 +12,7 @@ out = {
     "total": len(rows),
     "counts": d.get("counts"),
     "per_competition": {},
-    "non_exact_joins": (rep.get("non_exact_joins") or [])[:200],
+    "non_exact_joins": (rep.get("non_exact_joins") or [])[:400],
     "unresolved": [],
     "provisional": [],
     "priced": [],
@@ -41,9 +41,15 @@ print(json.dumps({k: out[k] for k in ("total", "counts", "per_competition")}, in
 print("\nUNRESOLVED", len(out["unresolved"]))
 for u in out["unresolved"][:20]:
     print(" ", u["competition"], "|", " vs ".join(u["teams"]), "|", u["basis"][:80])
-print("\nNON-EXACT JOINS", rep.get("non_exact_count"))
-for j in out["non_exact_joins"][:40]:
-    print(" ", j["method"], j["score"], "|", j["team"], "->", j["resolved"])
+print("\nNON-EXACT JOINS", rep.get("non_exact_team_count"))
+_seen = set()
+for j in out["non_exact_joins"][:80]:
+    key = (j.get("team"), j.get("resolved"))
+    if key in _seen:
+        continue
+    _seen.add(key)
+    print(" ", j.get("method"), "|", j.get("team"), "->", j.get("resolved"),
+          "|", "; ".join(j.get("notes") or [])[:90])
 print("\nPRICED", len(out["priced"]))
 for p in out["priced"][:10]:
     print(" ", p["competition"], "|", p["teams"], p["p0"], p["decimal"])
