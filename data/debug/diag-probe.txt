@@ -1,4 +1,4 @@
-diag probe @ 2026-10-21T21:14:15Z
+diag probe @ 2026-10-21T21:22:01Z
 reachable: host + client fingerprint -> outcome
 
 * hotspawn fixtures feed — browser UA (expected 403)
@@ -244,7 +244,7 @@ https://www.hotspawn.com/matches/ves-japan-vs-rich-gang-ko
 
 * hotspawn match page — curl UA
   https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205
-  outcome=ok chars=479186
+  outcome=ok chars=478822
   text_window: of Duty
 /valorant/guides
 Valorant
@@ -342,7 +342,7 @@ https://www.hotspaw
 
 * lobby page 2 (does the SSR list paginate?)
   https://play.hotspawn.com/lol-pickems?page=2
-  outcome=ok chars=1985582
+  outcome=ok chars=1985545
   text_window: )
 Solid Gaming (5)
 spongecord prime (4)
@@ -396,7 +396,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-14:40:23
+14:32:38
 https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205
 View Match
 Who will win?
@@ -414,7 +414,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:40:23
+17:32:38
 https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214
 View Match
 Who will win?
@@ -432,7 +432,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:40:23
+17:32:38
 https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216
 View Match
 Who will win?
@@ -454,7 +454,7 @@ Lock
 
 * lobby page, wide limit param
   https://play.hotspawn.com/lol-pickems?limit=400&tournament=all
-  outcome=ok chars=1985582
+  outcome=ok chars=1985545
   text_window: )
 Solid Gaming (5)
 spongecord prime (4)
@@ -508,7 +508,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-14:40:21
+14:32:36
 https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205
 View Match
 Who will win?
@@ -526,7 +526,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:40:21
+17:32:36
 https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214
 View Match
 Who will win?
@@ -544,7 +544,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:40:21
+17:32:36
 https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216
 View Match
 Who will win?
@@ -566,7 +566,7 @@ Lock
 
 * oddsportal LoL landing (row markup sample)
   https://www.oddsportal.com/esports/league-of-legends/
-  outcome=ok chars=335939
+  outcome=ok chars=335204
   text_head: /
 Odds comparison
 /community/
@@ -670,7 +670,7 @@ vo
 
 * oddsportal LoL results page
   https://www.oddsportal.com/esports/league-of-legends/results/
-  outcome=ok chars=326544
+  outcome=ok chars=328054
   text_head: /
 Odds comparison
 /community/
@@ -839,13 +839,13 @@ CTBC Flying Oyster
 
 * polymarket closed markets
   https://gamma-api.polymarket.com/markets?closed=true&limit=5&order=updatedAt&ascending=false
-  outcome=ok chars=42720
+  outcome=ok chars=28385
   items: 5
-  first_preview: {"id": "5436637", "question": "Exact Score: Real Betis Balompié 4 - 3 Feyenoord Rotterdam?", "conditionId": "0x41717396f70be6610b0081859f013f7628d550fea5584b9a5c74ed6b8e663276", "slug": "ucl-bet-fey-2026-10-21-exact-score-4-3", "endDate": "2026-10-21T19:00:00Z", "liquidity": "0", "startDate": "2026-10-08T18:00:55Z", "description": "In the upcoming UEFA Champions League game between Real Betis Balompié and Feyenoord Rotterdam, scheduled for October 21, 2026 at 3:00 PM ET: This market will resolve based on the final score of the Real Betis Balompié vs. Feyenoord Rotterdam match originally schedu
+  first_preview: {"id": "5993612", "question": "XRP Up or Down - October 21, 5:15PM-5:20PM ET", "conditionId": "0x9623cea27a501fc02f2957850a04191d8679ef42abc6ef231f6ff3352ab1c532", "slug": "xrp-updown-5m-1792617300", "resolutionSource": "https://data.chain.link/streams/xrp-usd-twap-60s-streams", "endDate": "2026-10-21T21:20:00Z", "liquidity": "0", "startDate": "2026-10-20T21:24:05.300833Z", "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/XRP-logo.png", "icon": "https://polymarket-upload.s3.us-east-2.amazonaws.com/XRP-logo.png", "description": "This market will resolve to \"Up\" if the time-weigh
 
 * polymarket search (Worlds)
   https://gamma-api.polymarket.com/public-search?q=Worlds%20League%20of%20Legends&limit_per_type=8&events_status=all
-  outcome=ok chars=390285
+  outcome=ok chars=390341
   first_preview: {"events": [{"id": "12842", "ticker": "worlds-2024-lol-winner", "slug": "worlds-2024-lol-winner", "title": "League of Legends: Worlds Winner 2024", "description": "This is a market group over which team will win the 2024 Season World Championship (Worlds 2024) for League of Legends.", "startDate": "2024-09-25T17:22:47.235874Z", "creationDate": "2024-09-25T17:22:47.235864Z", "endDate": "2024-11-02T12:00:00Z", "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/worlds-2024-lol-winner-ir11ENmPQPxs.jpg", "icon": "https://polymarket-upload.s3.us-east-2.amazonaws.com/worlds-2024-lol-winne
 
 * lolesports official API

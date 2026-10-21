@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T21:14:15Z",
+  "generated_at": "2026-10-21T21:22:00Z",
   "hosts": {
     "api.sofascore.com": {
       "host": "api.sofascore.com",
@@ -39,7 +39,7 @@
         "https://www.betexplorer.com/esports/league-of-legends/"
       ],
       "errors": [
-        "HTTP 429"
+        "HTTP 404"
       ],
       "success_rate": 0.0
     },
@@ -135,14 +135,13 @@
     },
     "oddsportal.com": {
       "host": "oddsportal.com",
-      "attempts": 3,
-      "ok": 3,
+      "attempts": 2,
+      "ok": 2,
       "failed": 0,
       "skipped_no_network": 0,
       "sample_urls": [
         "https://www.oddsportal.com/esports/league-of-legends/",
-        "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
-        "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-emea-masters/"
+        "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/"
       ],
       "errors": [],
       "success_rate": 1.0
@@ -285,8 +284,7 @@
   "oddsportal": {
     "index_url": "https://www.oddsportal.com/esports/league-of-legends/",
     "tournaments": [
-      "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
-      "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-emea-masters/"
+      "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/"
     ],
     "rows": 16,
     "status": "ok"
@@ -391,7 +389,7 @@
       }
     ],
     "events": 120,
-    "markets": 2959,
+    "markets": 2963,
     "status": "ok"
   }
 }
