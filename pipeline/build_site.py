@@ -156,43 +156,40 @@ def layout(title, body, meta, active=""):
 
 
 def pick_card(m, compact=False):
+    """One match card. Team order is always Hotspawn's (team1 first) so the header,
+    the two probability rows and the source odds can never disagree."""
     p = m["pick"]
     t1, t2 = m["team1"], m["team2"]
-    p1 = m["prob_team1"]
-    p2 = m["prob_team2"]
-    fav_first = p["side"] == "team1"
-    left_name = t1["name"] if fav_first else t2["name"]
-    left_p = p1 if fav_first else p2
-    right_name = t2["name"] if fav_first else t1["name"]
-    right_p = p2 if fav_first else p1
+    p1, p2 = m["prob_team1"], m["prob_team2"]
+    picked = p["side"]
+    edge = abs(0.5 - (p1 if picked == "team1" else p2))
+    began = started(m, NOW)
     srcs = "".join(
         f'<a class="src" href="{esc(q["url"])}" target="_blank" rel="noopener">{esc(q["book"])}'
         f' <span class="src-odds">{q["decimal_team1"]:.2f} / {q["decimal_team2"]:.2f}</span></a>'
         for q in m["quotes"])
     hs = (f'<a class="ghost" href="{esc(m["hotspawn_url"])}" target="_blank" rel="noopener">Hotspawn match</a>'
           if m.get("hotspawn_url") else "")
-    edge = abs(0.5 - left_p)
-    began = started(m, NOW)
     return f"""
 <article class="card pick" data-teams="{esc(t1["name"])} {esc(t2["name"])}"
-  data-league="{esc(m["tournament"])}" data-prob="{left_p:.4f}" data-edge="{edge:.4f}"
+  data-league="{esc(m["tournament"])}" data-prob="{max(p1, p2):.4f}" data-edge="{edge:.4f}"
   data-time="{esc(m["start_utc"] or "")}">
   <div class="card-head">
     <div>
-      <h3>{esc(left_name)} <span class="vs">vs</span> {esc(right_name)}</h3>
+      <h3>{esc(t1["name"])} <span class="vs">vs</span> {esc(t2["name"])}</h3>
       <p class="meta">{esc(m["tournament"])} · Tier {esc(m["tier"].upper() if m["tier"] else "—")} · <span data-utc="{esc(m["start_utc"] or "")}">{esc(fmt_time(m["start_utc"]))}</span></p>
     </div>
     <span class="pill conf-{esc(p["confidence"])}">{esc(p["confidence"].title())} confidence</span>
     {('<span class="pill tier">Started</span>' if began else '')}
   </div>
   <div class="probs">
-    <div class="prob-row">
-      <span class="team">{esc(t1["name"])}</span>
+    <div class="prob-row{' is-pick' if picked == 'team1' else ''}">
+      <span class="team">{esc(t1["name"])}{' <span class="tick">pick</span>' if picked == 'team1' else ''}</span>
       <span class="num">{p1 * 100:.1f}%</span>
     </div>
     {bar(p1, "team1")}
-    <div class="prob-row">
-      <span class="team">{esc(t2["name"])}</span>
+    <div class="prob-row{' is-pick' if picked == 'team2' else ''}">
+      <span class="team">{esc(t2["name"])}{' <span class="tick">pick</span>' if picked == 'team2' else ''}</span>
       <span class="num">{p2 * 100:.1f}%</span>
     </div>
     {bar(p2, "alt")}
@@ -355,12 +352,13 @@ def page_unresolved(matches, meta, tournaments):
     groups = []
     for league, rows in sorted(by_league.items(), key=lambda kv: (-len(kv[1]), kv[0] or "")):
         tier = rows[0]["tier"]
+        opened = " open" if len(rows) <= 6 else ""
         groups.append(f"""
-<section class="panel">
-  <h2>{esc(league)} <span class="pill tier">{esc(tier.upper() if tier else "—")} tier</span>
-    <span class="muted small">{len(rows)} match{'es' if len(rows) != 1 else ''} without an external market</span></h2>
+<details class="panel league-block"{opened}>
+  <summary><strong>{esc(league)}</strong> <span class="pill tier">{esc(tier.upper() if tier else "—")} tier</span>
+    <span class="muted small">{len(rows)} match{'es' if len(rows) != 1 else ''} without an external market</span></summary>
   <div class="cardlist">{''.join(unresolved_row(m) for m in rows)}</div>
-</section>""")
+</details>""")
     return f"""
 <section class="panel">
   <h1>Unresolved picks ({len(un)})</h1>

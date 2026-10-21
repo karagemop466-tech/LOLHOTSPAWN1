@@ -119,6 +119,8 @@ branch; this branch owns `pipeline/`, `assets/`, `data/*.json|csv`, the root `*.
 | 2026-10-21T20:33Z | First end-to-end run: 264 fixtures, 8 priced, 256 unresolved. |
 | 2026-10-21T20:47Z | Fixed Nordic `Ø` transliteration (`LØS` ↔ "Los Grandes"), permalink extraction, added per-source evidence table → 9 priced. |
 | 2026-10-21T20:5xZ | T1–T5 verified (`VERIFICATION.md`), PR #1 opened. Merge into `main` conflicted only on this file; both boards merged here. |
+| 2026-10-21T21:0xZ | **PR #1 merged to `main`** (merge commit `550e031`). GitHub Pages rebuilt and verified live at <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>. |
+| 2026-10-21T21:1xZ | Post-deploy UI fix: match cards now always show Hotspawn's team order (header, both probability rows and source odds agree) with an explicit `pick` tag; unresolved leagues collapse into `<details>` groups for mobile. Follow-up PR #2. |
 
 ## Findings usable by other sessions (`2b1b75f6`)
 

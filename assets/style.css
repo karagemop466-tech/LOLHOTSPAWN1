@@ -126,6 +126,8 @@ h3 { font-size: 16px; margin: 0; line-height: 1.25; }
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   border-top: 1px dashed var(--line); padding-top: 10px; margin-top: 4px;
 }
+.prob-row.is-pick .team { color: #fff; font-weight: 700; }
+.tick { background: var(--accent); color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 999px; margin-left: 4px; letter-spacing: .3px; }
 .pickline .label { font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); }
 
 .sources { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
@@ -182,3 +184,13 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .wrap { padding: 0 20px; }
   .cardlist { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* collapsible league groups on the unresolved page */
+.league-block > summary {
+  cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; gap: 8px;
+  align-items: center; font-size: 16px;
+}
+.league-block > summary::-webkit-details-marker { display: none; }
+.league-block > summary::after { content: "▾"; margin-left: auto; color: var(--muted); }
+.league-block[open] > summary::after { content: "▴"; }
+.league-block[open] > summary { margin-bottom: 12px; }
