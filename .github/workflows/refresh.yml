@@ -1,0 +1,68 @@
+name: refresh-picks
+
+# Collects the Hotspawn League of Legends pick'em list plus external market
+# prices, rebuilds the static dashboard and publishes it to GitHub Pages.
+#
+# Cadence: every 4 hours (requirement: 4-8h). GitHub may delay scheduled runs at
+# peak times; the workflow also runs on every push that touches the pipeline and
+# can be started manually from the Actions tab.
+
+on:
+  schedule:
+    - cron: "17 */4 * * *"
+  workflow_dispatch:
+  push:
+    branches: ["main", "arena/2b1b75f6-lolhotspawn1"]
+    paths:
+      - "pipeline/**"
+      - ".github/workflows/refresh.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-picks-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Collect Hotspawn matches + external market prices
+        run: python3 pipeline/build_data.py
+
+      - name: Build static dashboard
+        run: python3 pipeline/build_site.py
+
+      - name: Summarise
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          meta = json.loads(pathlib.Path("data/meta.json").read_text())
+          c = meta["counts"]
+          print(f"matches={c['matches']} resolved={c['resolved']} unresolved={c['unresolved']} "
+                f"tournaments={c['tournaments']} quotes={c['quotes']}")
+          for s in meta["sources"]:
+              print(f"  {s['book']}: {s['status']} quotes={s['quotes']} {s.get('error') or ''}")
+          PY
+
+      - name: Commit refreshed data and site
+        run: |
+          git config user.name "arena-bot"
+          git config user.email "arena-bot@users.noreply.github.com"
+          git add data assets .nojekyll *.html 2>/dev/null || git add data assets
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "chore(data): refresh picks $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
