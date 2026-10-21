@@ -207,6 +207,33 @@ class FeedJoin(unittest.TestCase):
         def get_json(self, url, attempts=3, headers=None):
             return list(self.rows)
 
+    def test_per_id_lookup_accepts_only_an_exact_slug_match(self):
+        seen = []
+
+        class IdStub:
+            """Only the two Fetcher methods the lookup uses."""
+
+            def map(self, urls, worker, max_workers=6):
+                return [worker(u) for u in urls]
+
+            def get_json(self, url, attempts=3, headers=None):
+                seen.append(url)
+                pid = int(url.split("search=")[1].split("&")[0])
+                if pid == 1081205:      # exact slug suffix -> accepted
+                    return [dict(FeedJoin.ROWS[0])]
+                return [{"id": 999, "slug": "unrelated-match-at-x-424242",   # different id
+                         "link": "https://www.hotspawn.com/matches/x-424242",
+                         "title": {"rendered": "Nothing vs Else"}}]
+
+        found = hs.fixture_lookup_by_ids(IdStub(), [1081205, 999999])
+        self.assertEqual(sorted(int(u.split("search=")[1].split("&")[0]) for u in seen),
+                         [999999, 1081205], seen)
+        self.assertEqual(list(found), [1081205])
+        self.assertEqual(found[1081205]["fixture_id"], 1081205)
+        self.assertEqual(found[1081205]["tournament_slug"], "em-2026-summer-main-event")
+        self.assertEqual(found[1081205]["wp_title"],
+                         "Galions vs Solary League of Legends match at EM 2026 Summer Main Event")
+
     def test_feed_records_are_keyed_by_provider_id_and_carry_tournament_slug(self):
         feed = hs.search_lol_fixtures(self.Stub(self.ROWS))
         self.assertEqual(len(feed), 2, feed)

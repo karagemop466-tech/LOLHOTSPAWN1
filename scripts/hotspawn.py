@@ -235,7 +235,27 @@ def fixture_records(fetcher: Fetcher, fixture_ids: list[int]) -> dict[int, dict]
     return out
 
 
-def search_lol_fixtures(fetcher: Fetcher, max_pages: int = 6) -> list[dict]:
+def normalize_fixture_row(row: dict) -> dict:
+    """Shared shape for a fixture record, whether it came from a listing page or an id lookup."""
+    slug = row.get("slug") or ""
+    title = ((row.get("title") or {}).get("rendered") or "")
+    clean = re.sub(r"\s+", " ", unescape(title)).strip()
+    clean = re.sub(r"\s*[-–]\s*\d{4,9}\s*$", "", clean)   # drop " – 1081205"
+    return {
+        "fixture_id": int(row.get("provider_id") or provider_id_from_slug(slug) or 0),
+        "wp_post_id": row.get("id"),
+        "wp_link": row.get("link"),
+        "wp_title": clean,
+        "wp_date": row.get("date"),
+        "wp_modified": row.get("modified"),
+        "provider_id": provider_id_from_slug(slug),
+        "tournament_slug": tournament_slug_from_fixture_slug(slug),
+        "source_url": row.get("link"),
+        "source_label": "Hotspawn fixture record (WP REST feed)",
+    }
+
+
+def search_lol_fixtures(fetcher: Fetcher, max_pages: int = 8) -> list[dict]:
     """Every LoL fixture Hotspawn publishes (search of the fixture feed).
 
     Used as a completeness cross-check: any lobby match missing here, or any LoL fixture in a
@@ -250,24 +270,11 @@ def search_lol_fixtures(fetcher: Fetcher, max_pages: int = 6) -> list[dict]:
         if not isinstance(data, list) or not data:
             break
         for row in data:
-            title = ((row.get("title") or {}).get("rendered") or "")
-            clean = re.sub(r"\s+", " ", unescape(title)).strip()
-            clean = re.sub(r"\s*[-–]\s*\d{4,9}\s*$", "", clean)   # drop " – 1081205"
-            if "league of legends" not in clean.lower():
+            clean = ((row.get("title") or {}).get("rendered") or "")
+            if "league of legends" not in re.sub(r"\s+", " ", unescape(clean)).lower():
                 continue
-            slug = row.get("slug") or ""
-            found[int(row["id"])] = {
-                "fixture_id": int(row.get("provider_id") or provider_id_from_slug(slug) or 0),
-                "wp_post_id": int(row["id"]),
-                "wp_link": row.get("link"),
-                "wp_title": clean,
-                "wp_date": row.get("date"),
-                "wp_modified": row.get("modified"),
-                "provider_id": provider_id_from_slug(slug),
-                "tournament_slug": tournament_slug_from_fixture_slug(slug),
-                "source_url": row.get("link"),
-                "source_label": "Hotspawn fixture record (WP REST feed)",
-            }
+            found[int(row["id"])] = normalize_fixture_row(dict(row, provider_id=provider_id_from_slug(
+                row.get("slug") or "")))
         if len(data) < 100:
             break
     return list(found.values())
@@ -354,11 +361,16 @@ def _row_from_line_tokens(lines: list[str]):
     while i < len(cleaned):
         tok = cleaned[i]
         cm = ROW_CLOCK.match(tok)
-        if cm and clock is None:
-            clock = (int(cm.group(1)), int(cm.group(2)))
-            i += 1
+        if cm:
+            # the zone is sometimes its own text node ("16:02" "UTC") — consume it with the clock
+            step = 1
+            if i + 1 < len(cleaned) and cleaned[i + 1].upper() in ("UTC", "GMT"):
+                step = 2
+            if clock is None:
+                clock = (int(cm.group(1)), int(cm.group(2)))
+            i += step
             continue
-        if ROW_CLOCK.match(tok):
+        if tok.upper() in ("UTC", "GMT", "AM", "PM") or re.fullmatch(r"(UTC|GMT)[,:]?", tok.upper()):
             i += 1
             continue
         if tok.lower() in ROW_STATUS:
@@ -446,62 +458,51 @@ def _league_rows_from_anchors(markup: str, base_url: str | None = None) -> list[
         row = _row_from_line_tokens(inner_lines)
         kickoff = None
         basis = None
-        dt = _DT_ATTR.search(win)
+        # the row's own datetime= attribute first (a page-wide search would pick up a neighbour)
+        dt = _DT_ATTR.search(inner) or _DT_ATTR.search(markup[max(0, start - 1600):end])
+        dt_kick = None
         if dt:
-            raw_dt = dt.group(1).replace(" ", "T")
             try:
-                kickoff = datetime.fromisoformat(raw_dt.replace("Z", "+00:00"))
-                if kickoff.tzinfo is None:
-                    kickoff = kickoff.replace(tzinfo=timezone.utc)
-                kickoff = kickoff.astimezone(timezone.utc)
-                basis = "time[datetime] attribute"
+                dt_kick = datetime.fromisoformat(dt.group(1).replace(" ", "T").replace("Z", "+00:00"))
+                if dt_kick.tzinfo is None:
+                    dt_kick = dt_kick.replace(tzinfo=timezone.utc)
+                dt_kick = dt_kick.astimezone(timezone.utc)
             except ValueError:
-                kickoff = None
-        if kickoff is None and row and row.get("clock") and row.get("day"):
-            dnum, mon, year = row["day"]
-            try:
-                kickoff = datetime(year or now.year, MONTHS[mon.lower()], dnum,
-                                    row["clock"][0], row["clock"][1], tzinfo=timezone.utc)
-                basis = "row clock + row day label"
-            except (KeyError, ValueError):
-                kickoff = None
-        if kickoff is None and row and row.get("clock"):
-            hh, minute = row["clock"]
+                dt_kick = None
+
+        day_for_clock = None
+        if row and row.get("day"):
+            day_for_clock = row["day"]
+        else:
             daym = (re.findall(r"\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"
                                r"\s+(20\d\d)\b", head_plain, re.I)
                     or re.findall(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"
                                   r"\s+(\d{1,2})(?:,?\s*(20\d\d))?", head_plain, re.I))
             if daym:
                 g = daym[-1]
-                if g[0].isdigit():
-                    dnum, mon, year = int(g[0]), g[1], int(g[2])
+                if str(g[0]).isdigit():
+                    day_for_clock = (int(g[0]), g[1], int(g[2]))
                 else:
-                    mon, dnum, year = g[0], int(g[1]), (int(g[2]) if g[2] else now.year)
-                try:
-                    kickoff = datetime(year, MONTHS[mon.lower()], dnum, hh, minute, tzinfo=timezone.utc)
-                    basis = "row clock + nearest day heading on the page"
-                except (KeyError, ValueError):
-                    kickoff = None
-        if kickoff is None:
-            clock = re.search(r"\b(\d{1,2}):(\d{2})\b(?!\s*\d)", plain)
-            day = (re.search(r"\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b"
-                             r"(?:\s+(\d{4}))?", plain, re.I)
-                   or re.search(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})"
-                                r"(?:\s+(\d{4}))?\b", plain, re.I))
-            if clock and day:
-                g = day.groups()
-                if g[0] and str(g[0]).isdigit():
-                    dnum, mon, year = int(g[0]), g[1], g[2]
-                else:
-                    mon, dnum, year = g[0], int(g[1]), g[2]
-                try:
-                    kickoff = datetime(int(year) if year else now.year, MONTHS[mon.lower()],
-                                       dnum, int(clock.group(1)), int(clock.group(2)),
-                                       tzinfo=timezone.utc)
-                    basis = "day label + HH:MM on the row"
-                except (KeyError, ValueError):
-                    kickoff = None
+                    day_for_clock = (int(g[1]), g[0], int(g[2]) if g[2] else None)
 
+        if row and row.get("clock") and day_for_clock:
+            dnum, mon, year = day_for_clock
+            try:
+                kickoff = datetime(year or now.year, MONTHS[mon.lower()], dnum,
+                                   row["clock"][0], row["clock"][1], tzinfo=timezone.utc)
+                basis = "row clock + row day label" if row.get("day") else \
+                    "row clock + nearest day heading before the row"
+            except (KeyError, ValueError):
+                kickoff = None
+        if kickoff is None and dt_kick is not None:
+            kickoff, basis = dt_kick, "time[datetime] attribute"
+        conflict = None
+        if kickoff is not None and dt_kick is not None and abs(
+                (kickoff - dt_kick).total_seconds()) > 5400:
+            conflict = (f"printed clock {iso(kickoff)} vs datetime attribute "
+                        f"{iso(dt_kick)} — printed value used, flagged")
+
+        clock = re.search(r"\b(\d{1,2}):(\d{2})\b(?!\s*\d)", plain)
         teams = ((row["home"], row["away"]) if row else None) \
             or _teams_from_bits(inner_lines) or _teams_from_bits(tail_lines) \
             or _teams_from_bits(plain_lines)
@@ -544,6 +545,7 @@ def _league_rows_from_anchors(markup: str, base_url: str | None = None) -> list[
             "league_score": ([int(score_m.group(1)), int(score_m.group(2))] if score_m
                              else list(split_score) if split_score else None),
             "league_clock_utc": ("%02d:%02d" % row["clock"]) if (row and row.get("clock")) else None,
+            "kickoff_conflict": conflict,
             "time_shown_utc": bool(re.search(r"(?i)\b(UTC|GMT)\b", plain)),
             "league_raw": " | ".join((inner_lines + tail_lines)[:8])[:400],
         })
@@ -683,6 +685,33 @@ def harvest_results_from_league(text: str, base_url: str | None = None) -> list[
 
 
 # --------------------------------------------------------------------------- driver
+def fixture_lookup_by_ids(fetcher: Fetcher, provider_ids: list[int],
+                          max_workers: int = 6) -> dict[int, dict]:
+    """Look up specific fixtures by provider id, accepted only on an exact slug suffix.
+
+    The lobby's list can contain matches that fall outside the feed's recent pages (or that were
+    edited longer ago), and those still have to be verified before a pick is published, so each
+    missing id is queried on its own and matched only if the returned post's slug really ends with
+    ``-<id>``.  A near miss is left unverified instead of being guessed into place.
+    """
+    urls = [f"{FIXTURES_API}?search={pid}&per_page=5&_fields=id,date,modified,slug,link,title"
+            for pid in provider_ids]
+
+    def one(url: str):
+        pid = int(url.split("search=")[1].split("&")[0])
+        data = fetcher.get_json(url, attempts=2)
+        for row in (data if isinstance(data, list) else []):
+            if isinstance(row, dict) and (row.get("slug") or "").endswith(f"-{pid}"):
+                return pid, normalize_fixture_row(dict(row, provider_id=pid))
+        return pid, None
+
+    out: dict[int, dict] = {}
+    for pid, rec in fetcher.map(urls, one, max_workers=max_workers):
+        if rec:
+            out[int(pid)] = rec
+    return out
+
+
 def index_by_provider_id(records: list[dict]) -> dict[int, dict]:
     """Index fixture records by the id that appears in the match URL (not the WP post id)."""
     out: dict[int, dict] = {}
@@ -749,6 +778,13 @@ def collect(fetcher: Fetcher, out_dir: str = "data", deep: bool = True) -> dict:
             card["fixture_verified"] = False
     log(f"fixtures feed: {len(feed)} LoL records read, {len(by_pid)} indexed, "
         f"matched {matched}/{len(set(ids))} distinct lobby fixture ids")
+
+    missing = sorted({c["fixture_id"] for c in cards
+                      if c.get("fixture_id") and c["fixture_id"] not in records})
+    if missing and deep:
+        found = fixture_lookup_by_ids(fetcher, missing)
+        records.update(found)
+        log(f"  per-id fixture lookup: {len(found)}/{len(missing)} previously missing ids verified")
 
     # completeness cross-check against the whole LoL fixture feed: every LoL fixture Hotspawn
     # publishes that is NOT on the pick'em lobby (past events, or cards the lobby does not render)
