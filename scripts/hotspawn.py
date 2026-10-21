@@ -145,7 +145,8 @@ def parse_lobby(lines: list[str], fetched_at: datetime) -> list[dict]:
 
 
 def lobby_totals(lines: list[str]) -> dict:
-    totals = {"matches_this_week": None, "tiers_count": None, "reset_in_s": None}
+    totals = {"matches_this_week": None, "tiers_count": None, "reset_in_s": None,
+              "card_markers": sum(1 for l in lines if l.lower().startswith("who will win?"))}
     blob = "\n".join(lines[:60])
     tw = re.search(r"(\d+)\s+matches this week", blob)
     if tw:
@@ -383,6 +384,16 @@ def collect(fetcher: Fetcher, out_dir: str = "data", deep: bool = True) -> dict:
     lines = html_to_lines(markup)
     write_debug("lobby_text_sample.txt", "\n".join(lines[:220]), out_dir)
     write_debug("lobby_text_tail.txt", "\n".join(lines[-160:]), out_dir)
+    try:
+        first = next(i for i, l in enumerate(lines) if l.lower().startswith("who will win?"))
+    except StopIteration:
+        first = 0
+    write_debug("lobby_text_cards.txt",
+                "\n".join(lines[max(0, first - 14):first + 90]), out_dir)
+    pos = (markup or "").find("/matches/")
+    write_debug("lobby_html_cards.txt",
+                (markup[max(0, pos - 4000):pos + 2500] if pos != -1 else (markup or "")[:6000]),
+                out_dir)
 
     cards = parse_lobby(lines, fetched_at)
     totals = lobby_totals(lines)

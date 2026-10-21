@@ -284,7 +284,18 @@ def urlsplit_host(url: str) -> str:
 
 
 # --------------------------------------------------------------------------- html
-def html_to_lines(markup: str) -> list[str]:
+def annotate_links(markup: str) -> str:
+    """Replace every ``<a href="X" ...>`` opening tag with the bare URL on its own line.
+
+    Without this, stripping tags deletes the only thing that identifies a fixture (its match-page
+    URL lives in the ``href`` attribute, not in the visible label).  Keeping the URL inline means the
+    same line-stream parser works for Hotspawn's lobby, its league pages and the odds pages.
+    """
+    return re.sub(r"""(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>""",
+                  lambda m: "\n" + m.group(1) + "\n", markup or "")
+
+
+def html_to_lines(markup: str, keep_links: bool = True) -> list[str]:
     """Flatten HTML into the visible text lines a browser would show.
 
     The parser works on the *text* stream instead of the tag tree on purpose: Hotspawn's lobby
@@ -292,6 +303,8 @@ def html_to_lines(markup: str) -> list[str]:
     """
     if not markup:
         return []
+    if keep_links:
+        markup = annotate_links(markup)
     if BeautifulSoup is not None:
         try:
             soup = BeautifulSoup(markup, "html.parser")

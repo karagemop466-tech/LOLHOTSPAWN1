@@ -170,12 +170,12 @@ jobs:
         run: |
           set -uo pipefail
           mkdir -p logs
-          for f in data-new/collect.log data-new/debug/lobby_text_sample.txt \
-                   data-new/hotspawn.json data-new/sources.json data-new/summary.json \
-                   data-new/verify-report.txt; do
+          for f in data-new/collect.log data-new/debug/*.txt \
+                   data-new/hotspawn.json data-new/lines.json data-new/sources.json \
+                   data-new/summary.json data-new/unresolved.json data-new/verify-report.txt; do
             [ -f "$f" ] || continue
             base=$(basename "$f")
-            [ "$base" = "lobby_text_sample.txt" ] && base=lobby-sample.txt
+            :
             tail -c 90000 "$f" > "logs/$base" || true
           done
           echo "run ${{ github.run_id }} · attempt ${{ github.run_attempt }}" > logs/RUN.txt
