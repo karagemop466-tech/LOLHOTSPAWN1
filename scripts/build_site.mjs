@@ -53,7 +53,7 @@ function countdown(ms) {
 }
 const openM = matches.filter((m) => m.state === "open").sort((a, b) => (a.lock_ms ?? Infinity) - (b.lock_ms ?? Infinity));
 const lockedM = matches.filter((m) => ["locked", "live"].includes(m.state)).sort((a, b) => (a.start_ms ?? 0) - (b.start_ms ?? 0));
-const endedM = matches.filter((m) => m.state === "ended").sort((a, b) => (b.start_ms ?? 0) - (a.start_ms ?? 0));
+const endedM = matches.filter((m) => ["ended", "forfeited"].includes(m.state)).sort((a, b) => (b.start_ms ?? 0) - (a.start_ms ?? 0));
 const unresolved = openM.filter((m) => !m.pick);
 const srcKey = (m) => (m.market_pinnacle ? "pinnacle" : m.market_polymarket ? "polymarket" : m.pick ? "model" : "none");
 const srcBadge = (m) => {
@@ -104,6 +104,7 @@ function matchCard(m, { showState = false } = {}) {
       <span>🕒 ${fmtDT(m.start_ms)}</span><span>· ${countdown(m.lock_ms)}</span>
       ${tierBadge(m)} ${stateB} ${conf}
       ${m.offered_points ? `<span>· ${m.offered_points} pts</span>` : ""}
+      ${m.start_discrepancy ? `<span title="Hotspawn lists ${esc(fmtDT(m.start_discrepancy.hotspawn_utc))}, Pinnacle lists ${esc(fmtDT(m.start_discrepancy.pinnacle_utc))}">⚠️ <a href="flagged.html">time discrepancy</a></span>` : ""}
     </div>
     <div class="meta" style="margin-bottom:8px"><span>🏆 <a href="picks.html?tour=${esc(m.competition_id)}">${esc(m.competition)}</a></span>${m.stage && !/waiting/i.test(m.stage) ? `<span>· ${esc(m.stage)}</span>` : ""}</div>
     ${bars(m)}
@@ -139,7 +140,7 @@ function layout(title, active, body, desc = "") {
 <meta name="description" content="${esc(desc)}">
 <title>${esc(title)}</title>
 <link rel="stylesheet" href="assets/style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Ctext%20y%3D'.9em'%20font-size%3D'90'%3E%F0%9F%8E%AF%3C%2Ftext%3E%3C%2Fsvg%3E">
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -164,6 +165,10 @@ ${body}
 const c = summary.counts;
 const acc = summary.accuracy ?? { tracked: 0, hits: 0, rate: null };
 const soon = openM.filter((m) => m.pick).slice(0, 6);
+const openWithPick = openM.filter((m) => m.pick).length;
+const openMarket = openM.filter((m) => m.market_pinnacle || m.market_polymarket).length;
+const openModel = openM.filter((m) => m.pick && !m.market_pinnacle && !m.market_polymarket).length;
+const openPct = c.open ? Math.round((openWithPick / c.open) * 100) : 0;
 
 const unresolvedNames = unresolved.slice(0, 12).map((m) => `<li><b>${esc(m.team0.name)} vs ${esc(m.team1.name)}</b> — ${esc(m.competition)} · ${fmtDT(m.start_ms)} <a href="unresolved.html#m-${esc(m.id)}">(why)</a></li>`).join("");
 
@@ -185,8 +190,8 @@ const indexBody = `
 
 <div class="kpis">
   <div class="kpi acc"><div class="n">${c.open}</div><div class="l">Open LoL matches</div></div>
-  <div class="kpi good"><div class="n">${c.market_pinnacle + c.market_polymarket_only}</div><div class="l">Picks from betting lines</div></div>
-  <div class="kpi warn"><div class="n">${c.model_only}</div><div class="l">Picks from own model</div></div>
+  <div class="kpi good"><div class="n">${openMarket}</div><div class="l">Picks from betting lines</div></div>
+  <div class="kpi warn"><div class="n">${openModel}</div><div class="l">Picks from own model</div></div>
   <div class="kpi bad"><div class="n">${c.unresolved_open}</div><div class="l">Unresolved (no pick)</div></div>
   <div class="kpi"><div class="n">${c.ended_this_week}</div><div class="l">Settled this week</div></div>
 </div>
@@ -195,10 +200,10 @@ const indexBody = `
   <h2>Executive summary</h2>
   <p class="desc">Everything you need, in one place. Full pick list: <a href="picks.html"><b>picks.html</b></a>.</p>
   <ul style="margin:8px 0 0;padding-left:20px;color:var(--mut);font-size:14.5px">
-    <li><b>Coverage:</b> ${c.picks_total} of ${c.open} open matches (${c.open ? Math.round((c.picks_total / c.open) * 100) : 0}%) carry a pick with a win probability for each team. ${c.market_pinnacle} priced by Pinnacle, ${c.market_polymarket_only} by Polymarket, ${c.model_only} by our own Elo-style model built from the full Hotspawn results archive.</li>
+    <li><b>Coverage:</b> ${openWithPick} of ${c.open} open matches (${openPct}%) carry a pick with a win probability for each team. ${openMarket} priced by external betting lines (Pinnacle${c.market_polymarket_only ? " / Polymarket" : ""}), ${openModel} by our own Elo-style model built from the full Hotspawn results archive.</li>
     <li><b>Picks are external:</b> Hotspawn crowd "% picked" is never used as a probability. Lines come from Pinnacle's guest odds API and Polymarket markets; where no market exists we originate our own line from real match results.</li>
     <li><b>Unresolved:</b> ${c.unresolved_open} open match${c.unresolved_open === 1 ? "" : "es"} could not be priced — no bookmaker/prediction market lists them and at least one team has no recorded series history. Details + limitations: <a href="unresolved.html">Unresolved Picks</a>.</li>
-    <li><b>Quality control:</b> ${c.flags_needs_review} item(s) need manual review (name-match ambiguity, line divergences, thin markets) — <a href="flagged.html">Flagged for Review</a>. ${c.flags_info} informational note(s).</li>
+    <li><b>Quality control:</b> ${c.flags_needs_review} item(s) need manual review (name-match ambiguity, line divergences, thin markets) — <a href="flagged.html">Flagged for Review</a>. ${c.flags_info} informational note(s).${c.stale ? ` ${c.stale} stale unplayed fixtures excluded from lists (info flag).` : ""}</li>
     <li><b>Freshness:</b> GitHub Actions re-collects every 6h (within the 4–8h requirement). Last collect: ${esc(collectLog.fetched_at ? fmtDT(collectLog.fetched_at) : "unknown")}${collectLog.duration_s ? ` (took ${collectLog.duration_s}s)` : ""}.</li>
   </ul>
 </section>
@@ -261,7 +266,7 @@ const picksPage = `
 <div class="hero">
   <h1>✅ All picks — ${c.open} open LoL matches</h1>
   <p class="sub">Every match currently pickable on the Hotspawn lobby, sorted by lock time. The <b style="color:var(--good)">PICK</b> tag marks our selection; percentages are each team's win probability from the best available line (Pinnacle → Polymarket → own model).</p>
-  <span class="updated"><span class="dot"></span> Updated <b>${fmtDT(GEN_MS)}</b> · ${c.picks_total}/${c.open} with picks · ${c.unresolved_open} unresolved (<a href="unresolved.html">why</a>)</span>
+  <span class="updated"><span class="dot"></span> Updated <b>${fmtDT(GEN_MS)}</b> · ${openWithPick}/${c.open} with picks · ${c.unresolved_open} unresolved (<a href="unresolved.html">why</a>)</span>
 </div>
 <div class="filters">
   <input id="f-q" type="search" placeholder="Search team or tournament…" autocomplete="off">
@@ -365,7 +370,7 @@ const resultsRows = endedM.map((m) => {
   return `<tr>
     <td>${fmtDT(m.start_ms)}</td>
     <td>${esc(m.competition)}</td>
-    <td><a href="${esc(m.hotspawn_url)}" rel="noopener" target="_blank">${esc(m.team0.name)} ${m.score0}–${m.score1} ${esc(m.team1.name)}</a><br><span class="small">winner: <b>${esc(winner)}</b></span></td>
+    <td><a href="${esc(m.hotspawn_url)}" rel="noopener" target="_blank">${esc(m.team0.name)} ${m.score0 ?? 0}–${m.score1 ?? 0} ${esc(m.team1.name)}</a>${m.forfeit ? ' <span class="badge state">FORFEIT</span>' : ""}<br><span class="small">winner: <b>${esc(winner)}</b></span></td>
     <td>${pickCell}</td>
   </tr>`;
 }).join("");
@@ -486,11 +491,13 @@ const methodologyPage = `
   <h2>6. Known limitations</h2>
   <ul style="color:var(--mut);font-size:14.5px;padding-left:20px">
     <li>Market coverage is concentrated on tier-1/2 events (${pinLeagues.length ? `Pinnacle currently prices: ${esc(pinLeagues.join(", "))}` : "Pinnacle coverage varies"}); hundreds of amateur-division matches have no market line anywhere we can verify.</li>
-    <li>The own model measures teams as they appear in Hotspawn's archive — roster swaps, academy/main-team promotion, and smurf/stand-in games are invisible to it.</li>
+    <li>The own model measures teams as they appear in Hotspawn's archive — roster swaps, academy/main-team promotion, and smurf/stand-in games are invisible to it. Tier-1 teams appear rarely in that archive (it skews to minor leagues), which is why Worlds-level matches rely on market lines.</li>
+    <li>Cross-source team names are unified by normalization (diacritic folding incl. Ø→O, dropped org suffixes like “Esports/Gaming/Team/Club”, plus a small alias table for major orgs — e.g. HLE→Hanwha Life, LØS→LOS). Every non-exact match is flagged for review.</li>
+    <li><b>Start-time metadata can disagree across platforms.</b> Verified example (2026-10-21): Hotspawn lists Worlds group-stage matches in hourly slots that differ from Pinnacle and Polymarket's official rules (e.g. Hanwha Life vs Top Esports — Hotspawn 18:00 UTC vs Pinnacle/Polymarket 21:00 UTC / 5:00 PM ET). Displayed times and locks are Hotspawn's (they govern pick submission); discrepancies &gt;90 min are auto-flagged.</li>
+    <li>Hotspawn leaves fixtures in “scheduled” status long after they were supposed to start; those (>24h past start, unplayed) are classified <b>stale</b>, excluded from pick lists, and counted in an info flag.</li>
     <li>Best-of-1 formats (most minor leagues) are high-variance; even correct probabilities lose often.</li>
-    <li>Name matching across sources can mis-link similarly named teams; every fuzzy match is flagged for review rather than hidden.</li>
     <li>The Hotspawn SSR lobby is CDN-cached and occasionally 403s; the fixtures API is the authoritative inventory, the page is a cross-check.</li>
-    <li>Polymarket prices move continuously; snapshots are point-in-time (timestamp on every page).</li>
+    <li>Polymarket prices move continuously; snapshots are point-in-time (timestamp on every page). Polymarket mid-prices are only used when the order-book spread is ≤6¢, else last outcome prices.</li>
   </ul>
 </section>
 

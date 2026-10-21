@@ -37,20 +37,32 @@ const readJSON = async (p, fallback = null) => {
 const num = (x) => (x === null || x === undefined || x === "" ? null : Number(x));
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 
+// Fold characters that NFD does NOT decompose (Ø, Æ, Œ, Đ, Ł, Þ, ß …) before stripping.
+const CHAR_FOLD = { "ø": "o", "æ": "ae", "œ": "oe", "ß": "ss", "đ": "d", "ð": "d", "ł": "l", "þ": "th", "ı": "i", "ŀ": "l" };
+// Conservative alias table for well-established LoL orgs whose short tags appear in
+// some sources (Pinnacle/Polymarket) and full names in others (Hotspawn archive).
+// Applied AFTER token filtering; only exact full-string matches are folded.
+const ALIASES = {
+  hle: "hanwha life", blg: "bilibili gaming", ig: "invictus gaming", tes: "top esports",
+  jdg: "jd gaming", edg: "edward gaming", wbg: "weibo gaming", fpx: "funplus phoenix",
+  rng: "royal never give up", kt: "kt rolster", dk: "dplus kia", al: "anyone s legend",
+  cfo: "ctbc flying oyster", kc: "karmine corp", mkoi: "movistar koi", tsw: "secret whales",
+  "team secret whales": "secret whales", drx: "drx", brion: "brion esports",
+  "gen g": "gen g", t1: "t1", g2: "g2",
+};
 function normName(s) {
   if (!s) return "";
-  return (
-    s
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/&/g, " and ")
-      .replace(/[^a-z0-9]+/g, " ")
-      .split(" ")
-      .filter((t) => t && !["esports", "esport", "gaming", "team", "club"].includes(t))
-      .join(" ")
-      .trim()
-  );
+  const folded = s.toLowerCase().replace(/[øæœßđðłþıŀ]/g, (ch) => CHAR_FOLD[ch] ?? ch);
+  const base = folded
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .split(" ")
+    .filter((t) => t && !["esports", "esport", "gaming", "team", "club"].includes(t))
+    .join(" ")
+    .trim();
+  return ALIASES[base] ?? base;
 }
 const tokens = (s) => new Set(normName(s).split(" ").filter(Boolean));
 function jaccard(a, b) {
@@ -134,10 +146,15 @@ function flag(severity, title, detail, links = [], match_id = null) {
  * Prediction shrinks toward 50% when either side has little history:
  *   c = min(1, (min(n0,n1) + 2) / 10);  p = 0.5 + (E - 0.5) * c, clamped [3%, 97%]
  */
-const ratings = new Map(); // id -> {r, n, name, last_ms}
+// Ratings are keyed by NORMALIZED NAME, not participant id: the Hotspawn archive
+// contains duplicate participant ids for the same org (e.g. "Gen.G" vs "Gen.G Esports"
+// across seasons), which would fragment history. normName + alias folding unifies them.
+const ratingKey = (id, name) => normName(name) || `id:${id}`;
+const ratings = new Map(); // key -> {r, n, name, last_ms}
 function getRating(id, name) {
-  if (!ratings.has(id)) ratings.set(id, { r: 1500, n: 0, name, last_ms: null });
-  const e = ratings.get(id);
+  const k = ratingKey(id, name);
+  if (!ratings.has(k)) ratings.set(k, { r: 1500, n: 0, name, last_ms: null });
+  const e = ratings.get(k);
   if (name) e.name = name;
   return e;
 }
@@ -162,8 +179,8 @@ for (const f of ended) {
 }
 
 function modelProb(f) {
-  const A = ratings.get(f.t0.id) ?? { r: 1500, n: 0 };
-  const B = ratings.get(f.t1.id) ?? { r: 1500, n: 0 };
+  const A = ratings.get(ratingKey(f.t0.id, f.t0.name)) ?? { r: 1500, n: 0 };
+  const B = ratings.get(ratingKey(f.t1.id, f.t1.name)) ?? { r: 1500, n: 0 };
   const info = Math.min(A.n, B.n);
   if (info === 0) return null; // no history for at least one side -> no model line
   const E = 1 / (1 + Math.pow(10, (B.r - A.r) / 400));
@@ -221,30 +238,37 @@ for (const lg of pinnacle.leagues || []) {
 /* --------------------------------------------------------- market: Polymarket */
 
 const polyLines = [];
+const SUBMARKET_RE = /game\s*\d|map\s*\d|handicap|total|first|kills?|dragon|baron|turret|tower/i;
 for (const ev of polymarket.events || []) {
-  for (const m of ev.markets || []) {
-    if (!m.outcomes || m.outcomes.length !== 2) continue;
-    if (m.closed) continue;
-    let prices = m.outcomePrices && m.outcomePrices.length === 2 ? m.outcomePrices : null;
-    let p0 = null, p1 = null, kind = "outcomePrices";
-    if (m.bestBid != null && m.bestAsk != null && m.bestBid > 0 && m.bestAsk < 1 && m.bestAsk >= m.bestBid) {
-      p0 = (m.bestBid + m.bestAsk) / 2; p1 = 1 - p0; kind = "mid(bid/ask)";
-    } else if (prices) {
-      const s = prices[0] + prices[1];
-      if (s > 0) { p0 = prices[0] / s; p1 = prices[1] / s; }
-    }
-    if (p0 == null) continue;
-    const slugDate = (ev.slug.match(/(\d{4}-\d{2}-\d{2})/) || [])[1];
-    polyLines.push({
-      teamA: m.outcomes[0], teamB: m.outcomes[1],
-      pA: p0, pB: p1, priceKind: kind,
-      date: slugDate ?? (ev.endDate ? ev.endDate.slice(0, 10) : null),
-      end_ms: ev.endDate ? Date.parse(ev.endDate) : null,
-      volume: ev.volume ?? m.volume, liquidity: m.liquidity ?? ev.liquidity, spread: m.spread,
-      eventTitle: ev.title, eventSlug: ev.slug, question: m.question,
-      url: `https://polymarket.com/event/${ev.slug}`,
-    });
+  // One series-moneyline market per event: drop per-game/prop sub-markets,
+  // prefer a question that looks like "A vs. B".
+  const cands = (ev.markets || []).filter(
+    (m) => m.outcomes?.length === 2 && !m.closed && !SUBMARKET_RE.test(m.question || "")
+  );
+  if (!cands.length) continue;
+  cands.sort((a, b) => (/ vs\.? /i.test(b.question || "") ? 1 : 0) - (/ vs\.? /i.test(a.question || "") ? 1 : 0));
+  const m = cands[0];
+  const prices = m.outcomePrices && m.outcomePrices.length === 2 ? m.outcomePrices : null;
+  let p0 = null, p1 = null, kind = "outcomePrices";
+  const spread = m.spread != null ? Number(m.spread) : null;
+  // Mid of book only when the book is tight; otherwise renormalized last/outcome prices.
+  if (spread != null && spread <= 0.06 && m.bestBid != null && m.bestAsk != null && m.bestBid > 0 && m.bestAsk < 1 && m.bestAsk >= m.bestBid) {
+    p0 = (m.bestBid + m.bestAsk) / 2; p1 = 1 - p0; kind = `mid(bid/ask, spread ${spread})`;
+  } else if (prices) {
+    const s = prices[0] + prices[1];
+    if (s > 0) { p0 = prices[0] / s; p1 = prices[1] / s; }
   }
+  if (p0 == null) continue;
+  const slugDate = (ev.slug.match(/(\d{4}-\d{2}-\d{2})/) || [])[1];
+  polyLines.push({
+    teamA: m.outcomes[0], teamB: m.outcomes[1],
+    pA: p0, pB: p1, priceKind: kind,
+    date: slugDate ?? (ev.endDate ? ev.endDate.slice(0, 10) : null),
+    end_ms: ev.endDate ? Date.parse(ev.endDate) : null,
+    volume: ev.volume ?? m.volume, liquidity: m.liquidity ?? ev.liquidity, spread,
+    eventTitle: ev.title, eventSlug: ev.slug, question: m.question,
+    url: `https://polymarket.com/event/${ev.slug}`,
+  });
 }
 
 /* ------------------------------------------------- match markets to fixtures */
@@ -332,9 +356,10 @@ for (const pm of polyLines) {
   }
 }
 if (polyUnmatched.length) {
+  const uniqSlugs = [...new Set(polyUnmatched.map((p) => p.eventSlug))];
   flag("info", "Polymarket markets with no matching Hotspawn fixture",
-    `${polyUnmatched.length} open Polymarket LoL market(s) did not correspond to any open Hotspawn fixture (Polymarket lists events outside the Hotspawn slate, or naming differs): ${polyUnmatched.slice(0, 10).map((p) => p.eventSlug).join(", ")}${polyUnmatched.length > 10 ? "…" : ""}. These are NOT used for any pick.`,
-    polyUnmatched.slice(0, 5).map((p) => p.url));
+    `${uniqSlugs.length} open Polymarket LoL event(s) did not correspond to any open Hotspawn fixture (Polymarket lists events outside the Hotspawn slate, or naming differs): ${uniqSlugs.slice(0, 10).join(", ")}${uniqSlugs.length > 10 ? "…" : ""}. These are NOT used for any pick.`,
+    uniqSlugs.slice(0, 5).map((s) => `https://polymarket.com/event/${s}`));
 }
 
 /* ------------------------------------------------------- classify + build rows */
@@ -348,9 +373,13 @@ function hotspawnUrl(f) {
 
 function stateOf(f) {
   if (f.status === "ended") return "ended";
+  if (f.status === "forfeited") return "forfeited";
   if (f.status === "cancelled") return "cancelled";
   if (f.status === "scheduled") {
     if (f.lock_ms && f.lock_ms > NOW) return "open";
+    // Lock passed but still "scheduled": either about to start / in progress,
+    // or a stale zombie fixture Hotspawn never settled (>24h past start).
+    if (f.start_ms && f.start_ms < NOW - 24 * 3600000) return "stale";
     return "locked";
   }
   if (["live", "inprogress", "in_progress", "started", "running"].includes(f.status)) return "live";
@@ -358,10 +387,13 @@ function stateOf(f) {
 }
 
 const rows = [];
+const staleList = [];
 for (const f of fixtures) {
   const state = stateOf(f);
   const inWeek = f.start_ms && f.start_ms >= weekStart && f.start_ms < weekEnd + 3 * 86400000;
-  if (state === "ended" && f.start_ms && f.start_ms < weekStart) continue; // history (used by model only)
+  if ((state === "ended" || state === "forfeited") && f.start_ms && f.start_ms < weekStart) continue; // history (used by model only)
+  if (state === "cancelled" && !(f.start_ms && f.start_ms >= weekStart && f.start_ms < weekEnd)) continue; // show only this week's cancellations
+  if (state === "stale") { staleList.push(f); } // kept in data for audit, excluded from pick display
   if (state === "unknown") flag("needs-review", "Unknown fixture status", `Fixture #${f.id} ${f.t0.name} vs ${f.t1.name} has status "${f.status}" — not classified.`, [], f.id);
   const mk = marketByFixture.get(f.id) ?? {};
   const model = modelProb(f);
@@ -372,10 +404,27 @@ for (const f of fixtures) {
 /* ------------------------------------------------------------- picks + flags */
 
 const picks = [];
+const lowConf = [];
 for (const r of rows) {
   const { f, state, mk, model, link } = r;
   const pin = mk.pinnacle ?? null;
   const poly = mk.polymarket ?? null;
+
+  // cross-source start-time discrepancy (Hotspawn schedule metadata has proven
+  // unreliable for some events; Pinnacle/Polymarket independently corroborated
+  // different start times — e.g. Worlds 2026 group stage, verified 2026-10-21)
+  let startDiscrepancy = null;
+  if (pin && pin.start_ms && f.start_ms) {
+    const deltaMin = Math.round((pin.start_ms - f.start_ms) / 60000);
+    if (Math.abs(deltaMin) > 90) {
+      startDiscrepancy = { hotspawn_utc: iso(f.start_ms), pinnacle_utc: iso(pin.start_ms), delta_min: deltaMin };
+      if (state === "open") {
+        flag("needs-review", "Start-time discrepancy: Hotspawn vs Pinnacle",
+          `${f.t0.name} vs ${f.t1.name} (${f.competition_name}): Hotspawn lists start ${iso(f.start_ms)} UTC (pick lock ${iso(f.lock_ms)} UTC), Pinnacle lists ${iso(pin.start_ms)} UTC (Δ ${deltaMin > 0 ? "+" : ""}${deltaMin} min). The Hotspawn lock still governs pick'em submission, but the real-world start time per the independent market source differs — displayed times may be wrong on one of the platforms.`,
+          [pin.url, link.url], f.id);
+      }
+    }
+  }
 
   let basis = null, p0 = null, p1 = null, confidence = null;
   if (pin) {
@@ -418,9 +467,7 @@ for (const r of rows) {
       [link.url], f.id);
   }
   if (state === "open" && basis === "model-elo" && model.confidence === "low") {
-    flag("info", "Low-confidence model pick",
-      `${f.t0.name} vs ${f.t1.name}: based on ${model.n0}/${model.n1} recorded series only.`,
-      [link.url], f.id);
+    lowConf.push({ id: f.id, name: `${f.t0.name} vs ${f.t1.name}`, comp: f.competition_name, n0: model.n0, n1: model.n1, url: link.url });
   }
 
   let pick = null;
@@ -441,6 +488,7 @@ for (const r of rows) {
   picks.push({
     id: f.id,
     state,
+    forfeit: state === "forfeited",
     competition_id: f.competition_id,
     competition: f.competition_name,
     tier: f.tier,
@@ -450,11 +498,12 @@ for (const r of rows) {
     lock_utc: iso(f.lock_ms),
     start_ms: f.start_ms,
     lock_ms: f.lock_ms,
+    start_discrepancy: startDiscrepancy,
     team0: { id: f.t0.id, name: f.t0.name },
     team1: { id: f.t1.id, name: f.t1.name },
     team_history: {
-      n0: ratings.get(f.t0.id)?.n ?? 0,
-      n1: ratings.get(f.t1.id)?.n ?? 0,
+      n0: ratings.get(ratingKey(f.t0.id, f.t0.name))?.n ?? 0,
+      n1: ratings.get(ratingKey(f.t1.id, f.t1.name))?.n ?? 0,
     },
     score0: state === "ended" ? num(f.t0.score) : null,
     score1: state === "ended" ? num(f.t1.score) : null,
@@ -480,6 +529,18 @@ for (const r of rows) {
     } : null,
     pick,
   });
+}
+
+/* ------------------------------------------------- aggregated info: low-conf */
+if (lowConf.length) {
+  flag("info", `${lowConf.length} model-only picks have LOW confidence (thin history)`,
+    `These picks come solely from our own Elo-style model where one or both sides have fewer than 3 recorded series (new season, new rosters, amateur divisions). They are shown with a LOW badge on the Picks page. Examples: ${lowConf.slice(0, 12).map((x) => `${x.name} (${x.n0}/${x.n1} series)`).join("; ")}${lowConf.length > 12 ? "; …" : ""}.`,
+    lowConf.slice(0, 8).map((x) => x.url));
+}
+if (staleList.length) {
+  flag("info", `${staleList.length} stale Hotspawn fixtures excluded from picks`,
+    `These fixtures still carry status "scheduled" although their start time passed more than 24h ago (Hotspawn never settled or cancelled them — likely postponed/abandoned, e.g. ${staleList.slice(0, 4).map((f) => `${f.t0.name} v ${f.t1.name} (${f.competition_name}, ${iso(f.start_ms)})`).join("; ")}). They cannot be picked on Hotspawn (lock passed) and are excluded from the site's match lists; kept in data/picks.json with state="stale" for audit.`,
+    ["https://play.hotspawn.com/lol-pickems"]);
 }
 
 /* ---------------------------------------------------------- inventory checks */
@@ -530,7 +591,7 @@ for (const p of picks) {
 // settle ended matches, prune old
 for (const [id, e] of Object.entries(ledger)) {
   const row = picks.find((p) => p.id === id);
-  if (row && row.state === "ended") {
+  if (row && (row.state === "ended" || row.state === "forfeited")) {
     const s0 = row.score0, s1 = row.score1;
     if (s0 != null && s1 != null && s0 !== s1) {
       const winner = s0 > s1 ? 0 : 1;
@@ -582,7 +643,8 @@ const summary = {
   counts: {
     open: picks.filter((p) => p.state === "open").length,
     locked_or_live: picks.filter((p) => ["locked", "live"].includes(p.state)).length,
-    ended_this_week: picks.filter((p) => p.state === "ended").length,
+    stale: picks.filter((p) => p.state === "stale").length,
+    ended_this_week: picks.filter((p) => ["ended", "forfeited"].includes(p.state)).length,
     cancelled: picks.filter((p) => p.state === "cancelled").length,
     picks_total: picks.filter((p) => p.pick).length,
     market_pinnacle: picks.filter((p) => p.market_pinnacle).length,
