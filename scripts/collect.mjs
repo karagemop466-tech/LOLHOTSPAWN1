@@ -22,7 +22,7 @@
  * data/raw/collect_log.json and never crash the run (downstream degrades
  * gracefully and flags the gap).
  */
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -152,12 +152,23 @@ async function collectLobbyCheck() {
 
 async function collectPinnacle() {
   const out = { fetched_at: new Date().toISOString(), leagues: [], errors: [] };
+  // The guest /matchups endpoint intermittently returns 401 even after retries
+  // (observed 2026-10-21). Matchup IDs are stable across fetches, so we cache
+  // the last successful listing and fall back to it — odds always come from
+  // the live /markets/straight response; only the team-name/start-time listing
+  // may come from cache, and that is recorded for audit.
+  const CACHE_FILE = path.join(RAW, "pinnacle_matchups_cache.json");
+  let cache = {};
+  try { cache = JSON.parse(await readFile(CACHE_FILE, "utf8")); } catch { cache = {}; }
+  if (!cache.leagues) cache.leagues = {};
+  if (!cache.fetched_at) cache.fetched_at = {};
+  const cacheNext = { leagues: {}, fetched_at: {} };
   try {
     const leagues = await getJSON(`${PINNACLE_BASE}/sports/12/leagues`);
     const lol = leagues.filter((l) => /^league of legends/i.test(l.name || ""));
     note("pinnacle", `${lol.length} LoL leagues: ${lol.map((l) => `${l.name}(${l.id})`).join(", ") || "none"}`);
     for (const lg of lol) {
-      const entry = { id: lg.id, name: lg.name, group: lg.group, matchups: [], straight: [] };
+      const entry = { id: lg.id, name: lg.name, group: lg.group, matchups: [], matchups_source: "live", straight: [] };
       try {
         const matchups = await getJSON(`${PINNACLE_BASE}/leagues/${lg.id}/matchups`);
         entry.matchups = matchups
@@ -172,20 +183,37 @@ async function collectPinnacle() {
             special: m.special ?? null,
             participants: (m.participants || []).map((p) => ({ alignment: p.alignment, name: p.name, id: p.id ?? null })),
           }));
+        cacheNext.leagues[String(lg.id)] = entry.matchups;
+        cacheNext.fetched_at[String(lg.id)] = out.fetched_at;
       } catch (e) {
         out.errors.push(`league ${lg.id} matchups: ${e.message}`);
-        note("pinnacle", `league ${lg.id} matchups FAILED: ${e.message}`, false);
+        const cached = cache.leagues[String(lg.id)];
+        const cachedAt = cache.fetched_at[String(lg.id)] ?? "unknown";
+        if (Array.isArray(cached) && cached.length) {
+          entry.matchups = cached;
+          entry.matchups_source = `cache@${cachedAt}`;
+          cacheNext.leagues[String(lg.id)] = cached;
+          cacheNext.fetched_at[String(lg.id)] = cachedAt;
+          note("pinnacle", `league ${lg.id} matchups FAILED (${e.message}) — reusing cached listing from ${cachedAt}; odds are live`, false);
+        } else {
+          note("pinnacle", `league ${lg.id} matchups FAILED: ${e.message} (no cache available)`, false);
+        }
       }
       try {
         const straight = await getJSON(`${PINNACLE_BASE}/leagues/${lg.id}/markets/straight`);
         entry.straight = straight
-          .filter((s) => s.type === "moneyline")
+          .filter((s) => s.type === "moneyline" || s.type === 0)
           .map((s) => ({
             matchupId: s.matchupId,
             period: s.period,
             status: s.status ?? null,
             cutoffAt: s.cutoffAt ?? null,
+            liveUp: s.liveUp ?? null,
             prices: (s.prices || []).map((p) => ({ designation: p.designation ?? null, participantId: p.participantId ?? null, price: p.price })),
+            // participant names ride along on each odds line — this allows the
+            // analyzer to reconstruct head-to-head pairs even when the separate
+            // /matchups endpoint intermittently 401s (observed 2026-10-21).
+            participants: (s.participants || []).map((p) => ({ id: p.id ?? null, name: p.name ?? null, rot: p.rot ?? null })),
           }));
       } catch (e) {
         out.errors.push(`league ${lg.id} straight: ${e.message}`);
@@ -193,11 +221,13 @@ async function collectPinnacle() {
       }
       out.leagues.push(entry);
     }
+    await writeFile(path.join(RAW, "pinnacle_matchups_cache.json"), JSON.stringify(cacheNext));
     await writeFile(path.join(RAW, "pinnacle_lol.json"), JSON.stringify(out));
     return out;
   } catch (e) {
     note("pinnacle", `leagues endpoint FAILED: ${e.message}`, false);
     out.errors.push(`leagues: ${e.message}`);
+    await writeFile(path.join(RAW, "pinnacle_matchups_cache.json"), JSON.stringify(cacheNext));
     await writeFile(path.join(RAW, "pinnacle_lol.json"), JSON.stringify(out));
     return out;
   }

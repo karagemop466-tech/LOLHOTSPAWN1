@@ -226,6 +226,7 @@ for (const lg of pinnacle.leagues || []) {
       decHome: Math.round(dh * 100) / 100, decAway: Math.round(da * 100) / 100,
       league: lg.name, league_id: lg.id, matchupId: m.id,
       bestOfX: m.bestOfX,
+      listing: lg.matchups_source ?? "live",
       // Pinnacle's web UI is a SPA without stable per-match URLs; the verifiable
       // source is the guest-API endpoint that serves this exact line.
       url: `https://guest.api.arcadia.pinnacle.com/0.1/leagues/${lg.id}/markets/straight`,
@@ -233,6 +234,57 @@ for (const lg of pinnacle.leagues || []) {
       site_url: "https://www.pinnacle.com/en/esports",
     });
   }
+
+  // Fallback: when the /matchups listing failed (Pinnacle guest API
+  // intermittently returns 401), reconstruct head-to-head pairs directly from
+  // the straight odds lines: two moneyline entries sharing a matchupId carry
+  // the two participant names between them, and each entry's prices carry
+  // home/away designation + participantId. Odds remain 100% official Pinnacle
+  // data; only startTime/bestOf metadata is unavailable on reconstructed rows.
+  const coveredIds = new Set((lg.matchups || []).map((m) => m.id));
+  const rebuild = new Map();
+  for (const s of lg.straight || []) {
+    if (s.period !== 0 || coveredIds.has(s.matchupId)) continue;
+    if (!rebuild.has(s.matchupId)) rebuild.set(s.matchupId, []);
+    rebuild.get(s.matchupId).push(s);
+  }
+  for (const [mid, rows] of rebuild) {
+    // names come from per-side odds rows (type 0), which carry participants[]
+    // and prices[].participantId + home/away designation
+    const namesById = new Map();
+    for (const s of rows) for (const p of s.participants || []) if (p.id != null && p.name) namesById.set(String(p.id), p.name);
+    const usable = rows.filter((s) => s.liveUp !== true);
+    const side = (desig) => {
+      for (const s of usable) for (const pr of s.prices || []) {
+        if (pr.designation === desig && pr.price != null && pr.participantId != null && namesById.has(String(pr.participantId))) {
+          return { price: pr.price, name: namesById.get(String(pr.participantId)) };
+        }
+      }
+      return null;
+    };
+    const h = side("home"), a = side("away");
+    if (!h || !a || h.name === a.name) continue; // never infer ambiguous pairs
+    const dh = americanToDecimal(h.price);
+    const da = americanToDecimal(a.price);
+    const ih = 1 / dh, ia = 1 / da;
+    pinnacleLines.push({
+      teamHome: h.name, teamAway: a.name,
+      startISO: null, start_ms: null,
+      pHome: ih / (ih + ia), pAway: ia / (ih + ia),
+      oddsHome: h.price, oddsAway: a.price,
+      decHome: Math.round(dh * 100) / 100, decAway: Math.round(da * 100) / 100,
+      league: lg.name, league_id: lg.id, matchupId: mid,
+      bestOfX: null,
+      listing: "none (reconstructed from odds lines)",
+      reconstructed_from_lines: true,
+      url: `https://guest.api.arcadia.pinnacle.com/0.1/leagues/${lg.id}/markets/straight`,
+      matchups_url: `https://guest.api.arcadia.pinnacle.com/0.1/leagues/${lg.id}/matchups`,
+      site_url: "https://www.pinnacle.com/en/esports",
+    });
+  }
+}
+if (pinnacleLines.some((l) => l.reconstructed_from_lines)) {
+  console.error(`Reconstructed ${pinnacleLines.filter((l) => l.reconstructed_from_lines).length} Pinnacle line(s) from straight odds (matchups endpoint unavailable).`);
 }
 
 /* --------------------------------------------------------- market: Polymarket */
@@ -515,6 +567,7 @@ for (const r of rows) {
       odds0: pin.oddsHome, odds1: pin.oddsAway, dec0: pin.decHome, dec1: pin.decAway,
       p0: Math.round(pin.pHome * 1000) / 1000, p1: Math.round(pin.pAway * 1000) / 1000,
       match_quality: pin.match_quality, best_of: pin.bestOfX,
+      listing: pin.listing ?? "live",
     } : null,
     market_polymarket: poly ? {
       source: "Polymarket", url: poly.url, event: poly.eventSlug, question: poly.question,
