@@ -1,18 +1,18 @@
-[21:05:36] hotspawn: 264 LoL fixtures
-[21:05:39] pinnacle: 12 LoL matchups, 9 with open moneylines
-[21:06:45] leaguepedia: 34616 series rows (err='')
-[21:06:46] lolesports: 80 Worlds events (status=200)
-[21:06:46] polymarket: 49 match-level markets (status=200)
-[21:06:56] sources: Pinnacle=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Polymarket=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[21:10:14] hotspawn: 264 LoL fixtures
+[21:10:17] pinnacle: 12 LoL matchups, 9 with open moneylines
+[21:11:21] leaguepedia: 34619 series rows (err='')
+[21:11:21] lolesports: 80 Worlds events (status=200)
+[21:11:22] polymarket: 49 match-level markets (status=200)
+[21:11:29] sources: Pinnacle=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Polymarket=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 === MODEL ===
-[21:07:01] rows=264 methods={'provisional': 73, 'model': 182, 'market': 9} joins=32
-[21:07:01] backtest n=3823 acc=0.6411 brier=0.2213
+[21:11:32] rows=264 methods={'provisional': 68, 'model': 187, 'market': 9} joins=32
+[21:11:32] backtest n=3823 acc=0.6409 brier=0.2213
 === REPORT ===
 {
  "total": 264,
  "counts": {
-  "provisional": 73,
-  "model": 182,
+  "provisional": 68,
+  "model": 187,
   "market": 9
  },
  "per_competition": {
@@ -90,8 +90,8 @@
    "market": 1
   },
   "PRM 2nd Division 26-27 Fall": {
-   "model": 31,
-   "provisional": 9
+   "model": 36,
+   "provisional": 4
   },
   "Worlds 2026 Main Event": {
    "market": 8
@@ -123,7 +123,7 @@ NON-EXACT JOINS 12
   competition-page | Locked IN -> Locked In (Dutch Team) | ambiguous in Leaguepedia (LOCKED IN (French Team), Locked IN (European Team), Locked In (D
   base-name | LYON -> LYON (2024 American Team) | Leaguepedia lists this team as 'LYON (2024 American Team)'
   base-name | Infinity Gaming -> Infinity Gaming (Brazilian Team) | Leaguepedia lists this team as 'Infinity Gaming (Brazilian Team)'
-  none | Phong Vũ Buffalo -> None | 
+  alias | Phong Vũ Buffalo -> PvB (Swiss Team) | 
 
 PRICED 9
   EM 2026 Summer Main Event | ['Galions', 'Solary'] 0.5342 {'home': 2.05, 'away': 1.7874}
@@ -136,11 +136,11 @@ PRICED 9
   Worlds 2026 Main Event | ['LØS', 'T1'] 0.1544 {'home': 6.16, 'away': 1.125}
   Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4311 {'home': 2.23, 'away': 1.6897}
 === FLAGS ===
-[21:07:01] flags: 12 items
+[21:11:32] flags: 13 items
 === SITE ===
-[21:07:01] site: wrote 11 pages to docs/
+[21:11:32] site: wrote 11 pages to docs/
 === VERIFY ===
-[21:07:01] verification passed
+[21:11:32] verification passed
 PASS dataset present :: 264 matches loaded
 PASS every row links to its Hotspawn match card :: 264/264 rows carry a Hotspawn URL
 PASS probabilities sum to 100% (tolerance 0.2pp) :: 264 priced rows verified; problems: []
