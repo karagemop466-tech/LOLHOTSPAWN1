@@ -146,7 +146,8 @@ branch; this branch owns `pipeline/`, `assets/`, `data/*.json|csv`, the root `*.
 
 * **PR #1** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/1 — merged (`550e031`).
 * **PR #2** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/2 — merged (`992ea80`).
-* **Live site** — https://karagemop466-tech.github.io/LOLHOTSPAWN1/ — verified after each merge.
+* **PR #3** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/3 — merged (`7b9aace`) after merging the bot's refresh commit from `main`; pages rebuilt from the fresher data.
+* **Live site** — https://karagemop466-tech.github.io/LOLHOTSPAWN1/ — verified after each merge (index, picks, flagged re-fetched from the deployed URL, correct counts and source links).
 * **Refresh** — `.github/workflows/refresh.yml` runs every 4 h on `main`, commits `data/` + rebuilt pages with
   `[skip ci]`, then explicitly requests a legacy Pages build. First scheduled refresh after the merge completed
   successfully and its Pages build request was accepted.
