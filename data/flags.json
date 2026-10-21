@@ -1,38 +1,6 @@
 {
   "groups": [
     {
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "count": 190,
-      "match": "190 rows",
-      "matches": [
-        "Galions vs Solary",
-        "Ascent Gaming vs NTNUI Kometkameratene",
-        "Solid Gaming vs DMG Esports Norway",
-        "Volda E-Sport vs CNG Royal",
-        "Your Saviours vs Mixlag fra Trondheim",
-        "Turbo Gaming vs Fritt Fall",
-        "BlackDivision vs Babos Gaming Academy",
-        "Absolved vs The Bandits UK"
-      ],
-      "fixture_ids": [
-        1081205,
-        1071214,
-        1071216,
-        1071218,
-        1071219,
-        1074667,
-        1075736,
-        1081651,
-        1081652,
-        1081653,
-        1081654,
-        1081655
-      ],
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/em-2026-summer-main-event",
-      "candidates": []
-    },
-    {
       "field": "fixture_exists",
       "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
       "count": 40,
@@ -65,6 +33,77 @@
       "candidates": []
     },
     {
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "count": 37,
+      "match": "37 rows",
+      "matches": [
+        "Ascent Gaming vs NTNUI Kometkameratene",
+        "Solid Gaming vs DMG Esports Norway",
+        "Volda E-Sport vs CNG Royal",
+        "Your Saviours vs Mixlag fra Trondheim",
+        "Absolved vs The Bandits UK",
+        "Brod n Friends vs Crownless",
+        "Good Chi vs Inari Esports",
+        "HL Tauri Esports vs Bulldog Esports"
+      ],
+      "fixture_ids": [
+        1071214,
+        1071216,
+        1071218,
+        1071219,
+        1081651,
+        1081652,
+        1081653,
+        1081654,
+        1081655,
+        1081656,
+        1071215,
+        1081659
+      ],
+      "source_url": null,
+      "candidates": []
+    },
+    {
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "count": 13,
+      "match": "13 rows",
+      "matches": [
+        "Atruvia Münster Esports vs Kanji Esports AKA",
+        "Babos Gaming Academy vs AIX eSports",
+        "Berlin 5 vs Emperors Bremen",
+        "Black Lion vs VfB x Engines Stuttgart",
+        "BlackDivision vs MT1 Vision",
+        "Eintracht Spandau Zwei vs LOOKSMAXXER",
+        "Glacial Guardians vs Kanji Esports KIN",
+        "Duplex Silva Pigeons Edition vs Neko Elite Kittens"
+      ],
+      "fixture_ids": [
+        1075793,
+        1075794,
+        1075795,
+        1075796,
+        1075797,
+        1075799,
+        1075800,
+        1075801,
+        1075802,
+        1075803,
+        1075804,
+        1075805
+      ],
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall",
+      "candidates": []
+    },
+    {
+      "match": "JSK Esports vs El Menzah Esports",
+      "fixture_id": 1080924,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 20160 min — league page used, flagged",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
+    },
+    {
       "match": "DMG Esports Sweden vs FlameHard",
       "fixture_id": 1082748,
       "field": "kickoff_utc",
@@ -79,6 +118,13 @@
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
     },
     {
+      "match": "Ground Zero Gaming vs Frank Esports",
+      "fixture_id": 1081423,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 2880 min — league page used, flagged",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/lcp-2027-promotion"
+    },
+    {
       "match": "Defiance eSports vs Purple Emperor Lizards - Atomic",
       "fixture_id": 1075798,
       "field": "kickoff_utc",
@@ -91,6 +137,20 @@
       "field": "kickoff_utc",
       "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 457920 min — league page used, flagged",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
+    },
+    {
+      "match": "Levelers vs MTN ESPORTS TEAM",
+      "fixture_id": 1082839,
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-regional-championship-2026-lebanon-libya-syria-palestine"
+    },
+    {
+      "match": "Ground Zero Gaming vs Frank Esports",
+      "fixture_id": 1081423,
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/lcp-2027-promotion"
     },
     {
       "match": "Team Secret Whales vs LYON",
@@ -149,16 +209,9 @@
       "source_url": "https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057"
     }
   ],
-  "generated_at": "2026-10-21T21:22:00Z",
-  "count": 242,
+  "generated_at": "2026-10-21T21:28:42Z",
+  "count": 106,
   "items": [
-    {
-      "match": "Galions vs Solary",
-      "fixture_id": 1081205,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/em-2026-summer-main-event"
-    },
     {
       "match": "Ascent Gaming vs NTNUI Kometkameratene",
       "fixture_id": 1071214,
@@ -214,20 +267,6 @@
       "field": "kickoff_utc",
       "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
-    },
-    {
-      "match": "Turbo Gaming vs Fritt Fall",
-      "fixture_id": 1074667,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "BlackDivision vs Babos Gaming Academy",
-      "fixture_id": 1075736,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "Absolved vs The Bandits UK",
@@ -312,13 +351,6 @@
       "field": "kickoff_utc",
       "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
-    },
-    {
-      "match": "Team VDS vs Pegasus Esports",
-      "fixture_id": 1082105,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-league-2nd-division-2026-summer"
     },
     {
       "match": "Playwell Rød Q vs Rich Gang",
@@ -517,25 +549,11 @@
       "source_url": null
     },
     {
-      "match": "Reveal Multigaming vs Hannover Esports e.V.",
-      "fixture_id": 1082745,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
       "match": "Levelers vs MTN ESPORTS TEAM",
       "fixture_id": 1082839,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-regional-championship-2026-lebanon-libya-syria-palestine"
-    },
-    {
-      "match": "Locked IN vs The Bandits Prime",
-      "fixture_id": 1079023,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
     },
     {
       "match": "Gen.G vs Invictus Gaming",
@@ -552,13 +570,6 @@
       "source_url": null
     },
     {
-      "match": "NextGeneration Esports vs Pegasus Esports",
-      "fixture_id": 1079139,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-league-2nd-division-2026-summer"
-    },
-    {
       "match": "Hanwha Life Esports vs Top Esports",
       "fixture_id": 1067677,
       "field": "fixture_exists",
@@ -571,27 +582,6 @@
       "field": "kickoff_utc",
       "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
-    },
-    {
-      "match": "Team VDS vs Team Reds",
-      "fixture_id": 1082106,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-league-2nd-division-2026-summer"
-    },
-    {
-      "match": "reGOLD eSport vs Team 300",
-      "fixture_id": 1079849,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "AceGaming vs Babos Gaming",
-      "fixture_id": 1079025,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
     },
     {
       "match": "Bilibili Gaming vs Movistar KOI",
@@ -692,13 +682,6 @@
       "source_url": "https://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679"
     },
     {
-      "match": "Berlin 5 vs AceGaming Hearts",
-      "fixture_id": 1075719,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
       "match": "BaronX vs Marere Academy",
       "fixture_id": 1081085,
       "field": "fixture_exists",
@@ -727,38 +710,10 @@
       "source_url": null
     },
     {
-      "match": "Jendouba Esports vs Enfida Esports",
-      "fixture_id": 1080923,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
       "match": "JSK Esports vs El Menzah Esports",
       "fixture_id": 1080924,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Olympique Mnihla vs Supreme Leaders",
-      "fixture_id": 1080925,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Simplicity Gaming vs JSK Academy",
-      "fixture_id": 1080926,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Zahrouni Esports vs Olympique Mnihla Academy",
-      "fixture_id": 1080927,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 20160 min — league page used, flagged",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
     },
     {
@@ -769,13 +724,6 @@
       "source_url": "https://www.hotspawn.com/matches/2-massive-vs-lund-esports-organization-ogs-rivals-league-season-2-1074652"
     },
     {
-      "match": "2 Massive vs Lund Esports Organization OGs",
-      "fixture_id": 1074652,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
       "match": "FlameHard vs B2U",
       "fixture_id": 1074654,
       "field": "fixture_exists",
@@ -783,74 +731,11 @@
       "source_url": "https://www.hotspawn.com/matches/flamehard-vs-b2u-rivals-league-season-2-1074654"
     },
     {
-      "match": "FlameHard vs B2U",
-      "fixture_id": 1074654,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
       "match": "Karolinerna vs Turbo Gaming",
       "fixture_id": 1074655,
       "field": "fixture_exists",
       "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
       "source_url": "https://www.hotspawn.com/matches/karolinerna-vs-turbo-gaming-rivals-league-season-2-1074655"
-    },
-    {
-      "match": "Karolinerna vs Turbo Gaming",
-      "fixture_id": 1074655,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "OnlyWinByFF vs Rich Gang Sweden",
-      "fixture_id": 1074657,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "Team cd vs Tung Sahur Mid",
-      "fixture_id": 1074658,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "Team Lucidity Esports vs Fritt Fall",
-      "fixture_id": 1074659,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "Whalepower Humpbacks vs 1. Esport Club Frankfurt e.V.",
-      "fixture_id": 1075731,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Mazepa vs B2U",
-      "fixture_id": 1082258,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "JSK Academy vs New Era Team",
-      "fixture_id": 1079141,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-league-2nd-division-2026-summer"
-    },
-    {
-      "match": "Void Walkers vs Slam Dunk",
-      "fixture_id": 1079142,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-league-2nd-division-2026-summer"
     },
     {
       "match": "Docta Esports Club vs Clã NKZ Revengers",
@@ -881,146 +766,6 @@
       "source_url": null
     },
     {
-      "match": "AceGaming Hearts vs Emperors Bremen",
-      "fixture_id": 1075747,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "AIX eSports vs MT1 Vision",
-      "fixture_id": 1075748,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Babos Gaming Academy vs VfB x Engines Stuttgart",
-      "fixture_id": 1075749,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Defiance eSports vs REH Gaming",
-      "fixture_id": 1075752,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Duplex Silva Pigeons Edition vs Sissi State Punks",
-      "fixture_id": 1075753,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Eintracht Spandau Zwei vs Team 300 White",
-      "fixture_id": 1075754,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Neko Elite Kittens vs spongecord prime",
-      "fixture_id": 1075755,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Rich Gang vs LOOKSMAXXER",
-      "fixture_id": 1075758,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Whalepower Humpbacks vs Socken und Sandalen",
-      "fixture_id": 1075761,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Babos Gaming vs Hannover Esports e.V.",
-      "fixture_id": 1079027,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Reveal Multigaming vs AceGaming",
-      "fixture_id": 1079028,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Black Lion vs Glacial Guardians",
-      "fixture_id": 1075750,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Second Time Alive Revival vs Berlin 5",
-      "fixture_id": 1075759,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "JSK Esports vs Enfida Esports",
-      "fixture_id": 1080928,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Olympique Mnihla vs Jendouba Esports",
-      "fixture_id": 1080929,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Olympique Mnihla Academy vs El Menzah Esports",
-      "fixture_id": 1080930,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Simplicity Gaming vs Supreme Leaders",
-      "fixture_id": 1080931,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Zahrouni Esports vs JSK Academy",
-      "fixture_id": 1080932,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "2 Massive vs Tung Sahur Mid",
-      "fixture_id": 1074660,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "OnlyWinByFF vs Mazepa",
-      "fixture_id": 1074664,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
       "match": "Northern Wolves Esports vs Rich Gang Sweden",
       "fixture_id": 1074665,
       "field": "team[0]",
@@ -1033,69 +778,6 @@
       "field": "team[1]",
       "reason": "lobby label 'Rich Gang Sweden' does not match the fixture record label 'Northern Wolves Esports'",
       "source_url": "https://www.hotspawn.com/matches/rich-gang-sweden-vs-northern-wolves-esports-rivals-league-season-2-1074665"
-    },
-    {
-      "match": "Northern Wolves Esports vs Rich Gang Sweden",
-      "fixture_id": 1074665,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "Team Lucidity Esports vs Team cd",
-      "fixture_id": 1074666,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "BlackDivision vs Kanji Esports KIN",
-      "fixture_id": 1075751,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Karolinerna vs Lund Esports Organization OGs",
-      "fixture_id": 1074662,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "Lundqvist Darkside vs B2U",
-      "fixture_id": 1074663,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "404 Multigaming e.V. vs VfB eSports",
-      "fixture_id": 1079029,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Locked IN vs DKB XPERION NXT",
-      "fixture_id": 1079030,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Lund Esports Organization OGs vs Tung Sahur Mid",
-      "fixture_id": 1081831,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "Packmiko E-Sports DACH vs Atruvia Münster Esports",
-      "fixture_id": 1075756,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "Mental Rush vs Vitality Rising Bees",
@@ -1112,69 +794,6 @@
       "source_url": null
     },
     {
-      "match": "DKB XPERION NXT vs Phong Vũ Buffalo",
-      "fixture_id": 1079031,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "No Need Orga vs AceGaming",
-      "fixture_id": 1079032,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Hannover Esports e.V. vs No Need Orga",
-      "fixture_id": 1079033,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "VfB eSports vs regnum4games",
-      "fixture_id": 1079034,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "DMG Esports Sweden vs Northern Wolves Esports",
-      "fixture_id": 1082615,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "Lundqvist Darkside vs Mazepa",
-      "fixture_id": 1082616,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "Atruvia Münster Esports vs Defiance eSports",
-      "fixture_id": 1075734,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Slam Dunk vs New Era Team",
-      "fixture_id": 1079144,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-league-2nd-division-2026-summer"
-    },
-    {
-      "match": "Purple Emperor Lizards - Atomic vs Cloud eSport",
-      "fixture_id": 1075737,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
       "match": "Pegasus Esports vs JSK Academy",
       "fixture_id": 1079145,
       "field": "team[0]",
@@ -1189,333 +808,11 @@
       "source_url": "https://www.hotspawn.com/matches/jsk-academy-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079145"
     },
     {
-      "match": "Pegasus Esports vs JSK Academy",
-      "fixture_id": 1079145,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-league-2nd-division-2026-summer"
-    },
-    {
-      "match": "AceGaming vs reGOLD eSport",
-      "fixture_id": 1079851,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Reveal Multigaming vs Team 300",
-      "fixture_id": 1079036,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Team Reds vs NextGeneration Esports",
-      "fixture_id": 1079147,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-league-2nd-division-2026-summer"
-    },
-    {
-      "match": "DKB XPERION NXT vs regnum4games",
-      "fixture_id": 1079037,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "VfB eSports vs Phong Vũ Buffalo",
-      "fixture_id": 1079038,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "JSK Academy vs Supreme Leaders",
-      "fixture_id": 1080933,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "JSK Esports vs Olympique Mnihla",
-      "fixture_id": 1080934,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Olympique Mnihla Academy vs Enfida Esports",
-      "fixture_id": 1080935,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Simplicity Gaming vs Jendouba Esports",
-      "fixture_id": 1080936,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Zahrouni Esports vs El Menzah Esports",
-      "fixture_id": 1080937,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Void Walkers vs Team VDS",
-      "fixture_id": 1082107,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-league-2nd-division-2026-summer"
-    },
-    {
-      "match": "Team 300 vs Hannover Esports e.V.",
-      "fixture_id": 1079040,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "1. Esport Club Frankfurt e.V. vs Rich Gang",
-      "fixture_id": 1075762,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Berlin 5 vs Sissi State Punks",
-      "fixture_id": 1075763,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Black Lion vs BlackDivision",
-      "fixture_id": 1075764,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Cloud eSport vs Defiance eSports",
-      "fixture_id": 1075765,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Eintracht Spandau Zwei vs TeamOrangeGaming Academy",
-      "fixture_id": 1075766,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Emperors Bremen vs Neko Elite Kittens",
-      "fixture_id": 1075767,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Glacial Guardians vs MT1 Vision",
-      "fixture_id": 1075768,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "REH Gaming vs Kanji Esports AKA",
-      "fixture_id": 1075769,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Kanji Esports KIN vs Babos Gaming Academy",
-      "fixture_id": 1075770,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "LOOKSMAXXER vs Whalepower Humpbacks",
-      "fixture_id": 1075771,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Purple Emperor Lizards - Atomic vs Packmiko E-Sports DACH",
-      "fixture_id": 1075772,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Second Time Alive Revival vs AceGaming Hearts",
-      "fixture_id": 1075773,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "spongecord prime vs Duplex Silva Pigeons Edition",
-      "fixture_id": 1075774,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Team 300 White vs Socken und Sandalen",
-      "fixture_id": 1075775,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "VfB x Engines Stuttgart vs AIX eSports",
-      "fixture_id": 1075776,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Babos Gaming vs No Need Orga",
-      "fixture_id": 1079039,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "El Menzah Esports vs Enfida Esports",
-      "fixture_id": 1080938,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "JSK Academy vs Jendouba Esports",
-      "fixture_id": 1080939,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Olympique Mnihla Academy vs Olympique Mnihla",
-      "fixture_id": 1080940,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Simplicity Gaming vs JSK Esports",
-      "fixture_id": 1080941,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "Zahrouni Esports vs Supreme Leaders",
-      "fixture_id": 1080942,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
       "match": "DMG Esports Sweden vs FlameHard",
       "fixture_id": 1082748,
       "field": "kickoff_utc",
       "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 437700 min — league page used, flagged",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
-    },
-    {
-      "match": "MT1 Esports vs Locked IN",
-      "fixture_id": 1079041,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "The Bandits Prime vs 404 Multigaming e.V.",
-      "fixture_id": 1079042,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "BvP vs No Need Orga",
-      "fixture_id": 1079043,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Phong Vũ Buffalo vs 404 Multigaming e.V.",
-      "fixture_id": 1082746,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "MT1 Esports vs DKB XPERION NXT",
-      "fixture_id": 1079045,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "regnum4games vs The Bandits Prime",
-      "fixture_id": 1079046,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "404 Multigaming e.V. vs DKB XPERION NXT",
-      "fixture_id": 1079047,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Locked IN vs VfB eSports",
-      "fixture_id": 1079048,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "BvP vs Babos Gaming",
-      "fixture_id": 1079049,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Team 300 vs AceGaming",
-      "fixture_id": 1079050,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "El Menzah Esports vs Olympique Mnihla",
-      "fixture_id": 1080943,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "JSK Academy vs JSK Esports",
-      "fixture_id": 1080944,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
     },
     {
       "match": "Olympique Mnihla Academy vs Simplicity Gaming",
@@ -1525,165 +822,18 @@
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
     },
     {
-      "match": "Supreme Leaders vs Jendouba Esports",
-      "fixture_id": 1080946,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
+      "match": "Ground Zero Gaming vs Frank Esports",
+      "fixture_id": 1081423,
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/lcp-2027-promotion"
     },
     {
-      "match": "Zahrouni Esports vs Enfida Esports",
-      "fixture_id": 1080947,
+      "match": "Ground Zero Gaming vs Frank Esports",
+      "fixture_id": 1081423,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
-    },
-    {
-      "match": "AceGaming vs BvP",
-      "fixture_id": 1079051,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "reGOLD eSport vs Babos Gaming",
-      "fixture_id": 1079852,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "AIX eSports vs BlackDivision",
-      "fixture_id": 1075777,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Babos Gaming Academy vs Glacial Guardians",
-      "fixture_id": 1075778,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Defiance eSports vs Kanji Esports AKA",
-      "fixture_id": 1075779,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Duplex Silva Pigeons Edition vs AceGaming Hearts",
-      "fixture_id": 1075780,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "LOOKSMAXXER vs 1. Esport Club Frankfurt e.V.",
-      "fixture_id": 1075781,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "MT1 Vision vs Black Lion",
-      "fixture_id": 1075782,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Neko Elite Kittens vs Berlin 5",
-      "fixture_id": 1075783,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Packmiko E-Sports DACH vs Cloud eSport",
-      "fixture_id": 1075784,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "REH Gaming vs Atruvia Münster Esports",
-      "fixture_id": 1075785,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Rich Gang vs Team 300 White",
-      "fixture_id": 1075786,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Sissi State Punks vs Second Time Alive Revival",
-      "fixture_id": 1075787,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Socken und Sandalen vs Eintracht Spandau Zwei",
-      "fixture_id": 1075788,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "spongecord prime vs Emperors Bremen",
-      "fixture_id": 1075789,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "VfB x Engines Stuttgart vs Kanji Esports KIN",
-      "fixture_id": 1075790,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Whalepower Humpbacks vs TeamOrangeGaming Academy",
-      "fixture_id": 1075791,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "Phong Vũ Buffalo vs MT1 Esports",
-      "fixture_id": 1079053,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "The Bandits Prime vs VfB eSports",
-      "fixture_id": 1079054,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Locked IN vs 404 Multigaming e.V.",
-      "fixture_id": 1079055,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "MT1 Esports vs The Bandits Prime",
-      "fixture_id": 1079056,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
+      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 2880 min — league page used, flagged",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/lcp-2027-promotion"
     },
     {
       "match": "Phong Vũ Buffalo vs regnum4games",
@@ -1700,59 +850,38 @@
       "source_url": "https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057"
     },
     {
-      "match": "Phong Vũ Buffalo vs regnum4games",
-      "fixture_id": 1079057,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "VfB eSports vs DKB XPERION NXT",
-      "fixture_id": 1079058,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "AceGaming Hearts vs Sissi State Punks",
-      "fixture_id": 1075792,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
       "match": "Atruvia Münster Esports vs Kanji Esports AKA",
       "fixture_id": 1075793,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "Babos Gaming Academy vs AIX eSports",
       "fixture_id": 1075794,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "Berlin 5 vs Emperors Bremen",
       "fixture_id": 1075795,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "Black Lion vs VfB x Engines Stuttgart",
       "fixture_id": 1075796,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "BlackDivision vs MT1 Vision",
       "fixture_id": 1075797,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
@@ -1766,84 +895,63 @@
       "match": "Eintracht Spandau Zwei vs LOOKSMAXXER",
       "fixture_id": 1075799,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "Glacial Guardians vs Kanji Esports KIN",
       "fixture_id": 1075800,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "Duplex Silva Pigeons Edition vs Neko Elite Kittens",
       "fixture_id": 1075801,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "REH Gaming vs Cloud eSport",
       "fixture_id": 1075802,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "Rich Gang vs Whalepower Humpbacks",
       "fixture_id": 1075803,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "Second Time Alive Revival vs spongecord prime",
       "fixture_id": 1075804,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "Team 300 White vs 1. Esport Club Frankfurt e.V.",
       "fixture_id": 1075805,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
     },
     {
       "match": "TeamOrangeGaming Academy vs Socken und Sandalen",
       "fixture_id": 1075806,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
-    },
-    {
-      "match": "AceGaming vs Hannover Esports e.V.",
-      "fixture_id": 1079059,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
     },
     {
       "match": "Babos Gaming vs Reveal Multigaming",
       "fixture_id": 1079060,
       "field": "kickoff_utc",
       "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 457920 min — league page used, flagged",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "Team 300 vs No Need Orga",
-      "fixture_id": 1079062,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
-      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
-    },
-    {
-      "match": "BvP vs reGOLD eSport",
-      "fixture_id": 1079853,
-      "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
     }
   ]

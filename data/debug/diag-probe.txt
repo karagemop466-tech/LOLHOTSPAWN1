@@ -1,4 +1,4 @@
-diag probe @ 2026-10-21T21:22:01Z
+diag probe @ 2026-10-21T21:28:43Z
 reachable: host + client fingerprint -> outcome
 
 * hotspawn fixtures feed — browser UA (expected 403)
@@ -342,7 +342,7 @@ https://www.hotspaw
 
 * lobby page 2 (does the SSR list paginate?)
   https://play.hotspawn.com/lol-pickems?page=2
-  outcome=ok chars=1985545
+  outcome=ok chars=1985582
   text_window: )
 Solid Gaming (5)
 spongecord prime (4)
@@ -396,7 +396,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-14:32:38
+14:25:57
 https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205
 View Match
 Who will win?
@@ -414,7 +414,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:32:38
+17:25:57
 https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214
 View Match
 Who will win?
@@ -432,7 +432,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:32:38
+17:25:57
 https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216
 View Match
 Who will win?
@@ -454,7 +454,7 @@ Lock
 
 * lobby page, wide limit param
   https://play.hotspawn.com/lol-pickems?limit=400&tournament=all
-  outcome=ok chars=1985545
+  outcome=ok chars=1985582
   text_window: )
 Solid Gaming (5)
 spongecord prime (4)
@@ -508,7 +508,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-14:32:36
+14:25:55
 https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205
 View Match
 Who will win?
@@ -526,7 +526,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:32:36
+17:25:55
 https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214
 View Match
 Who will win?
@@ -544,7 +544,7 @@ Stage
 Waiting For Information
 Sign in for streaks
 Locks in
-17:32:36
+17:25:55
 https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216
 View Match
 Who will win?
@@ -566,7 +566,7 @@ Lock
 
 * oddsportal LoL landing (row markup sample)
   https://www.oddsportal.com/esports/league-of-legends/
-  outcome=ok chars=335204
+  outcome=ok chars=336077
   text_head: /
 Odds comparison
 /community/
@@ -774,7 +774,7 @@ vo
 
 * oddsportal Worlds tournament page
   https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/
-  outcome=ok chars=477383
+  outcome=ok chars=478621
   text_window:  betting experience during Esports' most anticipated annual event.
 League of Legends World Championship Format & Structure
 There are several weeks of gruelling, intense competition at the The LoL World Championship, with the tournament beginning with play-ins, where teams from emerging regions and lower seeds from major regions battle for limited spots in the main event. This initial stage already provides you with numerous LoL betting opportunities, especially as teams chase a dream of competing in the main event and performing at above their usual level, naturally resulting in unpredictability. But overall, the initial stage is just a taster for the main event, the League of Legends World Championship.
@@ -839,13 +839,13 @@ CTBC Flying Oyster
 
 * polymarket closed markets
   https://gamma-api.polymarket.com/markets?closed=true&limit=5&order=updatedAt&ascending=false
-  outcome=ok chars=28385
+  outcome=ok chars=41273
   items: 5
-  first_preview: {"id": "5993612", "question": "XRP Up or Down - October 21, 5:15PM-5:20PM ET", "conditionId": "0x9623cea27a501fc02f2957850a04191d8679ef42abc6ef231f6ff3352ab1c532", "slug": "xrp-updown-5m-1792617300", "resolutionSource": "https://data.chain.link/streams/xrp-usd-twap-60s-streams", "endDate": "2026-10-21T21:20:00Z", "liquidity": "0", "startDate": "2026-10-20T21:24:05.300833Z", "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/XRP-logo.png", "icon": "https://polymarket-upload.s3.us-east-2.amazonaws.com/XRP-logo.png", "description": "This market will resolve to \"Up\" if the time-weigh
+  first_preview: {"id": "5425675", "question": "Exact Score: Reading FC 1 - 5 Leyton Orient FC?", "conditionId": "0xa3d282585a458ab08151b3f30669c853c450f435fedfb06614a57364b22029eb", "slug": "el1-rea-ley-2026-10-21-exact-score-1-5", "endDate": "2026-10-21T19:00:00Z", "liquidity": "0", "startDate": "2026-10-08T08:15:48Z", "description": "In the upcoming League One game between Reading FC and Leyton Orient FC, scheduled for October 21, 2026 at 3:00 PM ET: This market will resolve based on the final score of the Reading FC vs. Leyton Orient FC match originally scheduled for October 21, 2026 at 3:00 PM ET, conside
 
 * polymarket search (Worlds)
   https://gamma-api.polymarket.com/public-search?q=Worlds%20League%20of%20Legends&limit_per_type=8&events_status=all
-  outcome=ok chars=390341
+  outcome=ok chars=390411
   first_preview: {"events": [{"id": "12842", "ticker": "worlds-2024-lol-winner", "slug": "worlds-2024-lol-winner", "title": "League of Legends: Worlds Winner 2024", "description": "This is a market group over which team will win the 2024 Season World Championship (Worlds 2024) for League of Legends.", "startDate": "2024-09-25T17:22:47.235874Z", "creationDate": "2024-09-25T17:22:47.235864Z", "endDate": "2024-11-02T12:00:00Z", "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/worlds-2024-lol-winner-ir11ENmPQPxs.jpg", "icon": "https://polymarket-upload.s3.us-east-2.amazonaws.com/worlds-2024-lol-winne
 
 * lolesports official API

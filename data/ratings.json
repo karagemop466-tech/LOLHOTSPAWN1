@@ -1,6 +1,143 @@
 {
-  "teams": {},
-  "params": {},
-  "results_used": 0,
-  "results_skipped": 0
+  "teams": {
+    "anubis": {
+      "games": 1,
+      "series_wins": 0,
+      "win_rate": 0.0,
+      "raw_rating": 1450.5,
+      "rating": 1456.0,
+      "leagues": [
+        "em-2026-summer-main-event"
+      ],
+      "evidence": [
+        "https://www.hotspawn.com/matches/solary-vs-anubis-gaming-em-2026-summer-main-event-1079335"
+      ]
+    },
+    "berlin international": {
+      "games": 1,
+      "series_wins": 1,
+      "win_rate": 1.0,
+      "raw_rating": 1533.3,
+      "rating": 1529.6,
+      "leagues": [
+        "em-2026-summer-main-event"
+      ],
+      "evidence": [
+        "https://www.hotspawn.com/matches/berlin-international-gaming-vs-frites-esports-club-em-2026-summer-main-event-1073485"
+      ]
+    },
+    "frites": {
+      "games": 1,
+      "series_wins": 0,
+      "win_rate": 0.0,
+      "raw_rating": 1466.7,
+      "rating": 1470.4,
+      "leagues": [
+        "em-2026-summer-main-event"
+      ],
+      "evidence": [
+        "https://www.hotspawn.com/matches/berlin-international-gaming-vs-frites-esports-club-em-2026-summer-main-event-1073485"
+      ]
+    },
+    "galions": {
+      "games": 1,
+      "series_wins": 1,
+      "win_rate": 1.0,
+      "raw_rating": 1564.3,
+      "rating": 1557.2,
+      "leagues": [
+        "em-2026-summer-main-event"
+      ],
+      "evidence": [
+        "https://www.hotspawn.com/matches/movistar-koi-fenix-vs-galions-em-2026-summer-main-event-1079334"
+      ]
+    },
+    "movistar koi fenix": {
+      "games": 1,
+      "series_wins": 0,
+      "win_rate": 0.0,
+      "raw_rating": 1435.7,
+      "rating": 1442.8,
+      "leagues": [
+        "em-2026-summer-main-event"
+      ],
+      "evidence": [
+        "https://www.hotspawn.com/matches/movistar-koi-fenix-vs-galions-em-2026-summer-main-event-1079334"
+      ]
+    },
+    "new era": {
+      "games": 1,
+      "series_wins": 0,
+      "win_rate": 0.0,
+      "raw_rating": 1450.5,
+      "rating": 1456.0,
+      "leagues": [
+        "arabian-league-2nd-division-2026-summer"
+      ],
+      "evidence": [
+        "https://www.hotspawn.com/matches/team-reds-vs-new-era-team-arabian-league-2nd-division-2026-summer-1079127"
+      ]
+    },
+    "pegasus": {
+      "games": 1,
+      "series_wins": 0,
+      "win_rate": 0.0,
+      "raw_rating": 1450.5,
+      "rating": 1456.0,
+      "leagues": [
+        "arabian-league-2nd-division-2026-summer"
+      ],
+      "evidence": [
+        "https://www.hotspawn.com/matches/pegasus-esports-vs-slam-dunk-arabian-league-2nd-division-2026-summer-1079126"
+      ]
+    },
+    "reds": {
+      "games": 1,
+      "series_wins": 1,
+      "win_rate": 1.0,
+      "raw_rating": 1549.5,
+      "rating": 1544.0,
+      "leagues": [
+        "arabian-league-2nd-division-2026-summer"
+      ],
+      "evidence": [
+        "https://www.hotspawn.com/matches/team-reds-vs-new-era-team-arabian-league-2nd-division-2026-summer-1079127"
+      ]
+    },
+    "slam dunk": {
+      "games": 1,
+      "series_wins": 1,
+      "win_rate": 1.0,
+      "raw_rating": 1549.5,
+      "rating": 1544.0,
+      "leagues": [
+        "arabian-league-2nd-division-2026-summer"
+      ],
+      "evidence": [
+        "https://www.hotspawn.com/matches/pegasus-esports-vs-slam-dunk-arabian-league-2nd-division-2026-summer-1079126"
+      ]
+    },
+    "solary": {
+      "games": 1,
+      "series_wins": 1,
+      "win_rate": 1.0,
+      "raw_rating": 1549.5,
+      "rating": 1544.0,
+      "leagues": [
+        "em-2026-summer-main-event"
+      ],
+      "evidence": [
+        "https://www.hotspawn.com/matches/solary-vs-anubis-gaming-em-2026-summer-main-event-1079335"
+      ]
+    }
+  },
+  "params": {
+    "K": 18.0,
+    "scale": 420.0,
+    "shrink_n": 8.0,
+    "passes": 4,
+    "mv_factor": "1 + 0.55 * (|series game diff| - 1)"
+  },
+  "results_used": 5,
+  "results_skipped": 150
 }

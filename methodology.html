@@ -14,8 +14,8 @@
     <span class="mark">LoL</span>
     <span>
       <b>Hotspawn LoL Pick&#x27;ems — Lines &amp; Probabilities</b>
-      <small>updated 2026-10-21T21:22:00Z · auto-refresh every 6h ·
-      8/195 picks resolved</small>
+      <small>updated 2026-10-21T21:28:42Z · auto-refresh every 6h ·
+      10/195 picks resolved</small>
     </span>
   </div>
   <nav class="nav" aria-label="Site sections"><a class="navlink" href="index.html">Executive summary</a>
@@ -53,12 +53,12 @@ if a source page contains several fixtures for the same pair the price is <b>not
 row is flagged instead of guessed.</p>
 
 <h2>3 · Our own line (model) for matches nobody prices</h2>
-<p>Formula: <code>p = 1 / (1 + 10 ** -(R_a - R_b) / None)</code> at series
-level, with ratings produced from verified finished series scorelines only. Parameters: K = None,
-margin-of-victory factor <code>None</code>, None relaxation
-passes, shrinkage weight n₀ = None games.
-0 finished series were used; 0
-rows were dropped for missing/ambiguous scorelines; 0 teams carry a rating.</p>
+<p>Formula: <code>p = 1 / (1 + 10 ** -(R_a - R_b) / 420.0)</code> at series
+level, with ratings produced from verified finished series scorelines only. Parameters: K = 18.0,
+margin-of-victory factor <code>1 + 0.55 * (|series game diff| - 1)</code>, 4 relaxation
+passes, shrinkage weight n₀ = 8.0 games.
+5 finished series were used; 150
+rows were dropped for missing/ambiguous scorelines; 10 teams carry a rating.</p>
 <p>Confidence bands are sample-size driven, not opinion: <i>high</i> ≥ 6 finished series each and a
 direct meeting, <i>medium</i> ≥ 6 each, <i>low</i> ≥ 3, <i>very low</i> below that, <i>none</i> when a
 team has no verifiable result — in which case the row is unresolved, never imputed.</p>
