@@ -57,6 +57,8 @@ jobs:
             python3 tools/flags.py     2>&1
             python3 tools/site.py      2>&1
             python3 tools/verify.py    2>&1
+            python3 tools/site.py      2>&1
+            python3 tools/verify.py    2>&1
           } | tee data/build.log
           echo "pipeline exit: ${PIPESTATUS[0]}"
 

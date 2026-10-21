@@ -5,10 +5,12 @@ Sources
 -------
 1. Hotspawn pick'em fixtures REST API (match inventory)      -> data/raw/hotspawn_lol.json
 2. Pinnacle guest API (bookmaker moneylines, sharp book)     -> data/raw/pinnacle_lol.json
-3. Leaguepedia CargoExport (series results, all leagues)     -> data/raw/leaguepedia.json
-4. LoL Esports official API (Worlds schedule cross-check)    -> data/raw/lolesports.json
-5. Polymarket Gamma API (prediction-market LoL markets)      -> data/raw/polymarket.json
-6. Book source availability probe                            -> data/sources_status.json
+3. Kalshi v2 Exchange API (CFTC-regulated match contracts)   -> data/raw/kalshi_lol.json
+4. Bovada coupon API (decimal pre-match moneylines)          -> data/raw/bovada_lol.json
+5. Leaguepedia CargoExport + Data: DQ directives             -> data/raw/leaguepedia.json, leaguepedia_dq.json
+6. LoL Esports official API (Worlds schedule cross-check)    -> data/raw/lolesports.json
+7. Polymarket Gamma API (prediction-market LoL markets)      -> data/raw/polymarket.json
+8. Book source availability probe                            -> data/sources_status.json
 """
 from __future__ import annotations
 
@@ -19,7 +21,7 @@ import re
 import sys
 import time
 import urllib.parse
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import (CONTACT_UA, DATA, RAW, ensure_dirs, epoch_ms_to_iso, get_json, http_get,
@@ -29,6 +31,10 @@ HOTSPAWN_FIXTURES = ("https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/
                      "fixtures?sport_alias=lol&status=scheduled&tenantId=1")
 PINNACLE_KEY = {"x-api-key": "CmX2KcMrXuFmNg6YFbmTxE0y9CIrOi0R", "Accept": "application/json"}
 LOLESPORTS_KEY = {"x-api-key": "0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z"}
+KALSHI_URL = ("https://api.elections.kalshi.com/trade-api/v2/events"
+              "?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100")
+BOVADA_URL = ("https://www.bovada.lv/services/sports/event/coupon/events/A/description/"
+              "esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en")
 LEAGUEPEDIA_WINDOW_START = "2024-09-01 00:00:00"  # ~25 months of series results
 
 
@@ -138,6 +144,97 @@ def collect_pinnacle() -> dict:
     return {"count": len(markets_out)}
 
 
+# --------------------------------------------------------------------------- kalshi
+def collect_kalshi() -> dict:
+    st, data, err = get_json(KALSHI_URL, retries=2)
+    events_out = []
+    if st == 200 and isinstance(data, dict):
+        for ev in data.get("events") or []:
+            mkts = []
+            for mk in ev.get("markets") or []:
+                mkts.append({
+                    "ticker": mk.get("ticker"),
+                    "yes_sub_title": mk.get("yes_sub_title"),
+                    "yes_bid_dollars": mk.get("yes_bid_dollars"),
+                    "yes_ask_dollars": mk.get("yes_ask_dollars"),
+                    "last_price_dollars": mk.get("last_price_dollars"),
+                    "volume": mk.get("volume"),
+                    "close_time": mk.get("close_time"),
+                })
+            if len(mkts) == 2:
+                events_out.append({
+                    "event_ticker": ev.get("event_ticker"),
+                    "title": ev.get("title"),
+                    "sub_title": ev.get("sub_title"),
+                    "markets": mkts,
+                })
+    save_json(os.path.join(RAW, "kalshi_lol.json"), {
+        "fetched_utc": iso(now_utc()),
+        "source_url": KALSHI_URL,
+        "status": st,
+        "error": err,
+        "event_count": len(events_out),
+        "events": events_out,
+    })
+    log(f"kalshi: {len(events_out)} CFTC match events (status={st})")
+    return {"count": len(events_out), "status": st}
+
+
+# --------------------------------------------------------------------------- bovada
+def collect_bovada() -> dict:
+    st, data, err = get_json(BOVADA_URL, retries=2)
+    events_out = []
+    if st == 200 and isinstance(data, list):
+        for bucket in data:
+            for ev in (bucket or {}).get("events") or []:
+                comps = ev.get("competitors") or []
+                if len(comps) != 2:
+                    continue
+                home = next((c for c in comps if c.get("home")), comps[0])
+                away = next((c for c in comps if not c.get("home")), comps[1])
+                link = ev.get("link") or ""
+                start_utc = epoch_ms_to_iso(ev.get("startTime"))
+                for dg in ev.get("displayGroups") or []:
+                    for mk in dg.get("markets") or []:
+                        if mk.get("descriptionKey") != "Head To Head":
+                            continue
+                        per = mk.get("period") or {}
+                        if not per.get("main"):
+                            continue
+                        outs = mk.get("outcomes") or []
+                        if len(outs) != 2:
+                            continue
+                        dec = {}
+                        for o in outs:
+                            pr = o.get("price") or {}
+                            try:
+                                dec[o.get("type")] = float(pr.get("decimal") or 0)
+                            except (TypeError, ValueError):
+                                dec[o.get("type")] = 0.0
+                        if dec.get("H", 0) > 1.0 and dec.get("A", 0) > 1.0:
+                            events_out.append({
+                                "description": ev.get("description"),
+                                "competition_id": str(ev.get("competitionId") or ""),
+                                "start_utc": start_utc,
+                                "url": ("https://www.bovada.lv" + link) if link else "https://www.bovada.lv/esports/league-of-legends",
+                                "outcomes": [
+                                    {"name": home.get("name"), "decimal": dec["H"]},
+                                    {"name": away.get("name"), "decimal": dec["A"]},
+                                ],
+                            })
+                            break
+    save_json(os.path.join(RAW, "bovada_lol.json"), {
+        "fetched_utc": iso(now_utc()),
+        "source_url": BOVADA_URL,
+        "status": st,
+        "error": err,
+        "event_count": len(events_out),
+        "events": events_out,
+    })
+    log(f"bovada: {len(events_out)} LoL moneylines (status={st})")
+    return {"count": len(events_out), "status": st}
+
+
 # --------------------------------------------------------------------------- leaguepedia
 def cargo_export(fields: str, where: str | None, limit: int = 500, offset: int = 0,
                  order_by: str | None = None, tables: str = "MatchSchedule") -> tuple[list, str]:
@@ -208,8 +305,43 @@ def collect_leaguepedia(max_rows: int = 60000) -> dict:
         "error": err,
         "matches": clean,
     })
-    log(f"leaguepedia: {len(clean)} series rows (err={err!r})")
-    return {"count": len(clean), "error": err}
+
+    # Also query Leaguepedia's unthrottled MediaWiki Data: namespace for official mid-split
+    # disqualifications / league removals (`|dqteams=...`) across active competitions.
+    pages = sorted({r["overview_page"] for r in clean if r.get("overview_page") and ("2026" in r["overview_page"] or "2027" in r["overview_page"])})
+    dq_by_page: dict[str, list[str]] = {}
+    all_titles = [t for p in pages[:120] for t in (p, f"Data:{p}")]
+    for idx in range(0, len(all_titles), 25):
+        batch = all_titles[idx:idx + 25]
+        qurl = "https://lol.fandom.com/api.php?" + urllib.parse.urlencode({
+            "action": "query",
+            "prop": "revisions",
+            "rvprop": "content",
+            "rvslots": "main",
+            "titles": "|".join(batch),
+            "format": "json",
+        })
+        st_dq, qdata, _ = get_json(qurl, headers={"User-Agent": CONTACT_UA}, retries=1)
+        if st_dq == 200 and isinstance(qdata, dict):
+            for pg in (qdata.get("query", {}).get("pages") or {}).values():
+                title = (pg.get("title") or "").removeprefix("Data:")
+                slots = ((pg.get("revisions") or [{}])[0].get("slots") or {})
+                wikitext = (slots.get("main") or {}).get("*") or ""
+                for m in re.finditer(r"\|\s*dqteams\s*=\s*([^\n|}]+)", wikitext, re.I):
+                    teams = [t.strip() for t in m.group(1).split(",") if t.strip()]
+                    if teams:
+                        dq_by_page.setdefault(title, [])
+                        for t in teams:
+                            if t not in dq_by_page[title]:
+                                dq_by_page[title].append(t)
+        time.sleep(0.15)
+    save_json(os.path.join(RAW, "leaguepedia_dq.json"), {
+        "fetched_utc": iso(now_utc()),
+        "source_url": "https://lol.fandom.com/api.php?action=query&prop=revisions",
+        "dq_by_page": dq_by_page,
+    })
+    log(f"leaguepedia: {len(clean)} series rows, {len(dq_by_page)} pages with dqteams (err={err!r})")
+    return {"count": len(clean), "dq_pages": len(dq_by_page), "error": err}
 
 
 # --------------------------------------------------------------------------- lolesports
@@ -279,20 +411,24 @@ def collect_polymarket() -> dict:
 BOOK_PROBES = [
     ("Pinnacle", "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
      "Sharp esportsbook; guest REST API", {"x-api-key": "CmX2KcMrXuFmNg6YFbmTxE0y9CIrOi0R"}),
+    ("Kalshi (CFTC)", KALSHI_URL,
+     "CFTC-regulated US exchange; KXLOLGAME series contract book", None),
+    ("Bovada", BOVADA_URL,
+     "Esportsbook pre-match decimal moneyline coupon JSON", None),
+    ("Polymarket", "https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends",
+     "CLOB prediction market (full-series filtered)", None),
     ("GG.BET", "https://gg.bet/en/esports/league-of-legends", "Established LoL betting site", None),
     ("BC.GAME", "https://bc.game/sports", "Crypto esportsbook", None),
-    ("EGamersWorld", "https://egamersworld.com/lo-l/matches", "Esports odds aggregator", None),
+    ("EGamersWorld", "https://egamersworld.com/lol/matches", "Esports odds aggregator (verified fallback receipt for LCP Promotion)", None),
     ("Oddspedia", "https://oddspedia.com/esports/league-of-legends", "Odds comparison engine", None),
     ("OddsPortal", "https://www.oddsportal.com/esports/league-of-legends/", "Odds comparison engine", None),
     ("BetExplorer", "https://www.betexplorer.com/esports/league-of-legends/", "Odds comparison engine", None),
     ("Unibet/Kambi", "https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports.json",
      "Esportsbook API", None),
-    ("Polymarket", "https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends",
-     "Prediction market", None),
-    ("Hotspawn fixtures API", "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
-     "Match inventory (not a probability source)", None),
+    ("Hotspawn fixtures API", HOTSPAWN_FIXTURES,
+     "Match inventory (crowd % stored for audit only, NEVER used as probability)", None),
     ("Leaguepedia", "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId&limit=1&format=json",
-     "Community results database", {"User-Agent": CONTACT_UA}),
+     "Series results + Data: dqteams directives", {"User-Agent": CONTACT_UA}),
     ("LoL Esports (Riot)", "https://esports-api.lolesports.com/persisted/gw/getLeagues?hl=en-US",
      "Official Riot esports API", LOLESPORTS_KEY),
 ]
@@ -324,6 +460,8 @@ def main() -> None:
     steps = {
         "hotspawn": collect_hotspawn,
         "pinnacle": collect_pinnacle,
+        "kalshi": collect_kalshi,
+        "bovada": collect_bovada,
         "leaguepedia": collect_leaguepedia,
         "lolesports": collect_lolesports,
         "polymarket": collect_polymarket,

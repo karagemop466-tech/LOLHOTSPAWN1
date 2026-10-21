@@ -125,3 +125,18 @@ Live-site verification after each of PRs #8, #9, #10, #11: `pages-build-deployme
 `https://karagemop466-tech.github.io/LOLHOTSPAWN1/` served the new snapshot. PR #10 fixed the
 archived-data link, the PvB alias evidence column and the verification stat label; PR #11 replaced
 the placeholder "0-3 matches" scope with a computed count and sorted provisional cards by kick-off.
+
+---
+
+# Integration record — session `8336fb7e`, third pass (additive upgrade into single-publisher `tools/`)
+
+Following `b166e06b`'s consolidation around `tools/` + `.github/workflows/refresh.yml` (`cron: "17 */6 * * *"`),
+this pass keeps `tools/` as the **sole publisher** (no second workflow, nothing removed from `archive/`) and ports
+all open items directly into `tools/`:
+
+| Item | Upgrade integrated into `tools/` |
+|---|---|
+| **5-venue real-money consensus (`10` market matches)** | Added live `collect_kalshi()` (`KXLOLGAME` CFTC contracts) and `collect_bovada()` (`Head To Head` full-series moneylines) to `tools/collect.py` + `BOOK_PROBES`, plus multi-venue precision weighting (`Pinnacle 0.36`, `Polymarket full-series 0.24`, `Kalshi CFTC 0.18`, `Bovada 0.12`, `Specialist Esportsbook 0.10`) in `tools/model.py`, promoting `#1081423 LCP 2027 Promotion` (`Ground Zero Gaming 91.1% vs Frank Esports 8.9%`) and rejecting symmetric `1.80 / 1.80` aggregator placeholders |
+| **Mid-split league removal quarantine (`dqteams`)** | Added live MediaWiki `|dqteams=` harvesting (`data/raw/leaguepedia_dq.json`) in `tools/collect.py` & `tools/model.py`, quarantining all 5 disqualified `Solid Gaming` fixtures in `Komplettligaen 2026 Autumn` (including upcoming `#1071216 Solid Gaming vs DMG Esports Norway`, where `72%` of Hotspawn's crowd picked disqualified `Solid Gaming`) into `unresolved` (`p0=None`, `pick=None`) with explicit walkover/void notes |
+| **Methodology backtest bug fix + SVG calibration curve** | Fixed `tools/site.py` bug where `data["backtest"]` was omitted from `model` (causing live `methodology.html` to render `0` series and `—` metrics); now renders all `3,823` out-of-sample series (`64.1%` accuracy, `0.2213` Brier, `0.6317` log-loss) plus an inline SVG reliability plot, enforced permanently by Check #15 in `tools/verify.py` |
+| **Synchronized `verification.html` & `tournaments.html`** | Generates all `12/12` HTML pages (`15/15 PASS` in `tools/verify.py`) and runs `verify.py` before and after `site.py` in `.github/workflows/refresh.yml` so `verification.html` always displays the current build's 15 assertions |

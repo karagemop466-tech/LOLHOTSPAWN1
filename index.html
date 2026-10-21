@@ -20,47 +20,75 @@
   <div class="pagehead">
     <h1>Hotspawn LoL Pick Desk</h1>
     <p class="sub">Independent win probabilities for every League of Legends match in the Hotspawn pick'em.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-21 21:20 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-21 21:29 UTC</strong> &middot; refreshed automatically every 6 hours</p>
   </div>
   
 <section class="hero">
   <h2>Every Hotspawn League of Legends match, with a line we can defend.</h2>
-  <p>This dashboard rebuilds itself from the Hotspawn pick'em list every six hours. For each match we
-  either de-vig a real bookmaker price or publish our own Elo line built from recorded series results.
-  Nothing on this site uses Hotspawn's crowd-pick percentages.</p>
+  <p>This dashboard rebuilds itself automatically every six hours across all 264 scheduled LoL matches on
+  Hotspawn. Featured series combine real-money quotes across <strong>Pinnacle, Polymarket, Kalshi (CFTC),
+  Bovada, and specialist esportsbooks</strong>; low-tier regional leagues are originated from recorded series
+  history; and disqualified mid-split removals are quarantined in <a href="unresolved.html">Unresolved</a>.
+  Nothing on this site ever uses Hotspawn's crowd-pick percentages.</p>
   <div class="cta">
     <a class="btn primary" href="picks.html">All 264 matches &amp; picks &rarr;</a>
-    <a class="btn" href="featured.html">Market-backed picks (9)</a>
-    <a class="btn" href="originated.html">Our own lines (255)</a>
-    <a class="btn" href="unresolved.html">Unresolved &amp; limits (0)</a>
+    <a class="btn" href="featured.html">Market-backed picks (10)</a>
+    <a class="btn" href="originated.html">Originated lines (249)</a>
+    <a class="btn" href="unresolved.html">Unresolved &amp; limits (5)</a>
   </div>
 </section>
 
 <section class="stats">
   <div class="stat "><div class="sv">264</div><div class="sl">Matches listed on Hotspawn</div><div class=sn>across 27 tournaments</div></div>
-  <div class="stat ok"><div class="sv">264</div><div class="sl">Matches with a pick</div><div class=sn>100% coverage</div></div>
-  <div class="stat market"><div class="sv">9</div><div class="sl">Market-backed</div><div class=sn>real bookmaker prices</div></div>
-  <div class="stat model"><div class="sv">187</div><div class="sl">Our own lines</div><div class=sn>model, medium confidence</div></div>
+  <div class="stat ok"><div class="sv">259</div><div class="sl">Matches with a pick</div><div class=sn>98% coverage</div></div>
+  <div class="stat market"><div class="sv">10</div><div class="sl">Market-backed</div><div class=sn>5-venue real-money consensus</div></div>
+  <div class="stat model"><div class="sv">181</div><div class="sl">Originated lines</div><div class=sn>model, medium confidence</div></div>
   <div class="stat provisional"><div class="sv">68</div><div class="sl">Provisional</div><div class=sn>thin data, flagged</div></div>
-  <div class="stat unresolved"><div class="sv">0</div><div class="sl">Unresolved</div><div class=sn>no defensible price</div></div>
+  <div class="stat unresolved"><div class="sv">5</div><div class="sl">Unresolved</div><div class=sn>league DQ / unplayable</div></div>
 </section>
 
 <section class="panel">
-  <h2>Where the picks live</h2>
-  <p class="lead">Bookmark <a href="picks.html"><strong>All picks</strong></a> - it is the single page with
-  every match on today's Hotspawn list, next kick-off first. Everything below is a filtered view of the same data.</p>
-  <ul class="linklist">
-    <li><a href="picks.html">All picks &rarr;</a><span>Complete list, 264 matches, filterable and searchable.</span></li>
-    <li><a href="featured.html">Market-backed picks &rarr;</a><span>9 matches with a real bookmaker or prediction-market price and the vig removed.</span></li>
-    <li><a href="originated.html">Our own lines &rarr;</a><span>255 matches priced from our Elo model, with the inputs shown.</span></li>
-    <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>No match is currently unresolved - every documented limitation and the 68 provisional lines are listed here.</span></li>
-    <li><a href="competitions.html">By tournament &rarr;</a><span>Coverage and source quality for each of the 27 tournaments.</span></li>
-    <li><a href="verification.html">Verification &rarr;</a><span>Row-level checks, join evidence, and what is unverified.</span></li>
+  <h2>Executive summary</h2>
+  <ul class="bullets">
+    <li><strong>Coverage &amp; direct links.</strong> 259 of 264 scheduled LoL matches carry a verified pick:
+    <a href="featured.html"><strong>10 Market-backed picks</strong></a> (Worlds 2026 Knockout Stage,
+    EMEA Masters Final, and LCP 2027 Promotion across Pinnacle, Polymarket, Kalshi CFTC, Bovada &amp; specialist
+    esportsbooks), <a href="originated.html"><strong>181 Solid originated lines</strong></a>,
+    and <a href="originated.html"><strong>68 Provisional lines</strong></a>. Browse all cards in
+    kick-off order on <a href="picks.html"><strong>All picks</strong></a>.</li>
+    <li><strong>Unresolved picks &amp; limitations (5 quarantined).</strong>
+    5 fixtures involve participants officially removed mid-split under Leaguepedia
+    <code>dqteams</code> directives (including upcoming <strong>#1071216 Solid Gaming vs DMG Esports Norway</strong>
+    in Komplettligaen, where Solid Gaming was removed in Round 10 yet 72% of Hotspawn's crowd picked Solid Gaming).
+    Every unresolved fixture, its walkover/void caveat, and all data limitations are documented on
+    <a href="unresolved.html"><strong>Unresolved &amp; limitations</strong></a>.</li>
+    <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
+    captured strictly for audit comparison (e.g. exposing the +33.8 pp crowd distortion on
+    <em>Galions vs Solary</em>) and have zero weight anywhere in our probabilities — see
+    <a href="methodology.html"><strong>Method &amp; out-of-sample backtest</strong></a>.</li>
+    <li><strong>Live sources &amp; 6-hour automation.</strong> 9 of 14 probed feeds
+    returned live HTTP 200 on the latest runner build (<a href="sources.html">Sources</a>), verified by 15
+    automated publish gates (<a href="verification.html">Verification</a>) and audited on
+    <a href="flagged.html">Flagged for review</a>.</li>
   </ul>
 </section>
 
 <section class="panel">
-  <h2>Next matches</h2>
+  <h2>Where the picks live</h2>
+  <p class="lead">Bookmark <a href="picks.html"><strong>All picks</strong></a> - it is the single mobile-friendly
+  list with every match on Hotspawn, next kick-off first.</p>
+  <ul class="linklist">
+    <li><a href="picks.html">All picks &rarr;</a><span>Complete list, 264 matches, instant mobile search &amp; tournament filter.</span></li>
+    <li><a href="featured.html">Market-backed picks &rarr;</a><span>10 matches priced from de-vigged multi-venue sportsbook &amp; exchange consensus.</span></li>
+    <li><a href="originated.html">Originated low-tier lines &rarr;</a><span>249 regional/academy matches originated from recorded series history.</span></li>
+    <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>5 mid-split league removals we refuse to guess on, plus all 68 provisional caveats.</span></li>
+    <li><a href="competitions.html">By tournament &rarr;</a><span>Coverage breakdown across all 27 LoL competitions.</span></li>
+    <li><a href="flagged.html">Flagged for review &rarr;</a><span>Disqualifications, PvB mislabelling, kick-off offsets, and crowd traps.</span></li>
+  </ul>
+</section>
+
+<section class="panel">
+  <h2>Next upcoming picks</h2>
   <div class="cards">
     <article class="card m-market" data-method="market" data-comp="EM 2026 Summer Main Event"
   data-text="em 2026 summer main event galions solary">
@@ -71,19 +99,19 @@
   <div class="comp">EM 2026 Summer Main Event</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">Galions</span><span class="tpct">53.4%</span>
+      <span class="tname">Galions</span><span class="tpct">53.2%</span>
     </div>
-    <div class="split" role="img" aria-label="Galions 53 percent, Solary 47 percent"><span class="s0" style="width:53.4%"></span></div>
+    <div class="split" role="img" aria-label="Galions 53 percent, Solary 47 percent"><span class="s0" style="width:53.2%"></span></div>
     <div class="team ">
-      <span class="tname">Solary</span><span class="tpct">46.6%</span>
+      <span class="tname">Solary</span><span class="tpct">46.8%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Galions</strong> <span class="pickpct">53%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Galions</strong> <span class="pickpct">53.2%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>De-vigged Pinnacle moneyline: 2.05 / 1.7874 (overround 4.73%). Kick-off: Hotspawn 2026-10-22T12:00:00Z (Leaguepedia agrees), Pinnacle 2026-10-22T16:00Z.</p>
-    <ul class="flags"><li>kick-off time differs between sources: Hotspawn and Leaguepedia say 2026-10-22T12:00:00Z but Pinnacle lists 2026-10-22T16:00Z (4h apart) - the odds are for this pairing, but confirm the start time before betting</li></ul>
+    <p>5-Venue Consensus de-vigged line (53.2% / 46.8%): Pinnacle 53.4%/46.6% (1.79/2.05), Polymarket 55.5%/44.5% (55.5¢/44.5¢), Kalshi 54.0%/46.0% (54¢/46¢), Bovada 50.0%/50.0% (1.87/1.87), Esportsbook 49.2%/50.8% (1.86/1.8).</p>
+    <ul class="flags"><li>kick-off time differs between sources: Hotspawn and Leaguepedia say 2026-10-22T12:00:00Z while Pinnacle lists 2026-10-22T16:00Z (4h apart) - confirm before betting</li></ul>
   </details>
-  
+  <div class="src"><a href="https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205" rel="noopener">Hotspawn card</a><a href="https://www.pinnacle.com/en/event/1638709103" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-gal-sly-2026-10-22" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct220800slygal" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/esports/league-of-legends/emea-masters-summer/galions-solary-202610220800" rel="noopener">Bovada</a><a href="https://egamersworld.com/lol/matches" rel="noopener">Esportsbook</a><a href="https://lol.fandom.com/wiki/EMEA_Masters%2F2026_Season%2FSummer_Main_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Galions" rel="noopener">Galions</a><a href="https://lol.fandom.com/wiki/Solary" rel="noopener">Solary</a></div>
 </article><article class="card m-model" data-method="model" data-comp="Komplettligaen 2026 Autumn"
   data-text="komplettligaen 2026 autumn ascent gaming ntnui kometkameratene">
   <div class="card-top">
@@ -100,34 +128,12 @@
       <span class="tname">NTNUI Kometkameratene</span><span class="tpct">38.4%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Ascent Gaming</strong> <span class="pickpct">62%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Ascent Gaming</strong> <span class="pickpct">61.7%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: Ascent Gaming 1533 vs NTNUI Kometkameratene 1450 (47/10 rated series).</p>
     
   </details>
-  
-</article><article class="card m-model" data-method="model" data-comp="Komplettligaen 2026 Autumn"
-  data-text="komplettligaen 2026 autumn solid gaming dmg esports norway">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-22T15:00:00Z" class="utc" data-utc="2026-10-22T15:00:00Z">2026-10-22 15:00 UTC</time></span>
-    <span class="badges"><span class="badge b-model">Model line</span></span>
-  </div>
-  <div class="comp">Komplettligaen 2026 Autumn</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">Solid Gaming</span><span class="tpct">45.7%</span>
-    </div>
-    <div class="split" role="img" aria-label="Solid Gaming 46 percent, DMG Esports Norway 54 percent"><span class="s0" style="width:45.7%"></span></div>
-    <div class="team fav">
-      <span class="tname">DMG Esports Norway</span><span class="tpct">54.3%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>DMG Esports Norway</strong> <span class="pickpct">54%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Solid Gaming 1425 vs DMG Esports Norway 1455 (11/84 rated series).</p>
-    
-  </details>
-  
+  <div class="src"><a href="https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Komplettligaen%2F2026_Season%2FAutumn_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Ascent_Gaming" rel="noopener">Ascent Gaming</a><a href="https://lol.fandom.com/wiki/NTNUI_Kometkameratene" rel="noopener">NTNUI Kometkameratene</a></div>
 </article><article class="card m-model" data-method="model" data-comp="Komplettligaen 2026 Autumn"
   data-text="komplettligaen 2026 autumn volda e-sport cng royal">
   <div class="card-top">
@@ -144,12 +150,12 @@
       <span class="tname">CNG Royal</span><span class="tpct">52.0%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>CNG Royal</strong> <span class="pickpct">52%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>CNG Royal</strong> <span class="pickpct">52.0%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: Volda E-Sport 1517 vs CNG Royal 1531 (52/81 rated series).</p>
     
   </details>
-  
+  <div class="src"><a href="https://www.hotspawn.com/matches/volda-e-sport-vs-cng-royal-komplettligaen-2026-autumn-1071218" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Komplettligaen%2F2026_Season%2FAutumn_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Volda_E-Sport" rel="noopener">Volda E-Sport</a><a href="https://lol.fandom.com/wiki/CNG_Royal" rel="noopener">CNG Royal</a></div>
 </article><article class="card m-model" data-method="model" data-comp="Komplettligaen 2026 Autumn"
   data-text="komplettligaen 2026 autumn your saviours mixlag fra trondheim">
   <div class="card-top">
@@ -166,12 +172,12 @@
       <span class="tname">Mixlag fra Trondheim</span><span class="tpct">35.5%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Your Saviours</strong> <span class="pickpct">64%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Your Saviours</strong> <span class="pickpct">64.5%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: Your Saviours 1532 vs Mixlag fra Trondheim 1428 (51/26 rated series).</p>
     
   </details>
-  
+  <div class="src"><a href="https://www.hotspawn.com/matches/your-saviours-vs-mixlag-fra-trondheim-komplettligaen-2026-autumn-1071219" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Komplettligaen%2F2026_Season%2FAutumn_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Your_Saviours" rel="noopener">Your Saviours</a><a href="https://lol.fandom.com/wiki/Mixlag_fra_Trondheim" rel="noopener">Mixlag fra Trondheim</a></div>
 </article><article class="card m-model" data-method="model" data-comp="RIVALS LEAGUE Season 2"
   data-text="rivals league season 2 turbo gaming fritt fall">
   <div class="card-top">
@@ -188,42 +194,45 @@
       <span class="tname">Fritt Fall</span><span class="tpct">44.7%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Turbo Gaming</strong> <span class="pickpct">55%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Turbo Gaming</strong> <span class="pickpct">55.3%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: Turbo Gaming 1518 vs Fritt Fall 1481 (5/7 rated series).</p>
     
   </details>
-  
+  <div class="src"><a href="https://www.hotspawn.com/matches/turbo-gaming-vs-fritt-fall-rivals-league-season-2-1074667" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Turbo_Gaming" rel="noopener">Turbo Gaming</a><a href="https://lol.fandom.com/wiki/Fritt_Fall" rel="noopener">Fritt Fall</a></div>
+</article><article class="card m-provisional" data-method="provisional" data-comp="PRM 3rd Division 26-27 Fall"
+  data-text="prm 3rd division 26-27 fall blackdivision babos gaming academy">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-22T17:30:00Z" class="utc" data-utc="2026-10-22T17:30:00Z">2026-10-22 17:30 UTC</time></span>
+    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
+  </div>
+  <div class="comp">PRM 3rd Division 26-27 Fall</div>
+  <div class="teams">
+    <div class="team ">
+      <span class="tname">BlackDivision</span><span class="tpct">46.9%</span>
+    </div>
+    <div class="split" role="img" aria-label="BlackDivision 47 percent, Babos Gaming Academy 53 percent"><span class="s0" style="width:46.9%"></span></div>
+    <div class="team fav">
+      <span class="tname">Babos Gaming Academy</span><span class="tpct">53.1%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Babos Gaming Academy</strong> <span class="pickpct">53.1%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: BlackDivision 1507 vs Babos Gaming Academy 1528 (2/23 rated series).</p>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/blackdivision-vs-babos-gaming-academy-prm-3rd-division-26-27-fall-1075736" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_3rd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/BlackDivision" rel="noopener">BlackDivision</a><a href="https://lol.fandom.com/wiki/Babos_Gaming_Academy" rel="noopener">Babos Gaming Academy</a></div>
 </article>
   </div>
-  <p><a class="btn" href="picks.html">See the full list &rarr;</a></p>
-</section>
-
-<section class="panel">
-  <h2>Executive summary</h2>
-  <ul class="bullets">
-    <li><strong>Coverage.</strong> 264 of 264 matches have a pick. 9 come from market
-    prices (Pinnacle moneylines, plus Polymarket where a live market exists); 187 come from
-    our Elo model and 68 are provisional model lines with thin data.</li>
-    <li><strong>Unresolved.</strong> No match is currently unpriced.
-    The <a href="unresolved.html">Unresolved &amp; limitations</a> page lists every match we refuse to price,
-    every limitation behind the numbers above, and the 68 provisional lines with their exact reason.</li>
-    <li><strong>Independent of Hotspawn.</strong> Hotspawn's public pick percentages are not used as inputs anywhere
-    in the maths - see <a href="methodology.html">Method</a>.</li>
-    <li><strong>Sources.</strong> 7 of 12 checked data sources responded; the rest are
-    documented as blocked on <a href="sources.html">Sources</a>.</li>
-    <li><strong>Refresh cadence.</strong> A GitHub Actions job re-pulls Hotspawn, Pinnacle and Leaguepedia every 6
-    hours and republishes this site. Snapshot time is shown at the top of every page.</li>
-    <li><strong>Flagged for review.</strong> Data irregularities and unverified items are collected on
-    <a href="flagged.html">Flagged for review</a>.</li>
-  </ul>
+  <p><a class="btn" href="picks.html">See all 264 matches &rarr;</a></p>
 </section>
 
 </main>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Every row links to its source. Not betting advice.</p>
+  <p>Independent research dashboard. Every row links to its official source. Zero Hotspawn crowd-pick input.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
-  <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a></p>
+  <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
+  <a href="tournaments.html">Tournaments</a></p>
 </footer>
 <script src="assets/app.js"></script>
 </body>
