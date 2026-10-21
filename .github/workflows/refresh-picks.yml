@@ -31,7 +31,7 @@ jobs:
       - name: Install Python dependencies
         run: pip install --quiet -r requirements.txt
 
-      - name: Run live harvest probe or full refresh pipeline
+      - name: Run live harvest or full refresh pipeline
         run: |
           if [ -f scripts/refresh.py ]; then
             python3 scripts/refresh.py
@@ -41,24 +41,14 @@ jobs:
             python3 scripts/harvest_probe.py
           fi
 
-      - name: Upload live harvest & evidence artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: lolhotspawn-live-data
-          path: |
-            raw_harvest/
-            data/
-          if-no-files-found: warn
-
-      - name: Commit scheduled refresh back to main
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+      - name: Commit updated data snapshot to branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin main
-          if ! git diff --quiet; then
+          git fetch origin "${GITHUB_REF_NAME}"
+          if [ -n "$(git status --porcelain)" ]; then
             git add -A
-            git commit -m "chore(refresh): automated 4h Hotspawn LoL line & standings update ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
-            git pull --rebase origin main
-            git push origin HEAD:main
+            git commit -m "chore(data): update verified Hotspawn LoL sources & picks ($(date -u +%Y-%m-%dT%H:%M:%SZ)) [skip ci]"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
