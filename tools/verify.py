@@ -14,7 +14,7 @@ from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, ROOT, iso, load_json, log, now_utc, save_json
 
-DOCS = os.path.join(ROOT, "docs")
+DOCS = ROOT  # GitHub Pages serves the branch root
 ALLOWED = {"market", "model", "provisional", "unresolved"}
 checks: list[dict] = []
 

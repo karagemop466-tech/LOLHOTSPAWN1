@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, ROOT, iso, load_json, log, now_utc
 
-DOCS = os.path.join(ROOT, "docs")
+DOCS = ROOT  # GitHub Pages for this repo publishes the branch root (legacy build)
 SITE_URL = "https://karagemop466-tech.github.io/LOLHOTSPAWN1/"
 
 METHOD_LABEL = {
