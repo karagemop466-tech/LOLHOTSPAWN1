@@ -24,6 +24,7 @@ import json
 import os
 import re
 import sys
+import traceback
 from datetime import datetime, timedelta, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -407,12 +408,29 @@ def main() -> int:
     os.makedirs(args.out, exist_ok=True)
 
     fetcher = Fetcher(cache_dir=os.path.join(args.out, "cache"))
+    crash = os.path.join(args.out, "pipeline-error.txt")
+
+    def guard(stage, fn):
+        """A failing stage must never publish a half-truth, but it must also never hide why."""
+        try:
+            return fn(), None
+        except Exception as exc:
+            text = f"{stage} failed: {type(exc).__name__}: {exc}\n{traceback.format_exc()}"
+            log(f"!! {text.splitlines()[0]}")
+            from scripts.common import write_text
+            write_text(crash, text)
+            print(text, file=sys.stderr)
+            return None, text
+
     if args.offline:
         collected = read_json(os.path.join(args.out, "hotspawn.json"), {"matches": []})
         lines_data = read_json(os.path.join(args.out, "lines.json"), {})
     else:
         log("1/4 Hotspawn collection")
-        collected = hs.collect(fetcher, out_dir=args.out, deep=not args.shallow)
+        collected, err = guard("hotspawn collection",
+                               lambda: hs.collect(fetcher, out_dir=args.out, deep=not args.shallow))
+        if collected is None:
+            collected = {"matches": [], "error": err.splitlines()[0] if err else "collection failed"}
         write_json(os.path.join(args.out, "hotspawn.json"), collected)
 
         lines_data = {"oddsportal": {}, "polymarket": {}, "rows": [], "markets": []}
@@ -421,8 +439,10 @@ def main() -> int:
             queries = ["league of legends", "worlds 2026 lol", "league of legends worlds"]
             tourney_names = sorted({(c.get("lobby_tournament") or "") for c in collected.get("matches", [])})
             queries += [t for t in tourney_names if t][:25]
-            rows, op_meta = LN.collect_oddsportal(fetcher)
-            markets, pm_meta = LN.collect_polymarket(fetcher, queries[:20])
+            op_res, _ = guard("OddsPortal", lambda: LN.collect_oddsportal(fetcher))
+            rows, op_meta = op_res if op_res else ([], {"status": "collector crashed"})
+            pm_res, _ = guard("Polymarket", lambda: LN.collect_polymarket(fetcher, queries[:20]))
+            markets, pm_meta = pm_res if pm_res else ([], {"status": "collector crashed"})
             attach, attach_flags = LN.attach(markets, rows, collected.get("matches") or [])
             lines_data = {
                 "generated_at": iso(utcnow()),
@@ -434,13 +454,18 @@ def main() -> int:
             lines_data["attach"], lines_data["attach_flags"] = {}, []
         if not args.no_probes:
             log("3/4 probing esports books / other line sources")
-            lines_data["probes"] = LN.probe_sources(fetcher)
+            probes, _ = guard("source probes", lambda: LN.probe_sources(fetcher))
+            lines_data["probes"] = probes or []
         else:
             lines_data.setdefault("probes", [])
         write_json(os.path.join(args.out, "lines.json"), lines_data)
 
     log("4/4 resolving picks")
-    resolved = resolve(collected, lines_data, {})
+    resolved, err = guard("resolve", lambda: resolve(collected, lines_data, {}))
+    if resolved is None:
+        print(f"FATAL: resolve crashed; nothing published. {err}", file=sys.stderr)
+        return 2
+    resolved.setdefault("flags", [])
     write_json(os.path.join(args.out, "picks.json"), {
         "generated_at": resolved["generated_at"],
         "source": {"lobby": collected.get("lobby_url"), "totals": resolved.get("collected_totals"),
