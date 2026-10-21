@@ -118,7 +118,16 @@ def kickoff_from_league(card: dict, league_fixtures: dict) -> tuple[str | None, 
         except Exception:
             return feed, False, "league page only (unparseable lobby countdown)"
     if feed:
-        return feed, False, "hotspawn league page only"
+        return feed, False, "hotspawn schedule page only (lobby time unreadable)"
+    clock = (lf or {}).get("league_clock_utc")
+    if clock and derived and derived[11:16] == clock:
+        # the schedule page prints only "HH:MM UTC" per row; the lobby prints the date.  When the
+        # minute agrees we have an absolute UTC kickoff from two Hotspawn pages, not one guess.
+        return derived, True, ("lobby date + Hotspawn schedule-page clock (both print "
+                               f"{clock} UTC — agreement)")
+    if clock and derived:
+        return feed or derived, False, (f"MISMATCH: schedule page shows {clock} UTC, lobby card "
+                                        f"shows {derived[11:16]} — flagged, lobby value kept")
     return derived, False, ("lobby printed time (UTC) only — Hotspawn's own league page for this "
                             "fixture could not be read by the collector")
 
@@ -206,6 +215,16 @@ def resolve(collected: dict, lines_data: dict, model_data: dict) -> dict:
                           "reason": ("no fixture record returned by Hotspawn's public feed for this "
                                      "id — match page listed in lobby only, left unverified"),
                           "source_url": card.get("match_url")})
+        lf_row = league_fixtures.get(str(fid)) or {}
+        lf_score = lf_row.get("league_score")
+        if lf_row.get("league_status") == "finished" and status != "locked":
+            scored = (f" ({lf_score[0]}-{lf_score[1]})" if lf_score else "")
+            flags.append({"match": " vs ".join(teams), "fixture_id": fid,
+                          "field": "lobby_offers_finished_match",
+                          "reason": ("Hotspawn's schedule page marks this series finished"
+                                     f"{scored} while the pick'em lobby still lets a pick be made "
+                                     "for it — do not spend a pick here"),
+                          "source_url": lf_row.get("league_url") or card.get("match_url")})
         if not verified_kickoff:
             flags.append({"match": " vs ".join(teams), "fixture_id": fid, "field": "kickoff_utc",
                           "reason": f"kickoff not cross-checked: {kickoff_src}",

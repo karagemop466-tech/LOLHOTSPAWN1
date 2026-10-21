@@ -311,6 +311,94 @@ _VS_LINE = re.compile(r"^(?P<a>.{2,40}?)\s+vs\.?\s+(?P<b>.{2,40}?)"
                       re.I)
 
 
+ROW_CLOCK = re.compile(r"^(\d{1,2}):(\d{2})(?:\s*(?:UTC|GMT))?$", re.I)
+_ROW_DAY_A = re.compile(r"^(\d{1,2})\s+([A-Z][a-z]{2})(?:\s+(20\d\d))?$")
+_ROW_DAY_B = re.compile(r"^([A-Z][a-z]{2})\s+(\d{1,2})(?:,?\s*(20\d\d))?$")
+
+
+def _league_day(label: str):
+    """``22 Oct`` / ``Oct 22`` / ``22 Oct 2026`` -> (day, month, year|None)."""
+    a = _ROW_DAY_A.match(label or "")
+    if a:
+        return int(a.group(1)), a.group(2), (int(a.group(3)) if a.group(3) else None)
+    b = _ROW_DAY_B.match(label or "")
+    if b:
+        return int(b.group(2)), b.group(1), (int(b.group(3)) if b.group(3) else None)
+    return None
+ROW_SCORE_SEP = {":", "-", ":", "–"}
+ROW_STATUS = {"upcoming": "scheduled", "live": "live", "in progress": "live",
+              "finished": "finished", "completed": "finished", "full time": "finished",
+              "postponed": "postponed", "cancelled": "cancelled"}
+
+
+def _row_from_line_tokens(lines: list[str]):
+    """Hotspawn's fixture row, read as tokens.
+
+    Verified against a real tournament page (EM 2026 Summer Main Event, fetched 2026-10-21):
+
+        ``16:02 UTC | 16:02 UTC | Solary | 3 | : | 1 | Anubis Gaming``
+        ``12:00 UTC | 12:00 UTC | Galions | UPCOMING | Solary``
+
+    i.e. the kickoff clock (printed twice), then the home label, then either a state word or the
+    series score as three separate text nodes, then the away label.  Rows that carry their own day
+    label (``22 Oct``) are handled too.  Nothing here assumes ``<tr>``/``<div>`` element names,
+    which is why it survives their template churn.
+    """
+    clock = None
+    day = None
+    status = None
+    nums: list[int] = []
+    toks: list[str] = []
+    cleaned = [l.strip() for l in lines if l.strip()]
+    i = 0
+    while i < len(cleaned):
+        tok = cleaned[i]
+        cm = ROW_CLOCK.match(tok)
+        if cm and clock is None:
+            clock = (int(cm.group(1)), int(cm.group(2)))
+            i += 1
+            continue
+        if ROW_CLOCK.match(tok):
+            i += 1
+            continue
+        if tok.lower() in ROW_STATUS:
+            status = ROW_STATUS[tok.lower()]
+            i += 1
+            continue
+        dlab = _league_day(tok)
+        if dlab and day is None:
+            day = dlab
+            i += 1
+            continue
+        inline = re.fullmatch(r"(\d{1,2})\s*[:\-]\s*(\d{1,2})", tok)
+        if inline:
+            nums = [int(inline.group(1)), int(inline.group(2))]
+            i += 1
+            continue
+        if re.fullmatch(r"\d{1,2}", tok) and i + 2 < len(cleaned) \
+                and cleaned[i + 1] in ROW_SCORE_SEP \
+                and re.fullmatch(r"\d{1,2}", cleaned[i + 2]):
+            nums = [int(tok), int(cleaned[i + 2])]
+            i += 3
+            continue
+        if tok in ROW_SCORE_SEP:
+            i += 1
+            continue
+        if re.fullmatch(r"[\d\s:./-]{1,12}|\d{1,3}%", tok):
+            i += 1
+            continue
+        if tok.lower().startswith(("who will win", "sign in", "locks in", "view match",
+                                   "points available", "tier", "stage", "multiplier", "vs")):
+            i += 1
+            continue
+        toks.append(tok)
+        i += 1
+    if len(toks) < 2:
+        return None
+    return {"clock": clock, "day": day, "home": toks[0], "away": toks[1],
+            "score": (nums[0], nums[1]) if len(nums) >= 2 else None, "status": status}
+
+
 def _teams_from_bits(bits: list[str]):
     """First line in the window that reads ``<Home> vs <Away>`` (Hotspawn's fixture-row label)."""
     for line in bits:
@@ -340,13 +428,22 @@ def _league_rows_from_anchors(markup: str, base_url: str | None = None) -> list[
             continue
         seen.add(fid)
         tail = markup[end:end + 1600]
+        # never let the window bleed into the NEXT row: the next fixture starts at its own clock
+        tcut = re.search(r"(?is)[^<>]*\d{1,2}:\d{2}\s*(?:UTC|GMT)?", tail)
+        if tcut and tcut.start() > 0:
+            tail = tail[:tcut.start()]
+        elif tcut:
+            tail = ""
         win = markup[max(0, start - 1600):end + 1600]
+        head = markup[max(0, start - 7000):start]
+        head_plain = unescape(re.sub(r"(?is)<[^>]+>", "\n", head))
         plain = unescape(re.sub(r"(?is)<[^>]+>", "\n", win))
         plain_lines = [l.strip() for l in plain.split("\n") if l.strip()]
         inner_lines = _anchor_lines(inner)
         tail_lines = [l.strip() for l in
                       unescape(re.sub(r"(?is)<[^>]+>", "\n", tail)).split("\n") if l.strip()]
 
+        row = _row_from_line_tokens(inner_lines)
         kickoff = None
         basis = None
         dt = _DT_ATTR.search(win)
@@ -360,6 +457,31 @@ def _league_rows_from_anchors(markup: str, base_url: str | None = None) -> list[
                 basis = "time[datetime] attribute"
             except ValueError:
                 kickoff = None
+        if kickoff is None and row and row.get("clock") and row.get("day"):
+            dnum, mon, year = row["day"]
+            try:
+                kickoff = datetime(year or now.year, MONTHS[mon.lower()], dnum,
+                                    row["clock"][0], row["clock"][1], tzinfo=timezone.utc)
+                basis = "row clock + row day label"
+            except (KeyError, ValueError):
+                kickoff = None
+        if kickoff is None and row and row.get("clock"):
+            hh, minute = row["clock"]
+            daym = (re.findall(r"\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"
+                               r"\s+(20\d\d)\b", head_plain, re.I)
+                    or re.findall(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"
+                                  r"\s+(\d{1,2})(?:,?\s*(20\d\d))?", head_plain, re.I))
+            if daym:
+                g = daym[-1]
+                if g[0].isdigit():
+                    dnum, mon, year = int(g[0]), g[1], int(g[2])
+                else:
+                    mon, dnum, year = g[0], int(g[1]), (int(g[2]) if g[2] else now.year)
+                try:
+                    kickoff = datetime(year, MONTHS[mon.lower()], dnum, hh, minute, tzinfo=timezone.utc)
+                    basis = "row clock + nearest day heading on the page"
+                except (KeyError, ValueError):
+                    kickoff = None
         if kickoff is None:
             clock = re.search(r"\b(\d{1,2}):(\d{2})\b(?!\s*\d)", plain)
             day = (re.search(r"\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b"
@@ -380,7 +502,8 @@ def _league_rows_from_anchors(markup: str, base_url: str | None = None) -> list[
                 except (KeyError, ValueError):
                     kickoff = None
 
-        teams = _teams_from_bits(inner_lines) or _teams_from_bits(tail_lines) \
+        teams = ((row["home"], row["away"]) if row else None) \
+            or _teams_from_bits(inner_lines) or _teams_from_bits(tail_lines) \
             or _teams_from_bits(plain_lines)
         if not teams:
             alt = [n for n in _ALT_ATTR.findall(win[:max(0, end - start) + 700])
@@ -395,9 +518,13 @@ def _league_rows_from_anchors(markup: str, base_url: str | None = None) -> list[
                 split_score = s2
             if st2 == "upcoming":
                 status = "scheduled"
-        score = re.search(r">\s*(\d{1,2})\s*[:\-]\s*(\d{1,2})\s*<", tail) or \
-            re.search(r">\s*(\d{1,2})\s*[:\-]\s*(\d{1,2})\s*<", inner)
-        status = "scheduled"
+        score_m = None
+        if row and row.get("score"):
+            score_m = type("M", (), {"group": lambda _s, i: row["score"][i - 1]})()
+        if score_m is None:
+            score_m = re.search(r">\s*(\d{1,2})\s*[:\-]\s*(\d{1,2})\s*<", tail) or \
+                re.search(r">\s*(\d{1,2})\s*[:\-]\s*(\d{1,2})\s*<", inner)
+        status = (row or {}).get("status") or "scheduled"
         if re.search(r"(?i)\b(full time|finished|completed)\b", tail):
             status = "finished"
         elif re.search(r"(?i)\blive\b|in progress", tail):
@@ -412,9 +539,11 @@ def _league_rows_from_anchors(markup: str, base_url: str | None = None) -> list[
             "league_display": [teams[0], teams[1]] if teams else [],
             "league_home_display": teams[0] if teams else None,
             "league_away_display": teams[1] if teams else None,
-            "league_status": status if score or status != "finished" else "finished",
-            "league_score": ([int(score.group(1)), int(score.group(2))] if score
+            "league_status": ("finished" if (score_m and status == "scheduled")
+                              else status),
+            "league_score": ([int(score_m.group(1)), int(score_m.group(2))] if score_m
                              else list(split_score) if split_score else None),
+            "league_clock_utc": ("%02d:%02d" % row["clock"]) if (row and row.get("clock")) else None,
             "time_shown_utc": bool(re.search(r"(?i)\b(UTC|GMT)\b", plain)),
             "league_raw": " | ".join((inner_lines + tail_lines)[:8])[:400],
         })
@@ -484,225 +613,71 @@ def _split_teams_and_score(lines: list[str]):
 
 
 def parse_league_page(text: str, base_url: str) -> dict:
-    """Fixtures (kickoff in UTC, opponent, status, score) + tournament name from a league page.
+    """Every fixture on a Hotspawn tournament page: kickoff (UTC), opponents, state, score.
 
-    The league page prints every fixture with an explicit ``HH:MM UTC`` stamp, which is what
-    lets us verify the lobby's relative "Locks in" countdown against an absolute time.
+    Hotspawn's own tournament page is the canonical schedule for an event and it prints the kickoff
+    in UTC (``12:00 UTC``), which is what lets us confirm the time the lobby card shows instead of
+    trusting a countdown read off a cached render.  Rows are read from the markup window around each
+    match link, so a template change that renames elements does not silently drop fixtures.
     """
     fixtures: dict[int, dict] = {}
-    for row in _league_rows_from_lines(text, base_url):
-        fixtures[row["fixture_id"]] = row
     for row in _league_rows_from_anchors(text, base_url):
         prev = fixtures.get(row["fixture_id"])
-        if prev is None or (not prev.get("league_kickoff_utc") and row.get("league_kickoff_utc")):
-            fixtures[row["fixture_id"]] = {**(prev or {}), **{k: v for k, v in row.items()
-                                                              if v not in (None, [], {})}}
+        if prev and (prev.get("league_kickoff_utc") or not row.get("league_kickoff_utc")):
+            continue
+        fixtures[row["fixture_id"]] = {**(prev or {}), **row}
+
+    name = None
+    for pat in (r"(?is)<title>(.*?)</title>", r"(?is)<h1[^>]*>(.*?)</h1>"):
+        hm = re.search(pat, text or "")
+        if hm:
+            cand = re.sub(r"<[^>]+>", "", hm.group(1))
+            cand = re.sub(r"(?i)\s*live scores.*$", "", cand)
+            cand = re.sub(r"(?i)\s*[-|]\s*hotspawn\s*$", "", cand).strip(" -|")
+            if cand:
+                name = cand
+                break
+
     for row in fixtures.values():          # schema stability for verify + the site
         row.setdefault("league_teams", [])
         row.setdefault("league_status", "scheduled")
         row.setdefault("league_score", None)
         row.setdefault("league_kickoff_utc", None)
         row["league_status"] = {"upcoming": "scheduled"}.get(row["league_status"],
-                                                            row["league_status"])
-    name = None
-    for pat in (r"(?is)<title>(.*?)</title>", r"(?is)<h1[^>]*>(.*?)</h1>"):
-        hm = re.search(pat, text or "")
-        if hm:
-            name = re.sub(r"<[^>]+>", "", hm.group(1))
-            name = re.sub(r"(?i)\s*live scores.*$", "", name)
-            name = re.sub(r"(?i)\s*[-|]\s*hotspawn\s*$", "", name).strip(" -|")
-            if name:
-                break
-    for href, inner in _match_anchors(text):
-        if not href:
-            continue
-        mm = MATCH_HREF.search(href)
-        if not mm:
-            continue
-        fid = int(mm.group("id"))
-        lines = _anchor_lines(inner)
-        joined = " ".join(lines)
-        time_m = TIME_UTC_RE.search(joined)
-        day_m = DAY_MON_RE.search(joined)
-        teams, score, status = _split_teams_and_score(lines)
-        kickoff = None
-        if time_m and day_m:
-            year = utcnow().year
-            try:
-                kickoff = datetime(year, MONTHS[day_m.group(2).lower()], int(day_m.group(1)),
-                                   int(time_m.group(1)), int(time_m.group(2)), tzinfo=timezone.utc)
-            except ValueError:
-                kickoff = None
-        if fid in fixtures and (fixtures[fid].get("league_kickoff_utc") or not kickoff):
-            continue
-        entry = {
-            "fixture_id": fid,
-            "league_url": base_url,
-            "match_page": f"https://www.hotspawn.com/matches/{mm.group('slug')}-{fid}",
-            "league_kickoff_utc": iso(kickoff),
-            "league_teams": teams,
-            "league_status": status,
-            "league_score": list(score) if score else None,
-            "league_raw": joined[:240],
-        }
-        if fid in fixtures and fixtures[fid].get("league_kickoff_utc"):
-            continue
-        fixtures[fid] = entry
+                                                             row["league_status"])
+
     return {"tournament_name": name, "fixtures": list(fixtures.values())}
 
 
 def harvest_results_from_league(text: str, base_url: str | None = None) -> list[dict]:
-    """Completed fixtures with a readable scoreline -> the model's only form input."""
-    rows = []
-    seen = set()
-    for row in _league_rows_from_lines(text, base_url):
-        if not row.get("league_score") or row.get("league_status") != "finished":
-            continue
-        fid = row["fixture_id"]
-        if fid in seen:
-            continue
-        seen.add(fid)
-        rows.append({
-            "fixture_id": fid,
-            "team_home": row["league_home_display"],
-            "team_away": row["league_away_display"],
-            "score_home": row["league_score"][0],
-            "score_away": row["league_score"][1],
-            "source_url": row["match_page"],
-            "source_note": "Hotspawn tournament page row: " + (row.get("league_raw") or "")[:160],
-            "played_utc": row.get("league_kickoff_utc"),
-        })
-    for href, inner in _match_anchors(text):
-        if not href:
-            continue
-        mm = MATCH_HREF.search(href)
-        if not mm:
-            continue
-        fid = int(mm.group("id"))
-        lines = _anchor_lines(inner)
-        if any(l.lower().strip() == "upcoming" or l.lower().strip() == "live" for l in lines):
-            continue
-        teams, score, status = _split_teams_and_score(lines)
-        if not score or status != "finished" or len(teams) < 2 or score == (0, 0):
-            continue
-        if fid in seen:
-            continue
-        seen.add(fid)
-        rows.append({
-            "fixture_id": fid,
-            "team_home": teams[0],
-            "team_away": teams[1],
-            "score_home": score[0],
-            "score_away": score[1],
-            "source_url": f"https://www.hotspawn.com/matches/{mm.group('slug')}-{fid}",
-        })
-    return rows
+    """Completed, scored series from a tournament page -> the model's only form input.
 
-
-_LEAGUE_CLOCK = re.compile(r"^(\d{1,2}):(\d{2})(?:\s*(?:UTC|GMT))?$", re.I)
-_LEAGUE_DAY_A = re.compile(r"^(\d{1,2})\s+([A-Z][a-z]{2})(?:\s+(\d{4}))?$")
-_LEAGUE_DAY_B = re.compile(r"^([A-Z][a-z]{2})\s+(\d{1,2})(?:\s+(\d{4}))?$")
-_LEAGUE_VS = re.compile(r"^(?P<a>[^|]{1,60}?)\s+(?:vs\.?|versus|@)\s+(?P<b>[^|]{1,60}?)$", re.I)
-_LEAGUE_SCORE = re.compile(r"^(\d{1,2})\s*[:\-]\s*(\d{1,2})$")
-_LEAGUE_STATUS = {
-    "finished": "finished", "completed": "finished", "full time": "finished", "ft": "finished",
-    "live": "live", "in progress": "live",
-    "upcoming": "scheduled", "not started": "scheduled", "scheduled": "scheduled",
-    "cancelled": "cancelled", "postponed": "postponed",
-}
-
-
-def _league_day(label: str):
-    a = _LEAGUE_DAY_A.match(label)
-    if a:
-        return int(a.group(1)), a.group(2), (int(a.group(3)) if a.group(3) else None)
-    b = _LEAGUE_DAY_B.match(label)
-    if b:
-        return int(b.group(2)), b.group(1), (int(b.group(3)) if b.group(3) else None)
-    return None
-
-
-def _league_rows_from_lines(markup: str, base_url: str | None = None) -> list[dict]:
-    """Fixture rows read off the *text* of a league page (no assumption about element names).
-
-    Hotspawn's tournament page prints, per fixture: a day label, a ``HH:MM UTC`` line, the two team
-    labels, the match-page URL (kept inline by ``html_to_lines``) and a score or state word.  Rows
-    are therefore matched by proximity between two consecutive clock lines, which survives the
-    Next.js markup changes that break ``<tr>``/anchor assumptions.
+    Derived from the same rows the fixtures come from, so a result can never disagree with the
+    schedule: a row counts only when it shows a series score *and* is not marked upcoming/live.
     """
-    lines = [l.strip() for l in html_to_lines(markup or "")]
-    now = utcnow()
-    clocks = [i for i, l in enumerate(lines) if _LEAGUE_CLOCK.match(l)]
     rows: list[dict] = []
     seen: set[int] = set()
-    for k, i in enumerate(clocks):
-        nxt = clocks[k + 1] if k + 1 < len(clocks) else len(lines)
-        window = lines[i + 1:min(nxt, i + 15)]
-        cm = _LEAGUE_CLOCK.match(lines[i])
-        url_m = None
-        score = None
-        status = "scheduled"
-        text_bits: list[str] = []
-        for cand in window:
-            if url_m is None and cand.startswith(("http", "/")):
-                url_m = MATCH_HREF.search(cand)
-                if url_m:
-                    continue
-            sm = _LEAGUE_SCORE.match(cand)
-            if sm and score is None and not cand.startswith("http"):
-                score = (int(sm.group(1)), int(sm.group(2)))
-                continue
-            low = cand.lower()
-            if low in _LEAGUE_STATUS:
-                status = _LEAGUE_STATUS[low]
-                continue
-            if _league_day(cand):
-                break                       # next fixture block starts at the next day label
-            if low.startswith(("who will win", "sign in", "locks in", "view match",
-                               "points available", "tier", "stage", "multiplier")):
-                continue
-            if len(cand) <= 60:
-                text_bits.append(cand)
-        vs = None
-        for cand in text_bits:
-            vs = _LEAGUE_VS.match(cand)
-            if vs:
-                break
-        if vs is None and len(text_bits) >= 3:
-            joined = " ".join(text_bits)
-            vs = _LEAGUE_VS.match(joined)
-        if url_m is None or vs is None:
+    for row in parse_league_page(text, base_url or "")["fixtures"]:
+        fid = row.get("fixture_id")
+        score = row.get("league_score")
+        if not fid or not score or fid in seen:
             continue
-        fid = int(url_m.group("id"))
-        if fid in seen:
+        if row.get("league_status") not in ("finished",):
+            continue
+        home = row.get("league_home_display") or row.get("league_teams", [None, None])[0]
+        away = row.get("league_away_display") or row.get("league_teams", [None, None])[1]
+        if not home or not away or int(score[0]) == int(score[1]):
             continue
         seen.add(fid)
-        day = year = mon = None
-        for back in range(i - 1, max(-1, i - 10), -1):
-            d = _league_day(lines[back])
-            if d:
-                day, mon, year = d
-                break
-        kickoff = None
-        if day and mon:
-            try:
-                kickoff = datetime(year or now.year, MONTHS[mon.lower()], day,
-                                   int(cm.group(1)), int(cm.group(2)), tzinfo=timezone.utc)
-            except (KeyError, ValueError):
-                kickoff = None
         rows.append({
             "fixture_id": fid,
-            "league_url": base_url,
-            "match_page": f"https://www.hotspawn.com/matches/{url_m.group('slug')}-{fid}",
-            "league_kickoff_utc": iso(kickoff),
-            "league_teams": [canon_team(vs.group("a")), canon_team(vs.group("b"))],
-            "league_home_display": vs.group("a").strip(),
-            "league_away_display": vs.group("b").strip(),
-            "league_status": "finished" if (score and status == "scheduled") else status,
-            "league_score": list(score) if score else None,
-            "league_day_label": lines[i - 1] if i else None,
-            "league_raw": " | ".join([lines[i]] + window[:7])[:300],
-            "time_shown_utc": bool(cm.group(2)),
+            "team_home": home,
+            "team_away": away,
+            "score_home": int(score[0]),
+            "score_away": int(score[1]),
+            "source_url": row.get("match_page"),
+            "source_note": "Hotspawn tournament page row: " + (row.get("league_raw") or "")[:180],
+            "played_utc": row.get("league_kickoff_utc"),
         })
     return rows
 

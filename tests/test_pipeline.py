@@ -136,25 +136,35 @@ class LobbyParser(unittest.TestCase):
         self.assertIsNone(hs.provider_id_from_slug(None))
         self.assertIsNone(hs.provider_id_from_slug("no-trailing-number"))
 
-    def test_league_rows_are_found_without_assuming_anchor_rows(self):
-        page = (
-            '<html><head><title>Komplettligaen 2026 Autumn Live Scores | Hotspawn</title></head>'
-            '<body><div class="day">21 Oct 2026</div><div class="row">'
-            '<span class="t">16:00 UTC</span>'
-            '<a href="/matches/levelers-vs-mtn-esports-team-komplettligaen-2026-autumn-1082839">'
-            '<img alt="Levelers"/>Levelers<span>vs</span>MTN ESPORTS TEAM</a>'
-            '<span class="s">2 : 0</span><span class="st">Finished</span></div></body></html>')
-        rows = hs._league_rows_from_lines(page, "https://www.hotspawn.com/x")
-        self.assertEqual(len(rows), 1, rows)
-        row = rows[0]
-        self.assertEqual(row["fixture_id"], 1082839)
-        self.assertEqual(row["league_kickoff_utc"], "2026-10-21T16:00:00Z")
-        self.assertEqual(row["league_score"], [2, 0])
-        self.assertEqual(row["league_status"], "finished")
-        self.assertEqual(row["league_away_display"], "MTN ESPORTS TEAM")
-        res = hs.harvest_results_from_league(page, "https://www.hotspawn.com/x")
-        self.assertEqual([(r["team_home"], r["team_away"], r["score_home"]) for r in res],
-                         [("Levelers", "MTN ESPORTS TEAM", 2)])
+    def test_league_rows_are_read_from_the_real_row_shape(self):
+        # exact token order observed on em-2026-summer-main-event on 2026-10-21
+        head = '<div class="hs-date-header">Oct 14 2026</div>'
+        played = ('<a href="/matches/solary-vs-anubis-gaming-em-2026-summer-main-event-1079335">'
+                  '<span>16:02 UTC</span><span>16:02 UTC</span><span class="t">Solary</span>'
+                  '<span class="g">3</span><span>:</span><span class="g">1</span>'
+                  '<span class="t">Anubis Gaming</span></a>')
+        upcoming = ('<a href="/matches/galions-vs-solary-em-2026-summer-main-event-1081205">'
+                    '<span>12:00 UTC</span><span>12:00 UTC</span><span class="t">Galions</span>'
+                    '<span class="st">UPCOMING</span><span class="t">Solary</span></a>')
+        page = head + played + '<div class="hs-date-header">Oct 22 2026</div>' + upcoming
+        rows = {r["fixture_id"]: r for r in hs._league_rows_from_anchors(page, "u")}
+        self.assertEqual(sorted(rows), [1079335, 1081205])
+        self.assertEqual(rows[1079335]["league_kickoff_utc"], "2026-10-14T16:02:00Z")
+        self.assertEqual(rows[1079335]["league_score"], [3, 1])
+        self.assertEqual(rows[1079335]["league_status"], "finished")
+        self.assertEqual(rows[1079335]["league_display"], ["Solary", "Anubis Gaming"])
+        self.assertEqual(rows[1081205]["league_kickoff_utc"], "2026-10-22T12:00:00Z")
+        self.assertIsNone(rows[1081205]["league_score"])
+        # a row that carries its own day label works with no page heading at all
+        lonely = ('<a href="/matches/x-vs-y-z-1090001"><span>11:00 UTC</span>'
+                  '<span>22 Oct</span><span>Ascent Gaming</span>'
+                  '<span class="st">UPCOMING</span><span>NTNUI Kometkameratene</span></a>')
+        one = hs._league_rows_from_anchors(lonely, "u")[0]
+        self.assertEqual(one["league_kickoff_utc"], "2026-10-22T11:00:00Z")
+        self.assertEqual(one["league_display"], ["Ascent Gaming", "NTNUI Kometkameratene"])
+        res = hs.harvest_results_from_league(page, "u")
+        self.assertEqual([(r["team_home"], r["team_away"], r["score_home"], r["score_away"])
+                          for r in res], [("Solary", "Anubis Gaming", 3, 1)])
 
     def test_waiting_tier_and_missing_link(self):
         third = self.cards[2]
