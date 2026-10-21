@@ -2,10 +2,10 @@
  "note": "Curated, human-reviewed observations. Derived flags are appended by tools/flags.py on every build.",
  "flags": [
   {
-   "severity": "medium",
-   "item": "Hotspawn lists 'Phong Vũ Buffalo' in the German Prime League 2nd Division",
-   "detail": "Five fixtures in PRM 2nd Division 26-27 Fall pair Phong Vũ Buffalo (a Vietnamese organisation) against German teams. Leaguepedia has no team of that name with any recorded series, and no Vietnamese roster appears in that league. The team is therefore left unmatched and those five matches carry the 1500 baseline for that side. Flagged for review rather than guessed.",
-   "source": "https://www.hotspawn.com/matches/?s=phong+vu+buffalo"
+   "severity": "low",
+   "item": "Hotspawn displays the wrong name for the PvB slot in PRM 2nd Division",
+   "detail": "Hotspawn labels this team 'Phong Vũ Buffalo', but the five fixtures attributed to it (27 Oct 17:00 vs DKB XPERION NXT, 30 Oct 19:30 vs VfB eSports, 3 Nov 17:00 vs 404 Multigaming, 8 Nov 18:30 vs MT1 Esports, 13 Nov 18:30 vs regnum4games) are, in Leaguepedia, the five fixtures of 'PvB (Swiss Team)' in Prime League 2nd Division/2027 Season/Fall Split - same dates, same kick-off times, same opponents. The alias is therefore recorded explicitly in data/aliases.json with this evidence, not guessed. Hotspawn's card for these matches still shows the Vietnamese name and no logo.",
+   "source": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
   },
   {
    "severity": "info",
