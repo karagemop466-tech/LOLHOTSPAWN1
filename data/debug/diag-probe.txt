@@ -1,0 +1,561 @@
+diag probe @ 2026-10-21T21:03:54Z
+reachable: host + client fingerprint -> outcome
+
+* hotspawn fixtures feed — browser UA
+  https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=3&_fields=id,slug,link,title
+  outcome=no body (blocked, error or empty) chars=None
+
+* hotspawn fixtures feed — curl UA
+  https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=3&_fields=id,slug,link,title
+  outcome=ok chars=1197
+  items: 3
+  first_preview: {"id": 204696, "slug": "levelers-vs-mtn-esports-team-league-of-legends-match-at-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082839", "link": "https://www.hotspawn.com/matches/levelers-vs-mtn-esports-team-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082839", "title": {"rendered": "Levelers vs MTN ESPORTS TEAM League of Legends match at Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine &#8211; 1082839"}}
+
+* hotspawn fixtures feed — bot-contact UA
+  https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=3&_fields=id,slug,link,title
+  outcome=no body (blocked, error or empty) chars=None
+
+* hotspawn fixtures feed — no query string
+  https://www.hotspawn.com/wp-json/wp/v2/fixtures?per_page=3
+  outcome=no body (blocked, error or empty) chars=None
+
+* hotspawn tournaments taxonomy
+  https://www.hotspawn.com/wp-json/wp/v2/tournaments?per_page=5&_fields=id,slug,name,link
+  outcome=no body (blocked, error or empty) chars=None
+
+* hotspawn lobby host serving wp-json
+  https://play.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends&per_page=3&_fields=id,slug,link,title
+  outcome=no body (blocked, error or empty) chars=None
+
+* hotspawn league page (Worlds)
+  https://www.hotspawn.com/league-of-legends/tournament/worlds-2026-main-event
+  outcome=no body (blocked, error or empty) chars=None
+
+* hotspawn match page
+  https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205
+  outcome=no body (blocked, error or empty) chars=None
+
+* wp-json root (is the block host-wide?)
+  https://www.hotspawn.com/wp-json/
+  outcome=no body (blocked, error or empty) chars=None
+
+* hotspawn fixtures feed — next_events param
+  https://www.hotspawn.com/wp-json/wp/v2/fixtures?next_events=true&per_page=3&_fields=id,slug,link,title,date
+  outcome=no body (blocked, error or empty) chars=None
+
+* lobby page 2 (does the SSR list paginate?)
+  https://play.hotspawn.com/lol-pickems?page=2
+  outcome=ok chars=1985580
+  text_window: )
+Solid Gaming (5)
+spongecord prime (4)
+Supreme Leaders (5)
+SYR T1 (1)
+Syrian Rift Masters (1)
+T1 (1)
+Team 300 (5)
+Team 300 White (4)
+Team cd (4)
+Team Fifty Fifty (1)
+Team Liquid (1)
+Team Lucidity Esports (5)
+Team Reds (2)
+Team Secret Whales (1)
+Team VDS (3)
+Team Vertex (3)
+Team VS Esport (3)
+TeamBah (1)
+TeamOrangeGaming Academy (3)
+The Bandits Academy (3)
+The Bandits Prime (5)
+The Bandits UK (2)
+Top Esports (1)
+Torin (1)
+Triforce Esport (4)
+Tung Sahur Mid (4)
+Turbo Gaming (3)
+Venus (1)
+VES Japan (2)
+VfB eSports (6)
+VfB x Engines Stuttgart (4)
+Viktus (2)
+Vitality Rising Bees (1)
+Void Walkers (3)
+Volda E-Sport (2)
+Whalepower Humpbacks (5)
+Whisky (3)
+X-Funkass (1)
+Your Saviours (1)
+Zahrouni Esports (5)
+التريس (1)
+Closing Soon
+Oct 22, 12:00
+EM 2026 Summer Main Event
+Points available
+20 pts
+Tier
+A ×2
+Stage
+Waiting For Information
+Sign in for streaks
+Locks in
+14:50:48
+https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205
+View Match
+Who will win?
+Galions
+86% picked
+Solary
+14% picked
+Oct 22, 15:00
+Komplettligaen 2026 Autumn
+Points available
+10 pts
+Tier
+C
+Stage
+Waiting For Information
+Sign in for streaks
+Locks in
+17:50:48
+https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214
+View Match
+Who will win?
+Ascent Gaming
+93% picked
+NTNUI Kometkameratene
+7% picked
+Oct 22, 15:00
+Komplettligaen 2026 Autumn
+Points available
+10 pts
+Tier
+C
+Stage
+Waiting For Information
+Sign in for streaks
+Locks in
+17:50:48
+https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216
+View Match
+Who will win?
+Solid Gaming
+72% picked
+DMG Esports Norway
+28% picked
+Oct 22, 15:00
+Komplettligaen 2026 Autumn
+Points available
+10 pts
+Tier
+C
+Stage
+Waiting For Information
+Sign in for streaks
+Lock
+  markers: {"hotspawn /matches/ anchors": 390, "oddsportal /esports/h2h/ anchors": 0, "HH:MM UTC stamps": 0, "'Finished' text": 0, "score-like 'a : b'": 1499, "__NEXT_DATA__": false, "self.__next_f": false}
+
+* lobby page, wide limit param
+  https://play.hotspawn.com/lol-pickems?limit=400&tournament=all
+  outcome=ok chars=1985580
+  text_window: )
+Solid Gaming (5)
+spongecord prime (4)
+Supreme Leaders (5)
+SYR T1 (1)
+Syrian Rift Masters (1)
+T1 (1)
+Team 300 (5)
+Team 300 White (4)
+Team cd (4)
+Team Fifty Fifty (1)
+Team Liquid (1)
+Team Lucidity Esports (5)
+Team Reds (2)
+Team Secret Whales (1)
+Team VDS (3)
+Team Vertex (3)
+Team VS Esport (3)
+TeamBah (1)
+TeamOrangeGaming Academy (3)
+The Bandits Academy (3)
+The Bandits Prime (5)
+The Bandits UK (2)
+Top Esports (1)
+Torin (1)
+Triforce Esport (4)
+Tung Sahur Mid (4)
+Turbo Gaming (3)
+Venus (1)
+VES Japan (2)
+VfB eSports (6)
+VfB x Engines Stuttgart (4)
+Viktus (2)
+Vitality Rising Bees (1)
+Void Walkers (3)
+Volda E-Sport (2)
+Whalepower Humpbacks (5)
+Whisky (3)
+X-Funkass (1)
+Your Saviours (1)
+Zahrouni Esports (5)
+التريس (1)
+Closing Soon
+Oct 22, 12:00
+EM 2026 Summer Main Event
+Points available
+20 pts
+Tier
+A ×2
+Stage
+Waiting For Information
+Sign in for streaks
+Locks in
+14:50:45
+https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205
+View Match
+Who will win?
+Galions
+86% picked
+Solary
+14% picked
+Oct 22, 15:00
+Komplettligaen 2026 Autumn
+Points available
+10 pts
+Tier
+C
+Stage
+Waiting For Information
+Sign in for streaks
+Locks in
+17:50:45
+https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214
+View Match
+Who will win?
+Ascent Gaming
+93% picked
+NTNUI Kometkameratene
+7% picked
+Oct 22, 15:00
+Komplettligaen 2026 Autumn
+Points available
+10 pts
+Tier
+C
+Stage
+Waiting For Information
+Sign in for streaks
+Locks in
+17:50:45
+https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216
+View Match
+Who will win?
+Solid Gaming
+72% picked
+DMG Esports Norway
+28% picked
+Oct 22, 15:00
+Komplettligaen 2026 Autumn
+Points available
+10 pts
+Tier
+C
+Stage
+Waiting For Information
+Sign in for streaks
+Lock
+  markers: {"hotspawn /matches/ anchors": 390, "oddsportal /esports/h2h/ anchors": 0, "HH:MM UTC stamps": 0, "'Finished' text": 0, "score-like 'a : b'": 1499, "__NEXT_DATA__": false, "self.__next_f": false}
+
+* oddsportal LoL landing (row markup sample)
+  https://www.oddsportal.com/esports/league-of-legends/
+  outcome=ok chars=335982
+  text_head: /
+Odds comparison
+/community/
+Community
+/bookmakers/
+Bookmakers
+/
+Home
+/dropping-odds/2/2/0/overall/
+Dropping odds
+/sure-bets/
+Sure bets
+Betting tools
+/blocked/all/
+Blocked Odds
+/value-bets/overall/1/0/
+Value bets
+/results/football/
+Archived results
+/standings/football/
+Standings
+/bet-calculator/
+Bet calculator
+/reviews/
+Betting
+×
+/
+Odds comparison
+/
+Home
+/dropping-odds/2/2/0/overall/
+Dropping odds
+/sure-bets/
+Sure bets
+Betting tools
+/blocked/all/
+Blocked Odds
+/value-bets/overall/1/0/
+Value bets
+/results/football/
+Archived results
+/standings/football/
+Standings
+/bet-calculator/
+Bet calculator
+/reviews/
+Betting
+Community
+/community/
+Home
+/community/feed/
+Feed
+/users/
+Users
+/community/predictions/
+Top predictions
+My statistics
+My profile
+My predictions
+/public-coupon/all/
+My coupons
+Bookmakers
+/bookmakers/
+Bookie info
+/bonus-offers/
+Bonus offers
+/odds-quality/
+Odds quality
+/betting-apps/
+Betting Apps
+MY LEAGUES
+0
+/manage-my-leagues/
+Manage my leagues
+football
+basketball
+tennis
+baseball
+hockey
+cricket
+darts
+handball
+snooker
+boxing
+mma
+rugby union
+american football
+rugby league
+aussie rules
+badminton
+bandy
+beach soccer
+beach volleyball
+esports
+floorball
+futsal
+pesapallo
+table tennis
+vo
+  markers: {"hotspawn /matches/ anchors": 0, "oddsportal /esports/h2h/ anchors": 0, "HH:MM UTC stamps": 0, "'Finished' text": 16, "score-like 'a : b'": 0, "__NEXT_DATA__": false, "self.__next_f": true}
+
+* oddsportal LoL results page
+  https://www.oddsportal.com/esports/league-of-legends/results/
+  outcome=ok chars=328054
+  text_head: /
+Odds comparison
+/community/
+Community
+/bookmakers/
+Bookmakers
+/
+Home
+/dropping-odds/2/2/0/overall/
+Dropping odds
+/sure-bets/
+Sure bets
+Betting tools
+/blocked/all/
+Blocked Odds
+/value-bets/overall/1/0/
+Value bets
+/results/football/
+Archived results
+/standings/football/
+Standings
+/bet-calculator/
+Bet calculator
+/reviews/
+Betting
+×
+/
+Odds comparison
+/
+Home
+/dropping-odds/2/2/0/overall/
+Dropping odds
+/sure-bets/
+Sure bets
+Betting tools
+/blocked/all/
+Blocked Odds
+/value-bets/overall/1/0/
+Value bets
+/results/football/
+Archived results
+/standings/football/
+Standings
+/bet-calculator/
+Bet calculator
+/reviews/
+Betting
+Community
+/community/
+Home
+/community/feed/
+Feed
+/users/
+Users
+/community/predictions/
+Top predictions
+My statistics
+My profile
+My predictions
+/public-coupon/all/
+My coupons
+Bookmakers
+/bookmakers/
+Bookie info
+/bonus-offers/
+Bonus offers
+/odds-quality/
+Odds quality
+/betting-apps/
+Betting Apps
+MY LEAGUES
+0
+/manage-my-leagues/
+Manage my leagues
+football
+basketball
+tennis
+baseball
+hockey
+cricket
+darts
+handball
+snooker
+boxing
+mma
+rugby union
+american football
+rugby league
+aussie rules
+badminton
+bandy
+beach soccer
+beach volleyball
+esports
+floorball
+futsal
+pesapallo
+table tennis
+vo
+  markers: {"hotspawn /matches/ anchors": 0, "oddsportal /esports/h2h/ anchors": 0, "HH:MM UTC stamps": 0, "'Finished' text": 16, "score-like 'a : b'": 0, "__NEXT_DATA__": false, "self.__next_f": true}
+
+* oddsportal Worlds tournament page
+  https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/
+  outcome=ok chars=477426
+  text_window:  betting experience during Esports' most anticipated annual event.
+League of Legends World Championship Format & Structure
+There are several weeks of gruelling, intense competition at the The LoL World Championship, with the tournament beginning with play-ins, where teams from emerging regions and lower seeds from major regions battle for limited spots in the main event. This initial stage already provides you with numerous LoL betting opportunities, especially as teams chase a dream of competing in the main event and performing at above their usual level, naturally resulting in unpredictability. But overall, the initial stage is just a taster for the main event, the League of Legends World Championship.
+/esports/
+eSports
+/
+/esports/league-of-legends/
+League of Legends
+/
+/esports/league-of-legends/league-of-legends-world-championship/
+League of Legends World Championship
+23 Oct 2026
+1
+2
+/esports/h2h/gen-g-league-of-legends-biaCZG9Q/invictus-gaming-league-of-legends-00uWrNXH/#lUNBgXcn
+19:00
+Gen.G
+-
+Invictus Gaming
+1.18
+4.50
+/esports/h2h/hanwha-life-league-of-legends-p85jWKpP/top-esports-league-of-legends-tbR1mLT7/#MsMJiBSb
+20:00
+Hanwha Life
+-
+Top Esports
+1.18
+4.50
+/esports/h2h/bilibili-gaming-league-of-legends-0nrPnma4/movistar-koi-league-of-legends-trkyvbJ6/#U7PRkkcB
+21:00
+Bilibili Gaming
+-
+Movistar KOI
+1.15
+4.90
+/esports/h2h/anyone-s-legend-league-of-legends-tKhnRfEH/karmine-corp-league-of-legends-pnJcPioL/#xYSZmTRN
+22:00
+Anyone's Legend
+-
+Karmine Corp
+1.44
+2.65
+/esports/h2h/dplus-kia-league-of-legends-dYyE6rQs/g2-esports-league-of-legends-ER93S8GO/#Y3E5r7ko
+23:00
+G2 Esports
+-
+Dplus Kia
+2.15
+1.66
+24 Oct 2026
+1
+2
+/esports/h2h/ctbc-flying-oyster-league-of-legends-rDH5FlaU/team-liquid-league-of-legends-AHaIPYDq/#v11i6Ash
+00:00
+Team Liquid
+-
+CTBC Flying Oyster
+1.34
+3.10
+/e
+  markers: {"hotspawn /matches/ anchors": 0, "oddsportal /esports/h2h/ anchors": 40, "HH:MM UTC stamps": 0, "'Finished' text": 16, "score-like 'a : b'": 82, "__NEXT_DATA__": false, "self.__next_f": true}
+
+* polymarket closed markets
+  https://gamma-api.polymarket.com/markets?closed=true&limit=5&order=updatedAt&ascending=false
+  outcome=ok chars=39713
+  items: 5
+  first_preview: {"id": "5411252", "question": "Exact Score: El Ahly SC 5 - 0 El Qanah Club?", "conditionId": "0xc73dc9214d4e4c20c0964914f9c661faeeef77a6860cb82e4e97d992eaecafe9", "slug": "egy1-eas-elq-2026-10-21-exact-score-5-0", "endDate": "2026-10-21T17:00:00Z", "liquidity": "0", "startDate": "2026-10-07T19:01:00Z", "description": "In the upcoming Egypt Egyptian Premier League game between El Ahly SC and El Qanah Club, scheduled for October 21, 2026 at 1:00 PM ET: This market will resolve based on the final score of the El Ahly SC vs. El Qanah Club match originally scheduled for October 21, 2026 at 1:00 PM 
+
+* polymarket search (Worlds)
+  https://gamma-api.polymarket.com/public-search?q=Worlds%20League%20of%20Legends&limit_per_type=8&events_status=all
+  outcome=ok chars=390337
+  first_preview: {"events": [{"id": "12842", "ticker": "worlds-2024-lol-winner", "slug": "worlds-2024-lol-winner", "title": "League of Legends: Worlds Winner 2024", "description": "This is a market group over which team will win the 2024 Season World Championship (Worlds 2024) for League of Legends.", "startDate": "2024-09-25T17:22:47.235874Z", "creationDate": "2024-09-25T17:22:47.235864Z", "endDate": "2024-11-02T12:00:00Z", "image": "https://polymarket-upload.s3.us-east-2.amazonaws.com/worlds-2024-lol-winner-ir11ENmPQPxs.jpg", "icon": "https://polymarket-upload.s3.us-east-2.amazonaws.com/worlds-2024-lol-winne
+
+* lolesports official API
+  https://esports-api.lolesports.com/persisted/gw/getScheduledGames?hlsg=en&max=10
+  outcome=no body (blocked, error or empty) chars=None
+
+* liquipedia api (LoL Worlds 2026)
+  https://liquipedia.net/leagueoflegends/api.php?action=parse&page=Worlds_2026&prop=wikitext&format=json&formatversion=2
+  outcome=ok chars=100
+  first_preview: {"parse": {"title": "Worlds 2026", "pageid": 101053, "wikitext": "#redirect [[World Championship/2026]]"}}

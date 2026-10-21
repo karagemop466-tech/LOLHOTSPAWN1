@@ -1,5 +1,155 @@
 {
-  "generated_at": "2026-10-21T20:55:18Z",
+  "groups": [
+    {
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "count": 195,
+      "match": "195 rows",
+      "matches": [
+        "Galions vs Solary",
+        "Ascent Gaming vs NTNUI Kometkameratene",
+        "Solid Gaming vs DMG Esports Norway",
+        "Volda E-Sport vs CNG Royal",
+        "Your Saviours vs Mixlag fra Trondheim",
+        "Turbo Gaming vs Fritt Fall",
+        "BlackDivision vs Babos Gaming Academy",
+        "Absolved vs The Bandits UK"
+      ],
+      "fixture_ids": [
+        1081205,
+        1071214,
+        1071216,
+        1071218,
+        1071219,
+        1074667,
+        1075736,
+        1081651,
+        1081652,
+        1081653,
+        1081654,
+        1081655
+      ],
+      "source_url": "https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205",
+      "candidates": []
+    },
+    {
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "count": 195,
+      "match": "195 rows",
+      "matches": [
+        "Galions vs Solary",
+        "Ascent Gaming vs NTNUI Kometkameratene",
+        "Solid Gaming vs DMG Esports Norway",
+        "Volda E-Sport vs CNG Royal",
+        "Your Saviours vs Mixlag fra Trondheim",
+        "Turbo Gaming vs Fritt Fall",
+        "BlackDivision vs Babos Gaming Academy",
+        "Absolved vs The Bandits UK"
+      ],
+      "fixture_ids": [
+        1081205,
+        1071214,
+        1071216,
+        1071218,
+        1071219,
+        1074667,
+        1075736,
+        1081651,
+        1081652,
+        1081653,
+        1081654,
+        1081655
+      ],
+      "source_url": null,
+      "candidates": []
+    },
+    {
+      "match": "Team Secret Whales vs LYON",
+      "fixture_id": 1067679,
+      "field": "lobby_parse",
+      "reason": "lobby date line not parseable -> no kickoff",
+      "source_url": "https://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679"
+    },
+    {
+      "match": "Anyone's Legend vs Karmine Corp",
+      "fixture_id": 1067675,
+      "field": "team[0]",
+      "reason": "lobby label \"Anyone's Legend\" does not match the fixture record label 'anyones legend'",
+      "source_url": "https://www.hotspawn.com/matches/anyones-legend-vs-karmine-corp-worlds-2026-main-event-1067675"
+    },
+    {
+      "match": "Northern Wolves Esports vs Rich Gang Sweden",
+      "fixture_id": 1074665,
+      "field": "team[0]",
+      "reason": "lobby label 'Northern Wolves Esports' does not match the fixture record label 'rich gang sweden'",
+      "source_url": "https://www.hotspawn.com/matches/rich-gang-sweden-vs-northern-wolves-esports-rivals-league-season-2-1074665"
+    },
+    {
+      "match": "Pegasus Esports vs JSK Academy",
+      "fixture_id": 1079145,
+      "field": "team[0]",
+      "reason": "lobby label 'Pegasus Esports' does not match the fixture record label 'jsk academy'",
+      "source_url": "https://www.hotspawn.com/matches/jsk-academy-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079145"
+    },
+    {
+      "match": "Phong Vũ Buffalo vs regnum4games",
+      "fixture_id": 1079057,
+      "field": "team[0]",
+      "reason": "lobby label 'Phong Vũ Buffalo' does not match the fixture record label 'regnum4games'",
+      "source_url": "https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057"
+    },
+    {
+      "match": "Northern Wolves Esports vs Rich Gang Sweden",
+      "fixture_id": 1074665,
+      "field": "team[1]",
+      "reason": "lobby label 'Rich Gang Sweden' does not match the fixture record label 'northern wolves esports'",
+      "source_url": "https://www.hotspawn.com/matches/rich-gang-sweden-vs-northern-wolves-esports-rivals-league-season-2-1074665"
+    },
+    {
+      "match": "404 Multigaming e.V. vs VfB eSports",
+      "fixture_id": 1079029,
+      "field": "team[1]",
+      "reason": "lobby label 'VfB eSports' does not match the fixture record label 'vs vfb esports'",
+      "source_url": "https://www.hotspawn.com/matches/404-multigaming-e-v-vs-vfb-esports-prm-2nd-division-26-27-fall-1079029"
+    },
+    {
+      "match": "Hannover Esports e.V. vs No Need Orga",
+      "fixture_id": 1079033,
+      "field": "team[1]",
+      "reason": "lobby label 'No Need Orga' does not match the fixture record label 'vs no need orga'",
+      "source_url": "https://www.hotspawn.com/matches/hannover-esports-e-v-vs-no-need-orga-prm-2nd-division-26-27-fall-1079033"
+    },
+    {
+      "match": "Pegasus Esports vs JSK Academy",
+      "fixture_id": 1079145,
+      "field": "team[1]",
+      "reason": "lobby label 'JSK Academy' does not match the fixture record label 'pegasus esports'",
+      "source_url": "https://www.hotspawn.com/matches/jsk-academy-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079145"
+    },
+    {
+      "match": "1. Esport Club Frankfurt e.V. vs Rich Gang",
+      "fixture_id": 1075762,
+      "field": "team[1]",
+      "reason": "lobby label 'Rich Gang' does not match the fixture record label 'vs rich gang'",
+      "source_url": "https://www.hotspawn.com/matches/1-esport-club-frankfurt-e-v-vs-rich-gang-prm-3rd-division-26-27-fall-1075762"
+    },
+    {
+      "match": "404 Multigaming e.V. vs DKB XPERION NXT",
+      "fixture_id": 1079047,
+      "field": "team[1]",
+      "reason": "lobby label 'DKB XPERION NXT' does not match the fixture record label 'vs dkb xperion nxt'",
+      "source_url": "https://www.hotspawn.com/matches/404-multigaming-e-v-vs-dkb-xperion-nxt-prm-2nd-division-26-27-fall-1079047"
+    },
+    {
+      "match": "Phong Vũ Buffalo vs regnum4games",
+      "fixture_id": 1079057,
+      "field": "team[1]",
+      "reason": "lobby label 'regnum4games' does not match the fixture record label 'phong vu buffalo'",
+      "source_url": "https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057"
+    }
+  ],
+  "generated_at": "2026-10-21T21:03:53Z",
   "count": 402,
   "items": [
     {
@@ -13,7 +163,7 @@
       "match": "Galions vs Solary",
       "fixture_id": 1081205,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -27,7 +177,7 @@
       "match": "Ascent Gaming vs NTNUI Kometkameratene",
       "fixture_id": 1071214,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -41,7 +191,7 @@
       "match": "Solid Gaming vs DMG Esports Norway",
       "fixture_id": 1071216,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -55,7 +205,7 @@
       "match": "Volda E-Sport vs CNG Royal",
       "fixture_id": 1071218,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -69,7 +219,7 @@
       "match": "Your Saviours vs Mixlag fra Trondheim",
       "fixture_id": 1071219,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -83,7 +233,7 @@
       "match": "Turbo Gaming vs Fritt Fall",
       "fixture_id": 1074667,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -97,7 +247,7 @@
       "match": "BlackDivision vs Babos Gaming Academy",
       "fixture_id": 1075736,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -111,7 +261,7 @@
       "match": "Absolved vs The Bandits UK",
       "fixture_id": 1081651,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -125,7 +275,7 @@
       "match": "Brod n Friends vs Crownless",
       "fixture_id": 1081652,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -139,7 +289,7 @@
       "match": "Good Chi vs Inari Esports",
       "fixture_id": 1081653,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -153,7 +303,7 @@
       "match": "HL Tauri Esports vs Bulldog Esports",
       "fixture_id": 1081654,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -167,7 +317,7 @@
       "match": "Rich Gang UK vs Abyssal Randoms",
       "fixture_id": 1081655,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -181,7 +331,7 @@
       "match": "Team Vertex vs Glorp Cat",
       "fixture_id": 1081656,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -195,7 +345,7 @@
       "match": "Team VDS vs Pegasus Esports",
       "fixture_id": 1082105,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -209,7 +359,7 @@
       "match": "Playwell Rød Q vs Rich Gang",
       "fixture_id": 1071215,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -223,7 +373,7 @@
       "match": "Abyssal Randoms vs Good Chi",
       "fixture_id": 1081659,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -237,7 +387,7 @@
       "match": "Bulldog Esports vs Ruddy Ultras",
       "fixture_id": 1081660,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -251,7 +401,7 @@
       "match": "Crownless vs Team Vertex",
       "fixture_id": 1081661,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -265,7 +415,7 @@
       "match": "Glorp Cat vs Brod n Friends",
       "fixture_id": 1081662,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -279,7 +429,7 @@
       "match": "Inari Esports vs Rich Gang UK",
       "fixture_id": 1081663,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -293,7 +443,7 @@
       "match": "The Bandits UK vs PNS",
       "fixture_id": 1081664,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -307,7 +457,7 @@
       "match": "Abyssal Randoms vs Inari Esports",
       "fixture_id": 1081667,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -321,7 +471,7 @@
       "match": "Glorp Cat vs Crownless",
       "fixture_id": 1081668,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -335,7 +485,7 @@
       "match": "Good Chi vs Rich Gang UK",
       "fixture_id": 1081669,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -349,7 +499,7 @@
       "match": "PNS vs Absolved",
       "fixture_id": 1081670,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -363,7 +513,7 @@
       "match": "Ruddy Ultras vs HL Tauri Esports",
       "fixture_id": 1081671,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -377,7 +527,7 @@
       "match": "Team Vertex vs Brod n Friends",
       "fixture_id": 1081672,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -391,7 +541,7 @@
       "match": "Rich Gang vs Phenti",
       "fixture_id": 1071212,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -405,7 +555,7 @@
       "match": "Reveal Multigaming vs Hannover Esports e.V.",
       "fixture_id": 1082745,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -419,7 +569,7 @@
       "match": "Levelers vs MTN ESPORTS TEAM",
       "fixture_id": 1082839,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -433,7 +583,7 @@
       "match": "Locked IN vs The Bandits Prime",
       "fixture_id": 1079023,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -447,7 +597,7 @@
       "match": "Gen.G vs Invictus Gaming",
       "fixture_id": 1067878,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -461,7 +611,7 @@
       "match": "NextGeneration Esports vs Pegasus Esports",
       "fixture_id": 1079139,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -475,7 +625,7 @@
       "match": "Hanwha Life Esports vs Top Esports",
       "fixture_id": 1067677,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -489,7 +639,7 @@
       "match": "Team VDS vs Team Reds",
       "fixture_id": 1082106,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -503,7 +653,7 @@
       "match": "reGOLD eSport vs Team 300",
       "fixture_id": 1079849,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -517,7 +667,7 @@
       "match": "AceGaming vs Babos Gaming",
       "fixture_id": 1079025,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -531,7 +681,7 @@
       "match": "Bilibili Gaming vs Movistar KOI",
       "fixture_id": 1067680,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -552,7 +702,7 @@
       "match": "Anyone's Legend vs Karmine Corp",
       "fixture_id": 1067675,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -566,7 +716,7 @@
       "match": "G2 Esports vs Dplus KIA",
       "fixture_id": 1067676,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -580,7 +730,7 @@
       "match": "Team Liquid vs CTBC Flying Oyster",
       "fixture_id": 1067879,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -594,7 +744,7 @@
       "match": "LØS vs T1",
       "fixture_id": 1067678,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -608,7 +758,7 @@
       "match": "Team Secret Whales vs LYON",
       "fixture_id": 1067679,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -629,7 +779,7 @@
       "match": "Berlin 5 vs AceGaming Hearts",
       "fixture_id": 1075719,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -643,7 +793,7 @@
       "match": "BaronX vs Marere Academy",
       "fixture_id": 1081085,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -657,7 +807,7 @@
       "match": "Final Level eSports Academy vs Infinity Gaming",
       "fixture_id": 1081086,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -671,7 +821,7 @@
       "match": "Jendouba Esports vs Enfida Esports",
       "fixture_id": 1080923,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -685,7 +835,7 @@
       "match": "JSK Esports vs El Menzah Esports",
       "fixture_id": 1080924,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -699,7 +849,7 @@
       "match": "Olympique Mnihla vs Supreme Leaders",
       "fixture_id": 1080925,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -713,7 +863,7 @@
       "match": "Simplicity Gaming vs JSK Academy",
       "fixture_id": 1080926,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -727,7 +877,7 @@
       "match": "Zahrouni Esports vs Olympique Mnihla Academy",
       "fixture_id": 1080927,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -741,7 +891,7 @@
       "match": "2 Massive vs Lund Esports Organization OGs",
       "fixture_id": 1074652,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -755,7 +905,7 @@
       "match": "FlameHard vs B2U",
       "fixture_id": 1074654,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -769,7 +919,7 @@
       "match": "Karolinerna vs Turbo Gaming",
       "fixture_id": 1074655,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -783,7 +933,7 @@
       "match": "OnlyWinByFF vs Rich Gang Sweden",
       "fixture_id": 1074657,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -797,7 +947,7 @@
       "match": "Team cd vs Tung Sahur Mid",
       "fixture_id": 1074658,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -811,7 +961,7 @@
       "match": "Team Lucidity Esports vs Fritt Fall",
       "fixture_id": 1074659,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -825,7 +975,7 @@
       "match": "Whalepower Humpbacks vs 1. Esport Club Frankfurt e.V.",
       "fixture_id": 1075731,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -839,7 +989,7 @@
       "match": "Mazepa vs B2U",
       "fixture_id": 1082258,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -853,7 +1003,7 @@
       "match": "JSK Academy vs New Era Team",
       "fixture_id": 1079141,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -867,7 +1017,7 @@
       "match": "Void Walkers vs Slam Dunk",
       "fixture_id": 1079142,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -881,7 +1031,7 @@
       "match": "Docta Esports Club vs Clã NKZ Revengers",
       "fixture_id": 1081083,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -895,7 +1045,7 @@
       "match": "Maze GG vs Viktus",
       "fixture_id": 1081084,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -909,7 +1059,7 @@
       "match": "AceGaming Hearts vs Emperors Bremen",
       "fixture_id": 1075747,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -923,7 +1073,7 @@
       "match": "AIX eSports vs MT1 Vision",
       "fixture_id": 1075748,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -937,7 +1087,7 @@
       "match": "Babos Gaming Academy vs VfB x Engines Stuttgart",
       "fixture_id": 1075749,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -951,7 +1101,7 @@
       "match": "Defiance eSports vs REH Gaming",
       "fixture_id": 1075752,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -965,7 +1115,7 @@
       "match": "Duplex Silva Pigeons Edition vs Sissi State Punks",
       "fixture_id": 1075753,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -979,7 +1129,7 @@
       "match": "Eintracht Spandau Zwei vs Team 300 White",
       "fixture_id": 1075754,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -993,7 +1143,7 @@
       "match": "Neko Elite Kittens vs spongecord prime",
       "fixture_id": 1075755,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1007,7 +1157,7 @@
       "match": "Rich Gang vs LOOKSMAXXER",
       "fixture_id": 1075758,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1021,7 +1171,7 @@
       "match": "Whalepower Humpbacks vs Socken und Sandalen",
       "fixture_id": 1075761,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1035,7 +1185,7 @@
       "match": "Babos Gaming vs Hannover Esports e.V.",
       "fixture_id": 1079027,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1049,7 +1199,7 @@
       "match": "Reveal Multigaming vs AceGaming",
       "fixture_id": 1079028,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1063,7 +1213,7 @@
       "match": "Black Lion vs Glacial Guardians",
       "fixture_id": 1075750,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1077,7 +1227,7 @@
       "match": "Second Time Alive Revival vs Berlin 5",
       "fixture_id": 1075759,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1091,7 +1241,7 @@
       "match": "JSK Esports vs Enfida Esports",
       "fixture_id": 1080928,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1105,7 +1255,7 @@
       "match": "Olympique Mnihla vs Jendouba Esports",
       "fixture_id": 1080929,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1119,7 +1269,7 @@
       "match": "Olympique Mnihla Academy vs El Menzah Esports",
       "fixture_id": 1080930,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1133,7 +1283,7 @@
       "match": "Simplicity Gaming vs Supreme Leaders",
       "fixture_id": 1080931,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1147,7 +1297,7 @@
       "match": "Zahrouni Esports vs JSK Academy",
       "fixture_id": 1080932,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1161,7 +1311,7 @@
       "match": "2 Massive vs Tung Sahur Mid",
       "fixture_id": 1074660,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1175,7 +1325,7 @@
       "match": "OnlyWinByFF vs Mazepa",
       "fixture_id": 1074664,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1203,7 +1353,7 @@
       "match": "Northern Wolves Esports vs Rich Gang Sweden",
       "fixture_id": 1074665,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1217,7 +1367,7 @@
       "match": "Team Lucidity Esports vs Team cd",
       "fixture_id": 1074666,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1231,7 +1381,7 @@
       "match": "BlackDivision vs Kanji Esports KIN",
       "fixture_id": 1075751,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1245,7 +1395,7 @@
       "match": "Karolinerna vs Lund Esports Organization OGs",
       "fixture_id": 1074662,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1259,7 +1409,7 @@
       "match": "Lundqvist Darkside vs B2U",
       "fixture_id": 1074663,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1280,7 +1430,7 @@
       "match": "404 Multigaming e.V. vs VfB eSports",
       "fixture_id": 1079029,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1294,7 +1444,7 @@
       "match": "Locked IN vs DKB XPERION NXT",
       "fixture_id": 1079030,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1308,7 +1458,7 @@
       "match": "Lund Esports Organization OGs vs Tung Sahur Mid",
       "fixture_id": 1081831,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1322,7 +1472,7 @@
       "match": "Packmiko E-Sports DACH vs Atruvia Münster Esports",
       "fixture_id": 1075756,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1336,7 +1486,7 @@
       "match": "Mental Rush vs Vitality Rising Bees",
       "fixture_id": 1079080,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1350,7 +1500,7 @@
       "match": "DKB XPERION NXT vs Phong Vũ Buffalo",
       "fixture_id": 1079031,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1364,7 +1514,7 @@
       "match": "No Need Orga vs AceGaming",
       "fixture_id": 1079032,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1385,7 +1535,7 @@
       "match": "Hannover Esports e.V. vs No Need Orga",
       "fixture_id": 1079033,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1399,7 +1549,7 @@
       "match": "VfB eSports vs regnum4games",
       "fixture_id": 1079034,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1413,7 +1563,7 @@
       "match": "DMG Esports Sweden vs Northern Wolves Esports",
       "fixture_id": 1082615,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1427,7 +1577,7 @@
       "match": "Lundqvist Darkside vs Mazepa",
       "fixture_id": 1082616,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1441,7 +1591,7 @@
       "match": "Atruvia Münster Esports vs Defiance eSports",
       "fixture_id": 1075734,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1455,7 +1605,7 @@
       "match": "Slam Dunk vs New Era Team",
       "fixture_id": 1079144,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1469,7 +1619,7 @@
       "match": "Purple Emperor Lizards - Atomic vs Cloud eSport",
       "fixture_id": 1075737,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1497,7 +1647,7 @@
       "match": "Pegasus Esports vs JSK Academy",
       "fixture_id": 1079145,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1511,7 +1661,7 @@
       "match": "AceGaming vs reGOLD eSport",
       "fixture_id": 1079851,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1525,7 +1675,7 @@
       "match": "Reveal Multigaming vs Team 300",
       "fixture_id": 1079036,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1539,7 +1689,7 @@
       "match": "Team Reds vs NextGeneration Esports",
       "fixture_id": 1079147,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1553,7 +1703,7 @@
       "match": "DKB XPERION NXT vs regnum4games",
       "fixture_id": 1079037,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1567,7 +1717,7 @@
       "match": "VfB eSports vs Phong Vũ Buffalo",
       "fixture_id": 1079038,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1581,7 +1731,7 @@
       "match": "JSK Academy vs Supreme Leaders",
       "fixture_id": 1080933,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1595,7 +1745,7 @@
       "match": "JSK Esports vs Olympique Mnihla",
       "fixture_id": 1080934,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1609,7 +1759,7 @@
       "match": "Olympique Mnihla Academy vs Enfida Esports",
       "fixture_id": 1080935,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1623,7 +1773,7 @@
       "match": "Simplicity Gaming vs Jendouba Esports",
       "fixture_id": 1080936,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1637,7 +1787,7 @@
       "match": "Zahrouni Esports vs El Menzah Esports",
       "fixture_id": 1080937,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1651,7 +1801,7 @@
       "match": "Void Walkers vs Team VDS",
       "fixture_id": 1082107,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1665,7 +1815,7 @@
       "match": "Team 300 vs Hannover Esports e.V.",
       "fixture_id": 1079040,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1686,7 +1836,7 @@
       "match": "1. Esport Club Frankfurt e.V. vs Rich Gang",
       "fixture_id": 1075762,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1700,7 +1850,7 @@
       "match": "Berlin 5 vs Sissi State Punks",
       "fixture_id": 1075763,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1714,7 +1864,7 @@
       "match": "Black Lion vs BlackDivision",
       "fixture_id": 1075764,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1728,7 +1878,7 @@
       "match": "Cloud eSport vs Defiance eSports",
       "fixture_id": 1075765,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1742,7 +1892,7 @@
       "match": "Eintracht Spandau Zwei vs TeamOrangeGaming Academy",
       "fixture_id": 1075766,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1756,7 +1906,7 @@
       "match": "Emperors Bremen vs Neko Elite Kittens",
       "fixture_id": 1075767,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1770,7 +1920,7 @@
       "match": "Glacial Guardians vs MT1 Vision",
       "fixture_id": 1075768,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1784,7 +1934,7 @@
       "match": "REH Gaming vs Kanji Esports AKA",
       "fixture_id": 1075769,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1798,7 +1948,7 @@
       "match": "Kanji Esports KIN vs Babos Gaming Academy",
       "fixture_id": 1075770,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1812,7 +1962,7 @@
       "match": "LOOKSMAXXER vs Whalepower Humpbacks",
       "fixture_id": 1075771,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1826,7 +1976,7 @@
       "match": "Purple Emperor Lizards - Atomic vs Packmiko E-Sports DACH",
       "fixture_id": 1075772,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1840,7 +1990,7 @@
       "match": "Second Time Alive Revival vs AceGaming Hearts",
       "fixture_id": 1075773,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1854,7 +2004,7 @@
       "match": "spongecord prime vs Duplex Silva Pigeons Edition",
       "fixture_id": 1075774,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1868,7 +2018,7 @@
       "match": "Team 300 White vs Socken und Sandalen",
       "fixture_id": 1075775,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1882,7 +2032,7 @@
       "match": "VfB x Engines Stuttgart vs AIX eSports",
       "fixture_id": 1075776,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1896,7 +2046,7 @@
       "match": "Babos Gaming vs No Need Orga",
       "fixture_id": 1079039,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1910,7 +2060,7 @@
       "match": "El Menzah Esports vs Enfida Esports",
       "fixture_id": 1080938,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1924,7 +2074,7 @@
       "match": "JSK Academy vs Jendouba Esports",
       "fixture_id": 1080939,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1938,7 +2088,7 @@
       "match": "Olympique Mnihla Academy vs Olympique Mnihla",
       "fixture_id": 1080940,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1952,7 +2102,7 @@
       "match": "Simplicity Gaming vs JSK Esports",
       "fixture_id": 1080941,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1966,7 +2116,7 @@
       "match": "Zahrouni Esports vs Supreme Leaders",
       "fixture_id": 1080942,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1980,7 +2130,7 @@
       "match": "DMG Esports Sweden vs FlameHard",
       "fixture_id": 1082748,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -1994,7 +2144,7 @@
       "match": "MT1 Esports vs Locked IN",
       "fixture_id": 1079041,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2008,7 +2158,7 @@
       "match": "The Bandits Prime vs 404 Multigaming e.V.",
       "fixture_id": 1079042,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2022,7 +2172,7 @@
       "match": "BvP vs No Need Orga",
       "fixture_id": 1079043,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2036,7 +2186,7 @@
       "match": "Phong Vũ Buffalo vs 404 Multigaming e.V.",
       "fixture_id": 1082746,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2050,7 +2200,7 @@
       "match": "MT1 Esports vs DKB XPERION NXT",
       "fixture_id": 1079045,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2064,7 +2214,7 @@
       "match": "regnum4games vs The Bandits Prime",
       "fixture_id": 1079046,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2085,7 +2235,7 @@
       "match": "404 Multigaming e.V. vs DKB XPERION NXT",
       "fixture_id": 1079047,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2099,7 +2249,7 @@
       "match": "Locked IN vs VfB eSports",
       "fixture_id": 1079048,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2113,7 +2263,7 @@
       "match": "BvP vs Babos Gaming",
       "fixture_id": 1079049,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2127,7 +2277,7 @@
       "match": "Team 300 vs AceGaming",
       "fixture_id": 1079050,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2141,7 +2291,7 @@
       "match": "El Menzah Esports vs Olympique Mnihla",
       "fixture_id": 1080943,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2155,7 +2305,7 @@
       "match": "JSK Academy vs JSK Esports",
       "fixture_id": 1080944,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2169,7 +2319,7 @@
       "match": "Olympique Mnihla Academy vs Simplicity Gaming",
       "fixture_id": 1080945,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2183,7 +2333,7 @@
       "match": "Supreme Leaders vs Jendouba Esports",
       "fixture_id": 1080946,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2197,7 +2347,7 @@
       "match": "Zahrouni Esports vs Enfida Esports",
       "fixture_id": 1080947,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2211,7 +2361,7 @@
       "match": "AceGaming vs BvP",
       "fixture_id": 1079051,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2225,7 +2375,7 @@
       "match": "reGOLD eSport vs Babos Gaming",
       "fixture_id": 1079852,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2239,7 +2389,7 @@
       "match": "AIX eSports vs BlackDivision",
       "fixture_id": 1075777,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2253,7 +2403,7 @@
       "match": "Babos Gaming Academy vs Glacial Guardians",
       "fixture_id": 1075778,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2267,7 +2417,7 @@
       "match": "Defiance eSports vs Kanji Esports AKA",
       "fixture_id": 1075779,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2281,7 +2431,7 @@
       "match": "Duplex Silva Pigeons Edition vs AceGaming Hearts",
       "fixture_id": 1075780,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2295,7 +2445,7 @@
       "match": "LOOKSMAXXER vs 1. Esport Club Frankfurt e.V.",
       "fixture_id": 1075781,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2309,7 +2459,7 @@
       "match": "MT1 Vision vs Black Lion",
       "fixture_id": 1075782,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2323,7 +2473,7 @@
       "match": "Neko Elite Kittens vs Berlin 5",
       "fixture_id": 1075783,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2337,7 +2487,7 @@
       "match": "Packmiko E-Sports DACH vs Cloud eSport",
       "fixture_id": 1075784,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2351,7 +2501,7 @@
       "match": "REH Gaming vs Atruvia Münster Esports",
       "fixture_id": 1075785,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2365,7 +2515,7 @@
       "match": "Rich Gang vs Team 300 White",
       "fixture_id": 1075786,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2379,7 +2529,7 @@
       "match": "Sissi State Punks vs Second Time Alive Revival",
       "fixture_id": 1075787,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2393,7 +2543,7 @@
       "match": "Socken und Sandalen vs Eintracht Spandau Zwei",
       "fixture_id": 1075788,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2407,7 +2557,7 @@
       "match": "spongecord prime vs Emperors Bremen",
       "fixture_id": 1075789,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2421,7 +2571,7 @@
       "match": "VfB x Engines Stuttgart vs Kanji Esports KIN",
       "fixture_id": 1075790,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2435,7 +2585,7 @@
       "match": "Whalepower Humpbacks vs TeamOrangeGaming Academy",
       "fixture_id": 1075791,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2449,7 +2599,7 @@
       "match": "Phong Vũ Buffalo vs MT1 Esports",
       "fixture_id": 1079053,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2463,7 +2613,7 @@
       "match": "The Bandits Prime vs VfB eSports",
       "fixture_id": 1079054,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2477,7 +2627,7 @@
       "match": "Ground Zero Gaming vs Frank Esports",
       "fixture_id": 1081423,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2491,7 +2641,7 @@
       "match": "Locked IN vs 404 Multigaming e.V.",
       "fixture_id": 1079055,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2505,7 +2655,7 @@
       "match": "MT1 Esports vs The Bandits Prime",
       "fixture_id": 1079056,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2533,7 +2683,7 @@
       "match": "Phong Vũ Buffalo vs regnum4games",
       "fixture_id": 1079057,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2547,7 +2697,7 @@
       "match": "VfB eSports vs DKB XPERION NXT",
       "fixture_id": 1079058,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2561,7 +2711,7 @@
       "match": "AceGaming Hearts vs Sissi State Punks",
       "fixture_id": 1075792,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2575,7 +2725,7 @@
       "match": "Atruvia Münster Esports vs Kanji Esports AKA",
       "fixture_id": 1075793,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2589,7 +2739,7 @@
       "match": "Babos Gaming Academy vs AIX eSports",
       "fixture_id": 1075794,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2603,7 +2753,7 @@
       "match": "Berlin 5 vs Emperors Bremen",
       "fixture_id": 1075795,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2617,7 +2767,7 @@
       "match": "Black Lion vs VfB x Engines Stuttgart",
       "fixture_id": 1075796,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2631,7 +2781,7 @@
       "match": "BlackDivision vs MT1 Vision",
       "fixture_id": 1075797,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2645,7 +2795,7 @@
       "match": "Defiance eSports vs Purple Emperor Lizards - Atomic",
       "fixture_id": 1075798,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2659,7 +2809,7 @@
       "match": "Eintracht Spandau Zwei vs LOOKSMAXXER",
       "fixture_id": 1075799,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2673,7 +2823,7 @@
       "match": "Glacial Guardians vs Kanji Esports KIN",
       "fixture_id": 1075800,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2687,7 +2837,7 @@
       "match": "Duplex Silva Pigeons Edition vs Neko Elite Kittens",
       "fixture_id": 1075801,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2701,7 +2851,7 @@
       "match": "REH Gaming vs Cloud eSport",
       "fixture_id": 1075802,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2715,7 +2865,7 @@
       "match": "Rich Gang vs Whalepower Humpbacks",
       "fixture_id": 1075803,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2729,7 +2879,7 @@
       "match": "Second Time Alive Revival vs spongecord prime",
       "fixture_id": 1075804,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2743,7 +2893,7 @@
       "match": "Team 300 White vs 1. Esport Club Frankfurt e.V.",
       "fixture_id": 1075805,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2757,7 +2907,7 @@
       "match": "TeamOrangeGaming Academy vs Socken und Sandalen",
       "fixture_id": 1075806,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2771,7 +2921,7 @@
       "match": "AceGaming vs Hannover Esports e.V.",
       "fixture_id": 1079059,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2785,7 +2935,7 @@
       "match": "Babos Gaming vs Reveal Multigaming",
       "fixture_id": 1079060,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2799,7 +2949,7 @@
       "match": "Team 300 vs No Need Orga",
       "fixture_id": 1079062,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     },
     {
@@ -2813,7 +2963,7 @@
       "match": "BvP vs reGOLD eSport",
       "fixture_id": 1079853,
       "field": "kickoff_utc",
-      "reason": "kickoff not cross-checked: lobby countdown only (approximate, ±1 min)",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
       "source_url": null
     }
   ]

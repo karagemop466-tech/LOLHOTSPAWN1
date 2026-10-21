@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T20:55:18Z",
+  "generated_at": "2026-10-21T21:03:53Z",
   "count": 187,
   "items": [
     {
@@ -2248,6 +2248,30 @@
     }
   ],
   "limitations": [
+    {
+      "title": "Hotspawn's own site refuses our collector, so rows are checked against the lobby response alone",
+      "detail": "www.hotspawn.com answers HTTP 403 to requests from GitHub's runners (bot protection). That blocks the WordPress fixture feed, the tournament pages and the per-match pages *for us*; a normal browser can open every link we publish. Consequence: existence, team labels and the kickoff time of a pick rest on the single lobby page we can read, and completed results cannot be harvested from Hotspawn — which is why so many rows have no Elo input and stay unresolved. The lobby page is still Hotspawn's own official page for this week's pick'ems, and every row links to it.",
+      "sources": [
+        {
+          "label": "Hotspawn LoL lobby (readable)",
+          "url": "https://play.hotspawn.com/lol-pickems",
+          "result": "200 OK"
+        },
+        {
+          "label": "Hotspawn fixture feed (blocked for us)",
+          "url": "https://www.hotspawn.com/wp-json/wp/v2/fixtures",
+          "result": "HTTP 403 from the runner"
+        }
+      ],
+      "affected_rows": 187,
+      "status": "source blocked"
+    },
+    {
+      "title": "No finished series could be read for this snapshot",
+      "detail": "The Elo line needs scored, completed series. In this snapshot none were readable (see the blocked-source note above), so no match was decided by our own model and every resolved row came from an external price.",
+      "affected_rows": 187,
+      "status": "no model input"
+    },
     {
       "title": "No published price exists for most of these leagues",
       "detail": "Sub-tier LoL (national 2nd/3rd divisions, regional championships, academy leagues) is not listed by Polymarket and is only sporadically listed by sportsbook odds-comparison pages. Where no price exists the row falls back to our own Elo line; where not even that exists it is listed as unresolved.",
