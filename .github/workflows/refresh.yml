@@ -1,12 +1,26 @@
-name: Refresh LoL picks (every 6h)
+name: refresh-picks
+
+# Single publisher for this repository.
+#
+#  1. pulls the full Hotspawn LoL fixture list (public fixtures API, 264 cards)
+#  2. pulls external betting lines (Pinnacle guest API, Polymarket cross-check)
+#  3. fits the Elo model on Leaguepedia series results and originates a line for
+#     every match that has no bookmaker price
+#  4. rebuilds the 11 static pages, runs the publish gate, and commits data + site
+#
+# Only `tools/` writes the published pages. A failing gate aborts the commit, so a
+# broken build can never reach GitHub Pages.
 
 on:
   schedule:
-    # every 6 hours (within the 4–8h requirement): 00:05, 06:05, 12:05, 18:05 UTC
-    - cron: "5 */6 * * *"
+    # every 6 hours, inside the requested 4-8 h window, off the hour
+    - cron: "17 */6 * * *"
   workflow_dispatch:
   push:
-    branches: [main, "arena/f6e73320-lolhotspawn1"]
+    branches: ["main"]
+    paths:
+      - "tools/**"
+      - ".github/workflows/refresh.yml"
 
 permissions:
   contents: write
@@ -17,45 +31,49 @@ concurrency:
 
 jobs:
   refresh:
-    # do not re-trigger on the bot's own commits
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          ref: main
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
         with:
-          node-version: 20
+          python-version: "3.12"
 
-      - name: Collect + analyze + build site
-        run: node scripts/run_all.mjs
+      - name: Install dependencies
+        run: python3 -m pip install --quiet requests
 
-      - name: Commit and push refreshed data + site
+      - name: Run pipeline (captured log)
+        run: |
+          set -o pipefail
+          mkdir -p data
+          {
+            echo "=== build $(date -u +%FT%TZ) ==="
+            python3 tools/collect.py   2>&1
+            python3 tools/model.py     2>&1
+            python3 tools/report.py    2>&1
+            python3 tools/flags.py     2>&1
+            python3 tools/site.py      2>&1
+            python3 tools/verify.py    2>&1
+          } | tee data/build.log
+          echo "pipeline exit: ${PIPESTATUS[0]}"
+
+      - name: Stop on failed gate
+        run: |
+          tail -3 data/build.log
+          test "$(grep -c '^PASS' data/build.log)" -ge 14
+
+      - name: Commit data and site
         run: |
           set -e
-          BR="${GITHUB_REF_NAME}"
-          COUNTS=$(node -e "const s=require('./data/picks.json').summary.counts; console.log('open='+s.open+' picks='+s.picks_total+' mkt='+(s.market_pinnacle+s.market_polymarket_only)+' model='+s.model_only+' unresolved='+s.unresolved_open+' flags='+s.flags_needs_review)")
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data docs
+          git config user.name  "arena-refresh-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
           if git diff --cached --quiet; then
-            echo "No data changes this run."
-            exit 0
+            echo "no changes"
+          else
+            git commit -m "chore(data): refresh fixtures, lines and site"
+            git push
           fi
-          git commit -m "chore(data): refresh LoL picks — ${COUNTS} [skip ci]"
-          # Sync with remote. If another run/push landed meanwhile, the freshly
-          # generated files from THIS run win (they are the newest snapshot).
-          if ! git pull --rebase -X theirs origin "$BR"; then
-            echo "Rebase conflict — replaying fresh outputs on top of remote HEAD."
-            git rebase --abort 2>/dev/null || true
-            git fetch origin "$BR"
-            git reset --soft "origin/$BR"
-            git add data docs
-            if git diff --cached --quiet; then echo "Remote already has this data."; exit 0; fi
-            git commit -m "chore(data): refresh LoL picks — ${COUNTS} [skip ci]"
-          fi
-          git push origin "HEAD:$BR"
-          echo "Pushed refresh: ${COUNTS}"

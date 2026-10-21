@@ -1,229 +1,84 @@
 {
- "generated_at": "2026-10-21T21:25:23.708Z",
+ "generated_utc": "2026-10-21T21:20:20Z",
+ "count": 13,
  "flags": [
   {
-   "severity": "needs-review",
-   "title": "Start-time discrepancy: Hotspawn vs Pinnacle",
-   "detail": "Galions vs Solary (EM 2026 Summer Main Event): Hotspawn lists start 2026-10-22T12:00:00.000Z UTC (pick lock 2026-10-22T11:55:00.000Z UTC), Pinnacle lists 2026-10-22T16:00:00.000Z UTC (Δ +240 min). The Hotspawn lock still governs pick'em submission, but the real-world start time per the independent market source differs — displayed times may be wrong on one of the platforms.",
-   "links": [
-    "https://guest.api.arcadia.pinnacle.com/0.1/leagues/225201/markets/straight",
-    "https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205"
-   ],
-   "match_id": "1081205",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "Team VDS vs Pegasus Esports (Arabian League 2nd Division 2026 Summer, 2026-10-22T18:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/team-vds-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1082105"
-   ],
-   "match_id": "1082105",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "Levelers vs MTN ESPORTS TEAM (Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine, 2026-10-23T16:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/levelers-vs-mtn-esports-team-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082839"
-   ],
-   "match_id": "1082839",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "Start-time discrepancy: Hotspawn vs Pinnacle",
-   "detail": "Hanwha Life Esports vs Top Esports (Worlds 2026 Main Event): Hotspawn lists start 2026-10-23T18:00:00.000Z UTC (pick lock 2026-10-23T17:55:00.000Z UTC), Pinnacle lists 2026-10-23T21:00:00.000Z UTC (Δ +180 min). The Hotspawn lock still governs pick'em submission, but the real-world start time per the independent market source differs — displayed times may be wrong on one of the platforms.",
-   "links": [
-    "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "https://www.hotspawn.com/matches/hanwha-life-esports-vs-top-esports-worlds-2026-main-event-1067677"
-   ],
-   "match_id": "1067677",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "Large divergence: Pinnacle vs own model",
-   "detail": "Hanwha Life Esports vs Top Esports: Pinnacle implies 79% for Hanwha Life, own model 50% for Hanwha Life Esports. Pick follows the market line; divergence may signal roster/news the model can't see (or a matching error).",
-   "links": [
-    "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "https://www.hotspawn.com/matches/hanwha-life-esports-vs-top-esports-worlds-2026-main-event-1067677"
-   ],
-   "match_id": "1067677",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "Team VDS vs Team Reds (Arabian League 2nd Division 2026 Summer, 2026-10-23T18:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/team-vds-vs-team-reds-arabian-league-2nd-division-2026-summer-1082106"
-   ],
-   "match_id": "1082106",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "AceGaming vs Babos Gaming (PRM 2nd Division 26-27 Fall, 2026-10-23T18:30:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/acegaming-vs-babos-gaming-prm-2nd-division-26-27-fall-1079025"
-   ],
-   "match_id": "1079025",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "Start-time discrepancy: Hotspawn vs Pinnacle",
-   "detail": "Bilibili Gaming vs Movistar KOI (Worlds 2026 Main Event): Hotspawn lists start 2026-10-23T19:00:00.000Z UTC (pick lock 2026-10-23T18:55:00.000Z UTC), Pinnacle lists 2026-10-24T00:00:00.000Z UTC (Δ +300 min). The Hotspawn lock still governs pick'em submission, but the real-world start time per the independent market source differs — displayed times may be wrong on one of the platforms.",
-   "links": [
-    "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "https://www.hotspawn.com/matches/bilibili-gaming-vs-movistar-koi-worlds-2026-main-event-1067680"
-   ],
-   "match_id": "1067680",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "Large divergence: Pinnacle vs own model",
-   "detail": "Bilibili Gaming vs Movistar KOI: Pinnacle implies 80% for Bilibili, own model 49% for Bilibili Gaming. Pick follows the market line; divergence may signal roster/news the model can't see (or a matching error).",
-   "links": [
-    "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "https://www.hotspawn.com/matches/bilibili-gaming-vs-movistar-koi-worlds-2026-main-event-1067680"
-   ],
-   "match_id": "1067680",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "Start-time discrepancy: Hotspawn vs Pinnacle",
-   "detail": "Team Liquid vs CTBC Flying Oyster (Worlds 2026 Main Event): Hotspawn lists start 2026-10-23T22:00:00.000Z UTC (pick lock 2026-10-23T21:55:00.000Z UTC), Pinnacle lists 2026-10-23T18:00:00.000Z UTC (Δ -240 min). The Hotspawn lock still governs pick'em submission, but the real-world start time per the independent market source differs — displayed times may be wrong on one of the platforms.",
-   "links": [
-    "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "https://www.hotspawn.com/matches/team-liquid-vs-ctbc-flying-oyster-worlds-2026-main-event-1067879"
-   ],
-   "match_id": "1067879",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "Large divergence: Pinnacle vs own model",
-   "detail": "LØS vs T1: Pinnacle implies 15% for LOS, own model 58% for LØS. Pick follows the market line; divergence may signal roster/news the model can't see (or a matching error).",
-   "links": [
-    "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "https://www.hotspawn.com/matches/los-vs-t1-worlds-2026-main-event-1067678"
-   ],
-   "match_id": "1067678",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "Reveal Multigaming vs AceGaming (PRM 2nd Division 26-27 Fall, 2026-10-25T16:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/reveal-multigaming-vs-acegaming-prm-2nd-division-26-27-fall-1079028"
-   ],
-   "match_id": "1079028",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "No Need Orga vs AceGaming (PRM 2nd Division 26-27 Fall, 2026-10-27T17:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/no-need-orga-vs-acegaming-prm-2nd-division-26-27-fall-1079032"
-   ],
-   "match_id": "1079032",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "AceGaming vs reGOLD eSport (PRM 2nd Division 26-27 Fall, 2026-10-30T17:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/acegaming-vs-regold-esport-prm-2nd-division-26-27-fall-1079851"
-   ],
-   "match_id": "1079851",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "Void Walkers vs Team VDS (Arabian League 2nd Division 2026 Summer, 2026-10-31T19:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/void-walkers-vs-team-vds-arabian-league-2nd-division-2026-summer-1082107"
-   ],
-   "match_id": "1082107",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "Team 300 vs AceGaming (PRM 2nd Division 26-27 Fall, 2026-11-06T19:30:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/team-300-vs-acegaming-prm-2nd-division-26-27-fall-1079050"
-   ],
-   "match_id": "1079050",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "AceGaming vs BvP (PRM 2nd Division 26-27 Fall, 2026-11-08T16:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/acegaming-vs-bvp-prm-2nd-division-26-27-fall-1079051"
-   ],
-   "match_id": "1079051",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "Ground Zero Gaming vs Frank Esports (LCP 2027 Promotion, 2026-11-11T09:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423"
-   ],
-   "match_id": "1081423",
-   "ts": "2026-10-21T21:25:23.708Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "AceGaming vs Hannover Esports e.V. (PRM 2nd Division 26-27 Fall, 2026-11-15T18:30:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/acegaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1079059"
-   ],
-   "match_id": "1079059",
-   "ts": "2026-10-21T21:25:23.708Z"
+   "severity": "low",
+   "item": "Hotspawn displays the wrong name for the PvB slot in PRM 2nd Division",
+   "detail": "Hotspawn labels this team 'Phong Vũ Buffalo', but the five fixtures attributed to it (27 Oct 17:00 vs DKB XPERION NXT, 30 Oct 19:30 vs VfB eSports, 3 Nov 17:00 vs 404 Multigaming, 8 Nov 18:30 vs MT1 Esports, 13 Nov 18:30 vs regnum4games) are, in Leaguepedia, the five fixtures of 'PvB (Swiss Team)' in Prime League 2nd Division/2027 Season/Fall Split - same dates, same kick-off times, same opponents. The alias is therefore recorded explicitly in data/aliases.json with this evidence, not guessed. Hotspawn's card for these matches still shows the Vietnamese name and no logo.",
+   "source": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
   },
   {
    "severity": "info",
-   "title": "104 model-only picks have LOW confidence (thin history)",
-   "detail": "These picks come solely from our own Elo-style model where one or both sides have fewer than 3 recorded series (new season, new rosters, amateur divisions). They are shown with a LOW badge on the Picks page. Examples: BlackDivision vs Babos Gaming Academy (2/2 series); Absolved vs The Bandits UK (4/2 series); HL Tauri Esports vs Bulldog Esports (2/4 series); The Bandits UK vs PNS (2/4 series); Ruddy Ultras vs HL Tauri Esports (4/2 series); Reveal Multigaming vs Hannover Esports e.V. (3/2 series); Locked IN vs The Bandits Prime (2/2 series); NextGeneration Esports vs Pegasus Esports (2/1 series); reGOLD eSport vs Team 300 (3/2 series); Berlin 5 vs AceGaming Hearts (2/2 series); Jendouba Esports vs Enfida Esports (2/2 series); JSK Esports vs El Menzah Esports (12/1 series); ….",
-   "links": [
-    "https://www.hotspawn.com/matches/blackdivision-vs-babos-gaming-academy-prm-3rd-division-26-27-fall-1075736",
-    "https://www.hotspawn.com/matches/absolved-vs-the-bandits-uk-4-nations-2026-halloween-heist-1081651",
-    "https://www.hotspawn.com/matches/hl-tauri-esports-vs-bulldog-esports-4-nations-2026-halloween-heist-1081654",
-    "https://www.hotspawn.com/matches/the-bandits-uk-vs-pns-4-nations-2026-halloween-heist-1081664",
-    "https://www.hotspawn.com/matches/ruddy-ultras-vs-hl-tauri-esports-4-nations-2026-halloween-heist-1081671",
-    "https://www.hotspawn.com/matches/reveal-multigaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1082745",
-    "https://www.hotspawn.com/matches/locked-in-vs-the-bandits-prime-prm-2nd-division-26-27-fall-1079023",
-    "https://www.hotspawn.com/matches/nextgeneration-esports-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079139"
-   ],
-   "match_id": null,
-   "ts": "2026-10-21T21:25:23.708Z"
+   "item": "Hotspawn tier field is 'waiting for information' for 189 of 264 LoL matches",
+   "detail": "The fixtures API returns tier='waiting for information' and stage='waiting for information' for most non-featured LoL fixtures. Tier is reproduced verbatim and not inferred from the league name.",
+   "source": "https://play.hotspawn.com/lol-pickems"
   },
   {
    "severity": "info",
-   "title": "64 stale Hotspawn fixtures excluded from picks",
-   "detail": "These fixtures still carry status \"scheduled\" although their start time passed more than 24h ago (Hotspawn never settled or cancelled them — likely postponed/abandoned, e.g. Mind Blue eSports v LAST DANCE (Benelux Ascend Series 2026 Summer Split, 2026-08-26T17:00:00.000Z); Nameless v BiPOLAR (Benelux Ascend Series 2026 Summer Split, 2026-08-26T18:00:00.000Z); Epic Avalanche v Finnish Red Mafia (FPL 2026 Summer Playoffs, 2026-08-27T15:00:00.000Z); Team VS Esport v GALA Esports (Benelux Ascend Series Rising 2026 Summer Playoffs, 2026-09-05T11:00:00.000Z)). They cannot be picked on Hotspawn (lock passed) and are excluded from the site's match lists; kept in data/picks.json with state=\"stale\" for audit.",
-   "links": [
-    "https://play.hotspawn.com/lol-pickems"
-   ],
-   "match_id": null,
-   "ts": "2026-10-21T21:25:23.708Z"
+   "item": "Only 9 of 264 matches have a published bookmaker price",
+   "detail": "The featured (market) tier is the World Championship plus one EMEA Masters fixture. That is a property of the market, not of this pipeline: tier-B/C/D national leagues are not offered by Pinnacle. GG.BET, EGamersWorld, Oddspedia, BetExplorer and Unibet/Kambi were also probed on every build and are recorded on the Sources page.",
+   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+  },
+  {
+   "severity": "low",
+   "item": "Leaguepedia is a community wiki, not a Riot Games property",
+   "detail": "Series results for the Elo model come from Leaguepedia's Cargo export (volunteer-maintained, the de-facto LoL esports results database). Riot's official LoL Esports API is used as a cross-check for the World Championship schedule only, because it does not publish these national leagues.",
+   "source": "https://lol.fandom.com/wiki/Special:CargoExport"
+  },
+  {
+   "severity": "low",
+   "item": "Elo ratings are only comparable inside one opponent graph",
+   "detail": "Ratings are fitted per league network. A team that never played a common opponent with its fixture opponent cannot be compared meaningfully; those matches are marked provisional with the 'no shared-opponent chain' note.",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/tools/model.py"
+  },
+  {
+   "severity": "info",
+   "item": "List horizon extends past the 7-day pick'em window",
+   "detail": "Hotspawn lists fixtures up to mid-November (the PRM 3rd Division round on 2026-11-15), beyond the current weekly reset. All listed fixtures are kept so coverage matches the site exactly.",
+   "source": "https://play.hotspawn.com/lol-pickems"
+  },
+  {
+   "severity": "info",
+   "item": "Hotspawn community pick percentages are stored but never used",
+   "detail": "The fixtures API exposes participants*_picked_percent. These values are persisted in data/raw/hotspawn_lol.json for transparency and are not read by the model, the picks, or any probability on the site.",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/evidence/snapshot/hotspawn_lol.json"
+  },
+  {
+   "severity": "low",
+   "item": "68 provisional lines (thin data)",
+   "detail": "At least one side has fewer than five rated series in the Leaguepedia window, or the two teams share no opponent chain. A probability is still published but is labelled provisional and shows the reason on the card.",
+   "source": "https://lol.fandom.com/wiki/Special:CargoExport"
+  },
+  {
+   "severity": "low",
+   "item": "12 team names needed a non-exact Leaguepedia match",
+   "detail": "Leaguepedia appends a region to duplicate team names (e.g. 'Fenrir (Icelandic Team)'). Every non-exact join and its evidence is listed on the Verification page; ambiguous names are left unmatched instead of guessed.",
+   "source": "https://lol.fandom.com/wiki/Special:CargoExport"
+  },
+  {
+   "severity": "low",
+   "item": "5 betting/odds sources were unreachable from the build runner",
+   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 404 (unavailable); Unibet/Kambi HTTP 400 (unavailable)",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/sources_status.json"
+  },
+  {
+   "severity": "medium",
+   "item": "69 fixtures still listed as 'scheduled' although their start time has passed",
+   "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time is more than three hours in the past (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. Most likely postponed or awaiting a result.",
+   "source": "https://play.hotspawn.com/lol-pickems"
+  },
+  {
+   "severity": "medium",
+   "item": "4 bookmaker-priced matches disagree on kick-off time",
+   "detail": "Pinnacle's start times differ from Hotspawn's by 2-5 hours on these fixtures. Because Hotspawn and Leaguepedia agree with each other (recorded in each card's 'Why this line'), the odds are treated as valid for the pairing; the card prints both times. Verify before betting: Galions vs Solary; Hanwha Life Esports vs Top Esports; Bilibili Gaming vs Movistar KOI; Team Liquid vs CTBC Flying Oyster",
+   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+  },
+  {
+   "severity": "info",
+   "item": "Bookmaker coverage is 9/264 matches",
+   "detail": "Pinnacle prices the World Championship and EMEA Masters fixtures from this list. The remaining national and academy leagues have no published market on any book reachable from the runner, which is why their lines are originated by our own model.",
+   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
   }
  ]
 }
