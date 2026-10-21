@@ -1,18 +1,6 @@
 name: data-build
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "tools/collect.py"
-      - "tools/model.py"
-      - "tools/report.py"
-      - "tools/site.py"
-      - "tools/verify.py"
-      - "tools/flags.py"
-      - "tools/common.py"
-      - "data/aliases.json"
-      - "data/flags_manual.json"
-      - ".github/workflows/data.yml"
 
 permissions:
   contents: write
