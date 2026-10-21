@@ -83,6 +83,18 @@ def main() -> None:
             "source": HOTSPAWN,
         })
 
+    kickoff = [r for r in rows if any("kick-off time differs" in f for f in r.get("flags") or [])]
+    if kickoff:
+        flags.append({
+            "severity": "medium",
+            "item": f"{len(kickoff)} bookmaker-priced matches disagree on kick-off time",
+            "detail": "Pinnacle's start times differ from Hotspawn's by 2-5 hours on these fixtures. Because "
+                      "Hotspawn and Leaguepedia agree with each other (recorded in each card's 'Why this line'), "
+                      "the odds are treated as valid for the pairing; the card prints both times. Verify before "
+                      "betting: " + "; ".join(f"{r['team0']['name']} vs {r['team1']['name']}" for r in kickoff[:8]),
+            "source": PINNACLE,
+        })
+
     priced = counts.get("market", 0)
     flags.append({
         "severity": "info",

@@ -323,6 +323,12 @@ def main() -> None:
     aliases_raw = (load_json(os.path.join(DATA, "aliases.json"), default={}) or {}).get("aliases") or {}
     aliases = {norm_name(k): v for k, v in aliases_raw.items()}
     comp_map = map_competitions(fixtures, page_teams, base)
+
+    # (page, unordered team pair) -> recorded kick-off, used to corroborate times
+    lp_times = {}
+    for m in lp_matches:
+        lp_times[(m.get("overview_page"), frozenset(
+            (str(m.get("team1")), str(m.get("team2")))))] = m.get("utc")
     ratings, counts, last_seen, uf, backtest = build_ratings(lp_matches)
 
     pin_index = []
@@ -396,6 +402,36 @@ def main() -> None:
             if market["kind"] == "bookmaker":
                 basis = (f"De-vigged {market['book']} moneyline: {market['decimal']['home']} / "
                          f"{market['decimal']['away']} (overround {market['overround']:.2%}).")
+                if market.get("start_utc") and f.get("start_utc"):
+                    try:
+                        a = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ")
+                        b = datetime.strptime(str(market["start_utc"])[:19], "%Y-%m-%dT%H:%M:%S")
+                        hours = abs((a - b).total_seconds()) / 3600
+                        if hours >= 1.5:
+                            lp_utc = lp_times.get((page, frozenset((str(k0), str(k1))))) if k0 and k1 else None
+                            corroborated = False
+                            if lp_utc:
+                                try:
+                                    c = datetime.strptime(str(lp_utc)[:19], "%Y-%m-%d %H:%M:%S")
+                                    corroborated = abs((a - c).total_seconds()) <= 3600
+                                except ValueError:
+                                    corroborated = False
+                            if corroborated:
+                                flags.append(
+                                    f"kick-off time differs between sources: Hotspawn and Leaguepedia say "
+                                    f"{f['start_utc']} but {market['book']} lists "
+                                    f"{str(market['start_utc'])[:16]}Z ({hours:.0f}h apart) - the odds are "
+                                    f"for this pairing, but confirm the start time before betting")
+                            else:
+                                flags.append(
+                                    f"kick-off time differs between sources: Hotspawn says {f['start_utc']} "
+                                    f"and {market['book']} lists {str(market['start_utc'])[:16]}Z "
+                                    f"({hours:.0f}h apart) - confirm before betting")
+                            basis += (f" Kick-off: Hotspawn {f['start_utc']}"
+                                      f"{' (Leaguepedia agrees)' if corroborated else ''}, "
+                                      f"{market['book']} {str(market['start_utc'])[:16]}Z.")
+                    except ValueError:
+                        pass
             else:
                 basis = f"{market['book']} prices {p0:.1%} / {p1:.1%} (no vig)."
         elif er0 is not None and er1 is not None:

@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-21T21:09:03Z",
- "count": 12,
+ "generated_utc": "2026-10-21T21:10:01Z",
+ "count": 13,
  "flags": [
   {
    "severity": "low",
@@ -67,6 +67,12 @@
    "item": "69 fixtures still listed as 'scheduled' although their start time has passed",
    "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time is more than three hours in the past (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. Most likely postponed or awaiting a result.",
    "source": "https://play.hotspawn.com/lol-pickems"
+  },
+  {
+   "severity": "medium",
+   "item": "4 bookmaker-priced matches disagree on kick-off time",
+   "detail": "Pinnacle's start times differ from Hotspawn's by 2-5 hours on these fixtures. Because Hotspawn and Leaguepedia agree with each other (recorded in each card's 'Why this line'), the odds are treated as valid for the pairing; the card prints both times. Verify before betting: Galions vs Solary; Hanwha Life Esports vs Top Esports; Bilibili Gaming vs Movistar KOI; Team Liquid vs CTBC Flying Oyster",
+   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
   },
   {
    "severity": "info",
