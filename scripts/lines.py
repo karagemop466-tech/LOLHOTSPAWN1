@@ -89,43 +89,58 @@ def _row_teams(cell_text: str) -> list[str]:
     return cleaned[:2]
 
 
+H2H_ANCHOR = re.compile(
+    r"""(?is)<a\b[^>]*href=["'](?P<href>[^"']*/esports/h2h/[^"']+)["'][^>]*>(?P<inner>.*?)</a>""")
+
+
 def parse_oddsportal_page(markup: str, page_url: str) -> list[dict]:
-    """Rows of ``[fixture cell][home odds][away odds]`` from an OddsPortal tournament page."""
+    """Fixture rows + published prices from an OddsPortal tournament page.
+
+    Deliberately markup-agnostic (no ``<tr>`` assumption): OddsPortal is a Next.js app and the row
+    element names have changed before.  For each ``/esports/h2h/`` anchor we take the anchor's own
+    inner HTML for the two team labels and the text that follows it (up to the next fixture anchor)
+    for the two displayed prices.
+    """
     rows: list[dict] = []
-    chunks = re.split(r"(?is)</tr>", markup or "")
-    for chunk in chunks:
-        chunk = chunk[-12000:]
-        if "/esports/h2h/" not in chunk:
-            continue
-        m = re.search(r"""(?is)href\s*=\s*["']([^"']*/esports/h2h/[^"']+)["']""", chunk)
-        if not m:
-            continue
-        href = m.group(1)
+    matches = list(H2H_ANCHOR.finditer(markup or ""))
+    for idx, m in enumerate(matches):
+        href = m.group("href")
         full = href if href.startswith("http") else "https://www.oddsportal.com" + href
-        anchor = re.search(r"(?is)<a\b[^>]*>(.*?)</a>", chunk[chunk.find(m.group(0)):][:2600])
-        teams = _row_teams(anchor.group(1) if anchor else chunk)
+        inner = m.group("inner") or ""
+        nxt = markup[m.end():(matches[idx + 1].start() if idx + 1 < len(matches)
+                                 else min(len(markup), m.end() + 1400))]
+        nxt = nxt[:1400]
+        teams = _row_teams(inner)
         if len(teams) < 2:
             continue
-        tail = chunk[chunk.find(m.group(0)) + len(m.group(0)):]
-        tail = re.split(r"(?is)<tr\b", tail)[0]
-        odds = ODDS_NUM.findall(re.sub(r"(?s)<[^>]+>", " ", tail))
-        label_m = DAY_HEAD.search(re.sub(r"(?s)<[^>]+>", " ", chunk[-2600:]))
-        time_m = re.search(r"\b(\d{1,2}):(\d{2})\b", re.sub(r"(?s)<[^>]+>", " ", chunk))
-        if len(odds) < 2:
-            rows.append({"teams": teams, "odds": [], "url": full,
-                         "day_label": label_m.group(0) if label_m else None,
-                         "time_label": time_m.group(0) if time_m else None,
-                         "note": "no odds in row (market not open or blocked)"})
-            continue
-        rows.append({
+        tail_text = re.sub(r"(?s)<[^>]+>", " ", nxt)
+        odds = ODDS_NUM.findall(tail_text) or ODDS_NUM.findall(re.sub(r"(?s)<[^>]+>", " ", inner))
+        head = re.sub(r"(?s)<[^>]+>", " ", markup[max(0, m.start() - 4000):m.start()])
+        day_m = list(DAY_HEAD.finditer(head))
+        time_m = re.search(r"\b(\d{1,2}):(\d{2})\b", re.sub(r"(?s)<[^>]+>", " ", inner))
+        row = {
             "teams": teams,
-            "odds": [float(o) for o in odds[:2]],
-            "odds_raw": odds[:4],
             "url": full,
             "page_url": page_url,
-            "day_label": label_m.group(0) if label_m else None,
+            "tournament_url": page_url,
+            "day_label": day_m[-1].group(0) if day_m else None,
             "time_label": time_m.group(0) if time_m else None,
-        })
+        }
+        if len(odds) >= 2:
+            row["odds"] = [float(odds[0]), float(odds[1])]
+            row["odds_raw"] = odds[:4]
+        else:
+            row["odds"] = []
+            row["note"] = ("no price visible in the fixture row (market closed, blocked or "
+                           "not yet listed)")
+        rows.append(row)
+    if not rows and markup:
+        pos = (markup or "").find("/esports/h2h/")
+        sample = markup[max(0, pos - 1200):pos + 2400] if pos != -1 else markup[:2500]
+        write_debug("oddsportal_sample.txt",
+                    f"page={page_url}\nlen={len(markup)} <tr>={markup.count('<tr')} "
+                    f"h2h={markup.count('/esports/h2h/')} __NEXT_DATA__={('__NEXT_DATA__' in markup)} "
+                    f"self.__next_f={'self.__next_f' in markup}\n\n{sample[:6000]}")
     return rows
 
 

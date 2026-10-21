@@ -26,7 +26,7 @@ import re
 from datetime import datetime, timedelta, timezone
 
 from .common import (
-    MONTHS, Fetcher, canon_team, iso, log, parse_countdown, utcnow, write_debug,
+    MONTHS, Fetcher, html_to_lines, iso, log, parse_countdown, utcnow, write_debug,
 )
 
 LOBBY_URL = "https://play.hotspawn.com/lol-pickems"

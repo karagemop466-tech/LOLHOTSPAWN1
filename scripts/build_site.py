@@ -807,14 +807,15 @@ def main() -> int:
             if write_if_changed(dst, content):
                 changed.append(f"assets/{src_name}")
 
-    # When the site root is the repo root, ``data/`` is already published in place.
-    if os.path.abspath(args.site) != os.path.abspath(os.path.join(args.data, "..")):
-        os.makedirs(os.path.join(args.site, "data"), exist_ok=True)
-        for name in ("picks.json", "picks.csv", "unresolved.json", "flags.json", "ratings.json",
-                     "sources.json", "summary.json", "hotspawn.json"):
-            src = os.path.join(args.data, name)
-            if os.path.exists(src):
-                shutil.copyfile(src, os.path.join(args.site, "data", name))
+    # Publish the machine-readable snapshot next to the pages (data/ at the site root).
+    out_data = os.path.join(args.site, "data")
+    os.makedirs(out_data, exist_ok=True)
+    for name in ("picks.json", "picks.csv", "unresolved.json", "flags.json", "ratings.json",
+                 "sources.json", "summary.json", "hotspawn.json"):
+        src = os.path.join(args.data, name)
+        dst = os.path.join(out_data, name)
+        if os.path.exists(src) and os.path.abspath(src) != os.path.abspath(dst):
+            shutil.copyfile(src, dst)
     print(f"site built: {len(changed)} file(s) written; {counts['leagues']} league pages, "
           f"{counts['tiers']} tier pages; {len(data['picks'])} picks")
     return 0

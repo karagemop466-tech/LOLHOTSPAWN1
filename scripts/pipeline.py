@@ -444,14 +444,33 @@ def main() -> int:
             pm_res, _ = guard("Polymarket", lambda: LN.collect_polymarket(fetcher, queries[:20]))
             markets, pm_meta = pm_res if pm_res else ([], {"status": "collector crashed"})
             attach, attach_flags = LN.attach(markets, rows, collected.get("matches") or [])
+            # Keep the payload reviewable: every row that attached to a fixture, plus a
+            # transparency sample, instead of the full market firehose.
+            lobby_names = set()
+            for card in collected.get("matches") or []:
+                for t in card.get("teams") or []:
+                    lobby_names.add(canon_team(t))
+
+            def relevant(mk):
+                outs = [canon_team(o) for o in (mk.get("outcomes") or [])]
+                return bool(set(outs) & lobby_names)
+
+            keep = [mk for mk in markets if relevant(mk)]
             lines_data = {
                 "generated_at": iso(utcnow()),
                 "oddsportal": op_meta, "polymarket": pm_meta,
-                "rows": rows, "markets": markets,
+                "rows": rows,
+                "markets": keep[:60],
+                "market_counts": {"polymarket_total": len(markets),
+                                   "polymarket_matching_a_lobby_team": len(keep),
+                                   "oddsportal_rows": len(rows),
+                                   "oddsportal_rows_with_price": sum(
+                                       1 for r in rows if r.get("odds"))},
                 "attach": attach, "attach_flags": attach_flags,
             }
         else:
             lines_data["attach"], lines_data["attach_flags"] = {}, []
+            lines_data.setdefault("market_counts", {})
         if not args.no_probes:
             log("3/4 probing esports books / other line sources")
             probes, _ = guard("source probes", lambda: LN.probe_sources(fetcher))
