@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f16">
+<title>Data — Hotspawn LoL Pick&#x27;ems — Lines &amp; Probabilities</title>
+<meta name="description" content="Hotspawn League of Legends pick&#x27;em lobby: every listed match with a win probability for both team, from external betting lines or our own self-originated model. Auto-refreshed.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand">
+    <span class="mark">LoL</span>
+    <span>
+      <b>Hotspawn LoL Pick&#x27;ems — Lines &amp; Probabilities</b>
+      <small>updated 2026-10-21T20:48:10Z · auto-refresh every 6h ·
+      8/195 picks resolved</small>
+    </span>
+  </div>
+  <nav class="nav" aria-label="Site sections"><a class="navlink" href="index.html">Executive summary</a>
+<a class="navlink" href="picks.html">All picks</a>
+<a class="navlink" href="leagues.html">Leagues</a>
+<a class="navlink" href="unresolved.html">Unresolved picks</a>
+<a class="navlink" href="flagged.html">Flagged for review</a>
+<a class="navlink" href="methodology.html">Methodology</a>
+<a class="navlink" href="sources.html">Sources ledger</a>
+<a class="navlink is-active" href="data.html">Download data</a></nav>
+</header>
+<main id="main">
+
+<section class="pagehead"><h1>Download the data</h1>
+<p class="muted">Machine-readable copies of exactly what this site is rendered from, generated
+2026-10-21T20:48:10Z. Nothing is hand-edited.</p></section>
+<ul class="leaguelist"><li><a href="data/picks.json">picks.json</a> <span class="muted">one row per pick&#x27;em, full detail</span></li><li><a href="data/picks.csv">picks.csv</a> <span class="muted">same table flattened for spreadsheets</span></li><li><a href="data/unresolved.json">unresolved.json</a> <span class="muted">unresolved picks + limitations</span></li><li><a href="data/flags.json">flags.json</a> <span class="muted">flagged irregularities</span></li><li><a href="data/ratings.json">ratings.json</a> <span class="muted">team ratings + model parameters</span></li><li><a href="data/sources.json">sources.json</a> <span class="muted">fetch ledger</span></li><li><a href="data/summary.json">summary.json</a> <span class="muted">executive-summary numbers</span></li><li><a href="data/hotspawn.json">hotspawn.json</a> <span class="muted">raw collection (lobby cards, league fixtures, results)</span></li></ul>
+
+</main>
+<footer class="foot">
+  <p>Data is collected and rebuilt by GitHub Actions every 6 hours
+  (<code>.github/workflows/refresh.yml</code>) — no manual step. Probabilities come from external
+  betting lines or our own model, never from Hotspawn's pick share.</p>
+  <p>Unofficial research project. No bets are placed here; nothing on this site is betting advice.
+  18+ / 21+. <a href="methodology.html">Methodology &amp; limitations</a> ·
+  <a href="sources.html">Source ledger</a> ·
+  <a href="flagged.html">Flagged for review</a></p>
+</footer>
+<script src="assets/app.js" defer></script>
+</body></html>

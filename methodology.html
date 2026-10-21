@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f16">
+<title>Methodology — Hotspawn LoL Pick&#x27;ems — Lines &amp; Probabilities</title>
+<meta name="description" content="Hotspawn League of Legends pick&#x27;em lobby: every listed match with a win probability for both team, from external betting lines or our own self-originated model. Auto-refreshed.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand">
+    <span class="mark">LoL</span>
+    <span>
+      <b>Hotspawn LoL Pick&#x27;ems — Lines &amp; Probabilities</b>
+      <small>updated 2026-10-21T20:48:10Z · auto-refresh every 6h ·
+      8/195 picks resolved</small>
+    </span>
+  </div>
+  <nav class="nav" aria-label="Site sections"><a class="navlink" href="index.html">Executive summary</a>
+<a class="navlink" href="picks.html">All picks</a>
+<a class="navlink" href="leagues.html">Leagues</a>
+<a class="navlink" href="unresolved.html">Unresolved picks</a>
+<a class="navlink" href="flagged.html">Flagged for review</a>
+<a class="navlink is-active" href="methodology.html">Methodology</a>
+<a class="navlink" href="sources.html">Sources ledger</a>
+<a class="navlink" href="data.html">Download data</a></nav>
+</header>
+<main id="main">
+
+<section class="pagehead"><h1>Methodology, maths and limitations</h1>
+<p class="muted">Written by the pipeline, not by hand, so it always matches the code in
+<code>scripts/</code>.</p></section>
+
+<h2>1 · What counts as a match</h2>
+<p>The list of matches is exactly what Hotspawn offers pick'ems for in the League of Legends tab,
+read from the server-rendered lobby <a href="https://play.hotspawn.com/lol-pickems" target="_blank"
+rel="noopener nofollow">play.hotspawn.com/lol-pickems</a>. Every id is then re-checked against
+Hotspawn's own fixture feed (<a href="https://www.hotspawn.com/wp-json/wp/v2/fixtures"
+target="_blank" rel="noopener nofollow">/wp-json/wp/v2/fixtures</a>), and the kickoff is verified
+against the <code>HH:MM UTC</code> stamp on the league page
+(<code>hotspawn.com/league-of-legends/tournament/&lt;slug&gt;</code>). The lobby only publishes a
+relative “Locks in” countdown, so a match whose absolute time cannot be cross-checked is flagged
+rather than published as fact.</p>
+
+<h2>2 · Probability from betting lines</h2>
+<p>Where an external price exists it is always preferred. Decimal odds are converted to raw implied
+probability (1/odds) and the over-round is removed proportionally (multiplicative de-vig) — a two-way
+market, since a League of Legends series cannot draw. If two sources price the same fixture their
+difference is published as a spread. A price is only attached when both team labels match the fixture;
+if a source page contains several fixtures for the same pair the price is <b>not</b> attached and the
+row is flagged instead of guessed.</p>
+
+<h2>3 · Our own line (model) for matches nobody prices</h2>
+<p>Formula: <code>p = 1 / (1 + 10 ** -(R_a - R_b) / None)</code> at series
+level, with ratings produced from verified finished series scorelines only. Parameters: K = None,
+margin-of-victory factor <code>None</code>, None relaxation
+passes, shrinkage weight n₀ = None games.
+0 finished series were used; 0
+rows were dropped for missing/ambiguous scorelines; 0 teams carry a rating.</p>
+<p>Confidence bands are sample-size driven, not opinion: <i>high</i> ≥ 6 finished series each and a
+direct meeting, <i>medium</i> ≥ 6 each, <i>low</i> ≥ 3, <i>very low</i> below that, <i>none</i> when a
+team has no verifiable result — in which case the row is unresolved, never imputed.</p>
+
+<h2>4 · Explicitly excluded</h2>
+<ul>
+<li><b>Hotspawn's "X% picked" is never an input.</b> It is a crowd poll, published on the cards for
+comparison only.</li>
+<li>No odds are read from Hotspawn itself, and no line is invented for a match with no evidence:
+those rows stay blank and appear under <a href="unresolved.html">Unresolved picks</a>.</li>
+<li>No manual entry: the same code path runs on the schedule, so the published snapshot is
+reproducible from <code>scripts/</code> alone.</li>
+</ul>
+
+<h2>5 · Known limitations</h2>
+<ol>
+<li>Sub-tier LoL is thinly priced: regional 2nd/3rd divisions, academy and high-school leagues and
+some emerging-region championships are not on Polymarket and only sporadically on odds-comparison
+pages. Books that were probed and could not be read programmatically are listed with the exact
+outcome on the <a href="sources.html">sources ledger</a>.</li>
+<li>A form model cannot see roster changes, stand-ins, patch swings, veto order or side preference,
+which matters most in exactly the leagues where we have to use it.</li>
+<li>Ratings are comparable <i>inside</i> a league; cross-league scale relies on shared opponents only
+and is not calibrated, so tier-to-tier comparisons should be read as soft.</li>
+<li>Hotspawn labels many fixtures “Waiting for Information”; if the fixture is never played the
+pick'em simply voids. Kickoff for those rows can move after this snapshot.</li>
+<li>The lobby is weekly (resets with Hotspawn's own reset); matches outside the window are not
+listed as missing picks.</li>
+</ol>
+
+<h2>6 · Reproduce it</h2>
+<pre><code>pip install -r requirements.txt
+python -m scripts.pipeline --out data
+python -m scripts.build_site --data data --site site
+python -m scripts.verify --data data --site site</code></pre>
+
+</main>
+<footer class="foot">
+  <p>Data is collected and rebuilt by GitHub Actions every 6 hours
+  (<code>.github/workflows/refresh.yml</code>) — no manual step. Probabilities come from external
+  betting lines or our own model, never from Hotspawn's pick share.</p>
+  <p>Unofficial research project. No bets are placed here; nothing on this site is betting advice.
+  18+ / 21+. <a href="methodology.html">Methodology &amp; limitations</a> ·
+  <a href="sources.html">Source ledger</a> ·
+  <a href="flagged.html">Flagged for review</a></p>
+</footer>
+<script src="assets/app.js" defer></script>
+</body></html>

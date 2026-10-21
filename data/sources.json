@@ -1,0 +1,404 @@
+{
+  "generated_at": "2026-10-21T20:48:10Z",
+  "hosts": {
+    "api.sofascore.com": {
+      "host": "api.sofascore.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://api.sofascore.com/api/v1/sport/esports/season/9539/scheduled-categories"
+      ],
+      "errors": [
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    },
+    "api.thunderpick.com": {
+      "host": "api.thunderpick.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://api.thunderpick.com/api/v1/sports-wallet/events?sportId=20"
+      ],
+      "errors": [
+        "ConnectionError"
+      ],
+      "success_rate": 0.0
+    },
+    "betexplorer.com": {
+      "host": "betexplorer.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.betexplorer.com/esports/league-of-legends/"
+      ],
+      "errors": [
+        "HTTP 404"
+      ],
+      "success_rate": 0.0
+    },
+    "en.oddspedia.com": {
+      "host": "en.oddspedia.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://en.oddspedia.com/league-of-legends"
+      ],
+      "errors": [
+        "ConnectionError"
+      ],
+      "success_rate": 0.0
+    },
+    "esports-api.lolesports.com": {
+      "host": "esports-api.lolesports.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://esports-api.lolesports.com/persisted/gw/getLeagues?hlsg=en"
+      ],
+      "errors": [
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    },
+    "gamma-api.polymarket.com": {
+      "host": "gamma-api.polymarket.com",
+      "attempts": 16,
+      "ok": 16,
+      "failed": 0,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends&limit_per_type=25&events_status=active",
+        "https://gamma-api.polymarket.com/public-search?q=worlds%202026%20lol&limit_per_type=25&events_status=active",
+        "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends%20worlds&limit_per_type=25&events_status=active",
+        "https://gamma-api.polymarket.com/public-search?q=4%20Nations%202026%20Halloween%20Heist&limit_per_type=25&events_status=active",
+        "https://gamma-api.polymarket.com/public-search?q=Arabian%20League%202nd%20Division%202026%20Summer&limit_per_type=25&events_status=active",
+        "https://gamma-api.polymarket.com/public-search?q=Arabian%20Regional%20Championship%202026%3A%20Lebanon-Libya-Syria-Palestine&limit_per_type=25&events_status=active"
+      ],
+      "errors": [],
+      "success_rate": 1.0
+    },
+    "hotspawn.com": {
+      "host": "hotspawn.com",
+      "attempts": 15,
+      "ok": 0,
+      "failed": 15,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?include=1067675,1067676,1067677,1067678,1067679,1067680,1067878,1067879,1071212,1071214,1071215,1071216,1071218,1071219,1074652,1074654,1074655,1074657,1074658,1074659,1074660,1074662,1074663,1074664,1074665,1074666,1074667,1075719,1075731,1075734,1075736,1075737,1075747,1075748,1075749,1075750,1075751,1075752,1075753,1075754,1075755,1075756,1075758,1075759,1075761,1075762,1075763,1075764,1075765,1075766,1075767,1075768,1075769,1075770,1075771,1075772,1075773,1075774,1075775,1075776&per_page=60&_fields=id,date,modified,slug,link,status,title,type",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?include=1067675,1067676,1067677,1067678,1067679,1067680,1067878,1067879,1071212,1071214,1071215,1071216,1071218,1071219,1074652,1074654,1074655,1074657,1074658,1074659,1074660,1074662,1074663,1074664,1074665,1074666,1074667,1075719,1075731,1075734,1075736,1075737,1075747,1075748,1075749,1075750,1075751,1075752,1075753,1075754,1075755,1075756,1075758,1075759,1075761,1075762,1075763,1075764,1075765,1075766,1075767,1075768,1075769,1075770,1075771,1075772,1075773,1075774,1075775,1075776&per_page=60&_fields=id,date,modified,slug,link,status,title,type",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?include=1067675,1067676,1067677,1067678,1067679,1067680,1067878,1067879,1071212,1071214,1071215,1071216,1071218,1071219,1074652,1074654,1074655,1074657,1074658,1074659,1074660,1074662,1074663,1074664,1074665,1074666,1074667,1075719,1075731,1075734,1075736,1075737,1075747,1075748,1075749,1075750,1075751,1075752,1075753,1075754,1075755,1075756,1075758,1075759,1075761,1075762,1075763,1075764,1075765,1075766,1075767,1075768,1075769,1075770,1075771,1075772,1075773,1075774,1075775,1075776&per_page=60&_fields=id,date,modified,slug,link,status,title,type",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?include=1075777,1075778,1075779,1075780,1075781,1075782,1075783,1075784,1075785,1075786,1075787,1075788,1075789,1075790,1075791,1075792,1075793,1075794,1075795,1075796,1075797,1075798,1075799,1075800,1075801,1075802,1075803,1075804,1075805,1075806,1079023,1079025,1079027,1079028,1079029,1079030,1079031,1079032,1079033,1079034,1079036,1079037,1079038,1079039,1079040,1079041,1079042,1079043,1079045,1079046,1079047,1079048,1079049,1079050,1079051,1079053,1079054,1079055,1079056,1079057&per_page=60&_fields=id,date,modified,slug,link,status,title,type",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?include=1075777,1075778,1075779,1075780,1075781,1075782,1075783,1075784,1075785,1075786,1075787,1075788,1075789,1075790,1075791,1075792,1075793,1075794,1075795,1075796,1075797,1075798,1075799,1075800,1075801,1075802,1075803,1075804,1075805,1075806,1079023,1079025,1079027,1079028,1079029,1079030,1079031,1079032,1079033,1079034,1079036,1079037,1079038,1079039,1079040,1079041,1079042,1079043,1079045,1079046,1079047,1079048,1079049,1079050,1079051,1079053,1079054,1079055,1079056,1079057&per_page=60&_fields=id,date,modified,slug,link,status,title,type",
+        "https://www.hotspawn.com/wp-json/wp/v2/fixtures?include=1075777,1075778,1075779,1075780,1075781,1075782,1075783,1075784,1075785,1075786,1075787,1075788,1075789,1075790,1075791,1075792,1075793,1075794,1075795,1075796,1075797,1075798,1075799,1075800,1075801,1075802,1075803,1075804,1075805,1075806,1079023,1079025,1079027,1079028,1079029,1079030,1079031,1079032,1079033,1079034,1079036,1079037,1079038,1079039,1079040,1079041,1079042,1079043,1079045,1079046,1079047,1079048,1079049,1079050,1079051,1079053,1079054,1079055,1079056,1079057&per_page=60&_fields=id,date,modified,slug,link,status,title,type"
+      ],
+      "errors": [
+        "HTTP 403",
+        "HTTP 403",
+        "HTTP 403",
+        "HTTP 403",
+        "HTTP 403",
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    },
+    "liquipedia.net": {
+      "host": "liquipedia.net",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://liquipedia.net/leagueoflegends/index.php?search=Worlds+2026&title=Special:Search"
+      ],
+      "errors": [
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    },
+    "oddschecker.com": {
+      "host": "oddschecker.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.oddschecker.com/esports/league-of-legends"
+      ],
+      "errors": [
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    },
+    "oddsportal.com": {
+      "host": "oddsportal.com",
+      "attempts": 3,
+      "ok": 3,
+      "failed": 0,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.oddsportal.com/esports/league-of-legends/",
+        "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+        "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-emea-masters/"
+      ],
+      "errors": [],
+      "success_rate": 1.0
+    },
+    "pinnacle.com": {
+      "host": "pinnacle.com",
+      "attempts": 1,
+      "ok": 1,
+      "failed": 0,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.pinnacle.com/en/esports/matchups"
+      ],
+      "errors": [],
+      "success_rate": 1.0
+    },
+    "play.hotspawn.com": {
+      "host": "play.hotspawn.com",
+      "attempts": 1,
+      "ok": 1,
+      "failed": 0,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://play.hotspawn.com/lol-pickems"
+      ],
+      "errors": [],
+      "success_rate": 1.0
+    },
+    "sports.betway.com": {
+      "host": "sports.betway.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://sports.betway.com/en/bet/sport/40010572/cmp/123456"
+      ],
+      "errors": [
+        "HTTP 404"
+      ],
+      "success_rate": 0.0
+    },
+    "sportsinteraction.com": {
+      "host": "sportsinteraction.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.sportsinteraction.com/esports/league-of-legends/odds"
+      ],
+      "errors": [
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    }
+  },
+  "probes": [
+    {
+      "label": "BetExplorer (esports book aggregator)",
+      "url": "https://www.betexplorer.com/esports/league-of-legends/",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Oddschecker (odds comparison)",
+      "url": "https://www.oddschecker.com/esports/league-of-legends",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Oddspedia (livescore + odds)",
+      "url": "https://en.oddspedia.com/league-of-legends",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "SportsInteraction (odds comparison)",
+      "url": "https://www.sportsinteraction.com/esports/league-of-legends/odds",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Pinnacle (sportsbook)",
+      "url": "https://www.pinnacle.com/en/esports/matchups",
+      "http": 200,
+      "bytes": 6394,
+      "odds_table_found": false,
+      "verdict": "page reached but no machine-readable LoL odds table"
+    },
+    {
+      "label": "Betway Esports (sportsbook)",
+      "url": "https://sports.betway.com/en/bet/sport/40010572/cmp/123456",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Sofascore (LoL livescore API)",
+      "url": "https://api.sofascore.com/api/v1/sport/esports/season/9539/scheduled-categories",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Thunderpick (Hotspawn partner book)",
+      "url": "https://api.thunderpick.com/api/v1/sports-wallet/events?sportId=20",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Liquipedia LoL (schedule/results wiki)",
+      "url": "https://liquipedia.net/leagueoflegends/index.php?search=Worlds+2026&title=Special:Search",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "LoL Esports official API (Riot)",
+      "url": "https://esports-api.lolesports.com/persisted/gw/getLeagues?hlsg=en",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    }
+  ],
+  "oddsportal": {
+    "index_url": "https://www.oddsportal.com/esports/league-of-legends/",
+    "tournaments": [
+      "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+      "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-emea-masters/"
+    ],
+    "rows": 16,
+    "status": "ok"
+  },
+  "polymarket": {
+    "queries": [
+      {
+        "query": "league of legends",
+        "url": "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends&limit_per_type=25&events_status=active",
+        "events": 25,
+        "error": null
+      },
+      {
+        "query": "worlds 2026 lol",
+        "url": "https://gamma-api.polymarket.com/public-search?q=worlds%202026%20lol&limit_per_type=25&events_status=active",
+        "events": 25,
+        "error": null
+      },
+      {
+        "query": "league of legends worlds",
+        "url": "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends%20worlds&limit_per_type=25&events_status=active",
+        "events": 25,
+        "error": null
+      },
+      {
+        "query": "4 Nations 2026 Halloween Heist",
+        "url": "https://gamma-api.polymarket.com/public-search?q=4%20Nations%202026%20Halloween%20Heist&limit_per_type=25&events_status=active",
+        "events": 1,
+        "error": null
+      },
+      {
+        "query": "Arabian League 2nd Division 2026 Summer",
+        "url": "https://gamma-api.polymarket.com/public-search?q=Arabian%20League%202nd%20Division%202026%20Summer&limit_per_type=25&events_status=active",
+        "events": 2,
+        "error": null
+      },
+      {
+        "query": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+        "url": "https://gamma-api.polymarket.com/public-search?q=Arabian%20Regional%20Championship%202026%3A%20Lebanon-Libya-Syria-Palestine&limit_per_type=25&events_status=active",
+        "events": 1,
+        "error": null
+      },
+      {
+        "query": "EM 2026 Summer Main Event",
+        "url": "https://gamma-api.polymarket.com/public-search?q=EM%202026%20Summer%20Main%20Event&limit_per_type=25&events_status=active",
+        "events": 1,
+        "error": null
+      },
+      {
+        "query": "Komplettligaen 2026 Autumn",
+        "url": "https://gamma-api.polymarket.com/public-search?q=Komplettligaen%202026%20Autumn&limit_per_type=25&events_status=active",
+        "events": 1,
+        "error": null
+      },
+      {
+        "query": "LCP 2027 Promotion",
+        "url": "https://gamma-api.polymarket.com/public-search?q=LCP%202027%20Promotion&limit_per_type=25&events_status=active",
+        "events": 2,
+        "error": null
+      },
+      {
+        "query": "LGC Rising 2026 Playoffs",
+        "url": "https://gamma-api.polymarket.com/public-search?q=LGC%20Rising%202026%20Playoffs&limit_per_type=25&events_status=active",
+        "events": 20,
+        "error": null
+      },
+      {
+        "query": "LigaGG CELOL B 2026 Split 2 Playoffs",
+        "url": "https://gamma-api.polymarket.com/public-search?q=LigaGG%20CELOL%20B%202026%20Split%202%20Playoffs&limit_per_type=25&events_status=active",
+        "events": 25,
+        "error": null
+      },
+      {
+        "query": "PRM 2nd Division 26-27 Fall",
+        "url": "https://gamma-api.polymarket.com/public-search?q=PRM%202nd%20Division%2026-27%20Fall&limit_per_type=25&events_status=active",
+        "events": 5,
+        "error": null
+      },
+      {
+        "query": "PRM 3rd Division 26-27 Fall",
+        "url": "https://gamma-api.polymarket.com/public-search?q=PRM%203rd%20Division%2026-27%20Fall&limit_per_type=25&events_status=active",
+        "events": 5,
+        "error": null
+      },
+      {
+        "query": "RIVALS LEAGUE Season 2",
+        "url": "https://gamma-api.polymarket.com/public-search?q=RIVALS%20LEAGUE%20Season%202&limit_per_type=25&events_status=active",
+        "events": 3,
+        "error": null
+      },
+      {
+        "query": "Tunisian Super League 2026",
+        "url": "https://gamma-api.polymarket.com/public-search?q=Tunisian%20Super%20League%202026&limit_per_type=25&events_status=active",
+        "events": 3,
+        "error": null
+      },
+      {
+        "query": "Worlds 2026 Main Event",
+        "url": "https://gamma-api.polymarket.com/public-search?q=Worlds%202026%20Main%20Event&limit_per_type=25&events_status=active",
+        "events": 25,
+        "error": null
+      }
+    ],
+    "events": 120,
+    "markets": 2960,
+    "status": "ok"
+  }
+}
