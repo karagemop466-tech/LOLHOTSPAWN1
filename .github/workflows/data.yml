@@ -1,0 +1,26 @@
+name: data-build
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 tools/collect.py
+      - run: python3 tools/model.py
+      - run: python3 tools/report.py
+      - name: Commit data
+        run: |
+          git config user.name "arena-agent"
+          git config user.email "agent@users.noreply.github.com"
+          git add data
+          git commit -m "chore(data): build dataset [skip ci]" || echo "nothing to commit"
+          git push
