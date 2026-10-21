@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T21:30:55Z",
+ "generated_utc": "2026-10-21T21:32:50Z",
  "checks": [
   {
    "name": "dataset present",
@@ -24,7 +24,7 @@
   {
    "name": "method values are known",
    "ok": true,
-   "detail": "methods used: ['market', 'model', 'provisional', 'unresolved']"
+   "detail": "methods used: ['market', 'model', 'provisional']"
   },
   {
    "name": "no duplicate match ids",
@@ -81,11 +81,10 @@
  "rows_checked": 264,
  "rows_with_source": 264,
  "rows_prob_ok": 264,
- "unverified": 73,
+ "unverified": 68,
  "counts": {
   "provisional": 68,
-  "model": 181,
-  "unresolved": 5,
+  "model": 186,
   "market": 10
  },
  "internal_links": 229
