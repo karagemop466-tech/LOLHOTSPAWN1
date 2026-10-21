@@ -1,0 +1,143 @@
+name: Refresh LoL picks & publish
+
+# No manual step: every 6 hours (inside the requested 4-8 h window) the job re-scrapes the
+# Hotspawn League of Legends pick'em lobby, re-reads the external betting-line sources, re-runs
+# the self-originated model, rebuilds the Pages site, and only commits when the verification
+# gates pass. A failed run therefore leaves the last good snapshot published.
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      skip_lines:
+        description: "Skip external line sources (debug only)"
+        required: false
+        type: boolean
+        default: false
+      skip_probes:
+        description: "Skip esports-book probes (debug only)"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: read
+
+concurrency:
+  group: refresh-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 34
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip -q && pip install -q -r requirements.txt
+
+      - name: Offline unit tests (parser, maths, joining rules)
+        run: python -m unittest discover -s tests -v
+
+      - name: Collect Hotspawn + external lines + model
+        run: |
+          FLAGS=""
+          if [ "${{ inputs.skip_lines }}" = "true" ]; then FLAGS="$FLAGS --no-lines"; fi
+          if [ "${{ inputs.skip_probes }}" = "true" ]; then FLAGS="$FLAGS --no-probes"; fi
+          python -m scripts.pipeline --out data-new $FLAGS
+
+      - name: Build site from the new snapshot
+        run: python -m scripts.build_site --data data-new --site site-new
+
+      - name: Verify (schema, sources, no broken links, no fabricated values)
+        run: python -m scripts.verify --data data-new --site site-new --report data-new/verify-report.txt
+
+      - name: Run report (readable in the log)
+        if: always()
+        run: |
+          echo "================ summary.json ================"
+          [ -f data-new/summary.json ] && python -m json.tool data-new/summary.json | head -80 || echo "no summary"
+          echo "================ verify report =============="
+          cat data-new/verify-report.txt 2>/dev/null || echo "no verify report"
+          echo "================ parsed sample (first 12 cards) =============="
+          python - <<'PY'
+          import json, os
+          p = "data-new/hotspawn.json"
+          if os.path.exists(p):
+              doc = json.load(open(p))
+              for c in (doc.get("matches") or [])[:12]:
+                  print(f'- {c.get("lobby_date_label")} | {c.get("lobby_tournament")} | tier={c.get("tier")}'
+                        f' pts={c.get("points")} | teams={c.get("teams")} | fid={c.get("fixture_id")}'
+                        f' | lock={c.get("lock_countdown_s")} | notes={c.get("parse_notes")}')
+              print("totals:", doc.get("totals"), "| leagues:", len(doc.get("leagues") or {}))
+          else:
+              print("no hotspawn.json (offline build?)")
+          PY
+          echo "================ lobby text sample (head 40 lines) =============="
+          head -40 data-new/debug/lobby_text_sample.txt 2>/dev/null || echo "(no sample)"
+          echo "================ sources ledger =============="
+          [ -f data-new/sources.json ] && python -m json.tool data-new/sources.json | head -60 || true
+
+      - name: Publish (commit data + site to this branch)
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p data site
+          rsync -a --delete --exclude 'cache/' data-new/ data/
+          rsync -a --delete site-new/ site/
+          rm -rf data-new site-new
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data site COORDINATION.md || true
+          if git diff --cached --quiet; then
+            echo "no change this run"; echo "SKIP_PUSH=1" >> "$GITHUB_ENV"; exit 0
+          fi
+          STAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git commit -q -m "data+site: refreshed LoL picks ($STAMP) [skip ci]" \
+            -m "Automated refresh: Hotspawn LoL pick'em lobby, external betting lines (OddsPortal/Polymarket),
+          self-originated Elo lines for uncovered matches, and the rebuilt Pages site."
+          git fetch -q origin "${{ github.ref_name }}"
+          git rebase -q "origin/${{ github.ref_name }}" || { git rebase --abort; echo "rebase conflict — pushing to a scratch ref"; git push -q origin "HEAD:refs/heads/refresh-conflict-${GITHUB_RUN_NUMBER}"; exit 1; }
+          git push -q origin "HEAD:${{ github.ref_name }}"
+          echo "PUSHED_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Confirm GitHub Pages deploy of the published commit
+        if: success() && env.SKIP_PUSH != '1'
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -uo pipefail
+          target="${PUSHED_SHA:-}"
+          if [ -z "$target" ]; then echo "nothing pushed"; exit 0; fi
+          for i in $(seq 1 24); do
+            body="$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds/latest")"
+            status="$(printf '%s' "$body" | python -c 'import sys,json;print(json.load(sys.stdin).get("status",""))' 2>/dev/null || echo "")"
+            sha="$(printf '%s' "$body" | python -c 'import sys,json;print(json.load(sys.stdin).get("commit",""))' 2>/dev/null || echo "")"
+            echo "pages build: status=$status commit=${sha:0:8} (want ${target:0:8})"
+            if [ "$status" = "error" ]; then echo "Pages build failed"; exit 1; fi
+            if [ "$status" = "built" ] && [ "$sha" = "$target" ]; then echo "Pages deployed"; exit 0; fi
+            sleep 15
+          done
+          echo "Pages deploy not confirmed within 6 minutes (it usually lands shortly after); not failing the refresh."
+          exit 0
+
+      - name: Upload snapshot artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-${{ github.run_number }}
+          path: |
+            data
+            data-new
+          if-no-files-found: ignore
+          retention-days: 7
