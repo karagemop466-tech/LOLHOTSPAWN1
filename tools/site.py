@@ -239,12 +239,12 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 <section class="panel">
   <h2>Where the picks live</h2>
   <p class="lead">Bookmark <a href="picks.html"><strong>All picks</strong></a> - it is the single page with
-  every match on today's Hotspawn list, newest first. Everything below is a filtered view of the same data.</p>
+  every match on today's Hotspawn list, next kick-off first. Everything below is a filtered view of the same data.</p>
   <ul class="linklist">
     <li><a href="picks.html">All picks &rarr;</a><span>Complete list, {total} matches, filterable and searchable.</span></li>
     <li><a href="featured.html">Market-backed picks &rarr;</a><span>{len(featured)} matches with a real bookmaker or prediction-market price and the vig removed.</span></li>
     <li><a href="originated.html">Our own lines &rarr;</a><span>{counts.get('model',0)+counts.get('provisional',0)} matches priced from our Elo model, with the inputs shown.</span></li>
-    <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>{len(unresolved)} match(es) we refuse to price, plus every documented limitation and the provisional list.</span></li>
+    <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>{("No match is currently unresolved - " if not unresolved else f"{len(unresolved)} match(es) we refuse to price - ")}every documented limitation and the {len(provisional)} provisional lines are listed here.</span></li>
     <li><a href="competitions.html">By tournament &rarr;</a><span>Coverage and source quality for each of the {comps} tournaments.</span></li>
     <li><a href="verification.html">Verification &rarr;</a><span>Row-level checks, join evidence, and what is unverified.</span></li>
   </ul>
@@ -264,8 +264,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><strong>Coverage.</strong> {with_pick} of {total} matches have a pick. {len(featured)} come from market
     prices (Pinnacle moneylines, plus Polymarket where a live market exists); {counts.get('model',0)} come from
     our Elo model and {len(provisional)} are provisional model lines with thin data.</li>
-    <li><strong>Unresolved.</strong> {len(unresolved)} match(es) cannot be priced from any verified source; they are
-    listed on <a href="unresolved.html">Unresolved</a> with the exact reason, never guessed.</li>
+    <li><strong>Unresolved.</strong> {"No match is currently unpriced." if not unresolved else f"{len(unresolved)} match(es) cannot be priced from any verified source."}
+    The <a href="unresolved.html">Unresolved &amp; limitations</a> page lists every match we refuse to price,
+    every limitation behind the numbers above, and the {len(provisional)} provisional lines with their exact reason.</li>
     <li><strong>Independent of Hotspawn.</strong> Hotspawn's public pick percentages are not used as inputs anywhere
     in the maths - see <a href="methodology.html">Method</a>.</li>
     <li><strong>Sources.</strong> {live_sources} of {len(src_status)} checked data sources responded; the rest are
@@ -304,7 +305,7 @@ def build_picks(rows: list[dict], counts: Counter) -> str:
 """
     return page_shell("All picks", "picks.html", body,
                       f"Every League of Legends match on the Hotspawn pick'em list ({len(rows)} matches), "
-                      "soonest first. Tap a card for the reasoning and source links.")
+                      "next kick-off first. Tap a card for the reasoning and source links.")
 
 
 def build_featured(rows: list[dict]) -> str:
