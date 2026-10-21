@@ -286,6 +286,141 @@ _DAYMON = re.compile(r"^\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov
 _STATUS_WORDS = ("upcoming", "live", "finished", "completed", "ft", "cancelled", "postponed")
 
 
+def _anchor_spans(markup: str):
+    """Yield ``(href, inner_html, start, end)`` for every match-page anchor, with offsets."""
+    stack: list[tuple[int, str]] = []
+    for tok in re.finditer(r"(?is)<a\b[^>]*>|</a>", markup or ""):
+        raw = tok.group(0)
+        if raw.lower().startswith("</a"):
+            if stack:
+                open_end, href = stack.pop()
+                if href:
+                    yield href, markup[open_end:tok.start()], open_end, tok.end()
+            continue
+        href_m = re.search(r"""href\s*=\s*["']([^"']+)["']""", raw, re.I)
+        if not href_m:
+            continue
+        href = href_m.group(1)
+        stack.append((tok.end(), href if "/matches/" in href else None))
+
+
+_DT_ATTR = re.compile(r"""datetime\s*=\s*["']?([0-9]{4}-[0-9]{2}-[0-9]{2}[T ][0-9:]{5,8}Z?)""")
+_ALT_ATTR = re.compile(r"""alt\s*=\s*["']([^"']{2,40})["']""")
+_VS_LINE = re.compile(r"^(?P<a>.{2,40}?)\s+vs\.?\s+(?P<b>.{2,40}?)"
+                      r"(?:\s+(?:Bo\d|Best of \d|\d\s*[:\-]\s*\d|Full Time|Finished|Live).*)?$",
+                      re.I)
+
+
+def _teams_from_bits(bits: list[str]):
+    """First line in the window that reads ``<Home> vs <Away>`` (Hotspawn's fixture-row label)."""
+    for line in bits:
+        m = _VS_LINE.match(line.strip())
+        if m and "hotspawn.com" not in line:
+            return m.group("a").strip(" -–|"), m.group("b").strip(" -–|")
+    return None
+
+
+def _league_rows_from_anchors(markup: str, base_url: str | None = None) -> list[dict]:
+    """Fixture rows read from the *markup window around each match link*.
+
+    Every Hotspawn fixture row links to ``/matches/<slug>-<id>``, and the kickoff, the team labels
+    and (for finished series) the scoreline are printed inside or right after that link.  Anchoring
+    on the link rather than on element names is what survives their template churn, and the exact
+    window each row was parsed from is kept in ``league_raw`` so a decision can be audited.
+    """
+    now = utcnow()
+    rows: list[dict] = []
+    seen: set[int] = set()
+    for href, inner, start, end in _anchor_spans(markup):
+        mm = MATCH_HREF.search(href or "")
+        if not mm:
+            continue
+        fid = int(mm.group("id"))
+        if fid in seen:
+            continue
+        seen.add(fid)
+        tail = markup[end:end + 1600]
+        win = markup[max(0, start - 1600):end + 1600]
+        plain = unescape(re.sub(r"(?is)<[^>]+>", "\n", win))
+        plain_lines = [l.strip() for l in plain.split("\n") if l.strip()]
+        inner_lines = _anchor_lines(inner)
+        tail_lines = [l.strip() for l in
+                      unescape(re.sub(r"(?is)<[^>]+>", "\n", tail)).split("\n") if l.strip()]
+
+        kickoff = None
+        basis = None
+        dt = _DT_ATTR.search(win)
+        if dt:
+            raw_dt = dt.group(1).replace(" ", "T")
+            try:
+                kickoff = datetime.fromisoformat(raw_dt.replace("Z", "+00:00"))
+                if kickoff.tzinfo is None:
+                    kickoff = kickoff.replace(tzinfo=timezone.utc)
+                kickoff = kickoff.astimezone(timezone.utc)
+                basis = "time[datetime] attribute"
+            except ValueError:
+                kickoff = None
+        if kickoff is None:
+            clock = re.search(r"\b(\d{1,2}):(\d{2})\b(?!\s*\d)", plain)
+            day = (re.search(r"\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b"
+                             r"(?:\s+(\d{4}))?", plain, re.I)
+                   or re.search(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})"
+                                r"(?:\s+(\d{4}))?\b", plain, re.I))
+            if clock and day:
+                g = day.groups()
+                if g[0] and str(g[0]).isdigit():
+                    dnum, mon, year = int(g[0]), g[1], g[2]
+                else:
+                    mon, dnum, year = g[0], int(g[1]), g[2]
+                try:
+                    kickoff = datetime(int(year) if year else now.year, MONTHS[mon.lower()],
+                                       dnum, int(clock.group(1)), int(clock.group(2)),
+                                       tzinfo=timezone.utc)
+                    basis = "day label + HH:MM on the row"
+                except (KeyError, ValueError):
+                    kickoff = None
+
+        teams = _teams_from_bits(inner_lines) or _teams_from_bits(tail_lines) \
+            or _teams_from_bits(plain_lines)
+        if not teams:
+            alt = [n for n in _ALT_ATTR.findall(win[:max(0, end - start) + 700])
+                   if "/" not in n and len(n) > 1][:2]
+            teams = (alt[0], alt[1]) if len(alt) == 2 else None
+        split_score = None
+        if not teams:
+            # no "A vs B" label: the row prints the two club names as separate elements
+            t2, s2, st2 = _split_teams_and_score(inner_lines + tail_lines)
+            if len(t2) >= 2:
+                teams = (t2[0], t2[1])
+                split_score = s2
+            if st2 == "upcoming":
+                status = "scheduled"
+        score = re.search(r">\s*(\d{1,2})\s*[:\-]\s*(\d{1,2})\s*<", tail) or \
+            re.search(r">\s*(\d{1,2})\s*[:\-]\s*(\d{1,2})\s*<", inner)
+        status = "scheduled"
+        if re.search(r"(?i)\b(full time|finished|completed)\b", tail):
+            status = "finished"
+        elif re.search(r"(?i)\blive\b|in progress", tail):
+            status = "live"
+        rows.append({
+            "fixture_id": fid,
+            "league_url": base_url,
+            "match_page": f"https://www.hotspawn.com/matches/{mm.group('slug')}-{fid}",
+            "league_kickoff_utc": iso(kickoff),
+            "kickoff_parse_basis": basis,
+            "league_teams": [canon_team(teams[0]), canon_team(teams[1])] if teams else [],
+            "league_display": [teams[0], teams[1]] if teams else [],
+            "league_home_display": teams[0] if teams else None,
+            "league_away_display": teams[1] if teams else None,
+            "league_status": status if score or status != "finished" else "finished",
+            "league_score": ([int(score.group(1)), int(score.group(2))] if score
+                             else list(split_score) if split_score else None),
+            "time_shown_utc": bool(re.search(r"(?i)\b(UTC|GMT)\b", plain)),
+            "league_raw": " | ".join((inner_lines + tail_lines)[:8])[:400],
+        })
+    return rows
+
+
 def _match_anchors(markup: str):
     """Yield ``(href, inner_html)`` for every anchor pointing at a Hotspawn match page.
 
@@ -357,6 +492,18 @@ def parse_league_page(text: str, base_url: str) -> dict:
     fixtures: dict[int, dict] = {}
     for row in _league_rows_from_lines(text, base_url):
         fixtures[row["fixture_id"]] = row
+    for row in _league_rows_from_anchors(text, base_url):
+        prev = fixtures.get(row["fixture_id"])
+        if prev is None or (not prev.get("league_kickoff_utc") and row.get("league_kickoff_utc")):
+            fixtures[row["fixture_id"]] = {**(prev or {}), **{k: v for k, v in row.items()
+                                                              if v not in (None, [], {})}}
+    for row in fixtures.values():          # schema stability for verify + the site
+        row.setdefault("league_teams", [])
+        row.setdefault("league_status", "scheduled")
+        row.setdefault("league_score", None)
+        row.setdefault("league_kickoff_utc", None)
+        row["league_status"] = {"upcoming": "scheduled"}.get(row["league_status"],
+                                                            row["league_status"])
     name = None
     for pat in (r"(?is)<title>(.*?)</title>", r"(?is)<h1[^>]*>(.*?)</h1>"):
         hm = re.search(pat, text or "")

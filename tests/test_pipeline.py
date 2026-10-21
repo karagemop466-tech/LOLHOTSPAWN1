@@ -242,8 +242,12 @@ class LeaguePage(unittest.TestCase):
         fx = {f["fixture_id"]: f for f in out["fixtures"]}
         self.assertIn(1071214, fx)
         self.assertEqual(fx[1071214]["league_kickoff_utc"], "2026-10-22T11:00:00Z")
-        self.assertEqual(fx[1071214]["league_teams"], ["Ascent Gaming", "NTNUI Kometkameratene"])
-        self.assertEqual(fx[1071214]["league_status"], "upcoming")
+        self.assertEqual(fx[1071214]["league_display"],
+                         ["Ascent Gaming", "NTNUI Kometkameratene"])
+        # league_teams is the canonical join key; pin the invariant, not the suffix dictionary
+        self.assertEqual(fx[1071214]["league_teams"],
+                         [hs.canon_team(x) for x in fx[1071214]["league_display"]])
+        self.assertEqual(fx[1071214]["league_status"], "scheduled")
         self.assertEqual(fx[1071216]["league_score"], [2, 0])
 
     def test_results_harvest(self):
