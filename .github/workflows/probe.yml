@@ -1,0 +1,16 @@
+name: probe-sources
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/probe.yml"
+      - "tools/probe.sh"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe endpoints
+        run: bash tools/probe.sh
