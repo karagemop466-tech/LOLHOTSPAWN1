@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-10-21T21:35:41Z",
+  "refresh_hours": 6,
+  "headline": {
+    "matches_on_hotspawn_lol_lobby": 195,
+    "picks_resolved": 95,
+    "from_market_lines": 8,
+    "from_our_own_model": 87,
+    "unresolved": 100,
+    "coverage_pct": 48.7,
+    "leagues": 13,
+    "rated_teams": 96,
+    "verified_results_used": 155,
+    "flags": 104,
+    "lobby_reported_totals": {
+      "matches_this_week": 138,
+      "tiers_count": 264,
+      "reset_in_s": 361668,
+      "card_markers": 195
+    },
+    "feed_only_fixtures": 80,
+    "feed_fixture_count": 795,
+    "feed_upcoming_not_in_lobby": 0
+  },
+  "basis_counts": {
+    "model": 87,
+    "unresolved": 100,
+    "market": 8
+  },
+  "tier_counts": {
+    "A": 2,
+    "C": 46,
+    "WAITING": 137,
+    "D": 1,
+    "S": 9
+  },
+  "league_counts": {
+    "PRM 3rd Division 26-27 Fall": 63,
+    "PRM 2nd Division 26-27 Fall": 40,
+    "Tunisian Super League 2026": 25,
+    "RIVALS LEAGUE Season 2": 18,
+    "4 Nations 2026 Halloween Heist": 18,
+    "Arabian League 2nd Division 2026 Summer": 9,
+    "Worlds 2026 Main Event": 8,
+    "Komplettligaen 2026 Autumn": 6,
+    "LigaGG CELOL B 2026 Split 2 Playoffs": 4,
+    "EM 2026 Summer Main Event": 1,
+    "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine": 1,
+    "LGC Rising 2026 Playoffs": 1,
+    "LCP 2027 Promotion": 1
+  },
+  "model_confidence": {
+    "low": 2,
+    "very low": 85
+  },
+  "sources": {
+    "oddsportal_rows": 16,
+    "polymarket_markets": 17,
+    "probes": [
+      {
+        "label": "BetExplorer (esports book aggregator)",
+        "url": "https://www.betexplorer.com/esports/league-of-legends/",
+        "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+      },
+      {
+        "label": "Oddschecker (odds comparison)",
+        "url": "https://www.oddschecker.com/esports/league-of-legends",
+        "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+      },
+      {
+        "label": "Oddspedia (livescore + odds)",
+        "url": "https://en.oddspedia.com/league-of-legends",
+        "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+      },
+      {
+        "label": "SportsInteraction (odds comparison)",
+        "url": "https://www.sportsinteraction.com/esports/league-of-legends/odds",
+        "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+      },
+      {
+        "label": "Pinnacle (sportsbook)",
+        "url": "https://www.pinnacle.com/en/esports/matchups",
+        "verdict": "page reached but no machine-readable LoL odds table"
+      },
+      {
+        "label": "Betway Esports (sportsbook)",
+        "url": "https://sports.betway.com/en/bet/sport/40010572/cmp/123456",
+        "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+      },
+      {
+        "label": "Sofascore (LoL livescore API)",
+        "url": "https://api.sofascore.com/api/v1/sport/esports/season/9539/scheduled-categories",
+        "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+      },
+      {
+        "label": "Thunderpick (Hotspawn partner book)",
+        "url": "https://api.thunderpick.com/api/v1/sports-wallet/events?sportId=20",
+        "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+      },
+      {
+        "label": "Liquipedia LoL (schedule/results wiki)",
+        "url": "https://liquipedia.net/leagueoflegends/index.php?search=Worlds+2026&title=Special:Search",
+        "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+      },
+      {
+        "label": "LoL Esports official API (Riot)",
+        "url": "https://esports-api.lolesports.com/persisted/gw/getLeagues?hlsg=en",
+        "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+      }
+    ]
+  }
+}

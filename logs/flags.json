@@ -1,0 +1,926 @@
+{
+  "groups": [
+    {
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "count": 37,
+      "match": "37 rows",
+      "matches": [
+        "Ascent Gaming vs NTNUI Kometkameratene",
+        "Solid Gaming vs DMG Esports Norway",
+        "Volda E-Sport vs CNG Royal",
+        "Your Saviours vs Mixlag fra Trondheim",
+        "Absolved vs The Bandits UK",
+        "Brod n Friends vs Crownless",
+        "Good Chi vs Inari Esports",
+        "HL Tauri Esports vs Bulldog Esports"
+      ],
+      "fixture_ids": [
+        1071214,
+        1071216,
+        1071218,
+        1071219,
+        1081651,
+        1081652,
+        1081653,
+        1081654,
+        1081655,
+        1081656,
+        1071215,
+        1081659
+      ],
+      "source_url": "https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214",
+      "candidates": []
+    },
+    {
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "count": 37,
+      "match": "37 rows",
+      "matches": [
+        "Ascent Gaming vs NTNUI Kometkameratene",
+        "Solid Gaming vs DMG Esports Norway",
+        "Volda E-Sport vs CNG Royal",
+        "Your Saviours vs Mixlag fra Trondheim",
+        "Absolved vs The Bandits UK",
+        "Brod n Friends vs Crownless",
+        "Good Chi vs Inari Esports",
+        "HL Tauri Esports vs Bulldog Esports"
+      ],
+      "fixture_ids": [
+        1071214,
+        1071216,
+        1071218,
+        1071219,
+        1081651,
+        1081652,
+        1081653,
+        1081654,
+        1081655,
+        1081656,
+        1071215,
+        1081659
+      ],
+      "source_url": null,
+      "candidates": []
+    },
+    {
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "count": 14,
+      "match": "14 rows",
+      "matches": [
+        "Atruvia Münster Esports vs Kanji Esports AKA",
+        "Babos Gaming Academy vs AIX eSports",
+        "Berlin 5 vs Emperors Bremen",
+        "Black Lion vs VfB x Engines Stuttgart",
+        "BlackDivision vs MT1 Vision",
+        "Defiance eSports vs Purple Emperor Lizards - Atomic",
+        "Eintracht Spandau Zwei vs LOOKSMAXXER",
+        "Glacial Guardians vs Kanji Esports KIN"
+      ],
+      "fixture_ids": [
+        1075793,
+        1075794,
+        1075795,
+        1075796,
+        1075797,
+        1075798,
+        1075799,
+        1075800,
+        1075801,
+        1075802,
+        1075803,
+        1075804
+      ],
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall",
+      "candidates": []
+    },
+    {
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "count": 6,
+      "match": "6 rows",
+      "matches": [
+        "Levelers vs MTN ESPORTS TEAM",
+        "DMG Esports Sweden vs FlameHard",
+        "Olympique Mnihla Academy vs Simplicity Gaming",
+        "Ground Zero Gaming vs Frank Esports",
+        "Defiance eSports vs Purple Emperor Lizards - Atomic",
+        "Babos Gaming vs Reveal Multigaming"
+      ],
+      "fixture_ids": [
+        1082839,
+        1082748,
+        1080945,
+        1081423,
+        1075798,
+        1079060
+      ],
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-regional-championship-2026-lebanon-libya-syria-palestine",
+      "candidates": []
+    },
+    {
+      "match": "JSK Esports vs El Menzah Esports",
+      "fixture_id": 1080924,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 20160 min — league page used, flagged",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
+    },
+    {
+      "match": "Ground Zero Gaming vs Frank Esports",
+      "fixture_id": 1081423,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 2880 min — league page used, flagged",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/lcp-2027-promotion"
+    },
+    {
+      "match": "Team Secret Whales vs LYON",
+      "fixture_id": 1067679,
+      "field": "lobby_parse",
+      "reason": "lobby date line not parseable -> no kickoff",
+      "source_url": "https://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679"
+    },
+    {
+      "match": "Anyone's Legend vs Karmine Corp",
+      "fixture_id": 1067675,
+      "field": "team[0]",
+      "reason": "lobby label \"Anyone's Legend\" does not match the fixture record label 'anyones legend'",
+      "source_url": "https://www.hotspawn.com/matches/anyones-legend-vs-karmine-corp-worlds-2026-main-event-1067675"
+    },
+    {
+      "match": "Northern Wolves Esports vs Rich Gang Sweden",
+      "fixture_id": 1074665,
+      "field": "team[0]",
+      "reason": "lobby label 'Northern Wolves Esports' does not match the fixture record label 'Rich Gang Sweden'",
+      "source_url": "https://www.hotspawn.com/matches/rich-gang-sweden-vs-northern-wolves-esports-rivals-league-season-2-1074665"
+    },
+    {
+      "match": "Pegasus Esports vs JSK Academy",
+      "fixture_id": 1079145,
+      "field": "team[0]",
+      "reason": "lobby label 'Pegasus Esports' does not match the fixture record label 'JSK Academy'",
+      "source_url": "https://www.hotspawn.com/matches/jsk-academy-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079145"
+    },
+    {
+      "match": "Phong Vũ Buffalo vs regnum4games",
+      "fixture_id": 1079057,
+      "field": "team[0]",
+      "reason": "lobby label 'Phong Vũ Buffalo' does not match the fixture record label 'regnum4games'",
+      "source_url": "https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057"
+    },
+    {
+      "match": "Northern Wolves Esports vs Rich Gang Sweden",
+      "fixture_id": 1074665,
+      "field": "team[1]",
+      "reason": "lobby label 'Rich Gang Sweden' does not match the fixture record label 'Northern Wolves Esports'",
+      "source_url": "https://www.hotspawn.com/matches/rich-gang-sweden-vs-northern-wolves-esports-rivals-league-season-2-1074665"
+    },
+    {
+      "match": "Pegasus Esports vs JSK Academy",
+      "fixture_id": 1079145,
+      "field": "team[1]",
+      "reason": "lobby label 'JSK Academy' does not match the fixture record label 'Pegasus Esports'",
+      "source_url": "https://www.hotspawn.com/matches/jsk-academy-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079145"
+    },
+    {
+      "match": "Phong Vũ Buffalo vs regnum4games",
+      "fixture_id": 1079057,
+      "field": "team[1]",
+      "reason": "lobby label 'regnum4games' does not match the fixture record label 'Phong Vũ Buffalo'",
+      "source_url": "https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057"
+    }
+  ],
+  "generated_at": "2026-10-21T21:35:41Z",
+  "count": 104,
+  "items": [
+    {
+      "match": "Ascent Gaming vs NTNUI Kometkameratene",
+      "fixture_id": 1071214,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214"
+    },
+    {
+      "match": "Ascent Gaming vs NTNUI Kometkameratene",
+      "fixture_id": 1071214,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Solid Gaming vs DMG Esports Norway",
+      "fixture_id": 1071216,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216"
+    },
+    {
+      "match": "Solid Gaming vs DMG Esports Norway",
+      "fixture_id": 1071216,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Volda E-Sport vs CNG Royal",
+      "fixture_id": 1071218,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/volda-e-sport-vs-cng-royal-komplettligaen-2026-autumn-1071218"
+    },
+    {
+      "match": "Volda E-Sport vs CNG Royal",
+      "fixture_id": 1071218,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Your Saviours vs Mixlag fra Trondheim",
+      "fixture_id": 1071219,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/your-saviours-vs-mixlag-fra-trondheim-komplettligaen-2026-autumn-1071219"
+    },
+    {
+      "match": "Your Saviours vs Mixlag fra Trondheim",
+      "fixture_id": 1071219,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Absolved vs The Bandits UK",
+      "fixture_id": 1081651,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/absolved-vs-the-bandits-uk-4-nations-2026-halloween-heist-1081651"
+    },
+    {
+      "match": "Absolved vs The Bandits UK",
+      "fixture_id": 1081651,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Brod n Friends vs Crownless",
+      "fixture_id": 1081652,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/brod-n-friends-vs-crownless-4-nations-2026-halloween-heist-1081652"
+    },
+    {
+      "match": "Brod n Friends vs Crownless",
+      "fixture_id": 1081652,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Good Chi vs Inari Esports",
+      "fixture_id": 1081653,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/good-chi-vs-inari-esports-4-nations-2026-halloween-heist-1081653"
+    },
+    {
+      "match": "Good Chi vs Inari Esports",
+      "fixture_id": 1081653,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "HL Tauri Esports vs Bulldog Esports",
+      "fixture_id": 1081654,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/hl-tauri-esports-vs-bulldog-esports-4-nations-2026-halloween-heist-1081654"
+    },
+    {
+      "match": "HL Tauri Esports vs Bulldog Esports",
+      "fixture_id": 1081654,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Rich Gang UK vs Abyssal Randoms",
+      "fixture_id": 1081655,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/rich-gang-uk-vs-abyssal-randoms-4-nations-2026-halloween-heist-1081655"
+    },
+    {
+      "match": "Rich Gang UK vs Abyssal Randoms",
+      "fixture_id": 1081655,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Team Vertex vs Glorp Cat",
+      "fixture_id": 1081656,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/team-vertex-vs-glorp-cat-4-nations-2026-halloween-heist-1081656"
+    },
+    {
+      "match": "Team Vertex vs Glorp Cat",
+      "fixture_id": 1081656,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Playwell Rød Q vs Rich Gang",
+      "fixture_id": 1071215,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/playwell-rod-q-vs-rich-gang-komplettligaen-2026-autumn-1071215"
+    },
+    {
+      "match": "Playwell Rød Q vs Rich Gang",
+      "fixture_id": 1071215,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Abyssal Randoms vs Good Chi",
+      "fixture_id": 1081659,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/abyssal-randoms-vs-good-chi-4-nations-2026-halloween-heist-1081659"
+    },
+    {
+      "match": "Abyssal Randoms vs Good Chi",
+      "fixture_id": 1081659,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Bulldog Esports vs Ruddy Ultras",
+      "fixture_id": 1081660,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/bulldog-esports-vs-ruddy-ultras-4-nations-2026-halloween-heist-1081660"
+    },
+    {
+      "match": "Bulldog Esports vs Ruddy Ultras",
+      "fixture_id": 1081660,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Crownless vs Team Vertex",
+      "fixture_id": 1081661,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/crownless-vs-team-vertex-4-nations-2026-halloween-heist-1081661"
+    },
+    {
+      "match": "Crownless vs Team Vertex",
+      "fixture_id": 1081661,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Glorp Cat vs Brod n Friends",
+      "fixture_id": 1081662,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/glorp-cat-vs-brod-n-friends-4-nations-2026-halloween-heist-1081662"
+    },
+    {
+      "match": "Glorp Cat vs Brod n Friends",
+      "fixture_id": 1081662,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Inari Esports vs Rich Gang UK",
+      "fixture_id": 1081663,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/inari-esports-vs-rich-gang-uk-4-nations-2026-halloween-heist-1081663"
+    },
+    {
+      "match": "Inari Esports vs Rich Gang UK",
+      "fixture_id": 1081663,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "The Bandits UK vs PNS",
+      "fixture_id": 1081664,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/the-bandits-uk-vs-pns-4-nations-2026-halloween-heist-1081664"
+    },
+    {
+      "match": "The Bandits UK vs PNS",
+      "fixture_id": 1081664,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Abyssal Randoms vs Inari Esports",
+      "fixture_id": 1081667,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/abyssal-randoms-vs-inari-esports-4-nations-2026-halloween-heist-1081667"
+    },
+    {
+      "match": "Abyssal Randoms vs Inari Esports",
+      "fixture_id": 1081667,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Glorp Cat vs Crownless",
+      "fixture_id": 1081668,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/glorp-cat-vs-crownless-4-nations-2026-halloween-heist-1081668"
+    },
+    {
+      "match": "Glorp Cat vs Crownless",
+      "fixture_id": 1081668,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Good Chi vs Rich Gang UK",
+      "fixture_id": 1081669,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/good-chi-vs-rich-gang-uk-4-nations-2026-halloween-heist-1081669"
+    },
+    {
+      "match": "Good Chi vs Rich Gang UK",
+      "fixture_id": 1081669,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "PNS vs Absolved",
+      "fixture_id": 1081670,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/pns-vs-absolved-4-nations-2026-halloween-heist-1081670"
+    },
+    {
+      "match": "PNS vs Absolved",
+      "fixture_id": 1081670,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Ruddy Ultras vs HL Tauri Esports",
+      "fixture_id": 1081671,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/ruddy-ultras-vs-hl-tauri-esports-4-nations-2026-halloween-heist-1081671"
+    },
+    {
+      "match": "Ruddy Ultras vs HL Tauri Esports",
+      "fixture_id": 1081671,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Team Vertex vs Brod n Friends",
+      "fixture_id": 1081672,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/team-vertex-vs-brod-n-friends-4-nations-2026-halloween-heist-1081672"
+    },
+    {
+      "match": "Team Vertex vs Brod n Friends",
+      "fixture_id": 1081672,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Rich Gang vs Phenti",
+      "fixture_id": 1071212,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/rich-gang-vs-phenti-komplettligaen-2026-autumn-1071212"
+    },
+    {
+      "match": "Rich Gang vs Phenti",
+      "fixture_id": 1071212,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Levelers vs MTN ESPORTS TEAM",
+      "fixture_id": 1082839,
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/arabian-regional-championship-2026-lebanon-libya-syria-palestine"
+    },
+    {
+      "match": "Gen.G vs Invictus Gaming",
+      "fixture_id": 1067878,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878"
+    },
+    {
+      "match": "Gen.G vs Invictus Gaming",
+      "fixture_id": 1067878,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Hanwha Life Esports vs Top Esports",
+      "fixture_id": 1067677,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/hanwha-life-esports-vs-top-esports-worlds-2026-main-event-1067677"
+    },
+    {
+      "match": "Hanwha Life Esports vs Top Esports",
+      "fixture_id": 1067677,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Bilibili Gaming vs Movistar KOI",
+      "fixture_id": 1067680,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/bilibili-gaming-vs-movistar-koi-worlds-2026-main-event-1067680"
+    },
+    {
+      "match": "Bilibili Gaming vs Movistar KOI",
+      "fixture_id": 1067680,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Anyone's Legend vs Karmine Corp",
+      "fixture_id": 1067675,
+      "field": "team[0]",
+      "reason": "lobby label \"Anyone's Legend\" does not match the fixture record label 'anyones legend'",
+      "source_url": "https://www.hotspawn.com/matches/anyones-legend-vs-karmine-corp-worlds-2026-main-event-1067675"
+    },
+    {
+      "match": "Anyone's Legend vs Karmine Corp",
+      "fixture_id": 1067675,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/anyones-legend-vs-karmine-corp-worlds-2026-main-event-1067675"
+    },
+    {
+      "match": "Anyone's Legend vs Karmine Corp",
+      "fixture_id": 1067675,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "G2 Esports vs Dplus KIA",
+      "fixture_id": 1067676,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/g2-esports-vs-dplus-kia-worlds-2026-main-event-1067676"
+    },
+    {
+      "match": "G2 Esports vs Dplus KIA",
+      "fixture_id": 1067676,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Team Liquid vs CTBC Flying Oyster",
+      "fixture_id": 1067879,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/team-liquid-vs-ctbc-flying-oyster-worlds-2026-main-event-1067879"
+    },
+    {
+      "match": "Team Liquid vs CTBC Flying Oyster",
+      "fixture_id": 1067879,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "LØS vs T1",
+      "fixture_id": 1067678,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/los-vs-t1-worlds-2026-main-event-1067678"
+    },
+    {
+      "match": "LØS vs T1",
+      "fixture_id": 1067678,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Team Secret Whales vs LYON",
+      "fixture_id": 1067679,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679"
+    },
+    {
+      "match": "Team Secret Whales vs LYON",
+      "fixture_id": 1067679,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Team Secret Whales vs LYON",
+      "fixture_id": 1067679,
+      "field": "lobby_parse",
+      "reason": "lobby date line not parseable -> no kickoff",
+      "source_url": "https://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679"
+    },
+    {
+      "match": "BaronX vs Marere Academy",
+      "fixture_id": 1081085,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/baronx-vs-marere-academy-ligagg-celol-b-2026-split-2-playoffs-1081085"
+    },
+    {
+      "match": "BaronX vs Marere Academy",
+      "fixture_id": 1081085,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Final Level eSports Academy vs Infinity Gaming",
+      "fixture_id": 1081086,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/final-level-esports-academy-vs-infinity-gaming-ligagg-celol-b-2026-split-2-playoffs-1081086"
+    },
+    {
+      "match": "Final Level eSports Academy vs Infinity Gaming",
+      "fixture_id": 1081086,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "JSK Esports vs El Menzah Esports",
+      "fixture_id": 1080924,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 20160 min — league page used, flagged",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
+    },
+    {
+      "match": "Docta Esports Club vs Clã NKZ Revengers",
+      "fixture_id": 1081083,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/docta-esports-club-vs-cla-nkz-revengers-ligagg-celol-b-2026-split-2-playoffs-1081083"
+    },
+    {
+      "match": "Docta Esports Club vs Clã NKZ Revengers",
+      "fixture_id": 1081083,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Maze GG vs Viktus",
+      "fixture_id": 1081084,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/maze-gg-vs-viktus-ligagg-celol-b-2026-split-2-playoffs-1081084"
+    },
+    {
+      "match": "Maze GG vs Viktus",
+      "fixture_id": 1081084,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Northern Wolves Esports vs Rich Gang Sweden",
+      "fixture_id": 1074665,
+      "field": "team[0]",
+      "reason": "lobby label 'Northern Wolves Esports' does not match the fixture record label 'Rich Gang Sweden'",
+      "source_url": "https://www.hotspawn.com/matches/rich-gang-sweden-vs-northern-wolves-esports-rivals-league-season-2-1074665"
+    },
+    {
+      "match": "Northern Wolves Esports vs Rich Gang Sweden",
+      "fixture_id": 1074665,
+      "field": "team[1]",
+      "reason": "lobby label 'Rich Gang Sweden' does not match the fixture record label 'Northern Wolves Esports'",
+      "source_url": "https://www.hotspawn.com/matches/rich-gang-sweden-vs-northern-wolves-esports-rivals-league-season-2-1074665"
+    },
+    {
+      "match": "Mental Rush vs Vitality Rising Bees",
+      "fixture_id": 1079080,
+      "field": "fixture_exists",
+      "reason": "no fixture record returned by Hotspawn's public feed for this id — match page listed in lobby only, left unverified",
+      "source_url": "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080"
+    },
+    {
+      "match": "Mental Rush vs Vitality Rising Bees",
+      "fixture_id": 1079080,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: lobby printed time (UTC) only — Hotspawn's own league page for this fixture could not be read by the collector",
+      "source_url": null
+    },
+    {
+      "match": "Pegasus Esports vs JSK Academy",
+      "fixture_id": 1079145,
+      "field": "team[0]",
+      "reason": "lobby label 'Pegasus Esports' does not match the fixture record label 'JSK Academy'",
+      "source_url": "https://www.hotspawn.com/matches/jsk-academy-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079145"
+    },
+    {
+      "match": "Pegasus Esports vs JSK Academy",
+      "fixture_id": 1079145,
+      "field": "team[1]",
+      "reason": "lobby label 'JSK Academy' does not match the fixture record label 'Pegasus Esports'",
+      "source_url": "https://www.hotspawn.com/matches/jsk-academy-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079145"
+    },
+    {
+      "match": "DMG Esports Sweden vs FlameHard",
+      "fixture_id": 1082748,
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/rivals-league-season-2"
+    },
+    {
+      "match": "Olympique Mnihla Academy vs Simplicity Gaming",
+      "fixture_id": 1080945,
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/tunisian-super-league-2026"
+    },
+    {
+      "match": "Ground Zero Gaming vs Frank Esports",
+      "fixture_id": 1081423,
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/lcp-2027-promotion"
+    },
+    {
+      "match": "Ground Zero Gaming vs Frank Esports",
+      "fixture_id": 1081423,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: league page and lobby countdown disagree by 2880 min — league page used, flagged",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/lcp-2027-promotion"
+    },
+    {
+      "match": "Phong Vũ Buffalo vs regnum4games",
+      "fixture_id": 1079057,
+      "field": "team[0]",
+      "reason": "lobby label 'Phong Vũ Buffalo' does not match the fixture record label 'regnum4games'",
+      "source_url": "https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057"
+    },
+    {
+      "match": "Phong Vũ Buffalo vs regnum4games",
+      "fixture_id": 1079057,
+      "field": "team[1]",
+      "reason": "lobby label 'regnum4games' does not match the fixture record label 'Phong Vũ Buffalo'",
+      "source_url": "https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057"
+    },
+    {
+      "match": "Atruvia Münster Esports vs Kanji Esports AKA",
+      "fixture_id": 1075793,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Babos Gaming Academy vs AIX eSports",
+      "fixture_id": 1075794,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Berlin 5 vs Emperors Bremen",
+      "fixture_id": 1075795,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Black Lion vs VfB x Engines Stuttgart",
+      "fixture_id": 1075796,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "BlackDivision vs MT1 Vision",
+      "fixture_id": 1075797,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Defiance eSports vs Purple Emperor Lizards - Atomic",
+      "fixture_id": 1075798,
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Defiance eSports vs Purple Emperor Lizards - Atomic",
+      "fixture_id": 1075798,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Eintracht Spandau Zwei vs LOOKSMAXXER",
+      "fixture_id": 1075799,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Glacial Guardians vs Kanji Esports KIN",
+      "fixture_id": 1075800,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Duplex Silva Pigeons Edition vs Neko Elite Kittens",
+      "fixture_id": 1075801,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "REH Gaming vs Cloud eSport",
+      "fixture_id": 1075802,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Rich Gang vs Whalepower Humpbacks",
+      "fixture_id": 1075803,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Second Time Alive Revival vs spongecord prime",
+      "fixture_id": 1075804,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Team 300 White vs 1. Esport Club Frankfurt e.V.",
+      "fixture_id": 1075805,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "TeamOrangeGaming Academy vs Socken und Sandalen",
+      "fixture_id": 1075806,
+      "field": "kickoff_utc",
+      "reason": "kickoff not cross-checked: MISMATCH: schedule page shows 18:00 UTC, lobby card shows 16:00 — flagged, lobby value kept",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-3rd-division-26-27-fall"
+    },
+    {
+      "match": "Babos Gaming vs Reveal Multigaming",
+      "fixture_id": 1079060,
+      "field": "lobby_offers_finished_match",
+      "reason": "Hotspawn's schedule page marks this series finished while the pick'em lobby still lets a pick be made for it — do not spend a pick here",
+      "source_url": "https://www.hotspawn.com/league-of-legends/tournament/prm-2nd-division-26-27-fall"
+    }
+  ]
+}
