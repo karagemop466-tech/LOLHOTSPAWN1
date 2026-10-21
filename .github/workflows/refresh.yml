@@ -26,6 +26,8 @@ jobs:
         run: python3 tools/collect.py
       - name: Build probabilities and picks
         run: python3 tools/model.py
+      - name: Derive flagged items
+        run: python3 tools/flags.py
       - name: Build the GitHub Pages site
         run: python3 tools/site.py
       - name: Verify the dataset and the site

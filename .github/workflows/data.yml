@@ -6,8 +6,12 @@ on:
       - "tools/collect.py"
       - "tools/model.py"
       - "tools/report.py"
+      - "tools/site.py"
+      - "tools/verify.py"
+      - "tools/flags.py"
       - "tools/common.py"
       - "data/aliases.json"
+      - "data/flags_manual.json"
       - ".github/workflows/data.yml"
 
 permissions:
@@ -16,7 +20,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,15 +28,19 @@ jobs:
           python-version: "3.12"
       - name: Run pipeline (log captured)
         run: |
-          set -o pipefail
           mkdir -p data
-          { python3 tools/collect.py; echo "=== MODEL ==="; python3 tools/model.py; echo "=== REPORT ==="; python3 tools/report.py; } > data/build.log 2>&1
-      - name: Commit data
+          { python3 tools/collect.py && \
+            echo "=== MODEL ===" && python3 tools/model.py && \
+            echo "=== REPORT ===" && python3 tools/report.py && \
+            echo "=== FLAGS ===" && python3 tools/flags.py && \
+            echo "=== SITE ===" && python3 tools/site.py && \
+            echo "=== VERIFY ===" && python3 tools/verify.py; } > data/build.log 2>&1
+      - name: Commit data and site
         if: always()
         run: |
           git config user.name "arena-agent"
           git config user.email "agent@users.noreply.github.com"
-          git add data
-          git commit -m "chore(data): build dataset [skip ci]" || echo "nothing to commit"
+          git add data docs
+          git commit -m "chore(data): build dataset and site [skip ci]" || echo "nothing to commit"
           git pull --rebase -q origin "${GITHUB_REF_NAME}" || true
           git push

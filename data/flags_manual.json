@@ -1,0 +1,47 @@
+{
+ "note": "Curated, human-reviewed observations. Derived flags are appended by tools/flags.py on every build.",
+ "flags": [
+  {
+   "severity": "medium",
+   "item": "Hotspawn lists 'Phong Vũ Buffalo' in the German Prime League 2nd Division",
+   "detail": "Five fixtures in PRM 2nd Division 26-27 Fall pair Phong Vũ Buffalo (a Vietnamese organisation) against German teams. Leaguepedia has no team of that name with any recorded series, and no Vietnamese roster appears in that league. The team is therefore left unmatched and those five matches carry the 1500 baseline for that side. Flagged for review rather than guessed.",
+   "source": "https://www.hotspawn.com/matches/?s=phong+vu+buffalo"
+  },
+  {
+   "severity": "info",
+   "item": "Hotspawn tier field is 'waiting for information' for 189 of 264 LoL matches",
+   "detail": "The fixtures API returns tier='waiting for information' and stage='waiting for information' for most non-featured LoL fixtures. Tier is reproduced verbatim and not inferred from the league name.",
+   "source": "https://play.hotspawn.com/lol-pickems"
+  },
+  {
+   "severity": "info",
+   "item": "Only 9 of 264 matches have a published bookmaker price",
+   "detail": "The featured (market) tier is the World Championship plus one EMEA Masters fixture. That is a property of the market, not of this pipeline: tier-B/C/D national leagues are not offered by Pinnacle. GG.BET, EGamersWorld, Oddspedia, BetExplorer and Unibet/Kambi were also probed on every build and are recorded on the Sources page.",
+   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+  },
+  {
+   "severity": "low",
+   "item": "Leaguepedia is a community wiki, not a Riot Games property",
+   "detail": "Series results for the Elo model come from Leaguepedia's Cargo export (volunteer-maintained, the de-facto LoL esports results database). Riot's official LoL Esports API is used as a cross-check for the World Championship schedule only, because it does not publish these national leagues.",
+   "source": "https://lol.fandom.com/wiki/Special:CargoExport"
+  },
+  {
+   "severity": "low",
+   "item": "Elo ratings are only comparable inside one opponent graph",
+   "detail": "Ratings are fitted per league network. A team that never played a common opponent with its fixture opponent cannot be compared meaningfully; those matches are marked provisional with the 'no shared-opponent chain' note.",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/tools/model.py"
+  },
+  {
+   "severity": "info",
+   "item": "List horizon extends past the 7-day pick'em window",
+   "detail": "Hotspawn lists fixtures up to mid-November (the PRM 3rd Division round on 2026-11-15), beyond the current weekly reset. All listed fixtures are kept so coverage matches the site exactly.",
+   "source": "https://play.hotspawn.com/lol-pickems"
+  },
+  {
+   "severity": "info",
+   "item": "Hotspawn community pick percentages are stored but never used",
+   "detail": "The fixtures API exposes participants*_picked_percent. These values are persisted in data/raw/hotspawn_lol.json for transparency and are not read by the model, the picks, or any probability on the site.",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/raw/hotspawn_lol.json"
+  }
+ ]
+}
