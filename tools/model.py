@@ -82,7 +82,10 @@ class UnionFind:
             self.parent[rb] = ra
 
 
-def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind]:
+BACKTEST_CUTOFF = datetime(2026, 7, 1, tzinfo=timezone.utc)
+
+
+def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, dict]:
     ratings: dict[str, float] = {}
     counts: dict[str, int] = {}
     last_seen: dict[str, datetime] = {}
@@ -100,10 +103,29 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind]:
         uf.union(m["team1"], m["team2"])
 
     games.sort(key=lambda g: g[0])
+    bt = {"cutoff": BACKTEST_CUTOFF.strftime("%Y-%m-%d"), "n": 0, "hits": 0,
+          "brier_sum": 0.0, "logloss_sum": 0.0, "buckets": {}}
     for dt, t1, t2, winner in games:
         r1 = ratings.get(t1, ELO_START)
         r2 = ratings.get(t2, ELO_START)
         exp1 = 1 / (1 + 10 ** ((r2 - r1) / 400))
+        if dt >= BACKTEST_CUTOFF:
+            # predict-then-update: this is an out-of-sample prediction
+            y = 1.0 if winner == 1 else 0.0
+            fav_p = max(exp1, 1 - exp1)
+            hit = (exp1 >= 0.5) == (winner == 1)
+            bt["n"] += 1
+            bt["hits"] += 1 if hit else 0
+            bt["brier_sum"] += (exp1 - y) ** 2
+            eps = 1e-9
+            bt["logloss_sum"] += -(y * __import__("math").log(max(exp1, eps)) +
+                                   (1 - y) * __import__("math").log(max(1 - exp1, eps)))
+            bucket = ("50-60%" if fav_p < 0.60 else "60-70%" if fav_p < 0.70 else
+                      "70-80%" if fav_p < 0.80 else "80%+")
+            b = bt["buckets"].setdefault(bucket, {"n": 0, "hits": 0, "sum_p": 0.0})
+            b["n"] += 1
+            b["hits"] += 1 if hit else 0
+            b["sum_p"] += fav_p
         s1 = 1.0 if winner == 1 else 0.0
         ratings[t1] = r1 + ELO_K * (s1 - exp1)
         ratings[t2] = r2 + ELO_K * ((1 - s1) - (1 - exp1))
@@ -118,7 +140,18 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind]:
         if days > DECAY_START_DAYS:
             factor = max(0.0, 1 - (days - DECAY_START_DAYS) / DECAY_FULL_DAYS)
             ratings[team] = ELO_START + (ratings[team] - ELO_START) * factor
-    return ratings, counts, last_seen, uf
+
+    if bt["n"]:
+        bt["accuracy"] = round(bt["hits"] / bt["n"], 4)
+        bt["brier"] = round(bt["brier_sum"] / bt["n"], 4)
+        bt["logloss"] = round(bt["logloss_sum"] / bt["n"], 4)
+        for name, b in bt["buckets"].items():
+            b["accuracy"] = round(b["hits"] / b["n"], 4) if b["n"] else None
+            b["mean_predicted"] = round(b["sum_p"] / b["n"], 4) if b["n"] else None
+            b.pop("sum_p", None)
+    bt.pop("brier_sum", None)
+    bt.pop("logloss_sum", None)
+    return ratings, counts, last_seen, uf, bt
 
 
 def effective_rating(team: str, ratings: dict, counts: dict) -> float | None:
@@ -290,7 +323,7 @@ def main() -> None:
     aliases_raw = (load_json(os.path.join(DATA, "aliases.json"), default={}) or {}).get("aliases") or {}
     aliases = {norm_name(k): v for k, v in aliases_raw.items()}
     comp_map = map_competitions(fixtures, page_teams, base)
-    ratings, counts, last_seen, uf = build_ratings(lp_matches)
+    ratings, counts, last_seen, uf, backtest = build_ratings(lp_matches)
 
     pin_index = []
     for mk in pin.get("markets") or []:
@@ -399,6 +432,16 @@ def main() -> None:
 
         for side, notes in ((row["team0"], note0), (row["team1"], note1)):
             flags.extend(notes)
+        stale = False
+        if f.get("start_utc"):
+            try:
+                start_dt = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+                stale = (datetime.now(timezone.utc) - start_dt).total_seconds() > 3 * 3600
+            except ValueError:
+                stale = False
+        if stale:
+            flags.append("start time has passed but Hotspawn still lists the fixture as scheduled "
+                         "(likely postponed or awaiting a result)")
         if row["team0"]["join"] == "ambiguous" or row["team1"]["join"] == "ambiguous":
             flags.append("team name could not be matched unambiguously")
 
@@ -413,7 +456,7 @@ def main() -> None:
                     "p1": round(p1, 4) if p1 is not None else None,
                     "method": method, "confidence": confidence, "basis": basis,
                     "flags": sorted(set(flags)), "pick": pick, "market": market,
-                    "connected": connected,
+                    "connected": connected, "stale": stale,
                     "community_pick_pct": f["community_pick_pct"]})
         rows.append(row)
 
@@ -432,6 +475,7 @@ def main() -> None:
                     "leaguepedia": lp.get("source_url"), "polymarket": pmkt.get("source_url"),
                     "source_status_utc": sources.get("checked_utc")},
         "counts": counts_by_method,
+        "backtest": backtest,
         "total": len(rows),
         "matches": rows,
     })
@@ -458,6 +502,7 @@ def main() -> None:
                         r["method"], r["confidence"], r["basis"], "; ".join(r["flags"]),
                         r["hotspawn_url"], (r["market"] or {}).get("api_url", "")])
     log(f"rows={len(rows)} methods={counts_by_method} joins={len(join_log)}")
+    log(f"backtest n={backtest.get('n')} acc={backtest.get('accuracy')} brier={backtest.get('brier')}")
 
 
 def slugify(value: str) -> str:

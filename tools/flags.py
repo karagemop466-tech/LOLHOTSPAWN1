@@ -70,6 +70,19 @@ def main() -> None:
             "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/sources_status.json",
         })
 
+    stale = [r for r in rows if r.get("stale")]
+    if stale:
+        flags.append({
+            "severity": "medium",
+            "item": f"{len(stale)} fixtures still listed as 'scheduled' although their start time has passed",
+            "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the "
+                      "published start time is more than three hours in the past (earliest "
+                      f"{min((r['start_utc'] or '') for r in stale)}). They are kept in the list to mirror "
+                      "Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming "
+                      "matches. Most likely postponed or awaiting a result.",
+            "source": HOTSPAWN,
+        })
+
     priced = counts.get("market", 0)
     flags.append({
         "severity": "info",

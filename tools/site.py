@@ -89,7 +89,7 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{e(title)} &middot; Hotspawn LoL Pick Desk</title>
+<title>{e(title if "Hotspawn LoL Pick Desk" in title else title + " · Hotspawn LoL Pick Desk")}</title>
 <meta name="description" content="Independent League of Legends pick'em lines for every match listed on Hotspawn.">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -162,7 +162,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
-    {badge(m)}
+    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{badge(m)}</span>
   </div>
   <div class="comp">{e(r['competition'])}{f" &middot; {e(r['best_of'])}-game series" if r.get('best_of') else ""}</div>
   <div class="teams">
@@ -244,7 +244,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><a href="picks.html">All picks &rarr;</a><span>Complete list, {total} matches, filterable and searchable.</span></li>
     <li><a href="featured.html">Market-backed picks &rarr;</a><span>{len(featured)} matches with a real bookmaker or prediction-market price and the vig removed.</span></li>
     <li><a href="originated.html">Our own lines &rarr;</a><span>{counts.get('model',0)+counts.get('provisional',0)} matches priced from our Elo model, with the inputs shown.</span></li>
-    <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>{len(unresolved)} matches we refuse to price, plus every documented limitation.</span></li>
+    <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>{len(unresolved)} match(es) we refuse to price, plus every documented limitation and the provisional list.</span></li>
     <li><a href="competitions.html">By tournament &rarr;</a><span>Coverage and source quality for each of the {comps} tournaments.</span></li>
     <li><a href="verification.html">Verification &rarr;</a><span>Row-level checks, join evidence, and what is unverified.</span></li>
   </ul>
@@ -282,6 +282,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
 
 def build_picks(rows: list[dict], counts: Counter) -> str:
+    rows = sorted(rows, key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
     comps = sorted({r["competition"] for r in rows})
     chips = "".join(
         f'<button class="chip" data-filter="{m}">{METHOD_LABEL[m]} <span>{counts.get(m,0)}</span></button>'
@@ -372,7 +373,6 @@ def build_originated(rows: list[dict], counts: Counter) -> str:
   <p class="formula">P(A) = 1 / (1 + 10^((R<sub>B</sub> - R<sub>A</sub>) / 400))</p>
   <p>The rating inputs, the number of rated series behind each rating, and the join evidence to Leaguepedia are
   printed for every row. Probabilities are clamped to 5-95% so the desk never claims certainty.</p>
-  <div class="cards">{"".join(match_card(r) for r in items)}</div>
 </section>
 """
     return page_shell("Our own lines", "originated.html", body,
@@ -518,6 +518,23 @@ def build_methodology(model: dict) -> str:
   <p>Time decay begins after {e(model.get('decay_start_days'))} days without a series and reaches the 1500 baseline
   after {e(model.get('decay_full_days'))} days.</p>
   <p>Probabilities are clamped to {e(model.get('prob_floor'))}-{e(model.get('prob_ceil'))}.</p>
+</section>
+
+<section class="panel">
+  <h2>Out-of-sample backtest</h2>
+  <p class="lead">The model is a live predictor, so we score it the way a bettor would: every series after
+  {e((model.get('backtest') or {}).get('cutoff',''))} is predicted using only results recorded before it, then the rating is updated.</p>
+  {table(["Sample", "Series", "Accuracy", "Brier", "Log loss"],
+         [["All out-of-sample series",
+           str((model.get('backtest') or {}).get('n', 0)),
+           pct((model.get('backtest') or {}).get('accuracy')),
+           str((model.get('backtest') or {}).get('brier', '—')),
+           str((model.get('backtest') or {}).get('logloss', '—'))]])}
+  {table(["Favourite bucket", "Series", "Predicted (avg)", "Actual win rate"],
+         [[e(k), str(v['n']), pct(v['mean_predicted']), pct(v['accuracy'])]
+          for k, v in ((model.get('backtest') or {}).get('buckets') or {}).items()])}
+  <p class="small muted">A perfectly calibrated model has an actual win rate close to the predicted average
+  in each bucket. Brier and log loss are lower-is-better; 0.25 is what a coin flip scores on Brier.</p>
 </section>
 
 <section class="panel">
