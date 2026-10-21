@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Method &middot; Hotspawn LoL Pick Desk</title>
+<meta name="description" content="Independent League of Legends pick'em lines for every match listed on Hotspawn.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html" class="active">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <div class="pagehead">
+    <h1>Method</h1>
+    <p class="sub">How each number on this site is produced, and what we refuse to do.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-21 20:50 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+  </div>
+  
+<section class="panel">
+  <h2>The pipeline</h2>
+  <ol class="steps">
+    <li><strong>Inventory.</strong> Every League of Legends fixture is pulled from Hotspawn's own pick'em
+    fixtures API (the same JSON that renders <a href="https://play.hotspawn.com/lol-pickems" rel="noopener">play.hotspawn.com/lol-pickems</a>).</li>
+    <li><strong>Market prices.</strong> Pinnacle's esports feed is filtered to League of Legends, then each
+    matchup's moneyline is pulled. Polymarket is used only where a live two-sided market exists.</li>
+    <li><strong>History.</strong> Every series result since MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27; comes from Leaguepedia's Cargo
+    export of <code>MatchSchedule</code>, the community-maintained results database for LoL esports.</li>
+    <li><strong>Our line.</strong> Elo is fitted over series results in chronological order, then decayed for
+    inactivity and shrunk toward the mean for teams with few results.</li>
+    <li><strong>Publish.</strong> The site is regenerated and verified by CI, then committed to GitHub Pages.</li>
+  </ol>
+</section>
+
+<section class="panel">
+  <h2>Formulas</h2>
+  <p>Expected score for team A:</p>
+  <p class="formula">E<sub>A</sub> = 1 / (1 + 10^((R<sub>B</sub> - R<sub>A</sub>)/400))</p>
+  <p>Rating update after a series (K = 24.0):</p>
+  <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
+  <p>Shrinkage towards the 1500 start rating for a team with n rated series:</p>
+  <p class="formula">R<sub>eff</sub> = 1500 + (R - 1500) &middot; n / (n + 5.0)</p>
+  <p>Time decay begins after 45 days without a series and reaches the 1500 baseline
+  after 450 days.</p>
+  <p>Probabilities are clamped to 0.05-0.95.</p>
+</section>
+
+<section class="panel">
+  <h2>What we deliberately do not do</h2>
+  <ul class="bullets">
+    <li>We never use Hotspawn's crowd pick percentages as an input. They are captured in the raw data for
+    transparency only.</li>
+    <li>We never use Hotspawn's own editorial predictions as a probability.</li>
+    <li>We do not fill in a missing price with a guess. Missing data means a provisional line with the
+    limitation printed on the card, or an unresolved entry.</li>
+    <li>We do not blend bookmaker and model numbers into one figure. Each row says which method produced it.</li>
+  </ul>
+</section>
+
+<section class="panel">
+  <h2>Refresh</h2>
+  <p>A scheduled GitHub Actions workflow runs every 6 hours (cron <code>17 */6 * * *</code>), re-collects all
+  sources, rebuilds the dataset and this site, runs the verification gate, and commits. The timestamp at the
+  top of each page is the snapshot time in UTC.</p>
+</section>
+
+</main>
+<footer class="wrap foot">
+  <p>Independent research dashboard. Every row links to its source. Not betting advice.</p>
+  <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
+  <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a></p>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{
+ "generated_utc": "2026-10-21T20:50:26Z",
+ "checks": [
+  {
+   "name": "dataset present",
+   "ok": true,
+   "detail": "264 matches loaded"
+  },
+  {
+   "name": "every row links to its Hotspawn match card",
+   "ok": true,
+   "detail": "264/264 rows carry a Hotspawn URL"
+  },
+  {
+   "name": "probabilities sum to 100% (tolerance 0.2pp)",
+   "ok": true,
+   "detail": "264 priced rows verified; problems: []"
+  },
+  {
+   "name": "pick matches the higher probability",
+   "ok": true,
+   "detail": "264 rows consistent; problems: []"
+  },
+  {
+   "name": "method values are known",
+   "ok": true,
+   "detail": "methods used: ['market', 'model', 'provisional']"
+  },
+  {
+   "name": "no duplicate match ids",
+   "ok": true,
+   "detail": "264 unique ids; duplicates: []"
+  },
+  {
+   "name": "picks.csv mirrors the dataset",
+   "ok": true,
+   "detail": "csv rows=264 json rows=264"
+  },
+  {
+   "name": "all site pages exist",
+   "ok": true,
+   "detail": "11/11 pages"
+  },
+  {
+   "name": "no broken internal links",
+   "ok": true,
+   "detail": "0 problems: []"
+  },
+  {
+   "name": "navigation on every page",
+   "ok": true,
+   "detail": "missing: []"
+  },
+  {
+   "name": "no empty/None values rendered",
+   "ok": true,
+   "detail": "problems: []"
+  },
+  {
+   "name": "all matches rendered on the picks page",
+   "ok": true,
+   "detail": "264/264 match cards found"
+  },
+  {
+   "name": "executive summary links to every picks view",
+   "ok": true,
+   "detail": "present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']"
+  },
+  {
+   "name": "source availability recorded",
+   "ok": true,
+   "detail": "7/12 sources reachable on this build"
+  }
+ ],
+ "passed": true,
+ "rows_checked": 264,
+ "rows_with_source": 264,
+ "rows_prob_ok": 264,
+ "unverified": 73,
+ "counts": {
+  "provisional": 73,
+  "model": 182,
+  "market": 9
+ },
+ "internal_links": 204
+}

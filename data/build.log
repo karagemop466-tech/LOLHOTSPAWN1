@@ -1,11 +1,11 @@
-[20:46:03] hotspawn: 264 LoL fixtures
-[20:46:06] pinnacle: 12 LoL matchups, 9 with open moneylines
-[20:47:07] leaguepedia: 34616 series rows (err='')
-[20:47:07] lolesports: 80 Worlds events (status=200)
-[20:47:07] polymarket: 49 match-level markets (status=200)
-[20:47:12] sources: Pinnacle=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Polymarket=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[20:49:08] hotspawn: 264 LoL fixtures
+[20:49:11] pinnacle: 12 LoL matchups, 9 with open moneylines
+[20:50:16] leaguepedia: 34601 series rows (err='')
+[20:50:17] lolesports: 80 Worlds events (status=200)
+[20:50:17] polymarket: 49 match-level markets (status=200)
+[20:50:23] sources: Pinnacle=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Polymarket=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 === MODEL ===
-[20:47:17] rows=264 methods={'provisional': 73, 'model': 182, 'market': 9} joins=32
+[20:50:26] rows=264 methods={'provisional': 73, 'model': 182, 'market': 9} joins=32
 === REPORT ===
 {
  "total": 264,
@@ -130,20 +130,27 @@ PRICED 9
   Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7907 {'home': 1.2041, 'away': 4.55}
   Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.7966 {'home': 1.1953, 'away': 4.68}
   Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6403 {'home': 1.5, 'away': 2.67}
-  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.395 None
+  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4258 {'home': 2.26, 'away': 1.6757}
   Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7083 {'home': 1.3509, 'away': 3.28}
   Worlds 2026 Main Event | ['LØS', 'T1'] 0.1544 {'home': 6.16, 'away': 1.125}
   Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4311 {'home': 2.23, 'away': 1.6897}
 === FLAGS ===
-[20:47:17] flags: 11 items
+[20:50:26] flags: 11 items
 === SITE ===
-Traceback (most recent call last):
-  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tools/site.py", line 684, in <module>
-    main()
-  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tools/site.py", line 669, in main
-    "teams.html": build_teams(rows),
-                  ^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tools/site.py", line 470, in build_teams
-    if not prev or (t["rating_matches"] or 0) > (prev["rating_matches"] or 0):
-                                                 ~~~~^^^^^^^^^^^^^^^^^^
-KeyError: 'rating_matches'
+[20:50:26] site: wrote 11 pages to docs/
+=== VERIFY ===
+[20:50:26] verification passed
+PASS dataset present :: 264 matches loaded
+PASS every row links to its Hotspawn match card :: 264/264 rows carry a Hotspawn URL
+PASS probabilities sum to 100% (tolerance 0.2pp) :: 264 priced rows verified; problems: []
+PASS pick matches the higher probability :: 264 rows consistent; problems: []
+PASS method values are known :: methods used: ['market', 'model', 'provisional']
+PASS no duplicate match ids :: 264 unique ids; duplicates: []
+PASS picks.csv mirrors the dataset :: csv rows=264 json rows=264
+PASS all site pages exist :: 11/11 pages
+PASS no broken internal links :: 0 problems: []
+PASS navigation on every page :: missing: []
+PASS no empty/None values rendered :: problems: []
+PASS all matches rendered on the picks page :: 264/264 match cards found
+PASS executive summary links to every picks view :: present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']
+PASS source availability recorded :: 7/12 sources reachable on this build
