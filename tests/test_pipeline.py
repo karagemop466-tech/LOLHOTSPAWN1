@@ -168,6 +168,54 @@ class LobbyParser(unittest.TestCase):
         self.assertEqual(totals["tiers_count"], 3)
 
 
+
+class FeedJoin(unittest.TestCase):
+    """The id in a Hotspawn match URL is a provider id, not the WordPress post id."""
+
+    ROWS = [
+        {"id": 203708,
+         "slug": "galions-vs-solary-league-of-legends-match-at-em-2026-summer-main-event-1081205",
+         "link": "https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205",
+         "date": "2026-10-20T09:00:00", "modified": "2026-10-21T10:00:00",
+         "title": {"rendered": ("Galions vs Solary League of Legends match at "
+                                "EM 2026 Summer Main Event &#8211; 1081205")}},
+        {"id": 204696,
+         "slug": ("levelers-vs-mtn-esports-team-league-of-legends-match-at-arabian-regional-"
+                  "championship-2026-lebanon-libya-syria-palestine-1082839"),
+         "link": "https://www.hotspawn.com/matches/levelers-vs-mtn-esports-team-arabian-"
+                 "regional-championship-2026-lebanon-libya-syria-palestine-1082839",
+         "date": "2026-10-19T09:00:00", "modified": "2026-10-21T09:00:00",
+         "title": {"rendered": ("Levelers vs MTN ESPORTS TEAM League of Legends match at "
+                                "Arabian Regional Championship 2026: Lebanon-Libya-Syria-"
+                                "Palestine &#8211; 1082839")}},
+    ]
+
+    class Stub:
+        def __init__(self, rows):
+            self.rows = rows
+
+        def get_json(self, url, attempts=3, headers=None):
+            return list(self.rows)
+
+    def test_feed_records_are_keyed_by_provider_id_and_carry_tournament_slug(self):
+        feed = hs.search_lol_fixtures(self.Stub(self.ROWS))
+        self.assertEqual(len(feed), 2, feed)
+        idx = hs.index_by_provider_id(feed)
+        self.assertEqual(sorted(idx), [1081205, 1082839])
+        self.assertEqual(idx[1081205]["tournament_slug"], "em-2026-summer-main-event")
+        self.assertEqual(idx[1081205]["wp_post_id"], 203708)
+        self.assertEqual(idx[1082839]["tournament_slug"],
+                         "arabian-regional-championship-2026-lebanon-libya-syria-palestine")
+
+    def test_feed_title_names_are_extracted_for_name_check(self):
+        feed = hs.search_lol_fixtures(self.Stub(self.ROWS))
+        by_id = {r["provider_id"]: r for r in feed}
+        m = hs.FIXTURE_TITLE_TEAMS.match(by_id[1082839]["wp_title"])
+        self.assertEqual((m.group("a"), m.group("b")), ("Levelers", "MTN ESPORTS TEAM"))
+        self.assertNotIn("1082839", by_id[1082839]["wp_title"])
+        self.assertNotIn("&#8211;", by_id[1082839]["wp_title"])
+
+
 class LeaguePage(unittest.TestCase):
     HTML = """
     <html><head><title>Komplettligaen 2026 Autumn Live Scores, Fixtures - Hotspawn</title></head>

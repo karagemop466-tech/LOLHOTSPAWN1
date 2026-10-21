@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import re
 from datetime import datetime, timedelta, timezone
+from html import unescape
 
 from .common import (
     MONTHS, Fetcher, canon_team, html_to_lines, iso, log, parse_countdown, utcnow,
@@ -49,6 +50,10 @@ LABELS_SKIP = {
 }
 
 
+# "Levelers vs MTN ESPORTS TEAM League of Legends match at Arabian Regional Championship …"
+# The trailing " – <provider id>" is stripped before matching (see search_lol_fixtures).
+FIXTURE_TITLE_TEAMS = re.compile(
+    r"^\s*(?P<a>.+?)\s+vs\.?\s+(?P<b>.+?)\s+(?:League of Legends match\b|[-–|])", re.I)
 SLUG_PROVIDER_ID = re.compile(r"-(\d{4,9})$")
 SLUG_TOURNAMENT = re.compile(r"-league-of-legends-match-at-(.+?)-\d{4,9}$")
 
@@ -246,7 +251,8 @@ def search_lol_fixtures(fetcher: Fetcher, max_pages: int = 6) -> list[dict]:
             break
         for row in data:
             title = ((row.get("title") or {}).get("rendered") or "")
-            clean = re.sub(r"\s+", " ", title).strip()
+            clean = re.sub(r"\s+", " ", unescape(title)).strip()
+            clean = re.sub(r"\s*[-–]\s*\d{4,9}\s*$", "", clean)   # drop " – 1081205"
             if "league of legends" not in clean.lower():
                 continue
             slug = row.get("slug") or ""
@@ -605,12 +611,18 @@ def collect(fetcher: Fetcher, out_dir: str = "data", deep: bool = True) -> dict:
             card["wp_link"] = rec.get("wp_link")
             card["league_slug"] = rec.get("tournament_slug")
             card["fixture_verified"] = True
-            names = FIXTURE_TITLE_TEAMS.match(rec.get("wp_title") or "")
-            if names and len(card.get("teams") or []) == 2:
-                a, b = names.group(1).strip(), names.group(2).strip()
-                if a.lower() != card["teams"][0].lower() and b.lower() == card["teams"][0].lower():
-                    card["teams"] = [b, a]     # fixture feed lists the higher seed second
-                    card["teams_swapped_from_feed"] = True
+            try:
+                names = FIXTURE_TITLE_TEAMS.match(rec.get("wp_title") or "")
+                if names and len(card.get("teams") or []) == 2:
+                    a, b = names.group("a").strip(), names.group("b").strip()
+                    card["wp_teams"] = [a, b]
+                    if (a.lower() != card["teams"][0].lower()
+                            and b.lower() == card["teams"][0].lower()):
+                        card["teams"] = [b, a]   # feed order wins over lobby order
+                        card["teams_swapped_from_feed"] = True
+            except Exception as exc:             # enrichment must never lose the snapshot
+                card["parse_notes"] = list(card.get("parse_notes") or []) + [
+                    f"fixture title could not be parsed ({type(exc).__name__})"]
         else:
             card["fixture_verified"] = False
     log(f"fixtures feed: {len(feed)} LoL records read, {len(by_pid)} indexed, "
