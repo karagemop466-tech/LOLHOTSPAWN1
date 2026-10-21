@@ -89,18 +89,28 @@ def fetch_matches() -> dict:
             "hotspawn_url": hs_url,
         })
 
-    # The slug map sits next to the match list in the same ng-state bucket.
-    slug_map = {}
-    for node in state.values():
+    # The SSR payload also carries a match-id -> permalink map somewhere in the
+    # state tree; walk it generically instead of relying on a fixed path.
+    wanted = {mt["hotspawn_id"] for mt in matches}
+    slug_map: dict[str, str] = {}
+
+    def walk(node, depth=0):
+        if depth > 12:
+            return
         if isinstance(node, dict):
-            for value in node.values():
-                if isinstance(value, dict) and value and all(
-                        isinstance(v, str) and v.startswith("https://www.hotspawn.com/matches/")
-                        for v in value.values()):
-                    slug_map.update(value)
+            for k, v in node.items():
+                if isinstance(v, str) and k in wanted and v.startswith("https://www.hotspawn.com/matches/"):
+                    slug_map[k] = v
+                elif isinstance(v, (dict, list)):
+                    walk(v, depth + 1)
+        elif isinstance(node, list):
+            for v in node[:400]:
+                if isinstance(v, (dict, list)):
+                    walk(v, depth + 1)
+
+    walk(state)
     for mt in matches:
-        url = slug_map.get(mt["hotspawn_id"])
-        mt["hotspawn_url"] = url
+        mt["hotspawn_url"] = slug_map.get(mt["hotspawn_id"])
 
     return {
         "source": LOBBY_URL,

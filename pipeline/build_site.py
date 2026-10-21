@@ -18,6 +18,7 @@ import os
 from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+NOW = None  # set in main() from meta.generated_at
 DATA = os.path.join(ROOT, "data")
 
 
@@ -70,6 +71,25 @@ def load(name):
 
 def esc(v):
     return html.escape(str(v)) if v is not None else ""
+
+
+def _dt(iso_ts):
+    try:
+        return datetime.fromisoformat((iso_ts or "").replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def started(m, now):
+    d = _dt(m.get("start_utc"))
+    return bool(d and now and d < now)
+
+
+def order_matches(rows, now):
+    """Upcoming first (soonest), then already-started (most recent first)."""
+    upcoming = sorted([m for m in rows if not started(m, now)], key=lambda m: m["start_utc"] or "")
+    past = sorted([m for m in rows if started(m, now)], key=lambda m: m["start_utc"] or "", reverse=True)
+    return upcoming + past
 
 
 def fmt_time(iso_ts):
@@ -152,6 +172,7 @@ def pick_card(m, compact=False):
     hs = (f'<a class="ghost" href="{esc(m["hotspawn_url"])}" target="_blank" rel="noopener">Hotspawn match</a>'
           if m.get("hotspawn_url") else "")
     edge = abs(0.5 - left_p)
+    began = started(m, NOW)
     return f"""
 <article class="card pick" data-teams="{esc(t1["name"])} {esc(t2["name"])}"
   data-league="{esc(m["tournament"])}" data-prob="{left_p:.4f}" data-edge="{edge:.4f}"
@@ -162,6 +183,7 @@ def pick_card(m, compact=False):
       <p class="meta">{esc(m["tournament"])} · Tier {esc(m["tier"].upper() if m["tier"] else "—")} · <span data-utc="{esc(m["start_utc"] or "")}">{esc(fmt_time(m["start_utc"]))}</span></p>
     </div>
     <span class="pill conf-{esc(p["confidence"])}">{esc(p["confidence"].title())} confidence</span>
+    {('<span class="pill tier">Started</span>' if began else '')}
   </div>
   <div class="probs">
     <div class="prob-row">
@@ -206,8 +228,9 @@ def unresolved_row(m):
 
 def page_index(matches, meta, tournaments):
     counts = meta["counts"]
+    now = _dt(meta.get("generated_at"))
     resolved = [m for m in matches if m["status"] == "resolved"]
-    upcoming = resolved[:8]
+    upcoming = [m for m in order_matches(resolved, now) if not started(m, now)][:8]
     top = sorted(resolved, key=lambda m: -m["pick"]["probability"])[:5]
     cards = "".join(pick_card(m) for m in upcoming) or '<p class="muted">No priced matches in this snapshot.</p>'
     strongest = "".join(
@@ -298,7 +321,8 @@ def page_index(matches, meta, tournaments):
 
 
 def page_picks(matches, meta, tournaments):
-    resolved = [m for m in matches if m["status"] == "resolved"]
+    now = _dt(meta.get("generated_at"))
+    resolved = order_matches([m for m in matches if m["status"] == "resolved"], now)
     cards = "".join(pick_card(m) for m in resolved)
     options = "".join(
         f'<option value="{esc(t["tournament"])}">{esc(t["tournament"])} ({t["resolved"]}/{t["matches"]})</option>'
@@ -324,6 +348,7 @@ def page_picks(matches, meta, tournaments):
 
 def page_unresolved(matches, meta, tournaments):
     un = [m for m in matches if m["status"] == "unresolved"]
+    un = order_matches(un, _dt(meta.get("generated_at")))
     by_league = {}
     for m in un:
         by_league.setdefault(m["tournament"], []).append(m)
@@ -540,8 +565,10 @@ def page_flagged(matches, meta):
 
 
 def main():
+    global NOW
     matches = load("matches.json")["matches"]
     meta = load("meta.json")
+    NOW = _dt(meta.get("generated_at"))
     tournaments = load("tournaments.json")
 
     pages = {
