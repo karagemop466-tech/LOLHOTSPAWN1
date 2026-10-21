@@ -1,0 +1,62 @@
+run started: Wed Oct 21 20:21:25 UTC 2026
+===== pinnacle-esports
+url: https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups
+result: 200|application/json|764691|https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups
+preview: [   {     "ageLimit": 0,     "altTeaser": false,     "featureOrder": -1,     "hasAltSpread": false,     "hasAltTotal": false,     "hasBetshare": false,     "hasLive": true,     "hasMarkets": true,     "id": 1638933751,     "isBetshareEnabled": false,     "isFeatured": false,     "isHighlighted": false,     "isLive": false,     "isPromoted": false,     "league": {       "ageLimit": 0,       "featur
+
+===== pinnacle-leagues
+url: https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues
+result: 200|application/json|6733|https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues
+preview: [   {     "ageLimit": 0,     "featureOrder": 0,     "group": "Germany",     "id": 235322,     "isFeatured": true,     "isHidden": false,     "isPromoted": false,     "isSticky": false,     "matchupCount": 1,     "matchupCountSE": 1,     "name": "CS2 - DACH CS Masters",     "sequence": 521,     "sport": {       "featureOrder": 1,       "id": 12,       "isFeatured": true,       "isHidden": false,   
+
+===== kambi-ubus-esports
+url: https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports.json?lang=en_US&market=US&useCombined=true&useCombinedLive=true
+result: 400|application/json|87|https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports.json?lang=en_US&market=US&useCombined=true&useCombinedLive=true
+preview: {"error":{"message":"Unable to resolve customer for extApiEndpoint ubus","status":400}}
+
+===== kambi-ubat-esports
+url: https://eu-offering-api.kambicdn.com/offering/v2018/ubat/betoffer/group.json?lang=en_US&market=US&group=1000
+result: 400|application/json|87|https://eu-offering-api.kambicdn.com/offering/v2018/ubat/betoffer/group.json?lang=en_US&market=US&group=1000
+preview: {"error":{"message":"Unable to resolve customer for extApiEndpoint ubat","status":400}}
+
+===== oddspedia-sports
+url: https://oddspedia.com/api/v1/getSports
+result: 403|text/html; charset=UTF-8|5654|https://oddspedia.com/api/v1/getSports
+preview: <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="content-security-policy" content="default-src &#39;none&#39;; script-src &#39
+
+===== bo3-api-matches
+url: https://api.bo3.gg/api/v1/matches?filter%5Bgames%5D%5B%5D=league-of-legends&page=1&per_page=5
+result: 200|application/json; charset=utf-8|8978|https://api.bo3.gg/api/v1/matches?filter%5Bgames%5D%5B%5D=league-of-legends&page=1&per_page=5
+preview: {"total":{"count":82390,"pages":8239,"offset":0,"limit":10},"results":[{"id":1,"slug":"vitality-cs-go-vs-mousesports-cs-go-08-12-2020","round_id":1,"team1_id":667,"team2_id":765,"winner_team_id":667,"loser_team_id":765,"tournament_id":9,"team1_score":2,"team2_score":0,"status":"finished","bo_type":3,"start_date":"2020-12-08T17:55:00.000+00:00","end_date":"2020-12-08T20:15:44.000+00:00","stage_id":
+
+===== bo3-gg-html
+url: https://bo3.gg/league-of-legends/matches
+result: 200|text/html;charset=utf-8|12750|https://bo3.gg/league-of-legends/matches
+preview: <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preconnect" href="https://image-proxy.bo3.gg"><link rel="preconnect" href="https://fonts.googleapis.com"><script src="https://accounts.google.com/gsi/client" async></script><script src="https://connect.facebook.net/en_US/sdk.js" async></script><link rel="stylesheet" href=
+
+===== lolesports-leagues
+url: https://esports-api.lolesports.com/persisted/gw/getLeagues?hl=en-US
+result: 200|application/json|12216|https://esports-api.lolesports.com/persisted/gw/getLeagues?hl=en-US
+preview: {"data":{"leagues":[{"id":"98767975604431411","slug":"worlds","name":"Worlds","region":"INTERNATIONAL","image":"http://static.lolesports.com/leagues/1592594612171_WorldsDarkBG.png","priority":1,"displayPriority":{"position":0,"status":"force_selected"}},{"id":"98767991325878492","slug":"msi","name":"MSI","region":"INTERNATIONAL","image":"http://static.lolesports.com/leagues/1592594634248_MSIDarkBG
+
+===== leaguepedia-1
+url: https://lol.fandom.com/api.php?action=cargoquery&format=json&maxlag=5&tables=MatchSchedule&fields=MatchSchedule.MatchId,MatchSchedule.Team1,MatchSchedule.Team2,MatchSchedule.DateTime_UTC,MatchSchedule.Winner&limit=3&order_by=MatchSchedule.DateTime_UTC%20DESC
+result: 200|application/json; charset=utf-8|372|https://lol.fandom.com/api.php?action=cargoquery&format=json&maxlag=5&tables=MatchSchedule&fields=MatchSchedule.MatchId,MatchSchedule.Team1,MatchSchedule.Team2,MatchSchedule.DateTime_UTC,MatchSchedule.Winner&limit=3&order_by=MatchSchedule.DateTime_UTC%20DESC
+preview: {"error":{"code":"ratelimited","info":"You've exceeded your rate limit. Please wait some time and try again.","*":"See https://lol.fandom.com/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes."}}
+
+===== leaguepedia-2
+url: https://lol.fandom.com/api.php?action=cargoquery&format=json&maxlag=5&tables=Tournaments&fields=Tournaments.Name,Tournaments.DateStart,Tournaments.League&where=Tournaments.DateStart%20%3E%3D%20%272026-08-01%27&limit=10
+result: 200|application/json; charset=utf-8|372|https://lol.fandom.com/api.php?action=cargoquery&format=json&maxlag=5&tables=Tournaments&fields=Tournaments.Name,Tournaments.DateStart,Tournaments.League&where=Tournaments.DateStart%20%3E%3D%20%272026-08-01%27&limit=10
+preview: {"error":{"code":"ratelimited","info":"You've exceeded your rate limit. Please wait some time and try again.","*":"See https://lol.fandom.com/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes."}}
+
+===== betexplorer
+url: https://www.betexplorer.com/esports/league-of-legends/
+result: 404||0|https://www.betexplorer.com/esports/league-of-legends/
+preview: 
+
+===== odssapi
+url: https://api.the-odds-api.com/v4/sports/esports_league_of_legends/odds/?regions=eu&markets=h2h&apiKey=REPLACE
+result: 401|application/json; charset=utf-8|198|https://api.the-odds-api.com/v4/sports/esports_league_of_legends/odds/?regions=eu&markets=h2h&apiKey=REPLACE
+preview: {"message":"API key is not valid. Get an API key at https://the-odds-api.com","error_code":"INVALID_KEY","details_url":"https://the-odds-api.com/liveapi/guides/v4/api-error-codes.html#invalid-key"} 
+
+run finished: Wed Oct 21 20:21:35 UTC 2026
