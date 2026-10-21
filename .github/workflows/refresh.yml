@@ -38,10 +38,13 @@ jobs:
           python-version: "3.12"
 
       - name: Collect Hotspawn matches + external market prices
-        run: python3 pipeline/build_data.py
+        run: |
+          set -o pipefail
+          python3 pipeline/build_data.py 2>&1 | tee build.log
 
       - name: Build static dashboard
-        run: python3 pipeline/build_site.py
+        if: always()
+        run: python3 pipeline/build_site.py 2>&1 | tee -a build.log || true
 
       - name: Summarise
         run: |
@@ -56,10 +59,11 @@ jobs:
           PY
 
       - name: Commit refreshed data and site
+        if: always()
         run: |
           git config user.name "arena-bot"
           git config user.email "arena-bot@users.noreply.github.com"
-          git add data assets .nojekyll *.html 2>/dev/null || git add data assets
+          git add -A data assets .nojekyll *.html build.log 2>/dev/null || git add -A data build.log
           if git diff --cached --quiet; then
             echo "No changes to publish."
           else
