@@ -20,8 +20,8 @@ step("analyze.mjs");
 step("build_site.mjs");
 
 // run history log (append-only, capped)
-const picks = JSON.parse(await readFile(path.join(ROOT, "data", "picks.json"), "utf8"));
-const histDir = path.join(ROOT, "data", "history");
+const picks = JSON.parse(await readFile(path.join(ROOT, "data", "node", "picks.json"), "utf8"));
+const histDir = path.join(ROOT, "data", "node", "history");
 await mkdir(histDir, { recursive: true });
 const runsPath = path.join(histDir, "runs.jsonl");
 let lines = [];

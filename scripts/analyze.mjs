@@ -26,7 +26,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const RAW = path.join(ROOT, "data", "raw");
+const DATA = path.join(ROOT, "data", "node");
+const RAW = path.join(DATA, "raw");
 const NOW = Date.now();
 
 /* ------------------------------------------------------------- small helpers */
@@ -621,7 +622,7 @@ if (openCount > 0 && resolvedCount === 0) {
 
 /* ------------------------------------------------------ pick ledger (history) */
 
-const ledgerPath = path.join(ROOT, "data", "history", "picks_latest.json");
+const ledgerPath = path.join(DATA, "history", "picks_latest.json");
 const ledger = (await readJSON(ledgerPath, {})) ?? {};
 for (const p of picks) {
   if (!p.pick) continue;
@@ -658,12 +659,12 @@ for (const [id, e] of Object.entries(ledger)) {
 
 /* ------------------------------------------------------------------- outputs */
 
-await mkdir(path.join(ROOT, "data", "model"), { recursive: true });
-await mkdir(path.join(ROOT, "data", "history"), { recursive: true });
+await mkdir(path.join(DATA, "model"), { recursive: true });
+await mkdir(path.join(DATA, "history"), { recursive: true });
 
 const ratingsOut = {};
 for (const [id, e] of ratings) ratingsOut[id] = { name: e.name, r: Math.round(e.r), n: e.n, last: iso(e.last_ms) };
-await writeFile(path.join(ROOT, "data", "model", "ratings.json"), JSON.stringify({ generated_at: iso(NOW), method: "Elo-style, K=24*mov*0.5^(age/365d), built from Hotspawn results archive (facts), shrinkage toward 50% for thin history", teams: ratingsOut }, null, 1));
+await writeFile(path.join(DATA, "model", "ratings.json"), JSON.stringify({ generated_at: iso(NOW), method: "Elo-style, K=24*mov*0.5^(age/365d), built from Hotspawn results archive (facts), shrinkage toward 50% for thin history", teams: ratingsOut }, null, 1));
 
 const tournaments = {};
 for (const p of picks) {
@@ -716,8 +717,8 @@ const summary = {
   },
 };
 
-await writeFile(path.join(ROOT, "data", "picks.json"), JSON.stringify({ summary, tournaments, matches: picks }, null, 1));
-await writeFile(path.join(ROOT, "data", "flags.json"), JSON.stringify({ generated_at: iso(NOW), flags }, null, 1));
+await writeFile(path.join(DATA, "picks.json"), JSON.stringify({ summary, tournaments, matches: picks }, null, 1));
+await writeFile(path.join(DATA, "flags.json"), JSON.stringify({ generated_at: iso(NOW), flags }, null, 1));
 await writeFile(ledgerPath, JSON.stringify(ledger, null, 1));
 
 // accuracy stats from ledger

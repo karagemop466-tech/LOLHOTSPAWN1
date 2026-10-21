@@ -20,14 +20,15 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const DATA = path.join(ROOT, "data", "node");
 const DOCS = path.join(ROOT, "docs");
 const readJSON = async (p, fb = null) => { try { return JSON.parse(await readFile(p, "utf8")); } catch { return fb; } };
 
-const picksData = await readJSON(path.join(ROOT, "data", "picks.json"));
+const picksData = await readJSON(path.join(DATA, "picks.json"));
 if (!picksData) { console.error("FATAL: data/picks.json missing — run analyze.mjs first."); process.exit(2); }
-const flagsData = await readJSON(path.join(ROOT, "data", "flags.json"), { flags: [] });
-const ledger = await readJSON(path.join(ROOT, "data", "history", "picks_latest.json"), {});
-const collectLog = await readJSON(path.join(ROOT, "data", "raw", "collect_log.json"), {});
+const flagsData = await readJSON(path.join(DATA, "flags.json"), { flags: [] });
+const ledger = await readJSON(path.join(DATA, "history", "picks_latest.json"), {});
+const collectLog = await readJSON(path.join(DATA, "raw", "collect_log.json"), {});
 
 const { summary, tournaments, matches } = picksData;
 const GEN_MS = Date.parse(summary.generated_at);
@@ -291,7 +292,7 @@ ${lockedM.length ? `<h2 class="sec">🔒 Locked / in progress (${lockedM.length}
 
 /* ---------------------------------------------------------- unresolved.html */
 
-const pinLeaguesRaw = (await readJSON(path.join(ROOT, "data", "raw", "pinnacle_lol.json"), { leagues: [] })).leagues.map((l) => l.name);
+const pinLeaguesRaw = (await readJSON(path.join(DATA, "raw", "pinnacle_lol.json"), { leagues: [] })).leagues.map((l) => l.name);
 picksData.summary.pinnacle_leagues_list = pinLeaguesRaw;
 
 function unresolvedReason(m) {
@@ -534,7 +535,7 @@ const pages = [
 for (const [file, title, body, desc] of pages) {
   await writeFile(path.join(DOCS, file), layout(title, file, body, desc));
 }
-await copyFile(path.join(ROOT, "data", "picks.json"), path.join(DOCS, "data", "picks.json"));
+await copyFile(path.join(DATA, "picks.json"), path.join(DOCS, "data", "picks.json"));
 
 /* ------------------------------------------------------- internal link check */
 
