@@ -555,6 +555,16 @@ def _league_rows_from_lines(markup: str, base_url: str | None = None) -> list[di
 
 
 # --------------------------------------------------------------------------- driver
+def index_by_provider_id(records: list[dict]) -> dict[int, dict]:
+    """Index fixture records by the id that appears in the match URL (not the WP post id)."""
+    out: dict[int, dict] = {}
+    for rec in records or []:
+        pid = rec.get("provider_id") or provider_id_from_slug(rec.get("slug") or rec.get("fixture_slug") or "")
+        if pid:
+            out[int(pid)] = rec
+    return out
+
+
 def collect(fetcher: Fetcher, out_dir: str = "data", deep: bool = True) -> dict:
     """Full Hotspawn collection -> ``data/hotspawn.json``."""
     fetched_at = utcnow()
@@ -581,7 +591,10 @@ def collect(fetcher: Fetcher, out_dir: str = "data", deep: bool = True) -> dict:
     log(f"lobby: parsed {len(cards)} pick'em cards (page reports {totals})")
 
     ids = [c["fixture_id"] for c in cards if c.get("fixture_id")]
-    records = fixture_records(fetcher, ids)
+    feed = search_lol_fixtures(fetcher) if deep else []
+    by_pid = index_by_provider_id(feed)
+    records = {pid: by_pid[pid] for pid in set(ids) if pid in by_pid} or \
+        fixture_records(fetcher, ids)
     matched = 0
     for card in cards:
         rec = records.get(card.get("fixture_id")) if card.get("fixture_id") else None
@@ -600,13 +613,14 @@ def collect(fetcher: Fetcher, out_dir: str = "data", deep: bool = True) -> dict:
                     card["teams_swapped_from_feed"] = True
         else:
             card["fixture_verified"] = False
-    log(f"fixtures feed: matched {matched}/{len(set(ids))} distinct lobby fixture ids "
-        f"({len(records)} records indexed)")
+    log(f"fixtures feed: {len(feed)} LoL records read, {len(by_pid)} indexed, "
+        f"matched {matched}/{len(set(ids))} distinct lobby fixture ids")
 
-    # completeness cross-check against the whole LoL fixture feed
-    all_fixtures = [f for f in records.values()] if deep else []
+    # completeness cross-check against the whole LoL fixture feed: every LoL fixture Hotspawn
+    # publishes that is NOT on the pick'em lobby (past events, or cards the lobby does not render)
     seen_ids = set(ids)
-    extra = [f for f in all_fixtures if f["fixture_id"] not in seen_ids]
+    extra = [f for f in feed if f.get("provider_id") and f["provider_id"] not in seen_ids]
+    extra_upcoming = [f for f in extra if (f.get("wp_date") or "") >= iso(utcnow())[:10]]
 
     # league pages: verify kickoff times + harvest completed results
     slugs = sorted({(records.get(c.get("fixture_id")) or {}).get("tournament_slug")
@@ -641,7 +655,9 @@ def collect(fetcher: Fetcher, out_dir: str = "data", deep: bool = True) -> dict:
         "totals": totals,
         "matches": cards,
         "fixture_records": {str(k): v for k, v in records.items()},
-        "feed_fixture_count": len(records),
+        "feed_fixture_count": len(feed),
         "feed_only_fixtures": extra[:80],
+        "feed_only_upcoming_count": len(extra_upcoming),
+        "feed_only_upcoming": extra_upcoming[:80],
         "leagues": leagues,
     }

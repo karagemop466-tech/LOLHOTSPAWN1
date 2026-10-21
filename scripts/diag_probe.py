@@ -15,12 +15,12 @@ import json
 import re
 from datetime import datetime
 
-from .common import (BROWSER_HEADERS, CURL_UA, BOT_CONTACT_UA, JSON_HEADERS, Fetcher,
-                     html_to_lines, iso, log, utcnow, write_debug, write_json)
+from .common import (BROWSER_HEADERS, CURL_UA, BOT_CONTACT_UA, JSON_HEADERS, USER_AGENT,
+                     Fetcher, html_to_lines, iso, log, utcnow, write_debug, write_json)
 
 # (label, url, kind, header preset name)  kind: "json" | "html"
 CANDIDATES: list[tuple[str, str, str, str]] = [
-    ("hotspawn fixtures feed — browser UA",
+    ("hotspawn fixtures feed — browser UA (expected 403)",
      "https://www.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends"
      "&per_page=3&_fields=id,slug,link,title", "json", "browser"),
     ("hotspawn fixtures feed — curl UA",
@@ -37,9 +37,24 @@ CANDIDATES: list[tuple[str, str, str, str]] = [
     ("hotspawn lobby host serving wp-json",
      "https://play.hotspawn.com/wp-json/wp/v2/fixtures?search=league%20of%20legends"
      "&per_page=3&_fields=id,slug,link,title", "json", "browser"),
-    ("hotspawn league page (Worlds)",
+    ("hotspawn league page (Worlds) — browser UA",
      "https://www.hotspawn.com/league-of-legends/tournament/worlds-2026-main-event",
      "html", "browser"),
+    ("hotspawn league page (Worlds) — curl UA",
+     "https://www.hotspawn.com/league-of-legends/tournament/worlds-2026-main-event",
+     "html", "curl"),
+    ("hotspawn league page (Komplettligaen) — curl UA",
+     "https://www.hotspawn.com/league-of-legends/tournament/komplettligaen-2026-autumn",
+     "html", "curl"),
+    ("hotspawn match page — curl UA",
+     "https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205",
+     "html", "curl"),
+    ("hotspawn fixture feed, no search, curl UA",
+     "https://www.hotspawn.com/wp-json/wp/v2/fixtures?per_page=3&orderby=date"
+     "&order=desc&_fields=id,slug,link,title,date", "json", "curl"),
+    ("hotspawn tournaments taxonomy — curl UA",
+     "https://www.hotspawn.com/wp-json/wp/v2/tournaments?per_page=5&_fields=id,slug,name,link",
+     "json", "curl"),
     ("hotspawn match page",
      "https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205",
      "html", "browser"),
@@ -74,7 +89,10 @@ CANDIDATES: list[tuple[str, str, str, str]] = [
 ]
 
 PRESETS = {
-    "browser": dict(BROWSER_HEADERS),
+    # explicit, so the probe measures the fingerprint itself and not the per-host policy
+    "browser": {"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml,"
+                                             "application/xml;q=0.9,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.9"},
     "curl": {"User-Agent": CURL_UA, "Accept": "*/*"},
     "bot": {"User-Agent": BOT_CONTACT_UA, **JSON_HEADERS},
 }

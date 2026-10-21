@@ -365,6 +365,9 @@ def page_index(site: str, data: dict, now) -> str:
     <div><dt>Rows flagged</dt><dd>{esc(str(cov.get('flags')))}</dd></div>
     <div><dt>Lobby's own weekly count</dt><dd>{esc(str((cov.get('lobby_reported_totals') or {}).get('matches_this_week')))}
         <small>all titles; LoL tab: {esc(str((cov.get('lobby_reported_totals') or {}).get('tiers_count')))}</small></dd></div>
+    <div><dt>Hotspawn fixture feed</dt><dd>{esc(str(cov.get('feed_fixture_count')))} LoL fixtures
+        <small>{esc(str(cov.get('feed_upcoming_not_in_lobby')))} upcoming but not on the pick'em
+        lobby</small></dd></div>
   </dl>
 </section>
 

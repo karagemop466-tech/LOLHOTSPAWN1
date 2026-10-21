@@ -48,6 +48,7 @@ CURL_UA = "curl/8.5.0"
 
 # per-request header presets (used by the collector and by scripts/diag_probe.py)
 BROWSER_HEADERS = {
+    "User-Agent": USER_AGENT,
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
     "Upgrade-Insecure-Requests": "1",
@@ -56,6 +57,20 @@ BROWSER_HEADERS = {
     "Sec-Fetch-Site": "none",
 }
 JSON_HEADERS = {"Accept": "application/json", "Accept-Language": "en-US,en;q=0.9"}
+
+# Host-specific client fingerprint, measured from CI (data/diag-probe.json): www.hotspawn.com answers
+# HTTP 403 to a Chrome User-Agent coming from a datacenter IP and 200 to a plain command-line client.
+# That is the opposite of the usual rule, so it is encoded from evidence instead of guessed, and the
+# probe re-tests both fingerprints on every refresh.
+UA_POLICY = {"hotspawn.com": {"User-Agent": CURL_UA, "Accept": "*/*"}}
+
+
+def headers_for(url: str, extra: dict | None = None) -> dict:
+    """Per-host fingerprint, optionally overridden by ``extra``."""
+    host = re.sub(r"^www\.", "", (urlsplit_host(url) or ""))
+    out = dict(UA_POLICY.get(host) or {})
+    out.update(extra or {})
+    return out
 
 MONTHS = {
     "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
@@ -214,7 +229,8 @@ class Fetcher:
         backoff = 1.5
         for i in range(attempts):
             try:
-                resp = self._session.get(url, timeout=self.timeout, headers=headers or None)
+                hdrs = headers_for(url, headers)
+                resp = self._session.get(url, timeout=self.timeout, headers=hdrs or None)
                 if resp.status_code == 200 and resp.text:
                     self._record(url, True)
                     body = resp.text
