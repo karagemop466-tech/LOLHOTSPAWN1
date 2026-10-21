@@ -117,10 +117,44 @@ class LobbyParser(unittest.TestCase):
         self.assertEqual(first["fixture_id"], 1081205)
         self.assertTrue(first["match_url"].startswith("https://www.hotspawn.com/matches/"))
 
-    def test_kickoff_from_countdown(self):
-        # 15:40:45 after a 16:00:00 fetch -> 2026-10-22T07:40:45Z (rounded to the minute is fine)
-        self.assertEqual(self.cards[0]["lock_countdown_s"], 15 * 3600 + 40 * 60 + 45)
-        self.assertEqual(self.cards[0]["kickoff_utc"], "2026-10-22T07:40:45Z")
+    def test_kickoff_is_the_displayed_utc_time_not_the_cached_countdown(self):
+        # The card prints "Oct 22, 08:00"; the "Locks in" countdown is measured from whenever the
+        # cached lobby render was produced, so it must not be used as the kickoff (run 6 evidence:
+        # countdown-derived time was 70 min later than the printed time on the same card).
+        card = self.cards[0]
+        self.assertEqual(card["kickoff_utc"], "2026-10-22T08:00:00Z")
+        self.assertEqual(card["lock_countdown_s"], 15 * 3600 + 40 * 60 + 45)
+        # countdown-derived instant is 19 min before the printed time in this sample, i.e. the two
+        # do not agree — which is exactly why the printed (UTC) time wins.
+        self.assertEqual(card["lock_vs_displayed_min"], -19)
+
+    def test_feed_ids_are_provider_ids_not_post_ids(self):
+        slug = ("galions-vs-solary-league-of-legends-match-at-"
+                "em-2026-summer-main-event-1081205")
+        self.assertEqual(hs.provider_id_from_slug(slug), 1081205)
+        self.assertEqual(hs.tournament_slug_from_fixture_slug(slug), "em-2026-summer-main-event")
+        self.assertIsNone(hs.provider_id_from_slug(None))
+        self.assertIsNone(hs.provider_id_from_slug("no-trailing-number"))
+
+    def test_league_rows_are_found_without_assuming_anchor_rows(self):
+        page = (
+            '<html><head><title>Komplettligaen 2026 Autumn Live Scores | Hotspawn</title></head>'
+            '<body><div class="day">21 Oct 2026</div><div class="row">'
+            '<span class="t">16:00 UTC</span>'
+            '<a href="/matches/levelers-vs-mtn-esports-team-komplettligaen-2026-autumn-1082839">'
+            '<img alt="Levelers"/>Levelers<span>vs</span>MTN ESPORTS TEAM</a>'
+            '<span class="s">2 : 0</span><span class="st">Finished</span></div></body></html>')
+        rows = hs._league_rows_from_lines(page, "https://www.hotspawn.com/x")
+        self.assertEqual(len(rows), 1, rows)
+        row = rows[0]
+        self.assertEqual(row["fixture_id"], 1082839)
+        self.assertEqual(row["league_kickoff_utc"], "2026-10-21T16:00:00Z")
+        self.assertEqual(row["league_score"], [2, 0])
+        self.assertEqual(row["league_status"], "finished")
+        self.assertEqual(row["league_away_display"], "MTN ESPORTS TEAM")
+        res = hs.harvest_results_from_league(page, "https://www.hotspawn.com/x")
+        self.assertEqual([(r["team_home"], r["team_away"], r["score_home"]) for r in res],
+                         [("Levelers", "MTN ESPORTS TEAM", 2)])
 
     def test_waiting_tier_and_missing_link(self):
         third = self.cards[2]
