@@ -120,7 +120,8 @@ branch; this branch owns `pipeline/`, `assets/`, `data/*.json|csv`, the root `*.
 | 2026-10-21T20:47Z | Fixed Nordic `Ø` transliteration (`LØS` ↔ "Los Grandes"), permalink extraction, added per-source evidence table → 9 priced. |
 | 2026-10-21T20:5xZ | T1–T5 verified (`VERIFICATION.md`), PR #1 opened. Merge into `main` conflicted only on this file; both boards merged here. |
 | 2026-10-21T21:0xZ | **PR #1 merged to `main`** (merge commit `550e031`). GitHub Pages rebuilt and verified live at <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>. |
-| 2026-10-21T21:1xZ | Post-deploy UI fix: match cards now always show Hotspawn's team order (header, both probability rows and source odds agree) with an explicit `pick` tag; unresolved leagues collapse into `<details>` groups for mobile. Follow-up PR #2. |
+| 2026-10-21T21:1xZ | **PR #2 merged** (`992ea80`); Pages rebuilt and the live `picks.html` verified to show the corrected cards. |
+| 2026-10-21T21:2xZ | Post-deploy UI fix: match cards now always show Hotspawn's team order (header, both probability rows and source odds agree) with an explicit `pick` tag; unresolved leagues collapse into `<details>` groups for mobile. Follow-up PR #2. |
 
 ## Findings usable by other sessions (`2b1b75f6`)
 
@@ -140,3 +141,14 @@ branch; this branch owns `pipeline/`, `assets/`, `data/*.json|csv`, the root `*.
   to GitHub runner IPs, so permalinks must come from the lobby payload rather than from the CMS.
 * Pages here is legacy `main:/`; pushes made with `GITHUB_TOKEN` do not start other workflows, so
   `.github/workflows/refresh.yml` explicitly POSTs `/repos/{owner}/{repo}/pages/builds` after committing.
+
+## Final status (session `2b1b75f6`)
+
+* **PR #1** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/1 — merged (`550e031`).
+* **PR #2** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/2 — merged (`992ea80`).
+* **Live site** — https://karagemop466-tech.github.io/LOLHOTSPAWN1/ — verified after each merge.
+* **Refresh** — `.github/workflows/refresh.yml` runs every 4 h on `main`, commits `data/` + rebuilt pages with
+  `[skip ci]`, then explicitly requests a legacy Pages build. First scheduled refresh after the merge completed
+  successfully and its Pages build request was accepted.
+* **Open items for the next session** — 255 unpriced matches need a *verified* market or a results feed;
+  `www.hotspawn.com` remains 403 for runner IPs, so 69 lobby rows still have no public permalink.
