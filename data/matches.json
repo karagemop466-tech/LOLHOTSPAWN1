@@ -1,16 +1,16 @@
 {
  "meta": {
   "pipeline_version": "1.0.0",
-  "generated_at": "2026-10-21T20:49:04Z",
+  "generated_at": "2026-10-21T20:46:02Z",
   "hotspawn_source": "https://play.hotspawn.com/lol-pickems",
-  "hotspawn_retrieved_at": "2026-10-21T20:49:02Z",
-  "markets_retrieved_at": "2026-10-21T20:49:03Z",
+  "hotspawn_retrieved_at": "2026-10-21T20:45:59Z",
+  "markets_retrieved_at": "2026-10-21T20:46:02Z",
   "counts": {
    "matches": 264,
    "resolved": 9,
    "unresolved": 255,
    "tournaments": 27,
-   "quotes": 22
+   "quotes": 31
   },
   "sources": [
    {
@@ -27,9 +27,9 @@
     "book_key": "pinnacle",
     "kind": "sportsbook",
     "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
-    "status": "error",
-    "error": "HTTPError: HTTP Error 403: Forbidden",
-    "quotes": 0
+    "status": "ok",
+    "error": null,
+    "quotes": 9
    },
    {
     "book": "Polymarket",
@@ -2154,23 +2154,43 @@
      "reversed": false,
      "start_utc": "2026-10-22T12:00:00Z",
      "volume_usd": null
+    },
+    {
+     "book": "Pinnacle",
+     "book_key": "pinnacle",
+     "kind": "sportsbook",
+     "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+     "market": "Moneyline (full series)",
+     "home": "Solary",
+     "away": "Galions",
+     "decimal_team1": 1.7874,
+     "decimal_team2": 2.05,
+     "prob_team1_raw": 0.55947,
+     "prob_team1": 0.53422,
+     "prob_team2": 0.46578,
+     "overround": 0.04727,
+     "name_match": "exact",
+     "reversed": true,
+     "start_utc": "2026-10-22T16:00:00Z",
+     "volume_usd": null
     }
    ],
    "sources_used": [
-    "Bovada"
+    "Bovada",
+    "Pinnacle"
    ],
    "status": "resolved",
-   "prob_team1": 0.5,
-   "prob_team2": 0.5,
+   "prob_team1": 0.5171,
+   "prob_team2": 0.4829,
    "pick": {
     "team": "Galions",
     "side": "team1",
-    "probability": 0.5,
-    "probability_display": "50.0%",
+    "probability": 0.5171,
+    "probability_display": "51.7%",
     "basis": "external_market",
-    "confidence": "medium",
-    "dispersion": 0.0,
-    "source_count": 1
+    "confidence": "high",
+    "dispersion": 0.0342,
+    "source_count": 2
    },
    "unresolved_reason": null
   },
@@ -3115,23 +3135,43 @@
      "reversed": false,
      "start_utc": "2026-10-23T17:00:00Z",
      "volume_usd": null
+    },
+    {
+     "book": "Pinnacle",
+     "book_key": "pinnacle",
+     "kind": "sportsbook",
+     "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+     "market": "Moneyline (full series)",
+     "home": "Gen.G",
+     "away": "Invictus",
+     "decimal_team1": 1.2299,
+     "decimal_team2": 4.23,
+     "prob_team1_raw": 0.81308,
+     "prob_team1": 0.77474,
+     "prob_team2": 0.22526,
+     "overround": 0.04949,
+     "name_match": "exact",
+     "reversed": false,
+     "start_utc": "2026-10-23T17:00:00Z",
+     "volume_usd": null
     }
    ],
    "sources_used": [
-    "Bovada"
+    "Bovada",
+    "Pinnacle"
    ],
    "status": "resolved",
-   "prob_team1": 0.792,
-   "prob_team2": 0.208,
+   "prob_team1": 0.7834,
+   "prob_team2": 0.2166,
    "pick": {
     "team": "Gen.G",
     "side": "team1",
-    "probability": 0.792,
-    "probability_display": "79.2%",
+    "probability": 0.7834,
+    "probability_display": "78.3%",
     "basis": "external_market",
-    "confidence": "medium",
-    "dispersion": 0.0,
-    "source_count": 1
+    "confidence": "high",
+    "dispersion": 0.0173,
+    "source_count": 2
    },
    "unresolved_reason": null
   },
@@ -3236,23 +3276,43 @@
      "reversed": false,
      "start_utc": "2026-10-23T18:00:00Z",
      "volume_usd": null
+    },
+    {
+     "book": "Pinnacle",
+     "book_key": "pinnacle",
+     "kind": "sportsbook",
+     "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+     "market": "Moneyline (full series)",
+     "home": "Hanwha Life",
+     "away": "Top Esports",
+     "decimal_team1": 1.2041,
+     "decimal_team2": 4.55,
+     "prob_team1_raw": 0.83051,
+     "prob_team1": 0.79074,
+     "prob_team2": 0.20926,
+     "overround": 0.05029,
+     "name_match": "exact",
+     "reversed": false,
+     "start_utc": "2026-10-23T21:00:00Z",
+     "volume_usd": null
     }
    ],
    "sources_used": [
-    "Bovada"
+    "Bovada",
+    "Pinnacle"
    ],
    "status": "resolved",
-   "prob_team1": 0.7798,
-   "prob_team2": 0.2202,
+   "prob_team1": 0.7853,
+   "prob_team2": 0.2147,
    "pick": {
     "team": "Hanwha Life Esports",
     "side": "team1",
-    "probability": 0.7798,
-    "probability_display": "78.0%",
+    "probability": 0.7853,
+    "probability_display": "78.5%",
     "basis": "external_market",
-    "confidence": "medium",
-    "dispersion": 0.0,
-    "source_count": 1
+    "confidence": "high",
+    "dispersion": 0.0109,
+    "source_count": 2
    },
    "unresolved_reason": null
   },
@@ -3357,23 +3417,43 @@
      "reversed": false,
      "start_utc": "2026-10-24T00:00:00Z",
      "volume_usd": null
+    },
+    {
+     "book": "Pinnacle",
+     "book_key": "pinnacle",
+     "kind": "sportsbook",
+     "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+     "market": "Moneyline (full series)",
+     "home": "Bilibili",
+     "away": "Movistar KOI",
+     "decimal_team1": 1.1953,
+     "decimal_team2": 4.68,
+     "prob_team1_raw": 0.8366,
+     "prob_team1": 0.79655,
+     "prob_team2": 0.20345,
+     "overround": 0.05028,
+     "name_match": "exact",
+     "reversed": false,
+     "start_utc": "2026-10-24T00:00:00Z",
+     "volume_usd": null
     }
    ],
    "sources_used": [
-    "Bovada"
+    "Bovada",
+    "Pinnacle"
    ],
    "status": "resolved",
-   "prob_team1": 0.8125,
-   "prob_team2": 0.1875,
+   "prob_team1": 0.8045,
+   "prob_team2": 0.1955,
    "pick": {
     "team": "Bilibili Gaming",
     "side": "team1",
-    "probability": 0.8125,
-    "probability_display": "81.2%",
+    "probability": 0.8045,
+    "probability_display": "80.5%",
     "basis": "external_market",
-    "confidence": "medium",
-    "dispersion": 0.0,
-    "source_count": 1
+    "confidence": "high",
+    "dispersion": 0.016,
+    "source_count": 2
    },
    "unresolved_reason": null
   },
@@ -3418,23 +3498,43 @@
      "reversed": false,
      "start_utc": "2026-10-23T20:00:00Z",
      "volume_usd": null
+    },
+    {
+     "book": "Pinnacle",
+     "book_key": "pinnacle",
+     "kind": "sportsbook",
+     "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+     "market": "Moneyline (full series)",
+     "home": "Anyone's Legend",
+     "away": "Karmine Corp",
+     "decimal_team1": 1.5,
+     "decimal_team2": 2.67,
+     "prob_team1_raw": 0.66667,
+     "prob_team1": 0.64029,
+     "prob_team2": 0.35971,
+     "overround": 0.0412,
+     "name_match": "exact",
+     "reversed": false,
+     "start_utc": "2026-10-23T19:00:00Z",
+     "volume_usd": null
     }
    ],
    "sources_used": [
-    "Bovada"
+    "Bovada",
+    "Pinnacle"
    ],
    "status": "resolved",
-   "prob_team1": 0.6706,
-   "prob_team2": 0.3294,
+   "prob_team1": 0.6554,
+   "prob_team2": 0.3446,
    "pick": {
     "team": "Anyone's Legend",
     "side": "team1",
-    "probability": 0.6706,
-    "probability_display": "67.1%",
+    "probability": 0.6554,
+    "probability_display": "65.5%",
     "basis": "external_market",
-    "confidence": "medium",
-    "dispersion": 0.0,
-    "source_count": 1
+    "confidence": "high",
+    "dispersion": 0.0303,
+    "source_count": 2
    },
    "unresolved_reason": null
   },
@@ -3479,23 +3579,43 @@
      "reversed": false,
      "start_utc": "2026-10-23T21:00:00Z",
      "volume_usd": null
+    },
+    {
+     "book": "Pinnacle",
+     "book_key": "pinnacle",
+     "kind": "sportsbook",
+     "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+     "market": "Moneyline (full series)",
+     "home": "G2",
+     "away": "Dplus KIA",
+     "decimal_team1": 2.26,
+     "decimal_team2": 1.6757,
+     "prob_team1_raw": 0.44248,
+     "prob_team1": 0.42577,
+     "prob_team2": 0.57423,
+     "overround": 0.03925,
+     "name_match": "exact",
+     "reversed": false,
+     "start_utc": "2026-10-23T20:00:00Z",
+     "volume_usd": null
     }
    ],
    "sources_used": [
-    "Bovada"
+    "Bovada",
+    "Pinnacle"
    ],
    "status": "resolved",
-   "prob_team1": 0.4279,
-   "prob_team2": 0.5721,
+   "prob_team1": 0.4268,
+   "prob_team2": 0.5732,
    "pick": {
     "team": "Dplus KIA",
     "side": "team2",
-    "probability": 0.5721,
-    "probability_display": "57.2%",
+    "probability": 0.5732,
+    "probability_display": "57.3%",
     "basis": "external_market",
-    "confidence": "medium",
-    "dispersion": 0.0,
-    "source_count": 1
+    "confidence": "high",
+    "dispersion": 0.0021,
+    "source_count": 2
    },
    "unresolved_reason": null
   },
@@ -3540,23 +3660,43 @@
      "reversed": false,
      "start_utc": "2026-10-23T18:00:00Z",
      "volume_usd": null
+    },
+    {
+     "book": "Pinnacle",
+     "book_key": "pinnacle",
+     "kind": "sportsbook",
+     "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+     "market": "Moneyline (full series)",
+     "home": "Liquid",
+     "away": "CTBC Flying Oyster",
+     "decimal_team1": 1.3509,
+     "decimal_team2": 3.28,
+     "prob_team1_raw": 0.74026,
+     "prob_team1": 0.70829,
+     "prob_team2": 0.29171,
+     "overround": 0.04514,
+     "name_match": "exact",
+     "reversed": false,
+     "start_utc": "2026-10-23T18:00:00Z",
+     "volume_usd": null
     }
    ],
    "sources_used": [
-    "Bovada"
+    "Bovada",
+    "Pinnacle"
    ],
    "status": "resolved",
-   "prob_team1": 0.6965,
-   "prob_team2": 0.3035,
+   "prob_team1": 0.7024,
+   "prob_team2": 0.2976,
    "pick": {
     "team": "Team Liquid",
     "side": "team1",
-    "probability": 0.6965,
-    "probability_display": "69.6%",
+    "probability": 0.7024,
+    "probability_display": "70.2%",
     "basis": "external_market",
-    "confidence": "medium",
-    "dispersion": 0.0,
-    "source_count": 1
+    "confidence": "high",
+    "dispersion": 0.0118,
+    "source_count": 2
    },
    "unresolved_reason": null
   },
@@ -3601,23 +3741,43 @@
      "reversed": false,
      "start_utc": "2026-10-23T23:00:00Z",
      "volume_usd": null
+    },
+    {
+     "book": "Pinnacle",
+     "book_key": "pinnacle",
+     "kind": "sportsbook",
+     "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+     "market": "Moneyline (full series)",
+     "home": "LOS",
+     "away": "T1",
+     "decimal_team1": 6.16,
+     "decimal_team2": 1.125,
+     "prob_team1_raw": 0.16234,
+     "prob_team1": 0.15443,
+     "prob_team2": 0.84557,
+     "overround": 0.05123,
+     "name_match": "exact",
+     "reversed": false,
+     "start_utc": "2026-10-23T22:00:00Z",
+     "volume_usd": null
     }
    ],
    "sources_used": [
-    "Bovada"
+    "Bovada",
+    "Pinnacle"
    ],
    "status": "resolved",
-   "prob_team1": 0.1262,
-   "prob_team2": 0.8738,
+   "prob_team1": 0.1403,
+   "prob_team2": 0.8597,
    "pick": {
     "team": "T1",
     "side": "team2",
-    "probability": 0.8738,
-    "probability_display": "87.4%",
+    "probability": 0.8597,
+    "probability_display": "86.0%",
     "basis": "external_market",
-    "confidence": "medium",
-    "dispersion": 0.0,
-    "source_count": 1
+    "confidence": "high",
+    "dispersion": 0.0282,
+    "source_count": 2
    },
    "unresolved_reason": null
   },
@@ -3662,23 +3822,43 @@
      "reversed": false,
      "start_utc": "2026-10-24T00:00:00Z",
      "volume_usd": null
+    },
+    {
+     "book": "Pinnacle",
+     "book_key": "pinnacle",
+     "kind": "sportsbook",
+     "url": "https://www.pinnacle.com/en/esports/league-of-legends/matchups",
+     "market": "Moneyline (full series)",
+     "home": "Secret Whales",
+     "away": "LYON",
+     "decimal_team1": 2.23,
+     "decimal_team2": 1.6897,
+     "prob_team1_raw": 0.44843,
+     "prob_team1": 0.43107,
+     "prob_team2": 0.56893,
+     "overround": 0.04027,
+     "name_match": "exact",
+     "reversed": false,
+     "start_utc": "2026-10-23T23:00:00Z",
+     "volume_usd": null
     }
    ],
    "sources_used": [
-    "Bovada"
+    "Bovada",
+    "Pinnacle"
    ],
    "status": "resolved",
-   "prob_team1": 0.4007,
-   "prob_team2": 0.5993,
+   "prob_team1": 0.4159,
+   "prob_team2": 0.5841,
    "pick": {
     "team": "LYON",
     "side": "team2",
-    "probability": 0.5993,
-    "probability_display": "59.9%",
+    "probability": 0.5841,
+    "probability_display": "58.4%",
     "basis": "external_market",
-    "confidence": "medium",
-    "dispersion": 0.0,
-    "source_count": 1
+    "confidence": "high",
+    "dispersion": 0.0303,
+    "source_count": 2
    },
    "unresolved_reason": null
   },
