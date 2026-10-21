@@ -385,6 +385,8 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
     provisional = [r for r in rows if r["method"] == "provisional"]
     one_sided = [r for r in rows if r["method"] == "provisional"
                  and any("no rated series" in f for f in r["flags"])]
+    disconnected = [r for r in rows if any("no shared-opponent chain" in f for f in r["flags"])]
+    provisional = sorted(provisional, key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
     ambiguous = [r for r in rows if any("ambiguous" in f or "could not be matched" in f for f in r["flags"])]
     reason_rows = []
     for r in unresolved:
@@ -404,7 +406,7 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
         ["Name matching", f"{len(ambiguous)} matches",
          "Leaguepedia disambiguates teams with a region suffix (e.g. 'Fenrir (Icelandic Team)'). We only join "
          "when the match is unique or the competition page confirms it; otherwise the team stays unmatched."],
-        ["No shared opponents", "0-3 matches",
+        ["No shared opponents", f"{len(disconnected)} matches",
          "Elo ratings are only comparable inside one connected opponent graph. Cross-pool matches are flagged."],
         ["Book coverage blocked", "see Sources",
          "GG.BET returned a regional block, EGamersWorld served a Cloudflare challenge, Oddspedia returned 410, "
