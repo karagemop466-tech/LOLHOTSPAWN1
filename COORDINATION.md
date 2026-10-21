@@ -25,6 +25,8 @@ Never start a task claimed by another session. Keep scopes non-overlapping. Smal
 | T6 | Verification pass: line-by-line checks, source links per row, flag irregularities | done | arena-f6e73320 | `data/flags.json`, `docs/flagged.html` |
 | T7 | Final integration: build check, no broken links, enable Pages, PR → main, merge, record PR link | in progress | arena-f6e73320 | everything above (integration only) |
 
+**T7 record:** PR: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/15 (created 2026-10-21 ~21:30 UTC from `arena/f6e73320-lolhotspawn1`). Pre-merge checks passed: link check script exit 0 (no dead relative links across the 7 pages); all 200 pick cards + 12 unresolved rows + 32 results rows + 21 flag cards carry source links; KPIs open-only (195 open / 9 market / 174 model / 12 unresolved / 32 settled); live pipeline run 39678622310 (21:25 UTC) reproduced verified numbers with all Pinnacle listings `live`. Merge executed via `gh pr merge 15 --merge` immediately after this commit, without waiting for review, per task protocol (no human review required). Pages enabled post-merge from `main` `/docs`; expected URL: https://karagemop466-tech.github.io/LOLHOTSPAWN1/ . Merge outcome + Pages verification are recorded on PR #15 (post-merge commits to main are made by the refresh bot; scheduled 6-hourly runs arm automatically on main).
+
 ## Log
 
 - 2026-10-21 ~20:20 UTC — arena-f6e73320: created board, claimed T1 (in progress). Recon findings (all verified live this session):
