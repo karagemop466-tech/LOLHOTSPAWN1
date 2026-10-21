@@ -88,3 +88,17 @@ is not a stable site. Resolution:
   EGamersWorld (Cloudflare), Oddspedia (410), BetExplorer (404) and Unibet/Kambi (400) are retried on
   every build and reported on `sources.html`; if one becomes reachable, add it to `BOOK_PROBES` and
   `market_lookup`.
+
+---
+
+# Full Low-Tier Origination, 5-Venue Consensus & Forensic Audit Integration — session `8336fb7e`
+
+## Task board — session `8336fb7e` (`arena/8336fb7e-lolhotspawn1`)
+
+| ID | Work Unit | Status | Owner | Artifacts & Verification |
+| :--- | :--- | :--- | :--- | :--- |
+| `T1` | Hotspawn API + SSR reconciliation (`195` open + `69` past-lock stale rows) | `done` | `8336fb7e` | `scripts/refresh.py`, `data/sources/hotspawn_*.json` |
+| `T2` | **5-Venue Real-Money Market Consensus** (`Pinnacle + Bovada + Polymarket full-series + Kalshi CFTC + Specialist Esportsbooks`) + `LCP 2027 Promotion` (`91.1% / 8.9%`) | `done` | `8336fb7e` | `scripts/markets.py`, `featured.html`, `data/book_receipts.json` (hard-rejects `1.80/1.80` aggregator placeholders) |
+| `T3` | **Low-Tier Regional Origination (`178` decisive open picks across 10 leagues)** via untruncated MediaWiki `Data:<OverviewPage>` schedules (`2,598` match records, `0` rate limits on runners) | `done` | `8336fb7e` | `scripts/leaguepedia_data.py`, `scripts/entities.py`, `scripts/originate.py`, `originated.html` — Chronological walk-forward (`N = 1,595`): **Accuracy `64.9%`, Brier `0.2145` (`−14.2%` MSE), Log-Loss `0.6175`, ECE `3.53%`** |
+| `T4` | **Unresolved Quarantine (`7` open caveats + `64/69` stale scores recovered) & Flagged Forensic Audit (`8` alerts)** | `done` | `8336fb7e` | `unresolved.html`, `flagged.html` — Uncovered **`#1071216 Solid Gaming`** removed in Round 10 (`72%` crowd trap!), **`PvB Nation` misbound as `Phong Vũ Buffalo`**, **`Team Reds` Week 1 ineligible-roster forfeits**, and `+33 pp` `Galions vs Solary` crowd distortion |
+| `T5` | Unified 4-hour cron (`.github/workflows/refresh.yml`), PR #7 merge to `main`, live GitHub Pages HTTP 200 verification | `done` | `8336fb7e` | **PR #7**: <https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/7> (`MERGED` to `main`) · **Live Dashboard**: <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> (`HTTP 200` verified across all pages & feeds) |

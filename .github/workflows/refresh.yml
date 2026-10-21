@@ -1,10 +1,22 @@
 name: refresh-picks
 
+# Unified automated 4-hour pipeline:
+#   1. Refreshes Bovada / Pinnacle / Polymarket quotes & sources ledger (`pipeline/build_data.py` + `sources.html`)
+#   2. Refreshes Hotspawn API + SSR + Pinnacle + Kalshi + Polymarket + untruncated Leaguepedia `Data:` schedules (`scripts/refresh.py --fetch-live`)
+#   3. Originates all low-tier regional LoL lines, builds all 9 mobile-first Quant Hub HTML pages, runs `scripts/validate.py` + `pytest -v`
+#   4. Commits updated `data/` & `*.html` with `[skip ci]` and requests an immediate GitHub Pages rebuild.
+
 on:
   schedule:
     # every 6 hours (within the requested 4-8h window), off the hour to avoid the cron rush
     - cron: "17 */6 * * *"
   workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "pipeline/**"
+      - "scripts/**"
+      - ".github/workflows/refresh.yml"
 
 permissions:
   contents: write
@@ -16,30 +28,50 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Collect sources
-        run: python3 tools/collect.py
-      - name: Build probabilities and picks
-        run: python3 tools/model.py
-      - name: Derive flagged items
-        run: python3 tools/flags.py
-      - name: Build the GitHub Pages site
-        run: python3 tools/site.py
-      - name: Verify the dataset and the site
-        run: python3 tools/verify.py
-      - name: Commit refreshed data and site
+          cache: "pip"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Refresh Bovada quotes & sources ledger (`sources.html`)
         run: |
-          git config user.name "arena-agent"
-          git config user.email "agent@users.noreply.github.com"
-          git add -A
+          python3 pipeline/build_data.py 2>&1 | tee build.log
+          python3 pipeline/build_site.py 2>&1 | tee -a build.log || true
+
+      - name: Run full 5-venue market + low-tier Bayesian origination & HTML rebuild
+        run: python3 scripts/refresh.py --fetch-live
+
+      - name: Run strict invariant & link test suite
+        run: pytest -v
+
+      - name: Commit refreshed data and static dashboard
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git add -A data assets .nojekyll *.html build.log
           if git diff --cached --quiet; then
             echo "no changes"
           else
-            git commit -m "chore(data): refresh picks and rebuild site [skip ci]"
-            git push
+            git commit -m "chore(data): automated 4h refresh of LoL market & originated picks [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
+
+      - name: Request immediate GitHub Pages rebuild
+        if: always() && github.ref_name == 'main'
+        continue-on-error: true
+        run: |
+          curl -sS -X POST \
+            -H "Authorization: Bearer ${{ github.token }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/builds" \
+            -o /dev/null -w "pages build request: %{http_code}\n"

@@ -1,65 +1,151 @@
 (function () {
   "use strict";
 
-  // 1. Show times in the visitor's own timezone (the page ships UTC and upgrades it).
-  document.querySelectorAll("time.utc[data-utc]").forEach(function (el) {
-    var raw = el.getAttribute("data-utc");
-    var d = new Date(raw);
-    if (isNaN(d.getTime())) return;
-    try {
-      el.textContent = d.toLocaleString(undefined, {
-        weekday: "short", month: "short", day: "numeric",
-        hour: "2-digit", minute: "2-digit"
+  // Format `data-utc` timestamps with friendly local date/time while preserving UTC
+  function hydrateTimestamps() {
+    var nodes = document.querySelectorAll("[data-utc]");
+    for (var i = 0; i < nodes.length; i++) {
+      var iso = nodes[i].getAttribute("data-utc");
+      if (!iso) continue;
+      var d = new Date(iso);
+      if (isNaN(d.getTime())) continue;
+      try {
+        var localStr = d.toLocaleString(undefined, {
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        nodes[i].setAttribute("title", "UTC: " + iso + " | Local: " + localStr);
+        if (nodes[i].hasAttribute("data-show-local")) {
+          nodes[i].textContent = localStr + " (" + iso.slice(11, 16) + " UTC)";
+        }
+      } catch (_err) {
+        // Keep static UTC fallback intact
+      }
+    }
+  }
+
+  function initPickFilters() {
+    var searchEl = document.getElementById("filter-search");
+    var compEl = document.getElementById("filter-comp");
+    var tierEl = document.getElementById("filter-tier");
+    var windowEl = document.getElementById("filter-window");
+    var sortEl = document.getElementById("filter-sort");
+    var countEl = document.getElementById("visible-count");
+    var rootEl = document.getElementById("dual-view-root");
+
+    var cardsWrap = document.getElementById("picks-cards-list");
+    var tableBody = document.getElementById("picks-table-body");
+    if (!searchEl && !compEl && !tierEl && !windowEl) return;
+
+    // Pre-populate controls from URL query string (`?comp=...&tier=...&window=...&q=...`)
+    var params = new URLSearchParams(window.location.search);
+    if (compEl && params.get("comp")) compEl.value = params.get("comp");
+    if (tierEl && params.get("tier")) tierEl.value = params.get("tier");
+    if (windowEl && params.get("window")) windowEl.value = params.get("window");
+    if (searchEl && params.get("q")) searchEl.value = params.get("q");
+
+    function matchesFilters(el) {
+      var q = searchEl ? searchEl.value.trim().toLowerCase() : "";
+      var comp = compEl ? compEl.value : "all";
+      var tier = tierEl ? tierEl.value : "all";
+      var win = windowEl ? windowEl.value : "all";
+
+      if (comp && comp !== "all" && el.getAttribute("data-comp") !== comp) return false;
+      if (tier && tier !== "all") {
+        var rowTier = el.getAttribute("data-status") || "";
+        if (tier === "market" && rowTier !== "market_consensus" && rowTier !== "esportsbook_line") return false;
+        if (tier !== "market" && rowTier !== tier) return false;
+      }
+      if (win && win !== "all") {
+        var hrs = parseFloat(el.getAttribute("data-hours") || "99999");
+        if (win === "48h" && (hrs <= 0 || hrs > 48)) return false;
+        if (win === "7d" && (hrs <= 0 || hrs > 168)) return false;
+        if (win === "high" && parseFloat(el.getAttribute("data-favprob") || "0") < 0.65) return false;
+      }
+      if (q) {
+        var hay = (el.getAttribute("data-search") || "").toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    }
+
+    function sortContainer(container, selector) {
+      if (!container || !sortEl) return;
+      var mode = sortEl.value || "kickoff";
+      var items = Array.prototype.slice.call(container.querySelectorAll(selector));
+      items.sort(function (a, b) {
+        if (mode === "prob_desc") {
+          return parseFloat(b.getAttribute("data-favprob") || "0") - parseFloat(a.getAttribute("data-favprob") || "0");
+        }
+        if (mode === "points_desc") {
+          return parseFloat(b.getAttribute("data-points") || "0") - parseFloat(a.getAttribute("data-points") || "0");
+        }
+        if (mode === "edge_desc") {
+          return Math.abs(parseFloat(b.getAttribute("data-delta") || "0")) - Math.abs(parseFloat(a.getAttribute("data-delta") || "0"));
+        }
+        return parseFloat(a.getAttribute("data-kickoff") || "0") - parseFloat(b.getAttribute("data-kickoff") || "0");
       });
-      el.title = raw;
-    } catch (err) { /* keep UTC text */ }
-  });
+      for (var i = 0; i < items.length; i++) {
+        container.appendChild(items[i]);
+      }
+    }
 
-  // 2. Mobile menu
-  var btn = document.querySelector(".menu-btn");
-  var nav = document.getElementById("nav");
-  if (btn && nav) {
-    btn.addEventListener("click", function () {
-      var open = nav.classList.toggle("open");
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    function applyAll() {
+      sortContainer(cardsWrap, ".pick-item");
+      sortContainer(tableBody, ".pick-row");
+
+      var cardItems = cardsWrap ? cardsWrap.querySelectorAll(".pick-item") : [];
+      var shown = 0;
+      for (var i = 0; i < cardItems.length; i++) {
+        var ok = matchesFilters(cardItems[i]);
+        cardItems[i].classList.toggle("hidden-row", !ok);
+        if (ok) shown++;
+      }
+
+      var tableRows = tableBody ? tableBody.querySelectorAll(".pick-row") : [];
+      for (var j = 0; j < tableRows.length; j++) {
+        var okRow = matchesFilters(tableRows[j]);
+        tableRows[j].classList.toggle("hidden-row", !okRow);
+        if (!cardsWrap && okRow) shown++;
+      }
+
+      if (countEl) {
+        countEl.textContent = String(shown);
+      }
+    }
+
+    [searchEl, compEl, tierEl, windowEl, sortEl].forEach(function (ctrl) {
+      if (!ctrl) return;
+      ctrl.addEventListener("input", applyAll);
+      ctrl.addEventListener("change", applyAll);
     });
+
+    // View switcher (`Auto Mobile/Desktop`, `Cards`, `Table`)
+    var viewBtns = document.querySelectorAll("[data-set-view]");
+    for (var k = 0; k < viewBtns.length; k++) {
+      viewBtns[k].addEventListener("click", function (ev) {
+        var mode = ev.currentTarget.getAttribute("data-set-view");
+        if (!rootEl) return;
+        rootEl.classList.remove("responsive-dual", "view-mode-cards", "view-mode-table");
+        rootEl.classList.add(mode);
+        viewBtns.forEach(function (b) {
+          b.classList.toggle("active", b === ev.currentTarget);
+        });
+      });
+    }
+
+    applyAll();
   }
 
-  // 3. Filters on the picks page (progressive enhancement: everything is visible without JS)
-  var list = document.getElementById("list");
-  if (!list) return;
-  var q = document.getElementById("q");
-  var comp = document.getElementById("comp");
-  var chips = Array.prototype.slice.call(document.querySelectorAll(".chip[data-filter]"));
-  var counter = document.getElementById("count");
-  var empty = document.getElementById("empty");
-  var cards = Array.prototype.slice.call(list.querySelectorAll(".card"));
-  var activeMethod = "";
-
-  function apply() {
-    var term = (q && q.value || "").trim().toLowerCase();
-    var tournament = comp && comp.value || "";
-    var shown = 0;
-    cards.forEach(function (card) {
-      var okMethod = !activeMethod || card.getAttribute("data-method") === activeMethod;
-      var okComp = !tournament || card.getAttribute("data-comp") === tournament;
-      var okTerm = !term || (card.getAttribute("data-text") || "").indexOf(term) !== -1;
-      var show = okMethod && okComp && okTerm;
-      card.hidden = !show;
-      if (show) shown++;
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      hydrateTimestamps();
+      initPickFilters();
     });
-    if (counter) counter.textContent = shown + " matches shown";
-    if (empty) empty.hidden = shown !== 0;
+  } else {
+    hydrateTimestamps();
+    initPickFilters();
   }
-
-  chips.forEach(function (chip) {
-    chip.addEventListener("click", function () {
-      chips.forEach(function (c) { c.classList.remove("active"); });
-      chip.classList.add("active");
-      activeMethod = chip.getAttribute("data-filter") || "";
-      apply();
-    });
-  });
-  if (q) q.addEventListener("input", apply);
-  if (comp) comp.addEventListener("change", apply);
 })();
