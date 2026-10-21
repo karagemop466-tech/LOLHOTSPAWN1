@@ -79,11 +79,13 @@
   <h2>6. Known limitations</h2>
   <ul style="color:var(--mut);font-size:14.5px;padding-left:20px">
     <li>Market coverage is concentrated on tier-1/2 events (Pinnacle currently prices: League of Legends - EMEA Masters, League of Legends - World Championship); hundreds of amateur-division matches have no market line anywhere we can verify.</li>
-    <li>The own model measures teams as they appear in Hotspawn's archive — roster swaps, academy/main-team promotion, and smurf/stand-in games are invisible to it.</li>
+    <li>The own model measures teams as they appear in Hotspawn's archive — roster swaps, academy/main-team promotion, and smurf/stand-in games are invisible to it. Tier-1 teams appear rarely in that archive (it skews to minor leagues), which is why Worlds-level matches rely on market lines.</li>
+    <li>Cross-source team names are unified by normalization (diacritic folding incl. Ø→O, dropped org suffixes like “Esports/Gaming/Team/Club”, plus a small alias table for major orgs — e.g. HLE→Hanwha Life, LØS→LOS). Every non-exact match is flagged for review.</li>
+    <li><b>Start-time metadata can disagree across platforms.</b> Verified example (2026-10-21): Hotspawn lists Worlds group-stage matches in hourly slots that differ from Pinnacle and Polymarket's official rules (e.g. Hanwha Life vs Top Esports — Hotspawn 18:00 UTC vs Pinnacle/Polymarket 21:00 UTC / 5:00 PM ET). Displayed times and locks are Hotspawn's (they govern pick submission); discrepancies &gt;90 min are auto-flagged.</li>
+    <li>Hotspawn leaves fixtures in “scheduled” status long after they were supposed to start; those (>24h past start, unplayed) are classified <b>stale</b>, excluded from pick lists, and counted in an info flag.</li>
     <li>Best-of-1 formats (most minor leagues) are high-variance; even correct probabilities lose often.</li>
-    <li>Name matching across sources can mis-link similarly named teams; every fuzzy match is flagged for review rather than hidden.</li>
     <li>The Hotspawn SSR lobby is CDN-cached and occasionally 403s; the fixtures API is the authoritative inventory, the page is a cross-check.</li>
-    <li>Polymarket prices move continuously; snapshots are point-in-time (timestamp on every page).</li>
+    <li>Polymarket prices move continuously; snapshots are point-in-time (timestamp on every page). Polymarket mid-prices are only used when the order-book spread is ≤6¢, else last outcome prices.</li>
   </ul>
 </section>
 
@@ -104,7 +106,7 @@
 <footer class="bot">
   <p><b>LoL Hotspawn Picks</b> — independent analytics for the League of Legends matches listed on the Hotspawn pick'em lobby. Not affiliated with Hotspawn, Riot Games, or any bookmaker. Nothing here is betting advice.</p>
   <p>Probabilities come from external betting lines (Pinnacle, Polymarket) and our own Elo-style model built from real match results — never from Hotspawn crowd pick percentages. Data refreshes every 6 hours via GitHub Actions.</p>
-  <p>Built Wed, Oct 21, 21:13 UTC · <a href="methodology.html">Methodology &amp; sources</a> · <a href="data/picks.json">Raw data (JSON)</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1" rel="noopener" target="_blank">GitHub repo</a></p>
+  <p>Built Wed, Oct 21, 21:14 UTC · <a href="methodology.html">Methodology &amp; sources</a> · <a href="data/picks.json">Raw data (JSON)</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1" rel="noopener" target="_blank">GitHub repo</a></p>
 </footer>
 </main>
 <script src="assets/app.js" defer></script>
