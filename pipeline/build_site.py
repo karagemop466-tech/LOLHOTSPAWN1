@@ -327,8 +327,9 @@ def page_picks(matches, meta, tournaments):
     return f"""
 <section class="panel">
   <h1>Picks ({len(resolved)})</h1>
-  <p class="lede">Every match that has a verifiable external market. Probability is de-vigged from the
-  bookmaker or prediction-market prices listed on each card.</p>
+  <p class="lede">{len(resolved)} of {meta["counts"]["matches"]} Hotspawn LoL matches currently have a verifiable
+  external market. Probability is de-vigged from the bookmaker or prediction-market prices listed on each card.
+  The other {meta["counts"]["unresolved"]} are on <a href="unresolved.html">Unresolved</a> with the reason.</p>
   <div class="controls">
     <input id="search" type="search" placeholder="Filter by team or league…" aria-label="Filter picks">
     <select id="league"><option value="">All competitions</option>{options}</select>
