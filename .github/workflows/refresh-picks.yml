@@ -1,0 +1,64 @@
+name: Refresh Hotspawn LoL Picks
+
+on:
+  push:
+    branches:
+      - main
+      - 'arena/**'
+    paths-ignore:
+      - 'COORDINATION.md'
+      - 'README.md'
+  schedule:
+    - cron: '17 */4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  harvest-and-refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install --quiet -r requirements.txt
+
+      - name: Run live harvest probe or full refresh pipeline
+        run: |
+          if [ -f scripts/refresh.py ]; then
+            python3 scripts/refresh.py
+            python3 scripts/validate.py
+            pytest -q
+          else
+            python3 scripts/harvest_probe.py
+          fi
+
+      - name: Upload live harvest & evidence artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lolhotspawn-live-data
+          path: |
+            raw_harvest/
+            data/
+          if-no-files-found: warn
+
+      - name: Commit scheduled refresh back to main
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          if ! git diff --quiet; then
+            git add -A
+            git commit -m "chore(refresh): automated 4h Hotspawn LoL line & standings update ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
