@@ -1,0 +1,297 @@
+{
+  "generated_at": "2026-10-21T20:40:33Z",
+  "hosts": {
+    "api.sofascore.com": {
+      "host": "api.sofascore.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://api.sofascore.com/api/v1/sport/esports/season/9539/scheduled-categories"
+      ],
+      "errors": [
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    },
+    "api.thunderpick.com": {
+      "host": "api.thunderpick.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://api.thunderpick.com/api/v1/sports-wallet/events?sportId=20"
+      ],
+      "errors": [
+        "ConnectionError"
+      ],
+      "success_rate": 0.0
+    },
+    "betexplorer.com": {
+      "host": "betexplorer.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.betexplorer.com/esports/league-of-legends/"
+      ],
+      "errors": [
+        "HTTP 404"
+      ],
+      "success_rate": 0.0
+    },
+    "en.oddspedia.com": {
+      "host": "en.oddspedia.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://en.oddspedia.com/league-of-legends"
+      ],
+      "errors": [
+        "ConnectionError"
+      ],
+      "success_rate": 0.0
+    },
+    "esports-api.lolesports.com": {
+      "host": "esports-api.lolesports.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://esports-api.lolesports.com/persisted/gw/getLeagues?hlsg=en"
+      ],
+      "errors": [
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    },
+    "gamma-api.polymarket.com": {
+      "host": "gamma-api.polymarket.com",
+      "attempts": 3,
+      "ok": 3,
+      "failed": 0,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends&limit_per_type=25&events_status=active",
+        "https://gamma-api.polymarket.com/public-search?q=worlds%202026%20lol&limit_per_type=25&events_status=active",
+        "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends%20worlds&limit_per_type=25&events_status=active"
+      ],
+      "errors": [],
+      "success_rate": 1.0
+    },
+    "liquipedia.net": {
+      "host": "liquipedia.net",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://liquipedia.net/leagueoflegends/index.php?search=Worlds+2026&title=Special:Search"
+      ],
+      "errors": [
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    },
+    "oddschecker.com": {
+      "host": "oddschecker.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.oddschecker.com/esports/league-of-legends"
+      ],
+      "errors": [
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    },
+    "oddsportal.com": {
+      "host": "oddsportal.com",
+      "attempts": 2,
+      "ok": 2,
+      "failed": 0,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.oddsportal.com/esports/league-of-legends/",
+        "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/"
+      ],
+      "errors": [],
+      "success_rate": 1.0
+    },
+    "pinnacle.com": {
+      "host": "pinnacle.com",
+      "attempts": 1,
+      "ok": 1,
+      "failed": 0,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.pinnacle.com/en/esports/matchups"
+      ],
+      "errors": [],
+      "success_rate": 1.0
+    },
+    "play.hotspawn.com": {
+      "host": "play.hotspawn.com",
+      "attempts": 1,
+      "ok": 1,
+      "failed": 0,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://play.hotspawn.com/lol-pickems"
+      ],
+      "errors": [],
+      "success_rate": 1.0
+    },
+    "sports.betway.com": {
+      "host": "sports.betway.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://sports.betway.com/en/bet/sport/40010572/cmp/123456"
+      ],
+      "errors": [
+        "HTTP 404"
+      ],
+      "success_rate": 0.0
+    },
+    "sportsinteraction.com": {
+      "host": "sportsinteraction.com",
+      "attempts": 1,
+      "ok": 0,
+      "failed": 1,
+      "skipped_no_network": 0,
+      "sample_urls": [
+        "https://www.sportsinteraction.com/esports/league-of-legends/odds"
+      ],
+      "errors": [
+        "HTTP 403"
+      ],
+      "success_rate": 0.0
+    }
+  },
+  "probes": [
+    {
+      "label": "BetExplorer (esports book aggregator)",
+      "url": "https://www.betexplorer.com/esports/league-of-legends/",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Oddschecker (odds comparison)",
+      "url": "https://www.oddschecker.com/esports/league-of-legends",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Oddspedia (livescore + odds)",
+      "url": "https://en.oddspedia.com/league-of-legends",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "SportsInteraction (odds comparison)",
+      "url": "https://www.sportsinteraction.com/esports/league-of-legends/odds",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Pinnacle (sportsbook)",
+      "url": "https://www.pinnacle.com/en/esports/matchups",
+      "http": 200,
+      "bytes": 6394,
+      "odds_table_found": false,
+      "verdict": "page reached but no machine-readable LoL odds table"
+    },
+    {
+      "label": "Betway Esports (sportsbook)",
+      "url": "https://sports.betway.com/en/bet/sport/40010572/cmp/123456",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Sofascore (LoL livescore API)",
+      "url": "https://api.sofascore.com/api/v1/sport/esports/season/9539/scheduled-categories",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Thunderpick (Hotspawn partner book)",
+      "url": "https://api.thunderpick.com/api/v1/sports-wallet/events?sportId=20",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "Liquipedia LoL (schedule/results wiki)",
+      "url": "https://liquipedia.net/leagueoflegends/index.php?search=Worlds+2026&title=Special:Search",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    },
+    {
+      "label": "LoL Esports official API (Riot)",
+      "url": "https://esports-api.lolesports.com/persisted/gw/getLeagues?hlsg=en",
+      "http": null,
+      "bytes": 0,
+      "odds_table_found": false,
+      "verdict": "unreachable from this runner (bot protection, geo-block or DNS). No line collected."
+    }
+  ],
+  "oddsportal": {
+    "index_url": "https://www.oddsportal.com/esports/league-of-legends/",
+    "tournaments": [
+      "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/"
+    ],
+    "rows": 0,
+    "status": "ok"
+  },
+  "polymarket": {
+    "queries": [
+      {
+        "query": "league of legends",
+        "url": "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends&limit_per_type=25&events_status=active",
+        "events": 25,
+        "error": null
+      },
+      {
+        "query": "worlds 2026 lol",
+        "url": "https://gamma-api.polymarket.com/public-search?q=worlds%202026%20lol&limit_per_type=25&events_status=active",
+        "events": 25,
+        "error": null
+      },
+      {
+        "query": "league of legends worlds",
+        "url": "https://gamma-api.polymarket.com/public-search?q=league%20of%20legends%20worlds&limit_per_type=25&events_status=active",
+        "events": 25,
+        "error": null
+      }
+    ],
+    "events": 36,
+    "markets": 684,
+    "status": "ok"
+  }
+}
