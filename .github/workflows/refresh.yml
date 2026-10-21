@@ -2,8 +2,12 @@ name: Refresh LoL picks & publish
 
 # No manual step: every 6 hours (inside the requested 4-8 h window) the job re-scrapes the
 # Hotspawn League of Legends pick'em lobby, re-reads the external betting-line sources, re-runs
-# the self-originated model, rebuilds the Pages site, and only commits when the verification
-# gates pass. A failed run therefore leaves the last good snapshot published.
+# the self-originated model, rebuilds the Pages site at the repo root and commits only when the
+# verification gates pass.  A failed run therefore leaves the last good snapshot published.
+#
+# GitHub Pages for this repository is a legacy build of branch `main`, path `/` (the token in use
+# cannot change Pages settings), so the generated pages live at the repo root:
+# index.html, picks.html, leagues/, tiers/, assets/, and data/*.
 
 on:
   schedule:
@@ -20,10 +24,18 @@ on:
         required: false
         type: boolean
         default: false
+  push:
+    branches:
+      - main
+      - "arena/**"
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "requirements.txt"
+      - ".github/workflows/refresh.yml"
 
 permissions:
   contents: write
-  pages: read
 
 concurrency:
   group: refresh-${{ github.ref }}
@@ -42,93 +54,113 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        run: python -m pip install --upgrade pip -q && pip install -q -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip -q
+          pip install -q -r requirements.txt
 
       - name: Offline unit tests (parser, maths, joining rules)
         run: python -m unittest discover -s tests -v
 
-      - name: Collect Hotspawn + external lines + model
+      - name: Collect Hotspawn lobby + external lines + model
         run: |
           FLAGS=""
           if [ "${{ inputs.skip_lines }}" = "true" ]; then FLAGS="$FLAGS --no-lines"; fi
           if [ "${{ inputs.skip_probes }}" = "true" ]; then FLAGS="$FLAGS --no-probes"; fi
           python -m scripts.pipeline --out data-new $FLAGS
 
-      - name: Build site from the new snapshot
-        run: python -m scripts.build_site --data data-new --site site-new
+      - name: Build the site from the new snapshot (repo root)
+        run: python -m scripts.build_site --data data-new --site .
 
-      - name: Verify (schema, sources, no broken links, no fabricated values)
-        run: python -m scripts.verify --data data-new --site site-new --report data-new/verify-report.txt
+      - name: Verify gates (schema, sources, no broken links, no fabricated values)
+        run: python -m scripts.verify --data data-new --site . --report data-new/verify-report.txt
 
-      - name: Run report (readable in the log)
+      - name: Run report
         if: always()
         run: |
           echo "================ summary.json ================"
-          [ -f data-new/summary.json ] && python -m json.tool data-new/summary.json | head -80 || echo "no summary"
+          [ -f data-new/summary.json ] && python -m json.tool data-new/summary.json | head -70 || echo "no summary"
           echo "================ verify report =============="
           cat data-new/verify-report.txt 2>/dev/null || echo "no verify report"
-          echo "================ parsed sample (first 12 cards) =============="
+          echo "================ parsed lobby cards (first 14) =============="
           python - <<'PY'
           import json, os
           p = "data-new/hotspawn.json"
           if os.path.exists(p):
               doc = json.load(open(p))
-              for c in (doc.get("matches") or [])[:12]:
+              for c in (doc.get("matches") or [])[:14]:
                   print(f'- {c.get("lobby_date_label")} | {c.get("lobby_tournament")} | tier={c.get("tier")}'
                         f' pts={c.get("points")} | teams={c.get("teams")} | fid={c.get("fixture_id")}'
                         f' | lock={c.get("lock_countdown_s")} | notes={c.get("parse_notes")}')
-              print("totals:", doc.get("totals"), "| leagues:", len(doc.get("leagues") or {}))
+              print("totals:", doc.get("totals"), "| cards:", len(doc.get("matches") or []),
+                    "| fixture records matched:", len(doc.get("fixture_records") or {}),
+                    "| leagues:", len(doc.get("leagues") or {}))
           else:
-              print("no hotspawn.json (offline build?)")
+              print("no hotspawn.json produced")
           PY
-          echo "================ lobby text sample (head 40 lines) =============="
-          head -40 data-new/debug/lobby_text_sample.txt 2>/dev/null || echo "(no sample)"
+          echo "================ league page harvest =============="
+          python - <<'PY'
+          import json, os
+          p = "data-new/hotspawn.json"
+          if os.path.exists(p):
+              lg = (json.load(open(p)).get("leagues") or {})
+              for slug, d in list(lg.items())[:40]:
+                  print(f'- {slug}: fixtures={d.get("fixtures") and len(d["fixtures"])} '
+                        f'results={len(d.get("results") or [])}')
+              print("leagues fetched:", len(lg))
+          PY
+          echo "================ lobby text sample (head 34 lines) =============="
+          head -34 data-new/debug/lobby_text_sample.txt 2>/dev/null || echo "(no sample)"
           echo "================ sources ledger =============="
-          [ -f data-new/sources.json ] && python -m json.tool data-new/sources.json | head -60 || true
+          [ -f data-new/sources.json ] && python -m json.tool data-new/sources.json | head -70 || true
 
-      - name: Publish (commit data + site to this branch)
+      - name: Publish snapshot (commit data + generated pages)
         if: success()
         run: |
           set -euo pipefail
-          mkdir -p data site
+          mkdir -p data
           rsync -a --delete --exclude 'cache/' data-new/ data/
-          rsync -a --delete site-new/ site/
-          rm -rf data-new site-new
+          rm -rf data-new
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A data site COORDINATION.md || true
+          git add -A
           if git diff --cached --quiet; then
             echo "no change this run"; echo "SKIP_PUSH=1" >> "$GITHUB_ENV"; exit 0
           fi
           STAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git commit -q -m "data+site: refreshed LoL picks ($STAMP) [skip ci]" \
-            -m "Automated refresh: Hotspawn LoL pick'em lobby, external betting lines (OddsPortal/Polymarket),
-          self-originated Elo lines for uncovered matches, and the rebuilt Pages site."
+          git commit -q -m "data+site: refreshed LoL pick'ems ($STAMP) [skip ci]" \
+            -m "Automated refresh: Hotspawn LoL pick'em lobby, external betting lines
+          (Polymarket + odds comparison), self-originated Elo lines for matches no book
+          covers, unresolved-pick ledger, and the rebuilt Pages site."
           git fetch -q origin "${{ github.ref_name }}"
-          git rebase -q "origin/${{ github.ref_name }}" || { git rebase --abort; echo "rebase conflict — pushing to a scratch ref"; git push -q origin "HEAD:refs/heads/refresh-conflict-${GITHUB_RUN_NUMBER}"; exit 1; }
+          if ! git rebase -q "origin/${{ github.ref_name }}"; then
+            git rebase --abort
+            git push -q origin "HEAD:refs/heads/refresh-conflict-${GITHUB_RUN_NUMBER}"
+            echo "::error::rebase conflict with origin/${{ github.ref_name }}; snapshot pushed to a scratch ref instead"
+            exit 1
+          fi
           git push -q origin "HEAD:${{ github.ref_name }}"
           echo "PUSHED_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
 
       - name: Confirm GitHub Pages deploy of the published commit
-        if: success() && env.SKIP_PUSH != '1'
-        shell: bash
+        if: success() && github.ref_name == 'main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -uo pipefail
-          target="${PUSHED_SHA:-}"
-          if [ -z "$target" ]; then echo "nothing pushed"; exit 0; fi
           for i in $(seq 1 24); do
             body="$(curl -s -H "Authorization: Bearer ${GITHUB_TOKEN}" \
               "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds/latest")"
             status="$(printf '%s' "$body" | python -c 'import sys,json;print(json.load(sys.stdin).get("status",""))' 2>/dev/null || echo "")"
             sha="$(printf '%s' "$body" | python -c 'import sys,json;print(json.load(sys.stdin).get("commit",""))' 2>/dev/null || echo "")"
-            echo "pages build: status=$status commit=${sha:0:8} (want ${target:0:8})"
-            if [ "$status" = "error" ]; then echo "Pages build failed"; exit 1; fi
-            if [ "$status" = "built" ] && [ "$sha" = "$target" ]; then echo "Pages deployed"; exit 0; fi
+            echo "pages build: status=$status commit=${sha:0:8}"
+            if [ "$status" = "error" ]; then
+              printf '%s' "$body" | python -c 'import sys,json;print(json.load(sys.stdin).get("error",{}))' || true
+              echo "Pages build reported an error" >&2; exit 1
+            fi
+            if [ "$status" = "built" ]; then echo "Pages built (commit ${sha:0:8})"; exit 0; fi
             sleep 15
           done
-          echo "Pages deploy not confirmed within 6 minutes (it usually lands shortly after); not failing the refresh."
+          echo "Pages build not confirmed within 6 minutes; not failing the refresh run." >&2
           exit 0
 
       - name: Upload snapshot artifact
@@ -138,6 +170,5 @@ jobs:
           name: snapshot-${{ github.run_number }}
           path: |
             data
-            data-new
           if-no-files-found: ignore
           retention-days: 7

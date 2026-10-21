@@ -689,7 +689,7 @@ documented limitation, not a silent gap.</p>
     return layout("", "Sources ledger — " + SITE_TITLE, body, updated=iso(now), summary=summary, active="sources.html")
 
 
-def page_data(site: str, data: dict, now) -> str:
+def page_data(site: str, data: dict, now, prefix: str = "") -> str:
     summary = data["summary"]
     files = [("data/picks.json", "one row per pick'em, full detail"),
              ("data/picks.csv", "same table flattened for spreadsheets"),
@@ -700,7 +700,8 @@ def page_data(site: str, data: dict, now) -> str:
              ("data/summary.json", "executive-summary numbers"),
              ("data/hotspawn.json", "raw collection (lobby cards, league fixtures, results)")]
     lis = "".join(
-        f'<li><a href="{href}">{href.split("/")[-1]}</a> <span class="muted">{esc(desc)}</span></li>'
+        f'<li><a href="{esc(prefix + href)}">{esc(href.split("/")[-1])}</a> '
+        f'<span class="muted">{esc(desc)}</span></li>'
         for href, desc in files)
     body = f"""
 <section class="pagehead"><h1>Download the data</h1>
@@ -715,7 +716,8 @@ def page_data(site: str, data: dict, now) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default="data")
-    ap.add_argument("--site", default="site")
+    ap.add_argument("--site", default=".",
+                    help="output root; defaults to the repo root because Pages here builds main:/")
     args = ap.parse_args()
 
     def load(name, default=None):
@@ -740,7 +742,7 @@ def main() -> int:
     now = parse_iso(data["summary"]["generated_at"]) or utcnow()
 
     os.makedirs(args.site, exist_ok=True)
-    write_text(os.path.join(args.site, ".nojekyll"), "")
+    write_text(os.path.join(args.site, ".nojekyll"), "# static site - do not run Jekyll\n")
     os.makedirs(os.path.join(args.site, "assets"), exist_ok=True)
 
     changed = []
@@ -805,13 +807,14 @@ def main() -> int:
             if write_if_changed(dst, content):
                 changed.append(f"assets/{src_name}")
 
-    # data copies for download links on this site
-    os.makedirs(os.path.join(args.site, "data"), exist_ok=True)
-    for name in ("picks.json", "picks.csv", "unresolved.json", "flags.json", "ratings.json",
-                 "sources.json", "summary.json", "hotspawn.json"):
-        src = os.path.join(args.data, name)
-        if os.path.exists(src):
-            shutil.copyfile(src, os.path.join(args.site, "data", name))
+    # When the site root is the repo root, ``data/`` is already published in place.
+    if os.path.abspath(args.site) != os.path.abspath(os.path.join(args.data, "..")):
+        os.makedirs(os.path.join(args.site, "data"), exist_ok=True)
+        for name in ("picks.json", "picks.csv", "unresolved.json", "flags.json", "ratings.json",
+                     "sources.json", "summary.json", "hotspawn.json"):
+            src = os.path.join(args.data, name)
+            if os.path.exists(src):
+                shutil.copyfile(src, os.path.join(args.site, "data", name))
     print(f"site built: {len(changed)} file(s) written; {counts['leagues']} league pages, "
           f"{counts['tiers']} tier pages; {len(data['picks'])} picks")
     return 0

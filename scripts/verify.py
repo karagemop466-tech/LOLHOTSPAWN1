@@ -91,17 +91,25 @@ def check_rows(picks: list[dict], unresolved: list[dict], errors: list[str], war
     return len(picks)
 
 
+SKIP_DIRS = {".git", ".github", "scripts", "tests", "data", "node_modules", "__pycache__",
+             "data-new", "site-new", ".venv"}
+
+
 def check_site(site: str, errors: list[str], warns: list[str]) -> int:
     pages = []
-    for root, _dirs, files in os.walk(site):
+    for root, dirs, files in os.walk(site):
+        dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
         for name in files:
             if name.endswith(".html"):
                 pages.append(os.path.join(root, name))
     if not pages:
         errors.append("site contains no HTML pages")
         return 0
-    existing = {os.path.relpath(os.path.join(root, f), site).replace(os.sep, "/")
-                for root, _d, files in os.walk(site) for f in files}
+    existing = set()
+    for root, dirs, files in os.walk(site):
+        dirs[:] = [d for d in dirs if d not in {".git", "node_modules", "__pycache__"}]
+        for name in files:
+            existing.add(os.path.relpath(os.path.join(root, name), site).replace(os.sep, "/"))
     for page in pages:
         rel = os.path.relpath(page, site).replace(os.sep, "/")
         text = open(page, encoding="utf-8").read()
