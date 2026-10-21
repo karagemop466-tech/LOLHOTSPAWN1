@@ -1,54 +1,49 @@
-name: Refresh Hotspawn LoL Picks
+name: Refresh LoL Pick'ems & External Markets
 
 on:
-  push:
-    branches:
-      - main
-      - 'arena/**'
-    paths-ignore:
-      - 'COORDINATION.md'
-      - 'README.md'
   schedule:
     - cron: '17 */4 * * *'
   workflow_dispatch:
+  push:
+    branches:
+      - arena/8336fb7e-lolhotspawn1
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/refresh-picks.yml'
 
 permissions:
   contents: write
 
 jobs:
-  harvest-and-refresh:
+  harvest:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: 'pip'
 
       - name: Install Python dependencies
-        run: pip install --quiet -r requirements.txt
+        run: pip install -r requirements.txt
 
-      - name: Run live harvest or full refresh pipeline
-        run: |
-          if [ -f scripts/refresh.py ]; then
-            python3 scripts/refresh.py
-            python3 scripts/validate.py
-            pytest -q
-          else
-            python3 scripts/harvest_probe.py
-          fi
+      - name: Run Leaguepedia Data schedule & roster harvest
+        run: python3 scripts/leaguepedia_data.py
 
-      - name: Commit updated data snapshot to branch
+      - name: Commit refreshed live data snapshot to session branch
+        if: github.ref_name == 'arena/8336fb7e-lolhotspawn1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin "${GITHUB_REF_NAME}"
-          if [ -n "$(git status --porcelain)" ]; then
-            git add -A
-            git commit -m "chore(data): update verified Hotspawn LoL sources & picks ($(date -u +%Y-%m-%dT%H:%M:%SZ)) [skip ci]"
-            git pull --rebase origin "${GITHUB_REF_NAME}"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+          git pull --rebase origin arena/8336fb7e-lolhotspawn1
+          git add data/
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(data): harvest untruncated Leaguepedia Data match schedules [skip ci]"
+            git push origin arena/8336fb7e-lolhotspawn1
           fi
