@@ -59,7 +59,9 @@ def same_team(a: str, b: str) -> bool:
     if ta == tb:
         return True
     short, long_ = (ta, tb) if len(ta) <= len(tb) else (tb, ta)
-    return (set(long_) - set(short)) <= GENERIC_TOKENS and len(" ".join(short)) >= 4
+    short_text = " ".join(short)
+    long_enough = len(short_text) >= 4 or (len(short_text) >= 2 and any(c.isdigit() for c in short_text))
+    return (set(long_) - set(short)) <= GENERIC_TOKENS and long_enough
 
 
 # --------------------------------------------------------------------------- elo

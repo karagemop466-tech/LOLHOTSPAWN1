@@ -467,7 +467,7 @@ def build_teams(rows: list[dict]) -> str:
         for side in ("team0", "team1"):
             t = r[side]
             prev = teams.get(t["name"])
-            if not prev or (t["rating_matches"] or 0) > (prev["rating_matches"] or 0):
+            if not prev or (t["rating_matches"] or 0) > (prev["n"] or 0):
                 teams[t["name"]] = {"name": t["name"], "lp": t["leaguepedia"], "elo": t["elo"],
                                     "n": t["rating_matches"], "last": t["last_played"],
                                     "join": t["join"]}
