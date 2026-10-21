@@ -1,0 +1,17 @@
+[20:31:50] hotspawn: 264 LoL fixtures
+[20:31:54] pinnacle: 12 LoL matchups, 9 with open moneylines
+[20:32:28] leaguepedia: 16597 series rows (err='')
+[20:32:28] lolesports: 80 Worlds events (status=200)
+[20:32:28] polymarket: 49 match-level markets (status=200)
+[20:32:35] sources: Pinnacle=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Polymarket=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+=== MODEL ===
+Traceback (most recent call last):
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tools/model.py", line 418, in <module>
+    main()
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tools/model.py", line 179, in main
+    index.setdefault(norm_name(t), t)
+                     ^^^^^^^^^^^^
+  File "/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tools/common.py", line 94, in norm_name
+    s = unicodedata.normalize("NFKD", value)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: normalize() argument 2 must be str, not int
