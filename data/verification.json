@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T20:54:14Z",
+ "generated_utc": "2026-10-21T20:57:28Z",
  "checks": [
   {
    "name": "dataset present",
@@ -43,8 +43,8 @@
   },
   {
    "name": "no broken internal links",
-   "ok": true,
-   "detail": "0 problems: []"
+   "ok": false,
+   "detail": "11 problems: ['index.html -> assets/style.css', 'picks.html -> assets/style.css', 'featured.html -> assets/style.css', 'originated.html -> assets/style.css', 'unresolved.html -> assets/style.css', 'competitions.html -> assets/style.css']"
   },
   {
    "name": "navigation on every page",
@@ -72,7 +72,7 @@
    "detail": "7/12 sources reachable on this build"
   }
  ],
- "passed": true,
+ "passed": false,
  "rows_checked": 264,
  "rows_with_source": 264,
  "rows_prob_ok": 264,
