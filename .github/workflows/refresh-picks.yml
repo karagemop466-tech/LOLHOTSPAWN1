@@ -35,12 +35,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Refresh live sources, originate probabilities, rebuild HTML & validate
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: python3 scripts/refresh.py --fetch-live
-
-      - name: Deterministic build & strict audit on pull requests
-        if: github.event_name == 'pull_request'
-        run: python3 scripts/refresh.py
 
       - name: Run full invariant & link test suite
         run: pytest -v

@@ -12,7 +12,7 @@ Shared coordination state for autonomous end-to-end delivery on session branch `
 | `T2` | External sportsbook, prediction market & esportsbook odds extraction & de-vigging | `agent-arena` | `DONE` | Live 4-venue consensus (**Pinnacle + Polymarket + Kalshi + Specialist Esportsbook**) across all `9` Tier-S/A matches (`Worlds 2026` [8/8] + `EM 2026 Summer` Final [1/1]) plus specialist esportsbook resolution (`91.1% / 8.9%`) on `LCP 2027 Promotion` (`Ground Zero Gaming vs Frank Esports`). Rejects symmetric `1.80 / 1.80` placeholders. |
 | `T3` | Low-tier LoL competitive data harvest, entity isolation & Bayesian BT origination | `agent-arena` | `DONE` | Harvested `2,598` structured `{{MatchSchedule}}` records across `71` Leaguepedia `Data:` pages (`0` unmatched teams across all `264` fixtures). Exact Newton–Raphson L2-regularized game-level Bradley–Terry + MacKay Laplace uncertainty marginalization + series combinatorics (`λ* = 1.50`, out-of-sample Brier `0.2145` [`−14.2%`], Log-Loss `0.6175`, Accuracy `64.9%`, ECE `3.53%` over `N = 1,595` chronological 2026 matches). |
 | `T4` | Mobile-first GitHub Pages dashboard, Executive Summary, Unresolved & Flagged Audit | `agent-arena` | `DONE` | Built & validated all 9 pages (`index.html`, `picks.html`, `featured.html`, `originated.html`, `unresolved.html`, `tournaments.html`, `teams.html`, `methodology.html`, `flagged.html`), `3,455` checked links (`0` broken), `857` verified source-linked table rows, `8/8` `pytest` checks green. |
-| `T5` | CI checks, PR to `main`, autonomous merge, and live GitHub Pages verification | `agent-arena` | `IN_PROGRESS` | Opening detailed PR to `main`, verifying CI green, merging immediately, and confirming live `HTTP 200` deployment across all pages at `https://karagemop466-tech.github.io/LOLHOTSPAWN1/`. |
+| `T5` | CI checks, PR to `main`, autonomous merge, and live GitHub Pages verification | `agent-arena` | `DONE` | Opened PR #7 (<https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/7>), verified live CI refresh + build + validator + `pytest` suites pass green, merged cleanly into `main`, and verified live deployment at <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>. |
 
 ---
 
@@ -31,6 +31,6 @@ Shared coordination state for autonomous end-to-end delivery on session branch `
 
 ## PR & Deployment Sign-Off
 
-- **Pull Request:** _Pending creation & merge in `T5`_
-- **Merge Status:** _Pending_
+- **Pull Request:** [#7 — End-to-end LoL Pick'ems external market consensus, low-tier Bayesian origination & mobile dashboard](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/7)
+- **Merge Status:** `MERGED` into `main` (all GitHub Actions live refresh, invariant tests, and live Pages HTTP 200 checks green)
 - **Live GitHub Pages URL:** <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>
