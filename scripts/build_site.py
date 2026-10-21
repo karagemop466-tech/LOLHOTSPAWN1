@@ -543,14 +543,39 @@ def page_flagged(site: str, data: dict, now) -> str:
     summary = data["summary"]
     flags = data["flags"]
     items = flags.get("items") or []
+    groups = flags.get("groups") or items
+
+    def sample_of(f):
+        ids = f.get("fixture_ids") or []
+        names = [m for m in (f.get("matches") or []) if m]
+        if not ids and not names:
+            return ""
+        bits = [esc(m) for m in names[:3]]
+        if ids:
+            bits.append("+" + str(max(0, int(f.get("count") or 1) - 3)) + " more ids: "
+                        + esc(", ".join(str(i) for i in ids[:6])))
+        return "; ".join(bits)
+
+    def link_of(f):
+        url = f.get("source_url")
+        if not url:
+            return "—"
+        return (f'<a href="{esc(url)}" target="_blank" rel="noopener nofollow">source</a>')
+
+    def cell_sample(f):
+        txt = sample_of(f)
+        if not txt:
+            return ""
+        return '<div class="muted small">' + txt + "</div>"
+
+    rows = ""
+    for f in groups:
+        rows += ("<tr><td>" + esc(f.get("field")) + "</td><td>" + esc(f.get("count") or 1)
+                 + "</td><td>" + esc(f.get("reason")) + cell_sample(f) + "</td><td>"
+                 + link_of(f) + "</td></tr>")
     grouped: dict[str, list] = {}
     for f in items:
         grouped.setdefault(f.get("field") or "other", []).append(f)
-    rows = "".join(
-        f'<tr><td><a href="{esc(f.get("source_url"))}" target="_blank" rel="noopener nofollow">{esc(f.get("match"))}</a></td>'
-        f'<td>{esc(f.get("fixture_id"))}</td><td>{esc(f.get("reason"))}</td>'
-        f'<td>{esc((f.get("candidates") or [""])[0])}</td></tr>'
-        for group in grouped.values() for f in group)
     body = f"""
 <section class="pagehead">
   <h1>Flagged for review — {len(items)}</h1>
@@ -560,7 +585,9 @@ def page_flagged(site: str, data: dict, now) -> str:
   the source resolves it.</p>
   <p class="chips">{"".join(f'<span class="chip">{esc(k)}: {len(v)}</span>' for k, v in sorted(grouped.items())) or '<span class="chip chip-ok">no flags</span>'}</p>
 </section>
-<table class="rows"><thead><tr><th>match</th><th>fixture id</th><th>reason</th><th>candidate source</th></tr></thead>
+<p class="muted">{esc(str(len(items)))} flag instances collapsed into {esc(str(len(groups)))}
+rows, because one blocked source produces one identical flag per match.</p>
+<table class="rows"><thead><tr><th>field</th><th>rows</th><th>reason</th><th>source checked</th></tr></thead>
 <tbody>{rows or '<tr><td colspan="4">No flags in this snapshot.</td></tr>'}</tbody></table>
 <p class="muted">Flags are published, not blocking: the site ships with them. See
 <a href="unresolved.html">Unresolved picks</a> for matches with no probability at all.</p>
@@ -662,6 +689,29 @@ def page_sources(site: str, data: dict, now) -> str:
                   f'<td>{esc(q.get("error") or "ok")}</td>'
                   f'<td><a href="{esc(q.get("url"))}" target="_blank" rel="noopener nofollow">query</a></td></tr>'
                   for q in (pm.get("queries") or []))
+    diag_rows = ""
+    for r in (data.get("diag") or {}).get("results") or []:
+        readable = r.get("outcome") == "ok"
+        badge = "badge-ok" if readable else "badge-warn"
+        verdict = "readable" if readable else "blocked"
+        note = str((r.get("error") or r.get("outcome") or ""))[:70]
+        diag_rows += ("<tr><td>" + esc(r.get("label"))
+                      + '</td><td><a href="' + esc(r.get("url"))
+                      + '" target="_blank" rel="noopener nofollow">' + esc(r.get("host"))
+                      + '</a></td><td><span class="badge ' + badge + '">' + verdict
+                      + "</span></td><td>" + esc(str(r.get("chars") or "—"))
+                      + '</td><td class="mono small">' + esc(note) + "</td></tr>")
+    diag_block = ""
+    if diag_rows:
+        diag_block = (
+            '<h2>Endpoint reachability probe</h2><p class="muted">Ran in the same job as this '
+            'snapshot (' + esc(str((data.get("diag") or {}).get("generated_at"))) + '). It changes '
+            'no number on this site: it records, per endpoint and per client fingerprint, whether a '
+            'GitHub runner can read the page at all — the evidence behind every "source blocked" '
+            'note in <a href="methodology.html">Methodology</a>.</p>'
+            '<table class="mini"><thead><tr><th>endpoint</th><th>host</th><th>result</th>'
+            '<th>bytes</th><th>note</th></tr></thead><tbody>' + diag_rows + "</tbody></table>")
+
     body = f"""
 <section class="pagehead"><h1>Source ledger</h1>
 <p class="muted">Every host this snapshot fetched, with success/failure counts recorded by the fetcher
@@ -679,6 +729,7 @@ itself — so “we looked, it wasn't there” and “we could not look” are d
 <h2>Per-host fetch ledger</h2>
 <table class="mini"><thead><tr><th>host</th><th>attempts</th><th>ok</th><th>failed</th>
 <th>no-network</th><th>first error</th></tr></thead><tbody>{host_rows or '<tr><td colspan="6">offline build</td></tr>'}</tbody></table>
+{diag_block}
 <h2>Esports books / line sources probed but not parsed</h2>
 <p class="muted">These are the "established betting site → esports book → betting line" attempts
 recorded exactly as they answered. Anything that failed to deliver a parseable LoL odds table is a
@@ -730,6 +781,7 @@ def main() -> int:
         "flags": load("flags.json", {"items": []}) or {"items": []},
         "ratings": load("ratings.json", {"teams": {}}) or {"teams": {}},
         "sources": load("sources.json", {}) or {},
+        "diag": load("diag-probe.json", {}) or {},
         "summary": load("summary.json", {"headline": {}}) or {"headline": {}},
     }
     data["summary"].setdefault("refresh_hours", 6)

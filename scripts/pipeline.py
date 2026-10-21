@@ -119,7 +119,8 @@ def kickoff_from_league(card: dict, league_fixtures: dict) -> tuple[str | None, 
             return feed, False, "league page only (unparseable lobby countdown)"
     if feed:
         return feed, False, "hotspawn league page only"
-    return derived, False, "lobby countdown only (approximate, ±1 min)"
+    return derived, False, ("lobby printed time (UTC) only — Hotspawn's own league page for this "
+                            "fixture could not be read by the collector")
 
 
 # --------------------------------------------------------------------------- resolve
@@ -343,6 +344,8 @@ def resolve(collected: dict, lines_data: dict, model_data: dict) -> dict:
                     "results_skipped": ratings_meta.get("results_skipped", 0)},
         "model_notes": model_notes,
         "collected_totals": collected.get("totals"),
+        "feed_blocked": not fixture_records and bool(cards),
+        "league_page_status": (collected.get("leagues") or {}).get("_status"),
         "feed_fixture_count": collected.get("feed_fixture_count"),
         "feed_only_count": len(collected.get("feed_only_fixtures") or []),
         "leagues": {slug: {"tournament_name": d.get("tournament_name"),
@@ -499,6 +502,7 @@ def main() -> int:
         "limitations": limitations(resolved, lines_data),
     })
     write_json(os.path.join(args.out, "flags.json"), {
+        "groups": aggregate_flags(resolved["flags"]),
         "generated_at": resolved["generated_at"],
         "count": len(resolved["flags"]),
         "items": resolved["flags"],
@@ -518,6 +522,32 @@ def main() -> int:
     return 0
 
 
+def aggregate_flags(items: list[dict], threshold: int = 4) -> list[dict]:
+    """Collapse repeated identical flags into one row per (field, reason).
+
+    A source that is unreachable produces one flag per match; 390 identical rows on the Flagged
+    page hide the interesting ones.  The instances stay in ``flags.json``; this is the display form.
+    """
+    grouped: dict[tuple, list[dict]] = {}
+    for f in items or []:
+        grouped.setdefault((f.get("field"), f.get("reason")), []).append(f)
+    out: list[dict] = []
+    for (field, reason), grp in grouped.items():
+        if len(grp) <= threshold:
+            out.extend(grp)
+            continue
+        out.append({
+            "field": field, "reason": reason, "count": len(grp),
+            "match": f"{len(grp)} rows",
+            "matches": [g.get("match") for g in grp][:8],
+            "fixture_ids": [g.get("fixture_id") for g in grp if g.get("fixture_id")][:12],
+            "source_url": next((g.get("source_url") for g in grp if g.get("source_url")), None),
+            "candidates": (grp[0].get("candidates") or [])[:3],
+        })
+    out.sort(key=lambda f: (-int(f.get("count") or 1), str(f.get("field"))))
+    return out
+
+
 def limitations(resolved: dict, lines_data: dict) -> list[dict]:
     """Documented, data-driven limitations for the unresolved bucket."""
     probes = lines_data.get("probes") or []
@@ -526,7 +556,34 @@ def limitations(resolved: dict, lines_data: dict) -> list[dict]:
     n_unres = len(resolved.get("unresolved") or [])
     leagues = resolved.get("leagues") or {}
     thin = sorted((s for s, d in leagues.items() if (d.get("results") or 0) < 3))
+    extra: list[dict] = []
+    if resolved.get("feed_blocked"):
+        extra.append({
+            "title": "Hotspawn's own site refuses our collector, so rows are checked against the "
+                     "lobby response alone",
+            "detail": ("www.hotspawn.com answers HTTP 403 to requests from GitHub's runners (bot "
+                       "protection). That blocks the WordPress fixture feed, the tournament pages "
+                       "and the per-match pages *for us*; a normal browser can open every link we "
+                       "publish. Consequence: existence, team labels and the kickoff time of a pick "
+                       "rest on the single lobby page we can read, and completed results cannot be "
+                       "harvested from Hotspawn — which is why so many rows have no Elo input and "
+                       "stay unresolved. The lobby page is still Hotspawn's own official page for "
+                       "this week's pick'ems, and every row links to it."),
+            "sources": [{"label": "Hotspawn LoL lobby (readable)",
+                         "url": "https://play.hotspawn.com/lol-pickems", "result": "200 OK"},
+                        {"label": "Hotspawn fixture feed (blocked for us)",
+                         "url": "https://www.hotspawn.com/wp-json/wp/v2/fixtures",
+                         "result": "HTTP 403 from the runner"}],
+            "affected_rows": n_unres, "status": "source blocked"})
+    if not leagues:
+        extra.append({
+            "title": "No finished series could be read for this snapshot",
+            "detail": ("The Elo line needs scored, completed series. In this snapshot none were "
+                       "readable (see the blocked-source note above), so no match was decided by "
+                       "our own model and every resolved row came from an external price."),
+            "affected_rows": n_unres, "status": "no model input"})
     return [
+        *extra,
         {"title": "No published price exists for most of these leagues",
          "detail": ("Sub-tier LoL (national 2nd/3rd divisions, regional championships, academy "
                     "leagues) is not listed by Polymarket and is only sporadically listed by "

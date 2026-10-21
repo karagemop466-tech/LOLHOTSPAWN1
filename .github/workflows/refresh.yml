@@ -76,6 +76,12 @@ jobs:
       - name: Verify gates (schema, sources, no broken links, no fabricated values)
         run: python -m scripts.verify --data data-new --site . --report data-new/verify-report.txt
 
+      - name: Source reachability probe (evidence for source decisions)
+        if: always()
+        run: |
+          python3 -m scripts.diag_probe --out data-new --cache data/cache || \
+            echo "diag probe failed (non-blocking)"
+
       - name: Run report
         if: always()
         run: |
@@ -169,15 +175,20 @@ jobs:
         if: always()
         run: |
           set -uo pipefail
+          rm -rf logs
           mkdir -p logs
-          for f in data-new/collect.log data-new/debug/*.txt \
-                   data-new/hotspawn.json data-new/lines.json data-new/sources.json \
-                   data-new/summary.json data-new/unresolved.json data-new/verify-report.txt; do
-            [ -f "$f" ] || continue
-            tail -c 120000 "$f" > "logs/$(basename "$f")" || true
+          # newest run output wins; published snapshot fills any gap
+          for dir in data data-new; do
+            [ -d "$dir" ] || continue
+            for f in "$dir"/collect.log "$dir"/debug/*.txt "$dir"/diag-probe.txt "$dir"/diag-probe.json \
+                     "$dir"/hotspawn.json "$dir"/lines.json "$dir"/sources.json "$dir"/flags.json \
+                     "$dir"/summary.json "$dir"/unresolved.json "$dir"/verify-report.txt; do
+              [ -f "$f" ] || continue
+              tail -c 120000 "$f" > "logs/$(basename "$f")" || true
+            done
           done
-          echo "run ${{ github.run_id }} · attempt ${{ github.run_attempt }} · ref ${{ github.ref_name }} · $(date -u +%FT%TZ)" > logs/RUN.txt
           if [ -z "$(ls -A logs 2>/dev/null)" ]; then echo "nothing to publish"; exit 0; fi
+          echo "run ${{ github.run_id }} · ${{ github.run_number }} · ${{ github.ref_name }} · $(date -u +%FT%TZ)" > logs/RUN.txt
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # orphan branch: diagnostics never pollute a session branch's history

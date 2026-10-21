@@ -38,11 +38,24 @@ try:
 except Exception:  # pragma: no cover
     BeautifulSoup = None
 
-USER_AGENT = (
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/124.0.0.0 Safari/537.36 hotspawn-lol-research/1.0 "
-    "(+https://github.com/karagemop466-tech/LOLHOTSPAWN1)"
-)
+# A plain browser User-Agent: hotspawn.com's edge cache answers 403 to anything that advertises
+# itself as a bot, and its fixture feed is the only way to verify a lobby card independently.
+USER_AGENT = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
+BOT_CONTACT_UA = (USER_AGENT + " hotspawn-lol-research/1.0 "
+                  "(+https://github.com/karagemop466-tech/LOLHOTSPAWN1)")
+CURL_UA = "curl/8.5.0"
+
+# per-request header presets (used by the collector and by scripts/diag_probe.py)
+BROWSER_HEADERS = {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Upgrade-Insecure-Requests": "1",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "none",
+}
+JSON_HEADERS = {"Accept": "application/json", "Accept-Language": "en-US,en;q=0.9"}
 
 MONTHS = {
     "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
@@ -152,9 +165,7 @@ class Fetcher:
         self.status: dict[str, dict] = {}
         self._session = requests.Session() if requests else None
         if self._session is not None:
-            self._session.headers.update(
-                {"User-Agent": USER_AGENT, "Accept-Language": "en-US,en;q=0.9"}
-            )
+            self._session.headers.update({"User-Agent": USER_AGENT, **BROWSER_HEADERS})
 
     # -- ledger ------------------------------------------------------------
     def _host_entry(self, url: str) -> tuple[str, dict]:
@@ -186,8 +197,13 @@ class Fetcher:
                 entry["sample_urls"].append(url)
 
     # -- fetch -------------------------------------------------------------
-    def get(self, url: str, attempts: int = 3, use_cache: bool = True) -> str | None:
-        """Return the response body as text, or ``None`` when unreachable."""
+    def get(self, url: str, attempts: int = 3, use_cache: bool = True,
+            headers: dict | None = None) -> str | None:
+        """Return the response body as text, or ``None`` when unreachable.
+
+        ``headers`` overrides the session defaults for this one request (used when a host answers
+        differently to different client fingerprints).
+        """
         if self.cache_dir and use_cache:
             cached = self._cache_get(url)
             if cached is not None:
@@ -198,7 +214,7 @@ class Fetcher:
         backoff = 1.5
         for i in range(attempts):
             try:
-                resp = self._session.get(url, timeout=self.timeout)
+                resp = self._session.get(url, timeout=self.timeout, headers=headers or None)
                 if resp.status_code == 200 and resp.text:
                     self._record(url, True)
                     body = resp.text
@@ -217,8 +233,8 @@ class Fetcher:
             backoff *= 2
         return None
 
-    def get_json(self, url: str, attempts: int = 3) -> object | None:
-        body = self.get(url, attempts=attempts)
+    def get_json(self, url: str, attempts: int = 3, headers: dict | None = None) -> object | None:
+        body = self.get(url, attempts=attempts, headers=headers)
         if body is None:
             return None
         try:
