@@ -29,7 +29,7 @@ HOTSPAWN_FIXTURES = ("https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/
                      "fixtures?sport_alias=lol&status=scheduled&tenantId=1")
 PINNACLE_KEY = {"x-api-key": "CmX2KcMrXuFmNg6YFbmTxE0y9CIrOi0R", "Accept": "application/json"}
 LOLESPORTS_KEY = {"x-api-key": "0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z"}
-LEAGUEPEDIA_WINDOW_START = "2025-09-01 00:00:00"  # 13.5 months of series results
+LEAGUEPEDIA_WINDOW_START = "2024-09-01 00:00:00"  # ~25 months of series results
 
 
 # --------------------------------------------------------------------------- hotspawn
@@ -154,7 +154,7 @@ def cargo_export(fields: str, where: str | None, limit: int = 500, offset: int =
     return data, ""
 
 
-def collect_leaguepedia(max_rows: int = 30000) -> dict:
+def collect_leaguepedia(max_rows: int = 60000) -> dict:
     fields = ("MatchSchedule.MatchId,MatchSchedule.OverviewPage,MatchSchedule.Team1,"
               "MatchSchedule.Team2,MatchSchedule.Winner,MatchSchedule.Team1Score,"
               "MatchSchedule.Team2Score,MatchSchedule.DateTime_UTC,MatchSchedule.BestOf,"

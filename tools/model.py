@@ -2,23 +2,24 @@
 """Build our own win probabilities and picks for every Hotspawn LoL pick'em match.
 
 Method order (documented on the site):
-  1. MARKET   - de-vigged moneyline from Pinnacle (a sharp esportsbook).
-  2. MODEL    - our own Elo line, fitted on Leaguepedia series results, when the
-                two teams are connected by a shared-opponent chain and each has
-                enough rated matches.
-  3. PROVISIONAL - Elo line emitted with an explicit low-confidence flag when the
-                data is thin (few rated matches or no shared-opponent chain).
-  4. UNRESOLVED - no defensible probability (no rating for either side, or TBD).
+  1. MARKET      - de-vigged moneyline from a bookmaker / prediction market.
+  2. MODEL       - our own Elo line fitted on Leaguepedia series results, used when
+                   the two teams are connected by a shared-opponent chain and each
+                   side has enough rated series.
+  3. PROVISIONAL - Elo line emitted with an explicit low-confidence flag because the
+                   data is thin (few rated series, one unrated side, or no shared
+                   opponent chain).
+  4. UNRESOLVED  - no defensible probability (no rating for either side, TBD card).
 
-Hotspawn's community pick percentages are deliberately excluded from all maths.
+Hotspawn's community pick percentages are stored for transparency but are NEVER
+used by the model or by any pick.
 """
 from __future__ import annotations
 
 import csv
-import difflib
-import itertools
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -27,60 +28,37 @@ from common import DATA, RAW, iso, load_json, log, norm_name, now_utc, save_json
 
 ELO_START = 1500.0
 ELO_K = 24.0
-ELO_SHRINK = 5.0            # shrinkage: r_eff = 1500 + (r-1500) * n/(n+5)
-MIN_MATCHES_CONFIDENT = 5   # rated matches per team for "medium" confidence
+ELO_SHRINK = 5.0              # r_eff = 1500 + (r - 1500) * n / (n + 5)
+MIN_MATCHES_CONFIDENT = 5     # rated series per team required for "medium" confidence
 PROB_FLOOR, PROB_CEIL = 0.05, 0.95
-SHRINK_DECAY_LIMIT_DAYS = 450  # ratings decay toward the mean over ~15 months
-
-QUALIFIER_TOKENS = {
-    "academy", "acad", "white", "black", "red", "blue", "uk", "sweden", "norway",
-    "denmark", "finland", "rising", "prime", "hearts", "youth", "junior", "juniors",
-    "2", "ii", "b", "a", "tbd", "ev", "esport", "esports", "gaming", "team", "club",
-}
+DECAY_START_DAYS = 45
+DECAY_FULL_DAYS = 450
+GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", "lol", "e", "v"}
 
 
-# --------------------------------------------------------------------------- aliases
-def load_aliases() -> dict:
-    data = load_json(os.path.join(DATA, "aliases.json"), default={}) or {}
-    return {norm_name(k): v for k, v in (data.get("aliases") or {}).items()}
+# --------------------------------------------------------------------------- helpers
+def base_name(name: str) -> str:
+    """Leaguepedia disambiguates with 'Name (Region Team)' - strip that suffix."""
+    return re.sub(r"\s*\([^)]*\)\s*$", "", name or "").strip()
 
 
-def canonical(name: str, index: dict[str, str], aliases: dict[str, str]) -> tuple[str | None, str, float]:
-    """Resolve a raw team name to a Leaguepedia team key.
+def region_of(name: str) -> str:
+    m = re.search(r"\(([^)]*)\)\s*$", name or "")
+    return m.group(1) if m else ""
 
-    Returns (resolved_key, method, score). method in {exact, alias, fuzzy, subset, none}.
-    """
-    key = norm_name(name)
-    if not key:
-        return None, "none", 0.0
-    if key in index:
-        return index[key], "exact", 1.0
-    if key in aliases and norm_name(aliases[key]) in index:
-        return index[norm_name(aliases[key])], "alias", 1.0
 
-    # token-subset rule with qualifier guard
-    tokens = set(key.split())
-    best = None
-    for cand_key, cand in index.items():
-        ct = set(cand_key.split())
-        if not tokens or not ct:
-            continue
-        if tokens < ct or ct < tokens:
-            diff = (tokens ^ ct)
-            if diff & QUALIFIER_TOKENS:
-                continue
-            short, long_ = (tokens, ct) if len(tokens) < len(ct) else (ct, tokens)
-            if len("".join(short)) >= 4:
-                score = len("".join(short)) / len("".join(long_))
-                if score >= 0.45 and (best is None or score > best[2]):
-                    best = (cand, "subset", round(score, 3))
-    if best:
-        return best[0], best[1], best[2]
-
-    close = difflib.get_close_matches(key, list(index.keys()), n=2, cutoff=0.88)
-    if len(close) == 1:
-        return index[close[0]], "fuzzy", round(difflib.SequenceMatcher(None, key, close[0]).ratio(), 3)
-    return None, "none", 0.0
+def same_team(a: str, b: str) -> bool:
+    """Loose equality used only for bookmaker-vs-Hotspawn name alignment."""
+    na, nb = norm_name(a), norm_name(b)
+    if not na or not nb:
+        return False
+    if na == nb:
+        return True
+    ta, tb = na.split(), nb.split()
+    if ta == tb:
+        return True
+    short, long_ = (ta, tb) if len(ta) <= len(tb) else (tb, ta)
+    return (set(long_) - set(short)) <= GENERIC_TOKENS and len(" ".join(short)) >= 4
 
 
 # --------------------------------------------------------------------------- elo
@@ -101,7 +79,7 @@ class UnionFind:
             self.parent[rb] = ra
 
 
-def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, UnionFind]:
+def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind]:
     ratings: dict[str, float] = {}
     counts: dict[str, int] = {}
     last_seen: dict[str, datetime] = {}
@@ -109,16 +87,14 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, UnionFind]:
     games: list[tuple[datetime, str, str, int]] = []
 
     for m in lp_matches:
-        win = m.get("winner")
-        if win not in ("1", "2"):
+        if m.get("winner") not in ("1", "2"):
             continue
         try:
             dt = datetime.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
         except (ValueError, TypeError):
             continue
-        t1, t2 = m["team1"], m["team2"]
-        games.append((dt, t1, t2, 1 if win == "1" else 2))
-        uf.union(t1, t2)
+        games.append((dt, m["team1"], m["team2"], 1 if m["winner"] == "1" else 2))
+        uf.union(m["team1"], m["team2"])
 
     games.sort(key=lambda g: g[0])
     for dt, t1, t2, winner in games:
@@ -133,15 +109,13 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, UnionFind]:
         last_seen[t1] = dt
         last_seen[t2] = dt
 
-    # time decay toward the mean for teams that have not played recently
     today = datetime.now(timezone.utc)
-    for team in list(ratings):
+    for team in ratings:
         days = max(0.0, (today - last_seen[team]).total_seconds() / 86400)
-        if days > 45:
-            factor = max(0.0, 1 - (days - 45) / SHRINK_DECAY_LIMIT_DAYS)
+        if days > DECAY_START_DAYS:
+            factor = max(0.0, 1 - (days - DECAY_START_DAYS) / DECAY_FULL_DAYS)
             ratings[team] = ELO_START + (ratings[team] - ELO_START) * factor
-
-    return ratings, counts, uf
+    return ratings, counts, last_seen, uf
 
 
 def effective_rating(team: str, ratings: dict, counts: dict) -> float | None:
@@ -159,12 +133,149 @@ def clamp(p: float) -> float:
     return max(PROB_FLOOR, min(PROB_CEIL, p))
 
 
+# --------------------------------------------------------------------------- team index
+def build_index(lp_matches: list[dict]) -> tuple[dict, dict, dict]:
+    """exact index, base-name index, page -> teams."""
+    exact: dict[str, str] = {}
+    base: dict[str, set] = {}
+    page_teams: dict[str, set] = {}
+    for m in lp_matches:
+        page = m.get("overview_page") or ""
+        for t in (m["team1"], m["team2"]):
+            exact.setdefault(norm_name(t), t)
+            base.setdefault(norm_name(base_name(t)), set()).add(t)
+            page_teams.setdefault(page, set()).add(t)
+    return exact, base, page_teams
+
+
+def map_competitions(fixtures: list[dict], page_teams: dict, base: dict) -> dict:
+    """Map each Hotspawn competition to the Leaguepedia page that shares the most teams."""
+    mapping = {}
+    for comp in sorted({f["competition"] for f in fixtures}):
+        comp_fixtures = [f for f in fixtures if f["competition"] == comp]
+        wanted = set()
+        for f in comp_fixtures:
+            for side in ("team0", "team1"):
+                wanted.add(norm_name(base_name(f[side]["name"])))
+        best, best_score = None, 0
+        for page, teams in page_teams.items():
+            keys = {norm_name(base_name(t)) for t in teams}
+            score = len(wanted & keys)
+            if score > best_score:
+                best, best_score = page, score
+        mapping[comp] = {"page": best, "teams_in_common": best_score,
+                         "fixtures": len(comp_fixtures)}
+    return mapping
+
+
+def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
+                 page: str | None, page_teams: dict) -> tuple[str | None, str, list]:
+    """Resolve a Hotspawn team name to an exact Leaguepedia team name."""
+    key = norm_name(name)
+    if not key:
+        return None, "none", []
+    if key in exact:
+        return exact[key], "exact", []
+    if key in aliases:
+        target = aliases[key]
+        if norm_name(target) in exact:
+            return exact[norm_name(target)], "alias", []
+        if target in page_teams.get(page or "", set()):
+            return target, "alias", []
+
+    candidates = sorted(base.get(norm_name(base_name(name)), set()))
+    if len(candidates) == 1:
+        return candidates[0], "base-name", [f"Leaguepedia lists this team as '{candidates[0]}'"]
+    if len(candidates) > 1:
+        page_set = page_teams.get(page or "", set())
+        narrowed = [c for c in candidates if c in page_set]
+        if len(narrowed) == 1:
+            return narrowed[0], "competition-page", [
+                f"ambiguous in Leaguepedia ({', '.join(candidates)}); resolved by the "
+                f"'{page}' page listing"]
+        return None, "ambiguous", [f"ambiguous in Leaguepedia: {', '.join(candidates)}"]
+    return None, "none", []
+
+
+# --------------------------------------------------------------------------- market
+def american_to_decimal(price) -> float | None:
+    try:
+        p = float(price)
+    except (TypeError, ValueError):
+        return None
+    if p == 0:
+        return None
+    return round(1 + (p / 100 if p > 0 else 100 / abs(p)), 4)
+
+
+def market_lookup(name0: str, name1: str, start: str | None, pin_index: list,
+                  pm_index: list, within_hours: int = 18):
+    """Find a bookmaker/prediction-market price pair for this fixture."""
+    def close_in_time(a: str | None, b: str | None) -> bool:
+        if not a or not b:
+            return True
+        try:
+            da = datetime.strptime(a[:19], "%Y-%m-%dT%H:%M:%S")
+            db = datetime.strptime(b[:19], "%Y-%m-%dT%H:%M:%S")
+        except ValueError:
+            return True
+        return abs((da - db).total_seconds()) <= within_hours * 3600
+
+    for item in pin_index:
+        a, b = item["names"]
+        if close_in_time(start, item["start"]) and (
+                (same_team(name0, a) and same_team(name1, b)) or
+                (same_team(name0, b) and same_team(name1, a))):
+            row = item["row"]
+            home_dec = row["prices"]["home"]["decimal"]
+            away_dec = row["prices"]["away"]["decimal"]
+            inv = 1 / home_dec + 1 / away_dec
+            p_home = (1 / home_dec) / inv
+            p_away = (1 / away_dec) / inv
+            home_name = next((p["name"] for p in row["participants"]
+                              if p.get("alignment") == "home"), a)
+            aligned = same_team(name0, home_name)
+            return {
+                "book": "Pinnacle",
+                "kind": "bookmaker",
+                "source_url": "https://www.pinnacle.com/en/esports/league-of-legends",
+                "api_url": f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{row['matchup_id']}/markets/related/straight",
+                "market_url": f"https://www.pinnacle.com/en/event/{row['matchup_id']}",
+                "decimal": {"home": home_dec, "away": away_dec},
+                "american": {k: v.get("american") for k, v in row["prices"].items()},
+                "p0": round(p_home if aligned else p_away, 4),
+                "p1": round(p_away if aligned else p_home, 4),
+                "overround": round(inv - 1, 4),
+                "start_utc": item["start"],
+                "league": row.get("league"),
+            }
+
+    for item in pm_index:
+        a, b = item["names"]
+        if (same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a)):
+            p0 = item["p0"] if same_team(name0, a) else item["p1"]
+            p1 = round(1 - p0, 4)
+            return {
+                "book": "Polymarket",
+                "kind": "prediction market",
+                "source_url": "https://polymarket.com/markets/league-of-legends",
+                "market_url": f"https://polymarket.com/event/{item['slug']}",
+                "decimal": None,
+                "american": None,
+                "p0": round(p0, 4),
+                "p1": p1,
+                "overround": 0.0,
+                "start_utc": item.get("start"),
+            }
+    return None
+
+
 # --------------------------------------------------------------------------- main
 def main() -> None:
     hs = load_json(os.path.join(RAW, "hotspawn_lol.json")) or {}
     lp = load_json(os.path.join(RAW, "leaguepedia.json")) or {}
     pin = load_json(os.path.join(RAW, "pinnacle_lol.json")) or {}
-    pm = load_json(os.path.join(RAW, "polymarket.json")) or {}
+    pmkt = load_json(os.path.join(RAW, "polymarket.json")) or {}
     sources = load_json(os.path.join(DATA, "sources_status.json")) or {}
 
     fixtures = hs.get("fixtures") or []
@@ -172,96 +283,53 @@ def main() -> None:
     if not fixtures:
         raise SystemExit("no hotspawn fixtures - run collect.py first")
 
-    # index leaguepedia teams
-    index: dict[str, str] = {}
-    for m in lp_matches:
-        for t in (m["team1"], m["team2"]):
-            index.setdefault(norm_name(t), t)
-    aliases = load_aliases()
-    ratings, counts, uf = build_ratings(lp_matches)
+    exact, base, page_teams = build_index(lp_matches)
+    aliases_raw = (load_json(os.path.join(DATA, "aliases.json"), default={}) or {}).get("aliases") or {}
+    aliases = {norm_name(k): v for k, v in aliases_raw.items()}
+    comp_map = map_competitions(fixtures, page_teams, base)
+    ratings, counts, last_seen, uf = build_ratings(lp_matches)
 
-    # competition -> leaguepedia pages mapping evidence
-    page_teams: dict[str, set] = {}
-    for m in lp_matches:
-        page = m.get("overview_page") or ""
-        page_teams.setdefault(page, set()).update([m["team1"], m["team2"]])
-
-    # ---- market index (pinnacle) ----
     pin_index = []
     for mk in pin.get("markets") or []:
         names = [p["name"] for p in mk.get("participants", [])]
-        if len(names) != 2:
+        if len(names) == 2:
+            pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc")})
+
+    pm_index = []
+    for mk in pmkt.get("match_markets") or []:
+        outcomes = mk.get("outcomes") or []
+        prices = mk.get("prices") or []
+        if len(outcomes) != 2 or len(prices) != 2:
             continue
-        pin_index.append({"names": names, "norm": [norm_name(n) for n in names],
-                          "row": mk, "start": mk.get("start_utc")})
+        try:
+            pa, pb = float(prices[0]), float(prices[1])
+        except (TypeError, ValueError):
+            continue
+        if not (0 < pa < 1 and 0 < pb < 1):   # resolved or degenerate markets are not prices
+            continue
+        if re.search(r"game \d", mk.get("question", ""), re.I):
+            continue
+        pm_index.append({"names": outcomes, "p0": pa, "p1": pb,
+                         "slug": mk.get("slug"), "start": mk.get("event_start")})
 
-    def match_market(name0: str, name1: str, start: str | None):
-        n0, n1 = norm_name(name0), norm_name(name1)
-        for item in pin_index:
-            a, b = item["norm"]
-            if {a, b} == {n0, n1}:
-                return item, "exact"
-            # alias-aware
-            c0 = canonical(name0, index, aliases)[0]
-            c1 = canonical(name1, index, aliases)[0]
-            if c0 and c1 and {norm_name(c0), norm_name(c1)} == {a, b}:
-                return item, "alias"
-            # subset/fuzzy on each side
-            if (n0 in a or a in n0) and (n1 in b or b in n1) and min(len(n0), len(n1)) >= 3:
-                return item, "subset"
-        return None, "none"
-
-    def market_pick(name0: str, name1: str, start: str | None):
-        """Return dict with de-vigged probabilities aligned to (name0, name1)."""
-        item, how = match_market(name0, name1, start)
-        if not item:
-            return None
-        row = item["row"]
-        home = row["prices"]["home"]["decimal"]
-        away = row["prices"]["away"]["decimal"]
-        inv = 1 / home + 1 / away
-        p_home = (1 / home) / inv
-        p_away = (1 / away) / inv
-        # align to fixture order using participant names
-        p0_name = norm_name(name0)
-        home_name = None
-        for p in row.get("participants", []):
-            if p.get("alignment") == "home":
-                home_name = norm_name(p.get("name"))
-        if home_name is None:
-            home_name = item["norm"][0]
-        aligned = (home_name == p0_name) or (home_name in p0_name) or (p0_name in home_name)
-        return {
-            "book": "Pinnacle",
-            "source_url": f"https://www.pinnacle.com/en/event/{row['matchup_id']}",
-            "api_url": f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{row['matchup_id']}/markets/related/straight",
-            "league": row.get("league"),
-            "start_utc": row.get("start_utc"),
-            "decimal": {"home": home, "away": away},
-            "american": {k: v.get("american") for k, v in row["prices"].items()},
-            "p0": round(p_home if aligned else p_away, 4),
-            "p1": round(p_away if aligned else p_home, 4),
-            "join": how,
-            "overround": round(inv - 1, 4),
-        }
-
-    # ---- build rows ----
-    rows = []
-    joins = []
+    rows, join_log = [], []
     for f in fixtures:
         n0, n1 = f["team0"]["name"], f["team1"]["name"]
-        k0, m0, s0 = canonical(n0, index, aliases)
-        k1, m1, s1 = canonical(n1, index, aliases)
-        if m0 not in ("exact",) or m1 not in ("exact",):
-            joins.append({"hotspawn": f["id"], "team": n0, "resolved": k0, "method": m0, "score": s0})
-            joins.append({"hotspawn": f["id"], "team": n1, "resolved": k1, "method": m1, "score": s1})
+        page = (comp_map.get(f["competition"]) or {}).get("page")
+        k0, m0, note0 = resolve_team(n0, exact, base, aliases, page, page_teams)
+        k1, m1, note1 = resolve_team(n1, exact, base, aliases, page, page_teams)
+        for name, key, method, notes in ((n0, k0, m0, note0), (n1, k1, m1, note1)):
+            if method not in ("exact",):
+                join_log.append({"hotspawn_id": f["id"], "team": name, "resolved": key,
+                                 "method": method, "notes": notes})
 
         er0 = effective_rating(k0, ratings, counts) if k0 else None
         er1 = effective_rating(k1, ratings, counts) if k1 else None
         n0c = counts.get(k0, 0) if k0 else 0
         n1c = counts.get(k1, 0) if k1 else 0
+        connected = bool(k0 and k1 and uf.find(k0) == uf.find(k1))
 
-        market = market_pick(n0, n1, f.get("start_utc"))
+        market = market_lookup(n0, n1, f.get("start_utc"), pin_index, pm_index)
         row = {
             "id": f["id"],
             "competition": f["competition"],
@@ -272,86 +340,80 @@ def main() -> None:
             "points": f["points"],
             "hotspawn_url": hotspawn_url(f),
             "pickem_url": f["pickem_url"],
-            "team0": {"name": n0, "leaguepedia": k0, "join": m0, "join_score": s0,
+            "leaguepedia_page": page,
+            "team0": {"name": n0, "leaguepedia": k0, "join": m0, "join_notes": note0,
                       "rating_matches": n0c,
+                      "last_played": last_seen.get(k0).strftime("%Y-%m-%d") if k0 in last_seen else None,
                       "elo_raw": round(ratings[k0], 1) if k0 in ratings else None,
                       "elo": round(er0, 1) if er0 is not None else None},
-            "team1": {"name": n1, "leaguepedia": k1, "join": m1, "join_score": s1,
+            "team1": {"name": n1, "leaguepedia": k1, "join": m1, "join_notes": note1,
                       "rating_matches": n1c,
+                      "last_played": last_seen.get(k1).strftime("%Y-%m-%d") if k1 in last_seen else None,
                       "elo_raw": round(ratings[k1], 1) if k1 in ratings else None,
                       "elo": round(er1, 1) if er1 is not None else None},
         }
 
-        connected = bool(k0 and k1 and uf.find(k0) == uf.find(k1))
-
+        flags: list[str] = []
         if market:
             p0, p1 = market["p0"], market["p1"]
-            method = "market"
-            confidence = "high"
-            basis = (f"De-vigged Pinnacle moneyline ({market['decimal']['home']} / "
-                     f"{market['decimal']['away']}, overround {market['overround']:.2%}).")
-            flags = [] if market["join"] == "exact" else [f"team-name join via {market['join']}"]
+            method, confidence = "market", "high"
+            if market["kind"] == "bookmaker":
+                basis = (f"De-vigged {market['book']} moneyline: {market['decimal']['home']} / "
+                         f"{market['decimal']['away']} (overround {market['overround']:.2%}).")
+            else:
+                basis = f"{market['book']} prices {p0:.1%} / {p1:.1%} (no vig)."
         elif er0 is not None and er1 is not None:
             p0 = clamp(win_probability(er0, er1))
             p1 = round(1 - p0, 4)
-            method = "model"
-            thin = (n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT or not connected)
+            thin = n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT or not connected
+            method = "provisional" if thin else "model"
             confidence = "low" if thin else "medium"
-            basis = (f"Elo line: {n0} {er0:.0f} vs {n1} {er1:.0f} "
-                     f"({n0c}/{n1c} rated series)")
-            flags = []
+            basis = (f"Elo line: {k0} {er0:.0f} vs {k1} {er1:.0f} "
+                     f"({n0c}/{n1c} rated series).")
             if not connected:
                 flags.append("no shared-opponent chain between the two teams")
             if n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT:
                 flags.append("fewer than 5 rated series for at least one team")
-            if thin:
-                method = "provisional"
         elif er0 is not None or er1 is not None:
             rated_is_0 = er0 is not None
-            # unrated side is assigned the 1500 baseline, so no arbitrary constant is introduced
             p0 = clamp(win_probability(er0 if rated_is_0 else ELO_START,
                                        ELO_START if rated_is_0 else er1))
             p1 = round(1 - p0, 4)
-            method = "provisional"
-            confidence = "low"
-            unrated = n1 if rated_is_0 else n0
-            basis = (f"Elo line with one unrated side: {unrated} has no rated series in the "
-                     f"Leaguepedia window; unrated teams are assigned the 1500 baseline.")
-            flags = [f"{unrated} has no recorded series since 2025-09-01",
-                     "one-sided data - treat as a weak signal"]
+            method, confidence = "provisional", "low"
+            missing = n1 if rated_is_0 else n0
+            basis = (f"Elo line with one unrated side: {missing} has no rated series on "
+                     f"record, so the 1500 baseline is used for that side.")
+            flags.append(f"{missing} has no rated series in Leaguepedia")
         else:
             p0 = p1 = None
-            method = "unresolved"
-            confidence = "none"
+            method, confidence = "unresolved", "none"
             basis = "No bookmaker line and no rated series for either team."
-            flags = ["no data for either team"]
-            if "tbd" in norm_name(n0) or "tbd" in norm_name(n1):
-                basis = "Participant not yet decided (TBD) on the Hotspawn card."
-                flags = ["participants not announced"]
+            if "tbd" in norm_name(n0).split() or "tbd" in norm_name(n1).split():
+                basis = "Participants not yet decided (TBD) on the Hotspawn card."
+                flags.append("participants not announced")
+            else:
+                flags.append("no match history for either team in Leaguepedia")
 
-        if method != "unresolved":
-            pick_side = 0 if p0 >= p1 else 1
-            pick = {"side": pick_side, "team": row["team0"]["name"] if pick_side == 0 else row["team1"]["name"],
+        for side, notes in ((row["team0"], note0), (row["team1"], note1)):
+            flags.extend(notes)
+        if row["team0"]["join"] == "ambiguous" or row["team1"]["join"] == "ambiguous":
+            flags.append("team name could not be matched unambiguously")
+
+        pick = None
+        if p0 is not None:
+            side = 0 if p0 >= p1 else 1
+            pick = {"side": side,
+                    "team": row["team0"]["name"] if side == 0 else row["team1"]["name"],
                     "probability": round(max(p0, p1), 4),
                     "other_probability": round(min(p0, p1), 4)}
-        else:
-            pick = None
-
-        row.update({
-            "p0": round(p0, 4) if p0 is not None else None,
-            "p1": round(p1, 4) if p1 is not None else None,
-            "method": method,
-            "confidence": confidence,
-            "basis": basis,
-            "flags": flags,
-            "pick": pick,
-            "market": market,
-            "connected": connected,
-            "community_pick_pct": f.get("community_pick_pct"),
-        })
+        row.update({"p0": round(p0, 4) if p0 is not None else None,
+                    "p1": round(p1, 4) if p1 is not None else None,
+                    "method": method, "confidence": confidence, "basis": basis,
+                    "flags": sorted(set(flags)), "pick": pick, "market": market,
+                    "connected": connected,
+                    "community_pick_pct": f["community_pick_pct"]})
         rows.append(row)
 
-    # ---- accountability + persistence ----
     counts_by_method: dict[str, int] = {}
     for r in rows:
         counts_by_method[r["method"]] = counts_by_method.get(r["method"], 0) + 1
@@ -360,14 +422,12 @@ def main() -> None:
         "generated_utc": iso(now_utc()),
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
                   "shrink": ELO_SHRINK, "min_matches_confident": MIN_MATCHES_CONFIDENT,
-                  "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL},
-        "sources": {
-            "hotspawn": hs.get("source_url"),
-            "pinnacle": pin.get("source_url"),
-            "leaguepedia": lp.get("source_url"),
-            "polymarket": pm.get("source_url"),
-            "source_status_utc": sources.get("checked_utc"),
-        },
+                  "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,
+                  "decay_start_days": DECAY_START_DAYS, "decay_full_days": DECAY_FULL_DAYS,
+                  "window_start": lp.get("query", {}).get("where")},
+        "sources": {"hotspawn": hs.get("source_url"), "pinnacle": pin.get("source_url"),
+                    "leaguepedia": lp.get("source_url"), "polymarket": pmkt.get("source_url"),
+                    "source_status_utc": sources.get("checked_utc")},
         "counts": counts_by_method,
         "total": len(rows),
         "matches": rows,
@@ -375,15 +435,14 @@ def main() -> None:
 
     save_json(os.path.join(DATA, "matching_report.json"), {
         "generated_utc": iso(now_utc()),
-        "non_exact_joins": joins,
-        "non_exact_count": len(joins),
-        "leaguepedia_teams": len(index),
+        "competition_pages": comp_map,
+        "non_exact_joins": join_log,
+        "non_exact_team_count": len({(j["team"], j["resolved"]) for j in join_log}),
+        "leaguepedia_teams": len(exact),
         "ratings": len(ratings),
     })
 
-    # CSV for line-by-line review
-    csv_path = os.path.join(DATA, "picks.csv")
-    with open(csv_path, "w", newline="", encoding="utf-8") as fh:
+    with open(os.path.join(DATA, "picks.csv"), "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["hotspawn_id", "start_utc", "competition", "tier", "team0", "p0", "team1", "p1",
                     "pick", "pick_probability", "method", "confidence", "basis", "flags",
@@ -391,16 +450,14 @@ def main() -> None:
         for r in rows:
             w.writerow([r["id"], r["start_utc"], r["competition"], r["tier"],
                         r["team0"]["name"], r["p0"], r["team1"]["name"], r["p1"],
-                        r["pick"]["team"] if r["pick"] else "", r["pick"]["probability"] if r["pick"] else "",
+                        r["pick"]["team"] if r["pick"] else "",
+                        r["pick"]["probability"] if r["pick"] else "",
                         r["method"], r["confidence"], r["basis"], "; ".join(r["flags"]),
-                        r["hotspawn_url"],
-                        (r["market"] or {}).get("api_url", "")])
-
-    log(f"rows={len(rows)} methods={counts_by_method} non_exact_joins={len(joins)}")
+                        r["hotspawn_url"], (r["market"] or {}).get("api_url", "")])
+    log(f"rows={len(rows)} methods={counts_by_method} joins={len(join_log)}")
 
 
 def slugify(value: str) -> str:
-    import re
     import unicodedata
     s = unicodedata.normalize("NFKD", value or "")
     s = "".join(ch for ch in s if not unicodedata.combining(ch))

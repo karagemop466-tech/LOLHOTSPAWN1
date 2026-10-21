@@ -87,6 +87,15 @@ def load_json(path: str, default=None):
         return json.load(fh)
 
 
+# Characters that NFKD does not decompose into ASCII + combining marks.
+_TRANSLIT = {
+    "\u00f8": "o", "\u00d8": "O", "\u00e6": "ae", "\u00c6": "AE", "\u00e5": "a",
+    "\u00c5": "A", "\u0142": "l", "\u0141": "L", "\u0111": "d", "\u0110": "D",
+    "\u00f0": "d", "\u00d0": "D", "\u00fe": "th", "\u00de": "Th", "\u0153": "oe",
+    "\u0152": "OE", "\u00df": "ss", "\u0131": "i", "\u0127": "h", "\u0167": "t",
+}
+
+
 def norm_name(value: str | None) -> str:
     """Normalise a team name for join keys (accents, punctuation, org suffixes)."""
     if value is None:
@@ -94,11 +103,12 @@ def norm_name(value: str | None) -> str:
     value = str(value)
     if not value:
         return ""
+    value = "".join(_TRANSLIT.get(ch, ch) for ch in value)
     s = unicodedata.normalize("NFKD", value)
     s = "".join(ch for ch in s if not unicodedata.combining(ch))
     s = s.lower()
     s = re.sub(r"[\u2018\u2019']", "", s)
-    s = re.sub(r"[^a-z0-9]+", " ", s)
+    s = re.sub(r"[_\W]+", " ", s, flags=re.UNICODE)
     return re.sub(r"\s+", " ", s).strip()
 
 
