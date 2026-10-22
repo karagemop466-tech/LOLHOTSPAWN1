@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-22T04:53:20Z",
+ "generated_utc": "2026-10-22T11:58:12Z",
  "count": 18,
  "flags": [
   {
@@ -76,13 +76,13 @@
   },
   {
    "severity": "low",
-   "item": "68 provisional lines (thin data)",
+   "item": "67 provisional lines (thin data)",
    "detail": "At least one side has fewer than five rated series in the Leaguepedia window, or the two teams share no opponent chain. A probability is still published but is labelled provisional and shows the reason on the card.",
    "source": "https://lol.fandom.com/wiki/Special:CargoExport"
   },
   {
    "severity": "low",
-   "item": "12 team names needed a non-exact Leaguepedia match",
+   "item": "13 team names needed a non-exact Leaguepedia match",
    "detail": "Leaguepedia appends a region to duplicate team names (e.g. 'Fenrir (Icelandic Team)'). Every non-exact join and its evidence is listed on the Verification page; ambiguous names are left unmatched instead of guessed.",
    "source": "https://lol.fandom.com/wiki/Special:CargoExport"
   },
@@ -94,7 +94,7 @@
   },
   {
    "severity": "medium",
-   "item": "69 fixtures still listed as 'scheduled' although their start time has passed",
+   "item": "68 fixtures still listed as 'scheduled' although their start time has passed",
    "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time is more than three hours in the past (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. Most likely postponed or awaiting a result.",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
@@ -106,7 +106,7 @@
   },
   {
    "severity": "info",
-   "item": "Bookmaker coverage is 10/264 matches",
+   "item": "Bookmaker coverage is 11/265 matches",
    "detail": "Pinnacle prices the World Championship and EMEA Masters fixtures from this list. The remaining national and academy leagues have no published market on any book reachable from the runner, which is why their lines are originated by our own model.",
    "source": "https://www.pinnacle.com/en/esports/league-of-legends"
   }

@@ -20,7 +20,7 @@
   <div class="pagehead">
     <h1>Method</h1>
     <p class="sub">How every probability on this site is computed, backtested, and audited.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-22 04:53 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-22 11:58 UTC</strong> &middot; refreshed automatically every 6 hours</p>
   </div>
   
 <section class="panel">
@@ -57,17 +57,17 @@
 <section class="panel">
   <h2>Out-of-sample backtest &amp; calibration</h2>
   <p class="lead">Every recorded series after <strong>2026-07-01</strong>
-  (<strong>3,824</strong> out-of-sample series) is predicted strictly before its result updates
+  (<strong>3,828</strong> out-of-sample series) is predicted strictly before its result updates
   either team's rating (zero look-ahead leakage).</p>
-  <div class="tablewrap"><table class=""><thead><tr><th>Sample</th><th>Series</th><th>Accuracy</th><th>Brier score</th><th>Log loss</th></tr></thead><tbody><tr><td data-label="Sample">All out-of-sample series</td><td data-label="Series">3,824</td><td data-label="Accuracy">64.1%</td><td data-label="Brier score">0.2213</td><td data-label="Log loss">0.6326</td></tr><tr><td data-label="Sample">Coin-flip baseline (50/50)</td><td data-label="Series">3,824</td><td data-label="Accuracy">50.0%</td><td data-label="Brier score">0.2500</td><td data-label="Log loss">0.6931</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Sample</th><th>Series</th><th>Accuracy</th><th>Brier score</th><th>Log loss</th></tr></thead><tbody><tr><td data-label="Sample">All out-of-sample series</td><td data-label="Series">3,828</td><td data-label="Accuracy">64.2%</td><td data-label="Brier score">0.2213</td><td data-label="Log loss">0.6326</td></tr><tr><td data-label="Sample">Coin-flip baseline (50/50)</td><td data-label="Series">3,828</td><td data-label="Accuracy">50.0%</td><td data-label="Brier score">0.2500</td><td data-label="Log loss">0.6931</td></tr></tbody></table></div>
   
 <figure style="margin:1rem 0;">
   <svg viewBox="0 0 450 245" width="100%" style="max-width:560px;background:#111622;border:1px solid #263042;border-radius:10px;display:block;" role="img" aria-label="Out-of-sample probability calibration curve">
     <line x1="60" y1="210" x2="420" y2="210" stroke="#334155" stroke-width="1"/>
     <line x1="60" y1="40" x2="60" y2="210" stroke="#334155" stroke-width="1"/>
     <line x1="60" y1="210" x2="420" y2="40" stroke="#64748b" stroke-dasharray="5,5" stroke-width="1.5"/>
-    <polyline fill="none" stroke="#4f9cf9" stroke-width="2.5" points="88.7,184.8 163.6,146.4 235.5,112.0 311.4,75.9"/>
-    <circle cx="88.7" cy="184.8" r="5" fill="#4f9cf9"/><text x="88.7" y="174.8" font-size="11" fill="#e5e7eb" text-anchor="middle">57.4% (n=2238)</text><circle cx="163.6" cy="146.4" r="5" fill="#4f9cf9"/><text x="163.6" y="136.4" font-size="11" fill="#e5e7eb" text-anchor="middle">68.7% (n=972)</text><circle cx="235.5" cy="112.0" r="5" fill="#4f9cf9"/><text x="235.5" y="102.0" font-size="11" fill="#e5e7eb" text-anchor="middle">78.8% (n=472)</text><circle cx="311.4" cy="75.9" r="5" fill="#4f9cf9"/><text x="311.4" y="65.9" font-size="11" fill="#e5e7eb" text-anchor="middle">89.4% (n=142)</text>
+    <polyline fill="none" stroke="#4f9cf9" stroke-width="2.5" points="88.7,184.6 163.7,146.2 235.5,112.0 311.4,75.9"/>
+    <circle cx="88.7" cy="184.6" r="5" fill="#4f9cf9"/><text x="88.7" y="174.6" font-size="11" fill="#e5e7eb" text-anchor="middle">57.5% (n=2241)</text><circle cx="163.7" cy="146.2" r="5" fill="#4f9cf9"/><text x="163.7" y="136.2" font-size="11" fill="#e5e7eb" text-anchor="middle">68.8% (n=973)</text><circle cx="235.5" cy="112.0" r="5" fill="#4f9cf9"/><text x="235.5" y="102.0" font-size="11" fill="#e5e7eb" text-anchor="middle">78.8% (n=472)</text><circle cx="311.4" cy="75.9" r="5" fill="#4f9cf9"/><text x="311.4" y="65.9" font-size="11" fill="#e5e7eb" text-anchor="middle">89.4% (n=142)</text>
     <text x="60" y="232" font-size="11" fill="#94a3b8" text-anchor="middle">50%</text>
     <text x="240" y="232" font-size="11" fill="#94a3b8" text-anchor="middle">Predicted win probability (75%)</text>
     <text x="420" y="232" font-size="11" fill="#94a3b8" text-anchor="middle">100%</text>
@@ -75,9 +75,9 @@
     <text x="50" y="125" font-size="11" fill="#94a3b8" text-anchor="end">75%</text>
     <text x="50" y="44" font-size="11" fill="#94a3b8" text-anchor="end">100%</text>
   </svg>
-  <figcaption class="small muted" style="margin-top:0.4rem;">Dashed diagonal = ideal calibration (predicted = realized win rate). Blue curve = out-of-sample pre-match Elo calibration across 3,824 series since 2026-07-01.</figcaption>
+  <figcaption class="small muted" style="margin-top:0.4rem;">Dashed diagonal = ideal calibration (predicted = realized win rate). Blue curve = out-of-sample pre-match Elo calibration across 3,828 series since 2026-07-01.</figcaption>
 </figure>
-  <div class="tablewrap"><table class=""><thead><tr><th>Favourite probability bucket</th><th>Series</th><th>Predicted (avg)</th><th>Actual realized win rate</th></tr></thead><tbody><tr><td data-label="Favourite probability bucket">50-60%</td><td data-label="Series">2,238</td><td data-label="Predicted (avg)">54.0%</td><td data-label="Actual realized win rate">57.4%</td></tr><tr><td data-label="Favourite probability bucket">60-70%</td><td data-label="Series">972</td><td data-label="Predicted (avg)">64.4%</td><td data-label="Actual realized win rate">68.7%</td></tr><tr><td data-label="Favourite probability bucket">70-80%</td><td data-label="Series">472</td><td data-label="Predicted (avg)">74.4%</td><td data-label="Actual realized win rate">78.8%</td></tr><tr><td data-label="Favourite probability bucket">80%+</td><td data-label="Series">142</td><td data-label="Predicted (avg)">84.9%</td><td data-label="Actual realized win rate">89.4%</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Favourite probability bucket</th><th>Series</th><th>Predicted (avg)</th><th>Actual realized win rate</th></tr></thead><tbody><tr><td data-label="Favourite probability bucket">50-60%</td><td data-label="Series">2,241</td><td data-label="Predicted (avg)">54.0%</td><td data-label="Actual realized win rate">57.5%</td></tr><tr><td data-label="Favourite probability bucket">60-70%</td><td data-label="Series">973</td><td data-label="Predicted (avg)">64.4%</td><td data-label="Actual realized win rate">68.8%</td></tr><tr><td data-label="Favourite probability bucket">70-80%</td><td data-label="Series">472</td><td data-label="Predicted (avg)">74.4%</td><td data-label="Actual realized win rate">78.8%</td></tr><tr><td data-label="Favourite probability bucket">80%+</td><td data-label="Series">142</td><td data-label="Predicted (avg)">84.9%</td><td data-label="Actual realized win rate">89.4%</td></tr></tbody></table></div>
   <p class="small muted">Companion within-tournament Bayesian Bradley-Terry cross-validation on active low-tier
   divisions (N = 1,595 2026 series, archived in <code>archive/session-8336fb7e/data/calibration.json</code>)
   likewise achieves 64.9% accuracy, 0.2145 Brier score (&minus;14.2% MSE vs 50/50), and 3.53% ECE.</p>
