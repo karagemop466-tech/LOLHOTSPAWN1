@@ -1,51 +1,59 @@
 {
  "summary": {
-  "generated_at": "2026-10-22T11:22:07.155Z",
+  "generated_at": "2026-10-22T16:49:35.239Z",
   "week": {
    "start": "2026-10-19T00:00:00.000Z",
    "end": "2026-10-26T00:00:00.000Z"
   },
   "accuracy": {
-   "tracked": 1,
-   "hits": 1,
-   "rate": 100,
+   "tracked": 4,
+   "hits": 3,
+   "rate": 75,
    "by_basis": {
     "model-elo": {
-     "tracked": 1,
-     "hits": 1
+     "tracked": 4,
+     "hits": 3
     }
    }
   },
   "counts": {
-   "open": 197,
-   "locked_or_live": 4,
+   "open": 192,
+   "locked_or_live": 6,
    "stale": 64,
-   "ended_this_week": 33,
+   "ended_this_week": 37,
    "cancelled": 11,
-   "picks_total": 189,
-   "market_pinnacle": 9,
+   "picks_total": 186,
+   "market_pinnacle": 8,
    "market_polymarket_only": 1,
-   "model_only": 179,
+   "model_only": 177,
    "unresolved_open": 12,
-   "flags_needs_review": 20,
-   "flags_info": 3
+   "flags_needs_review": 18,
+   "flags_info": 4
   },
   "sources_ok": {
    "hotspawn_fixtures": true,
    "hotspawn_lobby": true,
    "pinnacle_leagues": 2,
-   "pinnacle_lines": 9,
+   "pinnacle_lines": 8,
    "polymarket_lines": 10
   }
  },
  "tournaments": {
+  "EM 2026 Summer Main Event": {
+   "competition": "EM 2026 Summer Main Event",
+   "tier": "a",
+   "open": 1,
+   "resolved": 1,
+   "market": 0,
+   "model": 1
+  },
   "Komplettligaen 2026 Autumn": {
    "competition": "Komplettligaen 2026 Autumn",
    "tier": "c",
-   "open": 7,
-   "resolved": 7,
+   "open": 6,
+   "resolved": 6,
    "market": 0,
-   "model": 7
+   "model": 6
   },
   "RIVALS LEAGUE Season 2": {
    "competition": "RIVALS LEAGUE Season 2",
@@ -58,18 +66,10 @@
   "PRM 3rd Division 26-27 Fall": {
    "competition": "PRM 3rd Division 26-27 Fall",
    "tier": "waiting for information",
-   "open": 65,
-   "resolved": 65,
+   "open": 63,
+   "resolved": 63,
    "market": 0,
-   "model": 65
-  },
-  "EM 2026 Summer Main Event": {
-   "competition": "EM 2026 Summer Main Event",
-   "tier": "a",
-   "open": 1,
-   "resolved": 1,
-   "market": 1,
-   "model": 0
+   "model": 63
   },
   "4 Nations 2026 Halloween Heist": {
    "competition": "4 Nations 2026 Halloween Heist",
@@ -129,7 +129,7 @@
   },
   "LigaGG CELOL A 2026 Split 2 Playoffs": {
    "competition": "LigaGG CELOL A 2026 Split 2 Playoffs",
-   "tier": null,
+   "tier": "waiting for information",
    "open": 2,
    "resolved": 2,
    "market": 0,
@@ -537,7 +537,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 9
+    "n1": 10
    },
    "score0": null,
    "score1": null,
@@ -547,12 +547,12 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.402,
-    "p1": 0.598,
+    "p0": 0.396,
+    "p1": 0.604,
     "r0": 1459,
-    "r1": 1603,
+    "r1": 1613,
     "n0": 3,
-    "n1": 9,
+    "n1": 10,
     "confidence": "medium"
    },
    "pick": null
@@ -1331,7 +1331,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.373,
     "p1": 0.627,
-    "r0": 1431,
+    "r0": 1432,
     "r1": 1564,
     "n0": 9,
     "n1": 5,
@@ -1629,7 +1629,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.373,
     "p1": 0.627,
-    "r0": 1431,
+    "r0": 1432,
     "r1": 1564,
     "n0": 9,
     "n1": 5,
@@ -1803,8 +1803,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.55,
-    "p1": 0.45,
+    "p0": 0.549,
+    "p1": 0.451,
     "r0": 1529,
     "r1": 1459,
     "n0": 10,
@@ -1850,7 +1850,7 @@
     "p0": 0.574,
     "p1": 0.426,
     "r0": 1538,
-    "r1": 1431,
+    "r1": 1432,
     "n0": 3,
     "n1": 9,
     "confidence": "medium"
@@ -1924,7 +1924,7 @@
     "name": "Karolinerna"
    },
    "team_history": {
-    "n0": 3,
+    "n0": 4,
     "n1": 7
    },
    "score0": null,
@@ -1935,11 +1935,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.502,
-    "p1": 0.498,
-    "r0": 1487,
+    "p0": 0.49,
+    "p1": 0.51,
+    "r0": 1472,
     "r1": 1484,
-    "n0": 3,
+    "n0": 4,
     "n1": 7,
     "confidence": "medium"
    },
@@ -2297,7 +2297,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.508,
     "p1": 0.492,
-    "r0": 1538,
+    "r0": 1537,
     "r1": 1523,
     "n0": 3,
     "n1": 2,
@@ -2416,7 +2416,7 @@
     "name": "Tung Sahur Mid"
    },
    "team_history": {
-    "n0": 3,
+    "n0": 4,
     "n1": 3
    },
    "score0": null,
@@ -2427,11 +2427,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.48,
-    "p1": 0.52,
-    "r0": 1487,
+    "p0": 0.491,
+    "p1": 0.509,
+    "r0": 1502,
     "r1": 1515,
-    "n0": 3,
+    "n0": 4,
     "n1": 3,
     "confidence": "medium"
    },
@@ -4268,7 +4268,7 @@
   },
   {
    "id": "1071217",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36279",
    "competition": "Komplettligaen 2026 Autumn",
@@ -4289,38 +4289,30 @@
     "name": "VES Japan"
    },
    "team_history": {
-    "n0": 9,
-    "n1": 9
+    "n0": 10,
+    "n1": 10
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 2,
    "hotspawn_url": "https://www.hotspawn.com/matches/phenti-vs-ves-japan-komplettligaen-2026-autumn-1071217",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.343,
-    "p1": 0.657,
-    "r0": 1490,
-    "r1": 1603,
-    "n0": 9,
-    "n1": 9,
-    "confidence": "medium"
+    "p0": 0.317,
+    "p1": 0.683,
+    "r0": 1480,
+    "r1": 1613,
+    "n0": 10,
+    "n1": 10,
+    "confidence": "high"
    },
-   "pick": {
-    "team_index": 1,
-    "team_id": "256687",
-    "team": "VES Japan",
-    "p": 0.657,
-    "basis": "model-elo",
-    "confidence": "medium",
-    "margin": 0.314
-   }
+   "pick": null
   },
   {
    "id": "1082060",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36332",
    "competition": "RIVALS LEAGUE Season 2",
@@ -4341,39 +4333,31 @@
     "name": "Fritt Fall"
    },
    "team_history": {
-    "n0": 3,
-    "n1": 3
+    "n0": 4,
+    "n1": 4
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 2,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-cd-vs-fritt-fall-rivals-league-season-2-1082060",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.5,
-    "p1": 0.5,
-    "r0": 1487,
-    "r1": 1487,
-    "n0": 3,
-    "n1": 3,
+    "p0": 0.474,
+    "p1": 0.526,
+    "r0": 1472,
+    "r1": 1502,
+    "n0": 4,
+    "n1": 4,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "153003",
-    "team": "Team cd",
-    "p": 0.5,
-    "basis": "model-elo",
-    "confidence": "medium",
-    "margin": 0
-   }
+   "pick": null
   },
   {
    "id": "1075739",
-   "state": "locked",
-   "forfeit": false,
+   "state": "forfeited",
+   "forfeit": true,
    "competition_id": "36438",
    "competition": "PRM 3rd Division 26-27 Fall",
    "tier": "waiting for information",
@@ -4412,19 +4396,11 @@
     "n1": 2,
     "confidence": "low"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "264563",
-    "team": "Emperors Bremen",
-    "p": 0.517,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.034
-   }
+   "pick": null
   },
   {
    "id": "1075757",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36438",
    "competition": "PRM 3rd Division 26-27 Fall",
@@ -4445,34 +4421,26 @@
     "name": "Kanji Esports AKA"
    },
    "team_history": {
-    "n0": 2,
-    "n1": 2
+    "n0": 3,
+    "n1": 3
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 2,
    "hotspawn_url": "https://www.hotspawn.com/matches/purple-emperor-lizards-atomic-vs-kanji-esports-aka-prm-3rd-division-26-27-fall-1075757",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.469,
-    "p1": 0.531,
-    "r0": 1471,
-    "r1": 1526,
-    "n0": 2,
-    "n1": 2,
-    "confidence": "low"
+    "p0": 0.443,
+    "p1": 0.557,
+    "r0": 1458,
+    "r1": 1539,
+    "n0": 3,
+    "n1": 3,
+    "confidence": "medium"
    },
-   "pick": {
-    "team_index": 1,
-    "team_id": "233420",
-    "team": "Kanji Esports AKA",
-    "p": 0.531,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.062
-   }
+   "pick": null
   },
   {
    "id": "1079137",
@@ -4520,7 +4488,7 @@
   },
   {
    "id": "1081205",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36380",
    "competition": "EM 2026 Summer Main Event",
@@ -4531,11 +4499,7 @@
    "lock_utc": "2026-10-22T11:55:00.000Z",
    "start_ms": 1792670400000,
    "lock_ms": 1792670100000,
-   "start_discrepancy": {
-    "hotspawn_utc": "2026-10-22T12:00:00.000Z",
-    "pinnacle_utc": "2026-10-22T16:00:00.000Z",
-    "delta_min": 240
-   },
+   "start_discrepancy": null,
    "team0": {
     "id": "203085",
     "name": "Galions"
@@ -4551,38 +4515,9 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": {
-    "source": "Pinnacle",
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/225201/markets/straight",
-    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/225201/matchups",
-    "site_url": "https://www.pinnacle.com/en/esports",
-    "league": "League of Legends - EMEA Masters",
-    "league_id": 225201,
-    "matchup_id": 1638709103,
-    "odds0": -131,
-    "odds1": 108,
-    "dec0": 1.76,
-    "dec1": 2.08,
-    "p0": 0.541,
-    "p1": 0.459,
-    "match_quality": "exact",
-    "best_of": 5,
-    "listing": "live"
-   },
-   "market_polymarket": {
-    "source": "Polymarket",
-    "url": "https://polymarket.com/event/lol-gal-sly-2026-10-22",
-    "event": "lol-gal-sly-2026-10-22",
-    "question": "LoL: Galions vs Solary (BO5) - EMEA Masters Playoffs",
-    "p0": 0.565,
-    "p1": 0.435,
-    "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 198976.6131,
-    "volume": 151203.19918,
-    "spread": 0.01,
-    "match_quality": "exact"
-   },
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.477,
@@ -4594,18 +4529,18 @@
     "confidence": "high"
    },
    "pick": {
-    "team_index": 0,
-    "team_id": "203085",
-    "team": "Galions",
-    "p": 0.541,
-    "basis": "market-pinnacle",
+    "team_index": 1,
+    "team_id": "17825",
+    "team": "Solary",
+    "p": 0.523,
+    "basis": "model-elo",
     "confidence": "high",
-    "margin": 0.082
+    "margin": 0.046
    }
   },
   {
    "id": "1071214",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36279",
    "competition": "Komplettligaen 2026 Autumn",
@@ -4632,7 +4567,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/ascent-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071214",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -4657,7 +4592,7 @@
   },
   {
    "id": "1071216",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36279",
    "competition": "Komplettligaen 2026 Autumn",
@@ -4684,7 +4619,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -4709,7 +4644,7 @@
   },
   {
    "id": "1071218",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36279",
    "competition": "Komplettligaen 2026 Autumn",
@@ -4736,7 +4671,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/volda-e-sport-vs-cng-royal-komplettligaen-2026-autumn-1071218",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -4761,7 +4696,7 @@
   },
   {
    "id": "1071219",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36279",
    "competition": "Komplettligaen 2026 Autumn",
@@ -4788,7 +4723,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/your-saviours-vs-mixlag-fra-trondheim-komplettligaen-2026-autumn-1071219",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -4813,7 +4748,7 @@
   },
   {
    "id": "1074667",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36332",
    "competition": "RIVALS LEAGUE Season 2",
@@ -4835,32 +4770,32 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 3
+    "n1": 4
    },
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/turbo-gaming-vs-fritt-fall-rivals-league-season-2-1074667",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.536,
-    "p1": 0.464,
+    "p0": 0.525,
+    "p1": 0.475,
     "r0": 1537,
-    "r1": 1487,
+    "r1": 1502,
     "n0": 3,
-    "n1": 3,
+    "n1": 4,
     "confidence": "medium"
    },
    "pick": {
     "team_index": 0,
     "team_id": "263907",
     "team": "Turbo Gaming",
-    "p": 0.536,
+    "p": 0.525,
     "basis": "model-elo",
     "confidence": "medium",
-    "margin": 0.072
+    "margin": 0.05
    }
   },
   {
@@ -6006,7 +5941,7 @@
    },
    "team_history": {
     "n0": 12,
-    "n1": 9
+    "n1": 10
    },
    "score0": null,
    "score1": null,
@@ -6016,22 +5951,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.668,
-    "p1": 0.332,
+    "p0": 0.681,
+    "p1": 0.319,
     "r0": 1612,
-    "r1": 1490,
+    "r1": 1480,
     "n0": 12,
-    "n1": 9,
-    "confidence": "medium"
+    "n1": 10,
+    "confidence": "high"
    },
    "pick": {
     "team_index": 0,
     "team_id": "37072",
     "team": "Rich Gang",
-    "p": 0.668,
+    "p": 0.681,
     "basis": "model-elo",
-    "confidence": "medium",
-    "margin": 0.336
+    "confidence": "high",
+    "margin": 0.362
    }
   },
   {
@@ -6255,12 +6190,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638748200,
-    "odds0": -435,
-    "odds1": 323,
+    "odds0": -442,
+    "odds1": 328,
     "dec0": 1.23,
-    "dec1": 4.23,
-    "p0": 0.775,
-    "p1": 0.225,
+    "dec1": 4.28,
+    "p0": 0.777,
+    "p1": 0.223,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6273,8 +6208,8 @@
     "p0": 0.775,
     "p1": 0.225,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 208092.7701,
-    "volume": 81160.79887800002,
+    "liquidity": 239106.7713,
+    "volume": 84352.77134800001,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6292,10 +6227,10 @@
     "team_index": 0,
     "team_id": "6194",
     "team": "Gen.G",
-    "p": 0.775,
+    "p": 0.777,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.549
+    "margin": 0.555
    }
   },
   {
@@ -6436,12 +6371,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638748203,
-    "odds0": -490,
-    "odds1": 355,
+    "odds0": -502,
+    "odds1": 362,
     "dec0": 1.2,
-    "dec1": 4.55,
-    "p0": 0.791,
-    "p1": 0.209,
+    "dec1": 4.62,
+    "p0": 0.794,
+    "p1": 0.206,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6454,8 +6389,8 @@
     "p0": 0.785,
     "p1": 0.215,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 103775.7592,
-    "volume": 72550.849163,
+    "liquidity": 122011.5628,
+    "volume": 77188.31519600001,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6473,10 +6408,10 @@
     "team_index": 0,
     "team_id": "10170",
     "team": "Hanwha Life Esports",
-    "p": 0.791,
+    "p": 0.794,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.581
+    "margin": 0.588
    }
   },
   {
@@ -6696,8 +6631,8 @@
     "p0": 0.825,
     "p1": 0.175,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 112518.8682,
-    "volume": 19965.913003,
+    "liquidity": 114957.3823,
+    "volume": 20605.382604000002,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6777,8 +6712,8 @@
     "p0": 0.655,
     "p1": 0.345,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 207843.5743,
-    "volume": 152840.549753,
+    "liquidity": 244440.625,
+    "volume": 173815.58437700002,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6840,12 +6775,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638750815,
-    "odds0": 129,
-    "odds1": -152,
-    "dec0": 2.29,
+    "odds0": 128,
+    "odds1": -151,
+    "dec0": 2.28,
     "dec1": 1.66,
-    "p0": 0.42,
-    "p1": 0.58,
+    "p0": 0.422,
+    "p1": 0.578,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6858,8 +6793,8 @@
     "p0": 0.395,
     "p1": 0.605,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 334923.6227,
-    "volume": 299128.04899000004,
+    "liquidity": 384517.9837,
+    "volume": 305645.484231,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6877,10 +6812,10 @@
     "team_index": 1,
     "team_id": "74448",
     "team": "Dplus KIA",
-    "p": 0.58,
+    "p": 0.578,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.16
+    "margin": 0.157
    }
   },
   {
@@ -6943,8 +6878,8 @@
     "p0": 0.715,
     "p1": 0.285,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 198661.8287,
-    "volume": 22204.371825000002,
+    "liquidity": 228420.5898,
+    "volume": 23542.101058,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7006,12 +6941,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638748205,
-    "odds0": 516,
-    "odds1": -800,
-    "dec0": 6.16,
-    "dec1": 1.13,
-    "p0": 0.154,
-    "p1": 0.846,
+    "odds0": 522,
+    "odds1": -815,
+    "dec0": 6.22,
+    "dec1": 1.12,
+    "p0": 0.153,
+    "p1": 0.847,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -7024,8 +6959,8 @@
     "p0": 0.125,
     "p1": 0.875,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 233898.6424,
-    "volume": 35426.639151999996,
+    "liquidity": 296791.4305,
+    "volume": 38756.854156,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7033,7 +6968,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.581,
     "p1": 0.419,
-    "r0": 1597,
+    "r0": 1596,
     "r1": 1500,
     "n0": 7,
     "n1": 4,
@@ -7043,10 +6978,10 @@
     "team_index": 1,
     "team_id": "10168",
     "team": "T1",
-    "p": 0.846,
+    "p": 0.847,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.691
+    "margin": 0.694
    }
   },
   {
@@ -7105,8 +7040,8 @@
     "p0": 0.415,
     "p1": 0.585,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 228616.4431,
-    "volume": 19212.852147999994,
+    "liquidity": 260239.0655,
+    "volume": 20733.750451999993,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7865,7 +7800,7 @@
     "name": "Tung Sahur Mid"
    },
    "team_history": {
-    "n0": 3,
+    "n0": 4,
     "n1": 3
    },
    "score0": null,
@@ -7876,11 +7811,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.48,
-    "p1": 0.52,
-    "r0": 1487,
+    "p0": 0.469,
+    "p1": 0.531,
+    "r0": 1472,
     "r1": 1515,
-    "n0": 3,
+    "n0": 4,
     "n1": 3,
     "confidence": "medium"
    },
@@ -7888,10 +7823,10 @@
     "team_index": 1,
     "team_id": "264344",
     "team": "Tung Sahur Mid",
-    "p": 0.52,
+    "p": 0.531,
     "basis": "model-elo",
     "confidence": "medium",
-    "margin": 0.04
+    "margin": 0.062
    }
   },
   {
@@ -7918,7 +7853,7 @@
    },
    "team_history": {
     "n0": 9,
-    "n1": 3
+    "n1": 4
    },
    "score0": null,
    "score1": null,
@@ -7928,22 +7863,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.46,
-    "p1": 0.54,
-    "r0": 1431,
-    "r1": 1487,
+    "p0": 0.44,
+    "p1": 0.56,
+    "r0": 1432,
+    "r1": 1502,
     "n0": 9,
-    "n1": 3,
+    "n1": 4,
     "confidence": "medium"
    },
    "pick": {
     "team_index": 1,
     "team_id": "138955",
     "team": "Fritt Fall",
-    "p": 0.54,
+    "p": 0.56,
     "basis": "model-elo",
     "confidence": "medium",
-    "margin": 0.08
+    "margin": 0.12
    }
   },
   {
@@ -8160,8 +8095,8 @@
    "forfeit": false,
    "competition_id": "36623",
    "competition": "LigaGG CELOL A 2026 Split 2 Playoffs",
-   "tier": null,
-   "stage": null,
+   "tier": "waiting for information",
+   "stage": "playoffs",
    "offered_points": 10,
    "start_utc": "2026-10-24T20:00:00.000Z",
    "lock_utc": "2026-10-24T19:55:00.000Z",
@@ -8212,8 +8147,8 @@
    "forfeit": false,
    "competition_id": "36623",
    "competition": "LigaGG CELOL A 2026 Split 2 Playoffs",
-   "tier": null,
-   "stage": null,
+   "tier": "waiting for information",
+   "stage": "playoffs",
    "offered_points": 10,
    "start_utc": "2026-10-24T20:00:00.000Z",
    "lock_utc": "2026-10-24T19:55:00.000Z",
@@ -8464,58 +8399,6 @@
     "basis": "model-elo",
     "confidence": "medium",
     "margin": 0.07
-   }
-  },
-  {
-   "id": "1075749",
-   "state": "open",
-   "forfeit": false,
-   "competition_id": "36438",
-   "competition": "PRM 3rd Division 26-27 Fall",
-   "tier": "waiting for information",
-   "stage": "waiting for information",
-   "offered_points": 10,
-   "start_utc": "2026-10-25T16:00:00.000Z",
-   "lock_utc": "2026-10-25T15:55:00.000Z",
-   "start_ms": 1792944000000,
-   "lock_ms": 1792943700000,
-   "start_discrepancy": null,
-   "team0": {
-    "id": "246851",
-    "name": "Babos Gaming Academy"
-   },
-   "team1": {
-    "id": "246855",
-    "name": "VfB x Engines Stuttgart"
-   },
-   "team_history": {
-    "n0": 2,
-    "n1": 3
-   },
-   "score0": null,
-   "score1": null,
-   "hotspawn_url": "https://www.hotspawn.com/matches/babos-gaming-academy-vs-vfb-x-engines-stuttgart-prm-3rd-division-26-27-fall-1075749",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": null,
-   "market_polymarket": null,
-   "model": {
-    "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.522,
-    "p1": 0.478,
-    "r0": 1526,
-    "r1": 1488,
-    "n0": 2,
-    "n1": 3,
-    "confidence": "low"
-   },
-   "pick": {
-    "team_index": 0,
-    "team_id": "246851",
-    "team": "Babos Gaming Academy",
-    "p": 0.522,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.044
    }
   },
   {
@@ -9505,7 +9388,7 @@
    },
    "team_history": {
     "n0": 9,
-    "n1": 3
+    "n1": 4
    },
    "score0": null,
    "score1": null,
@@ -9515,22 +9398,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.46,
-    "p1": 0.54,
-    "r0": 1431,
-    "r1": 1487,
+    "p0": 0.465,
+    "p1": 0.535,
+    "r0": 1432,
+    "r1": 1472,
     "n0": 9,
-    "n1": 3,
+    "n1": 4,
     "confidence": "medium"
    },
    "pick": {
     "team_index": 1,
     "team_id": "153003",
     "team": "Team cd",
-    "p": 0.54,
+    "p": 0.535,
     "basis": "model-elo",
     "confidence": "medium",
-    "margin": 0.08
+    "margin": 0.07
    }
   },
   {
@@ -9838,6 +9721,58 @@
    "pick": null
   },
   {
+   "id": "1082938",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36332",
+   "competition": "RIVALS LEAGUE Season 2",
+   "tier": "waiting for information",
+   "stage": "waiting for information",
+   "offered_points": 10,
+   "start_utc": "2026-10-26T18:00:00.000Z",
+   "lock_utc": "2026-10-26T17:55:00.000Z",
+   "start_ms": 1793037600000,
+   "lock_ms": 1793037300000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "247778",
+    "name": "Mazepa"
+   },
+   "team1": {
+    "id": "232892",
+    "name": "B2U"
+   },
+   "team_history": {
+    "n0": 4,
+    "n1": 8
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/mazepa-vs-b2u-rivals-league-season-2-1082938",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.411,
+    "p1": 0.589,
+    "r0": 1447,
+    "r1": 1553,
+    "n0": 4,
+    "n1": 8,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "232892",
+    "team": "B2U",
+    "p": 0.589,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0.178
+   }
+  },
+  {
    "id": "1081831",
    "state": "open",
    "forfeit": false,
@@ -9977,12 +9912,12 @@
     "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "event": "lol-rb-mr-2026-10-27",
     "question": "LoL: Vitality Rising Bees vs Mental Rush (BO5) - LGC Rising Playoffs",
-    "p0": 0.34,
-    "p1": 0.66,
+    "p0": 0.325,
+    "p1": 0.675,
     "price_kind": "outcomePrices",
-    "liquidity": 372.4191,
-    "volume": null,
-    "spread": 0.6,
+    "liquidity": 3844.5451,
+    "volume": 5,
+    "spread": 0.25,
     "match_quality": "exact"
    },
    "model": {
@@ -9999,10 +9934,10 @@
     "team_index": 1,
     "team_id": "163988",
     "team": "Vitality Rising Bees",
-    "p": 0.66,
+    "p": 0.675,
     "basis": "market-polymarket",
-    "confidence": "low",
-    "margin": 0.32
+    "confidence": "medium",
+    "margin": 0.35
    }
   },
   {
@@ -10405,6 +10340,58 @@
    }
   },
   {
+   "id": "1075749",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36438",
+   "competition": "PRM 3rd Division 26-27 Fall",
+   "tier": "waiting for information",
+   "stage": "waiting for information",
+   "offered_points": 10,
+   "start_utc": "2026-10-29T18:00:00.000Z",
+   "lock_utc": "2026-10-29T17:55:00.000Z",
+   "start_ms": 1793296800000,
+   "lock_ms": 1793296500000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "246851",
+    "name": "Babos Gaming Academy"
+   },
+   "team1": {
+    "id": "246855",
+    "name": "VfB x Engines Stuttgart"
+   },
+   "team_history": {
+    "n0": 2,
+    "n1": 3
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/babos-gaming-academy-vs-vfb-x-engines-stuttgart-prm-3rd-division-26-27-fall-1075749",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.522,
+    "p1": 0.478,
+    "r0": 1526,
+    "r1": 1488,
+    "n0": 2,
+    "n1": 3,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "246851",
+    "team": "Babos Gaming Academy",
+    "p": 0.522,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.044
+   }
+  },
+  {
    "id": "1075737",
    "state": "open",
    "forfeit": false,
@@ -10427,7 +10414,7 @@
     "name": "Cloud eSport"
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 2
    },
    "score0": null,
@@ -10438,22 +10425,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.5,
-    "p1": 0.5,
-    "r0": 1471,
+    "p0": 0.493,
+    "p1": 0.507,
+    "r0": 1458,
     "r1": 1471,
-    "n0": 2,
+    "n0": 3,
     "n1": 2,
     "confidence": "low"
    },
    "pick": {
-    "team_index": 0,
-    "team_id": "218954",
-    "team": "Purple Emperor Lizards - Atomic",
-    "p": 0.5,
+    "team_index": 1,
+    "team_id": "237479",
+    "team": "Cloud eSport",
+    "p": 0.507,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0
+    "margin": 0.014
    }
   },
   {
@@ -11486,7 +11473,7 @@
    },
    "team_history": {
     "n0": 2,
-    "n1": 2
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -11496,22 +11483,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.486,
-    "p1": 0.514,
+    "p0": 0.478,
+    "p1": 0.522,
     "r0": 1501,
-    "r1": 1526,
+    "r1": 1539,
     "n0": 2,
-    "n1": 2,
+    "n1": 3,
     "confidence": "low"
    },
    "pick": {
     "team_index": 1,
     "team_id": "233420",
     "team": "Kanji Esports AKA",
-    "p": 0.514,
+    "p": 0.522,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.028
+    "margin": 0.044
    }
   },
   {
@@ -11641,7 +11628,7 @@
     "name": "Packmiko E-Sports DACH"
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 3
    },
    "score0": null,
@@ -11652,22 +11639,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.49,
-    "p1": 0.51,
-    "r0": 1471,
+    "p0": 0.479,
+    "p1": 0.521,
+    "r0": 1458,
     "r1": 1488,
-    "n0": 2,
+    "n0": 3,
     "n1": 3,
-    "confidence": "low"
+    "confidence": "medium"
    },
    "pick": {
     "team_index": 1,
     "team_id": "206008",
     "team": "Packmiko E-Sports DACH",
-    "p": 0.51,
+    "p": 0.521,
     "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.02
+    "confidence": "medium",
+    "margin": 0.042
    }
   },
   {
@@ -13220,7 +13207,7 @@
    },
    "team_history": {
     "n0": 1,
-    "n1": 2
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -13230,22 +13217,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.495,
-    "p1": 0.505,
+    "p0": 0.49,
+    "p1": 0.51,
     "r0": 1515,
-    "r1": 1526,
+    "r1": 1539,
     "n0": 1,
-    "n1": 2,
+    "n1": 3,
     "confidence": "low"
    },
    "pick": {
     "team_index": 1,
     "team_id": "233420",
     "team": "Kanji Esports AKA",
-    "p": 0.505,
+    "p": 0.51,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.01
+    "margin": 0.02
    }
   },
   {
@@ -14295,7 +14282,7 @@
    },
    "team_history": {
     "n0": 2,
-    "n1": 2
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -14305,22 +14292,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.501,
-    "p1": 0.499,
+    "p0": 0.494,
+    "p1": 0.506,
     "r0": 1528,
-    "r1": 1526,
+    "r1": 1539,
     "n0": 2,
-    "n1": 2,
+    "n1": 3,
     "confidence": "low"
    },
    "pick": {
-    "team_index": 0,
-    "team_id": "249722",
-    "team": "Atruvia Münster Esports",
-    "p": 0.501,
+    "team_index": 1,
+    "team_id": "233420",
+    "team": "Kanji Esports AKA",
+    "p": 0.506,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.002
+    "margin": 0.012
    }
   },
   {
@@ -14555,7 +14542,7 @@
    },
    "team_history": {
     "n0": 1,
-    "n1": 2
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -14565,22 +14552,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.519,
-    "p1": 0.481,
+    "p0": 0.524,
+    "p1": 0.476,
     "r0": 1515,
-    "r1": 1471,
+    "r1": 1458,
     "n0": 1,
-    "n1": 2,
+    "n1": 3,
     "confidence": "low"
    },
    "pick": {
     "team_index": 0,
     "team_id": "246848",
     "team": "Defiance eSports",
-    "p": 0.519,
+    "p": 0.524,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.038
+    "margin": 0.048
    }
   },
   {

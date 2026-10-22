@@ -1,16 +1,15 @@
 {
- "generated_at": "2026-10-22T11:22:07.155Z",
+ "generated_at": "2026-10-22T16:49:35.239Z",
  "flags": [
   {
-   "severity": "needs-review",
-   "title": "Start-time discrepancy: Hotspawn vs Pinnacle",
-   "detail": "Galions vs Solary (EM 2026 Summer Main Event): Hotspawn lists start 2026-10-22T12:00:00.000Z UTC (pick lock 2026-10-22T11:55:00.000Z UTC), Pinnacle lists 2026-10-22T16:00:00.000Z UTC (Δ +240 min). The Hotspawn lock still governs pick'em submission, but the real-world start time per the independent market source differs — displayed times may be wrong on one of the platforms.",
+   "severity": "info",
+   "title": "Polymarket markets with no matching Hotspawn fixture",
+   "detail": "1 open Polymarket LoL event(s) did not correspond to any open Hotspawn fixture (Polymarket lists events outside the Hotspawn slate, or naming differs): lol-gal-sly-2026-10-22. These are NOT used for any pick.",
    "links": [
-    "https://guest.api.arcadia.pinnacle.com/0.1/leagues/225201/markets/straight",
-    "https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205"
+    "https://polymarket.com/event/lol-gal-sly-2026-10-22"
    ],
-   "match_id": "1081205",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "match_id": null,
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -20,7 +19,7 @@
     "https://www.hotspawn.com/matches/team-vds-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1082105"
    ],
    "match_id": "1082105",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -30,7 +29,7 @@
     "https://www.hotspawn.com/matches/levelers-vs-mtn-esports-team-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082839"
    ],
    "match_id": "1082839",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -41,7 +40,7 @@
     "https://www.hotspawn.com/matches/hanwha-life-esports-vs-top-esports-worlds-2026-main-event-1067677"
    ],
    "match_id": "1067677",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -52,7 +51,7 @@
     "https://www.hotspawn.com/matches/hanwha-life-esports-vs-top-esports-worlds-2026-main-event-1067677"
    ],
    "match_id": "1067677",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -62,7 +61,7 @@
     "https://www.hotspawn.com/matches/team-vds-vs-team-reds-arabian-league-2nd-division-2026-summer-1082106"
    ],
    "match_id": "1082106",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -72,7 +71,7 @@
     "https://www.hotspawn.com/matches/acegaming-vs-babos-gaming-prm-2nd-division-26-27-fall-1079025"
    ],
    "match_id": "1079025",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -83,7 +82,7 @@
     "https://www.hotspawn.com/matches/bilibili-gaming-vs-movistar-koi-worlds-2026-main-event-1067680"
    ],
    "match_id": "1067680",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -94,7 +93,7 @@
     "https://www.hotspawn.com/matches/bilibili-gaming-vs-movistar-koi-worlds-2026-main-event-1067680"
    ],
    "match_id": "1067680",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -105,7 +104,7 @@
     "https://www.hotspawn.com/matches/team-liquid-vs-ctbc-flying-oyster-worlds-2026-main-event-1067879"
    ],
    "match_id": "1067879",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -116,7 +115,7 @@
     "https://www.hotspawn.com/matches/los-vs-t1-worlds-2026-main-event-1067678"
    ],
    "match_id": "1067678",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -126,28 +125,17 @@
     "https://www.hotspawn.com/matches/reveal-multigaming-vs-acegaming-prm-2nd-division-26-27-fall-1079028"
    ],
    "match_id": "1079028",
-   "ts": "2026-10-22T11:22:07.155Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "Thin Polymarket market used as line",
-   "detail": "Mental Rush vs Vitality Rising Bees: Polymarket market \"lol-rb-mr-2026-10-27\" has liquidity/volume ≈ $372 — line may be unreliable.",
-   "links": [
-    "https://polymarket.com/event/lol-rb-mr-2026-10-27",
-    "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080"
-   ],
-   "match_id": "1079080",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "info",
    "title": "Wide Polymarket spread",
-   "detail": "Mental Rush vs Vitality Rising Bees: spread 0.6.",
+   "detail": "Mental Rush vs Vitality Rising Bees: spread 0.25.",
    "links": [
     "https://polymarket.com/event/lol-rb-mr-2026-10-27"
    ],
    "match_id": "1079080",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -157,7 +145,7 @@
     "https://www.hotspawn.com/matches/no-need-orga-vs-acegaming-prm-2nd-division-26-27-fall-1079032"
    ],
    "match_id": "1079032",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -167,7 +155,7 @@
     "https://www.hotspawn.com/matches/acegaming-vs-regold-esport-prm-2nd-division-26-27-fall-1079851"
    ],
    "match_id": "1079851",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -177,7 +165,7 @@
     "https://www.hotspawn.com/matches/void-walkers-vs-team-vds-arabian-league-2nd-division-2026-summer-1082107"
    ],
    "match_id": "1082107",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -187,7 +175,7 @@
     "https://www.hotspawn.com/matches/team-300-vs-acegaming-prm-2nd-division-26-27-fall-1079050"
    ],
    "match_id": "1079050",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -197,7 +185,7 @@
     "https://www.hotspawn.com/matches/acegaming-vs-bvp-prm-2nd-division-26-27-fall-1079051"
    ],
    "match_id": "1079051",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -207,7 +195,7 @@
     "https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423"
    ],
    "match_id": "1081423",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "needs-review",
@@ -217,11 +205,11 @@
     "https://www.hotspawn.com/matches/acegaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1079059"
    ],
    "match_id": "1079059",
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "info",
-   "title": "102 model-only picks have LOW confidence (thin history)",
+   "title": "101 model-only picks have LOW confidence (thin history)",
    "detail": "These picks come solely from our own Elo-style model where one or both sides have fewer than 3 recorded series (new season, new rosters, amateur divisions). They are shown with a LOW badge on the Picks page. Examples: BlackDivision vs Babos Gaming Academy (2/2 series); Absolved vs The Bandits UK (4/2 series); HL Tauri Esports vs Bulldog Esports (2/4 series); The Bandits UK vs PNS (2/4 series); Ruddy Ultras vs HL Tauri Esports (4/2 series); Reveal Multigaming vs Hannover Esports e.V. (3/2 series); Locked IN vs The Bandits Prime (2/2 series); NextGeneration Esports vs Pegasus Esports (2/1 series); reGOLD eSport vs Team 300 (3/2 series); Berlin 5 vs AceGaming Hearts (2/2 series); Jendouba Esports vs Enfida Esports (2/2 series); JSK Esports vs El Menzah Esports (12/1 series); ….",
    "links": [
     "https://www.hotspawn.com/matches/blackdivision-vs-babos-gaming-academy-prm-3rd-division-26-27-fall-1075736",
@@ -234,7 +222,7 @@
     "https://www.hotspawn.com/matches/nextgeneration-esports-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079139"
    ],
    "match_id": null,
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   },
   {
    "severity": "info",
@@ -244,7 +232,7 @@
     "https://play.hotspawn.com/lol-pickems"
    ],
    "match_id": null,
-   "ts": "2026-10-22T11:22:07.155Z"
+   "ts": "2026-10-22T16:49:35.239Z"
   }
  ]
 }

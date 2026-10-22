@@ -1,32 +1,32 @@
 {
-  "fetched_at": "2026-10-22T11:22:07.113Z",
+  "fetched_at": "2026-10-22T16:49:35.209Z",
   "duration_s": 4,
-  "hotspawn_fixtures": 1503,
-  "hotspawn_lobby_ids": 195,
+  "hotspawn_fixtures": 1504,
+  "hotspawn_lobby_ids": 190,
   "pinnacle_leagues": 2,
-  "pinnacle_matchups": 10,
+  "pinnacle_matchups": 8,
   "polymarket_events": 21,
   "log": [
     {
-      "ts": "2026-10-22T11:22:04.391Z",
+      "ts": "2026-10-22T16:49:32.776Z",
       "source": "hotspawn",
-      "msg": "fixtures API: 1503 LoL fixtures ({\"ended\":1103,\"cancelled\":75,\"scheduled\":265,\"forfeited\":60})",
+      "msg": "fixtures API: 1504 LoL fixtures ({\"ended\":1106,\"cancelled\":75,\"scheduled\":262,\"forfeited\":61})",
       "ok": true
     },
     {
-      "ts": "2026-10-22T11:22:06.324Z",
+      "ts": "2026-10-22T16:49:34.575Z",
       "source": "hotspawn-lobby",
-      "msg": "SSR page fetched (2002742 bytes), 195 match permalinks, tiers counts [265]",
+      "msg": "SSR page fetched (1959134 bytes), 190 match permalinks, tiers counts [262]",
       "ok": true
     },
     {
-      "ts": "2026-10-22T11:22:06.440Z",
+      "ts": "2026-10-22T16:49:34.674Z",
       "source": "pinnacle",
-      "msg": "2 LoL leagues: League of Legends - EMEA Masters(225201), League of Legends - World Championship(9587)",
+      "msg": "2 LoL leagues: League of Legends - World Championship(9587), League of Legends - EMEA Masters(225201)",
       "ok": true
     },
     {
-      "ts": "2026-10-22T11:22:07.108Z",
+      "ts": "2026-10-22T16:49:35.201Z",
       "source": "polymarket",
       "msg": "21 LoL events kept (1 pages fetched)",
       "ok": true
