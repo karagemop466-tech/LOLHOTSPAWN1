@@ -1,14 +1,14 @@
-=== build 2026-10-21T21:34:43Z ===
-[21:34:45] hotspawn: 264 LoL fixtures
-[21:34:48] pinnacle: 12 LoL matchups, 9 with open moneylines
-[21:34:48] kalshi: 9 CFTC match events (status=200)
-[21:34:49] bovada: 0 LoL moneylines (status=200)
-[21:35:56] leaguepedia: 34619 series rows, 6 pages with dqteams (err='')
-[21:35:56] lolesports: 80 Worlds events (status=200)
-[21:35:57] polymarket: 49 match-level markets (status=200)
-[21:36:04] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
-[21:36:08] rows=264 methods={'provisional': 68, 'model': 181, 'unresolved': 5, 'market': 10} joins=32
-[21:36:08] backtest n=3823 acc=0.6409 brier=0.2213
+=== build 2026-10-22T04:51:54Z ===
+[04:51:55] hotspawn: 264 LoL fixtures
+[04:51:59] pinnacle: 13 LoL matchups, 10 with open moneylines
+[04:51:59] kalshi: 9 CFTC match events (status=200)
+[04:52:00] bovada: 9 LoL moneylines (status=200)
+[04:53:07] leaguepedia: 34616 series rows, 6 pages with dqteams (err='')
+[04:53:07] lolesports: 80 Worlds events (status=200)
+[04:53:08] polymarket: 49 match-level markets (status=200)
+[04:53:17] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[04:53:20] rows=264 methods={'provisional': 68, 'model': 181, 'unresolved': 5, 'market': 10} joins=32
+[04:53:20] backtest n=3824 acc=0.6412 brier=0.2213
 {
  "total": 264,
  "counts": {
@@ -134,19 +134,19 @@ NON-EXACT JOINS 12
   alias | Phong Vũ Buffalo -> PvB (Swiss Team) | explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evid
 
 PRICED 10
-  EM 2026 Summer Main Event | ['Galions', 'Solary'] 0.5363 {'home': 1.787, 'away': 2.05}
-  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7761 {'home': 1.23, 'away': 4.23}
-  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7837 {'home': 1.204, 'away': 4.55}
-  Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.8099 {'home': 1.195, 'away': 4.68}
-  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6504 {'home': 1.5, 'away': 2.67}
-  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.413 {'home': 2.26, 'away': 1.676}
-  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7121 {'home': 1.351, 'away': 3.28}
-  Worlds 2026 Main Event | ['LØS', 'T1'] 0.1395 {'home': 6.16, 'away': 1.125}
-  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4168 {'home': 2.23, 'away': 1.69}
+  EM 2026 Summer Main Event | ['Galions', 'Solary'] 0.5267 {'home': 1.826, 'away': 2.0}
+  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.778 {'home': 1.23, 'away': 4.23}
+  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7833 {'home': 1.204, 'away': 4.55}
+  Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.8095 {'home': 1.195, 'away': 4.68}
+  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6529 {'home': 1.5, 'away': 2.67}
+  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4125 {'home': 2.26, 'away': 1.676}
+  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7107 {'home': 1.351, 'away': 3.28}
+  Worlds 2026 Main Event | ['LØS', 'T1'] 0.1379 {'home': 6.16, 'away': 1.125}
+  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4134 {'home': 2.29, 'away': 1.658}
   LCP 2027 Promotion | ['Ground Zero Gaming', 'Frank Esports'] 0.9111 {'home': 1.025, 'away': 10.5}
-[21:36:09] flags: 18 items
-[21:36:09] site: wrote 11 pages to docs/
-[21:36:09] verification passed
+[04:53:20] flags: 18 items
+[04:53:20] site: wrote 11 pages to docs/
+[04:53:20] verification passed
 PASS dataset present :: 264 matches loaded
 PASS every row links to its Hotspawn match card :: 264/264 rows carry a Hotspawn URL
 PASS probabilities sum to 100% (tolerance 0.2pp) :: 264 priced rows verified; problems: []
@@ -160,10 +160,10 @@ PASS navigation on every page :: missing: []
 PASS no empty/None values rendered :: problems: []
 PASS all matches rendered on the picks page :: 264/264 match cards found
 PASS executive summary links to every picks view :: present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']
-PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,823
+PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,824
 PASS source availability recorded :: 9/14 sources reachable on this build
-[21:36:09] site: wrote 11 pages to docs/
-[21:36:09] verification passed
+[04:53:20] site: wrote 11 pages to docs/
+[04:53:20] verification passed
 PASS dataset present :: 264 matches loaded
 PASS every row links to its Hotspawn match card :: 264/264 rows carry a Hotspawn URL
 PASS probabilities sum to 100% (tolerance 0.2pp) :: 264 priced rows verified; problems: []
@@ -177,5 +177,5 @@ PASS navigation on every page :: missing: []
 PASS no empty/None values rendered :: problems: []
 PASS all matches rendered on the picks page :: 264/264 match cards found
 PASS executive summary links to every picks view :: present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']
-PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,823
+PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,824
 PASS source availability recorded :: 9/14 sources reachable on this build

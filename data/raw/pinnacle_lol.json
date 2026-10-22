@@ -1,58 +1,32 @@
 {
- "fetched_utc": "2026-10-21T21:34:48Z",
+ "fetched_utc": "2026-10-22T04:51:59Z",
  "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
  "source_note": "Pinnacle guest API, sport 12 (E Sports), moneyline period 0, markets/related/straight",
- "lol_matchup_count": 12,
- "priced_count": 9,
+ "lol_matchup_count": 13,
+ "priced_count": 10,
  "markets": [
   {
-   "matchup_id": 1638750815,
+   "matchup_id": 1638750814,
    "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-23T20:00:00Z",
+   "start_utc": "2026-10-23T18:00:00Z",
    "market_key": "s;0;m",
    "prices": {
     "home": {
-     "american": 126,
-     "decimal": 2.26
+     "american": -285,
+     "decimal": 1.3509
     },
     "away": {
-     "american": -148,
-     "decimal": 1.6757
+     "american": 228,
+     "decimal": 3.28
     }
    },
    "participants": [
     {
-     "name": "G2",
+     "name": "Liquid",
      "alignment": "home"
     },
     {
-     "name": "Dplus KIA",
-     "alignment": "away"
-    }
-   ]
-  },
-  {
-   "matchup_id": 1638754606,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-23T23:00:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": 123,
-     "decimal": 2.23
-    },
-    "away": {
-     "american": -145,
-     "decimal": 1.6897
-    }
-   },
-   "participants": [
-    {
-     "name": "Secret Whales",
-     "alignment": "home"
-    },
-    {
-     "name": "LYON",
+     "name": "CTBC Flying Oyster",
      "alignment": "away"
     }
    ]
@@ -110,27 +84,27 @@
    ]
   },
   {
-   "matchup_id": 1638709103,
-   "league": "League of Legends - EMEA Masters",
-   "start_utc": "2026-10-22T16:00:00Z",
+   "matchup_id": 1638754606,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-23T23:00:00Z",
    "market_key": "s;0;m",
    "prices": {
     "home": {
-     "american": 105,
-     "decimal": 2.05
+     "american": 129,
+     "decimal": 2.29
     },
     "away": {
-     "american": -127,
-     "decimal": 1.7874
+     "american": -152,
+     "decimal": 1.6579
     }
    },
    "participants": [
     {
-     "name": "Solary",
+     "name": "Secret Whales",
      "alignment": "home"
     },
     {
-     "name": "Galions",
+     "name": "LYON",
      "alignment": "away"
     }
    ]
@@ -162,27 +136,53 @@
    ]
   },
   {
-   "matchup_id": 1638750814,
+   "matchup_id": 1638748203,
    "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-23T18:00:00Z",
+   "start_utc": "2026-10-23T21:00:00Z",
    "market_key": "s;0;m",
    "prices": {
     "home": {
-     "american": -285,
-     "decimal": 1.3509
+     "american": -490,
+     "decimal": 1.2041
     },
     "away": {
-     "american": 228,
-     "decimal": 3.28
+     "american": 355,
+     "decimal": 4.55
     }
    },
    "participants": [
     {
-     "name": "Liquid",
+     "name": "Hanwha Life",
      "alignment": "home"
     },
     {
-     "name": "CTBC Flying Oyster",
+     "name": "Top Esports",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
+   "matchup_id": 1638709103,
+   "league": "League of Legends - EMEA Masters",
+   "start_utc": "2026-10-22T16:00:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": -100,
+     "decimal": 2.0
+    },
+    "away": {
+     "american": -121,
+     "decimal": 1.8264
+    }
+   },
+   "participants": [
+    {
+     "name": "Solary",
+     "alignment": "home"
+    },
+    {
+     "name": "Galions",
      "alignment": "away"
     }
    ]
@@ -214,27 +214,53 @@
    ]
   },
   {
-   "matchup_id": 1638748203,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-23T21:00:00Z",
+   "matchup_id": 1638717705,
+   "league": "League of Legends - EMEA Masters",
+   "start_utc": "2026-10-22T16:00:00Z",
    "market_key": "s;0;m",
    "prices": {
     "home": {
-     "american": -490,
-     "decimal": 1.2041
+     "american": -100,
+     "decimal": 2.0
     },
     "away": {
-     "american": 355,
-     "decimal": 4.55
+     "american": -121,
+     "decimal": 1.8264
     }
    },
    "participants": [
     {
-     "name": "Hanwha Life",
+     "name": "Solary (Kills)",
      "alignment": "home"
     },
     {
-     "name": "Top Esports",
+     "name": "Galions (Kills)",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
+   "matchup_id": 1638750815,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-23T20:00:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": 126,
+     "decimal": 2.26
+    },
+    "away": {
+     "american": -148,
+     "decimal": 1.6757
+    }
+   },
+   "participants": [
+    {
+     "name": "G2",
+     "alignment": "home"
+    },
+    {
+     "name": "Dplus KIA",
      "alignment": "away"
     }
    ]
