@@ -1,25 +1,25 @@
 {
- "generated_utc": "2026-10-22T11:58:12Z",
+ "generated_utc": "2026-10-22T17:14:47Z",
  "checks": [
   {
    "name": "dataset present",
    "ok": true,
-   "detail": "265 matches loaded"
+   "detail": "262 matches loaded"
   },
   {
    "name": "every row links to its Hotspawn match card",
    "ok": true,
-   "detail": "265/265 rows carry a Hotspawn URL"
+   "detail": "262/262 rows carry a Hotspawn URL"
   },
   {
    "name": "probabilities sum to 100% (tolerance 0.2pp)",
    "ok": true,
-   "detail": "265 priced rows verified; problems: []"
+   "detail": "262 priced rows verified; problems: []"
   },
   {
    "name": "pick matches the higher probability",
    "ok": true,
-   "detail": "265 rows consistent; problems: []"
+   "detail": "262 rows consistent; problems: []"
   },
   {
    "name": "method values are known",
@@ -29,12 +29,12 @@
   {
    "name": "no duplicate match ids",
    "ok": true,
-   "detail": "265 unique ids; duplicates: []"
+   "detail": "262 unique ids; duplicates: []"
   },
   {
    "name": "picks.csv mirrors the dataset",
    "ok": true,
-   "detail": "csv rows=265 json rows=265"
+   "detail": "csv rows=262 json rows=262"
   },
   {
    "name": "all site pages exist",
@@ -59,7 +59,7 @@
   {
    "name": "all matches rendered on the picks page",
    "ok": true,
-   "detail": "265/265 match cards found"
+   "detail": "262/262 match cards found"
   },
   {
    "name": "executive summary links to every picks view",
@@ -69,7 +69,7 @@
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
-   "detail": "backtest series rendered: 3,828"
+   "detail": "backtest series rendered: 3,829"
   },
   {
    "name": "source availability recorded",
@@ -78,13 +78,13 @@
   }
  ],
  "passed": true,
- "rows_checked": 265,
- "rows_with_source": 265,
- "rows_prob_ok": 265,
- "unverified": 72,
+ "rows_checked": 262,
+ "rows_with_source": 262,
+ "rows_prob_ok": 262,
+ "unverified": 71,
  "counts": {
-  "provisional": 67,
-  "model": 182,
+  "provisional": 66,
+  "model": 180,
   "unresolved": 5,
   "market": 11
  },
