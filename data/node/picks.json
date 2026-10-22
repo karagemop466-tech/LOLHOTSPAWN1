@@ -1,6 +1,6 @@
 {
  "summary": {
-  "generated_at": "2026-10-22T16:49:35.239Z",
+  "generated_at": "2026-10-22T21:18:40.799Z",
   "week": {
    "start": "2026-10-19T00:00:00.000Z",
    "end": "2026-10-26T00:00:00.000Z"
@@ -17,8 +17,8 @@
    }
   },
   "counts": {
-   "open": 192,
-   "locked_or_live": 6,
+   "open": 171,
+   "locked_or_live": 27,
    "stale": 64,
    "ended_this_week": 37,
    "cancelled": 11,
@@ -26,16 +26,16 @@
    "market_pinnacle": 8,
    "market_polymarket_only": 1,
    "model_only": 177,
-   "unresolved_open": 12,
-   "flags_needs_review": 18,
-   "flags_info": 4
+   "unresolved_open": 11,
+   "flags_needs_review": 17,
+   "flags_info": 3
   },
   "sources_ok": {
    "hotspawn_fixtures": true,
    "hotspawn_lobby": true,
-   "pinnacle_leagues": 2,
+   "pinnacle_leagues": 1,
    "pinnacle_lines": 8,
-   "polymarket_lines": 10
+   "polymarket_lines": 9
   }
  },
  "tournaments": {
@@ -1759,8 +1759,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.477,
-    "p1": 0.523,
+    "p0": 0.478,
+    "p1": 0.522,
     "r0": 1498,
     "r1": 1537,
     "n0": 2,
@@ -2175,7 +2175,7 @@
     "p0": 0.538,
     "p1": 0.462,
     "r0": 1459,
-    "r1": 1405,
+    "r1": 1406,
     "n0": 3,
     "n1": 8,
     "confidence": "medium"
@@ -3253,9 +3253,9 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.329,
-    "p1": 0.671,
-    "r0": 1405,
+    "p0": 0.33,
+    "p1": 0.67,
+    "r0": 1406,
     "r1": 1529,
     "n0": 8,
     "n1": 10,
@@ -4171,7 +4171,7 @@
     "p0": 0.462,
     "p1": 0.538,
     "r0": 1472,
-    "r1": 1540,
+    "r1": 1539,
     "n0": 2,
     "n1": 3,
     "confidence": "low"
@@ -4488,7 +4488,7 @@
   },
   {
    "id": "1081205",
-   "state": "locked",
+   "state": "live",
    "forfeit": false,
    "competition_id": "36380",
    "competition": "EM 2026 Summer Main Event",
@@ -4575,7 +4575,7 @@
     "p0": 0.68,
     "p1": 0.32,
     "r0": 1537,
-    "r1": 1405,
+    "r1": 1406,
     "n0": 9,
     "n1": 8,
     "confidence": "medium"
@@ -4800,7 +4800,7 @@
   },
   {
    "id": "1075736",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36438",
    "competition": "PRM 3rd Division 26-27 Fall",
@@ -4827,7 +4827,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/blackdivision-vs-babos-gaming-academy-prm-3rd-division-26-27-fall-1075736",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -4852,7 +4852,7 @@
   },
   {
    "id": "1081651",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -4879,7 +4879,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/absolved-vs-the-bandits-uk-4-nations-2026-halloween-heist-1081651",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -4904,7 +4904,7 @@
   },
   {
    "id": "1081652",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -4931,7 +4931,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/brod-n-friends-vs-crownless-4-nations-2026-halloween-heist-1081652",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -4956,7 +4956,7 @@
   },
   {
    "id": "1081653",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -4983,7 +4983,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/good-chi-vs-inari-esports-4-nations-2026-halloween-heist-1081653",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5008,7 +5008,7 @@
   },
   {
    "id": "1081654",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5035,7 +5035,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/hl-tauri-esports-vs-bulldog-esports-4-nations-2026-halloween-heist-1081654",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5060,7 +5060,7 @@
   },
   {
    "id": "1081655",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5087,7 +5087,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/rich-gang-uk-vs-abyssal-randoms-4-nations-2026-halloween-heist-1081655",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5112,7 +5112,7 @@
   },
   {
    "id": "1081656",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5139,7 +5139,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-vertex-vs-glorp-cat-4-nations-2026-halloween-heist-1081656",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5208,7 +5208,7 @@
   },
   {
    "id": "1082105",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36502",
    "competition": "Arabian League 2nd Division 2026 Summer",
@@ -5235,7 +5235,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-vds-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1082105",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": null,
@@ -5243,7 +5243,7 @@
   },
   {
    "id": "1071215",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36279",
    "competition": "Komplettligaen 2026 Autumn",
@@ -5269,8 +5269,8 @@
    },
    "score0": null,
    "score1": null,
-   "hotspawn_url": "https://www.hotspawn.com/matches/playwell-rod-q-vs-rich-gang-komplettligaen-2026-autumn-1071215",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url": "https://www.hotspawn.com/matches/playwell-r-d-q-vs-rich-gang-komplettligaen-2026-autumn-1071215",
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5295,7 +5295,7 @@
   },
   {
    "id": "1081659",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5322,7 +5322,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/abyssal-randoms-vs-good-chi-4-nations-2026-halloween-heist-1081659",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5347,7 +5347,7 @@
   },
   {
    "id": "1081660",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5374,7 +5374,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/bulldog-esports-vs-ruddy-ultras-4-nations-2026-halloween-heist-1081660",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5399,7 +5399,7 @@
   },
   {
    "id": "1081661",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5426,7 +5426,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/crownless-vs-team-vertex-4-nations-2026-halloween-heist-1081661",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5451,7 +5451,7 @@
   },
   {
    "id": "1081662",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5478,7 +5478,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/glorp-cat-vs-brod-n-friends-4-nations-2026-halloween-heist-1081662",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5503,7 +5503,7 @@
   },
   {
    "id": "1081663",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5530,7 +5530,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/inari-esports-vs-rich-gang-uk-4-nations-2026-halloween-heist-1081663",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5555,7 +5555,7 @@
   },
   {
    "id": "1081664",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5582,7 +5582,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/the-bandits-uk-vs-pns-4-nations-2026-halloween-heist-1081664",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5607,7 +5607,7 @@
   },
   {
    "id": "1081667",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5634,7 +5634,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/abyssal-randoms-vs-inari-esports-4-nations-2026-halloween-heist-1081667",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5659,7 +5659,7 @@
   },
   {
    "id": "1081668",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5686,7 +5686,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/glorp-cat-vs-crownless-4-nations-2026-halloween-heist-1081668",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5711,7 +5711,7 @@
   },
   {
    "id": "1081669",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5738,7 +5738,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/good-chi-vs-rich-gang-uk-4-nations-2026-halloween-heist-1081669",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5763,7 +5763,7 @@
   },
   {
    "id": "1081670",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5790,7 +5790,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/pns-vs-absolved-4-nations-2026-halloween-heist-1081670",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5815,7 +5815,7 @@
   },
   {
    "id": "1081671",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5842,7 +5842,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/ruddy-ultras-vs-hl-tauri-esports-4-nations-2026-halloween-heist-1081671",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5867,7 +5867,7 @@
   },
   {
    "id": "1081672",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36571",
    "competition": "4 Nations 2026 Halloween Heist",
@@ -5894,7 +5894,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-vertex-vs-brod-n-friends-4-nations-2026-halloween-heist-1081672",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -6208,8 +6208,8 @@
     "p0": 0.775,
     "p1": 0.225,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 239106.7713,
-    "volume": 84352.77134800001,
+    "liquidity": 321596.4595,
+    "volume": 93071.58837400001,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6371,12 +6371,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638748203,
-    "odds0": -502,
-    "odds1": 362,
-    "dec0": 1.2,
-    "dec1": 4.62,
-    "p0": 0.794,
-    "p1": 0.206,
+    "odds0": -440,
+    "odds1": 326,
+    "dec0": 1.23,
+    "dec1": 4.26,
+    "p0": 0.776,
+    "p1": 0.224,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6389,8 +6389,8 @@
     "p0": 0.785,
     "p1": 0.215,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 122011.5628,
-    "volume": 77188.31519600001,
+    "liquidity": 120806.7885,
+    "volume": 80945.123554,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6408,10 +6408,10 @@
     "team_index": 0,
     "team_id": "10170",
     "team": "Hanwha Life Esports",
-    "p": 0.794,
+    "p": 0.776,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.588
+    "margin": 0.553
    }
   },
   {
@@ -6613,12 +6613,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638755459,
-    "odds0": -512,
-    "odds1": 368,
-    "dec0": 1.2,
-    "dec1": 4.68,
-    "p0": 0.797,
-    "p1": 0.203,
+    "odds0": -550,
+    "odds1": 389,
+    "dec0": 1.18,
+    "dec1": 4.89,
+    "p0": 0.805,
+    "p1": 0.195,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6628,11 +6628,11 @@
     "url": "https://polymarket.com/event/lol-blg-mkoi-2026-10-23",
     "event": "lol-blg-mkoi-2026-10-23",
     "question": "LoL: Bilibili Gaming vs Movistar KOI (BO1) - Worlds Group Stage",
-    "p0": 0.825,
-    "p1": 0.175,
+    "p0": 0.815,
+    "p1": 0.185,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 114957.3823,
-    "volume": 20605.382604000002,
+    "liquidity": 147602.97,
+    "volume": 30976.598386,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6650,10 +6650,10 @@
     "team_index": 0,
     "team_id": "5746",
     "team": "Bilibili Gaming",
-    "p": 0.797,
+    "p": 0.805,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.593
+    "margin": 0.611
    }
   },
   {
@@ -6694,12 +6694,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638750902,
-    "odds0": -200,
-    "odds1": 167,
-    "dec0": 1.5,
-    "dec1": 2.67,
-    "p0": 0.64,
-    "p1": 0.36,
+    "odds0": -204,
+    "odds1": 170,
+    "dec0": 1.49,
+    "dec1": 2.7,
+    "p0": 0.644,
+    "p1": 0.356,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6712,8 +6712,8 @@
     "p0": 0.655,
     "p1": 0.345,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 244440.625,
-    "volume": 173815.58437700002,
+    "liquidity": 270338.197,
+    "volume": 177426.284294,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6731,10 +6731,10 @@
     "team_index": 0,
     "team_id": "57842",
     "team": "Anyone's Legend",
-    "p": 0.64,
+    "p": 0.644,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.281
+    "margin": 0.289
    }
   },
   {
@@ -6793,8 +6793,8 @@
     "p0": 0.395,
     "p1": 0.605,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 384517.9837,
-    "volume": 305645.484231,
+    "liquidity": 406286.5699,
+    "volume": 308691.29193500004,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6860,12 +6860,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638750814,
-    "odds0": -285,
-    "odds1": 228,
-    "dec0": 1.35,
-    "dec1": 3.28,
-    "p0": 0.708,
-    "p1": 0.292,
+    "odds0": -280,
+    "odds1": 224,
+    "dec0": 1.36,
+    "dec1": 3.24,
+    "p0": 0.705,
+    "p1": 0.295,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6878,8 +6878,8 @@
     "p0": 0.715,
     "p1": 0.285,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 228420.5898,
-    "volume": 23542.101058,
+    "liquidity": 226313.5055,
+    "volume": 26523.835997000002,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6897,10 +6897,10 @@
     "team_index": 0,
     "team_id": "14945",
     "team": "Team Liquid",
-    "p": 0.708,
+    "p": 0.705,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.417
+    "margin": 0.41
    }
   },
   {
@@ -6959,8 +6959,8 @@
     "p0": 0.125,
     "p1": 0.875,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 296791.4305,
-    "volume": 38756.854156,
+    "liquidity": 292407.1917,
+    "volume": 39930.146028999996,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7040,8 +7040,8 @@
     "p0": 0.415,
     "p1": 0.585,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 260239.0655,
-    "volume": 20733.750451999993,
+    "liquidity": 232026.294,
+    "volume": 22022.786456999995,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7310,7 +7310,7 @@
     "p0": 0.495,
     "p1": 0.505,
     "r0": 1501,
-    "r1": 1512,
+    "r1": 1511,
     "n0": 12,
     "n1": 1,
     "confidence": "low"
@@ -8126,7 +8126,7 @@
     "p0": 0.515,
     "p1": 0.485,
     "r0": 1541,
-    "r1": 1531,
+    "r1": 1530,
     "n0": 10,
     "n1": 9,
     "confidence": "medium"
@@ -8593,7 +8593,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.499,
     "p1": 0.501,
-    "r0": 1540,
+    "r0": 1539,
     "r1": 1541,
     "n0": 3,
     "n1": 3,
@@ -9045,7 +9045,7 @@
     "p0": 0.495,
     "p1": 0.505,
     "r0": 1499,
-    "r1": 1512,
+    "r1": 1511,
     "n0": 2,
     "n1": 1,
     "confidence": "low"
@@ -9912,12 +9912,12 @@
     "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "event": "lol-rb-mr-2026-10-27",
     "question": "LoL: Vitality Rising Bees vs Mental Rush (BO5) - LGC Rising Playoffs",
-    "p0": 0.325,
-    "p1": 0.675,
+    "p0": 0.32,
+    "p1": 0.68,
     "price_kind": "outcomePrices",
-    "liquidity": 3844.5451,
+    "liquidity": 4203.6652,
     "volume": 5,
-    "spread": 0.25,
+    "spread": 0.24,
     "match_quality": "exact"
    },
    "model": {
@@ -9934,10 +9934,10 @@
     "team_index": 1,
     "team_id": "163988",
     "team": "Vitality Rising Bees",
-    "p": 0.675,
+    "p": 0.68,
     "basis": "market-polymarket",
     "confidence": "medium",
-    "margin": 0.35
+    "margin": 0.36
    }
   },
   {
@@ -10983,7 +10983,7 @@
     "p0": 0.485,
     "p1": 0.515,
     "r0": 1476,
-    "r1": 1512,
+    "r1": 1511,
     "n0": 2,
     "n1": 1,
     "confidence": "low"
@@ -11382,7 +11382,7 @@
     "p0": 0.478,
     "p1": 0.522,
     "r0": 1501,
-    "r1": 1540,
+    "r1": 1539,
     "n0": 2,
     "n1": 3,
     "confidence": "low"
@@ -11953,7 +11953,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.515,
     "p1": 0.485,
-    "r0": 1512,
+    "r0": 1511,
     "r1": 1476,
     "n0": 1,
     "n1": 2,
@@ -12768,7 +12768,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.505,
     "p1": 0.495,
-    "r0": 1512,
+    "r0": 1511,
     "r1": 1500,
     "n0": 1,
     "n1": 2,
@@ -13427,7 +13427,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.538,
     "p1": 0.462,
-    "r0": 1540,
+    "r0": 1539,
     "r1": 1472,
     "n0": 3,
     "n1": 2,
@@ -13581,8 +13581,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.601,
-    "p1": 0.399,
+    "p0": 0.6,
+    "p1": 0.4,
     "r0": 1612,
     "r1": 1464,
     "n0": 12,
@@ -13593,10 +13593,10 @@
     "team_index": 0,
     "team_id": "37072",
     "team": "Rich Gang",
-    "p": 0.601,
+    "p": 0.6,
     "basis": "model-elo",
     "confidence": "medium",
-    "margin": 0.202
+    "margin": 0.2
    }
   },
   {
@@ -14711,7 +14711,7 @@
     "p0": 0.462,
     "p1": 0.538,
     "r0": 1487,
-    "r1": 1540,
+    "r1": 1539,
     "n0": 3,
     "n1": 3,
     "confidence": "medium"
