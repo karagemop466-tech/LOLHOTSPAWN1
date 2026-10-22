@@ -1,25 +1,25 @@
 {
- "generated_utc": "2026-10-22T17:14:47Z",
+ "generated_utc": "2026-10-22T21:40:05Z",
  "checks": [
   {
    "name": "dataset present",
    "ok": true,
-   "detail": "262 matches loaded"
+   "detail": "261 matches loaded"
   },
   {
    "name": "every row links to its Hotspawn match card",
    "ok": true,
-   "detail": "262/262 rows carry a Hotspawn URL"
+   "detail": "261/261 rows carry a Hotspawn URL"
   },
   {
    "name": "probabilities sum to 100% (tolerance 0.2pp)",
    "ok": true,
-   "detail": "262 priced rows verified; problems: []"
+   "detail": "261 priced rows verified; problems: []"
   },
   {
    "name": "pick matches the higher probability",
    "ok": true,
-   "detail": "262 rows consistent; problems: []"
+   "detail": "261 rows consistent; problems: []"
   },
   {
    "name": "method values are known",
@@ -29,12 +29,12 @@
   {
    "name": "no duplicate match ids",
    "ok": true,
-   "detail": "262 unique ids; duplicates: []"
+   "detail": "261 unique ids; duplicates: []"
   },
   {
    "name": "picks.csv mirrors the dataset",
    "ok": true,
-   "detail": "csv rows=262 json rows=262"
+   "detail": "csv rows=261 json rows=261"
   },
   {
    "name": "all site pages exist",
@@ -59,7 +59,7 @@
   {
    "name": "all matches rendered on the picks page",
    "ok": true,
-   "detail": "262/262 match cards found"
+   "detail": "261/261 match cards found"
   },
   {
    "name": "executive summary links to every picks view",
@@ -78,15 +78,15 @@
   }
  ],
  "passed": true,
- "rows_checked": 262,
- "rows_with_source": 262,
- "rows_prob_ok": 262,
+ "rows_checked": 261,
+ "rows_with_source": 261,
+ "rows_prob_ok": 261,
  "unverified": 71,
  "counts": {
   "provisional": 66,
   "model": 180,
   "unresolved": 5,
-  "market": 11
+  "market": 10
  },
  "internal_links": 229
 }
