@@ -1,36 +1,41 @@
 {
  "summary": {
-  "generated_at": "2026-10-22T03:47:46.035Z",
+  "generated_at": "2026-10-22T11:22:07.155Z",
   "week": {
    "start": "2026-10-19T00:00:00.000Z",
    "end": "2026-10-26T00:00:00.000Z"
   },
   "accuracy": {
-   "tracked": 0,
-   "hits": 0,
-   "rate": null,
-   "by_basis": {}
+   "tracked": 1,
+   "hits": 1,
+   "rate": 100,
+   "by_basis": {
+    "model-elo": {
+     "tracked": 1,
+     "hits": 1
+    }
+   }
   },
   "counts": {
-   "open": 195,
-   "locked_or_live": 5,
+   "open": 197,
+   "locked_or_live": 4,
    "stale": 64,
-   "ended_this_week": 32,
+   "ended_this_week": 33,
    "cancelled": 11,
-   "picks_total": 188,
+   "picks_total": 189,
    "market_pinnacle": 9,
-   "market_polymarket_only": 0,
+   "market_polymarket_only": 1,
    "model_only": 179,
    "unresolved_open": 12,
-   "flags_needs_review": 19,
-   "flags_info": 2
+   "flags_needs_review": 20,
+   "flags_info": 3
   },
   "sources_ok": {
    "hotspawn_fixtures": true,
    "hotspawn_lobby": true,
    "pinnacle_leagues": 2,
    "pinnacle_lines": 9,
-   "polymarket_lines": 9
+   "polymarket_lines": 10
   }
  },
  "tournaments": {
@@ -58,14 +63,6 @@
    "market": 0,
    "model": 65
   },
-  "Arabian League 2nd Division 2026 Summer": {
-   "competition": "Arabian League 2nd Division 2026 Summer",
-   "tier": "waiting for information",
-   "open": 10,
-   "resolved": 7,
-   "market": 0,
-   "model": 7
-  },
   "EM 2026 Summer Main Event": {
    "competition": "EM 2026 Summer Main Event",
    "tier": "a",
@@ -81,6 +78,14 @@
    "resolved": 18,
    "market": 0,
    "model": 18
+  },
+  "Arabian League 2nd Division 2026 Summer": {
+   "competition": "Arabian League 2nd Division 2026 Summer",
+   "tier": "waiting for information",
+   "open": 9,
+   "resolved": 6,
+   "market": 0,
+   "model": 6
   },
   "PRM 2nd Division 26-27 Fall": {
    "competition": "PRM 2nd Division 26-27 Fall",
@@ -122,13 +127,21 @@
    "market": 0,
    "model": 25
   },
+  "LigaGG CELOL A 2026 Split 2 Playoffs": {
+   "competition": "LigaGG CELOL A 2026 Split 2 Playoffs",
+   "tier": null,
+   "open": 2,
+   "resolved": 2,
+   "market": 0,
+   "model": 2
+  },
   "LGC Rising 2026 Playoffs": {
    "competition": "LGC Rising 2026 Playoffs",
    "tier": "a",
    "open": 1,
    "resolved": 1,
-   "market": 0,
-   "model": 1
+   "market": 1,
+   "model": 0
   },
   "LCP 2027 Promotion": {
    "competition": "LCP 2027 Promotion",
@@ -1736,7 +1749,7 @@
    },
    "team_history": {
     "n0": 2,
-    "n1": 2
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -1746,12 +1759,12 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.484,
-    "p1": 0.516,
+    "p0": 0.477,
+    "p1": 0.523,
     "r0": 1498,
-    "r1": 1526,
+    "r1": 1537,
     "n0": 2,
-    "n1": 2,
+    "n1": 3,
     "confidence": "low"
    },
    "pick": null
@@ -1969,7 +1982,7 @@
     "p0": 0.484,
     "p1": 0.516,
     "r0": 1516,
-    "r1": 1538,
+    "r1": 1537,
     "n0": 3,
     "n1": 3,
     "confidence": "medium"
@@ -2802,7 +2815,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.51,
     "p1": 0.49,
-    "r0": 1511,
+    "r0": 1510,
     "r1": 1498,
     "n0": 5,
     "n1": 4,
@@ -4111,8 +4124,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.388,
-    "p1": 0.612,
+    "p0": 0.389,
+    "p1": 0.611,
     "r0": 1476,
     "r1": 1612,
     "n0": 4,
@@ -4202,7 +4215,7 @@
     "p0": 0.519,
     "p1": 0.481,
     "r0": 1497,
-    "r1": 1464,
+    "r1": 1465,
     "n0": 2,
     "n1": 3,
     "confidence": "low"
@@ -4463,7 +4476,7 @@
   },
   {
    "id": "1079137",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36502",
    "competition": "Arabian League 2nd Division 2026 Summer",
@@ -4484,34 +4497,26 @@
     "name": "JSK Academy"
    },
    "team_history": {
-    "n0": 2,
-    "n1": 5
+    "n0": 3,
+    "n1": 6
    },
-   "score0": null,
-   "score1": null,
+   "score0": 2,
+   "score1": 1,
    "hotspawn_url": "https://www.hotspawn.com/matches/slam-dunk-vs-jsk-academy-arabian-league-2nd-division-2026-summer-1079137",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.523,
-    "p1": 0.477,
-    "r0": 1526,
-    "r1": 1486,
-    "n0": 2,
-    "n1": 5,
-    "confidence": "low"
+    "p0": 0.544,
+    "p1": 0.456,
+    "r0": 1537,
+    "r1": 1475,
+    "n0": 3,
+    "n1": 6,
+    "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "264944",
-    "team": "Slam Dunk",
-    "p": 0.523,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.046
-   }
+   "pick": null
   },
   {
    "id": "1081205",
@@ -4555,12 +4560,12 @@
     "league": "League of Legends - EMEA Masters",
     "league_id": 225201,
     "matchup_id": 1638709103,
-    "odds0": -125,
-    "odds1": 103,
-    "dec0": 1.8,
-    "dec1": 2.03,
-    "p0": 0.53,
-    "p1": 0.47,
+    "odds0": -131,
+    "odds1": 108,
+    "dec0": 1.76,
+    "dec1": 2.08,
+    "p0": 0.541,
+    "p1": 0.459,
     "match_quality": "exact",
     "best_of": 5,
     "listing": "live"
@@ -4570,11 +4575,11 @@
     "url": "https://polymarket.com/event/lol-gal-sly-2026-10-22",
     "event": "lol-gal-sly-2026-10-22",
     "question": "LoL: Galions vs Solary (BO5) - EMEA Masters Playoffs",
-    "p0": 0.535,
-    "p1": 0.465,
+    "p0": 0.565,
+    "p1": 0.435,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 19767.2399,
-    "volume": 45953.504684,
+    "liquidity": 198976.6131,
+    "volume": 151203.19918,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -4592,10 +4597,10 @@
     "team_index": 0,
     "team_id": "203085",
     "team": "Galions",
-    "p": 0.53,
+    "p": 0.541,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.06
+    "margin": 0.082
    }
   },
   {
@@ -4842,7 +4847,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.536,
     "p1": 0.464,
-    "r0": 1538,
+    "r0": 1537,
     "r1": 1487,
     "n0": 3,
     "n1": 3,
@@ -6268,8 +6273,8 @@
     "p0": 0.775,
     "p1": 0.225,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 222457.7846,
-    "volume": 74630.479763,
+    "liquidity": 208092.7701,
+    "volume": 81160.79887800002,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6449,8 +6454,8 @@
     "p0": 0.785,
     "p1": 0.215,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 112589.8422,
-    "volume": 68197.61571499999,
+    "liquidity": 103775.7592,
+    "volume": 72550.849163,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6691,8 +6696,8 @@
     "p0": 0.825,
     "p1": 0.175,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 112675.5823,
-    "volume": 19318.68004,
+    "liquidity": 112518.8682,
+    "volume": 19965.913003,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6772,8 +6777,8 @@
     "p0": 0.655,
     "p1": 0.345,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 177593.6386,
-    "volume": 150258.28889,
+    "liquidity": 207843.5743,
+    "volume": 152840.549753,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6835,12 +6840,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638750815,
-    "odds0": 126,
-    "odds1": -148,
-    "dec0": 2.26,
-    "dec1": 1.68,
-    "p0": 0.426,
-    "p1": 0.574,
+    "odds0": 129,
+    "odds1": -152,
+    "dec0": 2.29,
+    "dec1": 1.66,
+    "p0": 0.42,
+    "p1": 0.58,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6853,8 +6858,8 @@
     "p0": 0.395,
     "p1": 0.605,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 340062.9602,
-    "volume": 292374.48768300004,
+    "liquidity": 334923.6227,
+    "volume": 299128.04899000004,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6872,10 +6877,10 @@
     "team_index": 1,
     "team_id": "74448",
     "team": "Dplus KIA",
-    "p": 0.574,
+    "p": 0.58,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.148
+    "margin": 0.16
    }
   },
   {
@@ -6938,8 +6943,8 @@
     "p0": 0.715,
     "p1": 0.285,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 228907.166,
-    "volume": 19922.909376,
+    "liquidity": 198661.8287,
+    "volume": 22204.371825000002,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7019,8 +7024,8 @@
     "p0": 0.125,
     "p1": 0.875,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 225336.2784,
-    "volume": 33996.262544,
+    "liquidity": 233898.6424,
+    "volume": 35426.639151999996,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7100,8 +7105,8 @@
     "p0": 0.415,
     "p1": 0.585,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 246192.9471,
-    "volume": 17466.299739,
+    "liquidity": 228616.4431,
+    "volume": 19212.852147999994,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7110,7 +7115,7 @@
     "p0": 0.492,
     "p1": 0.508,
     "r0": 1517,
-    "r1": 1537,
+    "r1": 1536,
     "n0": 1,
     "n1": 7,
     "confidence": "low"
@@ -7263,8 +7268,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.374,
-    "p1": 0.626,
+    "p0": 0.375,
+    "p1": 0.625,
     "r0": 1459,
     "r1": 1558,
     "n0": 7,
@@ -7275,10 +7280,10 @@
     "team_index": 1,
     "team_id": "263175",
     "team": "Infinity Gaming",
-    "p": 0.626,
+    "p": 0.625,
     "basis": "model-elo",
     "confidence": "medium",
-    "margin": 0.252
+    "margin": 0.25
    }
   },
   {
@@ -7461,7 +7466,7 @@
    },
    "team_history": {
     "n0": 2,
-    "n1": 5
+    "n1": 6
    },
    "score0": null,
    "score1": null,
@@ -7471,22 +7476,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.521,
-    "p1": 0.479,
+    "p0": 0.527,
+    "p1": 0.473,
     "r0": 1523,
-    "r1": 1486,
+    "r1": 1475,
     "n0": 2,
-    "n1": 5,
+    "n1": 6,
     "confidence": "low"
    },
    "pick": {
     "team_index": 0,
     "team_id": "17564",
     "team": "Simplicity Gaming",
-    "p": 0.521,
+    "p": 0.527,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.042
+    "margin": 0.054
    }
   },
   {
@@ -7726,7 +7731,7 @@
     "p0": 0.462,
     "p1": 0.538,
     "r0": 1484,
-    "r1": 1538,
+    "r1": 1537,
     "n0": 7,
     "n1": 3,
     "confidence": "medium"
@@ -8068,7 +8073,7 @@
     "name": "New Era Team"
    },
    "team_history": {
-    "n0": 5,
+    "n0": 6,
     "n1": 4
    },
    "score0": null,
@@ -8079,22 +8084,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.507,
-    "p1": 0.493,
-    "r0": 1486,
+    "p0": 0.498,
+    "p1": 0.502,
+    "r0": 1475,
     "r1": 1478,
-    "n0": 5,
+    "n0": 6,
     "n1": 4,
     "confidence": "medium"
    },
    "pick": {
-    "team_index": 0,
-    "team_id": "232309",
-    "team": "JSK Academy",
-    "p": 0.507,
+    "team_index": 1,
+    "team_id": "264943",
+    "team": "New Era Team",
+    "p": 0.502,
     "basis": "model-elo",
     "confidence": "medium",
-    "margin": 0.014
+    "margin": 0.004
    }
   },
   {
@@ -8121,7 +8126,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 2
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -8131,22 +8136,126 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.504,
-    "p1": 0.496,
+    "p0": 0.498,
+    "p1": 0.502,
     "r0": 1534,
-    "r1": 1526,
+    "r1": 1537,
     "n0": 3,
-    "n1": 2,
-    "confidence": "low"
+    "n1": 3,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "264944",
+    "team": "Slam Dunk",
+    "p": 0.502,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0.004
+   }
+  },
+  {
+   "id": "1082914",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36623",
+   "competition": "LigaGG CELOL A 2026 Split 2 Playoffs",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-10-24T20:00:00.000Z",
+   "lock_utc": "2026-10-24T19:55:00.000Z",
+   "start_ms": 1792872000000,
+   "lock_ms": 1792871700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "263152",
+    "name": "Clã NKZ VÓRAX"
+   },
+   "team1": {
+    "id": "250931",
+    "name": "Neon eSports"
+   },
+   "team_history": {
+    "n0": 10,
+    "n1": 9
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/cla-nkz-vorax-vs-neon-esports-ligagg-celol-a-2026-split-2-playoffs-1082914",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.515,
+    "p1": 0.485,
+    "r0": 1541,
+    "r1": 1531,
+    "n0": 10,
+    "n1": 9,
+    "confidence": "medium"
    },
    "pick": {
     "team_index": 0,
-    "team_id": "252804",
-    "team": "Void Walkers",
-    "p": 0.504,
+    "team_id": "263152",
+    "team": "Clã NKZ VÓRAX",
+    "p": 0.515,
     "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.008
+    "confidence": "medium",
+    "margin": 0.03
+   }
+  },
+  {
+   "id": "1082915",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36623",
+   "competition": "LigaGG CELOL A 2026 Split 2 Playoffs",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-10-24T20:00:00.000Z",
+   "lock_utc": "2026-10-24T19:55:00.000Z",
+   "start_ms": 1792872000000,
+   "lock_ms": 1792871700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "247943",
+    "name": "LØS Academy"
+   },
+   "team1": {
+    "id": "205798",
+    "name": "Marere E-Sports"
+   },
+   "team_history": {
+    "n0": 10,
+    "n1": 9
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/l-s-academy-vs-marere-e-sports-ligagg-celol-a-2026-split-2-playoffs-1082915",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.483,
+    "p1": 0.517,
+    "r0": 1539,
+    "r1": 1551,
+    "n0": 10,
+    "n1": 9,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "205798",
+    "team": "Marere E-Sports",
+    "p": 0.517,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0.034
    }
   },
   {
@@ -8495,8 +8604,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.509,
-    "p1": 0.491,
+    "p0": 0.508,
+    "p1": 0.492,
     "r0": 1487,
     "r1": 1472,
     "n0": 3,
@@ -8507,10 +8616,10 @@
     "team_index": 0,
     "team_id": "218947",
     "team": "Duplex Silva Pigeons Edition",
-    "p": 0.509,
+    "p": 0.508,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.018
+    "margin": 0.016
    }
   },
   {
@@ -9144,7 +9253,7 @@
    },
    "team_history": {
     "n0": 2,
-    "n1": 5
+    "n1": 6
    },
    "score0": null,
    "score1": null,
@@ -9154,22 +9263,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.495,
-    "p1": 0.505,
+    "p0": 0.501,
+    "p1": 0.499,
     "r0": 1476,
-    "r1": 1486,
+    "r1": 1475,
     "n0": 2,
-    "n1": 5,
+    "n1": 6,
     "confidence": "low"
    },
    "pick": {
-    "team_index": 1,
-    "team_id": "232309",
-    "team": "JSK Academy",
-    "p": 0.505,
+    "team_index": 0,
+    "team_id": "265307",
+    "team": "Zahrouni Esports",
+    "p": 0.501,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.01
+    "margin": 0.002
    }
   },
   {
@@ -9863,12 +9972,24 @@
    "hotspawn_url": "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080",
    "hotspawn_url_constructed": false,
    "market_pinnacle": null,
-   "market_polymarket": null,
+   "market_polymarket": {
+    "source": "Polymarket",
+    "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
+    "event": "lol-rb-mr-2026-10-27",
+    "question": "LoL: Vitality Rising Bees vs Mental Rush (BO5) - LGC Rising Playoffs",
+    "p0": 0.34,
+    "p1": 0.66,
+    "price_kind": "outcomePrices",
+    "liquidity": 372.4191,
+    "volume": null,
+    "spread": 0.6,
+    "match_quality": "exact"
+   },
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.462,
     "p1": 0.538,
-    "r0": 1511,
+    "r0": 1510,
     "r1": 1548,
     "n0": 5,
     "n1": 5,
@@ -9878,10 +9999,10 @@
     "team_index": 1,
     "team_id": "163988",
     "team": "Vitality Rising Bees",
-    "p": 0.538,
-    "basis": "model-elo",
-    "confidence": "medium",
-    "margin": 0.076
+    "p": 0.66,
+    "basis": "market-polymarket",
+    "confidence": "low",
+    "margin": 0.32
    }
   },
   {
@@ -10254,7 +10375,7 @@
     "name": "New Era Team"
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 4
    },
    "score0": null,
@@ -10265,22 +10386,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.528,
-    "p1": 0.472,
-    "r0": 1526,
+    "p0": 0.542,
+    "p1": 0.458,
+    "r0": 1537,
     "r1": 1478,
-    "n0": 2,
+    "n0": 3,
     "n1": 4,
-    "confidence": "low"
+    "confidence": "medium"
    },
    "pick": {
     "team_index": 0,
     "team_id": "264944",
     "team": "Slam Dunk",
-    "p": 0.528,
+    "p": 0.542,
     "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.056
+    "confidence": "medium",
+    "margin": 0.084
    }
   },
   {
@@ -10359,7 +10480,7 @@
    },
    "team_history": {
     "n0": 1,
-    "n1": 5
+    "n1": 6
    },
    "score0": null,
    "score1": null,
@@ -10369,22 +10490,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.5,
-    "p1": 0.5,
+    "p0": 0.504,
+    "p1": 0.496,
     "r0": 1486,
-    "r1": 1486,
+    "r1": 1475,
     "n0": 1,
-    "n1": 5,
+    "n1": 6,
     "confidence": "low"
    },
    "pick": {
     "team_index": 0,
     "team_id": "88512",
     "team": "Pegasus Esports",
-    "p": 0.5,
+    "p": 0.504,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0
+    "margin": 0.008
    }
   },
   {
@@ -10653,7 +10774,7 @@
     "name": "Supreme Leaders"
    },
    "team_history": {
-    "n0": 5,
+    "n0": 6,
     "n1": 1
    },
    "score0": null,
@@ -10664,11 +10785,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.489,
-    "p1": 0.511,
-    "r0": 1486,
+    "p0": 0.484,
+    "p1": 0.516,
+    "r0": 1475,
     "r1": 1511,
-    "n0": 5,
+    "n0": 6,
     "n1": 1,
     "confidence": "low"
    },
@@ -10676,10 +10797,10 @@
     "team_index": 1,
     "team_id": "265304",
     "team": "Supreme Leaders",
-    "p": 0.511,
+    "p": 0.516,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.022
+    "margin": 0.032
    }
   },
   {
@@ -11884,7 +12005,7 @@
     "name": "Jendouba Esports"
    },
    "team_history": {
-    "n0": 5,
+    "n0": 6,
     "n1": 2
    },
    "score0": null,
@@ -11895,22 +12016,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.505,
-    "p1": 0.495,
-    "r0": 1486,
+    "p0": 0.499,
+    "p1": 0.501,
+    "r0": 1475,
     "r1": 1477,
-    "n0": 5,
+    "n0": 6,
     "n1": 2,
     "confidence": "low"
    },
    "pick": {
-    "team_index": 0,
-    "team_id": "232309",
-    "team": "JSK Academy",
-    "p": 0.505,
+    "team_index": 1,
+    "team_id": "265305",
+    "team": "Jendouba Esports",
+    "p": 0.501,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.01
+    "margin": 0.002
    }
   },
   {
@@ -12157,7 +12278,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.477,
     "p1": 0.523,
-    "r0": 1464,
+    "r0": 1465,
     "r1": 1504,
     "n0": 3,
     "n1": 2,
@@ -12365,7 +12486,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.49,
     "p1": 0.51,
-    "r0": 1464,
+    "r0": 1465,
     "r1": 1488,
     "n0": 3,
     "n1": 1,
@@ -12571,8 +12692,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.475,
-    "p1": 0.525,
+    "p0": 0.476,
+    "p1": 0.524,
     "r0": 1458,
     "r1": 1515,
     "n0": 3,
@@ -12583,10 +12704,10 @@
     "team_index": 1,
     "team_id": "190299",
     "team": "Babos Gaming",
-    "p": 0.525,
+    "p": 0.524,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.05
+    "margin": 0.048
    }
   },
   {
@@ -12699,7 +12820,7 @@
     "name": "JSK Esports"
    },
    "team_history": {
-    "n0": 5,
+    "n0": 6,
     "n1": 12
    },
    "score0": null,
@@ -12710,11 +12831,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.485,
-    "p1": 0.515,
-    "r0": 1486,
+    "p0": 0.47,
+    "p1": 0.53,
+    "r0": 1475,
     "r1": 1501,
-    "n0": 5,
+    "n0": 6,
     "n1": 12,
     "confidence": "medium"
    },
@@ -12722,10 +12843,10 @@
     "team_index": 1,
     "team_id": "206980",
     "team": "JSK Esports",
-    "p": 0.515,
+    "p": 0.53,
     "basis": "model-elo",
     "confidence": "medium",
-    "margin": 0.03
+    "margin": 0.06
    }
   },
   {
@@ -13788,7 +13909,7 @@
     "p0": 0.519,
     "p1": 0.481,
     "r0": 1498,
-    "r1": 1464,
+    "r1": 1465,
     "n0": 2,
     "n1": 3,
     "confidence": "low"
@@ -13978,7 +14099,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.465,
     "p1": 0.535,
-    "r0": 1464,
+    "r0": 1465,
     "r1": 1526,
     "n0": 3,
     "n1": 2,
