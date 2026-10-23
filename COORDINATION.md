@@ -23,11 +23,28 @@ Scope (disjoint from every earlier session; all earlier tasks are `done`):
 
 | # | Task | Status | Owner | File scope |
 |---|------|--------|-------|-----------|
-| 9 | Fix mobile navigation + picks filter (dead `Menu` button, `#q`/`#comp` filter JS bound to non-existent ids) | in progress | 64554333 | `assets/app.js`, `assets/style.css`, `tools/site.py` |
-| 10 | A pick for **every** listed match: settlement (walkover-default) picks for `dqteams` fixtures, plus an explicit unresolved/limitations section in the executive summary | in progress | 64554333 | `tools/model.py`, `tools/site.py`, `tools/verify.py`, `data/flags_manual.json` |
-| 11 | Line-integrity audit: expire stale archived esportsbook receipts, reject non-actionable extreme quotes, flag market-vs-model divergence | in progress | 64554333 | `tools/model.py`, `tools/flags.py` |
-| 12 | Verification pass: curated flags that reference fixtures no longer on Hotspawn, count drift in docs, new publish gates | in progress | 64554333 | `tools/flags.py`, `tools/verify.py`, `README.md`, `data/flags_manual.json` |
-| 13 | PR → `main`, merge, confirm Pages deploy | unclaimed | — | — |
+| 9 | Fix mobile navigation + picks filter (dead `Menu` button, `#q`/`#comp` filter JS bound to non-existent ids) | done | 64554333 | `assets/app.js`, `assets/style.css`, `tools/site.py` |
+| 10 | A pick for **every** listed match: settlement (walkover-default) picks for `dqteams` fixtures, plus an explicit unresolved/limitations section in the executive summary | done | 64554333 | `tools/model.py`, `tools/site.py`, `tools/verify.py`, `data/flags_manual.json` |
+| 11 | Line-integrity audit: expire stale archived esportsbook receipts, reject non-actionable extreme quotes, flag market-vs-model divergence | done | 64554333 | `tools/model.py`, `tools/flags.py` |
+| 12 | Verification pass: curated flags that reference fixtures no longer on Hotspawn, count drift in docs, new publish gates | done | 64554333 | `tools/flags.py`, `tools/verify.py`, `README.md`, `data/flags_manual.json` |
+| 13 | PR → `main`, merge, confirm Pages deploy | in progress | 64554333 | — |
+
+### Handoff / collision note (2026-10-23T15:44Z, session 64554333)
+
+While this session was working, session `b91181f0` merged PRs #18 and #19 into `main`, touching the same
+pipeline files (`tools/site.py`, `tools/model.py`, `tools/verify.py`, `tools/flags.py`, `assets/`). The
+overlap was resolved by merging `origin/main` into this branch and keeping the **union**, never by
+discarding their work:
+
+| Overlapping area | Who was kept |
+|---|---|
+| Archived esportsbook receipts | `b91181f0` (excluded from pricing entirely - stricter than this branch's 24 h expiry, which was dropped) |
+| One-sided history (no rated series on one side) | `b91181f0` (left blank and marked unresolved; this branch's 1500-baseline fallback removed) |
+| `tools/integrity.py`, `tests/`, exact ID reconciliation, per-card anchors, fetch timestamp, "community-maintained Leaguepedia" wording, focus-visible CSS | `b91181f0` |
+| Settlement picks, market-vs-Elo cross-check, Leaguepedia kick-off cross-check, curated-flag reference gate, mobile bottom nav, working menu/filters, exec-summary restructure | `64554333` |
+
+`tools/integrity.py` was extended by this session so a settlement pick is a legal third row shape, with
+regression tests for all three shapes. Merge commit `fe7feb6`; nothing from either side was reverted.
 
 ## Task board
 
