@@ -768,3 +768,15 @@ matched to the raw `dqteams` receipt, CSV mirror exact), `python3 -m unittest di
 - Leaguepedia is community-maintained. It is the source for both the Elo history and the `dqteams`
   removal record, so a wiki error would propagate to the model and the quarantine alike. The removal claim
   is corroborated by forfeit-scored (`0-2`, `ff`) series in the same official-schedule record.
+
+## Merge result — session `4dfd0e71` (PR #24)
+
+| Field | Value |
+|---|---|
+| PR | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/24 |
+| Result | **Merged** into `main` (merge commit `9e25133`), 2026-10-23T15:53Z |
+| Conflicts | Six `origin/main` advances during the review window; each was resolved by merging `origin/main` into the session branch with `-X ours` and then manually re-applying every incoming improvement (settlement contract, mobile nav, `mobnav`, coverage page, independent audit, research probes, Polymarket `game_start` fix). Generated pages were never hand-merged: `model → report → flags → site → corroborate → verify` was re-run after every resolution. |
+| Publish gate at merge | **34/34 PASS**, `unittest discover` **9/9 OK**, 241 rows, 13 pages, 0 broken internal links, 0 `None` renderings |
+| GitHub Pages | build `9e25133` **built** at 2026-10-23T15:53:30Z; live check of `https://karagemop466-tech.github.io/LOLHOTSPAWN1/table.html` returns the 241-row table with per-row Hotspawn + Leaguepedia source links |
+| Delivered | Executive summary with in-site links (Summary → Table → All picks → Market → Model → Unresolved → Coverage), the mobile bottom nav, the pick table, the unresolved-picks section with its limitations, the forfeit settlement picks, and the retired-quote trail |
+| Known open items (published, not hidden) | `docs/` is dead output from an older layout (Pages serves the branch root); the four Komplettligaen fixtures are settled administratively because the league removed Solid Gaming; `#1081423` and `#1079080` are originated/indicative lines with the retired-quote flag on the row |
