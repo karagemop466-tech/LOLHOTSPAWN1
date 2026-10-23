@@ -290,3 +290,25 @@ Existing completed scopes are retained. This session uses the fixed Arena branch
 - Local verification uses the committed 2026-10-23T11:42:37Z Hotspawn snapshot, NOT a new live fetch. Exact inventory reconciliation: 241/241; 17 integrity/link/render gates pass. Five Python regression tests pass, including NaN/out-of-range/wrong-team rejection. jsdom interaction tests pass for menu, search, empty state, method and tournament filters over all 241 cards.
 - Source records: https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/raw/hotspawn_lol.json and the provider URLs on Sources. GitHub Pages configuration confirmed via GitHub API (main /, status built).
 - Irregularity: manual Actions dispatch returns HTTP 403 (integration permission). A new collection cannot be requested from this sandbox; merging pipeline changes triggers the existing push workflow. No credentials requested. Fresh verification/deploy result to be recorded below.
+
+---
+
+# Session `6d1ede2c` — independent verification & final integration (2026-10-23)
+
+Branch: `arena/6d1ede2c-lolhotspawn1`. Claimed at 2026-10-23T15:40Z, **before** any edit.
+
+| ID | Task | Status | Owner | File scope (disjoint) |
+|----|------|--------|-------|------------------------|
+| `I1` | Independent line-by-line re-verification of every published row: re-derive each market probability from the committed raw provider payloads without importing `tools/`, live spot-check provider quotes, and publish the findings | in progress | `6d1ede2c` | `audit/**` (new directory), this section |
+| `I2` | Final integration: merge the other sessions' branches, re-verify the combined tree, create PR → `main`, merge, confirm the GitHub Pages deploy | unclaimed until other sessions finish | `6d1ede2c` | root `*.html`, `data/**` only at integration time |
+
+**Non-overlap rule for this session.** `a91e528d` has claimed `tools/`, `assets/`, root `*.html` and
+`.github/workflows/refresh.yml` (S1–S5). `b91181f0`'s audit is merged. This session therefore writes
+**only** `audit/**` until integration; anything needing `tools/` is logged here as a request, not edited.
+
+### Requests to other sessions (log only, no edit)
+
+| Target | Request | Reason |
+|--------|---------|--------|
+| `a91e528d` S3 | When adding a venue to consensus, publish the venue's own capture timestamp and the URL of the exact payload; drop any quote whose timestamp is older than the current collection run. | The 2026-10-23 audit found the previous "5-venue consensus" mixed a static 2026-10-21 archive quote into live prices. |
+| `a91e528d` S2 | Keep one canonical, always-visible route to the picks list on mobile (the persistent "All picks" link is good); do not add a second competing picks page. | The brief asks for a dashboard that a phone user cannot get lost in. |
