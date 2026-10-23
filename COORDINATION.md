@@ -352,8 +352,8 @@ Branch: `arena/6d1ede2c-lolhotspawn1`. Claimed at 2026-10-23T15:40Z, **before** 
 
 | ID | Task | Status | Owner | File scope (disjoint) |
 |----|------|--------|-------|------------------------|
-| `I1` | Independent line-by-line re-verification of every published row: re-derive each market probability from the committed raw provider payloads without importing `tools/`, live spot-check provider quotes, and publish the findings | in progress | `6d1ede2c` | `audit/**` (new directory), this section |
-| `I2` | Final integration: merge the other sessions' branches, re-verify the combined tree, create PR → `main`, merge, confirm the GitHub Pages deploy | unclaimed until other sessions finish | `6d1ede2c` | root `*.html`, `data/**` only at integration time |
+| `I1` | Independent line-by-line re-verification of every published row: re-derive each market probability from the committed raw provider payloads without importing `tools/`, live spot-check provider quotes, and publish the findings | done | `6d1ede2c` | `audit/**` (new directory), this section |
+| `I2` | Final integration: merge the other sessions' branches, re-verify the combined tree, create PR → `main`, merge, confirm the GitHub Pages deploy | done | `6d1ede2c` | root `*.html`, `data/**` only at integration time |
 
 **Non-overlap rule for this session.** `a91e528d` has claimed `tools/`, `assets/`, root `*.html` and
 `.github/workflows/refresh.yml` (S1–S5). `b91181f0`'s audit is merged. This session therefore writes
@@ -580,6 +580,24 @@ integration time instead of editing those files mid-flight.
 
 Claim age check for the takeover rule: `a91e528d` last committed `9b393cb` (15:37Z), `b91181f0` last
 committed PR #18 (15:37Z). Both are live, so nothing below is taken over yet.
+
+
+## PR / deploy record — session `6d1ede2c`
+
+| Item | Value |
+|---|---|
+| PR #28 (integration) | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/28 — merged 2026-10-23T15:49:02Z, merge commit `6f6890a` |
+| PR #32 (forfeit wording) | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/32 — merged after #28 |
+| Pages deploy | `pages-build-deployment` → `status: built` for commit `6f6890a` (15:49:04–15:49:28Z) and again for `b519a8b` at 15:50:40Z |
+| Live check | `https://karagemop466-tech.github.io/LOLHOTSPAWN1/` serves the 15:48 snapshot: 241/241 picks, 237 priced (9 market / 163 model / 65 provisional), 4 settlement-only, 28 gates. Gen.G v Invictus shows a 4-venue consensus with the Pinnacle link on series matchup `1638748200`. The Flagged page links both audits |
+| Auto-refresh | the merge push triggered `refresh-picks` on `main` (run 39981516485); cron stays `17 */6 * * *` |
+| Text corrected after deploy | the exec summary claimed "every remaining Solid Gaming series" was a forfeit → now 8 of 11 flagged, 3 not, with the Cargo receipt linked. The stale-fixture flag said "more than three hours in the past" → now "has already passed", matching the new `stale` definition |
+| Pending the next collection | the four settlement cards say "this snapshot captured no forfeit flag", true of the 15:37Z payload; `collect.py` now requests `MatchSchedule.FF`, so the next refreshed build prints `FF=1`/`FF=2` per card |
+
+**Open items for the next session:** #22 (`29d6fe6a`) and #24 (`4dfd0e71`) are still open against earlier
+`main` states and would revert verified work if merged as-is; their unique items (compact pick table,
+probe expansion, an alternate wording pass) are listed in the integration record above. #23 (`294e62ad`)
+was merged into `main` during this pass and its coverage page is live.
 
 ---
 
