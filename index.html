@@ -13,14 +13,14 @@
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle page menu">Menu</button>
-    <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+    <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
 </header>
 <main id="main" class="wrap">
   <div class="pagehead">
     <h1>Hotspawn LoL Pick Desk</h1>
     <p class="sub">Independent win probabilities for every League of Legends match in the Hotspawn pick'em.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 15:47 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-23 15:48 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
     <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:37:40Z">Hotspawn inventory collected: 2026-10-23T15:37:40Z. Check source timestamps before use.</p>
   </div>
   
@@ -51,6 +51,9 @@
     <a class="quick" href="originated.html"><span class="qk">Model lines</span>
       <span class="qv">228</span>
       <span class="qn">Low-tier leagues with no bookmaker market: our own Elo probability.</span></a>
+    <a class="quick" href="coverage.html"><span class="qk">Line coverage</span>
+      <span class="qv">9</span>
+      <span class="qn">Which competitions a bookmaker prices, which we originate, and the receipt behind each.</span></a>
     <a class="quick warn" href="unresolved.html"><span class="qk">Unresolved</span><span class="qv">4</span>
       <span class="qn">Settlement-only picks, why no percentage is claimed, and every limitation.</span></a>
     <a class="quick" href="competitions.html"><span class="qk">By tournament</span><span class="qv">27</span>
@@ -80,6 +83,10 @@
     bookmaker and exchange lines, <a href="originated.html"><strong>163 originated model lines</strong></a>
     and <a href="originated.html"><strong>65 provisional lines</strong></a>.
     The full list in kick-off order is <a href="picks.html"><strong>All picks</strong></a>.</li>
+    <li><strong>Which matches have a real bookmaker line, and which we had to originate.</strong>
+    <a href="coverage.html"><strong>External line coverage</strong></a> lists every competition with its
+    method, the external price we captured for it (with the source page and capture time) and the
+    evidence that no reachable bookmaker prices the rest.</li>
     <li><strong>Unresolved picks and the limitations on producing them (4 matches).</strong>
     These are the 4 Komplettligaen 2026 Autumn fixtures involving
     <strong>Solid Gaming</strong>, which the community-maintained Leaguepedia record
@@ -101,7 +108,7 @@
     <li><strong>Refresh and verification.</strong> The pipeline reruns every 6 hours and re-reads Hotspawn's
     fixture list on every run, so new cards appear without any manual step. 9 of 14
     probed feeds answered on the latest runner build (<a href="sources.html">Sources</a>), and
-    25 automated publish gates must pass before anything is committed
+    28 automated publish gates must pass before anything is committed
     (<a href="verification.html">Verification</a>). Irregularities are published on
     <a href="flagged.html">Flagged for review</a>.</li>
   </ul>
