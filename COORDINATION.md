@@ -378,3 +378,49 @@ Integration note for the final session: `audit/` is not linked from any generate
 | Pages | `pages build and deployment` for `e8fadc7`: `built` at 15:43:50Z (`gh api …/pages/builds/latest`). The live audit page `…/LOLHOTSPAWN1/audit/AUDIT.md` was served. Homepage re-fetched with a cache-buster shows the 15:39 UTC snapshot (9 market-backed, Pinnacle link `1638748200`). A plain fetch returned a cached copy of the pre-merge homepage; that is a CDN cache artefact, not a failed deploy. |
 | Gate | `tools/verify.py` not touched by this session; the audit does not modify any published page. |
 | Open request | Link `audit/AUDIT.md` from `flagged.html` (owned by the build sessions). |
+
+---
+
+# Session `64554333` — verification record and merge result (2026-10-23T15:45Z)
+
+## What was verified, and against what
+
+| Claim on the site | How it was checked | Source |
+|---|---|---|
+| Hotspawn still lists the four Solid Gaming fixtures as `scheduled`; #1071216 is gone | live fixtures API, filtered by `competition_id=36279` (returns exactly 7 cards: 1071167, 1071170, 1071168, 1071200, 1071206, 1071186, 1071212) | <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1&competition_id=36279> |
+| Solid Gaming was removed in Round 10 and its remaining series are forfeits | raw wikitext of the official schedule: `\|team1footnote=\[\[Solid Gaming\]\] is removed from the league.` plus `\|team1score=0 \|team2score=2 \|winner=2 \|ff=1` on the Round 10, 8 and 6/7/9 entries | <https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split?action=raw> |
+| `#1071170` is misdated on Hotspawn (2026-09-17 vs the recorded 2026-10-01) | compared the card's `scheduled_start_time` with the Leaguepedia row | same Data page + Hotspawn API |
+| Polymarket Gen.G vs Invictus Gaming is 77.5 / 22.5 | live gamma market, `outcomePrices ["0.775","0.225"]`, `gameStartTime 2026-10-23 17:00:00+00` | <https://gamma-api.polymarket.com/markets?slug=lol-gen-ig1-2026-10-23> |
+| `#1081423` Ground Zero vs Frank Esports had no reproducible live line | live egamersworld match page shows 1.8 / 1.8 for both sides, not the archived 1.025 / 10.5 receipt | <https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF> |
+| `#1079080` is a thin market | Polymarket market `volume` = 5 USD (audit F3), confirmed in the collected raw feed | <https://gamma-api.polymarket.com/markets?slug=lol-rb-mr-2026-10-27> |
+
+The sandbox shell has no outbound route to the providers (`curl` fails `SSL_ERROR_SYSCALL`); every live check
+above was made with the page-fetch tool, and the runner's own 15:37Z collection is the dataset under the site.
+Rows that were not re-fetched live are internal-checked only and carry their source links for manual review.
+
+## Irregularities this session found and fixed
+
+1. `data/flags_manual.json` cited **#1071216** as an upcoming Hotspawn fixture, and claimed the template said
+   "forfeited 0-1". Live API: no such card; raw wikitext: forfeits are scored 0-2 with an `ff` flag. Both
+   statements corrected, and a publish gate now fails the build if a curated flag cites a fixture that is not
+   in the inventory (opt-out only via an explicit `delisted_refs` list with a reason).
+2. The archived `1.025 / 10.5` receipt for #1081423 produced a 91.1% "market" pick that contradicted the live
+   page (1.8 / 1.8) and our model (Frank 77.5%). Archived receipts no longer enter pricing at all; the row
+   falls back to the model. Extreme quotes (implied > 97%) are also rejected at de-vig time.
+3. `assets/app.js` bound the picks-page filters to `#filter-search`/`#picks-cards-list`, which no page contains,
+   and nothing handled the mobile `Menu` button - the phone navigation was unusable. Both are wired now, with
+   a persistent bottom nav; `tests/dashboard.cjs` exercises menu, search, empty state and both filters.
+4. Curated flags carried stale counts ("189 of 264", "10 of 264") from a 264-fixture snapshot; those numbers are
+   now derived on every build instead of frozen in the file.
+5. Market rows had no independent check and no thin-market concept: every market row now prints our own Elo
+   probability beside it (flagged at a ≥20 pp gap) and single-venue markets under $1,000 volume are marked
+   low confidence (audit F3).
+
+## Merge result
+
+- Merged `origin/main` twice while working (`59f354d` with session `b91181f0`'s integrity work, `bc73a40` with
+  session `0d48f265`'s `audit/`). Nothing from either side was reverted; the union is described in the handoff
+  table above.
+- Final gate: `tools/verify.py` 25/25 pass; `tests/test_integrity.py` 9/9; `tests/dashboard.cjs` pass.
+- Snapshot under test: inventory collected 2026-10-23T15:37:40Z, 241 rows, 9 market / 163 model / 65 provisional
+  / 4 settlement-only, 237 priced + 4 settlement = 241 picks.
