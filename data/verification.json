@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T11:44:00Z",
+ "generated_utc": "2026-10-23T15:43:43Z",
  "checks": [
   {
    "name": "dataset present",
@@ -39,7 +39,7 @@
   {
    "name": "all site pages exist",
    "ok": true,
-   "detail": "11/11 pages"
+   "detail": "12/12 pages"
   },
   {
    "name": "no broken internal links",
@@ -64,12 +64,27 @@
   {
    "name": "executive summary links to every picks view",
    "ok": true,
-   "detail": "present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']"
+   "detail": "present: ['picks.html', 'featured.html', 'originated.html', 'coverage.html', 'unresolved.html', 'Executive summary']"
   },
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
    "detail": "backtest series rendered: 3,854"
+  },
+  {
+   "name": "coverage matrix: every competition row links to a source",
+   "ok": true,
+   "detail": "27 competition rows; missing links: []"
+  },
+  {
+   "name": "external receipts validated against the dataset",
+   "ok": true,
+   "detail": "9 usable receipts, 0 rejected, 0 diverging >5.0pp"
+  },
+  {
+   "name": "coverage page shows every match method and the unresolved ledger",
+   "ok": true,
+   "detail": "coverage.html 44471 bytes"
   },
   {
    "name": "source availability recorded",
@@ -88,5 +103,5 @@
   "unresolved": 4,
   "market": 10
  },
- "internal_links": 229
+ "internal_links": 259
 }

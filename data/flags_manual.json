@@ -3,26 +3,26 @@
  "flags": [
   {
    "severity": "high",
-   "item": "Komplettligaen removed Solid Gaming in Round 10 (#1071216 Solid Gaming vs DMG Esports Norway)",
-   "detail": "Leaguepedia's official Data:Komplettligaen/2026_Season/Autumn_Season template records '|dqteams=Solid Gaming' ('Solid Gaming was removed from the league in Round 10; remaining matches forfeited 0-1'). Hotspawn still lists upcoming fixture #1071216 (2026-10-27 17:00 UTC) as scheduled, and 72% of Hotspawn's crowd picked Solid Gaming on stale pre-removal wins. Rather than picking a disqualified team, the pipeline quarantines all dqteams fixtures to Unresolved and notes that if Hotspawn settles walkovers rather than voiding, active opponent DMG Esports Norway receives the default win.",
+   "item": "Komplettligaen removed Solid Gaming mid-split - the affected cards stay unresolved",
+   "detail": "Leaguepedia's Data:Komplettligaen/2026 Season/Autumn Split template records '|dqteams=Solid Gaming' ('removed from the league in Round 10; remaining matches forfeited 0-1'). Four Solid Gaming cards are still on Hotspawn's list in this snapshot and every one of them is quarantined to Unresolved rather than picking a disqualified team: #1071170 vs VES Japan, #1071200 vs Playwell Rod Q, #1071186 vs NTNUI Kometkameratene and #1071206 (Volda E-Sport listed first). Fixture #1071216 (Solid Gaming vs DMG Esports Norway), which earlier reports on this page described, is no longer in the list, so it is recorded here as history, not as an open card. If Hotspawn settles these as walkovers rather than voiding them, the active opponent receives the default win.",
    "source": "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Season"
   },
   {
    "severity": "medium",
-   "item": "Galions vs Solary (#1081205) crowd split (86% / 14%) diverges +33.8 pp from 5-venue real-money consensus (52.2% / 47.8%)",
-   "detail": "Across Pinnacle, Kalshi CFTC, Polymarket full-series CLOB ($28.4k Bo5 market, filtering out the $1.5k Game-1 side market), Bovada, and specialist esportsbooks, EMEA Masters Summer 2026 Final Galions vs Solary is priced near-even at 52.2% / 47.8% (Galions slight favourite), confirming why Hotspawn crowd pick share must never be used as a probability input.",
+   "item": "Historical example: Galions vs Solary (#1081205) crowd split diverged +33.8 pp from the market consensus",
+   "detail": "Recorded 2026-10-21 while that EMEA Masters Summer 2026 Final was listed. Across Pinnacle, Kalshi CFTC, Polymarket full-series CLOB, Bovada and a specialist esportsbook the match was priced near-even at 52.2% / 47.8% while Hotspawn's crowd sat at 86% / 14% - the reason crowd pick share is never a probability input here. The fixture has since left Hotspawn's list, so this is kept as history and is not counted in any current coverage figure.",
    "source": "https://polymarket.com/event/lol-gal-sly-2026-10-21"
   },
   {
    "severity": "medium",
-   "item": "Symmetric 1.80 / 1.80 placeholder odds on odds aggregators rejected (#1079080 Bushido Wildcats vs Misa Esports)",
-   "detail": "Esports aggregators render symmetric 1.80 / 1.80 default placeholders on unpriced regional fixtures when no real bookmaker quote exists. The pipeline explicitly rejects symmetric 1.80 / 1.80 placeholders and prices #1079080 via recorded Turkish Academy League match history instead.",
-   "source": "https://lol.fandom.com/wiki/Turkish_Academy_League/2026_Season/Summer_Playoffs"
+   "item": "Symmetric 1.80 / 1.80 aggregator placeholder rejected on the LCP 2027 Promotion card (#1081423)",
+   "detail": "On 2026-10-23 the EGamersWorld match page for Ground Zero Gaming vs Frank Esports published a symmetric 1.80 / 1.80 pair (its 'no price' default) while the same site's listing row showed 1.025 / 10.5. A build-time quote that cannot be reproduced from the source page is not evidence, so the pipeline rejects symmetric 1.80 / 1.80 placeholders and the archived 1.025 / 10.5 reading is excluded from corroboration - both readings are published on External line coverage. The earlier Turkish Academy League example quoted in this slot referred to fixture #1079080, which now belongs to a different match (Mental Rush vs Vitality Rising Bees) and is therefore withdrawn.",
+   "source": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
   },
   {
    "severity": "low",
-   "item": "4 Nations Week 1 overturned forfeits for Team Reds recorded correctly",
-   "detail": "Team Reds originally won two Week 1 series in 4 Nations 2026 Halloween Heist, both subsequently overturned to 0-1 administrative forfeits for fielding an ineligible roster. The model consumes official post-ruling series records.",
+   "item": "Historical: 4 Nations Week 1 overturned forfeits for Team Reds were applied to the ratings",
+   "detail": "Team Reds originally won two Week 1 series in 4 Nations 2026 Halloween Heist; both were overturned to 0-1 administrative forfeits for fielding an ineligible roster. The model consumes the official post-ruling series records. The team now appears in Arabian League 2nd Division 2026 Summer on the current list; this note is kept for the ratings audit and is not a claim about a live card.",
    "source": "https://lol.fandom.com/wiki/4_Nations/2026_Season/Halloween_Heist"
   },
   {
@@ -33,15 +33,15 @@
   },
   {
    "severity": "info",
-   "item": "Hotspawn tier field is 'waiting for information' for 189 of 264 LoL matches",
-   "detail": "The fixtures API returns tier='waiting for information' and stage='waiting for information' for most non-featured LoL fixtures. Tier is reproduced verbatim and not inferred from the league name.",
+   "item": "Hotspawn's tier field is 'waiting for information' (or empty) for most non-featured LoL matches",
+   "detail": "The fixtures API frequently returns tier='waiting for information' or null and leaves stage empty, so tier is reproduced verbatim and never inferred from the league name. The live number is on Verification (method counts) and External line coverage (per competition).",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
   {
    "severity": "info",
-   "item": "10 of 264 matches have verified real-money market lines across 5 venues; 254 are lower-tier national/academy fixtures",
-   "detail": "Featured Tier-S/A matches (Worlds 2026 Knockout Stage, EMEA Masters Final, and LCP 2027 Promotion) are priced via precision-weighted consensus across Pinnacle, Polymarket, Kalshi CFTC, Bovada, and verified specialist esportsbook quotes. Tier-B/C/D national leagues have no published bookmaker market anywhere, so lines are originated from recorded series history.",
-   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+   "item": "Only the international events carry real bookmaker lines; every national and academy league is originated",
+   "detail": "Matches priced from real money come only from the international events (in this snapshot the World Championship Main Event, LGC Rising Playoffs and LCP 2027 Promotion) via a precision-weighted consensus of Pinnacle, Polymarket, Kalshi CFTC, Bovada and a verified esportsbook quote. Tier-B/C/D national leagues have no published bookmaker market that we can reach, so their lines are originated from recorded series history. The live per-competition split, the captured receipts and the evidence that no book prices the rest are on External line coverage; no fixed count is quoted here because it changes every refresh.",
+   "source": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/coverage.html"
   },
   {
    "severity": "low",

@@ -13,7 +13,7 @@
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
     <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
-    <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+    <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
 </header>
 <main id="main" class="wrap">
@@ -51,11 +51,14 @@
   <h2>Executive summary</h2>
   <ul class="bullets">
     <li><strong>Coverage &amp; direct links.</strong> 237 of 241 scheduled LoL matches carry a verified pick:
-    <a href="featured.html"><strong>10 Market-backed picks</strong></a> (Worlds 2026 Knockout Stage,
-    EMEA Masters Final, and LCP 2027 Promotion across Pinnacle, Polymarket, Kalshi CFTC, Bovada &amp; specialist
-    esportsbooks), <a href="originated.html"><strong>162 Solid originated lines</strong></a>,
+    <a href="featured.html"><strong>10 Market-backed picks</strong></a> from real bookmaker prices
+    (LCP 2027 Promotion, LGC Rising 2026 Playoffs, Worlds 2026 Main Event), <a href="originated.html"><strong>162 Solid originated lines</strong></a>,
     and <a href="originated.html"><strong>65 Provisional lines</strong></a>. Browse all cards in
     kick-off order on <a href="picks.html"><strong>All picks</strong></a>.</li>
+    <li><strong>Which matches have a real bookmaker line, and which we had to originate.</strong>
+    <a href="coverage.html"><strong>External line coverage</strong></a> lists every competition with its method,
+    the external price we captured for it (with the source page and capture time), and the evidence that no
+    reachable bookmaker prices the 24 competitions where we originate the line ourselves.</li>
     <li><strong>Unresolved picks &amp; limitations (4 quarantined).</strong>
     4 fixtures involve participants officially removed mid-split under Leaguepedia
     <code>dqteams</code> directives (including upcoming <strong>#1071216 Solid Gaming vs DMG Esports Norway</strong>
@@ -81,6 +84,7 @@
     <li><a href="picks.html">All picks &rarr;</a><span>Complete list, 241 matches, instant mobile search &amp; tournament filter.</span></li>
     <li><a href="featured.html">Market-backed picks &rarr;</a><span>10 matches priced from de-vigged multi-venue sportsbook &amp; exchange consensus.</span></li>
     <li><a href="originated.html">Originated low-tier lines &rarr;</a><span>227 regional/academy matches originated from recorded series history.</span></li>
+    <li><a href="coverage.html">External line coverage &rarr;</a><span>Per-competition: priced by a bookmaker, or originated by us - with the captured receipt behind each one.</span></li>
     <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>4 mid-split league removals we refuse to guess on, plus all 65 provisional caveats.</span></li>
     <li><a href="competitions.html">By tournament &rarr;</a><span>Coverage breakdown across all 27 LoL competitions.</span></li>
     <li><a href="flagged.html">Flagged for review &rarr;</a><span>Disqualifications, PvB mislabelling, kick-off offsets, and crowd traps.</span></li>
@@ -90,29 +94,7 @@
 <section class="panel">
   <h2>Next upcoming picks</h2>
   <div class="cards">
-    <article class="card m-model" data-method="model" data-comp="Komplettligaen 2026 Autumn"
-  data-text="komplettligaen 2026 autumn rich gang phenti">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-23T15:00:00Z" class="utc" data-utc="2026-10-23T15:00:00Z">2026-10-23 15:00 UTC</time></span>
-    <span class="badges"><span class="badge b-model">Model line</span></span>
-  </div>
-  <div class="comp">Komplettligaen 2026 Autumn</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">Rich Gang</span><span class="tpct">74.8%</span>
-    </div>
-    <div class="split" role="img" aria-label="Rich Gang 75 percent, Phenti 25 percent"><span class="s0" style="width:74.8%"></span></div>
-    <div class="team ">
-      <span class="tname">Phenti</span><span class="tpct">25.2%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Rich Gang</strong> <span class="pickpct">74.8%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Rich Gang (Norwegian Team) 1630 vs Phenti 1441 (58/36 rated series).</p>
-    <ul class="flags"><li>Leaguepedia lists this team as &#x27;Rich Gang (Norwegian Team)&#x27;</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/rich-gang-vs-phenti-komplettligaen-2026-autumn-1071212" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Komplettligaen%2F2026_Season%2FAutumn_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Rich_Gang_(Norwegian_Team)" rel="noopener">Rich Gang</a><a href="https://lol.fandom.com/wiki/Phenti" rel="noopener">Phenti</a></div>
-</article><article class="card m-provisional" data-method="provisional" data-comp="Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine"
+    <article class="card m-provisional" data-method="provisional" data-comp="Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine"
   data-text="arabian regional championship 2026: lebanon-libya-syria-palestine levelers mtn esports team">
   <div class="card-top">
     <span class="when"><time datetime="2026-10-23T16:00:00Z" class="utc" data-utc="2026-10-23T16:00:00Z">2026-10-23 16:00 UTC</time></span>
@@ -222,6 +204,28 @@
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/nextgeneration-esports-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079139" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/NextGeneration_Esports" rel="noopener">NextGeneration Esports</a><a href="https://lol.fandom.com/wiki/Pegasus_Esports" rel="noopener">Pegasus Esports</a></div>
+</article><article class="card m-model" data-method="model" data-comp="Arabian League 2nd Division 2026 Summer"
+  data-text="arabian league 2nd division 2026 summer team vds team reds">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-23T18:00:00Z" class="utc" data-utc="2026-10-23T18:00:00Z">2026-10-23 18:00 UTC</time></span>
+    <span class="badges"><span class="badge b-model">Model line</span></span>
+  </div>
+  <div class="comp">Arabian League 2nd Division 2026 Summer</div>
+  <div class="teams">
+    <div class="team fav">
+      <span class="tname">Team VDS</span><span class="tpct">60.3%</span>
+    </div>
+    <div class="split" role="img" aria-label="Team VDS 60 percent, Team Reds 40 percent"><span class="s0" style="width:60.3%"></span></div>
+    <div class="team ">
+      <span class="tname">Team Reds</span><span class="tpct">39.7%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team VDS</strong> <span class="pickpct">60.3%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: Team VDS 1557 vs Team Reds 1484 (37/5 rated series).</p>
+    
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/team-vds-vs-team-reds-arabian-league-2nd-division-2026-summer-1082106" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_VDS" rel="noopener">Team VDS</a><a href="https://lol.fandom.com/wiki/Team_Reds" rel="noopener">Team Reds</a></div>
 </article>
   </div>
   <p><a class="btn" href="picks.html">See all 241 matches &rarr;</a></p>

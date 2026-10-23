@@ -37,6 +37,7 @@ NAV = [
     ("picks.html", "All picks"),
     ("featured.html", "Market"),
     ("originated.html", "Model"),
+    ("coverage.html", "Coverage"),
     ("unresolved.html", "Unresolved"),
     ("competitions.html", "Tournaments"),
     ("teams.html", "Teams"),
@@ -246,6 +247,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     upcoming = sorted([r for r in rows if r["start_utc"] and r["start_utc"] > iso(now_utc()) and r["pick"]],
                       key=lambda r: r["start_utc"])
     featured = [r for r in rows if r["method"] == "market"]
+    featured_comps = sorted({r["competition"] for r in featured})
+    featured_comp_text = ", ".join(featured_comps) if featured_comps else "none in this snapshot"
+    external_comps = sorted({r["competition"] for r in featured})
     unresolved = [r for r in rows if r["method"] == "unresolved"]
     provisional = [r for r in rows if r["method"] == "provisional"]
     comps = len({r["competition"] for r in rows})
@@ -280,11 +284,14 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   <h2>Executive summary</h2>
   <ul class="bullets">
     <li><strong>Coverage &amp; direct links.</strong> {with_pick} of {total} scheduled LoL matches carry a verified pick:
-    <a href="featured.html"><strong>{len(featured)} Market-backed picks</strong></a> (Worlds 2026 Knockout Stage,
-    EMEA Masters Final, and LCP 2027 Promotion across Pinnacle, Polymarket, Kalshi CFTC, Bovada &amp; specialist
-    esportsbooks), <a href="originated.html"><strong>{counts.get('model',0)} Solid originated lines</strong></a>,
+    <a href="featured.html"><strong>{len(featured)} Market-backed picks</strong></a> from real bookmaker prices
+    ({e(featured_comp_text)}), <a href="originated.html"><strong>{counts.get('model',0)} Solid originated lines</strong></a>,
     and <a href="originated.html"><strong>{len(provisional)} Provisional lines</strong></a>. Browse all cards in
     kick-off order on <a href="picks.html"><strong>All picks</strong></a>.</li>
+    <li><strong>Which matches have a real bookmaker line, and which we had to originate.</strong>
+    <a href="coverage.html"><strong>External line coverage</strong></a> lists every competition with its method,
+    the external price we captured for it (with the source page and capture time), and the evidence that no
+    reachable bookmaker prices the {comps - len(featured_comps)} competitions where we originate the line ourselves.</li>
     <li><strong>Unresolved picks &amp; limitations ({len(unresolved)} quarantined).</strong>
     {len(unresolved)} fixtures involve participants officially removed mid-split under Leaguepedia
     <code>dqteams</code> directives (including upcoming <strong>#1071216 Solid Gaming vs DMG Esports Norway</strong>
@@ -310,6 +317,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><a href="picks.html">All picks &rarr;</a><span>Complete list, {total} matches, instant mobile search &amp; tournament filter.</span></li>
     <li><a href="featured.html">Market-backed picks &rarr;</a><span>{len(featured)} matches priced from de-vigged multi-venue sportsbook &amp; exchange consensus.</span></li>
     <li><a href="originated.html">Originated low-tier lines &rarr;</a><span>{counts.get('model',0)+counts.get('provisional',0)} regional/academy matches originated from recorded series history.</span></li>
+    <li><a href="coverage.html">External line coverage &rarr;</a><span>Per-competition: priced by a bookmaker, or originated by us - with the captured receipt behind each one.</span></li>
     <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>{len(unresolved)} mid-split league removals we refuse to guess on, plus all {len(provisional)} provisional caveats.</span></li>
     <li><a href="competitions.html">By tournament &rarr;</a><span>Coverage breakdown across all {comps} LoL competitions.</span></li>
     <li><a href="flagged.html">Flagged for review &rarr;</a><span>Disqualifications, PvB mislabelling, kick-off offsets, and crowd traps.</span></li>

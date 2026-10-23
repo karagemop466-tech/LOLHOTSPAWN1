@@ -26,6 +26,23 @@ def main() -> None:
     sources = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     manual = (load_json(os.path.join(DATA, "flags_manual.json")) or {}).get("flags") or []
 
+    # Curated text drifts: a hand-written flag can name a fixture that has since left
+    # Hotspawn's list. Never let that read as a statement about a live card - annotate
+    # it with the snapshot it was checked against, and say the fixture is gone.
+    import re as _re
+    live_ids = {str(r.get("id")) for r in rows}
+    manual = [dict(f) for f in manual]
+    for f in manual:
+        refs = set(_re.findall(r"#(\d{6,})", f"{f.get('item','')} {f.get('detail','')}"))
+        gone = sorted(refs - live_ids)
+        f["fixture_refs"] = sorted(refs)
+        f["fixtures_missing_from_snapshot"] = gone
+        f["checked_against_snapshot"] = data.get("generated_utc")
+        if gone:
+            f["historical"] = True
+            f["detail"] = (f.get("detail", "").rstrip() +
+                           f" [Automated check: fixture(s) {', '.join(gone)} are not in the current "
+                           f"Hotspawn list, so this item is a historical record, not a live card.]")
     flags: list[dict] = list(manual)
     counts = Counter(r["method"] for r in rows)
 
