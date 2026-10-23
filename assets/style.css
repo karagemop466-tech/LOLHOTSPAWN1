@@ -229,3 +229,21 @@ tr:last-child td{border-bottom:0}
 
 /* coin-flip cards: identical kick-off ratings, no edge claimed */
 .badge.b-flip{background:var(--warn-weak);color:var(--warn);border:1px solid #ecd9a8}
+
+/* next-up strip: the fastest path from the landing page to a pick on a phone */
+.nextlist{display:grid;gap:8px}
+.nextrow{display:grid;grid-template-columns:1fr auto;grid-template-areas:"when prob" "teams prob";
+  gap:2px 10px;align-items:center;background:var(--bg);border:1px solid var(--line);
+  border-radius:12px;padding:11px 13px;color:inherit;min-height:56px}
+.nextrow:hover{border-color:var(--accent);text-decoration:none}
+.nextrow .nw{grid-area:when;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.nextrow .nt{grid-area:teams;display:flex;flex-direction:column;gap:1px;min-width:0}
+.nextrow .nt strong{font-size:16px;line-height:1.25}
+.nextrow .nm{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nextrow .np{grid-area:prob;font-size:22px;font-weight:800;letter-spacing:-.4px;color:var(--ok);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.nextrow .np.settle{font-size:13px;font-weight:600;color:var(--warn)}
+@media (max-width:420px){
+  .nextrow .nt strong{font-size:15px}
+  .nextrow .np{font-size:19px}
+}
