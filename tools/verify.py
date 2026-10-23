@@ -277,6 +277,15 @@ def main() -> None:
                                     "no pick at all")),
         f"coverage.html {len(cov_html)} bytes")
 
+    probes = load_json(os.path.join(DATA, "source_probes.json")) or {}
+    probe_rows = probes.get("results") or []
+    dossier = os.path.join(ROOT, "research", "SOURCES.md")
+    add("external source research receipts are committed",
+        len(probe_rows) >= 25 and os.path.exists(dossier)
+        and all("status" in r for r in probe_rows),
+        f"{len(probe_rows)} venues probed on {probes.get('checked_utc', 'unknown')}; "
+        f"dossier {'present' if os.path.exists(dossier) else 'MISSING'}")
+
     src = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     reachable = sum(1 for s in src if s.get("ok"))
     add("source availability recorded", len(src) >= 10,
