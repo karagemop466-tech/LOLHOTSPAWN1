@@ -932,3 +932,14 @@ Independent checks after the merge:
 | Live venue re-read (Gen.G v Invictus, 15:57–15:58Z) | Pinnacle −335/+261 on `matchupId` 1638748200, Polymarket 76.5/23.5, Kalshi mid 77.5/22.5, Bovada 1.2439/3.800 — all four match the snapshot; consensus recomputed 0.7536 vs 0.7537 published. Receipt: `audit/receipts/live_spotcheck_2026-10-23T1558Z.json` |
 
 **PR #45** carries this verification pass (report + receipt + the `None` rendering fix) to `main`.
+
+## PR / deploy record — session `a91e528d`
+
+| Item | Value |
+|---|---|
+| Pull request | #41 — <https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/41> |
+| Merge | merged without waiting for review at **2026-10-23T15:58:09Z**, merge commit `3cd992c` |
+| Pages | `gh api …/pages` → `status: built`; deployed commit `340a1a6` |
+| Live gate | <https://karagemop466-tech.github.io/LOLHOTSPAWN1/verification.html> reports **39/39 assertions pass**, including the 1:1 inventory parity, per-tournament parity and no-look-ahead checks added in this session |
+| Live coverage | 241 rows; **priced 237 + settlements 4 = 241**; 27 tournaments with identical per-tournament counts; 180 distinct teams; 0 look-ahead violations; backtest 65.49% / 0.2144 |
+| Post-merge CI | `refresh-picks` ran on `main` and completed **success**; its refresh commits `7d6c76b`, `eea6d71` carry `model 148 / provisional 80 / market 9 / unresolved 4` |
