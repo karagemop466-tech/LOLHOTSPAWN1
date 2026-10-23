@@ -108,11 +108,11 @@ def collect_pinnacle() -> dict:
     for m in lol:
         if m.get("type") != "matchup":
             continue
-        # Pinnacle lists every LoL series twice: the series moneyline and a parallel
-        # "(Kills)" derivative market (total kills, not the series winner). Only the
-        # series moneyline may feed a match-win probability, so the derivative is
-        # dropped here and would otherwise be indistinguishable once names are normalised.
-        if "(kills)" in " ".join(str(p.get("name") or "") for p in m.get("participants", [])).lower():
+        participants = [p.get("name") or "" for p in m.get("participants", [])]
+        # Pinnacle lists a second, separate matchup for the "most kills" market on the
+        # same series, labelled "<team> (Kills)", with different prices and limits. It is
+        # not the series moneyline and must never stand in for one.
+        if any(re.search(r"\(kills\)", n, re.I) for n in participants):
             kills_skipped += 1
             continue
         st2, markets, err2 = get_json(
@@ -149,12 +149,11 @@ def collect_pinnacle() -> dict:
                         "markets/related/straight"),
         "lol_matchup_count": len(lol),
         "priced_count": len(markets_out),
-        "kills_derivatives_excluded": kills_skipped,
         "markets": markets_out,
     })
     log(f"pinnacle: {len(lol)} LoL matchups, {len(markets_out)} with open series moneylines "
         f"({kills_skipped} '(Kills)' derivatives excluded)")
-    return {"count": len(markets_out)}
+    return {"count": len(markets_out), "kills_derivatives_excluded": kills_skipped}
 
 
 # --------------------------------------------------------------------------- kalshi
@@ -450,21 +449,7 @@ BOOK_PROBES = [
      "CLOB prediction market (full-series filtered)", None),
     ("GG.BET", "https://gg.bet/en/esports/league-of-legends", "Established LoL betting site", None),
     ("BC.GAME", "https://bc.game/sports", "Crypto esportsbook", None),
-    ("EGamersWorld", "https://egamersworld.com/lol/matches",
-     "Esports odds aggregator; when reachable it renders symmetric 1.8/1.8 placeholders, "
-     "so its quotes are never used as a probability input", None),
-    ("Rivalry", "https://rivalry.com/esports/league-of-legends",
-     "Established esportsbook (probe only - no public price feed)", None),
-    ("Thunderpick", "https://thunderpick.io/esports/league-of-legends",
-     "Established esportsbook (probe only - no public price feed)", None),
-    ("Betway Esports", "https://sports.betway.com/en/sports/grp/esports/league-of-legends",
-     "Established sportsbook (probe only - no public price feed)", None),
-    ("1xBet", "https://1xbet.com/en/line/esports/",
-     "Established sportsbook (probe only - no public price feed)", None),
-    ("Cloudbet", "https://www.cloudbet.com/en/sports/league-of-legends",
-     "Established crypto sportsbook (probe only - no public price feed)", None),
-    ("Betano", "https://www.betano.com/sport/e-sports/league-of-legends/",
-     "Established sportsbook (probe only - no public price feed)", None),
+    ("EGamersWorld", "https://egamersworld.com/lol/matches", "Esports odds aggregator (verified fallback receipt for LCP Promotion)", None),
     ("Oddspedia", "https://oddspedia.com/esports/league-of-legends", "Odds comparison engine", None),
     ("OddsPortal", "https://www.oddsportal.com/esports/league-of-legends/", "Odds comparison engine", None),
     ("BetExplorer", "https://www.betexplorer.com/esports/league-of-legends/", "Odds comparison engine", None),
