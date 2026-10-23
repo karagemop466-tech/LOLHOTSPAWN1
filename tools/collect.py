@@ -104,6 +104,7 @@ def collect_pinnacle() -> dict:
            if "league of legends" in (str(m.get("league", {}).get("name", "")) + " "
                                       + str((m.get("league", {}).get("sport") or {}).get("name", ""))).lower()]
     markets_out = []
+    kills_skipped = 0
     for m in lol:
         if m.get("type") != "matchup":
             continue
@@ -112,6 +113,7 @@ def collect_pinnacle() -> dict:
         # same series, labelled "<team> (Kills)", with different prices and limits. It is
         # not the series moneyline and must never stand in for one.
         if any(re.search(r"\(kills\)", n, re.I) for n in participants):
+            kills_skipped += 1
             continue
         st2, markets, err2 = get_json(
             f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{m['id']}/markets/related/straight",
@@ -149,8 +151,9 @@ def collect_pinnacle() -> dict:
         "priced_count": len(markets_out),
         "markets": markets_out,
     })
-    log(f"pinnacle: {len(lol)} LoL matchups, {len(markets_out)} with open moneylines")
-    return {"count": len(markets_out)}
+    log(f"pinnacle: {len(lol)} LoL matchups, {len(markets_out)} with open series moneylines "
+        f"({kills_skipped} '(Kills)' derivatives excluded)")
+    return {"count": len(markets_out), "kills_derivatives_excluded": kills_skipped}
 
 
 # --------------------------------------------------------------------------- kalshi
