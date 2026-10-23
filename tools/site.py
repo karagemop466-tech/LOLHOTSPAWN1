@@ -391,10 +391,14 @@ def research_panel() -> str:
             if ev.get("kind") != "page":
                 continue
             blobs = ", ".join(b.get("label") for b in ev.get("embedded_json") or []) or "none"
+            if ev.get("status") != 200:
+                verdict = f"page did not resolve for LoL (HTTP {ev.get('status')}) &mdash; nothing to parse"
+            elif blobs == "none":
+                verdict = "JavaScript-only rendering &mdash; not parsed"
+            else:
+                verdict = "hydration blob present, no LoL price in it &mdash; no venue parser integrated"
             page_rows.append([e(ev.get("name")), str(ev.get("status")), f'{int(ev.get("bytes") or 0):,}',
-                              e(blobs),
-                              "JavaScript-only rendering &mdash; not parsed"
-                              if blobs == "none" else "hydration blob only &mdash; no venue parser integrated"])
+                              e(blobs), verdict])
         if page_rows:
             deep_html = f"""
   <h3>Why the books that "answer" still cannot be used</h3>
