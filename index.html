@@ -53,7 +53,8 @@
 
 <section class="stats">
   <div class="stat "><div class="sv">241</div><div class="sl">Matches listed on Hotspawn</div><div class=sn>across 27 tournaments</div></div>
-  <div class="stat ok"><div class="sv">245</div><div class="sl">Matches with a pick</div><div class=sn>102% incl. forfeit settlements</div></div>
+  <div class="stat ok"><div class="sv">237</div><div class="sl">With a win probability</div><div class=sn>98% priced</div></div>
+  <div class="stat "><div class="sv">241</div><div class="sl">With a pick</div><div class=sn>100% incl. 4 forfeit settlements</div></div>
   <div class="stat market"><div class="sv">9</div><div class="sl">Market-backed</div><div class=sn>real-money consensus</div></div>
   <div class="stat model"><div class="sv">163</div><div class="sl">Originated lines</div><div class=sn>model, medium confidence</div></div>
   <div class="stat provisional"><div class="sv">65</div><div class="sl">Provisional</div><div class=sn>thin data, flagged</div></div>
@@ -68,11 +69,21 @@
     probabilities, the method and source links. <a href="picks.html"><strong>Card view</strong></a> shows the
     same 241 matches with the full reasoning. Both pages are searchable and filterable by tournament and
     by method.</li>
-    <li><strong>Coverage.</strong> 241 of 241 matches carry a pick with a probability and
-    4 more are resolved to the official forfeit winner, so 245 of 241
-    (102%) have a pick: <a href="featured.html">9 market-backed</a>
+    <li><strong>Coverage.</strong> 241 of 241 matches carry a pick
+    (100%): 237 with a win probability and 4 resolved to the
+    official forfeit winner with no probability claimed.
+    Priced: <a href="featured.html">9 market-backed</a>
     (Bovada, Kalshi, Pinnacle, Polymarket), <a href="originated.html">163 originated</a> and
     <a href="originated.html">65 provisional</a>.</li>
+    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
+    We probed <strong>32 external venues</strong> from the build runner (established books,
+    esportsbooks, exchanges, odds aggregators); 14 answered and 7
+    returned JSON, of which four are price feeds. Across every reachable venue the same slice of the calendar is
+    quoted: <strong>Pinnacle 8 series</strong>,
+    <strong>Kalshi 8 contracts</strong> and
+    <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds
+    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
+    Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
     originated lines are model estimates from community-maintained Leaguepedia history; archived sportsbook
     receipts are excluded from pricing; and the Hotspawn settlement of a forfeited card is unverified - see

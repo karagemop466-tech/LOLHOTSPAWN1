@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:54:43Z",
+ "generated_utc": "2026-10-23T15:55:17Z",
  "checks": [
   {
    "name": "dataset present",
@@ -69,7 +69,7 @@
   {
    "name": "Pinnacle quote URLs point at collected matchups",
    "ok": true,
-   "detail": "7 matchup ids in feed; problems: []"
+   "detail": "8 matchup ids in feed; problems: []"
   },
   {
    "name": "every official-forfeit resolution names a winner and a source URL",
@@ -143,13 +143,13 @@
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
-   "ok": true,
-   "detail": "11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []"
+   "ok": false,
+   "detail": "0 expired receipts, 0 live receipts, limit None h; inconsistencies: []"
   },
   {
    "name": "no published market row is built from a rejected quote",
    "ok": true,
-   "detail": "1 quote(s) rejected this build (placeholders / extremes); 0 extreme"
+   "detail": "0 quote(s) rejected this build (placeholders / extremes); 0 extreme"
   },
   {
    "name": "coverage matrix: every competition row links to a source",
@@ -164,7 +164,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 39954 bytes"
+   "detail": "coverage.html 40041 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -177,7 +177,7 @@
    "detail": "9/14 sources reachable on this build"
   }
  ],
- "passed": true,
+ "passed": false,
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
@@ -188,5 +188,5 @@
   "unresolved": 4,
   "market": 9
  },
- "internal_links": 389
+ "internal_links": 390
 }
