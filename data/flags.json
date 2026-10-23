@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-23T15:44:25Z",
- "count": 22,
+ "generated_utc": "2026-10-23T15:45:05Z",
+ "count": 24,
  "flags": [
   {
    "severity": "high",
@@ -139,10 +139,22 @@
    "source": "https://www.pinnacle.com/en/esports/league-of-legends"
   },
   {
+   "severity": "medium",
+   "item": "1 market row(s) rest on a single prediction market with almost no traded volume",
+   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $5 traded volume (thin-market threshold $1,000), priced 32.5%/67.5%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
+   "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
+  },
+  {
    "severity": "high",
    "item": "4 match(es) carry a settlement pick only - no win probability is claimed",
    "detail": "For these cards the listed participant was removed mid-split by the league (#1071170 Solid Gaming vs VES Japan; #1071200 Solid Gaming vs Playwell Rød Q; #1071206 Volda E-Sport vs Solid Gaming; #1071186 Solid Gaming vs NTNUI Kometkameratene). We publish the administratively correct side (the active opponent, per the official dqteams ruling) and publish no percentage at all, because a competitive probability cannot be justified if the series is voided or awarded as a walkover.",
    "source": "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split"
+  },
+  {
+   "severity": "medium",
+   "item": "1 bookmaker-priced matches disagree on kick-off time",
+   "detail": "Pinnacle's start times differ from Hotspawn's by 2-5 hours on these fixtures. Because Hotspawn and Leaguepedia agree with each other (recorded in each card's 'Why this line'), the odds are treated as valid for the pairing; the card prints both times. Verify before betting: Mental Rush vs Vitality Rising Bees",
+   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
   },
   {
    "severity": "medium",

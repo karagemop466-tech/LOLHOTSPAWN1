@@ -40,6 +40,7 @@ DECAY_FULL_DAYS = 450
 RECEIPT_MAX_AGE_HOURS = 24    # an archived bookmaker receipt is a line only while it is fresh
 EXTREME_DECIMAL_MIN = 1.03    # implied >= ~97.1% on one side is not an actionable line
 MARKET_MODEL_GAP = 0.20       # flag when our Elo line and the market disagree by >= 20 pp
+THIN_VOLUME_USD = 1000.0      # a prediction market below this traded volume is labelled thin
 GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", "lol", "e", "v"}
 
 VENUE_WEIGHTS = {
@@ -383,7 +384,12 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "quote": f"{p0_v*100:.1f}¢/{p1_v*100:.1f}¢",
                     "overround": round(tot - 1.0, 4),
                     "url": f"https://polymarket.com/event/{item['slug']}",
+                    "volume_usd": round(float(item.get("volume") or 0.0), 2),
                 })
+                if primary_start is None:
+                    primary_start = item.get("start")
+                if primary_api_url == "":
+                    primary_api_url = f"https://gamma-api.polymarket.com/events?slug={item['slug']}"
                 break
 
     # 3. Kalshi CFTC Regulated Exchange
@@ -443,7 +449,14 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     # Never present derived fair odds as an observed bookmaker quote.
 
     book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
+    # A single prediction market with almost no traded volume is a price, not a market.
+    # It stays published (it is the only external evidence) but never at high confidence.
+    thin = len(venues) == 1 and venues[0]["name"] == "Polymarket" \
+        and float(venues[0].get("volume_usd") or 0.0) < THIN_VOLUME_USD
     return {
+        "thin": thin,
+        "thin_note": (f"single Polymarket venue with ${float(venues[0].get('volume_usd') or 0):,.0f} "
+                      f"traded volume (thin-market threshold ${THIN_VOLUME_USD:,.0f})") if thin else "",
         "book": book_label,
         "kind": "bookmaker" if any(v["name"] in ("Pinnacle", "Bovada", "Esportsbook") for v in venues) else "prediction market",
         "source_url": venues[0]["url"],
@@ -640,6 +653,10 @@ def main() -> None:
         elif market:
             p0, p1 = market["p0"], market["p1"]
             method, confidence = "market", "high"
+            if market.get("thin"):
+                confidence = "low"
+                flags.append("thin market: " + market["thin_note"]
+                             + " - published as the only external evidence, not as a high-confidence line")
             v_summary = ", ".join(f"{v['name']} {v['p0']*100:.1f}%/{v['p1']*100:.1f}% ({v['quote']})"
                                   for v in market.get("venues") or [])
             basis = f"{market['book']} de-vigged line ({p0*100:.1f}% / {p1*100:.1f}%): {v_summary}."

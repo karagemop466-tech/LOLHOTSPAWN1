@@ -139,6 +139,19 @@ def main() -> None:
             "source": "https://www.pinnacle.com/en/esports/league-of-legends",
         })
 
+    thin = [r for r in rows if (r.get("market") or {}).get("thin")]
+    if thin:
+        flags.append({
+            "severity": "medium",
+            "item": f"{len(thin)} market row(s) rest on a single prediction market with almost no traded volume",
+            "detail": "; ".join(f"{r['team0']['name']} vs {r['team1']['name']} ({r['competition']}): "
+                                f"{r['market']['thin_note']}, priced {(r['p0'] or 0)*100:.1f}%/{(r['p1'] or 0)*100:.1f}%"
+                                for r in thin[:5])
+                      + ". The price is kept because it is the only external evidence for that match, but the row is "
+                        "labelled low confidence and must not be read as a deep-market line.",
+            "source": ((thin[0].get("market") or {}).get("market_url") or HOTSPAWN),
+        })
+
     settlement = [r for r in rows if r.get("pick_type") == "settlement"]
     if settlement:
         listed = "; ".join("#{} {} vs {}".format(r["id"], r["team0"]["name"], r["team1"]["name"])
