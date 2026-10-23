@@ -290,3 +290,19 @@ Existing completed scopes are retained. This session uses the fixed Arena branch
 - Local verification uses the committed 2026-10-23T11:42:37Z Hotspawn snapshot, NOT a new live fetch. Exact inventory reconciliation: 241/241; 17 integrity/link/render gates pass. Five Python regression tests pass, including NaN/out-of-range/wrong-team rejection. jsdom interaction tests pass for menu, search, empty state, method and tournament filters over all 241 cards.
 - Source records: https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/raw/hotspawn_lol.json and the provider URLs on Sources. GitHub Pages configuration confirmed via GitHub API (main /, status built).
 - Irregularity: manual Actions dispatch returns HTTP 403 (integration permission). A new collection cannot be requested from this sandbox; merging pipeline changes triggers the existing push workflow. No credentials requested. Fresh verification/deploy result to be recorded below.
+
+## Session 1f377d7a — 2026-10-23 (pick-coverage + mobile dashboard pass)
+
+| Task | Status | Owner | File scope |
+|---|---|---|---|
+| T1 External-line source probe (established books → esportsbooks), live reachability evidence from a runner | in progress | 1f377d7a | `.github/workflows/source-probe.yml` (new, manual-only), `tools/collect.py` probes only |
+| T2 Price every fixture: competition-anchored prior for sides with no rated series; explicit walkover/void guidance for the DQ rows | in progress | 1f377d7a | `tools/model.py` |
+| T3 Executive summary with in-site jump links + a dedicated unresolved/limitations section on `index.html` | in progress | 1f377d7a | `tools/site.py`, `assets/style.css`, `assets/app.js` |
+| T4 Mobile picks UX: day anchors, sticky filter row, readable cards, back-to-top | in progress | 1f377d7a | `tools/site.py`, `assets/*` |
+| T5 Gate + integrity tests for the new sections | in progress | 1f377d7a | `tools/verify.py`, `tools/integrity.py`, `tests/*` |
+| T6 Integration: rebuild, re-verify line by line, PR → main, merge, confirm Pages | in progress | 1f377d7a | shared outputs (this session is the integration session) |
+
+Starting point: `main` at `8b2fd7f` (session `b91181f0` merged its audit pass). That session's scope is
+retained; this session does not revert its changes. Overlap is limited to `tools/site.py`, `assets/*` and
+`tools/model.py`, and it is additive: the mobile menu/filter fixes and the removal of archived receipts
+stay in place.
