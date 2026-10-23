@@ -46,6 +46,7 @@ NAV = [
     ("picks.html", "All picks"),
     ("featured.html", "Market"),
     ("originated.html", "Model"),
+    ("coverage.html", "Coverage"),
     ("unresolved.html", "Unresolved"),
     ("competitions.html", "Tournaments"),
     ("teams.html", "Teams"),
@@ -311,6 +312,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <a class="quick" href="originated.html"><span class="qk">Model lines</span>
       <span class="qv">{counts.get('model',0)+counts.get('provisional',0)}</span>
       <span class="qn">Low-tier leagues with no bookmaker market: our own Elo probability.</span></a>
+    <a class="quick" href="coverage.html"><span class="qk">Line coverage</span>
+      <span class="qv">{len(featured)}</span>
+      <span class="qn">Which competitions a bookmaker prices, which we originate, and the receipt behind each.</span></a>
     <a class="quick warn" href="unresolved.html"><span class="qk">Unresolved</span><span class="qv">{len(unresolved)}</span>
       <span class="qn">Settlement-only picks, why no percentage is claimed, and every limitation.</span></a>
     <a class="quick" href="competitions.html"><span class="qk">By tournament</span><span class="qv">{comps}</span>
@@ -340,6 +344,10 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     bookmaker and exchange lines, <a href="originated.html"><strong>{counts.get('model',0)} originated model lines</strong></a>
     and <a href="originated.html"><strong>{len(provisional)} provisional lines</strong></a>.
     The full list in kick-off order is <a href="picks.html"><strong>All picks</strong></a>.</li>
+    <li><strong>Which matches have a real bookmaker line, and which we had to originate.</strong>
+    <a href="coverage.html"><strong>External line coverage</strong></a> lists every competition with its
+    method, the external price we captured for it (with the source page and capture time) and the
+    evidence that no reachable bookmaker prices the rest.</li>
     <li><strong>Unresolved picks and the limitations on producing them ({len(unresolved)} matches).</strong>
     These are the {len(settlement)} Komplettligaen 2026 Autumn fixtures involving
     <strong>Solid Gaming</strong>, which the community-maintained Leaguepedia record
