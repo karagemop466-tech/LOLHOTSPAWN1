@@ -26,7 +26,27 @@ def main() -> None:
     sources = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     manual = (load_json(os.path.join(DATA, "flags_manual.json")) or {}).get("flags") or []
 
-    flags: list[dict] = list(manual)
+    # Curated items that state how they were checked keep their own wording; anything that
+    # cannot point at a verification is explicitly relabelled rather than silently trusted.
+    flags: list[dict] = []
+    for f in manual:
+        if f.get("verification"):
+            flags.append({**f, "item": f["item"] + " [" + f["verification"] + "]"})
+        else:
+            flags.append({**f,
+                          "item": "Not reverified: " + f["item"],
+                          "detail": ("Prior statement, not checked against a live official source in this "
+                                     "build. " + f["detail"])})
+    flags.append({
+        "severity": "info",
+        "item": "Leaguepedia is community-maintained, not an official league source",
+        "detail": ("Every originated line is fitted on Leaguepedia's community-recorded series history and its "
+                   "Data: page dqteams directives are used to quarantine removed teams. Leaguepedia is not an "
+                   "official settlement authority; Kalshi's own rules, for example, resolve a pre-play forfeit at "
+                   "the fair market price. Forfeit settlement picks on this site are therefore marked conditional."),
+        "source": "https://lol.fandom.com/wiki/Leaguepedia:Community",
+        "verification": "source role stated, not a value claim",
+    })
     counts = Counter(r["method"] for r in rows)
 
     unresolved = [r for r in rows if r["method"] == "unresolved"]
@@ -79,7 +99,7 @@ def main() -> None:
                       "published start time is more than three hours in the past (earliest "
                       f"{min((r['start_utc'] or '') for r in stale)}). They are kept in the list to mirror "
                       "Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming "
-                      "matches. Most likely postponed or awaiting a result.",
+                      "matches. The reason is unverified.",
             "source": HOTSPAWN,
         })
 

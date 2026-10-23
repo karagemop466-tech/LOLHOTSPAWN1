@@ -407,25 +407,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 })
                 break
 
-    # 5. Verified Specialist Esportsbook quote (includes #1081423 LCP 2027 Promotion)
-    eb = esportsbook_map.get(str(fixture_id))
-    if eb and not eb.get("placeholder"):
-        d0_v = float(eb.get("decimal0") or eb.get("team0_decimal") or 0)
-        d1_v = float(eb.get("decimal1") or eb.get("team1_decimal") or 0)
-        dv = devig_decimal(d0_v, d1_v)
-        if dv:
-            p0_v, p1_v, overround = dv
-            if primary_decimal is None:
-                primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
-            venues.append({
-                "name": "Esportsbook",
-                "weight": VENUE_WEIGHTS["Esportsbook"],
-                "p0": round(p0_v, 4),
-                "p1": round(p1_v, 4),
-                "quote": f"{d0_v:.3g}/{d1_v:.3g}",
-                "overround": round(overround, 4),
-                "url": eb["source_url"],
-            })
+    # Archived aggregator receipts are not refreshed, so they must never enter a current line.
 
     if not venues:
         return None
@@ -434,8 +416,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     p0 = sum(v["weight"] * v["p0"] for v in venues) / wsum
     p1 = round(1.0 - round(p0, 4), 4)
     p0 = round(p0, 4)
-    if primary_decimal is None:
-        primary_decimal = {"home": round(1.0 / max(p0, 0.01), 3), "away": round(1.0 / max(p1, 0.01), 3)}
+    # Never present derived fair odds as an observed bookmaker quote.
 
     total_volume = sum(float(v.get("volume_usd") or 0) for v in venues) or None
     book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
@@ -467,14 +448,11 @@ def main() -> None:
     pmkt = load_json(os.path.join(RAW, "polymarket.json")) or {}
     kalshi = load_json(os.path.join(RAW, "kalshi_lol.json")) or {}
     bovada = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
-    # RETIRED: archived third-party quotes (session 8336fb7e, observed 2026-10-21T20:36Z).
-    # They point at a generic aggregator URL, the aggregator is unreachable from the runner
-    # (HTTP 403) and its live match pages currently render symmetric 1.8/1.8 placeholders.
-    # A quote that cannot be re-verified on the build machine is not evidence, so the map
-    # is deliberately empty; overlapping receipts are published as a review flag instead.
+    # Historical archive is evidence only, never a live pricing input: it cannot be
+    # re-verified on the build machine, so it is excluded and reported instead.
+    receipts = {}
     receipts_doc = load_json(os.path.join(ROOT, "archive", "session-8336fb7e", "data", "book_receipts.json")) or {}
     archived_receipts = receipts_doc.get("quotes") or receipts_doc.get("receipts") or {}
-    receipts: dict = {}
     sources = load_json(os.path.join(DATA, "sources_status.json")) or {}
 
     fixtures = hs.get("fixtures") or []
@@ -497,9 +475,8 @@ def main() -> None:
     pin_kills_excluded = 0
     for mk in pin.get("markets") or []:
         names = [p["name"] for p in mk.get("participants", [])]
-        # Defensive guard: a "(Kills)" participant market is a derivative on total
-        # kills in the series, not the series winner. It must never be treated as
-        # the match moneyline, even if collect.py is changed in future.
+        # A "(Kills)" participant market is a derivative on total kills in the series,
+        # not the series winner: it must never be treated as the match moneyline.
         if any("(kills)" in str(n).lower() for n in names):
             pin_kills_excluded += 1
             continue
@@ -614,15 +591,11 @@ def main() -> None:
             active_opp = n1 if dq0 else n0
             p0 = p1 = None
             method, confidence = "unresolved", "none"
-            basis = (f"Participant removed mid-split: official Data:{page} records "
+            basis = (f"Participant removed mid-split: community-maintained Leaguepedia Data:{page} records "
                      f"'dqteams={removed}' (remaining matches forfeited to opponents). "
                      f"Hotspawn may void this card or settle walkover in favour of active opponent {active_opp}.")
-            flags.append(f"official league removal: {removed} listed in Data:{page} dqteams "
+            flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
-            # A pick without a fabricated probability: the official Leaguepedia record
-            # grades every remaining fixture featuring the removed team as a forfeit win
-            # for the opponent. That is a settlement outcome, not an Elo forecast, so it is
-            # published separately from p0/p1 and never mixed into win-probability stats.
             resolution = {
                 "type": "official-forfeit",
                 "winner": active_opp,
@@ -635,8 +608,6 @@ def main() -> None:
         elif market:
             p0, p1 = market["p0"], market["p1"]
             method, confidence = "market", "high"
-            # A single prediction-market venue with almost no traded volume is a real
-            # quote but a weak signal; label it low confidence instead of high.
             if (market.get("venue_count") or 0) == 1 and (market.get("total_volume_usd") or 0) < 1000:
                 confidence = "low"
                 flags.append(
@@ -679,15 +650,17 @@ def main() -> None:
             if n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT:
                 flags.append("fewer than 5 rated series for at least one team")
         elif er0 is not None or er1 is not None:
+            # Full-coverage brief: publish an explicit low-confidence line rather than a blank,
+            # with the 1500 prior stated on the card so the assumption is visible, never hidden.
             rated_is_0 = er0 is not None
             p0 = clamp(win_probability(er0 if rated_is_0 else ELO_START,
                                        ELO_START if rated_is_0 else er1))
             p1 = round(1 - p0, 4)
             method, confidence = "provisional", "low"
             missing = n1 if rated_is_0 else n0
-            basis = (f"Elo line with one unrated side: {missing} has no rated series on "
-                     f"record, so the 1500 baseline is used for that side.")
-            flags.append(f"{missing} has no rated series in Leaguepedia")
+            basis = (f"Elo line with one unrated side: {missing} has no rated series on record, "
+                     f"so the 1500 league-average prior is used for that side. Low confidence.")
+            flags.append(f"{missing} has no rated series in Leaguepedia (1500 prior used)")
         else:
             p0 = p1 = None
             method, confidence = "unresolved", "none"
@@ -709,7 +682,7 @@ def main() -> None:
                 stale = False
         if stale:
             flags.append("start time has passed but Hotspawn still lists the fixture as scheduled "
-                         "(likely postponed or awaiting a result)")
+                         "(reason unverified)")
         if row["team0"]["join"] == "ambiguous" or row["team1"]["join"] == "ambiguous":
             flags.append("team name could not be matched unambiguously")
 
@@ -734,7 +707,6 @@ def main() -> None:
         counts_by_method[r["method"]] = counts_by_method.get(r["method"], 0) + 1
     counts_by_method["walkover"] = sum(1 for r in rows if r.get("resolution"))
 
-    # Archived receipts that overlap a live fixture are reported, never priced.
     live_ids = {r["id"] for r in rows}
     retired = []
     for fid, q in (archived_receipts or {}).items():
@@ -751,14 +723,15 @@ def main() -> None:
         "generated_utc": iso(now_utc()),
         "reason": ("Archived third-party quotes from archive/session-8336fb7e/data/book_receipts.json are "
                    "not re-verifiable: the aggregator returns HTTP 403 to the build runner and its live "
-                   "match pages currently show symmetric 1.8/1.8 placeholders. Excluded from all probabilities "
-                   "so that no unverifiable price can influence a pick."),
+                   "match pages currently show symmetric 1.8/1.8 placeholders. Excluded from every "
+                   "probability so that no unverifiable price can influence a pick."),
         "retired_count": len(retired),
         "quotes": retired,
     })
 
     save_json(os.path.join(DATA, "matches.json"), {
         "generated_utc": iso(now_utc()),
+        "inventory_fetched_utc": hs.get("fetched_utc"),
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
                   "shrink": ELO_SHRINK, "min_matches_confident": MIN_MATCHES_CONFIDENT,
                   "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,

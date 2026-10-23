@@ -37,7 +37,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -48,7 +49,8 @@ jobs:
 
       - name: Run pipeline (captured log)
         run: |
-          set -o pipefail
+          set -euo pipefail
+          python3 -m unittest discover -s tests -v
           mkdir -p data
           {
             echo "=== build $(date -u +%FT%TZ) ==="
@@ -73,10 +75,11 @@ jobs:
           set -e
           git config user.name  "arena-refresh-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add -A
+          git add data/*.json data/*.csv data/build.log data/raw assets *.html
           if git diff --cached --quiet; then
             echo "no changes"
           else
             git commit -m "chore(data): refresh fixtures, lines and site"
-            git push
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
           fi

@@ -128,3 +128,21 @@ python3 tools/collect.py && python3 tools/model.py && python3 tools/report.py \
 
 The collector needs outbound HTTPS to the sources listed on `sources.html`; the rest runs offline on
 the files in `data/`.
+
+### 2026-10-23 integrity audit
+
+The canonical mobile controls are wired to the current HTML (search, tournament,
+method chips, menu); a permanent mobile **All picks** link is available on every page.
+Inventory collection time is separate from model build time, with a browser warning
+after eight hours. Six-hour Actions scheduling is best effort, not a live-odds SLA.
+
+Archived 2026-10-21 aggregator receipts are **not** current quotes and are excluded
+from pricing. Leaguepedia is a community source; its results are not labelled official
+league verification. Model probabilities are estimates, never confirmed facts.
+If either team has no matched rated history and no collected market, probabilities
+and picks remain blank. Recorded removals remain quarantined pending settlement.
+Historical manual findings are visibly marked as not reverified.
+
+Run `python3 -m unittest discover -s tests -v` and `python3 tools/verify.py`.
+The gate reconciles the exact inventory ID multiset, checks finite probabilities,
+checks the actual named favourite, and checks each match card's unique ID.

@@ -1,10 +1,20 @@
 {
- "generated_utc": "2026-10-23T15:43:26Z",
+ "generated_utc": "2026-10-23T15:44:49Z",
  "checks": [
   {
    "name": "dataset present",
    "ok": true,
    "detail": "241 matches loaded"
+  },
+  {
+   "name": "complete inventory reconciliation",
+   "ok": true,
+   "detail": "raw fixtures=241, published rows=241; exact ID multiset comparison"
+  },
+  {
+   "name": "finite probabilities and correctly named picks",
+   "ok": true,
+   "detail": "[]"
   },
   {
    "name": "every row links to its Hotspawn match card",
@@ -14,7 +24,7 @@
   {
    "name": "probabilities sum to 100% (tolerance 0.2pp)",
    "ok": true,
-   "detail": "241 priced rows verified; problems: []"
+   "detail": "237 priced rows checked; problems: []"
   },
   {
    "name": "pick matches the higher probability",
@@ -113,5 +123,5 @@
   "unresolved": 4,
   "market": 9
  },
- "internal_links": 266
+ "internal_links": 279
 }

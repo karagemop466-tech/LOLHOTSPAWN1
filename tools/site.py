@@ -81,6 +81,7 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
         nav_parts.append(f'<a href="{e(href)}"{cls}>{e(label)}</a>')
     nav = "".join(nav_parts)
     meta = load_json(os.path.join(DATA, "matches.json")) or {}
+    fetched = meta.get("inventory_fetched_utc") or (load_json(os.path.join(DATA, "raw/hotspawn_lol.json")) or {}).get("fetched_utc", "")
     updated = (meta.get("generated_utc") or "")[:16].replace("T", " ")
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -104,16 +105,18 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
   <div class="pagehead">
     <h1>{e(title)}</h1>
     {f'<p class="sub">{subtitle}</p>' if subtitle else ''}
-    <p class="stamp">Data snapshot: <strong>{e(updated)} UTC</strong> &middot; refreshed automatically every 6 hours</p>
+    <p class="stamp">Data snapshot: <strong>{e(updated)} UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="{e(fetched)}">Inventory collected: {e(fetched)}. Check source timestamps before use.</p>
   </div>
   {body}
 </main>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Every row links to its official source. Zero Hotspawn crowd-pick input.</p>
+  <p>Independent research dashboard. Rows link to their source records. Leaguepedia is community-maintained; model lines are estimates, not verified facts. Zero Hotspawn crowd-pick input.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
+<a class="mobile-picks" href="table.html">All picks &rarr;</a>
 <script src="assets/app.js"></script>
 </body>
 </html>
@@ -171,7 +174,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
                          f'rel="noopener">{e(t1["name"])}</a>')
         sources = '<div class="src">' + "".join(links) + "</div>"
 
-    return f"""<article class="card m-{e(m)}" data-method="{e(m)}" data-comp="{e(r['competition'])}"
+    return f"""<article id="match-{e(r['id'])}" class="card m-{e(m)}" data-method="{e(m)}" data-comp="{e(r['competition'])}"
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
@@ -370,6 +373,10 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     ({resolved_total/total*100:.0f}%) have a pick: <a href="featured.html">{len(featured)} market-backed</a>
     ({e(venues_txt)}), <a href="originated.html">{counts.get('model',0)} originated</a> and
     <a href="originated.html">{len(provisional)} provisional</a>.</li>
+    <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
+    originated lines are model estimates from community-maintained Leaguepedia history; archived sportsbook
+    receipts are excluded from pricing; and the Hotspawn settlement of a forfeited card is unverified - see
+    <a href="flagged.html">Flagged for review</a>.</li>
     <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
     captured for audit comparison only and carry zero weight in any probability - see
     <a href="methodology.html">Method &amp; out-of-sample backtest</a>.</li>
@@ -495,7 +502,7 @@ def build_picks(rows: list[dict], counts: Counter) -> str:
     <select id="comp" aria-label="Filter by tournament"><option value="">All tournaments</option>{opts}</select>
     <div class="chips"><button class="chip active" data-filter="">All <span>{len(rows)}</span></button>{chips}</div>
   </div>
-  <p class="muted small" id="count">{len(rows)} matches shown</p>
+  <p class="muted small" id="count" role="status" aria-live="polite">{len(rows)} matches shown</p>
   <div class="cards" id="list">
     {"".join(match_card(r) for r in rows)}
   </div>
@@ -536,7 +543,7 @@ def build_featured(rows: list[dict]) -> str:
   placeholders are rejected, Pinnacle's parallel &quot;(Kills)&quot; derivative markets are excluded from the
   series consensus, and a single prediction market with almost no traded volume is downgraded to low
   confidence (see <a href="flagged.html">Flagged for review</a>).</p>
-  {table(["Start (UTC)", "Tournament", "Pick &amp; Match", "Consensus (A / B)", "Venues", "Primary Decimal", "Verified Sources"], rows_html)}
+  {table(["Start (UTC)", "Tournament", "Pick &amp; Match", "Consensus (A / B)", "Venues", "Primary Decimal", "Source records"], rows_html)}
   <h3>Proportional de-vig &amp; consensus formula</h3>
   <p class="formula">p&#770;<sub>v</sub> = (1/o<sub>1,v</sub>) / (1/o<sub>1,v</sub> + 1/o<sub>2,v</sub>), &nbsp;&nbsp; P(A) = &sum; w<sub>v</sub> p&#770;<sub>v</sub> / &sum; w<sub>v</sub></p>
   <div class="cards">{"".join(match_card(r) for r in items)}</div>
@@ -637,10 +644,11 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
     body = f"""
 <section class="panel">
   <h2>Unresolved picks ({len(unresolved)})</h2>
-  <p class="lead">A fixture is quarantined here when competitive resolution is impossible — specifically
+  <p class="lead">A fixture is quarantined here when no defensible win probability exists — specifically
   mid-split league disqualifications/removals (<code>dqteams</code>) where matches are never played on the Rift,
-  or cards with zero match history on both sides. If Hotspawn settles walkovers rather than voiding, the active
-  non-disqualified opponent named on each row receives the default win.</p>
+  or cards with no match history on either side. Where the competition record already awards a forfeit, the
+  official settlement winner is listed in its own column. Leaguepedia is a community source, not a settlement
+  authority, and Hotspawn's grading of a voided card is unverified: treat a forfeit pick as conditional.</p>
   {'<p class="muted">No unresolved matches in this snapshot.</p>' if not unresolved else table(["Start (UTC)", "Tournament", "Match", "Official settlement pick", "Why competitive pricing is impossible", "Verified Sources"], reason_rows)}
 </section>
 
@@ -709,7 +717,7 @@ def build_teams(rows: list[dict]) -> str:
     body = f"""
 <section class="panel">
   <h2>{len(ordered)} teams on the current list</h2>
-  <p class="lead">Ratings are fitted chronologically from official series results. Non-exact name joins are
+  <p class="lead">Ratings are fitted chronologically from community-recorded series results. Non-exact name joins are
   audited individually on <a href="verification.html">Verification</a>.</p>
   {table(["Team (Hotspawn)", "Leaguepedia team", "Elo", "Rated series", "Last played", "Join"], out)}
 </section>

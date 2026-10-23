@@ -139,6 +139,36 @@
     applyAll();
   }
 
+  // Mobile menu toggle
+  function initMenu() {
+    var menu = document.querySelector(".menu-btn");
+    var nav = document.getElementById("nav");
+    if (!menu || !nav) return;
+    menu.addEventListener("click", function () {
+      var open = menu.getAttribute("aria-expanded") !== "true";
+      menu.setAttribute("aria-expanded", String(open));
+      nav.classList.toggle("open", open);
+    });
+  }
+
+  // Snapshot age: never let a stale snapshot look like live odds
+  function initSnapshotAge() {
+    var snapshot = document.getElementById("snapshot-age");
+    if (!snapshot) return;
+    var hours = (Date.now() - Date.parse(snapshot.getAttribute("data-fetched"))) / 3600000;
+    if (!isFinite(hours)) {
+      snapshot.textContent = "Inventory collection time unverified.";
+      snapshot.classList.add("stale-warning");
+      return;
+    }
+    var age = Math.max(0, Math.floor(hours));
+    snapshot.textContent = "Inventory collected " + age + " hour" + (age === 1 ? "" : "s") + " ago.";
+    if (hours > 8) {
+      snapshot.classList.add("stale-warning");
+      snapshot.textContent += " Refresh overdue - these are not live odds. Check the source links before using a pick.";
+    }
+  }
+
   // Pick-table filters (table.html): search + tournament + method chips
   function initTableFilter() {
     var q = document.getElementById("tq");
@@ -185,11 +215,15 @@
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
       hydrateTimestamps();
+      initMenu();
+      initSnapshotAge();
       initPickFilters();
       initTableFilter();
     });
   } else {
     hydrateTimestamps();
+    initMenu();
+    initSnapshotAge();
     initPickFilters();
     initTableFilter();
   }

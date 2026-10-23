@@ -281,15 +281,42 @@ authoritative one), and the backtest rendering fix (gate now 15/15).
 
 | ID | Work unit | Status | Owner | File scope |
 |----|-----------|--------|-------|-----------|
-| `S1` | Line-by-line audit of the published dataset against live official sources | in progress | `4dfd0e71` | `data/raw/`, `data/matches.json` (read) |
-| `S2` | Exclude Pinnacle "(Kills)" derivative markets from the series consensus | in progress | `4dfd0e71` | `tools/collect.py`, `tools/model.py` |
-| `S3` | Retire the stale archived `book_receipts.json` venue quote (unverifiable) | in progress | `4dfd0e71` | `tools/model.py` |
-| `S4` | Official-walkover resolution for `dqteams` fixtures (pick without invented probability) | in progress | `4dfd0e71` | `tools/model.py`, `tools/site.py` |
-| `S5` | Mobile pick **table** page + executive summary rework (unresolved section + in-site links) | in progress | `4dfd0e71` | `tools/site.py`, `tools/verify.py`, `assets/` |
-| `S6` | Correct stale curated flags, publish the new irregularities | in progress | `4dfd0e71` | `data/flags_manual.json`, `tools/flags.py` |
+| `S1` | Line-by-line audit of the published dataset against live official sources | done | `4dfd0e71` | `data/raw/`, `data/matches.json` (read) |
+| `S2` | Exclude Pinnacle "(Kills)" derivative markets from the series consensus | done | `4dfd0e71` | `tools/collect.py`, `tools/model.py` |
+| `S3` | Retire the stale archived `book_receipts.json` venue quote (unverifiable) | done | `4dfd0e71` | `tools/model.py` |
+| `S4` | Official-walkover resolution for `dqteams` fixtures (pick without invented probability) | done | `4dfd0e71` | `tools/model.py`, `tools/site.py` |
+| `S5` | Mobile pick **table** page + executive summary rework (unresolved section + in-site links) | done | `4dfd0e71` | `tools/site.py`, `tools/verify.py`, `assets/` |
+| `S6` | Correct stale curated flags, publish the new irregularities | done | `4dfd0e71` | `data/flags_manual.json`, `tools/flags.py` |
 
 No other session owns these files in the current board; integration is performed by this session
 because the board's integration item (#8) is already `done` and `main` is the published branch.
+
+### Merge with `origin/main` (sessions b91181f0 / 0d48f265) — 2026-10-23T15:45Z
+
+`main` advanced twice while this session ran (PR #19, PR #20). `origin/main` was merged into this
+branch; nothing was discarded, and two deliberate design conflicts were resolved as follows.
+
+| Conflict | `origin/main` position | Resolution here |
+|---|---|---|
+| One-sided history (one team has no rated series) | leave `p0/p1` null, method `unresolved`, no baseline | **restored the 1500 prior as `provisional`**, because the brief requires a pick or a probability for every match. The assumption is printed on the card ("1500 league-average prior used"), the row is labelled provisional/low-confidence, and `integrity.row_errors` still guarantees the number is a real probability. A blank row remains in `unresolved` only when *both* sides are unrated. |
+| Client-side filtering / mobile menu | `app.js` rewritten with menu + snapshot-age, filters dropped | Kept the other session's menu toggle, snapshot-age warning, `[hidden]`, focus-visible and sticky *All picks* button **and** restored the card/table filters that the canonical pages emit markup for. |
+
+Adopted from `origin/main` unchanged: `tools/integrity.py` + `tests/test_integrity.py`, the
+`inventory_fetched_utc` provenance stamp, the "refresh scheduled, not guaranteed" wording, the
+"Source records (not official verification)" table headers, the community-maintained-Leaguepedia
+caveat, and the hedged settlement wording on the unresolved page.
+
+### Verification performed on the merged tree (2026-10-23T15:45Z)
+
+| Check | Result |
+|---|---|
+| `tools/verify.py` (publish gate) | 22/22 assertions PASS (up from 15; 7 new integrity assertions) |
+| `python3 -m unittest discover -s tests` | 5/5 OK (`integrity.row_errors` regression suite) |
+| Market picks after the `(Kills)` fix | 9 rows, all true series moneylines from Pinnacle + Polymarket + Kalshi + Bovada (or 3 venues where one is unmatched) |
+| Archived receipts | 0 used; 10 overlapping quotes published in `data/retired_quotes.json` |
+| Forfeit resolutions | 4 rows, each with winner + Leaguepedia Data: URL, no probability |
+| Table coverage | 241/241 rows on `table.html`, 241 cards on `picks.html` |
+| Internal links | 0 broken across 12 pages |
 
 ### Findings so far (evidence in the audit table on `verification.html` and `flagged.html`)
 
@@ -313,3 +340,6 @@ because the board's integration item (#8) is already `done` and `main` is the pu
    Solid Gaming series is recorded 0-2 with `ff=1`/`ff=2`. The quarantine is correct; the four
    fixtures are now additionally resolved to the *official walkover* winner without inventing a
    win probability.
+
+---
+
