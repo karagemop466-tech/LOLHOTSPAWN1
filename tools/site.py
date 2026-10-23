@@ -3,7 +3,7 @@
 
 Design goals: mobile-first, one clear place to find every pick, executive summary
 with in-site links, multi-venue real-money consensus links, out-of-sample SVG
-calibration reliability curve, and a verified source link on every row.
+calibration reliability curve, and a visible match/source URL on every row.
 """
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ METHOD_LABEL = {
     "unresolved": "Unresolved",
 }
 METHOD_HELP = {
-    "market": "De-vigged consensus across real-money books & prediction exchanges.",
+    "market": "Estimate derived from available real-money book and prediction-exchange prices; per-match coverage varies.",
     "model": "Our Elo line from recorded series results (both teams rated, connected).",
     "provisional": "Our Elo line with thin data - low confidence, shown but flagged.",
     "unresolved": "No defensible competitive line (mid-split league removal / unrated).",
@@ -108,7 +108,7 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
   {body}
 </main>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Every row links to its official source. Zero Hotspawn crowd-pick input.</p>
+  <p>Independent estimates. Match cards link to Hotspawn listings; quoted prices link to venues; model history links to Leaguepedia, a community-maintained source. Probabilities are estimates, not official Riot odds or guaranteed outcomes. Hotspawn crowd picks are never used.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
@@ -140,7 +140,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
                      '<span class="muted">see Unresolved &amp; why below</span></div>')
     flags = ""
     if r["flags"]:
-        flags = '<ul class="flags">' + "".join(f"<li>{e(f)}</li>" for f in r["flags"]) + "</ul>"
+        flags = '\n    <ul class="flags">' + "".join(f"<li>{e(f)}</li>" for f in r["flags"]) + "</ul>"
     sources = ""
     if show_sources:
         links = [f'<a href="{e(r["hotspawn_url"])}" rel="noopener">Hotspawn card</a>']
@@ -180,8 +180,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
   </div>
   {pick_html}
   <details class="why"><summary>Why this line</summary>
-    <p>{e(r['basis'])}</p>
-    {flags}
+    <p>{e(r['basis'])}</p>{flags}
   </details>
   {sources}
 </article>"""
@@ -255,10 +254,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 <section class="hero">
   <h2>Every Hotspawn League of Legends match, with a line we can defend.</h2>
   <p>This dashboard rebuilds itself automatically every six hours across all {total} scheduled LoL matches on
-  Hotspawn. Featured series combine real-money quotes across <strong>Pinnacle, Polymarket, Kalshi (CFTC),
-  Bovada, and specialist esportsbooks</strong>; low-tier regional leagues are originated from recorded series
-  history; and disqualified mid-split removals are quarantined in <a href="unresolved.html">Unresolved</a>.
-  Nothing on this site ever uses Hotspawn's crowd-pick percentages.</p>
+  Hotspawn. Picks are probability estimates: market-backed figures use external bookmaker/exchange prices when
+  available; lower-tier matches use a historical model. Some matches have only one available market source, and
+  model history is from Leaguepedia, a community-maintained source. See each card and the <a href="methodology.html">methodology</a> for provenance and limitations. These are not official Riot odds or guaranteed outcomes. Nothing here uses Hotspawn's crowd-pick percentages.</p>
   <div class="cta">
     <a class="btn primary" href="picks.html">All {total} matches &amp; picks &rarr;</a>
     <a class="btn" href="featured.html">Market-backed picks ({len(featured)})</a>
@@ -269,8 +267,8 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
 <section class="stats">
   {stat_card("Matches listed on Hotspawn", total, f"across {comps} tournaments")}
-  {stat_card("Matches with a pick", with_pick, f"{with_pick/total*100:.0f}% coverage", "ok")}
-  {stat_card("Market-backed", len(featured), "5-venue real-money consensus", "market")}
+  {stat_card("Matches with a displayed estimate", with_pick, f"{with_pick/total*100:.0f}% have a pick estimate", "ok")}
+  {stat_card("Market-backed", len(featured), "external prices; venue coverage varies by match", "market")}
   {stat_card("Originated lines", counts.get('model',0), "model, medium confidence", "model")}
   {stat_card("Provisional", len(provisional), "thin data, flagged", "provisional")}
   {stat_card("Unresolved", len(unresolved), "league DQ / unplayable", "unresolved")}
@@ -279,25 +277,23 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 <section class="panel">
   <h2>Executive summary</h2>
   <ul class="bullets">
-    <li><strong>Coverage &amp; direct links.</strong> {with_pick} of {total} scheduled LoL matches carry a verified pick:
-    <a href="featured.html"><strong>{len(featured)} Market-backed picks</strong></a> (Worlds 2026 Knockout Stage,
-    EMEA Masters Final, and LCP 2027 Promotion across Pinnacle, Polymarket, Kalshi CFTC, Bovada &amp; specialist
-    esportsbooks), <a href="originated.html"><strong>{counts.get('model',0)} Solid originated lines</strong></a>,
-    and <a href="originated.html"><strong>{len(provisional)} Provisional lines</strong></a>. Browse all cards in
+    <li><strong>Coverage &amp; direct links.</strong> {with_pick} of {total} scheduled LoL matches have a displayed pick estimate:
+    <a href="featured.html"><strong>{len(featured)} market-backed estimates</strong></a> (external prices are not available at every venue for every match),
+    <a href="originated.html"><strong>{counts.get('model',0)} model estimates</strong></a>, and
+    <a href="originated.html"><strong>{len(provisional)} provisional estimates</strong></a>. Browse all cards in
     kick-off order on <a href="picks.html"><strong>All picks</strong></a>.</li>
     <li><strong>Unresolved picks &amp; limitations ({len(unresolved)} quarantined).</strong>
-    {len(unresolved)} fixtures involve participants officially removed mid-split under Leaguepedia
-    <code>dqteams</code> directives (including upcoming <strong>#1071216 Solid Gaming vs DMG Esports Norway</strong>
-    in Komplettligaen, where Solid Gaming was removed in Round 10 yet 72% of Hotspawn's crowd picked Solid Gaming).
-    Every unresolved fixture, its walkover/void caveat, and all data limitations are documented on
+    {len(unresolved)} fixtures are quarantined based on recorded mid-split removals in Leaguepedia's community-maintained
+    <code>dqteams</code> data or other unpriceable conditions; those removal records are not represented as Riot-official.
+    Every unresolved fixture, settlement caveat, and data limitation is documented on
     <a href="unresolved.html"><strong>Unresolved &amp; limitations</strong></a>.</li>
     <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
     captured strictly for audit comparison (e.g. exposing the +33.8 pp crowd distortion on
     <em>Galions vs Solary</em>) and have zero weight anywhere in our probabilities — see
     <a href="methodology.html"><strong>Method &amp; out-of-sample backtest</strong></a>.</li>
     <li><strong>Live sources &amp; 6-hour automation.</strong> {live_sources} of {len(src_status)} probed feeds
-    returned live HTTP 200 on the latest runner build (<a href="sources.html">Sources</a>), verified by 15
-    automated publish gates (<a href="verification.html">Verification</a>) and audited on
+    returned live HTTP 200 on the latest runner build (<a href="sources.html">Sources</a>); the publish gates check
+    inventory, links, and probability arithmetic (<a href="verification.html">Verification</a>), not whether a model estimate will be correct. Irregularities are listed on
     <a href="flagged.html">Flagged for review</a>.</li>
   </ul>
 </section>
@@ -308,7 +304,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   list with every match on Hotspawn, next kick-off first.</p>
   <ul class="linklist">
     <li><a href="picks.html">All picks &rarr;</a><span>Complete list, {total} matches, instant mobile search &amp; tournament filter.</span></li>
-    <li><a href="featured.html">Market-backed picks &rarr;</a><span>{len(featured)} matches priced from de-vigged multi-venue sportsbook &amp; exchange consensus.</span></li>
+    <li><a href="featured.html">Market-backed estimates &rarr;</a><span>{len(featured)} matches with external sportsbook or exchange prices; the number of sources varies by match.</span></li>
     <li><a href="originated.html">Originated low-tier lines &rarr;</a><span>{counts.get('model',0)+counts.get('provisional',0)} regional/academy matches originated from recorded series history.</span></li>
     <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>{len(unresolved)} mid-split league removals we refuse to guess on, plus all {len(provisional)} provisional caveats.</span></li>
     <li><a href="competitions.html">By tournament &rarr;</a><span>Coverage breakdown across all {comps} LoL competitions.</span></li>
@@ -376,19 +372,20 @@ def build_featured(rows: list[dict]) -> str:
         ])
     body = f"""
 <section class="panel">
-  <h2>{len(items)} matches with real-money bookmaker &amp; exchange consensus</h2>
-  <p class="lead">Featured matches combine live quotes across <strong>Pinnacle (weight 0.36), Polymarket
-  full-series CLOB (0.24), Kalshi CFTC regulated contracts (0.18), Bovada (0.12), and verified specialist
-  esportsbooks (0.10)</strong>. Bookmaker margin is removed proportionally on each venue before precision
-  weighting, and symmetric 1.80 / 1.80 aggregator placeholders are rejected automatically.</p>
-  {table(["Start (UTC)", "Tournament", "Pick &amp; Match", "Consensus (A / B)", "Venues", "Primary Decimal", "Verified Sources"], rows_html)}
-  <h3>Proportional de-vig &amp; consensus formula</h3>
+  <h2>{len(items)} matches with external market-based estimates</h2>
+  <p class="lead">Where multiple eligible external prices are available, the estimate combines quotes from
+  Pinnacle (weight 0.36), Polymarket full-series CLOB (0.24), Kalshi (0.18), Bovada (0.12), and specialist
+  esportsbooks (0.10), renormalized over the sources present for that match. Source coverage varies: some matches
+  have only one usable quote. Bookmaker margin is removed proportionally where decimal odds are available, and
+  symmetric 1.80 / 1.80 aggregator placeholders are rejected. These are derived estimates, not official Riot odds.</p>
+  {table(["Start (UTC)", "Tournament", "Pick &amp; Match", "Estimate (A / B)", "Venue coverage", "Primary Decimal", "Sources"], rows_html)}
+  <h3>Proportional de-vig &amp; weighted-estimate formula</h3>
   <p class="formula">p&#770;<sub>v</sub> = (1/o<sub>1,v</sub>) / (1/o<sub>1,v</sub> + 1/o<sub>2,v</sub>), &nbsp;&nbsp; P(A) = &sum; w<sub>v</sub> p&#770;<sub>v</sub> / &sum; w<sub>v</sub></p>
   <div class="cards">{"".join(match_card(r) for r in items)}</div>
 </section>
 """
     return page_shell("Market-backed picks", "featured.html", body,
-                      "Matches priced from de-vigged real-money bookmaker & prediction-exchange consensus.")
+                      "Market-based probability estimates from available bookmaker and prediction-exchange prices; coverage varies by match.")
 
 
 def build_originated(rows: list[dict], counts: Counter) -> str:
@@ -450,7 +447,7 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
         ])
     lim_rows = [
         ["Mid-split league removals (dqteams)", f"{len(unresolved)} matches",
-         "Official Leaguepedia Data: pages record mid-split team removals ('dqteams=Solid Gaming' in Komplettligaen "
+         "Leaguepedia's community-maintained Data: pages record mid-split team removals ('dqteams=Solid Gaming' in Komplettligaen "
          "Round 10; 'dqteams=Arctic Pandas' in NLC Lower Division). Because Hotspawn may either void the card or "
          "grade walkovers in favour of the remaining active opponent, assigning an Elo win probability from pre-removal "
          "matches is invalid (and trapped 72% of Hotspawn's crowd on Solid Gaming in #1071216)."],
@@ -474,11 +471,11 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
     body = f"""
 <section class="panel">
   <h2>Unresolved picks ({len(unresolved)})</h2>
-  <p class="lead">A fixture is quarantined here when competitive resolution is impossible — specifically
-  mid-split league disqualifications/removals (<code>dqteams</code>) where matches are never played on the Rift,
-  or cards with zero match history on both sides. If Hotspawn settles walkovers rather than voiding, the active
-  non-disqualified opponent named on each row receives the default win.</p>
-  {'<p class="muted">No unresolved matches in this snapshot.</p>' if not unresolved else table(["Start (UTC)", "Tournament", "Match", "Why competitive pricing is impossible &amp; settlement note", "Verified Sources"], reason_rows)}
+  <p class="lead">A fixture is quarantined here when competitive resolution is impossible — including matches affected by
+  mid-split removals recorded in Leaguepedia's community-maintained <code>dqteams</code> data or cards with no usable
+  competitive history. These records are not Riot-official confirmation. Settlement may depend on Hotspawn's rules;
+  this dashboard does not assume a walkover result unless a source supports it.</p>
+  {'<p class="muted">No unresolved matches in this snapshot.</p>' if not unresolved else table(["Start (UTC)", "Tournament", "Match", "Why competitive pricing is impossible &amp; settlement note", "Sources"], reason_rows)}
 </section>
 
 <section class="panel">
@@ -546,8 +543,7 @@ def build_teams(rows: list[dict]) -> str:
     body = f"""
 <section class="panel">
   <h2>{len(ordered)} teams on the current list</h2>
-  <p class="lead">Ratings are fitted chronologically from official series results. Non-exact name joins are
-  audited individually on <a href="verification.html">Verification</a>.</p>
+  <p class="lead">Ratings are fitted chronologically from Leaguepedia's community-maintained series history, not an official Riot results feed. Non-exact name joins are audited individually on <a href="verification.html">Verification</a>; ratings and win probabilities remain model estimates.</p>
   {table(["Team (Hotspawn)", "Leaguepedia team", "Elo", "Rated series", "Last played", "Join"], out)}
 </section>
 """
@@ -562,14 +558,16 @@ def build_methodology(model: dict) -> str:
   <ol class="steps">
     <li><strong>Inventory.</strong> Every League of Legends fixture is pulled from Hotspawn's public fixtures API
     (<a href="https://play.hotspawn.com/lol-pickems" rel="noopener">play.hotspawn.com/lol-pickems</a>).</li>
-    <li><strong>Tier 1 — Multi-venue real-money consensus.</strong> Live odds and contract books from
-    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12), and
-    verified specialist esportsbooks (0.10)</strong> are de-vigged proportionally and precision-weighted.</li>
-    <li><strong>Tier 2 — Originated regional Elo lines.</strong> All recorded Leaguepedia series since
-    {e(model.get('window_start',''))} are processed chronologically with inactivity decay and shrinkage toward 1500.</li>
+    <li><strong>Tier 1 — External market-based estimates.</strong> Where available, live prices from
+    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi (0.18), Bovada (0.12), and
+    specialist esportsbooks (0.10)</strong> are combined with bookmaker margin removed where applicable. The weights
+    are renormalized over sources present; coverage varies per match, including some single-source prices.</li>
+    <li><strong>Tier 2 — Originated regional Elo estimates.</strong> Available Leaguepedia series history since
+    {e(model.get('window_start',''))} is processed chronologically with inactivity decay and shrinkage toward 1500.
+    Leaguepedia is community-maintained, not an official Riot match-results feed; gaps and team-name ambiguity can affect estimates.</li>
     <li><strong>Tier 3 — Provisional &amp; Unresolved quarantine.</strong> Thin-sample teams (&lt;5 series) are marked
-    <em>provisional</em>; officially removed mid-split teams (<code>dqteams</code>) are quarantined in
-    <a href="unresolved.html">Unresolved</a> rather than mispriced.</li>
+    <em>provisional</em>; mid-split removals recorded in community-maintained <code>dqteams</code> data are quarantined in
+    <a href="unresolved.html">Unresolved</a> rather than assigned a market probability. This record is not official Riot confirmation.</li>
     <li><strong>Automated publish gate.</strong> Every 6 hours GitHub Actions re-runs the full pipeline and
     executes 15 strict assertions (<a href="verification.html">Verification</a>) before publishing to GitHub Pages.</li>
   </ol>
@@ -653,7 +651,7 @@ def build_sources(src: list[dict]) -> str:
     <a href="https://www.bovada.lv/sports/esports/league-of-legends" rel="noopener">Bovada</a> &mdash;
     live multi-venue real-money match odds &amp; contract books.</li>
     <li><a href="https://lol.fandom.com/wiki/Special:CargoExport" rel="noopener">Leaguepedia Cargo &amp; MediaWiki Data: namespace</a> &mdash;
-    chronological series history plus official <code>dqteams</code> mid-split disqualification records.</li>
+    community-maintained chronological series history and <code>dqteams</code> removal directives; these are not official Riot confirmations.</li>
     <li><a href="https://esports-api.lolesports.com" rel="noopener">LoL Esports (Riot Games)</a> &mdash;
     official World Championship schedule verification.</li>
   </ul>
@@ -680,8 +678,9 @@ def build_verification(rows: list[dict], matching: dict, verification: dict | No
     body = f"""
 <section class="panel">
   <h2>Automated verification gate ({len(checks)} assertions)</h2>
-  <p class="lead">Every scheduled refresh executes these assertions before committing. Any failure halts
-  deployment so broken links or invalid probabilities never reach GitHub Pages.</p>
+  <p class="lead">Every scheduled refresh executes these assertions before committing. They validate inventory presence,
+  page links, source-URL presence and probability arithmetic; they do not certify the accuracy of model estimates,
+  validate every linked page's contents, or establish official status for community-source records.</p>
   {table(["Check", "Result", "Detail"], check_rows)}
 </section>
 
@@ -689,8 +688,8 @@ def build_verification(rows: list[dict], matching: dict, verification: dict | No
   <h2>Row coverage</h2>
   <div class="stats tight">
     {stat_card("Rows checked", stats.get("rows_checked", len(rows)), "every match on Hotspawn")}
-    {stat_card("Rows with verified source link", stats.get("rows_with_source", 0), "100% row-level provenance", "ok")}
-    {stat_card("Valid probability rows", stats.get("rows_prob_ok", 0), "A + B = 100.0% verified", "market")}
+    {stat_card("Rows with match-source URL", stats.get("rows_with_source", 0), "URL present; not a claim that every input is independently authenticated", "ok")}
+    {stat_card("Probability arithmetic rows", stats.get("rows_prob_ok", 0), "A + B sums to 100%; this does not verify predictive accuracy", "market")}
     {stat_card("Provisional or quarantined", stats.get("unverified", 0), "explicitly flagged", "provisional")}
   </div>
 </section>
@@ -723,13 +722,13 @@ def build_flagged(flags: list[dict]) -> str:
     body = f"""
 <section class="panel">
   <h2>Flagged for review ({len(flags)})</h2>
-  <p class="lead">Audited upstream feed irregularities, mid-split team disqualifications, placeholder odds traps,
-  and thin-sample caveats — published openly with official source links.</p>
+  <p class="lead">Observed feed irregularities, removals recorded by community-maintained sources, placeholder odds traps,
+  and thin-sample caveats — published with source links and verification status.</p>
   {table(["Severity", "Item", "Detail", "Source"], out)}
 </section>
 """
     return page_shell("Flagged for review", "flagged.html", body,
-                      "Irregularities and unverified items, with official source links.")
+                      "Irregularities and unverified items, with source links.")
 
 
 # --------------------------------------------------------------------------- main

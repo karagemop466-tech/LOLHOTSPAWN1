@@ -4,7 +4,7 @@
 Method order (documented on the site):
   1. MARKET      - precision-weighted de-vigged consensus across real-money books &
                    exchanges (Pinnacle, Polymarket full-series CLOB, Kalshi CFTC,
-                   Bovada, and verified specialist esportsbook quotes).
+                   Bovada, and specialist esportsbook quotes when available).
   2. MODEL       - our own Elo line fitted on Leaguepedia series results, used when
                    the two teams are connected by a shared-opponent chain and each
                    side has enough rated series.
@@ -12,7 +12,7 @@ Method order (documented on the site):
                    data is thin (few rated series, one unrated side, or no shared
                    opponent chain).
   4. UNRESOLVED  - no defensible competitive probability (mid-split league removal /
-                   disqualification in official Leaguepedia `dqteams`, unrated teams,
+                   disqualification recorded in Leaguepedia community-maintained `dqteams` data, unrated teams,
                    or unannounced TBD slots).
 
 Hotspawn's community pick percentages are stored for transparency but are NEVER
@@ -406,7 +406,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 })
                 break
 
-    # 5. Verified Specialist Esportsbook quote (includes #1081423 LCP 2027 Promotion)
+    # 5. Recorded specialist esportsbook quote (includes #1081423 LCP 2027 Promotion)
     eb = esportsbook_map.get(str(fixture_id))
     if eb and not eb.get("placeholder"):
         d0_v = float(eb.get("decimal0") or eb.get("team0_decimal") or 0)
@@ -594,14 +594,12 @@ def main() -> None:
         flags: list[str] = []
         if dq0 or dq1:
             removed = dq0 or dq1
-            active_opp = n1 if dq0 else n0
             p0 = p1 = None
             method, confidence = "unresolved", "none"
-            basis = (f"Participant removed mid-split: official Data:{page} records "
-                     f"'dqteams={removed}' (remaining matches forfeited to opponents). "
-                     f"Hotspawn may void this card or settle walkover in favour of active opponent {active_opp}.")
-            flags.append(f"official league removal: {removed} listed in Data:{page} dqteams "
-                         f"(if not voided by Hotspawn, active opponent is {active_opp})")
+            basis = (f"Participant removal is recorded in Leaguepedia's community-maintained Data:{page} "
+                     f"('dqteams={removed}'); this is not Riot-official confirmation. Hotspawn may void this card "
+                     f"or settle a walkover, and its settlement outcome has not been independently confirmed.")
+            flags.append(f"Leaguepedia community data lists {removed} in Data:{page} dqteams; official confirmation and Hotspawn settlement are unverified")
         elif market:
             p0, p1 = market["p0"], market["p1"]
             method, confidence = "market", "high"
@@ -671,8 +669,7 @@ def main() -> None:
             except ValueError:
                 stale = False
         if stale:
-            flags.append("start time has passed but Hotspawn still lists the fixture as scheduled "
-                         "(likely postponed or awaiting a result)")
+            flags.append("published start time has passed but Hotspawn still lists the fixture as scheduled; current status and result are unverified")
         if row["team0"]["join"] == "ambiguous" or row["team1"]["join"] == "ambiguous":
             flags.append("team name could not be matched unambiguously")
 

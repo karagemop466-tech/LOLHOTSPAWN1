@@ -28,7 +28,7 @@ def main() -> None:
     add("dataset present", len(rows) > 0, f"{len(rows)} matches loaded")
 
     # --- per-row checks -----------------------------------------------------
-    missing_source, bad_prob, bad_method, bad_pick, dupes = [], [], [], [], []
+    missing_source, bad_prob, bad_method, bad_pick, bad_market_source, dupes = [], [], [], [], [], []
     seen = set()
     for r in rows:
         if not r.get("hotspawn_url", "").startswith("https://www.hotspawn.com/"):
@@ -57,9 +57,14 @@ def main() -> None:
             mk = r.get("market") or {}
             if not mk.get("source_url") or not (mk.get("decimal") or mk.get("kind") == "prediction market"):
                 bad_pick.append(r.get("id"))
+            venues = mk.get("venues") or []
+            if not venues or any(not (v.get("url") or "").startswith("https://") for v in venues):
+                bad_market_source.append(r.get("id"))
 
     add("every row links to its Hotspawn match card", not missing_source,
         f"{len(rows) - len(missing_source)}/{len(rows)} rows carry a Hotspawn URL")
+    add("every market row links to its quote venue(s)", not bad_market_source,
+        f"{len(rows) - len(bad_market_source)}/{len(rows)} rows have venue URLs; missing: {bad_market_source[:5]}")
     add("probabilities sum to 100% (tolerance 0.2pp)", not bad_prob,
         f"{len(rows) - len(bad_prob)} priced rows verified; problems: {bad_prob[:5]}")
     add("pick matches the higher probability", not bad_pick,
@@ -114,6 +119,12 @@ def main() -> None:
     needed = ["picks.html", "featured.html", "originated.html", "unresolved.html", "Executive summary"]
     add("executive summary links to every picks view", all(n in index_html for n in needed),
         f"present: {[n for n in needed if n in index_html]}")
+    method_html_for_notice = open(os.path.join(DOCS, "methodology.html"), encoding="utf-8").read()
+    source_caveat_ok = ("not official Riot odds" in index_html
+                        and "community-maintained" in method_html_for_notice
+                        and "single-source" in method_html_for_notice)
+    add("source status and estimate limitations are disclosed", source_caveat_ok,
+        "summary disclaims official/guaranteed odds; method identifies community data and variable source coverage")
 
     meth_html = open(os.path.join(DOCS, "methodology.html"), encoding="utf-8").read()
     bt_n = (data.get("backtest") or {}).get("n") or 0

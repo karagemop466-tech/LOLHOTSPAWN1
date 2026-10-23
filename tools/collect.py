@@ -306,10 +306,9 @@ def collect_leaguepedia(max_rows: int = 60000) -> dict:
         "matches": clean,
     })
 
-    # Also query Leaguepedia's unthrottled MediaWiki Data: namespace for official mid-split
-    # disqualifications / league removals (`|dqteams=...`) across active competitions.
-    # Query Leaguepedia's MediaWiki API for official mid-split disqualifications / league removals
-    # (`|dqteams=...`) across the exact active tournament pages referenced by scheduled fixtures.
+    # Query Leaguepedia's community-maintained MediaWiki Data: namespace for mid-split
+    # removal directives (`|dqteams=...`) on active competition pages. These are evidence
+    # from a secondary source, not official Riot confirmation of removal or match settlement.
     hs_doc = load_json(os.path.join(RAW, "hotspawn_lol.json")) or {}
     hs_teams = {norm_name(re.sub(r"\s*\([^)]*\)\s*$", "", f[s]["name"]))
                 for f in (hs_doc.get("fixtures") or []) for s in ("team0", "team1")}

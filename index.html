@@ -26,10 +26,9 @@
 <section class="hero">
   <h2>Every Hotspawn League of Legends match, with a line we can defend.</h2>
   <p>This dashboard rebuilds itself automatically every six hours across all 241 scheduled LoL matches on
-  Hotspawn. Featured series combine real-money quotes across <strong>Pinnacle, Polymarket, Kalshi (CFTC),
-  Bovada, and specialist esportsbooks</strong>; low-tier regional leagues are originated from recorded series
-  history; and disqualified mid-split removals are quarantined in <a href="unresolved.html">Unresolved</a>.
-  Nothing on this site ever uses Hotspawn's crowd-pick percentages.</p>
+  Hotspawn. Picks are probability estimates: market-backed figures use external bookmaker/exchange prices when
+  available; lower-tier matches use a historical model. Some matches have only one available market source, and
+  model history is from Leaguepedia, a community-maintained source. See each card and the <a href="methodology.html">methodology</a> for provenance and limitations. These are not official Riot odds or guaranteed outcomes. Nothing here uses Hotspawn's crowd-pick percentages.</p>
   <div class="cta">
     <a class="btn primary" href="picks.html">All 241 matches &amp; picks &rarr;</a>
     <a class="btn" href="featured.html">Market-backed picks (10)</a>
@@ -40,8 +39,8 @@
 
 <section class="stats">
   <div class="stat "><div class="sv">241</div><div class="sl">Matches listed on Hotspawn</div><div class=sn>across 27 tournaments</div></div>
-  <div class="stat ok"><div class="sv">237</div><div class="sl">Matches with a pick</div><div class=sn>98% coverage</div></div>
-  <div class="stat market"><div class="sv">10</div><div class="sl">Market-backed</div><div class=sn>5-venue real-money consensus</div></div>
+  <div class="stat ok"><div class="sv">237</div><div class="sl">Matches with a displayed estimate</div><div class=sn>98% have a pick estimate</div></div>
+  <div class="stat market"><div class="sv">10</div><div class="sl">Market-backed</div><div class=sn>external prices; venue coverage varies by match</div></div>
   <div class="stat model"><div class="sv">162</div><div class="sl">Originated lines</div><div class=sn>model, medium confidence</div></div>
   <div class="stat provisional"><div class="sv">65</div><div class="sl">Provisional</div><div class=sn>thin data, flagged</div></div>
   <div class="stat unresolved"><div class="sv">4</div><div class="sl">Unresolved</div><div class=sn>league DQ / unplayable</div></div>
@@ -50,25 +49,23 @@
 <section class="panel">
   <h2>Executive summary</h2>
   <ul class="bullets">
-    <li><strong>Coverage &amp; direct links.</strong> 237 of 241 scheduled LoL matches carry a verified pick:
-    <a href="featured.html"><strong>10 Market-backed picks</strong></a> (Worlds 2026 Knockout Stage,
-    EMEA Masters Final, and LCP 2027 Promotion across Pinnacle, Polymarket, Kalshi CFTC, Bovada &amp; specialist
-    esportsbooks), <a href="originated.html"><strong>162 Solid originated lines</strong></a>,
-    and <a href="originated.html"><strong>65 Provisional lines</strong></a>. Browse all cards in
+    <li><strong>Coverage &amp; direct links.</strong> 237 of 241 scheduled LoL matches have a displayed pick estimate:
+    <a href="featured.html"><strong>10 market-backed estimates</strong></a> (external prices are not available at every venue for every match),
+    <a href="originated.html"><strong>162 model estimates</strong></a>, and
+    <a href="originated.html"><strong>65 provisional estimates</strong></a>. Browse all cards in
     kick-off order on <a href="picks.html"><strong>All picks</strong></a>.</li>
     <li><strong>Unresolved picks &amp; limitations (4 quarantined).</strong>
-    4 fixtures involve participants officially removed mid-split under Leaguepedia
-    <code>dqteams</code> directives (including upcoming <strong>#1071216 Solid Gaming vs DMG Esports Norway</strong>
-    in Komplettligaen, where Solid Gaming was removed in Round 10 yet 72% of Hotspawn's crowd picked Solid Gaming).
-    Every unresolved fixture, its walkover/void caveat, and all data limitations are documented on
+    4 fixtures are quarantined based on recorded mid-split removals in Leaguepedia's community-maintained
+    <code>dqteams</code> data or other unpriceable conditions; those removal records are not represented as Riot-official.
+    Every unresolved fixture, settlement caveat, and data limitation is documented on
     <a href="unresolved.html"><strong>Unresolved &amp; limitations</strong></a>.</li>
     <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
     captured strictly for audit comparison (e.g. exposing the +33.8 pp crowd distortion on
     <em>Galions vs Solary</em>) and have zero weight anywhere in our probabilities — see
     <a href="methodology.html"><strong>Method &amp; out-of-sample backtest</strong></a>.</li>
     <li><strong>Live sources &amp; 6-hour automation.</strong> 9 of 14 probed feeds
-    returned live HTTP 200 on the latest runner build (<a href="sources.html">Sources</a>), verified by 15
-    automated publish gates (<a href="verification.html">Verification</a>) and audited on
+    returned live HTTP 200 on the latest runner build (<a href="sources.html">Sources</a>); the publish gates check
+    inventory, links, and probability arithmetic (<a href="verification.html">Verification</a>), not whether a model estimate will be correct. Irregularities are listed on
     <a href="flagged.html">Flagged for review</a>.</li>
   </ul>
 </section>
@@ -79,7 +76,7 @@
   list with every match on Hotspawn, next kick-off first.</p>
   <ul class="linklist">
     <li><a href="picks.html">All picks &rarr;</a><span>Complete list, 241 matches, instant mobile search &amp; tournament filter.</span></li>
-    <li><a href="featured.html">Market-backed picks &rarr;</a><span>10 matches priced from de-vigged multi-venue sportsbook &amp; exchange consensus.</span></li>
+    <li><a href="featured.html">Market-backed estimates &rarr;</a><span>10 matches with external sportsbook or exchange prices; the number of sources varies by match.</span></li>
     <li><a href="originated.html">Originated low-tier lines &rarr;</a><span>227 regional/academy matches originated from recorded series history.</span></li>
     <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>4 mid-split league removals we refuse to guess on, plus all 65 provisional caveats.</span></li>
     <li><a href="competitions.html">By tournament &rarr;</a><span>Coverage breakdown across all 27 LoL competitions.</span></li>
@@ -90,29 +87,7 @@
 <section class="panel">
   <h2>Next upcoming picks</h2>
   <div class="cards">
-    <article class="card m-model" data-method="model" data-comp="Komplettligaen 2026 Autumn"
-  data-text="komplettligaen 2026 autumn rich gang phenti">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-23T15:00:00Z" class="utc" data-utc="2026-10-23T15:00:00Z">2026-10-23 15:00 UTC</time></span>
-    <span class="badges"><span class="badge b-model">Model line</span></span>
-  </div>
-  <div class="comp">Komplettligaen 2026 Autumn</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">Rich Gang</span><span class="tpct">74.8%</span>
-    </div>
-    <div class="split" role="img" aria-label="Rich Gang 75 percent, Phenti 25 percent"><span class="s0" style="width:74.8%"></span></div>
-    <div class="team ">
-      <span class="tname">Phenti</span><span class="tpct">25.2%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Rich Gang</strong> <span class="pickpct">74.8%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Rich Gang (Norwegian Team) 1630 vs Phenti 1441 (58/36 rated series).</p>
-    <ul class="flags"><li>Leaguepedia lists this team as &#x27;Rich Gang (Norwegian Team)&#x27;</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/rich-gang-vs-phenti-komplettligaen-2026-autumn-1071212" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Komplettligaen%2F2026_Season%2FAutumn_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Rich_Gang_(Norwegian_Team)" rel="noopener">Rich Gang</a><a href="https://lol.fandom.com/wiki/Phenti" rel="noopener">Phenti</a></div>
-</article><article class="card m-provisional" data-method="provisional" data-comp="Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine"
+    <article class="card m-provisional" data-method="provisional" data-comp="Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine"
   data-text="arabian regional championship 2026: lebanon-libya-syria-palestine levelers mtn esports team">
   <div class="card-top">
     <span class="when"><time datetime="2026-10-23T16:00:00Z" class="utc" data-utc="2026-10-23T16:00:00Z">2026-10-23 16:00 UTC</time></span>
@@ -175,7 +150,6 @@
   <div class="pickline"><span class="picklabel">Pick</span> <strong>Reveal Multigaming</strong> <span class="pickpct">58.4%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: Reveal Multigaming 1568 vs Hannover Esports e.V. 1509 (41/21 rated series).</p>
-    
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/reveal-multigaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1082745" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_2nd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Reveal_Multigaming" rel="noopener">Reveal Multigaming</a><a href="https://lol.fandom.com/wiki/Hannover_Esports_e.V." rel="noopener">Hannover Esports e.V.</a></div>
 </article><article class="card m-market" data-method="market" data-comp="Worlds 2026 Main Event"
@@ -197,7 +171,6 @@
   <div class="pickline"><span class="picklabel">Pick</span> <strong>Gen.G</strong> <span class="pickpct">76.4%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>5-Venue Consensus de-vigged line (76.4% / 23.5%): Pinnacle 74.5%/25.5% (1.28/3.74), Polymarket 77.5%/22.5% (77.5¢/22.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 76.9%/23.1% (1.22/4.05), Esportsbook 78.6%/21.4% (1.2/4.4).</p>
-    
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878" rel="noopener">Hotspawn card</a><a href="https://www.pinnacle.com/en/event/1638758865" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-gen-ig1-2026-10-23" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231300iggen" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/esports/league-of-legends/world-championship-26/gen-g-invictus-gaming-202610231300" rel="noopener">Bovada</a><a href="https://egamersworld.com/lol/matches" rel="noopener">Esportsbook</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Gen.G" rel="noopener">Gen.G</a><a href="https://lol.fandom.com/wiki/Invictus_Gaming" rel="noopener">Invictus Gaming</a></div>
 </article><article class="card m-model" data-method="model" data-comp="Arabian League 2nd Division 2026 Summer"
@@ -219,9 +192,29 @@
   <div class="pickline"><span class="picklabel">Pick</span> <strong>Pegasus Esports</strong> <span class="pickpct">51.8%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: NextGeneration Esports 1481 vs Pegasus Esports 1494 (60/35 rated series).</p>
-    
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/nextgeneration-esports-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079139" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/NextGeneration_Esports" rel="noopener">NextGeneration Esports</a><a href="https://lol.fandom.com/wiki/Pegasus_Esports" rel="noopener">Pegasus Esports</a></div>
+</article><article class="card m-model" data-method="model" data-comp="Arabian League 2nd Division 2026 Summer"
+  data-text="arabian league 2nd division 2026 summer team vds team reds">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-23T18:00:00Z" class="utc" data-utc="2026-10-23T18:00:00Z">2026-10-23 18:00 UTC</time></span>
+    <span class="badges"><span class="badge b-model">Model line</span></span>
+  </div>
+  <div class="comp">Arabian League 2nd Division 2026 Summer</div>
+  <div class="teams">
+    <div class="team fav">
+      <span class="tname">Team VDS</span><span class="tpct">60.3%</span>
+    </div>
+    <div class="split" role="img" aria-label="Team VDS 60 percent, Team Reds 40 percent"><span class="s0" style="width:60.3%"></span></div>
+    <div class="team ">
+      <span class="tname">Team Reds</span><span class="tpct">39.7%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team VDS</strong> <span class="pickpct">60.3%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: Team VDS 1557 vs Team Reds 1484 (37/5 rated series).</p>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/team-vds-vs-team-reds-arabian-league-2nd-division-2026-summer-1082106" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_VDS" rel="noopener">Team VDS</a><a href="https://lol.fandom.com/wiki/Team_Reds" rel="noopener">Team Reds</a></div>
 </article>
   </div>
   <p><a class="btn" href="picks.html">See all 241 matches &rarr;</a></p>
@@ -229,7 +222,7 @@
 
 </main>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Every row links to its official source. Zero Hotspawn crowd-pick input.</p>
+  <p>Independent estimates. Match cards link to Hotspawn listings; quoted prices link to venues; model history links to Leaguepedia, a community-maintained source. Probabilities are estimates, not official Riot odds or guaranteed outcomes. Hotspawn crowd picks are never used.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>

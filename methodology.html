@@ -28,14 +28,16 @@
   <ol class="steps">
     <li><strong>Inventory.</strong> Every League of Legends fixture is pulled from Hotspawn's public fixtures API
     (<a href="https://play.hotspawn.com/lol-pickems" rel="noopener">play.hotspawn.com/lol-pickems</a>).</li>
-    <li><strong>Tier 1 — Multi-venue real-money consensus.</strong> Live odds and contract books from
-    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12), and
-    verified specialist esportsbooks (0.10)</strong> are de-vigged proportionally and precision-weighted.</li>
-    <li><strong>Tier 2 — Originated regional Elo lines.</strong> All recorded Leaguepedia series since
-    MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27; are processed chronologically with inactivity decay and shrinkage toward 1500.</li>
+    <li><strong>Tier 1 — External market-based estimates.</strong> Where available, live prices from
+    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi (0.18), Bovada (0.12), and
+    specialist esportsbooks (0.10)</strong> are combined with bookmaker margin removed where applicable. The weights
+    are renormalized over sources present; coverage varies per match, including some single-source prices.</li>
+    <li><strong>Tier 2 — Originated regional Elo estimates.</strong> Available Leaguepedia series history since
+    MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27; is processed chronologically with inactivity decay and shrinkage toward 1500.
+    Leaguepedia is community-maintained, not an official Riot match-results feed; gaps and team-name ambiguity can affect estimates.</li>
     <li><strong>Tier 3 — Provisional &amp; Unresolved quarantine.</strong> Thin-sample teams (&lt;5 series) are marked
-    <em>provisional</em>; officially removed mid-split teams (<code>dqteams</code>) are quarantined in
-    <a href="unresolved.html">Unresolved</a> rather than mispriced.</li>
+    <em>provisional</em>; mid-split removals recorded in community-maintained <code>dqteams</code> data are quarantined in
+    <a href="unresolved.html">Unresolved</a> rather than assigned a market probability. This record is not official Riot confirmation.</li>
     <li><strong>Automated publish gate.</strong> Every 6 hours GitHub Actions re-runs the full pipeline and
     executes 15 strict assertions (<a href="verification.html">Verification</a>) before publishing to GitHub Pages.</li>
   </ol>
@@ -97,7 +99,7 @@
 
 </main>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Every row links to its official source. Zero Hotspawn crowd-pick input.</p>
+  <p>Independent estimates. Match cards link to Hotspawn listings; quoted prices link to venues; model history links to Leaguepedia, a community-maintained source. Probabilities are estimates, not official Riot odds or guaranteed outcomes. Hotspawn crowd picks are never used.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>

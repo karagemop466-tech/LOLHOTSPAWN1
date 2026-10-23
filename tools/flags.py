@@ -79,7 +79,7 @@ def main() -> None:
                       "published start time is more than three hours in the past (earliest "
                       f"{min((r['start_utc'] or '') for r in stale)}). They are kept in the list to mirror "
                       "Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming "
-                      "matches. Most likely postponed or awaiting a result.",
+                      "matches. Hotspawn's displayed status does not confirm whether the match occurred; result and current status are unverified.",
             "source": HOTSPAWN,
         })
 
