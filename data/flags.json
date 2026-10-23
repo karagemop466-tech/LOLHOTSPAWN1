@@ -1,72 +1,94 @@
 {
- "generated_utc": "2026-10-23T15:39:34Z",
- "count": 18,
+ "generated_utc": "2026-10-23T15:45:05Z",
+ "count": 24,
  "flags": [
   {
    "severity": "high",
-   "item": "Historical observation — not reverified: Komplettligaen removed Solid Gaming in Round 10 (#1071216 Solid Gaming vs DMG Esports Norway)",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. Leaguepedia's official Data:Komplettligaen/2026_Season/Autumn_Season template records '|dqteams=Solid Gaming' ('Solid Gaming was removed from the league in Round 10; remaining matches forfeited 0-1'). Hotspawn still lists upcoming fixture #1071216 (2026-10-27 17:00 UTC) as scheduled, and 72% of Hotspawn's crowd picked Solid Gaming on stale pre-removal wins. Rather than picking a disqualified team, the pipeline quarantines all dqteams fixtures to Unresolved and notes that if Hotspawn settles walkovers rather than voiding, active opponent DMG Esports Norway receives the default win.",
-   "source": "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Season"
+   "item": "Komplettligaen removed Solid Gaming in Round 10; Hotspawn still lists its fixtures as scheduled",
+   "detail": "Leaguepedia's official Data:Komplettligaen/2026 Season/Autumn Split template records '|dqteams=Solid Gaming' and annotates the Round 10 fixture with 'Solid Gaming is removed from the league'. Every remaining Solid Gaming series in that schedule is entered as a forfeit - score 0-2 with the ff flag - in favour of the opponent (verified against the raw wikitext of the Data: page on 2026-10-23). Hotspawn still returns the four Solid Gaming fixtures (1071170, 1071200, 1071206, 1071186) with status='scheduled'. The pipeline therefore publishes a SETTLEMENT pick for those cards - the active opponent per the ruling - and no win probability. Earlier snapshots also carried fixture #1071216 (Solid Gaming vs DMG Esports Norway, 27 Oct 17:00 UTC); that card is no longer returned by the Hotspawn fixtures API as of the 2026-10-23 15:44Z check, so it is not published in this snapshot.",
+   "source": "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split",
+   "delisted_refs": [
+    "1071216"
+   ],
+   "delisted_note": "Fixture #1071216 was returned by the Hotspawn fixtures API in the 2026-10-21 snapshot and is no longer returned as of the 2026-10-23 15:44Z check; it is kept in this note as the reason the earlier snapshot carried a fifth Solid Gaming card. It is deliberately not published as a row.",
+   "verified_utc": "2026-10-23",
+   "verified_against": "raw wikitext of Data:Komplettligaen/2026 Season/Autumn Split (action=raw) and the live Hotspawn fixtures API (competition_id=36279)",
+   "verification": "re-verified 2026-10-23 against raw wikitext of Data:Komplettligaen/2026 Season/Autumn Split (action=raw) and the live Hotspawn fixtures API (competition_id=36279)"
   },
   {
    "severity": "medium",
-   "item": "Historical observation — not reverified: Galions vs Solary (#1081205) crowd split (86% / 14%) diverges +33.8 pp from 5-venue real-money consensus (52.2% / 47.8%)",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. Across Pinnacle, Kalshi CFTC, Polymarket full-series CLOB ($28.4k Bo5 market, filtering out the $1.5k Game-1 side market), Bovada, and specialist esportsbooks, EMEA Masters Summer 2026 Final Galions vs Solary is priced near-even at 52.2% / 47.8% (Galions slight favourite), confirming why Hotspawn crowd pick share must never be used as a probability input.",
-   "source": "https://polymarket.com/event/lol-gal-sly-2026-10-21"
+   "item": "Hotspawn crowd pick shares can diverge by 40+ percentage points from every real-money venue",
+   "detail": "Crowd shares are captured for audit only and never used as an input. The current worst case is recomputed on every build and published as its own derived flag above, with the fixture id, both teams, the crowd split and our line. Crowd percentages move whenever new users vote, so the figures are generated from the live dataset instead of being frozen into this file.",
+   "source": "https://play.hotspawn.com/lol-pickems",
+   "verified_utc": "2026-10-23",
+   "verified_against": "the live dataset: the derived crowd-vs-line flag is recomputed on every build",
+   "verification": "re-verified 2026-10-23 against the live dataset: the derived crowd-vs-line flag is recomputed on every build"
   },
   {
    "severity": "medium",
-   "item": "Historical observation — not reverified: Symmetric 1.80 / 1.80 placeholder odds on odds aggregators rejected (#1079080 Bushido Wildcats vs Misa Esports)",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. Esports aggregators render symmetric 1.80 / 1.80 default placeholders on unpriced regional fixtures when no real bookmaker quote exists. The pipeline explicitly rejects symmetric 1.80 / 1.80 placeholders and prices #1079080 via recorded Turkish Academy League match history instead.",
-   "source": "https://lol.fandom.com/wiki/Turkish_Academy_League/2026_Season/Summer_Playoffs"
+   "item": "Symmetric 1.80 / 1.80 aggregator placeholder odds are recorded and rejected (#1079080)",
+   "detail": "Odds aggregators render a symmetric 1.80 / 1.80 default on unpriced regional fixtures. data/flags_manual.json is not the enforcement point: tools/model.py rejects that exact pair (and any price implying more than 97% on one side) before de-vigging, and logs the rejection in data/matches.json under receipt_audit.rejected_quotes. Fixture #1079080 is priced from a live Polymarket full-series market instead of the placeholder.",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/tools/model.py",
+   "verified_utc": "2026-10-23",
+   "verified_against": "archive/session-8336fb7e/data/book_receipts.json and the rejection path in tools/model.py",
+   "verification": "re-verified 2026-10-23 against archive/session-8336fb7e/data/book_receipts.json and the rejection path in tools/model.py"
   },
   {
    "severity": "low",
    "item": "Historical observation — not reverified: 4 Nations Week 1 overturned forfeits for Team Reds recorded correctly",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. Team Reds originally won two Week 1 series in 4 Nations 2026 Halloween Heist, both subsequently overturned to 0-1 administrative forfeits for fielding an ineligible roster. The model consumes official post-ruling series records.",
+   "detail": "Prior-session statement; not verified against a live source in this audit. Team Reds originally won two Week 1 series in 4 Nations 2026 Halloween Heist, both subsequently overturned to 0-1 administrative forfeits for fielding an ineligible roster. The model consumes official post-ruling series records.",
    "source": "https://lol.fandom.com/wiki/4_Nations/2026_Season/Halloween_Heist"
   },
   {
    "severity": "low",
    "item": "Historical observation — not reverified: Hotspawn displays the wrong name for the PvB slot in PRM 2nd Division",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. Hotspawn labels this team 'Phong Vũ Buffalo', but the five fixtures attributed to it (27 Oct 17:00 vs DKB XPERION NXT, 30 Oct 19:30 vs VfB eSports, 3 Nov 17:00 vs 404 Multigaming, 8 Nov 18:30 vs MT1 Esports, 13 Nov 18:30 vs regnum4games) are, in Leaguepedia, the five fixtures of 'PvB (Swiss Team)' in Prime League 2nd Division/2027 Season/Fall Split - same dates, same kick-off times, same opponents. The alias is therefore recorded explicitly in data/aliases.json with this evidence, not guessed. Hotspawn's card for these matches still shows the Vietnamese name and no logo.",
+   "detail": "Prior-session statement; not verified against a live source in this audit. Hotspawn labels this team 'Phong Vũ Buffalo', but the five fixtures attributed to it (27 Oct 17:00 vs DKB XPERION NXT, 30 Oct 19:30 vs VfB eSports, 3 Nov 17:00 vs 404 Multigaming, 8 Nov 18:30 vs MT1 Esports, 13 Nov 18:30 vs regnum4games) are, in Leaguepedia, the five fixtures of 'PvB (Swiss Team)' in Prime League 2nd Division/2027 Season/Fall Split - same dates, same kick-off times, same opponents. The alias is therefore recorded explicitly in data/aliases.json with this evidence, not guessed. Hotspawn's card for these matches still shows the Vietnamese name and no logo.",
    "source": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
   },
   {
    "severity": "info",
-   "item": "Historical observation — not reverified: Hotspawn tier field is 'waiting for information' for 189 of 264 LoL matches",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. The fixtures API returns tier='waiting for information' and stage='waiting for information' for most non-featured LoL fixtures. Tier is reproduced verbatim and not inferred from the league name.",
-   "source": "https://play.hotspawn.com/lol-pickems"
-  },
-  {
-   "severity": "info",
-   "item": "Historical observation — not reverified: 10 of 264 matches have verified real-money market lines across 5 venues; 254 are lower-tier national/academy fixtures",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. Featured Tier-S/A matches (Worlds 2026 Knockout Stage, EMEA Masters Final, and LCP 2027 Promotion) are priced via precision-weighted consensus across Pinnacle, Polymarket, Kalshi CFTC, Bovada, and verified specialist esportsbook quotes. Tier-B/C/D national leagues have no published bookmaker market anywhere, so lines are originated from recorded series history.",
-   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+   "item": "Hotspawn's tier and stage fields are null for most non-featured LoL fixtures",
+   "detail": "The fixtures API returns tier=null/stage=null (or, in earlier snapshots, tier='waiting for information') for most non-featured LoL fixtures, and best_of=null for every card in the current snapshot. Those values are reproduced verbatim and never inferred from the league name.",
+   "source": "https://play.hotspawn.com/lol-pickems",
+   "verified_utc": "2026-10-23",
+   "verified_against": "the live Hotspawn fixtures API response",
+   "verification": "re-verified 2026-10-23 against the live Hotspawn fixtures API response"
   },
   {
    "severity": "low",
-   "item": "Historical observation — not reverified: Leaguepedia is a community wiki, not a Riot Games property",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. Series results for the Elo model come from Leaguepedia's Cargo export (volunteer-maintained, the de-facto LoL esports results database). Riot's official LoL Esports API is used as a cross-check for the World Championship schedule only, because it does not publish these national leagues.",
-   "source": "https://lol.fandom.com/wiki/Special:CargoExport"
+   "item": "Leaguepedia is a community wiki, not a Riot Games property",
+   "detail": "Series results for the Elo model come from Leaguepedia's Cargo export (volunteer-maintained, the de-facto LoL esports results database). Riot's official LoL Esports API is used as a cross-check for the World Championship schedule only, because it does not publish these national leagues.",
+   "source": "https://lol.fandom.com/wiki/Special:CargoExport",
+   "verified_utc": "2026-10-23",
+   "verified_against": "lol.fandom.com (the wiki itself is the source of the claim)",
+   "verification": "re-verified 2026-10-23 against lol.fandom.com (the wiki itself is the source of the claim)"
   },
   {
    "severity": "low",
-   "item": "Historical observation — not reverified: Elo ratings are only comparable inside one opponent graph",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. Ratings are fitted per league network. A team that never played a common opponent with its fixture opponent cannot be compared meaningfully; those matches are marked provisional with the 'no shared-opponent chain' note.",
-   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/tools/model.py"
+   "item": "Elo ratings are only comparable inside one opponent graph",
+   "detail": "Ratings are fitted per league network. A team that never played a common opponent with its fixture opponent cannot be compared meaningfully; those matches are marked provisional with the 'no shared-opponent chain' note.",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/tools/model.py",
+   "verified_utc": "2026-10-23",
+   "verified_against": "the connected-graph guard in tools/model.py",
+   "verification": "re-verified 2026-10-23 against the connected-graph guard in tools/model.py"
   },
   {
    "severity": "info",
-   "item": "Historical observation — not reverified: List horizon extends past the 7-day pick'em window",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. Hotspawn lists fixtures up to mid-November (the PRM 3rd Division round on 2026-11-15), beyond the current weekly reset. All listed fixtures are kept so coverage matches the site exactly.",
-   "source": "https://play.hotspawn.com/lol-pickems"
+   "item": "List horizon extends past the 7-day pick'em window",
+   "detail": "Hotspawn lists fixtures up to mid-November (the PRM 3rd Division round on 2026-11-15), beyond the current weekly reset. All listed fixtures are kept so coverage matches the site exactly.",
+   "source": "https://play.hotspawn.com/lol-pickems",
+   "verified_utc": "2026-10-23",
+   "verified_against": "the current dataset (fixtures dated to 2026-11-15)",
+   "verification": "re-verified 2026-10-23 against the current dataset (fixtures dated to 2026-11-15)"
   },
   {
    "severity": "info",
-   "item": "Historical observation — not reverified: Hotspawn community pick percentages are stored but never used",
-   "detail": "Prior-session statement; not verified against a live official source in this audit. The fixtures API exposes participants*_picked_percent. These values are persisted in data/raw/hotspawn_lol.json for transparency and are not read by the model, the picks, or any probability on the site.",
-   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/raw/hotspawn_lol.json"
+   "item": "Hotspawn community pick percentages are stored but never used",
+   "detail": "The fixtures API exposes participants*_picked_percent. These values are persisted in data/raw/hotspawn_lol.json for transparency and are not read by the model, the picks, or any probability on the site.",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/raw/hotspawn_lol.json",
+   "verified_utc": "2026-10-23",
+   "verified_against": "the fixtures API fields and the model code path",
+   "verification": "re-verified 2026-10-23 against the fixtures API fields and the model code path"
   },
   {
    "severity": "medium",
@@ -76,8 +98,8 @@
   },
   {
    "severity": "medium",
-   "item": "4 match(es) could not be priced",
-   "detail": "Solid Gaming vs VES Japan (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent VES Japan.; Solid Gaming vs Playwell Rød Q (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Playwell Rød Q.; Volda E-Sport vs Solid Gaming (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Volda E-Sport.; Solid Gaming vs NTNUI Kometkameratene (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent NTNUI Kometkameratene.",
+   "item": "4 match(es) have no win probability (settlement pick only)",
+   "detail": "Solid Gaming vs VES Japan (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for opponent VES Japan; the settlement is unverified, so no competitive probability is claimed.; Solid Gaming vs Playwell Rød Q (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for opponent Playwell Rød Q; the settlement is unverified, so no competitive probability is claimed.; Volda E-Sport vs Solid Gaming (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for opponent Volda E-Sport; the settlement is unverified, so no competitive probability is claimed.; Solid Gaming vs NTNUI Kometkameratene (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for opponent NTNUI Kometkameratene; the settlement is unverified, so no competitive probability is claimed.",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
   {
@@ -103,6 +125,48 @@
    "item": "65 fixtures still listed as 'scheduled' although their start time has passed",
    "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time is more than three hours in the past (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. The reason is unverified.",
    "source": "https://play.hotspawn.com/lol-pickems"
+  },
+  {
+   "severity": "medium",
+   "item": "11 archived esportsbook receipts expired and are no longer used as market input",
+   "detail": "A bookmaker quote captured from a match page is a line only while it is fresh. These receipts were captured on 2026-10-21 (up to 43 h old, limit 24 h) and are now excluded from the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, Kalshi, Bovada) or to our own Elo line. The receipts stay in the audit trail: #1081205 [1.86, 1.8] (2026-10-21T20:36:00Z); #1067878 [1.2, 4.4] (2026-10-21T20:36:00Z); #1067677 [1.2, 4.05] (2026-10-21T20:36:00Z); #1067680 [1.17, 4.88] (2026-10-21T20:36:00Z); #1067675 [1.38, 2.63] (2026-10-21T20:36:00Z); #1067676 [2.18, 1.61] (2026-10-21T20:36:00Z)",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"
+  },
+  {
+   "severity": "medium",
+   "item": "1 market-priced match(es) disagree with our own model by 20 pp or more",
+   "detail": "LØS vs T1 (Worlds 2026 Main Event). The market side is what the site publishes and the model value is printed next to it on the Market page, so the gap is visible rather than hidden.",
+   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+  },
+  {
+   "severity": "medium",
+   "item": "1 market row(s) rest on a single prediction market with almost no traded volume",
+   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $5 traded volume (thin-market threshold $1,000), priced 32.5%/67.5%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
+   "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
+  },
+  {
+   "severity": "high",
+   "item": "4 match(es) carry a settlement pick only - no win probability is claimed",
+   "detail": "For these cards the listed participant was removed mid-split by the league (#1071170 Solid Gaming vs VES Japan; #1071200 Solid Gaming vs Playwell Rød Q; #1071206 Volda E-Sport vs Solid Gaming; #1071186 Solid Gaming vs NTNUI Kometkameratene). We publish the administratively correct side (the active opponent, per the official dqteams ruling) and publish no percentage at all, because a competitive probability cannot be justified if the series is voided or awarded as a walkover.",
+   "source": "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split"
+  },
+  {
+   "severity": "medium",
+   "item": "1 bookmaker-priced matches disagree on kick-off time",
+   "detail": "Pinnacle's start times differ from Hotspawn's by 2-5 hours on these fixtures. Because Hotspawn and Leaguepedia agree with each other (recorded in each card's 'Why this line'), the odds are treated as valid for the pairing; the card prints both times. Verify before betting: Mental Rush vs Vitality Rising Bees",
+   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+  },
+  {
+   "severity": "medium",
+   "item": "18 fixtures list a different kick-off than the official Leaguepedia record",
+   "detail": "Hotspawn's published start time and the date/time in Leaguepedia's Data: schedule disagree by 1.5 hours or more on these cards (most differ by whole days, e.g. a Hotspawn card dated this week against a Leaguepedia record in November). 4 of them are still ahead of their Hotspawn kick-off, so the date matters. Each affected card prints both times. Examples: DMG Esports Norway vs Playwell Rød Q (Komplettligaen 2026 Autumn); Solid Gaming vs VES Japan (Komplettligaen 2026 Autumn); Mixlag fra Trondheim vs CNG Royal (Komplettligaen 2026 Autumn); Invictus Team vs Smoke Tram Ascension (LigaGG CELOL A 2026 Split 2); Lund Esports Organization vs Karolinerna Black (Superstrike League 2026); Dziady cz.67 vs Adam West Corp (Legends Academy powered by Żabka Season 3 Playoffs)",
+   "source": "https://lol.fandom.com/wiki/Special:CargoExport"
+  },
+  {
+   "severity": "medium",
+   "item": "Crowd vs real-money gap: Babos Gaming vs Hannover Esports e.V. (PRM 2nd Division 26-27 Fall) - crowd 8% on Babos Gaming against our 65.1%",
+   "detail": "25 Hotspawn users have picked this card and 8% of them chose Babos Gaming; our line, built only from external sources (model), puts that team at 65.1% - a 57.1 pp gap. Recalculated on every build across all cards with at least 20 crowd picks: Babos Gaming vs Hannover Esports e.V. 57 pp, Rich Gang vs Phenti 52 pp, Team Lucidity Esports vs Team cd 50 pp, AceGaming vs Babos Gaming 49 pp.",
+   "source": "https://www.hotspawn.com/matches/babos-gaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1079027"
   },
   {
    "severity": "info",

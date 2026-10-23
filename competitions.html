@@ -12,7 +12,7 @@
 <header class="topbar">
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle page menu">Menu</button>
     <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html" class="active">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
 </header>
@@ -20,8 +20,8 @@
   <div class="pagehead">
     <h1>Tournaments</h1>
     <p class="sub">Coverage and source quality for every tournament on the Hotspawn list.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 15:39 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:37:40Z">Inventory collected: 2026-10-23T15:37:40Z. Check source timestamps before use.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-23 15:45 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:37:40Z">Hotspawn inventory collected: 2026-10-23T15:37:40Z. Check source timestamps before use.</p>
   </div>
   
 <section class="panel">
@@ -33,12 +33,15 @@
 
 </main>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Rows link to source records. Leaguepedia is community-maintained; model lines are estimates, not verified facts. Zero Hotspawn crowd-pick input.</p>
+  <p>Independent research dashboard. Rows link to their source records. Leaguepedia is community-maintained;
+  model lines are estimates, not verified facts. Zero Hotspawn crowd-pick input.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
-<a class="mobile-picks" href="picks.html">All picks &rarr;</a>
+<nav class="mobnav" aria-label="Quick navigation">
+  <a href="index.html"><span>Summary</span></a><a href="picks.html"><span>All picks</span></a><a href="featured.html"><span>Market</span></a><a href="unresolved.html"><span>Unresolved</span></a><a href="flagged.html"><span>Flags</span></a>
+</nav>
 <script src="assets/app.js"></script>
 </body>
 </html>
