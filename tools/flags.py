@@ -19,6 +19,14 @@ LEAGUEPEDIA = "https://lol.fandom.com/wiki/Special:CargoExport"
 PINNACLE = "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups"
 
 
+def _host(url) -> str:
+    """Readable source name for a receipt URL; never invents one when it is missing."""
+    if not url:
+        return "an unnamed source"
+    name = str(url).split("//")[-1].split("/")[0]
+    return name[4:] if name.startswith("www.") else name
+
+
 def main() -> None:
     data = load_json(os.path.join(DATA, "matches.json")) or {}
     rows = data.get("matches") or []
@@ -127,7 +135,7 @@ def main() -> None:
             "detail": "Every quote is de-vigged only after an integrity test: symmetric 1.80/1.80 aggregator "
                       "placeholders, prices <= 1.00 and lines where one side implies more than 97% are dropped "
                       "rather than published. Rejected on this build: "
-                      + "; ".join(f"#{q.get('fixture_id')} {q.get('venue')}: {q.get('reject')}" for q in rejected[:6]),
+                      + "; ".join(f"#{q.get('fixture_id')} {q.get('venue') or 'archived aggregator receipt'}: {q.get('reject')}" for q in rejected[:6]),
             "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/tools/model.py",
         })
 

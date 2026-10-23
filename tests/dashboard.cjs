@@ -1,4 +1,9 @@
 // Run with jsdom installed externally: NODE_PATH=/path/to/node_modules node tests/dashboard.cjs
+//
+// The page scripts only wire themselves up on DOMContentLoaded when the document is still
+// parsing, exactly like a real browser. jsdom parses synchronously but fires that event on a
+// later tick, so this test must wait for it before clicking anything - otherwise it races the
+// app and fails even though the page works (that is the bug this version fixes).
 const {JSDOM} = require('jsdom');
 const fs = require('node:fs');
 const assert = require('node:assert/strict');

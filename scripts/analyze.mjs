@@ -558,8 +558,12 @@ for (const r of rows) {
       n0: ratings.get(ratingKey(f.t0.id, f.t0.name))?.n ?? 0,
       n1: ratings.get(ratingKey(f.t1.id, f.t1.name))?.n ?? 0,
     },
-    score0: state === "ended" ? num(f.t0.score) : null,
-    score1: state === "ended" ? num(f.t1.score) : null,
+    // Final scores are facts for both settled states: Hotspawn records official
+    // walkover scores on forfeited fixtures too (verified live 2026-10-23:
+    // #1071216 participants0_score=0 / participants1_score=1). Mapping them lets
+    // the ledger grade forfeits instead of leaving the pick "pending" forever.
+    score0: (state === "ended" || state === "forfeited") ? num(f.t0.score) : null,
+    score1: (state === "ended" || state === "forfeited") ? num(f.t1.score) : null,
     hotspawn_url: link.url,
     hotspawn_url_constructed: link.constructed,
     market_pinnacle: pin ? {

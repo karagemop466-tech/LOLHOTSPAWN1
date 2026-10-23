@@ -96,8 +96,8 @@
    "market": 1
   },
   "LCP 2027 Promotion": {
-   "model": 2,
-   "provisional": 1
+   "provisional": 2,
+   "model": 1
   }
  },
  "non_exact_joins": [
@@ -821,7 +821,8 @@
    ],
    "p0": 0.5372,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no shared-opponent chain between the two teams"
    ]
   },
   {
@@ -906,7 +907,8 @@
    ],
    "p0": 0.4514,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no shared-opponent chain between the two teams"
    ]
   },
   {
@@ -930,7 +932,8 @@
    ],
    "p0": 0.4858,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no shared-opponent chain between the two teams"
    ]
   },
   {
@@ -1255,7 +1258,8 @@
    ],
    "p0": 0.2647,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no shared-opponent chain between the two teams"
    ]
   },
   {
@@ -1343,6 +1347,18 @@
    ]
   },
   {
+   "id": "1081421",
+   "competition": "LCP 2027 Promotion",
+   "teams": [
+    "FENNEL",
+    "Nothin'Here"
+   ],
+   "p0": 0.5472,
+   "flags": [
+    "no shared-opponent chain between the two teams"
+   ]
+  },
+  {
    "id": "1082007",
    "competition": "LCP 2027 Promotion",
    "teams": [
@@ -1388,7 +1404,8 @@
    ],
    "p0": 0.4226,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no shared-opponent chain between the two teams"
    ]
   },
   {
@@ -1468,8 +1485,8 @@
    ],
    "p0": 0.64,
    "decimal": {
-    "home": 1.55,
-    "away": 2.53
+    "home": 1.54,
+    "away": 2.55
    },
    "start": "2026-10-23T20:00:00Z"
   },
@@ -1510,8 +1527,8 @@
    ],
    "p0": 0.1386,
    "decimal": {
-    "home": 5.76,
-    "away": 1.139
+    "home": 5.92,
+    "away": 1.133
    },
    "start": "2026-10-23T23:00:00Z"
   },
@@ -1536,7 +1553,7 @@
     "Mental Rush",
     "Vitality Rising Bees"
    ],
-   "p0": 0.35,
+   "p0": 0.34,
    "decimal": null,
    "start": "2026-10-27T17:00:00Z"
   }

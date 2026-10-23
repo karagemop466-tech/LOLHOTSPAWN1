@@ -80,6 +80,13 @@
   },
   {
    "severity": "info",
+   "item": "External line coverage is structurally limited: only about a dozen LoL series are priced anywhere [measured on the runner 2026-10-23T15:38-15:48Z; receipts data/source_probes.json, research/probe_deep.json, research/market_ceiling.json, research/bovada_full.json]",
+   "detail": "A 32-endpoint probe run from the GitHub Actions runner on 2026-10-23T15:38Z found only four venues returning machine-readable prices: Pinnacle, Kalshi, Bovada and Polymarket. Enumerating every LoL league on Pinnacle returns a single league (World Championship) with 138 matchup objects, of which 8 carry an open two-sided series moneyline; the parallel (Kills) family is a kill total and is excluded. Kalshi lists 8 open KXLOLGAME contracts and Polymarket 12 unsettled match markets, overwhelmingly the same Worlds 2026 ties. Bovada's unfiltered coupon returns no moneylines beyond the filtered feed. Every other listed match therefore has no external line: it is originated from Leaguepedia history, or it is a forfeit settlement with no probability. Bet365, Betway, BetOnline, Everygame, SportsBetting.ag, Betsson, BetUS, 1xBet, Betfair, DraftKings, FanDuel, BetMGM, GG.BET, Thunderpick, Rivalry, BC.GAME, Stake, Unibet/Kambi, EGamersWorld, Oddspedia, OddsPortal, BetExplorer, OddsPapi and Odds-API.io were all probed and could not be used (403/404/410/401, or HTML that loads prices only after JavaScript).",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/SOURCES.md",
+   "verification": "measured on the runner 2026-10-23T15:38-15:48Z; receipts data/source_probes.json, research/probe_deep.json, research/market_ceiling.json, research/bovada_full.json"
+  },
+  {
+   "severity": "info",
    "item": "Leaguepedia is community-maintained, not an official league source",
    "detail": "Every originated line is fitted on Leaguepedia's community-recorded series history and its Data: page dqteams directives are used to quarantine removed teams. Leaguepedia is not an official settlement authority; Kalshi's own rules, for example, resolve a pre-play forfeit at the fair market price. Forfeit settlement picks on this site are therefore marked conditional.",
    "source": "https://lol.fandom.com/wiki/Leaguepedia:Community",
@@ -136,7 +143,7 @@
   {
    "severity": "medium",
    "item": "1 market row(s) rest on a single prediction market with almost no traded volume",
-   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $5 traded volume (thin-market threshold $1,000), priced 35.0%/65.0%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
+   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $7 traded volume (thin-market threshold $1,000), priced 34.0%/66.0%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
    "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
   },
   {

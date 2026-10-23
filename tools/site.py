@@ -241,7 +241,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
-    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{'<span class="badge b-thin" title="single thin prediction market">thin market</span>' if (r.get('market') or {}).get('thin') else ''}{badge(m)}</span>
+    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{f'<span class="badge b-flip" title="identical kick-off ratings - display order only">toss-up</span>' if pick and pick.get('probability') == 0.5 else ''}{'<span class="badge b-thin" title="single thin prediction market">thin market</span>' if (r.get('market') or {}).get('thin') else ''}{badge(m)}</span>
   </div>
   <div class="comp">{e(r['competition'])}{f" &middot; {e(r['best_of'])}-game series" if r.get('best_of') else ""}</div>
   <div class="teams">
@@ -407,10 +407,14 @@ def research_panel() -> str:
             if ev.get("kind") != "page":
                 continue
             blobs = ", ".join(b.get("label") for b in ev.get("embedded_json") or []) or "none"
+            if ev.get("status") != 200:
+                verdict = f"page did not resolve for LoL (HTTP {ev.get('status')}) &mdash; nothing to parse"
+            elif blobs == "none":
+                verdict = "JavaScript-only rendering &mdash; not parsed"
+            else:
+                verdict = "hydration blob present, no LoL price in it &mdash; no venue parser integrated"
             page_rows.append([e(ev.get("name")), str(ev.get("status")), f'{int(ev.get("bytes") or 0):,}',
-                              e(blobs),
-                              "JavaScript-only rendering &mdash; not parsed"
-                              if blobs == "none" else "hydration blob only &mdash; no venue parser integrated"])
+                              e(blobs), verdict])
         if page_rows:
             deep_html = f"""
   <h3>Why the books that "answer" still cannot be used</h3>
@@ -491,6 +495,46 @@ def _stat_totals(rows: list[dict]) -> dict:
     }
 
 
+def short_time(iso_utc: str | None) -> str:
+    """Compact, locale-independent kick-off label for the phone strip."""
+    if not iso_utc:
+        return "TBD"
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    try:
+        month = months[int(iso_utc[5:7]) - 1]
+    except (ValueError, IndexError):
+        month = iso_utc[5:7]
+    label = f"{iso_utc[8:10]} {month} {iso_utc[11:16]}"
+    return f'<time datetime="{e(iso_utc)}" data-utc="{e(iso_utc)}">{e(label)}</time>'
+
+
+def next_strip(rows: list[dict]) -> str:
+    """Eight one-tap kick-off rows: match, pick, probability. Aimed at a phone."""
+    out = []
+    for r in rows:
+        pick = r.get("pick") or {}
+        team = pick.get("team") or ""
+        prob = pick.get("probability")
+        if prob is not None:
+            value, cls = f"{prob * 100:.0f}%", "np"
+        elif team:
+            value, cls = "walkover", "np settle"
+        else:
+            value, cls = "&mdash;", "np settle"
+        note = f"Pick: {team}" if team else "No pick - see Unresolved"
+        if prob is None and team:
+            note += " (league rule, no price)"
+        out.append(
+            f'<a class="nextrow" href="picks.html#match-{e(r["id"])}">'
+            f'<span class="nw">{short_time(r["start_utc"])}</span>'
+            f'<span class="nt"><strong>{e(r["team0"]["name"])} vs {e(r["team1"]["name"])}</strong>'
+            f'<span class="nm">{e(note)} &middot; {e(r["competition"])}</span></span>'
+            f'<span class="{cls}">{value}</span></a>'
+        )
+    return "".join(out)
+
+
 def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> str:
     t = _stat_totals(rows)
     total = t["total"]
@@ -508,6 +552,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     originated_n = counts.get("model", 0) + len(provisional)
 
     ceiling = _external_ceiling()
+    gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
     unres_rows = []
     for r in unresolved:
         unres_rows.append([
@@ -532,6 +577,13 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <a class="btn" href="picks.html">Card view</a>
     <a class="btn" href="unresolved.html">Unresolved &amp; limits ({len(unresolved)})</a>
   </div>
+</section>
+
+<section class="panel" id="next">
+  <h2>Next up</h2>
+  <p class="lead">The next eight kick-offs. Tap a row for the card with the full reasoning and sources.</p>
+  <div class="nextlist">{next_strip(upcoming[:8]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
+  <p style="margin:12px 0 0"><a class="btn" href="table.html">All {total} matches in one table &rarr;</a></p>
 </section>
 
 <section class="panel" id="jumpto">
@@ -588,8 +640,10 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
     captured for audit comparison only and carry zero weight in any probability - see
     <a href="methodology.html">Method &amp; out-of-sample backtest</a>.</li>
-    <li><strong>Verification.</strong> {live_sources} of {len(src_status)} probed feeds answered on the last
-    build (<a href="sources.html">Sources</a>); every row links to its official source; and the publish gate
+    <li><strong>Verification.</strong> {live_sources} of the {len(src_status)} feeds the collector polls
+    answered on the last build (<a href="sources.html">Sources</a> &mdash; a separate, wider probe of
+    {ceiling["probed"]} venues including esportsbooks and aggregators is published there too). Every row
+    links to its official source, and the {gate_count}-check publish gate
     (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
     probabilities fail to sum to 100%, or an internal link breaks.</li>
   </ul>
@@ -814,7 +868,7 @@ def build_originated(rows: list[dict], counts: Counter) -> str:
                       "Independent series-history probabilities for matches with no sportsbook coverage.")
 
 
-def build_unresolved(rows: list[dict], counts: Counter) -> str:
+def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] | None = None) -> str:
     unresolved = sorted([r for r in rows if r["method"] == "unresolved"],
                         key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
     provisional = sorted([r for r in rows if r["method"] == "provisional"],
@@ -866,6 +920,18 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
          "Sources. A book that returns a page but only renders symmetric 1.8/1.8 placeholders (EGamersWorld) is "
          "never treated as a price."],
     ]
+    hunt_rows = []
+    for st in (src_status or []):
+        cls = "ok" if st.get("ok") else "bad"
+        hunt_rows.append([
+            f'<a href="{e(st.get("url"))}" rel="noopener">{e(st.get("name"))}</a>',
+            e(st.get("note")),
+            f'<span class="pill {cls}">{e(st.get("status"))}</span>',
+            e((st.get("checked_utc") or "")[:16].replace("T", " ")),
+        ])
+    hunt_table = (table(["Source", "What it is", "Runner verdict", "Checked (UTC)"], hunt_rows)
+                  if hunt_rows else '<p class="muted">No source probe recorded on this build.</p>')
+
     body = f"""
 <section class="panel">
   <h2>Unresolved picks ({len(unresolved)})</h2>
@@ -880,6 +946,17 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
 <section class="panel">
   <h2>Documented limitations across the list</h2>
   {table(["Limitation", "Scope", "Impact &amp; handling"], lim_rows)}
+</section>
+
+<section class="panel" id="line-hunt">
+  <h2>Where we looked for a line</h2>
+  <p class="lead">No percentage is published for the matches above because no reachable source quotes them.
+  These are the books, exchanges and odds aggregators probed on the current build, with the runner's own HTTP
+  verdict: a source marked <em>blocked</em> was tried and refused the connection, so it cannot back a pick even
+  where it might show a price in a browser. Additional sources that were researched and ruled out, with the
+  exact response each returned, are logged in
+  <a href="data/line_source_research.json" rel="noopener">line_source_research.json</a>.</p>
+  {hunt_table}
 </section>
 
 <section class="panel">
@@ -928,8 +1005,11 @@ def build_teams(rows: list[dict]) -> str:
             t = r[side]
             prev = teams.get(t["name"])
             if not prev or (t["rating_matches"] or 0) > (prev["n"] or 0):
-                teams[t["name"]] = {"name": t["name"], "lp": t["leaguepedia"], "elo": t["elo"],
-                                    "n": t["rating_matches"], "last": t["last_played"],
+                teams[t["name"]] = {"name": t["name"], "lp": t["leaguepedia"],
+                                    "elo": (t.get("elo_now") if t.get("elo_now") is not None else t["elo"]),
+                                    "n": t["rating_matches"],
+                                    "last": max([x for x in ((prev or {}).get("last"), t["last_played"]) if x],
+                                                default=None),
                                     "join": t["join"]}
     ordered = sorted(teams.values(), key=lambda x: (-(x["elo"] or 0), x["name"]))
     out = [[e(t["name"]),
@@ -1217,7 +1297,7 @@ def main() -> None:
         "table.html": build_table(rows, counts),
         "featured.html": build_featured(rows),
         "originated.html": build_originated(rows, counts),
-        "unresolved.html": build_unresolved(rows, counts),
+        "unresolved.html": build_unresolved(rows, counts, src),
         "competitions.html": comp_html,
         "teams.html": build_teams(rows),
         "methodology.html": build_methodology(model),

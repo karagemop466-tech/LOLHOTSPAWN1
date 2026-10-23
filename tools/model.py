@@ -183,9 +183,8 @@ def parse_chronology(lp_matches: list[dict]) -> list[tuple[datetime, str, str, i
     for m in lp_matches:
         if m.get("winner") not in ("1", "2"):
             continue
-        try:
-            dt = datetime.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
-        except (ValueError, TypeError):
+        dt = parse_lp_time(m.get("utc"))
+        if dt is None:
             continue
         try:
             s1 = int(m.get("team1_score"))
@@ -287,15 +286,15 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, dict, Union
         bt["accuracy"] = round(bt["hits"] / bt["n"], 4)
         bt["brier"] = round(bt["brier_sum"] / bt["n"], 4)
         bt["logloss"] = round(bt["logloss_sum"] / bt["n"], 4)
-        ordered_buckets = {}
+        ordered = {}
         for name in ("50-60%", "60-70%", "70-80%", "80%+"):
             if name in bt["buckets"]:
                 b = bt["buckets"][name]
                 b["accuracy"] = round(b["hits"] / b["n"], 4) if b["n"] else None
                 b["mean_predicted"] = round(b["sum_p"] / b["n"], 4) if b["n"] else None
                 b.pop("sum_p", None)
-                ordered_buckets[name] = b
-        bt["buckets"] = ordered_buckets
+                ordered[name] = b
+        bt["buckets"] = ordered
     bt.pop("brier_sum", None)
     bt.pop("logloss_sum", None)
     return ratings, priors, counts, last_seen, uf, bt, games
@@ -769,9 +768,7 @@ def main() -> None:
     rows, join_log = [], []
     for f in fixtures:
         n0, n1 = f["team0"]["name"], f["team1"]["name"]
-        page = (comp_map.get(f["competition"]) or {}).get("page")
-        k0, m0, note0 = resolve_team(n0, exact, base, aliases, page, page_teams)
-        k1, m1, note1 = resolve_team(n1, exact, base, aliases, page, page_teams)
+        k0, m0, note0, k1, m1, note1, page = resolved[f["id"]]
         for name, key, method, notes in ((n0, k0, m0, note0), (n1, k1, m1, note1)):
             if method not in ("exact",):
                 join_log.append({"hotspawn_id": f["id"], "team": name, "resolved": key,
@@ -1098,7 +1095,8 @@ def main() -> None:
         "inventory_fetched_utc": hs.get("fetched_utc"),
         "receipt_audit": receipt_audit,
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
-                  "shrink": ELO_SHRINK, "min_matches_confident": MIN_MATCHES_CONFIDENT,
+                  "margin_weight": MARGIN_WEIGHT, "shrink": ELO_SHRINK,
+                  "rating_as_of": "kick-off", "min_matches_confident": MIN_MATCHES_CONFIDENT,
                   "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,
                   "decay_start_days": DECAY_START_DAYS, "decay_full_days": DECAY_FULL_DAYS,
                   "window_start": lp.get("query", {}).get("where")},

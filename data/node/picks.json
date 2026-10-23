@@ -1,24 +1,24 @@
 {
  "summary": {
-  "generated_at": "2026-10-23T11:12:30.123Z",
+  "generated_at": "2026-10-23T16:06:40.611Z",
   "week": {
    "start": "2026-10-19T00:00:00.000Z",
    "end": "2026-10-26T00:00:00.000Z"
   },
   "accuracy": {
-   "tracked": 29,
-   "hits": 23,
-   "rate": 79.3,
+   "tracked": 31,
+   "hits": 24,
+   "rate": 77.4,
    "by_basis": {
     "model-elo": {
-     "tracked": 29,
-     "hits": 23
+     "tracked": 31,
+     "hits": 24
     }
    }
   },
   "counts": {
-   "open": 176,
-   "locked_or_live": 1,
+   "open": 172,
+   "locked_or_live": 5,
    "stale": 64,
    "ended_this_week": 63,
    "cancelled": 12,
@@ -26,8 +26,8 @@
    "market_pinnacle": 8,
    "market_polymarket_only": 1,
    "model_only": 156,
-   "unresolved_open": 11,
-   "flags_needs_review": 14,
+   "unresolved_open": 10,
+   "flags_needs_review": 13,
    "flags_info": 3
   },
   "sources_ok": {
@@ -1787,8 +1787,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.559,
-    "p1": 0.441,
+    "p0": 0.558,
+    "p1": 0.442,
     "r0": 1542,
     "r1": 1459,
     "n0": 11,
@@ -4364,8 +4364,8 @@
     "n0": 2,
     "n1": 2
    },
-   "score0": null,
-   "score1": null,
+   "score0": 1,
+   "score1": 0,
    "hotspawn_url": "https://www.hotspawn.com/matches/emperors-bremen-vs-sissi-state-punks-prm-3rd-division-26-27-fall-1075739",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
@@ -4418,7 +4418,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.443,
     "p1": 0.557,
-    "r0": 1458,
+    "r0": 1459,
     "r1": 1539,
     "n0": 3,
     "n1": 3,
@@ -4504,8 +4504,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.514,
-    "p1": 0.486,
+    "p0": 0.513,
+    "p1": 0.487,
     "r0": 1630,
     "r1": 1620,
     "n0": 15,
@@ -4584,8 +4584,8 @@
     "n0": 3,
     "n1": 10
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 1,
    "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-dmg-esports-norway-komplettligaen-2026-autumn-1071216",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
@@ -5695,7 +5695,7 @@
   },
   {
    "id": "1071212",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36279",
    "competition": "Komplettligaen 2026 Autumn",
@@ -5722,7 +5722,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/rich-gang-vs-phenti-komplettligaen-2026-autumn-1071212",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5747,7 +5747,7 @@
   },
   {
    "id": "1082745",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36492",
    "competition": "PRM 2nd Division 26-27 Fall",
@@ -5774,7 +5774,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/reveal-multigaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1082745",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5799,7 +5799,7 @@
   },
   {
    "id": "1082839",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36588",
    "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
@@ -5826,7 +5826,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/levelers-vs-mtn-esports-team-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082839",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": null,
@@ -5834,7 +5834,7 @@
   },
   {
    "id": "1079023",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36492",
    "competition": "PRM 2nd Division 26-27 Fall",
@@ -5861,7 +5861,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/locked-in-vs-the-bandits-prime-prm-2nd-division-26-27-fall-1079023",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -5966,12 +5966,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638748200,
-    "odds0": -387,
-    "odds1": 294,
-    "dec0": 1.26,
-    "dec1": 3.94,
-    "p0": 0.758,
-    "p1": 0.242,
+    "odds0": -335,
+    "odds1": 261,
+    "dec0": 1.3,
+    "dec1": 3.61,
+    "p0": 0.735,
+    "p1": 0.265,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -5981,11 +5981,11 @@
     "url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23",
     "event": "lol-gen-ig1-2026-10-23",
     "question": "LoL: Gen.G vs Invictus Gaming (BO1) - Worlds Group Stage",
-    "p0": 0.775,
-    "p1": 0.225,
+    "p0": 0.765,
+    "p1": 0.235,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 397443.5234,
-    "volume": 177120.605735,
+    "liquidity": 296873.8724,
+    "volume": 339495.241097,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6003,10 +6003,10 @@
     "team_index": 0,
     "team_id": "6194",
     "team": "Gen.G",
-    "p": 0.758,
+    "p": 0.735,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.516
+    "margin": 0.471
    }
   },
   {
@@ -6143,12 +6143,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638748203,
-    "odds0": -385,
-    "odds1": 293,
+    "odds0": -391,
+    "odds1": 297,
     "dec0": 1.26,
-    "dec1": 3.93,
-    "p0": 0.757,
-    "p1": 0.243,
+    "dec1": 3.97,
+    "p0": 0.76,
+    "p1": 0.24,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6161,8 +6161,8 @@
     "p0": 0.765,
     "p1": 0.235,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 190464.1621,
-    "volume": 248174.35754300002,
+    "liquidity": 225249.6791,
+    "volume": 277158.907933,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6180,10 +6180,10 @@
     "team_index": 0,
     "team_id": "10170",
     "team": "Hanwha Life Esports",
-    "p": 0.757,
+    "p": 0.76,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.515
+    "margin": 0.519
    }
   },
   {
@@ -6381,12 +6381,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638755459,
-    "odds0": -458,
-    "odds1": 337,
-    "dec0": 1.22,
-    "dec1": 4.37,
-    "p0": 0.782,
-    "p1": 0.218,
+    "odds0": -400,
+    "odds1": 302,
+    "dec0": 1.25,
+    "dec1": 4.02,
+    "p0": 0.763,
+    "p1": 0.237,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6399,8 +6399,8 @@
     "p0": 0.805,
     "p1": 0.195,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 337655.9683,
-    "volume": 197471.948932,
+    "liquidity": 291171.4216,
+    "volume": 213883.530219,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6418,10 +6418,10 @@
     "team_index": 0,
     "team_id": "5746",
     "team": "Bilibili Gaming",
-    "p": 0.782,
+    "p": 0.763,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.564
+    "margin": 0.526
    }
   },
   {
@@ -6462,12 +6462,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638750902,
-    "odds0": -193,
-    "odds1": 161,
-    "dec0": 1.52,
-    "dec1": 2.61,
-    "p0": 0.632,
-    "p1": 0.368,
+    "odds0": -182,
+    "odds1": 153,
+    "dec0": 1.55,
+    "dec1": 2.53,
+    "p0": 0.62,
+    "p1": 0.38,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6480,8 +6480,8 @@
     "p0": 0.645,
     "p1": 0.355,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 329128.5368,
-    "volume": 289154.215685,
+    "liquidity": 403073.8923,
+    "volume": 316073.57549099997,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6499,10 +6499,10 @@
     "team_index": 0,
     "team_id": "57842",
     "team": "Anyone's Legend",
-    "p": 0.632,
+    "p": 0.62,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.264
+    "margin": 0.24
    }
   },
   {
@@ -6543,12 +6543,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638750815,
-    "odds0": 126,
-    "odds1": -148,
-    "dec0": 2.26,
+    "odds0": 124,
+    "odds1": -146,
+    "dec0": 2.24,
     "dec1": 1.68,
-    "p0": 0.426,
-    "p1": 0.574,
+    "p0": 0.429,
+    "p1": 0.571,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6561,8 +6561,8 @@
     "p0": 0.395,
     "p1": 0.605,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 523321.1434,
-    "volume": 329756.04512100003,
+    "liquidity": 460468.1243,
+    "volume": 343927.050599,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6580,10 +6580,10 @@
     "team_index": 1,
     "team_id": "74448",
     "team": "Dplus KIA",
-    "p": 0.574,
+    "p": 0.571,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.148
+    "margin": 0.141
    }
   },
   {
@@ -6642,8 +6642,8 @@
     "p0": 0.715,
     "p1": 0.285,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 315634.9316,
-    "volume": 36094.448937,
+    "liquidity": 325515.5648,
+    "volume": 39405.000339,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6705,12 +6705,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638748205,
-    "odds0": 467,
-    "odds1": -700,
-    "dec0": 5.67,
-    "dec1": 1.14,
-    "p0": 0.168,
-    "p1": 0.832,
+    "odds0": 492,
+    "odds1": -750,
+    "dec0": 5.92,
+    "dec1": 1.13,
+    "p0": 0.161,
+    "p1": 0.839,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6723,8 +6723,8 @@
     "p0": 0.125,
     "p1": 0.875,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 410229.4247,
-    "volume": 48515.975481,
+    "liquidity": 344204.2968,
+    "volume": 63561.296776999996,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6742,10 +6742,10 @@
     "team_index": 1,
     "team_id": "10168",
     "team": "T1",
-    "p": 0.832,
+    "p": 0.839,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.664
+    "margin": 0.679
    }
   },
   {
@@ -6804,8 +6804,8 @@
     "p0": 0.415,
     "p1": 0.585,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 368382.8884,
-    "volume": 27339.865246999998,
+    "liquidity": 352843.5247,
+    "volume": 68163.34621999999,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -9668,12 +9668,12 @@
     "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "event": "lol-rb-mr-2026-10-27",
     "question": "LoL: Vitality Rising Bees vs Mental Rush (BO5) - LGC Rising Playoffs",
-    "p0": 0.32,
-    "p1": 0.68,
+    "p0": 0.325,
+    "p1": 0.675,
     "price_kind": "outcomePrices",
-    "liquidity": 4214.0324,
+    "liquidity": 4237.3623,
     "volume": 5,
-    "spread": 0.24,
+    "spread": 0.23,
     "match_quality": "exact"
    },
    "model": {
@@ -9690,10 +9690,10 @@
     "team_index": 1,
     "team_id": "163988",
     "team": "Vitality Rising Bees",
-    "p": 0.68,
+    "p": 0.675,
     "basis": "market-polymarket",
     "confidence": "medium",
-    "margin": 0.36
+    "margin": 0.35
    }
   },
   {
@@ -10235,7 +10235,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.493,
     "p1": 0.507,
-    "r0": 1458,
+    "r0": 1459,
     "r1": 1471,
     "n0": 3,
     "n1": 2,
@@ -11449,7 +11449,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.479,
     "p1": 0.521,
-    "r0": 1458,
+    "r0": 1459,
     "r1": 1488,
     "n0": 3,
     "n1": 3,
@@ -14464,8 +14464,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.483,
-    "p1": 0.517,
+    "p0": 0.484,
+    "p1": 0.516,
     "r0": 1472,
     "r1": 1501,
     "n0": 2,
@@ -14476,10 +14476,10 @@
     "team_index": 1,
     "team_id": "264563",
     "team": "Emperors Bremen",
-    "p": 0.517,
+    "p": 0.516,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.034
+    "margin": 0.032
    }
   },
   {
@@ -14623,7 +14623,7 @@
     "p0": 0.524,
     "p1": 0.476,
     "r0": 1515,
-    "r1": 1458,
+    "r1": 1459,
     "n0": 1,
     "n1": 3,
     "confidence": "low"
