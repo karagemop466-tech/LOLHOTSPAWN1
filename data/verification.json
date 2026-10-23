@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:57:52Z",
+ "generated_utc": "2026-10-23T15:58:34Z",
  "checks": [
   {
    "name": "dataset present",
@@ -139,7 +139,7 @@
   {
    "name": "curated flags cite only currently listed fixtures",
    "ok": true,
-   "detail": "9 curated flags scanned; stale references: []"
+   "detail": "10 curated flags scanned; stale references: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -164,7 +164,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 40041 bytes"
+   "detail": "coverage.html 40109 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -172,21 +172,42 @@
    "detail": "32 venues probed on 2026-10-23T15:38:55Z; dossier present"
   },
   {
+   "name": "coverage arithmetic reconciles to the inventory",
+   "ok": true,
+   "detail": "priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241"
+  },
+  {
    "name": "source availability recorded",
    "ok": true,
    "detail": "9/14 sources reachable on this build"
+  },
+  {
+   "name": "every Hotspawn fixture is in the dataset (1:1 ids)",
+   "ok": true,
+   "detail": "feed=241 dataset=241 missing=[] extra=[]"
+  },
+  {
+   "name": "per-tournament counts match the Hotspawn feed",
+   "ok": true,
+   "detail": "27 tournaments; differences: []"
+  },
+  {
+   "name": "no look-ahead: ratings use only results before kick-off",
+   "ok": true,
+   "detail": "0 violations; examples: []"
   }
  ],
  "passed": true,
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
- "unverified": 69,
+ "unverified": 84,
  "counts": {
-  "provisional": 65,
-  "model": 163,
+  "provisional": 80,
+  "model": 148,
   "unresolved": 4,
   "market": 9
  },
- "internal_links": 389
+ "internal_links": 390,
+ "lookahead_violations": 0
 }

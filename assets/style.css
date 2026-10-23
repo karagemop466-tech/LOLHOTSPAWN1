@@ -226,3 +226,6 @@ tr:last-child td{border-bottom:0}
   .mobile-picks{bottom:66px}
 }
 @media(prefers-color-scheme:dark){.mobnav{background:#111829}.mobnav a.active{color:#e8edf7}}
+
+/* coin-flip cards: identical kick-off ratings, no edge claimed */
+.badge.b-flip{background:var(--warn-weak);color:var(--warn);border:1px solid #ecd9a8}

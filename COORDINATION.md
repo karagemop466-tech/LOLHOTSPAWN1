@@ -794,3 +794,141 @@ matched to the raw `dqteams` receipt, CSV mirror exact), `python3 -m unittest di
 | GitHub Pages | build `9e25133` **built** at 2026-10-23T15:53:30Z; live check of `https://karagemop466-tech.github.io/LOLHOTSPAWN1/table.html` returns the 241-row table with per-row Hotspawn + Leaguepedia source links |
 | Delivered | Executive summary with in-site links (Summary → Table → All picks → Market → Model → Unresolved → Coverage), the mobile bottom nav, the pick table, the unresolved-picks section with its limitations, the forfeit settlement picks, and the retired-quote trail |
 | Known open items (published, not hidden) | `docs/` is dead output from an older layout (Pages serves the branch root); the four Komplettligaen fixtures are settled administratively because the league removed Solid Gaming; `#1081423` and `#1079080` are originated/indicative lines with the retired-quote flag on the row |
+
+---
+
+# Final integration record — session `294e62ad` (2026-10-23T15:58Z)
+
+The brief's integration step (merge everything, re-verify the combined data line by line, publish)
+was executed from this branch after four other sessions merged in parallel.
+
+| Item | Result |
+|---|---|
+| PR #23 | external-book corroboration + `coverage.html` + line-by-line audit → **merged** 2026-10-23T15:47:26Z (`6af8635`) |
+| PR #30 | superseded (another session had already added the same retry loop) → **closed** with a note |
+| PR #33 | CI fix: the refresh retry loop rebased with the wrong side winning → **merged** (`git rebase -X theirs`, `data/receipts` staged, soft-reset last resort) |
+| Merge conflicts | resolved by taking the live `main` version of `tools/site.py`, `tools/verify.py`, `tools/flags.py`, `data/flags_manual.json` and every generated page as the base, then re-applying only this session's additions. Nothing from another session was reverted; where `main` had already superseded this session's work (curated-flag rewrites, mobile nav, archived-receipt exclusion) `main`'s version was kept and the duplicate dropped. |
+| Re-verification on the merged tree | `tools/verify.py` **29/29 PASS**, 0 FAIL — 12+ pages, 0 broken internal links, 237/237 probabilities sum to 100 %, every row carries a Hotspawn card link, coverage matrix 27/27 rows carry a source link, 9/9 external receipts validated, 0 rejected receipts |
+| Pages | `status: built`, source `main` `/`; deployments succeeded for `6af8635` (15:47Z), `6f6890a` (15:49Z) and the post-refresh heads |
+| Refresh loop | proved end to end: run `39982035986` (15:52Z, after the CI fix) completed **all** steps including `Commit data and site`; the two earlier failures (`39981049159`, `39981292253`) were exactly the push-race the fix addresses |
+| Live coverage page | served from `main`: `coverage.html` is in `NAV` on every page, linked from `index.html` and `picks.html`, and `data/corroboration.json` is regenerated on every refresh (latest: 9 usable receipts, mean gap **0.93 pp**, max **1.7 pp**, 1 conflicting, 0 rejected) |
+
+## What the site now answers, and where
+
+| Question | Page |
+|---|---|
+| What is the pick for this match, and how likely is it? | `picks.html` (241 cards, next kick-off first, one column on a phone) |
+| Which matches are backed by a real bookmaker price? | `featured.html` |
+| Which matches did we have to originate, and why? | `originated.html` + **`coverage.html`** |
+| Does any book anywhere price the low-tier leagues, and what did it say? | **`coverage.html` §2/§4** (with the evidence that none does) |
+| Do our lines agree with an independent book? | **`coverage.html` §3** (match by match, gap in pp, capture time, source link) |
+| Which matches have no pick at all, and why? | `unresolved.html` + **`coverage.html` §6** |
+| What is wrong or unverified? | `flagged.html` + `evidence/audit/2026-10-23-session-294e62ad.md` |
+
+## Irregularities still open for review (published, non-blocking)
+
+1. **LCP 2027 Promotion `#1081423` — 68.6 pp swing.** The 91.1 % "market" line was an archived
+   EGamersWorld listing reading (2026-10-21T20:36Z). The same site's match page today publishes the
+   `1.8/1.8` placeholder. Removing it (PR #18) turned the card into a model line at Frank Esports 77.5 %.
+   Both readings are quoted on `coverage.html` §3 with timestamps.
+2. **Stale-flag window.** `stale` is computed at build time, so a card that kicks off after the build is
+   not marked "start time passed" until the next refresh (up to 6 h). `#1071212` demonstrated it at 15:40Z
+   and was corrected by the 15:39Z refresh. A client-side check is the real fix; not implemented here.
+3. **Archived fifth venue.** Nine rows were labelled "N-Venue Consensus" while one venue was a two-day-old
+   archived quote. Now itemised with capture times on `coverage.html` §5, and excluded from corroboration.
+4. **Curated flags** are labelled `re-verified <date> against <source>` or `Historical observation - not
+   reverified`, and any flag citing a fixture that has left the list is auto-annotated. Ten of ten curated
+   flags currently cite only live fixtures (gate check).
+## Session `fba409a6` — PR / deploy record (2026-10-23T15:58Z)
+
+| Item | Value |
+|---|---|
+| PR #31 — source research layer | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/31 — MERGED `4a1601e` (15:51:35Z) |
+| PR #39 — coverage double-count fix + ceiling summary restored | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/39 — MERGED `fa918e6` (15:55:57Z) |
+| Pages build after merge | `pages-build-deployment` **success** (`39982494400`); live `index.html` shows 237 priced + 4 forfeit = 241/241 (100%) and the source-ceiling bullet |
+| Live check | https://karagemop466-tech.github.io/LOLHOTSPAWN1/ and `/sources.html` served the new panels (verified by fetch at 15:57Z) |
+
+### Defects found and fixed during integration
+
+1. **Coverage read "245 of 241 (102%)".** `_stat_totals()["with_pick"]` already included the four forfeit
+   settlement picks and `build_index()` added them again. Reported separately now, and a new gate
+   (`coverage arithmetic reconciles to the inventory`) asserts `priced + settlements == rows with a pick ==
+   inventory` so it cannot regress.
+2. **`main` briefly shipped data that its own gate rejected.** The 15:54Z refresh committed a
+   `data/matches.json` produced before `tools/model.py` began emitting `receipt_audit`, so
+   `tools/verify.py` failed on `main` ("limit None h"). Fixed by regenerating the dataset with the current
+   model (`model → report → flags → site → verify`, 36/36 PASS). Anyone re-running the refresh on `main`
+   now gets a consistent snapshot.
+
+### Verification of this session's merge
+
+- `python3 tools/verify.py` — **36/36 PASS** (12 pages, 0 broken internal links, mobile nav on every page,
+  coverage arithmetic, research receipts present).
+- `python3 research/audit.py` — PASS (241 rows, exact inventory reconciliation, probabilities re-derived,
+  9 market rows re-weighted, 4 quarantine claims matched to the raw `dqteams` receipt, CSV mirror exact).
+- `python3 -m unittest discover -s tests` — 9/9 OK.
+- Live pages re-fetched after deploy: `/` (exec summary, stats, unresolved table) and `/sources.html`
+  (probe table + ceiling) both render the new content.
+# Session `a91e528d` — audit fixes, model integrity and coverage parity (2026-10-23)
+
+Branch: `arena/a91e528d-lolhotspawn1`. Scope kept to `tools/model.py`, `tools/verify.py`,
+`assets/style.css`, this file and the generated pages/data. `tools/site.py` changes are limited to the
+toss-up badge and the teams-page rating source; `tools/corroborate.py`, `coverage.html`,
+`data/receipts/**` remain owned by `294e62ad`.
+
+## What changed
+
+| ID | Change | Evidence |
+|---|---|---|
+| A1 | **No look-ahead in the Elo line.** Every fixture is priced from the rating state at its own kick-off, built only from series that started earlier. The previous build fitted on the whole Leaguepedia window and then "predicted" 65 already-started cards, 52 of which already had a result. | `tools/model.py` `build_ratings(lp_matches, fixtures)` returns per-fixture snapshots; `rating_as_of == start_utc` on every row; `verify.py` recomputes each side's rated-series count from raw Leaguepedia and fails on any excess — **0 violations**. |
+| A2 | **Margin-weighted K.** `K_eff = 48 * (1 - 0.45 + 0.45 * |series margin|)`, fitted on 2026-04-01..2026-07-01 and checked on the later holdout. | Holdout n=3,854: **65.49% / 0.2144 / 0.6178** vs baseline K=24 **64.06% / 0.2212 / 0.6323**. Rejected after testing: predict-time shrinkage (thin-team accuracy 62.0%→60.0%, Brier 0.2246→0.2371), best-of scaling, margin normalised by series length, and a 15% recent-form blend (Brier −0.0006 for −0.3 pp accuracy — inside noise). |
+| A3 | **Archived receipt freshness.** Only a receipt younger than 24 h may enter a consensus. `#1081423` (Ground Zero vs Frank, 11 Nov) was priced at 91.1% from a 1.8-day-old EGamersWorld listing whose live page today shows the `1.80/1.80` placeholder. It is now a model line (Frank 89.9%) with the rejection printed on the row and on `flagged.html`. | `MAX_RECEIPT_AGE_HOURS = 24`; 11 expired receipts recorded, 0 live; row flag keeps the capture time. |
+| A4 | **Coverage parity gate.** The dataset must be an exact mirror of the Hotspawn API response the build fetched, not a selection. | `verify.py`: ids 1:1 (241/241), per-tournament counts identical (27/27), every id rendered on `picks.html`. Independent live cross-check the same day: the lobby listed the same **27 tournaments with identical per-tournament counts summing to 241**, and **180 distinct teams** — equal to the dataset. |
+| A5 | **Toss-up transparency.** Three fixtures have identical kick-off ratings (1082003, 1082006, 1079047). They now say so instead of showing an arbitrary 50.0% "pick". | Row flag + `toss-up` badge; `verify.py` confirms the 50/50 rows are exactly those three. |
+
+## Verification record
+
+- `tools/verify.py`: **31/31 pass** (`data/verification.json`), including the 28 inherited gates,
+  no-look-ahead (0 violations) and the two coverage-parity assertions.
+- `python3 -m unittest discover -s tests`: 9/9 OK.
+- `tools/corroborate.py`: 9 usable receipts, 9 agree / 0 diverge, 2/27 competitions priced externally.
+- Spot math: Gen.G vs Invictus 0.7621 = weighted mean of Pinnacle .7448 (0.36), Polymarket .775 (0.24),
+  Kalshi .775 (0.18), Bovada .7689 (0.12) over 0.90; Rich Gang 1739.4 vs Phenti 1449.4 → 0.8415;
+  Ground Zero 1360.4 vs Frank 1740.3 → 0.1009.
+- Live inventory: `play.hotspawn.com/lol-pickems` 27 tournaments / 241 cards / 180 teams, matching the
+  dataset exactly at 15:44Z on 2026-10-23.
+- Line-source ceiling re-measured: Pinnacle lists LoL only for the World Championship (league 9587,
+  10 matchups); OddsPortal lists only the World Championship (8); the 31-endpoint runner probe found no
+  additional server-rendered low-tier book feed. The 5-venue market ceiling is therefore structural,
+  not a parsing gap.
+
+## Merge note
+
+`origin/main` had advanced 12 commits (28-gate verify, `corroborate.py`, `coverage.html`, integrity
+tests). The merge keeps main's newer tooling and re-applies only the model/verification changes above;
+generated pages and `data/*.json` were rebuilt from the merged pipeline rather than hand-merged.
+
+
+## Session `6d1ede2c` — final integration pass (2026-10-23T15:58Z)
+
+Merged `origin/main` at `3cd992c` (PR #41, session `a91e528d`) into this branch. Generated
+artifacts were taken from `origin/main` and rebuilt; no hand edits to `tools/` were carried over,
+because the incoming pipeline already contains every fix this session had verified.
+
+| Incoming change | Handling |
+|---|---|
+| Kick-off-snapshotted, margin-weighted Elo + no-look-ahead gate (PR #41) | Adopted. Rebuilt: **241 rows, 9 market, 148 model, 80 provisional, 4 walkover-settled**, 39 gates, 9/9 unit tests. |
+| `table.html` as the phone-first canonical list | Adopted; `audit/check_site.py` now counts 20 pages and confirms every match id appears exactly once there. |
+| Archived EGamersWorld receipts | Still excluded (43.3 h old, 24 h limit, domain 403s the runner). The expired-receipt flag rendered `None` where a receipt has no venue field; it now reads “captured 43.3 h before this build (2026-10-21T20:36:00Z) from egamersworld.com”. |
+
+Independent checks after the merge:
+
+| Check | Result |
+|---|---|
+| `tools/verify.py` | 39/39 PASS |
+| `audit/check_site.py` (links, nav, viewport, duplicate ids, unrendered values) | 20 pages, 0 failures |
+| `audit/verify_independent.py` (re-derived from raw, no `tools/` import) | 0 failures, 9 warnings, 0 kills substitutions |
+| `unittest discover -s tests` | 9/9 OK |
+| Live venue re-read (Gen.G v Invictus, 15:57–15:58Z) | Pinnacle −335/+261 on `matchupId` 1638748200, Polymarket 76.5/23.5, Kalshi mid 77.5/22.5, Bovada 1.2439/3.800 — all four match the snapshot; consensus recomputed 0.7536 vs 0.7537 published. Receipt: `audit/receipts/live_spotcheck_2026-10-23T1558Z.json` |
+
+**PR #45** carries this verification pass (report + receipt + the `None` rendering fix) to `main`.

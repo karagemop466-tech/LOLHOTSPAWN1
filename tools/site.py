@@ -225,7 +225,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
-    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{'<span class="badge b-thin" title="single thin prediction market">thin market</span>' if (r.get('market') or {}).get('thin') else ''}{badge(m)}</span>
+    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{f'<span class="badge b-flip" title="identical kick-off ratings - display order only">toss-up</span>' if pick and pick.get('probability') == 0.5 else ''}{'<span class="badge b-thin" title="single thin prediction market">thin market</span>' if (r.get('market') or {}).get('thin') else ''}{badge(m)}</span>
   </div>
   <div class="comp">{e(r['competition'])}{f" &middot; {e(r['best_of'])}-game series" if r.get('best_of') else ""}</div>
   <div class="teams">
@@ -459,9 +459,13 @@ def _row_sources(r: dict) -> str:
 
 def _stat_totals(rows: list[dict]) -> dict:
     walkover = [r for r in rows if r.get("resolution")]
+    priced = sum(1 for r in rows if r.get("p0") is not None)
     return {
         "total": len(rows),
-        "with_pick": sum(1 for r in rows if r["pick"]),
+        # a settlement pick is a pick, but it carries no probability, so the two counts are
+        # reported separately and never added on top of a total that already contains them.
+        "priced": priced,
+        "with_pick": priced + len(walkover),
         "walkover": walkover,
         "featured": [r for r in rows if r["method"] == "market"],
         "unresolved": [r for r in rows if r["method"] == "unresolved"],
@@ -477,7 +481,8 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     featured = t["featured"]
     unresolved = t["unresolved"]
     provisional = t["provisional"]
-    resolved_total = t["with_pick"] + len(walkover)
+    priced_n = t["priced"]
+    resolved_total = t["with_pick"]
     upcoming = sorted([r for r in rows if r["start_utc"] and r["start_utc"] > iso(now_utc()) and r["pick"]],
                       key=lambda r: r["start_utc"])
     live_sources = sum(1 for s in src_status if s.get("ok"))
@@ -485,6 +490,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     venues_txt = ", ".join(venue_names) if venue_names else "no reachable book this build"
     originated_n = counts.get("model", 0) + len(provisional)
 
+    ceiling = _external_ceiling()
     unres_rows = []
     for r in unresolved:
         unres_rows.append([
@@ -525,7 +531,8 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
 <section class="stats">
   {stat_card("Matches listed on Hotspawn", total, f"across {t['comps']} tournaments")}
-  {stat_card("Matches with a pick", resolved_total, f"{resolved_total/total*100:.0f}% incl. forfeit settlements", "ok")}
+  {stat_card("With a win probability", priced_n, f"{priced_n/total*100:.0f}% priced", "ok")}
+  {stat_card("With a pick", resolved_total, f"{resolved_total/total*100:.0f}% incl. {len(walkover)} forfeit settlements")}
   {stat_card("Market-backed", len(featured), "real-money consensus", "market")}
   {stat_card("Originated lines", counts.get('model',0), "model, medium confidence", "model")}
   {stat_card("Provisional", len(provisional), "thin data, flagged", "provisional")}
@@ -540,11 +547,21 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     probabilities, the method and source links. <a href="picks.html"><strong>Card view</strong></a> shows the
     same {total} matches with the full reasoning. Both pages are searchable and filterable by tournament and
     by method.</li>
-    <li><strong>Coverage.</strong> {t['with_pick']} of {total} matches carry a pick with a probability and
-    {len(walkover)} more are resolved to the official forfeit winner, so {resolved_total} of {total}
-    ({resolved_total/total*100:.0f}%) have a pick: <a href="featured.html">{len(featured)} market-backed</a>
+    <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
+    ({resolved_total/total*100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
+    official forfeit winner with no probability claimed.
+    Priced: <a href="featured.html">{len(featured)} market-backed</a>
     ({e(venues_txt)}), <a href="originated.html">{counts.get('model',0)} originated</a> and
     <a href="originated.html">{len(provisional)} provisional</a>.</li>
+    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
+    We probed <strong>{ceiling["probed"]} external venues</strong> from the build runner (established books,
+    esportsbooks, exchanges, odds aggregators); {ceiling["answered"]} answered and {ceiling["json_feeds"]}
+    returned JSON, of which four are price feeds. Across every reachable venue the same slice of the calendar is
+    quoted: <strong>Pinnacle {ceiling["pinnacle_priced"]} series</strong>,
+    <strong>Kalshi {ceiling["kalshi"]} contracts</strong> and
+    <strong>Polymarket {ceiling["polymarket"]} unsettled markets</strong> &mdash; overwhelmingly the same Worlds
+    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
+    Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
     originated lines are model estimates from community-maintained Leaguepedia history; archived sportsbook
     receipts are excluded from pricing; and the Hotspawn settlement of a forfeited card is unverified - see
@@ -885,8 +902,11 @@ def build_teams(rows: list[dict]) -> str:
             t = r[side]
             prev = teams.get(t["name"])
             if not prev or (t["rating_matches"] or 0) > (prev["n"] or 0):
-                teams[t["name"]] = {"name": t["name"], "lp": t["leaguepedia"], "elo": t["elo"],
-                                    "n": t["rating_matches"], "last": t["last_played"],
+                teams[t["name"]] = {"name": t["name"], "lp": t["leaguepedia"],
+                                    "elo": (t.get("elo_now") if t.get("elo_now") is not None else t["elo"]),
+                                    "n": t["rating_matches"],
+                                    "last": max([x for x in ((prev or {}).get("last"), t["last_played"]) if x],
+                                                default=None),
                                     "join": t["join"]}
     ordered = sorted(teams.values(), key=lambda x: (-(x["elo"] or 0), x["name"]))
     out = [[e(t["name"]),

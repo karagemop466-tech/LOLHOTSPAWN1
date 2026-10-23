@@ -85,9 +85,14 @@ resolves, no `None`/empty value is rendered, every match appears on `picks.html`
 - `data/picks.csv` — one row per match: competition, teams, pick, probability, method, source URLs.
 - `data/matches.json` — full record per match, including odds, Elo inputs and flags.
 - `data/matching_report.json` — every team join that was not an exact string match, with its evidence.
+<<<<<<< HEAD
+- `data/verification.json` — the machine-readable result of the gate (31 checks).
+- `data/flags.json` — every irregularity published on `flagged.html`, curated + derived on each build.
+=======
 - `data/verification.json` — the machine-readable result of the gate.
 - `data/audit.json` — the manual, line-by-line source audit rendered on `verification.html`.
 - `data/retired_quotes.json` — archived quotes that were excluded as unverifiable, with the reason.
+>>>>>>> origin/main
 - `data/build.log` — the last automated run, verbatim.
 - `COORDINATION.md` — task board, session log and the integration decisions taken across sessions.
 
@@ -159,5 +164,13 @@ Historical manual findings are visibly marked as not reverified.
 Run `python3 -m unittest discover -s tests -v`, `NODE_PATH=<jsdom> node tests/dashboard.cjs`
 and `python3 tools/verify.py`. The gate reconciles the exact inventory ID multiset, checks
 finite probabilities via `tools/integrity.py`, checks the actual named favourite, checks each
-match card's unique ID, and enforces the settlement-pick contract (a settlement pick names a
-listed participant and carries no probability).
+match card's unique ID, asserts that the dataset is a 1:1 mirror of the Hotspawn feed the build
+fetched (ids, and per-tournament counts), asserts that **no fixture uses a rating from after its
+own kick-off**, and enforces the settlement-pick contract (a settlement pick names a listed
+participant and carries no probability).
+
+The Elo model is margin-weighted (K=48, 2-0 counts more than 2-1) and every fixture is priced
+from the rating state at its own kick-off, so an already-played card cannot see its own result.
+Out-of-sample (3,854 series from 2026-07-01): **65.5% accuracy, 0.2144 Brier, 0.6178 log-loss**.
+Three fixtures whose kick-off ratings are identical are labelled `toss-up` rather than pretending
+an edge exists.

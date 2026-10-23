@@ -1,21 +1,23 @@
-=== build 2026-10-23T15:53:17Z ===
-[15:53:18] hotspawn: 241 LoL fixtures
-[15:53:21] pinnacle: 138 LoL matchups, 8 with open moneylines
-[15:53:21] kalshi: 8 CFTC match events (status=200)
-[15:53:22] bovada: 8 LoL moneylines (status=200)
-[15:54:30] leaguepedia: 34617 series rows, 7 pages with dqteams (err='')
-[15:54:30] lolesports: 80 Worlds events (status=200)
-[15:54:33] polymarket: 45 match-level markets (status=200)
-[15:54:39] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
-[15:54:43] rows=241 methods={'provisional': 65, 'model': 163, 'unresolved': 4, 'market': 9} joins=29
-[15:54:43] backtest n=3854 acc=0.6414 brier=0.2211
+=== build 2026-10-23T15:55:20Z ===
+[15:55:21] hotspawn: 241 LoL fixtures
+[15:55:24] pinnacle: 138 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
+[15:55:24] kalshi: 8 CFTC match events (status=200)
+[15:55:25] bovada: 8 LoL moneylines (status=200)
+[15:56:40] leaguepedia: 34613 series rows, 7 pages with dqteams (err='')
+[15:56:40] lolesports: 80 Worlds events (status=200)
+[15:56:41] polymarket: 45 match-level markets (status=200)
+[15:56:47] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[15:56:52] rows=241 methods={'provisional': 65, 'model': 163, 'unresolved': 4, 'market': 9, 'walkover': 4, 'settlement': 4} joins=29
+[15:56:52] backtest n=3854 acc=0.6417 brier=0.2211
 {
  "total": 241,
  "counts": {
   "provisional": 65,
   "model": 163,
   "unresolved": 4,
-  "market": 9
+  "market": 9,
+  "walkover": 4,
+  "settlement": 4
  },
  "per_competition": {
   "Benelux Ascend Series 2026 Summer Split": {
@@ -133,19 +135,19 @@ NON-EXACT JOINS 12
   alias | Phong Vũ Buffalo -> PvB (Swiss Team) | explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evid
 
 PRICED 9
-  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7537 {'home': 1.298, 'away': 3.61}
+  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7541 {'home': 1.298, 'away': 3.61}
   Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7623 {'home': 1.256, 'away': 3.97}
   Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.7907 {'home': 1.25, 'away': 4.02}
-  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6383 {'home': 1.55, 'away': 2.53}
+  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6392 {'home': 1.55, 'away': 2.53}
   Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4116 {'home': 2.24, 'away': 1.685}
   Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7129 {'home': 1.345, 'away': 3.31}
   Worlds 2026 Main Event | ['LØS', 'T1'] 0.1392 {'home': 5.76, 'away': 1.139}
   Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4234 {'home': 2.23, 'away': 1.69}
   LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.35 None
-[15:54:43] flags: 23 items
-[15:54:43] site: wrote 11 pages to the published root
-[15:54:43] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
-[15:54:43] verification passed
+[15:56:53] flags: 26 items
+[15:56:53] site: wrote 12 pages to the published root
+[15:56:53] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
+[15:56:53] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -157,27 +159,33 @@ PASS settlement picks name a participant and claim no probability :: 0 problems:
 PASS every market row has at least one venue with a source URL :: 0 problems: []
 PASS method values are known :: methods used: ['market', 'model', 'provisional', 'unresolved']
 PASS no duplicate match ids :: 241 unique ids; duplicates: []
+PASS no '(Kills)' derivative market is used as a match line :: violations: []
+PASS every market pick carries an official quote URL :: problems: []
+PASS Pinnacle quote URLs point at collected matchups :: 8 matchup ids in feed; problems: []
+PASS every official-forfeit resolution names a winner and a source URL :: 4 resolutions checked; problems: []
+PASS official-forfeit resolutions carry no invented probability :: problems: []
 PASS picks.csv mirrors the dataset :: csv rows=241 json rows=241
-PASS all site pages exist :: 12/12 pages
+PASS all site pages exist :: 13/13 pages
 PASS no broken internal links :: 0 problems: []
 PASS navigation on every page :: missing: []
 PASS no empty/None values rendered :: problems: []
 PASS all matches rendered on the picks page :: 241/241 match cards found
-PASS executive summary links to every picks view :: present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']
+PASS pick table renders one row per match :: 241/241 table rows
+PASS executive summary links to every picks view :: present: ['picks.html', 'table.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks']
 PASS executive summary carries coverage, unresolved section and a where-to-find-picks block :: missing: []
 PASS mobile navigation rendered on every page and wired in JS :: missing mobnav: []; menu+filter handlers present: True
 PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,854
-PASS curated flags cite only currently listed fixtures :: 10 curated flags scanned; stale references: []
+PASS curated flags cite only currently listed fixtures :: 9 curated flags scanned; stale references: []
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
-PASS no published market row is built from a rejected quote :: 0 quote(s) rejected this build (placeholders / extremes); 0 extreme
+PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 27 competition rows; missing links: []
 PASS external receipts validated against the dataset :: 9 usable receipts, 0 rejected, 0 diverging >5.0pp
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 39954 bytes
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 40043 bytes
 PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
 PASS source availability recorded :: 9/14 sources reachable on this build
-[15:54:43] site: wrote 11 pages to the published root
-[15:54:43] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
-[15:54:43] verification passed
+[15:56:53] site: wrote 12 pages to the published root
+[15:56:53] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
+[15:56:53] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -189,21 +197,27 @@ PASS settlement picks name a participant and claim no probability :: 0 problems:
 PASS every market row has at least one venue with a source URL :: 0 problems: []
 PASS method values are known :: methods used: ['market', 'model', 'provisional', 'unresolved']
 PASS no duplicate match ids :: 241 unique ids; duplicates: []
+PASS no '(Kills)' derivative market is used as a match line :: violations: []
+PASS every market pick carries an official quote URL :: problems: []
+PASS Pinnacle quote URLs point at collected matchups :: 8 matchup ids in feed; problems: []
+PASS every official-forfeit resolution names a winner and a source URL :: 4 resolutions checked; problems: []
+PASS official-forfeit resolutions carry no invented probability :: problems: []
 PASS picks.csv mirrors the dataset :: csv rows=241 json rows=241
-PASS all site pages exist :: 12/12 pages
+PASS all site pages exist :: 13/13 pages
 PASS no broken internal links :: 0 problems: []
 PASS navigation on every page :: missing: []
 PASS no empty/None values rendered :: problems: []
 PASS all matches rendered on the picks page :: 241/241 match cards found
-PASS executive summary links to every picks view :: present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']
+PASS pick table renders one row per match :: 241/241 table rows
+PASS executive summary links to every picks view :: present: ['picks.html', 'table.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks']
 PASS executive summary carries coverage, unresolved section and a where-to-find-picks block :: missing: []
 PASS mobile navigation rendered on every page and wired in JS :: missing mobnav: []; menu+filter handlers present: True
 PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,854
-PASS curated flags cite only currently listed fixtures :: 10 curated flags scanned; stale references: []
+PASS curated flags cite only currently listed fixtures :: 9 curated flags scanned; stale references: []
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
-PASS no published market row is built from a rejected quote :: 0 quote(s) rejected this build (placeholders / extremes); 0 extreme
+PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 27 competition rows; missing links: []
 PASS external receipts validated against the dataset :: 9 usable receipts, 0 rejected, 0 diverging >5.0pp
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 39954 bytes
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 40043 bytes
 PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
 PASS source availability recorded :: 9/14 sources reachable on this build

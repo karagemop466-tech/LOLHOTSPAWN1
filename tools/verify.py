@@ -13,7 +13,7 @@ from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from integrity import row_errors
-from common import DATA, ROOT, iso, load_json, log, now_utc, save_json
+from common import DATA, RAW, ROOT, iso, load_json, log, now_utc, save_json
 
 DOCS = ROOT  # GitHub Pages serves the branch root
 ALLOWED = {"market", "model", "provisional", "unresolved"}
@@ -286,10 +286,64 @@ def main() -> None:
         f"{len(probe_rows)} venues probed on {probes.get('checked_utc', 'unknown')}; "
         f"dossier {'present' if os.path.exists(dossier) else 'MISSING'}")
 
+    # Coverage arithmetic must never exceed the inventory (a 245-of-241 regression shipped once).
+    priced_n = sum(1 for r in rows if r.get("p0") is not None)
+    settled_n = sum(1 for r in rows if r.get("resolution"))
+    with_pick_n = sum(1 for r in rows if r.get("pick"))
+    add("coverage arithmetic reconciles to the inventory",
+        priced_n + settled_n == with_pick_n == len(rows),
+        f"priced={priced_n} + settlements={settled_n} = {priced_n + settled_n}; "
+        f"rows with a pick={with_pick_n}; inventory={len(rows)}")
+
     src = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     reachable = sum(1 for s in src if s.get("ok"))
     add("source availability recorded", len(src) >= 10,
         f"{reachable}/{len(src)} sources reachable on this build")
+
+    # --- coverage parity against the exact Hotspawn snapshot used for the build ---
+    raw = (load_json(os.path.join(RAW, "hotspawn_lol.json")) or {}).get("fixtures") or []
+    raw_ids = {str(f.get("id")) for f in raw}
+    row_ids = {str(r.get("id")) for r in rows}
+    rc = Counter(f.get("competition") for f in raw)
+    dc = Counter(r.get("competition") for r in rows)
+    add("every Hotspawn fixture is in the dataset (1:1 ids)", raw_ids == row_ids,
+        f"feed={len(raw_ids)} dataset={len(row_ids)} missing={sorted(raw_ids - row_ids)[:3]} "
+        f"extra={sorted(row_ids - raw_ids)[:3]}")
+    add("per-tournament counts match the Hotspawn feed",
+        set(rc) == set(dc) and all(rc[k] == dc[k] for k in rc),
+        f"{len(rc)} tournaments; differences: {[k for k in rc if rc[k] != dc.get(k)][:3]}")
+
+    # --- no-look-ahead: the rating on each side must predate its own kick-off ---
+    from datetime import datetime as _dt
+    before: dict[str, list] = {}
+    for m in (load_json(os.path.join(RAW, "leaguepedia.json")) or {}).get("matches") or []:
+        if m.get("winner") not in ("1", "2"):
+            continue
+        try:
+            t = _dt.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S")
+        except (ValueError, TypeError):
+            continue
+        for team in (m.get("team1"), m.get("team2")):
+            before.setdefault(team, []).append(t)
+    lookahead = []
+    for r in rows:
+        if not r.get("pick"):
+            continue
+        try:
+            ko = _dt.strptime(str(r["start_utc"])[:19], "%Y-%m-%dT%H:%M:%S")
+        except (ValueError, TypeError):
+            continue
+        for side in ("team0", "team1"):
+            key = r[side].get("leaguepedia")
+            if not key:
+                continue
+            seen = sum(1 for t in before.get(key, []) if t < ko)
+            if int(r[side].get("rating_matches") or 0) > seen:
+                lookahead.append(f"{r['id']}:{key} used {r[side]['rating_matches']} > {seen} before kick-off")
+            if (r[side].get("rating_as_of") or "") != r["start_utc"]:
+                lookahead.append(f"{r['id']}:{key} rating_as_of != kick-off")
+    add("no look-ahead: ratings use only results before kick-off", not lookahead,
+        f"{len(lookahead)} violations; examples: {lookahead[:3]}")
 
     counts = Counter(r["method"] for r in rows)
     unverified = [r["id"] for r in rows if r["method"] in ("provisional", "unresolved")]
@@ -303,6 +357,7 @@ def main() -> None:
         "unverified": len(unverified),
         "counts": dict(counts),
         "internal_links": sum(hrefs.values()),
+        "lookahead_violations": len(lookahead),
     }
     save_json(os.path.join(DATA, "verification.json"), report)
 
