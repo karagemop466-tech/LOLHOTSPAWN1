@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-23T15:46:09Z",
- "inventory_fetched_utc": "2026-10-23T11:42:37Z",
+ "generated_utc": "2026-10-23T15:54:21Z",
+ "inventory_fetched_utc": "2026-10-23T15:37:40Z",
  "model": {
   "name": "LOLHOTSPAWN Elo",
   "k": 48.0,
@@ -23,13 +23,200 @@
   "bovada": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en",
   "leaguepedia": "https://lol.fandom.com/wiki/Special:CargoExport",
   "polymarket": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=league-of-legends",
-  "source_status_utc": "2026-10-23T11:43:54Z"
+  "source_status_utc": "2026-10-23T15:39:30Z"
  },
  "counts": {
   "provisional": 65,
   "model": 163,
   "unresolved": 4,
   "market": 9
+ },
+ "coverage": {
+  "matches": 241,
+  "with_pick": 241,
+  "priced": 237,
+  "settlement_only": 4
+ },
+ "market_filters": {
+  "rule": "prop markets (kills/maps/handicap/total) are excluded before team matching",
+  "excluded_pinnacle_props": [
+   {
+    "participants": [
+     "G2 (Kills)",
+     "Dplus KIA (Kills)"
+    ],
+    "market_key": "s;0;m",
+    "start_utc": "2026-10-23T21:00:00Z"
+   },
+   {
+    "participants": [
+     "Secret Whales (Kills)",
+     "LYON (Kills)"
+    ],
+    "market_key": "s;0;m",
+    "start_utc": "2026-10-24T00:00:00Z"
+   },
+   {
+    "participants": [
+     "Bilibili (Kills)",
+     "Movistar KOI (Kills)"
+    ],
+    "market_key": "s;0;m",
+    "start_utc": "2026-10-23T19:00:00Z"
+   },
+   {
+    "participants": [
+     "Anyone's Legend (Kills)",
+     "Karmine Corp (Kills)"
+    ],
+    "market_key": "s;0;m",
+    "start_utc": "2026-10-23T20:00:00Z"
+   },
+   {
+    "participants": [
+     "Gen.G (Kills)",
+     "Invictus (Kills)"
+    ],
+    "market_key": "s;0;m",
+    "start_utc": "2026-10-23T17:00:00Z"
+   },
+   {
+    "participants": [
+     "Hanwha Life (Kills)",
+     "Top Esports (Kills)"
+    ],
+    "market_key": "s;0;m",
+    "start_utc": "2026-10-23T18:00:00Z"
+   }
+  ]
+ },
+ "receipt_audit": {
+  "max_age_hours": 24,
+  "used": [],
+  "expired": [
+   {
+    "fixture_id": "1081205",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     1.86,
+     1.8
+    ],
+    "placeholder": false,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067878",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     1.2,
+     4.4
+    ],
+    "placeholder": false,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067677",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     1.2,
+     4.05
+    ],
+    "placeholder": false,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067680",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     1.17,
+     4.88
+    ],
+    "placeholder": false,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067675",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     1.38,
+     2.63
+    ],
+    "placeholder": false,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067676",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     2.18,
+     1.61
+    ],
+    "placeholder": false,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067879",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     1.29,
+     3.11
+    ],
+    "placeholder": false,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067678",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     6.26,
+     1.06
+    ],
+    "placeholder": false,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067679",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     2.51,
+     1.51
+    ],
+    "placeholder": false,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1081423",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     1.025,
+     10.5
+    ],
+    "placeholder": false,
+    "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
+   },
+   {
+    "fixture_id": "1079080",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "decimal": [
+     1.8,
+     1.8
+    ],
+    "placeholder": true,
+    "source_url": "https://egamersworld.com/lol/matches"
+   }
+  ],
+  "rejected_quotes": []
  },
  "backtest": {
   "cutoff": "2026-07-01",
@@ -69,14 +256,14 @@
    "shrink": 0.0
   },
   "validation": {
-   "n": 16289,
-   "hits": 10449,
-   "accuracy": 0.6415,
-   "brier": 0.2217,
-   "logloss": 0.634
+   "n": 16282,
+   "hits": 10435,
+   "accuracy": 0.6409,
+   "brier": 0.2218,
+   "logloss": 0.6341
   },
   "accuracy": 0.6526,
-  "brier": 0.2149,
+  "brier": 0.2148,
   "logloss": 0.6182
  },
  "total": 241,
@@ -127,6 +314,7 @@
     "probability": 0.6251,
     "other_probability": 0.3749
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -189,6 +377,7 @@
     "probability": 0.7077,
     "other_probability": 0.2923
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -225,8 +414,8 @@
     "join_notes": [],
     "rating_matches": 84,
     "last_played": "2026-08-27",
-    "elo_raw": 1642.2,
-    "elo": 1642.2
+    "elo_raw": 1641.5,
+    "elo": 1641.5
    },
    "team1": {
     "name": "Finnish Red Mafia",
@@ -235,14 +424,14 @@
     "join_notes": [],
     "rating_matches": 40,
     "last_played": "2026-09-13",
-    "elo_raw": 1646.2,
-    "elo": 1646.2
+    "elo_raw": 1645.5,
+    "elo": 1645.5
    },
    "p0": 0.4942,
    "p1": 0.5058,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Epic Avalanche 1642 vs Finnish Red Mafia 1646 (84/40 rated series).",
+   "basis": "Elo line: Epic Avalanche 1641 vs Finnish Red Mafia 1646 (84/40 rated series).",
    "flags": [
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
@@ -252,6 +441,7 @@
     "probability": 0.5058,
     "other_probability": 0.4942
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -315,6 +505,7 @@
     "probability": 0.554,
     "other_probability": 0.446
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -378,6 +569,7 @@
     "probability": 0.5484,
     "other_probability": 0.4516
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -444,6 +636,7 @@
     "probability": 0.5863,
     "other_probability": 0.4137
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -507,6 +700,7 @@
     "probability": 0.6138,
     "other_probability": 0.3862
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -556,8 +750,8 @@
     "elo_raw": 1616.4,
     "elo": 1616.4
    },
-   "p0": 0.5785,
-   "p1": 0.4215,
+   "p0": 0.5784,
+   "p1": 0.4216,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Docta Esports Club 1671 vs Viktus 1616 (21/21 rated series).",
@@ -567,9 +761,10 @@
    "pick": {
     "side": 0,
     "team": "Docta Esports Club",
-    "probability": 0.5785,
-    "other_probability": 0.4215
+    "probability": 0.5784,
+    "other_probability": 0.4216
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -606,8 +801,8 @@
     "join_notes": [],
     "rating_matches": 84,
     "last_played": "2026-10-22",
-    "elo_raw": 1420.0,
-    "elo": 1420.0
+    "elo_raw": 1420.1,
+    "elo": 1420.1
    },
    "team1": {
     "name": "Playwell Rød Q",
@@ -616,8 +811,8 @@
     "join_notes": [],
     "rating_matches": 24,
     "last_played": "2026-10-22",
-    "elo_raw": 1682.1,
-    "elo": 1682.1
+    "elo_raw": 1682.3,
+    "elo": 1682.3
    },
    "p0": 0.1811,
    "p1": 0.8189,
@@ -633,6 +828,7 @@
     "probability": 0.8189,
     "other_probability": 0.1811
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -662,8 +858,8 @@
     "join_notes": [],
     "rating_matches": 11,
     "last_played": "2026-10-22",
-    "elo_raw": 1275.6,
-    "elo": 1275.6
+    "elo_raw": 1275.8,
+    "elo": 1275.8
    },
    "team1": {
     "name": "VES Japan",
@@ -672,8 +868,8 @@
     "join_notes": [],
     "rating_matches": 21,
     "last_played": "2026-10-21",
-    "elo_raw": 1831.2,
-    "elo": 1831.2
+    "elo_raw": 1831.4,
+    "elo": 1831.4
    },
    "p0": null,
    "p1": null,
@@ -684,7 +880,14 @@
     "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is VES Japan)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
-   "pick": null,
+   "pick": {
+    "side": 1,
+    "team": "VES Japan",
+    "probability": null,
+    "other_probability": null,
+    "settlement": "administrative default (walkover / forfeit)"
+   },
+   "pick_type": "settlement",
    "market": null,
    "expected_resolution": {
     "team": "VES Japan",
@@ -719,8 +922,8 @@
     "join_notes": [],
     "rating_matches": 27,
     "last_played": "2026-10-22",
-    "elo_raw": 1334.3,
-    "elo": 1334.3
+    "elo_raw": 1334.4,
+    "elo": 1334.4
    },
    "team1": {
     "name": "CNG Royal",
@@ -729,23 +932,24 @@
     "join_notes": [],
     "rating_matches": 82,
     "last_played": "2026-10-22",
-    "elo_raw": 1499.4,
-    "elo": 1499.4
+    "elo_raw": 1499.5,
+    "elo": 1499.5
    },
-   "p0": 0.2787,
-   "p1": 0.7213,
+   "p0": 0.2788,
+   "p1": 0.7212,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Mixlag fra Trondheim 1334 vs CNG Royal 1499 (27/82 rated series).",
+   "basis": "Elo line: Mixlag fra Trondheim 1334 vs CNG Royal 1500 (27/82 rated series).",
    "flags": [
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
    "pick": {
     "side": 1,
     "team": "CNG Royal",
-    "probability": 0.7213,
-    "other_probability": 0.2787
+    "probability": 0.7212,
+    "other_probability": 0.2788
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -803,6 +1007,7 @@
     "probability": 0.7355,
     "other_probability": 0.2645
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -859,6 +1064,7 @@
     "probability": 0.7212,
     "other_probability": 0.2788
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -922,6 +1128,7 @@
     "probability": 0.5721,
     "other_probability": 0.4279
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -985,6 +1192,7 @@
     "probability": 0.5308,
     "other_probability": 0.4692
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -1042,6 +1250,7 @@
     "probability": 0.8123,
     "other_probability": 0.1877
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -1105,6 +1314,7 @@
     "probability": 0.637,
     "other_probability": 0.363
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -1141,8 +1351,8 @@
     "join_notes": [],
     "rating_matches": 69,
     "last_played": "2026-10-17",
-    "elo_raw": 1687.8,
-    "elo": 1687.8
+    "elo_raw": 1687.9,
+    "elo": 1687.9
    },
    "team1": {
     "name": "Karolinerna Black",
@@ -1154,8 +1364,8 @@
     "elo_raw": 1343.7,
     "elo": 1343.7
    },
-   "p0": 0.8788,
-   "p1": 0.1212,
+   "p0": 0.8789,
+   "p1": 0.1211,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Lund Esports Organization 1688 vs Karolinerna Black 1344 (69/9 rated series).",
@@ -1165,9 +1375,10 @@
    "pick": {
     "side": 0,
     "team": "Lund Esports Organization",
-    "probability": 0.8788,
-    "other_probability": 0.1212
+    "probability": 0.8789,
+    "other_probability": 0.1211
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -1224,6 +1435,7 @@
     "probability": 0.6479,
     "other_probability": 0.3521
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -1287,6 +1499,7 @@
     "probability": 0.834,
     "other_probability": 0.166
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -1326,8 +1539,8 @@
     "join_notes": [],
     "rating_matches": 18,
     "last_played": "2026-10-18",
-    "elo_raw": 1608.9,
-    "elo": 1608.9
+    "elo_raw": 1608.8,
+    "elo": 1608.8
    },
    "p0": 0.3506,
    "p1": 0.6494,
@@ -1343,6 +1556,7 @@
     "probability": 0.6494,
     "other_probability": 0.3506
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -1406,6 +1620,7 @@
     "probability": 0.5237,
     "other_probability": 0.4763
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -1462,6 +1677,7 @@
     "probability": 0.6425,
     "other_probability": 0.3575
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -1528,6 +1744,7 @@
     "probability": 0.9027,
     "other_probability": 0.0973
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -1591,6 +1808,7 @@
     "probability": 0.91,
     "other_probability": 0.09
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -1654,6 +1872,7 @@
     "probability": 0.6166,
     "other_probability": 0.3834
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -1720,6 +1939,7 @@
     "probability": 0.5531,
     "other_probability": 0.4469
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -1756,8 +1976,8 @@
     "join_notes": [],
     "rating_matches": 11,
     "last_played": "2026-10-22",
-    "elo_raw": 1275.6,
-    "elo": 1275.6
+    "elo_raw": 1275.8,
+    "elo": 1275.8
    },
    "team1": {
     "name": "Playwell Rød Q",
@@ -1766,8 +1986,8 @@
     "join_notes": [],
     "rating_matches": 24,
     "last_played": "2026-10-22",
-    "elo_raw": 1682.1,
-    "elo": 1682.1
+    "elo_raw": 1682.3,
+    "elo": 1682.3
    },
    "p0": null,
    "p1": null,
@@ -1778,7 +1998,14 @@
     "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Playwell Rød Q)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
-   "pick": null,
+   "pick": {
+    "side": 1,
+    "team": "Playwell Rød Q",
+    "probability": null,
+    "other_probability": null,
+    "settlement": "administrative default (walkover / forfeit)"
+   },
+   "pick_type": "settlement",
    "market": null,
    "expected_resolution": {
     "team": "Playwell Rød Q",
@@ -1830,8 +2057,8 @@
     "join_notes": [],
     "rating_matches": 69,
     "last_played": "2026-10-17",
-    "elo_raw": 1687.8,
-    "elo": 1687.8
+    "elo_raw": 1687.9,
+    "elo": 1687.9
    },
    "p0": 0.1272,
    "p1": 0.8728,
@@ -1847,6 +2074,7 @@
     "probability": 0.8728,
     "other_probability": 0.1272
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -1906,6 +2134,7 @@
     "probability": 0.792,
     "other_probability": 0.208
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -1969,6 +2198,7 @@
     "probability": 0.5007,
     "other_probability": 0.4993
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2032,6 +2262,7 @@
     "probability": 0.6905,
     "other_probability": 0.3095
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2095,6 +2326,7 @@
     "probability": 0.5318,
     "other_probability": 0.4682
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2158,6 +2390,7 @@
     "probability": 0.5095,
     "other_probability": 0.4905
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2224,6 +2457,7 @@
     "probability": 0.9024,
     "other_probability": 0.0976
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2287,6 +2521,7 @@
     "probability": 0.8198,
     "other_probability": 0.1802
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2333,8 +2568,8 @@
     "join_notes": [],
     "rating_matches": 69,
     "last_played": "2026-10-17",
-    "elo_raw": 1687.8,
-    "elo": 1687.8
+    "elo_raw": 1687.9,
+    "elo": 1687.9
    },
    "p0": 0.1272,
    "p1": 0.8728,
@@ -2350,6 +2585,7 @@
     "probability": 0.8728,
     "other_probability": 0.1272
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -2389,8 +2625,8 @@
     "join_notes": [],
     "rating_matches": 58,
     "last_played": "2026-10-18",
-    "elo_raw": 1776.9,
-    "elo": 1776.9
+    "elo_raw": 1776.7,
+    "elo": 1776.7
    },
    "p0": 0.0759,
    "p1": 0.9241,
@@ -2406,6 +2642,7 @@
     "probability": 0.9241,
     "other_probability": 0.0759
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2442,8 +2679,8 @@
     "join_notes": [],
     "rating_matches": 31,
     "last_played": "2026-10-18",
-    "elo_raw": 1464.6,
-    "elo": 1464.6
+    "elo_raw": 1464.7,
+    "elo": 1464.7
    },
    "team1": {
     "name": "Crazy Kittens E-Sport Academy",
@@ -2455,8 +2692,8 @@
     "elo_raw": 1412.0,
     "elo": 1412.0
    },
-   "p0": 0.5751,
-   "p1": 0.4249,
+   "p0": 0.5752,
+   "p1": 0.4248,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Karolinerna 1465 vs Crazy Kittens E-Sport Academy 1412 (31/4 rated series).",
@@ -2467,9 +2704,10 @@
    "pick": {
     "side": 0,
     "team": "Karolinerna",
-    "probability": 0.5751,
-    "other_probability": 0.4249
+    "probability": 0.5752,
+    "other_probability": 0.4248
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2504,10 +2742,10 @@
     "leaguepedia": "NextGeneration Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 60,
+    "rating_matches": 59,
     "last_played": "2026-10-17",
-    "elo_raw": 1474.1,
-    "elo": 1474.1
+    "elo_raw": 1470.8,
+    "elo": 1470.8
    },
    "team1": {
     "name": "Slam Dunk",
@@ -2516,14 +2754,14 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-21",
-    "elo_raw": 1567.5,
-    "elo": 1567.5
+    "elo_raw": 1566.9,
+    "elo": 1566.9
    },
-   "p0": 0.3688,
-   "p1": 0.6312,
+   "p0": 0.3651,
+   "p1": 0.6349,
    "method": "provisional",
    "confidence": "low",
-   "basis": "Elo line: NextGeneration Esports 1474 vs Slam Dunk 1567 (60/4 rated series).",
+   "basis": "Elo line: NextGeneration Esports 1471 vs Slam Dunk 1567 (59/4 rated series).",
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -2531,9 +2769,10 @@
    "pick": {
     "side": 1,
     "team": "Slam Dunk",
-    "probability": 0.6312,
-    "other_probability": 0.3688
+    "probability": 0.6349,
+    "other_probability": 0.3651
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -2563,8 +2802,8 @@
     "join_notes": [],
     "rating_matches": 53,
     "last_played": "2026-10-22",
-    "elo_raw": 1622.5,
-    "elo": 1622.5
+    "elo_raw": 1622.8,
+    "elo": 1622.8
    },
    "team1": {
     "name": "Solid Gaming",
@@ -2573,8 +2812,8 @@
     "join_notes": [],
     "rating_matches": 11,
     "last_played": "2026-10-22",
-    "elo_raw": 1275.6,
-    "elo": 1275.6
+    "elo_raw": 1275.8,
+    "elo": 1275.8
    },
    "p0": null,
    "p1": null,
@@ -2585,7 +2824,14 @@
     "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Volda E-Sport)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
-   "pick": null,
+   "pick": {
+    "side": 0,
+    "team": "Volda E-Sport",
+    "probability": null,
+    "other_probability": null,
+    "settlement": "administrative default (walkover / forfeit)"
+   },
+   "pick_type": "settlement",
    "market": null,
    "expected_resolution": {
     "team": "Volda E-Sport",
@@ -2627,8 +2873,8 @@
     "join_notes": [],
     "rating_matches": 16,
     "last_played": "2026-10-11",
-    "elo_raw": 1571.0,
-    "elo": 1571.0
+    "elo_raw": 1571.2,
+    "elo": 1571.2
    },
    "team1": {
     "name": "Team Lucidity Esports",
@@ -2640,8 +2886,8 @@
     "elo_raw": 1353.3,
     "elo": 1353.3
    },
-   "p0": 0.7779,
-   "p1": 0.2221,
+   "p0": 0.7781,
+   "p1": 0.2219,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: 2 Massive 1571 vs Team Lucidity Esports 1353 (16/10 rated series).",
@@ -2651,9 +2897,10 @@
    "pick": {
     "side": 0,
     "team": "2 Massive",
-    "probability": 0.7779,
-    "other_probability": 0.2221
+    "probability": 0.7781,
+    "other_probability": 0.2219
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2700,11 +2947,11 @@
     "join_notes": [],
     "rating_matches": 58,
     "last_played": "2026-10-18",
-    "elo_raw": 1776.9,
-    "elo": 1776.9
+    "elo_raw": 1776.7,
+    "elo": 1776.7
    },
-   "p0": 0.1703,
-   "p1": 0.8297,
+   "p0": 0.1704,
+   "p1": 0.8296,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Northern Wolves Esports 1502 vs B2U 1777 (5/58 rated series).",
@@ -2714,9 +2961,10 @@
    "pick": {
     "side": 1,
     "team": "B2U",
-    "probability": 0.8297,
-    "other_probability": 0.1703
+    "probability": 0.8296,
+    "other_probability": 0.1704
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2763,8 +3011,8 @@
     "join_notes": [],
     "rating_matches": 31,
     "last_played": "2026-10-18",
-    "elo_raw": 1464.6,
-    "elo": 1464.6
+    "elo_raw": 1464.7,
+    "elo": 1464.7
    },
    "p0": 0.562,
    "p1": 0.438,
@@ -2780,6 +3028,7 @@
     "probability": 0.562,
     "other_probability": 0.438
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2844,6 +3093,7 @@
     "probability": 0.537,
     "other_probability": 0.463
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2880,8 +3130,8 @@
     "join_notes": [],
     "rating_matches": 18,
     "last_played": "2026-10-18",
-    "elo_raw": 1608.9,
-    "elo": 1608.9
+    "elo_raw": 1608.8,
+    "elo": 1608.8
    },
    "team1": {
     "name": "DMG Esports Sweden",
@@ -2907,6 +3157,7 @@
     "probability": 0.6756,
     "other_probability": 0.3244
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -2970,6 +3221,7 @@
     "probability": 0.7084,
     "other_probability": 0.2916
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3036,6 +3288,7 @@
     "probability": 0.671,
     "other_probability": 0.329
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3099,6 +3352,7 @@
     "probability": 0.8004,
     "other_probability": 0.1996
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3135,8 +3389,8 @@
     "join_notes": [],
     "rating_matches": 11,
     "last_played": "2026-10-22",
-    "elo_raw": 1275.6,
-    "elo": 1275.6
+    "elo_raw": 1275.8,
+    "elo": 1275.8
    },
    "team1": {
     "name": "NTNUI Kometkameratene",
@@ -3145,8 +3399,8 @@
     "join_notes": [],
     "rating_matches": 11,
     "last_played": "2026-10-22",
-    "elo_raw": 1349.4,
-    "elo": 1349.4
+    "elo_raw": 1349.6,
+    "elo": 1349.6
    },
    "p0": null,
    "p1": null,
@@ -3157,7 +3411,14 @@
     "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is NTNUI Kometkameratene)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
-   "pick": null,
+   "pick": {
+    "side": 1,
+    "team": "NTNUI Kometkameratene",
+    "probability": null,
+    "other_probability": null,
+    "settlement": "administrative default (walkover / forfeit)"
+   },
+   "pick_type": "settlement",
    "market": null,
    "expected_resolution": {
     "team": "NTNUI Kometkameratene",
@@ -3226,6 +3487,7 @@
     "probability": 0.5297,
     "other_probability": 0.4703
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3292,6 +3554,7 @@
     "probability": 0.5179,
     "other_probability": 0.4821
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3359,6 +3622,7 @@
     "probability": 0.6128,
     "other_probability": 0.3872
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3426,6 +3690,7 @@
     "probability": 0.5582,
     "other_probability": 0.4418
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3462,33 +3727,34 @@
     "join_notes": [],
     "rating_matches": 6,
     "last_played": "2026-10-17",
-    "elo_raw": 1601.7,
-    "elo": 1601.7
+    "elo_raw": 1600.9,
+    "elo": 1600.9
    },
    "team1": {
     "name": "Pegasus Esports",
     "leaguepedia": "Pegasus Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 35,
+    "rating_matches": 34,
     "last_played": "2026-10-15",
-    "elo_raw": 1446.9,
-    "elo": 1446.9
+    "elo_raw": 1443.1,
+    "elo": 1443.1
    },
-   "p0": 0.7091,
-   "p1": 0.2909,
+   "p0": 0.7127,
+   "p1": 0.2873,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Void Walkers 1602 vs Pegasus Esports 1447 (6/35 rated series).",
+   "basis": "Elo line: Void Walkers 1601 vs Pegasus Esports 1443 (6/34 rated series).",
    "flags": [
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
    "pick": {
     "side": 0,
     "team": "Void Walkers",
-    "probability": 0.7091,
-    "other_probability": 0.2909
+    "probability": 0.7127,
+    "other_probability": 0.2873
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3553,6 +3819,7 @@
     "probability": 0.5548,
     "other_probability": 0.4452
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3617,6 +3884,7 @@
     "probability": 0.5985,
     "other_probability": 0.4015
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3681,6 +3949,7 @@
     "probability": 0.5364,
     "other_probability": 0.4636
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3745,6 +4014,7 @@
     "probability": 0.6485,
     "other_probability": 0.3515
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3808,6 +4078,7 @@
     "probability": 0.6038,
     "other_probability": 0.3962
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3872,6 +4143,7 @@
     "probability": 0.5664,
     "other_probability": 0.4336
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3936,6 +4208,7 @@
     "probability": 0.5349,
     "other_probability": 0.4651
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -3999,6 +4272,7 @@
     "probability": 0.6403,
     "other_probability": 0.3597
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -4062,6 +4336,7 @@
     "probability": 0.5193,
     "other_probability": 0.4807
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -4098,33 +4373,34 @@
     "join_notes": [],
     "rating_matches": 37,
     "last_played": "2026-10-16",
-    "elo_raw": 1620.7,
-    "elo": 1620.7
+    "elo_raw": 1619.5,
+    "elo": 1619.5
    },
    "team1": {
     "name": "Pegasus Esports",
     "leaguepedia": "Pegasus Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 35,
+    "rating_matches": 34,
     "last_played": "2026-10-15",
-    "elo_raw": 1446.9,
-    "elo": 1446.9
+    "elo_raw": 1443.1,
+    "elo": 1443.1
    },
-   "p0": 0.7311,
-   "p1": 0.2689,
+   "p0": 0.7341,
+   "p1": 0.2659,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Team VDS 1621 vs Pegasus Esports 1447 (37/35 rated series).",
+   "basis": "Elo line: Team VDS 1619 vs Pegasus Esports 1443 (37/34 rated series).",
    "flags": [
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
    "pick": {
     "side": 0,
     "team": "Team VDS",
-    "probability": 0.7311,
-    "other_probability": 0.2689
+    "probability": 0.7341,
+    "other_probability": 0.2659
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -4154,10 +4430,10 @@
     "join_notes": [
      "Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'"
     ],
-    "rating_matches": 58,
+    "rating_matches": 57,
     "last_played": "2026-10-23",
-    "elo_raw": 1750.4,
-    "elo": 1750.4
+    "elo_raw": 1751.9,
+    "elo": 1751.9
    },
    "team1": {
     "name": "Phenti",
@@ -4166,23 +4442,24 @@
     "join_notes": [],
     "rating_matches": 36,
     "last_played": "2026-10-23",
-    "elo_raw": 1433.1,
-    "elo": 1433.1
+    "elo_raw": 1433.2,
+    "elo": 1433.2
    },
-   "p0": 0.8614,
-   "p1": 0.1386,
+   "p0": 0.8623,
+   "p1": 0.1377,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Rich Gang (Norwegian Team) 1750 vs Phenti 1433 (58/36 rated series).",
+   "basis": "Elo line: Rich Gang (Norwegian Team) 1752 vs Phenti 1433 (57/36 rated series).",
    "flags": [
     "Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'"
    ],
    "pick": {
     "side": 0,
     "team": "Rich Gang",
-    "probability": 0.8614,
-    "other_probability": 0.1386
+    "probability": 0.8623,
+    "other_probability": 0.1377
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": {
@@ -4196,9 +4473,9 @@
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 20,
-    "team1": 80,
-    "total_picks": 30
+    "team0": 23,
+    "team1": 77,
+    "total_picks": 31
    }
   },
   {
@@ -4246,15 +4523,16 @@
     "probability": 0.525,
     "other_probability": 0.475
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 65,
-    "team1": 35,
-    "total_picks": 17
+    "team0": 67,
+    "team1": 33,
+    "total_picks": 18
    }
   },
   {
@@ -4304,15 +4582,16 @@
     "probability": 0.6137,
     "other_probability": 0.3863
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 11,
-    "team1": 89,
-    "total_picks": 28
+    "team0": 10,
+    "team1": 90,
+    "total_picks": 29
    }
   },
   {
@@ -4358,15 +4637,16 @@
     "probability": 0.6294,
     "other_probability": 0.3706
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 21,
-    "team1": 79,
-    "total_picks": 19
+    "team0": 20,
+    "team1": 80,
+    "total_picks": 20
    }
   },
   {
@@ -4387,8 +4667,8 @@
     "join_notes": [],
     "rating_matches": 133,
     "last_played": "2026-09-13",
-    "elo_raw": 1911.7,
-    "elo": 1911.7
+    "elo_raw": 1911.6,
+    "elo": 1911.6
    },
    "team1": {
     "name": "Invictus Gaming",
@@ -4400,24 +4680,27 @@
     "elo_raw": 1674.1,
     "elo": 1674.1
    },
-   "p0": 0.7621,
-   "p1": 0.2379,
+   "p0": 0.7605,
+   "p1": 0.2395,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (76.2% / 23.8%): Pinnacle 74.5%/25.5% (1.28/3.74), Polymarket 77.5%/22.5% (77.5¢/22.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 76.9%/23.1% (1.22/4.05).",
+   "basis": "4-Venue Consensus de-vigged line (76.0% / 23.9%): Pinnacle 74.5%/25.5% (1.28/3.74), Polymarket 77.5%/22.5% (77.5¢/22.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 75.7%/24.3% (1.24/3.85).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Gen.G",
-    "probability": 0.7621,
-    "other_probability": 0.2379
+    "probability": 0.7605,
+    "other_probability": 0.2395
    },
+   "pick_type": "probability",
    "market": {
+    "thin": false,
+    "thin_note": "",
     "book": "4-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638758865",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758865/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638758865",
+    "source_url": "https://www.pinnacle.com/en/event/1638748200",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638748200/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638748200",
     "decimal": {
      "home": 1.282,
      "away": 3.74
@@ -4426,8 +4709,8 @@
      "home": -355,
      "away": 274
     },
-    "p0": 0.7621,
-    "p1": 0.2379,
+    "p0": 0.7605,
+    "p1": 0.2395,
     "overround": 0.0476,
     "start_utc": "2026-10-23T17:00:00Z",
     "league": "League of Legends - World Championship",
@@ -4440,7 +4723,7 @@
       "p1": 0.2552,
       "quote": "1.28/3.74",
       "overround": 0.0476,
-      "url": "https://www.pinnacle.com/en/event/1638758865"
+      "url": "https://www.pinnacle.com/en/event/1638748200"
      },
      {
       "name": "Polymarket",
@@ -4449,7 +4732,8 @@
       "p1": 0.225,
       "quote": "77.5¢/22.5¢",
       "overround": 0.0,
-      "url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23"
+      "url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23",
+      "volume_usd": 332063.1
      },
      {
       "name": "Kalshi",
@@ -4463,13 +4747,14 @@
      {
       "name": "Bovada",
       "weight": 0.12,
-      "p0": 0.7689,
-      "p1": 0.2311,
-      "quote": "1.22/4.05",
-      "overround": 0.0683,
+      "p0": 0.7571,
+      "p1": 0.2429,
+      "quote": "1.24/3.85",
+      "overround": 0.0693,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/gen-g-invictus-gaming-202610231300"
      }
-    ]
+    ],
+    "model_cross_check": 0.797
    },
    "expected_resolution": null,
    "recorded_result": null,
@@ -4497,42 +4782,43 @@
     "leaguepedia": "NextGeneration Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 60,
+    "rating_matches": 59,
     "last_played": "2026-10-17",
-    "elo_raw": 1474.1,
-    "elo": 1474.1
+    "elo_raw": 1470.8,
+    "elo": 1470.8
    },
    "team1": {
     "name": "Pegasus Esports",
     "leaguepedia": "Pegasus Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 35,
+    "rating_matches": 34,
     "last_played": "2026-10-15",
-    "elo_raw": 1446.9,
-    "elo": 1446.9
+    "elo_raw": 1443.1,
+    "elo": 1443.1
    },
-   "p0": 0.5391,
-   "p1": 0.4609,
+   "p0": 0.5398,
+   "p1": 0.4602,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: NextGeneration Esports 1474 vs Pegasus Esports 1447 (60/35 rated series).",
+   "basis": "Elo line: NextGeneration Esports 1471 vs Pegasus Esports 1443 (59/34 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "NextGeneration Esports",
-    "probability": 0.5391,
-    "other_probability": 0.4609
+    "probability": 0.5398,
+    "other_probability": 0.4602
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 22,
-    "team1": 78,
-    "total_picks": 27
+    "team0": 21,
+    "team1": 79,
+    "total_picks": 29
    }
   },
   {
@@ -4553,8 +4839,8 @@
     "join_notes": [],
     "rating_matches": 37,
     "last_played": "2026-10-16",
-    "elo_raw": 1620.7,
-    "elo": 1620.7
+    "elo_raw": 1619.5,
+    "elo": 1619.5
    },
    "team1": {
     "name": "Team Reds",
@@ -4563,30 +4849,31 @@
     "join_notes": [],
     "rating_matches": 5,
     "last_played": "2026-10-17",
-    "elo_raw": 1432.6,
-    "elo": 1432.6
+    "elo_raw": 1432.1,
+    "elo": 1432.1
    },
-   "p0": 0.747,
-   "p1": 0.253,
+   "p0": 0.7462,
+   "p1": 0.2538,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Team VDS 1621 vs Team Reds 1433 (37/5 rated series).",
+   "basis": "Elo line: Team VDS 1619 vs Team Reds 1432 (37/5 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Team VDS",
-    "probability": 0.747,
-    "other_probability": 0.253
+    "probability": 0.7462,
+    "other_probability": 0.2538
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 32,
-    "team1": 68,
-    "total_picks": 25
+    "team0": 33,
+    "team1": 67,
+    "total_picks": 27
    }
   },
   {
@@ -4607,8 +4894,8 @@
     "join_notes": [],
     "rating_matches": 141,
     "last_played": "2026-09-13",
-    "elo_raw": 1855.0,
-    "elo": 1855.0
+    "elo_raw": 1854.9,
+    "elo": 1854.9
    },
    "team1": {
     "name": "Top Esports",
@@ -4620,35 +4907,38 @@
     "elo_raw": 1660.7,
     "elo": 1660.7
    },
-   "p0": 0.7651,
-   "p1": 0.2349,
+   "p0": 0.7623,
+   "p1": 0.2377,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (76.5% / 23.5%): Pinnacle 75.7%/24.3% (1.26/3.93), Polymarket 76.5%/23.5% (76.5¢/23.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 77.4%/22.6% (1.21/4.15).",
+   "basis": "4-Venue Consensus de-vigged line (76.2% / 23.8%): Pinnacle 76.0%/24.0% (1.26/3.97), Polymarket 76.5%/23.5% (76.5¢/23.5¢), Kalshi 76.5%/23.5% (76¢/24¢), Bovada 76.0%/24.0% (1.23/3.90).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Hanwha Life Esports",
-    "probability": 0.7651,
-    "other_probability": 0.2349
+    "probability": 0.7623,
+    "other_probability": 0.2377
    },
+   "pick_type": "probability",
    "market": {
+    "thin": false,
+    "thin_note": "",
     "book": "4-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638758879",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758879/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638758879",
+    "source_url": "https://www.pinnacle.com/en/event/1638748203",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638748203/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638748203",
     "decimal": {
-     "home": 1.26,
-     "away": 3.93
+     "home": 1.256,
+     "away": 3.97
     },
     "american": {
-     "home": -385,
-     "away": 293
+     "home": -391,
+     "away": 297
     },
-    "p0": 0.7651,
-    "p1": 0.2349,
-    "overround": 0.0483,
+    "p0": 0.7623,
+    "p1": 0.2377,
+    "overround": 0.0482,
     "start_utc": "2026-10-23T18:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
@@ -4656,11 +4946,11 @@
      {
       "name": "Pinnacle",
       "weight": 0.36,
-      "p0": 0.7573,
-      "p1": 0.2427,
-      "quote": "1.26/3.93",
-      "overround": 0.0483,
-      "url": "https://www.pinnacle.com/en/event/1638758879"
+      "p0": 0.7597,
+      "p1": 0.2403,
+      "quote": "1.26/3.97",
+      "overround": 0.0482,
+      "url": "https://www.pinnacle.com/en/event/1638748203"
      },
      {
       "name": "Polymarket",
@@ -4669,27 +4959,29 @@
       "p1": 0.235,
       "quote": "76.5¢/23.5¢",
       "overround": 0.0,
-      "url": "https://polymarket.com/event/lol-hle1-tes-2026-10-23"
+      "url": "https://polymarket.com/event/lol-hle1-tes-2026-10-23",
+      "volume_usd": 274764.06
      },
      {
       "name": "Kalshi",
       "weight": 0.18,
-      "p0": 0.775,
-      "p1": 0.225,
-      "quote": "78¢/22¢",
+      "p0": 0.765,
+      "p1": 0.235,
+      "quote": "76¢/24¢",
       "overround": 0.0,
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231700teshle"
      },
      {
       "name": "Bovada",
       "weight": 0.12,
-      "p0": 0.7742,
-      "p1": 0.2258,
-      "quote": "1.21/4.15",
-      "overround": 0.0671,
+      "p0": 0.7603,
+      "p1": 0.2397,
+      "quote": "1.23/3.90",
+      "overround": 0.0695,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/hanwha-life-esports-top-esports-202610231400"
      }
-    ]
+    ],
+    "model_cross_check": 0.7537
    },
    "expected_resolution": null,
    "recorded_result": null,
@@ -4698,7 +4990,7 @@
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
-    "total_picks": 24
+    "total_picks": 25
    }
   },
   {
@@ -4744,15 +5036,16 @@
     "probability": 0.8628,
     "other_probability": 0.1372
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 81,
-    "team1": 19,
-    "total_picks": 27
+    "team0": 79,
+    "team1": 21,
+    "total_picks": 29
    }
   },
   {
@@ -4798,15 +5091,16 @@
     "probability": 0.6039,
     "other_probability": 0.3961
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 78,
-    "team1": 22,
-    "total_picks": 32
+    "team0": 79,
+    "team1": 21,
+    "total_picks": 33
    }
   },
   {
@@ -4827,8 +5121,8 @@
     "join_notes": [],
     "rating_matches": 148,
     "last_played": "2026-09-13",
-    "elo_raw": 1927.2,
-    "elo": 1927.2
+    "elo_raw": 1927.1,
+    "elo": 1927.1
    },
    "team1": {
     "name": "Movistar KOI",
@@ -4837,8 +5131,8 @@
     "join_notes": [],
     "rating_matches": 96,
     "last_played": "2026-09-20",
-    "elo_raw": 1712.2,
-    "elo": 1712.2
+    "elo_raw": 1712.0,
+    "elo": 1712.0
    },
    "p0": 0.7984,
    "p1": 0.2016,
@@ -4852,12 +5146,15 @@
     "probability": 0.7984,
     "other_probability": 0.2016
    },
+   "pick_type": "probability",
    "market": {
+    "thin": false,
+    "thin_note": "",
     "book": "4-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638759091",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638759091/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638759091",
+    "source_url": "https://www.pinnacle.com/en/event/1638755459",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638755459/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638755459",
     "decimal": {
      "home": 1.218,
      "away": 4.37
@@ -4880,7 +5177,7 @@
       "p1": 0.218,
       "quote": "1.22/4.37",
       "overround": 0.0496,
-      "url": "https://www.pinnacle.com/en/event/1638759091"
+      "url": "https://www.pinnacle.com/en/event/1638755459"
      },
      {
       "name": "Polymarket",
@@ -4889,7 +5186,8 @@
       "p1": 0.195,
       "quote": "80.5¢/19.5¢",
       "overround": 0.0,
-      "url": "https://polymarket.com/event/lol-blg-mkoi-2026-10-23"
+      "url": "https://polymarket.com/event/lol-blg-mkoi-2026-10-23",
+      "volume_usd": 213508.94
      },
      {
       "name": "Kalshi",
@@ -4909,7 +5207,8 @@
       "overround": 0.0667,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/bilibili-gaming-movistar-koi-202610231500"
      }
-    ]
+    ],
+    "model_cross_check": 0.7753
    },
    "expected_resolution": null,
    "recorded_result": null,
@@ -4918,7 +5217,7 @@
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
-    "total_picks": 24
+    "total_picks": 25
    }
   },
   {
@@ -4949,22 +5248,27 @@
     "join_notes": [],
     "rating_matches": 104,
     "last_played": "2026-10-18",
-    "elo_raw": 1871.7,
-    "elo": 1871.7
+    "elo_raw": 1871.6,
+    "elo": 1871.6
    },
-   "p0": 0.6453,
-   "p1": 0.3547,
+   "p0": 0.644,
+   "p1": 0.356,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (64.5% / 35.5%): Pinnacle 63.2%/36.8% (1.52/2.61), Polymarket 64.5%/35.5% (64.5¢/35.5¢), Kalshi 65.5%/34.5% (66¢/34¢), Bovada 67.1%/32.9% (1.40/2.85).",
-   "flags": [],
+   "basis": "4-Venue Consensus de-vigged line (64.4% / 35.6%): Pinnacle 63.2%/36.8% (1.52/2.61), Polymarket 64.5%/35.5% (64.5¢/35.5¢), Kalshi 64.8%/35.1% (66¢/36¢), Bovada 67.1%/32.9% (1.40/2.85).",
+   "flags": [
+    "market and model disagree by 25 pp (market 64.4% vs our Elo 60.6%) - the market side is published, the gap is disclosed"
+   ],
    "pick": {
     "side": 0,
     "team": "Anyone's Legend",
-    "probability": 0.6453,
-    "other_probability": 0.3547
+    "probability": 0.644,
+    "other_probability": 0.356
    },
+   "pick_type": "probability",
    "market": {
+    "thin": false,
+    "thin_note": "",
     "book": "4-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://www.pinnacle.com/en/event/1638750902",
@@ -4978,8 +5282,8 @@
      "home": -193,
      "away": 161
     },
-    "p0": 0.6453,
-    "p1": 0.3547,
+    "p0": 0.644,
+    "p1": 0.356,
     "overround": 0.0419,
     "start_utc": "2026-10-23T20:00:00Z",
     "league": "League of Legends - World Championship",
@@ -5001,15 +5305,16 @@
       "p1": 0.355,
       "quote": "64.5¢/35.5¢",
       "overround": 0.0,
-      "url": "https://polymarket.com/event/lol-al-kc-2026-10-23"
+      "url": "https://polymarket.com/event/lol-al-kc-2026-10-23",
+      "volume_usd": 314535.42
      },
      {
       "name": "Kalshi",
       "weight": 0.18,
-      "p0": 0.655,
-      "p1": 0.345,
-      "quote": "66¢/34¢",
-      "overround": 0.0,
+      "p0": 0.6485,
+      "p1": 0.3515,
+      "quote": "66¢/36¢",
+      "overround": 0.01,
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231500kcal"
      },
      {
@@ -5021,16 +5326,17 @@
       "overround": 0.0652,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/anyone-s-legend-karmine-corp-202610231600"
      }
-    ]
+    ],
+    "model_cross_check": 0.3942
    },
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 83,
-    "team1": 17,
-    "total_picks": 24
+    "team0": 84,
+    "team1": 16,
+    "total_picks": 25
    }
   },
   {
@@ -5051,8 +5357,8 @@
     "join_notes": [],
     "rating_matches": 112,
     "last_played": "2026-09-20",
-    "elo_raw": 1869.6,
-    "elo": 1869.6
+    "elo_raw": 1869.4,
+    "elo": 1869.4
    },
    "team1": {
     "name": "Dplus KIA",
@@ -5064,35 +5370,38 @@
     "elo_raw": 1792.0,
     "elo": 1792.0
    },
-   "p0": 0.4093,
-   "p1": 0.5907,
+   "p0": 0.4116,
+   "p1": 0.5884,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (40.9% / 59.1%): Pinnacle 42.6%/57.4% (2.26/1.68), Polymarket 39.5%/60.5% (39.5¢/60.5¢), Kalshi 40.1%/59.9% (40¢/60¢), Bovada 40.1%/59.9% (2.35/1.57).",
+   "basis": "4-Venue Consensus de-vigged line (41.2% / 58.8%): Pinnacle 42.9%/57.1% (2.24/1.68), Polymarket 39.5%/60.5% (39.5¢/60.5¢), Kalshi 39.5%/60.5% (40¢/60¢), Bovada 41.6%/58.4% (2.25/1.61).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Dplus KIA",
-    "probability": 0.5907,
-    "other_probability": 0.4093
+    "probability": 0.5884,
+    "other_probability": 0.4116
    },
+   "pick_type": "probability",
    "market": {
+    "thin": false,
+    "thin_note": "",
     "book": "4-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638758878",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758878/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638758878",
+    "source_url": "https://www.pinnacle.com/en/event/1638750815",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638750815/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638750815",
     "decimal": {
-     "home": 2.26,
-     "away": 1.676
+     "home": 2.24,
+     "away": 1.685
     },
     "american": {
-     "home": 126,
-     "away": -148
+     "home": 124,
+     "away": -146
     },
-    "p0": 0.4093,
-    "p1": 0.5907,
-    "overround": 0.0392,
+    "p0": 0.4116,
+    "p1": 0.5884,
+    "overround": 0.0399,
     "start_utc": "2026-10-23T21:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
@@ -5100,11 +5409,11 @@
      {
       "name": "Pinnacle",
       "weight": 0.36,
-      "p0": 0.4258,
-      "p1": 0.5742,
-      "quote": "2.26/1.68",
-      "overround": 0.0392,
-      "url": "https://www.pinnacle.com/en/event/1638758878"
+      "p0": 0.4293,
+      "p1": 0.5707,
+      "quote": "2.24/1.68",
+      "overround": 0.0399,
+      "url": "https://www.pinnacle.com/en/event/1638750815"
      },
      {
       "name": "Polymarket",
@@ -5113,36 +5422,38 @@
       "p1": 0.605,
       "quote": "39.5¢/60.5¢",
       "overround": 0.0,
-      "url": "https://polymarket.com/event/lol-g2-dk-2026-10-23"
+      "url": "https://polymarket.com/event/lol-g2-dk-2026-10-23",
+      "volume_usd": 343565.04
      },
      {
       "name": "Kalshi",
       "weight": 0.18,
-      "p0": 0.401,
-      "p1": 0.599,
+      "p0": 0.395,
+      "p1": 0.605,
       "quote": "40¢/60¢",
-      "overround": 0.01,
+      "overround": 0.0,
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231600dkg2"
      },
      {
       "name": "Bovada",
       "weight": 0.12,
-      "p0": 0.4007,
-      "p1": 0.5993,
-      "quote": "2.35/1.57",
-      "overround": 0.0619,
+      "p0": 0.4165,
+      "p1": 0.5835,
+      "quote": "2.25/1.61",
+      "overround": 0.0671,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/g2-esports-dplus-kia-202610231700"
      }
-    ]
+    ],
+    "model_cross_check": 0.6096
    },
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 42,
-    "team1": 58,
-    "total_picks": 24
+    "team0": 40,
+    "team1": 60,
+    "total_picks": 25
    }
   },
   {
@@ -5188,12 +5499,15 @@
     "probability": 0.7134,
     "other_probability": 0.2866
    },
+   "pick_type": "probability",
    "market": {
+    "thin": false,
+    "thin_note": "",
     "book": "4-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638758870",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758870/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638758870",
+    "source_url": "https://www.pinnacle.com/en/event/1638750814",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638750814/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638750814",
     "decimal": {
      "home": 1.345,
      "away": 3.31
@@ -5216,7 +5530,7 @@
       "p1": 0.2889,
       "quote": "1.34/3.31",
       "overround": 0.0457,
-      "url": "https://www.pinnacle.com/en/event/1638758870"
+      "url": "https://www.pinnacle.com/en/event/1638750814"
      },
      {
       "name": "Polymarket",
@@ -5225,7 +5539,8 @@
       "p1": 0.285,
       "quote": "71.5¢/28.5¢",
       "overround": 0.0,
-      "url": "https://polymarket.com/event/lol-tl2-cfo-2026-10-23"
+      "url": "https://polymarket.com/event/lol-tl2-cfo-2026-10-23",
+      "volume_usd": 39296.38
      },
      {
       "name": "Kalshi",
@@ -5245,7 +5560,8 @@
       "overround": 0.0638,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/team-liquid-ctbc-flying-oyster-202610231800"
      }
-    ]
+    ],
+    "model_cross_check": 0.7234
    },
    "expected_resolution": null,
    "recorded_result": null,
@@ -5254,7 +5570,7 @@
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
-    "total_picks": 24
+    "total_picks": 25
    }
   },
   {
@@ -5285,22 +5601,27 @@
     "join_notes": [],
     "rating_matches": 154,
     "last_played": "2026-09-12",
-    "elo_raw": 1767.6,
-    "elo": 1767.6
+    "elo_raw": 1767.5,
+    "elo": 1767.5
    },
    "p0": 0.1403,
    "p1": 0.8597,
    "method": "market",
    "confidence": "high",
    "basis": "4-Venue Consensus de-vigged line (14.0% / 86.0%): Pinnacle 16.8%/83.2% (5.67/1.14), Polymarket 12.5%/87.5% (12.5¢/87.5¢), Kalshi 12.5%/87.5% (12¢/88¢), Bovada 11.1%/88.9% (8.50/1.06).",
-   "flags": [],
+   "flags": [
+    "market and model disagree by 46 pp (market 86.0% vs our Elo 59.7%) - the market side is published, the gap is disclosed"
+   ],
    "pick": {
     "side": 1,
     "team": "T1",
     "probability": 0.8597,
     "other_probability": 0.1403
    },
+   "pick_type": "probability",
    "market": {
+    "thin": false,
+    "thin_note": "",
     "book": "4-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://www.pinnacle.com/en/event/1638748205",
@@ -5337,7 +5658,8 @@
       "p1": 0.875,
       "quote": "12.5¢/87.5¢",
       "overround": 0.0,
-      "url": "https://polymarket.com/event/lol-los-t1-2026-10-23"
+      "url": "https://polymarket.com/event/lol-los-t1-2026-10-23",
+      "volume_usd": 61676.85
      },
      {
       "name": "Kalshi",
@@ -5357,7 +5679,8 @@
       "overround": 0.0588,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/los-grandes-t1-202610231900"
      }
-    ]
+    ],
+    "model_cross_check": 0.5971
    },
    "expected_resolution": null,
    "recorded_result": null,
@@ -5366,7 +5689,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 24
+    "total_picks": 25
    }
   },
   {
@@ -5408,7 +5731,8 @@
    "confidence": "high",
    "basis": "3-Venue Consensus de-vigged line (42.3% / 57.7%): Pinnacle 43.1%/56.9% (2.23/1.69), Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 41.9%/58.1% (42¢/57¢).",
    "flags": [
-    "Leaguepedia lists this team as 'LYON (2024 American Team)'"
+    "Leaguepedia lists this team as 'LYON (2024 American Team)'",
+    "market and model disagree by 20 pp (market 57.7% vs our Elo 62.4%) - the market side is published, the gap is disclosed"
    ],
    "pick": {
     "side": 1,
@@ -5416,12 +5740,15 @@
     "probability": 0.5766,
     "other_probability": 0.4234
    },
+   "pick_type": "probability",
    "market": {
+    "thin": false,
+    "thin_note": "",
     "book": "3-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638758897",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758897/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638758897",
+    "source_url": "https://www.pinnacle.com/en/event/1638754606",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638754606/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638754606",
     "decimal": {
      "home": 2.23,
      "away": 1.69
@@ -5444,7 +5771,7 @@
       "p1": 0.5689,
       "quote": "2.23/1.69",
       "overround": 0.0403,
-      "url": "https://www.pinnacle.com/en/event/1638758897"
+      "url": "https://www.pinnacle.com/en/event/1638754606"
      },
      {
       "name": "Polymarket",
@@ -5453,7 +5780,8 @@
       "p1": 0.585,
       "quote": "41.5¢/58.5¢",
       "overround": 0.0,
-      "url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23"
+      "url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23",
+      "volume_usd": 68134.77
      },
      {
       "name": "Kalshi",
@@ -5464,16 +5792,17 @@
       "overround": -0.01,
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231900lytsw"
      }
-    ]
+    ],
+    "model_cross_check": 0.6242
    },
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 4,
-    "team1": 96,
-    "total_picks": 24
+    "team0": 8,
+    "team1": 92,
+    "total_picks": 25
    }
   },
   {
@@ -5519,6 +5848,7 @@
     "probability": 0.554,
     "other_probability": 0.446
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -5573,6 +5903,7 @@
     "probability": 0.5341,
     "other_probability": 0.4659
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -5631,6 +5962,7 @@
     "probability": 0.6383,
     "other_probability": 0.3617
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -5660,8 +5992,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1459.8,
-    "elo": 1459.8
+    "elo_raw": 1459.7,
+    "elo": 1459.7
    },
    "team1": {
     "name": "Enfida Esports",
@@ -5670,8 +6002,8 @@
     "join_notes": [],
     "rating_matches": 6,
     "last_played": "2026-10-18",
-    "elo_raw": 1383.4,
-    "elo": 1383.4
+    "elo_raw": 1383.3,
+    "elo": 1383.3
    },
    "p0": 0.6082,
    "p1": 0.3918,
@@ -5687,6 +6019,7 @@
     "probability": 0.6082,
     "other_probability": 0.3918
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -5716,8 +6049,8 @@
     "join_notes": [],
     "rating_matches": 68,
     "last_played": "2026-10-18",
-    "elo_raw": 1725.9,
-    "elo": 1725.9
+    "elo_raw": 1725.3,
+    "elo": 1725.3
    },
    "team1": {
     "name": "El Menzah Esports",
@@ -5726,23 +6059,24 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1475.6,
-    "elo": 1475.6
+    "elo_raw": 1475.5,
+    "elo": 1475.5
    },
-   "p0": 0.8086,
-   "p1": 0.1914,
+   "p0": 0.8082,
+   "p1": 0.1918,
    "method": "provisional",
    "confidence": "low",
-   "basis": "Elo line: JSK Esports 1726 vs El Menzah Esports 1476 (68/4 rated series).",
+   "basis": "Elo line: JSK Esports 1725 vs El Menzah Esports 1476 (68/4 rated series).",
    "flags": [
     "fewer than 5 rated series for at least one team"
    ],
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.8086,
-    "other_probability": 0.1914
+    "probability": 0.8082,
+    "other_probability": 0.1918
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -5772,8 +6106,8 @@
     "join_notes": [],
     "rating_matches": 40,
     "last_played": "2026-10-18",
-    "elo_raw": 1596.3,
-    "elo": 1596.3
+    "elo_raw": 1596.1,
+    "elo": 1596.1
    },
    "team1": {
     "name": "Supreme Leaders",
@@ -5785,8 +6119,8 @@
     "elo_raw": 1505.8,
     "elo": 1505.8
    },
-   "p0": 0.6273,
-   "p1": 0.3727,
+   "p0": 0.6272,
+   "p1": 0.3728,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Olympique Mnihla 1596 vs Supreme Leaders 1506 (40/4 rated series).",
@@ -5796,9 +6130,10 @@
    "pick": {
     "side": 0,
     "team": "Olympique Mnihla",
-    "probability": 0.6273,
-    "other_probability": 0.3727
+    "probability": 0.6272,
+    "other_probability": 0.3728
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -5838,21 +6173,22 @@
     "join_notes": [],
     "rating_matches": 29,
     "last_played": "2026-10-21",
-    "elo_raw": 1524.6,
-    "elo": 1524.6
+    "elo_raw": 1523.3,
+    "elo": 1523.3
    },
-   "p0": 0.8251,
-   "p1": 0.1749,
+   "p0": 0.8262,
+   "p1": 0.1738,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Simplicity Gaming 1794 vs JSK Academy 1525 (38/29 rated series).",
+   "basis": "Elo line: Simplicity Gaming 1794 vs JSK Academy 1523 (38/29 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Simplicity Gaming",
-    "probability": 0.8251,
-    "other_probability": 0.1749
+    "probability": 0.8262,
+    "other_probability": 0.1738
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -5892,11 +6228,11 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1517.2,
-    "elo": 1517.2
+    "elo_raw": 1517.0,
+    "elo": 1517.0
    },
-   "p0": 0.3945,
-   "p1": 0.6055,
+   "p0": 0.3947,
+   "p1": 0.6053,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Zahrouni Esports 1443 vs Olympique Mnihla Academy 1517 (4/4 rated series).",
@@ -5906,9 +6242,10 @@
    "pick": {
     "side": 1,
     "team": "Olympique Mnihla Academy",
-    "probability": 0.6055,
-    "other_probability": 0.3945
+    "probability": 0.6053,
+    "other_probability": 0.3947
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -5938,8 +6275,8 @@
     "join_notes": [],
     "rating_matches": 16,
     "last_played": "2026-10-11",
-    "elo_raw": 1571.0,
-    "elo": 1571.0
+    "elo_raw": 1571.2,
+    "elo": 1571.2
    },
    "team1": {
     "name": "Lund Esports Organization OGs",
@@ -5951,8 +6288,8 @@
     "elo_raw": 1567.8,
     "elo": 1567.8
    },
-   "p0": 0.5046,
-   "p1": 0.4954,
+   "p0": 0.505,
+   "p1": 0.495,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: 2 Massive 1571 vs Lund Esports Organization OGs 1568 (16/4 rated series).",
@@ -5962,9 +6299,10 @@
    "pick": {
     "side": 0,
     "team": "2 Massive",
-    "probability": 0.5046,
-    "other_probability": 0.4954
+    "probability": 0.505,
+    "other_probability": 0.495
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -5994,8 +6332,8 @@
     "join_notes": [],
     "rating_matches": 42,
     "last_played": "2026-10-18",
-    "elo_raw": 1733.4,
-    "elo": 1733.4
+    "elo_raw": 1733.3,
+    "elo": 1733.3
    },
    "team1": {
     "name": "B2U",
@@ -6004,11 +6342,11 @@
     "join_notes": [],
     "rating_matches": 58,
     "last_played": "2026-10-18",
-    "elo_raw": 1776.9,
-    "elo": 1776.9
+    "elo_raw": 1776.7,
+    "elo": 1776.7
    },
-   "p0": 0.4377,
-   "p1": 0.5623,
+   "p0": 0.4378,
+   "p1": 0.5622,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: FlameHard 1733 vs B2U 1777 (42/58 rated series).",
@@ -6016,9 +6354,10 @@
    "pick": {
     "side": 1,
     "team": "B2U",
-    "probability": 0.5623,
-    "other_probability": 0.4377
+    "probability": 0.5622,
+    "other_probability": 0.4378
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6048,8 +6387,8 @@
     "join_notes": [],
     "rating_matches": 31,
     "last_played": "2026-10-18",
-    "elo_raw": 1464.6,
-    "elo": 1464.6
+    "elo_raw": 1464.7,
+    "elo": 1464.7
    },
    "team1": {
     "name": "Turbo Gaming",
@@ -6073,6 +6412,7 @@
     "probability": 0.6095,
     "other_probability": 0.3905
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6127,6 +6467,7 @@
     "probability": 0.657,
     "other_probability": 0.343
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6183,6 +6524,7 @@
     "probability": 0.5614,
     "other_probability": 0.4386
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6237,6 +6579,7 @@
     "probability": 0.7145,
     "other_probability": 0.2855
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6291,6 +6634,7 @@
     "probability": 0.5767,
     "other_probability": 0.4233
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6320,8 +6664,8 @@
     "join_notes": [],
     "rating_matches": 29,
     "last_played": "2026-10-21",
-    "elo_raw": 1524.6,
-    "elo": 1524.6
+    "elo_raw": 1523.3,
+    "elo": 1523.3
    },
    "team1": {
     "name": "New Era Team",
@@ -6330,21 +6674,22 @@
     "join_notes": [],
     "rating_matches": 5,
     "last_played": "2026-10-17",
-    "elo_raw": 1495.1,
-    "elo": 1495.1
+    "elo_raw": 1494.3,
+    "elo": 1494.3
    },
-   "p0": 0.5424,
-   "p1": 0.4576,
+   "p0": 0.5416,
+   "p1": 0.4584,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: JSK Academy 1525 vs New Era Team 1495 (29/5 rated series).",
+   "basis": "Elo line: JSK Academy 1523 vs New Era Team 1494 (29/5 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "JSK Academy",
-    "probability": 0.5424,
-    "other_probability": 0.4576
+    "probability": 0.5416,
+    "other_probability": 0.4584
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6374,8 +6719,8 @@
     "join_notes": [],
     "rating_matches": 6,
     "last_played": "2026-10-17",
-    "elo_raw": 1601.7,
-    "elo": 1601.7
+    "elo_raw": 1600.9,
+    "elo": 1600.9
    },
    "team1": {
     "name": "Slam Dunk",
@@ -6384,23 +6729,24 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-21",
-    "elo_raw": 1567.5,
-    "elo": 1567.5
+    "elo_raw": 1566.9,
+    "elo": 1566.9
    },
-   "p0": 0.5491,
-   "p1": 0.4509,
+   "p0": 0.5488,
+   "p1": 0.4512,
    "method": "provisional",
    "confidence": "low",
-   "basis": "Elo line: Void Walkers 1602 vs Slam Dunk 1567 (6/4 rated series).",
+   "basis": "Elo line: Void Walkers 1601 vs Slam Dunk 1567 (6/4 rated series).",
    "flags": [
     "fewer than 5 rated series for at least one team"
    ],
    "pick": {
     "side": 0,
     "team": "Void Walkers",
-    "probability": 0.5491,
-    "other_probability": 0.4509
+    "probability": 0.5488,
+    "other_probability": 0.4512
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6459,6 +6805,7 @@
     "probability": 0.555,
     "other_probability": 0.445
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6467,7 +6814,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 8
+    "total_picks": 10
    }
   },
   {
@@ -6513,15 +6860,16 @@
     "probability": 0.77,
     "other_probability": 0.23
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 13,
-    "team1": 88,
-    "total_picks": 8
+    "team0": 10,
+    "team1": 90,
+    "total_picks": 10
    }
   },
   {
@@ -6567,6 +6915,7 @@
     "probability": 0.5187,
     "other_probability": 0.4813
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6621,6 +6970,7 @@
     "probability": 0.5794,
     "other_probability": 0.4206
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6675,6 +7025,7 @@
     "probability": 0.7744,
     "other_probability": 0.2256
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6729,6 +7080,7 @@
     "probability": 0.7567,
     "other_probability": 0.2433
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6785,6 +7137,7 @@
     "probability": 0.6559,
     "other_probability": 0.3441
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6839,6 +7192,7 @@
     "probability": 0.6161,
     "other_probability": 0.3839
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6895,6 +7249,7 @@
     "probability": 0.5831,
     "other_probability": 0.4169
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6949,6 +7304,7 @@
     "probability": 0.5976,
     "other_probability": 0.4024
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -6978,8 +7334,8 @@
     "join_notes": [],
     "rating_matches": 20,
     "last_played": "2026-10-18",
-    "elo_raw": 1334.7,
-    "elo": 1334.7
+    "elo_raw": 1334.8,
+    "elo": 1334.8
    },
    "team1": {
     "name": "Team 300 White",
@@ -6991,8 +7347,8 @@
     "elo_raw": 1429.1,
     "elo": 1429.1
    },
-   "p0": 0.3673,
-   "p1": 0.6327,
+   "p0": 0.3674,
+   "p1": 0.6326,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Eintracht Spandau Zwei 1335 vs Team 300 White 1429 (20/22 rated series).",
@@ -7000,9 +7356,10 @@
    "pick": {
     "side": 1,
     "team": "Team 300 White",
-    "probability": 0.6327,
-    "other_probability": 0.3673
+    "probability": 0.6326,
+    "other_probability": 0.3674
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7057,6 +7414,7 @@
     "probability": 0.5191,
     "other_probability": 0.4809
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7086,10 +7444,10 @@
     "join_notes": [
      "Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'"
     ],
-    "rating_matches": 58,
+    "rating_matches": 57,
     "last_played": "2026-10-23",
-    "elo_raw": 1750.4,
-    "elo": 1750.4
+    "elo_raw": 1751.9,
+    "elo": 1751.9
    },
    "team1": {
     "name": "LOOKSMAXXER",
@@ -7101,20 +7459,21 @@
     "elo_raw": 1576.6,
     "elo": 1576.6
    },
-   "p0": 0.7312,
-   "p1": 0.2688,
+   "p0": 0.7328,
+   "p1": 0.2672,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Rich Gang (Norwegian Team) 1750 vs LOOKSMAXXER 1577 (58/30 rated series).",
+   "basis": "Elo line: Rich Gang (Norwegian Team) 1752 vs LOOKSMAXXER 1577 (57/30 rated series).",
    "flags": [
     "Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'"
    ],
    "pick": {
     "side": 0,
     "team": "Rich Gang",
-    "probability": 0.7312,
-    "other_probability": 0.2688
+    "probability": 0.7328,
+    "other_probability": 0.2672
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7154,11 +7513,11 @@
     "join_notes": [],
     "rating_matches": 3,
     "last_played": "2026-10-14",
-    "elo_raw": 1428.3,
-    "elo": 1428.3
+    "elo_raw": 1428.4,
+    "elo": 1428.4
    },
-   "p0": 0.5248,
-   "p1": 0.4752,
+   "p0": 0.5247,
+   "p1": 0.4753,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Whalepower Humpbacks 1446 vs Socken und Sandalen 1428 (29/3 rated series).",
@@ -7168,9 +7527,10 @@
    "pick": {
     "side": 0,
     "team": "Whalepower Humpbacks",
-    "probability": 0.5248,
-    "other_probability": 0.4752
+    "probability": 0.5247,
+    "other_probability": 0.4753
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7225,6 +7585,7 @@
     "probability": 0.5648,
     "other_probability": 0.4352
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7279,6 +7640,7 @@
     "probability": 0.5194,
     "other_probability": 0.4806
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7308,8 +7670,8 @@
     "join_notes": [],
     "rating_matches": 68,
     "last_played": "2026-10-18",
-    "elo_raw": 1725.9,
-    "elo": 1725.9
+    "elo_raw": 1725.3,
+    "elo": 1725.3
    },
    "team1": {
     "name": "Enfida Esports",
@@ -7318,21 +7680,22 @@
     "join_notes": [],
     "rating_matches": 6,
     "last_played": "2026-10-18",
-    "elo_raw": 1383.4,
-    "elo": 1383.4
+    "elo_raw": 1383.3,
+    "elo": 1383.3
    },
-   "p0": 0.8778,
-   "p1": 0.1222,
+   "p0": 0.8775,
+   "p1": 0.1225,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: JSK Esports 1726 vs Enfida Esports 1383 (68/6 rated series).",
+   "basis": "Elo line: JSK Esports 1725 vs Enfida Esports 1383 (68/6 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.8778,
-    "other_probability": 0.1222
+    "probability": 0.8775,
+    "other_probability": 0.1225
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7362,8 +7725,8 @@
     "join_notes": [],
     "rating_matches": 40,
     "last_played": "2026-10-18",
-    "elo_raw": 1596.3,
-    "elo": 1596.3
+    "elo_raw": 1596.1,
+    "elo": 1596.1
    },
    "team1": {
     "name": "Jendouba Esports",
@@ -7372,11 +7735,11 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1459.8,
-    "elo": 1459.8
+    "elo_raw": 1459.7,
+    "elo": 1459.7
    },
-   "p0": 0.6869,
-   "p1": 0.3131,
+   "p0": 0.6868,
+   "p1": 0.3132,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Olympique Mnihla 1596 vs Jendouba Esports 1460 (40/4 rated series).",
@@ -7386,9 +7749,10 @@
    "pick": {
     "side": 0,
     "team": "Olympique Mnihla",
-    "probability": 0.6869,
-    "other_probability": 0.3131
+    "probability": 0.6868,
+    "other_probability": 0.3132
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7418,8 +7782,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1517.2,
-    "elo": 1517.2
+    "elo_raw": 1517.0,
+    "elo": 1517.0
    },
    "team1": {
     "name": "El Menzah Esports",
@@ -7428,8 +7792,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1475.6,
-    "elo": 1475.6
+    "elo_raw": 1475.5,
+    "elo": 1475.5
    },
    "p0": 0.5595,
    "p1": 0.4405,
@@ -7445,6 +7809,7 @@
     "probability": 0.5595,
     "other_probability": 0.4405
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7487,8 +7852,8 @@
     "elo_raw": 1505.8,
     "elo": 1505.8
    },
-   "p0": 0.8401,
-   "p1": 0.1599,
+   "p0": 0.8402,
+   "p1": 0.1598,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Simplicity Gaming 1794 vs Supreme Leaders 1506 (38/4 rated series).",
@@ -7498,9 +7863,10 @@
    "pick": {
     "side": 0,
     "team": "Simplicity Gaming",
-    "probability": 0.8401,
-    "other_probability": 0.1599
+    "probability": 0.8402,
+    "other_probability": 0.1598
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7540,23 +7906,24 @@
     "join_notes": [],
     "rating_matches": 29,
     "last_played": "2026-10-21",
-    "elo_raw": 1524.6,
-    "elo": 1524.6
+    "elo_raw": 1523.3,
+    "elo": 1523.3
    },
-   "p0": 0.3843,
-   "p1": 0.6157,
+   "p0": 0.3861,
+   "p1": 0.6139,
    "method": "provisional",
    "confidence": "low",
-   "basis": "Elo line: Zahrouni Esports 1443 vs JSK Academy 1525 (4/29 rated series).",
+   "basis": "Elo line: Zahrouni Esports 1443 vs JSK Academy 1523 (4/29 rated series).",
    "flags": [
     "fewer than 5 rated series for at least one team"
    ],
    "pick": {
     "side": 1,
     "team": "JSK Academy",
-    "probability": 0.6157,
-    "other_probability": 0.3843
+    "probability": 0.6139,
+    "other_probability": 0.3861
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7586,8 +7953,8 @@
     "join_notes": [],
     "rating_matches": 16,
     "last_played": "2026-10-11",
-    "elo_raw": 1571.0,
-    "elo": 1571.0
+    "elo_raw": 1571.2,
+    "elo": 1571.2
    },
    "team1": {
     "name": "Tung Sahur Mid",
@@ -7599,8 +7966,8 @@
     "elo_raw": 1550.8,
     "elo": 1550.8
    },
-   "p0": 0.529,
-   "p1": 0.471,
+   "p0": 0.5293,
+   "p1": 0.4707,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: 2 Massive 1571 vs Tung Sahur Mid 1551 (16/4 rated series).",
@@ -7610,9 +7977,10 @@
    "pick": {
     "side": 0,
     "team": "2 Massive",
-    "probability": 0.529,
-    "other_probability": 0.471
+    "probability": 0.5293,
+    "other_probability": 0.4707
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7667,6 +8035,7 @@
     "probability": 0.6036,
     "other_probability": 0.3964
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7721,6 +8090,7 @@
     "probability": 0.5661,
     "other_probability": 0.4339
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7775,6 +8145,7 @@
     "probability": 0.7089,
     "other_probability": 0.2911
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7831,6 +8202,7 @@
     "probability": 0.5019,
     "other_probability": 0.4981
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7860,8 +8232,8 @@
     "join_notes": [],
     "rating_matches": 31,
     "last_played": "2026-10-18",
-    "elo_raw": 1464.6,
-    "elo": 1464.6
+    "elo_raw": 1464.7,
+    "elo": 1464.7
    },
    "team1": {
     "name": "Lund Esports Organization OGs",
@@ -7887,6 +8259,7 @@
     "probability": 0.6442,
     "other_probability": 0.3558
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7926,21 +8299,22 @@
     "join_notes": [],
     "rating_matches": 89,
     "last_played": "2026-10-18",
-    "elo_raw": 1564.6,
-    "elo": 1564.6
+    "elo_raw": 1564.4,
+    "elo": 1564.4
    },
-   "p0": 0.668,
-   "p1": 0.332,
+   "p0": 0.6683,
+   "p1": 0.3317,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: 404 Multigaming e.V. 1686 vs VfB eSports 1565 (48/89 rated series).",
+   "basis": "Elo line: 404 Multigaming e.V. 1686 vs VfB eSports 1564 (48/89 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "404 Multigaming e.V.",
-    "probability": 0.668,
-    "other_probability": 0.332
+    "probability": 0.6683,
+    "other_probability": 0.3317
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -7999,6 +8373,7 @@
     "probability": 0.6544,
     "other_probability": 0.3456
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8028,8 +8403,8 @@
     "join_notes": [],
     "rating_matches": 18,
     "last_played": "2026-10-18",
-    "elo_raw": 1608.9,
-    "elo": 1608.9
+    "elo_raw": 1608.8,
+    "elo": 1608.8
    },
    "team1": {
     "name": "B2U",
@@ -8038,11 +8413,11 @@
     "join_notes": [],
     "rating_matches": 58,
     "last_played": "2026-10-18",
-    "elo_raw": 1776.9,
-    "elo": 1776.9
+    "elo_raw": 1776.7,
+    "elo": 1776.7
    },
-   "p0": 0.2754,
-   "p1": 0.7246,
+   "p0": 0.2756,
+   "p1": 0.7244,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Lundqvist Darkside 1609 vs B2U 1777 (18/58 rated series).",
@@ -8050,9 +8425,10 @@
    "pick": {
     "side": 1,
     "team": "B2U",
-    "probability": 0.7246,
-    "other_probability": 0.2754
+    "probability": 0.7244,
+    "other_probability": 0.2756
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8092,11 +8468,11 @@
     "join_notes": [],
     "rating_matches": 58,
     "last_played": "2026-10-18",
-    "elo_raw": 1776.9,
-    "elo": 1776.9
+    "elo_raw": 1776.7,
+    "elo": 1776.7
    },
-   "p0": 0.1111,
-   "p1": 0.8889,
+   "p0": 0.1112,
+   "p1": 0.8888,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Mazepa 1416 vs B2U 1777 (10/58 rated series).",
@@ -8104,9 +8480,10 @@
    "pick": {
     "side": 1,
     "team": "B2U",
-    "probability": 0.8889,
-    "other_probability": 0.1111
+    "probability": 0.8888,
+    "other_probability": 0.1112
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8115,7 +8492,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 5
+    "total_picks": 8
    }
   },
   {
@@ -8163,6 +8540,7 @@
     "probability": 0.5244,
     "other_probability": 0.4756
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8217,6 +8595,7 @@
     "probability": 0.6119,
     "other_probability": 0.3881
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8259,43 +8638,51 @@
     "elo_raw": 2041.1,
     "elo": 2041.1
    },
-   "p0": 0.32,
-   "p1": 0.68,
+   "p0": 0.325,
+   "p1": 0.675,
    "method": "market",
-   "confidence": "high",
-   "basis": "Polymarket de-vigged line (32.0% / 68.0%): Polymarket 32.0%/68.0% (32.0¢/68.0¢).",
-   "flags": [],
+   "confidence": "low",
+   "basis": "Polymarket de-vigged line (32.5% / 67.5%): Polymarket 32.5%/67.5% (32.5¢/67.5¢).",
+   "flags": [
+    "kick-off time differs between sources: Hotspawn and Leaguepedia say 2026-10-27T17:00:00Z while Pinnacle lists 2026-10-22T06:30Z (130h apart) - confirm before betting",
+    "thin market: single Polymarket venue with $5 traded volume (thin-market threshold $1,000) - published as the only external evidence, not as a high-confidence line"
+   ],
    "pick": {
     "side": 1,
     "team": "Vitality Rising Bees",
-    "probability": 0.68,
-    "other_probability": 0.32
+    "probability": 0.675,
+    "other_probability": 0.325
    },
+   "pick_type": "probability",
    "market": {
+    "thin": true,
+    "thin_note": "single Polymarket venue with $5 traded volume (thin-market threshold $1,000)",
     "book": "Polymarket",
     "kind": "prediction market",
     "source_url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
-    "api_url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
+    "api_url": "https://gamma-api.polymarket.com/events?slug=lol-rb-mr-2026-10-27",
     "market_url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "decimal": null,
     "american": null,
-    "p0": 0.32,
-    "p1": 0.68,
+    "p0": 0.325,
+    "p1": 0.675,
     "overround": 0.0,
-    "start_utc": null,
+    "start_utc": "2026-10-22T06:30:20Z",
     "league": null,
     "venue_count": 1,
     "venues": [
      {
       "name": "Polymarket",
       "weight": 0.24,
-      "p0": 0.32,
-      "p1": 0.68,
-      "quote": "32.0¢/68.0¢",
+      "p0": 0.325,
+      "p1": 0.675,
+      "quote": "32.5¢/67.5¢",
       "overround": 0.0,
-      "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
+      "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
+      "volume_usd": 5.0
      }
-    ]
+    ],
+    "model_cross_check": 0.3341
    },
    "expected_resolution": null,
    "recorded_result": null,
@@ -8354,6 +8741,7 @@
     "probability": 0.5274,
     "other_probability": 0.4726
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8408,6 +8796,7 @@
     "probability": 0.7775,
     "other_probability": 0.2225
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8462,6 +8851,7 @@
     "probability": 0.6561,
     "other_probability": 0.3439
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8491,8 +8881,8 @@
     "join_notes": [],
     "rating_matches": 89,
     "last_played": "2026-10-18",
-    "elo_raw": 1564.6,
-    "elo": 1564.6
+    "elo_raw": 1564.4,
+    "elo": 1564.4
    },
    "team1": {
     "name": "regnum4games",
@@ -8504,18 +8894,19 @@
     "elo_raw": 1610.1,
     "elo": 1610.1
    },
-   "p0": 0.435,
-   "p1": 0.565,
+   "p0": 0.4347,
+   "p1": 0.5653,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: VfB eSports 1565 vs regnum4games 1610 (89/72 rated series).",
+   "basis": "Elo line: VfB eSports 1564 vs regnum4games 1610 (89/72 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "regnum4games",
-    "probability": 0.565,
-    "other_probability": 0.435
+    "probability": 0.5653,
+    "other_probability": 0.4347
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8545,8 +8936,8 @@
     "join_notes": [],
     "rating_matches": 42,
     "last_played": "2026-10-18",
-    "elo_raw": 1733.4,
-    "elo": 1733.4
+    "elo_raw": 1733.3,
+    "elo": 1733.3
    },
    "team1": {
     "name": "B2U",
@@ -8555,11 +8946,11 @@
     "join_notes": [],
     "rating_matches": 58,
     "last_played": "2026-10-18",
-    "elo_raw": 1776.9,
-    "elo": 1776.9
+    "elo_raw": 1776.7,
+    "elo": 1776.7
    },
-   "p0": 0.4377,
-   "p1": 0.5623,
+   "p0": 0.4378,
+   "p1": 0.5622,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: FlameHard 1733 vs B2U 1777 (42/58 rated series).",
@@ -8567,9 +8958,10 @@
    "pick": {
     "side": 1,
     "team": "B2U",
-    "probability": 0.5623,
-    "other_probability": 0.4377
+    "probability": 0.5622,
+    "other_probability": 0.4378
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8578,7 +8970,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 2
+    "total_picks": 6
    }
   },
   {
@@ -8624,6 +9016,7 @@
     "probability": 0.5293,
     "other_probability": 0.4707
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8653,8 +9046,8 @@
     "join_notes": [],
     "rating_matches": 18,
     "last_played": "2026-10-18",
-    "elo_raw": 1608.9,
-    "elo": 1608.9
+    "elo_raw": 1608.8,
+    "elo": 1608.8
    },
    "team1": {
     "name": "Mazepa",
@@ -8678,6 +9071,7 @@
     "probability": 0.7525,
     "other_probability": 0.2475
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8732,6 +9126,7 @@
     "probability": 0.6073,
     "other_probability": 0.3927
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8761,8 +9156,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-21",
-    "elo_raw": 1567.5,
-    "elo": 1567.5
+    "elo_raw": 1566.9,
+    "elo": 1566.9
    },
    "team1": {
     "name": "New Era Team",
@@ -8771,23 +9166,24 @@
     "join_notes": [],
     "rating_matches": 5,
     "last_played": "2026-10-17",
-    "elo_raw": 1495.1,
-    "elo": 1495.1
+    "elo_raw": 1494.3,
+    "elo": 1494.3
    },
-   "p0": 0.6027,
-   "p1": 0.3973,
+   "p0": 0.603,
+   "p1": 0.397,
    "method": "provisional",
    "confidence": "low",
-   "basis": "Elo line: Slam Dunk 1567 vs New Era Team 1495 (4/5 rated series).",
+   "basis": "Elo line: Slam Dunk 1567 vs New Era Team 1494 (4/5 rated series).",
    "flags": [
     "fewer than 5 rated series for at least one team"
    ],
    "pick": {
     "side": 0,
     "team": "Slam Dunk",
-    "probability": 0.6027,
-    "other_probability": 0.3973
+    "probability": 0.603,
+    "other_probability": 0.397
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8842,6 +9238,7 @@
     "probability": 0.5186,
     "other_probability": 0.4814
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8896,6 +9293,7 @@
     "probability": 0.6088,
     "other_probability": 0.3912
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -8923,10 +9321,10 @@
     "leaguepedia": "Pegasus Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 35,
+    "rating_matches": 34,
     "last_played": "2026-10-15",
-    "elo_raw": 1446.9,
-    "elo": 1446.9
+    "elo_raw": 1443.1,
+    "elo": 1443.1
    },
    "team1": {
     "name": "JSK Academy",
@@ -8935,21 +9333,22 @@
     "join_notes": [],
     "rating_matches": 29,
     "last_played": "2026-10-21",
-    "elo_raw": 1524.6,
-    "elo": 1524.6
+    "elo_raw": 1523.3,
+    "elo": 1523.3
    },
-   "p0": 0.39,
-   "p1": 0.61,
+   "p0": 0.3866,
+   "p1": 0.6134,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Pegasus Esports 1447 vs JSK Academy 1525 (35/29 rated series).",
+   "basis": "Elo line: Pegasus Esports 1443 vs JSK Academy 1523 (34/29 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "JSK Academy",
-    "probability": 0.61,
-    "other_probability": 0.39
+    "probability": 0.6134,
+    "other_probability": 0.3866
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9004,6 +9403,7 @@
     "probability": 0.5853,
     "other_probability": 0.4147
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9058,6 +9458,7 @@
     "probability": 0.5911,
     "other_probability": 0.4089
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9087,31 +9488,32 @@
     "join_notes": [],
     "rating_matches": 5,
     "last_played": "2026-10-17",
-    "elo_raw": 1432.6,
-    "elo": 1432.6
+    "elo_raw": 1432.1,
+    "elo": 1432.1
    },
    "team1": {
     "name": "NextGeneration Esports",
     "leaguepedia": "NextGeneration Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 60,
+    "rating_matches": 59,
     "last_played": "2026-10-17",
-    "elo_raw": 1474.1,
-    "elo": 1474.1
+    "elo_raw": 1470.8,
+    "elo": 1470.8
    },
-   "p0": 0.4406,
-   "p1": 0.5594,
+   "p0": 0.4446,
+   "p1": 0.5554,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Team Reds 1433 vs NextGeneration Esports 1474 (5/60 rated series).",
+   "basis": "Elo line: Team Reds 1432 vs NextGeneration Esports 1471 (5/59 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "NextGeneration Esports",
-    "probability": 0.5594,
-    "other_probability": 0.4406
+    "probability": 0.5554,
+    "other_probability": 0.4446
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9166,6 +9568,7 @@
     "probability": 0.5548,
     "other_probability": 0.4452
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9195,8 +9598,8 @@
     "join_notes": [],
     "rating_matches": 89,
     "last_played": "2026-10-18",
-    "elo_raw": 1564.6,
-    "elo": 1564.6
+    "elo_raw": 1564.4,
+    "elo": 1564.4
    },
    "team1": {
     "name": "Phong Vũ Buffalo",
@@ -9210,20 +9613,21 @@
     "elo_raw": 1629.2,
     "elo": 1629.2
    },
-   "p0": 0.4081,
-   "p1": 0.5919,
+   "p0": 0.4078,
+   "p1": 0.5922,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: VfB eSports 1565 vs PvB (Swiss Team) 1629 (89/36 rated series).",
+   "basis": "Elo line: VfB eSports 1564 vs PvB (Swiss Team) 1629 (89/36 rated series).",
    "flags": [
     "explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evidence (see Flagged for review)"
    ],
    "pick": {
     "side": 1,
     "team": "Phong Vũ Buffalo",
-    "probability": 0.5919,
-    "other_probability": 0.4081
+    "probability": 0.5922,
+    "other_probability": 0.4078
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9253,8 +9657,8 @@
     "join_notes": [],
     "rating_matches": 29,
     "last_played": "2026-10-21",
-    "elo_raw": 1524.6,
-    "elo": 1524.6
+    "elo_raw": 1523.3,
+    "elo": 1523.3
    },
    "team1": {
     "name": "Supreme Leaders",
@@ -9266,20 +9670,21 @@
     "elo_raw": 1505.8,
     "elo": 1505.8
    },
-   "p0": 0.527,
-   "p1": 0.473,
+   "p0": 0.5252,
+   "p1": 0.4748,
    "method": "provisional",
    "confidence": "low",
-   "basis": "Elo line: JSK Academy 1525 vs Supreme Leaders 1506 (29/4 rated series).",
+   "basis": "Elo line: JSK Academy 1523 vs Supreme Leaders 1506 (29/4 rated series).",
    "flags": [
     "fewer than 5 rated series for at least one team"
    ],
    "pick": {
     "side": 0,
     "team": "JSK Academy",
-    "probability": 0.527,
-    "other_probability": 0.473
+    "probability": 0.5252,
+    "other_probability": 0.4748
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9309,8 +9714,8 @@
     "join_notes": [],
     "rating_matches": 68,
     "last_played": "2026-10-18",
-    "elo_raw": 1725.9,
-    "elo": 1725.9
+    "elo_raw": 1725.3,
+    "elo": 1725.3
    },
    "team1": {
     "name": "Olympique Mnihla",
@@ -9319,21 +9724,22 @@
     "join_notes": [],
     "rating_matches": 40,
     "last_played": "2026-10-18",
-    "elo_raw": 1596.3,
-    "elo": 1596.3
+    "elo_raw": 1596.1,
+    "elo": 1596.1
    },
-   "p0": 0.6784,
-   "p1": 0.3216,
+   "p0": 0.6778,
+   "p1": 0.3222,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: JSK Esports 1726 vs Olympique Mnihla 1596 (68/40 rated series).",
+   "basis": "Elo line: JSK Esports 1725 vs Olympique Mnihla 1596 (68/40 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.6784,
-    "other_probability": 0.3216
+    "probability": 0.6778,
+    "other_probability": 0.3222
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9363,8 +9769,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1517.2,
-    "elo": 1517.2
+    "elo_raw": 1517.0,
+    "elo": 1517.0
    },
    "team1": {
     "name": "Enfida Esports",
@@ -9373,8 +9779,8 @@
     "join_notes": [],
     "rating_matches": 6,
     "last_played": "2026-10-18",
-    "elo_raw": 1383.4,
-    "elo": 1383.4
+    "elo_raw": 1383.3,
+    "elo": 1383.3
    },
    "p0": 0.6835,
    "p1": 0.3165,
@@ -9390,6 +9796,7 @@
     "probability": 0.6835,
     "other_probability": 0.3165
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9429,8 +9836,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1459.8,
-    "elo": 1459.8
+    "elo_raw": 1459.7,
+    "elo": 1459.7
    },
    "p0": 0.8726,
    "p1": 0.1274,
@@ -9446,6 +9853,7 @@
     "probability": 0.8726,
     "other_probability": 0.1274
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9485,11 +9893,11 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1475.6,
-    "elo": 1475.6
+    "elo_raw": 1475.5,
+    "elo": 1475.5
    },
-   "p0": 0.4529,
-   "p1": 0.5471,
+   "p0": 0.453,
+   "p1": 0.547,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Zahrouni Esports 1443 vs El Menzah Esports 1476 (4/4 rated series).",
@@ -9499,9 +9907,10 @@
    "pick": {
     "side": 1,
     "team": "El Menzah Esports",
-    "probability": 0.5471,
-    "other_probability": 0.4529
+    "probability": 0.547,
+    "other_probability": 0.453
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9531,8 +9940,8 @@
     "join_notes": [],
     "rating_matches": 6,
     "last_played": "2026-10-17",
-    "elo_raw": 1601.7,
-    "elo": 1601.7
+    "elo_raw": 1600.9,
+    "elo": 1600.9
    },
    "team1": {
     "name": "Team VDS",
@@ -9541,30 +9950,31 @@
     "join_notes": [],
     "rating_matches": 37,
     "last_played": "2026-10-16",
-    "elo_raw": 1620.7,
-    "elo": 1620.7
+    "elo_raw": 1619.5,
+    "elo": 1619.5
    },
-   "p0": 0.4727,
-   "p1": 0.5273,
+   "p0": 0.4734,
+   "p1": 0.5266,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Void Walkers 1602 vs Team VDS 1621 (6/37 rated series).",
+   "basis": "Elo line: Void Walkers 1601 vs Team VDS 1619 (6/37 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Team VDS",
-    "probability": 0.5273,
-    "other_probability": 0.4727
+    "probability": 0.5266,
+    "other_probability": 0.4734
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 81,
-    "team1": 19,
-    "total_picks": 16
+    "team0": 82,
+    "team1": 18,
+    "total_picks": 17
    }
   },
   {
@@ -9610,6 +10020,7 @@
     "probability": 0.6427,
     "other_probability": 0.3573
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9618,7 +10029,7 @@
    "community_pick_pct": {
     "team0": 94,
     "team1": 6,
-    "total_picks": 17
+    "total_picks": 18
    }
   },
   {
@@ -9664,6 +10075,7 @@
     "probability": 0.5461,
     "other_probability": 0.4539
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9672,7 +10084,7 @@
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
-    "total_picks": 18
+    "total_picks": 19
    }
   },
   {
@@ -9703,34 +10115,35 @@
     "join_notes": [
      "Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'"
     ],
-    "rating_matches": 58,
+    "rating_matches": 57,
     "last_played": "2026-10-23",
-    "elo_raw": 1750.4,
-    "elo": 1750.4
+    "elo_raw": 1751.9,
+    "elo": 1751.9
    },
-   "p0": 0.1907,
-   "p1": 0.8093,
+   "p0": 0.1894,
+   "p1": 0.8106,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: 1. Esport Club Frankfurt e.V. 1499 vs Rich Gang (Norwegian Team) 1750 (22/58 rated series).",
+   "basis": "Elo line: 1. Esport Club Frankfurt e.V. 1499 vs Rich Gang (Norwegian Team) 1752 (22/57 rated series).",
    "flags": [
     "Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'"
    ],
    "pick": {
     "side": 1,
     "team": "Rich Gang",
-    "probability": 0.8093,
-    "other_probability": 0.1907
+    "probability": 0.8106,
+    "other_probability": 0.1894
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 78,
-    "team1": 22,
-    "total_picks": 18
+    "team0": 79,
+    "team1": 21,
+    "total_picks": 19
    }
   },
   {
@@ -9776,6 +10189,7 @@
     "probability": 0.564,
     "other_probability": 0.436
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -9784,7 +10198,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 17
+    "total_picks": 19
    }
   },
   {
@@ -9832,15 +10246,16 @@
     "probability": 0.7034,
     "other_probability": 0.2966
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 6,
-    "team1": 94,
-    "total_picks": 18
+    "team0": 5,
+    "team1": 95,
+    "total_picks": 19
    }
   },
   {
@@ -9886,15 +10301,16 @@
     "probability": 0.5857,
     "other_probability": 0.4143
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 83,
-    "team1": 17,
-    "total_picks": 18
+    "team0": 84,
+    "team1": 16,
+    "total_picks": 19
    }
   },
   {
@@ -9915,8 +10331,8 @@
     "join_notes": [],
     "rating_matches": 20,
     "last_played": "2026-10-18",
-    "elo_raw": 1334.7,
-    "elo": 1334.7
+    "elo_raw": 1334.8,
+    "elo": 1334.8
    },
    "team1": {
     "name": "TeamOrangeGaming Academy",
@@ -9925,8 +10341,8 @@
     "join_notes": [],
     "rating_matches": 72,
     "last_played": "2026-10-20",
-    "elo_raw": 1396.8,
-    "elo": 1396.8
+    "elo_raw": 1396.9,
+    "elo": 1396.9
    },
    "p0": 0.4115,
    "p1": 0.5885,
@@ -9940,15 +10356,16 @@
     "probability": 0.5885,
     "other_probability": 0.4115
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 0,
-    "team1": 100,
-    "total_picks": 17
+    "team0": 6,
+    "team1": 94,
+    "total_picks": 18
    }
   },
   {
@@ -9996,15 +10413,16 @@
     "probability": 0.548,
     "other_probability": 0.452
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 83,
-    "team1": 17,
-    "total_picks": 18
+    "team0": 84,
+    "team1": 16,
+    "total_picks": 19
    }
   },
   {
@@ -10050,6 +10468,7 @@
     "probability": 0.612,
     "other_probability": 0.388
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10058,7 +10477,7 @@
    "community_pick_pct": {
     "team0": 94,
     "team1": 6,
-    "total_picks": 17
+    "total_picks": 18
    }
   },
   {
@@ -10106,15 +10525,16 @@
     "probability": 0.5888,
     "other_probability": 0.4112
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 71,
-    "team1": 29,
-    "total_picks": 17
+    "team0": 72,
+    "team1": 28,
+    "total_picks": 18
    }
   },
   {
@@ -10160,15 +10580,16 @@
     "probability": 0.5943,
     "other_probability": 0.4057
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 18,
-    "team1": 82,
-    "total_picks": 17
+    "team0": 17,
+    "team1": 83,
+    "total_picks": 18
    }
   },
   {
@@ -10214,6 +10635,7 @@
     "probability": 0.6801,
     "other_probability": 0.3199
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10222,7 +10644,7 @@
    "community_pick_pct": {
     "team0": 11,
     "team1": 89,
-    "total_picks": 18
+    "total_picks": 19
    }
   },
   {
@@ -10268,6 +10690,7 @@
     "probability": 0.5257,
     "other_probability": 0.4743
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10276,7 +10699,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 17
+    "total_picks": 18
    }
   },
   {
@@ -10322,15 +10745,16 @@
     "probability": 0.5731,
     "other_probability": 0.4269
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 88,
-    "team1": 12,
-    "total_picks": 17
+    "team0": 83,
+    "team1": 17,
+    "total_picks": 18
    }
   },
   {
@@ -10376,15 +10800,16 @@
     "probability": 0.7942,
     "other_probability": 0.2058
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 88,
-    "team1": 12,
-    "total_picks": 17
+    "team0": 89,
+    "team1": 11,
+    "total_picks": 18
    }
   },
   {
@@ -10415,11 +10840,11 @@
     "join_notes": [],
     "rating_matches": 3,
     "last_played": "2026-10-14",
-    "elo_raw": 1428.3,
-    "elo": 1428.3
+    "elo_raw": 1428.4,
+    "elo": 1428.4
    },
-   "p0": 0.5012,
-   "p1": 0.4988,
+   "p0": 0.501,
+   "p1": 0.499,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Team 300 White 1429 vs Socken und Sandalen 1428 (22/3 rated series).",
@@ -10429,18 +10854,19 @@
    "pick": {
     "side": 0,
     "team": "Team 300 White",
-    "probability": 0.5012,
-    "other_probability": 0.4988
+    "probability": 0.501,
+    "other_probability": 0.499
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
-    "team0": 76,
-    "team1": 24,
-    "total_picks": 17
+    "team0": 78,
+    "team1": 22,
+    "total_picks": 18
    }
   },
   {
@@ -10486,6 +10912,7 @@
     "probability": 0.5672,
     "other_probability": 0.4328
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10494,7 +10921,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 16
+    "total_picks": 17
    }
   },
   {
@@ -10525,8 +10952,8 @@
     "join_notes": [],
     "rating_matches": 42,
     "last_played": "2026-10-18",
-    "elo_raw": 1733.4,
-    "elo": 1733.4
+    "elo_raw": 1733.3,
+    "elo": 1733.3
    },
    "p0": 0.19,
    "p1": 0.81,
@@ -10540,6 +10967,7 @@
     "probability": 0.81,
     "other_probability": 0.19
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10569,8 +10997,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1475.6,
-    "elo": 1475.6
+    "elo_raw": 1475.5,
+    "elo": 1475.5
    },
    "team1": {
     "name": "Enfida Esports",
@@ -10579,8 +11007,8 @@
     "join_notes": [],
     "rating_matches": 6,
     "last_played": "2026-10-18",
-    "elo_raw": 1383.4,
-    "elo": 1383.4
+    "elo_raw": 1383.3,
+    "elo": 1383.3
    },
    "p0": 0.6297,
    "p1": 0.3703,
@@ -10596,6 +11024,7 @@
     "probability": 0.6297,
     "other_probability": 0.3703
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10604,7 +11033,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 17
+    "total_picks": 18
    }
   },
   {
@@ -10625,8 +11054,8 @@
     "join_notes": [],
     "rating_matches": 29,
     "last_played": "2026-10-21",
-    "elo_raw": 1524.6,
-    "elo": 1524.6
+    "elo_raw": 1523.3,
+    "elo": 1523.3
    },
    "team1": {
     "name": "Jendouba Esports",
@@ -10635,23 +11064,24 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1459.8,
-    "elo": 1459.8
+    "elo_raw": 1459.7,
+    "elo": 1459.7
    },
-   "p0": 0.5922,
-   "p1": 0.4078,
+   "p0": 0.5905,
+   "p1": 0.4095,
    "method": "provisional",
    "confidence": "low",
-   "basis": "Elo line: JSK Academy 1525 vs Jendouba Esports 1460 (29/4 rated series).",
+   "basis": "Elo line: JSK Academy 1523 vs Jendouba Esports 1460 (29/4 rated series).",
    "flags": [
     "fewer than 5 rated series for at least one team"
    ],
    "pick": {
     "side": 0,
     "team": "JSK Academy",
-    "probability": 0.5922,
-    "other_probability": 0.4078
+    "probability": 0.5905,
+    "other_probability": 0.4095
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10681,8 +11111,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1517.2,
-    "elo": 1517.2
+    "elo_raw": 1517.0,
+    "elo": 1517.0
    },
    "team1": {
     "name": "Olympique Mnihla",
@@ -10691,8 +11121,8 @@
     "join_notes": [],
     "rating_matches": 40,
     "last_played": "2026-10-18",
-    "elo_raw": 1596.3,
-    "elo": 1596.3
+    "elo_raw": 1596.1,
+    "elo": 1596.1
    },
    "p0": 0.3881,
    "p1": 0.6119,
@@ -10708,6 +11138,7 @@
     "probability": 0.6119,
     "other_probability": 0.3881
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10747,21 +11178,22 @@
     "join_notes": [],
     "rating_matches": 68,
     "last_played": "2026-10-18",
-    "elo_raw": 1725.9,
-    "elo": 1725.9
+    "elo_raw": 1725.3,
+    "elo": 1725.3
    },
-   "p0": 0.5968,
-   "p1": 0.4032,
+   "p0": 0.5976,
+   "p1": 0.4024,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Simplicity Gaming 1794 vs JSK Esports 1726 (38/68 rated series).",
+   "basis": "Elo line: Simplicity Gaming 1794 vs JSK Esports 1725 (38/68 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Simplicity Gaming",
-    "probability": 0.5968,
-    "other_probability": 0.4032
+    "probability": 0.5976,
+    "other_probability": 0.4024
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10804,8 +11236,8 @@
     "elo_raw": 1505.8,
     "elo": 1505.8
    },
-   "p0": 0.4102,
-   "p1": 0.5898,
+   "p0": 0.4103,
+   "p1": 0.5897,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Zahrouni Esports 1443 vs Supreme Leaders 1506 (4/4 rated series).",
@@ -10815,9 +11247,10 @@
    "pick": {
     "side": 1,
     "team": "Supreme Leaders",
-    "probability": 0.5898,
-    "other_probability": 0.4102
+    "probability": 0.5897,
+    "other_probability": 0.4103
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10847,8 +11280,8 @@
     "join_notes": [],
     "rating_matches": 31,
     "last_played": "2026-10-18",
-    "elo_raw": 1464.6,
-    "elo": 1464.6
+    "elo_raw": 1464.7,
+    "elo": 1464.7
    },
    "team1": {
     "name": "Lund Esports Organization OGs",
@@ -10874,6 +11307,7 @@
     "probability": 0.6442,
     "other_probability": 0.3558
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10882,7 +11316,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 2
+    "total_picks": 5
    }
   },
   {
@@ -10928,6 +11362,7 @@
     "probability": 0.5661,
     "other_probability": 0.4339
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -10936,7 +11371,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 1
+    "total_picks": 4
    }
   },
   {
@@ -10986,6 +11421,7 @@
     "probability": 0.5914,
     "other_probability": 0.4086
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11040,6 +11476,7 @@
     "probability": 0.597,
     "other_probability": 0.403
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11096,6 +11533,7 @@
     "probability": 0.7943,
     "other_probability": 0.2057
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11154,6 +11592,7 @@
     "probability": 0.5811,
     "other_probability": 0.4189
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11183,8 +11622,8 @@
     "join_notes": [],
     "rating_matches": 16,
     "last_played": "2026-10-11",
-    "elo_raw": 1571.0,
-    "elo": 1571.0
+    "elo_raw": 1571.2,
+    "elo": 1571.2
    },
    "team1": {
     "name": "Lund Esports Organization OGs",
@@ -11196,8 +11635,8 @@
     "elo_raw": 1567.8,
     "elo": 1567.8
    },
-   "p0": 0.5046,
-   "p1": 0.4954,
+   "p0": 0.505,
+   "p1": 0.495,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: 2 Massive 1571 vs Lund Esports Organization OGs 1568 (16/4 rated series).",
@@ -11207,9 +11646,10 @@
    "pick": {
     "side": 0,
     "team": "2 Massive",
-    "probability": 0.5046,
-    "other_probability": 0.4954
+    "probability": 0.505,
+    "other_probability": 0.495
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11218,7 +11658,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 1
+    "total_picks": 3
    }
   },
   {
@@ -11264,6 +11704,7 @@
     "probability": 0.5668,
     "other_probability": 0.4332
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11318,6 +11759,7 @@
     "probability": 0.5112,
     "other_probability": 0.4888
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11372,6 +11814,7 @@
     "probability": 0.5541,
     "other_probability": 0.4459
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11413,23 +11856,24 @@
     "join_notes": [],
     "rating_matches": 89,
     "last_played": "2026-10-18",
-    "elo_raw": 1564.6,
-    "elo": 1564.6
+    "elo_raw": 1564.4,
+    "elo": 1564.4
    },
-   "p0": 0.4609,
-   "p1": 0.5391,
+   "p0": 0.4612,
+   "p1": 0.5388,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Locked In (Dutch Team) 1537 vs VfB eSports 1565 (39/89 rated series).",
+   "basis": "Elo line: Locked In (Dutch Team) 1537 vs VfB eSports 1564 (39/89 rated series).",
    "flags": [
     "ambiguous in Leaguepedia (LOCKED IN (French Team), Locked IN (European Team), Locked In (Dutch Team)); resolved by the 'Prime League 2nd Division/2027 Season/Fall Split' page listing"
    ],
    "pick": {
     "side": 1,
     "team": "VfB eSports",
-    "probability": 0.5391,
-    "other_probability": 0.4609
+    "probability": 0.5388,
+    "other_probability": 0.4612
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11486,6 +11930,7 @@
     "probability": 0.8742,
     "other_probability": 0.1258
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11540,6 +11985,7 @@
     "probability": 0.6879,
     "other_probability": 0.3121
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11569,8 +12015,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1475.6,
-    "elo": 1475.6
+    "elo_raw": 1475.5,
+    "elo": 1475.5
    },
    "team1": {
     "name": "Olympique Mnihla",
@@ -11579,8 +12025,8 @@
     "join_notes": [],
     "rating_matches": 40,
     "last_played": "2026-10-18",
-    "elo_raw": 1596.3,
-    "elo": 1596.3
+    "elo_raw": 1596.1,
+    "elo": 1596.1
    },
    "p0": 0.333,
    "p1": 0.667,
@@ -11596,6 +12042,7 @@
     "probability": 0.667,
     "other_probability": 0.333
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11625,8 +12072,8 @@
     "join_notes": [],
     "rating_matches": 29,
     "last_played": "2026-10-21",
-    "elo_raw": 1524.6,
-    "elo": 1524.6
+    "elo_raw": 1523.3,
+    "elo": 1523.3
    },
    "team1": {
     "name": "JSK Esports",
@@ -11635,21 +12082,22 @@
     "join_notes": [],
     "rating_matches": 68,
     "last_played": "2026-10-18",
-    "elo_raw": 1725.9,
-    "elo": 1725.9
+    "elo_raw": 1725.3,
+    "elo": 1725.3
    },
-   "p0": 0.2389,
-   "p1": 0.7611,
+   "p0": 0.2381,
+   "p1": 0.7619,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: JSK Academy 1525 vs JSK Esports 1726 (29/68 rated series).",
+   "basis": "Elo line: JSK Academy 1523 vs JSK Esports 1725 (29/68 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "JSK Esports",
-    "probability": 0.7611,
-    "other_probability": 0.2389
+    "probability": 0.7619,
+    "other_probability": 0.2381
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11679,8 +12127,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1517.2,
-    "elo": 1517.2
+    "elo_raw": 1517.0,
+    "elo": 1517.0
    },
    "team1": {
     "name": "Simplicity Gaming",
@@ -11692,8 +12140,8 @@
     "elo_raw": 1794.0,
     "elo": 1794.0
    },
-   "p0": 0.1688,
-   "p1": 0.8312,
+   "p0": 0.1687,
+   "p1": 0.8313,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Olympique Mnihla Academy 1517 vs Simplicity Gaming 1794 (4/38 rated series).",
@@ -11703,9 +12151,10 @@
    "pick": {
     "side": 1,
     "team": "Simplicity Gaming",
-    "probability": 0.8312,
-    "other_probability": 0.1688
+    "probability": 0.8313,
+    "other_probability": 0.1687
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11745,8 +12194,8 @@
     "join_notes": [],
     "rating_matches": 4,
     "last_played": "2026-10-18",
-    "elo_raw": 1459.8,
-    "elo": 1459.8
+    "elo_raw": 1459.7,
+    "elo": 1459.7
    },
    "p0": 0.5659,
    "p1": 0.4341,
@@ -11762,6 +12211,7 @@
     "probability": 0.5659,
     "other_probability": 0.4341
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11801,11 +12251,11 @@
     "join_notes": [],
     "rating_matches": 6,
     "last_played": "2026-10-18",
-    "elo_raw": 1383.4,
-    "elo": 1383.4
+    "elo_raw": 1383.3,
+    "elo": 1383.3
    },
-   "p0": 0.5846,
-   "p1": 0.4154,
+   "p0": 0.5847,
+   "p1": 0.4153,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Zahrouni Esports 1443 vs Enfida Esports 1383 (4/6 rated series).",
@@ -11815,9 +12265,10 @@
    "pick": {
     "side": 0,
     "team": "Zahrouni Esports",
-    "probability": 0.5846,
-    "other_probability": 0.4154
+    "probability": 0.5847,
+    "other_probability": 0.4153
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11874,6 +12325,7 @@
     "probability": 0.5249,
     "other_probability": 0.4751
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11928,6 +12380,7 @@
     "probability": 0.8131,
     "other_probability": 0.1869
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -11984,6 +12437,7 @@
     "probability": 0.6423,
     "other_probability": 0.3577
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12038,6 +12492,7 @@
     "probability": 0.5532,
     "other_probability": 0.4468
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12092,6 +12547,7 @@
     "probability": 0.5059,
     "other_probability": 0.4941
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12146,6 +12602,7 @@
     "probability": 0.6073,
     "other_probability": 0.3927
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12200,6 +12657,7 @@
     "probability": 0.6094,
     "other_probability": 0.3906
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12254,6 +12712,7 @@
     "probability": 0.5486,
     "other_probability": 0.4514
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12308,6 +12767,7 @@
     "probability": 0.6504,
     "other_probability": 0.3496
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12362,6 +12822,7 @@
     "probability": 0.633,
     "other_probability": 0.367
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12418,6 +12879,7 @@
     "probability": 0.5251,
     "other_probability": 0.4749
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12447,10 +12909,10 @@
     "join_notes": [
      "Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'"
     ],
-    "rating_matches": 58,
+    "rating_matches": 57,
     "last_played": "2026-10-23",
-    "elo_raw": 1750.4,
-    "elo": 1750.4
+    "elo_raw": 1751.9,
+    "elo": 1751.9
    },
    "team1": {
     "name": "Team 300 White",
@@ -12462,20 +12924,21 @@
     "elo_raw": 1429.1,
     "elo": 1429.1
    },
-   "p0": 0.8641,
-   "p1": 0.1359,
+   "p0": 0.865,
+   "p1": 0.135,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Rich Gang (Norwegian Team) 1750 vs Team 300 White 1429 (58/22 rated series).",
+   "basis": "Elo line: Rich Gang (Norwegian Team) 1752 vs Team 300 White 1429 (57/22 rated series).",
    "flags": [
     "Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'"
    ],
    "pick": {
     "side": 0,
     "team": "Rich Gang",
-    "probability": 0.8641,
-    "other_probability": 0.1359
+    "probability": 0.865,
+    "other_probability": 0.135
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12530,6 +12993,7 @@
     "probability": 0.583,
     "other_probability": 0.417
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12559,8 +13023,8 @@
     "join_notes": [],
     "rating_matches": 3,
     "last_played": "2026-10-14",
-    "elo_raw": 1428.3,
-    "elo": 1428.3
+    "elo_raw": 1428.4,
+    "elo": 1428.4
    },
    "team1": {
     "name": "Eintracht Spandau Zwei",
@@ -12569,8 +13033,8 @@
     "join_notes": [],
     "rating_matches": 20,
     "last_played": "2026-10-18",
-    "elo_raw": 1334.7,
-    "elo": 1334.7
+    "elo_raw": 1334.8,
+    "elo": 1334.8
    },
    "p0": 0.6316,
    "p1": 0.3684,
@@ -12586,6 +13050,7 @@
     "probability": 0.6316,
     "other_probability": 0.3684
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12642,6 +13107,7 @@
     "probability": 0.5669,
     "other_probability": 0.4331
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12696,6 +13162,7 @@
     "probability": 0.5763,
     "other_probability": 0.4237
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12735,11 +13202,11 @@
     "join_notes": [],
     "rating_matches": 72,
     "last_played": "2026-10-20",
-    "elo_raw": 1396.8,
-    "elo": 1396.8
+    "elo_raw": 1396.9,
+    "elo": 1396.9
    },
-   "p0": 0.5697,
-   "p1": 0.4303,
+   "p0": 0.5696,
+   "p1": 0.4304,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Whalepower Humpbacks 1446 vs TeamOrangeGaming Academy 1397 (29/72 rated series).",
@@ -12747,9 +13214,10 @@
    "pick": {
     "side": 0,
     "team": "Whalepower Humpbacks",
-    "probability": 0.5697,
-    "other_probability": 0.4303
+    "probability": 0.5696,
+    "other_probability": 0.4304
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12808,6 +13276,7 @@
     "probability": 0.5396,
     "other_probability": 0.4604
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12847,21 +13316,22 @@
     "join_notes": [],
     "rating_matches": 89,
     "last_played": "2026-10-18",
-    "elo_raw": 1564.6,
-    "elo": 1564.6
+    "elo_raw": 1564.4,
+    "elo": 1564.4
    },
-   "p0": 0.576,
-   "p1": 0.424,
+   "p0": 0.5763,
+   "p1": 0.4237,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: The Bandits Prime 1618 vs VfB eSports 1565 (7/89 rated series).",
+   "basis": "Elo line: The Bandits Prime 1618 vs VfB eSports 1564 (7/89 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "The Bandits Prime",
-    "probability": 0.576,
-    "other_probability": 0.424
+    "probability": 0.5763,
+    "other_probability": 0.4237
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12916,6 +13386,7 @@
     "probability": 0.5315,
     "other_probability": 0.4685
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12924,7 +13395,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 1
+    "total_picks": 2
    }
   },
   {
@@ -12972,6 +13443,7 @@
     "probability": 0.7209,
     "other_probability": 0.2791
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -12980,7 +13452,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 1
+    "total_picks": 3
    }
   },
   {
@@ -13026,6 +13498,7 @@
     "probability": 0.8954,
     "other_probability": 0.1046
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13084,6 +13557,7 @@
     "probability": 0.7018,
     "other_probability": 0.2982
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13138,6 +13612,7 @@
     "probability": 0.5233,
     "other_probability": 0.4767
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13196,6 +13671,7 @@
     "probability": 0.5276,
     "other_probability": 0.4724
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13225,8 +13701,8 @@
     "join_notes": [],
     "rating_matches": 89,
     "last_played": "2026-10-18",
-    "elo_raw": 1564.6,
-    "elo": 1564.6
+    "elo_raw": 1564.4,
+    "elo": 1564.4
    },
    "team1": {
     "name": "DKB XPERION NXT",
@@ -13238,18 +13714,19 @@
     "elo_raw": 1648.3,
     "elo": 1648.3
    },
-   "p0": 0.3818,
-   "p1": 0.6182,
+   "p0": 0.3815,
+   "p1": 0.6185,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: VfB eSports 1565 vs DKB XPERION NXT 1648 (89/91 rated series).",
+   "basis": "Elo line: VfB eSports 1564 vs DKB XPERION NXT 1648 (89/91 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "DKB XPERION NXT",
-    "probability": 0.6182,
-    "other_probability": 0.3818
+    "probability": 0.6185,
+    "other_probability": 0.3815
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13304,6 +13781,7 @@
     "probability": 0.5102,
     "other_probability": 0.4898
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13358,6 +13836,7 @@
     "probability": 0.6129,
     "other_probability": 0.3871
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13412,6 +13891,7 @@
     "probability": 0.5488,
     "other_probability": 0.4512
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13468,6 +13948,7 @@
     "probability": 0.6055,
     "other_probability": 0.3945
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13522,6 +14003,7 @@
     "probability": 0.6338,
     "other_probability": 0.3662
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13578,6 +14060,7 @@
     "probability": 0.7424,
     "other_probability": 0.2576
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13632,6 +14115,7 @@
     "probability": 0.6875,
     "other_probability": 0.3125
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13661,8 +14145,8 @@
     "join_notes": [],
     "rating_matches": 20,
     "last_played": "2026-10-18",
-    "elo_raw": 1334.7,
-    "elo": 1334.7
+    "elo_raw": 1334.8,
+    "elo": 1334.8
    },
    "team1": {
     "name": "LOOKSMAXXER",
@@ -13674,8 +14158,8 @@
     "elo_raw": 1576.6,
     "elo": 1576.6
    },
-   "p0": 0.199,
-   "p1": 0.801,
+   "p0": 0.1991,
+   "p1": 0.8009,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Eintracht Spandau Zwei 1335 vs LOOKSMAXXER 1577 (20/30 rated series).",
@@ -13683,9 +14167,10 @@
    "pick": {
     "side": 1,
     "team": "LOOKSMAXXER",
-    "probability": 0.801,
-    "other_probability": 0.199
+    "probability": 0.8009,
+    "other_probability": 0.1991
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13740,6 +14225,7 @@
     "probability": 0.6446,
     "other_probability": 0.3554
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13794,6 +14280,7 @@
     "probability": 0.7814,
     "other_probability": 0.2186
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13850,6 +14337,7 @@
     "probability": 0.5027,
     "other_probability": 0.4973
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13879,10 +14367,10 @@
     "join_notes": [
      "Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'"
     ],
-    "rating_matches": 58,
+    "rating_matches": 57,
     "last_played": "2026-10-23",
-    "elo_raw": 1750.4,
-    "elo": 1750.4
+    "elo_raw": 1751.9,
+    "elo": 1751.9
    },
    "team1": {
     "name": "Whalepower Humpbacks",
@@ -13894,20 +14382,21 @@
     "elo_raw": 1445.6,
     "elo": 1445.6
    },
-   "p0": 0.8526,
-   "p1": 0.1474,
+   "p0": 0.8536,
+   "p1": 0.1464,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Rich Gang (Norwegian Team) 1750 vs Whalepower Humpbacks 1446 (58/29 rated series).",
+   "basis": "Elo line: Rich Gang (Norwegian Team) 1752 vs Whalepower Humpbacks 1446 (57/29 rated series).",
    "flags": [
     "Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'"
    ],
    "pick": {
     "side": 0,
     "team": "Rich Gang",
-    "probability": 0.8526,
-    "other_probability": 0.1474
+    "probability": 0.8536,
+    "other_probability": 0.1464
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -13962,6 +14451,7 @@
     "probability": 0.6502,
     "other_probability": 0.3498
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -14016,6 +14506,7 @@
     "probability": 0.5996,
     "other_probability": 0.4004
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -14045,8 +14536,8 @@
     "join_notes": [],
     "rating_matches": 72,
     "last_played": "2026-10-20",
-    "elo_raw": 1396.8,
-    "elo": 1396.8
+    "elo_raw": 1396.9,
+    "elo": 1396.9
    },
    "team1": {
     "name": "Socken und Sandalen",
@@ -14055,11 +14546,11 @@
     "join_notes": [],
     "rating_matches": 3,
     "last_played": "2026-10-14",
-    "elo_raw": 1428.3,
-    "elo": 1428.3
+    "elo_raw": 1428.4,
+    "elo": 1428.4
    },
-   "p0": 0.4548,
-   "p1": 0.5452,
+   "p0": 0.4547,
+   "p1": 0.5453,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: TeamOrangeGaming Academy 1397 vs Socken und Sandalen 1428 (72/3 rated series).",
@@ -14069,9 +14560,10 @@
    "pick": {
     "side": 1,
     "team": "Socken und Sandalen",
-    "probability": 0.5452,
-    "other_probability": 0.4548
+    "probability": 0.5453,
+    "other_probability": 0.4547
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -14126,6 +14618,7 @@
     "probability": 0.6468,
     "other_probability": 0.3532
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -14180,6 +14673,7 @@
     "probability": 0.669,
     "other_probability": 0.331
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -14234,6 +14728,7 @@
     "probability": 0.6133,
     "other_probability": 0.3867
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,
@@ -14290,6 +14785,7 @@
     "probability": 0.615,
     "other_probability": 0.385
    },
+   "pick_type": "probability",
    "market": null,
    "expected_resolution": null,
    "recorded_result": null,

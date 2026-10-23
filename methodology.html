@@ -20,8 +20,8 @@
   <div class="pagehead">
     <h1>Method</h1>
     <p class="sub">How every probability on this site is computed, backtested, and audited.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 15:46 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T11:42:37Z">Inventory collected: 2026-10-23T11:42:37Z. Check source timestamps before use.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-23 15:54 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:37:40Z">Inventory collected: 2026-10-23T15:37:40Z. Check source timestamps before use.</p>
   </div>
   
 <section class="panel">
@@ -64,16 +64,38 @@
 </section>
 
 <section class="panel">
+  <h2>Parameter stability: does the choice of K actually matter?</h2>
+  <p class="lead">The update sizes are a judgement call, so they are published together with the sweep that
+  produced them rather than as an unqualified number. Every setting below was re-run through the same
+  walk-forward evaluation (<code>tools/sweep.py</code>, frozen test window).</p>
+  
+  <p>The grid is 4 &times;
+  3 &times;
+  3 = <strong>36 settings</strong> of
+  K<sub>bo1</sub> / K<sub>bo3+</sub> / margin weight, scored on
+  <strong>16,282</strong> validation series
+  (2025-07-01..2026-07-01) and then on the frozen test window.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>K bo1 / K bo3+ / MoV &mdash; best 10 on validation</th><th>Validation series</th><th>Accuracy</th><th>Validation Brier</th><th>Test Brier</th></tr></thead><tbody><tr><td data-label="K bo1 / K bo3+ / MoV &mdash; best 10 on validation">56 / 32 / 1</td><td data-label="Validation series">16,282</td><td data-label="Accuracy">64.1%</td><td data-label="Validation Brier">0.221</td><td data-label="Test Brier">0.2142</td></tr><tr><td data-label="K bo1 / K bo3+ / MoV &mdash; best 10 on validation">56 / 40 / 0.5</td><td data-label="Validation series">16,282</td><td data-label="Accuracy">64.1%</td><td data-label="Validation Brier">0.2211</td><td data-label="Test Brier">0.2143</td></tr><tr><td data-label="K bo1 / K bo3+ / MoV &mdash; best 10 on validation">56 / 24 / 1</td><td data-label="Validation series">16,282</td><td data-label="Accuracy">64.1%</td><td data-label="Validation Brier">0.2213</td><td data-label="Test Brier">0.2147</td></tr><tr><td data-label="K bo1 / K bo3+ / MoV &mdash; best 10 on validation">56 / 32 / 0.5</td><td data-label="Validation series">16,282</td><td data-label="Accuracy">64.1%</td><td data-label="Validation Brier">0.2213</td><td data-label="Test Brier">0.2147</td></tr><tr><td data-label="K bo1 / K bo3+ / MoV &mdash; best 10 on validation">56 / 40 / 1</td><td data-label="Validation series">16,282</td><td data-label="Accuracy">64.1%</td><td data-label="Validation Brier">0.2213</td><td data-label="Test Brier">0.2144</td></tr><tr><td data-label="K bo1 / K bo3+ / MoV &mdash; best 10 on validation">48 / 32 / 1</td><td data-label="Validation series">16,282</td><td data-label="Accuracy">64.0%</td><td data-label="Validation Brier">0.2217</td><td data-label="Test Brier">0.2147</td></tr><tr><td data-label="K bo1 / K bo3+ / MoV &mdash; best 10 on validation">48 / 40 / 0.5 <strong>(shipped)</strong></td><td data-label="Validation series">16,282</td><td data-label="Accuracy">64.1%</td><td data-label="Validation Brier">0.2218</td><td data-label="Test Brier">0.2148</td></tr><tr><td data-label="K bo1 / K bo3+ / MoV &mdash; best 10 on validation">48 / 24 / 1</td><td data-label="Validation series">16,282</td><td data-label="Accuracy">64.1%</td><td data-label="Validation Brier">0.2219</td><td data-label="Test Brier">0.2151</td></tr><tr><td data-label="K bo1 / K bo3+ / MoV &mdash; best 10 on validation">48 / 32 / 0.5</td><td data-label="Validation series">16,282</td><td data-label="Accuracy">64.0%</td><td data-label="Validation Brier">0.2219</td><td data-label="Test Brier">0.2152</td></tr><tr><td data-label="K bo1 / K bo3+ / MoV &mdash; best 10 on validation">56 / 40 / 0</td><td data-label="Validation series">16,282</td><td data-label="Accuracy">63.8%</td><td data-label="Validation Brier">0.2219</td><td data-label="Test Brier">0.2156</td></tr></tbody></table></div>
+  <p><strong>The shipped setting ranks 7 of 36 on
+  validation</strong> (0.2218) against a best of
+  0.221. The whole grid spans only
+  0.0049 Brier, which is inside the sampling noise of a
+  16,282-series window (&asymp;0.003), so no setting in the grid is
+  distinguishable from another on this data. The published numbers were therefore left where they were
+  rather than moved to the top of a noisy ranking; the test-window result is reported unchanged either way.</p>
+</section>
+
+<section class="panel">
   <h2>Out-of-sample backtest &amp; calibration</h2>
   <p class="lead">Every recorded series after <strong>2026-07-01</strong>
   (<strong>3,854</strong> out-of-sample series) is predicted strictly before its result updates
   either team's rating (zero look-ahead leakage).</p>
   <p class="small muted"><strong>How the update sizes were chosen.</strong> K<sub>bo</sub>, M and the (now
   disabled) shrinkage were selected on the disjoint validation window
-  <strong>2025-07-01..2026-07-01</strong> (<strong>16,289</strong>
-  series, Brier 0.2217), then frozen. The test numbers below are
+  <strong>2025-07-01..2026-07-01</strong> (<strong>16,282</strong>
+  series, Brier 0.2218), then frozen. The test numbers below are
   measured only on series that start after the cutoff, so they are not fitted on the data they score.</p>
-  <div class="tablewrap"><table class=""><thead><tr><th>Sample</th><th>Series</th><th>Accuracy</th><th>Brier score</th><th>Log loss</th></tr></thead><tbody><tr><td data-label="Sample">Test window, current model</td><td data-label="Series">3,854</td><td data-label="Accuracy">65.3%</td><td data-label="Brier score">0.2149</td><td data-label="Log loss">0.6182</td></tr><tr><td data-label="Sample">Test window, previous settings (K=24, no margin term)</td><td data-label="Series">3,854</td><td data-label="Accuracy">64.1%</td><td data-label="Brier score">0.2211</td><td data-label="Log loss">0.6322</td></tr><tr><td data-label="Sample">Validation window, current model</td><td data-label="Series">16,289</td><td data-label="Accuracy">64.1%</td><td data-label="Brier score">0.2217</td><td data-label="Log loss">0.634</td></tr><tr><td data-label="Sample">Coin-flip baseline (50/50)</td><td data-label="Series">3,854</td><td data-label="Accuracy">50.0%</td><td data-label="Brier score">0.2500</td><td data-label="Log loss">0.6931</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Sample</th><th>Series</th><th>Accuracy</th><th>Brier score</th><th>Log loss</th></tr></thead><tbody><tr><td data-label="Sample">Test window, current model</td><td data-label="Series">3,854</td><td data-label="Accuracy">65.3%</td><td data-label="Brier score">0.2148</td><td data-label="Log loss">0.6182</td></tr><tr><td data-label="Sample">Test window, previous settings (K=24, no margin term)</td><td data-label="Series">3,854</td><td data-label="Accuracy">64.1%</td><td data-label="Brier score">0.2211</td><td data-label="Log loss">0.6322</td></tr><tr><td data-label="Sample">Validation window, current model</td><td data-label="Series">16,282</td><td data-label="Accuracy">64.1%</td><td data-label="Brier score">0.2218</td><td data-label="Log loss">0.6341</td></tr><tr><td data-label="Sample">Coin-flip baseline (50/50)</td><td data-label="Series">3,854</td><td data-label="Accuracy">50.0%</td><td data-label="Brier score">0.2500</td><td data-label="Log loss">0.6931</td></tr></tbody></table></div>
   
 <figure style="margin:1rem 0;">
   <svg viewBox="0 0 450 245" width="100%" style="max-width:560px;background:#111622;border:1px solid #263042;border-radius:10px;display:block;" role="img" aria-label="Out-of-sample probability calibration curve">
@@ -116,11 +138,12 @@
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
-<nav class="tabbar" aria-label="Primary">
+<nav class="mobnav tabbar" aria-label="Primary navigation">
   <a href="index.html"><span class="ti">&#9776;</span>Summary</a>
   <a href="picks.html"><span class="ti">&#10003;</span>All picks</a>
+  <a href="featured.html"><span class="ti">&#9679;</span>Market</a>
   <a href="unresolved.html"><span class="ti">!</span>Unresolved</a>
-  <a href="sources.html"><span class="ti">&#8942;</span>Sources</a>
+  <a href="flagged.html"><span class="ti">&#9873;</span>Flags</a>
 </nav>
 <script src="assets/app.js"></script>
 </body>

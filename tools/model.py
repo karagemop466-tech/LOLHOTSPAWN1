@@ -41,6 +41,10 @@ ELO_K_OPENING = 48.0          # best-of-one and best-of-two series
 ELO_K_SERIES = 40.0           # best-of-three, -five and -seven series
 MOV_WEIGHT = 0.5              # multiplier = 1 + 0.5 * ln(1 + |game margin|)
 ELO_K = ELO_K_OPENING         # kept for the published model description page
+RECEIPT_MAX_AGE_HOURS = 24    # an archived bookmaker receipt is a line only while it is fresh
+EXTREME_DECIMAL_MIN = 1.03    # implied >= ~97.1% on one side is not an actionable line
+MARKET_MODEL_GAP = 0.20       # flag when our Elo line and the market disagree by >= 20 pp
+THIN_VOLUME_USD = 1000.0      # a prediction market below this traded volume is labelled thin
 # Shrinkage towards 1500 was measured to make the out-of-sample probabilities
 # *worse* (Brier 0.2176 with shrink=5 versus 0.2150 without, n=3,854), so it is
 # off. Thin samples are still labelled "provisional" instead of being shrunk.
@@ -119,11 +123,36 @@ def leaguepedia_url(page: str | None) -> str:
                                                                safe="()_',!.")
 
 
-def devig_decimal(d0: float, d1: float) -> tuple[float, float, float] | None:
+QUOTE_REJECTIONS: list[dict] = []
+PROP_MARKETS_EXCLUDED: list[dict] = []
+# A prop market is never a win probability. Pinnacle marks them in the participant name.
+PROP_RE = re.compile(r"\((kills?|maps?|games?|handicap|total|props?)\)|"
+                     r"\b(kills?|kill handicap|map handicap|total maps?|total kills?)\b",
+                     re.I)
+
+
+def devig_decimal(d0: float, d1: float, ctx: dict | None = None) -> tuple[float, float, float] | None:
+    """Proportionally de-vig a two-way decimal quote, rejecting unusable prices.
+
+    Rejected, and recorded in ``QUOTE_REJECTIONS`` so the build can publish them:
+      * non-positive / <=1.00 decimal prices (no payout),
+      * symmetric 1.80 / 1.80 aggregator default placeholders,
+      * extreme quotes where either side implies more than 97% (decimal < 1.03).
+        Those are win-market prices that no retail book offers as an actionable
+        line; in this pipeline they have only ever come from scraped aggregator
+        widgets or a mis-parsed page element, and publishing them produced a
+        91.1% "market" pick that contradicted both the model and the live page.
+    """
+    note = None
     if d0 <= 1.0 or d1 <= 1.0:
-        return None
-    # Reject symmetric 1.80 / 1.80 aggregator default placeholders
-    if abs(d0 - 1.80) < 1e-4 and abs(d1 - 1.80) < 1e-4:
+        note = f"decimal price at or below 1.00 ({d0}/{d1})"
+    elif abs(d0 - 1.80) < 1e-4 and abs(d1 - 1.80) < 1e-4:
+        note = "symmetric 1.80/1.80 aggregator placeholder"
+    elif min(d0, d1) < EXTREME_DECIMAL_MIN:
+        note = (f"extreme quote {d0}/{d1}: one side implies "
+                f"{100.0 / min(d0, d1):.1f}% before vig (threshold 97.0%)")
+    if note:
+        QUOTE_REJECTIONS.append({"reject": note, **(ctx or {})})
         return None
     inv = 1.0 / d0 + 1.0 / d1
     return (1.0 / d0) / inv, (1.0 / d1) / inv, inv - 1.0
@@ -429,7 +458,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
             row = item["row"]
             home_dec = row["prices"]["home"]["decimal"]
             away_dec = row["prices"]["away"]["decimal"]
-            dv = devig_decimal(home_dec, away_dec)
+            dv = devig_decimal(home_dec, away_dec,
+                               {"fixture_id": fixture_id, "venue": "Pinnacle"})
             if dv:
                 p_home, p_away, overround = dv
                 home_name = next((p["name"] for p in row["participants"]
@@ -472,7 +502,12 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "quote": f"{p0_v*100:.1f}¢/{p1_v*100:.1f}¢",
                     "overround": round(tot - 1.0, 4),
                     "url": f"https://polymarket.com/event/{item['slug']}",
+                    "volume_usd": round(float(item.get("volume") or 0.0), 2),
                 })
+                if primary_start is None:
+                    primary_start = item.get("start")
+                if primary_api_url == "":
+                    primary_api_url = f"https://gamma-api.polymarket.com/events?slug={item['slug']}"
                 break
 
     # 3. Kalshi CFTC Regulated Exchange
@@ -503,7 +538,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 (same_team(name0, b) and same_team(name1, a))):
             d0_v = item["d0"] if same_team(name0, a) else item["d1"]
             d1_v = item["d1"] if same_team(name0, a) else item["d0"]
-            dv = devig_decimal(d0_v, d1_v)
+            dv = devig_decimal(d0_v, d1_v, {"fixture_id": fixture_id, "venue": "Bovada"})
             if dv:
                 p0_v, p1_v, overround = dv
                 if primary_decimal is None:
@@ -531,7 +566,13 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     # Never present derived fair odds as an observed bookmaker quote.
 
     book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
+    # A single prediction market with almost no traded volume is a price, not a market.
+    thin = len(venues) == 1 and venues[0]["name"] == "Polymarket" \
+        and float(venues[0].get("volume_usd") or 0.0) < THIN_VOLUME_USD
     return {
+        "thin": thin,
+        "thin_note": (f"single Polymarket venue with ${float(venues[0].get('volume_usd') or 0):,.0f} "
+                      f"traded volume (thin-market threshold ${THIN_VOLUME_USD:,.0f})") if thin else "",
         "book": book_label,
         "kind": "bookmaker" if any(v["name"] in ("Pinnacle", "Bovada", "Esportsbook") for v in venues) else "prediction market",
         "source_url": venues[0]["url"],
@@ -558,7 +599,26 @@ def main() -> None:
     pmkt = load_json(os.path.join(RAW, "polymarket.json")) or {}
     kalshi = load_json(os.path.join(RAW, "kalshi_lol.json")) or {}
     bovada = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
-    receipts = {}  # Historical archive is evidence only, never a live pricing input.
+    receipts_doc = load_json(os.path.join(ROOT, "archive", "session-8336fb7e", "data", "book_receipts.json")) or {}
+    receipts_all = receipts_doc.get("quotes") or receipts_doc.get("receipts") or {}
+    # An archived receipt is a snapshot taken at `observed_at`. It is never a live
+    # pricing input, but it is recorded in the audit trail so the exclusion is visible.
+    expired_receipts = []
+    for fid, rec in receipts_all.items():
+        obs = rec.get("observed_at")
+        age_h = None
+        if obs:
+            try:
+                age_h = (now_utc() - datetime.strptime(str(obs)[:19], "%Y-%m-%dT%H:%M:%S")
+                         .replace(tzinfo=timezone.utc)).total_seconds() / 3600
+            except ValueError:
+                age_h = None
+        expired_receipts.append({"fixture_id": fid, "observed_at": obs,
+                                 "age_hours": round(age_h, 1) if age_h is not None else None,
+                                 "decimal": [rec.get("decimal0"), rec.get("decimal1")],
+                                 "placeholder": rec.get("placeholder"),
+                                 "source_url": rec.get("source_url")})
+    receipts = {}
     sources = load_json(os.path.join(DATA, "sources_status.json")) or {}
 
     fixtures = hs.get("fixtures") or []
@@ -571,18 +631,32 @@ def main() -> None:
     aliases = {norm_name(k): v for k, v in aliases_raw.items()}
     comp_map = map_competitions(fixtures, page_teams, base)
 
-    lp_times = {}
+    # Kick-off times per (competition page, team pair). A list, because the same pair
+    # can meet twice in a split; a multi-entry key cannot be used for a time cross-check.
+    lp_times: dict[tuple, list] = {}
     for m in lp_matches:
-        lp_times[(m.get("overview_page"), frozenset(
-            (str(m.get("team1")), str(m.get("team2")))))] = m.get("utc")
+        key = (m.get("overview_page"), frozenset((str(m.get("team1")), str(m.get("team2")))))
+        if m.get("utc"):
+            lp_times.setdefault(key, []).append(m.get("utc"))
     ratings, counts, last_seen, uf, backtest = build_ratings(lp_matches)
     result_idx = build_result_index(lp_matches)
 
     pin_index = []
     for mk in pin.get("markets") or []:
         names = [p["name"] for p in mk.get("participants", [])]
-        if len(names) == 2:
-            pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc")})
+        if len(names) != 2:
+            continue
+        # Pinnacle returns prop markets (kills, maps, handicaps, totals) with the same
+        # `market_key` as the moneyline and only the participant name marking the prop
+        # ("G2 (Kills)"). Matching on team names alone would publish a kill-handicap
+        # price as a win probability, so any prop is dropped before matching and the
+        # drop is counted in MARKET_FILTERS for the audit trail.
+        if any(PROP_RE.search(n) for n in names):
+            PROP_MARKETS_EXCLUDED.append({"participants": names,
+                                          "market_key": mk.get("market_key"),
+                                          "start_utc": mk.get("start_utc")})
+            continue
+        pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc")})
 
     pm_candidates = []
     for mk in pmkt.get("match_markets") or []:
@@ -598,7 +672,7 @@ def main() -> None:
         if not (0.01 < pa < 0.99 and 0.01 < pb < 0.99):
             continue
         q = mk.get("question", "")
-        if re.search(r"\b(game|map)\s*\d\b|\bhandicap\b|\btotal\b", q, re.I):
+        if re.search(r"\b(game|map)\s*\d\b|\bhandicap\b|\btotal\b|\bkills?\b|\bprops?\b", q, re.I):
             continue
         pm_candidates.append({"names": outcomes, "p0": pa, "p1": pb, "volume": vol,
                               "slug": mk.get("slug"), "start": mk.get("event_start")})
@@ -687,9 +761,13 @@ def main() -> None:
 
         flags: list[str] = []
         expected = None
+        pick_type = "probability"
+        active_side = None
         if dq0 or dq1:
             removed = dq0 or dq1
             active_opp = n1 if dq0 else n0
+            active_side = 1 if dq0 else 0
+            pick_type = "settlement"
             p0 = p1 = None
             method, confidence = "unresolved", "none"
             basis = (f"Participant removed mid-split: community-maintained Leaguepedia Data:{page} records "
@@ -707,16 +785,31 @@ def main() -> None:
         elif market:
             p0, p1 = market["p0"], market["p1"]
             method, confidence = "market", "high"
+            if market.get("thin"):
+                confidence = "low"
+                flags.append("thin market: " + market["thin_note"]
+                             + " - published as the only external evidence, not as a high-confidence line")
             v_summary = ", ".join(f"{v['name']} {v['p0']*100:.1f}%/{v['p1']*100:.1f}% ({v['quote']})"
                                   for v in market.get("venues") or [])
             basis = f"{market['book']} de-vigged line ({p0*100:.1f}% / {p1*100:.1f}%): {v_summary}."
+            # Independent cross-check: what does our own Elo line say about the same match?
+            if er0 is not None and er1 is not None:
+                elo_p = clamp(win_probability(er0, er1))
+                market["model_cross_check"] = round(elo_p, 4)
+                gap = abs(p0 - elo_p)
+                if gap >= MARKET_MODEL_GAP:
+                    flags.append(
+                        f"market and model disagree by {gap*100:.0f} pp "
+                        f"(market {max(p0, p1)*100:.1f}% vs our Elo {max(elo_p, 1-elo_p)*100:.1f}%) "
+                        f"- the market side is published, the gap is disclosed")
             if market.get("start_utc") and f.get("start_utc"):
                 try:
                     a = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ")
                     b = datetime.strptime(str(market["start_utc"])[:19], "%Y-%m-%dT%H:%M:%S")
                     hours = abs((a - b).total_seconds()) / 3600
                     if hours >= 1.5:
-                        lp_utc = lp_times.get((page, frozenset((str(k0), str(k1))))) if k0 and k1 else None
+                        lp_list = lp_times.get((page, frozenset((str(k0), str(k1))))) if k0 and k1 else None
+                        lp_utc = lp_list[0] if lp_list and len(lp_list) == 1 else None
                         corroborated = False
                         if lp_utc:
                             try:
@@ -782,10 +875,16 @@ def main() -> None:
                     "team": row["team0"]["name"] if side == 0 else row["team1"]["name"],
                     "probability": round(max(p0, p1), 4),
                     "other_probability": round(min(p0, p1), 4)}
+        elif method == "unresolved" and pick_type == "settlement":
+            pick = {"side": active_side,
+                    "team": row["team0"]["name"] if active_side == 0 else row["team1"]["name"],
+                    "probability": None, "other_probability": None,
+                    "settlement": "administrative default (walkover / forfeit)"}
         row.update({"p0": round(p0, 4) if p0 is not None else None,
                     "p1": round(p1, 4) if p1 is not None else None,
                     "method": method, "confidence": confidence, "basis": basis,
-                    "flags": sorted(set(flags)), "pick": pick, "market": market,
+                    "flags": sorted(set(flags)), "pick": pick, "pick_type": pick_type,
+                    "market": market,
                     "expected_resolution": expected,
                     "recorded_result": _display_result(
                         recorded_result(result_idx, k0, k1, f.get("start_utc"), page), k0, k1, n0, n1),
@@ -813,6 +912,22 @@ def main() -> None:
                     "leaguepedia": lp.get("source_url"), "polymarket": pmkt.get("source_url"),
                     "source_status_utc": sources.get("checked_utc")},
         "counts": counts_by_method,
+        "coverage": {
+            "matches": len(rows),
+            "with_pick": sum(1 for r in rows if r.get("pick")),
+            "priced": sum(1 for r in rows if r.get("p0") is not None),
+            "settlement_only": sum(1 for r in rows if r.get("pick_type") == "settlement"),
+        },
+        "market_filters": {
+            "rule": "prop markets (kills/maps/handicap/total) are excluded before team matching",
+            "excluded_pinnacle_props": PROP_MARKETS_EXCLUDED,
+        },
+        "receipt_audit": {
+            "max_age_hours": RECEIPT_MAX_AGE_HOURS,
+            "used": [],
+            "expired": expired_receipts,
+            "rejected_quotes": QUOTE_REJECTIONS,
+        },
         "backtest": backtest,
         "total": len(rows),
         "matches": rows,

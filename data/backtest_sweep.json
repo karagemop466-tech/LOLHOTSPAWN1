@@ -1,0 +1,245 @@
+{
+ "generated_utc": "2026-10-23T15:54:24Z",
+ "series": 33963,
+ "grid": {
+  "k_opening": [
+   32.0,
+   40.0,
+   48.0,
+   56.0
+  ],
+  "k_series": [
+   24.0,
+   32.0,
+   40.0
+  ],
+  "mov_weight": [
+   0.0,
+   0.5,
+   1.0
+  ]
+ },
+ "validation_window": "2025-07-01..2026-07-01",
+ "test_window": "2026-07-01..",
+ "configs": 36,
+ "validation_brier_spread": 0.0049,
+ "best_validation": {
+  "k_opening": 56.0,
+  "k_series": 32.0,
+  "mov_weight": 1.0,
+  "validation": {
+   "n": 16282,
+   "accuracy": 0.6414,
+   "brier": 0.221,
+   "logloss": 0.6327
+  },
+  "test": {
+   "n": 3854,
+   "accuracy": 0.6526,
+   "brier": 0.2142,
+   "logloss": 0.6171
+  },
+  "shipped": false
+ },
+ "shipped": {
+  "k_opening": 48.0,
+  "k_series": 40.0,
+  "mov_weight": 0.5,
+  "validation": {
+   "n": 16282,
+   "accuracy": 0.6409,
+   "brier": 0.2218,
+   "logloss": 0.6341
+  },
+  "test": {
+   "n": 3854,
+   "accuracy": 0.6526,
+   "brier": 0.2148,
+   "logloss": 0.6182
+  },
+  "shipped": true
+ },
+ "shipped_rank_on_validation": 7,
+ "top10": [
+  {
+   "k_opening": 56.0,
+   "k_series": 32.0,
+   "mov_weight": 1.0,
+   "validation": {
+    "n": 16282,
+    "accuracy": 0.6414,
+    "brier": 0.221,
+    "logloss": 0.6327
+   },
+   "test": {
+    "n": 3854,
+    "accuracy": 0.6526,
+    "brier": 0.2142,
+    "logloss": 0.6171
+   },
+   "shipped": false
+  },
+  {
+   "k_opening": 56.0,
+   "k_series": 40.0,
+   "mov_weight": 0.5,
+   "validation": {
+    "n": 16282,
+    "accuracy": 0.6414,
+    "brier": 0.2211,
+    "logloss": 0.6327
+   },
+   "test": {
+    "n": 3854,
+    "accuracy": 0.6526,
+    "brier": 0.2143,
+    "logloss": 0.6171
+   },
+   "shipped": false
+  },
+  {
+   "k_opening": 56.0,
+   "k_series": 24.0,
+   "mov_weight": 1.0,
+   "validation": {
+    "n": 16282,
+    "accuracy": 0.6406,
+    "brier": 0.2213,
+    "logloss": 0.6328
+   },
+   "test": {
+    "n": 3854,
+    "accuracy": 0.6495,
+    "brier": 0.2147,
+    "logloss": 0.6176
+   },
+   "shipped": false
+  },
+  {
+   "k_opening": 56.0,
+   "k_series": 32.0,
+   "mov_weight": 0.5,
+   "validation": {
+    "n": 16282,
+    "accuracy": 0.6409,
+    "brier": 0.2213,
+    "logloss": 0.633
+   },
+   "test": {
+    "n": 3854,
+    "accuracy": 0.6497,
+    "brier": 0.2147,
+    "logloss": 0.6177
+   },
+   "shipped": false
+  },
+  {
+   "k_opening": 56.0,
+   "k_series": 40.0,
+   "mov_weight": 1.0,
+   "validation": {
+    "n": 16282,
+    "accuracy": 0.6406,
+    "brier": 0.2213,
+    "logloss": 0.634
+   },
+   "test": {
+    "n": 3854,
+    "accuracy": 0.6544,
+    "brier": 0.2144,
+    "logloss": 0.6184
+   },
+   "shipped": false
+  },
+  {
+   "k_opening": 48.0,
+   "k_series": 32.0,
+   "mov_weight": 1.0,
+   "validation": {
+    "n": 16282,
+    "accuracy": 0.6401,
+    "brier": 0.2217,
+    "logloss": 0.6341
+   },
+   "test": {
+    "n": 3854,
+    "accuracy": 0.6536,
+    "brier": 0.2147,
+    "logloss": 0.6182
+   },
+   "shipped": false
+  },
+  {
+   "k_opening": 48.0,
+   "k_series": 40.0,
+   "mov_weight": 0.5,
+   "validation": {
+    "n": 16282,
+    "accuracy": 0.6409,
+    "brier": 0.2218,
+    "logloss": 0.6341
+   },
+   "test": {
+    "n": 3854,
+    "accuracy": 0.6526,
+    "brier": 0.2148,
+    "logloss": 0.6182
+   },
+   "shipped": true
+  },
+  {
+   "k_opening": 48.0,
+   "k_series": 24.0,
+   "mov_weight": 1.0,
+   "validation": {
+    "n": 16282,
+    "accuracy": 0.6406,
+    "brier": 0.2219,
+    "logloss": 0.6341
+   },
+   "test": {
+    "n": 3854,
+    "accuracy": 0.6518,
+    "brier": 0.2151,
+    "logloss": 0.6185
+   },
+   "shipped": false
+  },
+  {
+   "k_opening": 48.0,
+   "k_series": 32.0,
+   "mov_weight": 0.5,
+   "validation": {
+    "n": 16282,
+    "accuracy": 0.6402,
+    "brier": 0.2219,
+    "logloss": 0.6342
+   },
+   "test": {
+    "n": 3854,
+    "accuracy": 0.6505,
+    "brier": 0.2152,
+    "logloss": 0.6187
+   },
+   "shipped": false
+  },
+  {
+   "k_opening": 56.0,
+   "k_series": 40.0,
+   "mov_weight": 0.0,
+   "validation": {
+    "n": 16282,
+    "accuracy": 0.6381,
+    "brier": 0.2219,
+    "logloss": 0.6341
+   },
+   "test": {
+    "n": 3854,
+    "accuracy": 0.6518,
+    "brier": 0.2156,
+    "logloss": 0.6194
+   },
+   "shipped": false
+  }
+ ]
+}

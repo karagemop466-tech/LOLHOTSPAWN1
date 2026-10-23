@@ -185,65 +185,92 @@ tr:last-child td{border-bottom:0}
 :focus-visible{outline:3px solid #d98100;outline-offset:3px}
 
 
-/* ---------- 2026-10 mobile-first additions ---------- */
+/* ------------------------------------------------------------------ *
+ * 2026-10 mobile-first UI: tab bar, jump grid, day groups, filters
+ * ------------------------------------------------------------------ */
 .eyebrow{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:#9fb3d1;margin:0 0 8px;font-weight:700}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+[hidden]{display:none!important}
 
 /* jump grid: big tap targets, two per row on phones */
-.jump{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.jump{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:6px 0 0}
 .jumpcard{display:flex;flex-direction:column;gap:4px;padding:14px;border:1px solid var(--line);
-  border-radius:12px;background:var(--panel);min-height:74px;justify-content:center}
-.jumpcard:hover{text-decoration:none;border-color:var(--accent);transform:translateY(-1px)}
+  border-left:4px solid var(--accent);border-radius:12px;background:var(--panel);min-height:74px;
+  justify-content:center;color:var(--ink);text-decoration:none}
+.jumpcard:hover{text-decoration:none;border-color:var(--accent);background:var(--accent-weak)}
 .jumpcard .jt{font-weight:700;font-size:16px}
 .jumpcard .js{font-size:13px;color:var(--muted)}
-.jumpcard.wide{background:var(--accent-weak);border-color:var(--accent)}
+.jumpcard.wide{grid-column:1/-1;background:var(--accent-weak);border-color:var(--accent)}
 .jumpcard.wide .jt{font-size:18px;color:var(--model)}
+.jumpcard.warn{border-left-color:var(--bad)}
 
-/* quick jump chips on the picks page */
-.quickjump{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+/* quick filter row on the picks page: one scrollable strip, sticky under the header */
+.quickjump-bar{position:sticky;top:56px;z-index:15;background:var(--bg);padding:8px 0 6px;
+  border-bottom:1px solid var(--line);margin-bottom:12px}
+.quickjump{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;padding-bottom:2px}
+.quickjump::-webkit-scrollbar{display:none}
 .qj{display:inline-flex;align-items:center;gap:8px;padding:11px 14px;border-radius:999px;
-  border:1px solid var(--line);background:var(--panel);font-size:14px;font-weight:600;min-height:44px}
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);white-space:nowrap;
+  font-size:14px;font-weight:600;min-height:44px;text-decoration:none}
 .qj b{background:var(--accent-weak);color:var(--model);border-radius:999px;padding:1px 8px;font-size:13px}
 .qj:hover{text-decoration:none;border-color:var(--accent)}
+@media(max-width:680px){.qj{font-size:13.5px;padding:10px 12px}}
 
 /* day groups */
-.anchor{scroll-margin-top:78px}
-.daygroup{margin:0 0 8px}
+.anchor{scroll-margin-top:120px}
+.daygroup{margin:22px 0}
 .dayhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
   font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
-  margin:22px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  margin:22px 0 8px;padding-bottom:6px;border-top:1px solid var(--line)}
 .dayhead span{font-size:12.5px;letter-spacing:0;text-transform:none;font-weight:600}
 .empty-day{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:16px}
+.list-intro{margin:0 0 6px}
 .card{content-visibility:auto;contain-intrinsic-size:auto 320px}
+@media(max-width:680px){.dayhead{position:sticky;top:112px;background:var(--bg);z-index:5;padding-top:6px}}
+
+/* toolbar + buttons */
 .small-btn{font:inherit;font-size:13px;padding:11px 14px;border-radius:11px;border:1px solid var(--line);
   background:var(--panel);color:var(--ink);min-height:44px;cursor:pointer}
-.linkish{background:none;border:0;color:var(--accent);font:inherit;text-decoration:underline;cursor:pointer;padding:0}
+.linkish{background:none;border:0;color:var(--accent);font:inherit;text-decoration:underline;
+  cursor:pointer;padding:0}
+.empty{padding:12px;border:1px dashed var(--line);border-radius:10px;color:var(--muted)}
+.cta-inline{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.center{text-align:center;margin:14px 0 0}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{min-width:560px}
 
-/* bottom tab bar, phones only */
+/* bottom tab bar, phones only - the primary way around */
 .tabbar{display:none}
 @media(max-width:700px){
-  .tabbar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:40;
-    background:var(--brand);border-top:1px solid rgba(255,255,255,.14);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
-  .tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;color:#cfd8ea;font-size:11.5px;
-    padding:6px 2px;border-radius:10px;min-height:48px;justify-content:center}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;
+    z-index:40;background:var(--brand);border-top:1px solid rgba(255,255,255,.14);
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+  .tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;color:#cfd8ea;font-size:11px;
+    padding:6px 2px;border-radius:10px;min-height:48px;justify-content:center;text-decoration:none}
   .tabbar a .ti{font-size:16px;line-height:1}
   .tabbar a.active{background:#fff;color:var(--brand);font-weight:700}
-  .tabbar a:hover{text-decoration:none}
+  body{padding-bottom:74px}
   .foot{padding-bottom:92px}
   .hero{padding:16px}
   .hero h2{font-size:20px}
   .jump{grid-template-columns:1fr 1fr;gap:8px}
   .jumpcard{padding:12px;min-height:68px}
-  .qj{font-size:13.5px;padding:10px 12px}
+  .jumpcard.wide{grid-column:1/-1}
   .team{font-size:16px}
   .pickpct{font-size:14px}
   .pagehead h1{font-size:22px}
-  .dayhead{position:sticky;top:56px;background:var(--bg);z-index:5;padding-top:6px}
 }
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
 }
 
 .b-result{background:#e6eefc;color:#1e3a8a}
+.picksettle{background:var(--bad-weak);color:var(--bad);font-weight:700;border-radius:999px;
+  padding:2px 9px;font-size:12px}
+.src a{padding:6px 2px}
+details.why summary{padding:8px 0;min-height:32px}
 .resultline{margin:8px 0 0;font-size:13px;color:#33405a;background:#f2f6fd;border:1px solid #dbe6fb;
   border-radius:9px;padding:8px 10px}
 .resultline a{color:var(--muted)}
