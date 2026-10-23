@@ -298,3 +298,36 @@ Existing completed scopes are retained. This session uses the fixed Arena branch
 - Fresh inventory: **241 rows; 9 market, 163 model, 65 provisional, 4 unresolved**. Every raw inventory ID appears exactly once in published picks. No claim is made that model estimates are official verified win probabilities.
 - GitHub Pages deployment succeeded: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/39980169572 . Pages API reports `built`, commit `a44583f32fc1c277786fe066c6cd74a954d8f7da`, 2026-10-23T15:39:58Z. Site: https://karagemop466-tech.github.io/LOLHOTSPAWN1/ . This confirms deployment through GitHub; direct live-site HTTP verification is unavailable under this sandbox's host restrictions.
 - Post-refresh checks: Python 5/5 tests and jsdom interaction tests pass against the fresh generated pages. Local link gate reports zero broken internal links across 11 canonical pages. Independent secondary `docs/` dashboard remains outside this session's scope; root dashboard is canonical.
+
+---
+
+# Session `00b92afc` — every-match picks, verified results, mobile exec summary, final integration
+
+**Branch:** `arena/00b92afc-lolhotspawn1` (fixed Arena branch; the repo's `session-<id>/<task>` naming is
+pre-empted by the Arena branch, so all work lands here). **Claimed:** 2026-10-23T15:55Z, before any edit.
+
+## Why this pass exists
+
+The board now carries overlapping claims from sessions `64554333`, `6d1ede2c`, `de975e8d`, `fba409a6`,
+`a91e528d`, `1f377d7a`, `294e62ad`, `3d4e18ac`, `4106ce94`, `8a66a536` and `29d6fe6a`, several of which
+claim the same `tools/` files. Their claims are on their own branches and most are not merged. This session
+takes the **final integration role** described in the brief: it implements the remaining brief items on
+`main`'s current pipeline, merges compatible evidence from the other branches, and publishes one site.
+
+| # | Task | Status | Owner | File scope (mine) |
+|---|------|--------|-------|-------------------|
+| 20 | A pick for **every** Hotspawn match: use Leaguepedia's recorded result for completed cards (winner + score + source), not a hindsight model probability; keep the separate Unresolved & limitations ledger and put it in the executive summary | in progress | 00b92afc | `tools/model.py`, `tools/integrity.py`, `tools/verify.py`, `tools/site.py` |
+| 21 | External-source research for the unpriced tail: adopt the live runner probe receipts (32 candidates) and publish the resolution ladder + per-source verdicts | in progress | 00b92afc | `data/source_ladder.json` (new), `sources.html`, `unresolved.html` |
+| 22 | Mobile-first information architecture: working menu, persistent bottom bar, one-tap picks, readable 360 px cards, in-site links from the executive summary | in progress | 00b92afc | `assets/app.js`, `assets/style.css`, `tools/site.py`, root `*.html` |
+| 23 | Line-by-line verification: independent recomputation tests, publish gate additions, no stale literal counts | in progress | 00b92afc | `tests/`, `tools/verify.py`, `data/flags_manual.json`, `flagged.html` |
+| 24 | PR → `main`, merge, confirm GitHub Pages deploy, record the result | unclaimed until 20–23 are green | 00b92afc | `COORDINATION.md`, `README.md` |
+
+**Non-overlap:** I do not edit `audit/**` (0d48f265), `research/**` (fba409a6), `tiers/**` (9d43092a),
+`docs/**` or `data/node/**` (Node pipeline), `archive/**`, or `scripts/**`. Other sessions' additive files
+are preserved; where they touch `tools/`, I will merge their branch at integration and resolve conflicts
+without discarding their work.
+
+**Known overlapping claims and handling:** `de975e8d` (D1–D7), `64554333` (9–13), `8a66a536` (A1–A4),
+`4106ce94` (T9–T11) and `fba409a6` (F4) all claim parts of tasks 20–24. I will treat their branches as
+candidate work at integration time: merge what is compatible, re-run the gate on the combined tree, and
+record here which artifacts were adopted, superseded, or left for review. Nothing is deleted.
