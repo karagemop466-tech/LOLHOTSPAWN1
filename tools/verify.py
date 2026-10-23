@@ -286,6 +286,15 @@ def main() -> None:
         f"{len(probe_rows)} venues probed on {probes.get('checked_utc', 'unknown')}; "
         f"dossier {'present' if os.path.exists(dossier) else 'MISSING'}")
 
+    # Coverage arithmetic must never exceed the inventory (a 245-of-241 regression shipped once).
+    priced_n = sum(1 for r in rows if r.get("p0") is not None)
+    settled_n = sum(1 for r in rows if r.get("resolution"))
+    with_pick_n = sum(1 for r in rows if r.get("pick"))
+    add("coverage arithmetic reconciles to the inventory",
+        priced_n + settled_n == with_pick_n == len(rows),
+        f"priced={priced_n} + settlements={settled_n} = {priced_n + settled_n}; "
+        f"rows with a pick={with_pick_n}; inventory={len(rows)}")
+
     src = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     reachable = sum(1 for s in src if s.get("ok"))
     add("source availability recorded", len(src) >= 10,

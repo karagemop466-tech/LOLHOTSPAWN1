@@ -20,7 +20,7 @@
   <div class="pagehead">
     <h1>Method</h1>
     <p class="sub">How every probability on this site is computed, backtested, and audited.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 15:54 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-23 15:55 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
     <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:53:18Z">Hotspawn inventory collected: 2026-10-23T15:53:18Z. Check source timestamps before use.</p>
   </div>
   
@@ -83,9 +83,11 @@
   <figcaption class="small muted" style="margin-top:0.4rem;">Dashed diagonal = ideal calibration (predicted = realized win rate). Blue curve = out-of-sample pre-match Elo calibration across 3,854 series since 2026-07-01.</figcaption>
 </figure>
   <div class="tablewrap"><table class=""><thead><tr><th>Favourite probability bucket</th><th>Series</th><th>Predicted (avg)</th><th>Actual realized win rate</th></tr></thead><tbody><tr><td data-label="Favourite probability bucket">50-60%</td><td data-label="Series">2,251</td><td data-label="Predicted (avg)">54.0%</td><td data-label="Actual realized win rate">57.4%</td></tr><tr><td data-label="Favourite probability bucket">60-70%</td><td data-label="Series">982</td><td data-label="Predicted (avg)">64.4%</td><td data-label="Actual realized win rate">68.8%</td></tr><tr><td data-label="Favourite probability bucket">70-80%</td><td data-label="Series">479</td><td data-label="Predicted (avg)">74.4%</td><td data-label="Actual realized win rate">78.9%</td></tr><tr><td data-label="Favourite probability bucket">80%+</td><td data-label="Series">142</td><td data-label="Predicted (avg)">84.9%</td><td data-label="Actual realized win rate">89.4%</td></tr></tbody></table></div>
-  <p class="small muted">Companion within-tournament Bayesian Bradley-Terry cross-validation on active low-tier
-  divisions (N = 1,595 2026 series, archived in <code>archive/session-8336fb7e/data/calibration.json</code>)
-  likewise achieves 64.9% accuracy, 0.2145 Brier score (&minus;14.2% MSE vs 50/50), and 3.53% ECE.</p>
+  <p class="small muted">A companion within-tournament Bayesian Bradley-Terry cross-validation was run by an
+  earlier session on 1,595 series from active low-tier divisions and is stored in
+  <code>archive/session-8336fb7e/data/calibration.json</code> (reported there: 64.9% accuracy, 0.2145 Brier
+  score, 3.53% ECE). It is an archived result, not re-executed by this build, and is shown for context only -
+  the live numbers above are recomputed on every refresh from the current Leaguepedia extract.</p>
 </section>
 
 <section class="panel">
