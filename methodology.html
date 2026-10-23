@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Method · Hotspawn LoL Pick Desk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
 <meta name="description" content="Independent League of Legends pick'em lines for every match listed on Hotspawn.">
+<title>Method · Hotspawn LoL Pick Desk</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -12,32 +13,35 @@
 <header class="topbar">
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
-    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html" class="active">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="nav" aria-label="Main"><a href="index.html">Summary</a><a href="picks.html">Picks</a><a href="unresolved.html">Unresolved</a><a href="methodology.html" class="active">Method</a><a href="sources.html">Sources</a><a href="featured.html">Market-backed</a><a href="originated.html">Model lines</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="verification.html">Verification</a><a href="flagged.html">Flagged</a></nav>
   </div>
 </header>
 <main id="main" class="wrap">
   <div class="pagehead">
     <h1>Method</h1>
     <p class="sub">How every probability on this site is computed, backtested, and audited.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 11:43 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+    <p class="stamp">Updated <strong>2026-10-23 15:40 UTC</strong> &middot; next automatic refresh ~<strong>18:17 UTC</strong>
+    &middot; <a href="verification.html">15 checks</a> run before every publish</p>
   </div>
   
 <section class="panel">
-  <h2>The 4-tier probability architecture</h2>
+  <h2>The probability architecture</h2>
   <ol class="steps">
     <li><strong>Inventory.</strong> Every League of Legends fixture is pulled from Hotspawn's public fixtures API
-    (<a href="https://play.hotspawn.com/lol-pickems" rel="noopener">play.hotspawn.com/lol-pickems</a>).</li>
-    <li><strong>Tier 1 — Multi-venue real-money consensus.</strong> Live odds and contract books from
-    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12), and
-    verified specialist esportsbooks (0.10)</strong> are de-vigged proportionally and precision-weighted.</li>
-    <li><strong>Tier 2 — Originated regional Elo lines.</strong> All recorded Leaguepedia series since
-    MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27; are processed chronologically with inactivity decay and shrinkage toward 1500.</li>
-    <li><strong>Tier 3 — Provisional &amp; Unresolved quarantine.</strong> Thin-sample teams (&lt;5 series) are marked
-    <em>provisional</em>; officially removed mid-split teams (<code>dqteams</code>) are quarantined in
-    <a href="unresolved.html">Unresolved</a> rather than mispriced.</li>
-    <li><strong>Automated publish gate.</strong> Every 6 hours GitHub Actions re-runs the full pipeline and
-    executes 15 strict assertions (<a href="verification.html">Verification</a>) before publishing to GitHub Pages.</li>
+    (<a href="https://play.hotspawn.com/lol-pickems" rel="noopener">play.hotspawn.com/lol-pickems</a>) on every
+    build, including national and academy divisions.</li>
+    <li><strong>Bookmaker / exchange first.</strong> Live odds and contract books from
+    <strong>Pinnacle</strong>, <strong>Polymarket</strong> full-series markets, <strong>Kalshi</strong> CFTC
+    contracts, <strong>Bovada</strong> and verified specialist esportsbook receipts are de-vigged
+    proportionally and weighted (0.36 / 0.24 / 0.18 / 0.12 / 0.10). A static receipt keeps its capture time
+    and is never displayed as a live price.</li>
+    <li><strong>Originated line where no book prices the match.</strong> Chronological Elo over every recorded
+    Leaguepedia series since MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27;, margin-weighted, with inactivity decay, read
+    at each fixture's own kick-off.</li>
+    <li><strong>Provisional and unresolved.</strong> Fewer than five rated series on either side is published
+    as <em>provisional</em>; official mid-split removals (<code>dqteams</code>) are quarantined on
+    <a href="unresolved.html">Unresolved</a> instead of being given a fake number.</li>
   </ol>
 </section>
 
@@ -45,62 +49,81 @@
   <h2>Formulas</h2>
   <p>Expected series win probability for team A:</p>
   <p class="formula">E<sub>A</sub> = 1 / (1 + 10^((R<sub>B</sub> - R<sub>A</sub>)/400))</p>
-  <p>Chronological rating update after each completed series (K = 24.0):</p>
-  <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
-  <p>Empirical Bayes shrinkage towards 1500 for sample size n (shrink = 5.0):</p>
-  <p class="formula">R<sub>eff</sub> = 1500 + (R - 1500) &middot; n / (n + 5.0)</p>
-  <p>Inactivity decay begins after 45 days and reaches 1500 at
-  450 days; originated probabilities are clamped to
-  0.05&ndash;0.95.</p>
+  <p>Chronological rating update after each completed series, with the series game margin from Leaguepedia
+  (base K = 48.0, margin weight = 0.45):</p>
+  <p class="formula">K<sub>eff</sub> = K &middot; (1 - w + w &middot; |games<sub>won</sub> - games<sub>lost</sub>|)<br>
+  R&prime;<sub>A</sub> = R<sub>A</sub> + K<sub>eff</sub> &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
+  <p>Inactivity decay starts after 45 days and reaches the 1500 prior at
+  450 days. Ratings used for a pick are snapshotted at that fixture's kick-off,
+  after decaying to that moment, using only results recorded before it. No post-hoc shrinkage is applied:
+  it measurably hurt the holdout. Probabilities are clamped to 0.05&ndash;0.95.</p>
 </section>
 
 <section class="panel">
   <h2>Out-of-sample backtest &amp; calibration</h2>
   <p class="lead">Every recorded series after <strong>2026-07-01</strong>
   (<strong>3,854</strong> out-of-sample series) is predicted strictly before its result updates
-  either team's rating (zero look-ahead leakage).</p>
-  <div class="tablewrap"><table class=""><thead><tr><th>Sample</th><th>Series</th><th>Accuracy</th><th>Brier score</th><th>Log loss</th></tr></thead><tbody><tr><td data-label="Sample">All out-of-sample series</td><td data-label="Series">3,854</td><td data-label="Accuracy">64.1%</td><td data-label="Brier score">0.2211</td><td data-label="Log loss">0.6322</td></tr><tr><td data-label="Sample">Coin-flip baseline (50/50)</td><td data-label="Series">3,854</td><td data-label="Accuracy">50.0%</td><td data-label="Brier score">0.2500</td><td data-label="Log loss">0.6931</td></tr></tbody></table></div>
+  either team's rating. Hyper-parameters were chosen on an earlier 2026-04-01+ window and then checked on this
+  later holdout; the adopted setting is the one reported here.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>Sample</th><th>Series</th><th>Accuracy</th><th>Brier score</th><th>Log loss</th></tr></thead><tbody><tr><td data-label="Sample">Adopted model (K=48, margin 0.45, no shrinkage)</td><td data-label="Series">3,854</td><td data-label="Accuracy">65.5%</td><td data-label="Brier score">0.2144</td><td data-label="Log loss">0.6178</td></tr><tr><td data-label="Sample">Previous model (K=24, no margin weight)</td><td data-label="Series">3,854</td><td data-label="Accuracy">64.1%</td><td data-label="Brier score">0.2211</td><td data-label="Log loss">0.6322</td></tr><tr><td data-label="Sample">Coin-flip baseline (50/50)</td><td data-label="Series">3,854</td><td data-label="Accuracy">50.0%</td><td data-label="Brier score">0.2500</td><td data-label="Log loss">0.6931</td></tr></tbody></table></div>
   
-<figure style="margin:1rem 0;">
-  <svg viewBox="0 0 450 245" width="100%" style="max-width:560px;background:#111622;border:1px solid #263042;border-radius:10px;display:block;" role="img" aria-label="Out-of-sample probability calibration curve">
+<figure class="calib">
+  <svg viewBox="0 0 450 245" width="100%" role="img" aria-label="Out-of-sample probability calibration curve">
     <line x1="60" y1="210" x2="420" y2="210" stroke="#334155" stroke-width="1"/>
     <line x1="60" y1="40" x2="60" y2="210" stroke="#334155" stroke-width="1"/>
     <line x1="60" y1="210" x2="420" y2="40" stroke="#64748b" stroke-dasharray="5,5" stroke-width="1.5"/>
-    <polyline fill="none" stroke="#4f9cf9" stroke-width="2.5" points="88.7,185.0 163.8,145.9 235.5,111.7 311.4,75.9"/>
-    <circle cx="88.7" cy="185.0" r="5" fill="#4f9cf9"/><text x="88.7" y="175.0" font-size="11" fill="#e5e7eb" text-anchor="middle">57.4% (n=2251)</text><circle cx="163.8" cy="145.9" r="5" fill="#4f9cf9"/><text x="163.8" y="135.9" font-size="11" fill="#e5e7eb" text-anchor="middle">68.8% (n=982)</text><circle cx="235.5" cy="111.7" r="5" fill="#4f9cf9"/><text x="235.5" y="101.7" font-size="11" fill="#e5e7eb" text-anchor="middle">78.9% (n=479)</text><circle cx="311.4" cy="75.9" r="5" fill="#4f9cf9"/><text x="311.4" y="65.9" font-size="11" fill="#e5e7eb" text-anchor="middle">89.4% (n=142)</text>
+    <polyline fill="none" stroke="#4f9cf9" stroke-width="2.5" points="91.6,192.5 165.6,157.9 237.3,131.6 326.5,92.7"/>
+    <circle cx="91.6" cy="192.5" r="5" fill="#4f9cf9"/><text x="91.6" y="182.5" font-size="11" fill="#e5e7eb" text-anchor="middle">55.1% (n=1612)</text><circle cx="165.6" cy="157.9" r="5" fill="#4f9cf9"/><text x="165.6" y="147.9" font-size="11" fill="#e5e7eb" text-anchor="middle">65.3% (n=931)</text><circle cx="237.3" cy="131.6" r="5" fill="#4f9cf9"/><text x="237.3" y="121.6" font-size="11" fill="#e5e7eb" text-anchor="middle">73.0% (n=705)</text><circle cx="326.5" cy="92.7" r="5" fill="#4f9cf9"/><text x="326.5" y="82.7" font-size="11" fill="#e5e7eb" text-anchor="middle">84.5% (n=606)</text>
     <text x="60" y="232" font-size="11" fill="#94a3b8" text-anchor="middle">50%</text>
-    <text x="240" y="232" font-size="11" fill="#94a3b8" text-anchor="middle">Predicted win probability (75%)</text>
+    <text x="240" y="232" font-size="11" fill="#94a3b8" text-anchor="middle">Predicted win probability</text>
     <text x="420" y="232" font-size="11" fill="#94a3b8" text-anchor="middle">100%</text>
-    <text x="50" y="213" font-size="11" fill="#94a3b8" text-anchor="end">50%</text>
-    <text x="50" y="125" font-size="11" fill="#94a3b8" text-anchor="end">75%</text>
-    <text x="50" y="44" font-size="11" fill="#94a3b8" text-anchor="end">100%</text>
+    <text x="52" y="213" font-size="11" fill="#94a3b8" text-anchor="end">50%</text>
+    <text x="52" y="125" font-size="11" fill="#94a3b8" text-anchor="end">75%</text>
+    <text x="52" y="44" font-size="11" fill="#94a3b8" text-anchor="end">100%</text>
   </svg>
-  <figcaption class="small muted" style="margin-top:0.4rem;">Dashed diagonal = ideal calibration (predicted = realized win rate). Blue curve = out-of-sample pre-match Elo calibration across 3,854 series since 2026-07-01.</figcaption>
+  <figcaption class="small muted">Dashed diagonal = perfect calibration. Blue = out-of-sample pre-match Elo
+  calibration across 3,854 series since 2026-07-01.</figcaption>
 </figure>
-  <div class="tablewrap"><table class=""><thead><tr><th>Favourite probability bucket</th><th>Series</th><th>Predicted (avg)</th><th>Actual realized win rate</th></tr></thead><tbody><tr><td data-label="Favourite probability bucket">50-60%</td><td data-label="Series">2,251</td><td data-label="Predicted (avg)">54.0%</td><td data-label="Actual realized win rate">57.4%</td></tr><tr><td data-label="Favourite probability bucket">60-70%</td><td data-label="Series">982</td><td data-label="Predicted (avg)">64.4%</td><td data-label="Actual realized win rate">68.8%</td></tr><tr><td data-label="Favourite probability bucket">70-80%</td><td data-label="Series">479</td><td data-label="Predicted (avg)">74.4%</td><td data-label="Actual realized win rate">78.9%</td></tr><tr><td data-label="Favourite probability bucket">80%+</td><td data-label="Series">142</td><td data-label="Predicted (avg)">84.9%</td><td data-label="Actual realized win rate">89.4%</td></tr></tbody></table></div>
-  <p class="small muted">Companion within-tournament Bayesian Bradley-Terry cross-validation on active low-tier
-  divisions (N = 1,595 2026 series, archived in <code>archive/session-8336fb7e/data/calibration.json</code>)
-  likewise achieves 64.9% accuracy, 0.2145 Brier score (&minus;14.2% MSE vs 50/50), and 3.53% ECE.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>Favourite probability bucket</th><th>Series</th><th>Predicted (avg)</th><th>Actual realized win rate</th></tr></thead><tbody><tr><td data-label="Favourite probability bucket">50-60%</td><td data-label="Series">1,612</td><td data-label="Predicted (avg)">54.4%</td><td data-label="Actual realized win rate">55.1%</td></tr><tr><td data-label="Favourite probability bucket">60-70%</td><td data-label="Series">931</td><td data-label="Predicted (avg)">64.7%</td><td data-label="Actual realized win rate">65.3%</td></tr><tr><td data-label="Favourite probability bucket">70-80%</td><td data-label="Series">705</td><td data-label="Predicted (avg)">74.6%</td><td data-label="Actual realized win rate">73.0%</td></tr><tr><td data-label="Favourite probability bucket">80%+</td><td data-label="Series">606</td><td data-label="Predicted (avg)">87.0%</td><td data-label="Actual realized win rate">84.5%</td></tr></tbody></table></div>
 </section>
 
 <section class="panel">
-  <h2>Hard methodological guardrails</h2>
+  <h2>Hard guardrails</h2>
   <ul class="bullets">
     <li><strong>Zero Hotspawn crowd input.</strong> Crowd pick shares are never read by the probability engine.</li>
-    <li><strong>Zero placeholder odds.</strong> Symmetric 1.80 / 1.80 default placeholders on odds aggregators are
-    automatically discarded.</li>
-    <li><strong>Explicit quarantine over guesswork.</strong> Disqualified teams (<code>dqteams</code>) and unrated
-    cards are documented transparently on <a href="unresolved.html">Unresolved</a> and
+    <li><strong>Zero look-ahead.</strong> A fixture's own result is excluded from the ratings used for it; the
+    52 already-played cards that carried a recorded result in the previous build were re-priced from their
+    pre-kick-off snapshot, and the publish gate now asserts it.</li>
+    <li><strong>Zero placeholder odds.</strong> Symmetric 1.80 / 1.80 aggregator defaults are discarded.</li>
+    <li><strong>Blank beats invented.</strong> A value that cannot be confirmed is left blank and listed on
     <a href="flagged.html">Flagged for review</a>.</li>
   </ul>
 </section>
 
 </main>
+<nav class="tabbar" aria-label="Quick navigation">
+  <a href="picks.html">
+    <span class="ti" aria-hidden="true">&#9776;</span><span>Picks</span></a>
+  <a href="index.html#today">
+    <span class="ti" aria-hidden="true">&#9200;</span><span>Next up</span></a>
+  <a href="unresolved.html">
+    <span class="ti" aria-hidden="true">&#9888;</span><span>Unresolved</span></a>
+  <a href="methodology.html" class="active">
+    <span class="ti" aria-hidden="true">&#402;</span><span>Method</span></a>
+  <button type="button" class="tabmenu" aria-controls="nav" aria-expanded="false">
+    <span class="ti" aria-hidden="true">&#8942;</span><span>More</span></button>
+</nav>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Every row links to its official source. Zero Hotspawn crowd-pick input.</p>
-  <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
-  <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
-  <a href="competitions.html">Tournaments</a></p>
+  <p><strong>Independent research dashboard.</strong> Every row links to its source. Hotspawn crowd votes are
+  never used as an input. Not betting advice.</p>
+  <p class="footlinks">
+    <a href="picks.html">All picks</a> &middot; <a href="index.html">Summary</a> &middot;
+    <a href="unresolved.html">Unresolved &amp; limitations</a> &middot; <a href="featured.html">Market</a> &middot;
+    <a href="originated.html">Model</a> &middot; <a href="competitions.html">Tournaments</a> &middot;
+    <a href="teams.html">Teams</a> &middot; <a href="methodology.html">Method</a> &middot;
+    <a href="verification.html">Verification</a> &middot; <a href="sources.html">Sources</a> &middot;
+    <a href="flagged.html">Flagged for review</a>
+  </p>
 </footer>
 <script src="assets/app.js"></script>
 </body>

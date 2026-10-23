@@ -11,7 +11,7 @@ import sys
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import DATA, ROOT, iso, load_json, log, now_utc, save_json
+from common import DATA, RAW, ROOT, iso, load_json, log, now_utc, save_json
 
 DOCS = ROOT  # GitHub Pages serves the branch root
 ALLOWED = {"market", "model", "provisional", "unresolved"}
@@ -96,7 +96,8 @@ def main() -> None:
             if href.startswith(("http://", "https://", "mailto:")):
                 continue
             hrefs[href] += 1
-            if href not in pages and not os.path.exists(os.path.join(DOCS, href)):
+            target = href.split("?")[0]
+            if target not in pages and not os.path.exists(os.path.join(DOCS, target)):
                 broken.append(f"{page} -> {href}")
         for bad in ("&gt;None&lt;", ">None<", ">nan<", "&mdash;%"):
             if bad in text:
@@ -126,6 +127,74 @@ def main() -> None:
     add("source availability recorded", len(src) >= 10,
         f"{reachable}/{len(src)} sources reachable on this build")
 
+    # --- mobile / interaction wiring (regression guard) ---------------------
+    app_js = open(os.path.join(DOCS, "assets", "app.js"), encoding="utf-8").read() \
+        if os.path.exists(os.path.join(DOCS, "assets", "app.js")) else ""
+    add("mobile menu handler exists", 'classList.toggle("open"' in app_js and '"nav"' in app_js,
+        "app.js toggles #nav.open for .menu-btn and the bottom-tab More button")
+    controls = ["q", "comp", "window", "sort", "chips", "list", "count"]
+    missing_controls = [c for c in controls
+                        if f'id="{c}"' not in picks_html and c != "chips"]
+    wired = [c for c in ["q", "comp", "window", "sort", "list", "count"]
+             if f'getElementById("{c}")' in app_js]
+    add("picks search/filter/sort controls are wired",
+        not missing_controls and len(wired) == 6,
+        f"emitted ids missing={missing_controls}; wired in app.js={wired}")
+    add("all pages carry the mobile tab bar", all('class="tabbar"' in open(os.path.join(DOCS, p), encoding="utf-8").read()
+                                                  for p in pages if os.path.exists(os.path.join(DOCS, p))),
+        "bottom navigation present on every generated page")
+    add("summary page exposes the next-48h block and picks links",
+        'id="today"' in index_html and "picks.html" in index_html and "unresolved.html" in index_html,
+        "executive summary links + #today anchor")
+
+    # --- no-look-ahead audit ------------------------------------------------
+    lp_raw = (load_json(os.path.join(RAW, "leaguepedia.json")) or {}).get("matches") or []
+    from datetime import datetime as _dt
+    games_by_team: dict[str, list] = {}
+    for m in lp_raw:
+        if m.get("winner") not in ("1", "2"):
+            continue
+        try:
+            t = _dt.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S")
+        except (ValueError, TypeError):
+            continue
+        for team in (m.get("team1"), m.get("team2")):
+            games_by_team.setdefault(team, []).append(t)
+    lookahead = []
+    for r in rows:
+        if not r.get("pick"):
+            continue
+        try:
+            ko = _dt.strptime(str(r["start_utc"])[:19], "%Y-%m-%dT%H:%M:%S")
+        except (ValueError, TypeError):
+            continue
+        for side in ("team0", "team1"):
+            key = r[side].get("leaguepedia")
+            if not key:
+                continue
+            before = sum(1 for t in games_by_team.get(key, []) if t < ko)
+            if int(r[side].get("rating_matches") or 0) > before:
+                lookahead.append(f"{r['id']}:{key} used {r[side]['rating_matches']} > {before} before kick-off")
+            if (r[side].get("rating_as_of") or "") != r["start_utc"]:
+                lookahead.append(f"{r['id']}:{key} rating_as_of != kick-off")
+    add("no look-ahead: ratings use only results before kick-off", not lookahead,
+        f"{len(lookahead)} violations; examples: {lookahead[:3]}")
+
+    # --- probability bounds and documentation -------------------------------
+    out_of_bounds = [r["id"] for r in rows if r.get("pick") and not (
+        (data.get("model") or {}).get("prob_floor", 0.05) - 1e-9 <= r["pick"]["probability"]
+        <= (data.get("model") or {}).get("prob_ceil", 0.95) + 1e-9)]
+    add("probabilities stay inside the published clamp", not out_of_bounds,
+        f"bounds={(data.get('model') or {}).get('prob_floor')}-{(data.get('model') or {}).get('prob_ceil')}; violations={out_of_bounds[:3]}")
+    undocumented = [r["id"] for r in rows if r["method"] == "unresolved" and
+                    (not r.get("basis") or not r.get("flags") or not r.get("leaguepedia_page"))]
+    add("every unresolved row documents its reason and league source", not undocumented,
+        f"{len([r for r in rows if r['method']=='unresolved'])} unresolved rows; undocumented={undocumented[:3]}")
+    missing_extra = [r["id"] for r in rows
+                     if not r.get("hotspawn_url") or not (r.get("leaguepedia_page") or r.get("market"))]
+    add("every row has a fixture source plus a results or market source", not missing_extra,
+        f"{len(rows) - len(missing_extra)}/{len(rows)} rows; problems={missing_extra[:3]}")
+
     counts = Counter(r["method"] for r in rows)
     unverified = [r["id"] for r in rows if r["method"] in ("provisional", "unresolved")]
     report = {
@@ -138,6 +207,7 @@ def main() -> None:
         "unverified": len(unverified),
         "counts": dict(counts),
         "internal_links": sum(hrefs.values()),
+        "lookahead_violations": len(lookahead),
     }
     save_json(os.path.join(DATA, "verification.json"), report)
 

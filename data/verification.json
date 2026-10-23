@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T11:44:00Z",
+ "generated_utc": "2026-10-23T15:42:15Z",
  "checks": [
   {
    "name": "dataset present",
@@ -43,8 +43,8 @@
   },
   {
    "name": "no broken internal links",
-   "ok": true,
-   "detail": "0 problems: []"
+   "ok": false,
+   "detail": "30 problems: ['unresolved.html -> data/probe/sources_probe.json', 'competitions.html -> picks.html?comp=4%20Nations%202026%20Halloween%20Heist', 'competitions.html -> picks.html?comp=Arabian%20League%202nd%20Division%202026%20Summer', 'competitions.html -> picks.html?comp=Arabian%20Regional%20Championship%202026%3A%20Lebanon-Libya-Syria-Palestine', 'competitions.html -> picks.html?comp=Arabian%20Regional%20Championship%202026%3A%20Qatar-Bahrain-Kuwait', 'competitions.html -> picks.html?comp=Benelux%20Ascend%20Series%202026%20Summer%20Playoffs']"
   },
   {
    "name": "navigation on every page",
@@ -75,18 +75,59 @@
    "name": "source availability recorded",
    "ok": true,
    "detail": "9/14 sources reachable on this build"
+  },
+  {
+   "name": "mobile menu handler exists",
+   "ok": true,
+   "detail": "app.js toggles #nav.open for .menu-btn and the bottom-tab More button"
+  },
+  {
+   "name": "picks search/filter/sort controls are wired",
+   "ok": true,
+   "detail": "emitted ids missing=[]; wired in app.js=['q', 'comp', 'window', 'sort', 'list', 'count']"
+  },
+  {
+   "name": "all pages carry the mobile tab bar",
+   "ok": true,
+   "detail": "bottom navigation present on every generated page"
+  },
+  {
+   "name": "summary page exposes the next-48h block and picks links",
+   "ok": true,
+   "detail": "executive summary links + #today anchor"
+  },
+  {
+   "name": "no look-ahead: ratings use only results before kick-off",
+   "ok": true,
+   "detail": "0 violations; examples: []"
+  },
+  {
+   "name": "probabilities stay inside the published clamp",
+   "ok": true,
+   "detail": "bounds=0.05-0.95; violations=[]"
+  },
+  {
+   "name": "every unresolved row documents its reason and league source",
+   "ok": true,
+   "detail": "4 unresolved rows; undocumented=[]"
+  },
+  {
+   "name": "every row has a fixture source plus a results or market source",
+   "ok": true,
+   "detail": "241/241 rows; problems=[]"
   }
  ],
- "passed": true,
+ "passed": false,
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
- "unverified": 69,
+ "unverified": 83,
  "counts": {
-  "provisional": 65,
-  "model": 162,
+  "provisional": 79,
+  "model": 148,
   "unresolved": 4,
   "market": 10
  },
- "internal_links": 229
+ "internal_links": 377,
+ "lookahead_violations": 0
 }

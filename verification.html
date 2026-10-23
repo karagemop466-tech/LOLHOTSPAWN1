@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Verification · Hotspawn LoL Pick Desk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
 <meta name="description" content="Independent League of Legends pick'em lines for every match listed on Hotspawn.">
+<title>Verification · Hotspawn LoL Pick Desk</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -12,21 +13,22 @@
 <header class="topbar">
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
-    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html" class="active">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="nav" aria-label="Main"><a href="index.html">Summary</a><a href="picks.html">Picks</a><a href="unresolved.html">Unresolved</a><a href="methodology.html">Method</a><a href="sources.html">Sources</a><a href="featured.html">Market-backed</a><a href="originated.html">Model lines</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="verification.html" class="active">Verification</a><a href="flagged.html">Flagged</a></nav>
   </div>
 </header>
 <main id="main" class="wrap">
   <div class="pagehead">
     <h1>Verification</h1>
-    <p class="sub">Automated publish assertions and team disambiguation evidence.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 11:43 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+    <p class="sub">Automated publish assertions, the no-look-ahead audit, and team disambiguation evidence.</p>
+    <p class="stamp">Updated <strong>2026-10-23 15:40 UTC</strong> &middot; next automatic refresh ~<strong>18:17 UTC</strong>
+    &middot; <a href="verification.html">15 checks</a> run before every publish</p>
   </div>
   
 <section class="panel">
   <h2>Automated verification gate (15 assertions)</h2>
-  <p class="lead">Every scheduled refresh executes these assertions before committing. Any failure halts
-  deployment so broken links or invalid probabilities never reach GitHub Pages.</p>
+  <p class="lead">Every scheduled refresh executes these assertions before committing. Any failure halts the
+  deployment so broken links, invalid probabilities or look-ahead leakage never reach GitHub Pages.</p>
   <div class="tablewrap"><table class=""><thead><tr><th>Check</th><th>Result</th><th>Detail</th></tr></thead><tbody><tr><td data-label="Check">dataset present</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">241 matches loaded</td></tr><tr><td data-label="Check">every row links to its Hotspawn match card</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">241/241 rows carry a Hotspawn URL</td></tr><tr><td data-label="Check">probabilities sum to 100% (tolerance 0.2pp)</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">241 priced rows verified; problems: []</td></tr><tr><td data-label="Check">pick matches the higher probability</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">241 rows consistent; problems: []</td></tr><tr><td data-label="Check">method values are known</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">methods used: [&#x27;market&#x27;, &#x27;model&#x27;, &#x27;provisional&#x27;, &#x27;unresolved&#x27;]</td></tr><tr><td data-label="Check">no duplicate match ids</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">241 unique ids; duplicates: []</td></tr><tr><td data-label="Check">picks.csv mirrors the dataset</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">csv rows=241 json rows=241</td></tr><tr><td data-label="Check">all site pages exist</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">11/11 pages</td></tr><tr><td data-label="Check">no broken internal links</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">0 problems: []</td></tr><tr><td data-label="Check">navigation on every page</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">missing: []</td></tr><tr><td data-label="Check">no empty/None values rendered</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">problems: []</td></tr><tr><td data-label="Check">all matches rendered on the picks page</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">241/241 match cards found</td></tr><tr><td data-label="Check">executive summary links to every picks view</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">present: [&#x27;picks.html&#x27;, &#x27;featured.html&#x27;, &#x27;originated.html&#x27;, &#x27;unresolved.html&#x27;, &#x27;Executive summary&#x27;]</td></tr><tr><td data-label="Check">out-of-sample backtest &amp; SVG calibration rendered on methodology page</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">backtest series rendered: 3,854</td></tr><tr><td data-label="Check">source availability recorded</td><td data-label="Result"><span class="pill ok">pass</span></td><td data-label="Detail">9/14 sources reachable on this build</td></tr></tbody></table></div>
 </section>
 
@@ -34,10 +36,18 @@
   <h2>Row coverage</h2>
   <div class="stats tight">
     <div class="stat "><div class="sv">241</div><div class="sl">Rows checked</div><div class=sn>every match on Hotspawn</div></div>
-    <div class="stat ok"><div class="sv">241</div><div class="sl">Rows with verified source link</div><div class=sn>100% row-level provenance</div></div>
+    <div class="stat ok"><div class="sv">241</div><div class="sl">Rows with source link</div><div class=sn>row-level provenance</div></div>
     <div class="stat market"><div class="sv">241</div><div class="sl">Valid probability rows</div><div class=sn>A + B = 100.0% verified</div></div>
     <div class="stat provisional"><div class="sv">69</div><div class="sl">Provisional or quarantined</div><div class=sn>explicitly flagged</div></div>
   </div>
+</section>
+
+<section class="panel">
+  <h2>No-look-ahead audit</h2>
+  <p class="lead">For every fixture, the rating on each side is snapshotted at kick-off from results recorded
+  strictly earlier. This table is generated from the dataset and recomputed against raw Leaguepedia history
+  on every build.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>Item</th><th>Result</th><th>Detail</th></tr></thead><tbody><tr><td data-label="Item">Fixtures priced</td><td data-label="Result">237</td><td data-label="Detail">rows with a probability</td></tr><tr><td data-label="Item">Stale cards re-priced from pre-kick-off ratings</td><td data-label="Result">61</td><td data-label="Detail">no result leakage</td></tr><tr><td data-label="Item">Rows with a rating dated after kick-off</td><td data-label="Result">0</td><td data-label="Detail">must be zero</td></tr></tbody></table></div>
 </section>
 
 <section class="panel">
@@ -51,18 +61,37 @@
   <h2>Machine-readable audit artifacts</h2>
   <ul class="bullets">
     <li><a href="data/picks.csv">data/picks.csv</a> &mdash; flat CSV mirror of every match, probability, method, and source URL.</li>
-    <li><a href="data/matches.json">data/matches.json</a> &mdash; complete JSON dataset including per-venue quotes, Elo ratings, and backtest metrics.</li>
+    <li><a href="data/matches.json">data/matches.json</a> &mdash; complete JSON dataset including per-venue quotes, kick-off ratings, and backtest metrics.</li>
     <li><a href="data/matching_report.json">data/matching_report.json</a> &mdash; full competition mapping and non-exact team join log.</li>
     <li><a href="data/verification.json">data/verification.json</a> &mdash; machine-readable output of all verification checks.</li>
+    <li><a href="data/probe/sources_probe.json">data/probe/sources_probe.json</a> &mdash; line-source availability receipts.</li>
   </ul>
 </section>
 
 </main>
+<nav class="tabbar" aria-label="Quick navigation">
+  <a href="picks.html">
+    <span class="ti" aria-hidden="true">&#9776;</span><span>Picks</span></a>
+  <a href="index.html#today">
+    <span class="ti" aria-hidden="true">&#9200;</span><span>Next up</span></a>
+  <a href="unresolved.html">
+    <span class="ti" aria-hidden="true">&#9888;</span><span>Unresolved</span></a>
+  <a href="methodology.html">
+    <span class="ti" aria-hidden="true">&#402;</span><span>Method</span></a>
+  <button type="button" class="tabmenu" aria-controls="nav" aria-expanded="false">
+    <span class="ti" aria-hidden="true">&#8942;</span><span>More</span></button>
+</nav>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Every row links to its official source. Zero Hotspawn crowd-pick input.</p>
-  <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
-  <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
-  <a href="competitions.html">Tournaments</a></p>
+  <p><strong>Independent research dashboard.</strong> Every row links to its source. Hotspawn crowd votes are
+  never used as an input. Not betting advice.</p>
+  <p class="footlinks">
+    <a href="picks.html">All picks</a> &middot; <a href="index.html">Summary</a> &middot;
+    <a href="unresolved.html">Unresolved &amp; limitations</a> &middot; <a href="featured.html">Market</a> &middot;
+    <a href="originated.html">Model</a> &middot; <a href="competitions.html">Tournaments</a> &middot;
+    <a href="teams.html">Teams</a> &middot; <a href="methodology.html">Method</a> &middot;
+    <a href="verification.html">Verification</a> &middot; <a href="sources.html">Sources</a> &middot;
+    <a href="flagged.html">Flagged for review</a>
+  </p>
 </footer>
 <script src="assets/app.js"></script>
 </body>
