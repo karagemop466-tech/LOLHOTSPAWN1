@@ -477,7 +477,8 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     featured = t["featured"]
     unresolved = t["unresolved"]
     provisional = t["provisional"]
-    resolved_total = t["with_pick"] + len(walkover)
+    resolved_total = t["with_pick"]
+    priced_total = sum(1 for r in rows if r["p0"] is not None)
     upcoming = sorted([r for r in rows if r["start_utc"] and r["start_utc"] > iso(now_utc()) and r["pick"]],
                       key=lambda r: r["start_utc"])
     live_sources = sum(1 for s in src_status if s.get("ok"))
@@ -525,7 +526,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
 <section class="stats">
   {stat_card("Matches listed on Hotspawn", total, f"across {t['comps']} tournaments")}
-  {stat_card("Matches with a pick", resolved_total, f"{resolved_total/total*100:.0f}% incl. forfeit settlements", "ok")}
+  {stat_card("Matches with a pick", resolved_total, f"{priced_total} priced + {len(walkover)} official forfeit", "ok")}
   {stat_card("Market-backed", len(featured), "real-money consensus", "market")}
   {stat_card("Originated lines", counts.get('model',0), "model, medium confidence", "model")}
   {stat_card("Provisional", len(provisional), "thin data, flagged", "provisional")}
@@ -540,9 +541,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     probabilities, the method and source links. <a href="picks.html"><strong>Card view</strong></a> shows the
     same {total} matches with the full reasoning. Both pages are searchable and filterable by tournament and
     by method.</li>
-    <li><strong>Coverage.</strong> {t['with_pick']} of {total} matches carry a pick with a probability and
-    {len(walkover)} more are resolved to the official forfeit winner, so {resolved_total} of {total}
-    ({resolved_total/total*100:.0f}%) have a pick: <a href="featured.html">{len(featured)} market-backed</a>
+    <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick: {priced_total} with a
+    win probability and {len(walkover)} resolved to the official forfeit winner (no probability). Breakdown:
+    <a href="featured.html">{len(featured)} market-backed</a>
     ({e(venues_txt)}), <a href="originated.html">{counts.get('model',0)} originated</a> and
     <a href="originated.html">{len(provisional)} provisional</a>.</li>
     <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
