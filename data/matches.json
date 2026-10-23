@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-23T15:53:16Z",
- "inventory_fetched_utc": "2026-10-23T15:50:53Z",
+ "generated_utc": "2026-10-23T15:55:36Z",
+ "inventory_fetched_utc": "2026-10-23T15:53:18Z",
  "receipt_audit": {
   "max_age_hours": 24,
   "used": [],
@@ -99,7 +99,7 @@
   "bovada": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en",
   "leaguepedia": "https://lol.fandom.com/wiki/Special:CargoExport",
   "polymarket": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=league-of-legends",
-  "source_status_utc": "2026-10-23T15:52:03Z"
+  "source_status_utc": "2026-10-23T15:54:39Z"
  },
  "counts": {
   "provisional": 65,
@@ -117,25 +117,25 @@
  "backtest": {
   "cutoff": "2026-07-01",
   "n": 3854,
-  "hits": 2473,
+  "hits": 2472,
   "buckets": {
    "50-60%": {
     "n": 2251,
-    "hits": 1292,
-    "accuracy": 0.574,
+    "hits": 1291,
+    "accuracy": 0.5735,
     "mean_predicted": 0.5398
    },
    "60-70%": {
-    "n": 983,
-    "hits": 677,
-    "accuracy": 0.6887,
+    "n": 982,
+    "hits": 676,
+    "accuracy": 0.6884,
     "mean_predicted": 0.6441
    },
    "70-80%": {
-    "n": 478,
-    "hits": 377,
-    "accuracy": 0.7887,
-    "mean_predicted": 0.7438
+    "n": 479,
+    "hits": 378,
+    "accuracy": 0.7891,
+    "mean_predicted": 0.7437
    },
    "80%+": {
     "n": 142,
@@ -144,7 +144,7 @@
     "mean_predicted": 0.8491
    }
   },
-  "accuracy": 0.6417,
+  "accuracy": 0.6414,
   "brier": 0.2211,
   "logloss": 0.6322
  },
@@ -627,7 +627,7 @@
     "rating_matches": 84,
     "last_played": "2026-10-22",
     "elo_raw": 1452.0,
-    "elo": 1454.6
+    "elo": 1454.7
    },
    "team1": {
     "name": "Playwell Rød Q",
@@ -2417,8 +2417,8 @@
     "elo_raw": 1527.0,
     "elo": 1512.0
    },
-   "p0": 0.4552,
-   "p1": 0.5448,
+   "p0": 0.4553,
+   "p1": 0.5447,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: NextGeneration Esports 1481 vs Slam Dunk 1512 (60/4 rated series).",
@@ -2429,8 +2429,8 @@
    "pick": {
     "side": 1,
     "team": "Slam Dunk",
-    "probability": 0.5448,
-    "other_probability": 0.4552
+    "probability": 0.5447,
+    "other_probability": 0.4553
    },
    "pick_type": null,
    "market": null,
@@ -2461,7 +2461,7 @@
     "join_notes": [],
     "rating_matches": 53,
     "last_played": "2026-10-22",
-    "elo_raw": 1530.9,
+    "elo_raw": 1531.0,
     "elo": 1528.3
    },
    "team1": {
@@ -3903,8 +3903,8 @@
     ],
     "rating_matches": 58,
     "last_played": "2026-10-23",
-    "elo_raw": 1641.2,
-    "elo": 1630.0
+    "elo_raw": 1641.3,
+    "elo": 1630.1
    },
    "team1": {
     "name": "Phenti",
@@ -3916,8 +3916,8 @@
     "elo_raw": 1432.5,
     "elo": 1440.8
    },
-   "p0": 0.7482,
-   "p1": 0.2518,
+   "p0": 0.7483,
+   "p1": 0.2517,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Rich Gang (Norwegian Team) 1630 vs Phenti 1441 (58/36 rated series).",
@@ -3928,8 +3928,8 @@
    "pick": {
     "side": 0,
     "team": "Rich Gang",
-    "probability": 0.7482,
-    "other_probability": 0.2518
+    "probability": 0.7483,
+    "other_probability": 0.2517
    },
    "pick_type": null,
    "market": null,
@@ -4176,8 +4176,8 @@
     "start_utc": "2026-10-23T17:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 332063.1,
-    "volume_usd": 332063.1,
+    "total_volume_usd": 339495.24,
+    "volume_usd": 339495.24,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4196,7 +4196,7 @@
       "quote": "76.5¢/23.5¢",
       "overround": 0.0,
       "url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23",
-      "volume_usd": 332063.1
+      "volume_usd": 339495.24
      },
      {
       "name": "Kalshi",
@@ -4403,8 +4403,8 @@
     "start_utc": "2026-10-23T18:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 274764.06,
-    "volume_usd": 274764.06,
+    "total_volume_usd": 277158.91,
+    "volume_usd": 277158.91,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4423,7 +4423,7 @@
       "quote": "76.5¢/23.5¢",
       "overround": 0.0,
       "url": "https://polymarket.com/event/lol-hle1-tes-2026-10-23",
-      "volume_usd": 274764.06
+      "volume_usd": 277158.91
      },
      {
       "name": "Kalshi",
@@ -4630,8 +4630,8 @@
     "start_utc": "2026-10-23T19:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 213508.94,
-    "volume_usd": 213508.94,
+    "total_volume_usd": 213883.53,
+    "volume_usd": 213883.53,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4650,7 +4650,7 @@
       "quote": "80.5¢/19.5¢",
       "overround": 0.0,
       "url": "https://polymarket.com/event/lol-blg-mkoi-2026-10-23",
-      "volume_usd": 213508.94
+      "volume_usd": 213883.53
      },
      {
       "name": "Kalshi",
@@ -4749,8 +4749,8 @@
     "start_utc": "2026-10-23T20:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 314535.42,
-    "volume_usd": 314535.42,
+    "total_volume_usd": 316073.58,
+    "volume_usd": 316073.58,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4769,7 +4769,7 @@
       "quote": "64.5¢/35.5¢",
       "overround": 0.0,
       "url": "https://polymarket.com/event/lol-al-kc-2026-10-23",
-      "volume_usd": 314535.42
+      "volume_usd": 316073.58
      },
      {
       "name": "Kalshi",
@@ -4868,8 +4868,8 @@
     "start_utc": "2026-10-23T21:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 343565.04,
-    "volume_usd": 343565.04,
+    "total_volume_usd": 343927.05,
+    "volume_usd": 343927.05,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4888,7 +4888,7 @@
       "quote": "39.5¢/60.5¢",
       "overround": 0.0,
       "url": "https://polymarket.com/event/lol-g2-dk-2026-10-23",
-      "volume_usd": 343565.04
+      "volume_usd": 343927.05
      },
      {
       "name": "Kalshi",
@@ -4987,8 +4987,8 @@
     "start_utc": "2026-10-23T22:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 39296.38,
-    "volume_usd": 39296.38,
+    "total_volume_usd": 39405.0,
+    "volume_usd": 39405.0,
     "venues": [
      {
       "name": "Pinnacle",
@@ -5007,7 +5007,7 @@
       "quote": "71.5¢/28.5¢",
       "overround": 0.0,
       "url": "https://polymarket.com/event/lol-tl2-cfo-2026-10-23",
-      "volume_usd": 39296.38
+      "volume_usd": 39405.0
      },
      {
       "name": "Kalshi",
@@ -5108,8 +5108,8 @@
     "start_utc": "2026-10-23T23:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 61676.85,
-    "volume_usd": 61676.85,
+    "total_volume_usd": 63561.3,
+    "volume_usd": 63561.3,
     "venues": [
      {
       "name": "Pinnacle",
@@ -5128,7 +5128,7 @@
       "quote": "12.5¢/87.5¢",
       "overround": 0.0,
       "url": "https://polymarket.com/event/lol-los-t1-2026-10-23",
-      "volume_usd": 61676.85
+      "volume_usd": 63561.3
      },
      {
       "name": "Kalshi",
@@ -5194,40 +5194,55 @@
     "elo_raw": 1610.5,
     "elo": 1601.9
    },
-   "p0": 0.4168,
-   "p1": 0.5832,
+   "p0": 0.4234,
+   "p1": 0.5766,
    "method": "market",
    "confidence": "high",
-   "basis": "2-Venue Consensus de-vigged line (41.7% / 58.3%): Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 41.9%/58.1% (42¢/57¢).",
+   "basis": "3-Venue Consensus de-vigged line (42.3% / 57.7%): Pinnacle 43.1%/56.9% (2.23/1.69), Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 41.9%/58.1% (42¢/57¢).",
    "flags": [
     "Leaguepedia lists this team as 'LYON (2024 American Team)'"
    ],
    "pick": {
     "side": 1,
     "team": "LYON",
-    "probability": 0.5832,
-    "other_probability": 0.4168
+    "probability": 0.5766,
+    "other_probability": 0.4234
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "2-Venue Consensus",
-    "kind": "prediction market",
-    "source_url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23",
-    "api_url": "https://gamma-api.polymarket.com/events?slug=lol-tsw-ly-2026-10-23",
-    "market_url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23",
-    "decimal": null,
-    "american": null,
-    "p0": 0.4168,
-    "p1": 0.5832,
-    "overround": 0.0,
-    "start_utc": "2026-10-24 00:00:00+00",
-    "league": null,
-    "venue_count": 2,
-    "total_volume_usd": 68134.77,
-    "volume_usd": 68134.77,
+    "book": "3-Venue Consensus",
+    "kind": "bookmaker",
+    "source_url": "https://www.pinnacle.com/en/event/1638754606",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638754606/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638754606",
+    "decimal": {
+     "home": 2.23,
+     "away": 1.69
+    },
+    "american": {
+     "home": 123,
+     "away": -145
+    },
+    "p0": 0.4234,
+    "p1": 0.5766,
+    "overround": 0.0403,
+    "start_utc": "2026-10-24T00:00:00Z",
+    "league": "League of Legends - World Championship",
+    "venue_count": 3,
+    "total_volume_usd": 68163.35,
+    "volume_usd": 68163.35,
     "venues": [
+     {
+      "name": "Pinnacle",
+      "weight": 0.36,
+      "p0": 0.4311,
+      "p1": 0.5689,
+      "quote": "2.23/1.69",
+      "overround": 0.0403,
+      "url": "https://www.pinnacle.com/en/event/1638754606"
+     },
      {
       "name": "Polymarket",
       "weight": 0.24,
@@ -5236,7 +5251,7 @@
       "quote": "41.5¢/58.5¢",
       "overround": 0.0,
       "url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23",
-      "volume_usd": 68134.77
+      "volume_usd": 68163.35
      },
      {
       "name": "Kalshi",
@@ -5248,7 +5263,8 @@
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231900lytsw"
      }
     ],
-    "model_cross_check": 0.6108
+    "model_cross_check": 0.6108,
+    "start_mismatch_hours": 0.0
    },
    "resolution": null,
    "connected": true,
@@ -6874,8 +6890,8 @@
     ],
     "rating_matches": 58,
     "last_played": "2026-10-23",
-    "elo_raw": 1641.2,
-    "elo": 1630.0
+    "elo_raw": 1641.3,
+    "elo": 1630.1
    },
    "team1": {
     "name": "LOOKSMAXXER",
@@ -6887,8 +6903,8 @@
     "elo_raw": 1550.8,
     "elo": 1543.5
    },
-   "p0": 0.6219,
-   "p1": 0.3781,
+   "p0": 0.622,
+   "p1": 0.378,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Rich Gang (Norwegian Team) 1630 vs LOOKSMAXXER 1544 (58/30 rated series).",
@@ -6898,8 +6914,8 @@
    "pick": {
     "side": 0,
     "team": "Rich Gang",
-    "probability": 0.6219,
-    "other_probability": 0.3781
+    "probability": 0.622,
+    "other_probability": 0.378
    },
    "pick_type": null,
    "market": null,
@@ -8048,11 +8064,11 @@
     "elo_raw": 1829.0,
     "elo": 1816.5
    },
-   "p0": 0.325,
-   "p1": 0.675,
+   "p0": 0.35,
+   "p1": 0.65,
    "method": "market",
    "confidence": "low",
-   "basis": "Polymarket de-vigged line (32.5% / 67.5%): Polymarket 32.5%/67.5% (32.5¢/67.5¢).",
+   "basis": "Polymarket de-vigged line (35.0% / 65.0%): Polymarket 35.0%/65.0% (35.0¢/65.0¢).",
    "flags": [
     "single thin prediction market: only $5 traded volume on Polymarket - treat as an indicative line",
     "thin market: one Polymarket venue, $5 total traded volume - indicative only, not a deep bookmaker line"
@@ -8060,8 +8076,8 @@
    "pick": {
     "side": 1,
     "team": "Vitality Rising Bees",
-    "probability": 0.675,
-    "other_probability": 0.325
+    "probability": 0.65,
+    "other_probability": 0.35
    },
    "pick_type": null,
    "market": {
@@ -8074,8 +8090,8 @@
     "market_url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "decimal": null,
     "american": null,
-    "p0": 0.325,
-    "p1": 0.675,
+    "p0": 0.35,
+    "p1": 0.65,
     "overround": 0.0,
     "start_utc": "2026-10-27 16:00:00+00",
     "league": null,
@@ -8086,9 +8102,9 @@
      {
       "name": "Polymarket",
       "weight": 0.24,
-      "p0": 0.325,
-      "p1": 0.675,
-      "quote": "32.5¢/67.5¢",
+      "p0": 0.35,
+      "p1": 0.65,
+      "quote": "35.0¢/65.0¢",
       "overround": 0.0,
       "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
       "volume_usd": 5.0
@@ -9503,11 +9519,11 @@
     ],
     "rating_matches": 58,
     "last_played": "2026-10-23",
-    "elo_raw": 1641.2,
-    "elo": 1630.0
+    "elo_raw": 1641.3,
+    "elo": 1630.1
    },
-   "p0": 0.3003,
-   "p1": 0.6997,
+   "p0": 0.3002,
+   "p1": 0.6998,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: 1. Esport Club Frankfurt e.V. 1483 vs Rich Gang (Norwegian Team) 1630 (22/58 rated series).",
@@ -9517,8 +9533,8 @@
    "pick": {
     "side": 1,
     "team": "Rich Gang",
-    "probability": 0.6997,
-    "other_probability": 0.3003
+    "probability": 0.6998,
+    "other_probability": 0.3002
    },
    "pick_type": null,
    "market": null,
@@ -11436,8 +11452,8 @@
     "elo_raw": 1628.6,
     "elo": 1619.8
    },
-   "p0": 0.3504,
-   "p1": 0.6496,
+   "p0": 0.3503,
+   "p1": 0.6497,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: JSK Academy 1513 vs JSK Esports 1620 (29/68 rated series).",
@@ -11445,8 +11461,8 @@
    "pick": {
     "side": 1,
     "team": "JSK Esports",
-    "probability": 0.6496,
-    "other_probability": 0.3504
+    "probability": 0.6497,
+    "other_probability": 0.3503
    },
    "pick_type": null,
    "market": null,
@@ -12247,8 +12263,8 @@
     ],
     "rating_matches": 58,
     "last_played": "2026-10-23",
-    "elo_raw": 1641.2,
-    "elo": 1630.0
+    "elo_raw": 1641.3,
+    "elo": 1630.1
    },
    "team1": {
     "name": "Team 300 White",
@@ -12260,8 +12276,8 @@
     "elo_raw": 1473.0,
     "elo": 1478.0
    },
-   "p0": 0.7058,
-   "p1": 0.2942,
+   "p0": 0.7059,
+   "p1": 0.2941,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Rich Gang (Norwegian Team) 1630 vs Team 300 White 1478 (58/22 rated series).",
@@ -12271,8 +12287,8 @@
    "pick": {
     "side": 0,
     "team": "Rich Gang",
-    "probability": 0.7058,
-    "other_probability": 0.2942
+    "probability": 0.7059,
+    "other_probability": 0.2941
    },
    "pick_type": null,
    "market": null,
@@ -12648,8 +12664,8 @@
     "elo_raw": 1515.4,
     "elo": 1514.6
    },
-   "p0": 0.5167,
-   "p1": 0.4833,
+   "p0": 0.5166,
+   "p1": 0.4834,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: The Bandits Prime 1526 vs VfB eSports 1515 (7/89 rated series).",
@@ -12657,8 +12673,8 @@
    "pick": {
     "side": 0,
     "team": "The Bandits Prime",
-    "probability": 0.5167,
-    "other_probability": 0.4833
+    "probability": 0.5166,
+    "other_probability": 0.4834
    },
    "pick_type": null,
    "market": null,
@@ -13681,8 +13697,8 @@
     ],
     "rating_matches": 58,
     "last_played": "2026-10-23",
-    "elo_raw": 1641.2,
-    "elo": 1630.0
+    "elo_raw": 1641.3,
+    "elo": 1630.1
    },
    "team1": {
     "name": "Whalepower Humpbacks",
@@ -13694,8 +13710,8 @@
     "elo_raw": 1468.1,
     "elo": 1472.8
    },
-   "p0": 0.7119,
-   "p1": 0.2881,
+   "p0": 0.712,
+   "p1": 0.288,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Rich Gang (Norwegian Team) 1630 vs Whalepower Humpbacks 1473 (58/29 rated series).",
@@ -13705,8 +13721,8 @@
    "pick": {
     "side": 0,
     "team": "Rich Gang",
-    "probability": 0.7119,
-    "other_probability": 0.2881
+    "probability": 0.712,
+    "other_probability": 0.288
    },
    "pick_type": null,
    "market": null,

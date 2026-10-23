@@ -1,14 +1,14 @@
-=== build 2026-10-23T15:50:52Z ===
-[15:50:53] hotspawn: 241 LoL fixtures
-[15:50:55] pinnacle: 138 LoL matchups, 7 with open moneylines
-[15:50:55] kalshi: 8 CFTC match events (status=200)
-[15:50:56] bovada: 8 LoL moneylines (status=200)
-[15:51:58] leaguepedia: 34615 series rows, 7 pages with dqteams (err='')
-[15:51:58] lolesports: 80 Worlds events (status=200)
-[15:51:58] polymarket: 45 match-level markets (status=200)
-[15:52:03] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
-[15:52:08] rows=241 methods={'provisional': 65, 'model': 163, 'unresolved': 4, 'market': 9} joins=29
-[15:52:08] backtest n=3854 acc=0.6417 brier=0.2211
+=== build 2026-10-23T15:53:17Z ===
+[15:53:18] hotspawn: 241 LoL fixtures
+[15:53:21] pinnacle: 138 LoL matchups, 8 with open moneylines
+[15:53:21] kalshi: 8 CFTC match events (status=200)
+[15:53:22] bovada: 8 LoL moneylines (status=200)
+[15:54:30] leaguepedia: 34617 series rows, 7 pages with dqteams (err='')
+[15:54:30] lolesports: 80 Worlds events (status=200)
+[15:54:33] polymarket: 45 match-level markets (status=200)
+[15:54:39] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[15:54:43] rows=241 methods={'provisional': 65, 'model': 163, 'unresolved': 4, 'market': 9} joins=29
+[15:54:43] backtest n=3854 acc=0.6414 brier=0.2211
 {
  "total": 241,
  "counts": {
@@ -140,12 +140,12 @@ PRICED 9
   Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4116 {'home': 2.24, 'away': 1.685}
   Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7129 {'home': 1.345, 'away': 3.31}
   Worlds 2026 Main Event | ['LØS', 'T1'] 0.1392 {'home': 5.76, 'away': 1.139}
-  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4168 None
-  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.325 None
-[15:52:08] flags: 23 items
-[15:52:09] site: wrote 11 pages to the published root
-[15:52:09] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
-[15:52:09] verification passed
+  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4234 {'home': 2.23, 'away': 1.69}
+  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.35 None
+[15:54:43] flags: 23 items
+[15:54:43] site: wrote 11 pages to the published root
+[15:54:43] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
+[15:54:43] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -173,10 +173,11 @@ PASS no published market row is built from a rejected quote :: 0 quote(s) reject
 PASS coverage matrix: every competition row links to a source :: 27 competition rows; missing links: []
 PASS external receipts validated against the dataset :: 9 usable receipts, 0 rejected, 0 diverging >5.0pp
 PASS coverage page shows every match method and the unresolved ledger :: coverage.html 39954 bytes
+PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
 PASS source availability recorded :: 9/14 sources reachable on this build
-[15:52:09] site: wrote 11 pages to the published root
-[15:52:09] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
-[15:52:09] verification passed
+[15:54:43] site: wrote 11 pages to the published root
+[15:54:43] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
+[15:54:43] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -204,4 +205,5 @@ PASS no published market row is built from a rejected quote :: 0 quote(s) reject
 PASS coverage matrix: every competition row links to a source :: 27 competition rows; missing links: []
 PASS external receipts validated against the dataset :: 9 usable receipts, 0 rejected, 0 diverging >5.0pp
 PASS coverage page shows every match method and the unresolved ledger :: coverage.html 39954 bytes
+PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
 PASS source availability recorded :: 9/14 sources reachable on this build
