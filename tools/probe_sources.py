@@ -67,7 +67,16 @@ SOURCES = [
     ("Thunderpick LoL", "https://thunderpick.io/esports/league-of-legends", "esportsbook", "low-tier LoL markets"),
     ("Thunderpick API", "https://api.thunderpick.io/api/v1/sports", "esportsbook API", "JSON odds feed"),
     ("Rivalry esports", "https://www.rivalry.com/esports/league-of-legends", "esportsbook", "low-tier LoL markets"),
-    ("Rivalry API", "https://api.rivalry.com/api/v1/sport/league-of-legends", "esportsbook API", "JSON odds feed"),
+    # Endpoints per the official API docs (github.com/rivalrygg/rivalry-api); an earlier
+    # probe used an undocumented /v1/sport/... path that always returned 502.
+    ("Rivalry API games index", "https://api.rivalry.com/api/v1/games", "esportsbook API",
+     "documented endpoint; proves API health and reveals the LoL game id"),
+    ("Rivalry API LoL matches", "https://api.rivalry.com/api/v1/matches?game_id=24&page=1",
+     "esportsbook API", "documented LoL winner-market feed consumed by collect_rivalry"),
+    ("Midnite LoL", "https://www.midnite.com/esports/league-of-legends", "esportsbook",
+     "tier-2 LoL coupons; no documented public odds API"),
+    ("Tips.GG LoL", "https://tips.gg/lol/matches/", "esports odds directory",
+     "editorial LoL odds articles; no machine-readable feed"),
     ("Stake esports", "https://stake.com/sports/esports/league-of-legends", "crypto esportsbook", "low-tier LoL markets"),
     ("1xBet line feed", "https://1xbet.com/LineFeed/Get1x2_VZip?sports=249&count=50&mode=4&country=1&getEmpty=true",
      "high-street book API", "the widest low-tier LoL coupon in the market"),
@@ -150,7 +159,8 @@ def odds_signals(text: str) -> dict:
         "has_decimal_pair": bool(re.search(r"\b1\.\d{2}\b.{0,40}\b[2-9]\.\d{2}\b", text)),
         "mentions_bookmaker": any(b in lowered for b in
                                   ("pinnacle", "bet365", "1xbet", "gg.bet", "betway",
-                                   "bovada", "unibet", "betano", "thunderpick", "rivalry")),
+                                   "bovada", "unibet", "betano", "thunderpick", "rivalry",
+                                   "midnite", "tips.gg")),
         "mentions_odds": any(w in lowered for w in ("odds", "moneyline", "money line", "decimal")),
         "mentions_league_of_legends": "league of legends" in lowered,
     }

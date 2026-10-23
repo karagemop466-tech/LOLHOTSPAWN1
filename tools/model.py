@@ -53,6 +53,9 @@ VENUE_WEIGHTS = {
     "Kalshi": 0.18,
     "Bovada": 0.12,
     "Esportsbook": 0.10,
+    # Independent specialist esportsbook (public Rivalry REST API); weights are
+    # re-normalised over the venues actually present for each fixture.
+    "Rivalry": 0.10,
 }
 
 BOOK_TEAM_ALIASES = {
@@ -105,6 +108,23 @@ def same_team(a: str, b: str) -> bool:
     short_text = " ".join(short)
     long_enough = len(short_text) >= 4 or (len(short_text) >= 2 and any(c.isdigit() for c in short_text))
     return (set(long_) - set(short)) <= GENERIC_TOKENS and long_enough
+
+
+def ff_winner_name(lp_row: dict):
+    """Winner dictated by a Leaguepedia forfeit flag (FF=1 -> Team2, FF=2 -> Team1).
+
+    Returns None when the row carries no usable forfeit flag. This is the single
+    rule used both to build settlement picks and to verify them against the harvest.
+    """
+    try:
+        side = int(lp_row.get("ff"))
+    except (TypeError, ValueError):
+        return None
+    if side == 1:
+        return str(lp_row.get("team2")) or None
+    if side == 2:
+        return str(lp_row.get("team1")) or None
+    return None
 
 
 QUOTE_REJECTIONS: list[dict] = []
@@ -392,8 +412,10 @@ def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
 # --------------------------------------------------------------------------- multi-venue market consensus
 def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                   pin_index: list, pm_index: list, kalshi_index: list,
-                  bovada_index: list, esportsbook_map: dict, within_hours: int = 36):
+                  bovada_index: list, esportsbook_map: dict, rivalry_index: list | None = None,
+                  within_hours: int = 36):
     """Combine all independent real-money venues covering this fixture."""
+    rivalry_index = rivalry_index or []
     def close_in_time(a: str | None, b: str | None) -> bool:
         if not a or not b:
             return True
@@ -518,6 +540,32 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 })
                 break
 
+    # 5. Rivalry esportsbook (public REST API, winner-market decimals). The same
+    # devig_decimal safeguards used for the retail books apply: symmetric 1.80/1.80
+    # placeholders and sub-1.03 extreme quotes are rejected before they can be priced.
+    for item in rivalry_index:
+        a, b = item["names"]
+        if close_in_time(start, item["start"]) and (
+                (same_team(name0, a) and same_team(name1, b)) or
+                (same_team(name0, b) and same_team(name1, a))):
+            d0_v = item["d0"] if same_team(name0, a) else item["d1"]
+            d1_v = item["d1"] if same_team(name0, a) else item["d0"]
+            dv = devig_decimal(d0_v, d1_v, {"fixture_id": fixture_id, "venue": "Rivalry"})
+            if dv:
+                p0_v, p1_v, overround = dv
+                if primary_decimal is None:
+                    primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
+                venues.append({
+                    "name": "Rivalry",
+                    "weight": VENUE_WEIGHTS["Rivalry"],
+                    "p0": round(p0_v, 4),
+                    "p1": round(p1_v, 4),
+                    "quote": f"{d0_v:.2f}/{d1_v:.2f}",
+                    "overround": round(overround, 4),
+                    "url": item["url"],
+                })
+                break
+
     # Archives are evidence, not a live line: no archived esportsbook receipt enters a
     # current consensus. The esportsbook venue is therefore left empty here on purpose.
 
@@ -545,7 +593,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         "thin_note": (f"single Polymarket venue with ${float(venues[0].get('volume_usd') or 0):,.0f} "
                       f"traded volume (thin-market threshold ${THIN_VOLUME_USD:,.0f})") if thin else "",
         "book": book_label,
-        "kind": "bookmaker" if any(v["name"] in ("Pinnacle", "Bovada", "Esportsbook") for v in venues) else "prediction market",
+        "kind": "bookmaker" if any(v["name"] in ("Pinnacle", "Bovada", "Esportsbook", "Rivalry") for v in venues) else "prediction market",
         "source_url": venues[0]["url"],
         "api_url": primary_api_url or venues[0]["url"],
         "market_url": venues[0]["url"],
@@ -572,6 +620,7 @@ def main() -> None:
     pmkt = load_json(os.path.join(RAW, "polymarket.json")) or {}
     kalshi = load_json(os.path.join(RAW, "kalshi_lol.json")) or {}
     bovada = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
+    rivalry = load_json(os.path.join(RAW, "rivalry_lol.json")) or {}
     # Historical archive is evidence only, never a live pricing input: it cannot be
     # re-verified on the build machine, so it is excluded and reported instead.
     receipts = {}
@@ -700,6 +749,18 @@ def main() -> None:
                 "url": ev.get("url") or "https://www.bovada.lv/sports/esports/league-of-legends",
             })
 
+    rivalry_index = []
+    for ev in rivalry.get("events") or []:
+        outs = ev.get("outcomes") or []
+        if len(outs) == 2:
+            rivalry_index.append({
+                "names": [outs[0]["name"], outs[1]["name"]],
+                "d0": float(outs[0]["decimal"]),
+                "d1": float(outs[1]["decimal"]),
+                "start": ev.get("start_utc"),
+                "url": ev.get("url") or "https://rivalry.com/esports/league-of-legends",
+            })
+
     rows, join_log = [], []
     for f in fixtures:
         n0, n1 = f["team0"]["name"], f["team1"]["name"]
@@ -726,7 +787,8 @@ def main() -> None:
         dq1 = dq_norms.get(norm_name(k1 or n1))
 
         market = market_lookup(f["id"], n0, n1, f.get("start_utc"),
-                               pin_index, pm_index, kalshi_index, bovada_index, receipts)
+                               pin_index, pm_index, kalshi_index, bovada_index, receipts,
+                               rivalry_index)
         row = {
             "id": f["id"],
             "competition": f["competition"],
@@ -779,6 +841,14 @@ def main() -> None:
                      f"settlement is unverified, so no competitive probability is claimed.")
             flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
+            # Independent cross-check: the FF flag on the series row must point the same
+            # way as the dqteams removal. A disagreement means the official record is
+            # internally inconsistent and the settlement pick needs a human before use.
+            ff_expected = ff_winner_name(lp_row) if lp_row else None
+            if ff_expected and not same_team(ff_expected, active_opp):
+                flags.append(f"official-record conflict: the Leaguepedia forfeit flag (FF) on this "
+                             f"series names {ff_expected} as winner, but dqteams implies {active_opp} "
+                             f"- manual review before treating the settlement as settled")
             resolution = {
                 "type": "official-forfeit",
                 "winner": active_opp,

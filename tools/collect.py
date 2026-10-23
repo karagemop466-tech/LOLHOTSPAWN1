@@ -10,7 +10,8 @@ Sources
 5. Leaguepedia CargoExport + Data: DQ directives             -> data/raw/leaguepedia.json, leaguepedia_dq.json
 6. LoL Esports official API (Worlds schedule cross-check)    -> data/raw/lolesports.json
 7. Polymarket Gamma API (prediction-market LoL markets)      -> data/raw/polymarket.json
-8. Book source availability probe                            -> data/sources_status.json
+8. Rivalry public REST API (esportsbook winner markets)      -> data/raw/rivalry_lol.json
+9. Book source availability probe                            -> data/sources_status.json
 """
 from __future__ import annotations
 
@@ -35,6 +36,8 @@ KALSHI_URL = ("https://api.elections.kalshi.com/trade-api/v2/events"
               "?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100")
 BOVADA_URL = ("https://www.bovada.lv/services/sports/event/coupon/events/A/description/"
               "esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en")
+# Public, keyless REST API documented at https://github.com/rivalrygg/rivalry-api
+RIVALRY_BASE = "https://api.rivalry.com/api/v1"
 LEAGUEPEDIA_WINDOW_START = "2024-09-01 00:00:00"  # ~25 months of series results
 
 
@@ -437,6 +440,87 @@ def collect_polymarket() -> dict:
     return {"count": len(markets), "status": st}
 
 
+# --------------------------------------------------------------------------- rivalry
+def collect_rivalry(max_pages: int = 12) -> dict:
+    """Rivalry esportsbook public REST API (documented at github.com/rivalrygg/rivalry-api).
+
+    The LoL game id is discovered from /v1/games (historically 24); each match's
+    "winner" market carries decimal odds per competitor. Failures are recorded in the
+    raw document, never fatal: low-tier LoL is not expected to be priced here, but
+    major-series lines would add an independent esportsbook venue to the consensus.
+    Raw decimals are stored verbatim; model.devig_decimal rejects non-actionable quotes
+    (symmetric 1.80/1.80 placeholders, sub-1.03 extremes) before any probability is used.
+    """
+    out: list[dict] = []
+    st_g, games, err_g = get_json(f"{RIVALRY_BASE}/games", retries=2)
+    lol_id = 24
+    if st_g == 200 and isinstance(games, dict):
+        for g in games.get("data") or []:
+            if "league of legends" in str(g.get("name", "")).lower():
+                lol_id = g.get("id", lol_id)
+                break
+    page, status, err = 1, st_g, err_g
+    while page <= max_pages:
+        st, doc, e = get_json(f"{RIVALRY_BASE}/matches?game_id={lol_id}&page={page}", retries=2)
+        if st != 200 or not isinstance(doc, dict):
+            status, err = st, e
+            break
+        status = 200
+        for m in doc.get("data") or []:
+            comps = m.get("competitors") or []
+            if len(comps) != 2:
+                continue
+            winner = next((mk for mk in (m.get("markets") or [])
+                           if str(mk.get("name", "")).lower() == "winner"), None)
+            if not winner:
+                continue
+            outcomes = winner.get("outcomes") or []
+            if len(outcomes) != 2:
+                continue
+            by_name = {}
+            ok = True
+            for o in outcomes:
+                try:
+                    dec = float(o.get("odds"))
+                except (TypeError, ValueError):
+                    ok = False
+                    break
+                cname = ((o.get("competitor") or {}).get("name")) or ""
+                if dec <= 1.0 or not cname:
+                    ok = False
+                    break
+                by_name[cname] = dec
+            if not ok or len(by_name) != 2:
+                continue
+            names = [c.get("name") for c in comps]
+            decs = [by_name.get(n) for n in names]
+            if any(d is None for d in decs):
+                continue
+            out.append({
+                "match_id": m.get("id"),
+                "url": m.get("url") or "https://rivalry.com/esports/league-of-legends",
+                "start_utc": m.get("scheduled_at"),
+                "tournament": ((m.get("tournament") or {}).get("name")),
+                "outcomes": [{"name": names[0], "decimal": decs[0]},
+                             {"name": names[1], "decimal": decs[1]}],
+            })
+        nxt = (doc.get("links") or {}).get("next")
+        if not nxt:
+            break
+        page += 1
+        time.sleep(0.3)
+    save_json(os.path.join(RAW, "rivalry_lol.json"), {
+        "fetched_utc": iso(now_utc()),
+        "source_url": f"{RIVALRY_BASE}/matches?game_id={lol_id}",
+        "status": status,
+        "error": err,
+        "event_count": len(out),
+        "events": out,
+    })
+    log(f"rivalry: {len(out)} LoL winner markets (status={status})")
+    return {"count": len(out), "status": status}
+
+
 # --------------------------------------------------------------------------- availability
 BOOK_PROBES = [
     ("Pinnacle", "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
@@ -450,6 +534,16 @@ BOOK_PROBES = [
     ("GG.BET", "https://gg.bet/en/esports/league-of-legends", "Established LoL betting site", None),
     ("BC.GAME", "https://bc.game/sports", "Crypto esportsbook", None),
     ("EGamersWorld", "https://egamersworld.com/lol/matches", "Esports odds aggregator (verified fallback receipt for LCP Promotion)", None),
+    ("EGamersWorld JSON API", "https://egamersworld.com/api/v1/matches?game=league-of-legends",
+     "Hypothesised JSON feed behind the EGW site (probe only; the site is server-rendered)", None),
+    ("Rivalry API", "https://api.rivalry.com/api/v1/games",
+     "Public esportsbook REST API (documented on github.com/rivalrygg/rivalry-api); parsed by collect_rivalry", None),
+    ("Thunderpick", "https://thunderpick.io/esports/league-of-legends",
+     "Crypto esportsbook listing low-tier LoL markets (no public odds feed; HTML probe only)", None),
+    ("Midnite", "https://www.midnite.com/esports/league-of-legends",
+     "Esports-focused book with tier-2 LoL coupons (no public odds feed; HTML probe only)", None),
+    ("Tips.GG", "https://tips.gg/lol/matches/",
+     "Esports betting directory with editorial LoL odds articles (no machine-readable feed)", None),
     ("Oddspedia", "https://oddspedia.com/esports/league-of-legends", "Odds comparison engine", None),
     ("OddsPortal", "https://www.oddsportal.com/esports/league-of-legends/", "Odds comparison engine", None),
     ("BetExplorer", "https://www.betexplorer.com/esports/league-of-legends/", "Odds comparison engine", None),
@@ -495,6 +589,7 @@ def main() -> None:
         "leaguepedia": collect_leaguepedia,
         "lolesports": collect_lolesports,
         "polymarket": collect_polymarket,
+        "rivalry": collect_rivalry,
         "sources": collect_source_status,
     }
     for name, fn in steps.items():

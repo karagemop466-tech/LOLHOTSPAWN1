@@ -10,10 +10,12 @@ import os
 import re
 import sys
 from collections import Counter
+from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from integrity import row_errors
-from common import DATA, RAW, ROOT, iso, load_json, log, now_utc, save_json
+from model import ff_winner_name
+from common import DATA, RAW, ROOT, iso, load_json, log, norm_name, now_utc, save_json
 
 DOCS = ROOT  # GitHub Pages serves the branch root
 ALLOWED = {"market", "model", "provisional", "unresolved"}
@@ -142,6 +144,48 @@ def main() -> None:
                    or r.get("pick_type") != "settlement"]
     add("official-forfeit resolutions carry no invented probability", not bad_wo_prob,
         f"problems: {bad_wo_prob[:5]}")
+
+    # Every walkover settlement must agree with the actual Leaguepedia forfeit record
+    # (MatchSchedule.FF) when one exists for the same team pair: FF=1 means Team1
+    # forfeited so Team2 wins, FF=2 the reverse. Rows whose pair has no FF row stay
+    # allowed but are counted here; their basis already labels them unverified.
+    lp_doc = load_json(os.path.join(RAW, "leaguepedia.json")) or {}
+    lp_pairs: dict = {}
+    for m in lp_doc.get("matches") or []:
+        key = frozenset((norm_name(str(m.get("team1"))), norm_name(str(m.get("team2")))))
+        lp_pairs.setdefault(key, []).append(m)
+
+    def _time_gap(lp_row: dict, start_utc: str | None) -> float:
+        if not start_utc:
+            return 0.0
+        try:
+            want = datetime.strptime(start_utc, "%Y-%m-%dT%H:%M:%SZ")
+            got = datetime.strptime(str(lp_row.get("utc"))[:19], "%Y-%m-%d %H:%M:%S")
+        except (ValueError, TypeError):
+            return 0.0
+        return abs((want - got).total_seconds())
+
+    ff_conflicts, ff_backed, ff_unbacked = [], [], []
+    for r in wo:
+        n0 = norm_name(r.get("team0", {}).get("name", ""))
+        n1 = norm_name(r.get("team1", {}).get("name", ""))
+        ff_rows = [m for m in lp_pairs.get(frozenset((n0, n1)), [])
+                   if m.get("ff") in (1, 2, "1", "2")]
+        if not ff_rows:
+            ff_unbacked.append(r["id"])
+            continue
+        closest = min(ff_rows, key=lambda m: _time_gap(m, r.get("start_utc")))
+        expected = ff_winner_name(closest)
+        if not expected or norm_name(expected) != norm_name(r["resolution"]["winner"]):
+            ff_conflicts.append((r["id"], r["resolution"].get("winner"), expected))
+        else:
+            ff_backed.append(r["id"])
+    add("forfeit settlements agree with Leaguepedia FF records", not ff_conflicts,
+        f"conflicts (row id, resolution winner, FF winner): {ff_conflicts[:5]}")
+    add("forfeit-settlement FF backing is recorded",
+        len(ff_backed) + len(ff_unbacked) == len(wo),
+        f"{len(ff_backed)}/{len(wo)} backed by an FF row; unbacked rows carry an explicit "
+        f"unverified basis: {ff_unbacked[:5]}")
 
     # --- CSV mirror ---------------------------------------------------------
     csv_path = os.path.join(DATA, "picks.csv")
