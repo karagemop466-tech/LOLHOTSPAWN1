@@ -290,3 +290,23 @@ Existing completed scopes are retained. This session uses the fixed Arena branch
 - Local verification uses the committed 2026-10-23T11:42:37Z Hotspawn snapshot, NOT a new live fetch. Exact inventory reconciliation: 241/241; 17 integrity/link/render gates pass. Five Python regression tests pass, including NaN/out-of-range/wrong-team rejection. jsdom interaction tests pass for menu, search, empty state, method and tournament filters over all 241 cards.
 - Source records: https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/raw/hotspawn_lol.json and the provider URLs on Sources. GitHub Pages configuration confirmed via GitHub API (main /, status built).
 - Irregularity: manual Actions dispatch returns HTTP 403 (integration permission). A new collection cannot be requested from this sandbox; merging pipeline changes triggers the existing push workflow. No credentials requested. Fresh verification/deploy result to be recorded below.
+
+---
+
+## Session `0d48f265` — independent line-by-line source audit (claim, 2026-10-23T15:40Z)
+
+**Branch:** `arena/0d48f265-lolhotspawn1` · **Status:** in progress
+
+Scope is deliberately disjoint from the sessions already claiming build work (`de975e8d`: mobile nav, filters,
+every-match picks, `dqteams` walkover, source probe; `a91e528d`: mobile UX, line expansion, model upgrade, gate;
+`fba409a6`: runner probe trigger). This session does **not** touch `tools/`, `assets/`, root `*.html`, `data/`, or `scripts/`.
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| A1 | Cross-check the committed Hotspawn inventory snapshot against the live Hotspawn fixtures API (sample chunks, ids, names, kick-off times) | in progress | 0d48f265 | `audit/**` |
+| A2 | Re-verify the 9 committed market rows against the live venue pages (Pinnacle / Polymarket / Kalshi / Bovada) | in progress | 0d48f265 | `audit/**` |
+| A3 | Verify the 4 `dqteams` unresolved rows against the Leaguepedia source page they cite | in progress | 0d48f265 | `audit/**` |
+| A4 | Publish `audit/AUDIT.md` + `audit/audit.csv` with a source link on every row and an explicit verdict (verified / mismatch / not verified) | in progress | 0d48f265 | `audit/**`, this section |
+
+Integration note for the final session: `audit/` is not linked from any generated page yet; linking it from
+`flagged.html` is an edit to a file owned by `a91e528d`/`de975e8d`, so it is requested here rather than made.
