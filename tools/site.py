@@ -562,6 +562,12 @@ def build_featured(rows: list[dict]) -> str:
                       "Matches priced from de-vigged real-money bookmaker & prediction-exchange consensus.")
 
 
+def window_date(where: str | None) -> str:
+    """Render the Cargo WHERE clause as a plain date for the page."""
+    m = __import__("re").search(r"(\d{4}-\d{2}-\d{2})", str(where or ""))
+    return m.group(1) if m else "2024-09-01"
+
+
 def build_originated(rows: list[dict], counts: Counter) -> str:
     m_model = (load_json(os.path.join(DATA, "matches.json")) or {}).get("model") or {}
     items = [r for r in rows if r["method"] in ("model", "provisional")]
@@ -584,7 +590,7 @@ def build_originated(rows: list[dict], counts: Counter) -> str:
   <h2>{len(items)} low-tier regional matches originated from recorded series history</h2>
   <p class="lead">No reachable external book quoted these divisions in the feeds collected on the last build,
   so we originate independent probabilities from chronological series history in Leaguepedia since
-  {e((load_json(os.path.join(DATA,'matches.json')) or {}).get('model',{}).get('window_start',''))}.
+  {e(window_date(m_model.get('window_start')))}.
   The rating is best-of-aware, margin-weighted, decayed for inactivity and published with its sample size.</p>
   <p class="small muted">Parameters in this build: K = {e(m_model.get('k_opening'))} for best-of-one,
   K = {e(m_model.get('k_series'))} for multi-game series, margin weight {e(m_model.get('mov_weight'))},
