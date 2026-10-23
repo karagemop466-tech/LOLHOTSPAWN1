@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:42:15Z",
+ "generated_utc": "2026-10-23T15:46:40Z",
  "checks": [
   {
    "name": "dataset present",
@@ -43,8 +43,8 @@
   },
   {
    "name": "no broken internal links",
-   "ok": false,
-   "detail": "30 problems: ['unresolved.html -> data/probe/sources_probe.json', 'competitions.html -> picks.html?comp=4%20Nations%202026%20Halloween%20Heist', 'competitions.html -> picks.html?comp=Arabian%20League%202nd%20Division%202026%20Summer', 'competitions.html -> picks.html?comp=Arabian%20Regional%20Championship%202026%3A%20Lebanon-Libya-Syria-Palestine', 'competitions.html -> picks.html?comp=Arabian%20Regional%20Championship%202026%3A%20Qatar-Bahrain-Kuwait', 'competitions.html -> picks.html?comp=Benelux%20Ascend%20Series%202026%20Summer%20Playoffs']"
+   "ok": true,
+   "detail": "0 problems: []"
   },
   {
    "name": "navigation on every page",
@@ -112,21 +112,21 @@
    "detail": "4 unresolved rows; undocumented=[]"
   },
   {
-   "name": "every row has a fixture source plus a results or market source",
+   "name": "every row has a fixture source; every pick has a results or market source",
    "ok": true,
    "detail": "241/241 rows; problems=[]"
   }
  ],
- "passed": false,
+ "passed": true,
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
  "unverified": 83,
  "counts": {
   "provisional": 79,
-  "model": 148,
+  "model": 149,
   "unresolved": 4,
-  "market": 10
+  "market": 9
  },
  "internal_links": 377,
  "lookahead_violations": 0

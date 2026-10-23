@@ -106,8 +106,9 @@ def main() -> None:
     add("navigation on every page", not no_nav, f"missing: {no_nav[:5]}")
     add("no empty/None values rendered", not none_literal, f"problems: {none_literal[:6]}")
 
+    import html as _html
     picks_html = open(os.path.join(DOCS, "picks.html"), encoding="utf-8").read()
-    on_page = sum(1 for r in rows if f'data-comp="{r["competition"]}"' in picks_html)
+    on_page = sum(1 for r in rows if f'data-comp="{_html.escape(str(r["competition"]), quote=True)}"' in picks_html)
     add("all matches rendered on the picks page", on_page == len(rows),
         f"{on_page}/{len(rows)} match cards found")
 
@@ -187,12 +188,16 @@ def main() -> None:
     add("probabilities stay inside the published clamp", not out_of_bounds,
         f"bounds={(data.get('model') or {}).get('prob_floor')}-{(data.get('model') or {}).get('prob_ceil')}; violations={out_of_bounds[:3]}")
     undocumented = [r["id"] for r in rows if r["method"] == "unresolved" and
-                    (not r.get("basis") or not r.get("flags") or not r.get("leaguepedia_page"))]
+                    (not r.get("basis") or not r.get("flags")
+                     or not (r.get("leaguepedia_page") or r.get("hotspawn_url")))]
     add("every unresolved row documents its reason and league source", not undocumented,
         f"{len([r for r in rows if r['method']=='unresolved'])} unresolved rows; undocumented={undocumented[:3]}")
+    # A picked row must carry a results page (originated) or a market URL (book).
+    # An unresolved row is allowed to stand on its Hotspawn card + documented reason.
     missing_extra = [r["id"] for r in rows
-                     if not r.get("hotspawn_url") or not (r.get("leaguepedia_page") or r.get("market"))]
-    add("every row has a fixture source plus a results or market source", not missing_extra,
+                     if not r.get("hotspawn_url")
+                     or (r.get("pick") and not (r.get("leaguepedia_page") or r.get("market")))]
+    add("every row has a fixture source; every pick has a results or market source", not missing_extra,
         f"{len(rows) - len(missing_extra)}/{len(rows)} rows; problems={missing_extra[:3]}")
 
     counts = Counter(r["method"] for r in rows)

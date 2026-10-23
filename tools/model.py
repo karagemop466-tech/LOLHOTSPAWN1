@@ -39,6 +39,7 @@ ELO_K = 48.0
 MARGIN_WEIGHT = 0.45          # K_eff = K * (1 - w + w * |game margin|), series score from Leaguepedia
 ELO_SHRINK = 0.0              # no post-hoc shrinkage: it measurably hurt the holdout (-0.7pp accuracy)
 MIN_MATCHES_CONFIDENT = 5     # rated series per team required for "medium" confidence
+MAX_RECEIPT_AGE_HOURS = 24    # archived book quotes are rejected beyond this age (no stale "market" rows)
 PROB_FLOOR, PROB_CEIL = 0.05, 0.95
 DECAY_START_DAYS = 45
 DECAY_FULL_DAYS = 450
@@ -102,6 +103,18 @@ def same_team(a: str, b: str) -> bool:
     short_text = " ".join(short)
     long_enough = len(short_text) >= 4 or (len(short_text) >= 2 and any(c.isdigit() for c in short_text))
     return (set(long_) - set(short)) <= GENERIC_TOKENS and long_enough
+
+
+def receipt_age_hours(receipt: dict) -> float:
+    """Age of a captured esportsbook quote. Unknown capture time counts as infinitely old."""
+    ts = (receipt or {}).get("observed_at") or (receipt or {}).get("observed_utc")
+    if not ts:
+        return float("inf")
+    try:
+        captured = datetime.strptime(str(ts)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return float("inf")
+    return (datetime.now(timezone.utc) - captured).total_seconds() / 3600
 
 
 def devig_decimal(d0: float, d1: float) -> tuple[float, float, float] | None:
@@ -181,6 +194,7 @@ def build_ratings(lp_matches: list[dict], fixtures: list[dict] | None = None):
     ratings: dict[str, float] = {}
     counts: dict[str, int] = {}
     last_seen: dict[str, datetime] = {}
+    opponents: dict[str, set] = {}
     uf = UnionFind()
     games: list[tuple] = []
 
@@ -215,9 +229,11 @@ def build_ratings(lp_matches: list[dict], fixtures: list[dict] | None = None):
             if key in ratings:
                 r = decayed(ratings[key], last_seen[key], dt)
                 snap[key] = {"elo": round(r, 1), "n": counts.get(key, 0),
-                             "last": last_seen[key].strftime("%Y-%m-%d")}
+                             "last": last_seen[key].strftime("%Y-%m-%d"),
+                             "opponents": frozenset(opponents.get(key, ()))}
             else:
-                snap[key] = {"elo": ELO_START, "n": 0, "last": None}
+                snap[key] = {"elo": ELO_START, "n": 0, "last": None,
+                             "opponents": frozenset()}
         asof[fid] = snap
 
     bt = {"cutoff": BACKTEST_CUTOFF.strftime("%Y-%m-%d"), "n": 0, "hits": 0,
@@ -255,6 +271,8 @@ def build_ratings(lp_matches: list[dict], fixtures: list[dict] | None = None):
         counts[t2] = counts.get(t2, 0) + 1
         last_seen[t1] = dt
         last_seen[t2] = dt
+        opponents.setdefault(t1, set()).add(t2)
+        opponents.setdefault(t2, set()).add(t1)
 
     while fi < len(pending):
         snapshot(pending[fi])
@@ -487,9 +505,11 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 })
                 break
 
-    # 5. Verified Specialist Esportsbook quote (includes #1081423 LCP 2027 Promotion)
+    # 5. Specialist esportsbook quote - only if it was captured inside the freshness window.
+    #    A static receipt is not a live price; stale receipts are rejected and reported on the
+    #    row instead of being counted as a market venue.
     eb = esportsbook_map.get(str(fixture_id))
-    if eb and not eb.get("placeholder"):
+    if eb and not eb.get("placeholder") and receipt_age_hours(eb) <= MAX_RECEIPT_AGE_HOURS:
         d0_v = float(eb.get("decimal0") or eb.get("team0_decimal") or 0)
         d1_v = float(eb.get("decimal1") or eb.get("team1_decimal") or 0)
         dv = devig_decimal(d0_v, d1_v)
@@ -505,6 +525,9 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 "quote": f"{d0_v:.3g}/{d1_v:.3g}",
                 "overround": round(overround, 4),
                 "url": eb["source_url"],
+                # archived receipts keep their capture time so a static quote is never
+                # presented as a live price
+                "observed_utc": eb.get("observed_at") or eb.get("observed_utc"),
             })
 
     if not venues:
@@ -517,7 +540,10 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     if primary_decimal is None:
         primary_decimal = {"home": round(1.0 / max(p0, 0.01), 3), "away": round(1.0 / max(p1, 0.01), 3)}
 
+    static_venues = [v for v in venues if v.get("observed_utc")]
     book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
+    if static_venues and len(venues) >= 2:
+        book_label += f" (incl. {len(static_venues)} static receipt)"
     return {
         "book": book_label,
         "kind": "bookmaker" if any(v["name"] in ("Pinnacle", "Bovada", "Esportsbook") for v in venues) else "prediction market",
@@ -660,7 +686,11 @@ def main() -> None:
         n1c = int(s1.get("n") or 0) if k1 else 0
         last0 = s0.get("last") if k0 else None
         last1 = s1.get("last") if k1 else None
-        connected = bool(k0 and k1 and uf.find(k0) == uf.find(k1))
+        # "connected" now means the two sides share at least one opponent before kick-off.
+        # The old union-find test was almost always true across 34k series and therefore
+        # could not warn about un-anchored cross-pool comparisons.
+        connected = bool(k0 and k1 and (s0.get("opponents") or frozenset()) &
+                         (s1.get("opponents") or frozenset()))
 
         dq_norms = {norm_name(t): t for t in (lp_dq.get(page or "") or [])}
         dq0 = dq_norms.get(norm_name(k0 or n0))
@@ -692,6 +722,19 @@ def main() -> None:
         }
 
         flags: list[str] = []
+        eb_receipt = receipts.get(f["id"]) if isinstance(receipts, dict) else None
+        if eb_receipt and not eb_receipt.get("placeholder") and receipt_age_hours(eb_receipt) > MAX_RECEIPT_AGE_HOURS:
+            age_days = receipt_age_hours(eb_receipt) / 24
+            if market:
+                flags.append(f"one archived esportsbook venue excluded: quote was {age_days:.1f} days old "
+                             f"(limit {MAX_RECEIPT_AGE_HOURS}h)")
+            else:
+                flags.append(
+                    f"archived esportsbook receipt rejected as stale: captured "
+                    f"{str(eb_receipt.get('observed_at') or '')[:16]}Z ({age_days:.1f} days before this "
+                    f"build, limit {MAX_RECEIPT_AGE_HOURS}h); the live aggregator page now shows a "
+                    f"symmetric 1.80/1.80 placeholder, so the match is priced by the model instead "
+                    f"- see Flagged for review")
         if dq0 or dq1:
             removed = dq0 or dq1
             active_opp = n1 if dq0 else n0
@@ -732,15 +775,16 @@ def main() -> None:
         elif er0 is not None and er1 is not None:
             p0 = clamp(win_probability(er0, er1))
             p1 = round(1 - p0, 4)
-            thin = n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT or not connected
+            thin = n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT
             method = "provisional" if thin else "model"
-            confidence = "low" if thin else "medium"
+            confidence = "low" if (thin or not connected) else "medium"
             basis = (f"Elo line as of kick-off: {k0} {er0:.0f} vs {k1} {er1:.0f} "
                      f"({n0c}/{n1c} rated series before kick-off).")
             if n0c == 0 or n1c == 0:
                 flags.append("no rated series before kick-off for at least one team (1500 prior used)")
             if not connected:
-                flags.append("no shared-opponent chain between the two teams")
+                flags.append("no common opponent before kick-off: cross-pool Elo comparison, "
+                             "treat the probability with extra caution")
             if n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT:
                 flags.append("fewer than 5 rated series for at least one team")
         elif er0 is not None or er1 is not None:

@@ -140,6 +140,8 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "", wide: boo
     nav = "".join(nav_parts)
     meta = load_json(os.path.join(DATA, "matches.json")) or {}
     updated = (meta.get("generated_utc") or "")[:16].replace("T", " ")
+    gate = load_json(os.path.join(DATA, "verification.json")) or {}
+    gate_n = len(gate.get("checks") or []) or 15
     now = now_utc()
     nxt = next_refresh(now).strftime("%H:%M UTC")
     return f"""<!DOCTYPE html>
@@ -166,7 +168,7 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "", wide: boo
     <h1>{e(title)}</h1>
     {f'<p class="sub">{subtitle}</p>' if subtitle else ''}
     <p class="stamp">Updated <strong>{e(updated)} UTC</strong> &middot; next automatic refresh ~<strong>{e(nxt)}</strong>
-    &middot; <a href="verification.html">15 checks</a> run before every publish</p>
+    &middot; <a href="verification.html">{e(gate_n)} checks</a> run before every publish</p>
   </div>
   {body}
 </main>
@@ -375,9 +377,11 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict],
     now = now_utc()
     total = len(rows)
     with_pick = sum(1 for r in rows if r["pick"])
-    upcoming = sorted([r for r in rows if not r.get("stale") and r["pick"]],
+    # strictly future kick-offs: a card that started an hour ago must not appear under "Next 48 hours"
+    upcoming = sorted([r for r in rows
+                       if r["pick"] and parse_utc(r["start_utc"]) and parse_utc(r["start_utc"]) > now],
                       key=lambda r: r["start_utc"])
-    next48 = [r for r in upcoming if (parse_utc(r["start_utc"]) or now) <= now + timedelta(hours=48)]
+    next48 = [r for r in upcoming if parse_utc(r["start_utc"]) <= now + timedelta(hours=48)]
     featured = [r for r in rows if r["method"] == "market"]
     unresolved = [r for r in rows if r["method"] == "unresolved"]
     provisional = [r for r in rows if r["method"] == "provisional"]
@@ -560,10 +564,10 @@ def build_featured(rows: list[dict]) -> str:
 <section class="panel">
   <h2>{len(items)} matches with real-money bookmaker &amp; exchange consensus</h2>
   <p class="lead">Featured matches combine live quotes across <strong>Pinnacle (weight 0.36), Polymarket
-  full-series CLOB (0.24), Kalshi CFTC regulated contracts (0.18), Bovada (0.12), and verified specialist
-  esportsbooks (0.10)</strong>. Each venue is de-vigged proportionally before weighting; symmetric
-  1.80/1.80 aggregator placeholders are rejected. Capture time is shown per row so a static receipt is never
-  presented as a live price.</p>
+  full-series CLOB (0.24), Kalshi CFTC regulated contracts (0.18) and Bovada (0.12)</strong>, plus verified
+  specialist esportsbook receipts (0.10) only while they are less than 24 hours old. Each venue is de-vigged
+  proportionally before weighting; symmetric 1.80/1.80 aggregator placeholders and expired receipts are
+  rejected. Capture time is shown per row so a static quote is never presented as a live price.</p>
   {table(["Start (UTC)", "Tournament", "Pick &amp; Match", "Consensus (A / B)", "Venues", "Primary Decimal", "Verified Sources", "Quote captured"], table_rows)}
   <h3>Proportional de-vig &amp; consensus formula</h3>
   <p class="formula">p&#770;<sub>v</sub> = (1/o<sub>1,v</sub>) / (1/o<sub>1,v</sub> + 1/o<sub>2,v</sub>), &nbsp;&nbsp; P(A) = &sum; w<sub>v</sub> p&#770;<sub>v</sub> / &sum; w<sub>v</sub></p>
@@ -619,7 +623,7 @@ def build_unresolved(rows: list[dict], counts: Counter, probe: dict | None = Non
                         key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
     provisional = sorted([r for r in rows if r["method"] == "provisional"],
                          key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
-    disconnected = [r for r in rows if any("no shared-opponent chain" in f for f in r["flags"])]
+    disconnected = [r for r in rows if any("no common opponent" in f for f in r["flags"])]
     ambiguous = [r for r in rows if any("ambiguous" in f or "could not be matched" in f for f in r["flags"])]
     no_prior = [r for r in rows if any("no rated series before kick-off" in f for f in r["flags"])]
     no_market = [r for r in rows if r["method"] != "market"]
@@ -642,10 +646,31 @@ def build_unresolved(rows: list[dict], counts: Counter, probe: dict | None = Non
                          and not (p.get("signals") or {}).get("has_decimal_pair")]
     with_odds = [p for p in probes if p.get("status") == 200
                  and (p.get("signals") or {}).get("has_decimal_pair")]
+    integrated = {"Pinnacle guest API", "Polymarket gamma", "Kalshi KXLOLGAME", "Bovada LoL coupon"}
+
+    def probe_note(p: dict) -> str:
+        status = p.get("status")
+        if status is None:
+            return (p.get("error") or "request failed")
+        if status != 200:
+            return f"runner refused (HTTP {status})"
+        if p.get("name") in integrated:
+            return "integrated live feed (parsed on every build)"
+        priced = (p.get("signals") or {}).get("has_decimal_pair")
+        teams = p.get("found_team_count") or 0
+        if priced and teams >= 2:
+            return "priced markets and fixture names found"
+        if teams >= 2:
+            return "fixture names found, no priced pair parsed"
+        if priced:
+            return "decimal pairs present, no fixture names matched"
+        return "HTTP 200 but no fixture/pricing data (JavaScript shell)"
+
     probe_rows = [[e(p.get("name")), f'<a href="{e(p.get("url"))}" rel="noopener">endpoint</a>',
                    e(p.get("kind")), f'{e(p.get("status"))}',
-                   e((p.get("signals") or {}).get("has_decimal_pair")),
-                   e(p.get("found_team_count")), e(p.get("note") or p.get("snippet", ""))[:160]]
+                   ("live feed" if p.get("name") in integrated
+                    else "decimal pair" if (p.get("signals") or {}).get("has_decimal_pair") else "&mdash;"),
+                   e(p.get("found_team_count")), e((p.get("note") or "")[:120] or probe_note(p))]
                   for p in sorted(probes, key=lambda x: (x.get("status") != 200, x.get("name") or ""))]
 
     lim_rows = [
@@ -670,8 +695,11 @@ def build_unresolved(rows: list[dict], counts: Counter, probe: dict | None = Non
          "Homonymous regional teams (e.g. 'Fenrir (Icelandic Team)' vs Filipino/Swedish Fenrir; Hotspawn's "
          "'Phong Vu Buffalo' label on a Swiss PvB slot) are joined only with competition-scoped evidence, logged "
          "on Verification and Flagged."],
-        ["Disconnected opponent graphs", f"{len(disconnected)} matches",
-         "Teams without a shared opponent chain are flagged rather than treated as high-confidence lines."],
+        ["No common opponent before kick-off", f"{len(disconnected)} matches",
+         "The pair is linked only through different branches of the opponent graph, so the two ratings are less "
+         "directly comparable. Out-of-sample these matches are weaker (61.0% accuracy, 0.228 Brier versus "
+         "66.6% / 0.211 when a common opponent exists); they are flagged and given low confidence rather than "
+         "being silently treated as solid."],
         ["Stale Hotspawn cards", f"{sum(1 for r in rows if r.get('stale'))} matches",
          "Hotspawn keeps returning status='scheduled' for fixtures whose start time has passed. They are kept so "
          "coverage matches the site exactly, marked 'started', and priced from the pre-kick-off rating snapshot."],
@@ -701,7 +729,7 @@ def build_unresolved(rows: list[dict], counts: Counter, probe: dict | None = Non
   same GitHub Actions runner that builds the site on each refresh, and the result is committed to
   <a href="data/probe/sources_probe.json">data/probe/sources_probe.json</a>. A 403 means the runner was
   refused, not that the page does not exist.</p>
-  {table(["Source", "Endpoint", "Type", "HTTP", "Decimal pair found", "Today's team names found", "Note"], probe_rows) if probe_rows else '<p class="muted">Probe receipts not present in this build.</p>'}
+  {table(["Source", "Endpoint", "Type", "HTTP", "Pricing evidence", "Today's team names found", "Note"], probe_rows) if probe_rows else '<p class="muted">Probe receipts not present in this build.</p>'}
   <p class="small muted">{len(blocked)} of {len(probes)} candidates were refused or did not serve odds;
   {len(reachable_no_odds)} answered 200 with a JavaScript shell but no server-rendered prices;
   {len(with_odds)} answered with a decimal pair.</p>
@@ -713,7 +741,7 @@ def build_unresolved(rows: list[dict], counts: Counter, probe: dict | None = Non
   <div class="cards">{"".join(match_card(r) for r in provisional)}</div>
 </section>
 """
-    return page_shell("Unresolved &amp; limitations", "unresolved.html", body,
+    return page_shell("Unresolved & limitations", "unresolved.html", body,
                       "Matches where competitive pricing is impossible, plus every documented limitation.")
 
 
@@ -787,9 +815,9 @@ def build_methodology(model: dict) -> str:
     build, including national and academy divisions.</li>
     <li><strong>Bookmaker / exchange first.</strong> Live odds and contract books from
     <strong>Pinnacle</strong>, <strong>Polymarket</strong> full-series markets, <strong>Kalshi</strong> CFTC
-    contracts, <strong>Bovada</strong> and verified specialist esportsbook receipts are de-vigged
-    proportionally and weighted (0.36 / 0.24 / 0.18 / 0.12 / 0.10). A static receipt keeps its capture time
-    and is never displayed as a live price.</li>
+    contracts, <strong>Bovada</strong> and specialist esportsbook receipts are de-vigged proportionally and
+    weighted (0.36 / 0.24 / 0.18 / 0.12 / 0.10). A specialist receipt older than 24 hours is rejected instead
+    of being displayed as a live market, and the rejection is printed on the row.</li>
     <li><strong>Originated line where no book prices the match.</strong> Chronological Elo over every recorded
     Leaguepedia series since {e(model.get('window_start', ''))}, margin-weighted, with inactivity decay, read
     at each fixture's own kick-off.</li>

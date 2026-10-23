@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-23T11:43:59Z",
+ "generated_utc": "2026-10-23T15:46:15Z",
  "total": 241,
  "counts": {
-  "provisional": 65,
-  "model": 162,
+  "provisional": 79,
+  "model": 149,
   "unresolved": 4,
-  "market": 10
+  "market": 9
  },
  "per_competition": {
   "Benelux Ascend Series 2026 Summer Split": {
@@ -22,7 +22,8 @@
    "model": 1
   },
   "LigaGG CELOL B 2026 Split 2": {
-   "model": 2
+   "model": 1,
+   "provisional": 1
   },
   "Komplettligaen 2026 Autumn": {
    "model": 3,
@@ -32,7 +33,7 @@
    "provisional": 1
   },
   "LigaGG CELOL A 2026 Split 2": {
-   "model": 1
+   "provisional": 1
   },
   "POP Esports Masters Season 7": {
    "provisional": 1
@@ -45,34 +46,34 @@
    "model": 1
   },
   "RIVALS LEAGUE Season 2": {
-   "model": 19,
-   "provisional": 9
+   "provisional": 11,
+   "model": 17
   },
   "Hitpoint 2nd Div Challengers 2026 Summer Playoffs": {
    "model": 1
   },
   "Icelandic Esports League 2026 Autumn": {
-   "model": 12
+   "provisional": 7,
+   "model": 5
   },
   "Benelux Ascend Series 2027 Winter Promotion": {
    "model": 5
   },
   "Arabian League 2nd Division 2026 Summer": {
-   "provisional": 3,
-   "model": 8
+   "provisional": 4,
+   "model": 7
   },
   "Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait": {
    "provisional": 2
   },
   "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine": {
-   "provisional": 6,
-   "model": 1
+   "provisional": 7
   },
   "LigaGG CELOL B 2026 Split 2 Playoffs": {
    "model": 5
   },
   "4 Nations 2026 Halloween Heist": {
-   "model": 1
+   "provisional": 1
   },
   "PRM 2nd Division 26-27 Fall": {
    "model": 36,
@@ -96,9 +97,8 @@
    "market": 1
   },
   "LCP 2027 Promotion": {
-   "model": 1,
-   "provisional": 1,
-   "market": 1
+   "model": 2,
+   "provisional": 1
   }
  },
  "non_exact_joins": [
@@ -430,9 +430,10 @@
     "Mind Blue eSports",
     "LAST DANCE"
    ],
-   "p0": 0.6086,
+   "p0": 0.7205,
    "flags": [
     "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ]
   },
@@ -443,9 +444,37 @@
     "Frost Tails",
     "LAST DANCE"
    ],
-   "p0": 0.6325,
+   "p0": 0.738,
    "flags": [
     "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1069857",
+   "competition": "LigaGG CELOL B 2026 Split 2",
+   "teams": [
+    "Marere Academy",
+    "Torin"
+   ],
+   "p0": 0.5461,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1073030",
+   "competition": "LigaGG CELOL A 2026 Split 2",
+   "teams": [
+    "Invictus Team",
+    "Smoke Tram Ascension"
+   ],
+   "p0": 0.5391,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ]
   },
@@ -456,7 +485,115 @@
     "LANdits",
     "Frites Esports Club"
    ],
-   "p0": 0.2461,
+   "p0": 0.1284,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1074627",
+   "competition": "RIVALS LEAGUE Season 2",
+   "teams": [
+    "Northern Wolves Esports",
+    "Lundqvist Darkside"
+   ],
+   "p0": 0.4181,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
+    "no rated series before kick-off for at least one team (1500 prior used)",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1077722",
+   "competition": "Icelandic Esports League 2026 Autumn",
+   "teams": [
+    "Chuds",
+    "Smá Nibu"
+   ],
+   "p0": 0.4564,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1077724",
+   "competition": "Icelandic Esports League 2026 Autumn",
+   "teams": [
+    "Rift Runners",
+    "Whisky"
+   ],
+   "p0": 0.1053,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1077727",
+   "competition": "Icelandic Esports League 2026 Autumn",
+   "teams": [
+    "Rift Runners",
+    "Grísirnir"
+   ],
+   "p0": 0.6367,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1077728",
+   "competition": "Icelandic Esports League 2026 Autumn",
+   "teams": [
+    "Whisky",
+    "Smá Nibu"
+   ],
+   "p0": 0.7703,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1077729",
+   "competition": "Icelandic Esports League 2026 Autumn",
+   "teams": [
+    "Chuds",
+    "Cool Beans Team"
+   ],
+   "p0": 0.4833,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1077730",
+   "competition": "Icelandic Esports League 2026 Autumn",
+   "teams": [
+    "Rift Runners",
+    "Fenrir"
+   ],
+   "p0": 0.1272,
+   "flags": [
+    "ambiguous in Leaguepedia (Fenrir (Filipino Team), Fenrir (Icelandic Team), Fenrir (Swedish Team)); resolved by the 'Icelandic Esports League/2026 Season/Autumn Split' page listing",
+    "fewer than 5 rated series for at least one team",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1077731",
+   "competition": "Icelandic Esports League 2026 Autumn",
+   "teams": [
+    "Smá Nibu",
+    "Grísirnir"
+   ],
+   "p0": 0.836,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
@@ -469,7 +606,7 @@
     "Karolinerna",
     "Crazy Kittens E-Sport Academy"
    ],
-   "p0": 0.4994,
+   "p0": 0.5073,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
@@ -482,7 +619,20 @@
     "NextGeneration Esports",
     "Slam Dunk"
    ],
-   "p0": 0.4553,
+   "p0": 0.4343,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1074642",
+   "competition": "RIVALS LEAGUE Season 2",
+   "teams": [
+    "Northern Wolves Esports",
+    "B2U"
+   ],
+   "p0": 0.1445,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
@@ -495,7 +645,7 @@
     "Lund Esports Organization OGs",
     "Turbo Gaming"
    ],
-   "p0": 0.4988,
+   "p0": 0.3945,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
@@ -508,10 +658,11 @@
     "Arena",
     "TeamBah"
    ],
-   "p0": 0.516,
+   "p0": 0.4328,
    "flags": [
     "Leaguepedia lists this team as 'Arena (Kuwaiti Team)'",
     "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ]
   },
@@ -522,9 +673,23 @@
     "Inquisitors",
     "OverPower"
    ],
-   "p0": 0.4824,
+   "p0": 0.5003,
    "flags": [
     "ambiguous in Leaguepedia (OverPower (Bulgarian Team), Overpower (Kuwaiti Team)); resolved by the 'Arabian Regional Championship 2026/Qualifiers/QA-BH-KW' page listing",
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1079132",
+   "competition": "Arabian League 2nd Division 2026 Summer",
+   "teams": [
+    "Void Walkers",
+    "Pegasus Esports"
+   ],
+   "p0": 0.6262,
+   "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ]
@@ -536,7 +701,7 @@
     "Fritt Fall",
     "Tung Sahur Mid"
    ],
-   "p0": 0.4821,
+   "p0": 0.3776,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
@@ -549,9 +714,10 @@
     "Syrian Rift Masters",
     "B7"
    ],
-   "p0": 0.4745,
+   "p0": 0.4931,
    "flags": [
     "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ]
   },
@@ -562,9 +728,11 @@
     "DELETED",
     "S7raa"
    ],
-   "p0": 0.4969,
+   "p0": 0.4976,
    "flags": [
     "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
+    "no rated series before kick-off for at least one team (1500 prior used)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ]
   },
@@ -575,9 +743,24 @@
     "Levelers",
     "Team Fifty Fifty"
    ],
-   "p0": 0.5311,
+   "p0": 0.5,
    "flags": [
     "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1082004",
+   "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+   "teams": [
+    "MTN ESPORTS TEAM",
+    "RATCLUB"
+   ],
+   "p0": 0.5937,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ]
   },
@@ -588,9 +771,10 @@
     "SYR T1",
     "Ravagers"
    ],
-   "p0": 0.5148,
+   "p0": 0.4994,
    "flags": [
     "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ]
   },
@@ -601,7 +785,21 @@
     "X-Funkass",
     "التريس"
    ],
-   "p0": 0.4935,
+   "p0": 0.5,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ]
+  },
+  {
+   "id": "1082061",
+   "competition": "4 Nations 2026 Halloween Heist",
+   "teams": [
+    "Glorp Cat",
+    "Impel"
+   ],
+   "p0": 0.4766,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
@@ -614,9 +812,10 @@
     "Levelers",
     "MTN ESPORTS TEAM"
    ],
-   "p0": 0.4673,
+   "p0": 0.4812,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution"
    ]
   },
   {
@@ -626,9 +825,10 @@
     "Jendouba Esports",
     "Enfida Esports"
    ],
-   "p0": 0.533,
+   "p0": 0.6176,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution"
    ]
   },
   {
@@ -638,7 +838,7 @@
     "JSK Esports",
     "El Menzah Esports"
    ],
-   "p0": 0.6753,
+   "p0": 0.819,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -650,7 +850,7 @@
     "Olympique Mnihla",
     "Supreme Leaders"
    ],
-   "p0": 0.5718,
+   "p0": 0.6237,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -662,7 +862,7 @@
     "Zahrouni Esports",
     "Olympique Mnihla Academy"
    ],
-   "p0": 0.4748,
+   "p0": 0.3932,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -674,7 +874,7 @@
     "2 Massive",
     "Lund Esports Organization OGs"
    ],
-   "p0": 0.5144,
+   "p0": 0.5027,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -686,7 +886,7 @@
     "Team cd",
     "Tung Sahur Mid"
    ],
-   "p0": 0.5089,
+   "p0": 0.4401,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -698,7 +898,7 @@
     "Void Walkers",
     "Slam Dunk"
    ],
-   "p0": 0.5188,
+   "p0": 0.5444,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -710,9 +910,10 @@
     "AceGaming Hearts",
     "Emperors Bremen"
    ],
-   "p0": 0.4549,
+   "p0": 0.3411,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution"
    ]
   },
   {
@@ -722,7 +923,7 @@
     "Defiance eSports",
     "REH Gaming"
    ],
-   "p0": 0.5421,
+   "p0": 0.5926,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -734,9 +935,10 @@
     "Whalepower Humpbacks",
     "Socken und Sandalen"
    ],
-   "p0": 0.4784,
+   "p0": 0.5065,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution"
    ]
   },
   {
@@ -746,7 +948,7 @@
     "Olympique Mnihla",
     "Jendouba Esports"
    ],
-   "p0": 0.5864,
+   "p0": 0.6831,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -758,7 +960,7 @@
     "Olympique Mnihla Academy",
     "El Menzah Esports"
    ],
-   "p0": 0.5135,
+   "p0": 0.5607,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -770,7 +972,7 @@
     "Simplicity Gaming",
     "Supreme Leaders"
    ],
-   "p0": 0.7294,
+   "p0": 0.8356,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -782,7 +984,7 @@
     "Zahrouni Esports",
     "JSK Academy"
    ],
-   "p0": 0.4597,
+   "p0": 0.3799,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -794,7 +996,7 @@
     "2 Massive",
     "Tung Sahur Mid"
    ],
-   "p0": 0.5164,
+   "p0": 0.5362,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -806,7 +1008,7 @@
     "BlackDivision",
     "Kanji Esports KIN"
    ],
-   "p0": 0.4736,
+   "p0": 0.4947,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -818,7 +1020,7 @@
     "Karolinerna",
     "Lund Esports Organization OGs"
    ],
-   "p0": 0.4593,
+   "p0": 0.3357,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -830,7 +1032,7 @@
     "Lund Esports Organization OGs",
     "Tung Sahur Mid"
    ],
-   "p0": 0.502,
+   "p0": 0.5335,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -842,7 +1044,7 @@
     "Slam Dunk",
     "New Era Team"
    ],
-   "p0": 0.5232,
+   "p0": 0.59,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -854,7 +1056,7 @@
     "JSK Academy",
     "Supreme Leaders"
    ],
-   "p0": 0.5168,
+   "p0": 0.5316,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -866,7 +1068,7 @@
     "Olympique Mnihla Academy",
     "Enfida Esports"
    ],
-   "p0": 0.5496,
+   "p0": 0.6927,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -878,7 +1080,7 @@
     "Simplicity Gaming",
     "Jendouba Esports"
    ],
-   "p0": 0.7411,
+   "p0": 0.8686,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -890,7 +1092,7 @@
     "Zahrouni Esports",
     "El Menzah Esports"
    ],
-   "p0": 0.4883,
+   "p0": 0.4527,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -902,7 +1104,7 @@
     "Black Lion",
     "BlackDivision"
    ],
-   "p0": 0.4867,
+   "p0": 0.2958,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -914,7 +1116,7 @@
     "Emperors Bremen",
     "Neko Elite Kittens"
    ],
-   "p0": 0.4896,
+   "p0": 0.4427,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -926,7 +1128,7 @@
     "REH Gaming",
     "Kanji Esports AKA"
    ],
-   "p0": 0.4729,
+   "p0": 0.402,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -938,7 +1140,7 @@
     "Team 300 White",
     "Socken und Sandalen"
    ],
-   "p0": 0.4858,
+   "p0": 0.5045,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -950,7 +1152,7 @@
     "El Menzah Esports",
     "Enfida Esports"
    ],
-   "p0": 0.5362,
+   "p0": 0.6385,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -962,7 +1164,7 @@
     "JSK Academy",
     "Jendouba Esports"
    ],
-   "p0": 0.5319,
+   "p0": 0.5961,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -974,7 +1176,7 @@
     "Olympique Mnihla Academy",
     "Olympique Mnihla"
    ],
-   "p0": 0.4299,
+   "p0": 0.393,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -986,7 +1188,7 @@
     "Zahrouni Esports",
     "Supreme Leaders"
    ],
-   "p0": 0.4765,
+   "p0": 0.4102,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -998,7 +1200,7 @@
     "Karolinerna",
     "Lund Esports Organization OGs"
    ],
-   "p0": 0.4593,
+   "p0": 0.3357,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1010,7 +1212,7 @@
     "BvP",
     "No Need Orga"
    ],
-   "p0": 0.399,
+   "p0": 0.1825,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1022,7 +1224,7 @@
     "2 Massive",
     "Lund Esports Organization OGs"
    ],
-   "p0": 0.5144,
+   "p0": 0.5027,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1034,7 +1236,7 @@
     "BvP",
     "Babos Gaming"
    ],
-   "p0": 0.3221,
+   "p0": 0.111,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1046,7 +1248,7 @@
     "El Menzah Esports",
     "Olympique Mnihla"
    ],
-   "p0": 0.4167,
+   "p0": 0.3366,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1058,9 +1260,10 @@
     "Olympique Mnihla Academy",
     "Simplicity Gaming"
    ],
-   "p0": 0.272,
+   "p0": 0.1743,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution"
    ]
   },
   {
@@ -1070,7 +1273,7 @@
     "Supreme Leaders",
     "Jendouba Esports"
    ],
-   "p0": 0.515,
+   "p0": 0.5652,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1082,7 +1285,7 @@
     "Zahrouni Esports",
     "Enfida Esports"
    ],
-   "p0": 0.5246,
+   "p0": 0.5936,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1094,7 +1297,7 @@
     "AceGaming",
     "BvP"
    ],
-   "p0": 0.4789,
+   "p0": 0.5322,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1106,7 +1309,7 @@
     "AIX eSports",
     "BlackDivision"
    ],
-   "p0": 0.4385,
+   "p0": 0.3336,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1118,7 +1321,7 @@
     "REH Gaming",
     "Atruvia Münster Esports"
    ],
-   "p0": 0.5185,
+   "p0": 0.5196,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1130,7 +1333,7 @@
     "Socken und Sandalen",
     "Eintracht Spandau Zwei"
    ],
-   "p0": 0.5635,
+   "p0": 0.6295,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1142,7 +1345,7 @@
     "spongecord prime",
     "Emperors Bremen"
    ],
-   "p0": 0.5366,
+   "p0": 0.5737,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1154,9 +1357,10 @@
     "Saigon Warriors",
     "Team Gromp"
    ],
-   "p0": 0.6135,
+   "p0": 0.7281,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution"
    ]
   },
   {
@@ -1166,7 +1370,7 @@
     "Berlin 5",
     "Emperors Bremen"
    ],
-   "p0": 0.4745,
+   "p0": 0.3863,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1178,7 +1382,7 @@
     "BlackDivision",
     "MT1 Vision"
    ],
-   "p0": 0.5821,
+   "p0": 0.7465,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1190,9 +1394,10 @@
     "REH Gaming",
     "Cloud eSport"
    ],
-   "p0": 0.4653,
+   "p0": 0.5165,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "no common opponent before kick-off: cross-pool Elo comparison, treat the probability with extra caution"
    ]
   },
   {
@@ -1202,7 +1407,7 @@
     "TeamOrangeGaming Academy",
     "Socken und Sandalen"
    ],
-   "p0": 0.441,
+   "p0": 0.4539,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1214,7 +1419,7 @@
     "BvP",
     "reGOLD eSport"
    ],
-   "p0": 0.4852,
+   "p0": 0.3709,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1228,7 +1433,7 @@
     "Gen.G",
     "Invictus Gaming"
    ],
-   "p0": 0.7645,
+   "p0": 0.7621,
    "decimal": {
     "home": 1.282,
     "away": 3.74
@@ -1242,7 +1447,7 @@
     "Hanwha Life Esports",
     "Top Esports"
    ],
-   "p0": 0.7658,
+   "p0": 0.7651,
    "decimal": {
     "home": 1.26,
     "away": 3.93
@@ -1256,7 +1461,7 @@
     "Bilibili Gaming",
     "Movistar KOI"
    ],
-   "p0": 0.7992,
+   "p0": 0.7984,
    "decimal": {
     "home": 1.218,
     "away": 4.37
@@ -1270,7 +1475,7 @@
     "Anyone's Legend",
     "Karmine Corp"
    ],
-   "p0": 0.6464,
+   "p0": 0.6453,
    "decimal": {
     "home": 1.518,
     "away": 2.61
@@ -1284,7 +1489,7 @@
     "G2 Esports",
     "Dplus KIA"
    ],
-   "p0": 0.4108,
+   "p0": 0.4093,
    "decimal": {
     "home": 2.26,
     "away": 1.676
@@ -1298,7 +1503,7 @@
     "Team Liquid",
     "CTBC Flying Oyster"
    ],
-   "p0": 0.7128,
+   "p0": 0.7134,
    "decimal": {
     "home": 1.345,
     "away": 3.31
@@ -1312,7 +1517,7 @@
     "LØS",
     "T1"
    ],
-   "p0": 0.1407,
+   "p0": 0.1403,
    "decimal": {
     "home": 5.67,
     "away": 1.143
@@ -1326,7 +1531,7 @@
     "Team Secret Whales",
     "LYON"
    ],
-   "p0": 0.418,
+   "p0": 0.4234,
    "decimal": {
     "home": 2.23,
     "away": 1.69
@@ -1346,20 +1551,6 @@
     "away": 1.471
    },
    "start": "2026-10-27T17:00:00Z"
-  },
-  {
-   "id": "1081423",
-   "competition": "LCP 2027 Promotion",
-   "teams": [
-    "Ground Zero Gaming",
-    "Frank Esports"
-   ],
-   "p0": 0.9111,
-   "decimal": {
-    "home": 1.025,
-    "away": 10.5
-   },
-   "start": "2026-11-11T09:00:00Z"
   }
  ]
 }

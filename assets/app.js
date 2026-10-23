@@ -54,9 +54,9 @@
     document.addEventListener("click", function (ev) {
       if (!nav.classList.contains("open")) return;
       if (nav.contains(ev.target)) return;
-      for (var j = 0; j < toggles.length; j++) {
-        if (toggles[j] === ev.target) return;
-      }
+      // the toggle buttons contain a span + label, so test the closest button,
+      // not the exact event target
+      if (ev.target && ev.target.closest && ev.target.closest(".menu-btn, .tabmenu")) return;
       setOpen(false);
     });
   }

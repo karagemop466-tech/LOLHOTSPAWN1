@@ -21,8 +21,8 @@
   <div class="pagehead">
     <h1>Method</h1>
     <p class="sub">How every probability on this site is computed, backtested, and audited.</p>
-    <p class="stamp">Updated <strong>2026-10-23 15:40 UTC</strong> &middot; next automatic refresh ~<strong>18:17 UTC</strong>
-    &middot; <a href="verification.html">15 checks</a> run before every publish</p>
+    <p class="stamp">Updated <strong>2026-10-23 15:44 UTC</strong> &middot; next automatic refresh ~<strong>18:17 UTC</strong>
+    &middot; <a href="verification.html">23 checks</a> run before every publish</p>
   </div>
   
 <section class="panel">
@@ -33,9 +33,9 @@
     build, including national and academy divisions.</li>
     <li><strong>Bookmaker / exchange first.</strong> Live odds and contract books from
     <strong>Pinnacle</strong>, <strong>Polymarket</strong> full-series markets, <strong>Kalshi</strong> CFTC
-    contracts, <strong>Bovada</strong> and verified specialist esportsbook receipts are de-vigged
-    proportionally and weighted (0.36 / 0.24 / 0.18 / 0.12 / 0.10). A static receipt keeps its capture time
-    and is never displayed as a live price.</li>
+    contracts, <strong>Bovada</strong> and specialist esportsbook receipts are de-vigged proportionally and
+    weighted (0.36 / 0.24 / 0.18 / 0.12 / 0.10). A specialist receipt older than 24 hours is rejected instead
+    of being displayed as a live market, and the rejection is printed on the row.</li>
     <li><strong>Originated line where no book prices the match.</strong> Chronological Elo over every recorded
     Leaguepedia series since MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27;, margin-weighted, with inactivity decay, read
     at each fixture's own kick-off.</li>

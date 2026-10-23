@@ -57,15 +57,15 @@ jobs:
             python3 tools/flags.py     2>&1
             python3 tools/site.py      2>&1
             python3 tools/verify.py    2>&1
-            python3 tools/site.py      2>&1
-            python3 tools/verify.py    2>&1
-          } | tee data/build.log
-          echo "pipeline exit: ${PIPESTATUS[0]}"
+          } 2>&1 | tee data/build.log
+          PIPE=${PIPESTATUS[0]}
+          echo "pipeline exit: $PIPE"
+          test "$PIPE" -eq 0
 
       - name: Stop on failed gate
         run: |
-          tail -3 data/build.log
-          test "$(grep -c '^PASS' data/build.log)" -ge 14
+          tail -5 data/build.log
+          python3 -c "import json,sys; v=json.load(open('data/verification.json')); bad=[c['name'] for c in v['checks'] if not c['ok']]; print(f'gate {len(v["checks"])-len(bad)}/{len(v["checks"])} checks pass'); print('FAILED:', bad) if bad else None; sys.exit(1 if bad else 0)"
 
       - name: Commit data and site
         run: |
