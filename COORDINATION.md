@@ -642,3 +642,17 @@ matched to the raw `dqteams` receipt, CSV mirror exact), `python3 -m unittest di
 - Leaguepedia is community-maintained. It is the source for both the Elo history and the `dqteams`
   removal record, so a wiki error would propagate to the model and the quarantine alike. The removal claim
   is corroborated by forfeit-scored (`0-2`, `ff`) series in the same official-schedule record.
+
+---
+
+# Session `2dbdbafb` — final 5-venue consensus upgrade, homonym/pre-match model fixes, master table + mobile integration pass (2026-10-23)
+
+Branch: `arena/2dbdbafb-lolhotspawn1` (fixed Arena session branch; rebased onto `origin/main` after PRs #18–#32 completed so zero work from prior sessions is overwritten; conflict in `COORDINATION.md` with PR #31/`fba409a6` resolved by preserving both sections verbatim).
+
+## Claim (filed before code edits)
+
+| # | Task | Status | Owner | File scope | Notes |
+|---|---|---|---|---|---|
+| I1 | Add live 5th venue (`Unibet / Kambi CDN` `ubse` LoL JSON feed, HTTP 200 across all 8/8 Worlds series), fix 8th Bovada Worlds alias (`Team Secret` -> `Team Secret Whales`) + `/sports` URL, switch Pinnacle links to live HTTP 200 public Arcadia straight JSON receipts, stamp per-quote `observed_utc`, and scan all mapped active Leaguepedia pages for `dqteams` | in progress | 2dbdbafb | `tools/collect.py`, `tools/model.py`, `data/raw/kambi_lol.json`, `audit/verify_independent.py`, `research/audit.py` | Gives true live 5-venue consensus (`Pinnacle`, `Polymarket`, `Kalshi`, `Unibet`, `Bovada`) across all 8 Worlds matches with zero archived quotes and zero `verify_independent.py` warnings. |
+| I2 | Fix silent cross-region homonym team joins (`LAST DANCE` -> `Last Dance (Benelux Team)`, `Team Gromp` -> `Team Gromp (Australian Team)`), pre-match Elo evaluation (`dt < start_utc` so already-played fixtures never leak post-match results), and Tier-Prior + Margin-of-Victory Elo (`K=26`, out-of-sample `acc=64.84%`, `brier=0.2186`, `logloss=0.6263` across `3,854` series) | in progress | 2dbdbafb | `tools/model.py`, `data/aliases.json`, `data/flags_manual.json` | Strictly improves all 3 proper scoring rules out of sample while preserving exact `audit/verify_independent.py` & `research/audit.py` agreement (`0.0000` delta). |
+| I3 | Add responsive Master Pick Table (`#picks-table`) alongside Mobile Match Cards (`#list`) with 1-tap `Table / Cards / Split` switcher, `Upcoming only` quick filter, render-time staleness hydration (resolving `294e62ad` request #1 / `0d48f265` F1), no-JS horizontal mobile nav fallback, and exact `100.0%` rounded display sums | in progress | 2dbdbafb | `tools/site.py`, `tools/verify.py`, `assets/app.js`, `assets/style.css`, `tests/dashboard.cjs`, generated root `*.html` & `data/*` | Runs as post-merge integration pass preserving `coverage.html`, `audit/*`, `evidence/*`, `research/*`, and passing all `verify.py` checks, `tests/test_integrity.py`, `tests/dashboard.cjs`, `audit/check_site.py`, `audit/verify_independent.py`, and `research/audit.py`. |
