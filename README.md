@@ -23,6 +23,7 @@ The site rebuilds itself every six hours from GitHub Actions; nothing here needs
 | `competitions.html` | Coverage, source quality and staleness per tournament |
 | `teams.html` | Every team with its rating, record and competition |
 | `flagged.html` | Irregularities and unverified items, published rather than hidden |
+| `coverage.html` | Line-coverage ledger: every competition, how each match was priced, and the external-book receipts captured for corroboration |
 | `verification.html` | The publish gate, its results, the manual source audit, and the evidence behind every non-exact team join |
 | `sources.html` | Every source, what it provides, and whether the build runner could reach it |
 | `methodology.html` | Sources, Elo specification, de-vig method, exclusions |
@@ -38,14 +39,15 @@ tools/report.py    per-tournament and per-team summaries
       ↓
 tools/flags.py     derived irregularities + curated notes (data/flags_manual.json)
       ↓
-tools/site.py      11 static pages, mobile-first, no framework
+tools/site.py      13 static pages, mobile-first, no framework
       ↓
 tools/verify.py    25 assertions; a failure aborts the commit instead of publishing bad data
 ```
 
 A single workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) runs that chain on `main`,
 commits `data/` and the generated pages with `[skip ci]`, and lets GitHub Pages redeploy.
-Only `tools/` writes the published pages.
+Only `tools/` writes the published pages; `tools/corroborate.py` writes `coverage.html` and
+`data/corroboration.json`.
 
 ### Inputs and rules
 
@@ -74,7 +76,7 @@ Only `tools/` writes the published pages.
 Hotspawn match-card link, both probabilities sum to 100 %, the published pick is the higher-probability
 side, ids are unique, no `(Kills)` derivative market is used as a match line, every market pick carries
 an official quote URL, every official-forfeit resolution names a winner and a source URL without
-inventing a probability, `picks.csv` mirrors the dataset, all 12 pages exist, every internal link
+inventing a probability, `picks.csv` mirrors the dataset, all 13 pages exist, every internal link
 resolves, no `None`/empty value is rendered, every match appears on `picks.html` **and** in the table on
 `table.html`, the executive summary links to every view, and each source's availability is recorded.
 
