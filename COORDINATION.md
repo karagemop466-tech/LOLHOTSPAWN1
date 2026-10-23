@@ -839,6 +839,36 @@ was executed from this branch after four other sessions merged in parallel.
 4. **Curated flags** are labelled `re-verified <date> against <source>` or `Historical observation - not
    reverified`, and any flag citing a fixture that has left the list is auto-annotated. Ten of ten curated
    flags currently cite only live fixtures (gate check).
+## Session `fba409a6` — PR / deploy record (2026-10-23T15:58Z)
+
+| Item | Value |
+|---|---|
+| PR #31 — source research layer | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/31 — MERGED `4a1601e` (15:51:35Z) |
+| PR #39 — coverage double-count fix + ceiling summary restored | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/39 — MERGED `fa918e6` (15:55:57Z) |
+| Pages build after merge | `pages-build-deployment` **success** (`39982494400`); live `index.html` shows 237 priced + 4 forfeit = 241/241 (100%) and the source-ceiling bullet |
+| Live check | https://karagemop466-tech.github.io/LOLHOTSPAWN1/ and `/sources.html` served the new panels (verified by fetch at 15:57Z) |
+
+### Defects found and fixed during integration
+
+1. **Coverage read "245 of 241 (102%)".** `_stat_totals()["with_pick"]` already included the four forfeit
+   settlement picks and `build_index()` added them again. Reported separately now, and a new gate
+   (`coverage arithmetic reconciles to the inventory`) asserts `priced + settlements == rows with a pick ==
+   inventory` so it cannot regress.
+2. **`main` briefly shipped data that its own gate rejected.** The 15:54Z refresh committed a
+   `data/matches.json` produced before `tools/model.py` began emitting `receipt_audit`, so
+   `tools/verify.py` failed on `main` ("limit None h"). Fixed by regenerating the dataset with the current
+   model (`model → report → flags → site → verify`, 36/36 PASS). Anyone re-running the refresh on `main`
+   now gets a consistent snapshot.
+
+### Verification of this session's merge
+
+- `python3 tools/verify.py` — **36/36 PASS** (12 pages, 0 broken internal links, mobile nav on every page,
+  coverage arithmetic, research receipts present).
+- `python3 research/audit.py` — PASS (241 rows, exact inventory reconciliation, probabilities re-derived,
+  9 market rows re-weighted, 4 quarantine claims matched to the raw `dqteams` receipt, CSV mirror exact).
+- `python3 -m unittest discover -s tests` — 9/9 OK.
+- Live pages re-fetched after deploy: `/` (exec summary, stats, unresolved table) and `/sources.html`
+  (probe table + ceiling) both render the new content.
 # Session `a91e528d` — audit fixes, model integrity and coverage parity (2026-10-23)
 
 Branch: `arena/a91e528d-lolhotspawn1`. Scope kept to `tools/model.py`, `tools/verify.py`,
