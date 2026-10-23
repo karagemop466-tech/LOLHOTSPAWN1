@@ -1,6 +1,85 @@
 {
- "generated_utc": "2026-10-23T15:52:24Z",
- "inventory_fetched_utc": "2026-10-23T15:37:40Z",
+ "generated_utc": "2026-10-23T15:53:16Z",
+ "inventory_fetched_utc": "2026-10-23T15:50:53Z",
+ "receipt_audit": {
+  "max_age_hours": 24,
+  "used": [],
+  "expired": [
+   {
+    "fixture_id": "1081205",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067878",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067677",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067680",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067675",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067676",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067879",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067678",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067679",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1081423",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
+   },
+   {
+    "fixture_id": "1079080",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.3,
+    "source_url": "https://egamersworld.com/lol/matches"
+   }
+  ],
+  "rejected_quotes": [
+   {
+    "fixture_id": "1079080",
+    "reject": "symmetric 1.80/1.80 placeholder"
+   }
+  ],
+  "policy": "Archived aggregator receipts are evidence only. A receipt may only be priced while it is younger than max_age_hours and re-fetchable; none qualified on this build, so the venue is empty and every affected fixture falls back to an originated line."
+ },
  "model": {
   "name": "LOLHOTSPAWN Elo",
   "k": 24.0,
@@ -26,141 +105,14 @@
   "provisional": 65,
   "model": 163,
   "unresolved": 4,
-  "market": 9
+  "market": 9,
+  "walkover": 4,
+  "settlement": 4
  },
- "coverage": {
-  "matches": 241,
-  "with_pick": 241,
-  "priced": 237,
-  "settlement_only": 4
- },
- "receipt_audit": {
-  "max_age_hours": 24,
-  "used": [],
-  "expired": [
-   {
-    "fixture_id": "1081205",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     1.86,
-     1.8
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067878",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     1.2,
-     4.4
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067677",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     1.2,
-     4.05
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067680",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     1.17,
-     4.88
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067675",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     1.38,
-     2.63
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067676",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     2.18,
-     1.61
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067879",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     1.29,
-     3.11
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067678",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     6.26,
-     1.06
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067679",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     2.51,
-     1.51
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1081423",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     1.025,
-     10.5
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
-   },
-   {
-    "fixture_id": "1079080",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.3,
-    "decimal": [
-     1.8,
-     1.8
-    ],
-    "placeholder": true,
-    "source_url": "https://egamersworld.com/lol/matches"
-   }
-  ],
-  "rejected_quotes": []
+ "market_hygiene": {
+  "pinnacle_kills_derivatives_excluded": 0,
+  "archived_receipts_retired": 10,
+  "esportsbook_venue_active": false
  },
  "backtest": {
   "cutoff": "2026-07-01",
@@ -244,11 +196,11 @@
     "probability": 0.6086,
     "other_probability": 0.3914
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 1390.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -306,11 +258,11 @@
     "probability": 0.5716,
     "other_probability": 0.4284
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 1389.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -362,11 +314,11 @@
     "probability": 0.653,
     "other_probability": 0.347
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 1368.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -418,11 +370,11 @@
     "probability": 0.5122,
     "other_probability": 0.4878
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 1156.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -474,11 +426,11 @@
     "probability": 0.5518,
     "other_probability": 0.4482
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 1102.9,
    "community_pick_pct": {
     "team0": 50,
     "team1": 50,
@@ -533,11 +485,11 @@
     "probability": 0.5611,
     "other_probability": 0.4389
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 988.9,
    "community_pick_pct": {
     "team0": 50,
     "team1": 50,
@@ -589,11 +541,11 @@
     "probability": 0.5659,
     "other_probability": 0.4341
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 964.9,
    "community_pick_pct": {
     "team0": 50,
     "team1": 50,
@@ -645,11 +597,11 @@
     "probability": 0.5353,
     "other_probability": 0.4647
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 960.9,
    "community_pick_pct": {
     "team0": 67,
     "team1": 33,
@@ -702,11 +654,11 @@
     "probability": 0.6793,
     "other_probability": 0.3207
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 864.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -763,9 +715,15 @@
    },
    "pick_type": "settlement",
    "market": null,
+   "resolution": {
+    "type": "official-forfeit",
+    "winner": "VES Japan",
+    "loser": "Solid Gaming",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is VES Japan. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+   },
    "connected": true,
    "stale": true,
-   "stale_hours": 864.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -818,11 +776,11 @@
     "probability": 0.6379,
     "other_probability": 0.3621
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 862.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -875,11 +833,11 @@
     "probability": 0.6325,
     "other_probability": 0.3675
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 838.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -931,11 +889,11 @@
     "probability": 0.5993,
     "other_probability": 0.4007
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 820.9,
    "community_pick_pct": {
     "team0": 50,
     "team1": 50,
@@ -987,11 +945,11 @@
     "probability": 0.5015,
     "other_probability": 0.4985
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 816.9,
    "community_pick_pct": {
     "team0": 67,
     "team1": 33,
@@ -1044,11 +1002,11 @@
     "probability": 0.5336,
     "other_probability": 0.4664
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 811.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1101,11 +1059,11 @@
     "probability": 0.7539,
     "other_probability": 0.2461
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 809.9,
    "community_pick_pct": {
     "team0": 33,
     "team1": 67,
@@ -1157,11 +1115,11 @@
     "probability": 0.589,
     "other_probability": 0.411
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 796.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1214,11 +1172,11 @@
     "probability": 0.7274,
     "other_probability": 0.2726
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 791.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1271,11 +1229,11 @@
     "probability": 0.5769,
     "other_probability": 0.4231
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 785.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -1328,11 +1286,11 @@
     "probability": 0.5975,
     "other_probability": 0.4025
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 671.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1384,11 +1342,11 @@
     "probability": 0.5461,
     "other_probability": 0.4539
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 622.6,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1441,11 +1399,11 @@
     "probability": 0.5199,
     "other_probability": 0.4801
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 599.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1497,11 +1455,11 @@
     "probability": 0.5348,
     "other_probability": 0.4652
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 524.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1556,11 +1514,11 @@
     "probability": 0.7677,
     "other_probability": 0.2323
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 524.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1612,11 +1570,11 @@
     "probability": 0.7479,
     "other_probability": 0.2521
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 524.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1668,11 +1626,11 @@
     "probability": 0.5726,
     "other_probability": 0.4274
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 502.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1727,11 +1685,11 @@
     "probability": 0.5259,
     "other_probability": 0.4741
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 501.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1787,9 +1745,15 @@
    },
    "pick_type": "settlement",
    "market": null,
+   "resolution": {
+    "type": "official-forfeit",
+    "winner": "Playwell Rød Q",
+    "loser": "Solid Gaming",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is Playwell Rød Q. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+   },
    "connected": true,
    "stale": true,
-   "stale_hours": 456.9,
    "community_pick_pct": {
     "team0": 50,
     "team1": 50,
@@ -1842,11 +1806,11 @@
     "probability": 0.7233,
     "other_probability": 0.2767
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 431.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1901,11 +1865,11 @@
     "probability": 0.6289,
     "other_probability": 0.3711
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 428.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1957,11 +1921,11 @@
     "probability": 0.5538,
     "other_probability": 0.4462
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 428.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -2013,11 +1977,11 @@
     "probability": 0.6765,
     "other_probability": 0.3235
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 428.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -2069,11 +2033,11 @@
     "probability": 0.5211,
     "other_probability": 0.4789
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 382.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2125,11 +2089,11 @@
     "probability": 0.56,
     "other_probability": 0.44
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 356.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2184,11 +2148,11 @@
     "probability": 0.7269,
     "other_probability": 0.2731
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 356.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2240,11 +2204,11 @@
     "probability": 0.6378,
     "other_probability": 0.3622
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 356.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2297,11 +2261,11 @@
     "probability": 0.7233,
     "other_probability": 0.2767
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 334.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2354,11 +2318,11 @@
     "probability": 0.7949,
     "other_probability": 0.2051
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 311.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2411,11 +2375,11 @@
     "probability": 0.5006,
     "other_probability": 0.4994
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 310.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2468,11 +2432,11 @@
     "probability": 0.5448,
     "other_probability": 0.4552
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 309.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2528,9 +2492,15 @@
    },
    "pick_type": "settlement",
    "market": null,
+   "resolution": {
+    "type": "official-forfeit",
+    "winner": "Volda E-Sport",
+    "loser": "Solid Gaming",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is Volda E-Sport. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+   },
    "connected": true,
    "stale": true,
-   "stale_hours": 288.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2582,11 +2552,11 @@
     "probability": 0.5927,
     "other_probability": 0.4073
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 287.4,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2638,11 +2608,11 @@
     "probability": 0.7346,
     "other_probability": 0.2654
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 287.4,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -2694,11 +2664,11 @@
     "probability": 0.5475,
     "other_probability": 0.4525
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 287.4,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2751,11 +2721,11 @@
     "probability": 0.5012,
     "other_probability": 0.4988
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 286.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2807,11 +2777,11 @@
     "probability": 0.5558,
     "other_probability": 0.4442
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 286.4,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2864,11 +2834,11 @@
     "probability": 0.611,
     "other_probability": 0.389
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 284.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2924,11 +2894,11 @@
     "probability": 0.6523,
     "other_probability": 0.3477
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 284.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2981,11 +2951,11 @@
     "probability": 0.7062,
     "other_probability": 0.2938
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 284.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3041,9 +3011,15 @@
    },
    "pick_type": "settlement",
    "market": null,
+   "resolution": {
+    "type": "official-forfeit",
+    "winner": "NTNUI Kometkameratene",
+    "loser": "Solid Gaming",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is NTNUI Kometkameratene. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+   },
    "connected": true,
    "stale": true,
-   "stale_hours": 238.9,
    "community_pick_pct": {
     "team0": 75,
     "team1": 25,
@@ -3095,11 +3071,11 @@
     "probability": 0.5329,
     "other_probability": 0.4671
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 214.9,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -3154,11 +3130,11 @@
     "probability": 0.5175,
     "other_probability": 0.4825
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 213.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3214,11 +3190,11 @@
     "probability": 0.516,
     "other_probability": 0.484
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 192.9,
    "community_pick_pct": {
     "team0": 75,
     "team1": 25,
@@ -3274,11 +3250,11 @@
     "probability": 0.5176,
     "other_probability": 0.4824
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 192.9,
    "community_pick_pct": {
     "team0": 25,
     "team1": 75,
@@ -3330,11 +3306,11 @@
     "probability": 0.5453,
     "other_probability": 0.4547
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 189.9,
    "community_pick_pct": {
     "team0": 69,
     "team1": 31,
@@ -3387,11 +3363,11 @@
     "probability": 0.5179,
     "other_probability": 0.4821
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 189.9,
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
@@ -3444,11 +3420,11 @@
     "probability": 0.5255,
     "other_probability": 0.4745
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 168.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -3501,11 +3477,11 @@
     "probability": 0.5031,
     "other_probability": 0.4969
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 168.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -3558,11 +3534,11 @@
     "probability": 0.5311,
     "other_probability": 0.4689
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 168.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -3614,11 +3590,11 @@
     "probability": 0.5432,
     "other_probability": 0.4568
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 168.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -3671,11 +3647,11 @@
     "probability": 0.5148,
     "other_probability": 0.4852
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 168.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -3728,11 +3704,11 @@
     "probability": 0.5065,
     "other_probability": 0.4935
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 168.9,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -3784,11 +3760,11 @@
     "probability": 0.5682,
     "other_probability": 0.4318
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 144.9,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -3840,11 +3816,11 @@
     "probability": 0.517,
     "other_probability": 0.483
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 143.9,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3896,11 +3872,11 @@
     "probability": 0.5898,
     "other_probability": 0.4102
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 21.9,
    "community_pick_pct": {
     "team0": 24,
     "team1": 76,
@@ -3955,11 +3931,11 @@
     "probability": 0.7482,
     "other_probability": 0.2518
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
-   "stale_hours": 0.9,
    "community_pick_pct": {
     "team0": 23,
     "team1": 77,
@@ -4011,11 +3987,11 @@
     "probability": 0.5327,
     "other_probability": 0.4673
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -0.1,
    "community_pick_pct": {
     "team0": 67,
     "team1": 33,
@@ -4069,11 +4045,11 @@
     "probability": 0.5191,
     "other_probability": 0.4809
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -0.1,
    "community_pick_pct": {
     "team0": 10,
     "team1": 90,
@@ -4123,11 +4099,11 @@
     "probability": 0.5839,
     "other_probability": 0.4161
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -0.1,
    "community_pick_pct": {
     "team0": 20,
     "team1": 80,
@@ -4177,7 +4153,7 @@
     "probability": 0.7537,
     "other_probability": 0.2463
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -4200,6 +4176,7 @@
     "start_utc": "2026-10-23T17:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
+    "total_volume_usd": 332063.1,
     "volume_usd": 332063.1,
     "venues": [
      {
@@ -4218,8 +4195,8 @@
       "p1": 0.235,
       "quote": "76.5¢/23.5¢",
       "overround": 0.0,
-      "volume_usd": 332063.1,
-      "url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23"
+      "url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23",
+      "volume_usd": 332063.1
      },
      {
       "name": "Kalshi",
@@ -4243,9 +4220,9 @@
     "model_cross_check": 0.745,
     "start_mismatch_hours": 0.0
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -1.1,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -4295,11 +4272,11 @@
     "probability": 0.5182,
     "other_probability": 0.4818
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -2.1,
    "community_pick_pct": {
     "team0": 21,
     "team1": 79,
@@ -4349,11 +4326,11 @@
     "probability": 0.6029,
     "other_probability": 0.3971
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -2.1,
    "community_pick_pct": {
     "team0": 33,
     "team1": 67,
@@ -4403,7 +4380,7 @@
     "probability": 0.7623,
     "other_probability": 0.2377
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -4426,6 +4403,7 @@
     "start_utc": "2026-10-23T18:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
+    "total_volume_usd": 274764.06,
     "volume_usd": 274764.06,
     "venues": [
      {
@@ -4444,8 +4422,8 @@
       "p1": 0.235,
       "quote": "76.5¢/23.5¢",
       "overround": 0.0,
-      "volume_usd": 274764.06,
-      "url": "https://polymarket.com/event/lol-hle1-tes-2026-10-23"
+      "url": "https://polymarket.com/event/lol-hle1-tes-2026-10-23",
+      "volume_usd": 274764.06
      },
      {
       "name": "Kalshi",
@@ -4469,9 +4447,9 @@
     "model_cross_check": 0.6928,
     "start_mismatch_hours": 0.0
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -2.1,
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
@@ -4521,11 +4499,11 @@
     "probability": 0.6961,
     "other_probability": 0.3039
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -2.6,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -4575,11 +4553,11 @@
     "probability": 0.5673,
     "other_probability": 0.4327
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -2.6,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -4629,7 +4607,7 @@
     "probability": 0.7907,
     "other_probability": 0.2093
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -4652,6 +4630,7 @@
     "start_utc": "2026-10-23T19:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
+    "total_volume_usd": 213508.94,
     "volume_usd": 213508.94,
     "venues": [
      {
@@ -4670,8 +4649,8 @@
       "p1": 0.195,
       "quote": "80.5¢/19.5¢",
       "overround": 0.0,
-      "volume_usd": 213508.94,
-      "url": "https://polymarket.com/event/lol-blg-mkoi-2026-10-23"
+      "url": "https://polymarket.com/event/lol-blg-mkoi-2026-10-23",
+      "volume_usd": 213508.94
      },
      {
       "name": "Kalshi",
@@ -4695,9 +4674,9 @@
     "model_cross_check": 0.76,
     "start_mismatch_hours": 0.0
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -3.1,
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
@@ -4747,7 +4726,7 @@
     "probability": 0.6383,
     "other_probability": 0.3617
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -4770,6 +4749,7 @@
     "start_utc": "2026-10-23T20:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
+    "total_volume_usd": 314535.42,
     "volume_usd": 314535.42,
     "venues": [
      {
@@ -4788,8 +4768,8 @@
       "p1": 0.355,
       "quote": "64.5¢/35.5¢",
       "overround": 0.0,
-      "volume_usd": 314535.42,
-      "url": "https://polymarket.com/event/lol-al-kc-2026-10-23"
+      "url": "https://polymarket.com/event/lol-al-kc-2026-10-23",
+      "volume_usd": 314535.42
      },
      {
       "name": "Kalshi",
@@ -4813,9 +4793,9 @@
     "model_cross_check": 0.4466,
     "start_mismatch_hours": 0.0
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -4.1,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -4865,7 +4845,7 @@
     "probability": 0.5884,
     "other_probability": 0.4116
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -4888,6 +4868,7 @@
     "start_utc": "2026-10-23T21:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
+    "total_volume_usd": 343565.04,
     "volume_usd": 343565.04,
     "venues": [
      {
@@ -4906,8 +4887,8 @@
       "p1": 0.605,
       "quote": "39.5¢/60.5¢",
       "overround": 0.0,
-      "volume_usd": 343565.04,
-      "url": "https://polymarket.com/event/lol-g2-dk-2026-10-23"
+      "url": "https://polymarket.com/event/lol-g2-dk-2026-10-23",
+      "volume_usd": 343565.04
      },
      {
       "name": "Kalshi",
@@ -4931,9 +4912,9 @@
     "model_cross_check": 0.5634,
     "start_mismatch_hours": 0.0
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -5.1,
    "community_pick_pct": {
     "team0": 40,
     "team1": 60,
@@ -4983,7 +4964,7 @@
     "probability": 0.7129,
     "other_probability": 0.2871
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -5006,6 +4987,7 @@
     "start_utc": "2026-10-23T22:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
+    "total_volume_usd": 39296.38,
     "volume_usd": 39296.38,
     "venues": [
      {
@@ -5024,8 +5006,8 @@
       "p1": 0.285,
       "quote": "71.5¢/28.5¢",
       "overround": 0.0,
-      "volume_usd": 39296.38,
-      "url": "https://polymarket.com/event/lol-tl2-cfo-2026-10-23"
+      "url": "https://polymarket.com/event/lol-tl2-cfo-2026-10-23",
+      "volume_usd": 39296.38
      },
      {
       "name": "Kalshi",
@@ -5049,9 +5031,9 @@
     "model_cross_check": 0.5682,
     "start_mismatch_hours": 0.0
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -6.1,
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
@@ -5103,7 +5085,7 @@
     "probability": 0.8608,
     "other_probability": 0.1392
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -5126,6 +5108,7 @@
     "start_utc": "2026-10-23T23:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
+    "total_volume_usd": 61676.85,
     "volume_usd": 61676.85,
     "venues": [
      {
@@ -5144,8 +5127,8 @@
       "p1": 0.875,
       "quote": "12.5¢/87.5¢",
       "overround": 0.0,
-      "volume_usd": 61676.85,
-      "url": "https://polymarket.com/event/lol-los-t1-2026-10-23"
+      "url": "https://polymarket.com/event/lol-los-t1-2026-10-23",
+      "volume_usd": 61676.85
      },
      {
       "name": "Kalshi",
@@ -5169,9 +5152,9 @@
     "model_cross_check": 0.4362,
     "start_mismatch_hours": 0.0
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -7.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -5225,7 +5208,7 @@
     "probability": 0.5832,
     "other_probability": 0.4168
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -5242,6 +5225,7 @@
     "start_utc": "2026-10-24 00:00:00+00",
     "league": null,
     "venue_count": 2,
+    "total_volume_usd": 68134.77,
     "volume_usd": 68134.77,
     "venues": [
      {
@@ -5251,8 +5235,8 @@
       "p1": 0.585,
       "quote": "41.5¢/58.5¢",
       "overround": 0.0,
-      "volume_usd": 68134.77,
-      "url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23"
+      "url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23",
+      "volume_usd": 68134.77
      },
      {
       "name": "Kalshi",
@@ -5266,9 +5250,9 @@
     ],
     "model_cross_check": 0.6108
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -8.1,
    "community_pick_pct": {
     "team0": 8,
     "team1": 92,
@@ -5318,11 +5302,11 @@
     "probability": 0.5197,
     "other_probability": 0.4803
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -22.1,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -5372,11 +5356,11 @@
     "probability": 0.5293,
     "other_probability": 0.4707
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -23.1,
    "community_pick_pct": {
     "team0": 14,
     "team1": 86,
@@ -5430,11 +5414,11 @@
     "probability": 0.5414,
     "other_probability": 0.4586
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -23.1,
    "community_pick_pct": {
     "team0": 4,
     "team1": 96,
@@ -5486,11 +5470,11 @@
     "probability": 0.533,
     "other_probability": 0.467
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.1,
    "community_pick_pct": {
     "team0": 88,
     "team1": 12,
@@ -5542,11 +5526,11 @@
     "probability": 0.6753,
     "other_probability": 0.3247
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.1,
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
@@ -5598,11 +5582,11 @@
     "probability": 0.5718,
     "other_probability": 0.4282
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.1,
    "community_pick_pct": {
     "team0": 19,
     "team1": 81,
@@ -5652,11 +5636,11 @@
     "probability": 0.7159,
     "other_probability": 0.2841
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.1,
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
@@ -5708,11 +5692,11 @@
     "probability": 0.5252,
     "other_probability": 0.4748
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.1,
    "community_pick_pct": {
     "team0": 15,
     "team1": 85,
@@ -5765,11 +5749,11 @@
     "probability": 0.5144,
     "other_probability": 0.4856
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.6,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -5821,11 +5805,11 @@
     "probability": 0.5566,
     "other_probability": 0.4434
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.6,
    "community_pick_pct": {
     "team0": 4,
     "team1": 96,
@@ -5875,11 +5859,11 @@
     "probability": 0.5418,
     "other_probability": 0.4582
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.6,
    "community_pick_pct": {
     "team0": 24,
     "team1": 76,
@@ -5929,11 +5913,11 @@
     "probability": 0.5671,
     "other_probability": 0.4329
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.6,
    "community_pick_pct": {
     "team0": 78,
     "team1": 22,
@@ -5985,11 +5969,11 @@
     "probability": 0.5089,
     "other_probability": 0.4911
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.6,
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
@@ -6039,11 +6023,11 @@
     "probability": 0.5592,
     "other_probability": 0.4408
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -24.6,
    "community_pick_pct": {
     "team0": 8,
     "team1": 92,
@@ -6093,11 +6077,11 @@
     "probability": 0.5147,
     "other_probability": 0.4853
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -25.1,
    "community_pick_pct": {
     "team0": 74,
     "team1": 26,
@@ -6147,11 +6131,11 @@
     "probability": 0.524,
     "other_probability": 0.476
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -26.1,
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
@@ -6203,11 +6187,11 @@
     "probability": 0.5188,
     "other_probability": 0.4812
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -26.1,
    "community_pick_pct": {
     "team0": 61,
     "team1": 39,
@@ -6261,11 +6245,11 @@
     "probability": 0.5082,
     "other_probability": 0.4918
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -28.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -6315,11 +6299,11 @@
     "probability": 0.7326,
     "other_probability": 0.2674
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -28.1,
    "community_pick_pct": {
     "team0": 10,
     "team1": 90,
@@ -6369,11 +6353,11 @@
     "probability": 0.5269,
     "other_probability": 0.4731
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -47.1,
    "community_pick_pct": {
     "team0": 32,
     "team1": 68,
@@ -6423,11 +6407,11 @@
     "probability": 0.5476,
     "other_probability": 0.4524
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -47.1,
    "community_pick_pct": {
     "team0": 18,
     "team1": 82,
@@ -6477,11 +6461,11 @@
     "probability": 0.6514,
     "other_probability": 0.3486
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -48.1,
    "community_pick_pct": {
     "team0": 8,
     "team1": 92,
@@ -6531,11 +6515,11 @@
     "probability": 0.6324,
     "other_probability": 0.3676
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -48.1,
    "community_pick_pct": {
     "team0": 40,
     "team1": 60,
@@ -6587,11 +6571,11 @@
     "probability": 0.5451,
     "other_probability": 0.4549
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -48.1,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -6641,11 +6625,11 @@
     "probability": 0.5209,
     "other_probability": 0.4791
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -48.1,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -6697,11 +6681,11 @@
     "probability": 0.5421,
     "other_probability": 0.4579
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -48.1,
    "community_pick_pct": {
     "team0": 38,
     "team1": 63,
@@ -6751,11 +6735,11 @@
     "probability": 0.5403,
     "other_probability": 0.4597
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -48.1,
    "community_pick_pct": {
     "team0": 76,
     "team1": 24,
@@ -6805,11 +6789,11 @@
     "probability": 0.5495,
     "other_probability": 0.4505
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -48.1,
    "community_pick_pct": {
     "team0": 20,
     "team1": 80,
@@ -6859,11 +6843,11 @@
     "probability": 0.5262,
     "other_probability": 0.4738
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -48.1,
    "community_pick_pct": {
     "team0": 76,
     "team1": 24,
@@ -6917,11 +6901,11 @@
     "probability": 0.6219,
     "other_probability": 0.3781
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -48.1,
    "community_pick_pct": {
     "team0": 28,
     "team1": 72,
@@ -6973,11 +6957,11 @@
     "probability": 0.5216,
     "other_probability": 0.4784
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -48.1,
    "community_pick_pct": {
     "team0": 88,
     "team1": 12,
@@ -7027,11 +7011,11 @@
     "probability": 0.533,
     "other_probability": 0.467
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.1,
    "community_pick_pct": {
     "team0": 16,
     "team1": 84,
@@ -7081,11 +7065,11 @@
     "probability": 0.5104,
     "other_probability": 0.4896
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.1,
    "community_pick_pct": {
     "team0": 72,
     "team1": 28,
@@ -7135,11 +7119,11 @@
     "probability": 0.7063,
     "other_probability": 0.2937
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.1,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -7191,11 +7175,11 @@
     "probability": 0.5864,
     "other_probability": 0.4136
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.1,
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
@@ -7247,11 +7231,11 @@
     "probability": 0.5135,
     "other_probability": 0.4865
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.1,
    "community_pick_pct": {
     "team0": 24,
     "team1": 76,
@@ -7303,11 +7287,11 @@
     "probability": 0.7294,
     "other_probability": 0.2706
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.1,
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
@@ -7359,11 +7343,11 @@
     "probability": 0.5403,
     "other_probability": 0.4597
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.1,
    "community_pick_pct": {
     "team0": 17,
     "team1": 83,
@@ -7415,11 +7399,11 @@
     "probability": 0.5164,
     "other_probability": 0.4836
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.6,
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
@@ -7469,11 +7453,11 @@
     "probability": 0.5505,
     "other_probability": 0.4495
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.6,
    "community_pick_pct": {
     "team0": 17,
     "team1": 83,
@@ -7525,11 +7509,11 @@
     "probability": 0.5166,
     "other_probability": 0.4834
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.6,
    "community_pick_pct": {
     "team0": 78,
     "team1": 22,
@@ -7579,11 +7563,11 @@
     "probability": 0.5855,
     "other_probability": 0.4145
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -49.6,
    "community_pick_pct": {
     "team0": 91,
     "team1": 9,
@@ -7635,11 +7619,11 @@
     "probability": 0.5264,
     "other_probability": 0.4736
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -50.1,
    "community_pick_pct": {
     "team0": 76,
     "team1": 24,
@@ -7692,11 +7676,11 @@
     "probability": 0.5407,
     "other_probability": 0.4593
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -50.1,
    "community_pick_pct": {
     "team0": 13,
     "team1": 87,
@@ -7746,11 +7730,11 @@
     "probability": 0.6178,
     "other_probability": 0.3822
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -50.6,
    "community_pick_pct": {
     "team0": 26,
     "team1": 74,
@@ -7804,11 +7788,11 @@
     "probability": 0.6103,
     "other_probability": 0.3897
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -50.6,
    "community_pick_pct": {
     "team0": 65,
     "team1": 35,
@@ -7858,11 +7842,11 @@
     "probability": 0.697,
     "other_probability": 0.303
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -50.6,
    "community_pick_pct": {
     "team0": 9,
     "team1": 91,
@@ -7912,11 +7896,11 @@
     "probability": 0.7599,
     "other_probability": 0.2401
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -74.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -7968,11 +7952,11 @@
     "probability": 0.502,
     "other_probability": 0.498
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -75.1,
    "community_pick_pct": {
     "team0": 48,
     "team1": 52,
@@ -8022,11 +8006,11 @@
     "probability": 0.5589,
     "other_probability": 0.4411
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -96.6,
    "community_pick_pct": {
     "team0": 24,
     "team1": 76,
@@ -8070,8 +8054,8 @@
    "confidence": "low",
    "basis": "Polymarket de-vigged line (32.5% / 67.5%): Polymarket 32.5%/67.5% (32.5¢/67.5¢).",
    "flags": [
-    "thin market: one Polymarket venue, $5 total traded volume - indicative only, not a deep bookmaker line",
-    "thin market: single Polymarket venue with $5 traded volume (thin-market threshold $1,000) - published as the only external evidence, not as a high-confidence line"
+    "single thin prediction market: only $5 traded volume on Polymarket - treat as an indicative line",
+    "thin market: one Polymarket venue, $5 total traded volume - indicative only, not a deep bookmaker line"
    ],
    "pick": {
     "side": 1,
@@ -8079,7 +8063,7 @@
     "probability": 0.675,
     "other_probability": 0.325
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": true,
     "thin_note": "single Polymarket venue with $5 traded volume (thin-market threshold $1,000)",
@@ -8096,6 +8080,7 @@
     "start_utc": "2026-10-27 16:00:00+00",
     "league": null,
     "venue_count": 1,
+    "total_volume_usd": 5.0,
     "volume_usd": 5.0,
     "venues": [
      {
@@ -8105,15 +8090,15 @@
       "p1": 0.675,
       "quote": "32.5¢/67.5¢",
       "overround": 0.0,
-      "volume_usd": 5.0,
-      "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
+      "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
+      "volume_usd": 5.0
      }
     ],
     "model_cross_check": 0.4015
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -97.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -8167,11 +8152,11 @@
     "probability": 0.5412,
     "other_probability": 0.4588
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -97.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -8221,11 +8206,11 @@
     "probability": 0.621,
     "other_probability": 0.379
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -97.1,
    "community_pick_pct": {
     "team0": 82,
     "team1": 18,
@@ -8275,11 +8260,11 @@
     "probability": 0.572,
     "other_probability": 0.428
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -99.6,
    "community_pick_pct": {
     "team0": 91,
     "team1": 9,
@@ -8329,11 +8314,11 @@
     "probability": 0.5448,
     "other_probability": 0.4552
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -99.6,
    "community_pick_pct": {
     "team0": 82,
     "team1": 18,
@@ -8383,11 +8368,11 @@
     "probability": 0.5566,
     "other_probability": 0.4434
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -121.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -8437,11 +8422,11 @@
     "probability": 0.5098,
     "other_probability": 0.4902
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -121.6,
    "community_pick_pct": {
     "team0": 83,
     "team1": 17,
@@ -8491,11 +8476,11 @@
     "probability": 0.579,
     "other_probability": 0.421
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -122.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -8545,11 +8530,11 @@
     "probability": 0.5604,
     "other_probability": 0.4396
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -122.4,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -8601,11 +8586,11 @@
     "probability": 0.5232,
     "other_probability": 0.4768
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -123.1,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -8655,11 +8640,11 @@
     "probability": 0.5032,
     "other_probability": 0.4968
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -146.1,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -8709,11 +8694,11 @@
     "probability": 0.5644,
     "other_probability": 0.4356
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -146.4,
    "community_pick_pct": {
     "team0": 81,
     "team1": 19,
@@ -8763,11 +8748,11 @@
     "probability": 0.5273,
     "other_probability": 0.4727
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -147.1,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -8817,11 +8802,11 @@
     "probability": 0.532,
     "other_probability": 0.468
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -169.1,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -8871,11 +8856,11 @@
     "probability": 0.5359,
     "other_probability": 0.4641
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -169.1,
    "community_pick_pct": {
     "team0": 5,
     "team1": 95,
@@ -8925,11 +8910,11 @@
     "probability": 0.5047,
     "other_probability": 0.4953
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -171.1,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -8979,11 +8964,11 @@
     "probability": 0.5643,
     "other_probability": 0.4357
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -171.6,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -9037,11 +9022,11 @@
     "probability": 0.5679,
     "other_probability": 0.4321
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -171.6,
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
@@ -9093,11 +9078,11 @@
     "probability": 0.5168,
     "other_probability": 0.4832
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -193.1,
    "community_pick_pct": {
     "team0": 26,
     "team1": 74,
@@ -9147,11 +9132,11 @@
     "probability": 0.5977,
     "other_probability": 0.4023
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -193.1,
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
@@ -9203,11 +9188,11 @@
     "probability": 0.5496,
     "other_probability": 0.4504
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -193.1,
    "community_pick_pct": {
     "team0": 16,
     "team1": 84,
@@ -9259,11 +9244,11 @@
     "probability": 0.7411,
     "other_probability": 0.2589
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -193.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -9315,11 +9300,11 @@
     "probability": 0.5117,
     "other_probability": 0.4883
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -193.1,
    "community_pick_pct": {
     "team0": 26,
     "team1": 74,
@@ -9369,11 +9354,11 @@
     "probability": 0.5453,
     "other_probability": 0.4547
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -195.1,
    "community_pick_pct": {
     "team0": 82,
     "team1": 18,
@@ -9423,11 +9408,11 @@
     "probability": 0.5829,
     "other_probability": 0.4171
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 94,
     "team1": 6,
@@ -9477,11 +9462,11 @@
     "probability": 0.5525,
     "other_probability": 0.4475
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
@@ -9535,11 +9520,11 @@
     "probability": 0.6997,
     "other_probability": 0.3003
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -9589,11 +9574,11 @@
     "probability": 0.5314,
     "other_probability": 0.4686
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -9645,11 +9630,11 @@
     "probability": 0.5133,
     "other_probability": 0.4867
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 5,
     "team1": 95,
@@ -9699,11 +9684,11 @@
     "probability": 0.5075,
     "other_probability": 0.4925
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -9753,11 +9738,11 @@
     "probability": 0.5045,
     "other_probability": 0.4955
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 6,
     "team1": 94,
@@ -9809,11 +9794,11 @@
     "probability": 0.5104,
     "other_probability": 0.4896
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -9863,11 +9848,11 @@
     "probability": 0.5364,
     "other_probability": 0.4636
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 94,
     "team1": 6,
@@ -9919,11 +9904,11 @@
     "probability": 0.5271,
     "other_probability": 0.4729
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 72,
     "team1": 28,
@@ -9973,11 +9958,11 @@
     "probability": 0.5198,
     "other_probability": 0.4802
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 17,
     "team1": 83,
@@ -10027,11 +10012,11 @@
     "probability": 0.6004,
     "other_probability": 0.3996
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 11,
     "team1": 89,
@@ -10081,11 +10066,11 @@
     "probability": 0.5475,
     "other_probability": 0.4525
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -10135,11 +10120,11 @@
     "probability": 0.5093,
     "other_probability": 0.4907
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 83,
     "team1": 17,
@@ -10189,11 +10174,11 @@
     "probability": 0.6309,
     "other_probability": 0.3691
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
@@ -10245,11 +10230,11 @@
     "probability": 0.5142,
     "other_probability": 0.4858
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 78,
     "team1": 22,
@@ -10299,11 +10284,11 @@
     "probability": 0.5712,
     "other_probability": 0.4288
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -216.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -10353,11 +10338,11 @@
     "probability": 0.6963,
     "other_probability": 0.3037
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -217.1,
    "community_pick_pct": {
     "team0": 22,
     "team1": 78,
@@ -10409,11 +10394,11 @@
     "probability": 0.5362,
     "other_probability": 0.4638
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -217.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -10465,11 +10450,11 @@
     "probability": 0.5319,
     "other_probability": 0.4681
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -217.1,
    "community_pick_pct": {
     "team0": 94,
     "team1": 6,
@@ -10521,11 +10506,11 @@
     "probability": 0.5701,
     "other_probability": 0.4299
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -217.1,
    "community_pick_pct": {
     "team0": 6,
     "team1": 94,
@@ -10575,11 +10560,11 @@
     "probability": 0.576,
     "other_probability": 0.424
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -217.1,
    "community_pick_pct": {
     "team0": 94,
     "team1": 6,
@@ -10631,11 +10616,11 @@
     "probability": 0.5235,
     "other_probability": 0.4765
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -217.1,
    "community_pick_pct": {
     "team0": 82,
     "team1": 18,
@@ -10687,11 +10672,11 @@
     "probability": 0.5407,
     "other_probability": 0.4593
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -218.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -10741,11 +10726,11 @@
     "probability": 0.5166,
     "other_probability": 0.4834
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -218.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -10799,11 +10784,11 @@
     "probability": 0.5602,
     "other_probability": 0.4398
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -218.6,
    "community_pick_pct": {
     "team0": 82,
     "team1": 18,
@@ -10853,11 +10838,11 @@
     "probability": 0.602,
     "other_probability": 0.398
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -218.6,
    "community_pick_pct": {
     "team0": 81,
     "team1": 19,
@@ -10909,11 +10894,11 @@
     "probability": 0.601,
     "other_probability": 0.399
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -265.1,
    "community_pick_pct": {
     "team0": 81,
     "team1": 19,
@@ -10967,11 +10952,11 @@
     "probability": 0.5516,
     "other_probability": 0.4484
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -265.1,
    "community_pick_pct": {
     "team0": 38,
     "team1": 63,
@@ -11023,11 +11008,11 @@
     "probability": 0.5144,
     "other_probability": 0.4856
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -266.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -11077,11 +11062,11 @@
     "probability": 0.5514,
     "other_probability": 0.4486
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -267.6,
    "community_pick_pct": {
     "team0": 75,
     "team1": 25,
@@ -11131,11 +11116,11 @@
     "probability": 0.5283,
     "other_probability": 0.4717
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -267.6,
    "community_pick_pct": {
     "team0": 21,
     "team1": 79,
@@ -11185,11 +11170,11 @@
     "probability": 0.5105,
     "other_probability": 0.4895
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -337.1,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -11243,11 +11228,11 @@
     "probability": 0.5025,
     "other_probability": 0.4975
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -337.1,
    "community_pick_pct": {
     "team0": 71,
     "team1": 29,
@@ -11299,11 +11284,11 @@
     "probability": 0.6779,
     "other_probability": 0.3221
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -339.6,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -11353,11 +11338,11 @@
     "probability": 0.6021,
     "other_probability": 0.3979
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -339.6,
    "community_pick_pct": {
     "team0": 93,
     "team1": 7,
@@ -11409,11 +11394,11 @@
     "probability": 0.5833,
     "other_probability": 0.4167
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -361.1,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -11463,11 +11448,11 @@
     "probability": 0.6496,
     "other_probability": 0.3504
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -361.1,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -11519,11 +11504,11 @@
     "probability": 0.728,
     "other_probability": 0.272
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -361.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -11575,11 +11560,11 @@
     "probability": 0.515,
     "other_probability": 0.485
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -361.1,
    "community_pick_pct": {
     "team0": 14,
     "team1": 86,
@@ -11631,11 +11616,11 @@
     "probability": 0.5246,
     "other_probability": 0.4754
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -361.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -11687,11 +11672,11 @@
     "probability": 0.5211,
     "other_probability": 0.4789
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -11741,11 +11726,11 @@
     "probability": 0.6648,
     "other_probability": 0.3352
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -11797,11 +11782,11 @@
     "probability": 0.5615,
     "other_probability": 0.4385
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 86,
     "team1": 14,
@@ -11851,11 +11836,11 @@
     "probability": 0.5527,
     "other_probability": 0.4473
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 93,
     "team1": 7,
@@ -11905,11 +11890,11 @@
     "probability": 0.5151,
     "other_probability": 0.4849
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -11959,11 +11944,11 @@
     "probability": 0.5519,
     "other_probability": 0.4481
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
@@ -12013,11 +11998,11 @@
     "probability": 0.5862,
     "other_probability": 0.4138
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
@@ -12067,11 +12052,11 @@
     "probability": 0.5691,
     "other_probability": 0.4309
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -12121,11 +12106,11 @@
     "probability": 0.5359,
     "other_probability": 0.4641
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 21,
     "team1": 79,
@@ -12175,11 +12160,11 @@
     "probability": 0.6105,
     "other_probability": 0.3895
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -12231,11 +12216,11 @@
     "probability": 0.5185,
     "other_probability": 0.4815
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -12289,11 +12274,11 @@
     "probability": 0.7058,
     "other_probability": 0.2942
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 93,
     "team1": 7,
@@ -12343,11 +12328,11 @@
     "probability": 0.5211,
     "other_probability": 0.4789
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -12399,11 +12384,11 @@
     "probability": 0.5635,
     "other_probability": 0.4365
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 21,
     "team1": 79,
@@ -12455,11 +12440,11 @@
     "probability": 0.5366,
     "other_probability": 0.4634
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 86,
     "team1": 14,
@@ -12509,11 +12494,11 @@
     "probability": 0.5166,
     "other_probability": 0.4834
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -12563,11 +12548,11 @@
     "probability": 0.5376,
     "other_probability": 0.4624
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -384.1,
    "community_pick_pct": {
     "team0": 14,
     "team1": 86,
@@ -12621,11 +12606,11 @@
     "probability": 0.5103,
     "other_probability": 0.4897
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -386.6,
    "community_pick_pct": {
     "team0": 14,
     "team1": 86,
@@ -12675,11 +12660,11 @@
     "probability": 0.5167,
     "other_probability": 0.4833
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -386.6,
    "community_pick_pct": {
     "team0": 21,
     "team1": 79,
@@ -12729,11 +12714,11 @@
     "probability": 0.575,
     "other_probability": 0.425
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -421.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -12785,11 +12770,11 @@
     "probability": 0.6135,
     "other_probability": 0.3865
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -425.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -12832,18 +12817,20 @@
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Ground Zero Gaming 1404 vs Frank Esports 1619 (48/57 rated series).",
-   "flags": [],
+   "flags": [
+    "archived external quote retired as unverifiable: Specialist Esportsbook Moneyline (via EGamersWorld) 1.025/10.50 captured 2026-10-21; that page now shows symmetric 1.80 / 1.80 placeholder prices, so this line is originated instead"
+   ],
    "pick": {
     "side": 1,
     "team": "Frank Esports",
     "probability": 0.7754,
     "other_probability": 0.2246
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -449.1,
    "community_pick_pct": {
     "team0": 15,
     "team1": 85,
@@ -12897,11 +12884,11 @@
     "probability": 0.6202,
     "other_probability": 0.3798
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -506.6,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -12951,11 +12938,11 @@
     "probability": 0.5413,
     "other_probability": 0.4587
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -506.6,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -13009,11 +12996,11 @@
     "probability": 0.5233,
     "other_probability": 0.4767
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -506.6,
    "community_pick_pct": {
     "team0": 13,
     "team1": 87,
@@ -13063,11 +13050,11 @@
     "probability": 0.6079,
     "other_probability": 0.3921
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -506.6,
    "community_pick_pct": {
     "team0": 73,
     "team1": 27,
@@ -13117,11 +13104,11 @@
     "probability": 0.5117,
     "other_probability": 0.4883
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -13171,11 +13158,11 @@
     "probability": 0.5455,
     "other_probability": 0.4545
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -13225,11 +13212,11 @@
     "probability": 0.568,
     "other_probability": 0.432
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 15,
     "team1": 85,
@@ -13281,11 +13268,11 @@
     "probability": 0.5255,
     "other_probability": 0.4745
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -13335,11 +13322,11 @@
     "probability": 0.5231,
     "other_probability": 0.4769
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -13391,11 +13378,11 @@
     "probability": 0.5821,
     "other_probability": 0.4179
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -13445,11 +13432,11 @@
     "probability": 0.5717,
     "other_probability": 0.4283
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -13499,11 +13486,11 @@
     "probability": 0.6401,
     "other_probability": 0.3599
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -13553,11 +13540,11 @@
     "probability": 0.5723,
     "other_probability": 0.4277
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -13607,11 +13594,11 @@
     "probability": 0.6062,
     "other_probability": 0.3938
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 8,
     "team1": 92,
@@ -13663,11 +13650,11 @@
     "probability": 0.5347,
     "other_probability": 0.4653
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -13721,11 +13708,11 @@
     "probability": 0.7119,
     "other_probability": 0.2881
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 15,
     "team1": 85,
@@ -13775,11 +13762,11 @@
     "probability": 0.5721,
     "other_probability": 0.4279
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -13829,11 +13816,11 @@
     "probability": 0.5072,
     "other_probability": 0.4928
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -13885,11 +13872,11 @@
     "probability": 0.559,
     "other_probability": 0.441
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -552.1,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -13939,11 +13926,11 @@
     "probability": 0.5507,
     "other_probability": 0.4493
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -554.6,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -13993,11 +13980,11 @@
     "probability": 0.571,
     "other_probability": 0.429
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -554.6,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -14047,11 +14034,11 @@
     "probability": 0.5198,
     "other_probability": 0.4802
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -554.6,
    "community_pick_pct": {
     "team0": 86,
     "team1": 14,
@@ -14103,11 +14090,11 @@
     "probability": 0.5148,
     "other_probability": 0.4852
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
-   "stale_hours": -554.6,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
