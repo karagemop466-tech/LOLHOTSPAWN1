@@ -55,8 +55,9 @@ jobs:
             python3 tools/model.py     2>&1
             python3 tools/report.py    2>&1
             python3 tools/flags.py     2>&1
-            python3 tools/site.py      2>&1
-            python3 tools/verify.py    2>&1
+            python3 tools/verify.py    2>&1   # gate the data before publishing
+            python3 tools/site.py      2>&1   # render with the fresh check count
+            python3 tools/verify.py    2>&1   # gate the rendered pages
           } 2>&1 | tee data/build.log
           PIPE=${PIPESTATUS[0]}
           echo "pipeline exit: $PIPE"

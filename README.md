@@ -8,6 +8,8 @@ Probabilities come from live bookmaker and exchange lines where they exist, and 
 model where they do not. Hotspawn's own crowd-pick percentages are never used as an input.
 
 The site rebuilds itself every six hours from GitHub Actions; nothing here needs a laptop to stay current.
+Coverage is asserted against the exact Hotspawn API response the build fetched: match ids 1:1, all 27
+tournaments, and 180 distinct teams.
 
 ## What it produces
 
@@ -77,7 +79,7 @@ internal link resolves, no `None`/empty value is rendered, every match appears o
 executive summary links to every view, the mobile menu and picks filters are actually wired, every page
 carries the mobile tab bar, and **no row uses more rated series than were played before its kick-off**.
 
-Current result: **23/23 pass**, 0 look-ahead violations (`data/verification.json`).
+Current result: **26/26 pass**, 0 look-ahead violations (`data/verification.json`).
 
 ### Mobile
 
@@ -127,4 +129,5 @@ files in `data/`. `python3 tools/probe_sources.py` is the optional runner-side s
 | Originated lines | 149 model + 79 provisional |
 | Quarantined (mid-split DQ) | 4 |
 | Out-of-sample backtest | 3,854 series, 65.5 % accuracy, 0.2144 Brier, 0.6178 log-loss |
-| Publish gate | 23/23 checks pass |
+| Toss-ups (identical kick-off ratings) | 3, marked on the row instead of pretending an edge |
+| Publish gate | 26/26 checks pass |

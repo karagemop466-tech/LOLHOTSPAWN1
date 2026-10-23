@@ -200,6 +200,20 @@ def main() -> None:
     add("every row has a fixture source; every pick has a results or market source", not missing_extra,
         f"{len(rows) - len(missing_extra)}/{len(rows)} rows; problems={missing_extra[:3]}")
 
+    # --- coverage parity against the raw Hotspawn snapshot ------------------
+    raw = (load_json(os.path.join(RAW, "hotspawn_lol.json")) or {}).get("fixtures") or []
+    raw_ids = {str(f.get("id")) for f in raw}
+    row_ids = {str(r.get("id")) for r in rows}
+    rc, dc = Counter(f.get("competition") for f in raw), Counter(r.get("competition") for r in rows)
+    add("every Hotspawn fixture is in the dataset (1:1 ids)", raw_ids == row_ids,
+        f"feed={len(raw_ids)} dataset={len(row_ids)} missing={sorted(raw_ids - row_ids)[:3]} extra={sorted(row_ids - raw_ids)[:3]}")
+    add("per-tournament counts match the Hotspawn feed",
+        set(rc) == set(dc) and all(rc[k] == dc[k] for k in rc),
+        f"{len(rc)} tournaments; differences: {[k for k in rc if rc[k] != dc.get(k)][:3]}")
+    on_page_ids = set(re.findall(r'<details class="pick[^"]*" data-id="(\d+)"', picks_html))
+    add("every match appears on the picks page", on_page_ids == row_ids,
+        f"{len(on_page_ids)}/{len(row_ids)} ids rendered; missing={sorted(row_ids - on_page_ids)[:3]}")
+
     counts = Counter(r["method"] for r in rows)
     unverified = [r["id"] for r in rows if r["method"] in ("provisional", "unresolved")]
     report = {

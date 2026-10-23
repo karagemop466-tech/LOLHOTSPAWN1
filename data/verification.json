@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:46:40Z",
+ "generated_utc": "2026-10-23T15:50:42Z",
  "checks": [
   {
    "name": "dataset present",
@@ -115,6 +115,21 @@
    "name": "every row has a fixture source; every pick has a results or market source",
    "ok": true,
    "detail": "241/241 rows; problems=[]"
+  },
+  {
+   "name": "every Hotspawn fixture is in the dataset (1:1 ids)",
+   "ok": true,
+   "detail": "feed=241 dataset=241 missing=[] extra=[]"
+  },
+  {
+   "name": "per-tournament counts match the Hotspawn feed",
+   "ok": true,
+   "detail": "27 tournaments; differences: []"
+  },
+  {
+   "name": "every match appears on the picks page",
+   "ok": true,
+   "detail": "241/241 ids rendered; missing=[]"
   }
  ],
  "passed": true,

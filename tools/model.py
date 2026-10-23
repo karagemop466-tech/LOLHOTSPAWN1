@@ -810,15 +810,23 @@ def main() -> None:
         for side, notes in ((row["team0"], note0), (row["team1"], note1)):
             flags.extend(notes)
         stale = False
+        live = False
         if f.get("start_utc"):
             try:
                 start_dt = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
-                stale = (datetime.now(timezone.utc) - start_dt).total_seconds() > 3 * 3600
+                age = (datetime.now(timezone.utc) - start_dt).total_seconds()
+                stale = age > 3 * 3600
+                live = 0 < age <= 3 * 3600
             except ValueError:
-                stale = False
+                stale = live = False
+        if live:
+            flags.append("kick-off has passed within the last 3 hours and the series may still be running")
         if stale:
             flags.append("start time has passed but Hotspawn still lists the fixture as scheduled "
                          "(likely postponed or awaiting a result)")
+        if p0 is not None and abs(p0 - 0.5) < 1e-9:
+            flags.append("kick-off ratings are identical (a true 50/50); the listed side is display "
+                         "order only and carries no edge")
         if row["team0"]["join"] == "ambiguous" or row["team1"]["join"] == "ambiguous":
             flags.append("team name could not be matched unambiguously")
 
@@ -833,7 +841,7 @@ def main() -> None:
                     "p1": round(p1, 4) if p1 is not None else None,
                     "method": method, "confidence": confidence, "basis": basis,
                     "flags": sorted(set(flags)), "pick": pick, "market": market,
-                    "connected": connected, "stale": stale,
+                    "connected": connected, "stale": stale, "live": live,
                     "community_pick_pct": f["community_pick_pct"]})
         rows.append(row)
 

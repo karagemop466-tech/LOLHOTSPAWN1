@@ -246,10 +246,14 @@ def pick_row(r: dict, show_comp: bool = True, now: datetime | None = None) -> st
     hours = hours_from_now(r["start_utc"], now)
     fav = max(p0, p1) if p0 is not None and p1 is not None else 0.0
     stale = bool(r.get("stale"))
+    live = bool(r.get("live"))
+    tossup = bool(pick) and abs(float(pick["probability"]) - 0.5) < 1e-9
     if pick:
         pick_html = (f'<span class="pk-badge b-{e(r["method"])}">{e(METHOD_SHORT.get(r["method"], r["method"]))}</span>'
                      f'<span class="pk-team">{e(pick["team"])}</span>'
-                     f'<span class="pk-pct">{pick["probability"]*100:.1f}%</span>')
+                     f'<span class="pk-pct">{pick["probability"]*100:.1f}%</span>'
+                     + ('<span class="pk-flip" title="The two ratings are identical; the side shown is '
+                        'display order only">toss-up</span>' if tossup else ''))
     else:
         pick_html = ('<span class="pk-badge b-unresolved">No pick</span>'
                      '<span class="pk-team muted">See unresolved</span>')
@@ -258,14 +262,15 @@ def pick_row(r: dict, show_comp: bool = True, now: datetime | None = None) -> st
         flags = '<ul class="flags">' + "".join(f"<li>{e(f)}</li>" for f in r["flags"]) + "</ul>"
     sources = '<div class="src">' + "".join(_source_links(r)) + "</div>"
     comp = f'<span class="c-comp">{e(r["competition"])}</span>' if show_comp else ""
-    stale_tag = '<span class="badge b-past">started</span>' if stale else ""
-    return f"""<details class="pick m-{e(r['method'])}{' is-stale' if stale else ''}"
+    stale_tag = ('<span class="badge b-past">started</span>' if stale
+                 else '<span class="badge b-live">live</span>' if live else "")
+    return f"""<details class="pick m-{e(r['method'])}{' is-stale' if stale else ''}" data-id="{e(r['id'])}"
   data-method="{e(r['method'])}" data-comp="{e(r['competition'])}"
   data-text="{e(slug(r['competition'] + ' ' + t0['name'] + ' ' + t1['name']))}"
   data-kickoff="{int(parse_utc(r['start_utc']).timestamp()) if parse_utc(r['start_utc']) else 0}"
   data-hours="{hours}" data-favprob="{fav:.4f}" data-points="{int(r.get('points') or 0)}">
   <summary class="pick-sum">
-    <span class="c-time">{short_time(r['start_utc'])}<span class="c-day">{e((r['start_utc'] or '')[:10])}</span></span>
+    <span class="c-time">{short_time(r['start_utc'])}<span class="c-day">{e((r['start_utc'] or '')[:10])}{(' ' + stale_tag) if stale_tag else ''}</span></span>
     <span class="c-teams">
       <span class="t{' top' if pick and pick['side'] == 0 else ''}">{e(t0['name'])}<em>{pct(p0)}</em></span>
       <span class="vs">v</span>
@@ -940,12 +945,31 @@ def build_verification(rows: list[dict], matching: dict, verification: dict | No
         joins.append([e(j.get("team")), e(j.get("resolved") or "—"), e(j.get("method")),
                       "".join(f"<div class='small'>{e(n)}</div>" for n in (j.get("notes") or []))])
     stats = verification or {}
+    raw = (load_json(os.path.join(DATA, "raw", "hotspawn_lol.json")) or {}).get("fixtures") or []
+    raw_ids = {str(f.get("id")) for f in raw}
+    row_ids = {str(r.get("id")) for r in rows}
+    raw_comps = Counter(f.get("competition") for f in raw)
+    row_comps = Counter(r.get("competition") for r in rows)
+    teams = {m[side]["name"] for m in rows for side in ("team0", "team1")}
+    parity = (len(raw), len(rows), len(raw_ids & row_ids), len(row_comps), len(raw_comps),
+              sum(1 for k in raw_comps if raw_comps[k] == row_comps.get(k)))
     body = f"""
 <section class="panel">
   <h2>Automated verification gate ({len(checks)} assertions)</h2>
   <p class="lead">Every scheduled refresh executes these assertions before committing. Any failure halts the
   deployment so broken links, invalid probabilities or look-ahead leakage never reach GitHub Pages.</p>
   {table(["Check", "Result", "Detail"], check_rows)}
+</section>
+
+<section class="panel">
+  <h2>Coverage parity against the Hotspawn feed</h2>
+  <p class="lead">The dataset is a mirror of the inventory the build fetched, not a selection. This panel is
+  recomputed from <code>data/raw/hotspawn_lol.json</code> (the exact API response used for the build) on every
+  publish, and <code>tools/verify.py</code> fails the build if any of these three identities breaks.</p>
+  {table(["Identity", "Hotspawn feed", "Published dataset", "Result"],
+         [["Match ids", f"{parity[0]}", f"{parity[1]} ({parity[2]} shared)", "pass" if parity[0] == parity[1] == parity[2] else "FAIL"],
+          ["Tournaments", f"{parity[4]}", f"{parity[3]} ({parity[5]} with identical counts)", "pass" if parity[3] == parity[4] and parity[5] == parity[4] else "FAIL"],
+          ["Distinct teams", f"{len({m[side]['name'] for m in raw for side in ('team0', 'team1')})}", f"{len(teams)}", "pass" if len(teams) == len({m[side]['name'] for m in raw for side in ('team0', 'team1')}) else "FAIL"]])}
 </section>
 
 <section class="panel">
