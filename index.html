@@ -13,117 +13,98 @@
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle page menu">Menu</button>
-    <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+    <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="table.html">Table</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
 </header>
 <main id="main" class="wrap">
   <div class="pagehead">
     <h1>Hotspawn LoL Pick Desk</h1>
     <p class="sub">Independent win probabilities for every League of Legends match in the Hotspawn pick'em.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 15:52 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:37:40Z">Hotspawn inventory collected: 2026-10-23T15:37:40Z. Check source timestamps before use.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-23 15:53 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:50:53Z">Hotspawn inventory collected: 2026-10-23T15:50:53Z. Check source timestamps before use.</p>
   </div>
   
 <section class="hero" id="start">
   <h2>Every Hotspawn League of Legends match, with a pick you can find in one tap.</h2>
   <p>This dashboard rebuilds itself automatically every six hours across all 241 scheduled LoL matches on
-  Hotspawn. 237 carry a win probability: featured series combine real-money quotes across
-  <strong>Pinnacle, Polymarket, Kalshi (CFTC) and Bovada</strong>, and low-tier regional leagues are originated
-  from recorded series history. The other 4 are league removals where we publish a settlement
-  pick and no probability. Nothing here ever uses Hotspawn's crowd-pick percentages.</p>
+  Hotspawn. 9 featured series are priced from de-vigged real-money quotes
+  (Bovada, Kalshi, Pinnacle, Polymarket); 228 regional and academy series are originated from recorded series history;
+  4 unplayable cards are quarantined and, where the league itself has ruled a forfeit,
+  resolved to the official winner instead of being left blank. Nothing on this site ever uses Hotspawn's
+  crowd-pick percentages.</p>
   <div class="cta">
-    <a class="btn primary" href="picks.html">Open all 241 picks &rarr;</a>
-    <a class="btn" href="unresolved.html">Unresolved &amp; limitations (4)</a>
+    <a class="btn primary" href="table.html">Pick table - all 241 matches &rarr;</a>
+    <a class="btn" href="picks.html">Card view</a>
+    <a class="btn" href="unresolved.html">Unresolved &amp; limits (4)</a>
   </div>
-  <p class="hero-note">On a phone: tap <strong>Menu</strong> (top right) or the black bar at the bottom of the
-  screen. <a href="picks.html#list">All picks</a> has a search box and a tournament filter.</p>
 </section>
 
-<section class="panel" id="find">
-  <h2>Where the picks are &mdash; start here</h2>
-  <p class="lead">One tap to the list you need. Every page below is a single column on a phone, with the pick
-  and both win probabilities above the fold.</p>
-  <div class="quickgrid">
-    <a class="quick" href="picks.html"><span class="qk">All picks</span><span class="qv">241</span>
-      <span class="qn">Every match on Hotspawn, next kick-off first. Search + tournament filter.</span></a>
-    <a class="quick" href="featured.html"><span class="qk">Market-backed</span><span class="qv">9</span>
-      <span class="qn">De-vigged consensus from real-money books and exchanges, with our model beside it.</span></a>
-    <a class="quick" href="originated.html"><span class="qk">Model lines</span>
-      <span class="qv">228</span>
-      <span class="qn">Low-tier leagues with no bookmaker market: our own Elo probability.</span></a>
-    <a class="quick" href="coverage.html"><span class="qk">Line coverage</span>
-      <span class="qv">9</span>
-      <span class="qn">Which competitions a bookmaker prices, which we originate, and the receipt behind each.</span></a>
-    <a class="quick warn" href="unresolved.html"><span class="qk">Unresolved</span><span class="qv">4</span>
-      <span class="qn">Settlement-only picks, why no percentage is claimed, and every limitation.</span></a>
-    <a class="quick" href="competitions.html"><span class="qk">By tournament</span><span class="qv">27</span>
-      <span class="qn">Coverage and source quality for each competition.</span></a>
-    <a class="quick" href="flagged.html"><span class="qk">Flagged for review</span>
-      <span class="qv">23</span>
-      <span class="qn">Irregularities, stale fixtures, crowd traps, disconnected data.</span></a>
+<section class="panel" id="jumpto">
+  <h2>Start here</h2>
+  <div class="quicklinks">
+    <a href="table.html"><span class="ql-t">Pick table</span><span class="ql-d">Every match in one scannable table: pick, both win probabilities, method and source links.</span></a>
+    <a href="picks.html"><span class="ql-t">Card view</span><span class="ql-d">The same list as cards, with the full reasoning behind each line.</span></a>
+    <a href="featured.html"><span class="ql-t">Market-backed (9)</span><span class="ql-d">De-vigged consensus from real-money books and exchanges.</span></a>
+    <a href="originated.html"><span class="ql-t">Originated lines (228)</span><span class="ql-d">Our own Elo line where no sportsbook prices the league.</span></a>
+    <a href="unresolved.html"><span class="ql-t">Unresolved &amp; limits (4)</span><span class="ql-d">Cards that cannot be priced, plus every documented limitation.</span></a>
+    <a href="flagged.html"><span class="ql-t">Flagged for review</span><span class="ql-d">Irregularities, corrections and unverified items.</span></a>
   </div>
 </section>
 
 <section class="stats">
   <div class="stat "><div class="sv">241</div><div class="sl">Matches listed on Hotspawn</div><div class=sn>across 27 tournaments</div></div>
-  <div class="stat ok"><div class="sv">241</div><div class="sl">Matches with a pick</div><div class=sn>100% coverage</div></div>
-  <div class="stat ok"><div class="sv">237</div><div class="sl">With a win probability</div><div class=sn>98% priced</div></div>
-  <div class="stat unresolved"><div class="sv">4</div><div class="sl">Settlement only</div><div class=sn>no probability claimed</div></div>
-  <div class="stat market"><div class="sv">9</div><div class="sl">Market-backed</div><div class=sn>multi-venue real-money consensus</div></div>
+  <div class="stat ok"><div class="sv">245</div><div class="sl">Matches with a pick</div><div class=sn>102% incl. forfeit settlements</div></div>
+  <div class="stat market"><div class="sv">9</div><div class="sl">Market-backed</div><div class=sn>real-money consensus</div></div>
   <div class="stat model"><div class="sv">163</div><div class="sl">Originated lines</div><div class=sn>model, medium confidence</div></div>
   <div class="stat provisional"><div class="sv">65</div><div class="sl">Provisional</div><div class=sn>thin data, flagged</div></div>
+  <div class="stat unresolved"><div class="sv">4</div><div class="sl">Walkover-resolved</div><div class=sn>official forfeit, no probability</div></div>
 </section>
 
 <section class="panel">
   <h2>Executive summary</h2>
   <ul class="bullets">
-    <li><strong>Coverage: 241 of 241 matches carry a pick (100%).</strong>
-    237 of those are priced with a probability and 4 are settlement-only.
-    Priced picks: <a href="featured.html"><strong>9 market-backed</strong></a> from external
-    bookmaker and exchange lines, <a href="originated.html"><strong>163 originated model lines</strong></a>
-    and <a href="originated.html"><strong>65 provisional lines</strong></a>.
-    The full list in kick-off order is <a href="picks.html"><strong>All picks</strong></a>.</li>
-    <li><strong>Which matches have a real bookmaker line, and which we had to originate.</strong>
-    <a href="coverage.html"><strong>External line coverage</strong></a> lists every competition with its
-    method, the external price we captured for it (with the source page and capture time) and the
-    evidence that no reachable bookmaker prices the rest.</li>
-    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
-    We probed <strong>32 external venues</strong> directly from the build runner (established
-    books, esportsbooks, exchanges, odds aggregators); 14 answered and
-    7 returned JSON, and only four of those are price feeds. Across every reachable
-    venue the same slice of the calendar is quoted: <strong>Pinnacle 8 series</strong>,
-    <strong>Kalshi 8 contracts</strong> and
-    <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds
-    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
-    The full probe table, HTTP verdict per venue and the receipt files are on
-    <a href="sources.html"><strong>Sources</strong></a>.</li>
-    <li><strong>Unresolved picks and the limitations on producing them (4 matches).</strong>
-    These are the 4 Komplettligaen 2026 Autumn fixtures involving
-    <strong>Solid Gaming</strong>, which the community-maintained Leaguepedia record
-    <code>Data:Komplettligaen/2026 Season/Autumn Split</code> shows removed in Round 10. Each of these four
-    fixtures matches a Leaguepedia series that carries its forfeit flag (<code>FF=1</code> or <code>FF=2</code>,
-    meaning Solid Gaming forfeited) with a recorded 0&ndash;2 score in favour of the opponent; the flag is not
-    universal &mdash; eight of Solid Gaming's eleven series carry it, three do not &mdash; so it is stated per match,
-    never assumed (<a href="audit/receipts/leaguepedia_ff_solid_gaming_2026-10-23.json">Leaguepedia FF query receipt</a>).
-    Hotspawn still lists them as scheduled, so we publish the administratively correct
-    side (the active opponent) and <strong>no win probability</strong>: a competitive number cannot be justified
-    for a series that may be voided or awarded as a walkover. Every such match, plus the limitations that apply
-    to the rest of the list (no bookmaker market below tier A, thin samples, one-sided history, disconnected
-    opponent graphs, geo-blocked books), is on
-    <a href="unresolved.html"><strong>Unresolved &amp; limitations</strong></a>.</li>
-    <li><strong>External lines only, with a model cross-check.</strong> Market rows are built from Pinnacle,
-    Polymarket, Kalshi (CFTC) and Bovada, de-vigged proportionally and precision-weighted; archived esportsbook
-    receipts expire after 24 hours so an old price can never masquerade as a live line, and quotes that imply
-    more than 97% on one side are rejected as non-actionable. Our own Elo probability is printed beside every
-    market price so a disagreement is visible (<a href="featured.html">Market</a>).
-    Hotspawn crowd shares are stored for audit only. Method and out-of-sample backtest:
-    <a href="methodology.html"><strong>Method</strong></a>.</li>
-    <li><strong>Refresh and verification.</strong> The pipeline reruns every 6 hours and re-reads Hotspawn's
-    fixture list on every run, so new cards appear without any manual step. 9 of 14
-    probed feeds answered on the latest runner build (<a href="sources.html">Sources</a>), and
-    29 automated publish gates must pass before anything is committed
-    (<a href="verification.html">Verification</a>). Irregularities are published on
+    <li><strong>Where the picks are.</strong> On a phone, bookmark
+    <a href="table.html"><strong>Pick table</strong></a> - one row per match with the pick, both win
+    probabilities, the method and source links. <a href="picks.html"><strong>Card view</strong></a> shows the
+    same 241 matches with the full reasoning. Both pages are searchable and filterable by tournament and
+    by method.</li>
+    <li><strong>Coverage.</strong> 241 of 241 matches carry a pick with a probability and
+    4 more are resolved to the official forfeit winner, so 245 of 241
+    (102%) have a pick: <a href="featured.html">9 market-backed</a>
+    (Bovada, Kalshi, Pinnacle, Polymarket), <a href="originated.html">163 originated</a> and
+    <a href="originated.html">65 provisional</a>.</li>
+    <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
+    originated lines are model estimates from community-maintained Leaguepedia history; archived sportsbook
+    receipts are excluded from pricing; and the Hotspawn settlement of a forfeited card is unverified - see
     <a href="flagged.html">Flagged for review</a>.</li>
+    <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
+    captured for audit comparison only and carry zero weight in any probability - see
+    <a href="methodology.html">Method &amp; out-of-sample backtest</a>.</li>
+    <li><strong>Verification.</strong> 9 of 14 probed feeds answered on the last
+    build (<a href="sources.html">Sources</a>); every row links to its official source; and the publish gate
+    (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
+    probabilities fail to sum to 100%, or an internal link breaks.</li>
+  </ul>
+</section>
+
+<section class="panel" id="unresolved-summary">
+  <h2>Unresolved picks and the limitations (4)</h2>
+  <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror Hotspawn
+  exactly, are reported separately, and are never padded with a guessed number. Where the league itself has
+  ruled a forfeit, the official settlement winner is shown - it is <em>not</em> a forecast.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>Kick-off</th><th>Tournament</th><th>Match</th><th>Settlement pick</th><th>Sources</th></tr></thead><tbody><tr><td data-label="Kick-off"><time datetime="2026-09-17T15:00:00Z" class="utc" data-utc="2026-09-17T15:00:00Z">2026-09-17 15:00 UTC</time></td><td data-label="Tournament"><a href="unresolved.html#m1071170">Komplettligaen 2026 Autumn</a></td><td data-label="Match"><strong>Solid Gaming</strong> vs <strong>VES Japan</strong></td><td data-label="Settlement pick"><strong class="res">VES Japan</strong><br><span class="small muted">official forfeit (walkover)</span></td><td data-label="Sources"><a href="https://www.hotspawn.com/matches/solid-gaming-vs-ves-japan-komplettligaen-2026-autumn-1071170" rel="noopener">Hotspawn</a> &middot; <a href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" rel="noopener">Leaguepedia</a></td></tr><tr><td data-label="Kick-off"><time datetime="2026-10-04T15:00:00Z" class="utc" data-utc="2026-10-04T15:00:00Z">2026-10-04 15:00 UTC</time></td><td data-label="Tournament"><a href="unresolved.html#m1071200">Komplettligaen 2026 Autumn</a></td><td data-label="Match"><strong>Solid Gaming</strong> vs <strong>Playwell Rød Q</strong></td><td data-label="Settlement pick"><strong class="res">Playwell Rød Q</strong><br><span class="small muted">official forfeit (walkover)</span></td><td data-label="Sources"><a href="https://www.hotspawn.com/matches/solid-gaming-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071200" rel="noopener">Hotspawn</a> &middot; <a href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" rel="noopener">Leaguepedia</a></td></tr><tr><td data-label="Kick-off"><time datetime="2026-10-11T15:00:00Z" class="utc" data-utc="2026-10-11T15:00:00Z">2026-10-11 15:00 UTC</time></td><td data-label="Tournament"><a href="unresolved.html#m1071206">Komplettligaen 2026 Autumn</a></td><td data-label="Match"><strong>Volda E-Sport</strong> vs <strong>Solid Gaming</strong></td><td data-label="Settlement pick"><strong class="res">Volda E-Sport</strong><br><span class="small muted">official forfeit (walkover)</span></td><td data-label="Sources"><a href="https://www.hotspawn.com/matches/volda-e-sport-vs-solid-gaming-komplettligaen-2026-autumn-1071206" rel="noopener">Hotspawn</a> &middot; <a href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" rel="noopener">Leaguepedia</a></td></tr><tr><td data-label="Kick-off"><time datetime="2026-10-13T17:00:00Z" class="utc" data-utc="2026-10-13T17:00:00Z">2026-10-13 17:00 UTC</time></td><td data-label="Tournament"><a href="unresolved.html#m1071186">Komplettligaen 2026 Autumn</a></td><td data-label="Match"><strong>Solid Gaming</strong> vs <strong>NTNUI Kometkameratene</strong></td><td data-label="Settlement pick"><strong class="res">NTNUI Kometkameratene</strong><br><span class="small muted">official forfeit (walkover)</span></td><td data-label="Sources"><a href="https://www.hotspawn.com/matches/solid-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071186" rel="noopener">Hotspawn</a> &middot; <a href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" rel="noopener">Leaguepedia</a></td></tr></tbody></table></div>
+  <ul class="bullets">
+    <li><strong>Why some matches have no line.</strong> A team officially removed mid-split
+    (<code>dqteams</code>) may have its remaining fixtures voided or graded as walkovers, so a probability
+    built from its earlier results would be fiction.</li>
+    <li><strong>No market on national divisions.</strong> 232 of 241 matches are not
+    priced by any book reachable from the runner; their lines come from recorded series history rather than
+    an aggregator placeholder.</li>
+    <li><strong>Thin samples.</strong> 65 lines are labelled <em>provisional</em> because at
+    least one side has fewer than five rated series in the 25-month window.</li>
+    <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
+    limitations are on <a href="unresolved.html"><strong>Unresolved &amp; limitations</strong></a>; the
+    irregularities are on <a href="flagged.html">Flagged for review</a>.</li>
   </ul>
 </section>
 
@@ -205,16 +186,16 @@
   <div class="comp">Worlds 2026 Main Event</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">Gen.G</span><span class="tpct">76.0%</span>
+      <span class="tname">Gen.G</span><span class="tpct">75.4%</span>
     </div>
-    <div class="split" role="img" aria-label="Gen.G 76 percent, Invictus Gaming 24 percent"><span class="s0" style="width:76.0%"></span></div>
+    <div class="split" role="img" aria-label="Gen.G 75 percent, Invictus Gaming 25 percent"><span class="s0" style="width:75.4%"></span></div>
     <div class="team ">
-      <span class="tname">Invictus Gaming</span><span class="tpct">23.9%</span>
+      <span class="tname">Invictus Gaming</span><span class="tpct">24.6%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Gen.G</strong> <span class="pickpct">76.0%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Gen.G</strong> <span class="pickpct">75.4%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>4-Venue Consensus de-vigged line (76.0% / 23.9%): Pinnacle 74.5%/25.5% (1.28/3.74), Polymarket 77.5%/22.5% (77.5¢/22.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 75.7%/24.3% (1.24/3.85).</p>
+    <p>4-Venue Consensus de-vigged line (75.4% / 24.6%): Pinnacle 73.6%/26.5% (1.30/3.61), Polymarket 76.5%/23.5% (76.5¢/23.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 75.3%/24.7% (1.24/3.80).</p>
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878" rel="noopener">Hotspawn card</a><a href="https://www.pinnacle.com/en/event/1638748200" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-gen-ig1-2026-10-23" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231300iggen" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/esports/league-of-legends/world-championship-26/gen-g-invictus-gaming-202610231300" rel="noopener">Bovada</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Gen.G" rel="noopener">Gen.G</a><a href="https://lol.fandom.com/wiki/Invictus_Gaming" rel="noopener">Invictus Gaming</a></div>
@@ -236,7 +217,7 @@
   </div>
   <div class="pickline"><span class="picklabel">Pick</span> <strong>Pegasus Esports</strong> <span class="pickpct">51.8%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: NextGeneration Esports 1477 vs Pegasus Esports 1489 (59/34 rated series).</p>
+    <p>Elo line: NextGeneration Esports 1481 vs Pegasus Esports 1494 (60/35 rated series).</p>
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/nextgeneration-esports-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079139" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/NextGeneration_Esports" rel="noopener">NextGeneration Esports</a><a href="https://lol.fandom.com/wiki/Pegasus_Esports" rel="noopener">Pegasus Esports</a></div>
@@ -249,35 +230,33 @@
   <div class="comp">Arabian League 2nd Division 2026 Summer</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">Team VDS</span><span class="tpct">60.2%</span>
+      <span class="tname">Team VDS</span><span class="tpct">60.3%</span>
     </div>
-    <div class="split" role="img" aria-label="Team VDS 60 percent, Team Reds 40 percent"><span class="s0" style="width:60.2%"></span></div>
+    <div class="split" role="img" aria-label="Team VDS 60 percent, Team Reds 40 percent"><span class="s0" style="width:60.3%"></span></div>
     <div class="team ">
-      <span class="tname">Team Reds</span><span class="tpct">39.8%</span>
+      <span class="tname">Team Reds</span><span class="tpct">39.7%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team VDS</strong> <span class="pickpct">60.2%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team VDS</strong> <span class="pickpct">60.3%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Team VDS 1556 vs Team Reds 1484 (37/5 rated series).</p>
+    <p>Elo line: Team VDS 1557 vs Team Reds 1484 (37/5 rated series).</p>
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/team-vds-vs-team-reds-arabian-league-2nd-division-2026-summer-1082106" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_VDS" rel="noopener">Team VDS</a><a href="https://lol.fandom.com/wiki/Team_Reds" rel="noopener">Team Reds</a></div>
 </article>
   </div>
-  <p><a class="btn" href="picks.html#list">See all 241 matches &rarr;</a></p>
+  <p><a class="btn" href="table.html">See the full table (241 matches) &rarr;</a></p>
 </section>
 
 </main>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Rows link to their source records. Leaguepedia is community-maintained;
-  model lines are estimates, not verified facts. Zero Hotspawn crowd-pick input.</p>
+  <p>Independent research dashboard. Rows link to their source records. Leaguepedia is community-maintained; model lines are estimates, not verified facts. Zero Hotspawn crowd-pick input.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
-<nav class="mobnav" aria-label="Quick navigation">
-  <a href="index.html" class="active"><span>Summary</span></a><a href="picks.html"><span>All picks</span></a><a href="featured.html"><span>Market</span></a><a href="unresolved.html"><span>Unresolved</span></a><a href="flagged.html"><span>Flags</span></a>
-</nav>
+<nav class="mobnav" aria-label="Quick navigation"><a href="index.html" class="active"><span>Summary</span></a><a href="picks.html"><span>All picks</span></a><a href="featured.html"><span>Market</span></a><a href="unresolved.html"><span>Unresolved</span></a><a href="flagged.html"><span>Flags</span></a></nav>
+<a class="mobile-picks" href="table.html">All picks &rarr;</a>
 <script src="assets/app.js"></script>
 </body>
 </html>
