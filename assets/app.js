@@ -1,9 +1,7 @@
 (function () {
   "use strict";
 
-  /* ------------------------------------------------------------------ *
-   * 1. Local-time tooltips (static HTML keeps a UTC fallback)           *
-   * ------------------------------------------------------------------ */
+  // Format `data-utc` timestamps with friendly local date/time while preserving UTC
   function hydrateTimestamps() {
     var nodes = document.querySelectorAll("[data-utc]");
     for (var i = 0; i < nodes.length; i++) {
@@ -23,144 +21,143 @@
           nodes[i].textContent = localStr + " (" + iso.slice(11, 16) + " UTC)";
         }
       } catch (_err) {
-        /* keep the UTC text */
+        // Keep static UTC fallback intact
       }
     }
   }
 
-  /* ------------------------------------------------------------------ *
-   * 2. Mobile menu button (was rendered but never wired up)             *
-   * ------------------------------------------------------------------ */
+  // Mobile menu toggle (header)
   function initMenu() {
-    var btn = document.querySelector(".menu-btn");
+    var menu = document.querySelector(".menu-btn");
     var nav = document.getElementById("nav");
-    if (!btn || !nav || btn.dataset.bound === "1") return;
-    btn.dataset.bound = "1";
-
-    function setOpen(open) {
+    if (!menu || !nav) return;
+    menu.addEventListener("click", function () {
+      var open = menu.getAttribute("aria-expanded") !== "true";
+      menu.setAttribute("aria-expanded", String(open));
       nav.classList.toggle("open", open);
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-      btn.textContent = open ? "Close" : "Menu";
-    }
-
-    btn.addEventListener("click", function (ev) {
-      ev.preventDefault();
-      setOpen(!nav.classList.contains("open"));
-    });
-
-    // Close the menu after following a link, and on Escape.
-    nav.addEventListener("click", function (ev) {
-      if (ev.target && ev.target.tagName === "A") setOpen(false);
-    });
-    document.addEventListener("keydown", function (ev) {
-      if (ev.key === "Escape") setOpen(false);
     });
   }
 
-  /* ------------------------------------------------------------------ *
-   * 3. Picks page: search + tournament filter + method chips            *
-   *    (the markup uses #q, #comp, .chip[data-filter], #list, #count)   *
-   * ------------------------------------------------------------------ */
+  // Snapshot age: a stale snapshot must never look like live odds
+  function initSnapshotAge() {
+    var snapshot = document.getElementById("snapshot-age");
+    if (!snapshot) return;
+    var hours = (Date.now() - Date.parse(snapshot.getAttribute("data-fetched"))) / 3600000;
+    if (!isFinite(hours)) {
+      snapshot.textContent = "Inventory collection time unverified.";
+      snapshot.classList.add("stale-warning");
+      return;
+    }
+    var age = Math.max(0, Math.floor(hours));
+    snapshot.textContent = "Inventory collected " + age + " hour" + (age === 1 ? "" : "s") + " ago.";
+    if (hours > 8) {
+      snapshot.classList.add("stale-warning");
+      snapshot.textContent += " Refresh overdue - these are not live odds. Check the source links before using a pick.";
+    }
+  }
+
+  // Card-list filters (picks.html): search + tournament + method chips
   function initPickFilters() {
     var searchEl = document.getElementById("q");
     var compEl = document.getElementById("comp");
-    var listEl = document.getElementById("list");
+    var list = document.getElementById("list");
     var countEl = document.getElementById("count");
     var emptyEl = document.getElementById("empty");
-    var chips = document.querySelectorAll(".chip[data-filter]");
-    if (!listEl || listEl.dataset.bound === "1") return;
-    listEl.dataset.bound = "1";
+    if (!searchEl && !compEl) return;
 
-    var cards = Array.prototype.slice.call(listEl.querySelectorAll(".card"));
-    var state = { q: "", comp: "", method: "" };
-
-    var params = new URLSearchParams(window.location.search);
-    if (params.get("q") && searchEl) {
-      state.q = params.get("q");
-      searchEl.value = state.q;
-    }
-    if (params.get("comp") && compEl) {
-      state.comp = params.get("comp");
-      compEl.value = state.comp;
-    }
-    if (params.get("method")) {
-      state.method = params.get("method");
-      for (var c = 0; c < chips.length; c++) {
-        chips[c].classList.toggle("active", chips[c].getAttribute("data-filter") === state.method);
-      }
-    }
+    var cards = list ? list.querySelectorAll(".card") : [];
+    var method = "";
 
     function apply() {
-      var q = state.q.trim().toLowerCase();
+      var term = searchEl ? searchEl.value.trim().toLowerCase() : "";
+      var comp = compEl ? compEl.value : "";
       var shown = 0;
       for (var i = 0; i < cards.length; i++) {
-        var card = cards[i];
+        var r = cards[i];
         var ok = true;
-        if (q) {
-          var hay = (card.getAttribute("data-text") || "").toLowerCase();
-          if (hay.indexOf(q) === -1) ok = false;
-        }
-        if (ok && state.comp && card.getAttribute("data-comp") !== state.comp) ok = false;
-        if (ok && state.method && card.getAttribute("data-method") !== state.method) ok = false;
-        card.hidden = !ok;
+        if (method && r.getAttribute("data-method") !== method) ok = false;
+        if (ok && comp && r.getAttribute("data-comp") !== comp) ok = false;
+        if (ok && term && (r.getAttribute("data-text") || "").indexOf(term) === -1) ok = false;
+        r.hidden = !ok;
+      r.classList.toggle("hidden-row", !ok);
         if (ok) shown++;
       }
-      if (countEl) {
-        countEl.textContent =
-          shown + (shown === 1 ? " match shown" : " matches shown") +
-          (shown === cards.length ? "" : " of " + cards.length);
-      }
+      if (countEl) countEl.textContent = shown + " match" + (shown === 1 ? "" : "es") + " shown";
       if (emptyEl) emptyEl.hidden = shown !== 0;
     }
 
-    if (searchEl) {
-      searchEl.addEventListener("input", function () {
-        state.q = searchEl.value || "";
-        apply();
-      });
-    }
-    if (compEl) {
-      compEl.addEventListener("change", function () {
-        state.comp = compEl.value || "";
-        apply();
-      });
-    }
-    for (var k = 0; k < chips.length; k++) {
-      chips[k].addEventListener("click", function (ev) {
-        for (var m = 0; m < chips.length; m++) chips[m].classList.remove("active");
+    var chips = document.querySelectorAll("[data-filter]");
+    for (var c = 0; c < chips.length; c++) {
+      chips[c].addEventListener("click", function (ev) {
+        for (var j = 0; j < chips.length; j++) chips[j].classList.remove("active");
         ev.currentTarget.classList.add("active");
-        state.method = ev.currentTarget.getAttribute("data-filter") || "";
+        method = ev.currentTarget.getAttribute("data-filter") || "";
         apply();
       });
     }
 
+    if (searchEl) searchEl.addEventListener("input", apply);
+    if (compEl) compEl.addEventListener("change", apply);
     apply();
   }
 
-  /* ------------------------------------------------------------------ *
-   * 4. Back-to-top: the all-picks list is long on a phone               *
-   * ------------------------------------------------------------------ */
-  function initToTop() {
-    var btn = document.getElementById("totop");
-    if (!btn || btn.dataset.bound === "1") return;
-    btn.dataset.bound = "1";
-    btn.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+  // Pick-table filters (table.html): search + tournament + method chips
+  function initTableFilter() {
+    var q = document.getElementById("tq");
+    var comp = document.getElementById("tcomp");
+    var body = document.getElementById("tbody");
+    var count = document.getElementById("tcount");
+    var empty = document.getElementById("tempty");
+    var chips = document.querySelectorAll("[data-tfilter]");
+    if (!body || !chips.length) return;
+
+    var activeMethod = "";
+    var rows = body.querySelectorAll("tr.prow");
+
+    function apply() {
+      var term = q ? q.value.trim().toLowerCase() : "";
+      var compVal = comp ? comp.value : "";
+      var shown = 0;
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i];
+        var ok = true;
+        if (activeMethod && r.getAttribute("data-method") !== activeMethod) ok = false;
+        if (ok && compVal && r.getAttribute("data-comp") !== compVal) ok = false;
+        if (ok && term && (r.getAttribute("data-text") || "").indexOf(term) === -1) ok = false;
+        r.hidden = !ok;
+      r.classList.toggle("hidden-row", !ok);
+        if (ok) shown++;
+      }
+      if (count) count.textContent = shown + " match" + (shown === 1 ? "" : "es") + " shown";
+      if (empty) empty.hidden = shown !== 0;
+    }
+
+    for (var c = 0; c < chips.length; c++) {
+      chips[c].addEventListener("click", function (ev) {
+        for (var j = 0; j < chips.length; j++) chips[j].classList.remove("active");
+        ev.currentTarget.classList.add("active");
+        activeMethod = ev.currentTarget.getAttribute("data-tfilter") || "";
+        apply();
+      });
+    }
+    if (q) q.addEventListener("input", apply);
+    if (comp) comp.addEventListener("change", apply);
+    apply();
   }
 
-  function init() {
+  /* The script is loaded at the end of <body>, so the elements it needs already exist.
+     Boot immediately (keeps the page usable even if DOMContentLoaded has already fired),
+     and once more on DOMContentLoaded as a guard, which is idempotent. */
+  var booted = false;
+  function boot() {
+    if (booted) return;
+    booted = true;
     hydrateTimestamps();
     initMenu();
+    initSnapshotAge();
     initPickFilters();
-    initToTop();
+    initTableFilter();
   }
-
-  // Run now and again once the document is ready. Both passes are idempotent, so a
-  // script evaluated before DOMContentLoaded (and a test harness that evaluates it
-  // afterwards) both end up with exactly one handler per control.
-  init();
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  }
+  boot();
+  document.addEventListener("DOMContentLoaded", boot);
 })();

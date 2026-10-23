@@ -26,24 +26,27 @@ def main() -> None:
     sources = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     manual = (load_json(os.path.join(DATA, "flags_manual.json")) or {}).get("flags") or []
 
-    def decorate(f: dict) -> dict:
-        """Carry each curated flag's verification state to the page, honestly.
-
-        A flag that was re-checked against a live source on this run says so; one that
-        was not keeps an explicit "not reverified" banner instead of looking audited.
-        """
-        if f.get("verified_utc"):
-            return {**f, "detail": f["detail"],
-                    "verification": f"re-verified {f['verified_utc']} against "
-                                    f"{f.get('verified_against') or 'the cited source'}"}
-        return {**f, "item": "Historical observation — not reverified: " + f["item"],
-                "detail": "Prior-session statement; not verified against a live source in this audit. "
-                          + f["detail"]}
-
-    flags: list[dict] = [decorate(f) for f in manual]
-    flags.append({"severity": "medium", "item": "Archived aggregator quotes excluded from current pricing",
-                  "detail": "The previous pipeline reused fixed receipts observed on 2026-10-21 without refreshing them. These are now excluded. Only freshly collected provider feeds enter market consensus. Leaguepedia history remains community-maintained, not an official league source.",
-                  "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"})
+    # Curated items that state how they were checked keep their own wording; anything that
+    # cannot point at a verification is explicitly relabelled rather than silently trusted.
+    flags: list[dict] = []
+    for f in manual:
+        if f.get("verification"):
+            flags.append({**f, "item": f["item"] + " [" + f["verification"] + "]"})
+        else:
+            flags.append({**f,
+                          "item": "Not reverified: " + f["item"],
+                          "detail": ("Prior statement, not checked against a live official source in this "
+                                     "build. " + f["detail"])})
+    flags.append({
+        "severity": "info",
+        "item": "Leaguepedia is community-maintained, not an official league source",
+        "detail": ("Every originated line is fitted on Leaguepedia's community-recorded series history and its "
+                   "Data: page dqteams directives are used to quarantine removed teams. Leaguepedia is not an "
+                   "official settlement authority; Kalshi's own rules, for example, resolve a pre-play forfeit at "
+                   "the fair market price. Forfeit settlement picks on this site are therefore marked conditional."),
+        "source": "https://lol.fandom.com/wiki/Leaguepedia:Community",
+        "verification": "source role stated, not a value claim",
+    })
     counts = Counter(r["method"] for r in rows)
 
     unresolved = [r for r in rows if r["method"] == "unresolved"]
@@ -93,7 +96,7 @@ def main() -> None:
             "severity": "medium",
             "item": f"{len(stale)} fixtures still listed as 'scheduled' although their start time has passed",
             "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the "
-                      "published start time is more than three hours in the past (earliest "
+                      "published start time has already passed (earliest "
                       f"{min((r['start_utc'] or '') for r in stale)}). They are kept in the list to mirror "
                       "Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming "
                       "matches. The reason is unverified.",
@@ -221,14 +224,69 @@ def main() -> None:
         })
 
     priced = counts.get("market", 0)
+    market_comps = sorted({r["competition"] for r in rows if r["method"] == "market"})
     flags.append({
         "severity": "info",
         "item": f"Bookmaker coverage is {priced}/{len(rows)} matches",
-        "detail": "Pinnacle prices the World Championship and EMEA Masters fixtures from this list. The "
-                  "remaining national and academy leagues have no published market on any book reachable from "
-                  "the runner, which is why their lines are originated by our own model.",
+        "detail": ("Priced competitions in this snapshot: " + (", ".join(market_comps) or "none") +
+                   ". Every other national and academy league has no published market on any book reachable "
+                   "from the runner, which is why those lines are originated from recorded series history "
+                   "instead of guessed."),
         "source": PINNACLE,
     })
+
+    retired = load_json(os.path.join(DATA, "retired_quotes.json")) or {}
+    if retired.get("retired_count"):
+        flags.append({
+            "severity": "medium",
+            "item": f"{retired['retired_count']} archived esportsbook quotes were retired as unverifiable",
+            "detail": retired.get("reason", ""),
+            "source": ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/"
+                       "arena/4dfd0e71-lolhotspawn1/data/retired_quotes.json"),
+        })
+
+    # Per-fixture note: this match is now originated because its only external capture was retired.
+    retired_by_fixture = {str(q.get("fixture_id")): q
+                          for q in (retired.get("quotes") or [])}
+    for m in rows:
+        q = retired_by_fixture.get(str(m.get("id")))
+        if not q or m.get("method") == "market":
+            continue
+        src = q.get("source_url") or ""
+        note = (f"The only external capture for this fixture ({q.get('book_label') or 'aggregator'}, "
+                f"{'/'.join(str(x) for x in (q.get('decimal') or []) or [])} on "
+                f"{str(q.get('observed_at') or '')[:10]}) could not be re-verified and is retired; the published "
+                f"line is originated from recorded results. Live page today shows symmetric 1.80 / 1.80 placeholder "
+                f"prices, which are rejected by policy.")
+        flags.append({
+            "severity": "high",
+            "item": f"Retired external quote on {m.get('team0', {}).get('name')} vs {m.get('team1', {}).get('name')}",
+            "detail": note,
+            "source": src or "data/retired_quotes.json",
+        })
+
+    hy = data.get("market_hygiene") or {}
+    if hy.get("pinnacle_kills_derivatives_excluded"):
+        flags.append({
+            "severity": "info",
+            "item": (f"{hy['pinnacle_kills_derivatives_excluded']} Pinnacle '(Kills)' derivative markets "
+                     "excluded from the series consensus"),
+            "detail": "Pinnacle lists a parallel kills market for each LoL series. Only series moneylines are "
+                      "allowed to set a match-win probability; the derivative rows are filtered in collect.py "
+                      "and again in model.py.",
+            "source": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+        })
+
+    walkover = [r for r in rows if r.get("resolution")]
+    if walkover:
+        flags.append({
+            "severity": "info",
+            "item": f"{len(walkover)} fixtures resolved only by official forfeit, not by a playing line",
+            "detail": "; ".join(
+                f"#{r['id']} {r['team0']['name']} vs {r['team1']['name']} -> {r['resolution']['winner']} "
+                f"(official forfeit; {r['resolution']['source']})" for r in walkover),
+            "source": walkover[0]["resolution"]["source"],
+        })
 
     save_json(os.path.join(DATA, "flags.json"), {
         "generated_utc": iso(now_utc()),

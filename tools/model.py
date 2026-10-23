@@ -465,7 +465,6 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "p1": round(p1_v, 4),
                     "quote": f"{p0_v*100:.1f}¢/{p1_v*100:.1f}¢",
                     "overround": round(tot - 1.0, 4),
-                    "volume_usd": round(float(item.get("volume") or 0.0), 2),
                     "url": f"https://polymarket.com/event/{item['slug']}",
                     "volume_usd": round(float(item.get("volume") or 0.0), 2),
                 })
@@ -535,6 +534,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     p0 = round(p0, 4)
     # Never present derived fair odds as an observed bookmaker quote.
 
+    total_volume = sum(float(v.get("volume_usd") or 0) for v in venues) or None
     book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
     # A single prediction market with almost no traded volume is a price, not a market.
     # It stays published (it is the only external evidence) but never at high confidence.
@@ -557,8 +557,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         "start_utc": primary_start,
         "league": primary_league,
         "venue_count": len(venues),
-        "volume_usd": (max(v["volume_usd"] for v in venues if v.get("volume_usd") is not None)
-                       if any(v.get("volume_usd") is not None for v in venues) else None),
+        "total_volume_usd": total_volume,
+        "volume_usd": (max((v.get("volume_usd") or 0.0) for v in venues) if total_volume else None),
         "venues": venues,
     }
 
@@ -572,29 +572,11 @@ def main() -> None:
     pmkt = load_json(os.path.join(RAW, "polymarket.json")) or {}
     kalshi = load_json(os.path.join(RAW, "kalshi_lol.json")) or {}
     bovada = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
-    receipts_doc = load_json(os.path.join(ROOT, "archive", "session-8336fb7e", "data", "book_receipts.json")) or {}
-    receipts_all = receipts_doc.get("quotes") or receipts_doc.get("receipts") or {}
-    # An archived receipt is a snapshot of a bookmaker page taken at `observed_at`.
-    # Odds move, so a receipt older than RECEIPT_MAX_AGE_HOURS is not treated as a
-    # live market input any more; it is recorded in the audit trail instead.
-    receipts, expired_receipts = {}, []
-    for fid, rec in receipts_all.items():
-        obs = rec.get("observed_at")
-        age_h = None
-        if obs:
-            try:
-                age_h = (now_utc() - datetime.strptime(str(obs)[:19], "%Y-%m-%dT%H:%M:%S")
-                         .replace(tzinfo=timezone.utc)).total_seconds() / 3600
-            except ValueError:
-                age_h = None
-        expired_receipts.append({"fixture_id": fid, "observed_at": obs,
-                                 "age_hours": round(age_h, 1) if age_h is not None else None,
-                                 "decimal": [rec.get("decimal0"), rec.get("decimal1")],
-                                 "placeholder": rec.get("placeholder"),
-                                 "source_url": rec.get("source_url")})
-    # Hard rule from the archive audit (session b91181f0) and this session: an unrefreshed
-    # receipt is never a live pricing input, even if it is younger than the age limit.
+    # Historical archive is evidence only, never a live pricing input: it cannot be
+    # re-verified on the build machine, so it is excluded and reported instead.
     receipts = {}
+    receipts_doc = load_json(os.path.join(ROOT, "archive", "session-8336fb7e", "data", "book_receipts.json")) or {}
+    archived_receipts = receipts_doc.get("quotes") or receipts_doc.get("receipts") or {}
     sources = load_json(os.path.join(DATA, "sources_status.json")) or {}
 
     fixtures = hs.get("fixtures") or []
@@ -651,11 +633,13 @@ def main() -> None:
         return min(cands, key=gap)
 
     pin_index = []
+    pin_kills_excluded = 0
     for mk in pin.get("markets") or []:
         names = [p["name"] for p in mk.get("participants", [])]
-        # A "<team> (Kills)" record is Pinnacle's most-kills market, not the series
-        # moneyline. Never let it price a series, even if an older raw snapshot holds one.
-        if any(re.search(r"\(kills\)", n, re.I) for n in names):
+        # A "(Kills)" participant market is a derivative on total kills in the series,
+        # not the series winner: it must never be treated as the match moneyline.
+        if any("(kills)" in str(n).lower() for n in names):
+            pin_kills_excluded += 1
             continue
         if len(names) == 2:
             pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc")})
@@ -733,8 +717,7 @@ def main() -> None:
         n0c = int(s0.get("n") or 0) if s0 else 0
         n1c = int(s1.get("n") or 0) if s1 else 0
         # "connected" = at least one shared opponent before kick-off. The old union-find
-        # test spanned 34k series and was true for almost every pair, so it could not
-        # warn about cross-pool comparisons at all.
+        # test spanned 34k series and was true for almost every pair.
         connected = bool(k0 and k1 and (s0.get("opponents") or frozenset()) &
                          (s1.get("opponents") or frozenset()))
 
@@ -772,7 +755,7 @@ def main() -> None:
         }
 
         flags: list[str] = []
-        pick_type = "probability"
+        resolution = None
         if dq0 or dq1:
             removed = dq0 or dq1
             active_opp = n1 if dq0 else n0
@@ -796,13 +779,23 @@ def main() -> None:
                      f"settlement is unverified, so no competitive probability is claimed.")
             flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
+            resolution = {
+                "type": "official-forfeit",
+                "winner": active_opp,
+                "loser": removed,
+                "note": (f"Leaguepedia records every remaining {removed} fixture as a 0-2 forfeit "
+                         f"(ff flag), so the official settlement pick is {active_opp}. Use only if "
+                         f"Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick."),
+                "source": f"https://lol.fandom.com/wiki/Data:{page.replace(' ', '_')}",
+            }
         elif market:
             p0, p1 = market["p0"], market["p1"]
             method, confidence = "market", "high"
-            if market.get("thin"):
+            if (market.get("venue_count") or 0) == 1 and (market.get("total_volume_usd") or 0) < 1000:
                 confidence = "low"
-                flags.append("thin market: " + market["thin_note"]
-                             + " - published as the only external evidence, not as a high-confidence line")
+                flags.append(
+                    f"single thin prediction market: only ${market.get('total_volume_usd') or 0:,.0f} "
+                    f"traded volume on {market.get('book')} - treat as an indicative line")
             v_summary = ", ".join(f"{v['name']} {v['p0']*100:.1f}%/{v['p1']*100:.1f}% ({v['quote']})"
                                   for v in market.get("venues") or [])
             basis = f"{market['book']} de-vigged line ({p0*100:.1f}% / {p1*100:.1f}%): {v_summary}."
@@ -856,6 +849,8 @@ def main() -> None:
             if n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT:
                 flags.append("fewer than 5 rated series for at least one team")
         elif er0 is not None or er1 is not None:
+            # Full-coverage brief: publish an explicit low-confidence line rather than a blank,
+            # with the 1500 prior stated on the card so the assumption is visible, never hidden.
             rated_is_0 = er0 is not None
             p0 = clamp(win_probability(er0 if rated_is_0 else ELO_START,
                                        ELO_START if rated_is_0 else er1))
@@ -863,8 +858,8 @@ def main() -> None:
             method, confidence = "provisional", "low"
             missing = n1 if rated_is_0 else n0
             basis = (f"Elo line with one unrated side: {missing} has no rated series on record, "
-                     f"so the 1500 baseline is used for that side.")
-            flags.append(f"{missing} has no rated series in Leaguepedia")
+                     f"so the 1500 league-average prior is used for that side. Low confidence.")
+            flags.append(f"{missing} has no rated series in Leaguepedia (1500 prior used)")
         else:
             p0 = p1 = None
             method, confidence = "unresolved", "none"
@@ -891,17 +886,14 @@ def main() -> None:
         if f.get("start_utc"):
             try:
                 start_dt = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
-                stale_hours = round(
-                    (datetime.now(timezone.utc) - start_dt).total_seconds() / 3600, 1)
-                stale = stale_hours > 0
+                # Any fixture whose published start time has passed is marked, so a card can
+                # never look like an upcoming pick after kick-off (flag reason stays unverified).
+                stale = (datetime.now(timezone.utc) - start_dt).total_seconds() > 0
             except ValueError:
                 stale = False
         if stale:
             flags.append("start time has passed but Hotspawn still lists the fixture as scheduled "
                          "(reason unverified)")
-        if p0 is not None and abs(p0 - 0.5) < 1e-9:
-            flags.append("kick-off ratings are identical (a true 50/50); the listed side is display "
-                         "order only and carries no edge")
         # Cross-check the published kick-off against the official Leaguepedia series record.
         if f.get("start_utc") and page and k0 and k1:
             lp_list = lp_times.get((page, frozenset((str(k0), str(k1))))) or []
@@ -924,6 +916,11 @@ def main() -> None:
             flags.append("team name could not be matched unambiguously")
 
         pick = None
+        pick_type = None
+        if p0 is None and resolution:
+            # Settlement pick: names the administrative winner, claims no probability.
+            pick = {"team": resolution["winner"], "probability": None}
+            pick_type = "settlement"
         if p0 is not None:
             side = 0 if p0 >= p1 else 1
             pick = {"side": side,
@@ -939,18 +936,81 @@ def main() -> None:
                     "p1": round(p1, 4) if p1 is not None else None,
                     "method": method, "confidence": confidence, "basis": basis,
                     "flags": sorted(set(flags)), "pick": pick, "pick_type": pick_type,
-                    "market": market,
-                    "connected": connected, "stale": stale, "stale_hours": stale_hours,
+                    "market": market, "resolution": resolution,
+                    "connected": connected, "stale": stale,
                     "community_pick_pct": f["community_pick_pct"]})
         rows.append(row)
 
     counts_by_method: dict[str, int] = {}
     for r in rows:
         counts_by_method[r["method"]] = counts_by_method.get(r["method"], 0) + 1
+    counts_by_method["walkover"] = sum(1 for r in rows if r.get("resolution"))
+    counts_by_method["settlement"] = sum(1 for r in rows if r.get("pick_type") == "settlement")
+
+    live_ids = {r["id"] for r in rows}
+    retired = []
+    for fid, q in (archived_receipts or {}).items():
+        if str(fid) in live_ids:
+            retired.append({
+                "fixture_id": str(fid),
+                "team0": q.get("team0"), "team1": q.get("team1"),
+                "decimal": [q.get("decimal0"), q.get("decimal1")],
+                "book_label": q.get("book_label"),
+                "source_url": q.get("source_url"),
+                "observed_at": q.get("observed_at"),
+            })
+    retired_by_fixture = {}
+    for entry in retired:
+        retired_by_fixture.setdefault(str(entry["fixture_id"]), entry)
+    for row in rows:
+        entry = retired_by_fixture.get(str(row["id"]))
+        if not entry or row.get("method") == "market":
+            continue
+        dec = "/".join(f'{d:.3f}' if d and d < 2 else f'{d:.2f}' for d in (entry.get("decimal") or []) if d)
+        row.setdefault("flags", []).append(
+            f"archived external quote retired as unverifiable: {entry.get('book_label') or 'aggregator'} "
+            f"{dec or 'n/a'} captured {str(entry.get('observed_at') or '')[:10]}; that page now shows symmetric "
+            f"1.80 / 1.80 placeholder prices, so this line is originated instead")
+
+    save_json(os.path.join(DATA, "retired_quotes.json"), {
+        "generated_utc": iso(now_utc()),
+        "reason": ("Archived third-party quotes from archive/session-8336fb7e/data/book_receipts.json are "
+                   "not re-verifiable: the aggregator returns HTTP 403 to the build runner and its live "
+                   "match pages currently show symmetric 1.8/1.8 placeholders. Excluded from every "
+                   "probability so that no unverifiable price can influence a pick."),
+        "retired_count": len(retired),
+        "quotes": retired,
+    })
+
+    now_dt = now_utc()
+    expired, rejected_quotes = [], []
+    for fid, q in (archived_receipts or {}).items():
+        try:
+            obs = datetime.strptime(str(q.get("observed_at"))[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+            age_h = round((now_dt - obs).total_seconds() / 3600, 1)
+        except (TypeError, ValueError):
+            age_h = None
+        entry = {"fixture_id": str(fid), "observed_at": q.get("observed_at"), "age_hours": age_h,
+                 "source_url": q.get("source_url")}
+        if age_h is None or age_h > RECEIPT_MAX_AGE_HOURS:
+            expired.append(entry)
+        d0, d1 = q.get("decimal0"), q.get("decimal1")
+        if d0 and d1 and abs(float(d0) - 1.8) < 1e-9 and abs(float(d1) - 1.8) < 1e-9:
+            rejected_quotes.append({"fixture_id": str(fid), "reject": "symmetric 1.80/1.80 placeholder"})
+    receipt_audit = {
+        "max_age_hours": RECEIPT_MAX_AGE_HOURS,
+        "used": [],
+        "expired": expired,
+        "rejected_quotes": rejected_quotes,
+        "policy": ("Archived aggregator receipts are evidence only. A receipt may only be priced while it is "
+                   "younger than max_age_hours and re-fetchable; none qualified on this build, so the venue is "
+                   "empty and every affected fixture falls back to an originated line."),
+    }
 
     save_json(os.path.join(DATA, "matches.json"), {
         "generated_utc": iso(now_utc()),
         "inventory_fetched_utc": hs.get("fetched_utc"),
+        "receipt_audit": receipt_audit,
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
                   "margin_weight": MARGIN_WEIGHT, "shrink": ELO_SHRINK,
                   "rating_as_of": "kick-off", "min_matches_confident": MIN_MATCHES_CONFIDENT,
@@ -962,17 +1022,10 @@ def main() -> None:
                     "leaguepedia": lp.get("source_url"), "polymarket": pmkt.get("source_url"),
                     "source_status_utc": sources.get("checked_utc")},
         "counts": counts_by_method,
-        "coverage": {
-            "matches": len(rows),
-            "with_pick": sum(1 for r in rows if r.get("pick")),
-            "priced": sum(1 for r in rows if r.get("p0") is not None),
-            "settlement_only": sum(1 for r in rows if r.get("pick_type") == "settlement"),
-        },
-        "receipt_audit": {
-            "max_age_hours": RECEIPT_MAX_AGE_HOURS,
-            "used": sorted(receipts.keys()),
-            "expired": expired_receipts,
-            "rejected_quotes": QUOTE_REJECTIONS,
+        "market_hygiene": {
+            "pinnacle_kills_derivatives_excluded": pin_kills_excluded,
+            "archived_receipts_retired": len(retired),
+            "esportsbook_venue_active": bool(receipts),
         },
         "backtest": backtest,
         "total": len(rows),

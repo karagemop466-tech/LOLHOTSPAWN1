@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:53:59Z",
+ "generated_utc": "2026-10-23T15:56:00Z",
  "checks": [
   {
    "name": "dataset present",
@@ -57,6 +57,31 @@
    "detail": "241 unique ids; duplicates: []"
   },
   {
+   "name": "no '(Kills)' derivative market is used as a match line",
+   "ok": true,
+   "detail": "violations: []"
+  },
+  {
+   "name": "every market pick carries an official quote URL",
+   "ok": true,
+   "detail": "problems: []"
+  },
+  {
+   "name": "Pinnacle quote URLs point at collected matchups",
+   "ok": true,
+   "detail": "7 matchup ids in feed; problems: []"
+  },
+  {
+   "name": "every official-forfeit resolution names a winner and a source URL",
+   "ok": true,
+   "detail": "4 resolutions checked; problems: []"
+  },
+  {
+   "name": "official-forfeit resolutions carry no invented probability",
+   "ok": true,
+   "detail": "problems: []"
+  },
+  {
    "name": "picks.csv mirrors the dataset",
    "ok": true,
    "detail": "csv rows=241 json rows=241"
@@ -64,7 +89,7 @@
   {
    "name": "all site pages exist",
    "ok": true,
-   "detail": "12/12 pages"
+   "detail": "13/13 pages"
   },
   {
    "name": "no broken internal links",
@@ -87,9 +112,14 @@
    "detail": "241/241 match cards found"
   },
   {
+   "name": "pick table renders one row per match",
+   "ok": true,
+   "detail": "241/241 table rows"
+  },
+  {
    "name": "executive summary links to every picks view",
    "ok": true,
-   "detail": "present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']"
+   "detail": "present: ['picks.html', 'table.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks']"
   },
   {
    "name": "executive summary carries coverage, unresolved section and a where-to-find-picks block",
@@ -109,7 +139,7 @@
   {
    "name": "curated flags cite only currently listed fixtures",
    "ok": true,
-   "detail": "10 curated flags scanned; stale references: []"
+   "detail": "9 curated flags scanned; stale references: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -119,7 +149,7 @@
   {
    "name": "no published market row is built from a rejected quote",
    "ok": true,
-   "detail": "0 quote(s) rejected this build (placeholders / extremes); 0 extreme"
+   "detail": "1 quote(s) rejected this build (placeholders / extremes); 0 extreme"
   },
   {
    "name": "coverage matrix: every competition row links to a source",
@@ -134,7 +164,12 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 39981 bytes"
+   "detail": "coverage.html 40107 bytes"
+  },
+  {
+   "name": "external source research receipts are committed",
+   "ok": true,
+   "detail": "32 venues probed on 2026-10-23T15:38:55Z; dossier present"
   },
   {
    "name": "source availability recorded",
@@ -168,6 +203,6 @@
   "unresolved": 4,
   "market": 9
  },
- "internal_links": 328,
+ "internal_links": 389,
  "lookahead_violations": 0
 }
