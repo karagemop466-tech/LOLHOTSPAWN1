@@ -358,6 +358,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "p1": round(p1_v, 4),
                     "quote": f"{p0_v*100:.1f}¢/{p1_v*100:.1f}¢",
                     "overround": round(tot - 1.0, 4),
+                    "volume_usd": item.get("volume"),
                     "url": f"https://polymarket.com/event/{item['slug']}",
                 })
                 break
@@ -436,6 +437,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     if primary_decimal is None:
         primary_decimal = {"home": round(1.0 / max(p0, 0.01), 3), "away": round(1.0 / max(p1, 0.01), 3)}
 
+    total_volume = sum(float(v.get("volume_usd") or 0) for v in venues) or None
     book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
     return {
         "book": book_label,
@@ -451,6 +453,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         "start_utc": primary_start,
         "league": primary_league,
         "venue_count": len(venues),
+        "total_volume_usd": total_volume,
         "venues": venues,
     }
 
@@ -464,8 +467,14 @@ def main() -> None:
     pmkt = load_json(os.path.join(RAW, "polymarket.json")) or {}
     kalshi = load_json(os.path.join(RAW, "kalshi_lol.json")) or {}
     bovada = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
+    # RETIRED: archived third-party quotes (session 8336fb7e, observed 2026-10-21T20:36Z).
+    # They point at a generic aggregator URL, the aggregator is unreachable from the runner
+    # (HTTP 403) and its live match pages currently render symmetric 1.8/1.8 placeholders.
+    # A quote that cannot be re-verified on the build machine is not evidence, so the map
+    # is deliberately empty; overlapping receipts are published as a review flag instead.
     receipts_doc = load_json(os.path.join(ROOT, "archive", "session-8336fb7e", "data", "book_receipts.json")) or {}
-    receipts = receipts_doc.get("quotes") or receipts_doc.get("receipts") or {}
+    archived_receipts = receipts_doc.get("quotes") or receipts_doc.get("receipts") or {}
+    receipts: dict = {}
     sources = load_json(os.path.join(DATA, "sources_status.json")) or {}
 
     fixtures = hs.get("fixtures") or []
@@ -485,8 +494,15 @@ def main() -> None:
     ratings, counts, last_seen, uf, backtest = build_ratings(lp_matches)
 
     pin_index = []
+    pin_kills_excluded = 0
     for mk in pin.get("markets") or []:
         names = [p["name"] for p in mk.get("participants", [])]
+        # Defensive guard: a "(Kills)" participant market is a derivative on total
+        # kills in the series, not the series winner. It must never be treated as
+        # the match moneyline, even if collect.py is changed in future.
+        if any("(kills)" in str(n).lower() for n in names):
+            pin_kills_excluded += 1
+            continue
         if len(names) == 2:
             pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc")})
 
@@ -592,6 +608,7 @@ def main() -> None:
         }
 
         flags: list[str] = []
+        resolution = None
         if dq0 or dq1:
             removed = dq0 or dq1
             active_opp = n1 if dq0 else n0
@@ -602,9 +619,29 @@ def main() -> None:
                      f"Hotspawn may void this card or settle walkover in favour of active opponent {active_opp}.")
             flags.append(f"official league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
+            # A pick without a fabricated probability: the official Leaguepedia record
+            # grades every remaining fixture featuring the removed team as a forfeit win
+            # for the opponent. That is a settlement outcome, not an Elo forecast, so it is
+            # published separately from p0/p1 and never mixed into win-probability stats.
+            resolution = {
+                "type": "official-forfeit",
+                "winner": active_opp,
+                "loser": removed,
+                "note": (f"Leaguepedia records every remaining {removed} fixture as a 0-2 forfeit "
+                         f"(ff flag), so the official settlement pick is {active_opp}. Use only if "
+                         f"Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick."),
+                "source": f"https://lol.fandom.com/wiki/Data:{page.replace(' ', '_')}",
+            }
         elif market:
             p0, p1 = market["p0"], market["p1"]
             method, confidence = "market", "high"
+            # A single prediction-market venue with almost no traded volume is a real
+            # quote but a weak signal; label it low confidence instead of high.
+            if (market.get("venue_count") or 0) == 1 and (market.get("total_volume_usd") or 0) < 1000:
+                confidence = "low"
+                flags.append(
+                    f"single thin prediction market: only ${market.get('total_volume_usd') or 0:,.0f} "
+                    f"traded volume on {market.get('book')} - treat as an indicative line")
             v_summary = ", ".join(f"{v['name']} {v['p0']*100:.1f}%/{v['p1']*100:.1f}% ({v['quote']})"
                                   for v in market.get("venues") or [])
             basis = f"{market['book']} de-vigged line ({p0*100:.1f}% / {p1*100:.1f}%): {v_summary}."
@@ -687,6 +724,7 @@ def main() -> None:
                     "p1": round(p1, 4) if p1 is not None else None,
                     "method": method, "confidence": confidence, "basis": basis,
                     "flags": sorted(set(flags)), "pick": pick, "market": market,
+                    "resolution": resolution,
                     "connected": connected, "stale": stale,
                     "community_pick_pct": f["community_pick_pct"]})
         rows.append(row)
@@ -694,6 +732,30 @@ def main() -> None:
     counts_by_method: dict[str, int] = {}
     for r in rows:
         counts_by_method[r["method"]] = counts_by_method.get(r["method"], 0) + 1
+    counts_by_method["walkover"] = sum(1 for r in rows if r.get("resolution"))
+
+    # Archived receipts that overlap a live fixture are reported, never priced.
+    live_ids = {r["id"] for r in rows}
+    retired = []
+    for fid, q in (archived_receipts or {}).items():
+        if str(fid) in live_ids:
+            retired.append({
+                "fixture_id": str(fid),
+                "team0": q.get("team0"), "team1": q.get("team1"),
+                "decimal": [q.get("decimal0"), q.get("decimal1")],
+                "book_label": q.get("book_label"),
+                "source_url": q.get("source_url"),
+                "observed_at": q.get("observed_at"),
+            })
+    save_json(os.path.join(DATA, "retired_quotes.json"), {
+        "generated_utc": iso(now_utc()),
+        "reason": ("Archived third-party quotes from archive/session-8336fb7e/data/book_receipts.json are "
+                   "not re-verifiable: the aggregator returns HTTP 403 to the build runner and its live "
+                   "match pages currently show symmetric 1.8/1.8 placeholders. Excluded from all probabilities "
+                   "so that no unverifiable price can influence a pick."),
+        "retired_count": len(retired),
+        "quotes": retired,
+    })
 
     save_json(os.path.join(DATA, "matches.json"), {
         "generated_utc": iso(now_utc()),
@@ -707,6 +769,11 @@ def main() -> None:
                     "leaguepedia": lp.get("source_url"), "polymarket": pmkt.get("source_url"),
                     "source_status_utc": sources.get("checked_utc")},
         "counts": counts_by_method,
+        "market_hygiene": {
+            "pinnacle_kills_derivatives_excluded": pin_kills_excluded,
+            "archived_receipts_retired": len(retired),
+            "esportsbook_venue_active": bool(receipts),
+        },
         "backtest": backtest,
         "total": len(rows),
         "matches": rows,
