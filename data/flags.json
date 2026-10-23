@@ -1,20 +1,20 @@
 {
- "generated_utc": "2026-10-23T15:55:36Z",
- "count": 26,
+ "generated_utc": "2026-10-23T16:08:57Z",
+ "count": 27,
  "flags": [
   {
    "severity": "high",
    "item": "Pinnacle publishes each LoL series twice and the pick engine was using the (Kills) derivative [verified live 2026-10-23 (both matchup ids visible in one Pinnacle response)]",
-   "detail": "Pinnacle's guest API lists a series moneyline plus a parallel '(Kills)' market (e.g. 'Gen.G (Kills)' vs 'Invictus (Kills)'). In the 2026-10-23T11:42Z snapshot six of eight Worlds picks were taken from the (Kills) market: Gen.G vs Invictus Gaming carried 1.282/3.740 from matchup 1638758865 while the series market 1638748200 was 1.259/3.940. A kills derivative is not a series-winner price. Fixed in this build: tools/collect.py and tools/model.py now reject any participant name containing '(Kills)', 8 derivative markets were excluded, and the 9 remaining market picks are all true series moneylines.",
+   "detail": "Pinnacle's guest API lists a series moneyline plus a parallel '(Kills)' market (e.g. 'Gen.G (Kills)' vs 'Invictus (Kills)'). In the 2026-10-23T11:42Z snapshot six of eight Worlds picks were taken from the (Kills) market: Gen.G vs Invictus Gaming carried 1.282/3.740 from matchup 1638758865 while the series market 1638748200 was 1.259/3.940. A kills derivative is not a series-winner price. Fixed in this build: tools/collect.py and tools/model.py now reject any participant name containing '(Kills)' or parentId derivatives, 8 derivative markets were excluded, and the 9 remaining market picks are all true series moneylines.",
    "source": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758865/markets/related/straight",
    "verification": "verified live 2026-10-23 (both matchup ids visible in one Pinnacle response)"
   },
   {
    "severity": "high",
-   "item": "Archived 'Esportsbook' quote was unverifiable and is now excluded [verified live 2026-10-23 (page shows 1.8/1.8 on both sides)]",
-   "detail": "The 0.10-weight 'Esportsbook' venue read static quotes from archive/session-8336fb7e/data/book_receipts.json (observed 2026-10-21T20:36Z) labelled 'EGamersWorld / GG.BET Bookmaker Feed' with a generic https://egamersworld.com/lol/matches URL. EGamersWorld returns HTTP 403 to the build runner, and its live match page for Ground Zero Gaming vs Frank Esports (LCP 2027 Promotion) currently renders a symmetric 1.8 / 1.8 placeholder - not the archived 1.02 / 10.5. Because the quote cannot be re-verified it is no longer used anywhere: #1081423 now carries an originated line instead of a market line, and the Worlds consensus is 4 venues (Pinnacle, Polymarket, Kalshi, Bovada). The 10 overlapping archived quotes are listed in data/retired_quotes.json.",
+   "item": "Archived 'Esportsbook' quote was unverifiable and is replaced by live Unibet/Kambi JSON feed [verified live 2026-10-23 (EGamersWorld shows 1.8/1.8; Unibet/Kambi ubse JSON returns 8/8 Worlds moneylines)]",
+   "detail": "The 0.10-weight 'Esportsbook' venue previously read static quotes from archive/session-8336fb7e/data/book_receipts.json (observed 2026-10-21T20:36Z) labelled 'EGamersWorld / GG.BET Bookmaker Feed' with a generic https://egamersworld.com/lol/matches URL. EGamersWorld returns HTTP 403 to the build runner, and its live match page for Ground Zero Gaming vs Frank Esports (LCP 2027 Promotion) renders a symmetric 1.8 / 1.8 placeholder - not the archived 1.02 / 10.5. All archived quotes remain excluded in data/retired_quotes.json (#1081423 carries an originated line), while the 0.10 slot now consumes Unibet's live public Kambi JSON feed (eu-offering-api.kambicdn.com ubse) across all 8 Worlds series for a verified 5-venue consensus (Pinnacle, Polymarket, Kalshi, Bovada, Unibet).",
    "source": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
-   "verification": "verified live 2026-10-23 (page shows 1.8/1.8 on both sides)"
+   "verification": "verified live 2026-10-23 (EGamersWorld shows 1.8/1.8; Unibet/Kambi ubse JSON returns 8/8 Worlds moneylines)"
   },
   {
    "severity": "medium",
@@ -29,6 +29,13 @@
    "detail": "Leaguepedia's Data:Komplettligaen/2026 Season/Autumn Split records the Round 10 fixture with the footnote '[[Solid Gaming]] is removed from the league.' and grades every remaining Solid Gaming series 0-2 with ff=1/ff=2 (Rounds 3, 4, 6, 7, 8, 9, 10 and 11). Hotspawn still lists four of those cards as scheduled - #1071170, #1071200, #1071186 and #1071206 - and its crowd had picked the removed team on some of them. No win probability is published; instead each card carries an explicit 'official forfeit' resolution naming the opponent, valid only if Hotspawn grades the card as a walkover rather than voiding it. An earlier version of this flag cited the page Komplettligaen/2026 Season/Autumn Season, which does not exist on Leaguepedia.",
    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split",
    "verification": "verified live 2026-10-23 from the page wikitext (action=raw)"
+  },
+  {
+   "severity": "medium",
+   "item": "Homonymous Leaguepedia team names and cross-division academy rosters audited [verified from Leaguepedia MatchSchedule records 2026-10-23]",
+   "detail": "Global exact matching previously bound 'LAST DANCE' in Elite Series Benelux to Portuguese team 'Last Dance' (1W-15L) instead of 'Last Dance (Benelux Team)' (29W-10L), and 'Team Gromp' in Australian Summer Series to European 'Team Gromp' (0W-1L) instead of 'Team Gromp (Australian Team)' (3W-0L). Competition-scoped matching now runs first, fixing both joins. Separately on #1081423 (Ground Zero Gaming vs Frank Esports, LCP 2027 Promotion), Frank Esports runs concurrent PCS Split 3 (24-9 game record, 1st) and LDL/PCS Academy lineups under the same Leaguepedia team key.",
+   "source": "https://lol.fandom.com/wiki/PCS/2026_Season/Split_3",
+   "verification": "verified from Leaguepedia MatchSchedule records 2026-10-23"
   },
   {
    "severity": "medium",
@@ -86,45 +93,45 @@
   },
   {
    "severity": "low",
-   "item": "65 provisional lines (thin data)",
+   "item": "77 provisional lines (thin data)",
    "detail": "At least one side has fewer than five rated series in the Leaguepedia window, or the two teams share no opponent chain. A probability is still published but is labelled provisional and shows the reason on the card.",
    "source": "https://lol.fandom.com/wiki/Special:CargoExport"
   },
   {
    "severity": "low",
-   "item": "12 team names needed a non-exact Leaguepedia match",
+   "item": "14 team names needed a non-exact Leaguepedia match",
    "detail": "Leaguepedia appends a region to duplicate team names (e.g. 'Fenrir (Icelandic Team)'). Every non-exact join and its evidence is listed on the Verification page; ambiguous names are left unmatched instead of guessed.",
    "source": "https://lol.fandom.com/wiki/Special:CargoExport"
   },
   {
    "severity": "low",
-   "item": "5 betting/odds sources were unreachable from the build runner",
-   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 404 (unavailable); Unibet/Kambi HTTP 400 (unavailable)",
+   "item": "4 betting/odds sources were unreachable from the build runner",
+   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 404 (unavailable)",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/sources_status.json"
   },
   {
    "severity": "medium",
-   "item": "66 fixtures still listed as 'scheduled' although their start time has passed",
+   "item": "69 fixtures still listed as 'scheduled' although their start time has passed",
    "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time has already passed (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. The reason is unverified.",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
   {
    "severity": "medium",
    "item": "11 archived esportsbook receipts expired and are no longer used as market input",
-   "detail": "A bookmaker quote captured from a match page is a line only while it is fresh. These receipts were captured on 2026-10-21 (up to 43 h old, limit 24 h) and are now excluded from the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, Kalshi, Bovada) or to our own Elo line. The receipts stay in the audit trail: #1081205 None (2026-10-21T20:36:00Z); #1067878 None (2026-10-21T20:36:00Z); #1067677 None (2026-10-21T20:36:00Z); #1067680 None (2026-10-21T20:36:00Z); #1067675 None (2026-10-21T20:36:00Z); #1067676 None (2026-10-21T20:36:00Z)",
+   "detail": "A bookmaker quote captured from a match page is a line only while it is fresh. These receipts were captured on 2026-10-21 (up to 44 h old, limit 24 h) and are now excluded from the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, Kalshi, Bovada, Unibet) or to our own Elo line. The receipts stay in the audit trail: #1081205 [1.86, 1.8] (2026-10-21T20:36:00Z); #1067878 [1.2, 4.4] (2026-10-21T20:36:00Z); #1067677 [1.2, 4.05] (2026-10-21T20:36:00Z); #1067680 [1.17, 4.88] (2026-10-21T20:36:00Z); #1067675 [1.38, 2.63] (2026-10-21T20:36:00Z); #1067676 [2.18, 1.61] (2026-10-21T20:36:00Z)",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"
   },
   {
    "severity": "medium",
    "item": "1 bookmaker quote(s) rejected as non-actionable",
-   "detail": "Every quote is de-vigged only after an integrity test: symmetric 1.80/1.80 aggregator placeholders, prices <= 1.00 and lines where one side implies more than 97% are dropped rather than published. Rejected on this build: #1079080 None: symmetric 1.80/1.80 placeholder",
+   "detail": "Every quote is de-vigged only after an integrity test: symmetric 1.80/1.80 aggregator placeholders, prices <= 1.00 and lines where one side implies more than 97% are dropped rather than published. Rejected on this build: #1079080 Rejected Symmetric Aggregator Placeholder (1.80 / 1.80): symmetric 1.80/1.80 placeholder",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/tools/model.py"
   },
   {
    "severity": "medium",
-   "item": "1 market-priced match(es) disagree with our own model by 20 pp or more",
-   "detail": "LØS vs T1 (Worlds 2026 Main Event). The market side is what the site publishes and the model value is printed next to it on the Market page, so the gap is visible rather than hidden.",
-   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+   "item": "2 market-priced match(es) disagree with our own model by 20 pp or more",
+   "detail": "Anyone's Legend vs Karmine Corp (Worlds 2026 Main Event); LØS vs T1 (Worlds 2026 Main Event). The market side is what the site publishes and the model value is printed next to it on the Market page, so the gap is visible rather than hidden.",
+   "source": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups"
   },
   {
    "severity": "medium",
@@ -146,21 +153,21 @@
   },
   {
    "severity": "medium",
-   "item": "Crowd vs real-money gap: Babos Gaming vs Hannover Esports e.V. (PRM 2nd Division 26-27 Fall) - crowd 8% on Babos Gaming against our 65.1%",
-   "detail": "25 Hotspawn users have picked this card and 8% of them chose Babos Gaming; our line, built only from external sources (model), puts that team at 65.1% - a 57.1 pp gap. Recalculated on every build across all cards with at least 20 crowd picks: Babos Gaming vs Hannover Esports e.V. 57 pp, Rich Gang vs Phenti 52 pp, Team Lucidity Esports vs Team cd 50 pp, AceGaming vs Babos Gaming 49 pp.",
+   "item": "Crowd vs real-money gap: Babos Gaming vs Hannover Esports e.V. (PRM 2nd Division 26-27 Fall) - crowd 8% on Babos Gaming against our 65.6%",
+   "detail": "25 Hotspawn users have picked this card and 8% of them chose Babos Gaming; our line, built only from external sources (model), puts that team at 65.6% - a 57.6 pp gap. Recalculated on every build across all cards with at least 20 crowd picks: Babos Gaming vs Hannover Esports e.V. 58 pp, Rich Gang vs Phenti 54 pp, Team Lucidity Esports vs Team cd 51 pp, AceGaming vs Babos Gaming 50 pp.",
    "source": "https://www.hotspawn.com/matches/babos-gaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1079027"
   },
   {
    "severity": "info",
    "item": "Bookmaker coverage is 9/241 matches",
    "detail": "Priced competitions in this snapshot: LGC Rising 2026 Playoffs, Worlds 2026 Main Event. Every other national and academy league has no published market on any book reachable from the runner, which is why those lines are originated from recorded series history instead of guessed.",
-   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+   "source": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups"
   },
   {
    "severity": "medium",
    "item": "10 archived esportsbook quotes were retired as unverifiable",
    "detail": "Archived third-party quotes from archive/session-8336fb7e/data/book_receipts.json are not re-verifiable: the aggregator returns HTTP 403 to the build runner and its live match pages currently show symmetric 1.8/1.8 placeholders. Excluded from every probability so that no unverifiable price can influence a pick.",
-   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/arena/4dfd0e71-lolhotspawn1/data/retired_quotes.json"
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/retired_quotes.json"
   },
   {
    "severity": "high",

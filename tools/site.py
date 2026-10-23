@@ -70,6 +70,14 @@ def pct(value) -> str:
     return f"{value * 100:.1f}%"
 
 
+def pct_pair(p0: float | None, p1: float | None) -> tuple[str, str]:
+    if p0 is None or p1 is None:
+        return "&mdash;", "&mdash;"
+    a = round(p0 * 100.0, 1)
+    b = round(100.0 - a, 1)
+    return f"{a:.1f}%", f"{b:.1f}%"
+
+
 def local_time(iso_utc: str | None) -> str:
     if not iso_utc:
         return "TBD"
@@ -101,12 +109,18 @@ def _external_ceiling() -> dict:
             continue
         if prices and all(0.01 <= x <= 0.99 for x in prices):
             pm_live += 1
+    kambi_doc = load_json(os.path.join(DATA, "raw", "kambi_lol.json")) or {}
+    bovada_doc = load_json(os.path.join(DATA, "raw", "bovada_lol.json")) or {}
+    kambi_n = len(kambi_doc.get("events") or [])
+    bovada_n = len(bovada_doc.get("events") or [])
     return {
-        "probed": len(results),
-        "answered": sum(1 for r in results if r.get("ok")),
-        "json_feeds": sum(1 for r in results if r.get("ok") and r.get("kind") == "json"),
+        "probed": len(results) + (1 if kambi_n else 0),
+        "answered": sum(1 for r in results if r.get("ok")) + (1 if kambi_n else 0),
+        "json_feeds": sum(1 for r in results if r.get("ok") and r.get("kind") == "json") + (1 if kambi_n else 0),
         "pinnacle_leagues": len(leagues),
         "pinnacle_priced": sum(int(lg.get("priced_moneylines") or 0) for lg in leagues),
+        "bovada": bovada_n,
+        "unibet": kambi_n,
         "kalshi": int((ceiling.get("kalshi") or {}).get("event_count") or 0),
         "polymarket": pm_live,
         "checked": (probes.get("checked_utc") or "")[:16].replace("T", " "),
@@ -221,7 +235,9 @@ def match_card(r: dict, show_sources: bool = True) -> str:
                          f'rel="noopener">{e(t1["name"])}</a>')
         sources = '<div class="src">' + "".join(links) + "</div>"
 
+    s0_txt, s1_txt = pct_pair(p0, p1)
     return f"""<article id="match-{e(r['id'])}" class="card m-{e(m)}" data-method="{e(m)}" data-comp="{e(r['competition'])}"
+  data-start="{e(r['start_utc'] or '')}" data-stale="{1 if r.get('stale') else 0}"
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
@@ -230,11 +246,11 @@ def match_card(r: dict, show_sources: bool = True) -> str:
   <div class="comp">{e(r['competition'])}{f" &middot; {e(r['best_of'])}-game series" if r.get('best_of') else ""}</div>
   <div class="teams">
     <div class="team {'fav' if p0 is not None and p0 >= (p1 or 0) else ''}">
-      <span class="tname">{e(t0['name'])}</span><span class="tpct">{pct(p0)}</span>
+      <span class="tname">{e(t0['name'])}</span><span class="tpct">{s0_txt}</span>
     </div>
     {bar}
     <div class="team {'fav' if p1 is not None and p1 > (p0 or 0) else ''}">
-      <span class="tname">{e(t1['name'])}</span><span class="tpct">{pct(p1)}</span>
+      <span class="tname">{e(t1['name'])}</span><span class="tpct">{s1_txt}</span>
     </div>
   </div>
   {pick_html}
@@ -439,7 +455,8 @@ def _pick_cell(r: dict) -> str:
 def _prob_cell(r: dict) -> str:
     if r.get("p0") is None:
         return '<span class="muted">not priced</span>'
-    return f'{r["p0"]*100:.1f}% / {r["p1"]*100:.1f}%'
+    a, b = pct_pair(r["p0"], r["p1"])
+    return f'{a} / {b}'
 
 
 def _row_sources(r: dict) -> str:
@@ -556,8 +573,10 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
     We probed <strong>{ceiling["probed"]} external venues</strong> from the build runner (established books,
     esportsbooks, exchanges, odds aggregators); {ceiling["answered"]} answered and {ceiling["json_feeds"]}
-    returned JSON, of which four are price feeds. Across every reachable venue the same slice of the calendar is
-    quoted: <strong>Pinnacle {ceiling["pinnacle_priced"]} series</strong>,
+    returned JSON, of which five are live match-price feeds. Across every reachable venue the same slice of the
+    calendar is quoted: <strong>Pinnacle {ceiling["pinnacle_priced"]} series</strong>,
+    <strong>Bovada {ceiling["bovada"]} series</strong>,
+    <strong>Unibet (Kambi) {ceiling["unibet"]} series</strong>,
     <strong>Kalshi {ceiling["kalshi"]} contracts</strong> and
     <strong>Polymarket {ceiling["polymarket"]} unsettled markets</strong> &mdash; overwhelmingly the same Worlds
     2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
@@ -611,6 +630,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
 def build_table(rows: list[dict], counts: Counter) -> str:
     ordered = sorted(rows, key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
+    upcoming_n = sum(1 for r in ordered if not r.get("stale"))
     comps = sorted({r["competition"] for r in ordered})
     opts = "".join('<option value="' + e(c) + '">' + e(c) + "</option>" for c in comps)
     chips = "".join(
@@ -631,13 +651,15 @@ def build_table(rows: list[dict], counts: Counter) -> str:
             '<td data-label="Sources" class="srcs small">' + _row_sources(r) + "</td>",
         ]
         trs.append('<tr class="prow m-' + e(method) + '" data-method="' + e(method) + '" data-comp="'
-                   + e(r["competition"]) + '" data-text="' + e(hay) + '">' + "".join(cells) + "</tr>")
+                   + e(r["competition"]) + '" data-start="' + e(r["start_utc"] or "")
+                   + '" data-stale="' + ("1" if r.get("stale") else "0") + '" data-text="' + e(hay) + '">'
+                   + "".join(cells) + "</tr>")
     body = f"""
 <section class="panel">
   <div class="toolbar">
     <input id="tq" type="search" placeholder="Search team or tournament" aria-label="Search team or tournament">
     <select id="tcomp" aria-label="Filter by tournament"><option value="">All tournaments</option>{opts}</select>
-    <div class="chips"><button class="chip active" data-tfilter="">All <span>{len(ordered)}</span></button>{chips}</div>
+    <div class="chips"><button class="chip active" data-tfilter="">All <span>{len(ordered)}</span></button><button class="chip chip-toggle" type="button" id="tupcoming" aria-pressed="false">Upcoming only <span>{upcoming_n}</span></button>{chips}</div>
   </div>
   <p class="muted small" id="tcount">{len(ordered)} matches shown</p>
   <div class="tablewrap">
@@ -676,6 +698,7 @@ def build_table(rows: list[dict], counts: Counter) -> str:
 
 def build_picks(rows: list[dict], counts: Counter) -> str:
     rows = sorted(rows, key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
+    upcoming_n = sum(1 for r in rows if not r.get("stale"))
     comps = sorted({r["competition"] for r in rows})
     chips = "".join(
         f'<button class="chip" data-filter="{m}">{METHOD_LABEL[m]} <span>{counts.get(m,0)}</span></button>'
@@ -689,7 +712,7 @@ def build_picks(rows: list[dict], counts: Counter) -> str:
   <div class="toolbar">
     <input id="q" type="search" placeholder="Search team or tournament" aria-label="Search team or tournament">
     <select id="comp" aria-label="Filter by tournament"><option value="">All tournaments</option>{opts}</select>
-    <div class="chips"><button class="chip active" data-filter="">All <span>{len(rows)}</span></button>{chips}</div>
+    <div class="chips"><button class="chip active" data-filter="">All <span>{len(rows)}</span></button><button class="chip chip-toggle" type="button" id="upcoming" aria-pressed="false">Upcoming only <span>{upcoming_n}</span></button>{chips}</div>
   </div>
   <p class="muted small" id="count" role="status" aria-live="polite">{len(rows)} matches shown</p>
   <div class="cards" id="list">
@@ -717,16 +740,18 @@ def build_featured(rows: list[dict]) -> str:
         cross = (m.get("model_cross_check"))
         if cross is not None:
             gap = abs((r["p0"] or 0) - cross) * 100
-            cross_cell = (f'{pct(cross)} / {pct(1 - cross)}'
+            c0, c1 = pct_pair(cross, 1.0 - cross)
+            cross_cell = (f'{c0} / {c1}'
                           f'<br><span class="muted small">{"&#9888; " if gap >= 20 else ""}{gap:.0f} pp gap</span>')
         else:
             cross_cell = '<span class="muted">not rated</span>'
+        pa_txt, pb_txt = pct_pair(r["p0"], r["p1"])
         rows_html.append([
             local_time(r["start_utc"]),
             e(r["competition"]),
             f'<strong>{e(r["pick"]["team"])}</strong> ({r["pick"]["probability"]*100:.1f}%)<br>'
             f'<span class="muted small">{e(r["team0"]["name"])} vs {e(r["team1"]["name"])}</span>',
-            pct(r["p0"]) + " / " + pct(r["p1"]),
+            pa_txt + " / " + pb_txt,
             cross_cell,
             f'{e(m["book"])}',
             f'{dec.get("home","")} / {dec.get("away","")}',
@@ -736,10 +761,10 @@ def build_featured(rows: list[dict]) -> str:
 <section class="panel">
   <h2>{len(items)} matches with real-money bookmaker &amp; exchange consensus</h2>
   <p class="lead">Featured matches combine live quotes across <strong>Pinnacle (weight 0.36), Polymarket
-  full-series CLOB (0.24), Kalshi CFTC regulated contracts (0.18) and Bovada (0.12)</strong>. Bookmaker margin
-  is removed proportionally on each venue before precision weighting. Symmetric 1.80 / 1.80 aggregator
-  placeholders are rejected, Pinnacle's parallel &quot;(Kills)&quot; derivative markets are excluded from the
-  series consensus, and a single prediction market with almost no traded volume is downgraded to low
+  full-series CLOB (0.24), Kalshi CFTC regulated contracts (0.18), Bovada (0.12) and Unibet/Kambi (0.10)</strong>.
+  Bookmaker margin is removed proportionally on each venue before precision weighting. Symmetric 1.80 / 1.80
+  aggregator placeholders are rejected, Pinnacle's parallel &quot;(Kills)&quot; derivative markets are excluded
+  from the series consensus, and a single prediction market with almost no traded volume is downgraded to low
   confidence (see <a href="flagged.html">Flagged for review</a>).</p>
   {table(["Start (UTC)", "Tournament", "Pick &amp; Match", "Consensus (A / B)", "Model cross-check", "Venues", "Primary Decimal", "Source records"], rows_html)}
   <h3>Proportional de-vig &amp; consensus formula</h3>
@@ -756,13 +781,14 @@ def build_originated(rows: list[dict], counts: Counter) -> str:
     reviews = []
     for r in items:
         t0, t1 = r["team0"], r["team1"]
+        pa_txt, pb_txt = pct_pair(r["p0"], r["p1"])
         reviews.append([
             local_time(r["start_utc"]),
             e(r["competition"]),
             f'<strong>{e(t0["name"])}</strong> vs <strong>{e(t1["name"])}</strong>',
             f'{t0["elo"] if t0["elo"] is not None else "&mdash;"} <span class="muted small">({t0["rating_matches"]})</span>'
             f' / {t1["elo"] if t1["elo"] is not None else "&mdash;"} <span class="muted small">({t1["rating_matches"]})</span>',
-            pct(r["p0"]) + " / " + pct(r["p1"]),
+            pa_txt + " / " + pb_txt,
             badge(r["method"]),
             f'<a href="https://lol.fandom.com/wiki/{leaguepedia_slug(r["leaguepedia_page"] or "")}" rel="noopener">results page</a>'
             if r.get("leaguepedia_page") else f'<a href="{e(r["hotspawn_url"])}" rel="noopener">card</a>',
@@ -933,13 +959,15 @@ def build_methodology(model: dict) -> str:
     <li><strong>Inventory.</strong> Every League of Legends fixture is pulled from Hotspawn's public fixtures API
     (<a href="https://play.hotspawn.com/lol-pickems" rel="noopener">play.hotspawn.com/lol-pickems</a>).</li>
     <li><strong>Tier 1 — Multi-venue real-money consensus.</strong> Live odds and contract books from
-    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18) and Bovada (0.12)</strong>
-    are de-vigged proportionally and precision-weighted. Only series moneylines are accepted: Pinnacle's
-    parallel &quot;(Kills)&quot; derivative is filtered out in <code>collect.py</code> and again in
-    <code>model.py</code>, and archived third-party quotes that cannot be re-verified on the build machine are
-    retired rather than reused.</li>
+    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12) and
+    Unibet/Kambi (0.10)</strong> are de-vigged proportionally and precision-weighted. Only series moneylines are
+    accepted: Pinnacle's parallel &quot;(Kills)&quot; derivative is filtered out in <code>collect.py</code> and
+    again in <code>model.py</code>, and archived third-party quotes that cannot be re-verified on the build
+    machine are retired rather than reused.</li>
     <li><strong>Tier 2 — Originated regional Elo lines.</strong> All recorded Leaguepedia series since
-    {e(model.get('window_start',''))} are processed chronologically with inactivity decay and shrinkage toward 1500.</li>
+    {e(model.get('window_start',''))} are processed strictly chronologically with division priors
+    (1700 major / 1575 challenger-tier-2 / 1500 regional / 1455 open-div-3), series margin-of-victory scaling,
+    inactivity decay and empirical Bayes shrinkage toward each team's tier prior.</li>
     <li><strong>Tier 3 — Provisional &amp; Unresolved quarantine.</strong> Thin-sample teams (&lt;5 series) are marked
     <em>provisional</em>; officially removed mid-split teams (<code>dqteams</code>) are quarantined in
     <a href="unresolved.html">Unresolved</a> rather than mispriced.</li>
@@ -953,10 +981,10 @@ def build_methodology(model: dict) -> str:
   <h2>Formulas</h2>
   <p>Expected series win probability for team A:</p>
   <p class="formula">E<sub>A</sub> = 1 / (1 + 10^((R<sub>B</sub> - R<sub>A</sub>)/400))</p>
-  <p>Chronological rating update after each completed series (K = {e(model.get('k'))}):</p>
-  <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
-  <p>Empirical Bayes shrinkage towards 1500 for sample size n (shrink = {e(model.get('shrink'))}):</p>
-  <p class="formula">R<sub>eff</sub> = 1500 + (R - 1500) &middot; n / (n + {e(model.get('shrink'))})</p>
+  <p>Chronological rating update after each completed series (K = {e(model.get('k'))}, margin multiplier 1 + 0.18 &middot; max(0, &Delta;games &minus; 1)):</p>
+  <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K<sub>eff</sub> &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
+  <p>Empirical Bayes shrinkage towards tier prior R<sub>0</sub> for sample size n (shrink = {e(model.get('shrink'))}):</p>
+  <p class="formula">R<sub>eff</sub> = R<sub>0</sub> + (R - R<sub>0</sub>) &middot; n / (n + {e(model.get('shrink'))})</p>
   <p>Inactivity decay begins after {e(model.get('decay_start_days'))} days and reaches 1500 at
   {e(model.get('decay_full_days'))} days; originated probabilities are clamped to
   {e(model.get('prob_floor'))}&ndash;{e(model.get('prob_ceil'))}.</p>
@@ -1034,11 +1062,12 @@ def build_sources(src: list[dict]) -> str:
   <ul class="bullets">
     <li><a href="https://play.hotspawn.com/lol-pickems" rel="noopener">Hotspawn LoL Pick'ems API</a> &mdash;
     complete scheduled match inventory (crowd % stored strictly for audit comparison).</li>
-    <li><a href="https://www.pinnacle.com/en/esports/league-of-legends" rel="noopener">Pinnacle</a>,
+    <li><a href="https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups" rel="noopener">Pinnacle Arcadia API</a>,
     <a href="https://polymarket.com" rel="noopener">Polymarket CLOB</a>,
-    <a href="https://kalshi.com/markets/kxlolgame" rel="noopener">Kalshi (CFTC)</a> &amp;
-    <a href="https://www.bovada.lv/sports/esports/league-of-legends" rel="noopener">Bovada</a> &mdash;
-    live multi-venue real-money match odds &amp; contract books.</li>
+    <a href="https://kalshi.com/markets/kxlolgame" rel="noopener">Kalshi (CFTC)</a>,
+    <a href="https://www.bovada.lv/sports/esports/league-of-legends" rel="noopener">Bovada</a> &amp;
+    <a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet (Kambi)</a> &mdash;
+    live 5-venue real-money match odds &amp; contract books.</li>
     <li><a href="https://lol.fandom.com/wiki/Special:CargoExport" rel="noopener">Leaguepedia Cargo &amp; MediaWiki Data: namespace</a> &mdash;
     chronological series history plus official <code>dqteams</code> mid-split disqualification records.</li>
     <li><a href="https://esports-api.lolesports.com" rel="noopener">LoL Esports (Riot Games)</a> &mdash;

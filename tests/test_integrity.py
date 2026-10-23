@@ -54,3 +54,39 @@ class IntegrityTests(unittest.TestCase):
     def test_sum(self):
         r = self.row(); r['p1'] = .4
         self.assertTrue(row_errors(r))
+
+    def test_competition_page_disambiguates_homonyms_before_global_exact(self):
+        from model import resolve_team
+        exact = {'last dance': 'Last Dance'}
+        base = {'last dance': {'Last Dance', 'Last Dance (Benelux Team)'}}
+        page_teams = {'Benelux Ascend Series/2026 Season/Summer Split': {'Last Dance (Benelux Team)'}}
+        team, how, _ = resolve_team(
+            'LAST DANCE', exact, base, {},
+            'Benelux Ascend Series/2026 Season/Summer Split', page_teams,
+        )
+        self.assertEqual(team, 'Last Dance (Benelux Team)')
+        self.assertEqual(how, 'competition-page')
+
+    def test_live_venue_name_aliases(self):
+        from model import same_team
+        self.assertTrue(same_team('LØS', 'LOS'))
+        self.assertTrue(same_team('Team Secret', 'Team Secret Whales'))
+        self.assertTrue(same_team('Lyon Gaming', 'LYON'))
+
+    def test_published_dataset_and_html_invariants(self):
+        import json
+        root = Path(__file__).resolve().parents[1]
+        doc = json.loads((root / 'data' / 'matches.json').read_text(encoding='utf-8'))
+        counts = doc['counts']
+        self.assertEqual(sum(counts.values()), doc['total'])
+        five_venue = [
+            r for r in doc['matches']
+            if r['method'] == 'market'
+            and {v['name'] for v in (r.get('market') or {}).get('venues') or []}
+            == {'Pinnacle', 'Polymarket', 'Kalshi', 'Bovada', 'Unibet'}
+        ]
+        self.assertGreaterEqual(len(five_venue), 8)
+        for html_file in root.glob('*.html'):
+            txt = html_file.read_text(encoding='utf-8')
+            self.assertNotIn('www.pinnacle.com/en/', txt, html_file.name)
+

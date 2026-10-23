@@ -1,161 +1,196 @@
 (function () {
-  "use strict";
+  var STALE_WARN_HOURS = 12;
+  var STALE_HARD_HOURS = 30;
 
-  // Format `data-utc` timestamps with friendly local date/time while preserving UTC
-  function hydrateTimestamps() {
-    var nodes = document.querySelectorAll("[data-utc]");
-    for (var i = 0; i < nodes.length; i++) {
-      var iso = nodes[i].getAttribute("data-utc");
-      if (!iso) continue;
-      var d = new Date(iso);
-      if (isNaN(d.getTime())) continue;
-      try {
-        var localStr = d.toLocaleString(undefined, {
-          month: "short",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-        nodes[i].setAttribute("title", "UTC: " + iso + " | Local: " + localStr);
-        if (nodes[i].hasAttribute("data-show-local")) {
-          nodes[i].textContent = localStr + " (" + iso.slice(11, 16) + " UTC)";
-        }
-      } catch (_err) {
-        // Keep static UTC fallback intact
-      }
-    }
+  function bindOnce(el, type, fn) {
+    if (!el) return;
+    var key = "bound" + type;
+    if (el.dataset && el.dataset[key]) return;
+    if (el.dataset) el.dataset[key] = "1";
+    el.addEventListener(type, fn);
   }
 
-  // Mobile menu toggle (header)
-  function initMenu() {
-    var menu = document.querySelector(".menu-btn");
-    var nav = document.getElementById("nav");
-    if (!menu || !nav) return;
-    menu.addEventListener("click", function () {
-      var open = menu.getAttribute("aria-expanded") !== "true";
-      menu.setAttribute("aria-expanded", String(open));
-      nav.classList.toggle("open", open);
+  function isPastNow(el) {
+    if (!el) return false;
+    if (el.dataset.stale === "1") return true;
+    var raw = el.dataset.start;
+    if (!raw) return false;
+    var t = Date.parse(raw);
+    return !isNaN(t) && t <= Date.now();
+  }
+
+  function hydrateLivePastBadges() {
+    document.querySelectorAll(".card[data-start]").forEach(function (card) {
+      if (!isPastNow(card)) return;
+      card.dataset.stale = "1";
+      var badges = card.querySelector(".badges");
+      if (badges && !badges.querySelector(".b-past")) {
+        var b = document.createElement("span");
+        b.className = "badge b-past";
+        b.textContent = "start time passed";
+        badges.insertBefore(b, badges.firstChild);
+      }
+    });
+    document.querySelectorAll(".prow[data-start]").forEach(function (row) {
+      if (isPastNow(row)) row.dataset.stale = "1";
     });
   }
 
-  // Snapshot age: a stale snapshot must never look like live odds
-  function initSnapshotAge() {
-    var snapshot = document.getElementById("snapshot-age");
-    if (!snapshot) return;
-    var hours = (Date.now() - Date.parse(snapshot.getAttribute("data-fetched"))) / 3600000;
-    if (!isFinite(hours)) {
-      snapshot.textContent = "Inventory collection time unverified.";
-      snapshot.classList.add("stale-warning");
+  function renderSnapshotAge() {
+    var el = document.getElementById("snapshot-age");
+    if (!el) return;
+    var raw = el.getAttribute("data-fetched");
+    var parsed = raw ? Date.parse(raw) : NaN;
+    if (!raw || isNaN(parsed)) {
+      el.classList.add("stale-hard");
+      el.textContent = "Hotspawn inventory timestamp missing or unreadable. Treat every pick on this page as unverified for current schedule.";
       return;
     }
-    var age = Math.max(0, Math.floor(hours));
-    snapshot.textContent = "Inventory collected " + age + " hour" + (age === 1 ? "" : "s") + " ago.";
-    if (hours > 8) {
-      snapshot.classList.add("stale-warning");
-      snapshot.textContent += " Refresh overdue - these are not live odds. Check the source links before using a pick.";
+    var hours = (Date.now() - parsed) / 3600000;
+    var age = hours < 1 ? Math.max(0, Math.round(hours * 60)) + "m" : Math.round(hours) + "h";
+    if (hours >= STALE_HARD_HOURS) {
+      el.classList.add("stale-hard");
+      el.textContent = "STALE SNAPSHOT: Hotspawn inventory is " + age + " old (collected " + raw + "). Scheduled 6h refresh appears not to have updated this page; re-verify fixtures and odds at the linked sources before relying on any pick.";
+    } else if (hours >= STALE_WARN_HOURS) {
+      el.classList.add("stale-warn");
+      el.textContent = "Snapshot is " + age + " old (collected " + raw + ") — older than one 6h refresh cycle. Check linked sources for line movement and delistings.";
+    } else {
+      el.textContent = "Hotspawn inventory is " + age + " old (collected " + raw + ").";
     }
   }
 
-  // Card-list filters (picks.html): search + tournament + method chips
-  function initPickFilters() {
-    var searchEl = document.getElementById("q");
-    var compEl = document.getElementById("comp");
+  function initMenu() {
+    var btn = document.querySelector(".menu-btn");
+    var nav = document.getElementById("nav");
+    if (!btn || !nav) return;
+    bindOnce(btn, "click", function () {
+      var open = nav.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+
+  function initCards() {
     var list = document.getElementById("list");
-    var countEl = document.getElementById("count");
-    var emptyEl = document.getElementById("empty");
-    if (!searchEl && !compEl) return;
-
-    var cards = list ? list.querySelectorAll(".card") : [];
-    var method = "";
-
-    function apply() {
-      var term = searchEl ? searchEl.value.trim().toLowerCase() : "";
-      var comp = compEl ? compEl.value : "";
-      var shown = 0;
-      for (var i = 0; i < cards.length; i++) {
-        var r = cards[i];
-        var ok = true;
-        if (method && r.getAttribute("data-method") !== method) ok = false;
-        if (ok && comp && r.getAttribute("data-comp") !== comp) ok = false;
-        if (ok && term && (r.getAttribute("data-text") || "").indexOf(term) === -1) ok = false;
-        r.classList.toggle("hidden-row", !ok);
-        if (ok) shown++;
-      }
-      if (countEl) countEl.textContent = shown + " match" + (shown === 1 ? "" : "es") + " shown";
-      if (emptyEl) emptyEl.hidden = shown !== 0;
-    }
-
-    var chips = document.querySelectorAll("[data-filter]");
-    for (var c = 0; c < chips.length; c++) {
-      chips[c].addEventListener("click", function (ev) {
-        for (var j = 0; j < chips.length; j++) chips[j].classList.remove("active");
-        ev.currentTarget.classList.add("active");
-        method = ev.currentTarget.getAttribute("data-filter") || "";
-        apply();
-      });
-    }
-
-    if (searchEl) searchEl.addEventListener("input", apply);
-    if (compEl) compEl.addEventListener("change", apply);
-    apply();
-  }
-
-  // Pick-table filters (table.html): search + tournament + method chips
-  function initTableFilter() {
-    var q = document.getElementById("tq");
-    var comp = document.getElementById("tcomp");
-    var body = document.getElementById("tbody");
-    var count = document.getElementById("tcount");
-    var empty = document.getElementById("tempty");
-    var chips = document.querySelectorAll("[data-tfilter]");
-    if (!body || !chips.length) return;
-
-    var activeMethod = "";
-    var rows = body.querySelectorAll("tr.prow");
+    if (!list) return;
+    var cards = Array.prototype.slice.call(list.querySelectorAll(".card"));
+    var q = document.getElementById("q");
+    var comp = document.getElementById("comp");
+    var count = document.getElementById("count");
+    var empty = document.getElementById("empty");
+    var upBtn = document.getElementById("upcoming");
+    var chips = Array.prototype.slice.call(document.querySelectorAll(".chip[data-filter]"));
+    if (!list._state) list._state = { method: "", upcomingOnly: false };
 
     function apply() {
       var term = q ? q.value.trim().toLowerCase() : "";
-      var compVal = comp ? comp.value : "";
+      var cv = comp ? comp.value : "";
       var shown = 0;
-      for (var i = 0; i < rows.length; i++) {
-        var r = rows[i];
-        var ok = true;
-        if (activeMethod && r.getAttribute("data-method") !== activeMethod) ok = false;
-        if (ok && compVal && r.getAttribute("data-comp") !== compVal) ok = false;
-        if (ok && term && (r.getAttribute("data-text") || "").indexOf(term) === -1) ok = false;
-        r.classList.toggle("hidden-row", !ok);
+      cards.forEach(function (c) {
+        var ok = (!list._state.method || c.dataset.method === list._state.method) &&
+          (!cv || c.dataset.comp === cv) &&
+          (!list._state.upcomingOnly || !isPastNow(c)) &&
+          (!term || c.dataset.text.indexOf(term) !== -1);
+        c.hidden = !ok;
+        c.classList.toggle("hidden-row", !ok);
         if (ok) shown++;
-      }
-      if (count) count.textContent = shown + " match" + (shown === 1 ? "" : "es") + " shown";
+      });
+      if (count) count.textContent = shown + (shown === 1 ? " match shown" : " matches shown");
       if (empty) empty.hidden = shown !== 0;
     }
 
-    for (var c = 0; c < chips.length; c++) {
-      chips[c].addEventListener("click", function (ev) {
-        for (var j = 0; j < chips.length; j++) chips[j].classList.remove("active");
-        ev.currentTarget.classList.add("active");
-        activeMethod = ev.currentTarget.getAttribute("data-tfilter") || "";
+    chips.forEach(function (ch) {
+      bindOnce(ch, "click", function () {
+        chips.forEach(function (x) { x.classList.remove("active"); });
+        ch.classList.add("active");
+        list._state.method = ch.dataset.filter || "";
+        apply();
+      });
+    });
+    if (upBtn) {
+      var upSpan = upBtn.querySelector("span");
+      if (upSpan) {
+        upSpan.textContent = String(cards.filter(function (c) { return !isPastNow(c); }).length);
+      }
+      bindOnce(upBtn, "click", function () {
+        list._state.upcomingOnly = !list._state.upcomingOnly;
+        upBtn.classList.toggle("active", list._state.upcomingOnly);
+        upBtn.setAttribute("aria-pressed", list._state.upcomingOnly ? "true" : "false");
         apply();
       });
     }
-    if (q) q.addEventListener("input", apply);
-    if (comp) comp.addEventListener("change", apply);
+    bindOnce(q, "input", apply);
+    bindOnce(comp, "change", apply);
     apply();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      hydrateTimestamps();
-      initMenu();
-      initSnapshotAge();
-      initPickFilters();
-      initTableFilter();
+  function initTable() {
+    var tbody = document.getElementById("tbody");
+    if (!tbody) return;
+    var rows = Array.prototype.slice.call(tbody.querySelectorAll(".prow"));
+    var q = document.getElementById("tq");
+    var comp = document.getElementById("tcomp");
+    var count = document.getElementById("tcount");
+    var empty = document.getElementById("tempty");
+    var upBtn = document.getElementById("tupcoming");
+    var chips = Array.prototype.slice.call(document.querySelectorAll("[data-tfilter]"));
+    if (!tbody._state) tbody._state = { method: "", upcomingOnly: false };
+
+    function apply() {
+      var term = q ? q.value.trim().toLowerCase() : "";
+      var cv = comp ? comp.value : "";
+      var shown = 0;
+      rows.forEach(function (r) {
+        var ok = (!tbody._state.method || r.dataset.method === tbody._state.method) &&
+          (!cv || r.dataset.comp === cv) &&
+          (!tbody._state.upcomingOnly || !isPastNow(r)) &&
+          (!term || r.dataset.text.indexOf(term) !== -1);
+        r.hidden = !ok;
+        r.classList.toggle("hidden-row", !ok);
+        if (ok) shown++;
+      });
+      if (count) count.textContent = shown + (shown === 1 ? " match shown" : " matches shown");
+      if (empty) empty.hidden = shown !== 0;
+    }
+
+    chips.forEach(function (ch) {
+      bindOnce(ch, "click", function () {
+        chips.forEach(function (x) { x.classList.remove("active"); });
+        ch.classList.add("active");
+        tbody._state.method = ch.dataset.tfilter || "";
+        apply();
+      });
     });
-  } else {
-    hydrateTimestamps();
-    initMenu();
-    initSnapshotAge();
-    initPickFilters();
-    initTableFilter();
+    if (upBtn) {
+      var upSpan = upBtn.querySelector("span");
+      if (upSpan) {
+        upSpan.textContent = String(rows.filter(function (r) { return !isPastNow(r); }).length);
+      }
+      bindOnce(upBtn, "click", function () {
+        tbody._state.upcomingOnly = !tbody._state.upcomingOnly;
+        upBtn.classList.toggle("active", tbody._state.upcomingOnly);
+        upBtn.setAttribute("aria-pressed", tbody._state.upcomingOnly ? "true" : "false");
+        apply();
+      });
+    }
+    bindOnce(q, "input", apply);
+    bindOnce(comp, "change", apply);
+    apply();
   }
+
+  function initTop() {
+    var top = document.getElementById("totop");
+    bindOnce(top, "click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+  }
+
+  function init() {
+    hydrateLivePastBadges();
+    renderSnapshotAge();
+    initMenu();
+    initCards();
+    initTable();
+    initTop();
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+  init();
 })();

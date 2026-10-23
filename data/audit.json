@@ -19,10 +19,17 @@
     },
     {
       "subject": "Pinnacle Gen.G vs Invictus Gaming series line",
-      "url": "https://www.pinnacle.com/en/event/1638748200",
+      "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638748200/markets/related/straight",
       "checked": "Snapshot price -387 / +294 (1.259 / 3.940) against the live series market.",
       "result": "verified",
       "detail": "Same market and side order; the live price at 15:50Z was -355 / +274, i.e. a normal line move during the four hours since the snapshot. Prices are therefore stored with the snapshot timestamp and never presented as live."
+    },
+    {
+      "subject": "Unibet (Kambi ubse) World Championship moneyline feed",
+      "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+      "checked": "All 8 World Championship series moneylines on Kambi operator ubse (replacing retired HTTP 400 ubus operator and archived aggregator slot).",
+      "result": "verified",
+      "detail": "Returns HTTP 200 JSON with open Match Odds across all 8 Worlds 2026 series (e.g. Gen.G Esports 1.17 / Invictus Gaming 4.40 on event 1029547040, LØS 7.00 / T1 1.07 on event 1029547051, Lyon Gaming 1.60 / Team Secret Whales 2.20 on event 1029547054), completing live 5-venue consensus."
     },
     {
       "subject": "Kalshi KXLOLGAME Gen.G vs Invictus Gaming",

@@ -16,7 +16,7 @@ from common import DATA, iso, load_json, log, now_utc, save_json
 
 HOTSPAWN = "https://play.hotspawn.com/lol-pickems"
 LEAGUEPEDIA = "https://lol.fandom.com/wiki/Special:CargoExport"
-PINNACLE = "https://www.pinnacle.com/en/esports/league-of-legends"
+PINNACLE = "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups"
 
 
 def main() -> None:
@@ -114,7 +114,7 @@ def main() -> None:
                       f"receipts were captured on {min((str(e.get('observed_at') or '') for e in expired))[:10]} "
                       f"(up to {age:.0f} h old, limit {audit.get('max_age_hours')} h) and are now excluded from "
                       "the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, "
-                      "Kalshi, Bovada) or to our own Elo line. The receipts stay in the audit trail: "
+                      "Kalshi, Bovada, Unibet) or to our own Elo line. The receipts stay in the audit trail: "
                       + "; ".join(f"#{e['fixture_id']} {e.get('decimal')} ({e.get('observed_at')})" for e in expired[:6]),
             "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json",
         })
@@ -139,7 +139,7 @@ def main() -> None:
             "detail": "; ".join(f"{r['team0']['name']} vs {r['team1']['name']} ({r['competition']})" for r in divergent[:6])
                       + ". The market side is what the site publishes and the model value is printed next to it on "
                         "the Market page, so the gap is visible rather than hidden.",
-            "source": "https://www.pinnacle.com/en/esports/league-of-legends",
+            "source": PINNACLE,
         })
 
     thin = [r for r in rows if (r.get("market") or {}).get("thin")]
@@ -242,7 +242,7 @@ def main() -> None:
             "item": f"{retired['retired_count']} archived esportsbook quotes were retired as unverifiable",
             "detail": retired.get("reason", ""),
             "source": ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/"
-                       "arena/4dfd0e71-lolhotspawn1/data/retired_quotes.json"),
+                       "main/data/retired_quotes.json"),
         })
 
     # Per-fixture note: this match is now originated because its only external capture was retired.

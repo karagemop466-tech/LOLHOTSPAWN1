@@ -35,6 +35,8 @@ KALSHI_URL = ("https://api.elections.kalshi.com/trade-api/v2/events"
               "?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100")
 BOVADA_URL = ("https://www.bovada.lv/services/sports/event/coupon/events/A/description/"
               "esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en")
+KAMBI_URL = ("https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/"
+             "league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ")
 LEAGUEPEDIA_WINDOW_START = "2024-09-01 00:00:00"  # ~25 months of series results
 
 
@@ -108,11 +110,13 @@ def collect_pinnacle() -> dict:
     for m in lol:
         if m.get("type") != "matchup":
             continue
+        if m.get("parentId") is not None or (m.get("units") or "Regular") != "Regular":
+            kills_skipped += 1
+            continue
         participants = [p.get("name") or "" for p in m.get("participants", [])]
-        # Pinnacle lists a second, separate matchup for the "most kills" market on the
-        # same series, labelled "<team> (Kills)", with different prices and limits. It is
-        # not the series moneyline and must never stand in for one.
-        if any(re.search(r"\(kills\)", n, re.I) for n in participants):
+        # Pinnacle lists parallel child/prop matchups ("<team> (Kills)", towers, etc.) on the
+        # same series with different prices and limits; keep only true series winner matchups.
+        if any(re.search(r"\((kills|towers|dragons|barons|inhibitors)\)", n, re.I) for n in participants):
             kills_skipped += 1
             continue
         st2, markets, err2 = get_json(
@@ -224,11 +228,12 @@ def collect_bovada() -> dict:
                             except (TypeError, ValueError):
                                 dec[o.get("type")] = 0.0
                         if dec.get("H", 0) > 1.0 and dec.get("A", 0) > 1.0:
+                            bov_path = ("/sports" + link) if (link.startswith("/") and not link.startswith("/sports/")) else link
                             events_out.append({
                                 "description": ev.get("description"),
                                 "competition_id": str(ev.get("competitionId") or ""),
                                 "start_utc": start_utc,
-                                "url": ("https://www.bovada.lv" + link) if link else "https://www.bovada.lv/esports/league-of-legends",
+                                "url": ("https://www.bovada.lv" + bov_path) if bov_path else "https://www.bovada.lv/sports/esports/league-of-legends",
                                 "outcomes": [
                                     {"name": home.get("name"), "decimal": dec["H"]},
                                     {"name": away.get("name"), "decimal": dec["A"]},
@@ -244,6 +249,56 @@ def collect_bovada() -> dict:
         "events": events_out,
     })
     log(f"bovada: {len(events_out)} LoL moneylines (status={st})")
+    return {"count": len(events_out), "status": st}
+
+
+# --------------------------------------------------------------------------- kambi / unibet
+def collect_kambi() -> dict:
+    st, data, err = get_json(KAMBI_URL, retries=2)
+    events_out = []
+    if st == 200 and isinstance(data, dict):
+        for item in data.get("events") or []:
+            ev = item.get("event") or {}
+            ev_id = ev.get("id")
+            for bo in item.get("betOffers") or []:
+                bt = (bo.get("betOfferType") or {}).get("id")
+                crit = ((bo.get("criterion") or {}).get("englishLabel") or "").lower()
+                if bt != 2 and "match" not in crit:
+                    continue
+                outs = [o for o in (bo.get("outcomes") or []) if o.get("status") == "OPEN"]
+                if len(outs) != 2:
+                    continue
+                parsed = []
+                changed_utc = None
+                for o in outs:
+                    try:
+                        dec = round(float(o.get("odds") or 0) / 1000.0, 4)
+                    except (TypeError, ValueError):
+                        dec = 0.0
+                    lbl = o.get("participant") or o.get("englishLabel") or o.get("label") or ""
+                    if dec > 1.0 and lbl:
+                        parsed.append({"name": lbl, "decimal": dec, "american": o.get("oddsAmerican")})
+                        changed_utc = o.get("changedDate") or changed_utc
+                if len(parsed) == 2 and ev_id:
+                    events_out.append({
+                        "event_id": ev_id,
+                        "name": ev.get("englishName") or ev.get("name") or "",
+                        "group": ev.get("group") or "",
+                        "start_utc": ev.get("start"),
+                        "changed_utc": changed_utc,
+                        "url": f"https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/{ev_id}.json?lang=en_GB&market=ZZ",
+                        "outcomes": parsed,
+                    })
+                    break
+    save_json(os.path.join(RAW, "kambi_lol.json"), {
+        "fetched_utc": iso(now_utc()),
+        "source_url": KAMBI_URL,
+        "status": st,
+        "error": err,
+        "event_count": len(events_out),
+        "events": events_out,
+    })
+    log(f"kambi: {len(events_out)} Unibet/Kambi LoL match moneylines (status={st})")
     return {"count": len(events_out), "status": st}
 
 
@@ -326,16 +381,39 @@ def collect_leaguepedia(max_rows: int = 60000) -> dict:
     # Query Leaguepedia's MediaWiki API for official mid-split disqualifications / league removals
     # (`|dqteams=...`) across the exact active tournament pages referenced by scheduled fixtures.
     hs_doc = load_json(os.path.join(RAW, "hotspawn_lol.json")) or {}
+    fixtures_list = hs_doc.get("fixtures") or []
     hs_teams = {norm_name(re.sub(r"\s*\([^)]*\)\s*$", "", f[s]["name"]))
-                for f in (hs_doc.get("fixtures") or []) for s in ("team0", "team1")}
+                for f in fixtures_list for s in ("team0", "team1")}
+    page_teams_norm: dict[str, set[str]] = {}
     page_overlap: dict[str, int] = {}
     for r in clean:
         pg = r.get("overview_page") or ""
-        if pg and ("2026" in pg or "2027" in pg):
-            for t in (r["team1"], r["team2"]):
-                if norm_name(re.sub(r"\s*\([^)]*\)\s*$", "", t)) in hs_teams:
-                    page_overlap[pg] = page_overlap.get(pg, 0) + 1
-    top_pages = [p for p, _ in sorted(page_overlap.items(), key=lambda kv: -kv[1])[:60]]
+        if not pg:
+            continue
+        for t in (r["team1"], r["team2"]):
+            tn = norm_name(re.sub(r"\s*\([^)]*\)\s*$", "", t))
+            page_teams_norm.setdefault(pg, set()).add(tn)
+            if ("2026" in pg or "2027" in pg) and tn in hs_teams:
+                page_overlap[pg] = page_overlap.get(pg, 0) + 1
+    # Guarantee every mapped active competition page (plus parent split page) is queried,
+    # never truncated at [:60].
+    must_pages: set[str] = set()
+    for comp in {f.get("competition") for f in fixtures_list if f.get("competition")}:
+        wanted = {norm_name(re.sub(r"\s*\([^)]*\)\s*$", "", f[s]["name"]))
+                  for f in fixtures_list if f.get("competition") == comp for s in ("team0", "team1")}
+        best_pg, best_sc = None, 0
+        for pg, tset in page_teams_norm.items():
+            sc = len(wanted & tset)
+            if sc > best_sc:
+                best_pg, best_sc = pg, sc
+        if best_pg:
+            must_pages.add(best_pg)
+            parts = best_pg.split("/")
+            if len(parts) > 2:
+                must_pages.add("/".join(parts[:-1]))
+    top_pages = list(dict.fromkeys(
+        list(sorted(must_pages)) + [p for p, _ in sorted(page_overlap.items(), key=lambda kv: -kv[1])[:80]]
+    ))
     dq_by_page: dict[str, list[str]] = {}
     all_titles = [t for p in top_pages for t in (p, f"Data:{p}")]
     for idx in range(0, len(all_titles), 25):
@@ -453,8 +531,8 @@ BOOK_PROBES = [
     ("Oddspedia", "https://oddspedia.com/esports/league-of-legends", "Odds comparison engine", None),
     ("OddsPortal", "https://www.oddsportal.com/esports/league-of-legends/", "Odds comparison engine", None),
     ("BetExplorer", "https://www.betexplorer.com/esports/league-of-legends/", "Odds comparison engine", None),
-    ("Unibet/Kambi", "https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports.json",
-     "Esportsbook API", None),
+    ("Unibet/Kambi", KAMBI_URL,
+     "European regulated sportsbook JSON feed (ubse LoL match odds)", None),
     ("Hotspawn fixtures API", HOTSPAWN_FIXTURES,
      "Match inventory (crowd % stored for audit only, NEVER used as probability)", None),
     ("Leaguepedia", "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId&limit=1&format=json",
@@ -492,6 +570,7 @@ def main() -> None:
         "pinnacle": collect_pinnacle,
         "kalshi": collect_kalshi,
         "bovada": collect_bovada,
+        "kambi": collect_kambi,
         "leaguepedia": collect_leaguepedia,
         "lolesports": collect_lolesports,
         "polymarket": collect_polymarket,
