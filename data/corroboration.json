@@ -1,0 +1,1027 @@
+{
+ "generated_utc": "2026-10-23T15:42:22.399667Z",
+ "data_generated_utc": "2026-10-23T11:43:59Z",
+ "rules": {
+  "corroboration_only": true,
+  "divergence_threshold_pp": 5.0,
+  "placeholder_decimal": 1.8,
+  "no_inference": "a price absent from a receipt is never inferred or averaged in"
+ },
+ "sources": [
+  {
+   "key": "bo3gg",
+   "name": "bo3.gg LoL match centre",
+   "url": "https://bo3.gg/lol/matches/current",
+   "kind": "esports odds display (prices link to the Thunderpick affiliate feed)",
+   "runner_reachable": "HTTP 200 from Actions, but the price cells are rendered client-side, so the runner receives no prices",
+   "note": "Displayed clock is UTC-4 (US Eastern). 13:00 on the page == 17:00Z, matching Hotspawn/Pinnacle."
+  },
+  {
+   "key": "egamersworld",
+   "name": "EGamersWorld LoL",
+   "url": "https://egamersworld.com/lol/matches",
+   "kind": "esports odds aggregator (best-price average across books)",
+   "runner_reachable": "HTTP 403 from Actions (bot protection); readable from a browser user-agent",
+   "note": "Displayed clock is UTC-4 (US Eastern). Prices moved between two reads 4 minutes apart; both reads are recorded."
+  },
+  {
+   "key": "oddsportal",
+   "name": "OddsPortal eSports / League of Legends",
+   "url": "https://www.oddsportal.com/esports/league-of-legends/",
+   "kind": "odds comparison engine (coverage check only, no prices read)",
+   "runner_reachable": "HTTP 200 from Actions, JavaScript-rendered; used for coverage only"
+  }
+ ],
+ "coverage_observations": [
+  {
+   "source": "oddsportal",
+   "captured_utc": "2026-10-23T15:39:00Z",
+   "url": "https://www.oddsportal.com/esports/league-of-legends/",
+   "observation": "The odds-comparison engine lists exactly one priced LoL competition: 'League of Legends World Championship (8)'. No tier-2 or national division appears anywhere in its LoL section.",
+   "verbatim": "League of Legends World Championship (8)",
+   "_file": "2026-10-23.json"
+  },
+  {
+   "source": "egamersworld",
+   "captured_utc": "2026-10-23T15:41:00Z",
+   "url": "https://egamersworld.com/lol/matches",
+   "observation": "Of the 241 Hotspawn LoL cards, the aggregator publishes prices for three competitions only: 2026 World Championship (8 matches), LGC 2026 Rising (1 match) and LCP 2027 Promotion (2 matches, one of them the symmetric placeholder). PRM 2nd Division (40), PRM 3rd Division (62), Tunisian Super League (25), RIVALS LEAGUE Season 2 (28) and every other national division carry no price at all.",
+   "verbatim": "2026 World Championship ... LGC 2026 Rising ... 27.10.26 Upcoming Matches ... LCP 2027 Promotion ... 10.11.26 Upcoming Matches",
+   "_file": "2026-10-23.json"
+  },
+  {
+   "source": "bo3gg",
+   "captured_utc": "2026-10-23T15:39:50Z",
+   "url": "https://bo3.gg/lol/matches/current",
+   "observation": "The match centre lists only the 8 Worlds 2026 matches for 2026-10-23, each with a decimal pair. No national-division match appears on the page at all.",
+   "verbatim": "today, October 23 ... Worlds 2026 (x8)",
+   "_file": "2026-10-23.json"
+  }
+ ],
+ "summary": {
+  "matches": 241,
+  "priced_by_us": 237,
+  "unresolved_by_us": 4,
+  "method_counts": {
+   "provisional": 65,
+   "model": 162,
+   "unresolved": 4,
+   "market": 10
+  },
+  "receipts": 10,
+  "usable_receipts": 9,
+  "placeholders": 1,
+  "rejected_receipts": 0,
+  "agrees": 9,
+  "diverges": 0,
+  "conflicting": 1,
+  "max_delta_pp": 2.77,
+  "mean_delta_pp": 1.1,
+  "divergence_threshold_pp": 5.0,
+  "competitions_with_external_price": 2,
+  "competitions_without_external_price": 25,
+  "competitions_conflicting_only": 1
+ },
+ "archived_venue_audit": {
+  "source_file": "archive/session-8336fb7e/data/book_receipts.json",
+  "observed_at": "2026-10-21T20:36:00Z",
+  "rows_using_archived_quote": 9,
+  "rows": [
+   {
+    "fixture_id": "1067878",
+    "competition": "Worlds 2026 Main Event",
+    "match": "Gen.G vs Invictus Gaming",
+    "published_book": "5-Venue Consensus",
+    "venues": [
+     "Pinnacle",
+     "Polymarket",
+     "Kalshi",
+     "Bovada",
+     "Esportsbook"
+    ],
+    "quote": [
+     1.2,
+     4.4
+    ],
+    "observed_at": "2026-10-21T20:36:00Z",
+    "source_url": "https://egamersworld.com/lol/matches",
+    "hotspawn_url": "https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878"
+   },
+   {
+    "fixture_id": "1067677",
+    "competition": "Worlds 2026 Main Event",
+    "match": "Hanwha Life Esports vs Top Esports",
+    "published_book": "5-Venue Consensus",
+    "venues": [
+     "Pinnacle",
+     "Polymarket",
+     "Kalshi",
+     "Bovada",
+     "Esportsbook"
+    ],
+    "quote": [
+     1.2,
+     4.05
+    ],
+    "observed_at": "2026-10-21T20:36:00Z",
+    "source_url": "https://egamersworld.com/lol/matches",
+    "hotspawn_url": "https://www.hotspawn.com/matches/hanwha-life-esports-vs-top-esports-worlds-2026-main-event-1067677"
+   },
+   {
+    "fixture_id": "1067680",
+    "competition": "Worlds 2026 Main Event",
+    "match": "Bilibili Gaming vs Movistar KOI",
+    "published_book": "5-Venue Consensus",
+    "venues": [
+     "Pinnacle",
+     "Polymarket",
+     "Kalshi",
+     "Bovada",
+     "Esportsbook"
+    ],
+    "quote": [
+     1.17,
+     4.88
+    ],
+    "observed_at": "2026-10-21T20:36:00Z",
+    "source_url": "https://egamersworld.com/lol/matches",
+    "hotspawn_url": "https://www.hotspawn.com/matches/bilibili-gaming-vs-movistar-koi-worlds-2026-main-event-1067680"
+   },
+   {
+    "fixture_id": "1067675",
+    "competition": "Worlds 2026 Main Event",
+    "match": "Anyone's Legend vs Karmine Corp",
+    "published_book": "5-Venue Consensus",
+    "venues": [
+     "Pinnacle",
+     "Polymarket",
+     "Kalshi",
+     "Bovada",
+     "Esportsbook"
+    ],
+    "quote": [
+     1.38,
+     2.63
+    ],
+    "observed_at": "2026-10-21T20:36:00Z",
+    "source_url": "https://egamersworld.com/lol/matches",
+    "hotspawn_url": "https://www.hotspawn.com/matches/anyone-s-legend-vs-karmine-corp-worlds-2026-main-event-1067675"
+   },
+   {
+    "fixture_id": "1067676",
+    "competition": "Worlds 2026 Main Event",
+    "match": "G2 Esports vs Dplus KIA",
+    "published_book": "5-Venue Consensus",
+    "venues": [
+     "Pinnacle",
+     "Polymarket",
+     "Kalshi",
+     "Bovada",
+     "Esportsbook"
+    ],
+    "quote": [
+     2.18,
+     1.61
+    ],
+    "observed_at": "2026-10-21T20:36:00Z",
+    "source_url": "https://egamersworld.com/lol/matches",
+    "hotspawn_url": "https://www.hotspawn.com/matches/g2-esports-vs-dplus-kia-worlds-2026-main-event-1067676"
+   },
+   {
+    "fixture_id": "1067879",
+    "competition": "Worlds 2026 Main Event",
+    "match": "Team Liquid vs CTBC Flying Oyster",
+    "published_book": "5-Venue Consensus",
+    "venues": [
+     "Pinnacle",
+     "Polymarket",
+     "Kalshi",
+     "Bovada",
+     "Esportsbook"
+    ],
+    "quote": [
+     1.29,
+     3.11
+    ],
+    "observed_at": "2026-10-21T20:36:00Z",
+    "source_url": "https://egamersworld.com/lol/matches",
+    "hotspawn_url": "https://www.hotspawn.com/matches/team-liquid-vs-ctbc-flying-oyster-worlds-2026-main-event-1067879"
+   },
+   {
+    "fixture_id": "1067678",
+    "competition": "Worlds 2026 Main Event",
+    "match": "LØS vs T1",
+    "published_book": "5-Venue Consensus",
+    "venues": [
+     "Pinnacle",
+     "Polymarket",
+     "Kalshi",
+     "Bovada",
+     "Esportsbook"
+    ],
+    "quote": [
+     6.26,
+     1.06
+    ],
+    "observed_at": "2026-10-21T20:36:00Z",
+    "source_url": "https://egamersworld.com/lol/matches",
+    "hotspawn_url": "https://www.hotspawn.com/matches/l-s-vs-t1-worlds-2026-main-event-1067678"
+   },
+   {
+    "fixture_id": "1067679",
+    "competition": "Worlds 2026 Main Event",
+    "match": "Team Secret Whales vs LYON",
+    "published_book": "4-Venue Consensus",
+    "venues": [
+     "Pinnacle",
+     "Polymarket",
+     "Kalshi",
+     "Esportsbook"
+    ],
+    "quote": [
+     2.51,
+     1.51
+    ],
+    "observed_at": "2026-10-21T20:36:00Z",
+    "source_url": "https://egamersworld.com/lol/matches",
+    "hotspawn_url": "https://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679"
+   },
+   {
+    "fixture_id": "1081423",
+    "competition": "LCP 2027 Promotion",
+    "match": "Ground Zero Gaming vs Frank Esports",
+    "published_book": "Esportsbook",
+    "venues": [
+     "Esportsbook"
+    ],
+    "quote": [
+     1.025,
+     10.5
+    ],
+    "observed_at": "2026-10-21T20:36:00Z",
+    "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
+    "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423"
+   }
+  ]
+ },
+ "unresolved_ledger": [
+  {
+   "fixture_id": "1071170",
+   "competition": "Komplettligaen 2026 Autumn",
+   "match": "Solid Gaming vs VES Japan",
+   "start_utc": "2026-09-17T15:00:00Z",
+   "reason": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent VES Japan.",
+   "flags": [
+    "official league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is VES Japan)",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ],
+   "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-ves-japan-komplettligaen-2026-autumn-1071170",
+   "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split"
+  },
+  {
+   "fixture_id": "1071200",
+   "competition": "Komplettligaen 2026 Autumn",
+   "match": "Solid Gaming vs Playwell Rød Q",
+   "start_utc": "2026-10-04T15:00:00Z",
+   "reason": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Playwell Rød Q.",
+   "flags": [
+    "official league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Playwell Rød Q)",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ],
+   "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071200",
+   "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split"
+  },
+  {
+   "fixture_id": "1071206",
+   "competition": "Komplettligaen 2026 Autumn",
+   "match": "Volda E-Sport vs Solid Gaming",
+   "start_utc": "2026-10-11T15:00:00Z",
+   "reason": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Volda E-Sport.",
+   "flags": [
+    "official league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Volda E-Sport)",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ],
+   "hotspawn_url": "https://www.hotspawn.com/matches/volda-e-sport-vs-solid-gaming-komplettligaen-2026-autumn-1071206",
+   "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split"
+  },
+  {
+   "fixture_id": "1071186",
+   "competition": "Komplettligaen 2026 Autumn",
+   "match": "Solid Gaming vs NTNUI Kometkameratene",
+   "start_utc": "2026-10-13T17:00:00Z",
+   "reason": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent NTNUI Kometkameratene.",
+   "flags": [
+    "official league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is NTNUI Kometkameratene)",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
+   ],
+   "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071186",
+   "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split"
+  }
+ ],
+ "coverage": [
+  {
+   "competition": "PRM 3rd Division 26-27 Fall",
+   "fixtures": 62,
+   "future": 62,
+   "method": {
+    "model": 46,
+    "provisional": 16
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/berlin-5-vs-acegaming-hearts-prm-3rd-division-26-27-fall-1075719"
+  },
+  {
+   "competition": "PRM 2nd Division 26-27 Fall",
+   "fixtures": 40,
+   "future": 40,
+   "method": {
+    "model": 36,
+    "provisional": 4
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/locked-in-vs-the-bandits-prime-prm-2nd-division-26-27-fall-1079023"
+  },
+  {
+   "competition": "RIVALS LEAGUE Season 2",
+   "fixtures": 28,
+   "future": 21,
+   "method": {
+    "model": 19,
+    "provisional": 9
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/northern-wolves-esports-vs-lundqvist-darkside-rivals-league-season-2-1074627"
+  },
+  {
+   "competition": "Tunisian Super League 2026",
+   "fixtures": 25,
+   "future": 25,
+   "method": {
+    "provisional": 20,
+    "model": 5
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/jendouba-esports-vs-enfida-esports-tunisian-super-league-2026-1080923"
+  },
+  {
+   "competition": "Icelandic Esports League 2026 Autumn",
+   "fixtures": 12,
+   "future": 0,
+   "method": {
+    "model": 12
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/chuds-vs-sma-nibu-icelandic-esports-league-2026-autumn-1077722"
+  },
+  {
+   "competition": "Arabian League 2nd Division 2026 Summer",
+   "fixtures": 11,
+   "future": 8,
+   "method": {
+    "provisional": 3,
+    "model": 8
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/nextgeneration-esports-vs-slam-dunk-arabian-league-2nd-division-2026-summer-1079321"
+  },
+  {
+   "competition": "Worlds 2026 Main Event",
+   "fixtures": 8,
+   "future": 8,
+   "method": {
+    "market": 8
+   },
+   "external_priced": 8,
+   "external_sources": [
+    "bo3.gg LoL match centre"
+   ],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878"
+  },
+  {
+   "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+   "fixtures": 7,
+   "future": 1,
+   "method": {
+    "provisional": 6,
+    "model": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/syrian-rift-masters-vs-b7-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082001"
+  },
+  {
+   "competition": "Komplettligaen 2026 Autumn",
+   "fixtures": 7,
+   "future": 0,
+   "method": {
+    "model": 3,
+    "unresolved": 4
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/dmg-esports-norway-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071167"
+  },
+  {
+   "competition": "Superstrike League 2026",
+   "fixtures": 6,
+   "future": 0,
+   "method": {
+    "model": 5,
+    "provisional": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/lund-esports-organization-vs-karolinerna-black-superstrike-league-2026-1073172"
+  },
+  {
+   "competition": "Benelux Ascend Series 2027 Winter Promotion",
+   "fixtures": 5,
+   "future": 0,
+   "method": {
+    "model": 5
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/triforce-esport-vs-red-ouat-benelux-ascend-series-2027-winter-promotion-1076564"
+  },
+  {
+   "competition": "Benelux Ascend Series Rising 2026 Summer Playoffs",
+   "fixtures": 5,
+   "future": 0,
+   "method": {
+    "model": 5
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/team-vs-esport-vs-gala-esports-benelux-ascend-series-rising-2026-summer-playoffs-1053111"
+  },
+  {
+   "competition": "LigaGG CELOL B 2026 Split 2 Playoffs",
+   "fixtures": 5,
+   "future": 4,
+   "method": {
+    "model": 5
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/docta-esports-club-vs-baronx-ligagg-celol-b-2026-split-2-playoffs-1081079"
+  },
+  {
+   "competition": "LCP 2027 Promotion",
+   "fixtures": 3,
+   "future": 3,
+   "method": {
+    "model": 1,
+    "provisional": 1,
+    "market": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 1,
+   "conflicting_sources": [
+    "EGamersWorld LoL"
+   ],
+   "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothin-here-lcp-2027-promotion-1081421"
+  },
+  {
+   "competition": "Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait",
+   "fixtures": 2,
+   "future": 0,
+   "method": {
+    "provisional": 2
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/arena-vs-teambah-arabian-regional-championship-2026-qatar-bahrain-kuwait-1081365"
+  },
+  {
+   "competition": "Benelux Ascend Series 2026 Summer Split",
+   "fixtures": 2,
+   "future": 0,
+   "method": {
+    "provisional": 1,
+    "model": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/mind-blue-esports-vs-last-dance-benelux-ascend-series-2026-summer-split-1053095"
+  },
+  {
+   "competition": "LigaGG CELOL A 2026 Split 2 Playoffs",
+   "fixtures": 2,
+   "future": 2,
+   "method": {
+    "model": 2
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/cla-nkz-vorax-vs-neon-esports-ligagg-celol-a-2026-split-2-playoffs-1082914"
+  },
+  {
+   "competition": "LigaGG CELOL B 2026 Split 2",
+   "fixtures": 2,
+   "future": 0,
+   "method": {
+    "model": 2
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/docta-esports-club-vs-viktus-ligagg-celol-b-2026-split-2-1069849"
+  },
+  {
+   "competition": "4 Nations 2026 Halloween Heist",
+   "fixtures": 1,
+   "future": 0,
+   "method": {
+    "model": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/glorp-cat-vs-impel-4-nations-2026-halloween-heist-1082061"
+  },
+  {
+   "competition": "Benelux Ascend Series 2026 Summer Playoffs",
+   "fixtures": 1,
+   "future": 0,
+   "method": {
+    "provisional": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/frost-tails-vs-last-dance-benelux-ascend-series-2026-summer-playoffs-1061779"
+  },
+  {
+   "competition": "FPL 2026 Summer Playoffs",
+   "fixtures": 1,
+   "future": 0,
+   "method": {
+    "model": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/epic-avalanche-vs-finnish-red-mafia-fpl-2026-summer-playoffs-1066214"
+  },
+  {
+   "competition": "Hitpoint 2nd Div Challengers 2026 Summer Playoffs",
+   "fixtures": 1,
+   "future": 0,
+   "method": {
+    "model": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/exile-esports-academy-vs-mighty-eagles-hitpoint-2nd-div-challengers-2026-summer-playoffs-1075850"
+  },
+  {
+   "competition": "LGC Rising 2026 Playoffs",
+   "fixtures": 1,
+   "future": 1,
+   "method": {
+    "market": 1
+   },
+   "external_priced": 1,
+   "external_sources": [
+    "EGamersWorld LoL"
+   ],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080"
+  },
+  {
+   "competition": "LIT 2027 Winter Promotion",
+   "fixtures": 1,
+   "future": 0,
+   "method": {
+    "model": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/p11-esports-vs-hangmen-lit-2027-winter-promotion-1071584"
+  },
+  {
+   "competition": "Legends Academy powered by Żabka Season 3 Playoffs",
+   "fixtures": 1,
+   "future": 0,
+   "method": {
+    "model": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/dziady-cz-67-vs-adam-west-corp-legends-academy-powered-by-zabka-season-3-playoffs-1070823"
+  },
+  {
+   "competition": "LigaGG CELOL A 2026 Split 2",
+   "fixtures": 1,
+   "future": 0,
+   "method": {
+    "model": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/invictus-team-vs-smoke-tram-ascension-ligagg-celol-a-2026-split-2-1073030"
+  },
+  {
+   "competition": "POP Esports Masters Season 7",
+   "fixtures": 1,
+   "future": 0,
+   "method": {
+    "provisional": 1
+   },
+   "external_priced": 0,
+   "external_sources": [],
+   "conflicting": 0,
+   "conflicting_sources": [],
+   "hotspawn_url": "https://www.hotspawn.com/matches/landits-vs-frites-esports-club-pop-esports-masters-season-7-1053536"
+  }
+ ],
+ "rows": [
+  {
+   "fixture_id": "1067878",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-23T15:39:50Z",
+   "verbatim": "13:00 Gen.G Esports Bo1 Invictus Gaming 1.25 3.50",
+   "receipt_file": "2026-10-23.json",
+   "competition": "Worlds 2026 Main Event",
+   "start_utc": "2026-10-23T17:00:00Z",
+   "our_team0": "Gen.G",
+   "our_team1": "Invictus Gaming",
+   "our_p0": 0.7645,
+   "our_p1": 0.2355,
+   "our_method": "market",
+   "our_pick": "Gen.G",
+   "hotspawn_url": "https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878",
+   "name_match": "tolerant",
+   "page_team0": "Gen.G Esports",
+   "page_team1": "Invictus Gaming",
+   "decimal": [
+    1.25,
+    3.5
+   ],
+   "swapped": false,
+   "status": "usable",
+   "ext_p0": 0.7368,
+   "ext_p1": 0.2632,
+   "overround": 0.0857,
+   "delta_pp": -2.77,
+   "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1067677",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-23T15:39:50Z",
+   "verbatim": "14:00 Hanwha Life Esports Bo1 Top Esports 1.22 3.80",
+   "receipt_file": "2026-10-23.json",
+   "competition": "Worlds 2026 Main Event",
+   "start_utc": "2026-10-23T18:00:00Z",
+   "our_team0": "Hanwha Life Esports",
+   "our_team1": "Top Esports",
+   "our_p0": 0.7658,
+   "our_p1": 0.2342,
+   "our_method": "market",
+   "our_pick": "Hanwha Life Esports",
+   "hotspawn_url": "https://www.hotspawn.com/matches/hanwha-life-esports-vs-top-esports-worlds-2026-main-event-1067677",
+   "name_match": "exact",
+   "page_team0": "Hanwha Life Esports",
+   "page_team1": "Top Esports",
+   "decimal": [
+    1.22,
+    3.8
+   ],
+   "swapped": false,
+   "status": "usable",
+   "ext_p0": 0.757,
+   "ext_p1": 0.243,
+   "overround": 0.0828,
+   "delta_pp": -0.88,
+   "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1067680",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-23T15:39:50Z",
+   "verbatim": "15:00 Bilibili Gaming Bo1 Movistar KOI 1.17 4.40",
+   "receipt_file": "2026-10-23.json",
+   "competition": "Worlds 2026 Main Event",
+   "start_utc": "2026-10-23T19:00:00Z",
+   "our_team0": "Bilibili Gaming",
+   "our_team1": "Movistar KOI",
+   "our_p0": 0.7992,
+   "our_p1": 0.2008,
+   "our_method": "market",
+   "our_pick": "Bilibili Gaming",
+   "hotspawn_url": "https://www.hotspawn.com/matches/bilibili-gaming-vs-movistar-koi-worlds-2026-main-event-1067680",
+   "name_match": "exact",
+   "page_team0": "Bilibili Gaming",
+   "page_team1": "Movistar KOI",
+   "decimal": [
+    1.17,
+    4.4
+   ],
+   "swapped": false,
+   "status": "usable",
+   "ext_p0": 0.7899,
+   "ext_p1": 0.2101,
+   "overround": 0.082,
+   "delta_pp": -0.93,
+   "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1067675",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-23T15:39:50Z",
+   "verbatim": "16:00 Anyone's Legend Bo1 Karmine Corp 1.42 2.70",
+   "receipt_file": "2026-10-23.json",
+   "competition": "Worlds 2026 Main Event",
+   "start_utc": "2026-10-23T20:00:00Z",
+   "our_team0": "Anyone's Legend",
+   "our_team1": "Karmine Corp",
+   "our_p0": 0.6464,
+   "our_p1": 0.3536,
+   "our_method": "market",
+   "our_pick": "Anyone's Legend",
+   "hotspawn_url": "https://www.hotspawn.com/matches/anyone-s-legend-vs-karmine-corp-worlds-2026-main-event-1067675",
+   "name_match": "exact",
+   "page_team0": "Anyone's Legend",
+   "page_team1": "Karmine Corp",
+   "decimal": [
+    1.42,
+    2.7
+   ],
+   "swapped": false,
+   "status": "usable",
+   "ext_p0": 0.6553,
+   "ext_p1": 0.3447,
+   "overround": 0.0746,
+   "delta_pp": 0.89,
+   "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1067676",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-23T15:39:50Z",
+   "verbatim": "17:00 G2 Esports Bo1 Dplus KIA 2.30 1.55",
+   "receipt_file": "2026-10-23.json",
+   "competition": "Worlds 2026 Main Event",
+   "start_utc": "2026-10-23T21:00:00Z",
+   "our_team0": "G2 Esports",
+   "our_team1": "Dplus KIA",
+   "our_p0": 0.4108,
+   "our_p1": 0.5892,
+   "our_method": "market",
+   "our_pick": "Dplus KIA",
+   "hotspawn_url": "https://www.hotspawn.com/matches/g2-esports-vs-dplus-kia-worlds-2026-main-event-1067676",
+   "name_match": "exact",
+   "page_team0": "G2 Esports",
+   "page_team1": "Dplus KIA",
+   "decimal": [
+    2.3,
+    1.55
+   ],
+   "swapped": false,
+   "status": "usable",
+   "ext_p0": 0.4026,
+   "ext_p1": 0.5974,
+   "overround": 0.0799,
+   "delta_pp": -0.82,
+   "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1067879",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-23T15:39:50Z",
+   "verbatim": "18:00 Team Liquid Bo1 CTBC Flying Oyster 1.32 3.10",
+   "receipt_file": "2026-10-23.json",
+   "competition": "Worlds 2026 Main Event",
+   "start_utc": "2026-10-23T22:00:00Z",
+   "our_team0": "Team Liquid",
+   "our_team1": "CTBC Flying Oyster",
+   "our_p0": 0.7128,
+   "our_p1": 0.2872,
+   "our_method": "market",
+   "our_pick": "Team Liquid",
+   "hotspawn_url": "https://www.hotspawn.com/matches/team-liquid-vs-ctbc-flying-oyster-worlds-2026-main-event-1067879",
+   "name_match": "exact",
+   "page_team0": "Team Liquid",
+   "page_team1": "CTBC Flying Oyster",
+   "decimal": [
+    1.32,
+    3.1
+   ],
+   "swapped": false,
+   "status": "usable",
+   "ext_p0": 0.7014,
+   "ext_p1": 0.2986,
+   "overround": 0.0802,
+   "delta_pp": -1.14,
+   "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1067678",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-23T15:39:50Z",
+   "verbatim": "19:00 LOS Bo1 T1 6.30 1.08",
+   "receipt_file": "2026-10-23.json",
+   "competition": "Worlds 2026 Main Event",
+   "start_utc": "2026-10-23T23:00:00Z",
+   "our_team0": "LØS",
+   "our_team1": "T1",
+   "our_p0": 0.1407,
+   "our_p1": 0.8593,
+   "our_method": "market",
+   "our_pick": "T1",
+   "hotspawn_url": "https://www.hotspawn.com/matches/l-s-vs-t1-worlds-2026-main-event-1067678",
+   "name_match": "exact",
+   "page_team0": "LOS",
+   "page_team1": "T1",
+   "decimal": [
+    6.3,
+    1.08
+   ],
+   "swapped": false,
+   "status": "usable",
+   "ext_p0": 0.1463,
+   "ext_p1": 0.8537,
+   "overround": 0.0847,
+   "delta_pp": 0.56,
+   "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1067679",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-23T15:39:50Z",
+   "verbatim": "20:00 Team Secret Whales Bo1 LYON 2.20 1.58",
+   "receipt_file": "2026-10-23.json",
+   "competition": "Worlds 2026 Main Event",
+   "start_utc": "2026-10-24T00:00:00Z",
+   "our_team0": "Team Secret Whales",
+   "our_team1": "LYON",
+   "our_p0": 0.418,
+   "our_p1": 0.582,
+   "our_method": "market",
+   "our_pick": "LYON",
+   "hotspawn_url": "https://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679",
+   "name_match": "exact",
+   "page_team0": "Team Secret Whales",
+   "page_team1": "LYON",
+   "decimal": [
+    2.2,
+    1.58
+   ],
+   "swapped": false,
+   "status": "usable",
+   "ext_p0": 0.418,
+   "ext_p1": 0.582,
+   "overround": 0.0875,
+   "delta_pp": -0.0,
+   "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1079080",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/match/CVSRRqh2Q/vitality-rising-bees-vs-mental-rush-rildGvqP0",
+   "captured_utc": "2026-10-23T15:43:00Z",
+   "verbatim": "Vitality Rising Bees 1.4 ... Mental Rush 2.73 ; betting tips text: 'average odds 1.432 ... average odds 2.605'",
+   "receipt_file": "2026-10-23.json",
+   "competition": "LGC Rising 2026 Playoffs",
+   "start_utc": "2026-10-27T17:00:00Z",
+   "our_team0": "Mental Rush",
+   "our_team1": "Vitality Rising Bees",
+   "our_p0": 0.32,
+   "our_p1": 0.68,
+   "our_method": "market",
+   "our_pick": "Vitality Rising Bees",
+   "hotspawn_url": "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080",
+   "name_match": "tolerant",
+   "page_team0": "Mental Rush",
+   "page_team1": "Vitality Rising Bees",
+   "decimal": [
+    2.73,
+    1.4
+   ],
+   "swapped": true,
+   "status": "usable",
+   "ext_p0": 0.339,
+   "ext_p1": 0.661,
+   "overround": 0.0806,
+   "delta_pp": 1.9,
+   "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1081423",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
+   "captured_utc": "2026-10-23T15:44:00Z",
+   "verbatim": "Ground Zero Gaming 1.8 ... Frank Esports 1.8",
+   "receipt_file": "2026-10-23.json",
+   "competition": "LCP 2027 Promotion",
+   "start_utc": "2026-11-11T09:00:00Z",
+   "our_team0": "Ground Zero Gaming",
+   "our_team1": "Frank Esports",
+   "our_p0": 0.9111,
+   "our_p1": 0.0889,
+   "our_method": "market",
+   "our_pick": "Ground Zero Gaming",
+   "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423",
+   "name_match": "exact",
+   "page_team0": "Ground Zero Gaming",
+   "page_team1": "Frank Esports",
+   "decimal": [
+    1.8,
+    1.8
+   ],
+   "swapped": false,
+   "status": "placeholder",
+   "reason": "symmetric 1.80/1.80 is the aggregator's 'no price' default, not a line",
+   "ext_p0": null,
+   "ext_p1": null,
+   "delta_pp": null,
+   "verdict": "conflicting / not reproducible",
+   "conflict": {
+    "reason": "Same aggregator, 6 minutes earlier, published 1.025 / 10.5 for this match in its listing row; the match page shows the symmetric 1.8 / 1.8 default. A 91.1% price is therefore NOT reproducible from the source today.",
+    "other_reading": {
+     "captured_utc": "2026-10-23T15:38:00Z",
+     "page_url": "https://egamersworld.com/lol/matches",
+     "decimal": [
+      1.025,
+      10.5
+     ],
+     "verbatim": "11.11.26 Upcoming Matches ... Ground Zero Gaming ... 11.11.2604:00Bo5 ... Frank Esports ... 1.025 ... 10.5"
+    }
+   }
+  }
+ ],
+ "rejected": [],
+ "problems": []
+}
