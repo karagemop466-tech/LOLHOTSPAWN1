@@ -1,0 +1,169 @@
+{
+ "captured_utc": "2026-10-23T15:58:00Z",
+ "snapshot_compared": "data/raw/*.json fetched 2026-10-23T15:53:18-22Z",
+ "fixture": {
+  "hotspawn_id": "1067878",
+  "teams": [
+   "Gen.G",
+   "Invictus Gaming"
+  ],
+  "kickoff_utc": "2026-10-23T17:00:00Z",
+  "competition": "Worlds 2026 Main Event"
+ },
+ "checks": [
+  {
+   "venue": "Pinnacle",
+   "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638748200/markets/related/straight",
+   "public_url": "https://www.pinnacle.com/en/event/1638748200",
+   "observed_live": {
+    "type": "moneyline",
+    "period": 0,
+    "matchupId": 1638748200,
+    "american": {
+     "home": -335,
+     "away": 261
+    },
+    "max_risk_stake_usd": 10000,
+    "cutoff_at": "2026-10-23T17:00:00Z",
+    "version": 3776049514
+   },
+   "committed": {
+    "decimal": "1.298/3.61",
+    "american": "-335/261",
+    "p0": 0.7355,
+    "p1": 0.2645
+   },
+   "verdict": "match"
+  },
+  {
+   "venue": "Pinnacle (kills derivative, must be excluded)",
+   "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758865/markets/related/straight",
+   "observed_live": {
+    "matchupId": 1638758865,
+    "moneyline_american": {
+     "home": -312,
+     "away": 216
+    },
+    "max_risk_stake_usd": 3000,
+    "other_market_types": [
+     "team_total",
+     "spread",
+     "total"
+    ]
+   },
+   "note": "Separate matchup used for the kill markets on the same series: lower limits and team-total lines. Its moneyline is NOT the series line. The committed snapshot excludes it (collect.py skips '(Kills)' participants) and cites 1638748200.",
+   "verdict": "correctly excluded"
+  },
+  {
+   "venue": "Polymarket",
+   "api_url": "https://gamma-api.polymarket.com/events?slug=lol-gen-ig1-2026-10-23",
+   "public_url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23",
+   "observed_live": {
+    "event_id": "1214238",
+    "market_id": "5906195",
+    "outcomes": [
+     "Gen.G",
+     "Invictus Gaming"
+    ],
+    "outcome_prices": [
+     0.765,
+     0.235
+    ],
+    "game_start_time": "2026-10-23 17:00:00+00",
+    "volume_usd": 339495.241097,
+    "liquidity_usd": 317050.8093,
+    "updated_at": "2026-10-23T15:52:06Z"
+   },
+   "committed": {
+    "quote": "76.5/23.5 cents",
+    "p0": 0.765,
+    "p1": 0.235
+   },
+   "verdict": "match"
+  },
+  {
+   "venue": "Kalshi",
+   "api_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT231300IGGEN?with_nested_markets=true",
+   "public_url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231300iggen",
+   "observed_live": {
+    "gen_g_bid_ask": [
+     0.77,
+     0.78
+    ],
+    "ig_bid_ask": [
+     0.22,
+     0.23
+    ],
+    "midpoint": [
+     0.775,
+     0.225
+    ],
+    "volume_contracts": {
+     "GEN": 123204.56,
+     "IG": 35750.66
+    },
+    "occurrence_datetime": "2026-10-23T21:00:00Z"
+   },
+   "committed": {
+    "quote": "78/22 cents",
+    "p0": 0.775,
+    "p1": 0.225
+   },
+   "verdict": "match (prices are midpoints of the live bid/ask)"
+  },
+  {
+   "venue": "Bovada",
+   "api_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en",
+   "public_url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/gen-g-invictus-gaming-202610231300",
+   "observed_live": {
+    "event_id": "32451771",
+    "moneyline": {
+     "Gen.G": "-410 / 1.243902",
+     "Invictus Gaming": "+280 / 3.800"
+    },
+    "market_count": 44
+   },
+   "committed": {
+    "decimal": "1.24/3.80",
+    "p0": 0.7534,
+    "p1": 0.2466
+   },
+   "verdict": "match"
+  }
+ ],
+ "arithmetic_recheck": {
+  "de_vig": {
+   "Pinnacle": [
+    0.7355,
+    0.2645
+   ],
+   "Polymarket": [
+    0.765,
+    0.235
+   ],
+   "Kalshi": [
+    0.775,
+    0.225
+   ],
+   "Bovada": [
+    0.7534,
+    0.2466
+   ]
+  },
+  "weights": [
+   0.36,
+   0.24,
+   0.18,
+   0.22
+  ],
+  "recomputed_p0": 0.7536,
+  "published_p0": 0.7537,
+  "difference": 0.0001,
+  "verdict": "reproduced to rounding"
+ },
+ "irregularities": [
+  "Kalshi stamps occurrence_datetime 2026-10-23T21:00:00Z, four hours after the 17:00Z start time that Hotspawn, Polymarket and Pinnacle's cutoff all agree on. We take prices from Kalshi and the kick-off from Hotspawn; no start time is inferred from Kalshi.",
+  "Kalshi's displayed 78/22 cents quote is the rounded midpoint of a 0.77/0.78 bid-ask, not a tradable single price.",
+  "Pinnacle publishes a second matchup (1638758865) for the kill markets of the same series with different prices and lower limits; it is excluded from every series line."
+ ]
+}
