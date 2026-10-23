@@ -120,6 +120,29 @@ is not a stable site. Resolution:
   `market_lookup`.
 
 ---
+# Session `3d4e18ac` — final integration verification (this session)
+
+| Item | Value |
+|---|---|
+| Session ID | `3d4e18ac` (branch `arena/3d4e18ac-lolhotspawn1`, from `main` @ `e0c22be`) |
+| Claimed task | Final integration verification: re-run the full `tools/` pipeline end-to-end, confirm 14/14 publish gate passes, confirm GitHub Pages is built, record sources & irregularities |
+| File scope | `COORDINATION.md` (this claim only); verify `tools/*`, `data/*`, root `*.html`, `assets/*` (read-only verification, no source changes unless a defect is found) |
+| Status | in progress |
+
+## Session `3d4e18ac` verification record
+
+| Check | Result | Source linked |
+|---|---|---|
+| Branch == main at close | pending | `git log` |
+| Full pipeline (collect → model → report → flags → site → verify) | pending | `data/build.log` |
+| Publish gate 14/14 PASS | pending | `data/verification.json` |
+| Mobile viewport + responsive CSS | pending | `assets/style.css`, `<meta viewport>` |
+| Executive summary links to all picks views | pending | `index.html` |
+| GitHub Pages `status: built` | pending | `gh api .../pages` |
+
+
+
+---
 
 # Full Low-Tier Origination, 5-Venue Consensus & Forensic Audit Integration — session `8336fb7e`
 
