@@ -3,10 +3,12 @@
 **Live dashboard:** <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>
 
 A self-running pipeline that mirrors the complete League of Legends pick'em list from
-`play.hotspawn.com/lol-pickems` and publishes a pick for **every** match on it: an independent win
-probability wherever one can be defended, and an explicit settlement pick with no probability where it
-cannot. Probabilities come from real bookmaker lines where they exist, and from a results-based Elo model
-where they do not. Hotspawn's own crowd-pick percentages are never used as an input.
+`play.hotspawn.com/lol-pickems` and publishes a pick **with both win probabilities for every match on it**:
+9 from real bookmaker / exchange lines, 148 from a results-based Elo model, 80 provisional lines and
+4 settled from a **forfeit the league itself recorded** (match id, `FF` flag and recorded 0–2 score cited
+on the card — a settled result, never an invented percentage). Nothing is unresolved on the current list;
+anything that ever is gets its own section with the reason. Hotspawn's own crowd-pick percentages are
+never used as an input.
 
 The site rebuilds itself every six hours from GitHub Actions; nothing here needs a laptop to stay current.
 
@@ -19,7 +21,7 @@ The site rebuilds itself every six hours from GitHub Actions; nothing here needs
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
 | `featured.html` | Matches with a real bookmaker price, the raw odds and the de-vig arithmetic |
 | `originated.html` | Matches with no market price: our own line, the Elo inputs and the team records behind it |
-| `unresolved.html` | Matches we refuse to price, the official forfeit settlement where the league has ruled one, and every limitation that applies to the rest of the list |
+| `unresolved.html` | Forfeit-settled cards with their league receipt, any genuinely unresolved pick and why, and every limitation that applies to the rest of the list |
 | `competitions.html` | Coverage, source quality and staleness per tournament |
 | `teams.html` | Every team with its rating, record and competition |
 | `flagged.html` | Irregularities and unverified items, published rather than hidden |
@@ -60,9 +62,13 @@ Only `tools/` writes the published pages; `tools/corroborate.py` writes `coverag
 - **Originated lines** — Elo fitted on Leaguepedia series results, recency-weighted, with a
   connected-opponent graph guard; teams with too little recorded history are labelled *provisional*
   rather than silently given a confident number.
-- **Settlement picks** — a fixture whose participant was removed mid-split (`dqteams`) gets the
-  administratively correct side (the remaining active opponent) and **no percentage**, because a
-  competitive probability cannot be justified for a series that may be voided or awarded as a walkover.
+- **Forfeit-settled picks** — a fixture whose participant was removed mid-split (`dqteams`) is priced
+  **only** when the same competition's Leaguepedia record shows the series with its forfeit flag
+  (`FF=1` / `FF=2`) and a winner that agrees with it: the pick is that winner at a settled 100 %, and the
+  basis carries the record id, score and source URL. A flag that disagrees with the recorded winner is
+  rejected, and a card with no record stays unresolved rather than being filled in. Eight of Solid
+  Gaming's eleven Komplettligaen series carry the flag — it is read per match, never assumed. A Hotspawn
+  void would score the card for neither side, and that risk is printed on every forfeit card.
 - **Never used** — Hotspawn's `picked_percent`, its tiers, or its points as probability inputs.
 - **Blank beats wrong** — a value that cannot be confirmed from a primary source is left blank and
   listed on `flagged.html`; nothing is inferred to fill a gap.
@@ -86,7 +92,7 @@ resolves, no `None`/empty value is rendered, every match appears on `picks.html`
 - `data/matches.json` — full record per match, including odds, Elo inputs and flags.
 - `data/matching_report.json` — every team join that was not an exact string match, with its evidence.
 <<<<<<< HEAD
-- `data/verification.json` — the machine-readable result of the gate (31 checks).
+- `data/verification.json` — the machine-readable result of the gate (41 checks).
 - `data/flags.json` — every irregularity published on `flagged.html`, curated + derived on each build.
 =======
 - `data/verification.json` — the machine-readable result of the gate.
@@ -158,7 +164,8 @@ Archived 2026-10-21 aggregator receipts are **not** current quotes and are exclu
 from pricing. Leaguepedia is a community source; its results are not labelled official
 league verification. Model probabilities are estimates, never confirmed facts.
 If either team has no matched rated history and no collected market, probabilities
-and picks remain blank. Recorded removals remain quarantined pending settlement.
+and picks remain blank. A mid-split removal is settled only from the league's recorded
+forfeit (match id + `FF` flag + recorded score); without that record it stays unresolved.
 Historical manual findings are visibly marked as not reverified.
 
 Run `python3 -m unittest discover -s tests -v`, `NODE_PATH=<jsdom> node tests/dashboard.cjs`
@@ -166,8 +173,9 @@ and `python3 tools/verify.py`. The gate reconciles the exact inventory ID multis
 finite probabilities via `tools/integrity.py`, checks the actual named favourite, checks each
 match card's unique ID, asserts that the dataset is a 1:1 mirror of the Hotspawn feed the build
 fetched (ids, and per-tournament counts), asserts that **no fixture uses a rating from after its
-own kick-off**, and enforces the settlement-pick contract (a settlement pick names a listed
-participant and carries no probability).
+own kick-off**, enforces the settlement-pick contract (a settlement pick names a listed
+participant and carries no probability), and requires every forfeit pick to cite a Leaguepedia record
+whose flag agrees with its recorded winner.
 
 The Elo model is margin-weighted (K=48, 2-0 counts more than 2-1) and every fixture is priced
 from the rating state at its own kick-off, so an already-played card cannot see its own result.

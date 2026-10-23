@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-23T16:01:16.806909Z",
- "data_generated_utc": "2026-10-23T16:01:15Z",
+ "generated_utc": "2026-10-23T16:01:37.013485Z",
+ "data_generated_utc": "2026-10-23T16:01:35Z",
  "rules": {
   "corroboration_only": true,
   "divergence_threshold_pp": 5.0,
@@ -60,12 +60,12 @@
  ],
  "summary": {
   "matches": 241,
-  "priced_by_us": 237,
-  "unresolved_by_us": 4,
+  "priced_by_us": 241,
+  "unresolved_by_us": 0,
   "method_counts": {
    "provisional": 80,
    "model": 148,
-   "unresolved": 4,
+   "forfeit": 4,
    "market": 9
   },
   "receipts": 10,
@@ -75,8 +75,8 @@
   "agrees": 9,
   "diverges": 0,
   "conflicting": 1,
-  "max_delta_pp": 1.7,
-  "mean_delta_pp": 0.88,
+  "max_delta_pp": 1.73,
+  "mean_delta_pp": 0.93,
   "divergence_threshold_pp": 5.0,
   "competitions_with_external_price": 2,
   "competitions_without_external_price": 25,
@@ -88,61 +88,7 @@
   "rows_using_archived_quote": 0,
   "rows": []
  },
- "unresolved_ledger": [
-  {
-   "fixture_id": "1071170",
-   "competition": "Komplettligaen 2026 Autumn",
-   "match": "Solid Gaming vs VES Japan",
-   "start_utc": "2026-09-17T15:00:00Z",
-   "reason": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of VES Japan. Hotspawn may void this card or settle the walkover for opponent VES Japan; the settlement is unverified, so no competitive probability is claimed.",
-   "flags": [
-    "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is VES Japan)",
-    "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-09-17T15:00:00Z while Data:Komplettligaen/2026 Season/Autumn Split records 2026-10-01 16:00Z (337h apart) - confirm before relying on the time",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-ves-japan-komplettligaen-2026-autumn-1071170",
-   "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split"
-  },
-  {
-   "fixture_id": "1071200",
-   "competition": "Komplettligaen 2026 Autumn",
-   "match": "Solid Gaming vs Playwell Rød Q",
-   "start_utc": "2026-10-04T15:00:00Z",
-   "reason": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of Playwell Rød Q. Hotspawn may void this card or settle the walkover for opponent Playwell Rød Q; the settlement is unverified, so no competitive probability is claimed.",
-   "flags": [
-    "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Playwell Rød Q)",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071200",
-   "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split"
-  },
-  {
-   "fixture_id": "1071206",
-   "competition": "Komplettligaen 2026 Autumn",
-   "match": "Volda E-Sport vs Solid Gaming",
-   "start_utc": "2026-10-11T15:00:00Z",
-   "reason": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=2, i.e. Solid Gaming forfeited), 0-2 in favour of Volda E-Sport. Hotspawn may void this card or settle the walkover for opponent Volda E-Sport; the settlement is unverified, so no competitive probability is claimed.",
-   "flags": [
-    "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Volda E-Sport)",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "hotspawn_url": "https://www.hotspawn.com/matches/volda-e-sport-vs-solid-gaming-komplettligaen-2026-autumn-1071206",
-   "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split"
-  },
-  {
-   "fixture_id": "1071186",
-   "competition": "Komplettligaen 2026 Autumn",
-   "match": "Solid Gaming vs NTNUI Kometkameratene",
-   "start_utc": "2026-10-13T17:00:00Z",
-   "reason": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of NTNUI Kometkameratene. Hotspawn may void this card or settle the walkover for opponent NTNUI Kometkameratene; the settlement is unverified, so no competitive probability is claimed.",
-   "flags": [
-    "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is NTNUI Kometkameratene)",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071186",
-   "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split"
-  }
- ],
+ "unresolved_ledger": [],
  "coverage": [
   {
    "competition": "PRM 3rd Division 26-27 Fall",
@@ -262,7 +208,7 @@
    "future": 0,
    "method": {
     "model": 3,
-    "unresolved": 4
+    "forfeit": 4
    },
    "external_priced": 0,
    "external_sources": [],
@@ -526,8 +472,8 @@
    "start_utc": "2026-10-23T17:00:00Z",
    "our_team0": "Gen.G",
    "our_team1": "Invictus Gaming",
-   "our_p0": 0.7537,
-   "our_p1": 0.2463,
+   "our_p0": 0.7541,
+   "our_p1": 0.2459,
    "our_method": "market",
    "our_pick": "Gen.G",
    "hotspawn_url": "https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878",
@@ -543,7 +489,7 @@
    "ext_p0": 0.7368,
    "ext_p1": 0.2632,
    "overround": 0.0857,
-   "delta_pp": -1.69,
+   "delta_pp": -1.73,
    "verdict": "agrees"
   },
   {
@@ -622,8 +568,8 @@
    "start_utc": "2026-10-23T20:00:00Z",
    "our_team0": "Anyone's Legend",
    "our_team1": "Karmine Corp",
-   "our_p0": 0.6383,
-   "our_p1": 0.3617,
+   "our_p0": 0.6392,
+   "our_p1": 0.3608,
    "our_method": "market",
    "our_pick": "Anyone's Legend",
    "hotspawn_url": "https://www.hotspawn.com/matches/anyone-s-legend-vs-karmine-corp-worlds-2026-main-event-1067675",
@@ -639,7 +585,7 @@
    "ext_p0": 0.6553,
    "ext_p1": 0.3447,
    "overround": 0.0746,
-   "delta_pp": 1.7,
+   "delta_pp": 1.61,
    "verdict": "agrees"
   },
   {
@@ -686,8 +632,8 @@
    "start_utc": "2026-10-23T22:00:00Z",
    "our_team0": "Team Liquid",
    "our_team1": "CTBC Flying Oyster",
-   "our_p0": 0.7134,
-   "our_p1": 0.2866,
+   "our_p0": 0.7129,
+   "our_p1": 0.2871,
    "our_method": "market",
    "our_pick": "Team Liquid",
    "hotspawn_url": "https://www.hotspawn.com/matches/team-liquid-vs-ctbc-flying-oyster-worlds-2026-main-event-1067879",
@@ -703,7 +649,7 @@
    "ext_p0": 0.7014,
    "ext_p1": 0.2986,
    "overround": 0.0802,
-   "delta_pp": -1.2,
+   "delta_pp": -1.15,
    "verdict": "agrees"
   },
   {
@@ -782,8 +728,8 @@
    "start_utc": "2026-10-27T17:00:00Z",
    "our_team0": "Mental Rush",
    "our_team1": "Vitality Rising Bees",
-   "our_p0": 0.345,
-   "our_p1": 0.655,
+   "our_p0": 0.35,
+   "our_p1": 0.65,
    "our_method": "market",
    "our_pick": "Vitality Rising Bees",
    "hotspawn_url": "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080",
@@ -799,7 +745,7 @@
    "ext_p0": 0.339,
    "ext_p1": 0.661,
    "overround": 0.0806,
-   "delta_pp": -0.6,
+   "delta_pp": -1.1,
    "verdict": "agrees"
   },
   {

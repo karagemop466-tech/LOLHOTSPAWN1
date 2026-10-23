@@ -21,7 +21,7 @@
     <h1>Hotspawn LoL Pick Desk</h1>
     <p class="sub">Independent win probabilities for every League of Legends match in the Hotspawn pick'em.</p>
     <p class="stamp">Data snapshot: <strong>2026-10-23 16:01 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:59:58Z">Hotspawn inventory collected: 2026-10-23T15:59:58Z. Check source timestamps before use.</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:55:21Z">Hotspawn inventory collected: 2026-10-23T15:55:21Z. Check source timestamps before use.</p>
   </div>
   
 <section class="hero" id="start">
@@ -29,13 +29,13 @@
   <p>This dashboard rebuilds itself automatically every six hours across all 241 scheduled LoL matches on
   Hotspawn. 9 featured series are priced from de-vigged real-money quotes
   (Bovada, Kalshi, Pinnacle, Polymarket); 228 regional and academy series are originated from recorded series history;
-  4 unplayable cards are quarantined and, where the league itself has ruled a forfeit,
+  0 unplayable cards are quarantined and, where the league itself has ruled a forfeit,
   resolved to the official winner instead of being left blank. Nothing on this site ever uses Hotspawn's
   crowd-pick percentages.</p>
   <div class="cta">
     <a class="btn primary" href="table.html">Pick table - all 241 matches &rarr;</a>
     <a class="btn" href="picks.html">Card view</a>
-    <a class="btn" href="unresolved.html">Unresolved &amp; limits (4)</a>
+    <a class="btn" href="unresolved.html">Unresolved &amp; limits (0)</a>
   </div>
 </section>
 
@@ -46,19 +46,20 @@
     <a href="picks.html"><span class="ql-t">Card view</span><span class="ql-d">The same list as cards, with the full reasoning behind each line.</span></a>
     <a href="featured.html"><span class="ql-t">Market-backed (9)</span><span class="ql-d">De-vigged consensus from real-money books and exchanges.</span></a>
     <a href="originated.html"><span class="ql-t">Originated lines (228)</span><span class="ql-d">Our own Elo line where no sportsbook prices the league.</span></a>
-    <a href="unresolved.html"><span class="ql-t">Unresolved &amp; limits (4)</span><span class="ql-d">Cards that cannot be priced, plus every documented limitation.</span></a>
+    <a href="unresolved.html"><span class="ql-t">Unresolved &amp; limits (0)</span><span class="ql-d">Cards that cannot be priced, plus every documented limitation.</span></a>
     <a href="flagged.html"><span class="ql-t">Flagged for review</span><span class="ql-d">Irregularities, corrections and unverified items.</span></a>
   </div>
 </section>
 
 <section class="stats">
   <div class="stat "><div class="sv">241</div><div class="sl">Matches listed on Hotspawn</div><div class=sn>across 27 tournaments</div></div>
-  <div class="stat ok"><div class="sv">237</div><div class="sl">With a win probability</div><div class=sn>98% priced</div></div>
-  <div class="stat "><div class="sv">241</div><div class="sl">With a pick</div><div class=sn>100% incl. 4 forfeit settlements</div></div>
+  <div class="stat ok"><div class="sv">241</div><div class="sl">With a win probability</div><div class=sn>100% priced</div></div>
+  <div class="stat "><div class="sv">241</div><div class="sl">With a pick</div><div class=sn>100% of the list</div></div>
   <div class="stat market"><div class="sv">9</div><div class="sl">Market-backed</div><div class=sn>real-money consensus</div></div>
   <div class="stat model"><div class="sv">148</div><div class="sl">Originated lines</div><div class=sn>model, medium confidence</div></div>
   <div class="stat provisional"><div class="sv">80</div><div class="sl">Provisional</div><div class=sn>thin data, flagged</div></div>
-  <div class="stat unresolved"><div class="sv">4</div><div class="sl">Walkover-resolved</div><div class=sn>official forfeit, no probability</div></div>
+  <div class="stat forfeit"><div class="sv">4</div><div class="sl">Forfeit-settled</div><div class=sn>recorded result, not a forecast</div></div>
+  <div class="stat unresolved"><div class="sv">0</div><div class="sl">Unresolved</div><div class=sn>no line, no recorded result</div></div>
 </section>
 
 <section class="panel">
@@ -70,8 +71,9 @@
     same 241 matches with the full reasoning. Both pages are searchable and filterable by tournament and
     by method.</li>
     <li><strong>Coverage.</strong> 241 of 241 matches carry a pick
-    (100%): 237 with a win probability and 4 resolved to the
-    official forfeit winner with no probability claimed.
+    (100%): 241 with a win probability, including 4 settled from a
+    <a href="unresolved.html#forfeit">league-recorded forfeit</a> and published as a recorded result, never as a
+    guessed percentage. <strong>No match is unresolved.</strong>
     Priced: <a href="featured.html">9 market-backed</a>
     (Bovada, Kalshi, Pinnacle, Polymarket), <a href="originated.html">148 originated</a> and
     <a href="originated.html">80 provisional</a>.</li>
@@ -101,11 +103,13 @@
 </section>
 
 <section class="panel" id="unresolved-summary">
-  <h2>Unresolved picks and the limitations (4)</h2>
+  <h2>Unresolved picks and the limitations (0)</h2>
   <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror Hotspawn
   exactly, are reported separately, and are never padded with a guessed number. Where the league itself has
-  ruled a forfeit, the official settlement winner is shown - it is <em>not</em> a forecast.</p>
-  <div class="tablewrap"><table class=""><thead><tr><th>Kick-off</th><th>Tournament</th><th>Match</th><th>Settlement pick</th><th>Sources</th></tr></thead><tbody><tr><td data-label="Kick-off"><time datetime="2026-09-17T15:00:00Z" class="utc" data-utc="2026-09-17T15:00:00Z">2026-09-17 15:00 UTC</time></td><td data-label="Tournament"><a href="unresolved.html#m1071170">Komplettligaen 2026 Autumn</a></td><td data-label="Match"><strong>Solid Gaming</strong> vs <strong>VES Japan</strong></td><td data-label="Settlement pick"><strong class="res">VES Japan</strong><br><span class="small muted">official forfeit (walkover)</span></td><td data-label="Sources"><a href="https://www.hotspawn.com/matches/solid-gaming-vs-ves-japan-komplettligaen-2026-autumn-1071170" rel="noopener">Hotspawn</a> &middot; <a href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" rel="noopener">Leaguepedia</a></td></tr><tr><td data-label="Kick-off"><time datetime="2026-10-04T15:00:00Z" class="utc" data-utc="2026-10-04T15:00:00Z">2026-10-04 15:00 UTC</time></td><td data-label="Tournament"><a href="unresolved.html#m1071200">Komplettligaen 2026 Autumn</a></td><td data-label="Match"><strong>Solid Gaming</strong> vs <strong>Playwell Rød Q</strong></td><td data-label="Settlement pick"><strong class="res">Playwell Rød Q</strong><br><span class="small muted">official forfeit (walkover)</span></td><td data-label="Sources"><a href="https://www.hotspawn.com/matches/solid-gaming-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071200" rel="noopener">Hotspawn</a> &middot; <a href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" rel="noopener">Leaguepedia</a></td></tr><tr><td data-label="Kick-off"><time datetime="2026-10-11T15:00:00Z" class="utc" data-utc="2026-10-11T15:00:00Z">2026-10-11 15:00 UTC</time></td><td data-label="Tournament"><a href="unresolved.html#m1071206">Komplettligaen 2026 Autumn</a></td><td data-label="Match"><strong>Volda E-Sport</strong> vs <strong>Solid Gaming</strong></td><td data-label="Settlement pick"><strong class="res">Volda E-Sport</strong><br><span class="small muted">official forfeit (walkover)</span></td><td data-label="Sources"><a href="https://www.hotspawn.com/matches/volda-e-sport-vs-solid-gaming-komplettligaen-2026-autumn-1071206" rel="noopener">Hotspawn</a> &middot; <a href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" rel="noopener">Leaguepedia</a></td></tr><tr><td data-label="Kick-off"><time datetime="2026-10-13T17:00:00Z" class="utc" data-utc="2026-10-13T17:00:00Z">2026-10-13 17:00 UTC</time></td><td data-label="Tournament"><a href="unresolved.html#m1071186">Komplettligaen 2026 Autumn</a></td><td data-label="Match"><strong>Solid Gaming</strong> vs <strong>NTNUI Kometkameratene</strong></td><td data-label="Settlement pick"><strong class="res">NTNUI Kometkameratene</strong><br><span class="small muted">official forfeit (walkover)</span></td><td data-label="Sources"><a href="https://www.hotspawn.com/matches/solid-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071186" rel="noopener">Hotspawn</a> &middot; <a href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" rel="noopener">Leaguepedia</a></td></tr></tbody></table></div>
+  ruled a forfeit, the recorded winner is published with its match id and score - a settled result, not a
+  forecast. Forfeit-settled cards are listed in full on
+  <a href="unresolved.html#forfeit">Unresolved &amp; limitations</a>.</p>
+  <p class="muted">No unresolved matches in this snapshot.</p>
   <ul class="bullets">
     <li><strong>Why some matches have no line.</strong> A team officially removed mid-split
     (<code>dqteams</code>) may have its remaining fixtures voided or graded as walkovers, so a probability
@@ -142,7 +146,7 @@
   </div>
   <div class="pickline"><span class="picklabel">Pick</span> <strong>Gen.G</strong> <span class="pickpct">75.4%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>4-Venue Consensus de-vigged line (75.4% / 24.6%): Pinnacle 73.6%/26.5% (1.30/3.61), Polymarket 76.5%/23.5% (76.5¢/23.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 75.3%/24.7% (1.24/3.80).</p>
+    <p>4-Venue Consensus de-vigged line (75.4% / 24.6%): Pinnacle 73.6%/26.5% (1.30/3.61), Polymarket 76.5%/23.5% (76.5¢/23.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 75.7%/24.3% (1.24/3.85).</p>
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878" rel="noopener">Hotspawn card</a><a href="https://www.pinnacle.com/en/event/1638748200" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-gen-ig1-2026-10-23" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231300iggen" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/esports/league-of-legends/world-championship-26/gen-g-invictus-gaming-202610231300" rel="noopener">Bovada</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Gen.G" rel="noopener">Gen.G</a><a href="https://lol.fandom.com/wiki/Invictus_Gaming" rel="noopener">Invictus Gaming</a></div>
@@ -155,16 +159,16 @@
   <div class="comp">Arabian League 2nd Division 2026 Summer</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">NextGeneration Esports</span><span class="tpct">53.2%</span>
+      <span class="tname">NextGeneration Esports</span><span class="tpct">53.4%</span>
     </div>
-    <div class="split" role="img" aria-label="NextGeneration Esports 53 percent, Pegasus Esports 47 percent"><span class="s0" style="width:53.2%"></span></div>
+    <div class="split" role="img" aria-label="NextGeneration Esports 53 percent, Pegasus Esports 47 percent"><span class="s0" style="width:53.4%"></span></div>
     <div class="team ">
-      <span class="tname">Pegasus Esports</span><span class="tpct">46.8%</span>
+      <span class="tname">Pegasus Esports</span><span class="tpct">46.6%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>NextGeneration Esports</strong> <span class="pickpct">53.2%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>NextGeneration Esports</strong> <span class="pickpct">53.4%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: NextGeneration Esports 1465 vs Pegasus Esports 1442 (60/35 rated series).</p>
+    <p>Elo line: NextGeneration Esports 1461 vs Pegasus Esports 1438 (59/34 rated series).</p>
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/nextgeneration-esports-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079139" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/NextGeneration_Esports" rel="noopener">NextGeneration Esports</a><a href="https://lol.fandom.com/wiki/Pegasus_Esports" rel="noopener">Pegasus Esports</a></div>
@@ -177,16 +181,16 @@
   <div class="comp">Arabian League 2nd Division 2026 Summer</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">Team VDS</span><span class="tpct">76.8%</span>
+      <span class="tname">Team VDS</span><span class="tpct">76.7%</span>
     </div>
-    <div class="split" role="img" aria-label="Team VDS 77 percent, Team Reds 23 percent"><span class="s0" style="width:76.8%"></span></div>
+    <div class="split" role="img" aria-label="Team VDS 77 percent, Team Reds 23 percent"><span class="s0" style="width:76.7%"></span></div>
     <div class="team ">
-      <span class="tname">Team Reds</span><span class="tpct">23.2%</span>
+      <span class="tname">Team Reds</span><span class="tpct">23.3%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team VDS</strong> <span class="pickpct">76.8%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team VDS</strong> <span class="pickpct">76.7%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Team VDS 1637 vs Team Reds 1429 (37/5 rated series).</p>
+    <p>Elo line: Team VDS 1636 vs Team Reds 1429 (37/5 rated series).</p>
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/team-vds-vs-team-reds-arabian-league-2nd-division-2026-summer-1082106" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_VDS" rel="noopener">Team VDS</a><a href="https://lol.fandom.com/wiki/Team_Reds" rel="noopener">Team Reds</a></div>

@@ -932,3 +932,29 @@ Independent checks after the merge:
 | Live venue re-read (Gen.G v Invictus, 15:57–15:58Z) | Pinnacle −335/+261 on `matchupId` 1638748200, Polymarket 76.5/23.5, Kalshi mid 77.5/22.5, Bovada 1.2439/3.800 — all four match the snapshot; consensus recomputed 0.7536 vs 0.7537 published. Receipt: `audit/receipts/live_spotcheck_2026-10-23T1558Z.json` |
 
 **PR #45** carries this verification pass (report + receipt + the `None` rendering fix) to `main`.
+
+## Session `8a66a536` — forfeit-settled picks (claim 2026-10-23T15:52Z)
+
+Scope: turn the four `dqteams` settlement rows into **priced picks from the league's own record**, keep a
+separate unresolved/limitations section, and keep the dashboard mobile-first. Files: `tools/model.py`,
+`tools/verify.py`, `tools/site.py`, `assets/style.css`, `tests/`, `README.md`, this file.
+
+| # | Task | Status | File scope |
+|---|------|--------|-----------|
+| A1 | Price a `dqteams` fixture only when the same competition's Leaguepedia record carries `FF` and a winner that agrees with it; new `forfeit` method, record id in the basis; no record → unresolved | done | `tools/model.py`, `tools/verify.py`, `tests/` |
+| A2 | Separate forfeit-settled block on `unresolved.html` with receipts; executive-summary coverage line; distinct card/badge/chip styling | done | `tools/site.py`, `assets/style.css` |
+| A3 | Re-verify, PR → `main`, merge, confirm Pages | in progress | `README.md`, `COORDINATION.md` |
+
+**Claim evidence** (CargoExport re-fetched 15:52Z, receipt
+`audit/receipts/leaguepedia_ff_solid_gaming_2026-10-23.json`): `FF=1` Round 3_5 (Solid 0–2 VES Japan),
+`FF=1` Round 6_6 (Solid 0–2 NTNUI), `FF=1` Round 8_4 (Solid 0–2 Playwell Rød Q), `FF=2` Round 9_3
+(Volda E-Sport 2–0 Solid). Eight of Solid Gaming's eleven series carry the flag; three do not, so the
+flag is read per fixture and never generalised.
+
+| Check | Result |
+|---|---|
+| Model | `methods={'provisional': 80, 'model': 148, 'forfeit': 4, 'market': 9}`, rows 241, backtest n=3854 acc=0.6549 brier=0.2144 |
+| Coverage | 241/241 priced — 4 forfeit-settled, 0 unresolved |
+| Gate | 41/41 PASS, incl. "forfeit picks cite a league record and name its recorded winner" and corrected coverage arithmetic (priced + *unpriced* settlements = rows with a pick = inventory) |
+| Tests | 11/11 unittest; jsdom 2 PASS incl. the forfeit chip |
+| Independent sources | no external book price exists for Komplettligaen on this build; the pick is a **recorded result** from the league record, not a market line, and is labelled as such everywhere |

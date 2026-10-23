@@ -765,7 +765,48 @@ def main() -> None:
             pick_type = "settlement"
             lp_row = leaguepedia_row(n0, n1, f.get("start_utc"))
             ff = (lp_row or {}).get("ff")
-            if ff in (1, 2):
+            # A league-recorded forfeit is a settled result, not a forecast. When the flag and
+            # the recorded winner agree, the card can carry a decisive pick with the record id
+            # in its basis; when they do not, it stays a settlement pick with no probability.
+            recorded_winner = None
+            if ff in (1, 2) and str((lp_row or {}).get("winner")) == str(3 - ff):
+                recorded_winner = str(lp_row.get("team1") if str(lp_row.get("winner")) == "1"
+                                      else lp_row.get("team2"))
+            if recorded_winner and norm_name(recorded_winner) in (norm_name(k0 or n0), norm_name(k1 or n1)):
+                side = 0 if norm_name(recorded_winner) == norm_name(k0 or n0) else 1
+                p0, p1 = (1.0, 0.0) if side == 0 else (0.0, 1.0)
+                method, confidence, pick_type = "forfeit", "high", "settled"
+                score = f"{lp_row.get('team1_score')}-{lp_row.get('team2_score')}"
+                basis = (f"Recorded result, not a forecast: Leaguepedia match "
+                         f"'{lp_row.get('match_id')}' ({str(lp_row.get('utc'))[:16]} UTC) carries "
+                         f"forfeit flag FF={ff} and awards the series {score} to {recorded_winner}. "
+                         f"Hotspawn still lists the card as scheduled; if Hotspawn voids it the pick "
+                         f"scores for neither side.")
+                flags.append(f"Settled by a league-recorded forfeit (Leaguepedia "
+                             f"'{lp_row.get('match_id')}', FF={ff}, {score}) - a recorded result, "
+                             f"not a win-probability estimate")
+                flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams")
+                resolution = {
+                    "type": "recorded-forfeit",
+                    "winner": recorded_winner,
+                    "loser": removed,
+                    "record_id": lp_row.get("match_id"),
+                    "team1": lp_row.get("team1"),
+                    "team2": lp_row.get("team2"),
+                    "ff": ff,
+                    "score": score,
+                    "utc": lp_row.get("utc"),
+                    "note": (f"Leaguepedia match '{lp_row.get('match_id')}' records a {score} "
+                             f"forfeit win for {recorded_winner} (FF={ff}); published as a settled "
+                             f"result. If Hotspawn voids the card, no side scores."),
+                    "source": ("https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule"
+                               "&fields=MatchId,Team1,Team2,Winner,Team1Score,Team2Score,FF,DateTime_UTC"
+                               "&format=json&where=MatchId%3D%27"
+                               + str(lp_row.get("match_id")).replace(" ", "%20").replace("/", "%2F")
+                               + "%27"),
+                    "page": f"https://lol.fandom.com/wiki/Data:{str(page).replace(' ', '_')}",
+                }
+            elif ff in (1, 2):
                 forfeit_note = (f"Leaguepedia records this series with its forfeit flag (FF={ff}, i.e. "
                                 f"{removed} forfeited), 0-2 in favour of {active_opp}. ")
             elif lp_row:
@@ -773,21 +814,21 @@ def main() -> None:
                                 f"snapshot captured no forfeit flag for it. ")
             else:
                 forfeit_note = (f"Leaguepedia records no series between these teams on this date. ")
-            basis = (f"Participant removed mid-split: community-maintained Leaguepedia Data:{page} records "
-                     f"'dqteams={removed}'. " + forfeit_note +
-                     f"Hotspawn may void this card or settle the walkover for opponent {active_opp}; the "
-                     f"settlement is unverified, so no competitive probability is claimed.")
-            flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
-                         f"(if not voided by Hotspawn, active opponent is {active_opp})")
-            resolution = {
-                "type": "official-forfeit",
-                "winner": active_opp,
-                "loser": removed,
-                "note": (f"Leaguepedia records every remaining {removed} fixture as a 0-2 forfeit "
-                         f"(ff flag), so the official settlement pick is {active_opp}. Use only if "
-                         f"Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick."),
-                "source": f"https://lol.fandom.com/wiki/Data:{page.replace(' ', '_')}",
-            }
+                basis = (f"Participant removed mid-split: community-maintained Leaguepedia Data:{page} records "
+                         f"'dqteams={removed}'. " + forfeit_note +
+                         f"Hotspawn may void this card or settle the walkover for opponent {active_opp}; the "
+                         f"settlement is unverified, so no competitive probability is claimed.")
+                flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
+                             f"(if not voided by Hotspawn, active opponent is {active_opp})")
+                resolution = {
+                    "type": "official-forfeit",
+                    "winner": active_opp,
+                    "loser": removed,
+                    "note": (f"Leaguepedia records every remaining {removed} fixture as a 0-2 forfeit "
+                             f"(ff flag), so the official settlement pick is {active_opp}. Use only if "
+                             f"Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick."),
+                    "source": f"https://lol.fandom.com/wiki/Data:{page.replace(' ', '_')}",
+                }
         elif market:
             p0, p1 = market["p0"], market["p1"]
             method, confidence = "market", "high"
@@ -945,6 +986,7 @@ def main() -> None:
     for r in rows:
         counts_by_method[r["method"]] = counts_by_method.get(r["method"], 0) + 1
     counts_by_method["walkover"] = sum(1 for r in rows if r.get("resolution"))
+    counts_by_method["forfeit"] = sum(1 for r in rows if r.get("method") == "forfeit")
     counts_by_method["settlement"] = sum(1 for r in rows if r.get("pick_type") == "settlement")
 
     live_ids = {r["id"] for r in rows}

@@ -18,6 +18,16 @@ search.value = ''; search.dispatchEvent(new dom.window.Event('input')); assert.e
 doc.querySelector('[data-filter="market"]').click();
 assert.ok(visible().length > 0); assert.ok(visible().every(c => c.dataset.method === 'market'));
 doc.querySelector('[data-filter=""]').click();
+const forfeit = doc.querySelector('[data-filter="forfeit"]');
+if (forfeit) {
+  forfeit.click();
+  const n = visible().length;
+  assert.ok(n > 0);
+  assert.ok(visible().every(c => c.dataset.method === 'forfeit'));
+  assert.ok(doc.querySelector('#list .card.m-forfeit .pickline.forfeit'));
+  console.log('PASS forfeit filter (' + n + ' forfeit-settled cards with a distinct pick line)');
+  doc.querySelector('[data-filter=""]').click();
+}
 const comp = doc.querySelector('#comp'); comp.value = comp.options[1].value; comp.dispatchEvent(new dom.window.Event('change'));
 assert.ok(visible().length > 0); assert.ok(visible().every(c => c.dataset.comp === comp.value));
 console.log('PASS dashboard menu, search, empty state, method and tournament filters (' + all + ' cards)');

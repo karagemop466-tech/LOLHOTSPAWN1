@@ -24,13 +24,15 @@ METHOD_LABEL = {
     "market": "Market line",
     "model": "Model line",
     "provisional": "Provisional",
+    "forfeit": "Forfeit-settled",
     "unresolved": "Unresolved",
 }
 METHOD_HELP = {
     "market": "De-vigged consensus across real-money books & prediction exchanges.",
     "model": "Our Elo line from recorded series results (both teams rated, connected).",
     "provisional": "Our Elo line with thin data - low confidence, shown but flagged.",
-    "unresolved": "No defensible competitive line (mid-split league removal / unrated).",
+    "forfeit": "The league recorded a forfeit; the winner is settled, not forecast.",
+    "unresolved": "No defensible competitive line and no league-recorded result.",
 }
 
 # Always-visible navigation on phones (a persistent bottom bar beats a hidden menu).
@@ -182,7 +184,13 @@ def match_card(r: dict, show_sources: bool = True) -> str:
         bar = (f'<div class="split" role="img" aria-label="{e(t0["name"])} {w:.0f} percent, '
                f'{e(t1["name"])} {100 - w:.0f} percent">'
                f'<span class="s0" style="width:{w:.1f}%"></span></div>')
-    if pick and pick.get("probability") is not None:
+    if m == "forfeit" and pick and pick.get("probability") is not None:
+        res = r.get("resolution") or {}
+        pick_html = (f'<div class="pickline forfeit"><span class="picklabel">Pick</span> '
+                     f'<strong>{e(pick["team"])}</strong> '
+                     f'<span class="pickpct">{pick["probability"]*100:.0f}%</span>'
+                     f'<span class="muted small">&middot; settled {e(res.get("score") or "")} by recorded forfeit</span></div>')
+    elif pick and pick.get("probability") is not None:
         pick_html = (f'<div class="pickline"><span class="picklabel">Pick</span> '
                      f'<strong>{e(pick["team"])}</strong> '
                      f'<span class="pickpct">{pick["probability"]*100:.1f}%</span></div>')
@@ -458,7 +466,9 @@ def _row_sources(r: dict) -> str:
 
 
 def _stat_totals(rows: list[dict]) -> dict:
-    walkover = [r for r in rows if r.get("resolution")]
+    # A forfeit that carries a recorded result is priced (method "forfeit"), so it must not be
+    # counted twice as an unpriced walkover.
+    walkover = [r for r in rows if r.get("resolution") and r.get("p0") is None]
     priced = sum(1 for r in rows if r.get("p0") is not None)
     return {
         "total": len(rows),
@@ -467,6 +477,7 @@ def _stat_totals(rows: list[dict]) -> dict:
         "priced": priced,
         "with_pick": priced + len(walkover),
         "walkover": walkover,
+        "forfeits": [r for r in rows if r["method"] == "forfeit"],
         "featured": [r for r in rows if r["method"] == "market"],
         "unresolved": [r for r in rows if r["method"] == "unresolved"],
         "provisional": [r for r in rows if r["method"] == "provisional"],
@@ -478,6 +489,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     t = _stat_totals(rows)
     total = t["total"]
     walkover = t["walkover"]
+    forfeits = t["forfeits"]
     featured = t["featured"]
     unresolved = t["unresolved"]
     provisional = t["provisional"]
@@ -533,11 +545,12 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 <section class="stats">
   {stat_card("Matches listed on Hotspawn", total, f"across {t['comps']} tournaments")}
   {stat_card("With a win probability", priced_n, f"{priced_n/total*100:.0f}% priced", "ok")}
-  {stat_card("With a pick", resolved_total, f"{resolved_total/total*100:.0f}% incl. {len(walkover)} forfeit settlements")}
+  {stat_card("With a pick", resolved_total, f"{resolved_total/total*100:.0f}% of the list")}
   {stat_card("Market-backed", len(featured), "real-money consensus", "market")}
   {stat_card("Originated lines", counts.get('model',0), "model, medium confidence", "model")}
   {stat_card("Provisional", len(provisional), "thin data, flagged", "provisional")}
-  {stat_card("Walkover-resolved", len(walkover), "official forfeit, no probability", "unresolved")}
+  {stat_card("Forfeit-settled", len(forfeits), "recorded result, not a forecast", "forfeit")}
+  {stat_card("Unresolved", len(unresolved), "no line, no recorded result", "unresolved")}
 </section>
 
 <section class="panel">
@@ -549,8 +562,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     same {total} matches with the full reasoning. Both pages are searchable and filterable by tournament and
     by method.</li>
     <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
-    ({resolved_total/total*100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
-    official forfeit winner with no probability claimed.
+    ({resolved_total/total*100:.0f}%): {priced_n} with a win probability, including {len(forfeits)} settled from a
+    <a href="unresolved.html#forfeit">league-recorded forfeit</a> and published as a recorded result, never as a
+    guessed percentage. {f"<strong>{len(unresolved)} are unresolved</strong> and each is documented." if unresolved else "<strong>No match is unresolved.</strong>"}
     Priced: <a href="featured.html">{len(featured)} market-backed</a>
     ({e(venues_txt)}), <a href="originated.html">{counts.get('model',0)} originated</a> and
     <a href="originated.html">{len(provisional)} provisional</a>.</li>
@@ -583,7 +597,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   <h2>Unresolved picks and the limitations ({len(unresolved)})</h2>
   <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror Hotspawn
   exactly, are reported separately, and are never padded with a guessed number. Where the league itself has
-  ruled a forfeit, the official settlement winner is shown - it is <em>not</em> a forecast.</p>
+  ruled a forfeit, the recorded winner is published with its match id and score - a settled result, not a
+  forecast. Forfeit-settled cards are listed in full on
+  <a href="unresolved.html#forfeit">Unresolved &amp; limitations</a>.</p>
   {table(["Kick-off", "Tournament", "Match", "Settlement pick", "Sources"], unres_rows) if unres_rows else '<p class="muted">No unresolved matches in this snapshot.</p>'}
   <ul class="bullets">
     <li><strong>Why some matches have no line.</strong> A team officially removed mid-split
@@ -619,7 +635,7 @@ def build_table(rows: list[dict], counts: Counter) -> str:
     chips = "".join(
         '<button class="chip" data-tfilter="' + m + '">' + e(METHOD_LABEL[m])
         + ' <span>' + str(counts.get(m, 0)) + "</span></button>"
-        for m in ("market", "model", "provisional", "unresolved"))
+        for m in ("market", "model", "provisional", "forfeit", "unresolved"))
     trs = []
     for r in ordered:
         method = r["method"]
@@ -682,7 +698,7 @@ def build_picks(rows: list[dict], counts: Counter) -> str:
     comps = sorted({r["competition"] for r in rows})
     chips = "".join(
         f'<button class="chip" data-filter="{m}">{METHOD_LABEL[m]} <span>{counts.get(m,0)}</span></button>'
-        for m in ("market", "model", "provisional", "unresolved"))
+        for m in ("market", "model", "provisional", "forfeit", "unresolved"))
     opts = "".join(f'<option value="{e(c)}">{e(c)}</option>' for c in comps)
     body = f"""
 <section class="panel">
@@ -796,6 +812,8 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
                         key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
     provisional = sorted([r for r in rows if r["method"] == "provisional"],
                          key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
+    forfeits = sorted([r for r in rows if r["method"] == "forfeit"],
+                      key=lambda r: r["start_utc"] or "9999")
     one_sided = [r for r in rows if r["method"] == "provisional"
                  and any("no rated series" in f for f in r["flags"])]
     disconnected = [r for r in rows if any("no shared-opponent chain" in f for f in r["flags"])]
@@ -817,8 +835,22 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
             f'<a href="{e(r["hotspawn_url"])}" rel="noopener">Hotspawn card</a>{lp_link}'
             + (f' &middot; <a href="{e(res["source"])}" rel="noopener">forfeit record</a>' if res else ""),
         ])
+    forfeit_rows = []
+    for r in forfeits:
+        res = r.get("resolution") or {}
+        forfeit_rows.append([
+            local_time(r["start_utc"]),
+            e(r["competition"]),
+            f'<strong>{e(r["team0"]["name"])}</strong> vs <strong>{e(r["team1"]["name"])}</strong>',
+            f'<strong>{e((r.get("pick") or {}).get("team"))}</strong><br>'
+            f'<span class="small muted">settled &middot; {(r.get("pick") or {}).get("probability", 0) * 100:.0f}%</span>',
+            f'{e(res.get("team1"))} {e(res.get("score"))} {e(res.get("team2"))}'
+            f'<br><span class="small muted">FF={e(res.get("ff"))} &middot; '
+            f'{e(str(res.get("utc"))[:16])} UTC</span>',
+            f'<a href="{e(res.get("source"))}" rel="noopener">Leaguepedia record</a>',
+        ])
     lim_rows = [
-        ["Mid-split league removals (dqteams)", f"{len(unresolved)} matches",
+        ["Mid-split league removals (dqteams)", f"{len(forfeits)} settled / {len(unresolved)} unresolved",
          "Leaguepedia's Data: page for the competition records the removal (for Komplettligaen, Round 10 carries the "
          "footnote '[[Solid Gaming]] is removed from the league.' and every remaining series is scored 0-2 with an ff "
          "flag). Because Hotspawn may either void the card or grade a walkover for the remaining active opponent, an "
@@ -844,7 +876,21 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
          "never treated as a price."],
     ]
     body = f"""
-<section class="panel">
+<section class="panel" id="forfeit">
+  <h2>Forfeit-settled picks ({len(forfeits)})</h2>
+  <p class="lead">These are <strong>recorded results, not forecasts</strong>. Each card is still listed as
+  scheduled on Hotspawn, while its competition record marks the series as a forfeit and awards it 2&ndash;0 to
+  the opponent. We publish the side the record awards, with the record id, the score and a link to the query
+  that returned it, so the pick is checkable line by line. A Hotspawn void would score the card for neither
+  side; that risk is printed in the basis of every card.</p>
+  {table(["Start (UTC)", "Tournament", "Match", "Pick (settled)", "League record", "Receipt"], forfeit_rows) if forfeit_rows else '<p class="muted">No forfeit-settled matches in this snapshot.</p>'}
+  <p class="small muted">Source: Leaguepedia <code>MatchSchedule</code> via CargoExport
+  (<code>Winner, Team1Score, Team2Score, FF</code>). <code>FF=1</code> means Team1 forfeited,
+  <code>FF=2</code> means Team2 forfeited; a record whose flag disagrees with its winner is rejected rather
+  than reconciled. Receipt: <a href="audit/receipts/leaguepedia_ff_solid_gaming_2026-10-23.json">leaguepedia_ff_solid_gaming_2026-10-23.json</a>.</p>
+</section>
+
+<section class="panel" id="unresolved">
   <h2>Unresolved picks ({len(unresolved)})</h2>
   <p class="lead">A fixture is quarantined here when no defensible win probability exists — specifically
   mid-split league disqualifications/removals (<code>dqteams</code>) where matches are never played on the Rift,

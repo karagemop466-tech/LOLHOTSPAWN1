@@ -1,13 +1,13 @@
 {
- "generated_utc": "2026-10-23T16:01:15Z",
+ "generated_utc": "2026-10-23T16:01:36Z",
  "total": 241,
  "counts": {
   "provisional": 80,
   "model": 148,
-  "unresolved": 4,
+  "forfeit": 4,
   "market": 9,
   "walkover": 4,
-  "settlement": 4
+  "settlement": 0
  },
  "per_competition": {
   "Benelux Ascend Series 2026 Summer Split": {
@@ -29,7 +29,7 @@
   },
   "Komplettligaen 2026 Autumn": {
    "model": 3,
-   "unresolved": 4
+   "forfeit": 4
   },
   "Benelux Ascend Series 2026 Summer Playoffs": {
    "provisional": 1
@@ -366,65 +366,7 @@
    ]
   }
  ],
- "unresolved": [
-  {
-   "id": "1071170",
-   "competition": "Komplettligaen 2026 Autumn",
-   "teams": [
-    "Solid Gaming",
-    "VES Japan"
-   ],
-   "flags": [
-    "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is VES Japan)",
-    "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-09-17T15:00:00Z while Data:Komplettligaen/2026 Season/Autumn Split records 2026-10-01 16:00Z (337h apart) - confirm before relying on the time",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of VES Japan. Hotspawn may void this card or settle the walkover for opponent VES Japan; the settlement is unverified, so no competitive probability is claimed.",
-   "start": "2026-09-17T15:00:00Z"
-  },
-  {
-   "id": "1071200",
-   "competition": "Komplettligaen 2026 Autumn",
-   "teams": [
-    "Solid Gaming",
-    "Playwell Rød Q"
-   ],
-   "flags": [
-    "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Playwell Rød Q)",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of Playwell Rød Q. Hotspawn may void this card or settle the walkover for opponent Playwell Rød Q; the settlement is unverified, so no competitive probability is claimed.",
-   "start": "2026-10-04T15:00:00Z"
-  },
-  {
-   "id": "1071206",
-   "competition": "Komplettligaen 2026 Autumn",
-   "teams": [
-    "Volda E-Sport",
-    "Solid Gaming"
-   ],
-   "flags": [
-    "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Volda E-Sport)",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=2, i.e. Solid Gaming forfeited), 0-2 in favour of Volda E-Sport. Hotspawn may void this card or settle the walkover for opponent Volda E-Sport; the settlement is unverified, so no competitive probability is claimed.",
-   "start": "2026-10-11T15:00:00Z"
-  },
-  {
-   "id": "1071186",
-   "competition": "Komplettligaen 2026 Autumn",
-   "teams": [
-    "Solid Gaming",
-    "NTNUI Kometkameratene"
-   ],
-   "flags": [
-    "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is NTNUI Kometkameratene)",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of NTNUI Kometkameratene. Hotspawn may void this card or settle the walkover for opponent NTNUI Kometkameratene; the settlement is unverified, so no competitive probability is claimed.",
-   "start": "2026-10-13T17:00:00Z"
-  }
- ],
+ "unresolved": [],
  "provisional": [
   {
    "id": "1053095",
@@ -433,7 +375,7 @@
     "Mind Blue eSports",
     "LAST DANCE"
    ],
-   "p0": 0.7205,
+   "p0": 0.7206,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "no shared-opponent chain between the two teams",
@@ -622,7 +564,7 @@
     "NextGeneration Esports",
     "Slam Dunk"
    ],
-   "p0": 0.4343,
+   "p0": 0.4295,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -635,7 +577,7 @@
     "Northern Wolves Esports",
     "B2U"
    ],
-   "p0": 0.1445,
+   "p0": 0.1446,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -691,7 +633,7 @@
     "Void Walkers",
     "Pegasus Esports"
    ],
-   "p0": 0.6262,
+   "p0": 0.6315,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -841,7 +783,7 @@
     "JSK Esports",
     "El Menzah Esports"
    ],
-   "p0": 0.819,
+   "p0": 0.8185,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -877,7 +819,7 @@
     "2 Massive",
     "Lund Esports Organization OGs"
    ],
-   "p0": 0.5027,
+   "p0": 0.5032,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-24T16:30:00Z while Data:RIVALS LEAGUE/2026 Season/Season 2 records 2026-11-03 18:00Z (242h apart) - confirm before relying on the time"
@@ -902,7 +844,7 @@
     "Void Walkers",
     "Slam Dunk"
    ],
-   "p0": 0.5444,
+   "p0": 0.5439,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -939,7 +881,7 @@
     "Whalepower Humpbacks",
     "Socken und Sandalen"
    ],
-   "p0": 0.5065,
+   "p0": 0.5063,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "no shared-opponent chain between the two teams"
@@ -976,7 +918,7 @@
     "Simplicity Gaming",
     "Supreme Leaders"
    ],
-   "p0": 0.8356,
+   "p0": 0.8357,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -988,7 +930,7 @@
     "Zahrouni Esports",
     "JSK Academy"
    ],
-   "p0": 0.3799,
+   "p0": 0.3816,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1000,7 +942,7 @@
     "2 Massive",
     "Tung Sahur Mid"
    ],
-   "p0": 0.5362,
+   "p0": 0.5366,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1049,7 +991,7 @@
     "Slam Dunk",
     "New Era Team"
    ],
-   "p0": 0.59,
+   "p0": 0.5901,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1061,7 +1003,7 @@
     "JSK Academy",
     "Supreme Leaders"
    ],
-   "p0": 0.5316,
+   "p0": 0.5299,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1085,7 +1027,7 @@
     "Simplicity Gaming",
     "Jendouba Esports"
    ],
-   "p0": 0.8686,
+   "p0": 0.8687,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1145,7 +1087,7 @@
     "Team 300 White",
     "Socken und Sandalen"
    ],
-   "p0": 0.5045,
+   "p0": 0.5043,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1169,7 +1111,7 @@
     "JSK Academy",
     "Jendouba Esports"
    ],
-   "p0": 0.5961,
+   "p0": 0.5944,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1229,7 +1171,7 @@
     "2 Massive",
     "Lund Esports Organization OGs"
    ],
-   "p0": 0.5027,
+   "p0": 0.5032,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1265,7 +1207,7 @@
     "Olympique Mnihla Academy",
     "Simplicity Gaming"
    ],
-   "p0": 0.1743,
+   "p0": 0.1742,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "no shared-opponent chain between the two teams"
@@ -1411,7 +1353,7 @@
     "REH Gaming",
     "Cloud eSport"
    ],
-   "p0": 0.5165,
+   "p0": 0.5164,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "no shared-opponent chain between the two teams"
@@ -1450,7 +1392,7 @@
     "Gen.G",
     "Invictus Gaming"
    ],
-   "p0": 0.7537,
+   "p0": 0.7541,
    "decimal": {
     "home": 1.298,
     "away": 3.61
@@ -1492,7 +1434,7 @@
     "Anyone's Legend",
     "Karmine Corp"
    ],
-   "p0": 0.6383,
+   "p0": 0.6392,
    "decimal": {
     "home": 1.55,
     "away": 2.53
@@ -1520,7 +1462,7 @@
     "Team Liquid",
     "CTBC Flying Oyster"
    ],
-   "p0": 0.7134,
+   "p0": 0.7129,
    "decimal": {
     "home": 1.345,
     "away": 3.31
@@ -1562,7 +1504,7 @@
     "Mental Rush",
     "Vitality Rising Bees"
    ],
-   "p0": 0.345,
+   "p0": 0.35,
    "decimal": null,
    "start": "2026-10-27T17:00:00Z"
   }

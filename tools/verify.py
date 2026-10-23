@@ -16,7 +16,7 @@ from integrity import row_errors
 from common import DATA, RAW, ROOT, iso, load_json, log, now_utc, save_json
 
 DOCS = ROOT  # GitHub Pages serves the branch root
-ALLOWED = {"market", "model", "provisional", "unresolved"}
+ALLOWED = {"market", "model", "provisional", "forfeit", "unresolved"}
 checks: list[dict] = []
 
 
@@ -96,6 +96,18 @@ def main() -> None:
         + (f"; unexplained: {no_pick[:5]}" if no_pick else ""))
     add("settlement picks name a participant and claim no probability", not bad_settlement,
         f"{len(bad_settlement)} problems: {bad_settlement[:5]}")
+    bad_forfeit = []
+    forfeit_rows = [r for r in rows if r.get("method") == "forfeit"]
+    for r in forfeit_rows:
+        res = r.get("resolution") or {}
+        if (res.get("type") != "recorded-forfeit" or res.get("ff") not in (1, 2)
+                or not res.get("record_id") or not res.get("winner")
+                or not str(res.get("source", "")).startswith("https://lol.fandom.com/")
+                or (r.get("p0"), r.get("p1")) not in ((1.0, 0.0), (0.0, 1.0))
+                or (r.get("pick") or {}).get("team") != res.get("winner")):
+            bad_forfeit.append(r.get("id"))
+    add("forfeit picks cite a league record and name its recorded winner", not bad_forfeit,
+        f"{len(forfeit_rows)} forfeit-settled rows; problems: {bad_forfeit[:5]}")
     add("every market row has at least one venue with a source URL", not bad_market,
         f"{len(bad_market)} problems: {bad_market[:5]}")
     add("method values are known", not bad_method, f"methods used: {sorted(set(r['method'] for r in rows))}")
@@ -135,13 +147,23 @@ def main() -> None:
     add("every official-forfeit resolution names a winner and a source URL", not bad_wo,
         f"{len(wo)} resolutions checked; problems: {bad_wo[:5]}")
 
-    # no quoted probability may be attached to a forfeit resolution
-    bad_wo_prob = [r["id"] for r in wo
-                   if r.get("p0") is not None
-                   or (r.get("pick") or {}).get("probability") is not None
-                   or r.get("pick_type") != "settlement"]
+    # Two legal shapes: an unverified league ruling ("official-forfeit") must carry no probability;
+    # a forfeit the record actually scores ("recorded-forfeit") is a settled result and must be decisive.
+    bad_wo_prob, bad_recorded = [], []
+    for r in wo:
+        res = r.get("resolution") or {}
+        if res.get("type") == "recorded-forfeit":
+            if (r.get("p0"), r.get("p1")) not in ((1.0, 0.0), (0.0, 1.0)) \
+                    or (r.get("pick") or {}).get("probability") != 1.0:
+                bad_recorded.append(r["id"])
+        elif (r.get("p0") is not None
+              or (r.get("pick") or {}).get("probability") is not None
+              or r.get("pick_type") != "settlement"):
+            bad_wo_prob.append(r["id"])
     add("official-forfeit resolutions carry no invented probability", not bad_wo_prob,
         f"problems: {bad_wo_prob[:5]}")
+    add("recorded forfeits are priced decisively from the record", not bad_recorded,
+        f"problems: {bad_recorded[:5]}")
 
     # --- CSV mirror ---------------------------------------------------------
     csv_path = os.path.join(DATA, "picks.csv")
@@ -288,11 +310,12 @@ def main() -> None:
 
     # Coverage arithmetic must never exceed the inventory (a 245-of-241 regression shipped once).
     priced_n = sum(1 for r in rows if r.get("p0") is not None)
-    settled_n = sum(1 for r in rows if r.get("resolution"))
+    # Only *unpriced* resolutions add to the priced count; a recorded forfeit is already in it.
+    settled_n = sum(1 for r in rows if r.get("resolution") and r.get("p0") is None)
     with_pick_n = sum(1 for r in rows if r.get("pick"))
     add("coverage arithmetic reconciles to the inventory",
         priced_n + settled_n == with_pick_n == len(rows),
-        f"priced={priced_n} + settlements={settled_n} = {priced_n + settled_n}; "
+        f"priced={priced_n} + unpriced settlements={settled_n} = {priced_n + settled_n}; "
         f"rows with a pick={with_pick_n}; inventory={len(rows)}")
 
     src = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []

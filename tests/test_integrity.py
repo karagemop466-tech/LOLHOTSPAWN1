@@ -33,6 +33,19 @@ class IntegrityTests(unittest.TestCase):
                  pick={'team': 'A', 'probability': None, 'settlement': 'administrative default'})
         self.assertEqual(row_errors(r), [])
 
+    def test_forfeit_pick_is_a_priced_row(self):
+        r = self.row()
+        r.update(method='forfeit', p0=0.0, p1=1.0,
+                 pick={'team': 'B', 'probability': 1.0, 'other_probability': 0.0},
+                 pick_type='settled')
+        self.assertEqual(row_errors(r), [])
+
+    def test_forfeit_pick_must_name_the_recorded_winner(self):
+        r = self.row()
+        r.update(method='forfeit', p0=1.0, p1=0.0, pick_type='settled',
+                 pick={'team': 'B', 'probability': 0.0})
+        self.assertTrue(row_errors(r))
+
     def test_settlement_pick_rejects_probability(self):
         r = self.row()
         r.update(method='unresolved', p0=None, p1=None, pick_type='settlement',

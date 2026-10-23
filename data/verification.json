@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T16:01:45Z",
+ "generated_utc": "2026-10-23T16:01:37Z",
  "checks": [
   {
    "name": "dataset present",
@@ -34,12 +34,17 @@
   {
    "name": "every match has a pick or is documented as unpickable",
    "ok": true,
-   "detail": "241 rows: 241 with a pick (4 settlement-only), 0 documented unpickable"
+   "detail": "241 rows: 241 with a pick (0 settlement-only), 0 documented unpickable"
   },
   {
    "name": "settlement picks name a participant and claim no probability",
    "ok": true,
    "detail": "0 problems: []"
+  },
+  {
+   "name": "forfeit picks cite a league record and name its recorded winner",
+   "ok": true,
+   "detail": "4 forfeit-settled rows; problems: []"
   },
   {
    "name": "every market row has at least one venue with a source URL",
@@ -49,7 +54,7 @@
   {
    "name": "method values are known",
    "ok": true,
-   "detail": "methods used: ['market', 'model', 'provisional', 'unresolved']"
+   "detail": "methods used: ['forfeit', 'market', 'model', 'provisional']"
   },
   {
    "name": "no duplicate match ids",
@@ -78,6 +83,11 @@
   },
   {
    "name": "official-forfeit resolutions carry no invented probability",
+   "ok": true,
+   "detail": "problems: []"
+  },
+  {
+   "name": "recorded forfeits are priced decisively from the record",
    "ok": true,
    "detail": "problems: []"
   },
@@ -164,7 +174,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 40107 bytes"
+   "detail": "coverage.html 35952 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -174,7 +184,7 @@
   {
    "name": "coverage arithmetic reconciles to the inventory",
    "ok": true,
-   "detail": "priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241"
+   "detail": "priced=241 + unpriced settlements=0 = 241; rows with a pick=241; inventory=241"
   },
   {
    "name": "source availability recorded",
@@ -201,13 +211,13 @@
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
- "unverified": 84,
+ "unverified": 80,
  "counts": {
   "provisional": 80,
   "model": 148,
-  "unresolved": 4,
+  "forfeit": 4,
   "market": 9
  },
- "internal_links": 390,
+ "internal_links": 389,
  "lookahead_violations": 0
 }

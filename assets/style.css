@@ -229,3 +229,11 @@ tr:last-child td{border-bottom:0}
 
 /* coin-flip cards: identical kick-off ratings, no edge claimed */
 .badge.b-flip{background:var(--warn-weak);color:var(--warn);border:1px solid #ecd9a8}
+
+/* forfeit-settled picks: a recorded result, visually distinct from a forecast */
+.b-forfeit{background:#e8f0ff;color:#1f4fa3;border:1px solid #bcd0f0}
+.card.m-forfeit{border-left:4px solid #1f4fa3}
+.card.m-forfeit .pickline.forfeit{border-top-color:#bcd0f0}
+.card.m-forfeit .pickpct{color:#1f4fa3}
+.stat.forfeit .sv{color:#1f4fa3}
+@media (prefers-color-scheme:dark){.b-forfeit{background:#16233c;color:#a9c6ff;border-color:#2b4570}}
