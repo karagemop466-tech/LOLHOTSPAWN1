@@ -1,0 +1,30 @@
+name: probe-round2
+
+# Round-2 odds-endpoint discovery. Manual dispatch only; it writes a receipt file and
+# never touches the published dataset or the generated pages.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "research/probe-round2-trigger"
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Probe candidate odds endpoints
+        run: python3 research/probe_round2.py
+      - name: Commit the receipt
+        run: |
+          git config user.name "pick-desk-runner"
+          git config user.email "actions@users.noreply.github.com"
+          git add research/probe_round2.json research/raw/round2 2>/dev/null || git add research/probe_round2.json
+          git commit -m "chore(research): round-2 odds endpoint probe [skip ci]" || echo "no change"
+          git push || echo "nothing to push"
