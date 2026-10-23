@@ -766,6 +766,11 @@ def main() -> None:
             flags.append("team name could not be matched unambiguously")
 
         pick = None
+        pick_type = None
+        if p0 is None and resolution:
+            # Settlement pick: names the administrative winner, claims no probability.
+            pick = {"team": resolution["winner"], "probability": None}
+            pick_type = "settlement"
         if p0 is not None:
             side = 0 if p0 >= p1 else 1
             pick = {"side": side,
@@ -780,8 +785,8 @@ def main() -> None:
         row.update({"p0": round(p0, 4) if p0 is not None else None,
                     "p1": round(p1, 4) if p1 is not None else None,
                     "method": method, "confidence": confidence, "basis": basis,
-                    "flags": sorted(set(flags)), "pick": pick, "market": market,
-                    "resolution": resolution,
+                    "flags": sorted(set(flags)), "pick": pick, "pick_type": pick_type,
+                    "market": market, "resolution": resolution,
                     "connected": connected, "stale": stale,
                     "community_pick_pct": f["community_pick_pct"]})
         rows.append(row)
@@ -790,6 +795,7 @@ def main() -> None:
     for r in rows:
         counts_by_method[r["method"]] = counts_by_method.get(r["method"], 0) + 1
     counts_by_method["walkover"] = sum(1 for r in rows if r.get("resolution"))
+    counts_by_method["settlement"] = sum(1 for r in rows if r.get("pick_type") == "settlement")
 
     live_ids = {r["id"] for r in rows}
     retired = []
@@ -813,9 +819,35 @@ def main() -> None:
         "quotes": retired,
     })
 
+    now_dt = now_utc()
+    expired, rejected_quotes = [], []
+    for fid, q in (archived_receipts or {}).items():
+        try:
+            obs = datetime.strptime(str(q.get("observed_at"))[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+            age_h = round((now_dt - obs).total_seconds() / 3600, 1)
+        except (TypeError, ValueError):
+            age_h = None
+        entry = {"fixture_id": str(fid), "observed_at": q.get("observed_at"), "age_hours": age_h,
+                 "source_url": q.get("source_url")}
+        if age_h is None or age_h > RECEIPT_MAX_AGE_HOURS:
+            expired.append(entry)
+        d0, d1 = q.get("decimal0"), q.get("decimal1")
+        if d0 and d1 and abs(float(d0) - 1.8) < 1e-9 and abs(float(d1) - 1.8) < 1e-9:
+            rejected_quotes.append({"fixture_id": str(fid), "reject": "symmetric 1.80/1.80 placeholder"})
+    receipt_audit = {
+        "max_age_hours": RECEIPT_MAX_AGE_HOURS,
+        "used": [],
+        "expired": expired,
+        "rejected_quotes": rejected_quotes,
+        "policy": ("Archived aggregator receipts are evidence only. A receipt may only be priced while it is "
+                   "younger than max_age_hours and re-fetchable; none qualified on this build, so the venue is "
+                   "empty and every affected fixture falls back to an originated line."),
+    }
+
     save_json(os.path.join(DATA, "matches.json"), {
         "generated_utc": iso(now_utc()),
         "inventory_fetched_utc": hs.get("fetched_utc"),
+        "receipt_audit": receipt_audit,
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
                   "shrink": ELO_SHRINK, "min_matches_confident": MIN_MATCHES_CONFIDENT,
                   "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,

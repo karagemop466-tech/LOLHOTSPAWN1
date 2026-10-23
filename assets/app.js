@@ -26,120 +26,7 @@
     }
   }
 
-  function initPickFilters() {
-    var searchEl = document.getElementById("filter-search");
-    var compEl = document.getElementById("filter-comp");
-    var tierEl = document.getElementById("filter-tier");
-    var windowEl = document.getElementById("filter-window");
-    var sortEl = document.getElementById("filter-sort");
-    var countEl = document.getElementById("visible-count");
-    var rootEl = document.getElementById("dual-view-root");
-
-    var cardsWrap = document.getElementById("picks-cards-list");
-    var tableBody = document.getElementById("picks-table-body");
-    if (!searchEl && !compEl && !tierEl && !windowEl) return;
-
-    // Pre-populate controls from URL query string (`?comp=...&tier=...&window=...&q=...`)
-    var params = new URLSearchParams(window.location.search);
-    if (compEl && params.get("comp")) compEl.value = params.get("comp");
-    if (tierEl && params.get("tier")) tierEl.value = params.get("tier");
-    if (windowEl && params.get("window")) windowEl.value = params.get("window");
-    if (searchEl && params.get("q")) searchEl.value = params.get("q");
-
-    function matchesFilters(el) {
-      var q = searchEl ? searchEl.value.trim().toLowerCase() : "";
-      var comp = compEl ? compEl.value : "all";
-      var tier = tierEl ? tierEl.value : "all";
-      var win = windowEl ? windowEl.value : "all";
-
-      if (comp && comp !== "all" && el.getAttribute("data-comp") !== comp) return false;
-      if (tier && tier !== "all") {
-        var rowTier = el.getAttribute("data-status") || "";
-        if (tier === "market" && rowTier !== "market_consensus" && rowTier !== "esportsbook_line") return false;
-        if (tier !== "market" && rowTier !== tier) return false;
-      }
-      if (win && win !== "all") {
-        var hrs = parseFloat(el.getAttribute("data-hours") || "99999");
-        if (win === "48h" && (hrs <= 0 || hrs > 48)) return false;
-        if (win === "7d" && (hrs <= 0 || hrs > 168)) return false;
-        if (win === "high" && parseFloat(el.getAttribute("data-favprob") || "0") < 0.65) return false;
-      }
-      if (q) {
-        var hay = (el.getAttribute("data-search") || "").toLowerCase();
-        if (hay.indexOf(q) === -1) return false;
-      }
-      return true;
-    }
-
-    function sortContainer(container, selector) {
-      if (!container || !sortEl) return;
-      var mode = sortEl.value || "kickoff";
-      var items = Array.prototype.slice.call(container.querySelectorAll(selector));
-      items.sort(function (a, b) {
-        if (mode === "prob_desc") {
-          return parseFloat(b.getAttribute("data-favprob") || "0") - parseFloat(a.getAttribute("data-favprob") || "0");
-        }
-        if (mode === "points_desc") {
-          return parseFloat(b.getAttribute("data-points") || "0") - parseFloat(a.getAttribute("data-points") || "0");
-        }
-        if (mode === "edge_desc") {
-          return Math.abs(parseFloat(b.getAttribute("data-delta") || "0")) - Math.abs(parseFloat(a.getAttribute("data-delta") || "0"));
-        }
-        return parseFloat(a.getAttribute("data-kickoff") || "0") - parseFloat(b.getAttribute("data-kickoff") || "0");
-      });
-      for (var i = 0; i < items.length; i++) {
-        container.appendChild(items[i]);
-      }
-    }
-
-    function applyAll() {
-      sortContainer(cardsWrap, ".pick-item");
-      sortContainer(tableBody, ".pick-row");
-
-      var cardItems = cardsWrap ? cardsWrap.querySelectorAll(".pick-item") : [];
-      var shown = 0;
-      for (var i = 0; i < cardItems.length; i++) {
-        var ok = matchesFilters(cardItems[i]);
-        cardItems[i].classList.toggle("hidden-row", !ok);
-        if (ok) shown++;
-      }
-
-      var tableRows = tableBody ? tableBody.querySelectorAll(".pick-row") : [];
-      for (var j = 0; j < tableRows.length; j++) {
-        var okRow = matchesFilters(tableRows[j]);
-        tableRows[j].classList.toggle("hidden-row", !okRow);
-        if (!cardsWrap && okRow) shown++;
-      }
-
-      if (countEl) {
-        countEl.textContent = String(shown);
-      }
-    }
-
-    [searchEl, compEl, tierEl, windowEl, sortEl].forEach(function (ctrl) {
-      if (!ctrl) return;
-      ctrl.addEventListener("input", applyAll);
-      ctrl.addEventListener("change", applyAll);
-    });
-
-    // View switcher (`Auto Mobile/Desktop`, `Cards`, `Table`)
-    var viewBtns = document.querySelectorAll("[data-set-view]");
-    for (var k = 0; k < viewBtns.length; k++) {
-      viewBtns[k].addEventListener("click", function (ev) {
-        var mode = ev.currentTarget.getAttribute("data-set-view");
-        if (!rootEl) return;
-        rootEl.classList.remove("responsive-dual", "view-mode-cards", "view-mode-table");
-        rootEl.classList.add(mode);
-        viewBtns.forEach(function (b) {
-          b.classList.toggle("active", b === ev.currentTarget);
-        });
-      });
-    }
-
-    applyAll();
-  }
-
-  // Mobile menu toggle
+  // Mobile menu toggle (header)
   function initMenu() {
     var menu = document.querySelector(".menu-btn");
     var nav = document.getElementById("nav");
@@ -151,7 +38,7 @@
     });
   }
 
-  // Snapshot age: never let a stale snapshot look like live odds
+  // Snapshot age: a stale snapshot must never look like live odds
   function initSnapshotAge() {
     var snapshot = document.getElementById("snapshot-age");
     if (!snapshot) return;
@@ -167,6 +54,50 @@
       snapshot.classList.add("stale-warning");
       snapshot.textContent += " Refresh overdue - these are not live odds. Check the source links before using a pick.";
     }
+  }
+
+  // Card-list filters (picks.html): search + tournament + method chips
+  function initPickFilters() {
+    var searchEl = document.getElementById("q");
+    var compEl = document.getElementById("comp");
+    var list = document.getElementById("list");
+    var countEl = document.getElementById("count");
+    var emptyEl = document.getElementById("empty");
+    if (!searchEl && !compEl) return;
+
+    var cards = list ? list.querySelectorAll(".card") : [];
+    var method = "";
+
+    function apply() {
+      var term = searchEl ? searchEl.value.trim().toLowerCase() : "";
+      var comp = compEl ? compEl.value : "";
+      var shown = 0;
+      for (var i = 0; i < cards.length; i++) {
+        var r = cards[i];
+        var ok = true;
+        if (method && r.getAttribute("data-method") !== method) ok = false;
+        if (ok && comp && r.getAttribute("data-comp") !== comp) ok = false;
+        if (ok && term && (r.getAttribute("data-text") || "").indexOf(term) === -1) ok = false;
+        r.classList.toggle("hidden-row", !ok);
+        if (ok) shown++;
+      }
+      if (countEl) countEl.textContent = shown + " match" + (shown === 1 ? "" : "es") + " shown";
+      if (emptyEl) emptyEl.hidden = shown !== 0;
+    }
+
+    var chips = document.querySelectorAll("[data-filter]");
+    for (var c = 0; c < chips.length; c++) {
+      chips[c].addEventListener("click", function (ev) {
+        for (var j = 0; j < chips.length; j++) chips[j].classList.remove("active");
+        ev.currentTarget.classList.add("active");
+        method = ev.currentTarget.getAttribute("data-filter") || "";
+        apply();
+      });
+    }
+
+    if (searchEl) searchEl.addEventListener("input", apply);
+    if (compEl) compEl.addEventListener("change", apply);
+    apply();
   }
 
   // Pick-table filters (table.html): search + tournament + method chips

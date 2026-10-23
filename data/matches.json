@@ -1,6 +1,85 @@
 {
- "generated_utc": "2026-10-23T15:46:07Z",
+ "generated_utc": "2026-10-23T15:47:14Z",
  "inventory_fetched_utc": "2026-10-23T15:37:40Z",
+ "receipt_audit": {
+  "max_age_hours": 24,
+  "used": [],
+  "expired": [
+   {
+    "fixture_id": "1081205",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067878",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067677",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067680",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067675",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067676",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067879",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067678",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1067679",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/matches"
+   },
+   {
+    "fixture_id": "1081423",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
+   },
+   {
+    "fixture_id": "1079080",
+    "observed_at": "2026-10-21T20:36:00Z",
+    "age_hours": 43.2,
+    "source_url": "https://egamersworld.com/lol/matches"
+   }
+  ],
+  "rejected_quotes": [
+   {
+    "fixture_id": "1079080",
+    "reject": "symmetric 1.80/1.80 placeholder"
+   }
+  ],
+  "policy": "Archived aggregator receipts are evidence only. A receipt may only be priced while it is younger than max_age_hours and re-fetchable; none qualified on this build, so the venue is empty and every affected fixture falls back to an originated line."
+ },
  "model": {
   "name": "LOLHOTSPAWN Elo",
   "k": 24.0,
@@ -27,146 +106,13 @@
   "model": 163,
   "unresolved": 4,
   "market": 9,
-  "walkover": 4
+  "walkover": 4,
+  "settlement": 4
  },
  "market_hygiene": {
   "pinnacle_kills_derivatives_excluded": 6,
   "archived_receipts_retired": 10,
   "esportsbook_venue_active": false
- },
- "coverage": {
-  "matches": 241,
-  "with_pick": 241,
-  "priced": 237,
-  "settlement_only": 4
- },
- "receipt_audit": {
-  "max_age_hours": 24,
-  "used": [],
-  "expired": [
-   {
-    "fixture_id": "1081205",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     1.86,
-     1.8
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067878",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     1.2,
-     4.4
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067677",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     1.2,
-     4.05
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067680",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     1.17,
-     4.88
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067675",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     1.38,
-     2.63
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067676",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     2.18,
-     1.61
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067879",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     1.29,
-     3.11
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067678",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     6.26,
-     1.06
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1067679",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     2.51,
-     1.51
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/matches"
-   },
-   {
-    "fixture_id": "1081423",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     1.025,
-     10.5
-    ],
-    "placeholder": false,
-    "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
-   },
-   {
-    "fixture_id": "1079080",
-    "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 43.1,
-    "decimal": [
-     1.8,
-     1.8
-    ],
-    "placeholder": true,
-    "source_url": "https://egamersworld.com/lol/matches"
-   }
-  ],
-  "rejected_quotes": []
  },
  "backtest": {
   "cutoff": "2026-07-01",
@@ -250,7 +196,7 @@
     "probability": 0.6086,
     "other_probability": 0.3914
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -312,7 +258,7 @@
     "probability": 0.5716,
     "other_probability": 0.4284
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -368,7 +314,7 @@
     "probability": 0.6529,
     "other_probability": 0.3471
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -424,7 +370,7 @@
     "probability": 0.5122,
     "other_probability": 0.4878
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -480,7 +426,7 @@
     "probability": 0.5518,
     "other_probability": 0.4482
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -539,7 +485,7 @@
     "probability": 0.5611,
     "other_probability": 0.4389
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -595,7 +541,7 @@
     "probability": 0.5659,
     "other_probability": 0.4341
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -651,7 +597,7 @@
     "probability": 0.5353,
     "other_probability": 0.4647
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -708,7 +654,7 @@
     "probability": 0.6792,
     "other_probability": 0.3208
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -830,7 +776,7 @@
     "probability": 0.6378,
     "other_probability": 0.3622
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -887,7 +833,7 @@
     "probability": 0.6325,
     "other_probability": 0.3675
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -943,7 +889,7 @@
     "probability": 0.5993,
     "other_probability": 0.4007
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -999,7 +945,7 @@
     "probability": 0.5015,
     "other_probability": 0.4985
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1056,7 +1002,7 @@
     "probability": 0.5336,
     "other_probability": 0.4664
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1113,7 +1059,7 @@
     "probability": 0.7539,
     "other_probability": 0.2461
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1169,7 +1115,7 @@
     "probability": 0.589,
     "other_probability": 0.411
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1226,7 +1172,7 @@
     "probability": 0.7275,
     "other_probability": 0.2725
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1283,7 +1229,7 @@
     "probability": 0.5769,
     "other_probability": 0.4231
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1340,7 +1286,7 @@
     "probability": 0.5975,
     "other_probability": 0.4025
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1396,7 +1342,7 @@
     "probability": 0.5461,
     "other_probability": 0.4539
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1453,7 +1399,7 @@
     "probability": 0.5199,
     "other_probability": 0.4801
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1509,7 +1455,7 @@
     "probability": 0.5348,
     "other_probability": 0.4652
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1568,7 +1514,7 @@
     "probability": 0.7677,
     "other_probability": 0.2323
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1624,7 +1570,7 @@
     "probability": 0.7479,
     "other_probability": 0.2521
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1680,7 +1626,7 @@
     "probability": 0.5726,
     "other_probability": 0.4274
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1739,7 +1685,7 @@
     "probability": 0.5259,
     "other_probability": 0.4741
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1860,7 +1806,7 @@
     "probability": 0.7234,
     "other_probability": 0.2766
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1919,7 +1865,7 @@
     "probability": 0.6289,
     "other_probability": 0.3711
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -1975,7 +1921,7 @@
     "probability": 0.5538,
     "other_probability": 0.4462
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2031,7 +1977,7 @@
     "probability": 0.6765,
     "other_probability": 0.3235
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2087,7 +2033,7 @@
     "probability": 0.5211,
     "other_probability": 0.4789
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2143,7 +2089,7 @@
     "probability": 0.56,
     "other_probability": 0.44
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2202,7 +2148,7 @@
     "probability": 0.7269,
     "other_probability": 0.2731
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2258,7 +2204,7 @@
     "probability": 0.6378,
     "other_probability": 0.3622
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2315,7 +2261,7 @@
     "probability": 0.7234,
     "other_probability": 0.2766
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2372,7 +2318,7 @@
     "probability": 0.7948,
     "other_probability": 0.2052
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2429,7 +2375,7 @@
     "probability": 0.5006,
     "other_probability": 0.4994
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2486,7 +2432,7 @@
     "probability": 0.5505,
     "other_probability": 0.4495
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2606,7 +2552,7 @@
     "probability": 0.5929,
     "other_probability": 0.4071
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2662,7 +2608,7 @@
     "probability": 0.7345,
     "other_probability": 0.2655
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2718,7 +2664,7 @@
     "probability": 0.5475,
     "other_probability": 0.4525
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2775,7 +2721,7 @@
     "probability": 0.5012,
     "other_probability": 0.4988
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2831,7 +2777,7 @@
     "probability": 0.5558,
     "other_probability": 0.4442
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2888,7 +2834,7 @@
     "probability": 0.611,
     "other_probability": 0.389
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -2948,7 +2894,7 @@
     "probability": 0.6523,
     "other_probability": 0.3477
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3005,7 +2951,7 @@
     "probability": 0.7062,
     "other_probability": 0.2938
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3125,7 +3071,7 @@
     "probability": 0.5329,
     "other_probability": 0.4671
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3184,7 +3130,7 @@
     "probability": 0.5175,
     "other_probability": 0.4825
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3244,7 +3190,7 @@
     "probability": 0.516,
     "other_probability": 0.484
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3304,7 +3250,7 @@
     "probability": 0.5176,
     "other_probability": 0.4824
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3360,7 +3306,7 @@
     "probability": 0.5508,
     "other_probability": 0.4492
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3417,7 +3363,7 @@
     "probability": 0.5179,
     "other_probability": 0.4821
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3474,7 +3420,7 @@
     "probability": 0.5255,
     "other_probability": 0.4745
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3531,7 +3477,7 @@
     "probability": 0.5031,
     "other_probability": 0.4969
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3588,7 +3534,7 @@
     "probability": 0.5311,
     "other_probability": 0.4689
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3644,7 +3590,7 @@
     "probability": 0.5432,
     "other_probability": 0.4568
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3701,7 +3647,7 @@
     "probability": 0.5148,
     "other_probability": 0.4852
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3758,7 +3704,7 @@
     "probability": 0.5065,
     "other_probability": 0.4935
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3814,7 +3760,7 @@
     "probability": 0.5682,
     "other_probability": 0.4318
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3870,7 +3816,7 @@
     "probability": 0.517,
     "other_probability": 0.483
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3926,7 +3872,7 @@
     "probability": 0.5948,
     "other_probability": 0.4052
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -3985,7 +3931,7 @@
     "probability": 0.7507,
     "other_probability": 0.2493
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -4041,7 +3987,7 @@
     "probability": 0.5327,
     "other_probability": 0.4673
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -4099,7 +4045,7 @@
     "probability": 0.5191,
     "other_probability": 0.4809
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -4153,7 +4099,7 @@
     "probability": 0.5839,
     "other_probability": 0.4161
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -4207,7 +4153,7 @@
     "probability": 0.7605,
     "other_probability": 0.2395
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -4230,7 +4176,7 @@
     "start_utc": "2026-10-23T17:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 332063.098057,
+    "total_volume_usd": 332063.1,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4248,7 +4194,7 @@
       "p1": 0.225,
       "quote": "77.5¢/22.5¢",
       "overround": 0.0,
-      "volume_usd": 332063.098057,
+      "volume_usd": 332063.1,
       "url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23"
      },
      {
@@ -4324,7 +4270,7 @@
     "probability": 0.5183,
     "other_probability": 0.4817
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -4378,7 +4324,7 @@
     "probability": 0.6024,
     "other_probability": 0.3976
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -4432,7 +4378,7 @@
     "probability": 0.7623,
     "other_probability": 0.2377
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -4455,7 +4401,7 @@
     "start_utc": "2026-10-23T18:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 274764.055438,
+    "total_volume_usd": 274764.06,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4473,7 +4419,7 @@
       "p1": 0.235,
       "quote": "76.5¢/23.5¢",
       "overround": 0.0,
-      "volume_usd": 274764.055438,
+      "volume_usd": 274764.06,
       "url": "https://polymarket.com/event/lol-hle1-tes-2026-10-23"
      },
      {
@@ -4549,7 +4495,7 @@
     "probability": 0.6961,
     "other_probability": 0.3039
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -4603,7 +4549,7 @@
     "probability": 0.5673,
     "other_probability": 0.4327
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -4657,7 +4603,7 @@
     "probability": 0.7984,
     "other_probability": 0.2016
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -4680,7 +4626,7 @@
     "start_utc": "2026-10-23T19:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 213508.937499,
+    "total_volume_usd": 213508.94,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4698,7 +4644,7 @@
       "p1": 0.195,
       "quote": "80.5¢/19.5¢",
       "overround": 0.0,
-      "volume_usd": 213508.937499,
+      "volume_usd": 213508.94,
       "url": "https://polymarket.com/event/lol-blg-mkoi-2026-10-23"
      },
      {
@@ -4774,7 +4720,7 @@
     "probability": 0.644,
     "other_probability": 0.356
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -4797,7 +4743,7 @@
     "start_utc": "2026-10-23T20:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 314535.421645,
+    "total_volume_usd": 314535.42,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4815,7 +4761,7 @@
       "p1": 0.355,
       "quote": "64.5¢/35.5¢",
       "overround": 0.0,
-      "volume_usd": 314535.421645,
+      "volume_usd": 314535.42,
       "url": "https://polymarket.com/event/lol-al-kc-2026-10-23"
      },
      {
@@ -4891,7 +4837,7 @@
     "probability": 0.5884,
     "other_probability": 0.4116
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -4914,7 +4860,7 @@
     "start_utc": "2026-10-23T21:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 343565.04281300004,
+    "total_volume_usd": 343565.04,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4932,7 +4878,7 @@
       "p1": 0.605,
       "quote": "39.5¢/60.5¢",
       "overround": 0.0,
-      "volume_usd": 343565.04281300004,
+      "volume_usd": 343565.04,
       "url": "https://polymarket.com/event/lol-g2-dk-2026-10-23"
      },
      {
@@ -5008,7 +4954,7 @@
     "probability": 0.7134,
     "other_probability": 0.2866
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -5031,7 +4977,7 @@
     "start_utc": "2026-10-23T22:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 39296.379648,
+    "total_volume_usd": 39296.38,
     "venues": [
      {
       "name": "Pinnacle",
@@ -5049,7 +4995,7 @@
       "p1": 0.285,
       "quote": "71.5¢/28.5¢",
       "overround": 0.0,
-      "volume_usd": 39296.379648,
+      "volume_usd": 39296.38,
       "url": "https://polymarket.com/event/lol-tl2-cfo-2026-10-23"
      },
      {
@@ -5127,7 +5073,7 @@
     "probability": 0.8597,
     "other_probability": 0.1403
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -5150,7 +5096,7 @@
     "start_utc": "2026-10-23T23:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 4,
-    "total_volume_usd": 61676.851886000004,
+    "total_volume_usd": 61676.85,
     "venues": [
      {
       "name": "Pinnacle",
@@ -5168,7 +5114,7 @@
       "p1": 0.875,
       "quote": "12.5¢/87.5¢",
       "overround": 0.0,
-      "volume_usd": 61676.851886000004,
+      "volume_usd": 61676.85,
       "url": "https://polymarket.com/event/lol-los-t1-2026-10-23"
      },
      {
@@ -5248,7 +5194,7 @@
     "probability": 0.5766,
     "other_probability": 0.4234
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
@@ -5271,7 +5217,7 @@
     "start_utc": "2026-10-24T00:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 3,
-    "total_volume_usd": 68134.77479,
+    "total_volume_usd": 68134.77,
     "venues": [
      {
       "name": "Pinnacle",
@@ -5289,7 +5235,7 @@
       "p1": 0.585,
       "quote": "41.5¢/58.5¢",
       "overround": 0.0,
-      "volume_usd": 68134.77479,
+      "volume_usd": 68134.77,
       "url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23"
      },
      {
@@ -5356,7 +5302,7 @@
     "probability": 0.5197,
     "other_probability": 0.4803
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5410,7 +5356,7 @@
     "probability": 0.5293,
     "other_probability": 0.4707
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5468,7 +5414,7 @@
     "probability": 0.5414,
     "other_probability": 0.4586
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5524,7 +5470,7 @@
     "probability": 0.533,
     "other_probability": 0.467
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5580,7 +5526,7 @@
     "probability": 0.6749,
     "other_probability": 0.3251
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5636,7 +5582,7 @@
     "probability": 0.5717,
     "other_probability": 0.4283
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5690,7 +5636,7 @@
     "probability": 0.7166,
     "other_probability": 0.2834
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5746,7 +5692,7 @@
     "probability": 0.5252,
     "other_probability": 0.4748
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5803,7 +5749,7 @@
     "probability": 0.5146,
     "other_probability": 0.4854
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5859,7 +5805,7 @@
     "probability": 0.5564,
     "other_probability": 0.4436
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5913,7 +5859,7 @@
     "probability": 0.5418,
     "other_probability": 0.4582
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -5967,7 +5913,7 @@
     "probability": 0.5671,
     "other_probability": 0.4329
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6023,7 +5969,7 @@
     "probability": 0.5089,
     "other_probability": 0.4911
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6077,7 +6023,7 @@
     "probability": 0.5592,
     "other_probability": 0.4408
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6131,7 +6077,7 @@
     "probability": 0.5147,
     "other_probability": 0.4853
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6185,7 +6131,7 @@
     "probability": 0.5233,
     "other_probability": 0.4767
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6241,7 +6187,7 @@
     "probability": 0.5187,
     "other_probability": 0.4813
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6299,7 +6245,7 @@
     "probability": 0.5082,
     "other_probability": 0.4918
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6353,7 +6299,7 @@
     "probability": 0.7326,
     "other_probability": 0.2674
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6407,7 +6353,7 @@
     "probability": 0.5269,
     "other_probability": 0.4731
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6461,7 +6407,7 @@
     "probability": 0.5476,
     "other_probability": 0.4524
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6515,7 +6461,7 @@
     "probability": 0.6514,
     "other_probability": 0.3486
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6569,7 +6515,7 @@
     "probability": 0.6324,
     "other_probability": 0.3676
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6625,7 +6571,7 @@
     "probability": 0.5451,
     "other_probability": 0.4549
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6679,7 +6625,7 @@
     "probability": 0.5209,
     "other_probability": 0.4791
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6735,7 +6681,7 @@
     "probability": 0.5421,
     "other_probability": 0.4579
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6789,7 +6735,7 @@
     "probability": 0.5403,
     "other_probability": 0.4597
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6843,7 +6789,7 @@
     "probability": 0.5494,
     "other_probability": 0.4506
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6897,7 +6843,7 @@
     "probability": 0.5262,
     "other_probability": 0.4738
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -6955,7 +6901,7 @@
     "probability": 0.6251,
     "other_probability": 0.3749
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7011,7 +6957,7 @@
     "probability": 0.5217,
     "other_probability": 0.4783
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7065,7 +7011,7 @@
     "probability": 0.533,
     "other_probability": 0.467
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7119,7 +7065,7 @@
     "probability": 0.5104,
     "other_probability": 0.4896
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7173,7 +7119,7 @@
     "probability": 0.706,
     "other_probability": 0.294
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7229,7 +7175,7 @@
     "probability": 0.5864,
     "other_probability": 0.4136
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7285,7 +7231,7 @@
     "probability": 0.5135,
     "other_probability": 0.4865
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7341,7 +7287,7 @@
     "probability": 0.7294,
     "other_probability": 0.2706
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7397,7 +7343,7 @@
     "probability": 0.5394,
     "other_probability": 0.4606
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7453,7 +7399,7 @@
     "probability": 0.5165,
     "other_probability": 0.4835
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7507,7 +7453,7 @@
     "probability": 0.5505,
     "other_probability": 0.4495
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7563,7 +7509,7 @@
     "probability": 0.5166,
     "other_probability": 0.4834
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7617,7 +7563,7 @@
     "probability": 0.5855,
     "other_probability": 0.4145
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7673,7 +7619,7 @@
     "probability": 0.5264,
     "other_probability": 0.4736
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7730,7 +7676,7 @@
     "probability": 0.5407,
     "other_probability": 0.4593
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7784,7 +7730,7 @@
     "probability": 0.6179,
     "other_probability": 0.3821
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7842,7 +7788,7 @@
     "probability": 0.6103,
     "other_probability": 0.3897
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7896,7 +7842,7 @@
     "probability": 0.6969,
     "other_probability": 0.3031
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -7950,7 +7896,7 @@
     "probability": 0.7598,
     "other_probability": 0.2402
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8006,7 +7952,7 @@
     "probability": 0.502,
     "other_probability": 0.498
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8060,7 +8006,7 @@
     "probability": 0.5589,
     "other_probability": 0.4411
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8108,6 +8054,7 @@
    "confidence": "low",
    "basis": "Polymarket de-vigged line (32.5% / 67.5%): Polymarket 32.5%/67.5% (32.5¢/67.5¢).",
    "flags": [
+    "kick-off time differs between sources: Hotspawn and Leaguepedia say 2026-10-27T17:00:00Z while Pinnacle lists 2026-10-22T06:30Z (130h apart) - confirm before betting",
     "single thin prediction market: only $5 traded volume on Polymarket - treat as an indicative line"
    ],
    "pick": {
@@ -8116,7 +8063,7 @@
     "probability": 0.675,
     "other_probability": 0.325
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": {
     "thin": true,
     "thin_note": "single Polymarket venue with $5 traded volume (thin-market threshold $1,000)",
@@ -8204,7 +8151,7 @@
     "probability": 0.5412,
     "other_probability": 0.4588
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8258,7 +8205,7 @@
     "probability": 0.621,
     "other_probability": 0.379
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8312,7 +8259,7 @@
     "probability": 0.572,
     "other_probability": 0.428
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8366,7 +8313,7 @@
     "probability": 0.5449,
     "other_probability": 0.4551
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8420,7 +8367,7 @@
     "probability": 0.5564,
     "other_probability": 0.4436
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8474,7 +8421,7 @@
     "probability": 0.5098,
     "other_probability": 0.4902
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8528,7 +8475,7 @@
     "probability": 0.579,
     "other_probability": 0.421
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8582,7 +8529,7 @@
     "probability": 0.5604,
     "other_probability": 0.4396
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8638,7 +8585,7 @@
     "probability": 0.5233,
     "other_probability": 0.4767
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8692,7 +8639,7 @@
     "probability": 0.5032,
     "other_probability": 0.4968
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8746,7 +8693,7 @@
     "probability": 0.5644,
     "other_probability": 0.4356
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8800,7 +8747,7 @@
     "probability": 0.5322,
     "other_probability": 0.4678
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8854,7 +8801,7 @@
     "probability": 0.532,
     "other_probability": 0.468
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8908,7 +8855,7 @@
     "probability": 0.5359,
     "other_probability": 0.4641
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -8962,7 +8909,7 @@
     "probability": 0.5104,
     "other_probability": 0.4896
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9016,7 +8963,7 @@
     "probability": 0.5643,
     "other_probability": 0.4357
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9074,7 +9021,7 @@
     "probability": 0.568,
     "other_probability": 0.432
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9130,7 +9077,7 @@
     "probability": 0.5159,
     "other_probability": 0.4841
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9184,7 +9131,7 @@
     "probability": 0.5973,
     "other_probability": 0.4027
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9240,7 +9187,7 @@
     "probability": 0.5496,
     "other_probability": 0.4504
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9296,7 +9243,7 @@
     "probability": 0.7411,
     "other_probability": 0.2589
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9352,7 +9299,7 @@
     "probability": 0.5117,
     "other_probability": 0.4883
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9406,7 +9353,7 @@
     "probability": 0.5448,
     "other_probability": 0.4552
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9460,7 +9407,7 @@
     "probability": 0.5829,
     "other_probability": 0.4171
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9514,7 +9461,7 @@
     "probability": 0.5525,
     "other_probability": 0.4475
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9572,7 +9519,7 @@
     "probability": 0.7026,
     "other_probability": 0.2974
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9626,7 +9573,7 @@
     "probability": 0.5314,
     "other_probability": 0.4686
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9682,7 +9629,7 @@
     "probability": 0.5133,
     "other_probability": 0.4867
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9736,7 +9683,7 @@
     "probability": 0.5075,
     "other_probability": 0.4925
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9790,7 +9737,7 @@
     "probability": 0.5045,
     "other_probability": 0.4955
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9846,7 +9793,7 @@
     "probability": 0.5104,
     "other_probability": 0.4896
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9900,7 +9847,7 @@
     "probability": 0.5364,
     "other_probability": 0.4636
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -9956,7 +9903,7 @@
     "probability": 0.5271,
     "other_probability": 0.4729
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10010,7 +9957,7 @@
     "probability": 0.5198,
     "other_probability": 0.4802
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10064,7 +10011,7 @@
     "probability": 0.6004,
     "other_probability": 0.3996
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10118,7 +10065,7 @@
     "probability": 0.5475,
     "other_probability": 0.4525
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10172,7 +10119,7 @@
     "probability": 0.5093,
     "other_probability": 0.4907
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10226,7 +10173,7 @@
     "probability": 0.6309,
     "other_probability": 0.3691
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10282,7 +10229,7 @@
     "probability": 0.5142,
     "other_probability": 0.4858
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10336,7 +10283,7 @@
     "probability": 0.5712,
     "other_probability": 0.4288
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10390,7 +10337,7 @@
     "probability": 0.6963,
     "other_probability": 0.3037
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10446,7 +10393,7 @@
     "probability": 0.5362,
     "other_probability": 0.4638
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10502,7 +10449,7 @@
     "probability": 0.5309,
     "other_probability": 0.4691
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10558,7 +10505,7 @@
     "probability": 0.5701,
     "other_probability": 0.4299
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10612,7 +10559,7 @@
     "probability": 0.5764,
     "other_probability": 0.4236
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10668,7 +10615,7 @@
     "probability": 0.5235,
     "other_probability": 0.4765
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10724,7 +10671,7 @@
     "probability": 0.5407,
     "other_probability": 0.4593
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10778,7 +10725,7 @@
     "probability": 0.5166,
     "other_probability": 0.4834
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10836,7 +10783,7 @@
     "probability": 0.5602,
     "other_probability": 0.4398
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10890,7 +10837,7 @@
     "probability": 0.602,
     "other_probability": 0.398
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -10946,7 +10893,7 @@
     "probability": 0.601,
     "other_probability": 0.399
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11004,7 +10951,7 @@
     "probability": 0.5516,
     "other_probability": 0.4484
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11060,7 +11007,7 @@
     "probability": 0.5146,
     "other_probability": 0.4854
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11114,7 +11061,7 @@
     "probability": 0.5514,
     "other_probability": 0.4486
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11168,7 +11115,7 @@
     "probability": 0.5283,
     "other_probability": 0.4717
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11222,7 +11169,7 @@
     "probability": 0.5105,
     "other_probability": 0.4895
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11280,7 +11227,7 @@
     "probability": 0.5024,
     "other_probability": 0.4976
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11336,7 +11283,7 @@
     "probability": 0.6779,
     "other_probability": 0.3221
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11390,7 +11337,7 @@
     "probability": 0.6021,
     "other_probability": 0.3979
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11446,7 +11393,7 @@
     "probability": 0.5833,
     "other_probability": 0.4167
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11500,7 +11447,7 @@
     "probability": 0.6501,
     "other_probability": 0.3499
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11556,7 +11503,7 @@
     "probability": 0.728,
     "other_probability": 0.272
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11612,7 +11559,7 @@
     "probability": 0.515,
     "other_probability": 0.485
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11668,7 +11615,7 @@
     "probability": 0.5246,
     "other_probability": 0.4754
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11724,7 +11671,7 @@
     "probability": 0.5211,
     "other_probability": 0.4789
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11778,7 +11725,7 @@
     "probability": 0.6648,
     "other_probability": 0.3352
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11834,7 +11781,7 @@
     "probability": 0.5615,
     "other_probability": 0.4385
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11888,7 +11835,7 @@
     "probability": 0.5527,
     "other_probability": 0.4473
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11942,7 +11889,7 @@
     "probability": 0.5151,
     "other_probability": 0.4849
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -11996,7 +11943,7 @@
     "probability": 0.5519,
     "other_probability": 0.4481
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12050,7 +11997,7 @@
     "probability": 0.5862,
     "other_probability": 0.4138
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12104,7 +12051,7 @@
     "probability": 0.5691,
     "other_probability": 0.4309
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12158,7 +12105,7 @@
     "probability": 0.5359,
     "other_probability": 0.4641
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12212,7 +12159,7 @@
     "probability": 0.6105,
     "other_probability": 0.3895
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12268,7 +12215,7 @@
     "probability": 0.5185,
     "other_probability": 0.4815
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12326,7 +12273,7 @@
     "probability": 0.7086,
     "other_probability": 0.2914
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12380,7 +12327,7 @@
     "probability": 0.5211,
     "other_probability": 0.4789
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12436,7 +12383,7 @@
     "probability": 0.5635,
     "other_probability": 0.4365
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12492,7 +12439,7 @@
     "probability": 0.5366,
     "other_probability": 0.4634
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12546,7 +12493,7 @@
     "probability": 0.5166,
     "other_probability": 0.4834
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12600,7 +12547,7 @@
     "probability": 0.5375,
     "other_probability": 0.4625
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12658,7 +12605,7 @@
     "probability": 0.5103,
     "other_probability": 0.4897
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12712,7 +12659,7 @@
     "probability": 0.5167,
     "other_probability": 0.4833
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12766,7 +12713,7 @@
     "probability": 0.575,
     "other_probability": 0.425
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12822,7 +12769,7 @@
     "probability": 0.6135,
     "other_probability": 0.3865
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12876,7 +12823,7 @@
     "probability": 0.7754,
     "other_probability": 0.2246
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12934,7 +12881,7 @@
     "probability": 0.6202,
     "other_probability": 0.3798
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -12988,7 +12935,7 @@
     "probability": 0.5413,
     "other_probability": 0.4587
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13046,7 +12993,7 @@
     "probability": 0.5233,
     "other_probability": 0.4767
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13100,7 +13047,7 @@
     "probability": 0.608,
     "other_probability": 0.392
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13154,7 +13101,7 @@
     "probability": 0.5117,
     "other_probability": 0.4883
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13208,7 +13155,7 @@
     "probability": 0.5455,
     "other_probability": 0.4545
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13262,7 +13209,7 @@
     "probability": 0.568,
     "other_probability": 0.432
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13318,7 +13265,7 @@
     "probability": 0.5255,
     "other_probability": 0.4745
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13372,7 +13319,7 @@
     "probability": 0.5231,
     "other_probability": 0.4769
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13428,7 +13375,7 @@
     "probability": 0.5821,
     "other_probability": 0.4179
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13482,7 +13429,7 @@
     "probability": 0.5717,
     "other_probability": 0.4283
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13536,7 +13483,7 @@
     "probability": 0.6401,
     "other_probability": 0.3599
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13590,7 +13537,7 @@
     "probability": 0.5723,
     "other_probability": 0.4277
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13644,7 +13591,7 @@
     "probability": 0.6062,
     "other_probability": 0.3938
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13700,7 +13647,7 @@
     "probability": 0.5347,
     "other_probability": 0.4653
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13758,7 +13705,7 @@
     "probability": 0.7147,
     "other_probability": 0.2853
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13812,7 +13759,7 @@
     "probability": 0.5721,
     "other_probability": 0.4279
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13866,7 +13813,7 @@
     "probability": 0.5072,
     "other_probability": 0.4928
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13922,7 +13869,7 @@
     "probability": 0.559,
     "other_probability": 0.441
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -13976,7 +13923,7 @@
     "probability": 0.5507,
     "other_probability": 0.4493
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -14030,7 +13977,7 @@
     "probability": 0.571,
     "other_probability": 0.429
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -14084,7 +14031,7 @@
     "probability": 0.5198,
     "other_probability": 0.4802
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
@@ -14140,7 +14087,7 @@
     "probability": 0.5148,
     "other_probability": 0.4852
    },
-   "pick_type": "probability",
+   "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,

@@ -136,7 +136,10 @@ def main() -> None:
         f"{len(wo)} resolutions checked; problems: {bad_wo[:5]}")
 
     # no quoted probability may be attached to a forfeit resolution
-    bad_wo_prob = [r["id"] for r in wo if r.get("p0") is not None or r.get("pick")]
+    bad_wo_prob = [r["id"] for r in wo
+                   if r.get("p0") is not None
+                   or (r.get("pick") or {}).get("probability") is not None
+                   or r.get("pick_type") != "settlement"]
     add("official-forfeit resolutions carry no invented probability", not bad_wo_prob,
         f"problems: {bad_wo_prob[:5]}")
 

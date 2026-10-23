@@ -131,6 +131,7 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
+<nav class="mobnav" aria-label="Quick navigation">{bottom_nav}</nav>
 <a class="mobile-picks" href="table.html">All picks &rarr;</a>
 <script src="assets/app.js"></script>
 </body>
@@ -383,7 +384,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     probabilities, the method and source links. <a href="picks.html"><strong>Card view</strong></a> shows the
     same {total} matches with the full reasoning. Both pages are searchable and filterable by tournament and
     by method.</li>
-    <li><strong>Coverage.</strong> {t['with_pick']} of {total} matches carry a probability and
+    <li><strong>Coverage.</strong> {t['with_pick']} of {total} matches carry a pick with a probability and
     {len(walkover)} more are resolved to the official forfeit winner, so {resolved_total} of {total}
     ({resolved_total/total*100:.0f}%) have a pick: <a href="featured.html">{len(featured)} market-backed</a>
     ({e(venues_txt)}), <a href="originated.html">{counts.get('model',0)} originated</a> and
@@ -403,7 +404,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 </section>
 
 <section class="panel" id="unresolved-summary">
-  <h2>Unresolved picks &amp; limitations ({len(unresolved)})</h2>
+  <h2>Unresolved picks and the limitations ({len(unresolved)})</h2>
   <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror Hotspawn
   exactly, are reported separately, and are never padded with a guessed number. Where the league itself has
   ruled a forfeit, the official settlement winner is shown - it is <em>not</em> a forecast.</p>
@@ -567,7 +568,7 @@ def build_featured(rows: list[dict]) -> str:
   placeholders are rejected, Pinnacle's parallel &quot;(Kills)&quot; derivative markets are excluded from the
   series consensus, and a single prediction market with almost no traded volume is downgraded to low
   confidence (see <a href="flagged.html">Flagged for review</a>).</p>
-  {table(["Start (UTC)", "Tournament", "Pick &amp; Match", "Consensus (A / B)", "Venues", "Primary Decimal", "Source records"], rows_html)}
+  {table(["Start (UTC)", "Tournament", "Pick &amp; Match", "Consensus (A / B)", "Model cross-check", "Venues", "Primary Decimal", "Source records"], rows_html)}
   <h3>Proportional de-vig &amp; consensus formula</h3>
   <p class="formula">p&#770;<sub>v</sub> = (1/o<sub>1,v</sub>) / (1/o<sub>1,v</sub> + 1/o<sub>2,v</sub>), &nbsp;&nbsp; P(A) = &sum; w<sub>v</sub> p&#770;<sub>v</sub> / &sum; w<sub>v</sub></p>
   <div class="cards">{"".join(match_card(r) for r in items)}</div>

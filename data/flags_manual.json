@@ -35,14 +35,20 @@
       "item": "Hotspawn inventory drifts between builds (264 rows on 2026-10-21, 241 rows on 2026-10-23)",
       "detail": "The fixtures API only returns status=scheduled cards, so completed or delisted fixtures drop out between refreshes and the totals on this site are a point-in-time snapshot, not a fixed universe. Earlier curated notes that referenced #1071216 (Solid Gaming vs DMG Esports Norway) or a 264-match total are therefore labelled historical. Every published probability is recomputed from the current snapshot only.",
       "source": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
-      "verification": "snapshot counts recorded in data/raw/hotspawn_lol.json (count=241, fetched 2026-10-23T11:42:37Z)"
+      "verification": "snapshot counts recorded in data/raw/hotspawn_lol.json (count=241, fetched 2026-10-23T11:42:37Z)",
+      "delisted_refs": [
+        "1071216"
+      ]
     },
     {
       "severity": "medium",
       "item": "Historical: Galions vs Solary (#1081205) crowd split diverged +33.8 pp from real-money consensus",
       "detail": "Archived observation from the 2026-10-21 snapshot for the EMEA Masters Summer 2026 Final: Hotspawn's crowd split was 86% / 14% while the de-vigged multi-venue consensus was 52.2% / 47.8%. The fixture has since left the live list, so the row is kept only as evidence for why Hotspawn crowd percentages are never used as a probability input. The settlement source link is the Polymarket event, which is now closed.",
       "source": "https://polymarket.com/event/lol-gal-sly-2026-10-21",
-      "verification": "historical - event closed on 2026-10-21; not re-verifiable in the current snapshot"
+      "verification": "historical - event closed on 2026-10-21; not re-verifiable in the current snapshot",
+      "delisted_refs": [
+        "1081205"
+      ]
     },
     {
       "severity": "low",

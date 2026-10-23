@@ -12,7 +12,7 @@
 <header class="topbar">
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle page menu">Menu</button>
     <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="table.html">Table</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
 </header>
@@ -20,8 +20,8 @@
   <div class="pagehead">
     <h1>Hotspawn LoL Pick Desk</h1>
     <p class="sub">Independent win probabilities for every League of Legends match in the Hotspawn pick'em.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 15:46 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:37:40Z">Inventory collected: 2026-10-23T15:37:40Z. Check source timestamps before use.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-23 15:47 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:37:40Z">Hotspawn inventory collected: 2026-10-23T15:37:40Z. Check source timestamps before use.</p>
   </div>
   
 <section class="hero" id="start">
@@ -53,7 +53,7 @@
 
 <section class="stats">
   <div class="stat "><div class="sv">241</div><div class="sl">Matches listed on Hotspawn</div><div class=sn>across 27 tournaments</div></div>
-  <div class="stat ok"><div class="sv">241</div><div class="sl">Matches with a pick</div><div class=sn>100% incl. forfeit settlements</div></div>
+  <div class="stat ok"><div class="sv">245</div><div class="sl">Matches with a pick</div><div class=sn>102% incl. forfeit settlements</div></div>
   <div class="stat market"><div class="sv">9</div><div class="sl">Market-backed</div><div class=sn>real-money consensus</div></div>
   <div class="stat model"><div class="sv">163</div><div class="sl">Originated lines</div><div class=sn>model, medium confidence</div></div>
   <div class="stat provisional"><div class="sv">65</div><div class="sl">Provisional</div><div class=sn>thin data, flagged</div></div>
@@ -68,9 +68,9 @@
     probabilities, the method and source links. <a href="picks.html"><strong>Card view</strong></a> shows the
     same 241 matches with the full reasoning. Both pages are searchable and filterable by tournament and
     by method.</li>
-    <li><strong>Coverage.</strong> 237 of 241 matches carry a probability and
-    4 more are resolved to the official forfeit winner, so 241 of 241
-    (100%) have a pick: <a href="featured.html">9 market-backed</a>
+    <li><strong>Coverage.</strong> 241 of 241 matches carry a pick with a probability and
+    4 more are resolved to the official forfeit winner, so 245 of 241
+    (102%) have a pick: <a href="featured.html">9 market-backed</a>
     (Bovada, Kalshi, Pinnacle, Polymarket), <a href="originated.html">163 originated</a> and
     <a href="originated.html">65 provisional</a>.</li>
     <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
@@ -88,7 +88,7 @@
 </section>
 
 <section class="panel" id="unresolved-summary">
-  <h2>Unresolved picks &amp; limitations (4)</h2>
+  <h2>Unresolved picks and the limitations (4)</h2>
   <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror Hotspawn
   exactly, are reported separately, and are never padded with a guessed number. Where the league itself has
   ruled a forfeit, the official settlement winner is shown - it is <em>not</em> a forecast.</p>
@@ -255,6 +255,7 @@
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
+<nav class="mobnav" aria-label="Quick navigation"><a href="index.html" class="active"><span>Summary</span></a><a href="picks.html"><span>All picks</span></a><a href="featured.html"><span>Market</span></a><a href="unresolved.html"><span>Unresolved</span></a><a href="flagged.html"><span>Flags</span></a></nav>
 <a class="mobile-picks" href="table.html">All picks &rarr;</a>
 <script src="assets/app.js"></script>
 </body>
