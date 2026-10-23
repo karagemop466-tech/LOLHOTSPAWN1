@@ -930,3 +930,31 @@ Resolved as a union — both sides kept verbatim, markers removed, no other sess
 `0d48f265` also registered `audit/**` (files `AUDIT.md`, `audit.csv`); this session's audit files
 (`coverage_audit.py`, `verify_docs.py`, `coverage_report.*`) are disjoint filenames in the same
 directory — no file-level collision.
+
+## Session `6d1ede2c` — final integration pass (2026-10-23T15:58Z)
+
+Merged `origin/main` at `3cd992c` (PR #41, session `a91e528d`) into this branch. Generated
+artifacts were taken from `origin/main` and rebuilt; no hand edits to `tools/` were carried over,
+because the incoming pipeline already contains every fix this session had verified.
+
+| Incoming change | Handling |
+|---|---|
+| Kick-off-snapshotted, margin-weighted Elo + no-look-ahead gate (PR #41) | Adopted. Rebuilt: **241 rows, 9 market, 148 model, 80 provisional, 4 walkover-settled**, 39 gates, 9/9 unit tests. |
+| `table.html` as the phone-first canonical list | Adopted; `audit/check_site.py` now counts 20 pages and confirms every match id appears exactly once there. |
+| Archived EGamersWorld receipts | Still excluded (43.3 h old, 24 h limit, domain 403s the runner). The expired-receipt flag rendered `None` where a receipt has no venue field; it now reads “captured 43.3 h before this build (2026-10-21T20:36:00Z) from egamersworld.com”. |
+
+Independent checks after the merge:
+
+| Check | Result |
+|---|---|
+| `tools/verify.py` | 39/39 PASS |
+| `audit/check_site.py` (links, nav, viewport, duplicate ids, unrendered values) | 20 pages, 0 failures |
+| `audit/verify_independent.py` (re-derived from raw, no `tools/` import) | 0 failures, 9 warnings, 0 kills substitutions |
+| `unittest discover -s tests` | 9/9 OK |
+| Live venue re-read (Gen.G v Invictus, 15:57–15:58Z) | Pinnacle −335/+261 on `matchupId` 1638748200, Polymarket 76.5/23.5, Kalshi mid 77.5/22.5, Bovada 1.2439/3.800 — all four match the snapshot; consensus recomputed 0.7536 vs 0.7537 published. Receipt: `audit/receipts/live_spotcheck_2026-10-23T1558Z.json` |
+
+**PR #45** carries this verification pass (report + receipt + the `None` rendering fix) to `main`.
+
+**Conflict log addendum (`7f76a03b`, 2026-10-23T16:05Z):** a second sync with `origin/main`
+(PR #47, session `6d1ede2c`) conflicted in `COORDINATION.md` again — this session's conflict-log
+block vs `6d1ede2c`'s final-integration record. Resolved as a union, both kept verbatim.

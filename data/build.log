@@ -1,19 +1,19 @@
-=== build 2026-10-23T15:55:20Z ===
-[15:55:21] hotspawn: 241 LoL fixtures
-[15:55:24] pinnacle: 138 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
-[15:55:24] kalshi: 8 CFTC match events (status=200)
-[15:55:25] bovada: 8 LoL moneylines (status=200)
-[15:56:40] leaguepedia: 34613 series rows, 7 pages with dqteams (err='')
-[15:56:40] lolesports: 80 Worlds events (status=200)
-[15:56:41] polymarket: 45 match-level markets (status=200)
-[15:56:47] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
-[15:56:52] rows=241 methods={'provisional': 65, 'model': 163, 'unresolved': 4, 'market': 9, 'walkover': 4, 'settlement': 4} joins=29
-[15:56:52] backtest n=3854 acc=0.6417 brier=0.2211
+=== build 2026-10-23T15:59:58Z ===
+[15:59:58] hotspawn: 241 LoL fixtures
+[16:00:01] pinnacle: 138 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
+[16:00:01] kalshi: 8 CFTC match events (status=200)
+[16:00:02] bovada: 8 LoL moneylines (status=200)
+[16:01:04] leaguepedia: 34617 series rows, 7 pages with dqteams (err='')
+[16:01:04] lolesports: 80 Worlds events (status=200)
+[16:01:04] polymarket: 45 match-level markets (status=200)
+[16:01:09] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[16:01:15] rows=241 methods={'provisional': 80, 'model': 148, 'unresolved': 4, 'market': 9, 'walkover': 4, 'settlement': 4} joins=29
+[16:01:15] backtest n=3854 acc=0.6549 brier=0.2144
 {
  "total": 241,
  "counts": {
-  "provisional": 65,
-  "model": 163,
+  "provisional": 80,
+  "model": 148,
   "unresolved": 4,
   "market": 9,
   "walkover": 4,
@@ -34,7 +34,8 @@
    "model": 1
   },
   "LigaGG CELOL B 2026 Split 2": {
-   "model": 2
+   "model": 1,
+   "provisional": 1
   },
   "Komplettligaen 2026 Autumn": {
    "model": 3,
@@ -44,7 +45,7 @@
    "provisional": 1
   },
   "LigaGG CELOL A 2026 Split 2": {
-   "model": 1
+   "provisional": 1
   },
   "POP Esports Masters Season 7": {
    "provisional": 1
@@ -57,34 +58,34 @@
    "model": 1
   },
   "RIVALS LEAGUE Season 2": {
-   "model": 19,
-   "provisional": 9
+   "provisional": 11,
+   "model": 17
   },
   "Hitpoint 2nd Div Challengers 2026 Summer Playoffs": {
    "model": 1
   },
   "Icelandic Esports League 2026 Autumn": {
-   "model": 12
+   "provisional": 7,
+   "model": 5
   },
   "Benelux Ascend Series 2027 Winter Promotion": {
    "model": 5
   },
   "Arabian League 2nd Division 2026 Summer": {
-   "provisional": 3,
-   "model": 8
+   "provisional": 4,
+   "model": 7
   },
   "Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait": {
    "provisional": 2
   },
   "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine": {
-   "provisional": 6,
-   "model": 1
+   "provisional": 7
   },
   "LigaGG CELOL B 2026 Split 2 Playoffs": {
    "model": 5
   },
   "4 Nations 2026 Halloween Heist": {
-   "model": 1
+   "provisional": 1
   },
   "PRM 2nd Division 26-27 Fall": {
    "model": 36,
@@ -108,8 +109,8 @@
    "market": 1
   },
   "LCP 2027 Promotion": {
-   "model": 2,
-   "provisional": 1
+   "provisional": 2,
+   "model": 1
   }
  }
 }
@@ -135,19 +136,19 @@ NON-EXACT JOINS 12
   alias | Phong Vũ Buffalo -> PvB (Swiss Team) | explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evid
 
 PRICED 9
-  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7541 {'home': 1.298, 'away': 3.61}
+  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7537 {'home': 1.298, 'away': 3.61}
   Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7623 {'home': 1.256, 'away': 3.97}
   Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.7907 {'home': 1.25, 'away': 4.02}
-  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6392 {'home': 1.55, 'away': 2.53}
+  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6383 {'home': 1.55, 'away': 2.53}
   Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4116 {'home': 2.24, 'away': 1.685}
-  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7129 {'home': 1.345, 'away': 3.31}
+  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7134 {'home': 1.345, 'away': 3.31}
   Worlds 2026 Main Event | ['LØS', 'T1'] 0.1392 {'home': 5.76, 'away': 1.139}
   Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4234 {'home': 2.23, 'away': 1.69}
-  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.35 None
-[15:56:53] flags: 26 items
-[15:56:53] site: wrote 12 pages to the published root
-[15:56:53] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
-[15:56:53] verification passed
+  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.345 None
+[16:01:15] flags: 27 items
+[16:01:15] site: wrote 12 pages to the published root
+[16:01:16] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
+[16:01:16] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -175,17 +176,21 @@ PASS executive summary links to every picks view :: present: ['picks.html', 'tab
 PASS executive summary carries coverage, unresolved section and a where-to-find-picks block :: missing: []
 PASS mobile navigation rendered on every page and wired in JS :: missing mobnav: []; menu+filter handlers present: True
 PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,854
-PASS curated flags cite only currently listed fixtures :: 9 curated flags scanned; stale references: []
+PASS curated flags cite only currently listed fixtures :: 10 curated flags scanned; stale references: []
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 27 competition rows; missing links: []
 PASS external receipts validated against the dataset :: 9 usable receipts, 0 rejected, 0 diverging >5.0pp
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 40043 bytes
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 40107 bytes
 PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
+PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
 PASS source availability recorded :: 9/14 sources reachable on this build
-[15:56:53] site: wrote 12 pages to the published root
-[15:56:53] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
-[15:56:53] verification passed
+PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
+PASS per-tournament counts match the Hotspawn feed :: 27 tournaments; differences: []
+PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
+[16:01:16] site: wrote 12 pages to the published root
+[16:01:16] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
+[16:01:17] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -213,11 +218,15 @@ PASS executive summary links to every picks view :: present: ['picks.html', 'tab
 PASS executive summary carries coverage, unresolved section and a where-to-find-picks block :: missing: []
 PASS mobile navigation rendered on every page and wired in JS :: missing mobnav: []; menu+filter handlers present: True
 PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,854
-PASS curated flags cite only currently listed fixtures :: 9 curated flags scanned; stale references: []
+PASS curated flags cite only currently listed fixtures :: 10 curated flags scanned; stale references: []
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 27 competition rows; missing links: []
 PASS external receipts validated against the dataset :: 9 usable receipts, 0 rejected, 0 diverging >5.0pp
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 40043 bytes
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 40107 bytes
 PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
+PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
 PASS source availability recorded :: 9/14 sources reachable on this build
+PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
+PASS per-tournament counts match the Hotspawn feed :: 27 tournaments; differences: []
+PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
