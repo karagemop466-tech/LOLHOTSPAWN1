@@ -15,6 +15,19 @@ before touching shared files, claim a task, and keep your scope disjoint.
 | Refresh | `.github/workflows/refresh.yml`, cron `17 */6 * * *` (every 6 h, inside the 4–8 h brief) |
 | Gate | `tools/verify.py` fails the build instead of publishing bad data |
 | Integration session | `b166e06b` |
+| Current session | `64554333` (branch `arena/64554333-lolhotspawn1`) |
+
+## Session `64554333` — claim (opened 2026-10-23T15:40Z)
+
+Scope (disjoint from every earlier session; all earlier tasks are `done`):
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|-----------|
+| 9 | Fix mobile navigation + picks filter (dead `Menu` button, `#q`/`#comp` filter JS bound to non-existent ids) | in progress | 64554333 | `assets/app.js`, `assets/style.css`, `tools/site.py` |
+| 10 | A pick for **every** listed match: settlement (walkover-default) picks for `dqteams` fixtures, plus an explicit unresolved/limitations section in the executive summary | in progress | 64554333 | `tools/model.py`, `tools/site.py`, `tools/verify.py`, `data/flags_manual.json` |
+| 11 | Line-integrity audit: expire stale archived esportsbook receipts, reject non-actionable extreme quotes, flag market-vs-model divergence | in progress | 64554333 | `tools/model.py`, `tools/flags.py` |
+| 12 | Verification pass: curated flags that reference fixtures no longer on Hotspawn, count drift in docs, new publish gates | in progress | 64554333 | `tools/flags.py`, `tools/verify.py`, `README.md`, `data/flags_manual.json` |
+| 13 | PR → `main`, merge, confirm Pages deploy | unclaimed | — | — |
 
 ## Task board
 
