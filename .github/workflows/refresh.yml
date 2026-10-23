@@ -2,11 +2,12 @@ name: refresh-picks
 
 # Single publisher for this repository.
 #
-#  1. pulls the full Hotspawn LoL fixture list (public fixtures API, 264 cards)
-#  2. pulls external betting lines (Pinnacle guest API, Polymarket cross-check)
+#  1. pulls the full Hotspawn LoL fixture list (public fixtures API)
+#  2. pulls external betting lines (Pinnacle series moneylines only - the "(Kills)"
+#     derivatives are filtered out - plus Kalshi, Bovada and Polymarket)
 #  3. fits the Elo model on Leaguepedia series results and originates a line for
 #     every match that has no bookmaker price
-#  4. rebuilds the 11 static pages, runs the publish gate, and commits data + site
+#  4. rebuilds the 12 static pages, runs the publish gate, and commits data + site
 #
 # Only `tools/` writes the published pages. A failing gate aborts the commit, so a
 # broken build can never reach GitHub Pages.

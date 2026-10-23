@@ -13,15 +13,16 @@ The site rebuilds itself every six hours from GitHub Actions; nothing here needs
 
 | Page | Contents |
 | --- | --- |
-| `index.html` | Executive summary, headline counts and in-site links to every list |
-| `picks.html` | All 264 matches, one card each, next kick-off first, with the pick, both win probabilities and source links |
+| `index.html` | Executive summary, headline counts, in-site links to every list and a dedicated *Unresolved picks & limitations* section |
+| `table.html` | **All matches in one responsive table** — kick-off, match, both win probabilities, pick, method and source links (the page to bookmark on a phone) |
+| `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
 | `featured.html` | Matches with a real bookmaker price, the raw odds and the de-vig arithmetic |
 | `originated.html` | Matches with no market price: our own line, the Elo inputs and the team records behind it |
-| `unresolved.html` | Matches we refuse to price, why, and every limitation that applies to the rest of the list |
+| `unresolved.html` | Matches we refuse to price, the official forfeit settlement where the league has ruled one, and every limitation that applies to the rest of the list |
 | `competitions.html` | Coverage, source quality and staleness per tournament |
 | `teams.html` | Every team with its rating, record and competition |
 | `flagged.html` | Irregularities and unverified items, published rather than hidden |
-| `verification.html` | The publish gate, its results, and the evidence behind every non-exact team join |
+| `verification.html` | The publish gate, its results, the manual source audit, and the evidence behind every non-exact team join |
 | `sources.html` | Every source, what it provides, and whether the build runner could reach it |
 | `methodology.html` | Sources, Elo specification, de-vig method, exclusions |
 
@@ -49,8 +50,10 @@ Only `tools/` writes the published pages.
 
 - **Inventory** — `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1`
   returns every LoL card, including the long tail of national and academy leagues.
-- **Market lines** — Pinnacle's public guest API (LoL moneylines), with Polymarket used as an
-  independent cross-check. Bookmaker odds are converted to decimal, then de-vigged proportionally.
+- **Market lines** — Pinnacle's public guest API (series moneylines only — the parallel `(Kills)`
+  derivative markets are rejected), Kalshi, Bovada and Polymarket. Odds are converted to decimal, then
+  de-vigged proportionally and precision-weighted. A single prediction market with negligible traded
+  volume is kept but labelled low confidence.
 - **Originated lines** — Elo fitted on Leaguepedia series results, recency-weighted, with a
   connected-opponent graph guard; teams with too little recorded history are labelled *provisional*
   rather than silently given a confident number.
@@ -63,11 +66,13 @@ Only `tools/` writes the published pages.
 
 ### Verification gate
 
-`tools/verify.py` fails the build unless, at minimum: all 264 rows parse, every row carries a
+`tools/verify.py` fails the build unless, at minimum: the dataset parses, every row carries a
 Hotspawn match-card link, both probabilities sum to 100 %, the published pick is the higher-probability
-side, ids are unique, `picks.csv` mirrors the dataset, all 11 pages exist, every internal link
-resolves, no `None`/empty value is rendered, every match appears on `picks.html`, the executive
-summary links to every view, and each source's availability is recorded.
+side, ids are unique, no `(Kills)` derivative market is used as a match line, every market pick carries
+an official quote URL, every official-forfeit resolution names a winner and a source URL without
+inventing a probability, `picks.csv` mirrors the dataset, all 12 pages exist, every internal link
+resolves, no `None`/empty value is rendered, every match appears on `picks.html` **and** in the table on
+`table.html`, the executive summary links to every view, and each source's availability is recorded.
 
 ## Manual review links
 
@@ -75,6 +80,8 @@ summary links to every view, and each source's availability is recorded.
 - `data/matches.json` — full record per match, including odds, Elo inputs and flags.
 - `data/matching_report.json` — every team join that was not an exact string match, with its evidence.
 - `data/verification.json` — the machine-readable result of the gate.
+- `data/audit.json` — the manual, line-by-line source audit rendered on `verification.html`.
+- `data/retired_quotes.json` — archived quotes that were excluded as unverifiable, with the reason.
 - `data/build.log` — the last automated run, verbatim.
 - `COORDINATION.md` — task board, session log and the integration decisions taken across sessions.
 
