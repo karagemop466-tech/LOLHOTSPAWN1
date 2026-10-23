@@ -93,7 +93,7 @@ def main() -> None:
             "severity": "medium",
             "item": f"{len(stale)} fixtures still listed as 'scheduled' although their start time has passed",
             "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the "
-                      "published start time is more than three hours in the past (earliest "
+                      "published start time has already passed (earliest "
                       f"{min((r['start_utc'] or '') for r in stale)}). They are kept in the list to mirror "
                       "Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming "
                       "matches. The reason is unverified.",

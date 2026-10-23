@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:53:27Z",
+ "generated_utc": "2026-10-23T15:53:41Z",
  "checks": [
   {
    "name": "dataset present",
@@ -134,7 +134,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 40007 bytes"
+   "detail": "coverage.html 39954 bytes"
   },
   {
    "name": "picks page opens with a tappable next-up table linking to real cards",
@@ -145,6 +145,11 @@
    "name": "every card carries its kick-off so the browser can age it",
    "ok": true,
    "detail": "241/241 cards carry data-start; browser ageing wired: True"
+  },
+  {
+   "name": "external source research receipts are committed",
+   "ok": true,
+   "detail": "32 venues probed on 2026-10-23T15:38:55Z; dossier present"
   },
   {
    "name": "source availability recorded",
@@ -163,5 +168,5 @@
   "unresolved": 4,
   "market": 9
  },
- "internal_links": 327
+ "internal_links": 329
 }

@@ -20,7 +20,7 @@
   <div class="pagehead">
     <h1>Hotspawn LoL Pick Desk</h1>
     <p class="sub">Independent win probabilities for every League of Legends match in the Hotspawn pick'em.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 15:48 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-23 15:52 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
     <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T15:37:40Z">Hotspawn inventory collected: 2026-10-23T15:37:40Z. Check source timestamps before use.</p>
   </div>
   
@@ -89,12 +89,25 @@
     <a href="coverage.html"><strong>External line coverage</strong></a> lists every competition with its
     method, the external price we captured for it (with the source page and capture time) and the
     evidence that no reachable bookmaker prices the rest.</li>
+    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
+    We probed <strong>32 external venues</strong> directly from the build runner (established
+    books, esportsbooks, exchanges, odds aggregators); 14 answered and
+    7 returned JSON, and only four of those are price feeds. Across every reachable
+    venue the same slice of the calendar is quoted: <strong>Pinnacle 8 series</strong>,
+    <strong>Kalshi 8 contracts</strong> and
+    <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds
+    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
+    The full probe table, HTTP verdict per venue and the receipt files are on
+    <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Unresolved picks and the limitations on producing them (4 matches).</strong>
     These are the 4 Komplettligaen 2026 Autumn fixtures involving
     <strong>Solid Gaming</strong>, which the community-maintained Leaguepedia record
-    <code>Data:Komplettligaen/2026 Season/Autumn Split</code> shows removed in Round 10, with every
-    remaining Solid Gaming series entered as a forfeit (score 0-2, <code>ff</code> flag) in favour of the
-    opponent. Hotspawn still lists them as scheduled, so we publish the administratively correct
+    <code>Data:Komplettligaen/2026 Season/Autumn Split</code> shows removed in Round 10. Each of these four
+    fixtures matches a Leaguepedia series that carries its forfeit flag (<code>FF=1</code> or <code>FF=2</code>,
+    meaning Solid Gaming forfeited) with a recorded 0&ndash;2 score in favour of the opponent; the flag is not
+    universal &mdash; eight of Solid Gaming's eleven series carry it, three do not &mdash; so it is stated per match,
+    never assumed (<a href="audit/receipts/leaguepedia_ff_solid_gaming_2026-10-23.json">Leaguepedia FF query receipt</a>).
+    Hotspawn still lists them as scheduled, so we publish the administratively correct
     side (the active opponent) and <strong>no win probability</strong>: a competitive number cannot be justified
     for a series that may be voided or awarded as a walkover. Every such match, plus the limitations that apply
     to the rest of the list (no bookmaker market below tier A, thin samples, one-sided history, disconnected
@@ -110,7 +123,7 @@
     <li><strong>Refresh and verification.</strong> The pipeline reruns every 6 hours and re-reads Hotspawn's
     fixture list on every run, so new cards appear without any manual step. 9 of 14
     probed feeds answered on the latest runner build (<a href="sources.html">Sources</a>), and
-    30 automated publish gates must pass before anything is committed
+    31 automated publish gates must pass before anything is committed
     (<a href="verification.html">Verification</a>). Irregularities are published on
     <a href="flagged.html">Flagged for review</a>.</li>
   </ul>
@@ -198,16 +211,16 @@
   <div class="comp">Worlds 2026 Main Event</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">Gen.G</span><span class="tpct">76.0%</span>
+      <span class="tname">Gen.G</span><span class="tpct">75.4%</span>
     </div>
-    <div class="split" role="img" aria-label="Gen.G 76 percent, Invictus Gaming 24 percent"><span class="s0" style="width:76.0%"></span></div>
+    <div class="split" role="img" aria-label="Gen.G 75 percent, Invictus Gaming 25 percent"><span class="s0" style="width:75.4%"></span></div>
     <div class="team ">
-      <span class="tname">Invictus Gaming</span><span class="tpct">23.9%</span>
+      <span class="tname">Invictus Gaming</span><span class="tpct">24.6%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Gen.G</strong> <span class="pickpct">76.0%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Gen.G</strong> <span class="pickpct">75.4%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>4-Venue Consensus de-vigged line (76.0% / 23.9%): Pinnacle 74.5%/25.5% (1.28/3.74), Polymarket 77.5%/22.5% (77.5¢/22.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 75.7%/24.3% (1.24/3.85).</p>
+    <p>4-Venue Consensus de-vigged line (75.4% / 24.6%): Pinnacle 73.6%/26.5% (1.30/3.61), Polymarket 76.5%/23.5% (76.5¢/23.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 75.3%/24.7% (1.24/3.80).</p>
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878" rel="noopener">Hotspawn card</a><a href="https://www.pinnacle.com/en/event/1638748200" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-gen-ig1-2026-10-23" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231300iggen" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/esports/league-of-legends/world-championship-26/gen-g-invictus-gaming-202610231300" rel="noopener">Bovada</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Gen.G" rel="noopener">Gen.G</a><a href="https://lol.fandom.com/wiki/Invictus_Gaming" rel="noopener">Invictus Gaming</a></div>
@@ -230,7 +243,7 @@
   </div>
   <div class="pickline"><span class="picklabel">Pick</span> <strong>Pegasus Esports</strong> <span class="pickpct">51.8%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: NextGeneration Esports 1477 vs Pegasus Esports 1489 (59/34 rated series).</p>
+    <p>Elo line: NextGeneration Esports 1481 vs Pegasus Esports 1494 (60/35 rated series).</p>
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/nextgeneration-esports-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079139" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/NextGeneration_Esports" rel="noopener">NextGeneration Esports</a><a href="https://lol.fandom.com/wiki/Pegasus_Esports" rel="noopener">Pegasus Esports</a></div>
@@ -244,16 +257,16 @@
   <div class="comp">Arabian League 2nd Division 2026 Summer</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">Team VDS</span><span class="tpct">60.2%</span>
+      <span class="tname">Team VDS</span><span class="tpct">60.3%</span>
     </div>
-    <div class="split" role="img" aria-label="Team VDS 60 percent, Team Reds 40 percent"><span class="s0" style="width:60.2%"></span></div>
+    <div class="split" role="img" aria-label="Team VDS 60 percent, Team Reds 40 percent"><span class="s0" style="width:60.3%"></span></div>
     <div class="team ">
-      <span class="tname">Team Reds</span><span class="tpct">39.8%</span>
+      <span class="tname">Team Reds</span><span class="tpct">39.7%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team VDS</strong> <span class="pickpct">60.2%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team VDS</strong> <span class="pickpct">60.3%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Team VDS 1556 vs Team Reds 1484 (37/5 rated series).</p>
+    <p>Elo line: Team VDS 1557 vs Team Reds 1484 (37/5 rated series).</p>
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/team-vds-vs-team-reds-arabian-league-2nd-division-2026-summer-1082106" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_VDS" rel="noopener">Team VDS</a><a href="https://lol.fandom.com/wiki/Team_Reds" rel="noopener">Team Reds</a></div>
