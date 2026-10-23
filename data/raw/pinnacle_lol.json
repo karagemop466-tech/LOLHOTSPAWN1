@@ -1,36 +1,10 @@
 {
- "fetched_utc": "2026-10-23T16:07:43Z",
+ "fetched_utc": "2026-10-23T16:24:25Z",
  "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
  "source_note": "Pinnacle guest API, sport 12 (E Sports), moneyline period 0, markets/related/straight",
  "lol_matchup_count": 138,
  "priced_count": 8,
  "markets": [
-  {
-   "matchup_id": 1638750815,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-23T21:00:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": 124,
-     "decimal": 2.24
-    },
-    "away": {
-     "american": -146,
-     "decimal": 1.6849
-    }
-   },
-   "participants": [
-    {
-     "name": "G2",
-     "alignment": "home"
-    },
-    {
-     "name": "Dplus KIA",
-     "alignment": "away"
-    }
-   ]
-  },
   {
    "matchup_id": 1638750902,
    "league": "League of Legends - World Championship",
@@ -84,84 +58,6 @@
    ]
   },
   {
-   "matchup_id": 1638755459,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-23T19:00:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": -400,
-     "decimal": 1.25
-    },
-    "away": {
-     "american": 302,
-     "decimal": 4.02
-    }
-   },
-   "participants": [
-    {
-     "name": "Bilibili",
-     "alignment": "home"
-    },
-    {
-     "name": "Movistar KOI",
-     "alignment": "away"
-    }
-   ]
-  },
-  {
-   "matchup_id": 1638748205,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-23T23:00:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": 492,
-     "decimal": 5.92
-    },
-    "away": {
-     "american": -750,
-     "decimal": 1.1333
-    }
-   },
-   "participants": [
-    {
-     "name": "LOS",
-     "alignment": "home"
-    },
-    {
-     "name": "T1",
-     "alignment": "away"
-    }
-   ]
-  },
-  {
-   "matchup_id": 1638754606,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-24T00:00:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": 123,
-     "decimal": 2.23
-    },
-    "away": {
-     "american": -145,
-     "decimal": 1.6897
-    }
-   },
-   "participants": [
-    {
-     "name": "Secret Whales",
-     "alignment": "home"
-    },
-    {
-     "name": "LYON",
-     "alignment": "away"
-    }
-   ]
-  },
-  {
    "matchup_id": 1638750814,
    "league": "League of Legends - World Championship",
    "start_utc": "2026-10-23T22:00:00Z",
@@ -209,6 +105,110 @@
     },
     {
      "name": "Top Esports",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
+   "matchup_id": 1638754606,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-24T00:00:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": 123,
+     "decimal": 2.23
+    },
+    "away": {
+     "american": -145,
+     "decimal": 1.6897
+    }
+   },
+   "participants": [
+    {
+     "name": "Secret Whales",
+     "alignment": "home"
+    },
+    {
+     "name": "LYON",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
+   "matchup_id": 1638750815,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-23T21:00:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": 124,
+     "decimal": 2.24
+    },
+    "away": {
+     "american": -146,
+     "decimal": 1.6849
+    }
+   },
+   "participants": [
+    {
+     "name": "G2",
+     "alignment": "home"
+    },
+    {
+     "name": "Dplus KIA",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
+   "matchup_id": 1638748205,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-23T23:00:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": 492,
+     "decimal": 5.92
+    },
+    "away": {
+     "american": -750,
+     "decimal": 1.1333
+    }
+   },
+   "participants": [
+    {
+     "name": "LOS",
+     "alignment": "home"
+    },
+    {
+     "name": "T1",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
+   "matchup_id": 1638755459,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-23T19:00:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": -400,
+     "decimal": 1.25
+    },
+    "away": {
+     "american": 302,
+     "decimal": 4.02
+    }
+   },
+   "participants": [
+    {
+     "name": "Bilibili",
+     "alignment": "home"
+    },
+    {
+     "name": "Movistar KOI",
      "alignment": "away"
     }
    ]

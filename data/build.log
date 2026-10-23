@@ -1,28 +1,26 @@
-=== build 2026-10-23T16:07:39Z ===
-[16:07:40] hotspawn: 241 LoL fixtures
-[16:07:43] pinnacle: 138 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
-[16:07:43] kalshi: 8 CFTC match events (status=200)
-[16:07:43] bovada: 8 LoL moneylines (status=200)
-[16:08:49] leaguepedia: 34617 series rows, 7 pages with dqteams (err='')
-[16:08:50] lolesports: 80 Worlds events (status=200)
-[16:08:50] polymarket: 45 match-level markets (status=200)
-[16:08:57] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
-[16:09:01] rows=241 methods={'provisional': 80, 'model': 148, 'unresolved': 4, 'market': 9, 'walkover': 4, 'settlement': 4} joins=29
-[16:09:01] backtest n=3854 acc=0.6549 brier=0.2144
+=== build 2026-10-23T16:24:21Z ===
+[16:24:22] hotspawn: 241 LoL fixtures
+[16:24:25] pinnacle: 138 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
+[16:24:25] kalshi: 8 CFTC match events (status=200)
+[16:24:26] bovada: 0 LoL moneylines (status=200)
+[16:24:26] kambi: 8 Unibet/Kambi LoL match moneylines (status=200)
+[16:25:32] leaguepedia ERROR: expected string or bytes-like object, got 'int'
+[16:25:32] lolesports: 80 Worlds events (status=200)
+[16:25:34] polymarket: 45 match-level markets (status=200)
+[16:25:42] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[16:26:13] rows=241 methods={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} joins=32
+[16:26:13] backtest n=3854 acc=0.6502 brier=0.2183
 {
  "total": 241,
  "counts": {
-  "provisional": 80,
-  "model": 148,
+  "model": 151,
   "unresolved": 4,
-  "market": 9,
-  "walkover": 4,
-  "settlement": 4
+  "provisional": 77,
+  "market": 9
  },
  "per_competition": {
   "Benelux Ascend Series 2026 Summer Split": {
-   "provisional": 1,
-   "model": 1
+   "model": 2
   },
   "FPL 2026 Summer Playoffs": {
    "model": 1
@@ -42,7 +40,7 @@
    "unresolved": 4
   },
   "Benelux Ascend Series 2026 Summer Playoffs": {
-   "provisional": 1
+   "model": 1
   },
   "LigaGG CELOL A 2026 Split 2": {
    "provisional": 1
@@ -109,8 +107,8 @@
    "market": 1
   },
   "LCP 2027 Promotion": {
-   "provisional": 2,
-   "model": 1
+   "model": 2,
+   "provisional": 1
   }
  }
 }
@@ -121,34 +119,36 @@ UNRESOLVED 4
   Komplettligaen 2026 Autumn | Volda E-Sport vs Solid Gaming | Participant removed mid-split: community-maintained Leaguepedia Data:Komplettlig
   Komplettligaen 2026 Autumn | Solid Gaming vs NTNUI Kometkameratene | Participant removed mid-split: community-maintained Leaguepedia Data:Komplettlig
 
-NON-EXACT JOINS 12
-  competition-page | Nameless -> Nameless (Benelux Team) | ambiguous in Leaguepedia (Nameless (Benelux Team), Nameless (Female and Non-Binary Team), 
-  base-name | BiPOLAR -> BiPOLAR (Benelux Team) | Leaguepedia lists this team as 'BiPOLAR (Benelux Team)'
-  competition-page | Venus -> Venus (Benelux Team) | ambiguous in Leaguepedia (Venus (Benelux Team), Venus (Turkish Team)); resolved by the 'Be
-  competition-page | Fenrir -> Fenrir (Icelandic Team) | ambiguous in Leaguepedia (Fenrir (Filipino Team), Fenrir (Icelandic Team), Fenrir (Swedish
-  base-name | Arena -> Arena (Kuwaiti Team) | Leaguepedia lists this team as 'Arena (Kuwaiti Team)'
-  competition-page | OverPower -> Overpower (Kuwaiti Team) | ambiguous in Leaguepedia (OverPower (Bulgarian Team), Overpower (Kuwaiti Team)); resolved 
-  base-name | Rich Gang -> Rich Gang (Norwegian Team) | Leaguepedia lists this team as 'Rich Gang (Norwegian Team)'
-  competition-page | Locked IN -> Locked In (Dutch Team) | ambiguous in Leaguepedia (LOCKED IN (French Team), Locked IN (European Team), Locked In (D
-  base-name | LYON -> LYON (2024 American Team) | Leaguepedia lists this team as 'LYON (2024 American Team)'
-  base-name | Infinity Gaming -> Infinity Gaming (Brazilian Team) | Leaguepedia lists this team as 'Infinity Gaming (Brazilian Team)'
-  base-name | Neon eSports -> Neon eSports (Brazilian Team) | Leaguepedia lists this team as 'Neon eSports (Brazilian Team)'
+NON-EXACT JOINS 14
+  competition-page | LAST DANCE -> Last Dance (Benelux Team) | resolved within 'Benelux Ascend Series/2026 Season/Summer Split' to 'Last Dance (Benelux T
+  competition-page | Nameless -> Nameless (Benelux Team) | resolved within 'Benelux Ascend Series/2026 Season/Summer Split' to 'Nameless (Benelux Tea
+  competition-page | BiPOLAR -> BiPOLAR (Benelux Team) | resolved within 'Benelux Ascend Series/2026 Season/Summer Split' to 'BiPOLAR (Benelux Team
+  competition-page | Venus -> Venus (Benelux Team) | resolved within 'Benelux Ascend Series Rising/2026 Season/Summer Playoffs' to 'Venus (Bene
+  competition-page | Fenrir -> Fenrir (Icelandic Team) | resolved within 'Icelandic Esports League/2026 Season/Autumn Split' to 'Fenrir (Icelandic 
+  competition-page | Arena -> Arena (Kuwaiti Team) | resolved within 'Arabian Regional Championship 2026/Qualifiers/QA-BH-KW' to 'Arena (Kuwait
+  competition-page | OverPower -> Overpower (Kuwaiti Team) | resolved within 'Arabian Regional Championship 2026/Qualifiers/QA-BH-KW' to 'Overpower (Ku
+  competition-page | Rich Gang -> Rich Gang (Norwegian Team) | resolved within 'Komplettligaen/2026 Season/Autumn Split' to 'Rich Gang (Norwegian Team)'
+  competition-page | Locked IN -> Locked In (Dutch Team) | resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Te
+  competition-page | LYON -> LYON (2024 American Team) | resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'
+  competition-page | Infinity Gaming -> Infinity Gaming (Brazilian Team) | resolved within 'LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs' to 'Infinity Gaming (B
+  competition-page | Neon eSports -> Neon eSports (Brazilian Team) | resolved within 'LigaGG/CELOL Série A/2026 Season/Split 2 Playoffs' to 'Neon eSports (Braz
   alias | Phong Vũ Buffalo -> PvB (Swiss Team) | explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evid
+  competition-page | Team Gromp -> Team Gromp (Australian Team) | resolved within 'LCP/2027 Season/Promotion' to 'Team Gromp (Australian Team)' rather than 
 
 PRICED 9
-  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7537 {'home': 1.298, 'away': 3.61}
-  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7623 {'home': 1.256, 'away': 3.97}
-  Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.7907 {'home': 1.25, 'away': 4.02}
-  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6396 {'home': 1.54, 'away': 2.55}
-  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4116 {'home': 2.24, 'away': 1.685}
-  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7134 {'home': 1.345, 'away': 3.31}
-  Worlds 2026 Main Event | ['LØS', 'T1'] 0.1374 {'home': 5.92, 'away': 1.133}
-  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4234 {'home': 2.23, 'away': 1.69}
-  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.34 None
-[16:09:01] flags: 27 items
-[16:09:01] site: wrote 12 pages to the published root
-[16:09:01] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
-[16:09:01] verification passed
+  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7558 {'home': 1.298, 'away': 3.61}
+  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7638 {'home': 1.256, 'away': 3.97}
+  Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.786 {'home': 1.25, 'away': 4.02}
+  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6381 {'home': 1.54, 'away': 2.55}
+  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4152 {'home': 2.24, 'away': 1.685}
+  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7139 {'home': 1.345, 'away': 3.31}
+  Worlds 2026 Main Event | ['LØS', 'T1'] 0.1405 {'home': 5.92, 'away': 1.133}
+  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4231 {'home': 2.23, 'away': 1.69}
+  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.33 None
+[16:26:13] flags: 27 items
+[16:26:13] site: wrote 12 pages to the published root
+[16:26:13] corroborate: 17 usable receipts (17 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
+[16:26:13] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -163,6 +163,7 @@ PASS no duplicate match ids :: 241 unique ids; duplicates: []
 PASS no '(Kills)' derivative market is used as a match line :: violations: []
 PASS every market pick carries an official quote URL :: problems: []
 PASS Pinnacle quote URLs point at collected matchups :: 8 matchup ids in feed; problems: []
+PASS all fresh Unibet/Kambi moneylines matched into market consensus :: 8/8 fresh Unibet fixtures matched; missing: []
 PASS every official-forfeit resolution names a winner and a source URL :: 4 resolutions checked; problems: []
 PASS official-forfeit resolutions carry no invented probability :: problems: []
 PASS picks.csv mirrors the dataset :: csv rows=241 json rows=241
@@ -180,17 +181,18 @@ PASS curated flags cite only currently listed fixtures :: 10 curated flags scann
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 27 competition rows; missing links: []
-PASS external receipts validated against the dataset :: 9 usable receipts, 0 rejected, 0 diverging >5.0pp
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 40109 bytes
+PASS external receipts validated against the dataset :: 17 usable receipts, 0 rejected, 0 diverging >8.0pp
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 47908 bytes
 PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
 PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
-PASS source availability recorded :: 9/14 sources reachable on this build
+PASS method counts partition matches.json cleanly :: counts={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} sum=241 rows=241
+PASS source availability recorded :: 10/14 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 27 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
-[16:09:01] site: wrote 12 pages to the published root
-[16:09:01] corroborate: 9 usable receipts (9 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
-[16:09:02] verification passed
+[16:26:13] site: wrote 12 pages to the published root
+[16:26:14] corroborate: 17 usable receipts (17 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
+[16:26:14] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -205,6 +207,7 @@ PASS no duplicate match ids :: 241 unique ids; duplicates: []
 PASS no '(Kills)' derivative market is used as a match line :: violations: []
 PASS every market pick carries an official quote URL :: problems: []
 PASS Pinnacle quote URLs point at collected matchups :: 8 matchup ids in feed; problems: []
+PASS all fresh Unibet/Kambi moneylines matched into market consensus :: 8/8 fresh Unibet fixtures matched; missing: []
 PASS every official-forfeit resolution names a winner and a source URL :: 4 resolutions checked; problems: []
 PASS official-forfeit resolutions carry no invented probability :: problems: []
 PASS picks.csv mirrors the dataset :: csv rows=241 json rows=241
@@ -222,11 +225,12 @@ PASS curated flags cite only currently listed fixtures :: 10 curated flags scann
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 27 competition rows; missing links: []
-PASS external receipts validated against the dataset :: 9 usable receipts, 0 rejected, 0 diverging >5.0pp
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 40109 bytes
+PASS external receipts validated against the dataset :: 17 usable receipts, 0 rejected, 0 diverging >8.0pp
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 47908 bytes
 PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
 PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
-PASS source availability recorded :: 9/14 sources reachable on this build
+PASS method counts partition matches.json cleanly :: counts={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} sum=241 rows=241
+PASS source availability recorded :: 10/14 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 27 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
