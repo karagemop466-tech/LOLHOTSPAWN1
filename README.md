@@ -39,7 +39,7 @@ tools/flags.py     derived irregularities + curated notes (data/flags_manual.jso
       ↓
 tools/site.py      11 static pages, mobile-first, no framework
       ↓
-tools/verify.py    23 assertions; a failure aborts the commit instead of publishing bad data
+tools/verify.py    25 assertions; a failure aborts the commit instead of publishing bad data
 ```
 
 A single workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) runs that chain on `main`,
@@ -84,7 +84,7 @@ consensus, and each source's availability is recorded.
 - `data/picks.csv` — one row per match: competition, teams, pick, probability, method, source URLs.
 - `data/matches.json` — full record per match, including odds, Elo inputs and flags.
 - `data/matching_report.json` — every team join that was not an exact string match, with its evidence.
-- `data/verification.json` — the machine-readable result of the gate (23 checks).
+- `data/verification.json` — the machine-readable result of the gate (25 checks).
 - `data/flags.json` — every irregularity published on `flagged.html`, curated + derived on each build.
 - `data/build.log` — the last automated run, verbatim.
 - `COORDINATION.md` — task board, session log and the integration decisions taken across sessions.
@@ -139,3 +139,23 @@ python3 tools/collect.py && python3 tools/model.py && python3 tools/report.py \
 
 The collector needs outbound HTTPS to the sources listed on `sources.html`; the rest runs offline on
 the files in `data/`.
+
+### 2026-10-23 integrity audit
+
+The canonical mobile controls are wired to the current HTML (search, tournament,
+method chips, menu); a permanent mobile **All picks** link is available on every page.
+Inventory collection time is separate from model build time, with a browser warning
+after eight hours. Six-hour Actions scheduling is best effort, not a live-odds SLA.
+
+Archived 2026-10-21 aggregator receipts are **not** current quotes and are excluded
+from pricing. Leaguepedia is a community source; its results are not labelled official
+league verification. Model probabilities are estimates, never confirmed facts.
+If either team has no matched rated history and no collected market, probabilities
+and picks remain blank. Recorded removals remain quarantined pending settlement.
+Historical manual findings are visibly marked as not reverified.
+
+Run `python3 -m unittest discover -s tests -v`, `NODE_PATH=<jsdom> node tests/dashboard.cjs`
+and `python3 tools/verify.py`. The gate reconciles the exact inventory ID multiset, checks
+finite probabilities via `tools/integrity.py`, checks the actual named favourite, checks each
+match card's unique ID, and enforces the settlement-pick contract (a settlement pick names a
+listed participant and carries no probability).

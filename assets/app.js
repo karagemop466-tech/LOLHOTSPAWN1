@@ -34,7 +34,8 @@
   function initMenu() {
     var btn = document.querySelector(".menu-btn");
     var nav = document.getElementById("nav");
-    if (!btn || !nav) return;
+    if (!btn || !nav || btn.dataset.bound === "1") return;
+    btn.dataset.bound = "1";
 
     function setOpen(open) {
       nav.classList.toggle("open", open);
@@ -67,7 +68,8 @@
     var countEl = document.getElementById("count");
     var emptyEl = document.getElementById("empty");
     var chips = document.querySelectorAll(".chip[data-filter]");
-    if (!listEl) return;
+    if (!listEl || listEl.dataset.bound === "1") return;
+    listEl.dataset.bound = "1";
 
     var cards = Array.prototype.slice.call(listEl.querySelectorAll(".card"));
     var state = { q: "", comp: "", method: "" };
@@ -140,7 +142,8 @@
    * ------------------------------------------------------------------ */
   function initToTop() {
     var btn = document.getElementById("totop");
-    if (!btn) return;
+    if (!btn || btn.dataset.bound === "1") return;
+    btn.dataset.bound = "1";
     btn.addEventListener("click", function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -153,9 +156,11 @@
     initToTop();
   }
 
+  // Run now and again once the document is ready. Both passes are idempotent, so a
+  // script evaluated before DOMContentLoaded (and a test harness that evaluates it
+  // afterwards) both end up with exactly one handler per control.
+  init();
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
   }
 })();

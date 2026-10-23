@@ -95,6 +95,8 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
     bottom_nav = "".join(bottom_parts)
     meta = load_json(os.path.join(DATA, "matches.json")) or {}
     updated = (meta.get("generated_utc") or "")[:16].replace("T", " ")
+    fetched = (meta.get("inventory_fetched_utc")
+               or (load_json(os.path.join(DATA, "raw", "hotspawn_lol.json")) or {}).get("fetched_utc", ""))
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,12 +119,14 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
   <div class="pagehead">
     <h1>{e(title)}</h1>
     {f'<p class="sub">{subtitle}</p>' if subtitle else ''}
-    <p class="stamp">Data snapshot: <strong>{e(updated)} UTC</strong> &middot; refreshed automatically every 6 hours</p>
+    <p class="stamp">Data snapshot: <strong>{e(updated)} UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="{e(fetched)}">Hotspawn inventory collected: {e(fetched) or "unknown"}. Check source timestamps before use.</p>
   </div>
   {body}
 </main>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Every row links to its official source. Zero Hotspawn crowd-pick input.</p>
+  <p>Independent research dashboard. Rows link to their source records. Leaguepedia is community-maintained;
+  model lines are estimates, not verified facts. Zero Hotspawn crowd-pick input.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
@@ -183,7 +187,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
                          f'rel="noopener">{e(t1["name"])}</a>')
         sources = '<div class="src">' + "".join(links) + "</div>"
 
-    return f"""<article class="card m-{e(m)}" data-method="{e(m)}" data-comp="{e(r['competition'])}"
+    return f"""<article id="match-{e(r['id'])}" class="card m-{e(m)}" data-method="{e(m)}" data-comp="{e(r['competition'])}"
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
@@ -338,8 +342,8 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     The full list in kick-off order is <a href="picks.html"><strong>All picks</strong></a>.</li>
     <li><strong>Unresolved picks and the limitations on producing them ({len(unresolved)} matches).</strong>
     These are the {len(settlement)} Komplettligaen 2026 Autumn fixtures involving
-    <strong>Solid Gaming</strong>, which Leaguepedia's official
-    <code>Data:Komplettligaen/2026 Season/Autumn Split</code> records as removed in Round 10, with every
+    <strong>Solid Gaming</strong>, which the community-maintained Leaguepedia record
+    <code>Data:Komplettligaen/2026 Season/Autumn Split</code> shows removed in Round 10, with every
     remaining Solid Gaming series entered as a forfeit (score 0-2, <code>ff</code> flag) in favour of the
     opponent. Hotspawn still lists them as scheduled, so we publish the administratively correct
     side (the active opponent) and <strong>no win probability</strong>: a competitive number cannot be justified
@@ -389,7 +393,7 @@ def build_picks(rows: list[dict], counts: Counter) -> str:
     <select id="comp" aria-label="Filter by tournament"><option value="">All tournaments</option>{opts}</select>
     <div class="chips"><button class="chip active" data-filter="">All <span>{len(rows)}</span></button>{chips}</div>
   </div>
-  <p class="muted small" id="count">{len(rows)} matches shown</p>
+  <p class="muted small" id="count" role="status" aria-live="polite">{len(rows)} matches shown</p>
   <div class="cards" id="list">
     {"".join(match_card(r) for r in rows)}
   </div>
@@ -492,7 +496,7 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
                         key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
     provisional = sorted([r for r in rows if r["method"] == "provisional"],
                          key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
-    one_sided = [r for r in rows if r["method"] == "provisional"
+    one_sided = [r for r in rows if r["method"] == "unresolved"
                  and any("no rated series" in f for f in r["flags"])]
     disconnected = [r for r in rows if any("no shared-opponent chain" in f for f in r["flags"])]
     ambiguous = [r for r in rows if any("ambiguous" in f or "could not be matched" in f for f in r["flags"])]
@@ -533,7 +537,8 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
          "At least one team has fewer than five rated series in the 25-month Leaguepedia window, so the Elo estimate "
          "carries wider variance and is explicitly flagged provisional."],
         ["One-sided history", f"{len(one_sided)} matches",
-         "One side is newly promoted or newly formed with zero prior Leaguepedia series and receives the 1500 prior."],
+         "One side has no matched rated history. Its strength cannot be confirmed, so no 1500 baseline is "
+         "substituted and the probability is left blank rather than guessed."],
         ["Name disambiguation", f"{len(ambiguous)} matches",
          "Homonymous regional teams (e.g. 'Fenrir (Icelandic Team)' vs Polish 'Fenrir', 'PvB (Swiss Team)' mislabelled "
          "by Hotspawn as Vietnamese 'Phong Vũ Buffalo') are joined only via competition-scoped roster evidence."],
@@ -549,8 +554,8 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
   <p class="lead">Every listed match has a pick. This page is for the {len(unresolved)} where we publish a
   <strong>settlement pick without a win probability</strong>: the listed participant was removed mid-split by its
   league (<code>dqteams</code>), so the series is either voided or awarded as a walkover and no competitive
-  probability can be justified. The settlement side named on each row is the remaining active opponent under the
-  official ruling. Cards where <em>neither</em> side can be priced at all would also land here - the count above
+  probability can be justified. The settlement side named on each row is the remaining active opponent in
+  Leaguepedia's record; it is not an official settlement guarantee, so treat it as information, not a graded bet. Cards where <em>neither</em> side can be priced at all would also land here - the count above
   would then rise above {len(unresolved)}.</p>
   {'<p class="muted">No unresolved matches in this snapshot.</p>' if not unresolved else table(["Start (UTC)", "Tournament", "Match", "Settlement pick (no probability)", "Why no competitive probability exists", "Verified Sources"], reason_rows)}
 </section>
@@ -803,14 +808,18 @@ def build_verification(rows: list[dict], matching: dict, verification: dict | No
 
 
 def build_flagged(flags: list[dict]) -> str:
-    out = [[e(f.get("severity")), e(f.get("item")), e(f.get("detail")),
+    out = [[e(f.get("severity")), e(f.get("item")),
+            e(f.get("detail")) + (f'<br><span class="verify-state">{e(f["verification"])}</span>'
+                                  if f.get("verification") else ""),
             f'<a href="{e(f.get("source"))}" rel="noopener">source</a>' if f.get("source") else "&mdash;"]
            for f in flags]
     body = f"""
 <section class="panel">
   <h2>Flagged for review ({len(flags)})</h2>
-  <p class="lead">Audited upstream feed irregularities, mid-split team disqualifications, placeholder odds traps,
-  and thin-sample caveats — published openly with official source links.</p>
+  <p class="lead">Irregularities, disqualifications, placeholder-odds traps and thin-sample caveats, published
+  openly with source links. Rows marked <em>re-verified</em> were re-checked against a live source on the run
+  shown at the top of the page; rows marked <em>not reverified</em> are prior-session statements that this run
+  did not re-check, and are labelled as such rather than presented as audited.</p>
   {table(["Severity", "Item", "Detail", "Source"], out)}
 </section>
 """

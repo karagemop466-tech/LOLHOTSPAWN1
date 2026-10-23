@@ -26,7 +26,24 @@ def main() -> None:
     sources = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     manual = (load_json(os.path.join(DATA, "flags_manual.json")) or {}).get("flags") or []
 
-    flags: list[dict] = list(manual)
+    def decorate(f: dict) -> dict:
+        """Carry each curated flag's verification state to the page, honestly.
+
+        A flag that was re-checked against a live source on this run says so; one that
+        was not keeps an explicit "not reverified" banner instead of looking audited.
+        """
+        if f.get("verified_utc"):
+            return {**f, "detail": f["detail"],
+                    "verification": f"re-verified {f['verified_utc']} against "
+                                    f"{f.get('verified_against') or 'the cited source'}"}
+        return {**f, "item": "Historical observation — not reverified: " + f["item"],
+                "detail": "Prior-session statement; not verified against a live source in this audit. "
+                          + f["detail"]}
+
+    flags: list[dict] = [decorate(f) for f in manual]
+    flags.append({"severity": "medium", "item": "Archived aggregator quotes excluded from current pricing",
+                  "detail": "The previous pipeline reused fixed receipts observed on 2026-10-21 without refreshing them. These are now excluded. Only freshly collected provider feeds enter market consensus. Leaguepedia history remains community-maintained, not an official league source.",
+                  "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"})
     counts = Counter(r["method"] for r in rows)
 
     unresolved = [r for r in rows if r["method"] == "unresolved"]
@@ -79,7 +96,7 @@ def main() -> None:
                       "published start time is more than three hours in the past (earliest "
                       f"{min((r['start_utc'] or '') for r in stale)}). They are kept in the list to mirror "
                       "Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming "
-                      "matches. Most likely postponed or awaiting a result.",
+                      "matches. The reason is unverified.",
             "source": HOTSPAWN,
         })
 

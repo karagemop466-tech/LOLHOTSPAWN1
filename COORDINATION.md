@@ -285,3 +285,29 @@ quarantine (all 5 `Solid Gaming` fixtures in Komplettligaen 2026 Autumn → unre
 site, incl. `#1071216` which the Node dashboard still prices from its Elo model — the Node pipeline
 will adopt the dq quarantine in a future pass; until then the canonical root site's treatment is the
 authoritative one), and the backtest rendering fix (gate now 15/15).
+
+## Session b91181f0 — 2026-10-23
+
+| Task | Status | Owner | Scope |
+|---|---|---|---|
+| Audit canonical fallback safety, mobile navigation, provenance and refresh gate; integrate and deploy | done | b91181f0 | `tools/`, `assets/`, root generated HTML, `.github/workflows/refresh.yml`, tests, README, COORDINATION.md |
+
+Existing completed scopes are retained. This session uses the fixed Arena branch rather than creating another branch. External source access from this sandbox is restricted; fresh collection must run on GitHub Actions, not be represented as live local verification.
+
+### b91181f0 audit findings and local verification
+
+- Fixed broken mobile menu and all canonical pick filters (old JS targeted a different DOM).
+- Removed archived 2026-10-21 aggregator receipts from current consensus. This reduced locally recomputed market rows from 10 to 9; the affected match now has a history-based model line. No odds invented.
+- Removed the one-unrated-side 1500 baseline fallback; missing evidence now produces null probabilities and a documented unresolved reason.
+- Labelled Leaguepedia as community-maintained, not an official league authority. Historical manual findings explicitly say not reverified. Added collection timestamp/8-hour stale warning and persistent mobile All picks link.
+- Local verification uses the committed 2026-10-23T11:42:37Z Hotspawn snapshot, NOT a new live fetch. Exact inventory reconciliation: 241/241; 17 integrity/link/render gates pass. Five Python regression tests pass, including NaN/out-of-range/wrong-team rejection. jsdom interaction tests pass for menu, search, empty state, method and tournament filters over all 241 cards.
+- Source records: https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/raw/hotspawn_lol.json and the provider URLs on Sources. GitHub Pages configuration confirmed via GitHub API (main /, status built).
+- Irregularity: manual Actions dispatch returns HTTP 403 (integration permission). A new collection cannot be requested from this sandbox; merging pipeline changes triggers the existing push workflow. No credentials requested. Fresh verification/deploy result to be recorded below.
+
+### b91181f0 merge and fresh deployment record
+
+- PR #18: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/18 — merged 2026-10-23T15:37:26Z, merge commit `8b2fd7f451db67b92cc68b80f64df2b4e475b954`.
+- Fresh collection ran successfully on GitHub Actions: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/39979868718 . Inventory fetched **2026-10-23T15:37:40Z**; model/verification completed **15:39:34Z**. All 17 gates passed. Provider observations: Pinnacle, Kalshi, Bovada and Polymarket returned 200; GG.BET/EGamersWorld 403, Oddspedia 410, BetExplorer 404, Kambi 400. Availability alone does not establish match coverage.
+- Fresh inventory: **241 rows; 9 market, 163 model, 65 provisional, 4 unresolved**. Every raw inventory ID appears exactly once in published picks. No claim is made that model estimates are official verified win probabilities.
+- GitHub Pages deployment succeeded: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/39980169572 . Pages API reports `built`, commit `a44583f32fc1c277786fe066c6cd74a954d8f7da`, 2026-10-23T15:39:58Z. Site: https://karagemop466-tech.github.io/LOLHOTSPAWN1/ . This confirms deployment through GitHub; direct live-site HTTP verification is unavailable under this sandbox's host restrictions.
+- Post-refresh checks: Python 5/5 tests and jsdom interaction tests pass against the fresh generated pages. Local link gate reports zero broken internal links across 11 canonical pages. Independent secondary `docs/` dashboard remains outside this session's scope; root dashboard is canonical.

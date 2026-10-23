@@ -430,26 +430,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 })
                 break
 
-    # 5. Verified Specialist Esportsbook quote (includes #1081423 LCP 2027 Promotion)
-    eb = esportsbook_map.get(str(fixture_id))
-    if eb and not eb.get("placeholder"):
-        d0_v = float(eb.get("decimal0") or eb.get("team0_decimal") or 0)
-        d1_v = float(eb.get("decimal1") or eb.get("team1_decimal") or 0)
-        dv = devig_decimal(d0_v, d1_v, {"fixture_id": fixture_id, "venue": "Esportsbook",
-                                         "receipt_observed_at": eb.get("observed_at")})
-        if dv:
-            p0_v, p1_v, overround = dv
-            if primary_decimal is None:
-                primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
-            venues.append({
-                "name": "Esportsbook",
-                "weight": VENUE_WEIGHTS["Esportsbook"],
-                "p0": round(p0_v, 4),
-                "p1": round(p1_v, 4),
-                "quote": f"{d0_v:.3g}/{d1_v:.3g}",
-                "overround": round(overround, 4),
-                "url": eb["source_url"],
-            })
+    # Archives are evidence, not a live line: no archived esportsbook receipt enters a
+    # current consensus. The esportsbook venue is therefore left empty here on purpose.
 
     if not venues:
         return None
@@ -458,8 +440,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     p0 = sum(v["weight"] * v["p0"] for v in venues) / wsum
     p1 = round(1.0 - round(p0, 4), 4)
     p0 = round(p0, 4)
-    if primary_decimal is None:
-        primary_decimal = {"home": round(1.0 / max(p0, 0.01), 3), "away": round(1.0 / max(p1, 0.01), 3)}
+    # Never present derived fair odds as an observed bookmaker quote.
 
     book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
     return {
@@ -504,14 +485,14 @@ def main() -> None:
                          .replace(tzinfo=timezone.utc)).total_seconds() / 3600
             except ValueError:
                 age_h = None
-        if age_h is None or age_h > RECEIPT_MAX_AGE_HOURS:
-            expired_receipts.append({"fixture_id": fid, "observed_at": obs,
-                                     "age_hours": round(age_h, 1) if age_h is not None else None,
-                                     "decimal": [rec.get("decimal0"), rec.get("decimal1")],
-                                     "placeholder": rec.get("placeholder"),
-                                     "source_url": rec.get("source_url")})
-        else:
-            receipts[fid] = rec
+        expired_receipts.append({"fixture_id": fid, "observed_at": obs,
+                                 "age_hours": round(age_h, 1) if age_h is not None else None,
+                                 "decimal": [rec.get("decimal0"), rec.get("decimal1")],
+                                 "placeholder": rec.get("placeholder"),
+                                 "source_url": rec.get("source_url")})
+    # Hard rule from the archive audit (session b91181f0) and this session: an unrefreshed
+    # receipt is never a live pricing input, even if it is younger than the age limit.
+    receipts = {}
     sources = load_json(os.path.join(DATA, "sources_status.json")) or {}
 
     fixtures = hs.get("fixtures") or []
@@ -649,12 +630,12 @@ def main() -> None:
             p0 = p1 = None
             method, confidence = "unresolved", "none"
             pick_type = "settlement"
-            basis = (f"Participant removed mid-split: official Data:{page} records "
+            basis = (f"Participant removed mid-split: community-maintained Leaguepedia Data:{page} records "
                      f"'dqteams={removed}', and every remaining {removed} series in that schedule is entered as a "
                      f"forfeit (score 0-2 with the ff flag) in favour of the opponent. "
-                     f"Hotspawn may void this card or settle the walkover for active opponent {active_opp}. "
-                     f"Pick shown is the administrative default only - no competitive probability is claimed.")
-            flags.append(f"official league removal: {removed} listed in Data:{page} dqteams "
+                     f"Hotspawn may void this card or settle the walkover for opponent {active_opp}; the settlement "
+                     f"is unverified, so no competitive probability is claimed.")
+            flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
         elif market:
             p0, p1 = market["p0"], market["p1"]
@@ -710,14 +691,11 @@ def main() -> None:
             if n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT:
                 flags.append("fewer than 5 rated series for at least one team")
         elif er0 is not None or er1 is not None:
-            rated_is_0 = er0 is not None
-            p0 = clamp(win_probability(er0 if rated_is_0 else ELO_START,
-                                       ELO_START if rated_is_0 else er1))
-            p1 = round(1 - p0, 4)
-            method, confidence = "provisional", "low"
-            missing = n1 if rated_is_0 else n0
-            basis = (f"Elo line with one unrated side: {missing} has no rated series on "
-                     f"record, so the 1500 baseline is used for that side.")
+            p0 = p1 = None
+            method, confidence = "unresolved", "none"
+            missing = n1 if er0 is not None else n0
+            basis = (f"No collected external market and no rated series for {missing}. "
+                     "A baseline rating would be an unsupported assumption; probability left blank.")
             flags.append(f"{missing} has no rated series in Leaguepedia")
         else:
             p0 = p1 = None
@@ -740,7 +718,7 @@ def main() -> None:
                 stale = False
         if stale:
             flags.append("start time has passed but Hotspawn still lists the fixture as scheduled "
-                         "(likely postponed or awaiting a result)")
+                         "(reason unverified)")
         # Cross-check the published kick-off against the official Leaguepedia series record.
         if f.get("start_utc") and page and k0 and k1:
             lp_list = lp_times.get((page, frozenset((str(k0), str(k1))))) or []
@@ -789,6 +767,7 @@ def main() -> None:
 
     save_json(os.path.join(DATA, "matches.json"), {
         "generated_utc": iso(now_utc()),
+        "inventory_fetched_utc": hs.get("fetched_utc"),
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
                   "shrink": ELO_SHRINK, "min_matches_confident": MIN_MATCHES_CONFIDENT,
                   "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,

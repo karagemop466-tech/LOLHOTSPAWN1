@@ -5,12 +5,14 @@ Any failure exits non-zero, which stops the refresh workflow from committing.
 """
 from __future__ import annotations
 
+import html
 import os
 import re
 import sys
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from integrity import row_errors
 from common import DATA, ROOT, iso, load_json, log, now_utc, save_json
 
 DOCS = ROOT  # GitHub Pages serves the branch root
@@ -26,6 +28,17 @@ def main() -> None:
     data = load_json(os.path.join(DATA, "matches.json")) or {}
     rows = data.get("matches") or []
     add("dataset present", len(rows) > 0, f"{len(rows)} matches loaded")
+
+    # Complete inventory reconciliation against the raw collection (session b91181f0).
+    raw = load_json(os.path.join(DATA, "raw", "hotspawn_lol.json")) or {}
+    inventory_ids = [str(f["id"]) for f in raw.get("fixtures", [])]
+    row_ids = [str(r.get("id")) for r in rows]
+    add("complete inventory reconciliation",
+        bool(inventory_ids) and sorted(inventory_ids) == sorted(row_ids),
+        f"raw fixtures={len(inventory_ids)}, published rows={len(row_ids)}; exact ID multiset comparison")
+    integrity_failures = [(r.get("id"), row_errors(r)) for r in rows if row_errors(r)]
+    add("finite probabilities and correctly named picks", not integrity_failures,
+        str(integrity_failures[:5]))
 
     # --- per-row checks -----------------------------------------------------
     missing_source, bad_prob, bad_method, bad_pick, dupes = [], [], [], [], []
@@ -43,7 +56,8 @@ def main() -> None:
             bad_method.append(r.get("id"))
 
         pick = r.get("pick") or {}
-        if not pick.get("team"):
+        # A match may only be pick-less when it is an explicitly documented unresolved row.
+        if not pick.get("team") and r.get("method") != "unresolved":
             no_pick.append(r.get("id"))
 
         if r.get("method") != "unresolved":
@@ -74,9 +88,12 @@ def main() -> None:
         f"{len(rows) - len(bad_prob)} priced rows verified; problems: {bad_prob[:5]}")
     add("pick matches the higher probability", not bad_pick,
         f"{len(rows) - len(set(bad_pick))} rows consistent; problems: {sorted(set(bad_pick))[:5]}")
-    add("every listed match has a pick", not no_pick,
-        f"{len(rows) - len(no_pick)}/{len(rows)} rows carry a pick"
-        + (f"; missing: {no_pick[:5]}" if no_pick else ""))
+    settlement = sum(1 for r in rows if r.get("pick_type") == "settlement")
+    pickless = sum(1 for r in rows if not (r.get("pick") or {}).get("team"))
+    add("every match has a pick or is documented as unpickable", not no_pick,
+        f"{len(rows)} rows: {len(rows) - pickless} with a pick ({settlement} settlement-only), "
+        f"{pickless} documented unpickable"
+        + (f"; unexplained: {no_pick[:5]}" if no_pick else ""))
     add("settlement picks name a participant and claim no probability", not bad_settlement,
         f"{len(bad_settlement)} problems: {bad_settlement[:5]}")
     add("every market row has at least one venue with a source URL", not bad_market,
@@ -123,7 +140,7 @@ def main() -> None:
     add("no empty/None values rendered", not none_literal, f"problems: {none_literal[:6]}")
 
     picks_html = open(os.path.join(DOCS, "picks.html"), encoding="utf-8").read()
-    on_page = sum(1 for r in rows if f'data-comp="{r["competition"]}"' in picks_html)
+    on_page = sum(1 for r in rows if picks_html.count(f'id="match-{html.escape(str(r["id"]), quote=True)}"') >= 1)
     add("all matches rendered on the picks page", on_page == len(rows),
         f"{on_page}/{len(rows)} match cards found")
 

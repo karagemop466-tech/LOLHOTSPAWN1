@@ -1,10 +1,20 @@
 {
- "generated_utc": "2026-10-23T15:41:25Z",
+ "generated_utc": "2026-10-23T15:44:26Z",
  "checks": [
   {
    "name": "dataset present",
    "ok": true,
    "detail": "241 matches loaded"
+  },
+  {
+   "name": "complete inventory reconciliation",
+   "ok": true,
+   "detail": "raw fixtures=241, published rows=241; exact ID multiset comparison"
+  },
+  {
+   "name": "finite probabilities and correctly named picks",
+   "ok": true,
+   "detail": "[]"
   },
   {
    "name": "every row links to its Hotspawn match card",
@@ -22,9 +32,9 @@
    "detail": "241 rows consistent; problems: []"
   },
   {
-   "name": "every listed match has a pick",
+   "name": "every match has a pick or is documented as unpickable",
    "ok": true,
-   "detail": "241/241 rows carry a pick"
+   "detail": "241 rows: 241 with a pick (4 settlement-only), 0 documented unpickable"
   },
   {
    "name": "settlement picks name a participant and claim no probability",
