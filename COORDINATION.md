@@ -272,3 +272,44 @@ quarantine (all 5 `Solid Gaming` fixtures in Komplettligaen 2026 Autumn → unre
 site, incl. `#1071216` which the Node dashboard still prices from its Elo model — the Node pipeline
 will adopt the dq quarantine in a future pass; until then the canonical root site's treatment is the
 authoritative one), and the backtest rendering fix (gate now 15/15).
+
+---
+
+# Session `4dfd0e71` — data-integrity audit, table view, walkover resolution
+
+**Claimed:** 2026-10-23T15:40Z · **Branch:** `arena/4dfd0e71-lolhotspawn1`
+
+| ID | Work unit | Status | Owner | File scope |
+|----|-----------|--------|-------|-----------|
+| `S1` | Line-by-line audit of the published dataset against live official sources | in progress | `4dfd0e71` | `data/raw/`, `data/matches.json` (read) |
+| `S2` | Exclude Pinnacle "(Kills)" derivative markets from the series consensus | in progress | `4dfd0e71` | `tools/collect.py`, `tools/model.py` |
+| `S3` | Retire the stale archived `book_receipts.json` venue quote (unverifiable) | in progress | `4dfd0e71` | `tools/model.py` |
+| `S4` | Official-walkover resolution for `dqteams` fixtures (pick without invented probability) | in progress | `4dfd0e71` | `tools/model.py`, `tools/site.py` |
+| `S5` | Mobile pick **table** page + executive summary rework (unresolved section + in-site links) | in progress | `4dfd0e71` | `tools/site.py`, `tools/verify.py`, `assets/` |
+| `S6` | Correct stale curated flags, publish the new irregularities | in progress | `4dfd0e71` | `data/flags_manual.json`, `tools/flags.py` |
+
+No other session owns these files in the current board; integration is performed by this session
+because the board's integration item (#8) is already `done` and `main` is the published branch.
+
+### Findings so far (evidence in the audit table on `verification.html` and `flagged.html`)
+
+1. **Pinnacle "(Kills)" markets were mixed into the series consensus.** Pinnacle publishes each LoL
+   series twice — a series moneyline and a "(Kills)" derivative. The snapshot shows 6 of 8 Worlds
+   picks taken from the "(Kills)" market (e.g. Gen.G vs Invictus Gaming at 1.282/3.740 from
+   matchup `1638758865`, while the series market `1638748200` was 1.259/3.940). Fixed by excluding
+   any participant name containing "(Kills)".
+2. **The "Esportsbook" venue quote was an archived receipt from a previous session**
+   (`archive/session-8336fb7e/data/book_receipts.json`, observed 2026-10-21T20:36Z) pointing at a
+   generic `egamersworld.com/lol/matches` URL. The live EGamersWorld match page for
+   Ground Zero Gaming vs Frank Esports currently shows a symmetric **1.8 / 1.8** placeholder, not the
+   archived 1.02 / 10.5. The archived quote is therefore unverifiable and is now excluded.
+3. **Two curated flags referenced a 264-row snapshot that no longer exists** (`#1079080` was
+   described as "Bushido Wildcats vs Misa Esports"; in the current 241-row snapshot `#1079080` is
+   Mental Rush vs Vitality Rising Bees). The Komplettligaen source URL in the same flag
+   (`.../2026_Season/Autumn_Season`) does not exist; the real page is
+   `.../2026_Season/Autumn_Split`. Both corrected.
+4. **`dqteams` claim re-verified** on `Data:Komplettligaen/2026 Season/Autumn Split`: the Round 10
+   match carries the footnote "[[Solid Gaming]] is removed from the league." and every remaining
+   Solid Gaming series is recorded 0-2 with `ff=1`/`ff=2`. The quarantine is correct; the four
+   fixtures are now additionally resolved to the *official walkover* winner without inventing a
+   win probability.
