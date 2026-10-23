@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:45:31.746277Z",
+ "generated_utc": "2026-10-23T15:45:43.080244Z",
  "data_generated_utc": "2026-10-23T15:39:34Z",
  "rules": {
   "corroboration_only": true,
@@ -832,7 +832,8 @@
    "delta_pp": null,
    "verdict": "conflicting / not reproducible",
    "conflict": {
-    "reason": "Same aggregator, 6 minutes earlier, published 1.025 / 10.5 for this match in its listing row; the match page shows the symmetric 1.8 / 1.8 default. A 91.1% price is therefore NOT reproducible from the source today.",
+    "reason": "The archived 2026-10-21 reading (1.025 / 10.5 = 91.1% for Ground Zero Gaming) is not reproducible today: this page publishes the symmetric 1.8 / 1.8 placeholder, and the listing still shows 1.025 / 10.5 for the same card. Dropping that archived quote changed the published pick on this card from Ground Zero Gaming 91.1% to Frank Esports 77.5% (model line) - a 68.6 pp swing driven entirely by a two-day-old aggregator reading. Which team the archived prices even belonged to cannot be confirmed from the source, so neither reading is used.",
+    "swing_pp": 68.6,
     "other_reading": {
      "captured_utc": "2026-10-23T15:38:00Z",
      "page_url": "https://egamersworld.com/lol/matches",
