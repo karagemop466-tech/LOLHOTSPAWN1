@@ -467,6 +467,10 @@ def main() -> None:
     pin_index = []
     for mk in pin.get("markets") or []:
         names = [p["name"] for p in mk.get("participants", [])]
+        # A "<team> (Kills)" record is Pinnacle's most-kills market, not the series
+        # moneyline. Never let it price a series, even if an older raw snapshot holds one.
+        if any(re.search(r"\(kills\)", n, re.I) for n in names):
+            continue
         if len(names) == 2:
             pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc")})
 

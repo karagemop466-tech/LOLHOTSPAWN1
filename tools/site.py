@@ -761,7 +761,7 @@ def main() -> None:
             fh.write(content)
     with open(os.path.join(DOCS, ".nojekyll"), "w") as fh:
         fh.write("")
-    log(f"site: wrote {len(pages)} pages to docs/")
+    log(f"site: wrote {len(pages)} pages to the published root")
 
 
 if __name__ == "__main__":

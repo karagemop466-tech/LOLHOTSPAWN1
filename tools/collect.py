@@ -107,12 +107,21 @@ def collect_pinnacle() -> dict:
     for m in lol:
         if m.get("type") != "matchup":
             continue
+        participants = [p.get("name") or "" for p in m.get("participants", [])]
+        # Pinnacle lists a second, separate matchup for the "most kills" market on the
+        # same series, labelled "<team> (Kills)", with different prices and limits. It is
+        # not the series moneyline and must never stand in for one.
+        if any(re.search(r"\(kills\)", n, re.I) for n in participants):
+            continue
         st2, markets, err2 = get_json(
             f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{m['id']}/markets/related/straight",
             headers=PINNACLE_KEY, retries=2)
         time.sleep(0.25)
         if st2 != 200 or not isinstance(markets, list):
             continue
+        # /markets/related/straight returns the sibling matchups' markets too; keep only
+        # the markets that belong to the matchup being priced.
+        markets = [x for x in markets if x.get("matchupId") in (None, m["id"])]
         ml = [x for x in markets if x.get("type") == "moneyline" and x.get("period") == 0
               and x.get("status") == "open"]
         if not ml:
