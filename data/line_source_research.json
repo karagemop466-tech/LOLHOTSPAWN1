@@ -1,0 +1,94 @@
+{
+ "_README": [
+  "Line-source research log for the matches Hotspawn lists but the four primary feeds do not price.",
+  "Every row records what was actually requested from a GitHub Actions runner (the build sandbox has no",
+  "outbound HTTPS), what came back, and why the source is or is not used. Evidence files are committed,",
+  "so a reader can re-check a verdict instead of trusting a sentence.",
+  "Nothing here is an inferred price. A source is only usable if it returns a real decimal quote for a",
+  "specific fixture that can be matched to a Hotspawn match id."
+ ],
+ "generated_utc": "2026-10-23T15:54:01Z",
+ "runner": "GitHub Actions ubuntu-latest, python urllib, honest User-Agent",
+ "rows": [
+  {
+   "name": "bo3.gg API",
+   "url": "https://api.bo3.gg/api/v1/matches",
+   "purpose": "esports match centre reported to relay bookmaker quotes",
+   "result": "HTTP 200 JSON (82,464 matches), but every discipline filter shape is ignored (identical count and identical first row for filter[disciplines][eq]=3, filter[discipline_id]=3, discipline_id=3, filter[game]=lol); /match_odds, /odds and /bets return 404; match detail by id 404.",
+   "verdict": "not usable as a price source",
+   "evidence": "data/probe/bo3.json"
+  },
+  {
+   "name": "Kambi / Unibet offering API",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports.json",
+   "purpose": "bookmaker JSON feed covering esports",
+   "result": "HTTP 400 {\"error\": {\"message\": \"Unable to resolve customer for extApiEndpoint ubus\"}} with full lang/market/client_id/channel_id params; group.json same.",
+   "verdict": "not usable - endpoint needs a customer id this project does not have",
+   "evidence": "data/probe/bo3.json"
+  },
+  {
+   "name": "Betfair Exchange public API",
+   "url": "https://sports-api.betfair.com/exchange/v1.0/sports",
+   "purpose": "exchange prices",
+   "result": "DNS resolution failed from the runner (Name or service not known).",
+   "verdict": "not reachable",
+   "evidence": "data/probe/bo3.json"
+  },
+  {
+   "name": "Betano",
+   "url": "https://www.betano.com/api/sporttree/esports",
+   "purpose": "EU bookmaker, tier-2 LoL coupon",
+   "result": "HTTP 200 but an HTML application shell (29,481 bytes), not JSON; no price payload.",
+   "verdict": "not usable without a browser-rendered session",
+   "evidence": "data/probe/bo3.json"
+  },
+  {
+   "name": "EGamersWorld",
+   "url": "https://egamersworld.com/lol/matches",
+   "purpose": "odds aggregator, widest published LoL coupon",
+   "result": "HTTP 403 Cloudflare from the runner; readable from a browser session. Manual receipts captured 2026-10-23 are corroboration only: 9 usable quotes (bo3.gg + EGamersWorld) agree with our published lines, maximum gap 2.8 pp.",
+   "verdict": "corroboration only (manual receipts), never auto-priced",
+   "evidence": "data/receipts/external_odds/2026-10-23.json"
+  },
+  {
+   "name": "Oddspedia",
+   "url": "https://oddspedia.com/esports/league-of-legends",
+   "purpose": "multi-book odds comparison",
+   "result": "HTTP 410 (gone / legally blocked).",
+   "verdict": "not reachable",
+   "evidence": "data/sources_status.json"
+  },
+  {
+   "name": "OddsPortal",
+   "url": "https://www.oddsportal.com/esports/league-of-legends/",
+   "purpose": "multi-book odds comparison",
+   "result": "HTTP 200 but JavaScript-rendered; the HTML contains no prices. Its LoL section lists a single competition, the World Championship (recorded in coverage.html and the session audit).",
+   "verdict": "coverage evidence only",
+   "evidence": "data/sources_status.json"
+  },
+  {
+   "name": "BC.GAME / Rivalry",
+   "url": "https://bc.game/sports",
+   "purpose": "crypto esportsbooks that sometimes carry regional LoL",
+   "result": "HTTP 200 HTML shells; no public JSON endpoint identified for their LoL coupon.",
+   "verdict": "not usable without reverse-engineering a private API",
+   "evidence": "data/sources_status.json"
+  },
+  {
+   "name": "Pinnacle guest API",
+   "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
+   "purpose": "sharp book",
+   "result": "HTTP 200. Measured on a runner snapshot of 352 esports matchups, the only League of Legends competition listed was the World Championship among 16 leagues (mostly CS2, Dota 2 and Valorant); see coverage.html for the same measurement.",
+   "verdict": "used where it prices; silent below tier 1",
+   "evidence": "data/sources_status.json"
+  },
+  {
+   "name": "Polymarket / Kalshi / Bovada",
+   "url": "https://gamma-api.polymarket.com/events?tag_slug=league-of-legends",
+   "purpose": "prediction markets and a US esportsbook",
+   "result": "HTTP 200; each prices only the tier-1 series it lists (Worlds, LCP Promotion, LGC Rising).",
+   "verdict": "used where they price; no regional coverage",
+   "evidence": "data/sources_status.json"
+  }
+ ]
+}

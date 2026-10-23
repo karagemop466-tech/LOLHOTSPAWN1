@@ -1,0 +1,205 @@
+{
+ "generated_utc": "2026-10-23T15:53:54Z",
+ "base": "https://api.bo3.gg/api/v1",
+ "probes": [
+  {
+   "label": "disciplines",
+   "url": "https://api.bo3.gg/api/v1/disciplines",
+   "status": 200,
+   "bytes": 1360,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 8, \"pages\": 1, \"offset\": 0, \"limit\": 10}, \"results\": [{\"id\": 1, \"slug\": \"csgo\", \"name\": \"Counter-Strike 2\", \"created_at\": \"2023-04-18T13:44:40.220+00:00\", \"updated_at\": \"2023-04-18T13:44:40.220+00:00\", \"ps_code\": \"csgo\"}, {\"id\": 2, \"slug\": \"valorant\", \"name\": \"Valorant\", \"created_at\": \"2023-04-18T13:44:40.225+00:00\", \"updated_at\": \"2023-06-22T10:26:50.922+00:00\", \"ps_code\": \"valorant\"}, {\"id\": 3, \"slug\": \"lol\", \"name\": \"League of Legends\", \"created_at\": \"2023-04-18T13:44:40.229+00:00\", \"updated_at\": \"2024-09-18T07:16:29.554+00:00\", \"ps_code\": \"lol\"}, {\"id\": 4, \"slug\": \"dota2\", \"name\": \"Dota 2\", \"created_at\": \"2024-08-16T10:44:40.229+00:00\", \"updated_at\": \"2024-08-30T10:41:08.650+00:00\", \"ps_code\": \"dota2\"}, {\"id\": 5, \"slug\": \"deadlock\", \"name\": \"Deadlock\", \"created_at\": \"2024-10-09T08:21:37.701+00:00\", \"updated_at\": \"2024-10-09T08:21:37.701+00:00\", \"ps_code\": null}, {\"id\": 6, \"slug\": \"games\", \"name\": \"Games\", \"created_at\": \"2024-10-09T08:21:37.701+00:00\", \"updated_at\": \"2024-10-09T08:21:37.701+00:00\", \"ps_code\": null}, {\"id\": 7, \"slug\": \"r6siege\", \"name\": \"Rainbow Six Siege\", \"created_at\": \"2025-01-08T08:21:37.701+00:00\", \"updated_at\": \"2025-01-22T15:27:25.770+00:00\", \"ps_code\": \"r6siege\"}, {\"id\": 8, \"slug\": \"mlbb\", \"name\": \"Mobile Legends: Bang Bang\", \"created_at\": \"2025-07-30T10:41:37.701+00:00\", \"updated_at\": \"2025-07-30T10:41:37.701+00:00\", \"ps_code\": \"mlbb\"}], \"links\": {\"self\": \"/api/v1/disciplines?page%5Blimit%5D=10\"}}"
+  },
+  {
+   "label": "matches filter[discipline_id][eq]=3",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=3&filter%5Bdiscipline_id%5D%5Beq%5D=3",
+   "status": 200,
+   "bytes": 2987,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 27488, \"offset\": 0, \"limit\": 3}, \"results\": [{\"id\": 1, \"slug\": \"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\", \"round_id\": 1, \"team1_id\": 667, \"team2_id\": 765, \"winner_team_id\": 667, \"loser_team_id\": 765, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 0, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T17:55:00.000+00:00\", \"end_date\": \"2020-12-08T20:15:44.000+00:00\", \"stage_id\": 1, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": true, \"live_coverage_advantage\": true, \"live_coverage_source\": 1, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 2, \"slug\": \"natus-vincere-cs-go-vs-astralis-08-12-2020\", \"round_id\": 1, \"team1_id\": 787, \"team2_id\": 794, \"winner_team_id\": 787, \"loser_team_id\": 794, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T20:26:30.000+00:00\", \"end_date\": \"2020-12-09T00:59:02.000+00:00\", \"stage_id\": 1, \"maps_score\": [false, true, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_i"
+  },
+  {
+   "label": "matches filter[disciplines.in]=3",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=3&filter%5Bdisciplines.in%5D=3",
+   "status": 200,
+   "bytes": 2987,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 27488, \"offset\": 0, \"limit\": 3}, \"results\": [{\"id\": 1, \"slug\": \"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\", \"round_id\": 1, \"team1_id\": 667, \"team2_id\": 765, \"winner_team_id\": 667, \"loser_team_id\": 765, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 0, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T17:55:00.000+00:00\", \"end_date\": \"2020-12-08T20:15:44.000+00:00\", \"stage_id\": 1, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": true, \"live_coverage_advantage\": true, \"live_coverage_source\": 1, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 2, \"slug\": \"natus-vincere-cs-go-vs-astralis-08-12-2020\", \"round_id\": 1, \"team1_id\": 787, \"team2_id\": 794, \"winner_team_id\": 787, \"loser_team_id\": 794, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T20:26:30.000+00:00\", \"end_date\": \"2020-12-09T00:59:02.000+00:00\", \"stage_id\": 1, \"maps_score\": [false, true, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_i"
+  },
+  {
+   "label": "matches filter[game]=lol",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=3&filter%5Bgame%5D=lol",
+   "status": 200,
+   "bytes": 2987,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 27488, \"offset\": 0, \"limit\": 3}, \"results\": [{\"id\": 1, \"slug\": \"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\", \"round_id\": 1, \"team1_id\": 667, \"team2_id\": 765, \"winner_team_id\": 667, \"loser_team_id\": 765, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 0, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T17:55:00.000+00:00\", \"end_date\": \"2020-12-08T20:15:44.000+00:00\", \"stage_id\": 1, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": true, \"live_coverage_advantage\": true, \"live_coverage_source\": 1, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 2, \"slug\": \"natus-vincere-cs-go-vs-astralis-08-12-2020\", \"round_id\": 1, \"team1_id\": 787, \"team2_id\": 794, \"winner_team_id\": 787, \"loser_team_id\": 794, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T20:26:30.000+00:00\", \"end_date\": \"2020-12-09T00:59:02.000+00:00\", \"stage_id\": 1, \"maps_score\": [false, true, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_i"
+  },
+  {
+   "label": "matches discipline=lol",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=3&discipline=lol",
+   "status": 200,
+   "bytes": 2987,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 27488, \"offset\": 0, \"limit\": 3}, \"results\": [{\"id\": 1, \"slug\": \"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\", \"round_id\": 1, \"team1_id\": 667, \"team2_id\": 765, \"winner_team_id\": 667, \"loser_team_id\": 765, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 0, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T17:55:00.000+00:00\", \"end_date\": \"2020-12-08T20:15:44.000+00:00\", \"stage_id\": 1, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": true, \"live_coverage_advantage\": true, \"live_coverage_source\": 1, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 2, \"slug\": \"natus-vincere-cs-go-vs-astralis-08-12-2020\", \"round_id\": 1, \"team1_id\": 787, \"team2_id\": 794, \"winner_team_id\": 787, \"loser_team_id\": 794, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T20:26:30.000+00:00\", \"end_date\": \"2020-12-09T00:59:02.000+00:00\", \"stage_id\": 1, \"maps_score\": [false, true, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_i"
+  },
+  {
+   "label": "matches upcoming+start_date",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=5&sort=start_date&filter%5Bstatus%5D%5Beq%5D=upcoming",
+   "status": 200,
+   "bytes": 4766,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 16493, \"offset\": 0, \"limit\": 5}, \"results\": [{\"id\": 176, \"slug\": \"g2-vs-vitality-cs-go-15-06-2020\", \"round_id\": 56, \"team1_id\": 793, \"team2_id\": 667, \"winner_team_id\": 667, \"loser_team_id\": 793, \"tournament_id\": 16, \"team1_score\": 0, \"team2_score\": 2, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-06-15T14:35:21.000+00:00\", \"end_date\": \"2020-06-15T17:03:06.000+00:00\", \"stage_id\": 18, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 177, \"slug\": \"faze-vs-ence-15-06-2020\", \"round_id\": 56, \"team1_id\": 791, \"team2_id\": 754, \"winner_team_id\": 791, \"loser_team_id\": 754, \"tournament_id\": 16, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-06-15T17:21:35.000+00:00\", \"end_date\": \"2020-06-15T21:08:02.000+00:00\", \"stage_id\": 18, \"maps_score\": [true, false, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_mat"
+  },
+  {
+   "label": "Kambi/Unibet esports (full params)",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports.json?lang=en_GB&market=GB&client_id=2&channel_id=1&ncid=1&useCombined=true",
+   "status": 400,
+   "bytes": 87,
+   "kind": "json",
+   "body": "keys=['error'] preview={\"error\": {\"message\": \"Unable to resolve customer for extApiEndpoint ubus\", \"status\": 400}}"
+  },
+  {
+   "label": "Kambi/Unibet LoL terms",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubus/group.json?lang=en_GB&market=GB&client_id=2&channel_id=1&ncid=1",
+   "status": 400,
+   "bytes": 87,
+   "kind": "json",
+   "body": "keys=['error'] preview={\"error\": {\"message\": \"Unable to resolve customer for extApiEndpoint ubus\", \"status\": 400}}"
+  },
+  {
+   "label": "Betfair sports list",
+   "url": "https://sports-api.betfair.com/exchange/v1.0/sports",
+   "status": -1,
+   "bytes": 52,
+   "kind": "html/text",
+   "body": "<urlopen error [Errno -2] Name or service not known>"
+  },
+  {
+   "label": "Betano esports tree",
+   "url": "https://www.betano.com/api/sporttree/esports",
+   "status": 200,
+   "bytes": 29481,
+   "kind": "html/text",
+   "body": "<!DOCTYPE html>\r <html>\r <head>\r     <meta charset=\"utf-8\" />\r     <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\" />\r     <title>Online Betting - Great Odds and Live Betting | Betano</title>\r     <meta name=\"description\" content=\"Visit one of our websites across the world based on your location and enjoy sports betting and online casino experience!\" />\r     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r \r     <link rel=\"shortcut icon\" href=\"../../favicons/betanov2/favicon-16x16.png\" type=\"image/x-icon\" />\r     <link rel=\"apple-touch-icon\" href=\"../../favicons/bet"
+  },
+  {
+   "label": "Betano LoL tree",
+   "url": "https://www.betano.com/api/sporttree/league-of-legends",
+   "status": 200,
+   "bytes": 29481,
+   "kind": "html/text",
+   "body": "<!DOCTYPE html>\r <html>\r <head>\r     <meta charset=\"utf-8\" />\r     <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\" />\r     <title>Online Betting - Great Odds and Live Betting | Betano</title>\r     <meta name=\"description\" content=\"Visit one of our websites across the world based on your location and enjoy sports betting and online casino experience!\" />\r     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r \r     <link rel=\"shortcut icon\" href=\"../../favicons/betanov2/favicon-16x16.png\" type=\"image/x-icon\" />\r     <link rel=\"apple-touch-icon\" href=\"../../favicons/bet"
+  },
+  {
+   "label": "matches baseline (all games)",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=3&page%5Boffset%5D=0",
+   "status": 200,
+   "bytes": 2987,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 27488, \"offset\": 0, \"limit\": 3}, \"results\": [{\"id\": 1, \"slug\": \"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\", \"round_id\": 1, \"team1_id\": 667, \"team2_id\": 765, \"winner_team_id\": 667, \"loser_team_id\": 765, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 0, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T17:55:00.000+00:00\", \"end_date\": \"2020-12-08T20:15:44.000+00:00\", \"stage_id\": 1, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": true, \"live_coverage_advantage\": true, \"live_coverage_source\": 1, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 2, \"slug\": \"natus-vincere-cs-go-vs-astralis-08-12-2020\", \"round_id\": 1, \"team1_id\": 787, \"team2_id\": 794, \"winner_team_id\": 787, \"loser_team_id\": 794, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T20:26:30.000+00:00\", \"end_date\": \"2020-12-09T00:59:02.000+00:00\", \"stage_id\": 1, \"maps_score\": [false, true, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_i"
+  },
+  {
+   "label": "matches filter[disciplines][eq]=3",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=5&filter%5Bdisciplines%5D%5Beq%5D=3",
+   "status": 200,
+   "bytes": 4695,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 16493, \"offset\": 0, \"limit\": 5}, \"results\": [{\"id\": 1, \"slug\": \"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\", \"round_id\": 1, \"team1_id\": 667, \"team2_id\": 765, \"winner_team_id\": 667, \"loser_team_id\": 765, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 0, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T17:55:00.000+00:00\", \"end_date\": \"2020-12-08T20:15:44.000+00:00\", \"stage_id\": 1, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": true, \"live_coverage_advantage\": true, \"live_coverage_source\": 1, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 2, \"slug\": \"natus-vincere-cs-go-vs-astralis-08-12-2020\", \"round_id\": 1, \"team1_id\": 787, \"team2_id\": 794, \"winner_team_id\": 787, \"loser_team_id\": 794, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T20:26:30.000+00:00\", \"end_date\": \"2020-12-09T00:59:02.000+00:00\", \"stage_id\": 1, \"maps_score\": [false, true, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_i"
+  },
+  {
+   "label": "matches filter[discipline_id]=3",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=5&filter%5Bdiscipline_id%5D=3",
+   "status": 200,
+   "bytes": 4695,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 16493, \"offset\": 0, \"limit\": 5}, \"results\": [{\"id\": 1, \"slug\": \"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\", \"round_id\": 1, \"team1_id\": 667, \"team2_id\": 765, \"winner_team_id\": 667, \"loser_team_id\": 765, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 0, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T17:55:00.000+00:00\", \"end_date\": \"2020-12-08T20:15:44.000+00:00\", \"stage_id\": 1, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": true, \"live_coverage_advantage\": true, \"live_coverage_source\": 1, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 2, \"slug\": \"natus-vincere-cs-go-vs-astralis-08-12-2020\", \"round_id\": 1, \"team1_id\": 787, \"team2_id\": 794, \"winner_team_id\": 787, \"loser_team_id\": 794, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T20:26:30.000+00:00\", \"end_date\": \"2020-12-09T00:59:02.000+00:00\", \"stage_id\": 1, \"maps_score\": [false, true, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_i"
+  },
+  {
+   "label": "matches discipline_id=3",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=5&discipline_id=3",
+   "status": 200,
+   "bytes": 4695,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 16493, \"offset\": 0, \"limit\": 5}, \"results\": [{\"id\": 1, \"slug\": \"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\", \"round_id\": 1, \"team1_id\": 667, \"team2_id\": 765, \"winner_team_id\": 667, \"loser_team_id\": 765, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 0, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T17:55:00.000+00:00\", \"end_date\": \"2020-12-08T20:15:44.000+00:00\", \"stage_id\": 1, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": true, \"live_coverage_advantage\": true, \"live_coverage_source\": 1, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 2, \"slug\": \"natus-vincere-cs-go-vs-astralis-08-12-2020\", \"round_id\": 1, \"team1_id\": 787, \"team2_id\": 794, \"winner_team_id\": 787, \"loser_team_id\": 794, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T20:26:30.000+00:00\", \"end_date\": \"2020-12-09T00:59:02.000+00:00\", \"stage_id\": 1, \"maps_score\": [false, true, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_i"
+  },
+  {
+   "label": "matches discipline_id=3 upcoming",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=5&discipline_id=3&filter%5Bstatus%5D%5Beq%5D=upcoming",
+   "status": 200,
+   "bytes": 4695,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 16493, \"offset\": 0, \"limit\": 5}, \"results\": [{\"id\": 1, \"slug\": \"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\", \"round_id\": 1, \"team1_id\": 667, \"team2_id\": 765, \"winner_team_id\": 667, \"loser_team_id\": 765, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 0, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T17:55:00.000+00:00\", \"end_date\": \"2020-12-08T20:15:44.000+00:00\", \"stage_id\": 1, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": true, \"live_coverage_advantage\": true, \"live_coverage_source\": 1, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 2, \"slug\": \"natus-vincere-cs-go-vs-astralis-08-12-2020\", \"round_id\": 1, \"team1_id\": 787, \"team2_id\": 794, \"winner_team_id\": 787, \"loser_team_id\": 794, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T20:26:30.000+00:00\", \"end_date\": \"2020-12-09T00:59:02.000+00:00\", \"stage_id\": 1, \"maps_score\": [false, true, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_i"
+  },
+  {
+   "label": "matches sort=-start_date",
+   "url": "https://api.bo3.gg/api/v1/matches?page%5Blimit%5D=5&sort=-start_date",
+   "status": 200,
+   "bytes": 4831,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 16493, \"offset\": 0, \"limit\": 5}, \"results\": [{\"id\": 128564, \"slug\": \"24a7754861-vs-567a1dccf0-12-12-2026\", \"round_id\": 39638, \"team1_id\": null, \"team2_id\": null, \"winner_team_id\": null, \"loser_team_id\": null, \"tournament_id\": 5971, \"team1_score\": null, \"team2_score\": null, \"status\": \"upcoming\", \"bo_type\": 3, \"start_date\": \"2026-12-12T18:00:00.000+00:00\", \"end_date\": null, \"stage_id\": 10668, \"maps_score\": [true, true, true], \"parsed_status\": \"waiting\", \"tier\": \"c\", \"tier_rank\": 4, \"position\": 1, \"points\": null, \"rating\": 0.3464256551724138, \"stars\": 1, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 2, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 128563, \"slug\": \"9bbbbb73eb-vs-e670ee3d31-12-12-2026\", \"round_id\": 39637, \"team1_id\": null, \"team2_id\": null, \"winner_team_id\": null, \"loser_team_id\": null, \"tournament_id\": 5971, \"team1_score\": null, \"team2_score\": null, \"status\": \"upcoming\", \"bo_type\": 3, \"start_date\": \"2026-12-12T13:00:00.000+00:00\", \"end_date\": null, \"stage_id\": 10668, \"maps_score\": [true, true, true], \"parsed_status\": \"waiting\", \"tier\": \"c\", \"tier_rank\": 4, \"position\": 5, \"points\": null, \"rating\": 0.20849462068965519, \"stars\": 1, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"p"
+  },
+  {
+   "label": "matches site origin",
+   "url": "https://bo3.gg/api/v1/matches?page%5Blimit%5D=3",
+   "status": 200,
+   "bytes": 2987,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 82464, \"pages\": 27488, \"offset\": 0, \"limit\": 3}, \"results\": [{\"id\": 1, \"slug\": \"vitality-cs-go-vs-mousesports-cs-go-08-12-2020\", \"round_id\": 1, \"team1_id\": 667, \"team2_id\": 765, \"winner_team_id\": 667, \"loser_team_id\": 765, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 0, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T17:55:00.000+00:00\", \"end_date\": \"2020-12-08T20:15:44.000+00:00\", \"stage_id\": 1, \"maps_score\": [true, true, false], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 1, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": true, \"live_coverage_advantage\": true, \"live_coverage_source\": 1, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_id\": null, \"prev_match2_id\": null, \"game_version\": 1, \"team1_new_participant\": false, \"team2_new_participant\": false, \"comments_count\": 0, \"bet_updates\": null, \"comments\": []}, {\"id\": 2, \"slug\": \"natus-vincere-cs-go-vs-astralis-08-12-2020\", \"round_id\": 1, \"team1_id\": 787, \"team2_id\": 794, \"winner_team_id\": 787, \"loser_team_id\": 794, \"tournament_id\": 9, \"team1_score\": 2, \"team2_score\": 1, \"status\": \"finished\", \"bo_type\": 3, \"start_date\": \"2020-12-08T20:26:30.000+00:00\", \"end_date\": \"2020-12-09T00:59:02.000+00:00\", \"stage_id\": 1, \"maps_score\": [false, true, true], \"parsed_status\": \"done\", \"tier\": \"s\", \"tier_rank\": 1, \"position\": 2, \"points\": null, \"rating\": null, \"stars\": null, \"team1_last_game_score\": null, \"team2_last_game_score\": null, \"live_updates\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"live_coverage_source\": null, \"discipline_id\": 1, \"prev_match1_winner\": false, \"prev_match2_winner\": false, \"prev_match1_i"
+  },
+  {
+   "label": "tournaments (lol)",
+   "url": "https://api.bo3.gg/api/v1/tournaments?page%5Blimit%5D=3&filter%5Bdisciplines%5D%5Beq%5D=3",
+   "status": 200,
+   "bytes": 3476,
+   "kind": "json",
+   "body": "keys=['links', 'results', 'total'] preview={\"total\": {\"count\": 3246, \"pages\": 1082, \"offset\": 0, \"limit\": 3}, \"results\": [{\"id\": 8, \"slug\": \"esl-impact-league-cash-cup-north-america-3-summer-2022\", \"name\": \"ESL Impact League Cash Cup: North America 3 Summer 2022\", \"description\": \"\", \"image_url\": \"https://files.bo3.gg/uploads/tournament/8/image/webp-7c89eb970bcb57c68782d88d70bf3637.webp\", \"start_date\": \"2022-07-16T21:50:00.000+00:00\", \"end_date\": \"2022-07-24T22:30:00.000+00:00\", \"prize\": 1000, \"players_prize\": null, \"teams_prize\": null, \"event_type\": \"online\", \"tier\": \"d\", \"tier_rank\": 5, \"status\": \"finished\", \"parsing_allowed\": true, \"pickem_presence\": false, \"pickem_status\": null, \"series_id\": 314, \"venue_id\": null, \"country_id\": null, \"region_id\": null, \"city_id\": null, \"pickem_points\": null, \"last_match_date\": null, \"live_coverage\": false, \"live_coverage_advantage\": false, \"discipline_id\": 1, \"game_version\": null, \"tournament_group_id\": null, \"predicted_for_gold\": null, \"predicted_for_silver\": null, \"predicted_for_bronze\": null, \"pickem_name\": null, \"short_name\": null, \"pickem_participants_count\": null, \"banner_image_url\": null, \"banner_image_versions\": null, \"comments_count\": 0, \"event_scope\": null, \"event_level\": \"regular\"}, {\"id\": 9, \"slug\": \"blast-premier-finals-fall-2020\", \"name\": \"BLAST Premier Finals Fall 2020\", \"description\": \"\", \"image_url\": \"https://files.bo3.gg/uploads/tournament/9/image/webp-32fb75e0076f8d6dda51356738438cab.webp\", \"start_date\": \"2020-12-08T15:30:00.000+00:00\", \"end_date\": \"2020-12-13T22:41:00.000+00:00\", \"prize\": 425000, \"players_prize\": null, \"teams_prize\": null, \"event_type\": \"online\", \"tier\": \"s\", \"tier_rank\": 1, \"status\": \"finished\", \"parsing_allowed\": true, \"pickem_presence\": false, \"pickem_status\": null, \"series_id\": 106, \"venue_id\": null, \"country_id\": null, \"region_id\": nu"
+  }
+ ],
+ "match_detail": [
+  {
+   "label": "match_odds",
+   "match_id": 1,
+   "url": "https://api.bo3.gg/api/v1/match_odds?filter%5Bmatches%5D%5Beq%5D=1",
+   "status": 404,
+   "bytes": 34,
+   "kind": "json",
+   "body": "keys=['error', 'status'] preview={\"status\": 404, \"error\": \"Not Found\"}"
+  },
+  {
+   "label": "odds",
+   "match_id": 1,
+   "url": "https://api.bo3.gg/api/v1/odds?filter%5Bmatches%5D%5Beq%5D=1",
+   "status": 404,
+   "bytes": 34,
+   "kind": "json",
+   "body": "keys=['error', 'status'] preview={\"status\": 404, \"error\": \"Not Found\"}"
+  },
+  {
+   "label": "bets",
+   "match_id": 1,
+   "url": "https://api.bo3.gg/api/v1/bets?filter%5Bmatches%5D%5Beq%5D=1",
+   "status": 404,
+   "bytes": 34,
+   "kind": "json",
+   "body": "keys=['error', 'status'] preview={\"status\": 404, \"error\": \"Not Found\"}"
+  },
+  {
+   "label": "match detail",
+   "match_id": 1,
+   "url": "https://api.bo3.gg/api/v1/matches/1",
+   "status": 404,
+   "bytes": 58,
+   "kind": "json",
+   "body": "keys=['message', 'status'] preview={\"status\": \"record_not_found\", \"message\": \"Record not found\"}"
+  },
+  {
+   "label": "match with odds include",
+   "match_id": 1,
+   "url": "https://api.bo3.gg/api/v1/matches/1?include=odds",
+   "status": 404,
+   "bytes": 58,
+   "kind": "json",
+   "body": "keys=['message', 'status'] preview={\"status\": \"record_not_found\", \"message\": \"Record not found\"}"
+  }
+ ]
+}
