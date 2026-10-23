@@ -794,3 +794,48 @@ matched to the raw `dqteams` receipt, CSV mirror exact), `python3 -m unittest di
 | GitHub Pages | build `9e25133` **built** at 2026-10-23T15:53:30Z; live check of `https://karagemop466-tech.github.io/LOLHOTSPAWN1/table.html` returns the 241-row table with per-row Hotspawn + Leaguepedia source links |
 | Delivered | Executive summary with in-site links (Summary → Table → All picks → Market → Model → Unresolved → Coverage), the mobile bottom nav, the pick table, the unresolved-picks section with its limitations, the forfeit settlement picks, and the retired-quote trail |
 | Known open items (published, not hidden) | `docs/` is dead output from an older layout (Pages serves the branch root); the four Komplettligaen fixtures are settled administratively because the league removed Solid Gaming; `#1081423` and `#1079080` are originated/indicative lines with the retired-quote flag on the row |
+
+---
+
+# Final integration record — session `294e62ad` (2026-10-23T15:58Z)
+
+The brief's integration step (merge everything, re-verify the combined data line by line, publish)
+was executed from this branch after four other sessions merged in parallel.
+
+| Item | Result |
+|---|---|
+| PR #23 | external-book corroboration + `coverage.html` + line-by-line audit → **merged** 2026-10-23T15:47:26Z (`6af8635`) |
+| PR #30 | superseded (another session had already added the same retry loop) → **closed** with a note |
+| PR #33 | CI fix: the refresh retry loop rebased with the wrong side winning → **merged** (`git rebase -X theirs`, `data/receipts` staged, soft-reset last resort) |
+| Merge conflicts | resolved by taking the live `main` version of `tools/site.py`, `tools/verify.py`, `tools/flags.py`, `data/flags_manual.json` and every generated page as the base, then re-applying only this session's additions. Nothing from another session was reverted; where `main` had already superseded this session's work (curated-flag rewrites, mobile nav, archived-receipt exclusion) `main`'s version was kept and the duplicate dropped. |
+| Re-verification on the merged tree | `tools/verify.py` **29/29 PASS**, 0 FAIL — 12+ pages, 0 broken internal links, 237/237 probabilities sum to 100 %, every row carries a Hotspawn card link, coverage matrix 27/27 rows carry a source link, 9/9 external receipts validated, 0 rejected receipts |
+| Pages | `status: built`, source `main` `/`; deployments succeeded for `6af8635` (15:47Z), `6f6890a` (15:49Z) and the post-refresh heads |
+| Refresh loop | proved end to end: run `39982035986` (15:52Z, after the CI fix) completed **all** steps including `Commit data and site`; the two earlier failures (`39981049159`, `39981292253`) were exactly the push-race the fix addresses |
+| Live coverage page | served from `main`: `coverage.html` is in `NAV` on every page, linked from `index.html` and `picks.html`, and `data/corroboration.json` is regenerated on every refresh (latest: 9 usable receipts, mean gap **0.93 pp**, max **1.7 pp**, 1 conflicting, 0 rejected) |
+
+## What the site now answers, and where
+
+| Question | Page |
+|---|---|
+| What is the pick for this match, and how likely is it? | `picks.html` (241 cards, next kick-off first, one column on a phone) |
+| Which matches are backed by a real bookmaker price? | `featured.html` |
+| Which matches did we have to originate, and why? | `originated.html` + **`coverage.html`** |
+| Does any book anywhere price the low-tier leagues, and what did it say? | **`coverage.html` §2/§4** (with the evidence that none does) |
+| Do our lines agree with an independent book? | **`coverage.html` §3** (match by match, gap in pp, capture time, source link) |
+| Which matches have no pick at all, and why? | `unresolved.html` + **`coverage.html` §6** |
+| What is wrong or unverified? | `flagged.html` + `evidence/audit/2026-10-23-session-294e62ad.md` |
+
+## Irregularities still open for review (published, non-blocking)
+
+1. **LCP 2027 Promotion `#1081423` — 68.6 pp swing.** The 91.1 % "market" line was an archived
+   EGamersWorld listing reading (2026-10-21T20:36Z). The same site's match page today publishes the
+   `1.8/1.8` placeholder. Removing it (PR #18) turned the card into a model line at Frank Esports 77.5 %.
+   Both readings are quoted on `coverage.html` §3 with timestamps.
+2. **Stale-flag window.** `stale` is computed at build time, so a card that kicks off after the build is
+   not marked "start time passed" until the next refresh (up to 6 h). `#1071212` demonstrated it at 15:40Z
+   and was corrected by the 15:39Z refresh. A client-side check is the real fix; not implemented here.
+3. **Archived fifth venue.** Nine rows were labelled "N-Venue Consensus" while one venue was a two-day-old
+   archived quote. Now itemised with capture times on `coverage.html` §5, and excluded from corroboration.
+4. **Curated flags** are labelled `re-verified <date> against <source>` or `Historical observation - not
+   reverified`, and any flag citing a fixture that has left the list is auto-annotated. Ten of ten curated
+   flags currently cite only live fixtures (gate check).
