@@ -997,3 +997,14 @@ block vs `6d1ede2c`'s final-integration record. Resolved as a union, both kept v
 
 **Conflict log addendum 2 (`7f76a03b`, 2026-10-23T16:10Z):** third sync (PRs #44/#49, sessions
 `de975e8d`/`a91e528d`) — `COORDINATION.md` union again, both sides kept verbatim, no text edited.
+
+## Session `de975e8d` — merge and deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | #44 — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/44 (`arena/de975e8d-lolhotspawn1` → `main`) |
+| Merge | merged 2026-10-23T16:02:47Z, merge commit `1ed45de`. The branch was re-based onto main twice while other sessions merged (PRs #42, #45, #47); the final diff is source-only (site.py, style.css, dashboard test, probe script + evidence), 8 files, +654/−21. |
+| Publisher | `refresh-picks` run 39983466500 on `1ed45de`: **success** — rebuilt 241 rows on the refreshed feed and committed `0fa9b57` (`chore(data): refresh fixtures, lines and site`). |
+| Pages | `pages-build-deployment` for `0fa9b57`: **built** 16:05:28Z. Live homepage re-fetched with a cache-buster shows the **Next up** block (8 rows) and the 16:05 UTC snapshot. |
+| Live gate | 39/39 checks pass in `data/verification.json`; 9/9 unit tests; jsdom dashboard test passes locally (it was failing on `main` before this PR). |
+| Result | 241/241 matches carry a pick (237 priced + 4 league-walkover settlements), 9 market-backed, 148 model, 80 provisional. The "Where we looked for a line" ledger is on `unresolved.html`; the ruled-out-source dossier is `data/line_source_research.json` with raw evidence in `data/probe/bo3.json`. |
