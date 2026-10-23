@@ -926,6 +926,15 @@ def build_flagged(flags: list[dict]) -> str:
            for f in flags]
     body = f"""
 <section class="panel">
+  <h2>Independent audit trail</h2>
+  <p class="lead">A second, independent line-by-line audit of this dataset (session <code>0d48f265</code>) is
+  published as a standalone document with a source link and an explicit verdict on every row:
+  <a href="audit/AUDIT.md"><strong>audit/AUDIT.md</strong></a> (machine-readable companion:
+  <a href="audit/audit.csv">audit/audit.csv</a>). The manual spot-checks performed by the publishing session
+  are on <a href="verification.html">Verification</a>.</p>
+</section>
+
+<section class="panel">
   <h2>Flagged for review ({len(flags)})</h2>
   <p class="lead">Audited upstream feed irregularities, mid-split team disqualifications, placeholder odds traps,
   and thin-sample caveats — published openly with official source links.</p>

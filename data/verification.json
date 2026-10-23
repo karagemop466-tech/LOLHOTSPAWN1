@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:45:05Z",
+ "generated_utc": "2026-10-23T15:46:13Z",
  "checks": [
   {
    "name": "dataset present",
@@ -50,6 +50,11 @@
    "name": "every market pick carries an official quote URL",
    "ok": true,
    "detail": "problems: []"
+  },
+  {
+   "name": "Pinnacle quote URLs point at collected matchups",
+   "ok": true,
+   "detail": "14 matchup ids in feed; problems: []"
   },
   {
    "name": "every official-forfeit resolution names a winner and a source URL",
@@ -123,5 +128,5 @@
   "unresolved": 4,
   "market": 9
  },
- "internal_links": 279
+ "internal_links": 282
 }

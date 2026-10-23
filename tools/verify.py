@@ -78,6 +78,22 @@ def main() -> None:
     add("every market pick carries an official quote URL", not bad_market_src,
         f"problems: {bad_market_src[:5]}")
 
+    # Regression for the wrong-matchup bug: every Pinnacle quote URL must point at a
+    # matchup id that exists in the collected Pinnacle feed.
+    pin_raw = load_json(os.path.join(DATA, "raw", "pinnacle_lol.json")) or {}
+    pin_ids = {str(m.get("matchup_id")) for m in pin_raw.get("markets") or []}
+    bad_pin_ids = []
+    for r in rows:
+        mk = r.get("market") or {}
+        for v in mk.get("venues") or []:
+            if v.get("name") != "Pinnacle":
+                continue
+            m = re.search(r"/event/(\d+)", str(v.get("url", "")))
+            if m and pin_ids and m.group(1) not in pin_ids:
+                bad_pin_ids.append(f"{r['id']}->{m.group(1)}")
+    add("Pinnacle quote URLs point at collected matchups", not bad_pin_ids,
+        f"{len(pin_ids)} matchup ids in feed; problems: {bad_pin_ids[:5]}")
+
     wo = [r for r in rows if r.get("resolution")]
     bad_wo = [r["id"] for r in wo
               if not (r["resolution"].get("winner") and str(r["resolution"].get("source", "")).startswith("http"))]

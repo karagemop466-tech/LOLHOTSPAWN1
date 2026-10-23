@@ -677,7 +677,9 @@ def main() -> None:
         if f.get("start_utc"):
             try:
                 start_dt = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
-                stale = (datetime.now(timezone.utc) - start_dt).total_seconds() > 3 * 3600
+                # Any fixture whose published start time has passed is marked, so a card can
+                # never look like an upcoming pick after kick-off (flag reason stays unverified).
+                stale = (datetime.now(timezone.utc) - start_dt).total_seconds() > 0
             except ValueError:
                 stale = False
         if stale:
