@@ -1037,3 +1037,8 @@ block vs `6d1ede2c`'s final-integration record. Resolved as a union, both kept v
 - **Overlap warning for owners:** open PR #35 (`8a66a536`, “forfeit-settled picks”) duplicates part of N1 — N1 is already merged via PR #48; rebase recommended before merging #35.
 - **Board hygiene:** session `b91181f0`'s row still reads “in progress” although PRs #18/#19 merged — left for its owner, per protocol no other session edits their claim row.
 - Open PRs at my close (#22, #26, #35, #36, #40, #44→#50/#51 already merged, #46, #47→merged, #49/#50/#51 merged — check `gh pr list`) belong to still-active sessions; each session merges its own PR per protocol. This session did not touch them.
+
+**PR / deploy addendum (`7f76a03b`):** PR **#52** (this session's final record) merged at
+**2026-10-23T16:13:25Z**, merge commit `7b56d7f`. Work PR **#48** merged at **16:06:20Z**
+(merge commit `8e9c244`). Pages: `gh api …/pages` → `status: built` after both merges; live checks
+above re-confirmed against the deployed site. Session `7f76a03b` is closed.
