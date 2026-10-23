@@ -175,3 +175,30 @@ tr:last-child td{border-bottom:0}
   #q,#comp,.chip{background:#0f1728;color:var(--ink)}
   .chip.active{background:#38d39f;color:#06301f}
 }
+
+/* quick links (executive summary) */
+.quicklinks{display:grid;gap:10px;grid-template-columns:1fr;margin:10px 0 4px}
+@media(min-width:700px){.quicklinks{grid-template-columns:1fr 1fr 1fr}}
+.quicklinks a{display:block;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.quicklinks a:hover{border-color:var(--accent);text-decoration:none}
+.ql-t{display:block;font-weight:700;color:var(--accent)}
+.ql-d{display:block;color:var(--muted);font-size:13px;margin-top:2px;line-height:1.35}
+.pill.warn{background:var(--warn-weak);color:var(--warn)}
+.res{color:var(--warn)}
+
+/* pick table */
+.picktable{font-size:13.5px}
+.picktable tbody tr.m-market{box-shadow:inset 3px 0 0 var(--ok)}
+.picktable tbody tr.m-model{box-shadow:inset 3px 0 0 var(--model)}
+.picktable tbody tr.m-provisional{box-shadow:inset 3px 0 0 #d99a00}
+.picktable tbody tr.m-unresolved{box-shadow:inset 3px 0 0 var(--bad)}
+.picktable .nowrap,.picktable td.nowrap{white-space:nowrap}
+.picktable td.srcs a{white-space:nowrap}
+.picktable tbody tr:hover{background:var(--accent-weak)}
+.hidden-row{display:none !important}
+@media(max-width:680px){
+  .picktable td{grid-template-columns:35% 65%}
+  .picktable td.opt{display:none}
+  .quicklinks{gap:8px}
+  .hero .cta .btn{width:100%}
+}

@@ -67,6 +67,29 @@ def main() -> None:
     add("method values are known", not bad_method, f"methods used: {sorted(set(r['method'] for r in rows))}")
     add("no duplicate match ids", not dupes, f"{len(seen)} unique ids; duplicates: {dupes[:5]}")
 
+    # --- market integrity ---------------------------------------------------
+    kills = [r["id"] for r in rows for v in ((r.get("market") or {}).get("venues") or [])
+             if "kills" in str(v.get("name", "")).lower()
+             or any("(kills)" in str(x).lower() for x in (r.get("market") or {}).get("venue_names") or [])]
+    add("no '(Kills)' derivative market is used as a match line", not kills,
+        f"violations: {kills[:5]}")
+
+    bad_market_src = [r["id"] for r in rows if r.get("method") == "market"
+                      and not str((r.get("market") or {}).get("source_url", "")).startswith("http")]
+    add("every market pick carries an official quote URL", not bad_market_src,
+        f"problems: {bad_market_src[:5]}")
+
+    wo = [r for r in rows if r.get("resolution")]
+    bad_wo = [r["id"] for r in wo
+              if not (r["resolution"].get("winner") and str(r["resolution"].get("source", "")).startswith("http"))]
+    add("every official-forfeit resolution names a winner and a source URL", not bad_wo,
+        f"{len(wo)} resolutions checked; problems: {bad_wo[:5]}")
+
+    # no quoted probability may be attached to a forfeit resolution
+    bad_wo_prob = [r["id"] for r in wo if r.get("p0") is not None or r.get("pick")]
+    add("official-forfeit resolutions carry no invented probability", not bad_wo_prob,
+        f"problems: {bad_wo_prob[:5]}")
+
     # --- CSV mirror ---------------------------------------------------------
     csv_path = os.path.join(DATA, "picks.csv")
     csv_rows = 0
@@ -77,8 +100,8 @@ def main() -> None:
         f"csv rows={csv_rows} json rows={len(rows)}")
 
     # --- site ---------------------------------------------------------------
-    pages = ["index.html", "picks.html", "featured.html", "originated.html", "unresolved.html",
-             "competitions.html", "teams.html", "methodology.html", "sources.html",
+    pages = ["index.html", "picks.html", "table.html", "featured.html", "originated.html",
+             "unresolved.html", "competitions.html", "teams.html", "methodology.html", "sources.html",
              "verification.html", "flagged.html"]
     missing_pages = [p for p in pages if not os.path.exists(os.path.join(DOCS, p))]
     add("all site pages exist", not missing_pages, f"{len(pages) - len(missing_pages)}/{len(pages)} pages")
@@ -110,8 +133,14 @@ def main() -> None:
     add("all matches rendered on the picks page", on_page == len(rows),
         f"{on_page}/{len(rows)} match cards found")
 
+    table_html = open(os.path.join(DOCS, "table.html"), encoding="utf-8").read()
+    table_rows = table_html.count('class="prow')
+    add("pick table renders one row per match", table_rows == len(rows),
+        f"{table_rows}/{len(rows)} table rows")
+
     index_html = open(os.path.join(DOCS, "index.html"), encoding="utf-8").read()
-    needed = ["picks.html", "featured.html", "originated.html", "unresolved.html", "Executive summary"]
+    needed = ["picks.html", "table.html", "featured.html", "originated.html", "unresolved.html",
+              "Executive summary", "Unresolved picks"]
     add("executive summary links to every picks view", all(n in index_html for n in needed),
         f"present: {[n for n in needed if n in index_html]}")
 

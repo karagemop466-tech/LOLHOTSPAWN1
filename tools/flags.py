@@ -96,14 +96,49 @@ def main() -> None:
         })
 
     priced = counts.get("market", 0)
+    market_comps = sorted({r["competition"] for r in rows if r["method"] == "market"})
     flags.append({
         "severity": "info",
         "item": f"Bookmaker coverage is {priced}/{len(rows)} matches",
-        "detail": "Pinnacle prices the World Championship and EMEA Masters fixtures from this list. The "
-                  "remaining national and academy leagues have no published market on any book reachable from "
-                  "the runner, which is why their lines are originated by our own model.",
+        "detail": ("Priced competitions in this snapshot: " + (", ".join(market_comps) or "none") +
+                   ". Every other national and academy league has no published market on any book reachable "
+                   "from the runner, which is why those lines are originated from recorded series history "
+                   "instead of guessed."),
         "source": PINNACLE,
     })
+
+    retired = load_json(os.path.join(DATA, "retired_quotes.json")) or {}
+    if retired.get("retired_count"):
+        flags.append({
+            "severity": "medium",
+            "item": f"{retired['retired_count']} archived esportsbook quotes were retired as unverifiable",
+            "detail": retired.get("reason", ""),
+            "source": ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/"
+                       "arena/4dfd0e71-lolhotspawn1/data/retired_quotes.json"),
+        })
+
+    hy = data.get("market_hygiene") or {}
+    if hy.get("pinnacle_kills_derivatives_excluded"):
+        flags.append({
+            "severity": "info",
+            "item": (f"{hy['pinnacle_kills_derivatives_excluded']} Pinnacle '(Kills)' derivative markets "
+                     "excluded from the series consensus"),
+            "detail": "Pinnacle lists a parallel kills market for each LoL series. Only series moneylines are "
+                      "allowed to set a match-win probability; the derivative rows are filtered in collect.py "
+                      "and again in model.py.",
+            "source": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+        })
+
+    walkover = [r for r in rows if r.get("resolution")]
+    if walkover:
+        flags.append({
+            "severity": "info",
+            "item": f"{len(walkover)} fixtures resolved only by official forfeit, not by a playing line",
+            "detail": "; ".join(
+                f"#{r['id']} {r['team0']['name']} vs {r['team1']['name']} -> {r['resolution']['winner']} "
+                f"(official forfeit; {r['resolution']['source']})" for r in walkover),
+            "source": walkover[0]["resolution"]["source"],
+        })
 
     save_json(os.path.join(DATA, "flags.json"), {
         "generated_utc": iso(now_utc()),

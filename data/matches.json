@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T11:43:59Z",
+ "generated_utc": "2026-10-23T15:40:13Z",
  "model": {
   "name": "LOLHOTSPAWN Elo",
   "k": 24.0,
@@ -23,9 +23,15 @@
  },
  "counts": {
   "provisional": 65,
-  "model": 162,
+  "model": 163,
   "unresolved": 4,
-  "market": 10
+  "market": 9,
+  "walkover": 4
+ },
+ "market_hygiene": {
+  "pinnacle_kills_derivatives_excluded": 8,
+  "archived_receipts_retired": 10,
+  "esportsbook_venue_active": false
  },
  "backtest": {
   "cutoff": "2026-07-01",
@@ -110,6 +116,7 @@
     "other_probability": 0.3914
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -170,6 +177,7 @@
     "other_probability": 0.4284
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -196,7 +204,7 @@
     "join_notes": [],
     "rating_matches": 84,
     "last_played": "2026-08-27",
-    "elo_raw": 1655.7,
+    "elo_raw": 1655.6,
     "elo": 1646.9
    },
    "team1": {
@@ -224,6 +232,7 @@
     "other_probability": 0.347
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -278,6 +287,7 @@
     "other_probability": 0.4878
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -332,6 +342,7 @@
     "other_probability": 0.4482
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -389,6 +400,7 @@
     "other_probability": 0.4389
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -443,6 +455,7 @@
     "other_probability": 0.4341
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -497,6 +510,7 @@
     "other_probability": 0.4647
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -551,6 +565,7 @@
     "other_probability": 0.3207
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -601,6 +616,13 @@
    ],
    "pick": null,
    "market": null,
+   "resolution": {
+    "type": "official-forfeit",
+    "winner": "VES Japan",
+    "loser": "Solid Gaming",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is VES Japan. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+   },
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -655,6 +677,7 @@
     "other_probability": 0.3621
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -710,6 +733,7 @@
     "other_probability": 0.3675
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -764,6 +788,7 @@
     "other_probability": 0.4007
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -818,6 +843,7 @@
     "other_probability": 0.4985
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -872,6 +898,7 @@
     "other_probability": 0.4664
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -927,6 +954,7 @@
     "other_probability": 0.2461
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -981,6 +1009,7 @@
     "other_probability": 0.411
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1035,6 +1064,7 @@
     "other_probability": 0.2726
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1089,6 +1119,7 @@
     "other_probability": 0.4231
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1143,6 +1174,7 @@
     "other_probability": 0.4025
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1197,6 +1229,7 @@
     "other_probability": 0.4539
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1251,6 +1284,7 @@
     "other_probability": 0.4801
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1305,6 +1339,7 @@
     "other_probability": 0.4652
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1362,6 +1397,7 @@
     "other_probability": 0.2323
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1416,6 +1452,7 @@
     "other_probability": 0.2521
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1470,6 +1507,7 @@
     "other_probability": 0.4274
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1527,6 +1565,7 @@
     "other_probability": 0.4741
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1577,6 +1616,13 @@
    ],
    "pick": null,
    "market": null,
+   "resolution": {
+    "type": "official-forfeit",
+    "winner": "Playwell Rød Q",
+    "loser": "Solid Gaming",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is Playwell Rød Q. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+   },
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1631,6 +1677,7 @@
     "other_probability": 0.2767
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1688,6 +1735,7 @@
     "other_probability": 0.3711
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1742,6 +1790,7 @@
     "other_probability": 0.4462
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1796,6 +1845,7 @@
     "other_probability": 0.3235
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1850,6 +1900,7 @@
     "other_probability": 0.4789
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1904,6 +1955,7 @@
     "other_probability": 0.44
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -1961,6 +2013,7 @@
     "other_probability": 0.2731
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2015,6 +2068,7 @@
     "other_probability": 0.3622
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2069,6 +2123,7 @@
     "other_probability": 0.2767
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2123,6 +2178,7 @@
     "other_probability": 0.2051
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2178,6 +2234,7 @@
     "other_probability": 0.4994
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2233,6 +2290,7 @@
     "other_probability": 0.4553
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2283,6 +2341,13 @@
    ],
    "pick": null,
    "market": null,
+   "resolution": {
+    "type": "official-forfeit",
+    "winner": "Volda E-Sport",
+    "loser": "Solid Gaming",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is Volda E-Sport. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+   },
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2337,6 +2402,7 @@
     "other_probability": 0.4073
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2391,6 +2457,7 @@
     "other_probability": 0.2654
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2445,6 +2512,7 @@
     "other_probability": 0.4525
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2500,6 +2568,7 @@
     "other_probability": 0.4988
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2554,6 +2623,7 @@
     "other_probability": 0.4442
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2608,6 +2678,7 @@
     "other_probability": 0.389
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2665,6 +2736,7 @@
     "other_probability": 0.3477
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2719,6 +2791,7 @@
     "other_probability": 0.2938
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2769,6 +2842,13 @@
    ],
    "pick": null,
    "market": null,
+   "resolution": {
+    "type": "official-forfeit",
+    "winner": "NTNUI Kometkameratene",
+    "loser": "Solid Gaming",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is NTNUI Kometkameratene. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+   },
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2823,6 +2903,7 @@
     "other_probability": 0.4671
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2880,6 +2961,7 @@
     "other_probability": 0.4825
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2938,6 +3020,7 @@
     "other_probability": 0.484
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -2996,6 +3079,7 @@
     "other_probability": 0.4824
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3050,6 +3134,7 @@
     "other_probability": 0.4547
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3105,6 +3190,7 @@
     "other_probability": 0.4821
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3160,6 +3246,7 @@
     "other_probability": 0.4745
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3215,6 +3302,7 @@
     "other_probability": 0.4969
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3270,6 +3358,7 @@
     "other_probability": 0.4689
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3324,6 +3413,7 @@
     "other_probability": 0.4568
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3379,6 +3469,7 @@
     "other_probability": 0.4852
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3434,6 +3525,7 @@
     "other_probability": 0.4935
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3488,6 +3580,7 @@
     "other_probability": 0.4318
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3542,6 +3635,7 @@
     "other_probability": 0.483
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3596,6 +3690,7 @@
     "other_probability": 0.4102
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": true,
    "community_pick_pct": {
@@ -3652,6 +3747,7 @@
     "other_probability": 0.2517
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -3706,6 +3802,7 @@
     "other_probability": 0.4673
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -3762,6 +3859,7 @@
     "other_probability": 0.4809
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -3814,6 +3912,7 @@
     "other_probability": 0.4161
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -3853,47 +3952,48 @@
     "elo_raw": 1583.9,
     "elo": 1580.3
    },
-   "p0": 0.7645,
-   "p1": 0.2355,
+   "p0": 0.7673,
+   "p1": 0.2327,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (76.4% / 23.5%): Pinnacle 74.5%/25.5% (1.28/3.74), Polymarket 77.5%/22.5% (77.5¢/22.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 76.9%/23.1% (1.22/4.05), Esportsbook 78.6%/21.4% (1.2/4.4).",
+   "basis": "4-Venue Consensus de-vigged line (76.7% / 23.3%): Pinnacle 75.8%/24.2% (1.26/3.94), Polymarket 77.5%/22.5% (77.5¢/22.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 76.9%/23.1% (1.22/4.05).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Gen.G",
-    "probability": 0.7645,
-    "other_probability": 0.2355
+    "probability": 0.7673,
+    "other_probability": 0.2327
    },
    "market": {
-    "book": "5-Venue Consensus",
+    "book": "4-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638758865",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758865/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638758865",
+    "source_url": "https://www.pinnacle.com/en/event/1638748200",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638748200/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638748200",
     "decimal": {
-     "home": 1.282,
-     "away": 3.74
+     "home": 1.258,
+     "away": 3.94
     },
     "american": {
-     "home": -355,
-     "away": 274
+     "home": -387,
+     "away": 294
     },
-    "p0": 0.7645,
-    "p1": 0.2355,
-    "overround": 0.0476,
+    "p0": 0.7673,
+    "p1": 0.2327,
+    "overround": 0.0485,
     "start_utc": "2026-10-23T17:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 4,
+    "total_volume_usd": 190744.573948,
     "venues": [
      {
       "name": "Pinnacle",
       "weight": 0.36,
-      "p0": 0.7448,
-      "p1": 0.2552,
-      "quote": "1.28/3.74",
-      "overround": 0.0476,
-      "url": "https://www.pinnacle.com/en/event/1638758865"
+      "p0": 0.7579,
+      "p1": 0.2421,
+      "quote": "1.26/3.94",
+      "overround": 0.0485,
+      "url": "https://www.pinnacle.com/en/event/1638748200"
      },
      {
       "name": "Polymarket",
@@ -3902,6 +4002,7 @@
       "p1": 0.225,
       "quote": "77.5¢/22.5¢",
       "overround": 0.0,
+      "volume_usd": 190744.573948,
       "url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23"
      },
      {
@@ -3921,18 +4022,10 @@
       "quote": "1.22/4.05",
       "overround": 0.0683,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/gen-g-invictus-gaming-202610231300"
-     },
-     {
-      "name": "Esportsbook",
-      "weight": 0.1,
-      "p0": 0.7857,
-      "p1": 0.2143,
-      "quote": "1.2/4.4",
-      "overround": 0.0606,
-      "url": "https://egamersworld.com/lol/matches"
      }
     ]
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -3985,6 +4078,7 @@
     "other_probability": 0.4818
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -4037,6 +4131,7 @@
     "other_probability": 0.3971
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -4076,24 +4171,24 @@
     "elo_raw": 1618.5,
     "elo": 1614.3
    },
-   "p0": 0.7658,
-   "p1": 0.2342,
+   "p0": 0.7651,
+   "p1": 0.2349,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (76.6% / 23.4%): Pinnacle 75.7%/24.3% (1.26/3.93), Polymarket 76.5%/23.5% (76.5¢/23.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 77.4%/22.6% (1.21/4.15), Esportsbook 77.1%/22.9% (1.2/4.05).",
+   "basis": "4-Venue Consensus de-vigged line (76.5% / 23.5%): Pinnacle 75.7%/24.3% (1.26/3.93), Polymarket 76.5%/23.5% (76.5¢/23.5¢), Kalshi 77.5%/22.5% (78¢/22¢), Bovada 77.4%/22.6% (1.21/4.15).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Hanwha Life Esports",
-    "probability": 0.7658,
-    "other_probability": 0.2342
+    "probability": 0.7651,
+    "other_probability": 0.2349
    },
    "market": {
-    "book": "5-Venue Consensus",
+    "book": "4-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638758879",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758879/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638758879",
+    "source_url": "https://www.pinnacle.com/en/event/1638748203",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638748203/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638748203",
     "decimal": {
      "home": 1.26,
      "away": 3.93
@@ -4102,12 +4197,13 @@
      "home": -385,
      "away": 293
     },
-    "p0": 0.7658,
-    "p1": 0.2342,
+    "p0": 0.7651,
+    "p1": 0.2349,
     "overround": 0.0483,
     "start_utc": "2026-10-23T18:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 4,
+    "total_volume_usd": 249843.24170300004,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4116,7 +4212,7 @@
       "p1": 0.2427,
       "quote": "1.26/3.93",
       "overround": 0.0483,
-      "url": "https://www.pinnacle.com/en/event/1638758879"
+      "url": "https://www.pinnacle.com/en/event/1638748203"
      },
      {
       "name": "Polymarket",
@@ -4125,6 +4221,7 @@
       "p1": 0.235,
       "quote": "76.5¢/23.5¢",
       "overround": 0.0,
+      "volume_usd": 249843.24170300004,
       "url": "https://polymarket.com/event/lol-hle1-tes-2026-10-23"
      },
      {
@@ -4144,18 +4241,10 @@
       "quote": "1.21/4.15",
       "overround": 0.0671,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/hanwha-life-esports-top-esports-202610231400"
-     },
-     {
-      "name": "Esportsbook",
-      "weight": 0.1,
-      "p0": 0.7714,
-      "p1": 0.2286,
-      "quote": "1.2/4.05",
-      "overround": 0.0802,
-      "url": "https://egamersworld.com/lol/matches"
      }
     ]
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -4208,6 +4297,7 @@
     "other_probability": 0.3039
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -4260,6 +4350,7 @@
     "other_probability": 0.4327
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -4299,24 +4390,24 @@
     "elo_raw": 1603.0,
     "elo": 1597.9
    },
-   "p0": 0.7992,
-   "p1": 0.2008,
+   "p0": 0.7984,
+   "p1": 0.2016,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (79.9% / 20.1%): Pinnacle 78.2%/21.8% (1.22/4.37), Polymarket 80.5%/19.5% (80.5¢/19.5¢), Kalshi 81.3%/18.7% (80¢/18¢), Bovada 81.2%/18.8% (1.15/5.00), Esportsbook 80.7%/19.3% (1.17/4.88).",
+   "basis": "4-Venue Consensus de-vigged line (79.8% / 20.2%): Pinnacle 78.2%/21.8% (1.22/4.37), Polymarket 80.5%/19.5% (80.5¢/19.5¢), Kalshi 81.3%/18.7% (80¢/18¢), Bovada 81.2%/18.8% (1.15/5.00).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Bilibili Gaming",
-    "probability": 0.7992,
-    "other_probability": 0.2008
+    "probability": 0.7984,
+    "other_probability": 0.2016
    },
    "market": {
-    "book": "5-Venue Consensus",
+    "book": "4-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638759091",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638759091/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638759091",
+    "source_url": "https://www.pinnacle.com/en/event/1638755459",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638755459/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638755459",
     "decimal": {
      "home": 1.218,
      "away": 4.37
@@ -4325,12 +4416,13 @@
      "home": -458,
      "away": 337
     },
-    "p0": 0.7992,
-    "p1": 0.2008,
+    "p0": 0.7984,
+    "p1": 0.2016,
     "overround": 0.0496,
     "start_utc": "2026-10-23T19:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 4,
+    "total_volume_usd": 198740.278566,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4339,7 +4431,7 @@
       "p1": 0.218,
       "quote": "1.22/4.37",
       "overround": 0.0496,
-      "url": "https://www.pinnacle.com/en/event/1638759091"
+      "url": "https://www.pinnacle.com/en/event/1638755459"
      },
      {
       "name": "Polymarket",
@@ -4348,6 +4440,7 @@
       "p1": 0.195,
       "quote": "80.5¢/19.5¢",
       "overround": 0.0,
+      "volume_usd": 198740.278566,
       "url": "https://polymarket.com/event/lol-blg-mkoi-2026-10-23"
      },
      {
@@ -4367,18 +4460,10 @@
       "quote": "1.15/5.00",
       "overround": 0.0667,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/bilibili-gaming-movistar-koi-202610231500"
-     },
-     {
-      "name": "Esportsbook",
-      "weight": 0.1,
-      "p0": 0.8066,
-      "p1": 0.1934,
-      "quote": "1.17/4.88",
-      "overround": 0.0596,
-      "url": "https://egamersworld.com/lol/matches"
      }
     ]
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -4418,20 +4503,20 @@
     "elo_raw": 1742.8,
     "elo": 1731.7
    },
-   "p0": 0.6464,
-   "p1": 0.3536,
+   "p0": 0.6453,
+   "p1": 0.3547,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (64.6% / 35.4%): Pinnacle 63.2%/36.8% (1.52/2.61), Polymarket 64.5%/35.5% (64.5¢/35.5¢), Kalshi 65.5%/34.5% (66¢/34¢), Bovada 67.1%/32.9% (1.40/2.85), Esportsbook 65.6%/34.4% (1.38/2.63).",
+   "basis": "4-Venue Consensus de-vigged line (64.5% / 35.5%): Pinnacle 63.2%/36.8% (1.52/2.61), Polymarket 64.5%/35.5% (64.5¢/35.5¢), Kalshi 65.5%/34.5% (66¢/34¢), Bovada 67.1%/32.9% (1.40/2.85).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Anyone's Legend",
-    "probability": 0.6464,
-    "other_probability": 0.3536
+    "probability": 0.6453,
+    "other_probability": 0.3547
    },
    "market": {
-    "book": "5-Venue Consensus",
+    "book": "4-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://www.pinnacle.com/en/event/1638750902",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638750902/markets/related/straight",
@@ -4444,12 +4529,13 @@
      "home": -193,
      "away": 161
     },
-    "p0": 0.6464,
-    "p1": 0.3536,
+    "p0": 0.6453,
+    "p1": 0.3547,
     "overround": 0.0419,
     "start_utc": "2026-10-23T20:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 4,
+    "total_volume_usd": 289257.243036,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4467,6 +4553,7 @@
       "p1": 0.355,
       "quote": "64.5¢/35.5¢",
       "overround": 0.0,
+      "volume_usd": 289257.243036,
       "url": "https://polymarket.com/event/lol-al-kc-2026-10-23"
      },
      {
@@ -4486,18 +4573,10 @@
       "quote": "1.40/2.85",
       "overround": 0.0652,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/anyone-s-legend-karmine-corp-202610231600"
-     },
-     {
-      "name": "Esportsbook",
-      "weight": 0.1,
-      "p0": 0.6559,
-      "p1": 0.3441,
-      "quote": "1.38/2.63",
-      "overround": 0.1049,
-      "url": "https://egamersworld.com/lol/matches"
      }
     ]
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -4534,27 +4613,27 @@
     "join_notes": [],
     "rating_matches": 137,
     "last_played": "2026-09-06",
-    "elo_raw": 1685.3,
-    "elo": 1678.8
+    "elo_raw": 1685.2,
+    "elo": 1678.7
    },
-   "p0": 0.4108,
-   "p1": 0.5892,
+   "p0": 0.4093,
+   "p1": 0.5907,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (41.1% / 58.9%): Pinnacle 42.6%/57.4% (2.26/1.68), Polymarket 39.5%/60.5% (39.5¢/60.5¢), Kalshi 40.1%/59.9% (40¢/60¢), Bovada 40.1%/59.9% (2.35/1.57), Esportsbook 42.5%/57.5% (2.18/1.61).",
+   "basis": "4-Venue Consensus de-vigged line (40.9% / 59.1%): Pinnacle 42.6%/57.4% (2.26/1.68), Polymarket 39.5%/60.5% (39.5¢/60.5¢), Kalshi 40.1%/59.9% (40¢/60¢), Bovada 40.1%/59.9% (2.35/1.57).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Dplus KIA",
-    "probability": 0.5892,
-    "other_probability": 0.4108
+    "probability": 0.5907,
+    "other_probability": 0.4093
    },
    "market": {
-    "book": "5-Venue Consensus",
+    "book": "4-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638758878",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758878/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638758878",
+    "source_url": "https://www.pinnacle.com/en/event/1638750815",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638750815/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638750815",
     "decimal": {
      "home": 2.26,
      "away": 1.676
@@ -4563,12 +4642,13 @@
      "home": 126,
      "away": -148
     },
-    "p0": 0.4108,
-    "p1": 0.5892,
+    "p0": 0.4093,
+    "p1": 0.5907,
     "overround": 0.0392,
     "start_utc": "2026-10-23T21:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 4,
+    "total_volume_usd": 329974.54512,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4577,7 +4657,7 @@
       "p1": 0.5742,
       "quote": "2.26/1.68",
       "overround": 0.0392,
-      "url": "https://www.pinnacle.com/en/event/1638758878"
+      "url": "https://www.pinnacle.com/en/event/1638750815"
      },
      {
       "name": "Polymarket",
@@ -4586,6 +4666,7 @@
       "p1": 0.605,
       "quote": "39.5¢/60.5¢",
       "overround": 0.0,
+      "volume_usd": 329974.54512,
       "url": "https://polymarket.com/event/lol-g2-dk-2026-10-23"
      },
      {
@@ -4605,18 +4686,10 @@
       "quote": "2.35/1.57",
       "overround": 0.0619,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/g2-esports-dplus-kia-202610231700"
-     },
-     {
-      "name": "Esportsbook",
-      "weight": 0.1,
-      "p0": 0.4248,
-      "p1": 0.5752,
-      "quote": "2.18/1.61",
-      "overround": 0.0798,
-      "url": "https://egamersworld.com/lol/matches"
      }
     ]
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -4656,24 +4729,24 @@
     "elo_raw": 1584.0,
     "elo": 1578.7
    },
-   "p0": 0.7128,
-   "p1": 0.2872,
+   "p0": 0.7134,
+   "p1": 0.2866,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (71.3% / 28.7%): Pinnacle 71.1%/28.9% (1.34/3.31), Polymarket 71.5%/28.5% (71.5¢/28.5¢), Kalshi 71.8%/28.2% (72¢/29¢), Bovada 71.1%/28.9% (1.32/3.25), Esportsbook 70.7%/29.3% (1.29/3.11).",
+   "basis": "4-Venue Consensus de-vigged line (71.3% / 28.7%): Pinnacle 71.1%/28.9% (1.34/3.31), Polymarket 71.5%/28.5% (71.5¢/28.5¢), Kalshi 71.8%/28.2% (72¢/29¢), Bovada 71.1%/28.9% (1.32/3.25).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Team Liquid",
-    "probability": 0.7128,
-    "other_probability": 0.2872
+    "probability": 0.7134,
+    "other_probability": 0.2866
    },
    "market": {
-    "book": "5-Venue Consensus",
+    "book": "4-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638758870",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758870/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638758870",
+    "source_url": "https://www.pinnacle.com/en/event/1638750814",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638750814/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638750814",
     "decimal": {
      "home": 1.345,
      "away": 3.31
@@ -4682,12 +4755,13 @@
      "home": -290,
      "away": 231
     },
-    "p0": 0.7128,
-    "p1": 0.2872,
+    "p0": 0.7134,
+    "p1": 0.2866,
     "overround": 0.0457,
     "start_utc": "2026-10-23T22:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 4,
+    "total_volume_usd": 36498.703728,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4696,7 +4770,7 @@
       "p1": 0.2889,
       "quote": "1.34/3.31",
       "overround": 0.0457,
-      "url": "https://www.pinnacle.com/en/event/1638758870"
+      "url": "https://www.pinnacle.com/en/event/1638750814"
      },
      {
       "name": "Polymarket",
@@ -4705,6 +4779,7 @@
       "p1": 0.285,
       "quote": "71.5¢/28.5¢",
       "overround": 0.0,
+      "volume_usd": 36498.703728,
       "url": "https://polymarket.com/event/lol-tl2-cfo-2026-10-23"
      },
      {
@@ -4724,18 +4799,10 @@
       "quote": "1.32/3.25",
       "overround": 0.0638,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/team-liquid-ctbc-flying-oyster-202610231800"
-     },
-     {
-      "name": "Esportsbook",
-      "weight": 0.1,
-      "p0": 0.7068,
-      "p1": 0.2932,
-      "quote": "1.29/3.11",
-      "overround": 0.0967,
-      "url": "https://egamersworld.com/lol/matches"
      }
     ]
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -4775,20 +4842,20 @@
     "elo_raw": 1706.2,
     "elo": 1699.7
    },
-   "p0": 0.1407,
-   "p1": 0.8593,
+   "p0": 0.1403,
+   "p1": 0.8597,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (14.1% / 85.9%): Pinnacle 16.8%/83.2% (5.67/1.14), Polymarket 12.5%/87.5% (12.5¢/87.5¢), Kalshi 12.5%/87.5% (12¢/88¢), Bovada 11.1%/88.9% (8.50/1.06), Esportsbook 14.5%/85.5% (6.26/1.06).",
+   "basis": "4-Venue Consensus de-vigged line (14.0% / 86.0%): Pinnacle 16.8%/83.2% (5.67/1.14), Polymarket 12.5%/87.5% (12.5¢/87.5¢), Kalshi 12.5%/87.5% (12¢/88¢), Bovada 11.1%/88.9% (8.50/1.06).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "T1",
-    "probability": 0.8593,
-    "other_probability": 0.1407
+    "probability": 0.8597,
+    "other_probability": 0.1403
    },
    "market": {
-    "book": "5-Venue Consensus",
+    "book": "4-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://www.pinnacle.com/en/event/1638748205",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638748205/markets/related/straight",
@@ -4801,12 +4868,13 @@
      "home": 467,
      "away": -700
     },
-    "p0": 0.1407,
-    "p1": 0.8593,
+    "p0": 0.1403,
+    "p1": 0.8597,
     "overround": 0.0513,
     "start_utc": "2026-10-23T23:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 4,
+    "total_volume_usd": 48536.043655,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4824,6 +4892,7 @@
       "p1": 0.875,
       "quote": "12.5¢/87.5¢",
       "overround": 0.0,
+      "volume_usd": 48536.043655,
       "url": "https://polymarket.com/event/lol-los-t1-2026-10-23"
      },
      {
@@ -4843,18 +4912,10 @@
       "quote": "8.50/1.06",
       "overround": 0.0588,
       "url": "https://www.bovada.lv/esports/league-of-legends/world-championship-26/los-grandes-t1-202610231900"
-     },
-     {
-      "name": "Esportsbook",
-      "weight": 0.1,
-      "p0": 0.1448,
-      "p1": 0.8552,
-      "quote": "6.26/1.06",
-      "overround": 0.1031,
-      "url": "https://egamersworld.com/lol/matches"
      }
     ]
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -4881,8 +4942,8 @@
     "join_notes": [],
     "rating_matches": 65,
     "last_played": "2026-08-30",
-    "elo_raw": 1694.1,
-    "elo": 1680.2
+    "elo_raw": 1694.0,
+    "elo": 1680.1
    },
    "team1": {
     "name": "LYON",
@@ -4896,26 +4957,26 @@
     "elo_raw": 1610.5,
     "elo": 1601.9
    },
-   "p0": 0.418,
-   "p1": 0.582,
+   "p0": 0.4234,
+   "p1": 0.5766,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (41.8% / 58.2%): Pinnacle 43.1%/56.9% (2.23/1.69), Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 41.9%/58.1% (42¢/57¢), Esportsbook 37.6%/62.4% (2.51/1.51).",
+   "basis": "3-Venue Consensus de-vigged line (42.3% / 57.7%): Pinnacle 43.1%/56.9% (2.23/1.69), Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 41.9%/58.1% (42¢/57¢).",
    "flags": [
     "Leaguepedia lists this team as 'LYON (2024 American Team)'"
    ],
    "pick": {
     "side": 1,
     "team": "LYON",
-    "probability": 0.582,
-    "other_probability": 0.418
+    "probability": 0.5766,
+    "other_probability": 0.4234
    },
    "market": {
-    "book": "4-Venue Consensus",
+    "book": "3-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638758897",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758897/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638758897",
+    "source_url": "https://www.pinnacle.com/en/event/1638754606",
+    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638754606/markets/related/straight",
+    "market_url": "https://www.pinnacle.com/en/event/1638754606",
     "decimal": {
      "home": 2.23,
      "away": 1.69
@@ -4924,12 +4985,13 @@
      "home": 123,
      "away": -145
     },
-    "p0": 0.418,
-    "p1": 0.582,
+    "p0": 0.4234,
+    "p1": 0.5766,
     "overround": 0.0403,
     "start_utc": "2026-10-24T00:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 4,
+    "venue_count": 3,
+    "total_volume_usd": 27390.712704999998,
     "venues": [
      {
       "name": "Pinnacle",
@@ -4938,7 +5000,7 @@
       "p1": 0.5689,
       "quote": "2.23/1.69",
       "overround": 0.0403,
-      "url": "https://www.pinnacle.com/en/event/1638758897"
+      "url": "https://www.pinnacle.com/en/event/1638754606"
      },
      {
       "name": "Polymarket",
@@ -4947,6 +5009,7 @@
       "p1": 0.585,
       "quote": "41.5¢/58.5¢",
       "overround": 0.0,
+      "volume_usd": 27390.712704999998,
       "url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23"
      },
      {
@@ -4957,18 +5020,10 @@
       "quote": "42¢/57¢",
       "overround": -0.01,
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct231900lytsw"
-     },
-     {
-      "name": "Esportsbook",
-      "weight": 0.1,
-      "p0": 0.3756,
-      "p1": 0.6244,
-      "quote": "2.51/1.51",
-      "overround": 0.0607,
-      "url": "https://egamersworld.com/lol/matches"
      }
     ]
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5021,6 +5076,7 @@
     "other_probability": 0.4803
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5073,6 +5129,7 @@
     "other_probability": 0.4707
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5129,6 +5186,7 @@
     "other_probability": 0.4586
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5183,6 +5241,7 @@
     "other_probability": 0.467
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5237,6 +5296,7 @@
     "other_probability": 0.3247
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5291,6 +5351,7 @@
     "other_probability": 0.4282
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5343,6 +5404,7 @@
     "other_probability": 0.2841
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5397,6 +5459,7 @@
     "other_probability": 0.4748
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5451,6 +5514,7 @@
     "other_probability": 0.4856
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5503,6 +5567,7 @@
     "other_probability": 0.4434
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5555,6 +5620,7 @@
     "other_probability": 0.4582
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5607,6 +5673,7 @@
     "other_probability": 0.4329
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5661,6 +5728,7 @@
     "other_probability": 0.4911
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5713,6 +5781,7 @@
     "other_probability": 0.4408
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5765,6 +5834,7 @@
     "other_probability": 0.4853
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5817,6 +5887,7 @@
     "other_probability": 0.476
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5871,6 +5942,7 @@
     "other_probability": 0.4812
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5927,6 +5999,7 @@
     "other_probability": 0.4918
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -5979,6 +6052,7 @@
     "other_probability": 0.2674
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6031,6 +6105,7 @@
     "other_probability": 0.4731
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6083,6 +6158,7 @@
     "other_probability": 0.4524
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6135,6 +6211,7 @@
     "other_probability": 0.3486
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6187,6 +6264,7 @@
     "other_probability": 0.3676
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6241,6 +6319,7 @@
     "other_probability": 0.4549
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6293,6 +6372,7 @@
     "other_probability": 0.4791
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6347,6 +6427,7 @@
     "other_probability": 0.4579
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6399,6 +6480,7 @@
     "other_probability": 0.4597
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6451,6 +6533,7 @@
     "other_probability": 0.4505
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6503,6 +6586,7 @@
     "other_probability": 0.4738
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6559,6 +6643,7 @@
     "other_probability": 0.378
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6613,6 +6698,7 @@
     "other_probability": 0.4784
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6665,6 +6751,7 @@
     "other_probability": 0.467
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6717,6 +6804,7 @@
     "other_probability": 0.4896
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6769,6 +6857,7 @@
     "other_probability": 0.2937
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6823,6 +6912,7 @@
     "other_probability": 0.4136
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6877,6 +6967,7 @@
     "other_probability": 0.4865
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6931,6 +7022,7 @@
     "other_probability": 0.2706
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -6985,6 +7077,7 @@
     "other_probability": 0.4597
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7039,6 +7132,7 @@
     "other_probability": 0.4836
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7091,6 +7185,7 @@
     "other_probability": 0.4495
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7143,6 +7238,7 @@
     "other_probability": 0.4834
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7195,6 +7291,7 @@
     "other_probability": 0.4145
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7249,6 +7346,7 @@
     "other_probability": 0.4736
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7303,6 +7401,7 @@
     "other_probability": 0.4593
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7355,6 +7454,7 @@
     "other_probability": 0.3822
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7411,6 +7511,7 @@
     "other_probability": 0.3897
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7463,6 +7564,7 @@
     "other_probability": 0.303
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7515,6 +7617,7 @@
     "other_probability": 0.2401
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7569,6 +7672,7 @@
     "other_probability": 0.498
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7621,6 +7725,7 @@
     "other_probability": 0.4411
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7663,9 +7768,11 @@
    "p0": 0.32,
    "p1": 0.68,
    "method": "market",
-   "confidence": "high",
+   "confidence": "low",
    "basis": "Polymarket de-vigged line (32.0% / 68.0%): Polymarket 32.0%/68.0% (32.0¢/68.0¢).",
-   "flags": [],
+   "flags": [
+    "single thin prediction market: only $5 traded volume on Polymarket - treat as an indicative line"
+   ],
    "pick": {
     "side": 1,
     "team": "Vitality Rising Bees",
@@ -7689,6 +7796,7 @@
     "start_utc": null,
     "league": null,
     "venue_count": 1,
+    "total_volume_usd": 5.0,
     "venues": [
      {
       "name": "Polymarket",
@@ -7697,10 +7805,12 @@
       "p1": 0.68,
       "quote": "32.0¢/68.0¢",
       "overround": 0.0,
+      "volume_usd": 5.0,
       "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
      }
     ]
    },
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7757,6 +7867,7 @@
     "other_probability": 0.4588
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7809,6 +7920,7 @@
     "other_probability": 0.379
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7861,6 +7973,7 @@
     "other_probability": 0.428
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7913,6 +8026,7 @@
     "other_probability": 0.4552
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -7965,6 +8079,7 @@
     "other_probability": 0.4434
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8017,6 +8132,7 @@
     "other_probability": 0.4902
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8069,6 +8185,7 @@
     "other_probability": 0.421
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8121,6 +8238,7 @@
     "other_probability": 0.4396
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8175,6 +8293,7 @@
     "other_probability": 0.4768
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8227,6 +8346,7 @@
     "other_probability": 0.4968
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8279,6 +8399,7 @@
     "other_probability": 0.4356
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8331,6 +8452,7 @@
     "other_probability": 0.4727
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8383,6 +8505,7 @@
     "other_probability": 0.468
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8435,6 +8558,7 @@
     "other_probability": 0.4641
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8487,6 +8611,7 @@
     "other_probability": 0.4953
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8539,6 +8664,7 @@
     "other_probability": 0.4357
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8595,6 +8721,7 @@
     "other_probability": 0.4321
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8649,6 +8776,7 @@
     "other_probability": 0.4832
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8701,6 +8829,7 @@
     "other_probability": 0.4023
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8755,6 +8884,7 @@
     "other_probability": 0.4504
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8809,6 +8939,7 @@
     "other_probability": 0.2589
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8863,6 +8994,7 @@
     "other_probability": 0.4883
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8915,6 +9047,7 @@
     "other_probability": 0.4547
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -8967,6 +9100,7 @@
     "other_probability": 0.4171
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9019,6 +9153,7 @@
     "other_probability": 0.4475
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9075,6 +9210,7 @@
     "other_probability": 0.3002
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9127,6 +9263,7 @@
     "other_probability": 0.4686
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9181,6 +9318,7 @@
     "other_probability": 0.4867
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9233,6 +9371,7 @@
     "other_probability": 0.4925
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9285,6 +9424,7 @@
     "other_probability": 0.4955
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9339,6 +9479,7 @@
     "other_probability": 0.4896
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9391,6 +9532,7 @@
     "other_probability": 0.4636
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9445,6 +9587,7 @@
     "other_probability": 0.4729
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9497,6 +9640,7 @@
     "other_probability": 0.4802
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9549,6 +9693,7 @@
     "other_probability": 0.3996
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9601,6 +9746,7 @@
     "other_probability": 0.4525
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9653,6 +9799,7 @@
     "other_probability": 0.4907
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9705,6 +9852,7 @@
     "other_probability": 0.3691
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9759,6 +9907,7 @@
     "other_probability": 0.4858
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9811,6 +9960,7 @@
     "other_probability": 0.4288
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9863,6 +10013,7 @@
     "other_probability": 0.3037
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9917,6 +10068,7 @@
     "other_probability": 0.4638
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -9971,6 +10123,7 @@
     "other_probability": 0.4681
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10025,6 +10178,7 @@
     "other_probability": 0.4299
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10077,6 +10231,7 @@
     "other_probability": 0.424
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10131,6 +10286,7 @@
     "other_probability": 0.4765
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10185,6 +10341,7 @@
     "other_probability": 0.4593
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10237,6 +10394,7 @@
     "other_probability": 0.4834
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10293,6 +10451,7 @@
     "other_probability": 0.4398
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10345,6 +10504,7 @@
     "other_probability": 0.398
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10399,6 +10559,7 @@
     "other_probability": 0.399
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10455,6 +10616,7 @@
     "other_probability": 0.4484
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10509,6 +10671,7 @@
     "other_probability": 0.4856
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10561,6 +10724,7 @@
     "other_probability": 0.4486
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10613,6 +10777,7 @@
     "other_probability": 0.4717
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10665,6 +10830,7 @@
     "other_probability": 0.4895
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10721,6 +10887,7 @@
     "other_probability": 0.4975
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10775,6 +10942,7 @@
     "other_probability": 0.3221
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10827,6 +10995,7 @@
     "other_probability": 0.3979
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10881,6 +11050,7 @@
     "other_probability": 0.4167
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10933,6 +11103,7 @@
     "other_probability": 0.3503
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -10987,6 +11158,7 @@
     "other_probability": 0.272
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11041,6 +11213,7 @@
     "other_probability": 0.485
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11095,6 +11268,7 @@
     "other_probability": 0.4754
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11149,6 +11323,7 @@
     "other_probability": 0.4789
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11201,6 +11376,7 @@
     "other_probability": 0.3352
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11255,6 +11431,7 @@
     "other_probability": 0.4385
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11307,6 +11484,7 @@
     "other_probability": 0.4473
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11359,6 +11537,7 @@
     "other_probability": 0.4849
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11411,6 +11590,7 @@
     "other_probability": 0.4481
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11463,6 +11643,7 @@
     "other_probability": 0.4138
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11515,6 +11696,7 @@
     "other_probability": 0.4309
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11567,6 +11749,7 @@
     "other_probability": 0.4641
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11619,6 +11802,7 @@
     "other_probability": 0.3895
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11673,6 +11857,7 @@
     "other_probability": 0.4815
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11729,6 +11914,7 @@
     "other_probability": 0.2941
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11781,6 +11967,7 @@
     "other_probability": 0.4789
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11835,6 +12022,7 @@
     "other_probability": 0.4365
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11889,6 +12077,7 @@
     "other_probability": 0.4634
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11941,6 +12130,7 @@
     "other_probability": 0.4834
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -11993,6 +12183,7 @@
     "other_probability": 0.4624
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12049,6 +12240,7 @@
     "other_probability": 0.4897
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12101,6 +12293,7 @@
     "other_probability": 0.4834
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12153,6 +12346,7 @@
     "other_probability": 0.425
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12207,6 +12401,7 @@
     "other_probability": 0.3865
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12244,49 +12439,22 @@
     "rating_matches": 57,
     "last_played": "2026-09-06",
     "elo_raw": 1629.6,
-    "elo": 1619.2
+    "elo": 1619.1
    },
-   "p0": 0.9111,
-   "p1": 0.0889,
-   "method": "market",
-   "confidence": "high",
-   "basis": "Esportsbook de-vigged line (91.1% / 8.9%): Esportsbook 91.1%/8.9% (1.02/10.5).",
+   "p0": 0.2246,
+   "p1": 0.7754,
+   "method": "model",
+   "confidence": "medium",
+   "basis": "Elo line: Ground Zero Gaming 1404 vs Frank Esports 1619 (48/57 rated series).",
    "flags": [],
    "pick": {
-    "side": 0,
-    "team": "Ground Zero Gaming",
-    "probability": 0.9111,
-    "other_probability": 0.0889
+    "side": 1,
+    "team": "Frank Esports",
+    "probability": 0.7754,
+    "other_probability": 0.2246
    },
-   "market": {
-    "book": "Esportsbook",
-    "kind": "bookmaker",
-    "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
-    "api_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
-    "market_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
-    "decimal": {
-     "home": 1.025,
-     "away": 10.5
-    },
-    "american": null,
-    "p0": 0.9111,
-    "p1": 0.0889,
-    "overround": 0.0708,
-    "start_utc": null,
-    "league": null,
-    "venue_count": 1,
-    "venues": [
-     {
-      "name": "Esportsbook",
-      "weight": 0.1,
-      "p0": 0.9111,
-      "p1": 0.0889,
-      "quote": "1.02/10.5",
-      "overround": 0.0708,
-      "url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
-     }
-    ]
-   },
+   "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12343,6 +12511,7 @@
     "other_probability": 0.3798
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12395,6 +12564,7 @@
     "other_probability": 0.4587
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12451,6 +12621,7 @@
     "other_probability": 0.4767
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12503,6 +12674,7 @@
     "other_probability": 0.3921
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12555,6 +12727,7 @@
     "other_probability": 0.4883
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12607,6 +12780,7 @@
     "other_probability": 0.4545
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12659,6 +12833,7 @@
     "other_probability": 0.432
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12713,6 +12888,7 @@
     "other_probability": 0.4745
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12765,6 +12941,7 @@
     "other_probability": 0.4769
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12819,6 +12996,7 @@
     "other_probability": 0.4179
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12871,6 +13049,7 @@
     "other_probability": 0.4283
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12923,6 +13102,7 @@
     "other_probability": 0.3599
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -12975,6 +13155,7 @@
     "other_probability": 0.4277
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -13027,6 +13208,7 @@
     "other_probability": 0.3938
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -13081,6 +13263,7 @@
     "other_probability": 0.4653
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -13137,6 +13320,7 @@
     "other_probability": 0.288
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -13189,6 +13373,7 @@
     "other_probability": 0.4279
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -13241,6 +13426,7 @@
     "other_probability": 0.4928
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -13295,6 +13481,7 @@
     "other_probability": 0.441
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -13347,6 +13534,7 @@
     "other_probability": 0.4493
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -13399,6 +13587,7 @@
     "other_probability": 0.429
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -13451,6 +13640,7 @@
     "other_probability": 0.4802
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {
@@ -13505,6 +13695,7 @@
     "other_probability": 0.4852
    },
    "market": null,
+   "resolution": null,
    "connected": true,
    "stale": false,
    "community_pick_pct": {

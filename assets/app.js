@@ -139,13 +139,58 @@
     applyAll();
   }
 
+  // Pick-table filters (table.html): search + tournament + method chips
+  function initTableFilter() {
+    var q = document.getElementById("tq");
+    var comp = document.getElementById("tcomp");
+    var body = document.getElementById("tbody");
+    var count = document.getElementById("tcount");
+    var empty = document.getElementById("tempty");
+    var chips = document.querySelectorAll("[data-tfilter]");
+    if (!body || !chips.length) return;
+
+    var activeMethod = "";
+    var rows = body.querySelectorAll("tr.prow");
+
+    function apply() {
+      var term = q ? q.value.trim().toLowerCase() : "";
+      var compVal = comp ? comp.value : "";
+      var shown = 0;
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i];
+        var ok = true;
+        if (activeMethod && r.getAttribute("data-method") !== activeMethod) ok = false;
+        if (ok && compVal && r.getAttribute("data-comp") !== compVal) ok = false;
+        if (ok && term && (r.getAttribute("data-text") || "").indexOf(term) === -1) ok = false;
+        r.classList.toggle("hidden-row", !ok);
+        if (ok) shown++;
+      }
+      if (count) count.textContent = shown + " match" + (shown === 1 ? "" : "es") + " shown";
+      if (empty) empty.hidden = shown !== 0;
+    }
+
+    for (var c = 0; c < chips.length; c++) {
+      chips[c].addEventListener("click", function (ev) {
+        for (var j = 0; j < chips.length; j++) chips[j].classList.remove("active");
+        ev.currentTarget.classList.add("active");
+        activeMethod = ev.currentTarget.getAttribute("data-tfilter") || "";
+        apply();
+      });
+    }
+    if (q) q.addEventListener("input", apply);
+    if (comp) comp.addEventListener("change", apply);
+    apply();
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
       hydrateTimestamps();
       initPickFilters();
+      initTableFilter();
     });
   } else {
     hydrateTimestamps();
     initPickFilters();
+    initTableFilter();
   }
 })();

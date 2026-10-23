@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T11:44:00Z",
+ "generated_utc": "2026-10-23T15:43:26Z",
  "checks": [
   {
    "name": "dataset present",
@@ -32,6 +32,26 @@
    "detail": "241 unique ids; duplicates: []"
   },
   {
+   "name": "no '(Kills)' derivative market is used as a match line",
+   "ok": true,
+   "detail": "violations: []"
+  },
+  {
+   "name": "every market pick carries an official quote URL",
+   "ok": true,
+   "detail": "problems: []"
+  },
+  {
+   "name": "every official-forfeit resolution names a winner and a source URL",
+   "ok": true,
+   "detail": "4 resolutions checked; problems: []"
+  },
+  {
+   "name": "official-forfeit resolutions carry no invented probability",
+   "ok": true,
+   "detail": "problems: []"
+  },
+  {
    "name": "picks.csv mirrors the dataset",
    "ok": true,
    "detail": "csv rows=241 json rows=241"
@@ -39,7 +59,7 @@
   {
    "name": "all site pages exist",
    "ok": true,
-   "detail": "11/11 pages"
+   "detail": "12/12 pages"
   },
   {
    "name": "no broken internal links",
@@ -62,9 +82,14 @@
    "detail": "241/241 match cards found"
   },
   {
+   "name": "pick table renders one row per match",
+   "ok": true,
+   "detail": "241/241 table rows"
+  },
+  {
    "name": "executive summary links to every picks view",
    "ok": true,
-   "detail": "present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']"
+   "detail": "present: ['picks.html', 'table.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks']"
   },
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
@@ -84,9 +109,9 @@
  "unverified": 69,
  "counts": {
   "provisional": 65,
-  "model": 162,
+  "model": 163,
   "unresolved": 4,
-  "market": 10
+  "market": 9
  },
- "internal_links": 229
+ "internal_links": 266
 }

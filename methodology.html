@@ -13,14 +13,14 @@
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
     <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
-    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html" class="active">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="table.html">Table</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html" class="active">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
 </header>
 <main id="main" class="wrap">
   <div class="pagehead">
     <h1>Method</h1>
     <p class="sub">How every probability on this site is computed, backtested, and audited.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 11:43 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-23 15:40 UTC</strong> &middot; refreshed automatically every 6 hours</p>
   </div>
   
 <section class="panel">
@@ -29,15 +29,19 @@
     <li><strong>Inventory.</strong> Every League of Legends fixture is pulled from Hotspawn's public fixtures API
     (<a href="https://play.hotspawn.com/lol-pickems" rel="noopener">play.hotspawn.com/lol-pickems</a>).</li>
     <li><strong>Tier 1 — Multi-venue real-money consensus.</strong> Live odds and contract books from
-    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12), and
-    verified specialist esportsbooks (0.10)</strong> are de-vigged proportionally and precision-weighted.</li>
+    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18) and Bovada (0.12)</strong>
+    are de-vigged proportionally and precision-weighted. Only series moneylines are accepted: Pinnacle's
+    parallel &quot;(Kills)&quot; derivative is filtered out in <code>collect.py</code> and again in
+    <code>model.py</code>, and archived third-party quotes that cannot be re-verified on the build machine are
+    retired rather than reused.</li>
     <li><strong>Tier 2 — Originated regional Elo lines.</strong> All recorded Leaguepedia series since
     MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27; are processed chronologically with inactivity decay and shrinkage toward 1500.</li>
     <li><strong>Tier 3 — Provisional &amp; Unresolved quarantine.</strong> Thin-sample teams (&lt;5 series) are marked
     <em>provisional</em>; officially removed mid-split teams (<code>dqteams</code>) are quarantined in
     <a href="unresolved.html">Unresolved</a> rather than mispriced.</li>
     <li><strong>Automated publish gate.</strong> Every 6 hours GitHub Actions re-runs the full pipeline and
-    executes 15 strict assertions (<a href="verification.html">Verification</a>) before publishing to GitHub Pages.</li>
+    executes the publish gate (<a href="verification.html">Verification</a>) before publishing to GitHub Pages;
+    a failing assertion aborts the commit instead of shipping bad data.</li>
   </ol>
 </section>
 
@@ -78,17 +82,22 @@
   <figcaption class="small muted" style="margin-top:0.4rem;">Dashed diagonal = ideal calibration (predicted = realized win rate). Blue curve = out-of-sample pre-match Elo calibration across 3,854 series since 2026-07-01.</figcaption>
 </figure>
   <div class="tablewrap"><table class=""><thead><tr><th>Favourite probability bucket</th><th>Series</th><th>Predicted (avg)</th><th>Actual realized win rate</th></tr></thead><tbody><tr><td data-label="Favourite probability bucket">50-60%</td><td data-label="Series">2,251</td><td data-label="Predicted (avg)">54.0%</td><td data-label="Actual realized win rate">57.4%</td></tr><tr><td data-label="Favourite probability bucket">60-70%</td><td data-label="Series">982</td><td data-label="Predicted (avg)">64.4%</td><td data-label="Actual realized win rate">68.8%</td></tr><tr><td data-label="Favourite probability bucket">70-80%</td><td data-label="Series">479</td><td data-label="Predicted (avg)">74.4%</td><td data-label="Actual realized win rate">78.9%</td></tr><tr><td data-label="Favourite probability bucket">80%+</td><td data-label="Series">142</td><td data-label="Predicted (avg)">84.9%</td><td data-label="Actual realized win rate">89.4%</td></tr></tbody></table></div>
-  <p class="small muted">Companion within-tournament Bayesian Bradley-Terry cross-validation on active low-tier
-  divisions (N = 1,595 2026 series, archived in <code>archive/session-8336fb7e/data/calibration.json</code>)
-  likewise achieves 64.9% accuracy, 0.2145 Brier score (&minus;14.2% MSE vs 50/50), and 3.53% ECE.</p>
+  <p class="small muted">A companion within-tournament Bayesian Bradley-Terry cross-validation was run by an
+  earlier session on 1,595 series from active low-tier divisions and is stored in
+  <code>archive/session-8336fb7e/data/calibration.json</code> (reported there: 64.9% accuracy, 0.2145 Brier
+  score, 3.53% ECE). It is an archived result, not re-executed by this build, and is shown for context only -
+  the live numbers above are recomputed on every refresh from the current Leaguepedia extract.</p>
 </section>
 
 <section class="panel">
   <h2>Hard methodological guardrails</h2>
   <ul class="bullets">
     <li><strong>Zero Hotspawn crowd input.</strong> Crowd pick shares are never read by the probability engine.</li>
-    <li><strong>Zero placeholder odds.</strong> Symmetric 1.80 / 1.80 default placeholders on odds aggregators are
-    automatically discarded.</li>
+    <li><strong>Zero placeholder odds.</strong> Symmetric 1.80 / 1.80 defaults on odds aggregators are discarded,
+    and any quote that cannot be re-fetched on the build machine is excluded from the probability entirely.</li>
+    <li><strong>Official walkovers are not forecasts.</strong> Where a league has ruled a forfeit, the settlement
+    winner is published in a separate field with no probability and is excluded from the backtest and from the
+    market-coverage counts.</li>
     <li><strong>Explicit quarantine over guesswork.</strong> Disqualified teams (<code>dqteams</code>) and unrated
     cards are documented transparently on <a href="unresolved.html">Unresolved</a> and
     <a href="flagged.html">Flagged for review</a>.</li>
