@@ -31,7 +31,7 @@ The site rebuilds itself every six hours from GitHub Actions; nothing here needs
 ## How it works
 
 ```
-tools/collect.py   Hotspawn fixtures API · Pinnacle guest API · Polymarket · Leaguepedia Cargo · LoL Esports
+tools/collect.py   Hotspawn fixtures API · Pinnacle guest API · Kalshi · Bovada · Polymarket · Rivalry · Leaguepedia Cargo · LoL Esports
       ↓
 tools/model.py     Elo over Leaguepedia series results, de-vig of bookmaker moneylines
       ↓
@@ -41,7 +41,7 @@ tools/flags.py     derived irregularities + curated notes (data/flags_manual.jso
       ↓
 tools/site.py      13 static pages, mobile-first, no framework
       ↓
-tools/verify.py    25 assertions; a failure aborts the commit instead of publishing bad data
+tools/verify.py    41 assertions; a failure aborts the commit instead of publishing bad data
 ```
 
 A single workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) runs that chain on `main`,
@@ -54,15 +54,23 @@ Only `tools/` writes the published pages; `tools/corroborate.py` writes `coverag
 - **Inventory** — `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1`
   returns every LoL card, including the long tail of national and academy leagues.
 - **Market lines** — Pinnacle's public guest API (series moneylines only — the parallel `(Kills)`
-  derivative markets are rejected), Kalshi, Bovada and Polymarket. Odds are converted to decimal, then
-  de-vigged proportionally and precision-weighted. A single prediction market with negligible traded
-  volume is kept but labelled low confidence.
+  derivative markets are rejected), Kalshi, Bovada, Polymarket and the Rivalry esportsbook REST API
+  (documented at <https://github.com/rivalrygg/rivalry-api>; its raw status is recorded on every build,
+  and when the service is unreachable the build simply runs without that venue). Odds are converted to
+  decimal, then de-vigged proportionally and precision-weighted. Symmetric 1.80/1.80 aggregator
+  placeholders and sub-1.03 extreme quotes are rejected before any price can enter the consensus. A
+  single prediction market with negligible traded volume is kept but labelled low confidence.
 - **Originated lines** — Elo fitted on Leaguepedia series results, recency-weighted, with a
   connected-opponent graph guard; teams with too little recorded history are labelled *provisional*
   rather than silently given a confident number.
 - **Settlement picks** — a fixture whose participant was removed mid-split (`dqteams`) gets the
   administratively correct side (the remaining active opponent) and **no percentage**, because a
   competitive probability cannot be justified for a series that may be voided or awarded as a walkover.
+  Every such pick is cross-checked against the official `MatchSchedule.FF` forfeit flag in the
+  Leaguepedia harvest (`forfeit settlements agree with Leaguepedia FF records` gate; rule
+  `ff_winner_name` in `tools/model.py`), and the raw Cargo rows are archived under
+  [`evidence/forfeits/`](evidence/forfeits/README.md). A dqteams/FF disagreement is published as a
+  manual-review flag rather than silently settled.
 - **Never used** — Hotspawn's `picked_percent`, its tiers, or its points as probability inputs.
 - **Blank beats wrong** — a value that cannot be confirmed from a primary source is left blank and
   listed on `flagged.html`; nothing is inferred to fill a gap.
@@ -76,23 +84,21 @@ Only `tools/` writes the published pages; `tools/corroborate.py` writes `coverag
 Hotspawn match-card link, both probabilities sum to 100 %, the published pick is the higher-probability
 side, ids are unique, no `(Kills)` derivative market is used as a match line, every market pick carries
 an official quote URL, every official-forfeit resolution names a winner and a source URL without
-inventing a probability, `picks.csv` mirrors the dataset, all 13 pages exist, every internal link
-resolves, no `None`/empty value is rendered, every match appears on `picks.html` **and** in the table on
-`table.html`, the executive summary links to every view, and each source's availability is recorded.
+inventing a probability and agrees with the Leaguepedia `FF` forfeit record when one exists,
+`picks.csv` mirrors the dataset, all 13 pages exist, every internal link resolves, no `None`/empty
+value is rendered, every match appears on `picks.html` **and** in the table on `table.html`, the
+executive summary links to every view, and each source's availability is recorded.
 
 ## Manual review links
 
 - `data/picks.csv` — one row per match: competition, teams, pick, probability, method, source URLs.
 - `data/matches.json` — full record per match, including odds, Elo inputs and flags.
 - `data/matching_report.json` — every team join that was not an exact string match, with its evidence.
-<<<<<<< HEAD
-- `data/verification.json` — the machine-readable result of the gate (31 checks).
+- `data/verification.json` — the machine-readable result of the gate (41 checks).
 - `data/flags.json` — every irregularity published on `flagged.html`, curated + derived on each build.
-=======
-- `data/verification.json` — the machine-readable result of the gate.
 - `data/audit.json` — the manual, line-by-line source audit rendered on `verification.html`.
 - `data/retired_quotes.json` — archived quotes that were excluded as unverifiable, with the reason.
->>>>>>> origin/main
+- `evidence/forfeits/` — raw Leaguepedia Cargo rows behind every official-forfeit settlement pick.
 - `data/build.log` — the last automated run, verbatim.
 - `COORDINATION.md` — task board, session log and the integration decisions taken across sessions.
 
@@ -106,6 +112,7 @@ resolves, no `None`/empty value is rendered, every match appears on `picks.html`
 - `data/node/` — the Node pipeline's data scope (`picks.json`, `flags.json`, `model/`, `raw/`, `history/`)
 - `archive/` — superseded sessions, kept as audit evidence; nothing there runs
 - `evidence/snapshot/` — frozen raw responses backing the published numbers
+- `evidence/forfeits/` — raw Leaguepedia Cargo rows (incl. `FF` flags) backing walkover settlement picks
 
 ## Secondary dashboard (`docs/`, session `f6e73320`)
 

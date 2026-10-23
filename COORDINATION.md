@@ -997,3 +997,45 @@ block vs `6d1ede2c`'s final-integration record. Resolved as a union, both kept v
 
 **Conflict log addendum 2 (`7f76a03b`, 2026-10-23T16:10Z):** third sync (PRs #44/#49, sessions
 `de975e8d`/`a91e528d`) — `COORDINATION.md` union again, both sides kept verbatim, no text edited.
+
+---
+
+# Session `4106ce94` — Rivalry venue, FF-record settlement gates, forfeit evidence (2026-10-23T16:2xZ)
+
+## Context / collision handling
+
+This branch originally carried three commits implementing walkover picks with 100/0 probabilities and
+a Rivalry collector. While that work was in flight, sessions `b91181f0` / `64554333` merged PR #48
+(plus `7eaabc6`) delivering the same T9/T10 scope in a stricter design: `dqteams` cards stay
+`unresolved` with `pick_type="settlement"`, **null probabilities**, and a `resolution` dict. The
+100/0 design is incompatible with `verify.py`'s `ALLOWED` method set and the deliberate
+"blank beats wrong" decision, so the branch was reset to `origin/main` (`7eaabc6`) and re-scoped to
+strictly additive work. Nothing from the merged pipeline was reverted; the superseded commits remain
+on the remote branch history (`6c644c0`, `56221ff`, `3e4787e`) but are not the content of this PR.
+
+## Delivered (all additive; no generated-data drift)
+
+| # | Item | Files | Notes |
+|---|------|-------|-------|
+| S1 | **Rivalry esportsbook venue** — `collect_rivalry()` against the documented public REST API (`/v1/games`, `/v1/matches?game_id=24`, github.com/rivalrygg/rivalry-api); failures recorded in the raw doc, never fatal; model venue at weight 0.10 reusing the shared `devig_decimal` safeguards (1.80/1.80 placeholder and sub-1.03 extreme rejection) | `tools/collect.py`, `tools/model.py`, `data/raw/rivalry_lol.json` | Sandbox TLS to `api.rivalry.com` fails (status -1 recorded honestly); the CI runner re-probes each refresh and joins the consensus automatically when the service answers. No fixture changes while empty: 241 rows, identical method counts. |
+| S2 | **Source-probe coverage 14 → 19** (`BOOK_PROBES`): Rivalry API (documented URL), Thunderpick, Midnite, Tips.GG, EGamersWorld JSON-API path; `probe_sources.py` Rivalry URL corrected from the undocumented `/v1/sport/...` (always 502) to the documented endpoints, plus Midnite/Tips.GG rows and odds-signal keywords | `tools/collect.py`, `tools/probe_sources.py` | Probe-only sources cannot affect probabilities until a parser exists; the runner's verdicts publish on `sources.html`. |
+| S3 | **Forfeit-flag settlement gates** — `ff_winner_name()` (FF=1 → Team2, FF=2 → Team1), a dqteams-vs-FF disagreement flag inside model build, and two new publish gates: settlements must agree with the Leaguepedia `MatchSchedule.FF` record when one exists, and FF backing is counted per settlement | `tools/model.py`, `tools/verify.py` | All four published Solid Gaming settlements are FF-backed (4/4) with zero conflicts; unbacked rows remain legal but are named in the gate detail (their basis already says "unverified"). Gate count 39 → 41. |
+| S4 | **Forfeit evidence dossier** — raw CargoExport rows for every Solid Gaming Komplettligaen series (8 post-removal FF flags, `IsNullified=0`, removal footnote) with a README mapping each Hotspawn card id to its FF record | `evidence/forfeits/komplettligaen_solid.json`, `evidence/forfeits/README.md` (new) | Independent audit trail for the four settlement picks; live harvest remains authoritative. |
+| S5 | **README repair + docs** — resolved Git conflict markers that PR #48's union merge had left committed in `README.md` (union of both bullet sets), refreshed stale gate counts (25/31 → 41), documented the Rivalry venue, FF gate and evidence directory; ignore local `node_modules/` | `README.md`, `.gitignore` | No code claim beyond what the tests/gates verify. |
+| S6 | **Tests** — 9 new unittest cases: Rivalry feed parsing/ordering, failure-doc path, venue orientation, placeholder/extreme rejection, two-venue weight renormalisation, `ff_winner_name` sides and bad inputs | `tests/test_rivalry.py` (new) | |
+
+## Verification (run on `7eaabc6` + this session's changes)
+
+- `python3 -m unittest discover -s tests` → **18/18 OK** (9 pre-existing integrity tests + 9 new).
+- `NODE_PATH=./node_modules node tests/dashboard.cjs` (jsdom) → **PASS** (241 cards, menu, search, filters).
+- Full local pipeline (`collect --only rivalry` → model → report → flags → site → corroborate → verify):
+  rows **241**, methods `{model: 148, provisional: 80, market: 9, unresolved: 4}`, settlements 4 —
+  byte-identical rows to `main` apart from snapshot timestamps; **verify 41/41 PASS**, including the two
+  new FF gates. Regenerated `data/` and root HTML were reverted before committing (timestamp-only churn;
+  the `refresh-picks` workflow regenerates them on merge, and keeping them would race the six-hourly bot).
+
+## Scope not touched
+
+`tools/site.py`, `tools/flags.py`, `tools/integrity.py`, `tools/corroborate.py`, `assets/**`, root
+`*.html`, `data/matches.json` and other generated datasets, `audit/**`, `scripts/**`/`docs/**` (Node
+pipeline) — owned by other sessions or generated only.
