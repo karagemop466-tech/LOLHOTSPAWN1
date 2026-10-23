@@ -480,6 +480,15 @@ Adopted from `origin/main` unchanged: `tools/integrity.py` + `tests/test_integri
 "Source records (not official verification)" table headers, the community-maintained-Leaguepedia
 caveat, and the hedged settlement wording on the unresolved page.
 
+### Fifth merge with `origin/main` (4a1601e, PR #31) — 2026-10-23T15:52Z
+
+| Incoming change | Handling |
+|---|---|
+| `research/` runner-side source probes (32 endpoints) + `data/source_probes.json` | Adopted untouched. It confirms the four venues we price from (Pinnacle, Kalshi, Bovada, Polymarket all HTTP 200 from the runner) and that every other real book (bet365, Betway, GG.Bet, Thunderpick, Stake, BetMGM, betsson, oddspedia, EGamersWorld) returns 401/403/404/410/JS-only. That is the documented ceiling behind "originate the rest", and it is why no extra venue was added in this session. |
+| `research/AUDIT.json`, `sources.html` additions | Adopted; the gate still passes with them rendered. |
+
+Publish gate: **34/34 PASS**, 9/9 unit tests, 241 rows, 13 pages.
+
 ### Fourth merge with `origin/main` (28531fc, PR #29) — 2026-10-23T15:51Z
 
 | Incoming change | Handling |
