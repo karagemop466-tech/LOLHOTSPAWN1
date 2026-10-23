@@ -368,11 +368,13 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 break
 
     # 2. Polymarket CLOB (highest-volume full-series market only)
+    pm_start = None
     for item in pm_index:
         a, b = item["names"]
         if (same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a)):
             pa = item["p0"] if same_team(name0, a) else item["p1"]
             pb = item["p1"] if same_team(name0, a) else item["p0"]
+            pm_start = item.get("start") or pm_start
             tot = pa + pb
             if tot > 0:
                 p0_v, p1_v = pa / tot, pb / tot
@@ -383,6 +385,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "p1": round(p1_v, 4),
                     "quote": f"{p0_v*100:.1f}¢/{p1_v*100:.1f}¢",
                     "overround": round(tot - 1.0, 4),
+                    "volume_usd": round(float(item.get("volume") or 0.0), 2),
                     "url": f"https://polymarket.com/event/{item['slug']}",
                     "volume_usd": round(float(item.get("volume") or 0.0), 2),
                 })
@@ -441,6 +444,10 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
 
     if not venues:
         return None
+    if primary_start is None:
+        # Only the market's own stated kick-off (gameStartTime) is comparable; the event
+        # startDate is the listing date and would produce false mismatches.
+        primary_start = pm_start
 
     wsum = sum(v["weight"] for v in venues)
     p0 = sum(v["weight"] * v["p0"] for v in venues) / wsum
@@ -470,6 +477,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         "start_utc": primary_start,
         "league": primary_league,
         "venue_count": len(venues),
+        "volume_usd": (max(v["volume_usd"] for v in venues if v.get("volume_usd") is not None)
+                       if any(v.get("volume_usd") is not None for v in venues) else None),
         "venues": venues,
     }
 
@@ -527,9 +536,37 @@ def main() -> None:
             lp_times.setdefault(key, []).append(m.get("utc"))
     ratings, counts, last_seen, uf, backtest = build_ratings(lp_matches)
 
+    lp_by_pair: dict[frozenset, list] = {}
+    for m in lp_matches:
+        lp_by_pair.setdefault(frozenset((norm_name(str(m.get("team1"))),
+                                         norm_name(str(m.get("team2"))))), []).append(m)
+
+    def leaguepedia_row(n0: str, n1: str, start: str | None):
+        """The Leaguepedia record for this fixture: same team pair, closest kick-off."""
+        cands = lp_by_pair.get(frozenset((norm_name(n0), norm_name(n1)))) or []
+        if not cands:
+            return None
+        if not start:
+            return cands[0]
+        try:
+            want = datetime.strptime(start, "%Y-%m-%dT%H:%M:%SZ")
+        except ValueError:
+            return cands[0]
+        def gap(m):
+            try:
+                return abs((datetime.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S")
+                            - want).total_seconds())
+            except ValueError:
+                return float("inf")
+        return min(cands, key=gap)
+
     pin_index = []
     for mk in pin.get("markets") or []:
         names = [p["name"] for p in mk.get("participants", [])]
+        # A "<team> (Kills)" record is Pinnacle's most-kills market, not the series
+        # moneyline. Never let it price a series, even if an older raw snapshot holds one.
+        if any(re.search(r"\(kills\)", n, re.I) for n in names):
+            continue
         if len(names) == 2:
             pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc")})
 
@@ -550,7 +587,8 @@ def main() -> None:
         if re.search(r"\b(game|map)\s*\d\b|\bhandicap\b|\btotal\b", q, re.I):
             continue
         pm_candidates.append({"names": outcomes, "p0": pa, "p1": pb, "volume": vol,
-                              "slug": mk.get("slug"), "start": mk.get("event_start")})
+                              "slug": mk.get("slug"),
+                              "start": mk.get("game_start")})
     pm_index = sorted(pm_candidates, key=lambda x: -x["volume"])
 
     kalshi_index = []
@@ -643,11 +681,20 @@ def main() -> None:
             p0 = p1 = None
             method, confidence = "unresolved", "none"
             pick_type = "settlement"
+            lp_row = leaguepedia_row(n0, n1, f.get("start_utc"))
+            ff = (lp_row or {}).get("ff")
+            if ff in (1, 2):
+                forfeit_note = (f"Leaguepedia records this series with its forfeit flag (FF={ff}, i.e. "
+                                f"{removed} forfeited), 0-2 in favour of {active_opp}. ")
+            elif lp_row:
+                forfeit_note = (f"Leaguepedia records the series as a 0-2 loss for {removed}, but this "
+                                f"snapshot captured no forfeit flag for it. ")
+            else:
+                forfeit_note = (f"Leaguepedia records no series between these teams on this date. ")
             basis = (f"Participant removed mid-split: community-maintained Leaguepedia Data:{page} records "
-                     f"'dqteams={removed}', and every remaining {removed} series in that schedule is entered as a "
-                     f"forfeit (score 0-2 with the ff flag) in favour of the opponent. "
-                     f"Hotspawn may void this card or settle the walkover for opponent {active_opp}; the settlement "
-                     f"is unverified, so no competitive probability is claimed.")
+                     f"'dqteams={removed}'. " + forfeit_note +
+                     f"Hotspawn may void this card or settle the walkover for opponent {active_opp}; the "
+                     f"settlement is unverified, so no competitive probability is claimed.")
             flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
         elif market:
@@ -678,7 +725,8 @@ def main() -> None:
                     a = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ")
                     b = datetime.strptime(str(market["start_utc"])[:19], "%Y-%m-%dT%H:%M:%S")
                     hours = abs((a - b).total_seconds()) / 3600
-                    if hours >= 1.5:
+                    market["start_mismatch_hours"] = round(hours, 1)
+                    if hours >= 1.0:
                         lp_list = lp_times.get((page, frozenset((str(k0), str(k1))))) if k0 and k1 else None
                         lp_utc = lp_list[0] if lp_list and len(lp_list) == 1 else None
                         corroborated = False
@@ -691,7 +739,8 @@ def main() -> None:
                         flags.append(
                             f"kick-off time differs between sources: Hotspawn"
                             f"{' and Leaguepedia say ' if corroborated else ' says '}{f['start_utc']} "
-                            f"while Pinnacle lists {str(market['start_utc'])[:16]}Z ({hours:.0f}h apart) "
+                            f"while {market.get('book', 'the bookmaker')} lists {str(market['start_utc'])[:16]}Z "
+                            f"({hours:.1f}h apart) "
                             f"- confirm before betting")
                 except ValueError:
                     pass
@@ -724,13 +773,25 @@ def main() -> None:
             else:
                 flags.append("no match history for either team in Leaguepedia")
 
+        if market and p0 is not None:
+            venues = market.get("venues") or []
+            vol = market.get("volume_usd")
+            if {v["name"] for v in venues} == {"Polymarket"} and vol is not None and vol < 1000:
+                confidence = "low"
+                market["thin"] = True
+                flags.append(f"thin market: one Polymarket venue, ${vol:,.0f} total traded volume "
+                             f"- indicative only, not a deep bookmaker line")
+
         for side, notes in ((row["team0"], note0), (row["team1"], note1)):
             flags.extend(notes)
         stale = False
+        stale_hours = 0.0
         if f.get("start_utc"):
             try:
                 start_dt = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
-                stale = (datetime.now(timezone.utc) - start_dt).total_seconds() > 3 * 3600
+                stale_hours = round(
+                    (datetime.now(timezone.utc) - start_dt).total_seconds() / 3600, 1)
+                stale = stale_hours > 0
             except ValueError:
                 stale = False
         if stale:
@@ -774,7 +835,7 @@ def main() -> None:
                     "method": method, "confidence": confidence, "basis": basis,
                     "flags": sorted(set(flags)), "pick": pick, "pick_type": pick_type,
                     "market": market,
-                    "connected": connected, "stale": stale,
+                    "connected": connected, "stale": stale, "stale_hours": stale_hours,
                     "community_pick_pct": f["community_pick_pct"]})
         rows.append(row)
 

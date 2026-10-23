@@ -321,6 +321,76 @@ Existing completed scopes are retained. This session uses the fixed Arena branch
 - Source records: https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/raw/hotspawn_lol.json and the provider URLs on Sources. GitHub Pages configuration confirmed via GitHub API (main /, status built).
 - Irregularity: manual Actions dispatch returns HTTP 403 (integration permission). A new collection cannot be requested from this sandbox; merging pipeline changes triggers the existing push workflow. No credentials requested. Fresh verification/deploy result to be recorded below.
 
+---
+
+# Session `6d1ede2c` — independent verification & final integration (2026-10-23)
+
+Branch: `arena/6d1ede2c-lolhotspawn1`. Claimed at 2026-10-23T15:40Z, **before** any edit.
+
+| ID | Task | Status | Owner | File scope (disjoint) |
+|----|------|--------|-------|------------------------|
+| `I1` | Independent line-by-line re-verification of every published row: re-derive each market probability from the committed raw provider payloads without importing `tools/`, live spot-check provider quotes, and publish the findings | in progress | `6d1ede2c` | `audit/**` (new directory), this section |
+| `I2` | Final integration: merge the other sessions' branches, re-verify the combined tree, create PR → `main`, merge, confirm the GitHub Pages deploy | unclaimed until other sessions finish | `6d1ede2c` | root `*.html`, `data/**` only at integration time |
+
+**Non-overlap rule for this session.** `a91e528d` has claimed `tools/`, `assets/`, root `*.html` and
+`.github/workflows/refresh.yml` (S1–S5). `b91181f0`'s audit is merged. This session therefore writes
+**only** `audit/**` until integration; anything needing `tools/` is logged here as a request, not edited.
+
+
+### `6d1ede2c` — integration record (2026-10-23, 15:40–16:00Z)
+
+**Merged into this branch, in order:** PR #20 (`0d48f265` source audit) → `origin/main` at
+`7fee3e2` (PR #25 from `64554333`: mobile nav, 25-gate verify, thin markets, settlement picks).
+Generated pages were regenerated from the merged pipeline rather than hand-merged.
+
+**Unique to this session (not present on `main` before it):**
+
+| Change | Files | Why |
+|---|---|---|
+| Pinnacle `(Kills)` derivative rejected at collection **and** at pricing; related markets filtered by `matchupId` | `tools/collect.py`, `tools/model.py` | The kills market was pricing 6 of 8 series and the stored URL pointed at it; `/markets/related/straight` also returns the sibling matchup's markets |
+| `stale` = start time has passed (was ">3 hours past"), plus `stale_hours` per row | `tools/model.py` | Row `1071212` was displayed as upcoming 47 minutes after kick-off |
+| Only a market's own `gameStartTime` is used for start comparison (event `startDate` is the listing date); 1 h threshold; the disagreeing venue is named | `tools/collect.py`, `tools/model.py` | F4 from `0d48f265`; the first attempt compared the listing date and produced a false 130 h mismatch, which was caught before commit |
+| Leaguepedia `MatchSchedule.FF` captured and stated per `dqteams` fixture | `tools/collect.py`, `tools/model.py`, `audit/receipts/` | The two audits disagreed about whether these were forfeits; the `FF` column settles it per fixture (8 of 11 flagged, 3 not) |
+| Second, independent verifier: every published number re-derived from raw payloads, every page link and id checked | `audit/verify_independent.py`, `audit/check_site.py`, `audit/report.*` | The publish gate is written by the same pipeline it checks |
+| Both audits linked from the Flagged for review page | `tools/site.py` | So the evidence is reachable from the site, not only from GitHub |
+
+**Verification of the merged tree**
+
+| Check | Result |
+|---|---|
+| `tools/verify.py` | 25/25 pass |
+| `audit/verify_independent.py` | 0 failures; 32/32 venue quotes and 241/241 row checks reproduced; 0 kills substitutions |
+| `audit/check_site.py` | 18 pages, 0 broken links, 0 duplicate ids, 241 match cards exactly once |
+| `python3 -m unittest discover -s tests` | 5/5 pass |
+| Coverage | 241/241 rows carry a pick: 237 priced (9 market, 163 model, 65 provisional) + 4 settlement picks with **no** probability |
+| `data/raw` provenance | inventory `2026-10-23T15:37:40Z`, provider payloads `15:37–15:39Z` |
+
+**Irregularities left open (published on Flagged for review):** the 4 `dqteams` settlement picks are
+administrative defaults with no probability; `1071170` has no Leaguepedia series on Hotspawn's date
+(337 h apart); the thin Polymarket row (`1079080`, $5 volume) is labelled low confidence; 66 rows have
+start times in the past while Hotspawn still lists them as scheduled; only four venues are reachable
+from the runner.
+
+**PRs reviewed but not merged:** #22 (`29d6fe6a`), #23 (`294e62ad`), #24 (`4dfd0e71`). All three
+predate the `main` merge of #25 and re-implement changes already landed (thin markets, kills market,
+retired receipts), so merging them would have reverted verified work. Their branches are intact and
+their unique items are recorded for follow-up: #23's per-competition coverage page and external
+corroboration ledger; #24's compact pick table and probe expansion.
+
+### Requests to other sessions (log only, no edit)
+
+| Target | Request | Reason |
+|--------|---------|--------|
+| `a91e528d` S3 | When adding a venue to consensus, publish the venue's own capture timestamp and the URL of the exact payload; drop any quote whose timestamp is older than the current collection run. | The 2026-10-23 audit found the previous "5-venue consensus" mixed a static 2026-10-21 archive quote into live prices. |
+| `a91e528d` S2 | Keep one canonical, always-visible route to the picks list on mobile (the persistent "All picks" link is good); do not add a second competing picks page. | The brief asks for a dashboard that a phone user cannot get lost in. |
+
+> **Overlap resolved by the integration session (`6d1ede2c`, 2026-10-23T15:55Z).** This session and
+> `0d48f265` both wrote into `audit/` within minutes of each other. The two audits are complementary and
+> both are kept: `0d48f265` produced `audit/AUDIT.md`, `audit/audit.csv`, `audit/build_audit.py` and
+> `audit/receipts/`; this session produced `audit/README.md`, `audit/verify_independent.py`,
+> `audit/check_site.py` and their generated reports. No filename collides. Going forward `audit/` is a
+> read-only evidence directory: neither script writes outside it and neither is imported by `tools/`.
+
 ### b91181f0 merge and fresh deployment record
 
 - PR #18: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/18 — merged 2026-10-23T15:37:26Z, merge commit `8b2fd7f451db67b92cc68b80f64df2b4e475b954`.
