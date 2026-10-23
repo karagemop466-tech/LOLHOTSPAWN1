@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:56:00Z",
+ "generated_utc": "2026-10-23T15:56:34Z",
  "checks": [
   {
    "name": "dataset present",
@@ -69,7 +69,7 @@
   {
    "name": "Pinnacle quote URLs point at collected matchups",
    "ok": true,
-   "detail": "7 matchup ids in feed; problems: []"
+   "detail": "8 matchup ids in feed; problems: []"
   },
   {
    "name": "every official-forfeit resolution names a winner and a source URL",
@@ -172,6 +172,11 @@
    "detail": "32 venues probed on 2026-10-23T15:38:55Z; dossier present"
   },
   {
+   "name": "coverage arithmetic reconciles to the inventory",
+   "ok": true,
+   "detail": "priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241"
+  },
+  {
    "name": "source availability recorded",
    "ok": true,
    "detail": "9/14 sources reachable on this build"
@@ -203,6 +208,6 @@
   "unresolved": 4,
   "market": 9
  },
- "internal_links": 389,
+ "internal_links": 390,
  "lookahead_violations": 0
 }
