@@ -270,9 +270,25 @@ def collect_bovada() -> dict:
                                 ],
                             })
                             break
-    kept = _preserve_recent_on_http_error(os.path.join(RAW, "bovada_lol.json"), "events", st, "bovada")
-    if kept is not None:
-        return kept
+    if not events_out and os.path.exists(os.path.join(RAW, "bovada_lol.json")):
+        # Bovada geo-filters Azure runner IPs by returning HTTP 200 with an empty [] coupon.
+        # Retain verified <12h pre-match quotes whose scheduled kick-off is still in the future.
+        prev = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
+        prev_ts = prev.get("fetched_utc") or ""
+        try:
+            age_h = (now_utc() - datetime.strptime(str(prev_ts)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)).total_seconds() / 3600
+        except ValueError:
+            age_h = 999.0
+        now_iso = iso(now_utc())
+        upcoming = [e for e in (prev.get("events") or []) if (e.get("start_utc") or "") > now_iso]
+        if upcoming and age_h <= 12.0:
+            prev["events"] = upcoming
+            prev["event_count"] = len(upcoming)
+            prev["last_runner_probe_status"] = st
+            prev["last_runner_probe_utc"] = now_iso
+            save_json(os.path.join(RAW, "bovada_lol.json"), prev)
+            log(f"bovada: runner geo-filtered ({st}, 0 items); preserved {len(upcoming)} upcoming <12h quotes (age={age_h:.1f}h)")
+            return {"count": len(upcoming), "status": st, "cached_age_h": round(age_h, 1)}
     save_json(os.path.join(RAW, "bovada_lol.json"), {
         "fetched_utc": iso(now_utc()),
         "source_url": BOVADA_URL,
@@ -387,7 +403,8 @@ def collect_leaguepedia(max_rows: int = 60000) -> dict:
         if mid and mid in seen:
             continue
         seen.add(mid)
-        t1, t2 = r.get("Team1"), r.get("Team2")
+        t1 = str(r.get("Team1") or "")
+        t2 = str(r.get("Team2") or "")
         if not t1 or not t2 or t1 == "TBD" or t2 == "TBD":
             continue
         winner = r.get("Winner")
