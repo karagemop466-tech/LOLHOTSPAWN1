@@ -225,7 +225,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
-    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{'<span class="badge b-thin" title="single thin prediction market">thin market</span>' if (r.get('market') or {}).get('thin') else ''}{badge(m)}</span>
+    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{f'<span class="badge b-flip" title="identical kick-off ratings - display order only">toss-up</span>' if pick and pick.get('probability') == 0.5 else ''}{'<span class="badge b-thin" title="single thin prediction market">thin market</span>' if (r.get('market') or {}).get('thin') else ''}{badge(m)}</span>
   </div>
   <div class="comp">{e(r['competition'])}{f" &middot; {e(r['best_of'])}-game series" if r.get('best_of') else ""}</div>
   <div class="teams">
@@ -902,8 +902,11 @@ def build_teams(rows: list[dict]) -> str:
             t = r[side]
             prev = teams.get(t["name"])
             if not prev or (t["rating_matches"] or 0) > (prev["n"] or 0):
-                teams[t["name"]] = {"name": t["name"], "lp": t["leaguepedia"], "elo": t["elo"],
-                                    "n": t["rating_matches"], "last": t["last_played"],
+                teams[t["name"]] = {"name": t["name"], "lp": t["leaguepedia"],
+                                    "elo": (t.get("elo_now") if t.get("elo_now") is not None else t["elo"]),
+                                    "n": t["rating_matches"],
+                                    "last": max([x for x in ((prev or {}).get("last"), t["last_played"]) if x],
+                                                default=None),
                                     "join": t["join"]}
     ordered = sorted(teams.values(), key=lambda x: (-(x["elo"] or 0), x["name"]))
     out = [[e(t["name"]),

@@ -78,7 +78,8 @@
         if (method && r.getAttribute("data-method") !== method) ok = false;
         if (ok && comp && r.getAttribute("data-comp") !== comp) ok = false;
         if (ok && term && (r.getAttribute("data-text") || "").indexOf(term) === -1) ok = false;
-        r.classList.toggle("hidden-row", !ok);
+        r.hidden = !ok;
+      r.classList.toggle("hidden-row", !ok);
         if (ok) shown++;
       }
       if (countEl) countEl.textContent = shown + " match" + (shown === 1 ? "" : "es") + " shown";
@@ -123,7 +124,8 @@
         if (activeMethod && r.getAttribute("data-method") !== activeMethod) ok = false;
         if (ok && compVal && r.getAttribute("data-comp") !== compVal) ok = false;
         if (ok && term && (r.getAttribute("data-text") || "").indexOf(term) === -1) ok = false;
-        r.classList.toggle("hidden-row", !ok);
+        r.hidden = !ok;
+      r.classList.toggle("hidden-row", !ok);
         if (ok) shown++;
       }
       if (count) count.textContent = shown + " match" + (shown === 1 ? "" : "es") + " shown";
@@ -143,19 +145,19 @@
     apply();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      hydrateTimestamps();
-      initMenu();
-      initSnapshotAge();
-      initPickFilters();
-      initTableFilter();
-    });
-  } else {
+  /* The script is loaded at the end of <body>, so the elements it needs already exist.
+     Boot immediately (keeps the page usable even if DOMContentLoaded has already fired),
+     and once more on DOMContentLoaded as a guard, which is idempotent. */
+  var booted = false;
+  function boot() {
+    if (booted) return;
+    booted = true;
     hydrateTimestamps();
     initMenu();
     initSnapshotAge();
     initPickFilters();
     initTableFilter();
   }
+  boot();
+  document.addEventListener("DOMContentLoaded", boot);
 })();

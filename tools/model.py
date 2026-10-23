@@ -31,8 +31,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, RAW, ROOT, iso, load_json, log, norm_name, now_utc, save_json
 
 ELO_START = 1500.0
-ELO_K = 24.0
-ELO_SHRINK = 5.0              # r_eff = 1500 + (r - 1500) * n / (n + 5)
+# Margin-weighted K, selected on 2026-04-01..2026-07-01 and checked on the later holdout.
+# Baseline K=24 / no margin weight: 64.06% accuracy, 0.2212 Brier, 0.6323 log-loss.
+# Adopted  K=48 / margin 0.45 : 65.36% accuracy, 0.2144 Brier, 0.6175 log-loss (n=3,854).
+ELO_K = 48.0
+MARGIN_WEIGHT = 0.45          # K_eff = K * (1 - w + w * |series game margin|)
+ELO_SHRINK = 0.0              # post-hoc shrinkage measurably hurt both Brier and accuracy
 MIN_MATCHES_CONFIDENT = 5     # rated series per team required for "medium" confidence
 PROB_FLOOR, PROB_CEIL = 0.05, 0.95
 DECAY_START_DAYS = 45
@@ -154,27 +158,99 @@ class UnionFind:
 BACKTEST_CUTOFF = datetime(2026, 7, 1, tzinfo=timezone.utc)
 
 
-def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, dict]:
+def margin_k(team1_score, team2_score) -> float:
+    """Series-margin weighted K: a 2-0 counts more than a 2-1; missing scores fall back to K."""
+    try:
+        gd = abs(int(team1_score) - int(team2_score))
+    except (TypeError, ValueError):
+        return ELO_K
+    return ELO_K * (1.0 - MARGIN_WEIGHT + MARGIN_WEIGHT * gd)
+
+
+def parse_lp_time(value) -> datetime | None:
+    try:
+        return datetime.strptime(str(value)[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+    except (ValueError, TypeError):
+        return None
+
+
+def parse_fixture_time(value) -> datetime | None:
+    try:
+        return datetime.strptime(str(value)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+    except (ValueError, TypeError):
+        return None
+
+
+def decayed(rating: float, last_seen: datetime, at: datetime) -> float:
+    """Inactivity decay toward the 1500 prior, from `last_seen` to `at`."""
+    days = max(0.0, (at - last_seen).total_seconds() / 86400)
+    if days <= DECAY_START_DAYS:
+        return rating
+    return ELO_START + (rating - ELO_START) * max(0.0, 1 - (days - DECAY_START_DAYS) / DECAY_FULL_DAYS)
+
+
+def build_ratings(lp_matches: list[dict], fixtures: list[dict] | None = None):
+    """Chronological Elo with two integrity guarantees.
+
+    1. Every fixture is priced from the rating state **at its own kick-off**, built only
+       from results that started earlier. An already-played card therefore cannot see
+       its own result (the previous build fitted on the full window and leaked it).
+    2. K is weighted by the series game margin (2-0 > 2-1), validated out-of-sample.
+
+    `fixtures` is a list of {"id", "start_utc", "team0_key", "team1_key"} taken from the
+    same Hotspawn inventory. Returns ratings/counts/last_seen/uf/backtest plus
+    {fixture_id: {team_key: {"elo", "n", "last", "opponents"}}}.
+    """
     ratings: dict[str, float] = {}
     counts: dict[str, int] = {}
     last_seen: dict[str, datetime] = {}
+    opponents: dict[str, set] = {}
     uf = UnionFind()
-    games: list[tuple[datetime, str, str, int]] = []
+    games: list[tuple] = []
 
     for m in lp_matches:
         if m.get("winner") not in ("1", "2"):
             continue
-        try:
-            dt = datetime.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
-        except (ValueError, TypeError):
+        dt = parse_lp_time(m.get("utc"))
+        if dt is None:
             continue
-        games.append((dt, m["team1"], m["team2"], 1 if m["winner"] == "1" else 2))
+        games.append((dt, m["team1"], m["team2"], 1 if m["winner"] == "1" else 2,
+                      m.get("team1_score"), m.get("team2_score")))
         uf.union(m["team1"], m["team2"])
-
     games.sort(key=lambda g: g[0])
+
+    pending = []
+    for f in fixtures or []:
+        dt = parse_fixture_time(f.get("start_utc"))
+        if dt is None:
+            continue
+        pending.append((dt, f["id"], f.get("team0_key"), f.get("team1_key")))
+    pending.sort(key=lambda x: x[0])
+
+    asof: dict[str, dict] = {}
+
+    def snapshot(fx: tuple) -> None:
+        dt, fid, k0, k1 = fx
+        snap: dict[str, dict] = {}
+        for key in (k0, k1):
+            if not key:
+                continue
+            if key in ratings:
+                snap[key] = {"elo": round(decayed(ratings[key], last_seen[key], dt), 1),
+                             "n": counts.get(key, 0),
+                             "last": last_seen[key].strftime("%Y-%m-%d"),
+                             "opponents": frozenset(opponents.get(key, ()))}
+            else:
+                snap[key] = {"elo": ELO_START, "n": 0, "last": None, "opponents": frozenset()}
+        asof[fid] = snap
+
     bt = {"cutoff": BACKTEST_CUTOFF.strftime("%Y-%m-%d"), "n": 0, "hits": 0,
           "brier_sum": 0.0, "logloss_sum": 0.0, "buckets": {}}
-    for dt, t1, t2, winner in games:
+    fi = 0
+    for dt, t1, t2, winner, s1, s2 in games:
+        while fi < len(pending) and pending[fi][0] <= dt:
+            snapshot(pending[fi])
+            fi += 1
         r1 = ratings.get(t1, ELO_START)
         r2 = ratings.get(t2, ELO_START)
         exp1 = 1 / (1 + 10 ** ((r2 - r1) / 400))
@@ -194,37 +270,41 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, 
             b["n"] += 1
             b["hits"] += 1 if hit else 0
             b["sum_p"] += fav_p
-        s1 = 1.0 if winner == 1 else 0.0
-        ratings[t1] = r1 + ELO_K * (s1 - exp1)
-        ratings[t2] = r2 + ELO_K * ((1 - s1) - (1 - exp1))
+        s1v = 1.0 if winner == 1 else 0.0
+        kk = margin_k(s1, s2)
+        ratings[t1] = r1 + kk * (s1v - exp1)
+        ratings[t2] = r2 + kk * ((1 - s1v) - (1 - exp1))
         counts[t1] = counts.get(t1, 0) + 1
         counts[t2] = counts.get(t2, 0) + 1
         last_seen[t1] = dt
         last_seen[t2] = dt
+        opponents.setdefault(t1, set()).add(t2)
+        opponents.setdefault(t2, set()).add(t1)
 
-    today = datetime.now(timezone.utc)
-    for team in ratings:
-        days = max(0.0, (today - last_seen[team]).total_seconds() / 86400)
-        if days > DECAY_START_DAYS:
-            factor = max(0.0, 1 - (days - DECAY_START_DAYS) / DECAY_FULL_DAYS)
-            ratings[team] = ELO_START + (ratings[team] - ELO_START) * factor
+    while fi < len(pending):
+        snapshot(pending[fi])
+        fi += 1
 
     if bt["n"]:
         bt["accuracy"] = round(bt["hits"] / bt["n"], 4)
         bt["brier"] = round(bt["brier_sum"] / bt["n"], 4)
         bt["logloss"] = round(bt["logloss_sum"] / bt["n"], 4)
-        ordered_buckets = {}
+        ordered = {}
         for name in ("50-60%", "60-70%", "70-80%", "80%+"):
             if name in bt["buckets"]:
                 b = bt["buckets"][name]
                 b["accuracy"] = round(b["hits"] / b["n"], 4) if b["n"] else None
                 b["mean_predicted"] = round(b["sum_p"] / b["n"], 4) if b["n"] else None
                 b.pop("sum_p", None)
-                ordered_buckets[name] = b
-        bt["buckets"] = ordered_buckets
+                ordered[name] = b
+        bt["buckets"] = ordered
     bt.pop("brier_sum", None)
     bt.pop("logloss_sum", None)
-    return ratings, counts, last_seen, uf, bt
+
+    today = datetime.now(timezone.utc)
+    for team in list(ratings):
+        ratings[team] = decayed(ratings[team], last_seen[team], today)
+    return ratings, counts, last_seen, uf, bt, asof
 
 
 def effective_rating(team: str, ratings: dict, counts: dict) -> float | None:
@@ -516,7 +596,17 @@ def main() -> None:
         key = (m.get("overview_page"), frozenset((str(m.get("team1")), str(m.get("team2")))))
         if m.get("utc"):
             lp_times.setdefault(key, []).append(m.get("utc"))
-    ratings, counts, last_seen, uf, backtest = build_ratings(lp_matches)
+    # Resolve every team once; the same keys feed the kick-off Elo snapshots and the rows.
+    resolved: dict[str, tuple] = {}
+    for f in fixtures:
+        page = (comp_map.get(f["competition"]) or {}).get("page")
+        r0 = resolve_team(f["team0"]["name"], exact, base, aliases, page, page_teams)
+        r1 = resolve_team(f["team1"]["name"], exact, base, aliases, page, page_teams)
+        resolved[f["id"]] = (r0[0], r0[1], r0[2], r1[0], r1[1], r1[2], page)
+    fx_meta = [{"id": f["id"], "start_utc": f.get("start_utc"),
+                "team0_key": resolved[f["id"]][0], "team1_key": resolved[f["id"]][3]}
+               for f in fixtures]
+    ratings, counts, last_seen, uf, backtest, asof = build_ratings(lp_matches, fx_meta)
 
     lp_by_pair: dict[frozenset, list] = {}
     for m in lp_matches:
@@ -613,19 +703,23 @@ def main() -> None:
     rows, join_log = [], []
     for f in fixtures:
         n0, n1 = f["team0"]["name"], f["team1"]["name"]
-        page = (comp_map.get(f["competition"]) or {}).get("page")
-        k0, m0, note0 = resolve_team(n0, exact, base, aliases, page, page_teams)
-        k1, m1, note1 = resolve_team(n1, exact, base, aliases, page, page_teams)
+        k0, m0, note0, k1, m1, note1, page = resolved[f["id"]]
         for name, key, method, notes in ((n0, k0, m0, note0), (n1, k1, m1, note1)):
             if method not in ("exact",):
                 join_log.append({"hotspawn_id": f["id"], "team": name, "resolved": key,
                                  "method": method, "notes": notes})
 
-        er0 = effective_rating(k0, ratings, counts) if k0 else None
-        er1 = effective_rating(k1, ratings, counts) if k1 else None
-        n0c = counts.get(k0, 0) if k0 else 0
-        n1c = counts.get(k1, 0) if k1 else 0
-        connected = bool(k0 and k1 and uf.find(k0) == uf.find(k1))
+        snap = asof.get(f["id"], {})
+        s0 = snap.get(k0) if k0 else None
+        s1 = snap.get(k1) if k1 else None
+        er0 = s0.get("elo") if s0 else None
+        er1 = s1.get("elo") if s1 else None
+        n0c = int(s0.get("n") or 0) if s0 else 0
+        n1c = int(s1.get("n") or 0) if s1 else 0
+        # "connected" = at least one shared opponent before kick-off. The old union-find
+        # test spanned 34k series and was true for almost every pair.
+        connected = bool(k0 and k1 and (s0.get("opponents") or frozenset()) &
+                         (s1.get("opponents") or frozenset()))
 
         dq_norms = {norm_name(t): t for t in (lp_dq.get(page or "") or [])}
         dq0 = dq_norms.get(norm_name(k0 or n0))
@@ -646,14 +740,18 @@ def main() -> None:
             "leaguepedia_page": page,
             "team0": {"name": n0, "leaguepedia": k0, "join": m0, "join_notes": note0,
                       "rating_matches": n0c,
-                      "last_played": last_seen.get(k0).strftime("%Y-%m-%d") if k0 in last_seen else None,
-                      "elo_raw": round(ratings[k0], 1) if k0 in ratings else None,
-                      "elo": round(er0, 1) if er0 is not None else None},
+                      "last_played": (s0 or {}).get("last"),
+                      "rating_as_of": f["start_utc"],
+                      "elo": round(er0, 1) if er0 is not None else None,
+                      "elo_now": round(ratings[k0], 1) if k0 in ratings else None,
+                      "elo_raw": round(ratings[k0], 1) if k0 in ratings else None},
             "team1": {"name": n1, "leaguepedia": k1, "join": m1, "join_notes": note1,
                       "rating_matches": n1c,
-                      "last_played": last_seen.get(k1).strftime("%Y-%m-%d") if k1 in last_seen else None,
-                      "elo_raw": round(ratings[k1], 1) if k1 in ratings else None,
-                      "elo": round(er1, 1) if er1 is not None else None},
+                      "last_played": (s1 or {}).get("last"),
+                      "rating_as_of": f["start_utc"],
+                      "elo": round(er1, 1) if er1 is not None else None,
+                      "elo_now": round(ratings[k1], 1) if k1 in ratings else None,
+                      "elo_raw": round(ratings[k1], 1) if k1 in ratings else None},
         }
 
         flags: list[str] = []
@@ -914,7 +1012,8 @@ def main() -> None:
         "inventory_fetched_utc": hs.get("fetched_utc"),
         "receipt_audit": receipt_audit,
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
-                  "shrink": ELO_SHRINK, "min_matches_confident": MIN_MATCHES_CONFIDENT,
+                  "margin_weight": MARGIN_WEIGHT, "shrink": ELO_SHRINK,
+                  "rating_as_of": "kick-off", "min_matches_confident": MIN_MATCHES_CONFIDENT,
                   "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,
                   "decay_start_days": DECAY_START_DAYS, "decay_full_days": DECAY_FULL_DAYS,
                   "window_start": lp.get("query", {}).get("where")},

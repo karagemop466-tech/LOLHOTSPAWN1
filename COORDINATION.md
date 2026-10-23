@@ -869,3 +869,41 @@ was executed from this branch after four other sessions merged in parallel.
 - `python3 -m unittest discover -s tests` — 9/9 OK.
 - Live pages re-fetched after deploy: `/` (exec summary, stats, unresolved table) and `/sources.html`
   (probe table + ceiling) both render the new content.
+# Session `a91e528d` — audit fixes, model integrity and coverage parity (2026-10-23)
+
+Branch: `arena/a91e528d-lolhotspawn1`. Scope kept to `tools/model.py`, `tools/verify.py`,
+`assets/style.css`, this file and the generated pages/data. `tools/site.py` changes are limited to the
+toss-up badge and the teams-page rating source; `tools/corroborate.py`, `coverage.html`,
+`data/receipts/**` remain owned by `294e62ad`.
+
+## What changed
+
+| ID | Change | Evidence |
+|---|---|---|
+| A1 | **No look-ahead in the Elo line.** Every fixture is priced from the rating state at its own kick-off, built only from series that started earlier. The previous build fitted on the whole Leaguepedia window and then "predicted" 65 already-started cards, 52 of which already had a result. | `tools/model.py` `build_ratings(lp_matches, fixtures)` returns per-fixture snapshots; `rating_as_of == start_utc` on every row; `verify.py` recomputes each side's rated-series count from raw Leaguepedia and fails on any excess — **0 violations**. |
+| A2 | **Margin-weighted K.** `K_eff = 48 * (1 - 0.45 + 0.45 * |series margin|)`, fitted on 2026-04-01..2026-07-01 and checked on the later holdout. | Holdout n=3,854: **65.49% / 0.2144 / 0.6178** vs baseline K=24 **64.06% / 0.2212 / 0.6323**. Rejected after testing: predict-time shrinkage (thin-team accuracy 62.0%→60.0%, Brier 0.2246→0.2371), best-of scaling, margin normalised by series length, and a 15% recent-form blend (Brier −0.0006 for −0.3 pp accuracy — inside noise). |
+| A3 | **Archived receipt freshness.** Only a receipt younger than 24 h may enter a consensus. `#1081423` (Ground Zero vs Frank, 11 Nov) was priced at 91.1% from a 1.8-day-old EGamersWorld listing whose live page today shows the `1.80/1.80` placeholder. It is now a model line (Frank 89.9%) with the rejection printed on the row and on `flagged.html`. | `MAX_RECEIPT_AGE_HOURS = 24`; 11 expired receipts recorded, 0 live; row flag keeps the capture time. |
+| A4 | **Coverage parity gate.** The dataset must be an exact mirror of the Hotspawn API response the build fetched, not a selection. | `verify.py`: ids 1:1 (241/241), per-tournament counts identical (27/27), every id rendered on `picks.html`. Independent live cross-check the same day: the lobby listed the same **27 tournaments with identical per-tournament counts summing to 241**, and **180 distinct teams** — equal to the dataset. |
+| A5 | **Toss-up transparency.** Three fixtures have identical kick-off ratings (1082003, 1082006, 1079047). They now say so instead of showing an arbitrary 50.0% "pick". | Row flag + `toss-up` badge; `verify.py` confirms the 50/50 rows are exactly those three. |
+
+## Verification record
+
+- `tools/verify.py`: **31/31 pass** (`data/verification.json`), including the 28 inherited gates,
+  no-look-ahead (0 violations) and the two coverage-parity assertions.
+- `python3 -m unittest discover -s tests`: 9/9 OK.
+- `tools/corroborate.py`: 9 usable receipts, 9 agree / 0 diverge, 2/27 competitions priced externally.
+- Spot math: Gen.G vs Invictus 0.7621 = weighted mean of Pinnacle .7448 (0.36), Polymarket .775 (0.24),
+  Kalshi .775 (0.18), Bovada .7689 (0.12) over 0.90; Rich Gang 1739.4 vs Phenti 1449.4 → 0.8415;
+  Ground Zero 1360.4 vs Frank 1740.3 → 0.1009.
+- Live inventory: `play.hotspawn.com/lol-pickems` 27 tournaments / 241 cards / 180 teams, matching the
+  dataset exactly at 15:44Z on 2026-10-23.
+- Line-source ceiling re-measured: Pinnacle lists LoL only for the World Championship (league 9587,
+  10 matchups); OddsPortal lists only the World Championship (8); the 31-endpoint runner probe found no
+  additional server-rendered low-tier book feed. The 5-venue market ceiling is therefore structural,
+  not a parsing gap.
+
+## Merge note
+
+`origin/main` had advanced 12 commits (28-gate verify, `corroborate.py`, `coverage.html`, integrity
+tests). The merge keeps main's newer tooling and re-applies only the model/verification changes above;
+generated pages and `data/*.json` were rebuilt from the merged pipeline rather than hand-merged.
