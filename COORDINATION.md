@@ -338,3 +338,13 @@ every-match picks, `dqteams` walkover, source probe; `a91e528d`: mobile UX, line
 
 Integration note for the final session: `audit/` is not linked from any generated page yet; linking it from
 `flagged.html` is an edit to a file owned by `a91e528d`/`de975e8d`, so it is requested here rather than made.
+
+### 0d48f265 — PR and deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | #20 — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/20 (`arena/0d48f265-lolhotspawn1` → `main`) |
+| Merge | merged 2026-10-23T15:43:01Z, merge commit `e8fadc7`. Content is the audit as re-run on the 15:37Z runner data (head `8ac6c24`). **Note:** an earlier `gh pr merge 20 --merge` attempt returned "not mergeable" (conflict in this file, since resolved by keeping both sections); the merge landed afterwards and was not separately confirmed at that moment. |
+| Pages | `pages build and deployment` for `e8fadc7`: `built` at 15:43:50Z (`gh api …/pages/builds/latest`). The live audit page `…/LOLHOTSPAWN1/audit/AUDIT.md` was served. Homepage re-fetched with a cache-buster shows the 15:39 UTC snapshot (9 market-backed, Pinnacle link `1638748200`). A plain fetch returned a cached copy of the pre-merge homepage; that is a CDN cache artefact, not a failed deploy. |
+| Gate | `tools/verify.py` not touched by this session; the audit does not modify any published page. |
+| Open request | Link `audit/AUDIT.md` from `flagged.html` (owned by the build sessions). |
