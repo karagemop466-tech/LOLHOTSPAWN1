@@ -178,6 +178,13 @@ def tier_prior(overview_page: str) -> float:
     return ELO_START
 
 
+def parse_lp_time(raw) -> datetime | None:
+    try:
+        return datetime.strptime(str(raw)[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+    except (ValueError, TypeError):
+        return None
+
+
 def parse_chronology(lp_matches: list[dict]) -> list[tuple[datetime, str, str, int, int, str]]:
     games: list[tuple[datetime, str, str, int, int, str]] = []
     for m in lp_matches:
@@ -768,29 +775,32 @@ def main() -> None:
     rows, join_log = [], []
     for f in fixtures:
         n0, n1 = f["team0"]["name"], f["team1"]["name"]
-        k0, m0, note0, k1, m1, note1, page = resolved[f["id"]]
+        page = (comp_map.get(f["competition"]) or {}).get("page")
+        k0, m0, note0 = resolve_team(n0, exact, base, aliases, page, page_teams)
+        k1, m1, note1 = resolve_team(n1, exact, base, aliases, page, page_teams)
         for name, key, method, notes in ((n0, k0, m0, note0), (n1, k1, m1, note1)):
             if method not in ("exact",):
                 join_log.append({"hotspawn_id": f["id"], "team": name, "resolved": key,
                                  "method": method, "notes": notes})
 
-        # Strictly pre-kickoff ratings for fixtures whose scheduled start is in the past,
-        # preventing post-match outcome leakage into published win probabilities.
+        # Strictly pre-kickoff ratings for every fixture (dt < start_utc), preventing any
+        # look-ahead leakage into published win probabilities and decaying to kick-off date.
         use_r, use_p, use_c, use_ls, use_uf = ratings, priors, counts, last_seen, uf
         fix_start_dt = None
         if f.get("start_utc"):
             try:
                 fix_start_dt = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
-                if fix_start_dt <= now_dt_eval:
-                    skey = f["start_utc"]
-                    if skey not in snap_cache:
-                        snap_cache[skey] = snapshot_ratings(chrono_games, fix_start_dt)
-                    use_r, use_p, use_c, use_ls, use_uf = snap_cache[skey]
+                skey = f["start_utc"]
+                if skey not in snap_cache:
+                    snap_cache[skey] = snapshot_ratings(chrono_games, fix_start_dt)
+                use_r, use_p, use_c, use_ls, use_uf = snap_cache[skey]
             except ValueError:
                 fix_start_dt = None
 
         er0_raw = effective_rating(k0, use_r, use_c, use_p, page) if k0 else None
         er1_raw = effective_rating(k1, use_r, use_c, use_p, page) if k1 else None
+        er0_now = effective_rating(k0, ratings, counts, priors, page) if k0 else None
+        er1_now = effective_rating(k1, ratings, counts, priors, page) if k1 else None
         er0 = round(er0_raw, 1) if er0_raw is not None else None
         er1 = round(er1_raw, 1) if er1_raw is not None else None
         n0c = use_c.get(k0, 0) if k0 else 0
@@ -816,13 +826,17 @@ def main() -> None:
             "leaguepedia_page": page,
             "team0": {"name": n0, "leaguepedia": k0, "join": m0, "join_notes": note0,
                       "rating_matches": n0c,
+                      "rating_as_of": f["start_utc"],
                       "last_played": use_ls.get(k0).strftime("%Y-%m-%d") if k0 in use_ls else None,
                       "elo_raw": round(use_r[k0], 1) if k0 in use_r else None,
+                      "elo_now": round(er0_now, 1) if er0_now is not None else None,
                       "elo": er0},
             "team1": {"name": n1, "leaguepedia": k1, "join": m1, "join_notes": note1,
                       "rating_matches": n1c,
+                      "rating_as_of": f["start_utc"],
                       "last_played": use_ls.get(k1).strftime("%Y-%m-%d") if k1 in use_ls else None,
                       "elo_raw": round(use_r[k1], 1) if k1 in use_r else None,
+                      "elo_now": round(er1_now, 1) if er1_now is not None else None,
                       "elo": er1},
         }
 
@@ -1095,7 +1109,7 @@ def main() -> None:
         "inventory_fetched_utc": hs.get("fetched_utc"),
         "receipt_audit": receipt_audit,
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
-                  "margin_weight": MARGIN_WEIGHT, "shrink": ELO_SHRINK,
+                  "margin_weight": ELO_MOV_SLOPE, "shrink": ELO_SHRINK,
                   "rating_as_of": "kick-off", "min_matches_confident": MIN_MATCHES_CONFIDENT,
                   "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,
                   "decay_start_days": DECAY_START_DAYS, "decay_full_days": DECAY_FULL_DAYS,
