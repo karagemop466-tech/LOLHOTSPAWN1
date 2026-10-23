@@ -1,30 +1,30 @@
 {
  "summary": {
-  "generated_at": "2026-10-22T21:18:40.799Z",
+  "generated_at": "2026-10-23T03:51:47.608Z",
   "week": {
    "start": "2026-10-19T00:00:00.000Z",
    "end": "2026-10-26T00:00:00.000Z"
   },
   "accuracy": {
-   "tracked": 4,
+   "tracked": 5,
    "hits": 3,
-   "rate": 75,
+   "rate": 60,
    "by_basis": {
     "model-elo": {
-     "tracked": 4,
+     "tracked": 5,
      "hits": 3
     }
    }
   },
   "counts": {
-   "open": 171,
-   "locked_or_live": 27,
+   "open": 173,
+   "locked_or_live": 25,
    "stale": 64,
-   "ended_this_week": 37,
+   "ended_this_week": 39,
    "cancelled": 11,
    "picks_total": 186,
-   "market_pinnacle": 8,
-   "market_polymarket_only": 1,
+   "market_pinnacle": 7,
+   "market_polymarket_only": 2,
    "model_only": 177,
    "unresolved_open": 11,
    "flags_needs_review": 17,
@@ -34,26 +34,18 @@
    "hotspawn_fixtures": true,
    "hotspawn_lobby": true,
    "pinnacle_leagues": 1,
-   "pinnacle_lines": 8,
+   "pinnacle_lines": 7,
    "polymarket_lines": 9
   }
  },
  "tournaments": {
-  "EM 2026 Summer Main Event": {
-   "competition": "EM 2026 Summer Main Event",
-   "tier": "a",
-   "open": 1,
-   "resolved": 1,
-   "market": 0,
-   "model": 1
-  },
   "Komplettligaen 2026 Autumn": {
    "competition": "Komplettligaen 2026 Autumn",
    "tier": "c",
-   "open": 6,
-   "resolved": 6,
+   "open": 5,
+   "resolved": 5,
    "market": 0,
-   "model": 6
+   "model": 5
   },
   "RIVALS LEAGUE Season 2": {
    "competition": "RIVALS LEAGUE Season 2",
@@ -146,10 +138,10 @@
   "LCP 2027 Promotion": {
    "competition": "LCP 2027 Promotion",
    "tier": "s",
-   "open": 1,
-   "resolved": 0,
+   "open": 3,
+   "resolved": 2,
    "market": 0,
-   "model": 0
+   "model": 2
   }
  },
  "matches": [
@@ -4488,7 +4480,7 @@
   },
   {
    "id": "1081205",
-   "state": "live",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36380",
    "competition": "EM 2026 Summer Main Event",
@@ -4509,34 +4501,26 @@
     "name": "Solary"
    },
    "team_history": {
-    "n0": 14,
-    "n1": 12
+    "n0": 15,
+    "n1": 13
    },
-   "score0": null,
-   "score1": null,
+   "score0": 3,
+   "score1": 2,
    "hotspawn_url": "https://www.hotspawn.com/matches/galions-vs-solary-em-2026-summer-main-event-1081205",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.477,
-    "p1": 0.523,
-    "r0": 1617,
-    "r1": 1633,
-    "n0": 14,
-    "n1": 12,
+    "p0": 0.514,
+    "p1": 0.486,
+    "r0": 1630,
+    "r1": 1620,
+    "n0": 15,
+    "n1": 13,
     "confidence": "high"
    },
-   "pick": {
-    "team_index": 1,
-    "team_id": "17825",
-    "team": "Solary",
-    "p": 0.523,
-    "basis": "model-elo",
-    "confidence": "high",
-    "margin": 0.046
-   }
+   "pick": null
   },
   {
    "id": "1071214",
@@ -4592,8 +4576,8 @@
   },
   {
    "id": "1071216",
-   "state": "locked",
-   "forfeit": false,
+   "state": "forfeited",
+   "forfeit": true,
    "competition_id": "36279",
    "competition": "Komplettligaen 2026 Autumn",
    "tier": "c",
@@ -4632,15 +4616,7 @@
     "n1": 10,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "263521",
-    "team": "Solid Gaming",
-    "p": 0.502,
-    "basis": "model-elo",
-    "confidence": "medium",
-    "margin": 0.004
-   }
+   "pick": null
   },
   {
    "id": "1071218",
@@ -6190,12 +6166,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638748200,
-    "odds0": -442,
-    "odds1": 328,
+    "odds0": -435,
+    "odds1": 323,
     "dec0": 1.23,
-    "dec1": 4.28,
-    "p0": 0.777,
-    "p1": 0.223,
+    "dec1": 4.23,
+    "p0": 0.775,
+    "p1": 0.225,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6208,8 +6184,8 @@
     "p0": 0.775,
     "p1": 0.225,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 321596.4595,
-    "volume": 93071.58837400001,
+    "liquidity": 350523.6142,
+    "volume": 121143.86428000001,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6227,10 +6203,10 @@
     "team_index": 0,
     "team_id": "6194",
     "team": "Gen.G",
-    "p": 0.777,
+    "p": 0.775,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.555
+    "margin": 0.549
    }
   },
   {
@@ -6371,12 +6347,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638748203,
-    "odds0": -440,
-    "odds1": 326,
-    "dec0": 1.23,
-    "dec1": 4.26,
-    "p0": 0.776,
-    "p1": 0.224,
+    "odds0": -448,
+    "odds1": 331,
+    "dec0": 1.22,
+    "dec1": 4.31,
+    "p0": 0.779,
+    "p1": 0.221,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6389,8 +6365,8 @@
     "p0": 0.785,
     "p1": 0.215,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 120806.7885,
-    "volume": 80945.123554,
+    "liquidity": 183403.7073,
+    "volume": 85220.57908199998,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6408,10 +6384,10 @@
     "team_index": 0,
     "team_id": "10170",
     "team": "Hanwha Life Esports",
-    "p": 0.776,
+    "p": 0.779,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.553
+    "margin": 0.558
    }
   },
   {
@@ -6631,8 +6607,8 @@
     "p0": 0.815,
     "p1": 0.185,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 147602.97,
-    "volume": 30976.598386,
+    "liquidity": 209364.8745,
+    "volume": 33157.94588100001,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6686,24 +6662,7 @@
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/anyones-legend-vs-karmine-corp-worlds-2026-main-event-1067675",
    "hotspawn_url_constructed": false,
-   "market_pinnacle": {
-    "source": "Pinnacle",
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
-    "site_url": "https://www.pinnacle.com/en/esports",
-    "league": "League of Legends - World Championship",
-    "league_id": 9587,
-    "matchup_id": 1638750902,
-    "odds0": -204,
-    "odds1": 170,
-    "dec0": 1.49,
-    "dec1": 2.7,
-    "p0": 0.644,
-    "p1": 0.356,
-    "match_quality": "exact",
-    "best_of": 1,
-    "listing": "live"
-   },
+   "market_pinnacle": null,
    "market_polymarket": {
     "source": "Polymarket",
     "url": "https://polymarket.com/event/lol-al-kc-2026-10-23",
@@ -6712,8 +6671,8 @@
     "p0": 0.655,
     "p1": 0.345,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 270338.197,
-    "volume": 177426.284294,
+    "liquidity": 314882.2247,
+    "volume": 183658.593299,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6731,10 +6690,10 @@
     "team_index": 0,
     "team_id": "57842",
     "team": "Anyone's Legend",
-    "p": 0.644,
-    "basis": "market-pinnacle",
-    "confidence": "high",
-    "margin": 0.289
+    "p": 0.655,
+    "basis": "market-polymarket",
+    "confidence": "medium",
+    "margin": 0.31
    }
   },
   {
@@ -6775,12 +6734,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638750815,
-    "odds0": 128,
-    "odds1": -151,
-    "dec0": 2.28,
-    "dec1": 1.66,
-    "p0": 0.422,
-    "p1": 0.578,
+    "odds0": 126,
+    "odds1": -149,
+    "dec0": 2.26,
+    "dec1": 1.67,
+    "p0": 0.425,
+    "p1": 0.575,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -6793,8 +6752,8 @@
     "p0": 0.395,
     "p1": 0.605,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 406286.5699,
-    "volume": 308691.29193500004,
+    "liquidity": 456943.3285,
+    "volume": 312766.757096,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6812,10 +6771,10 @@
     "team_index": 1,
     "team_id": "74448",
     "team": "Dplus KIA",
-    "p": 0.578,
+    "p": 0.575,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.157
+    "margin": 0.15
    }
   },
   {
@@ -6878,8 +6837,8 @@
     "p0": 0.715,
     "p1": 0.285,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 226313.5055,
-    "volume": 26523.835997000002,
+    "liquidity": 278624.6307,
+    "volume": 29402.886183000002,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6941,9 +6900,9 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638748205,
-    "odds0": 522,
+    "odds0": 523,
     "odds1": -815,
-    "dec0": 6.22,
+    "dec0": 6.23,
     "dec1": 1.12,
     "p0": 0.153,
     "p1": 0.847,
@@ -6959,8 +6918,8 @@
     "p0": 0.125,
     "p1": 0.875,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 292407.1917,
-    "volume": 39930.146028999996,
+    "liquidity": 353518.791,
+    "volume": 46305.271827,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -6981,7 +6940,7 @@
     "p": 0.847,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.694
+    "margin": 0.695
    }
   },
   {
@@ -7022,12 +6981,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1638754606,
-    "odds0": 129,
-    "odds1": -152,
-    "dec0": 2.29,
+    "odds0": 128,
+    "odds1": -151,
+    "dec0": 2.28,
     "dec1": 1.66,
-    "p0": 0.42,
-    "p1": 0.58,
+    "p0": 0.422,
+    "p1": 0.578,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -7040,8 +6999,8 @@
     "p0": 0.415,
     "p1": 0.585,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 232026.294,
-    "volume": 22022.786456999995,
+    "liquidity": 296125.8701,
+    "volume": 24519.422476999996,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7059,10 +7018,10 @@
     "team_index": 1,
     "team_id": "203378",
     "team": "LYON",
-    "p": 0.58,
+    "p": 0.578,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.16
+    "margin": 0.157
    }
   },
   {
@@ -8118,7 +8077,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/cla-nkz-vorax-vs-neon-esports-ligagg-celol-a-2026-split-2-playoffs-1082914",
-   "hotspawn_url_constructed": true,
+   "hotspawn_url_constructed": false,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -8169,8 +8128,8 @@
    },
    "score0": null,
    "score1": null,
-   "hotspawn_url": "https://www.hotspawn.com/matches/l-s-academy-vs-marere-e-sports-ligagg-celol-a-2026-split-2-playoffs-1082915",
-   "hotspawn_url_constructed": true,
+   "hotspawn_url": "https://www.hotspawn.com/matches/los-academy-vs-marere-e-sports-ligagg-celol-a-2026-split-2-playoffs-1082915",
+   "hotspawn_url_constructed": false,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -9915,7 +9874,7 @@
     "p0": 0.32,
     "p1": 0.68,
     "price_kind": "outcomePrices",
-    "liquidity": 4203.6652,
+    "liquidity": 4208.6924,
     "volume": 5,
     "spread": 0.24,
     "match_quality": "exact"
@@ -10928,8 +10887,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.527,
-    "p1": 0.473,
+    "p0": 0.526,
+    "p1": 0.474,
     "r0": 1523,
     "r1": 1477,
     "n0": 2,
@@ -10940,10 +10899,10 @@
     "team_index": 0,
     "team_id": "17564",
     "team": "Simplicity Gaming",
-    "p": 0.527,
+    "p": 0.526,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.054
+    "margin": 0.052
    }
   },
   {
@@ -13961,6 +13920,110 @@
     "basis": "model-elo",
     "confidence": "low",
     "margin": 0.048
+   }
+  },
+  {
+   "id": "1081421",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "35766",
+   "competition": "LCP 2027 Promotion",
+   "tier": "s",
+   "stage": "waiting for information",
+   "offered_points": 30,
+   "start_utc": "2026-11-10T05:00:00.000Z",
+   "lock_utc": "2026-11-10T04:55:00.000Z",
+   "start_ms": 1794286800000,
+   "lock_ms": 1794286500000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "74694",
+    "name": "FENNEL"
+   },
+   "team1": {
+    "id": "263325",
+    "name": "Nothin'Here"
+   },
+   "team_history": {
+    "n0": 7,
+    "n1": 5
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothinhere-lcp-2027-promotion-1081421",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.387,
+    "p1": 0.613,
+    "r0": 1449,
+    "r1": 1564,
+    "n0": 7,
+    "n1": 5,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "263325",
+    "team": "Nothin'Here",
+    "p": 0.613,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0.226
+   }
+  },
+  {
+   "id": "1082007",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "35766",
+   "competition": "LCP 2027 Promotion",
+   "tier": "s",
+   "stage": "waiting for information",
+   "offered_points": 30,
+   "start_utc": "2026-11-10T09:00:00.000Z",
+   "lock_utc": "2026-11-10T08:55:00.000Z",
+   "start_ms": 1794301200000,
+   "lock_ms": 1794300900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "249229",
+    "name": "Saigon Warriors"
+   },
+   "team1": {
+    "id": "263527",
+    "name": "Team Gromp"
+   },
+   "team_history": {
+    "n0": 11,
+    "n1": 2
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/saigon-warriors-vs-team-gromp-lcp-2027-promotion-1082007",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.495,
+    "p1": 0.505,
+    "r0": 1512,
+    "r1": 1522,
+    "n0": 11,
+    "n1": 2,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "263527",
+    "team": "Team Gromp",
+    "p": 0.505,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.01
    }
   },
   {
