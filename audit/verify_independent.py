@@ -311,8 +311,20 @@ def main() -> int:
 
         method = row.get("method")
         if method == "unresolved":
-            if any(row.get(k) is not None for k in ("p0", "p1", "pick")):
-                fail("D arithmetic", f"{rid}: unresolved row still carries a probability or pick")
+            if row.get("p0") is not None or row.get("p1") is not None:
+                fail("D arithmetic", f"{rid}: unresolved row carries a probability")
+            pick = row.get("pick")
+            if pick is not None:
+                # A settlement pick is allowed, but only as an administrative default with
+                # no invented probability, and it must name the team that was not removed.
+                if row.get("pick_type") != "settlement":
+                    fail("D arithmetic", f"{rid}: unresolved row carries a pick that is not a "
+                                         f"declared settlement")
+                elif pick.get("probability") is not None:
+                    fail("D arithmetic", f"{rid}: settlement pick carries a probability")
+                elif pick.get("side") not in (0, 1) or pick.get("team") != row[
+                        f"team{pick.get('side', 0)}"]["name"]:
+                    fail("D arithmetic", f"{rid}: settlement pick is inconsistent with its side")
             continue
         p0, p1 = row.get("p0"), row.get("p1")
         if not (isinstance(p0, (int, float)) and isinstance(p1, (int, float))):
