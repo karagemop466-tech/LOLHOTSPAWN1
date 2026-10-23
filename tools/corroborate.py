@@ -34,6 +34,15 @@ from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, ROOT, iso, load_json, log, norm_name, now_utc, save_json
+# Load the canonical page shell from tools/site.py by path: `site` is a stdlib module name,
+# so a plain import would pick up the standard library instead of this repository's builder.
+import importlib.util as _ilu
+
+_spec = _ilu.spec_from_file_location(
+    "lol_site", os.path.join(os.path.dirname(os.path.abspath(__file__)), "site.py"))
+_lol_site = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_lol_site)
+page_shell = _lol_site.page_shell  # shared nav, mobile bottom nav, app.js
 
 RECEIPT_DIR = os.path.join(DATA, "receipts", "external_odds")
 OUT_JSON = os.path.join(DATA, "corroboration.json")
@@ -127,60 +136,14 @@ def load_receipts() -> tuple[list[dict], list[str]]:
     return [{"captures": captures, "sources": sources, "observations": observations}][0], problems
 
 
-def page_shell(title: str, subtitle: str, body: str, active: str = "coverage.html") -> str:
-    nav_parts = []
-    for href, label in NAV:
-        cls = ' class="active"' if href == active else ""
-        nav_parts.append(f'<a href="{e(href)}"{cls}>{e(label)}</a>')
-    nav = "".join(nav_parts)
-    meta = load_json(os.path.join(DATA, "matches.json")) or {}
-    updated = (meta.get("generated_utc") or "")[:16].replace("T", " ")
-    return f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{e(title)} · Hotspawn LoL Pick Desk</title>
-<meta name="description" content="How every Hotspawn League of Legends match was priced, and which external books corroborate it.">
-<link rel="stylesheet" href="assets/style.css">
-<style>
-/* page-scoped only: keeps this page usable on a phone without editing the shared stylesheet */
-.num{{font-variant-numeric:tabular-nums;white-space:nowrap}}
-.pill.warn{{background:var(--warn-weak);color:var(--warn)}}
-.pill.no{{background:#eef1f6;color:var(--muted)}}
-.tightlist{{margin:6px 0 12px;padding-left:20px}}
-.tightlist li{{margin:4px 0}}
-@media(max-width:680px){{
-  .nav{{display:flex;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;padding:6px 0 10px}}
-  .nav a{{padding:9px 11px;background:rgba(255,255,255,.07);border-radius:9px}}
-  table{{min-width:0}}
-}}
-</style>
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="topbar">
-  <div class="wrap bar">
-    <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
-    <nav class="nav">{nav}</nav>
-  </div>
-</header>
-<main id="main" class="wrap">
-  <div class="pagehead">
-    <h1>{e(title)}</h1>
-    <p class="sub">{subtitle}</p>
-    <p class="stamp">Pick data generated {e(updated)} UTC &middot; page rebuilt {e(iso(now_utc())[:16].replace("T", " "))} UTC</p>
-  </div>
-  {body}
-</main>
-<footer class="wrap foot">
-  <p>External prices are manual captures of published book pages, quoted verbatim with a URL and a
-  capture time. They corroborate the published line; they never set it. Hotspawn's own crowd
-  percentages are never used as a probability.</p>
-</footer>
-</body>
-</html>
-"""
+PAGE_STYLE = """<style>
+/* page-scoped only: keeps this audit page readable on a phone without touching the shared stylesheet */
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill.warn{background:var(--warn-weak);color:var(--warn)}
+.pill.no{background:#eef1f6;color:var(--muted)}
+.tightlist{margin:6px 0 12px;padding-left:20px}
+.tightlist li{margin:4px 0}
+</style>"""
 
 
 # --------------------------------------------------------------------------- core
@@ -680,9 +643,10 @@ def render(doc: dict) -> str:
 """
     return page_shell(
         "External line coverage",
+        "coverage.html",
+        PAGE_STYLE + body,
         "Which Hotspawn League of Legends matches a real bookmaker priced, which ones we had to originate, "
         "and the evidence behind both.",
-        body,
     )
 
 

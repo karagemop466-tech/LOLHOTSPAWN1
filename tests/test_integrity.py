@@ -27,6 +27,30 @@ class IntegrityTests(unittest.TestCase):
         r['p1'] = .5
         self.assertTrue(row_errors(r))
 
+    def test_settlement_pick_is_valid_without_probability(self):
+        r = self.row()
+        r.update(method='unresolved', p0=None, p1=None, pick_type='settlement',
+                 pick={'team': 'A', 'probability': None, 'settlement': 'administrative default'})
+        self.assertEqual(row_errors(r), [])
+
+    def test_settlement_pick_rejects_probability(self):
+        r = self.row()
+        r.update(method='unresolved', p0=None, p1=None, pick_type='settlement',
+                 pick={'team': 'A', 'probability': .7})
+        self.assertTrue(row_errors(r))
+
+    def test_settlement_pick_rejects_unknown_team(self):
+        r = self.row()
+        r.update(method='unresolved', p0=None, p1=None, pick_type='settlement',
+                 pick={'team': 'Nobody', 'probability': None})
+        self.assertTrue(row_errors(r))
+
+    def test_settlement_pick_must_be_typed(self):
+        r = self.row()
+        r.update(method='unresolved', p0=None, p1=None,
+                 pick={'team': 'A', 'probability': None})
+        self.assertTrue(row_errors(r))
+
     def test_sum(self):
         r = self.row(); r['p1'] = .4
         self.assertTrue(row_errors(r))

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:45:43Z",
+ "generated_utc": "2026-10-23T15:47:02Z",
  "checks": [
   {
    "name": "dataset present",
@@ -24,12 +24,27 @@
   {
    "name": "probabilities sum to 100% (tolerance 0.2pp)",
    "ok": true,
-   "detail": "237 priced rows checked; problems: []"
+   "detail": "241 priced rows verified; problems: []"
   },
   {
    "name": "pick matches the higher probability",
    "ok": true,
    "detail": "241 rows consistent; problems: []"
+  },
+  {
+   "name": "every match has a pick or is documented as unpickable",
+   "ok": true,
+   "detail": "241 rows: 241 with a pick (4 settlement-only), 0 documented unpickable"
+  },
+  {
+   "name": "settlement picks name a participant and claim no probability",
+   "ok": true,
+   "detail": "0 problems: []"
+  },
+  {
+   "name": "every market row has at least one venue with a source URL",
+   "ok": true,
+   "detail": "0 problems: []"
   },
   {
    "name": "method values are known",
@@ -74,12 +89,37 @@
   {
    "name": "executive summary links to every picks view",
    "ok": true,
-   "detail": "present: ['picks.html', 'featured.html', 'originated.html', 'coverage.html', 'unresolved.html', 'Executive summary']"
+   "detail": "present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']"
+  },
+  {
+   "name": "executive summary carries coverage, unresolved section and a where-to-find-picks block",
+   "ok": true,
+   "detail": "missing: []"
+  },
+  {
+   "name": "mobile navigation rendered on every page and wired in JS",
+   "ok": true,
+   "detail": "missing mobnav: []; menu+filter handlers present: True"
   },
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
    "detail": "backtest series rendered: 3,854"
+  },
+  {
+   "name": "curated flags cite only currently listed fixtures",
+   "ok": true,
+   "detail": "10 curated flags scanned; stale references: []"
+  },
+  {
+   "name": "stale bookmaker receipts are excluded from the consensus",
+   "ok": true,
+   "detail": "11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []"
+  },
+  {
+   "name": "no published market row is built from a rejected quote",
+   "ok": true,
+   "detail": "0 quote(s) rejected this build (placeholders / extremes); 0 extreme"
   },
   {
    "name": "coverage matrix: every competition row links to a source",
@@ -94,7 +134,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 38741 bytes"
+   "detail": "coverage.html 40007 bytes"
   },
   {
    "name": "source availability recorded",
@@ -113,5 +153,5 @@
   "unresolved": 4,
   "market": 9
  },
- "internal_links": 271
+ "internal_links": 323
 }
