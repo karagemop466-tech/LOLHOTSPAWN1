@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-23T15:54:22Z",
- "count": 25,
+ "generated_utc": "2026-10-23T15:55:44Z",
+ "count": 24,
  "flags": [
   {
    "severity": "low",
@@ -108,7 +108,7 @@
   {
    "severity": "medium",
    "item": "4 match(es) have no win probability (settlement pick only)",
-   "detail": "Solid Gaming vs VES Japan (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent VES Japan.; Solid Gaming vs Playwell Rød Q (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Playwell Rød Q.; Volda E-Sport vs Solid Gaming (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Volda E-Sport.; Solid Gaming vs NTNUI Kometkameratene (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent NTNUI Kometkameratene.",
+   "detail": "Solid Gaming vs VES Japan (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records the series as a 0-2 loss for Solid Gaming, but this snapshot captured no forfeit flag for it. Hotspawn may void this card or settle the walkover for opponent VES Japan; the settlement is unverified, so no competitive probability is claimed.; Solid Gaming vs Playwell Rød Q (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records the series as a 0-2 loss for Solid Gaming, but this snapshot captured no forfeit flag for it. Hotspawn may void this card or settle the walkover for opponent Playwell Rød Q; the settlement is unverified, so no competitive probability is claimed.; Volda E-Sport vs Solid Gaming (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records the series as a 0-2 loss for Solid Gaming, but this snapshot captured no forfeit flag for it. Hotspawn may void this card or settle the walkover for opponent Volda E-Sport; the settlement is unverified, so no competitive probability is claimed.; Solid Gaming vs NTNUI Kometkameratene (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records the series as a 0-2 loss for Solid Gaming, but this snapshot captured no forfeit flag for it. Hotspawn may void this card or settle the walkover for opponent NTNUI Kometkameratene; the settlement is unverified, so no competitive probability is claimed.",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
   {
@@ -137,7 +137,7 @@
   },
   {
    "severity": "medium",
-   "item": "65 fixtures still listed as 'scheduled' although their start time has passed",
+   "item": "66 fixtures still listed as 'scheduled' although their start time has passed",
    "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time is more than three hours in the past (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. The reason is unverified.",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
@@ -164,12 +164,6 @@
    "item": "4 match(es) carry a settlement pick only - no win probability is claimed",
    "detail": "For these cards the listed participant was removed mid-split by the league (#1071170 Solid Gaming vs VES Japan; #1071200 Solid Gaming vs Playwell Rød Q; #1071206 Volda E-Sport vs Solid Gaming; #1071186 Solid Gaming vs NTNUI Kometkameratene). We publish the administratively correct side (the active opponent, per the official dqteams ruling) and publish no percentage at all, because a competitive probability cannot be justified if the series is voided or awarded as a walkover.",
    "source": "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split"
-  },
-  {
-   "severity": "medium",
-   "item": "1 bookmaker-priced matches disagree on kick-off time",
-   "detail": "Pinnacle's start times differ from Hotspawn's by 2-5 hours on these fixtures. Because Hotspawn and Leaguepedia agree with each other (recorded in each card's 'Why this line'), the odds are treated as valid for the pairing; the card prints both times. Verify before betting: Mental Rush vs Vitality Rising Bees",
-   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
   },
   {
    "severity": "medium",

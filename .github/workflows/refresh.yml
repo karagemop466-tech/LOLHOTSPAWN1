@@ -58,8 +58,10 @@ jobs:
             python3 tools/report.py    2>&1
             python3 tools/flags.py     2>&1
             python3 tools/site.py      2>&1
+            python3 tools/corroborate.py 2>&1
             python3 tools/verify.py    2>&1
             python3 tools/site.py      2>&1
+            python3 tools/corroborate.py 2>&1
             python3 tools/verify.py    2>&1
           } | tee data/build.log
           echo "pipeline exit: ${PIPESTATUS[0]}"
@@ -88,8 +90,26 @@ jobs:
           git add data/*.json data/*.csv data/build.log data/raw assets *.html
           if git diff --cached --quiet; then
             echo "no changes"
-          else
-            git commit -m "chore(data): refresh fixtures, lines and site"
-            git pull --rebase origin "${GITHUB_REF_NAME}"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            exit 0
           fi
+          git commit -m "chore(data): refresh fixtures, lines and site"
+          # main moves under this job whenever another session merges while the six-hourly
+          # collection is running. A plain push (or a rebase that stops on a conflict in the
+          # generated files) fails the job and silently skips a refresh; two runs on
+          # 2026-10-23 failed exactly that way. Retry, and on conflict prefer this run's
+          # freshly generated files, which are the newest data in the race.
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "pushed on attempt ${attempt}"
+              exit 0
+            fi
+            echo "push rejected (attempt ${attempt}); rebasing onto origin/${GITHUB_REF_NAME}"
+            git fetch origin "${GITHUB_REF_NAME}"
+            if ! git rebase -X ours "origin/${GITHUB_REF_NAME}"; then
+              git rebase --abort || true
+              git merge -X ours -m "merge origin/${GITHUB_REF_NAME} after push race" "origin/${GITHUB_REF_NAME}"
+            fi
+            sleep $((attempt * 5))
+          done
+          echo "could not publish after 5 attempts"
+          exit 1

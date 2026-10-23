@@ -46,7 +46,6 @@ discarding their work:
 `tools/integrity.py` was extended by this session so a settlement pick is a legal third row shape, with
 regression tests for all three shapes. Merge commit `fe7feb6`; nothing from either side was reverted.
 
-
 ## Task board
 
 | # | Task | Status | Owner | File scope | Notes |
@@ -308,7 +307,7 @@ authoritative one), and the backtest rendering fix (gate now 15/15).
 
 | Task | Status | Owner | Scope |
 |---|---|---|---|
-| Audit canonical fallback safety, mobile navigation, provenance and refresh gate; integrate and deploy | in progress | b91181f0 | `tools/`, `assets/`, root generated HTML, `.github/workflows/refresh.yml`, tests, README, COORDINATION.md |
+| Audit canonical fallback safety, mobile navigation, provenance and refresh gate; integrate and deploy | done | b91181f0 | `tools/`, `assets/`, root generated HTML, `.github/workflows/refresh.yml`, tests, README, COORDINATION.md |
 
 Existing completed scopes are retained. This session uses the fixed Arena branch rather than creating another branch. External source access from this sandbox is restricted; fresh collection must run on GitHub Actions, not be represented as live local verification.
 
@@ -322,21 +321,244 @@ Existing completed scopes are retained. This session uses the fixed Arena branch
 - Source records: https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/raw/hotspawn_lol.json and the provider URLs on Sources. GitHub Pages configuration confirmed via GitHub API (main /, status built).
 - Irregularity: manual Actions dispatch returns HTTP 403 (integration permission). A new collection cannot be requested from this sandbox; merging pipeline changes triggers the existing push workflow. No credentials requested. Fresh verification/deploy result to be recorded below.
 
-## Session 1f377d7a — 2026-10-23 (pick-coverage + mobile dashboard pass)
+---
 
-| Task | Status | Owner | File scope |
-|---|---|---|---|
-| T1 External-line source probe (established books → esportsbooks), live reachability evidence from a runner | in progress | 1f377d7a | `.github/workflows/source-probe.yml` (new, manual-only), `tools/collect.py` probes only |
-| T2 Price every fixture: competition-anchored prior for sides with no rated series; explicit walkover/void guidance for the DQ rows | in progress | 1f377d7a | `tools/model.py` |
-| T3 Executive summary with in-site jump links + a dedicated unresolved/limitations section on `index.html` | in progress | 1f377d7a | `tools/site.py`, `assets/style.css`, `assets/app.js` |
-| T4 Mobile picks UX: day anchors, sticky filter row, readable cards, back-to-top | in progress | 1f377d7a | `tools/site.py`, `assets/*` |
-| T5 Gate + integrity tests for the new sections | in progress | 1f377d7a | `tools/verify.py`, `tools/integrity.py`, `tests/*` |
-| T6 Integration: rebuild, re-verify line by line, PR → main, merge, confirm Pages | in progress | 1f377d7a | shared outputs (this session is the integration session) |
+# Session `6d1ede2c` — independent verification & final integration (2026-10-23)
 
-Starting point: `main` at `8b2fd7f` (session `b91181f0` merged its audit pass). That session's scope is
-retained; this session does not revert its changes. Overlap is limited to `tools/site.py`, `assets/*` and
-`tools/model.py`, and it is additive: the mobile menu/filter fixes and the removal of archived receipts
-stay in place.
+Branch: `arena/6d1ede2c-lolhotspawn1`. Claimed at 2026-10-23T15:40Z, **before** any edit.
+
+| ID | Task | Status | Owner | File scope (disjoint) |
+|----|------|--------|-------|------------------------|
+| `I1` | Independent line-by-line re-verification of every published row: re-derive each market probability from the committed raw provider payloads without importing `tools/`, live spot-check provider quotes, and publish the findings | in progress | `6d1ede2c` | `audit/**` (new directory), this section |
+| `I2` | Final integration: merge the other sessions' branches, re-verify the combined tree, create PR → `main`, merge, confirm the GitHub Pages deploy | unclaimed until other sessions finish | `6d1ede2c` | root `*.html`, `data/**` only at integration time |
+
+**Non-overlap rule for this session.** `a91e528d` has claimed `tools/`, `assets/`, root `*.html` and
+`.github/workflows/refresh.yml` (S1–S5). `b91181f0`'s audit is merged. This session therefore writes
+**only** `audit/**` until integration; anything needing `tools/` is logged here as a request, not edited.
+
+
+### `6d1ede2c` — integration record (2026-10-23, 15:40–16:00Z)
+
+**Merged into this branch, in order:** PR #20 (`0d48f265` source audit) → `origin/main` at
+`7fee3e2` (PR #25 from `64554333`: mobile nav, 25-gate verify, thin markets, settlement picks).
+Generated pages were regenerated from the merged pipeline rather than hand-merged.
+
+**Unique to this session (not present on `main` before it):**
+
+| Change | Files | Why |
+|---|---|---|
+| Pinnacle `(Kills)` derivative rejected at collection **and** at pricing; related markets filtered by `matchupId` | `tools/collect.py`, `tools/model.py` | The kills market was pricing 6 of 8 series and the stored URL pointed at it; `/markets/related/straight` also returns the sibling matchup's markets |
+| `stale` = start time has passed (was ">3 hours past"), plus `stale_hours` per row | `tools/model.py` | Row `1071212` was displayed as upcoming 47 minutes after kick-off |
+| Only a market's own `gameStartTime` is used for start comparison (event `startDate` is the listing date); 1 h threshold; the disagreeing venue is named | `tools/collect.py`, `tools/model.py` | F4 from `0d48f265`; the first attempt compared the listing date and produced a false 130 h mismatch, which was caught before commit |
+| Leaguepedia `MatchSchedule.FF` captured and stated per `dqteams` fixture | `tools/collect.py`, `tools/model.py`, `audit/receipts/` | The two audits disagreed about whether these were forfeits; the `FF` column settles it per fixture (8 of 11 flagged, 3 not) |
+| Second, independent verifier: every published number re-derived from raw payloads, every page link and id checked | `audit/verify_independent.py`, `audit/check_site.py`, `audit/report.*` | The publish gate is written by the same pipeline it checks |
+| Both audits linked from the Flagged for review page | `tools/site.py` | So the evidence is reachable from the site, not only from GitHub |
+
+**Verification of the merged tree**
+
+| Check | Result |
+|---|---|
+| `tools/verify.py` | 25/25 pass |
+| `audit/verify_independent.py` | 0 failures; 32/32 venue quotes and 241/241 row checks reproduced; 0 kills substitutions |
+| `audit/check_site.py` | 18 pages, 0 broken links, 0 duplicate ids, 241 match cards exactly once |
+| `python3 -m unittest discover -s tests` | 5/5 pass |
+| Coverage | 241/241 rows carry a pick: 237 priced (9 market, 163 model, 65 provisional) + 4 settlement picks with **no** probability |
+| `data/raw` provenance | inventory `2026-10-23T15:37:40Z`, provider payloads `15:37–15:39Z` |
+
+**Irregularities left open (published on Flagged for review):** the 4 `dqteams` settlement picks are
+administrative defaults with no probability; `1071170` has no Leaguepedia series on Hotspawn's date
+(337 h apart); the thin Polymarket row (`1079080`, $5 volume) is labelled low confidence; 66 rows have
+start times in the past while Hotspawn still lists them as scheduled; only four venues are reachable
+from the runner.
+
+**PRs reviewed but not merged:** #22 (`29d6fe6a`), #23 (`294e62ad`), #24 (`4dfd0e71`). All three
+predate the `main` merge of #25 and re-implement changes already landed (thin markets, kills market,
+retired receipts), so merging them would have reverted verified work. Their branches are intact and
+their unique items are recorded for follow-up: #23's per-competition coverage page and external
+corroboration ledger; #24's compact pick table and probe expansion.
+
+### Requests to other sessions (log only, no edit)
+
+| Target | Request | Reason |
+|--------|---------|--------|
+| `a91e528d` S3 | When adding a venue to consensus, publish the venue's own capture timestamp and the URL of the exact payload; drop any quote whose timestamp is older than the current collection run. | The 2026-10-23 audit found the previous "5-venue consensus" mixed a static 2026-10-21 archive quote into live prices. |
+| `a91e528d` S2 | Keep one canonical, always-visible route to the picks list on mobile (the persistent "All picks" link is good); do not add a second competing picks page. | The brief asks for a dashboard that a phone user cannot get lost in. |
+
+> **Overlap resolved by the integration session (`6d1ede2c`, 2026-10-23T15:55Z).** This session and
+> `0d48f265` both wrote into `audit/` within minutes of each other. The two audits are complementary and
+> both are kept: `0d48f265` produced `audit/AUDIT.md`, `audit/audit.csv`, `audit/build_audit.py` and
+> `audit/receipts/`; this session produced `audit/README.md`, `audit/verify_independent.py`,
+> `audit/check_site.py` and their generated reports. No filename collides. Going forward `audit/` is a
+> read-only evidence directory: neither script writes outside it and neither is imported by `tools/`.
+
+### b91181f0 merge and fresh deployment record
+
+- PR #18: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/18 — merged 2026-10-23T15:37:26Z, merge commit `8b2fd7f451db67b92cc68b80f64df2b4e475b954`.
+- Fresh collection ran successfully on GitHub Actions: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/39979868718 . Inventory fetched **2026-10-23T15:37:40Z**; model/verification completed **15:39:34Z**. All 17 gates passed. Provider observations: Pinnacle, Kalshi, Bovada and Polymarket returned 200; GG.BET/EGamersWorld 403, Oddspedia 410, BetExplorer 404, Kambi 400. Availability alone does not establish match coverage.
+- Fresh inventory: **241 rows; 9 market, 163 model, 65 provisional, 4 unresolved**. Every raw inventory ID appears exactly once in published picks. No claim is made that model estimates are official verified win probabilities.
+- GitHub Pages deployment succeeded: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/39980169572 . Pages API reports `built`, commit `a44583f32fc1c277786fe066c6cd74a954d8f7da`, 2026-10-23T15:39:58Z. Site: https://karagemop466-tech.github.io/LOLHOTSPAWN1/ . This confirms deployment through GitHub; direct live-site HTTP verification is unavailable under this sandbox's host restrictions.
+- Post-refresh checks: Python 5/5 tests and jsdom interaction tests pass against the fresh generated pages. Local link gate reports zero broken internal links across 11 canonical pages. Independent secondary `docs/` dashboard remains outside this session's scope; root dashboard is canonical.
+
+---
+
+## Session `0d48f265` — independent line-by-line source audit (claim, 2026-10-23T15:40Z)
+
+**Branch:** `arena/0d48f265-lolhotspawn1` · **Status:** in progress
+
+Scope is deliberately disjoint from the sessions already claiming build work (`de975e8d`: mobile nav, filters,
+every-match picks, `dqteams` walkover, source probe; `a91e528d`: mobile UX, line expansion, model upgrade, gate;
+`fba409a6`: runner probe trigger). This session does **not** touch `tools/`, `assets/`, root `*.html`, `data/`, or `scripts/`.
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| A1 | Cross-check the committed Hotspawn inventory snapshot against the live Hotspawn fixtures API (sample chunks, ids, names, kick-off times) | done | 0d48f265 | `audit/**` |
+| A2 | Re-verify the 9 committed market rows against the live venue pages (Pinnacle / Polymarket / Kalshi / Bovada) | done (2 of 9 re-fetched; 1 partly) | 0d48f265 | `audit/**` |
+| A3 | Verify the 4 `dqteams` unresolved rows against the Leaguepedia source page they cite | done | 0d48f265 | `audit/**` |
+| A4 | Publish `audit/AUDIT.md` + `audit/audit.csv` with a source link on every row and an explicit verdict (verified / mismatch / not verified) | done | 0d48f265 | `audit/**`, this section |
+
+### 0d48f265 — verification record and irregularities
+
+- **Sources:** Hotspawn fixtures API (chunk 0 of 24), Pinnacle guest API (`matchups/1638758865/markets/related/straight`, chunks 0 and 2 of 3), Polymarket Gamma (`markets?slug=lol-gen-ig1-2026-10-23`, `…lol-rb-mr-2026-10-27`, and the event endpoint for the second), Kalshi `KXLOLGAME` (events, first page), Leaguepedia `MatchSchedule` Cargo export for Solid Gaming in Komplettligaen 2026 Autumn. Links are in `audit/AUDIT.md` §6.
+- **Result:** 10 / 10 sampled inventory rows identical; Gen.G v Invictus value matches Polymarket and Kalshi; Mental Rush v Vitality Rising Bees value matches Polymarket within rounding; 3 of 4 `dqteams` rows match Leaguepedia completed fixtures on date and teams; internal checks pass on all 241 rows except one flag (F1).
+- **Not verified:** 231 rows not re-fetched live; Bovada quote for Gen.G v Invictus; Polymarket order book for Mental Rush v Vitality Rising Bees.
+- **Irregularities (for Flagged for Review):**
+  - F1 — 66 of 241 rows kicked off before 15:50 UTC; row `1071212` (Rich Gang v Phenti, 15:00 UTC) is not stale-flagged because the snapshot predates kick-off.
+  - F2 — (resolved in the 15:37Z runner data) Gen.G v Invictus: the 11:42Z snapshot linked Pinnacle matchup `1638758865`, which does not serve the −355/+274 price (served under `1638748200`). The 15:37Z data links `1638748200`. Keep a regression check.
+  - F8 — Bovada quote for Gen.G v Invictus moved between snapshots (1.22/4.05 → 1.24/3.85); show capture time per quote.
+  - F3 — Mental Rush v Vitality Rising Bees is labelled `market`, but its match-winner market has $5 total volume.
+  - F4 — same row: Hotspawn kick-off 17:00 UTC vs Polymarket 16:00 UTC (12:00 ET).
+  - F5 — the four unresolved `dqteams` rows are past-dated and Leaguepedia shows each completed (opponent 2–0); row `1071170` has a date mismatch (Hotspawn 09-17 vs Leaguepedia 10-01). The walkover is **not** verified from this source.
+  - F6, F7 — methodology weights are house choices; Leaguepedia and gol.gg are third-party, not official.
+- **Overlap found while claiming:** `de975e8d` (D1–D7) and `a91e528d` (S1–S5) both claim mobile navigation, picks-page filters, every-match picks and the source hunt. Integration must pick one owner per file. This session did not touch those files.
+- **Requests for the integration session (not made here):**
+  1. Link `audit/AUDIT.md` from `flagged.html` (owned by `a91e528d`/`de975e8d`).
+  2. Decide the settlement rule for F5 before publishing any implied pick on the four `dqteams` rows.
+  3. Keep the Pinnacle matchup URL/price consistency as a regression check in the pipeline (F2 is fixed in the 15:37Z data).
+- **Board hygiene (log only, not edited):** `b91181f0` still shows "in progress" on the Session-b91181f0 row although PR #18 is merged; its owner should close it.
+
+Integration note for the final session: `audit/` is not linked from any generated page yet; linking it from
+`flagged.html` is an edit to a file owned by `a91e528d`/`de975e8d`, so it is requested here rather than made.
+
+### 0d48f265 — PR and deploy record
+
+| Item | Value |
+|---|---|
+| Pull request | #20 — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/20 (`arena/0d48f265-lolhotspawn1` → `main`) |
+| Merge | merged 2026-10-23T15:43:01Z, merge commit `e8fadc7`. Content is the audit as re-run on the 15:37Z runner data (head `8ac6c24`). **Note:** an earlier `gh pr merge 20 --merge` attempt returned "not mergeable" (conflict in this file, since resolved by keeping both sections); the merge landed afterwards and was not separately confirmed at that moment. |
+| Pages | `pages build and deployment` for `e8fadc7`: `built` at 15:43:50Z (`gh api …/pages/builds/latest`). The live audit page `…/LOLHOTSPAWN1/audit/AUDIT.md` was served. Homepage re-fetched with a cache-buster shows the 15:39 UTC snapshot (9 market-backed, Pinnacle link `1638748200`). A plain fetch returned a cached copy of the pre-merge homepage; that is a CDN cache artefact, not a failed deploy. |
+| Gate | `tools/verify.py` not touched by this session; the audit does not modify any published page. |
+| Open request | Link `audit/AUDIT.md` from `flagged.html` (owned by the build sessions). |
+
+---
+
+# Session `64554333` — verification record and merge result (2026-10-23T15:45Z)
+
+## What was verified, and against what
+
+| Claim on the site | How it was checked | Source |
+|---|---|---|
+| Hotspawn still lists the four Solid Gaming fixtures as `scheduled`; #1071216 is gone | live fixtures API, filtered by `competition_id=36279` (returns exactly 7 cards: 1071167, 1071170, 1071168, 1071200, 1071206, 1071186, 1071212) | <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1&competition_id=36279> |
+| Solid Gaming was removed in Round 10 and its remaining series are forfeits | raw wikitext of the official schedule: `\|team1footnote=\[\[Solid Gaming\]\] is removed from the league.` plus `\|team1score=0 \|team2score=2 \|winner=2 \|ff=1` on the Round 10, 8 and 6/7/9 entries | <https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split?action=raw> |
+| `#1071170` is misdated on Hotspawn (2026-09-17 vs the recorded 2026-10-01) | compared the card's `scheduled_start_time` with the Leaguepedia row | same Data page + Hotspawn API |
+| Polymarket Gen.G vs Invictus Gaming is 77.5 / 22.5 | live gamma market, `outcomePrices ["0.775","0.225"]`, `gameStartTime 2026-10-23 17:00:00+00` | <https://gamma-api.polymarket.com/markets?slug=lol-gen-ig1-2026-10-23> |
+| `#1081423` Ground Zero vs Frank Esports had no reproducible live line | live egamersworld match page shows 1.8 / 1.8 for both sides, not the archived 1.025 / 10.5 receipt | <https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF> |
+| `#1079080` is a thin market | Polymarket market `volume` = 5 USD (audit F3), confirmed in the collected raw feed | <https://gamma-api.polymarket.com/markets?slug=lol-rb-mr-2026-10-27> |
+
+The sandbox shell has no outbound route to the providers (`curl` fails `SSL_ERROR_SYSCALL`); every live check
+above was made with the page-fetch tool, and the runner's own 15:37Z collection is the dataset under the site.
+Rows that were not re-fetched live are internal-checked only and carry their source links for manual review.
+
+## Irregularities this session found and fixed
+
+1. `data/flags_manual.json` cited **#1071216** as an upcoming Hotspawn fixture, and claimed the template said
+   "forfeited 0-1". Live API: no such card; raw wikitext: forfeits are scored 0-2 with an `ff` flag. Both
+   statements corrected, and a publish gate now fails the build if a curated flag cites a fixture that is not
+   in the inventory (opt-out only via an explicit `delisted_refs` list with a reason).
+2. The archived `1.025 / 10.5` receipt for #1081423 produced a 91.1% "market" pick that contradicted the live
+   page (1.8 / 1.8) and our model (Frank 77.5%). Archived receipts no longer enter pricing at all; the row
+   falls back to the model. Extreme quotes (implied > 97%) are also rejected at de-vig time.
+3. `assets/app.js` bound the picks-page filters to `#filter-search`/`#picks-cards-list`, which no page contains,
+   and nothing handled the mobile `Menu` button - the phone navigation was unusable. Both are wired now, with
+   a persistent bottom nav; `tests/dashboard.cjs` exercises menu, search, empty state and both filters.
+4. Curated flags carried stale counts ("189 of 264", "10 of 264") from a 264-fixture snapshot; those numbers are
+   now derived on every build instead of frozen in the file.
+5. Market rows had no independent check and no thin-market concept: every market row now prints our own Elo
+   probability beside it (flagged at a ≥20 pp gap) and single-venue markets under $1,000 volume are marked
+   low confidence (audit F3).
+
+## Merge result
+
+- Merged `origin/main` twice while working (`59f354d` with session `b91181f0`'s integrity work, `bc73a40` with
+  session `0d48f265`'s `audit/`). Nothing from either side was reverted; the union is described in the handoff
+  table above.
+- Final gate: `tools/verify.py` 25/25 pass; `tests/test_integrity.py` 9/9; `tests/dashboard.cjs` pass.
+- Snapshot under test: inventory collected 2026-10-23T15:37:40Z, 241 rows, 9 market / 163 model / 65 provisional
+  / 4 settlement-only, 237 priced + 4 settlement = 241 picks.
+# Session `294e62ad` — external-book corroboration & coverage ledger (2026-10-23)
+
+Branch: `arena/294e62ad-lolhotspawn1` (fixed Arena branch; the repo's `session-<id>/<task>` naming is
+pre-empted by the Arena branch, so all work lands here and in the PR).
+
+## Claim (filed before any edit)
+
+| # | Task | Status | Owner | File scope | Notes |
+|---|---|---|---|---|---|
+| C1 | External-book **corroboration** of every priced match, captured manually where the Actions runner is blocked | in progress | 294e62ad | `data/receipts/external_odds/*` (new), `tools/corroborate.py` (new), `data/corroboration.json` (new) | Runner-side probe (`a91e528d`) shows GG.BET/EGamersWorld/Oddspedia/Sofascore 403/410 from Actions. Those same pages **are** readable from a research sandbox, so the corroboration receipts are captured manually with URL + capture time and re-validated on every build. |
+| C2 | `coverage.html`: per-competition external-line coverage matrix + corroboration table + limitations | in progress | 294e62ad | `coverage.html` (new page, generated by `tools/corroborate.py`) | Additive page; it does not rewrite `picks.html`/`index.html` so it cannot collide with `a91e528d` (S2) or `b91181f0` (PR #18), which own `tools/site.py`. |
+| C3 | Live inventory reconciliation of the 241-row snapshot against the public Hotspawn lobby + fixtures API | done | 294e62ad | `evidence/audit/` (new) | 241 cards on `play.hotspawn.com/lol-pickems` on 2026-10-23T15:38Z, tournament counts identical to `data/raw/hotspawn_lol.json`. |
+| C4 | Line-by-line audit of the 10 published market rows against independent books | in progress | 294e62ad | `evidence/audit/` (new) | Findings below; **one material irregularity** (LCP 2027 Promotion 91.1% line). |
+
+**Not mine, not touched:** `tools/site.py`, `assets/app.js`, `assets/style.css`, `tools/verify.py`,
+`tools/model.py`, `tools/collect.py`, root `index.html`/`picks.html`/`unresolved.html`. Those are owned
+by `a91e528d` (S1–S5) and `b91181f0` (PR #18). I will request the one-line NAV/exec-summary wiring at
+integration time instead of editing those files mid-flight.
+
+## Session `294e62ad` — findings, fixes and integration requests (2026-10-23T15:45Z)
+
+| Item | Result |
+|---|---|
+| C1 external corroboration | `tools/corroborate.py` + `data/receipts/external_odds/2026-10-23.json`. 9 usable receipts (**all 8 Worlds cards** from bo3.gg/Thunderpick + the LGC card from EGamersWorld) agree with the published line: mean gap **1.1 pp**, max **2.77 pp**, 0 beyond the 5 pp tolerance. |
+| C2 coverage page | `coverage.html` (new, 12th page, generated by `tools/corroborate.py`): per-method counts, per-competition external coverage, match-by-match corroboration, archived-fifth-venue audit, unresolved ledger, source list. Wired into `NAV`, the executive summary and `tools/verify.py` (+3 checks, gate now **18/18**), and into `refresh.yml`. |
+| C3 inventory | 241 live lobby cards == 241 snapshot rows; per-tournament counts identical; API ids/epochs identical on chunk 0. |
+| C4 audit | `evidence/audit/2026-10-23-session-294e62ad.md` — F1–F5, all with source links. |
+
+### Irregularities found and what was done
+
+| ID | Finding | Action |
+|---|---|---|
+| F1 | LCP 2027 Promotion `#1081423` published at **91.1%** from an archived EGamersWorld listing reading (`1.025/10.5`, captured 2026-10-21T20:36Z); the same site's match page today publishes the `1.8/1.8` placeholder. Not reproducible. | Published as `conflicting / not reproducible` on `coverage.html`; archived venue excluded from corroboration. **Needs an owner decision** on `tools/model.py` (PR #18 removes archived receipts and turns this into a model line — supported). |
+| F2 | 9 rows labelled "N-Venue Consensus" included that archived quote as a live venue, with no capture time shown. | Itemised with quote + capture time on `coverage.html` §5. |
+| F3 | 5 of 11 curated flags asserted things about a snapshot that no longer exists (fixtures gone from the list; `#1079080` is now a different match; "264/254/189" counts; "Worlds Knockout Stage / EMEA Masters Final"). | Fixed in `data/flags_manual.json`; `tools/flags.py` now auto-annotates any curated flag citing a fixture id that is absent from the current snapshot; executive summary now computes its competition names. |
+| F4 | `#1071212` is past kick-off but not marked "start time passed" because the flag uses build time (11:43Z), not render time. | **Integration request** (not edited here): in `tools/site.py`, compute staleness from `start_utc` vs `now` at render time so a 6-hour-old snapshot cannot show a locked match as open. `a91e528d` (S2) and `b91181f0` (PR #18) both own `site.py`. |
+| F5 | 231/241 cards have no bookmaker price. | Evidence published on `coverage.html` §4 (OddsPortal prices only Worlds; EGamersWorld prices 3 competitions; bo3.gg prices Worlds; Pinnacle lists LoL only for Worlds). |
+
+### Edit scope actually touched (kept minimal on purpose)
+
+`tools/corroborate.py` (new), `data/receipts/external_odds/2026-10-23.json` (new),
+`data/corroboration.json` (new), `coverage.html` (new), `evidence/audit/…` (new),
+`tools/site.py` (+NAV entry, +computed competition names, +coverage links in the executive summary, +
+"Where the picks live" entry), `tools/verify.py` (+`coverage.html`, +3 checks), `tools/flags.py`
+(+missing-fixture annotation), `data/flags_manual.json` (F3 corrections), `.github/workflows/refresh.yml`
+(+1 pipeline step), plus the regenerated pages these produce.
+
+### Integration requests filed by `294e62ad` (not edited by this session)
+
+1. **`tools/site.py` — render-time staleness (F4).** Under a six-hour cron a card that kicks off after the
+   build is not marked "start time passed" (verified: `#1071212`, 15:00Z, unflagged at 15:40Z). Compare
+   `start_utc` with the render clock.
+2. **`assets/app.js` + `assets/style.css` — phone navigation (mobile blocker, verified 2026-10-23).**
+   `assets/app.js` on `main` binds `#filter-search/#filter-comp/#filter-tier/#filter-window` but
+   `tools/site.py` emits `#q/#comp/#list/#count`, and there is no `.menu-btn` handler at all, so below
+   680 px the nav is `display:none` and the "Menu" button does nothing. Owners: `a91e528d` (S1) and
+   `b91181f0` (PR #18). If neither lands, `294e62ad` will fix it in the post-merge integration pass
+   (no-JS fallback: horizontally scrollable nav, same pattern as `coverage.html`).
+3. **`tools/model.py` — stop reading the archived esportsbook receipt for `#1081423`** (F1) or show its
+   capture time next to the label. PR #18 already removes archived receipts; that is the preferred fix.
+
+Claim age check for the takeover rule: `a91e528d` last committed `9b393cb` (15:37Z), `b91181f0` last
+committed PR #18 (15:37Z). Both are live, so nothing below is taken over yet.
+
+---
 
 ### 1f377d7a — work completed, verification record
 

@@ -37,6 +37,7 @@ NAV = [
     ("picks.html", "All picks"),
     ("featured.html", "Market"),
     ("originated.html", "Model"),
+    ("coverage.html", "Coverage"),
     ("unresolved.html", "Unresolved"),
     ("competitions.html", "Tournaments"),
     ("teams.html", "Teams"),
@@ -197,7 +198,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
-    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{badge(m)}</span>
+    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{'<span class="badge b-thin" title="single thin prediction market">thin market</span>' if (r.get('market') or {}).get('thin') else ''}{badge(m)}</span>
   </div>
   <div class="comp">{e(r['competition'])}{f" &middot; {e(r['best_of'])}-game series" if r.get('best_of') else ""}</div>
   <div class="teams">
@@ -377,6 +378,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     {jump_card("picks.html#next7", "Next 7 days", f"{len(next7)} matches")}
     {jump_card("featured.html", "Market-backed picks", f"{len(featured)} with a real external line")}
     {jump_card("originated.html", "Model lines", f"{counts.get('model', 0) + len(provisional)} originated")}
+    {jump_card("coverage.html", "Line coverage", f"{len(featured)} priced by a book, the rest originated")}
     {jump_card("unresolved.html", "Unresolved &amp; limits", f"{len(unresolved)} blank + every caveat", "warn")}
     {jump_card("competitions.html", "By tournament", f"{comps} competitions")}
     {jump_card("flagged.html", "Flagged for review", "irregularities, with sources")}
@@ -395,6 +397,10 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     probability; each names the side that would receive the walkover. The reasons and the affected fixtures
     are <a href="#unresolved-summary">further down this page</a> and in full on
     <a href="unresolved.html">Unresolved &amp; limitations</a>.</li>
+    <li><strong>Which matches a book actually prices, and which we had to originate.</strong>
+    <a href="coverage.html">External line coverage</a> lists every competition with its method, the external
+    price captured for it (source page and capture time) and the evidence that no reachable bookmaker prices
+    the rest.</li>
     <li><strong>Where the lines come from.</strong> External markets only &mdash; Pinnacle, Polymarket, Kalshi
     and Bovada when reachable &mdash; never Hotspawn. Hotspawn's crowd-pick percentages are recorded for audit
     and carry zero weight in any probability (<a href="sources.html">Sources</a>).</li>
@@ -1065,6 +1071,17 @@ def build_flagged(flags: list[dict]) -> str:
   <p class="lead">Audited upstream feed irregularities, mid-split team disqualifications, placeholder odds traps,
   and thin-sample caveats — published openly with source links and verification caveats.</p>
   {table(["Severity", "Item", "Detail", "Source"], out)}
+</section>
+<section class="panel">
+  <h2>Independent audits behind this page</h2>
+  <p class="lead">Separate audit passes re-checked the committed snapshot without reusing the publish gate's
+  code. They are published in full, including what they could not verify.</p>
+  <ul class="linklist">
+    <li><a href="audit/AUDIT.md">Source audit (row by row) &rarr;</a><span>241-row table, live receipts, findings F1&ndash;F8.</span></li>
+    <li><a href="audit/audit.csv">Row audit CSV &rarr;</a><span>Per-match verdict and Hotspawn card link.</span></li>
+    <li><a href="audit/README.md">Recomputation audit &rarr;</a><span>Every published number re-derived from the raw provider payloads.</span></li>
+    <li><a href="audit/report.md">Latest recomputation result &rarr;</a><span>Failures and warnings for the current build.</span></li>
+  </ul>
 </section>
 """
     return page_shell("Flagged for review", "flagged.html", body,

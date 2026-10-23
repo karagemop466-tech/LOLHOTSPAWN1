@@ -113,7 +113,7 @@ def main() -> None:
     # --- site ---------------------------------------------------------------
     pages = ["index.html", "picks.html", "featured.html", "originated.html", "unresolved.html",
              "competitions.html", "teams.html", "methodology.html", "sources.html",
-             "verification.html", "flagged.html"]
+             "verification.html", "flagged.html", "coverage.html"]
     missing_pages = [p for p in pages if not os.path.exists(os.path.join(DOCS, p))]
     add("all site pages exist", not missing_pages, f"{len(pages) - len(missing_pages)}/{len(pages)} pages")
 
@@ -247,6 +247,44 @@ def main() -> None:
         not extreme,
         f"{len(rejected)} quote(s) rejected this build (placeholders / extremes); "
         f"{len(extreme)} extreme")
+
+    # --- external corroboration (tools/corroborate.py) -----------------------
+    corr = load_json(os.path.join(DATA, "corroboration.json")) or {}
+    cov_rows = corr.get("coverage") or []
+    no_link = [c["competition"] for c in cov_rows if not str(c.get("hotspawn_url") or "").startswith("https://")]
+    add("coverage matrix: every competition row links to a source", bool(cov_rows) and not no_link,
+        f"{len(cov_rows)} competition rows; missing links: {no_link[:3]}")
+    bad_receipts = corr.get("rejected") or []
+    diverged = [r for r in (corr.get("rows") or []) if r.get("verdict") == "diverges"]
+    add("external receipts validated against the dataset", not bad_receipts and not diverged,
+        f"{corr.get('summary',{}).get('usable_receipts',0)} usable receipts, "
+        f"{len(bad_receipts)} rejected, {len(diverged)} diverging >{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp")
+    cov_path = os.path.join(DOCS, "coverage.html")
+    cov_html = open(cov_path, encoding="utf-8").read() if os.path.exists(cov_path) else ""
+    add("coverage page shows every match method and the unresolved ledger",
+        all(k in cov_html for k in ("How each match was priced", "Corroboration, match by match",
+                                    "no pick at all")),
+        f"coverage.html {len(cov_html)} bytes")
+
+    # --- external corroboration (tools/corroborate.py) -----------------------
+    corr = load_json(os.path.join(DATA, "corroboration.json")) or {}
+    cov_rows = corr.get("coverage") or []
+    no_link = [c["competition"] for c in cov_rows
+               if not str(c.get("hotspawn_url") or "").startswith("https://")]
+    add("coverage matrix: every competition row links to a source", bool(cov_rows) and not no_link,
+        f"{len(cov_rows)} competition rows; missing links: {no_link[:3]}")
+    bad_receipts = corr.get("rejected") or []
+    diverged = [r for r in (corr.get("rows") or []) if r.get("verdict") == "diverges"]
+    add("external receipts validated against the dataset", not bad_receipts and not diverged,
+        f"{corr.get('summary', {}).get('usable_receipts', 0)} usable receipts, "
+        f"{len(bad_receipts)} rejected, {len(diverged)} diverging "
+        f">{corr.get('summary', {}).get('divergence_threshold_pp', '5')}pp")
+    cov_path = os.path.join(DOCS, "coverage.html")
+    cov_html = open(cov_path, encoding="utf-8").read() if os.path.exists(cov_path) else ""
+    add("coverage page shows every match method and the unresolved ledger",
+        all(k in cov_html for k in ("How each match was priced", "Corroboration, match by match",
+                                    "no pick at all")),
+        f"coverage.html {len(cov_html)} bytes")
 
     src = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     reachable = sum(1 for s in src if s.get("ok"))
