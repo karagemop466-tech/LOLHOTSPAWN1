@@ -385,7 +385,6 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "p1": round(p1_v, 4),
                     "quote": f"{p0_v*100:.1f}¢/{p1_v*100:.1f}¢",
                     "overround": round(tot - 1.0, 4),
-                    "volume_usd": item.get("volume"),
                     "url": f"https://polymarket.com/event/{item['slug']}",
                     "volume_usd": round(float(item.get("volume") or 0.0), 2),
                 })
@@ -479,6 +478,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         "league": primary_league,
         "venue_count": len(venues),
         "total_volume_usd": total_volume,
+        "volume_usd": (max((v.get("volume_usd") or 0.0) for v in venues) if total_volume else None),
         "venues": venues,
     }
 
@@ -861,6 +861,19 @@ def main() -> None:
                 "source_url": q.get("source_url"),
                 "observed_at": q.get("observed_at"),
             })
+    retired_by_fixture = {}
+    for entry in retired:
+        retired_by_fixture.setdefault(str(entry["fixture_id"]), entry)
+    for row in rows:
+        entry = retired_by_fixture.get(str(row["id"]))
+        if not entry or row.get("method") == "market":
+            continue
+        dec = "/".join(f'{d:.3f}' if d and d < 2 else f'{d:.2f}' for d in (entry.get("decimal") or []) if d)
+        row.setdefault("flags", []).append(
+            f"archived external quote retired as unverifiable: {entry.get('book_label') or 'aggregator'} "
+            f"{dec or 'n/a'} captured {str(entry.get('observed_at') or '')[:10]}; that page now shows symmetric "
+            f"1.80 / 1.80 placeholder prices, so this line is originated instead")
+
     save_json(os.path.join(DATA, "retired_quotes.json"), {
         "generated_utc": iso(now_utc()),
         "reason": ("Archived third-party quotes from archive/session-8336fb7e/data/book_receipts.json are "

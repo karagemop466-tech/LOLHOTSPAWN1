@@ -480,6 +480,17 @@ Adopted from `origin/main` unchanged: `tools/integrity.py` + `tests/test_integri
 "Source records (not official verification)" table headers, the community-maintained-Leaguepedia
 caveat, and the hedged settlement wording on the unresolved page.
 
+### Fourth merge with `origin/main` (28531fc, PR #29) — 2026-10-23T15:51Z
+
+| Incoming change | Handling |
+|---|---|
+| `audit/` independent audit + `receipts/leaguepedia_ff_solid_gaming_2026-10-23.json` | Adopted verbatim; the forfeit receipt independently confirms the four `dqteams` settlement picks. Linked from `flagged.html`. |
+| `collect.py` kills-market regex + `game_start` field | Adopted: the Polymarket comparison now uses the market's own game start, so the previous false "kick-off differs ... (130 h apart)" flag on fixture `1079080` is gone. |
+| Polymarket/volume refactor | Adopted, with the duplicated `volume_usd` key removed and both `total_volume_usd` and `volume_usd` published. |
+| Retired-quote visibility | The retirement note is now attached to the affected rows themselves (11 rows), so a reader sees why `1081423` is originated instead of getting a silent 1.025/10.50 line. |
+
+Publish gate: **34/34 PASS**; 9/9 unit tests; 241 rows; 13 pages; 0 broken internal links.
+
 ### Third merge with `origin/main` (6af8635, PR #23) and coverage-page integration — 2026-10-23T15:49Z
 
 | Incoming change | Handling |

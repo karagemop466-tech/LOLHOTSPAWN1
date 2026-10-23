@@ -245,6 +245,26 @@ def main() -> None:
                        "arena/4dfd0e71-lolhotspawn1/data/retired_quotes.json"),
         })
 
+    # Per-fixture note: this match is now originated because its only external capture was retired.
+    retired_by_fixture = {str(q.get("fixture_id")): q
+                          for q in (retired.get("quotes") or [])}
+    for m in rows:
+        q = retired_by_fixture.get(str(m.get("id")))
+        if not q or m.get("method") == "market":
+            continue
+        src = q.get("source_url") or ""
+        note = (f"The only external capture for this fixture ({q.get('book_label') or 'aggregator'}, "
+                f"{'/'.join(str(x) for x in (q.get('decimal') or []) or [])} on "
+                f"{str(q.get('observed_at') or '')[:10]}) could not be re-verified and is retired; the published "
+                f"line is originated from recorded results. Live page today shows symmetric 1.80 / 1.80 placeholder "
+                f"prices, which are rejected by policy.")
+        flags.append({
+            "severity": "high",
+            "item": f"Retired external quote on {m.get('team0', {}).get('name')} vs {m.get('team1', {}).get('name')}",
+            "detail": note,
+            "source": src or "data/retired_quotes.json",
+        })
+
     hy = data.get("market_hygiene") or {}
     if hy.get("pinnacle_kills_derivatives_excluded"):
         flags.append({
