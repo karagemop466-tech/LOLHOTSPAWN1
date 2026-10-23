@@ -323,7 +323,8 @@ every-match picks, `dqteams` walkover, source probe; `a91e528d`: mobile UX, line
 - **Not verified:** 231 rows not re-fetched live; Bovada quote for Gen.G v Invictus; Polymarket order book for Mental Rush v Vitality Rising Bees.
 - **Irregularities (for Flagged for Review):**
   - F1 — 66 of 241 rows kicked off before 15:50 UTC; row `1071212` (Rich Gang v Phenti, 15:00 UTC) is not stale-flagged because the snapshot predates kick-off.
-  - F2 — Gen.G v Invictus: the stored Pinnacle URL (matchup `1638758865`) does not serve the −355/+274 price; that price is served under `1638748200`.
+  - F2 — (resolved in the 15:37Z runner data) Gen.G v Invictus: the 11:42Z snapshot linked Pinnacle matchup `1638758865`, which does not serve the −355/+274 price (served under `1638748200`). The 15:37Z data links `1638748200`. Keep a regression check.
+  - F8 — Bovada quote for Gen.G v Invictus moved between snapshots (1.22/4.05 → 1.24/3.85); show capture time per quote.
   - F3 — Mental Rush v Vitality Rising Bees is labelled `market`, but its match-winner market has $5 total volume.
   - F4 — same row: Hotspawn kick-off 17:00 UTC vs Polymarket 16:00 UTC (12:00 ET).
   - F5 — the four unresolved `dqteams` rows are past-dated and Leaguepedia shows each completed (opponent 2–0); row `1071170` has a date mismatch (Hotspawn 09-17 vs Leaguepedia 10-01). The walkover is **not** verified from this source.
@@ -332,7 +333,7 @@ every-match picks, `dqteams` walkover, source probe; `a91e528d`: mobile UX, line
 - **Requests for the integration session (not made here):**
   1. Link `audit/AUDIT.md` from `flagged.html` (owned by `a91e528d`/`de975e8d`).
   2. Decide the settlement rule for F5 before publishing any implied pick on the four `dqteams` rows.
-  3. Fix or re-label the Pinnacle source URL for `1067878` (F2) in the pipeline (`tools/collect.py`, owned by the build sessions).
+  3. Keep the Pinnacle matchup URL/price consistency as a regression check in the pipeline (F2 is fixed in the 15:37Z data).
 - **Board hygiene (log only, not edited):** `b91181f0` still shows "in progress" on the Session-b91181f0 row although PR #18 is merged; its owner should close it.
 
 Integration note for the final session: `audit/` is not linked from any generated page yet; linking it from

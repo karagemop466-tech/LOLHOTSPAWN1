@@ -34,11 +34,11 @@ LIVE_INVENTORY_CHUNK0 = {  # match id -> (team0, team1, start_utc) as served by 
 LIVE_MARKETS = {
     "1067878": {"venues": "Polymarket gamma (lol-gen-ig1-2026-10-23): outcomePrices 0.775/0.225, gameStartTime 17:00Z; "
                           "Kalshi KXLOLGAME-26OCT231300IGGEN: yes bid 0.77 / ask 0.78 (mid 0.775); "
-                          "Pinnacle -355/+274 served under matchup 1638748200 (NOT the stored 1638758865)",
-                "verdict": "value verified; Pinnacle provenance mismatch flagged"},
+                          "Pinnacle -355/+274 is served under matchup 1638748200, which the 15:37Z snapshot now stores",
+                "verdict": "value verified; Pinnacle URL corrected in 15:37Z snapshot (F2 resolved); Bovada not re-checked live"},
     "1079080": {"venues": "Polymarket gamma (lol-rb-mr-2026-10-27, groupItemTitle Match Winner): outcomePrices "
                           "Vitality Rising Bees 0.675 / Mental Rush 0.325; volume $5; liquidity $4,226; gameStartTime 16:00Z",
-                "verdict": "value verified (rounded 0.32/0.68); thin market and start-time mismatch flagged"},
+                "verdict": "value verified (exact in 15:37Z snapshot: 0.325 / 0.675); thin market and start-time mismatch flagged"},
 }
 LIVE_DQ = {  # Leaguepedia MatchSchedule (community wiki) rows for Solid Gaming in Komplettligaen 2026 Autumn
     "1071170": "Leaguepedia: VES Japan vs Solid Gaming 2026-10-01 16:00 UTC, VES Japan 2-0 (no 2026-09-17 row)",

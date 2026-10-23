@@ -1,6 +1,6 @@
 # Independent source audit — session `0d48f265`
 
-**As of:** 2026-10-23 ~15:50 UTC · **Subject:** `data/matches.json` (snapshot `inventory_fetched_utc` 2026-10-23T11:42:37Z, 241 rows, `generated_utc` 15:37:12Z)
+**As of:** 2026-10-23 ~15:50 UTC · **Subject:** `data/matches.json` as merged from `main` (PR #19 runner collection: `inventory_fetched_utc` 2026-10-23T15:37:40Z, `generated_utc` 15:39:34Z; 241 rows). An earlier draft of this audit read the 11:42:37Z snapshot; the 15:37Z data was re-checked, and the differences are recorded below.
 **Scope:** `audit/**` only. Nothing in `tools/`, `data/`, `assets/`, or the root pages was changed by this audit.
 **Machine-readable:** [`audit.csv`](audit.csv) (one row per match, 241 rows) · [`summary.json`](summary.json) · [`build_audit.py`](build_audit.py) (re-runnable) · [`receipts/`](receipts/)
 
@@ -17,8 +17,8 @@
 |---|---|---|---|
 | Internal consistency (all fields, all methods) | 241 | 1 finding: row `1071212` past kick-off but not stale-flagged (see F1) | pass with 1 flag |
 | Live Hotspawn inventory, chunk 0 (ids, teams, competition, kick-off UTC) | 10 | 10 / 10 identical to committed snapshot | **verified (sample)** |
-| Market re-check, Gen.G v Invictus Gaming (`1067878`) | 1 | Polymarket, Kalshi match; Pinnacle price matches but its source URL does not (F2); Bovada not re-checked | **partly verified** |
-| Market re-check, Mental Rush v Vitality Rising Bees (`1079080`) | 1 | Polymarket 67.5 / 32.5 vs stored 68 / 32 (rounded): match. Volume $5 (F3); start time differs (F4) | **value verified, quality flagged** |
+| Market re-check, Gen.G v Invictus Gaming (`1067878`) | 1 | Polymarket and Kalshi match; Pinnacle price and (in 15:37Z data) source URL match; Bovada moved between snapshots and was not re-checked live (F2 resolved, F8 added) | **partly verified** |
+| Market re-check, Mental Rush v Vitality Rising Bees (`1079080`) | 1 | Polymarket 67.5 / 32.5 live; stored 67.5 / 32.5 in 15:37Z data: match. Volume $5 (F3); start time differs (F4) | **value verified, quality flagged** |
 | Unresolved `dqteams` rows (`1071170`, `1071200`, `1071206`, `1071186`) | 4 | Teams and dates match Leaguepedia completed fixtures for 3 of 4; 1 date mismatch (F5) | **flagged** |
 | All other rows (231) | 231 | Not re-fetched live; internal checks only | not verified live |
 
@@ -47,8 +47,9 @@ Source: <https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?spor
 
 - Polymarket: <https://gamma-api.polymarket.com/markets?slug=lol-gen-ig1-2026-10-23> — `outcomePrices` `["0.775","0.225"]`, `gameStartTime` 2026-10-23 17:00:00+00. Stored: 77.5 / 22.5 ✔. Resolution source: gol.gg (third party).
 - Kalshi: <https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100> — `KXLOLGAME-26OCT231300IGGEN-GEN` yes bid 0.77 / ask 0.78 / last 0.78 (midpoint 0.775). Stored: 77.5 / 22.5 ✔.
-- Pinnacle: <https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758865/markets/related/straight> — the full-match moneyline `−355 / +274` (stored decimal 1.282 / 3.74 ✔) is served under `matchupId 1638748200`, **not** `1638758865`. Matchup `1638758865` (the URL stored on the row, and the one the page links) returns a **game-1 (period 1)** moneyline of `−324 / +223`. See F2.
-- Bovada: not re-checked in this audit.
+- Pinnacle: <https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758865/markets/related/straight> — the full-match moneyline `−355 / +274` (stored decimal 1.282 / 3.74 ✔) is served under `matchupId 1638748200`, **not** `1638758865`. Matchup `1638758865` returns a **game-1 (period 1)** moneyline of `−324 / +223`. In the 11:42Z snapshot the row linked `1638758865`; in the 15:37Z data it links `https://www.pinnacle.com/en/event/1638748200` and `api_url …/matchups/1638748200/…`, which is where the price is served. See F2 (resolved in the fresh data).
+- Bovada: the quote in the 11:42Z snapshot was 1.22 / 4.05 (76.9 %); in the 15:37Z data it is 1.24 / 3.85 (75.7 %). Not re-checked live in this audit. See F8.
+- Stored 76.05 % → displayed "76.0 %" in the 15:37Z `basis` text; the value 0.7605 itself is internally consistent with the venue weights (recomputed 0.7605).
 
 **1079080 — LGC Rising 2026 Playoffs: Mental Rush v Vitality Rising Bees** (stored: Mental Rush 32 % / Vitality 68 %, method `market`, single venue)
 
@@ -74,10 +75,11 @@ Leaguepedia lists 11 `Solid Gaming` rows in this split (2026-09-08 to 2026-10-22
 | ID | Severity | Finding | Evidence | Suggested action |
 |---|---|---|---|---|
 | F1 | medium | 66 of 241 rows have a kick-off before the audit time; 65 carry the stale flag. Row `1071212` (Rich Gang v Phenti, kick-off 2026-10-23 15:00 UTC) does not, because the snapshot (11:42Z) predates kick-off. Its pick is still shown as upcoming. | `audit.csv` (`past_start`, `snapshot_stale_flag`); `summary.json` → `past_start_not_flagged_ids` | Re-collect; flag any row whose kick-off has passed at publish time |
-| F2 | high (provenance) | Gen.G v Invictus: the stored Pinnacle `source_url` / `api_url` (matchup `1638758865`) does not serve the `−355 / +274` moneyline used for the price. That price is served under matchup `1638748200`. Matchup `1638758865` returns a game-1 price `−324 / +223`. Only chunks 0 and 2 of 3 were read. | Pinnacle URLs above | Point the stored link at the matchup that produced the price, or record both |
+| F2 | resolved in 15:37Z data (was high) | Gen.G v Invictus: in the 11:42Z snapshot the Pinnacle `source_url` / `api_url` pointed to matchup `1638758865`, which does not serve the `−355 / +274` price (served under `1638748200`; `1638758865` returns a game-1 price `−324 / +223`). The 15:37Z data stores `1638748200` for both fields. | Pinnacle URLs above | Keep a regression check that the stored matchup serves the stored price |
 | F3 | high (quality) | Mental Rush v Vitality Rising Bees is labelled `market` on a single venue whose match-winner market has **$5 total volume** and $4,226 liquidity. A line this thin should not be presented with the same weight as a deep market. | `volume` `5` on `lol-rb-mr-2026-10-27` | Keep the quote, but label it "thin market" and never weight it as high confidence |
 | F4 | medium | Start-time mismatch on `1079080`: Hotspawn 2026-10-27 17:00 UTC; Polymarket `gameStartTime` 16:00 UTC (stated as 12:00 PM ET, which is 16:00 UTC under EDT). | Polymarket URL above; committed `start_utc` | Use the source with the official kick-off, record both, flag |
 | F5 | high (pick gap) | The four `dqteams` unresolved rows are all in the past, and Leaguepedia already shows each as completed with the opponent winning. Hotspawn still lists them as `scheduled`. Row `1071170` has no Leaguepedia row on its Hotspawn date (09-17); the Solid–VES Japan game is recorded on 10-01. | §3.3 | Decide and document the settlement rule before publishing an implied pick. This audit publishes no pick. |
+| F8 | info (price movement) | The Bovada quote for Gen.G v Invictus changed between the 11:42Z and 15:37Z snapshots (1.22 / 4.05 → 1.24 / 3.85), and the consensus moved from 76.2 % to 76.0 %. Prices are time-stamped by snapshot, not by live view. Not re-checked live. | `data/matches.json` `market.venues[3]` in both snapshots | Show the capture time next to every market quote |
 | F6 | info (methodology) | The 4-venue consensus uses fixed house weights (Pinnacle 0.36, Polymarket 0.24, Kalshi 0.18, Bovada 0.12). They are a methodology choice, not an external figure, and are not sourced. | `data/matches.json` `market.venues[].weight` | Document as a method choice on the methodology page |
 | F7 | info (sources) | Leaguepedia (community wiki) and gol.gg (Polymarket's resolution source) are third-party, not official league or Riot sources. | Sources above | Keep the "community-maintained" labelling |
 
