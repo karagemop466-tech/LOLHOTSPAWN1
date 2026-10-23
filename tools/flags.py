@@ -26,24 +26,35 @@ def main() -> None:
     sources = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     manual = (load_json(os.path.join(DATA, "flags_manual.json")) or {}).get("flags") or []
 
-    # Curated text drifts: a hand-written flag can name a fixture that has since left
-    # Hotspawn's list. Never let that read as a statement about a live card - annotate
-    # it with the snapshot it was checked against, and say the fixture is gone.
+    # Curated text drifts: it can name a fixture that has since left Hotspawn's list, and it can
+    # be a statement nobody re-checked. Each item is labelled with which of the two it is, and
+    # any fixture id it cites that is absent from the current snapshot is called out explicitly.
     import re as _re
     live_ids = {str(r.get("id")) for r in rows}
-    manual = [dict(f) for f in manual]
+    flags: list[dict] = []
     for f in manual:
+        item = dict(f)
+        if f.get("verified_utc"):
+            item["detail"] = (f.get("detail", "").rstrip()
+                              + f" [Checked {f['verified_utc']} against the source link on this item.]")
+        else:
+            item["item"] = "Historical observation - not reverified: " + f["item"]
+            item["detail"] = ("Prior-session statement; not verified against a live official source in "
+                              "this audit. " + f.get("detail", ""))
         refs = set(_re.findall(r"#(\d{6,})", f"{f.get('item','')} {f.get('detail','')}"))
         gone = sorted(refs - live_ids)
-        f["fixture_refs"] = sorted(refs)
-        f["fixtures_missing_from_snapshot"] = gone
-        f["checked_against_snapshot"] = data.get("generated_utc")
+        item["fixture_refs"] = sorted(refs)
+        item["fixtures_missing_from_snapshot"] = gone
+        item["checked_against_snapshot"] = data.get("generated_utc")
         if gone:
-            f["historical"] = True
-            f["detail"] = (f.get("detail", "").rstrip() +
-                           f" [Automated check: fixture(s) {', '.join(gone)} are not in the current "
-                           f"Hotspawn list, so this item is a historical record, not a live card.]")
-    flags: list[dict] = list(manual)
+            item["historical"] = True
+            item["detail"] = (item["detail"].rstrip()
+                              + f" [Automated check: fixture(s) {', '.join(gone)} are not in the current "
+                              f"Hotspawn list, so this item is a historical record, not a live card.]")
+        flags.append(item)
+    flags.append({"severity": "medium", "item": "Archived aggregator quotes excluded from current pricing",
+                  "detail": "The previous pipeline reused fixed receipts observed on 2026-10-21 without refreshing them. These are now excluded. Only freshly collected provider feeds enter market consensus. Leaguepedia history remains community-maintained, not an official league source.",
+                  "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"})
     counts = Counter(r["method"] for r in rows)
 
     unresolved = [r for r in rows if r["method"] == "unresolved"]
@@ -96,7 +107,7 @@ def main() -> None:
                       "published start time is more than three hours in the past (earliest "
                       f"{min((r['start_utc'] or '') for r in stale)}). They are kept in the list to mirror "
                       "Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming "
-                      "matches. Most likely postponed or awaiting a result.",
+                      "matches. The reason is unverified.",
             "source": HOTSPAWN,
         })
 

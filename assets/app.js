@@ -1,151 +1,57 @@
 (function () {
   "use strict";
-
-  // Format `data-utc` timestamps with friendly local date/time while preserving UTC
-  function hydrateTimestamps() {
-    var nodes = document.querySelectorAll("[data-utc]");
-    for (var i = 0; i < nodes.length; i++) {
-      var iso = nodes[i].getAttribute("data-utc");
-      if (!iso) continue;
-      var d = new Date(iso);
-      if (isNaN(d.getTime())) continue;
-      try {
-        var localStr = d.toLocaleString(undefined, {
-          month: "short",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-        nodes[i].setAttribute("title", "UTC: " + iso + " | Local: " + localStr);
-        if (nodes[i].hasAttribute("data-show-local")) {
-          nodes[i].textContent = localStr + " (" + iso.slice(11, 16) + " UTC)";
-        }
-      } catch (_err) {
-        // Keep static UTC fallback intact
-      }
+  var menu = document.querySelector('.menu-btn');
+  var nav = document.getElementById('nav');
+  if (menu && nav) menu.addEventListener('click', function () {
+    var open = menu.getAttribute('aria-expanded') !== 'true';
+    menu.setAttribute('aria-expanded', String(open));
+    nav.classList.toggle('open', open);
+  });
+  document.querySelectorAll('[data-utc]').forEach(function (node) {
+    var d = new Date(node.dataset.utc);
+    if (!isNaN(d.getTime())) {
+      node.title = 'UTC: ' + node.dataset.utc;
+      node.textContent = d.toLocaleString(undefined, {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', timeZoneName:'short'});
+    }
+  });
+  var snapshot = document.getElementById('snapshot-age');
+  if (snapshot) {
+    var hours = (Date.now() - Date.parse(snapshot.dataset.fetched)) / 3600000;
+    snapshot.textContent = Number.isFinite(hours) ? 'Inventory collected ' + Math.max(0, Math.floor(hours)) + ' hours ago.' : 'Inventory collection time unverified.';
+    if (!Number.isFinite(hours) || hours > 8) {
+      snapshot.classList.add('stale-warning');
+      snapshot.textContent += ' Refresh overdue — these are not live odds. Check source links before using picks.';
     }
   }
-
-  function initPickFilters() {
-    var searchEl = document.getElementById("filter-search");
-    var compEl = document.getElementById("filter-comp");
-    var tierEl = document.getElementById("filter-tier");
-    var windowEl = document.getElementById("filter-window");
-    var sortEl = document.getElementById("filter-sort");
-    var countEl = document.getElementById("visible-count");
-    var rootEl = document.getElementById("dual-view-root");
-
-    var cardsWrap = document.getElementById("picks-cards-list");
-    var tableBody = document.getElementById("picks-table-body");
-    if (!searchEl && !compEl && !tierEl && !windowEl) return;
-
-    // Pre-populate controls from URL query string (`?comp=...&tier=...&window=...&q=...`)
-    var params = new URLSearchParams(window.location.search);
-    if (compEl && params.get("comp")) compEl.value = params.get("comp");
-    if (tierEl && params.get("tier")) tierEl.value = params.get("tier");
-    if (windowEl && params.get("window")) windowEl.value = params.get("window");
-    if (searchEl && params.get("q")) searchEl.value = params.get("q");
-
-    function matchesFilters(el) {
-      var q = searchEl ? searchEl.value.trim().toLowerCase() : "";
-      var comp = compEl ? compEl.value : "all";
-      var tier = tierEl ? tierEl.value : "all";
-      var win = windowEl ? windowEl.value : "all";
-
-      if (comp && comp !== "all" && el.getAttribute("data-comp") !== comp) return false;
-      if (tier && tier !== "all") {
-        var rowTier = el.getAttribute("data-status") || "";
-        if (tier === "market" && rowTier !== "market_consensus" && rowTier !== "esportsbook_line") return false;
-        if (tier !== "market" && rowTier !== tier) return false;
-      }
-      if (win && win !== "all") {
-        var hrs = parseFloat(el.getAttribute("data-hours") || "99999");
-        if (win === "48h" && (hrs <= 0 || hrs > 48)) return false;
-        if (win === "7d" && (hrs <= 0 || hrs > 168)) return false;
-        if (win === "high" && parseFloat(el.getAttribute("data-favprob") || "0") < 0.65) return false;
-      }
-      if (q) {
-        var hay = (el.getAttribute("data-search") || "").toLowerCase();
-        if (hay.indexOf(q) === -1) return false;
-      }
-      return true;
-    }
-
-    function sortContainer(container, selector) {
-      if (!container || !sortEl) return;
-      var mode = sortEl.value || "kickoff";
-      var items = Array.prototype.slice.call(container.querySelectorAll(selector));
-      items.sort(function (a, b) {
-        if (mode === "prob_desc") {
-          return parseFloat(b.getAttribute("data-favprob") || "0") - parseFloat(a.getAttribute("data-favprob") || "0");
-        }
-        if (mode === "points_desc") {
-          return parseFloat(b.getAttribute("data-points") || "0") - parseFloat(a.getAttribute("data-points") || "0");
-        }
-        if (mode === "edge_desc") {
-          return Math.abs(parseFloat(b.getAttribute("data-delta") || "0")) - Math.abs(parseFloat(a.getAttribute("data-delta") || "0"));
-        }
-        return parseFloat(a.getAttribute("data-kickoff") || "0") - parseFloat(b.getAttribute("data-kickoff") || "0");
-      });
-      for (var i = 0; i < items.length; i++) {
-        container.appendChild(items[i]);
-      }
-    }
-
-    function applyAll() {
-      sortContainer(cardsWrap, ".pick-item");
-      sortContainer(tableBody, ".pick-row");
-
-      var cardItems = cardsWrap ? cardsWrap.querySelectorAll(".pick-item") : [];
-      var shown = 0;
-      for (var i = 0; i < cardItems.length; i++) {
-        var ok = matchesFilters(cardItems[i]);
-        cardItems[i].classList.toggle("hidden-row", !ok);
-        if (ok) shown++;
-      }
-
-      var tableRows = tableBody ? tableBody.querySelectorAll(".pick-row") : [];
-      for (var j = 0; j < tableRows.length; j++) {
-        var okRow = matchesFilters(tableRows[j]);
-        tableRows[j].classList.toggle("hidden-row", !okRow);
-        if (!cardsWrap && okRow) shown++;
-      }
-
-      if (countEl) {
-        countEl.textContent = String(shown);
-      }
-    }
-
-    [searchEl, compEl, tierEl, windowEl, sortEl].forEach(function (ctrl) {
-      if (!ctrl) return;
-      ctrl.addEventListener("input", applyAll);
-      ctrl.addEventListener("change", applyAll);
+  var list = document.getElementById('list');
+  if (!list) return;
+  var q = document.getElementById('q'), comp = document.getElementById('comp');
+  var method = '', cards = Array.from(list.querySelectorAll('.card'));
+  var params = new URLSearchParams(location.search);
+  q.value = params.get('q') || '';
+  if (params.has('comp')) comp.value = params.get('comp');
+  function apply() {
+    var shown = 0;
+    cards.forEach(function (card) {
+      var visible = (!method || card.dataset.method === method) && (!comp.value || card.dataset.comp === comp.value) && card.dataset.text.includes(q.value.trim().toLowerCase());
+      card.hidden = !visible;
+      if (visible) shown++;
     });
-
-    // View switcher (`Auto Mobile/Desktop`, `Cards`, `Table`)
-    var viewBtns = document.querySelectorAll("[data-set-view]");
-    for (var k = 0; k < viewBtns.length; k++) {
-      viewBtns[k].addEventListener("click", function (ev) {
-        var mode = ev.currentTarget.getAttribute("data-set-view");
-        if (!rootEl) return;
-        rootEl.classList.remove("responsive-dual", "view-mode-cards", "view-mode-table");
-        rootEl.classList.add(mode);
-        viewBtns.forEach(function (b) {
-          b.classList.toggle("active", b === ev.currentTarget);
-        });
+    document.getElementById('count').textContent = shown + ' of ' + cards.length + ' matches shown';
+    document.getElementById('empty').hidden = shown !== 0;
+  }
+  q.addEventListener('input', apply);
+  comp.addEventListener('change', apply);
+  document.querySelectorAll('[data-filter]').forEach(function (button) {
+    button.setAttribute('aria-pressed', String(button.dataset.filter === method));
+    button.addEventListener('click', function () {
+      method = button.dataset.filter;
+      document.querySelectorAll('[data-filter]').forEach(function (b) {
+        b.classList.toggle('active', b === button);
+        b.setAttribute('aria-pressed', String(b === button));
       });
-    }
-
-    applyAll();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      hydrateTimestamps();
-      initPickFilters();
+      apply();
     });
-  } else {
-    hydrateTimestamps();
-    initPickFilters();
-  }
+  });
+  apply();
 })();
