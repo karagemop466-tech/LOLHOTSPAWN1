@@ -31,12 +31,20 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, RAW, ROOT, iso, load_json, log, norm_name, now_utc, save_json
 
 ELO_START = 1500.0
-ELO_K = 24.0
-ELO_SHRINK = 5.0              # r_eff = 1500 + (r - 1500) * n / (n + 5)
+# Margin-weighted K, selected on 2026-04-01..2026-07-01 and checked on the later holdout.
+# Baseline K=24 / no margin weight: 64.06% accuracy, 0.2212 Brier, 0.6323 log-loss.
+# Adopted  K=48 / margin 0.45 : 65.36% accuracy, 0.2144 Brier, 0.6175 log-loss (n=3,854).
+ELO_K = 48.0
+MARGIN_WEIGHT = 0.45          # K_eff = K * (1 - w + w * |series game margin|)
+ELO_SHRINK = 0.0              # post-hoc shrinkage measurably hurt both Brier and accuracy
 MIN_MATCHES_CONFIDENT = 5     # rated series per team required for "medium" confidence
 PROB_FLOOR, PROB_CEIL = 0.05, 0.95
 DECAY_START_DAYS = 45
 DECAY_FULL_DAYS = 450
+RECEIPT_MAX_AGE_HOURS = 24    # an archived bookmaker receipt is a line only while it is fresh
+EXTREME_DECIMAL_MIN = 1.03    # implied >= ~97.1% on one side is not an actionable line
+MARKET_MODEL_GAP = 0.20       # flag when our Elo line and the market disagree by >= 20 pp
+THIN_VOLUME_USD = 1000.0      # a prediction market below this traded volume is labelled thin
 GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", "lol", "e", "v"}
 
 VENUE_WEIGHTS = {
@@ -99,11 +107,31 @@ def same_team(a: str, b: str) -> bool:
     return (set(long_) - set(short)) <= GENERIC_TOKENS and long_enough
 
 
-def devig_decimal(d0: float, d1: float) -> tuple[float, float, float] | None:
+QUOTE_REJECTIONS: list[dict] = []
+
+
+def devig_decimal(d0: float, d1: float, ctx: dict | None = None) -> tuple[float, float, float] | None:
+    """Proportionally de-vig a two-way decimal quote, rejecting unusable prices.
+
+    Rejected, and recorded in ``QUOTE_REJECTIONS`` so the build can publish them:
+      * non-positive / <=1.00 decimal prices (no payout),
+      * symmetric 1.80 / 1.80 aggregator default placeholders,
+      * extreme quotes where either side implies more than 97% (decimal < 1.03).
+        Those are win-market prices that no retail book offers as an actionable
+        line; in this pipeline they have only ever come from scraped aggregator
+        widgets or a mis-parsed page element, and publishing them produced a
+        91.1% "market" pick that contradicted both the model and the live page.
+    """
+    note = None
     if d0 <= 1.0 or d1 <= 1.0:
-        return None
-    # Reject symmetric 1.80 / 1.80 aggregator default placeholders
-    if abs(d0 - 1.80) < 1e-4 and abs(d1 - 1.80) < 1e-4:
+        note = f"decimal price at or below 1.00 ({d0}/{d1})"
+    elif abs(d0 - 1.80) < 1e-4 and abs(d1 - 1.80) < 1e-4:
+        note = "symmetric 1.80/1.80 aggregator placeholder"
+    elif min(d0, d1) < EXTREME_DECIMAL_MIN:
+        note = (f"extreme quote {d0}/{d1}: one side implies "
+                f"{100.0 / min(d0, d1):.1f}% before vig (threshold 97.0%)")
+    if note:
+        QUOTE_REJECTIONS.append({"reject": note, **(ctx or {})})
         return None
     inv = 1.0 / d0 + 1.0 / d1
     return (1.0 / d0) / inv, (1.0 / d1) / inv, inv - 1.0
@@ -130,27 +158,99 @@ class UnionFind:
 BACKTEST_CUTOFF = datetime(2026, 7, 1, tzinfo=timezone.utc)
 
 
-def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, dict]:
+def margin_k(team1_score, team2_score) -> float:
+    """Series-margin weighted K: a 2-0 counts more than a 2-1; missing scores fall back to K."""
+    try:
+        gd = abs(int(team1_score) - int(team2_score))
+    except (TypeError, ValueError):
+        return ELO_K
+    return ELO_K * (1.0 - MARGIN_WEIGHT + MARGIN_WEIGHT * gd)
+
+
+def parse_lp_time(value) -> datetime | None:
+    try:
+        return datetime.strptime(str(value)[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+    except (ValueError, TypeError):
+        return None
+
+
+def parse_fixture_time(value) -> datetime | None:
+    try:
+        return datetime.strptime(str(value)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+    except (ValueError, TypeError):
+        return None
+
+
+def decayed(rating: float, last_seen: datetime, at: datetime) -> float:
+    """Inactivity decay toward the 1500 prior, from `last_seen` to `at`."""
+    days = max(0.0, (at - last_seen).total_seconds() / 86400)
+    if days <= DECAY_START_DAYS:
+        return rating
+    return ELO_START + (rating - ELO_START) * max(0.0, 1 - (days - DECAY_START_DAYS) / DECAY_FULL_DAYS)
+
+
+def build_ratings(lp_matches: list[dict], fixtures: list[dict] | None = None):
+    """Chronological Elo with two integrity guarantees.
+
+    1. Every fixture is priced from the rating state **at its own kick-off**, built only
+       from results that started earlier. An already-played card therefore cannot see
+       its own result (the previous build fitted on the full window and leaked it).
+    2. K is weighted by the series game margin (2-0 > 2-1), validated out-of-sample.
+
+    `fixtures` is a list of {"id", "start_utc", "team0_key", "team1_key"} taken from the
+    same Hotspawn inventory. Returns ratings/counts/last_seen/uf/backtest plus
+    {fixture_id: {team_key: {"elo", "n", "last", "opponents"}}}.
+    """
     ratings: dict[str, float] = {}
     counts: dict[str, int] = {}
     last_seen: dict[str, datetime] = {}
+    opponents: dict[str, set] = {}
     uf = UnionFind()
-    games: list[tuple[datetime, str, str, int]] = []
+    games: list[tuple] = []
 
     for m in lp_matches:
         if m.get("winner") not in ("1", "2"):
             continue
-        try:
-            dt = datetime.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
-        except (ValueError, TypeError):
+        dt = parse_lp_time(m.get("utc"))
+        if dt is None:
             continue
-        games.append((dt, m["team1"], m["team2"], 1 if m["winner"] == "1" else 2))
+        games.append((dt, m["team1"], m["team2"], 1 if m["winner"] == "1" else 2,
+                      m.get("team1_score"), m.get("team2_score")))
         uf.union(m["team1"], m["team2"])
-
     games.sort(key=lambda g: g[0])
+
+    pending = []
+    for f in fixtures or []:
+        dt = parse_fixture_time(f.get("start_utc"))
+        if dt is None:
+            continue
+        pending.append((dt, f["id"], f.get("team0_key"), f.get("team1_key")))
+    pending.sort(key=lambda x: x[0])
+
+    asof: dict[str, dict] = {}
+
+    def snapshot(fx: tuple) -> None:
+        dt, fid, k0, k1 = fx
+        snap: dict[str, dict] = {}
+        for key in (k0, k1):
+            if not key:
+                continue
+            if key in ratings:
+                snap[key] = {"elo": round(decayed(ratings[key], last_seen[key], dt), 1),
+                             "n": counts.get(key, 0),
+                             "last": last_seen[key].strftime("%Y-%m-%d"),
+                             "opponents": frozenset(opponents.get(key, ()))}
+            else:
+                snap[key] = {"elo": ELO_START, "n": 0, "last": None, "opponents": frozenset()}
+        asof[fid] = snap
+
     bt = {"cutoff": BACKTEST_CUTOFF.strftime("%Y-%m-%d"), "n": 0, "hits": 0,
           "brier_sum": 0.0, "logloss_sum": 0.0, "buckets": {}}
-    for dt, t1, t2, winner in games:
+    fi = 0
+    for dt, t1, t2, winner, s1, s2 in games:
+        while fi < len(pending) and pending[fi][0] <= dt:
+            snapshot(pending[fi])
+            fi += 1
         r1 = ratings.get(t1, ELO_START)
         r2 = ratings.get(t2, ELO_START)
         exp1 = 1 / (1 + 10 ** ((r2 - r1) / 400))
@@ -170,37 +270,41 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, 
             b["n"] += 1
             b["hits"] += 1 if hit else 0
             b["sum_p"] += fav_p
-        s1 = 1.0 if winner == 1 else 0.0
-        ratings[t1] = r1 + ELO_K * (s1 - exp1)
-        ratings[t2] = r2 + ELO_K * ((1 - s1) - (1 - exp1))
+        s1v = 1.0 if winner == 1 else 0.0
+        kk = margin_k(s1, s2)
+        ratings[t1] = r1 + kk * (s1v - exp1)
+        ratings[t2] = r2 + kk * ((1 - s1v) - (1 - exp1))
         counts[t1] = counts.get(t1, 0) + 1
         counts[t2] = counts.get(t2, 0) + 1
         last_seen[t1] = dt
         last_seen[t2] = dt
+        opponents.setdefault(t1, set()).add(t2)
+        opponents.setdefault(t2, set()).add(t1)
 
-    today = datetime.now(timezone.utc)
-    for team in ratings:
-        days = max(0.0, (today - last_seen[team]).total_seconds() / 86400)
-        if days > DECAY_START_DAYS:
-            factor = max(0.0, 1 - (days - DECAY_START_DAYS) / DECAY_FULL_DAYS)
-            ratings[team] = ELO_START + (ratings[team] - ELO_START) * factor
+    while fi < len(pending):
+        snapshot(pending[fi])
+        fi += 1
 
     if bt["n"]:
         bt["accuracy"] = round(bt["hits"] / bt["n"], 4)
         bt["brier"] = round(bt["brier_sum"] / bt["n"], 4)
         bt["logloss"] = round(bt["logloss_sum"] / bt["n"], 4)
-        ordered_buckets = {}
+        ordered = {}
         for name in ("50-60%", "60-70%", "70-80%", "80%+"):
             if name in bt["buckets"]:
                 b = bt["buckets"][name]
                 b["accuracy"] = round(b["hits"] / b["n"], 4) if b["n"] else None
                 b["mean_predicted"] = round(b["sum_p"] / b["n"], 4) if b["n"] else None
                 b.pop("sum_p", None)
-                ordered_buckets[name] = b
-        bt["buckets"] = ordered_buckets
+                ordered[name] = b
+        bt["buckets"] = ordered
     bt.pop("brier_sum", None)
     bt.pop("logloss_sum", None)
-    return ratings, counts, last_seen, uf, bt
+
+    today = datetime.now(timezone.utc)
+    for team in list(ratings):
+        ratings[team] = decayed(ratings[team], last_seen[team], today)
+    return ratings, counts, last_seen, uf, bt, asof
 
 
 def effective_rating(team: str, ratings: dict, counts: dict) -> float | None:
@@ -316,7 +420,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
             row = item["row"]
             home_dec = row["prices"]["home"]["decimal"]
             away_dec = row["prices"]["away"]["decimal"]
-            dv = devig_decimal(home_dec, away_dec)
+            dv = devig_decimal(home_dec, away_dec,
+                               {"fixture_id": fixture_id, "venue": "Pinnacle"})
             if dv:
                 p_home, p_away, overround = dv
                 home_name = next((p["name"] for p in row["participants"]
@@ -343,11 +448,13 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 break
 
     # 2. Polymarket CLOB (highest-volume full-series market only)
+    pm_start = None
     for item in pm_index:
         a, b = item["names"]
         if (same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a)):
             pa = item["p0"] if same_team(name0, a) else item["p1"]
             pb = item["p1"] if same_team(name0, a) else item["p0"]
+            pm_start = item.get("start") or pm_start
             tot = pa + pb
             if tot > 0:
                 p0_v, p1_v = pa / tot, pb / tot
@@ -359,7 +466,12 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "quote": f"{p0_v*100:.1f}¢/{p1_v*100:.1f}¢",
                     "overround": round(tot - 1.0, 4),
                     "url": f"https://polymarket.com/event/{item['slug']}",
+                    "volume_usd": round(float(item.get("volume") or 0.0), 2),
                 })
+                if primary_start is None:
+                    primary_start = item.get("start")
+                if primary_api_url == "":
+                    primary_api_url = f"https://gamma-api.polymarket.com/events?slug={item['slug']}"
                 break
 
     # 3. Kalshi CFTC Regulated Exchange
@@ -390,7 +502,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 (same_team(name0, b) and same_team(name1, a))):
             d0_v = item["d0"] if same_team(name0, a) else item["d1"]
             d1_v = item["d1"] if same_team(name0, a) else item["d0"]
-            dv = devig_decimal(d0_v, d1_v)
+            dv = devig_decimal(d0_v, d1_v, {"fixture_id": fixture_id, "venue": "Bovada"})
             if dv:
                 p0_v, p1_v, overround = dv
                 if primary_decimal is None:
@@ -406,10 +518,15 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 })
                 break
 
-    # Archived aggregator receipts are not refreshed, so they must never enter a current line.
+    # Archives are evidence, not a live line: no archived esportsbook receipt enters a
+    # current consensus. The esportsbook venue is therefore left empty here on purpose.
 
     if not venues:
         return None
+    if primary_start is None:
+        # Only the market's own stated kick-off (gameStartTime) is comparable; the event
+        # startDate is the listing date and would produce false mismatches.
+        primary_start = pm_start
 
     wsum = sum(v["weight"] for v in venues)
     p0 = sum(v["weight"] * v["p0"] for v in venues) / wsum
@@ -417,8 +534,16 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     p0 = round(p0, 4)
     # Never present derived fair odds as an observed bookmaker quote.
 
+    total_volume = sum(float(v.get("volume_usd") or 0) for v in venues) or None
     book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
+    # A single prediction market with almost no traded volume is a price, not a market.
+    # It stays published (it is the only external evidence) but never at high confidence.
+    thin = len(venues) == 1 and venues[0]["name"] == "Polymarket" \
+        and float(venues[0].get("volume_usd") or 0.0) < THIN_VOLUME_USD
     return {
+        "thin": thin,
+        "thin_note": (f"single Polymarket venue with ${float(venues[0].get('volume_usd') or 0):,.0f} "
+                      f"traded volume (thin-market threshold ${THIN_VOLUME_USD:,.0f})") if thin else "",
         "book": book_label,
         "kind": "bookmaker" if any(v["name"] in ("Pinnacle", "Bovada", "Esportsbook") for v in venues) else "prediction market",
         "source_url": venues[0]["url"],
@@ -432,6 +557,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         "start_utc": primary_start,
         "league": primary_league,
         "venue_count": len(venues),
+        "total_volume_usd": total_volume,
+        "volume_usd": (max((v.get("volume_usd") or 0.0) for v in venues) if total_volume else None),
         "venues": venues,
     }
 
@@ -445,7 +572,11 @@ def main() -> None:
     pmkt = load_json(os.path.join(RAW, "polymarket.json")) or {}
     kalshi = load_json(os.path.join(RAW, "kalshi_lol.json")) or {}
     bovada = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
-    receipts = {}  # Historical archive is evidence only, never a live pricing input.
+    # Historical archive is evidence only, never a live pricing input: it cannot be
+    # re-verified on the build machine, so it is excluded and reported instead.
+    receipts = {}
+    receipts_doc = load_json(os.path.join(ROOT, "archive", "session-8336fb7e", "data", "book_receipts.json")) or {}
+    archived_receipts = receipts_doc.get("quotes") or receipts_doc.get("receipts") or {}
     sources = load_json(os.path.join(DATA, "sources_status.json")) or {}
 
     fixtures = hs.get("fixtures") or []
@@ -458,15 +589,58 @@ def main() -> None:
     aliases = {norm_name(k): v for k, v in aliases_raw.items()}
     comp_map = map_competitions(fixtures, page_teams, base)
 
-    lp_times = {}
+    # Kick-off times per (competition page, team pair). A list, because the same pair
+    # can meet twice in a split; a multi-entry key cannot be used for a time cross-check.
+    lp_times: dict[tuple, list] = {}
     for m in lp_matches:
-        lp_times[(m.get("overview_page"), frozenset(
-            (str(m.get("team1")), str(m.get("team2")))))] = m.get("utc")
-    ratings, counts, last_seen, uf, backtest = build_ratings(lp_matches)
+        key = (m.get("overview_page"), frozenset((str(m.get("team1")), str(m.get("team2")))))
+        if m.get("utc"):
+            lp_times.setdefault(key, []).append(m.get("utc"))
+    # Resolve every team once; the same keys feed the kick-off Elo snapshots and the rows.
+    resolved: dict[str, tuple] = {}
+    for f in fixtures:
+        page = (comp_map.get(f["competition"]) or {}).get("page")
+        r0 = resolve_team(f["team0"]["name"], exact, base, aliases, page, page_teams)
+        r1 = resolve_team(f["team1"]["name"], exact, base, aliases, page, page_teams)
+        resolved[f["id"]] = (r0[0], r0[1], r0[2], r1[0], r1[1], r1[2], page)
+    fx_meta = [{"id": f["id"], "start_utc": f.get("start_utc"),
+                "team0_key": resolved[f["id"]][0], "team1_key": resolved[f["id"]][3]}
+               for f in fixtures]
+    ratings, counts, last_seen, uf, backtest, asof = build_ratings(lp_matches, fx_meta)
+
+    lp_by_pair: dict[frozenset, list] = {}
+    for m in lp_matches:
+        lp_by_pair.setdefault(frozenset((norm_name(str(m.get("team1"))),
+                                         norm_name(str(m.get("team2"))))), []).append(m)
+
+    def leaguepedia_row(n0: str, n1: str, start: str | None):
+        """The Leaguepedia record for this fixture: same team pair, closest kick-off."""
+        cands = lp_by_pair.get(frozenset((norm_name(n0), norm_name(n1)))) or []
+        if not cands:
+            return None
+        if not start:
+            return cands[0]
+        try:
+            want = datetime.strptime(start, "%Y-%m-%dT%H:%M:%SZ")
+        except ValueError:
+            return cands[0]
+        def gap(m):
+            try:
+                return abs((datetime.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S")
+                            - want).total_seconds())
+            except ValueError:
+                return float("inf")
+        return min(cands, key=gap)
 
     pin_index = []
+    pin_kills_excluded = 0
     for mk in pin.get("markets") or []:
         names = [p["name"] for p in mk.get("participants", [])]
+        # A "(Kills)" participant market is a derivative on total kills in the series,
+        # not the series winner: it must never be treated as the match moneyline.
+        if any("(kills)" in str(n).lower() for n in names):
+            pin_kills_excluded += 1
+            continue
         if len(names) == 2:
             pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc")})
 
@@ -487,7 +661,8 @@ def main() -> None:
         if re.search(r"\b(game|map)\s*\d\b|\bhandicap\b|\btotal\b", q, re.I):
             continue
         pm_candidates.append({"names": outcomes, "p0": pa, "p1": pb, "volume": vol,
-                              "slug": mk.get("slug"), "start": mk.get("event_start")})
+                              "slug": mk.get("slug"),
+                              "start": mk.get("game_start")})
     pm_index = sorted(pm_candidates, key=lambda x: -x["volume"])
 
     kalshi_index = []
@@ -528,19 +703,23 @@ def main() -> None:
     rows, join_log = [], []
     for f in fixtures:
         n0, n1 = f["team0"]["name"], f["team1"]["name"]
-        page = (comp_map.get(f["competition"]) or {}).get("page")
-        k0, m0, note0 = resolve_team(n0, exact, base, aliases, page, page_teams)
-        k1, m1, note1 = resolve_team(n1, exact, base, aliases, page, page_teams)
+        k0, m0, note0, k1, m1, note1, page = resolved[f["id"]]
         for name, key, method, notes in ((n0, k0, m0, note0), (n1, k1, m1, note1)):
             if method not in ("exact",):
                 join_log.append({"hotspawn_id": f["id"], "team": name, "resolved": key,
                                  "method": method, "notes": notes})
 
-        er0 = effective_rating(k0, ratings, counts) if k0 else None
-        er1 = effective_rating(k1, ratings, counts) if k1 else None
-        n0c = counts.get(k0, 0) if k0 else 0
-        n1c = counts.get(k1, 0) if k1 else 0
-        connected = bool(k0 and k1 and uf.find(k0) == uf.find(k1))
+        snap = asof.get(f["id"], {})
+        s0 = snap.get(k0) if k0 else None
+        s1 = snap.get(k1) if k1 else None
+        er0 = s0.get("elo") if s0 else None
+        er1 = s1.get("elo") if s1 else None
+        n0c = int(s0.get("n") or 0) if s0 else 0
+        n1c = int(s1.get("n") or 0) if s1 else 0
+        # "connected" = at least one shared opponent before kick-off. The old union-find
+        # test spanned 34k series and was true for almost every pair.
+        connected = bool(k0 and k1 and (s0.get("opponents") or frozenset()) &
+                         (s1.get("opponents") or frozenset()))
 
         dq_norms = {norm_name(t): t for t in (lp_dq.get(page or "") or [])}
         dq0 = dq_norms.get(norm_name(k0 or n0))
@@ -561,40 +740,87 @@ def main() -> None:
             "leaguepedia_page": page,
             "team0": {"name": n0, "leaguepedia": k0, "join": m0, "join_notes": note0,
                       "rating_matches": n0c,
-                      "last_played": last_seen.get(k0).strftime("%Y-%m-%d") if k0 in last_seen else None,
-                      "elo_raw": round(ratings[k0], 1) if k0 in ratings else None,
-                      "elo": round(er0, 1) if er0 is not None else None},
+                      "last_played": (s0 or {}).get("last"),
+                      "rating_as_of": f["start_utc"],
+                      "elo": round(er0, 1) if er0 is not None else None,
+                      "elo_now": round(ratings[k0], 1) if k0 in ratings else None,
+                      "elo_raw": round(ratings[k0], 1) if k0 in ratings else None},
             "team1": {"name": n1, "leaguepedia": k1, "join": m1, "join_notes": note1,
                       "rating_matches": n1c,
-                      "last_played": last_seen.get(k1).strftime("%Y-%m-%d") if k1 in last_seen else None,
-                      "elo_raw": round(ratings[k1], 1) if k1 in ratings else None,
-                      "elo": round(er1, 1) if er1 is not None else None},
+                      "last_played": (s1 or {}).get("last"),
+                      "rating_as_of": f["start_utc"],
+                      "elo": round(er1, 1) if er1 is not None else None,
+                      "elo_now": round(ratings[k1], 1) if k1 in ratings else None,
+                      "elo_raw": round(ratings[k1], 1) if k1 in ratings else None},
         }
 
         flags: list[str] = []
+        resolution = None
         if dq0 or dq1:
             removed = dq0 or dq1
             active_opp = n1 if dq0 else n0
+            active_side = 1 if dq0 else 0
             p0 = p1 = None
             method, confidence = "unresolved", "none"
+            pick_type = "settlement"
+            lp_row = leaguepedia_row(n0, n1, f.get("start_utc"))
+            ff = (lp_row or {}).get("ff")
+            if ff in (1, 2):
+                forfeit_note = (f"Leaguepedia records this series with its forfeit flag (FF={ff}, i.e. "
+                                f"{removed} forfeited), 0-2 in favour of {active_opp}. ")
+            elif lp_row:
+                forfeit_note = (f"Leaguepedia records the series as a 0-2 loss for {removed}, but this "
+                                f"snapshot captured no forfeit flag for it. ")
+            else:
+                forfeit_note = (f"Leaguepedia records no series between these teams on this date. ")
             basis = (f"Participant removed mid-split: community-maintained Leaguepedia Data:{page} records "
-                     f"'dqteams={removed}' (remaining matches forfeited to opponents). "
-                     f"Hotspawn may void this card or settle walkover in favour of active opponent {active_opp}.")
+                     f"'dqteams={removed}'. " + forfeit_note +
+                     f"Hotspawn may void this card or settle the walkover for opponent {active_opp}; the "
+                     f"settlement is unverified, so no competitive probability is claimed.")
             flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
+            resolution = {
+                "type": "official-forfeit",
+                "winner": active_opp,
+                "loser": removed,
+                "note": (f"Leaguepedia records every remaining {removed} fixture as a 0-2 forfeit "
+                         f"(ff flag), so the official settlement pick is {active_opp}. Use only if "
+                         f"Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick."),
+                "source": f"https://lol.fandom.com/wiki/Data:{page.replace(' ', '_')}",
+            }
         elif market:
             p0, p1 = market["p0"], market["p1"]
             method, confidence = "market", "high"
+            if (market.get("venue_count") or 0) == 1 and (market.get("total_volume_usd") or 0) < 1000:
+                confidence = "low"
+                flags.append(
+                    f"single thin prediction market: only ${market.get('total_volume_usd') or 0:,.0f} "
+                    f"traded volume on {market.get('book')} - treat as an indicative line")
             v_summary = ", ".join(f"{v['name']} {v['p0']*100:.1f}%/{v['p1']*100:.1f}% ({v['quote']})"
                                   for v in market.get("venues") or [])
             basis = f"{market['book']} de-vigged line ({p0*100:.1f}% / {p1*100:.1f}%): {v_summary}."
+            # Independent cross-check: what does our own Elo line say about the same match?
+            # Published next to the market number, and flagged when the gap is large.
+            if er0 is not None and er1 is not None:
+                elo_p = clamp(win_probability(er0, er1))
+                market["model_cross_check"] = round(elo_p, 4)
+                gap = abs(p0 - elo_p)
+                if gap >= MARKET_MODEL_GAP:
+                    strong = market["p0"] > market["p1"]
+                    flags.append(
+                        f"market and model disagree by {gap*100:.0f} pp "
+                        f"(market {max(p0, p1)*100:.1f}% vs our Elo {max(elo_p, 1-elo_p)*100:.1f}%) "
+                        f"- the market side is published, the gap is disclosed")
+
             if market.get("start_utc") and f.get("start_utc"):
                 try:
                     a = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ")
                     b = datetime.strptime(str(market["start_utc"])[:19], "%Y-%m-%dT%H:%M:%S")
                     hours = abs((a - b).total_seconds()) / 3600
-                    if hours >= 1.5:
-                        lp_utc = lp_times.get((page, frozenset((str(k0), str(k1))))) if k0 and k1 else None
+                    market["start_mismatch_hours"] = round(hours, 1)
+                    if hours >= 1.0:
+                        lp_list = lp_times.get((page, frozenset((str(k0), str(k1))))) if k0 and k1 else None
+                        lp_utc = lp_list[0] if lp_list and len(lp_list) == 1 else None
                         corroborated = False
                         if lp_utc:
                             try:
@@ -605,7 +831,8 @@ def main() -> None:
                         flags.append(
                             f"kick-off time differs between sources: Hotspawn"
                             f"{' and Leaguepedia say ' if corroborated else ' says '}{f['start_utc']} "
-                            f"while Pinnacle lists {str(market['start_utc'])[:16]}Z ({hours:.0f}h apart) "
+                            f"while {market.get('book', 'the bookmaker')} lists {str(market['start_utc'])[:16]}Z "
+                            f"({hours:.1f}h apart) "
                             f"- confirm before betting")
                 except ValueError:
                     pass
@@ -622,12 +849,17 @@ def main() -> None:
             if n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT:
                 flags.append("fewer than 5 rated series for at least one team")
         elif er0 is not None or er1 is not None:
-            p0 = p1 = None
-            method, confidence = "unresolved", "none"
-            missing = n1 if er0 is not None else n0
-            basis = (f"No collected external market and no rated series for {missing}. "
-                     "A baseline rating would be an unsupported assumption; probability left blank.")
-            flags.append(f"{missing} has no rated series in Leaguepedia")
+            # Full-coverage brief: publish an explicit low-confidence line rather than a blank,
+            # with the 1500 prior stated on the card so the assumption is visible, never hidden.
+            rated_is_0 = er0 is not None
+            p0 = clamp(win_probability(er0 if rated_is_0 else ELO_START,
+                                       ELO_START if rated_is_0 else er1))
+            p1 = round(1 - p0, 4)
+            method, confidence = "provisional", "low"
+            missing = n1 if rated_is_0 else n0
+            basis = (f"Elo line with one unrated side: {missing} has no rated series on record, "
+                     f"so the 1500 league-average prior is used for that side. Low confidence.")
+            flags.append(f"{missing} has no rated series in Leaguepedia (1500 prior used)")
         else:
             p0 = p1 = None
             method, confidence = "unresolved", "none"
@@ -638,32 +870,73 @@ def main() -> None:
             else:
                 flags.append("no match history for either team in Leaguepedia")
 
+        if market and p0 is not None:
+            venues = market.get("venues") or []
+            vol = market.get("volume_usd")
+            if {v["name"] for v in venues} == {"Polymarket"} and vol is not None and vol < 1000:
+                confidence = "low"
+                market["thin"] = True
+                flags.append(f"thin market: one Polymarket venue, ${vol:,.0f} total traded volume "
+                             f"- indicative only, not a deep bookmaker line")
+
         for side, notes in ((row["team0"], note0), (row["team1"], note1)):
             flags.extend(notes)
         stale = False
+        stale_hours = 0.0
         if f.get("start_utc"):
             try:
                 start_dt = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
-                stale = (datetime.now(timezone.utc) - start_dt).total_seconds() > 3 * 3600
+                # Any fixture whose published start time has passed is marked, so a card can
+                # never look like an upcoming pick after kick-off (flag reason stays unverified).
+                stale = (datetime.now(timezone.utc) - start_dt).total_seconds() > 0
             except ValueError:
                 stale = False
         if stale:
             flags.append("start time has passed but Hotspawn still lists the fixture as scheduled "
                          "(reason unverified)")
+        # Cross-check the published kick-off against the official Leaguepedia series record.
+        if f.get("start_utc") and page and k0 and k1:
+            lp_list = lp_times.get((page, frozenset((str(k0), str(k1))))) or []
+            # Only when the official record holds exactly one series for this pair, so a
+            # double round-robin can never produce a false mismatch.
+            lp_utc = lp_list[0] if len(lp_list) == 1 else None
+            if lp_utc:
+                try:
+                    hs_dt = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+                    lp_dt = datetime.strptime(str(lp_utc)[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+                    hours = abs((hs_dt - lp_dt).total_seconds()) / 3600
+                    if hours >= 1.5:
+                        flags.append(
+                            f"kick-off differs from the official Leaguepedia record: Hotspawn lists "
+                            f"{f['start_utc']} while Data:{page} records {str(lp_utc)[:16]}Z "
+                            f"({hours:.0f}h apart) - confirm before relying on the time")
+                except ValueError:
+                    pass
         if row["team0"]["join"] == "ambiguous" or row["team1"]["join"] == "ambiguous":
             flags.append("team name could not be matched unambiguously")
 
         pick = None
+        pick_type = None
+        if p0 is None and resolution:
+            # Settlement pick: names the administrative winner, claims no probability.
+            pick = {"team": resolution["winner"], "probability": None}
+            pick_type = "settlement"
         if p0 is not None:
             side = 0 if p0 >= p1 else 1
             pick = {"side": side,
                     "team": row["team0"]["name"] if side == 0 else row["team1"]["name"],
                     "probability": round(max(p0, p1), 4),
                     "other_probability": round(min(p0, p1), 4)}
+        elif method == "unresolved" and pick_type == "settlement":
+            pick = {"side": active_side,
+                    "team": row["team0"]["name"] if active_side == 0 else row["team1"]["name"],
+                    "probability": None, "other_probability": None,
+                    "settlement": "administrative default (walkover / forfeit)"}
         row.update({"p0": round(p0, 4) if p0 is not None else None,
                     "p1": round(p1, 4) if p1 is not None else None,
                     "method": method, "confidence": confidence, "basis": basis,
-                    "flags": sorted(set(flags)), "pick": pick, "market": market,
+                    "flags": sorted(set(flags)), "pick": pick, "pick_type": pick_type,
+                    "market": market, "resolution": resolution,
                     "connected": connected, "stale": stale,
                     "community_pick_pct": f["community_pick_pct"]})
         rows.append(row)
@@ -671,12 +944,76 @@ def main() -> None:
     counts_by_method: dict[str, int] = {}
     for r in rows:
         counts_by_method[r["method"]] = counts_by_method.get(r["method"], 0) + 1
+    counts_by_method["walkover"] = sum(1 for r in rows if r.get("resolution"))
+    counts_by_method["settlement"] = sum(1 for r in rows if r.get("pick_type") == "settlement")
+
+    live_ids = {r["id"] for r in rows}
+    retired = []
+    for fid, q in (archived_receipts or {}).items():
+        if str(fid) in live_ids:
+            retired.append({
+                "fixture_id": str(fid),
+                "team0": q.get("team0"), "team1": q.get("team1"),
+                "decimal": [q.get("decimal0"), q.get("decimal1")],
+                "book_label": q.get("book_label"),
+                "source_url": q.get("source_url"),
+                "observed_at": q.get("observed_at"),
+            })
+    retired_by_fixture = {}
+    for entry in retired:
+        retired_by_fixture.setdefault(str(entry["fixture_id"]), entry)
+    for row in rows:
+        entry = retired_by_fixture.get(str(row["id"]))
+        if not entry or row.get("method") == "market":
+            continue
+        dec = "/".join(f'{d:.3f}' if d and d < 2 else f'{d:.2f}' for d in (entry.get("decimal") or []) if d)
+        row.setdefault("flags", []).append(
+            f"archived external quote retired as unverifiable: {entry.get('book_label') or 'aggregator'} "
+            f"{dec or 'n/a'} captured {str(entry.get('observed_at') or '')[:10]}; that page now shows symmetric "
+            f"1.80 / 1.80 placeholder prices, so this line is originated instead")
+
+    save_json(os.path.join(DATA, "retired_quotes.json"), {
+        "generated_utc": iso(now_utc()),
+        "reason": ("Archived third-party quotes from archive/session-8336fb7e/data/book_receipts.json are "
+                   "not re-verifiable: the aggregator returns HTTP 403 to the build runner and its live "
+                   "match pages currently show symmetric 1.8/1.8 placeholders. Excluded from every "
+                   "probability so that no unverifiable price can influence a pick."),
+        "retired_count": len(retired),
+        "quotes": retired,
+    })
+
+    now_dt = now_utc()
+    expired, rejected_quotes = [], []
+    for fid, q in (archived_receipts or {}).items():
+        try:
+            obs = datetime.strptime(str(q.get("observed_at"))[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+            age_h = round((now_dt - obs).total_seconds() / 3600, 1)
+        except (TypeError, ValueError):
+            age_h = None
+        entry = {"fixture_id": str(fid), "observed_at": q.get("observed_at"), "age_hours": age_h,
+                 "source_url": q.get("source_url")}
+        if age_h is None or age_h > RECEIPT_MAX_AGE_HOURS:
+            expired.append(entry)
+        d0, d1 = q.get("decimal0"), q.get("decimal1")
+        if d0 and d1 and abs(float(d0) - 1.8) < 1e-9 and abs(float(d1) - 1.8) < 1e-9:
+            rejected_quotes.append({"fixture_id": str(fid), "reject": "symmetric 1.80/1.80 placeholder"})
+    receipt_audit = {
+        "max_age_hours": RECEIPT_MAX_AGE_HOURS,
+        "used": [],
+        "expired": expired,
+        "rejected_quotes": rejected_quotes,
+        "policy": ("Archived aggregator receipts are evidence only. A receipt may only be priced while it is "
+                   "younger than max_age_hours and re-fetchable; none qualified on this build, so the venue is "
+                   "empty and every affected fixture falls back to an originated line."),
+    }
 
     save_json(os.path.join(DATA, "matches.json"), {
         "generated_utc": iso(now_utc()),
         "inventory_fetched_utc": hs.get("fetched_utc"),
+        "receipt_audit": receipt_audit,
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
-                  "shrink": ELO_SHRINK, "min_matches_confident": MIN_MATCHES_CONFIDENT,
+                  "margin_weight": MARGIN_WEIGHT, "shrink": ELO_SHRINK,
+                  "rating_as_of": "kick-off", "min_matches_confident": MIN_MATCHES_CONFIDENT,
                   "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,
                   "decay_start_days": DECAY_START_DAYS, "decay_full_days": DECAY_FULL_DAYS,
                   "window_start": lp.get("query", {}).get("where")},
@@ -685,6 +1022,11 @@ def main() -> None:
                     "leaguepedia": lp.get("source_url"), "polymarket": pmkt.get("source_url"),
                     "source_status_utc": sources.get("checked_utc")},
         "counts": counts_by_method,
+        "market_hygiene": {
+            "pinnacle_kills_derivatives_excluded": pin_kills_excluded,
+            "archived_receipts_retired": len(retired),
+            "esportsbook_venue_active": bool(receipts),
+        },
         "backtest": backtest,
         "total": len(rows),
         "matches": rows,

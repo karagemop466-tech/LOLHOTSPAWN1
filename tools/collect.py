@@ -104,8 +104,16 @@ def collect_pinnacle() -> dict:
            if "league of legends" in (str(m.get("league", {}).get("name", "")) + " "
                                       + str((m.get("league", {}).get("sport") or {}).get("name", ""))).lower()]
     markets_out = []
+    kills_skipped = 0
     for m in lol:
         if m.get("type") != "matchup":
+            continue
+        participants = [p.get("name") or "" for p in m.get("participants", [])]
+        # Pinnacle lists a second, separate matchup for the "most kills" market on the
+        # same series, labelled "<team> (Kills)", with different prices and limits. It is
+        # not the series moneyline and must never stand in for one.
+        if any(re.search(r"\(kills\)", n, re.I) for n in participants):
+            kills_skipped += 1
             continue
         st2, markets, err2 = get_json(
             f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{m['id']}/markets/related/straight",
@@ -113,6 +121,9 @@ def collect_pinnacle() -> dict:
         time.sleep(0.25)
         if st2 != 200 or not isinstance(markets, list):
             continue
+        # /markets/related/straight returns the sibling matchups' markets too; keep only
+        # the markets that belong to the matchup being priced.
+        markets = [x for x in markets if x.get("matchupId") in (None, m["id"])]
         ml = [x for x in markets if x.get("type") == "moneyline" and x.get("period") == 0
               and x.get("status") == "open"]
         if not ml:
@@ -140,8 +151,9 @@ def collect_pinnacle() -> dict:
         "priced_count": len(markets_out),
         "markets": markets_out,
     })
-    log(f"pinnacle: {len(lol)} LoL matchups, {len(markets_out)} with open moneylines")
-    return {"count": len(markets_out)}
+    log(f"pinnacle: {len(lol)} LoL matchups, {len(markets_out)} with open series moneylines "
+        f"({kills_skipped} '(Kills)' derivatives excluded)")
+    return {"count": len(markets_out), "kills_derivatives_excluded": kills_skipped}
 
 
 # --------------------------------------------------------------------------- kalshi
@@ -255,7 +267,7 @@ def collect_leaguepedia(max_rows: int = 60000) -> dict:
     fields = ("MatchSchedule.MatchId,MatchSchedule.OverviewPage,MatchSchedule.Team1,"
               "MatchSchedule.Team2,MatchSchedule.Winner,MatchSchedule.Team1Score,"
               "MatchSchedule.Team2Score,MatchSchedule.DateTime_UTC,MatchSchedule.BestOf,"
-              "MatchSchedule.Tab,MatchSchedule.Round,MatchSchedule.UniqueMatch")
+              "MatchSchedule.Tab,MatchSchedule.Round,MatchSchedule.UniqueMatch,MatchSchedule.FF")
     rows: list[dict] = []
     offset = 0
     err = ""
@@ -289,6 +301,9 @@ def collect_leaguepedia(max_rows: int = 60000) -> dict:
             "team1": t1,
             "team2": t2,
             "winner": str(winner) if winner not in (None, "") else None,
+            # FF is Leaguepedia's forfeit flag: 1 = Team1 forfeited, 2 = Team2 forfeited.
+            # It is the only field that distinguishes a forfeit from a played 0-2 series.
+            "ff": r.get("FF"),
             "team1_score": r.get("Team1Score"),
             "team2_score": r.get("Team2Score"),
             "utc": r.get("DateTime UTC") or r.get("DateTime_UTC"),
@@ -406,6 +421,9 @@ def collect_polymarket() -> dict:
                     "event": ev.get("title"), "question": q, "slug": mk.get("slug"),
                     "outcomes": outcomes, "prices": prices,
                     "volume": mk.get("volume"), "end": mk.get("endDate"),
+                    # event.startDate is when the market was listed, NOT the kick-off;
+                    # gameStartTime on the market itself is the stated match start.
+                    "game_start": mk.get("gameStartTime"),
                     "event_start": ev.get("startDate"),
                 })
     save_json(os.path.join(RAW, "polymarket.json"), {

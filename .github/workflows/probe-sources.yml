@@ -1,0 +1,60 @@
+name: probe-line-sources
+
+# Manual/diagnostic probe only. It never publishes a pick and never touches the
+# generated pages. It records, from a GitHub runner, what each candidate bookmaker,
+# esportsbook and odds aggregator actually returns, so "blocked" is an observed
+# result rather than a guess.
+#
+# Triggered by a push that changes the probe script (any branch) or manually.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tools/probe_sources.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-line-sources
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: python3 -m pip install --quiet requests
+
+      - name: Probe candidate line sources
+        run: python3 tools/probe_sources.py
+
+      - name: Commit receipts
+        run: |
+          set -e
+          git config user.name "arena-probe-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/probe/sources_probe.json
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "chore(probe): line-source availability receipts [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sources-probe
+          path: data/probe/sources_probe.json
+          if-no-files-found: warn

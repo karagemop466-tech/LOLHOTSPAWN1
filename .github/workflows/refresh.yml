@@ -2,11 +2,12 @@ name: refresh-picks
 
 # Single publisher for this repository.
 #
-#  1. pulls the full Hotspawn LoL fixture list (public fixtures API, 264 cards)
-#  2. pulls external betting lines (Pinnacle guest API, Polymarket cross-check)
+#  1. pulls the full Hotspawn LoL fixture list (public fixtures API)
+#  2. pulls external betting lines (Pinnacle series moneylines only - the "(Kills)"
+#     derivatives are filtered out - plus Kalshi, Bovada and Polymarket)
 #  3. fits the Elo model on Leaguepedia series results and originates a line for
 #     every match that has no bookmaker price
-#  4. rebuilds the 11 static pages, runs the publish gate, and commits data + site
+#  4. rebuilds the 12 static pages, runs the publish gate, and commits data + site
 #
 # Only `tools/` writes the published pages. A failing gate aborts the commit, so a
 # broken build can never reach GitHub Pages.
@@ -58,8 +59,10 @@ jobs:
             python3 tools/report.py    2>&1
             python3 tools/flags.py     2>&1
             python3 tools/site.py      2>&1
+            python3 tools/corroborate.py 2>&1
             python3 tools/verify.py    2>&1
             python3 tools/site.py      2>&1
+            python3 tools/corroborate.py 2>&1
             python3 tools/verify.py    2>&1
           } | tee data/build.log
           echo "pipeline exit: ${PIPESTATUS[0]}"
@@ -67,18 +70,56 @@ jobs:
       - name: Stop on failed gate
         run: |
           tail -3 data/build.log
-          test "$(grep -c '^PASS' data/build.log)" -ge 14
+          python3 - <<'PY'
+          import json, sys
+          report = json.load(open("data/verification.json"))
+          failed = [c for c in report["checks"] if not c["ok"]]
+          print(f"gate: {len(report['checks']) - len(failed)}/{len(report['checks'])} checks pass")
+          if not report["passed"] or failed:
+              print("FAILED:", [c["name"] for c in failed])
+              sys.exit(1)
+          if len(report["checks"]) < 20:
+              print("FAILED: expected at least 20 publish gates, found", len(report["checks"]))
+              sys.exit(1)
+          PY
 
       - name: Commit data and site
         run: |
           set -e
           git config user.name  "arena-refresh-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/*.json data/*.csv data/build.log data/raw assets *.html
+          git add data/*.json data/*.csv data/build.log data/raw data/receipts assets *.html
           if git diff --cached --quiet; then
             echo "no changes"
-          else
-            git commit -m "chore(data): refresh fixtures, lines and site"
-            git pull --rebase origin "${GITHUB_REF_NAME}"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            exit 0
           fi
+          git commit -m "chore(data): refresh fixtures, lines and site"
+          # main moves under this job whenever another session merges while the six-hourly
+          # collection is running. A plain push (or a rebase that stops on a conflict in the
+          # generated files) fails the job and silently skips a refresh; two runs on
+          # 2026-10-23 failed exactly that way. Retry, and on conflict prefer this run's
+          # freshly generated files, which are the newest data in the race.
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "pushed on attempt ${attempt}"
+              exit 0
+            fi
+            echo "push rejected (attempt ${attempt}); rebasing onto origin/${GITHUB_REF_NAME}"
+            git fetch origin "${GITHUB_REF_NAME}"
+            # NOTE: inside a rebase the meaning of -X ours/theirs is inverted - "ours" is the
+            # upstream we are replaying onto, "theirs" is this run's commit. We want this run's
+            # freshly generated files to win, so the rebase must use `-X theirs`. (In the merge
+            # fallback below the normal meaning applies, so that one stays `-X ours`.)
+            if ! git rebase -X theirs "origin/${GITHUB_REF_NAME}"; then
+              git rebase --abort || true
+              if ! git merge -X ours -m "merge origin/${GITHUB_REF_NAME} after push race" "origin/${GITHUB_REF_NAME}"; then
+                git merge --abort || true
+                git reset --soft "origin/${GITHUB_REF_NAME}"
+                git add -A
+                git commit -q -m "chore(data): refresh fixtures, lines and site" || true
+              fi
+            fi
+            sleep $((attempt * 5))
+          done
+          echo "could not publish after 5 attempts"
+          exit 1

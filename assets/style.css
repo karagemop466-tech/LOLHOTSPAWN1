@@ -107,6 +107,7 @@ a:hover{text-decoration:underline}
 .b-provisional{background:var(--warn-weak);color:var(--warn)}
 .b-unresolved{background:var(--bad-weak);color:var(--bad)}
 .b-past{background:#eef1f6;color:#4a5568}
+.b-thin{background:#fff1d6;color:#8a5a00;border:1px solid #eccf94}
 .badges{display:inline-flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 details.why{margin-top:9px}
 details.why summary{cursor:pointer;font-size:13px;color:var(--accent);font-weight:600}
@@ -163,6 +164,7 @@ tr:last-child td{border-bottom:0}
 }
 @media(prefers-color-scheme:dark){
   .b-past{background:#243044;color:#c6d2e6}
+  .b-thin{background:#3a2c0c;color:#ffd88a;border-color:#6b5316}
   :root{--bg:#0b1020;--panel:#111829;--ink:#e8edf7;--muted:#94a3b8;--line:#22304a;
     --accent:#7aa2ff;--accent-weak:#1b2a4a;--model:#9db8ff;--model-weak:#1b2a4a;
     --ok:#4ade80;--ok-weak:#12301f;--warn:#fbbf24;--warn-weak:#3a2c0a;
@@ -176,9 +178,54 @@ tr:last-child td{border-bottom:0}
   .chip.active{background:#38d39f;color:#06301f}
 }
 
-/* Keep filtered cards hidden even when layout rules specify display. */
+/* quick links (executive summary) */
+.quicklinks{display:grid;gap:10px;grid-template-columns:1fr;margin:10px 0 4px}
+@media(min-width:700px){.quicklinks{grid-template-columns:1fr 1fr 1fr}}
+.quicklinks a{display:block;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.quicklinks a:hover{border-color:var(--accent);text-decoration:none}
+.ql-t{display:block;font-weight:700;color:var(--accent)}
+.ql-d{display:block;color:var(--muted);font-size:13px;margin-top:2px;line-height:1.35}
+.pill.warn{background:var(--warn-weak);color:var(--warn)}
+.res{color:var(--warn)}
+
+/* pick table */
+.picktable{font-size:13.5px}
+.picktable tbody tr.m-market{box-shadow:inset 3px 0 0 var(--ok)}
+.picktable tbody tr.m-model{box-shadow:inset 3px 0 0 var(--model)}
+.picktable tbody tr.m-provisional{box-shadow:inset 3px 0 0 #d99a00}
+.picktable tbody tr.m-unresolved{box-shadow:inset 3px 0 0 var(--bad)}
+.picktable .nowrap,.picktable td.nowrap{white-space:nowrap}
+.picktable td.srcs a{white-space:nowrap}
+.picktable tbody tr:hover{background:var(--accent-weak)}
+.hidden-row{display:none !important}
+@media(max-width:680px){
+  .picktable td{grid-template-columns:35% 65%}
+  .picktable td.opt{display:none}
+  .quicklinks{gap:8px}
+  .hero .cta .btn{width:100%}
+}
+
+/* --- from session 0d48f265: a11y + mobile affordances --- */
 [hidden]{display:none!important}
-.stale-warning{padding:12px;border:2px solid var(--warn);border-radius:8px;color:var(--text);font-weight:600}
+.stale-warning{padding:12px;border:2px solid var(--warn);border-radius:8px;color:var(--ink);font-weight:600}
 :focus-visible{outline:3px solid #d98100;outline-offset:3px}
 .mobile-picks{display:none}
-@media(max-width:700px){.mobile-picks{display:block;position:fixed;bottom:12px;right:12px;z-index:30;background:var(--brand);color:white;padding:12px 18px;border-radius:24px;box-shadow:var(--shadow)}.foot{padding-bottom:80px}}
+@media(max-width:700px){
+  .mobile-picks{display:block;position:fixed;bottom:12px;right:12px;z-index:30;background:var(--brand);color:#fff;padding:12px 18px;border-radius:24px;box-shadow:var(--shadow)}
+  .foot{padding-bottom:80px}
+}
+
+/* persistent bottom navigation on phones (merged from session a91e528d) */
+.mobnav{display:none}
+@media(max-width:700px){
+  .mobnav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:25;background:var(--panel);
+    border-top:1px solid var(--line);box-shadow:0 -2px 10px rgba(16,24,40,.08)}
+  .mobnav a{flex:1;text-align:center;padding:11px 4px;font-size:12.5px;color:var(--muted);line-height:1.2}
+  .mobnav a.active{color:var(--brand);font-weight:700;border-top:3px solid var(--accent);margin-top:-1px}
+  body{padding-bottom:64px}
+  .mobile-picks{bottom:66px}
+}
+@media(prefers-color-scheme:dark){.mobnav{background:#111829}.mobnav a.active{color:#e8edf7}}
+
+/* coin-flip cards: identical kick-off ratings, no edge claimed */
+.badge.b-flip{background:var(--warn-weak);color:var(--warn);border:1px solid #ecd9a8}
