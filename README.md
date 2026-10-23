@@ -3,8 +3,9 @@
 **Live dashboard:** <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>
 
 A self-running pipeline that mirrors the complete League of Legends pick'em list from
-`play.hotspawn.com/lol-pickems` and publishes an independent win probability for **every** match on it.
-Probabilities come from real bookmaker lines where they exist, and from a results-based Elo model
+`play.hotspawn.com/lol-pickems` and publishes a pick for **every** match on it: an independent win
+probability wherever one can be defended, and an explicit settlement pick with no probability where it
+cannot. Probabilities come from real bookmaker lines where they exist, and from a results-based Elo model
 where they do not. Hotspawn's own crowd-pick percentages are never used as an input.
 
 The site rebuilds itself every six hours from GitHub Actions; nothing here needs a laptop to stay current.
@@ -14,10 +15,10 @@ The site rebuilds itself every six hours from GitHub Actions; nothing here needs
 | Page | Contents |
 | --- | --- |
 | `index.html` | Executive summary, headline counts and in-site links to every list |
-| `picks.html` | All 264 matches, one card each, next kick-off first, with the pick, both win probabilities and source links |
+| `picks.html` | Every listed match, one card each, next kick-off first, with the pick, both win probabilities, working search + tournament filter and source links |
 | `featured.html` | Matches with a real bookmaker price, the raw odds and the de-vig arithmetic |
 | `originated.html` | Matches with no market price: our own line, the Elo inputs and the team records behind it |
-| `unresolved.html` | Matches we refuse to price, why, and every limitation that applies to the rest of the list |
+| `unresolved.html` | Matches priced as a settlement pick only, why no probability is claimed, and every limitation that applies to the rest of the list |
 | `competitions.html` | Coverage, source quality and staleness per tournament |
 | `teams.html` | Every team with its rating, record and competition |
 | `flagged.html` | Irregularities and unverified items, published rather than hidden |
@@ -38,7 +39,7 @@ tools/flags.py     derived irregularities + curated notes (data/flags_manual.jso
       ↓
 tools/site.py      11 static pages, mobile-first, no framework
       ↓
-tools/verify.py    14 assertions; a failure aborts the commit instead of publishing bad data
+tools/verify.py    23 assertions; a failure aborts the commit instead of publishing bad data
 ```
 
 A single workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) runs that chain on `main`,
@@ -49,11 +50,16 @@ Only `tools/` writes the published pages.
 
 - **Inventory** — `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1`
   returns every LoL card, including the long tail of national and academy leagues.
-- **Market lines** — Pinnacle's public guest API (LoL moneylines), with Polymarket used as an
-  independent cross-check. Bookmaker odds are converted to decimal, then de-vigged proportionally.
+- **Market lines** — Pinnacle's public guest API, Polymarket, Kalshi (CFTC) and Bovada, converted to
+  decimal and de-vigged proportionally, then precision-weighted. Archived esportsbook receipts expire after
+  24 hours, symmetric 1.80/1.80 placeholders and any quote implying more than 97% on one side are rejected
+  before de-vigging, and our own Elo probability is printed beside every market price as a cross-check.
 - **Originated lines** — Elo fitted on Leaguepedia series results, recency-weighted, with a
   connected-opponent graph guard; teams with too little recorded history are labelled *provisional*
   rather than silently given a confident number.
+- **Settlement picks** — a fixture whose participant was removed mid-split (`dqteams`) gets the
+  administratively correct side (the remaining active opponent) and **no percentage**, because a
+  competitive probability cannot be justified for a series that may be voided or awarded as a walkover.
 - **Never used** — Hotspawn's `picked_percent`, its tiers, or its points as probability inputs.
 - **Blank beats wrong** — a value that cannot be confirmed from a primary source is left blank and
   listed on `flagged.html`; nothing is inferred to fill a gap.
@@ -63,18 +69,23 @@ Only `tools/` writes the published pages.
 
 ### Verification gate
 
-`tools/verify.py` fails the build unless, at minimum: all 264 rows parse, every row carries a
+`tools/verify.py` fails the build unless, at minimum: every row parses, every row carries a
 Hotspawn match-card link, both probabilities sum to 100 %, the published pick is the higher-probability
-side, ids are unique, `picks.csv` mirrors the dataset, all 11 pages exist, every internal link
-resolves, no `None`/empty value is rendered, every match appears on `picks.html`, the executive
-summary links to every view, and each source's availability is recorded.
+side, **every listed match has a pick**, settlement picks name a participant and carry no probability,
+every market row has at least one venue with a source URL, ids are unique, `picks.csv` mirrors the
+dataset, all 11 pages exist, every internal link resolves, no `None`/empty value is rendered, every
+match appears on `picks.html`, the executive summary links to every view and carries the coverage,
+unresolved and where-to-find-picks blocks, the mobile nav bar and menu/filter JS are present on every
+page, curated flags cite only currently listed fixtures, stale receipts are excluded from the
+consensus, and each source's availability is recorded.
 
 ## Manual review links
 
 - `data/picks.csv` — one row per match: competition, teams, pick, probability, method, source URLs.
 - `data/matches.json` — full record per match, including odds, Elo inputs and flags.
 - `data/matching_report.json` — every team join that was not an exact string match, with its evidence.
-- `data/verification.json` — the machine-readable result of the gate.
+- `data/verification.json` — the machine-readable result of the gate (23 checks).
+- `data/flags.json` — every irregularity published on `flagged.html`, curated + derived on each build.
 - `data/build.log` — the last automated run, verbatim.
 - `COORDINATION.md` — task board, session log and the integration decisions taken across sessions.
 
@@ -111,6 +122,13 @@ concurrency group, so the two bots serialize and cannot race.
 Where the two dashboards agree (9 Pinnacle-priced matches, same pick sides, same irregularity classes
 found independently) is the strongest verification this repo offers; where they differ, both
 presentations are one click apart and each row carries its source links.
+
+## Mobile use
+
+The dashboard is mobile-first. A persistent bottom bar (Summary · All picks · Market · Unresolved ·
+Flags) is fixed to the bottom of every page on phones, the header `Menu` button now actually opens the
+full 11-page navigation, and `picks.html` has a working search box, tournament filter and pick-type
+chips that filter instantly client-side with no page reload.
 
 ## Running it locally
 

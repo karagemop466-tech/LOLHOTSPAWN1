@@ -1,7 +1,9 @@
 (function () {
   "use strict";
 
-  // Format `data-utc` timestamps with friendly local date/time while preserving UTC
+  /* ------------------------------------------------------------------ *
+   * 1. Local-time tooltips (static HTML keeps a UTC fallback)           *
+   * ------------------------------------------------------------------ */
   function hydrateTimestamps() {
     var nodes = document.querySelectorAll("[data-utc]");
     for (var i = 0; i < nodes.length; i++) {
@@ -21,131 +23,139 @@
           nodes[i].textContent = localStr + " (" + iso.slice(11, 16) + " UTC)";
         }
       } catch (_err) {
-        // Keep static UTC fallback intact
+        /* keep the UTC text */
       }
     }
   }
 
-  function initPickFilters() {
-    var searchEl = document.getElementById("filter-search");
-    var compEl = document.getElementById("filter-comp");
-    var tierEl = document.getElementById("filter-tier");
-    var windowEl = document.getElementById("filter-window");
-    var sortEl = document.getElementById("filter-sort");
-    var countEl = document.getElementById("visible-count");
-    var rootEl = document.getElementById("dual-view-root");
+  /* ------------------------------------------------------------------ *
+   * 2. Mobile menu button (was rendered but never wired up)             *
+   * ------------------------------------------------------------------ */
+  function initMenu() {
+    var btn = document.querySelector(".menu-btn");
+    var nav = document.getElementById("nav");
+    if (!btn || !nav) return;
 
-    var cardsWrap = document.getElementById("picks-cards-list");
-    var tableBody = document.getElementById("picks-table-body");
-    if (!searchEl && !compEl && !tierEl && !windowEl) return;
-
-    // Pre-populate controls from URL query string (`?comp=...&tier=...&window=...&q=...`)
-    var params = new URLSearchParams(window.location.search);
-    if (compEl && params.get("comp")) compEl.value = params.get("comp");
-    if (tierEl && params.get("tier")) tierEl.value = params.get("tier");
-    if (windowEl && params.get("window")) windowEl.value = params.get("window");
-    if (searchEl && params.get("q")) searchEl.value = params.get("q");
-
-    function matchesFilters(el) {
-      var q = searchEl ? searchEl.value.trim().toLowerCase() : "";
-      var comp = compEl ? compEl.value : "all";
-      var tier = tierEl ? tierEl.value : "all";
-      var win = windowEl ? windowEl.value : "all";
-
-      if (comp && comp !== "all" && el.getAttribute("data-comp") !== comp) return false;
-      if (tier && tier !== "all") {
-        var rowTier = el.getAttribute("data-status") || "";
-        if (tier === "market" && rowTier !== "market_consensus" && rowTier !== "esportsbook_line") return false;
-        if (tier !== "market" && rowTier !== tier) return false;
-      }
-      if (win && win !== "all") {
-        var hrs = parseFloat(el.getAttribute("data-hours") || "99999");
-        if (win === "48h" && (hrs <= 0 || hrs > 48)) return false;
-        if (win === "7d" && (hrs <= 0 || hrs > 168)) return false;
-        if (win === "high" && parseFloat(el.getAttribute("data-favprob") || "0") < 0.65) return false;
-      }
-      if (q) {
-        var hay = (el.getAttribute("data-search") || "").toLowerCase();
-        if (hay.indexOf(q) === -1) return false;
-      }
-      return true;
+    function setOpen(open) {
+      nav.classList.toggle("open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "Close" : "Menu";
     }
 
-    function sortContainer(container, selector) {
-      if (!container || !sortEl) return;
-      var mode = sortEl.value || "kickoff";
-      var items = Array.prototype.slice.call(container.querySelectorAll(selector));
-      items.sort(function (a, b) {
-        if (mode === "prob_desc") {
-          return parseFloat(b.getAttribute("data-favprob") || "0") - parseFloat(a.getAttribute("data-favprob") || "0");
-        }
-        if (mode === "points_desc") {
-          return parseFloat(b.getAttribute("data-points") || "0") - parseFloat(a.getAttribute("data-points") || "0");
-        }
-        if (mode === "edge_desc") {
-          return Math.abs(parseFloat(b.getAttribute("data-delta") || "0")) - Math.abs(parseFloat(a.getAttribute("data-delta") || "0"));
-        }
-        return parseFloat(a.getAttribute("data-kickoff") || "0") - parseFloat(b.getAttribute("data-kickoff") || "0");
-      });
-      for (var i = 0; i < items.length; i++) {
-        container.appendChild(items[i]);
-      }
-    }
-
-    function applyAll() {
-      sortContainer(cardsWrap, ".pick-item");
-      sortContainer(tableBody, ".pick-row");
-
-      var cardItems = cardsWrap ? cardsWrap.querySelectorAll(".pick-item") : [];
-      var shown = 0;
-      for (var i = 0; i < cardItems.length; i++) {
-        var ok = matchesFilters(cardItems[i]);
-        cardItems[i].classList.toggle("hidden-row", !ok);
-        if (ok) shown++;
-      }
-
-      var tableRows = tableBody ? tableBody.querySelectorAll(".pick-row") : [];
-      for (var j = 0; j < tableRows.length; j++) {
-        var okRow = matchesFilters(tableRows[j]);
-        tableRows[j].classList.toggle("hidden-row", !okRow);
-        if (!cardsWrap && okRow) shown++;
-      }
-
-      if (countEl) {
-        countEl.textContent = String(shown);
-      }
-    }
-
-    [searchEl, compEl, tierEl, windowEl, sortEl].forEach(function (ctrl) {
-      if (!ctrl) return;
-      ctrl.addEventListener("input", applyAll);
-      ctrl.addEventListener("change", applyAll);
+    btn.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      setOpen(!nav.classList.contains("open"));
     });
 
-    // View switcher (`Auto Mobile/Desktop`, `Cards`, `Table`)
-    var viewBtns = document.querySelectorAll("[data-set-view]");
-    for (var k = 0; k < viewBtns.length; k++) {
-      viewBtns[k].addEventListener("click", function (ev) {
-        var mode = ev.currentTarget.getAttribute("data-set-view");
-        if (!rootEl) return;
-        rootEl.classList.remove("responsive-dual", "view-mode-cards", "view-mode-table");
-        rootEl.classList.add(mode);
-        viewBtns.forEach(function (b) {
-          b.classList.toggle("active", b === ev.currentTarget);
-        });
+    // Close the menu after following a link, and on Escape.
+    nav.addEventListener("click", function (ev) {
+      if (ev.target && ev.target.tagName === "A") setOpen(false);
+    });
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape") setOpen(false);
+    });
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 3. Picks page: search + tournament filter + method chips            *
+   *    (the markup uses #q, #comp, .chip[data-filter], #list, #count)   *
+   * ------------------------------------------------------------------ */
+  function initPickFilters() {
+    var searchEl = document.getElementById("q");
+    var compEl = document.getElementById("comp");
+    var listEl = document.getElementById("list");
+    var countEl = document.getElementById("count");
+    var emptyEl = document.getElementById("empty");
+    var chips = document.querySelectorAll(".chip[data-filter]");
+    if (!listEl) return;
+
+    var cards = Array.prototype.slice.call(listEl.querySelectorAll(".card"));
+    var state = { q: "", comp: "", method: "" };
+
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("q") && searchEl) {
+      state.q = params.get("q");
+      searchEl.value = state.q;
+    }
+    if (params.get("comp") && compEl) {
+      state.comp = params.get("comp");
+      compEl.value = state.comp;
+    }
+    if (params.get("method")) {
+      state.method = params.get("method");
+      for (var c = 0; c < chips.length; c++) {
+        chips[c].classList.toggle("active", chips[c].getAttribute("data-filter") === state.method);
+      }
+    }
+
+    function apply() {
+      var q = state.q.trim().toLowerCase();
+      var shown = 0;
+      for (var i = 0; i < cards.length; i++) {
+        var card = cards[i];
+        var ok = true;
+        if (q) {
+          var hay = (card.getAttribute("data-text") || "").toLowerCase();
+          if (hay.indexOf(q) === -1) ok = false;
+        }
+        if (ok && state.comp && card.getAttribute("data-comp") !== state.comp) ok = false;
+        if (ok && state.method && card.getAttribute("data-method") !== state.method) ok = false;
+        card.hidden = !ok;
+        if (ok) shown++;
+      }
+      if (countEl) {
+        countEl.textContent =
+          shown + (shown === 1 ? " match shown" : " matches shown") +
+          (shown === cards.length ? "" : " of " + cards.length);
+      }
+      if (emptyEl) emptyEl.hidden = shown !== 0;
+    }
+
+    if (searchEl) {
+      searchEl.addEventListener("input", function () {
+        state.q = searchEl.value || "";
+        apply();
+      });
+    }
+    if (compEl) {
+      compEl.addEventListener("change", function () {
+        state.comp = compEl.value || "";
+        apply();
+      });
+    }
+    for (var k = 0; k < chips.length; k++) {
+      chips[k].addEventListener("click", function (ev) {
+        for (var m = 0; m < chips.length; m++) chips[m].classList.remove("active");
+        ev.currentTarget.classList.add("active");
+        state.method = ev.currentTarget.getAttribute("data-filter") || "";
+        apply();
       });
     }
 
-    applyAll();
+    apply();
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 4. Back-to-top: the all-picks list is long on a phone               *
+   * ------------------------------------------------------------------ */
+  function initToTop() {
+    var btn = document.getElementById("totop");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  function init() {
+    hydrateTimestamps();
+    initMenu();
+    initPickFilters();
+    initToTop();
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      hydrateTimestamps();
-      initPickFilters();
-    });
+    document.addEventListener("DOMContentLoaded", init);
   } else {
-    hydrateTimestamps();
-    initPickFilters();
+    init();
   }
 })();

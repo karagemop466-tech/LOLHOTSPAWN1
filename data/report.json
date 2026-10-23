@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-23T11:43:59Z",
+ "generated_utc": "2026-10-23T15:41:19Z",
  "total": 241,
  "counts": {
   "provisional": 65,
-  "model": 162,
+  "model": 163,
   "unresolved": 4,
-  "market": 10
+  "market": 9
  },
  "per_competition": {
   "Benelux Ascend Series 2026 Summer Split": {
@@ -96,9 +96,8 @@
    "market": 1
   },
   "LCP 2027 Promotion": {
-   "model": 1,
-   "provisional": 1,
-   "market": 1
+   "model": 2,
+   "provisional": 1
   }
  },
  "non_exact_joins": [
@@ -373,10 +372,11 @@
     "VES Japan"
    ],
    "flags": [
+    "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-09-17T15:00:00Z while Data:Komplettligaen/2026 Season/Autumn Split records 2026-10-01 16:00Z (337h apart) - confirm before relying on the time",
     "official league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is VES Japan)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ],
-   "basis": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent VES Japan.",
+   "basis": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for active opponent VES Japan. Pick shown is the administrative default only - no competitive probability is claimed.",
    "start": "2026-09-17T15:00:00Z"
   },
   {
@@ -390,7 +390,7 @@
     "official league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Playwell Rød Q)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ],
-   "basis": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Playwell Rød Q.",
+   "basis": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for active opponent Playwell Rød Q. Pick shown is the administrative default only - no competitive probability is claimed.",
    "start": "2026-10-04T15:00:00Z"
   },
   {
@@ -404,7 +404,7 @@
     "official league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Volda E-Sport)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ],
-   "basis": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Volda E-Sport.",
+   "basis": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for active opponent Volda E-Sport. Pick shown is the administrative default only - no competitive probability is claimed.",
    "start": "2026-10-11T15:00:00Z"
   },
   {
@@ -418,7 +418,7 @@
     "official league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is NTNUI Kometkameratene)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (likely postponed or awaiting a result)"
    ],
-   "basis": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent NTNUI Kometkameratene.",
+   "basis": "Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for active opponent NTNUI Kometkameratene. Pick shown is the administrative default only - no competitive probability is claimed.",
    "start": "2026-10-13T17:00:00Z"
   }
  ],
@@ -676,7 +676,8 @@
    ],
    "p0": 0.5144,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-24T16:30:00Z while Data:RIVALS LEAGUE/2026 Season/Season 2 records 2026-11-03 18:00Z (242h apart) - confirm before relying on the time"
    ]
   },
   {
@@ -820,7 +821,8 @@
    ],
    "p0": 0.4593,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-25T18:00:00Z while Data:RIVALS LEAGUE/2026 Season/Season 2 records 2026-11-01 18:00Z (168h apart) - confirm before relying on the time"
    ]
   },
   {
@@ -1228,7 +1230,7 @@
     "Gen.G",
     "Invictus Gaming"
    ],
-   "p0": 0.7645,
+   "p0": 0.7621,
    "decimal": {
     "home": 1.282,
     "away": 3.74
@@ -1242,7 +1244,7 @@
     "Hanwha Life Esports",
     "Top Esports"
    ],
-   "p0": 0.7658,
+   "p0": 0.7651,
    "decimal": {
     "home": 1.26,
     "away": 3.93
@@ -1256,7 +1258,7 @@
     "Bilibili Gaming",
     "Movistar KOI"
    ],
-   "p0": 0.7992,
+   "p0": 0.7984,
    "decimal": {
     "home": 1.218,
     "away": 4.37
@@ -1270,7 +1272,7 @@
     "Anyone's Legend",
     "Karmine Corp"
    ],
-   "p0": 0.6464,
+   "p0": 0.6453,
    "decimal": {
     "home": 1.518,
     "away": 2.61
@@ -1284,7 +1286,7 @@
     "G2 Esports",
     "Dplus KIA"
    ],
-   "p0": 0.4108,
+   "p0": 0.4093,
    "decimal": {
     "home": 2.26,
     "away": 1.676
@@ -1298,7 +1300,7 @@
     "Team Liquid",
     "CTBC Flying Oyster"
    ],
-   "p0": 0.7128,
+   "p0": 0.7134,
    "decimal": {
     "home": 1.345,
     "away": 3.31
@@ -1312,7 +1314,7 @@
     "LØS",
     "T1"
    ],
-   "p0": 0.1407,
+   "p0": 0.1403,
    "decimal": {
     "home": 5.67,
     "away": 1.143
@@ -1326,7 +1328,7 @@
     "Team Secret Whales",
     "LYON"
    ],
-   "p0": 0.418,
+   "p0": 0.4234,
    "decimal": {
     "home": 2.23,
     "away": 1.69
@@ -1346,20 +1348,6 @@
     "away": 1.471
    },
    "start": "2026-10-27T17:00:00Z"
-  },
-  {
-   "id": "1081423",
-   "competition": "LCP 2027 Promotion",
-   "teams": [
-    "Ground Zero Gaming",
-    "Frank Esports"
-   ],
-   "p0": 0.9111,
-   "decimal": {
-    "home": 1.025,
-    "away": 10.5
-   },
-   "start": "2026-11-11T09:00:00Z"
   }
  ]
 }
