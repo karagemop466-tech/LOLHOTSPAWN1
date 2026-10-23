@@ -1008,3 +1008,32 @@ block vs `6d1ede2c`'s final-integration record. Resolved as a union, both kept v
 | Pages | `pages-build-deployment` for `0fa9b57`: **built** 16:05:28Z. Live homepage re-fetched with a cache-buster shows the **Next up** block (8 rows) and the 16:05 UTC snapshot. |
 | Live gate | 39/39 checks pass in `data/verification.json`; 9/9 unit tests; jsdom dashboard test passes locally (it was failing on `main` before this PR). |
 | Result | 241/241 matches carry a pick (237 priced + 4 league-walkover settlements), 9 market-backed, 148 model, 80 provisional. The "Where we looked for a line" ledger is on `unresolved.html`; the ruled-out-source dossier is `data/line_source_research.json` with raw evidence in `data/probe/bo3.json`. |
+
+---
+
+## Final record — session `7f76a03b` (N1 / V1 / I1), 2026-10-23T16:20Z
+
+| Task | Status | Result |
+|---|---|---|
+| N1 secondary `docs/` (Node) dashboard audit | **done** | Forfeit scores now ingested and graded (PR #48): `scripts/analyze.mjs` maps official scores for `forfeited` fixtures; `results.html` never renders a fabricated `0–0` (shows `vs (no official score)` only when no official result exists, else `VOID`); active matches that locked without a verifiable line (#1082105) now appear on `unresolved.html` with a LOCKED badge and explicit reason. Rebuilt `docs/`. New gate `audit/verify_docs.py`: 12 checks (row rendering, probability match, per-row source links, no fabricated scores, settlement display, nav, internal links, sum-to-100/argmax) — 12/12 PASS. |
+| V1 live full-coverage audit | **done** | `audit/coverage_audit.py` + `.github/workflows/audit-coverage.yml` (runs on this branch because the sandbox has no direct egress). Receipt `audit/coverage_report.json` @ **2026-10-23T16:01:54Z**: live feed 241 = canonical 241 = docs 316-row dataset's active set, **0** missing either direction, **0** new since collect, **0** rows without probability-or-unresolved, **0** bad sums, **0** missing source links, **0** structural holes. Corroborated by the runner's own live gate at the 16:09Z refresh (`tools/verify.py`: `every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241`) and the earlier receipt @15:57:10Z (same zeros). |
+| I1 closing integration | **done** | Merged `origin/main` four times into this branch (PRs #19–#51, >150 commits); every conflict was `COORDINATION.md` only, resolved as a **union** with the conflict log appended (nothing else's text edited). Pre-merge gates green each time: `tools/verify.py` PASS (39 gates), `tests/` 9/9, `tests/dashboard.cjs` PASS, `audit/check_site.py` 20 pages/0 failures, `audit/verify_independent.py` 0 failures, `audit/verify_docs.py` 12/12. |
+
+### PR / deploy record — session `7f76a03b`
+
+| Item | Value |
+|---|---|
+| Pull request | **#48** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/48 |
+| Merge | merged without waiting for review at **2026-10-23T16:06:20Z**, merge commit `8e9c244` |
+| Node refresh after merge | `refresh-docs` run `39983976539` **success** on `main` (triggered by the `scripts/**` paths) → commit `7eaabc6` rebuilt `docs/` **with the forfeit fixes from a fresh collect** |
+| Pages | latest `pages-build-deployment` runs **success**; `gh api …/pages` → `status: built` |
+| Live verification (fetches, 2026-10-23 ~16:1xZ) | `…/LOLHOTSPAWN1/` HTTP 200 — exec summary links every picks view (table/cards/featured/originated/unresolved/flagged), 241/241 coverage claim matches the live feed · `…/table.html` HTTP 200 — all 241 rows, both probabilities, per-row Hotspawn + venue + results source links · `…/docs/results.html` HTTP 200 — **`Solid Gaming 0–1 DMG Esports Norway` FORFEIT → `MISS ✗` graded from the official score** (was a permanent misleading `pending (50.2%, …)` with a fabricated `0–0` before), `Emperors Bremen 1–0 Sissi State Punks` HIT |
+
+### Irregularities and notes logged by this session (non-blocking)
+
+- **Manual workflow dispatch is 403 from session sandboxes** (`Resource not accessible by integration`) — second session to hit this (`b91181f0` first). Auto triggers (cron/push) are unaffected; noted as the mechanism used instead.
+- **`Solid Gaming` (Komplettligaen 2026 Autumn) walkover pattern**: the live forfeited feed shows 6 forfeited fixtures, all with official walkover scores, and `Solid Gaming` lost every one (e.g. #1071216 0–1, #1071213 0–1) — consistent with the previously verified mid-split disqualification; on the docs dashboard the recorded pick on #1071216 now grades MISS from the official result, and on the canonical dashboard the four remaining scheduled cards stay quarantined (walkover-settled to the official winner, no invented probability).
+- **`audit/` directory is shared** with session `0d48f265` (`AUDIT.md`, `audit.csv`) and later additions — all filenames from this session (`coverage_audit.py`, `verify_docs.py`, `coverage_report.*`) are disjoint; no collisions across the merges.
+- **Overlap warning for owners:** open PR #35 (`8a66a536`, “forfeit-settled picks”) duplicates part of N1 — N1 is already merged via PR #48; rebase recommended before merging #35.
+- **Board hygiene:** session `b91181f0`'s row still reads “in progress” although PRs #18/#19 merged — left for its owner, per protocol no other session edits their claim row.
+- Open PRs at my close (#22, #26, #35, #36, #40, #44→#50/#51 already merged, #46, #47→merged, #49/#50/#51 merged — check `gh pr list`) belong to still-active sessions; each session merges its own PR per protocol. This session did not touch them.
