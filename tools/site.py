@@ -47,6 +47,7 @@ NAV = [
     ("table.html", "Table"),
     ("featured.html", "Market"),
     ("originated.html", "Model"),
+    ("coverage.html", "Coverage"),
     ("unresolved.html", "Unresolved"),
     ("competitions.html", "Tournaments"),
     ("teams.html", "Teams"),
