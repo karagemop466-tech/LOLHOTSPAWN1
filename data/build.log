@@ -1,21 +1,21 @@
-=== build 2026-10-23T11:42:36Z ===
-[11:42:37] hotspawn: 241 LoL fixtures
-[11:42:42] pinnacle: 138 LoL matchups, 16 with open moneylines
-[11:42:42] kalshi: 8 CFTC match events (status=200)
-[11:42:43] bovada: 8 LoL moneylines (status=200)
-[11:43:45] leaguepedia: 34617 series rows, 7 pages with dqteams (err='')
-[11:43:45] lolesports: 80 Worlds events (status=200)
-[11:43:46] polymarket: 45 match-level markets (status=200)
-[11:43:54] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
-[11:43:59] rows=241 methods={'provisional': 65, 'model': 162, 'unresolved': 4, 'market': 10} joins=29
-[11:43:59] backtest n=3854 acc=0.6414 brier=0.2211
+=== build 2026-10-23T15:37:39Z ===
+[15:37:40] hotspawn: 241 LoL fixtures
+[15:37:46] pinnacle: 138 LoL matchups, 14 with open moneylines
+[15:37:46] kalshi: 8 CFTC match events (status=200)
+[15:37:48] bovada: 8 LoL moneylines (status=200)
+[15:39:22] leaguepedia: 34610 series rows, 7 pages with dqteams (err='')
+[15:39:23] lolesports: 80 Worlds events (status=200)
+[15:39:24] polymarket: 45 match-level markets (status=200)
+[15:39:30] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=400, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[15:39:34] rows=241 methods={'provisional': 65, 'model': 163, 'unresolved': 4, 'market': 9} joins=29
+[15:39:34] backtest n=3854 acc=0.6417 brier=0.2211
 {
  "total": 241,
  "counts": {
   "provisional": 65,
-  "model": 162,
+  "model": 163,
   "unresolved": 4,
-  "market": 10
+  "market": 9
  },
  "per_competition": {
   "Benelux Ascend Series 2026 Summer Split": {
@@ -106,18 +106,17 @@
    "market": 1
   },
   "LCP 2027 Promotion": {
-   "model": 1,
-   "provisional": 1,
-   "market": 1
+   "model": 2,
+   "provisional": 1
   }
  }
 }
 
 UNRESOLVED 4
-  Komplettligaen 2026 Autumn | Solid Gaming vs VES Japan | Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn S
-  Komplettligaen 2026 Autumn | Solid Gaming vs Playwell Rød Q | Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn S
-  Komplettligaen 2026 Autumn | Volda E-Sport vs Solid Gaming | Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn S
-  Komplettligaen 2026 Autumn | Solid Gaming vs NTNUI Kometkameratene | Participant removed mid-split: official Data:Komplettligaen/2026 Season/Autumn S
+  Komplettligaen 2026 Autumn | Solid Gaming vs VES Japan | Participant removed mid-split: community-maintained Leaguepedia Data:Komplettlig
+  Komplettligaen 2026 Autumn | Solid Gaming vs Playwell Rød Q | Participant removed mid-split: community-maintained Leaguepedia Data:Komplettlig
+  Komplettligaen 2026 Autumn | Volda E-Sport vs Solid Gaming | Participant removed mid-split: community-maintained Leaguepedia Data:Komplettlig
+  Komplettligaen 2026 Autumn | Solid Gaming vs NTNUI Kometkameratene | Participant removed mid-split: community-maintained Leaguepedia Data:Komplettlig
 
 NON-EXACT JOINS 12
   competition-page | Nameless -> Nameless (Benelux Team) | ambiguous in Leaguepedia (Nameless (Benelux Team), Nameless (Female and Non-Binary Team), 
@@ -133,23 +132,24 @@ NON-EXACT JOINS 12
   base-name | Neon eSports -> Neon eSports (Brazilian Team) | Leaguepedia lists this team as 'Neon eSports (Brazilian Team)'
   alias | Phong Vũ Buffalo -> PvB (Swiss Team) | explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evid
 
-PRICED 10
-  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7645 {'home': 1.282, 'away': 3.74}
-  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7658 {'home': 1.26, 'away': 3.93}
-  Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.7992 {'home': 1.218, 'away': 4.37}
-  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6464 {'home': 1.518, 'away': 2.61}
-  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4108 {'home': 2.26, 'away': 1.676}
-  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7128 {'home': 1.345, 'away': 3.31}
-  Worlds 2026 Main Event | ['LØS', 'T1'] 0.1407 {'home': 5.67, 'away': 1.143}
-  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.418 {'home': 2.23, 'away': 1.69}
-  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.32 {'home': 3.125, 'away': 1.471}
-  LCP 2027 Promotion | ['Ground Zero Gaming', 'Frank Esports'] 0.9111 {'home': 1.025, 'away': 10.5}
-[11:43:59] flags: 17 items
-[11:43:59] site: wrote 11 pages to docs/
-[11:43:59] verification passed
+PRICED 9
+  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7605 {'home': 1.282, 'away': 3.74}
+  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7623 {'home': 1.256, 'away': 3.97}
+  Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.7984 {'home': 1.218, 'away': 4.37}
+  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.644 {'home': 1.518, 'away': 2.61}
+  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4116 {'home': 2.24, 'away': 1.685}
+  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7134 {'home': 1.345, 'away': 3.31}
+  Worlds 2026 Main Event | ['LØS', 'T1'] 0.1403 {'home': 5.67, 'away': 1.143}
+  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4234 {'home': 2.23, 'away': 1.69}
+  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.325 None
+[15:39:34] flags: 18 items
+[15:39:34] site: wrote 11 pages to docs/
+[15:39:34] verification passed
 PASS dataset present :: 241 matches loaded
+PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
+PASS finite probabilities and correctly named picks :: []
 PASS every row links to its Hotspawn match card :: 241/241 rows carry a Hotspawn URL
-PASS probabilities sum to 100% (tolerance 0.2pp) :: 241 priced rows verified; problems: []
+PASS probabilities sum to 100% (tolerance 0.2pp) :: 237 priced rows checked; problems: []
 PASS pick matches the higher probability :: 241 rows consistent; problems: []
 PASS method values are known :: methods used: ['market', 'model', 'provisional', 'unresolved']
 PASS no duplicate match ids :: 241 unique ids; duplicates: []
@@ -162,11 +162,13 @@ PASS all matches rendered on the picks page :: 241/241 match cards found
 PASS executive summary links to every picks view :: present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']
 PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,854
 PASS source availability recorded :: 9/14 sources reachable on this build
-[11:44:00] site: wrote 11 pages to docs/
-[11:44:00] verification passed
+[15:39:34] site: wrote 11 pages to docs/
+[15:39:34] verification passed
 PASS dataset present :: 241 matches loaded
+PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
+PASS finite probabilities and correctly named picks :: []
 PASS every row links to its Hotspawn match card :: 241/241 rows carry a Hotspawn URL
-PASS probabilities sum to 100% (tolerance 0.2pp) :: 241 priced rows verified; problems: []
+PASS probabilities sum to 100% (tolerance 0.2pp) :: 237 priced rows checked; problems: []
 PASS pick matches the higher probability :: 241 rows consistent; problems: []
 PASS method values are known :: methods used: ['market', 'model', 'provisional', 'unresolved']
 PASS no duplicate match ids :: 241 unique ids; duplicates: []
