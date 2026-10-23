@@ -1,6 +1,6 @@
 # Independent verification report
 
-Generated: `2026-10-23T15:58:34Z` · dataset: `2026-10-23T15:58:30Z`
+Generated: `2026-10-23T16:01:45Z` · dataset: `2026-10-23T16:01:15Z`
 
 - rows: **241** · market rows: **9** · venue quotes re-derived: **32**
 - failures: **0** · warnings: **9**
