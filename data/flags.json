@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T16:31:08Z",
+ "generated_utc": "2026-10-23T17:13:12Z",
  "count": 27,
  "flags": [
   {
@@ -106,19 +106,19 @@
   {
    "severity": "low",
    "item": "4 betting/odds sources were unreachable from the build runner",
-   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 429 (unavailable)",
+   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 404 (unavailable)",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/sources_status.json"
   },
   {
    "severity": "medium",
-   "item": "69 fixtures still listed as 'scheduled' although their start time has passed",
+   "item": "70 fixtures still listed as 'scheduled' although their start time has passed",
    "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time has already passed (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. The reason is unverified.",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
   {
    "severity": "medium",
    "item": "11 archived esportsbook receipts expired and are no longer used as market input",
-   "detail": "A bookmaker quote captured from a match page is a line only while it is fresh. These receipts were captured on 2026-10-21 (up to 44 h old, limit 24 h) and are now excluded from the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, Kalshi, Bovada, Unibet) or to our own Elo line. The receipts stay in the audit trail: #1081205 [1.86, 1.8] (2026-10-21T20:36:00Z); #1067878 [1.2, 4.4] (2026-10-21T20:36:00Z); #1067677 [1.2, 4.05] (2026-10-21T20:36:00Z); #1067680 [1.17, 4.88] (2026-10-21T20:36:00Z); #1067675 [1.38, 2.63] (2026-10-21T20:36:00Z); #1067676 [2.18, 1.61] (2026-10-21T20:36:00Z)",
+   "detail": "A bookmaker quote captured from a match page is a line only while it is fresh. These receipts were captured on 2026-10-21 (up to 45 h old, limit 24 h) and are now excluded from the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, Kalshi, Bovada, Unibet) or to our own Elo line. The receipts stay in the audit trail: #1081205 [1.86, 1.8] (2026-10-21T20:36:00Z); #1067878 [1.2, 4.4] (2026-10-21T20:36:00Z); #1067677 [1.2, 4.05] (2026-10-21T20:36:00Z); #1067680 [1.17, 4.88] (2026-10-21T20:36:00Z); #1067675 [1.38, 2.63] (2026-10-21T20:36:00Z); #1067676 [2.18, 1.61] (2026-10-21T20:36:00Z)",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"
   },
   {
