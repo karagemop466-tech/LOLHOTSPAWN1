@@ -531,6 +531,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     originated_n = counts.get("model", 0) + len(provisional)
 
     ceiling = _external_ceiling()
+    gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
     unres_rows = []
     for r in unresolved:
         unres_rows.append([
@@ -616,8 +617,10 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
     captured for audit comparison only and carry zero weight in any probability - see
     <a href="methodology.html">Method &amp; out-of-sample backtest</a>.</li>
-    <li><strong>Verification.</strong> {live_sources} of {len(src_status)} probed feeds answered on the last
-    build (<a href="sources.html">Sources</a>); every row links to its official source; and the publish gate
+    <li><strong>Verification.</strong> {live_sources} of the {len(src_status)} feeds the collector polls
+    answered on the last build (<a href="sources.html">Sources</a> &mdash; a separate, wider probe of
+    {ceiling["probed"]} venues including esportsbooks and aggregators is published there too). Every row
+    links to its official source, and the {gate_count}-check publish gate
     (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
     probabilities fail to sum to 100%, or an internal link breaks.</li>
   </ul>
