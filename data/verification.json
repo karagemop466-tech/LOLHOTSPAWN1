@@ -1,10 +1,20 @@
 {
- "generated_utc": "2026-10-23T15:50:42Z",
+ "generated_utc": "2026-10-23T15:53:37Z",
  "checks": [
   {
    "name": "dataset present",
    "ok": true,
    "detail": "241 matches loaded"
+  },
+  {
+   "name": "complete inventory reconciliation",
+   "ok": true,
+   "detail": "raw fixtures=241, published rows=241; exact ID multiset comparison"
+  },
+  {
+   "name": "finite probabilities and correctly named picks",
+   "ok": true,
+   "detail": "[]"
   },
   {
    "name": "every row links to its Hotspawn match card",
@@ -20,6 +30,21 @@
    "name": "pick matches the higher probability",
    "ok": true,
    "detail": "241 rows consistent; problems: []"
+  },
+  {
+   "name": "every match has a pick or is documented as unpickable",
+   "ok": true,
+   "detail": "241 rows: 241 with a pick (4 settlement-only), 0 documented unpickable"
+  },
+  {
+   "name": "settlement picks name a participant and claim no probability",
+   "ok": true,
+   "detail": "0 problems: []"
+  },
+  {
+   "name": "every market row has at least one venue with a source URL",
+   "ok": true,
+   "detail": "0 problems: []"
   },
   {
    "name": "method values are known",
@@ -39,7 +64,7 @@
   {
    "name": "all site pages exist",
    "ok": true,
-   "detail": "11/11 pages"
+   "detail": "12/12 pages"
   },
   {
    "name": "no broken internal links",
@@ -67,54 +92,54 @@
    "detail": "present: ['picks.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary']"
   },
   {
+   "name": "executive summary carries coverage, unresolved section and a where-to-find-picks block",
+   "ok": true,
+   "detail": "missing: []"
+  },
+  {
+   "name": "mobile navigation rendered on every page and wired in JS",
+   "ok": true,
+   "detail": "missing mobnav: []; menu+filter handlers present: True"
+  },
+  {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
    "detail": "backtest series rendered: 3,854"
   },
   {
+   "name": "curated flags cite only currently listed fixtures",
+   "ok": true,
+   "detail": "10 curated flags scanned; stale references: []"
+  },
+  {
+   "name": "stale bookmaker receipts are excluded from the consensus",
+   "ok": true,
+   "detail": "11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []"
+  },
+  {
+   "name": "no published market row is built from a rejected quote",
+   "ok": true,
+   "detail": "0 quote(s) rejected this build (placeholders / extremes); 0 extreme"
+  },
+  {
+   "name": "coverage matrix: every competition row links to a source",
+   "ok": true,
+   "detail": "27 competition rows; missing links: []"
+  },
+  {
+   "name": "external receipts validated against the dataset",
+   "ok": true,
+   "detail": "9 usable receipts, 0 rejected, 0 diverging >5.0pp"
+  },
+  {
+   "name": "coverage page shows every match method and the unresolved ledger",
+   "ok": true,
+   "detail": "coverage.html 39981 bytes"
+  },
+  {
    "name": "source availability recorded",
    "ok": true,
    "detail": "9/14 sources reachable on this build"
-  },
-  {
-   "name": "mobile menu handler exists",
-   "ok": true,
-   "detail": "app.js toggles #nav.open for .menu-btn and the bottom-tab More button"
-  },
-  {
-   "name": "picks search/filter/sort controls are wired",
-   "ok": true,
-   "detail": "emitted ids missing=[]; wired in app.js=['q', 'comp', 'window', 'sort', 'list', 'count']"
-  },
-  {
-   "name": "all pages carry the mobile tab bar",
-   "ok": true,
-   "detail": "bottom navigation present on every generated page"
-  },
-  {
-   "name": "summary page exposes the next-48h block and picks links",
-   "ok": true,
-   "detail": "executive summary links + #today anchor"
-  },
-  {
-   "name": "no look-ahead: ratings use only results before kick-off",
-   "ok": true,
-   "detail": "0 violations; examples: []"
-  },
-  {
-   "name": "probabilities stay inside the published clamp",
-   "ok": true,
-   "detail": "bounds=0.05-0.95; violations=[]"
-  },
-  {
-   "name": "every unresolved row documents its reason and league source",
-   "ok": true,
-   "detail": "4 unresolved rows; undocumented=[]"
-  },
-  {
-   "name": "every row has a fixture source; every pick has a results or market source",
-   "ok": true,
-   "detail": "241/241 rows; problems=[]"
   },
   {
    "name": "every Hotspawn fixture is in the dataset (1:1 ids)",
@@ -127,22 +152,22 @@
    "detail": "27 tournaments; differences: []"
   },
   {
-   "name": "every match appears on the picks page",
+   "name": "no look-ahead: ratings use only results before kick-off",
    "ok": true,
-   "detail": "241/241 ids rendered; missing=[]"
+   "detail": "0 violations; examples: []"
   }
  ],
  "passed": true,
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
- "unverified": 83,
+ "unverified": 84,
  "counts": {
-  "provisional": 79,
-  "model": 149,
+  "provisional": 80,
+  "model": 148,
   "unresolved": 4,
   "market": 9
  },
- "internal_links": 377,
+ "internal_links": 328,
  "lookahead_violations": 0
 }
