@@ -306,3 +306,42 @@ Starting point: `main` at `8b2fd7f` (session `b91181f0` merged its audit pass). 
 retained; this session does not revert its changes. Overlap is limited to `tools/site.py`, `assets/*` and
 `tools/model.py`, and it is additive: the mobile menu/filter fixes and the removal of archived receipts
 stay in place.
+
+### 1f377d7a — work completed, verification record
+
+| Task | Status | Evidence |
+|---|---|---|
+| T1 External-line source probe | done (code) / pending runner evidence | `tools/collect.py` now probes **28** endpoints: Pinnacle, Kalshi, Bovada, Polymarket, DraftKings, FanDuel, BetMGM, Betway, Unibet/Kambi, BetOnline, BetUS, MyBookie, GG.BET, BC.GAME, Thunderpick, Rivalry, Luckbox, EGamersWorld, Oddspedia, OddsPortal, BetExplorer, EsportsBets, VegasInsider, Action Network, The Odds API, plus inventory/reference feeds. Nothing is parsed unless a dedicated collector produced verified numbers; `sources.html` now separates "prices picks" from "probe only". Reachability for the new endpoints is recorded in `data/sources_status.json` by the first refresh after merge. |
+| T2 Price every fixture | done | 237/241 rows carry a pick. The 4 blanks are all `dqteams=Solid Gaming` fixtures in Komplettligaen; each now carries `expected_resolution` (walkover guidance, Leaguepedia source, explicitly "not a betting pick"). No baseline rating was invented for an unrated side. |
+| T3 Exec summary + unresolved section | done | `index.html` gains a jump grid (`#where`), an executive summary and a dedicated `#unresolved-summary` block listing every unresolved fixture with its reason, its settlement guidance and source links, plus a limitations table. |
+| T4 Mobile picks UX | done | Day-grouped cards, sticky day headers, `content-visibility` on cards, query-driven filters (`?window=today`, `?window=next7`, `?method=...`), reset control, and a 4-item bottom tab bar on every page. `tests/dashboard.cjs` covers all of it in jsdom. |
+| T5 Gate + tests | done | `tools/verify.py` now runs **26** assertions (was 17), all passing; `python3 -m unittest discover -s tests` 5/5; `NODE_PATH=… node tests/dashboard.cjs` passes. |
+| T6 Integration | in progress | this file, PR, merge, Pages check |
+
+**Model change and its provenance (line-by-line verification).**
+
+| Item | Value |
+|---|---|
+| Selection window (used to choose hyper-parameters) | 2025-07-01 → 2026-07-01, n = 16,289 series, Brier 0.2217 |
+| Test window (published) | series after 2026-07-01, n = 3,854 |
+| Previous settings (K=24, no margin term) | 64.14% accuracy, Brier 0.2211, log-loss 0.6322 |
+| Current settings (K=48 bo1 / K=40 multi-game × (1 + 0.5·ln(1+margin))) | 65.26% accuracy, Brier 0.2149, log-loss 0.6182 |
+| Shrinkage toward 1500 | removed; measured Brier 0.2176 with it versus 0.2150 without |
+
+Recomputation is reproducible from `data/raw/leaguepedia.json` with `python3 tools/model.py`
+(offline, no network); every number above is printed by that run.
+
+**New irregularity flagged (verified this session).** Hotspawn fixture `#1082002` in the Arabian
+Regional Championship qualifier has a participant literally named `DELETED`. Leaguepedia records
+`DELETED 0-1 S7raa` for the same page and kick-off time. Published on `flagged.html` with both sources;
+the original organisation is **not** inferred.
+
+**Settled cards.** 53 of the 65 stale cards have a final result already recorded in Leaguepedia; the
+result, score and league-page link are now attached to the card and marked `result on record`, so a
+historical card cannot be mistaken for a live bet.
+
+**Local verification limits (stated, not papered over).** This sandbox cannot reach Hotspawn, Pinnacle,
+Polymarket, Kalshi or Leaguepedia (TLS egress is blocked for everything except GitHub). All numbers above
+were recomputed from the committed `data/raw/*` snapshots; the new probes and any new market coverage can
+only be observed on the GitHub Actions runner, and that result is recorded below once the merge triggers
+`refresh.yml`.
