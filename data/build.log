@@ -1,15 +1,15 @@
-=== build 2026-10-23T16:24:21Z ===
-[16:24:22] hotspawn: 241 LoL fixtures
-[16:24:25] pinnacle: 138 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
-[16:24:25] kalshi: 8 CFTC match events (status=200)
-[16:24:26] bovada: 0 LoL moneylines (status=200)
-[16:24:26] kambi: 8 Unibet/Kambi LoL match moneylines (status=200)
-[16:25:32] leaguepedia ERROR: expected string or bytes-like object, got 'int'
-[16:25:32] lolesports: 80 Worlds events (status=200)
-[16:25:34] polymarket: 45 match-level markets (status=200)
-[16:25:42] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
-[16:26:13] rows=241 methods={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} joins=32
-[16:26:13] backtest n=3854 acc=0.6502 brier=0.2183
+=== build 2026-10-23T16:29:07Z ===
+[16:29:08] hotspawn: 241 LoL fixtures
+[16:29:11] pinnacle: 138 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
+[16:29:11] kalshi: 8 CFTC match events (status=200)
+[16:29:12] bovada: runner geo-filtered (200, 0 items); preserved 8 upcoming <12h quotes (age=0.4h)
+[16:29:12] kambi: 8 Unibet/Kambi LoL match moneylines (status=200)
+[16:30:23] leaguepedia: 34617 series rows, 11 pages with dqteams (err='')
+[16:30:23] lolesports: 80 Worlds events (status=200)
+[16:30:23] polymarket: 45 match-level markets (status=200)
+[16:30:33] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=429, Unibet/Kambi=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[16:31:08] rows=241 methods={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} joins=32
+[16:31:08] backtest n=3854 acc=0.6502 brier=0.2183
 {
  "total": 241,
  "counts": {
@@ -136,19 +136,19 @@ NON-EXACT JOINS 14
   competition-page | Team Gromp -> Team Gromp (Australian Team) | resolved within 'LCP/2027 Season/Promotion' to 'Team Gromp (Australian Team)' rather than 
 
 PRICED 9
-  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7558 {'home': 1.298, 'away': 3.61}
-  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7638 {'home': 1.256, 'away': 3.97}
-  Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.786 {'home': 1.25, 'away': 4.02}
-  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6381 {'home': 1.54, 'away': 2.55}
-  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4152 {'home': 2.24, 'away': 1.685}
-  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7139 {'home': 1.345, 'away': 3.31}
-  Worlds 2026 Main Event | ['LØS', 'T1'] 0.1405 {'home': 5.92, 'away': 1.133}
-  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4231 {'home': 2.23, 'away': 1.69}
+  Worlds 2026 Main Event | ['Gen.G', 'Invictus Gaming'] 0.7555 {'home': 1.298, 'away': 3.61}
+  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Top Esports'] 0.7634 {'home': 1.256, 'away': 3.97}
+  Worlds 2026 Main Event | ['Bilibili Gaming', 'Movistar KOI'] 0.7892 {'home': 1.25, 'away': 4.02}
+  Worlds 2026 Main Event | ["Anyone's Legend", 'Karmine Corp'] 0.6412 {'home': 1.54, 'away': 2.55}
+  Worlds 2026 Main Event | ['G2 Esports', 'Dplus KIA'] 0.4153 {'home': 2.24, 'away': 1.685}
+  Worlds 2026 Main Event | ['Team Liquid', 'CTBC Flying Oyster'] 0.7135 {'home': 1.345, 'away': 3.31}
+  Worlds 2026 Main Event | ['LØS', 'T1'] 0.1369 {'home': 5.92, 'away': 1.133}
+  Worlds 2026 Main Event | ['Team Secret Whales', 'LYON'] 0.4223 {'home': 2.23, 'away': 1.69}
   LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.33 None
-[16:26:13] flags: 27 items
-[16:26:13] site: wrote 12 pages to the published root
-[16:26:13] corroborate: 17 usable receipts (17 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
-[16:26:13] verification passed
+[16:31:08] flags: 27 items
+[16:31:08] site: wrote 12 pages to the published root
+[16:31:08] corroborate: 17 usable receipts (17 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
+[16:31:09] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -190,9 +190,9 @@ PASS source availability recorded :: 10/14 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 27 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
-[16:26:13] site: wrote 12 pages to the published root
-[16:26:14] corroborate: 17 usable receipts (17 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
-[16:26:14] verification passed
+[16:31:09] site: wrote 12 pages to the published root
+[16:31:09] corroborate: 17 usable receipts (17 agree / 0 diverge / 1 placeholder), 2/27 competitions priced externally
+[16:31:09] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
