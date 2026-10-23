@@ -20,7 +20,7 @@
   <div class="pagehead">
     <h1>Method</h1>
     <p class="sub">How every probability on this site is computed, backtested, and audited.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 15:37 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-23 15:45 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
     <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T11:42:37Z">Inventory collected: 2026-10-23T11:42:37Z. Check source timestamps before use.</p>
   </div>
   
@@ -32,7 +32,12 @@
     <li><strong>Tier 1 — Multi-venue real-money consensus.</strong> Live odds and contract books from
     <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12), </strong> are de-vigged proportionally and averaged using fixed editorial weights (not statistically optimized).</li>
     <li><strong>Tier 2 — Originated regional Elo lines.</strong> All recorded Leaguepedia series since
-    MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27; are processed chronologically with inactivity decay and shrinkage toward 1500.</li>
+    MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27; are processed chronologically. Best-of-one series move a rating by
+    K = 48.0; best-of-three and longer series move it by
+    K = 40.0 scaled by the margin of victory
+    (multiplier = 1 + 0.5 &middot; ln(1 + |game margin|)). Inactivity decay
+    begins after 45 days and reaches 1500 at
+    450 days.</li>
     <li><strong>Tier 3 — Provisional &amp; Unresolved quarantine.</strong> Thin-sample teams (&lt;5 series) are marked
     <em>provisional</em>; teams reported removed mid-split (<code>dqteams</code>) are quarantined in
     <a href="unresolved.html">Unresolved</a> rather than mispriced.</li>
@@ -45,10 +50,14 @@
   <h2>Formulas</h2>
   <p>Expected series win probability for team A:</p>
   <p class="formula">E<sub>A</sub> = 1 / (1 + 10^((R<sub>B</sub> - R<sub>A</sub>)/400))</p>
-  <p>Chronological rating update after each completed series (K = 24.0):</p>
-  <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
-  <p>Empirical Bayes shrinkage towards 1500 for sample size n (shrink = 5.0):</p>
-  <p class="formula">R<sub>eff</sub> = 1500 + (R - 1500) &middot; n / (n + 5.0)</p>
+  <p>Chronological rating update after each completed series:</p>
+  <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K<sub>bo</sub> &middot; M &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
+  <p class="small muted">K<sub>bo</sub> = 48.0 for best-of-one, 40.0
+  for best-of-three and longer. M = 1 for best-of-one; for multi-game series
+  M = 1 + 0.5 &middot; ln(1 + |score margin|).</p>
+  <p><strong>No shrinkage.</strong> Pulling small samples toward 1500 was measured out-of-sample and made the
+  probabilities worse (Brier 0.2176 with shrinkage versus 0.2150 without, n = 3,854), so thin
+  samples are labelled <a href="originated.html">provisional</a> instead of being shrunk.</p>
   <p>Inactivity decay begins after 45 days and reaches 1500 at
   450 days; originated probabilities are clamped to
   0.05&ndash;0.95.</p>
@@ -59,15 +68,20 @@
   <p class="lead">Every recorded series after <strong>2026-07-01</strong>
   (<strong>3,854</strong> out-of-sample series) is predicted strictly before its result updates
   either team's rating (zero look-ahead leakage).</p>
-  <div class="tablewrap"><table class=""><thead><tr><th>Sample</th><th>Series</th><th>Accuracy</th><th>Brier score</th><th>Log loss</th></tr></thead><tbody><tr><td data-label="Sample">All out-of-sample series</td><td data-label="Series">3,854</td><td data-label="Accuracy">64.1%</td><td data-label="Brier score">0.2211</td><td data-label="Log loss">0.6322</td></tr><tr><td data-label="Sample">Coin-flip baseline (50/50)</td><td data-label="Series">3,854</td><td data-label="Accuracy">50.0%</td><td data-label="Brier score">0.2500</td><td data-label="Log loss">0.6931</td></tr></tbody></table></div>
+  <p class="small muted"><strong>How the update sizes were chosen.</strong> K<sub>bo</sub>, M and the (now
+  disabled) shrinkage were selected on the disjoint validation window
+  <strong>2025-07-01..2026-07-01</strong> (<strong>16,289</strong>
+  series, Brier 0.2217), then frozen. The test numbers below are
+  measured only on series that start after the cutoff, so they are not fitted on the data they score.</p>
+  <div class="tablewrap"><table class=""><thead><tr><th>Sample</th><th>Series</th><th>Accuracy</th><th>Brier score</th><th>Log loss</th></tr></thead><tbody><tr><td data-label="Sample">Test window, current model</td><td data-label="Series">3,854</td><td data-label="Accuracy">65.3%</td><td data-label="Brier score">0.2149</td><td data-label="Log loss">0.6182</td></tr><tr><td data-label="Sample">Test window, previous settings (K=24, no margin term)</td><td data-label="Series">3,854</td><td data-label="Accuracy">64.1%</td><td data-label="Brier score">0.2211</td><td data-label="Log loss">0.6322</td></tr><tr><td data-label="Sample">Validation window, current model</td><td data-label="Series">16,289</td><td data-label="Accuracy">64.1%</td><td data-label="Brier score">0.2217</td><td data-label="Log loss">0.634</td></tr><tr><td data-label="Sample">Coin-flip baseline (50/50)</td><td data-label="Series">3,854</td><td data-label="Accuracy">50.0%</td><td data-label="Brier score">0.2500</td><td data-label="Log loss">0.6931</td></tr></tbody></table></div>
   
 <figure style="margin:1rem 0;">
   <svg viewBox="0 0 450 245" width="100%" style="max-width:560px;background:#111622;border:1px solid #263042;border-radius:10px;display:block;" role="img" aria-label="Out-of-sample probability calibration curve">
     <line x1="60" y1="210" x2="420" y2="210" stroke="#334155" stroke-width="1"/>
     <line x1="60" y1="40" x2="60" y2="210" stroke="#334155" stroke-width="1"/>
     <line x1="60" y1="210" x2="420" y2="40" stroke="#64748b" stroke-dasharray="5,5" stroke-width="1.5"/>
-    <polyline fill="none" stroke="#4f9cf9" stroke-width="2.5" points="88.7,185.0 163.8,145.9 235.5,111.7 311.4,75.9"/>
-    <circle cx="88.7" cy="185.0" r="5" fill="#4f9cf9"/><text x="88.7" y="175.0" font-size="11" fill="#e5e7eb" text-anchor="middle">57.4% (n=2251)</text><circle cx="163.8" cy="145.9" r="5" fill="#4f9cf9"/><text x="163.8" y="135.9" font-size="11" fill="#e5e7eb" text-anchor="middle">68.8% (n=982)</text><circle cx="235.5" cy="111.7" r="5" fill="#4f9cf9"/><text x="235.5" y="101.7" font-size="11" fill="#e5e7eb" text-anchor="middle">78.9% (n=479)</text><circle cx="311.4" cy="75.9" r="5" fill="#4f9cf9"/><text x="311.4" y="65.9" font-size="11" fill="#e5e7eb" text-anchor="middle">89.4% (n=142)</text>
+    <polyline fill="none" stroke="#4f9cf9" stroke-width="2.5" points="91.5,192.4 166.6,155.3 238.3,131.4 324.7,89.7"/>
+    <circle cx="91.5" cy="192.4" r="5" fill="#4f9cf9"/><text x="91.5" y="182.4" font-size="11" fill="#e5e7eb" text-anchor="middle">55.2% (n=1673)</text><circle cx="166.6" cy="155.3" r="5" fill="#4f9cf9"/><text x="166.6" y="145.3" font-size="11" fill="#e5e7eb" text-anchor="middle">66.1% (n=967)</text><circle cx="238.3" cy="131.4" r="5" fill="#4f9cf9"/><text x="238.3" y="121.4" font-size="11" fill="#e5e7eb" text-anchor="middle">73.1% (n=681)</text><circle cx="324.7" cy="89.7" r="5" fill="#4f9cf9"/><text x="324.7" y="79.7" font-size="11" fill="#e5e7eb" text-anchor="middle">85.4% (n=533)</text>
     <text x="60" y="232" font-size="11" fill="#94a3b8" text-anchor="middle">50%</text>
     <text x="240" y="232" font-size="11" fill="#94a3b8" text-anchor="middle">Predicted win probability (75%)</text>
     <text x="420" y="232" font-size="11" fill="#94a3b8" text-anchor="middle">100%</text>
@@ -77,7 +91,7 @@
   </svg>
   <figcaption class="small muted" style="margin-top:0.4rem;">Dashed diagonal = ideal calibration (predicted = realized win rate). Blue curve = out-of-sample pre-match Elo calibration across 3,854 series since 2026-07-01.</figcaption>
 </figure>
-  <div class="tablewrap"><table class=""><thead><tr><th>Favourite probability bucket</th><th>Series</th><th>Predicted (avg)</th><th>Actual realized win rate</th></tr></thead><tbody><tr><td data-label="Favourite probability bucket">50-60%</td><td data-label="Series">2,251</td><td data-label="Predicted (avg)">54.0%</td><td data-label="Actual realized win rate">57.4%</td></tr><tr><td data-label="Favourite probability bucket">60-70%</td><td data-label="Series">982</td><td data-label="Predicted (avg)">64.4%</td><td data-label="Actual realized win rate">68.8%</td></tr><tr><td data-label="Favourite probability bucket">70-80%</td><td data-label="Series">479</td><td data-label="Predicted (avg)">74.4%</td><td data-label="Actual realized win rate">78.9%</td></tr><tr><td data-label="Favourite probability bucket">80%+</td><td data-label="Series">142</td><td data-label="Predicted (avg)">84.9%</td><td data-label="Actual realized win rate">89.4%</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Favourite probability bucket</th><th>Series</th><th>Predicted (avg)</th><th>Actual realized win rate</th></tr></thead><tbody><tr><td data-label="Favourite probability bucket">50-60%</td><td data-label="Series">1,673</td><td data-label="Predicted (avg)">54.4%</td><td data-label="Actual realized win rate">55.2%</td></tr><tr><td data-label="Favourite probability bucket">60-70%</td><td data-label="Series">967</td><td data-label="Predicted (avg)">64.8%</td><td data-label="Actual realized win rate">66.1%</td></tr><tr><td data-label="Favourite probability bucket">70-80%</td><td data-label="Series">681</td><td data-label="Predicted (avg)">74.8%</td><td data-label="Actual realized win rate">73.1%</td></tr><tr><td data-label="Favourite probability bucket">80%+</td><td data-label="Series">533</td><td data-label="Predicted (avg)">86.8%</td><td data-label="Actual realized win rate">85.4%</td></tr></tbody></table></div>
   <p class="small muted">Companion within-tournament Bayesian Bradley-Terry cross-validation on active low-tier
   divisions (N = 1,595 2026 series, archived in <code>archive/session-8336fb7e/data/calibration.json</code>)
   likewise achieves 64.9% accuracy, 0.2145 Brier score (&minus;14.2% MSE vs 50/50), and 3.53% ECE.</p>
@@ -102,7 +116,12 @@
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
-<a class="mobile-picks" href="picks.html">All picks &rarr;</a>
+<nav class="tabbar" aria-label="Primary">
+  <a href="index.html"><span class="ti">&#9776;</span>Summary</a>
+  <a href="picks.html"><span class="ti">&#10003;</span>All picks</a>
+  <a href="unresolved.html"><span class="ti">!</span>Unresolved</a>
+  <a href="sources.html"><span class="ti">&#8942;</span>Sources</a>
+</nav>
 <script src="assets/app.js"></script>
 </body>
 </html>

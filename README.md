@@ -13,11 +13,11 @@ The site rebuilds itself every six hours from GitHub Actions; nothing here needs
 
 | Page | Contents |
 | --- | --- |
-| `index.html` | Executive summary, headline counts and in-site links to every list |
-| `picks.html` | All 264 matches, one card each, next kick-off first, with the pick, both win probabilities and source links |
+| `index.html` | Executive summary, a jump grid to every picks view, and a dedicated unresolved/limitations section |
+| `picks.html` | All 241 matches grouped by UTC day, one card each, next kick-off first, with search, method/tournament/window filters and a per-row source list |
 | `featured.html` | Matches with a real bookmaker price, the raw odds and the de-vig arithmetic |
 | `originated.html` | Matches with no market price: our own line, the Elo inputs and the team records behind it |
-| `unresolved.html` | Matches we refuse to price, why, and every limitation that applies to the rest of the list |
+| `unresolved.html` | Matches we refuse to price, why, the walkover guidance, and every limitation that applies to the rest of the list |
 | `competitions.html` | Coverage, source quality and staleness per tournament |
 | `teams.html` | Every team with its rating, record and competition |
 | `flagged.html` | Irregularities and unverified items, published rather than hidden |
@@ -51,9 +51,11 @@ Only `tools/` writes the published pages.
   returns every LoL card, including the long tail of national and academy leagues.
 - **Market lines** — Pinnacle's public guest API (LoL moneylines), with Polymarket used as an
   independent cross-check. Bookmaker odds are converted to decimal, then de-vigged proportionally.
-- **Originated lines** — Elo fitted on Leaguepedia series results, recency-weighted, with a
-  connected-opponent graph guard; teams with too little recorded history are labelled *provisional*
-  rather than silently given a confident number.
+- **Originated lines** — Elo fitted on Leaguepedia series results: K = 48 for best-of-one, K = 40 with a
+  margin-of-victory multiplier for multi-game series, inactivity decay, and a connected-opponent graph
+  guard; teams with too little recorded history are labelled *provisional* rather than silently given a
+  confident number. The update sizes were selected on a validation window (2025-07-01..2026-07-01) that is
+  disjoint from the published test window.
 - **Never used** — Hotspawn's `picked_percent`, its tiers, or its points as probability inputs.
 - **Blank beats wrong** — a value that cannot be confirmed from a primary source is left blank and
   listed on `flagged.html`; nothing is inferred to fill a gap.
@@ -61,9 +63,18 @@ Only `tools/` writes the published pages.
   passed. They stay on the list (so coverage matches Hotspawn exactly), are marked "start time passed"
   and are sorted after upcoming matches.
 
+### Mobile
+
+The published pages are mobile-first: a four-item bottom tab bar (Summary / All picks / Unresolved /
+Sources) on every page, a collapsible top menu, a jump grid on the summary page, day-grouped pick cards
+with `content-visibility` so long lists scroll cheaply, and `picks.html?window=today` /
+`?window=next7` / `?method=market` deep links that drive the same filters as the on-page controls.
+`tests/dashboard.cjs` exercises the menu, tab bar, search, empty state, all three filters, the reset
+button and the deep links in jsdom.
+
 ### Verification gate
 
-`tools/verify.py` fails the build unless, at minimum: all 264 rows parse, every row carries a
+`tools/verify.py` fails the build unless, at minimum: all 241 rows parse, every row carries a
 Hotspawn match-card link, both probabilities sum to 100 %, the published pick is the higher-probability
 side, ids are unique, `picks.csv` mirrors the dataset, all 11 pages exist, every internal link
 resolves, no `None`/empty value is rendered, every match appears on `picks.html`, the executive

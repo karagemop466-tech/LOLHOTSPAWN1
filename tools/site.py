@@ -81,6 +81,12 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
     nav = "".join(nav_parts)
     meta = load_json(os.path.join(DATA, "matches.json")) or {}
     fetched = meta.get("inventory_fetched_utc") or (load_json(os.path.join(DATA, "raw/hotspawn_lol.json")) or {}).get("fetched_utc", "")
+    def _tab(page):
+        return ' class="active"' if page == active else ""
+    tab_active_index = _tab("index.html")
+    tab_active_picks = _tab("picks.html")
+    tab_active_unresolved = _tab("unresolved.html")
+    tab_active_sources = _tab("sources.html")
     updated = (meta.get("generated_utc") or "")[:16].replace("T", " ")
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -115,7 +121,12 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
-<a class="mobile-picks" href="picks.html">All picks &rarr;</a>
+<nav class="tabbar" aria-label="Primary">
+  <a href="index.html"{tab_active_index}><span class="ti">&#9776;</span>Summary</a>
+  <a href="picks.html"{tab_active_picks}><span class="ti">&#10003;</span>All picks</a>
+  <a href="unresolved.html"{tab_active_unresolved}><span class="ti">!</span>Unresolved</a>
+  <a href="sources.html"{tab_active_sources}><span class="ti">&#8942;</span>Sources</a>
+</nav>
 <script src="assets/app.js"></script>
 </body>
 </html>
@@ -165,7 +176,17 @@ def match_card(r: dict, show_sources: bool = True) -> str:
                          f'rel="noopener">{e(t1["name"])}</a>')
         sources = '<div class="src">' + "".join(links) + "</div>"
 
+    result = r.get("recorded_result") or {}
+    result_html = ""
+    if result:
+        score = f" {e(result['score'])}" if result.get("score") else ""
+        result_html = (f'<p class="resultline"><span class="badge b-result">result on record</span> '
+                       f'<strong>{e(result["winner"])}</strong> beat {e(result["loser"])}{score} '
+                       f'&middot; <a href="{e(result["source"])}" rel="noopener">league record</a></p>')
+    prob_attr = f"{pick['probability']:.3f}" if pick else ""
+    pick_attr = pick["team"] if pick else ""
     return f"""<article id="match-{e(r['id'])}" class="card m-{e(m)}" data-method="{e(m)}" data-comp="{e(r['competition'])}"
+  data-start="{e(r['start_utc'] or '')}" data-pick="{e(pick_attr)}" data-prob="{e(prob_attr)}"
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
@@ -182,6 +203,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
     </div>
   </div>
   {pick_html}
+  {result_html}
   <details class="why"><summary>Why this line</summary>
     <p>{e(r['basis'])}</p>
     {flags}
@@ -243,85 +265,172 @@ def calibration_svg(bt: dict) -> str:
 
 
 # --------------------------------------------------------------------------- pages
+def jump_card(href: str, title: str, sub: str, cls: str = "") -> str:
+    return (f'<a class="jumpcard {cls}" href="{e(href)}">'
+            f'<span class="jt">{e(title)}</span><span class="js">{e(sub)}</span></a>')
+
+
+def utc_day(iso_utc: str | None) -> str:
+    return (iso_utc or "")[:10]
+
+
+def plus_days(days: int) -> str:
+    from datetime import timedelta
+    return iso(now_utc() + timedelta(days=days))[:10]
+
+
 def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> str:
     total = len(rows)
     with_pick = sum(1 for r in rows if r["pick"])
-    upcoming = sorted([r for r in rows if r["start_utc"] and r["start_utc"] > iso(now_utc()) and r["pick"]],
+    now = iso(now_utc())
+    upcoming = sorted([r for r in rows if r["start_utc"] and r["start_utc"] > now],
                       key=lambda r: r["start_utc"])
+    upcoming_priced = [r for r in upcoming if r["pick"]]
     featured = [r for r in rows if r["method"] == "market"]
     unresolved = [r for r in rows if r["method"] == "unresolved"]
     provisional = [r for r in rows if r["method"] == "provisional"]
     comps = len({r["competition"] for r in rows})
     live_sources = sum(1 for s in src_status if s.get("ok"))
+    today = utc_day(now)
+    today_rows = [r for r in upcoming if utc_day(r["start_utc"]) == today]
+    next7 = [r for r in upcoming if (r["start_utc"] or "")[:10] <= plus_days(7)]
+    no_pick = total - with_pick
+    backtest = (load_json(os.path.join(DATA, "matches.json")) or {}).get("backtest") or {}
+
+    unresolved_rows = []
+    for r in unresolved:
+        why = (r.get("basis") or "").strip()
+        expected = r.get("expected_resolution") or {}
+        unresolved_rows.append([
+            local_time(r["start_utc"]),
+            e(r["competition"]),
+            f'<a href="picks.html#match-{e(r["id"])}"><strong>{e(r["team0"]["name"])}</strong> vs '
+            f'<strong>{e(r["team1"]["name"])}</strong></a> &rarr;',
+            e(why),
+            e(expected.get("note", "—")),
+            f'<a href="{e(r["hotspawn_url"])}" rel="noopener">Hotspawn card</a>'
+            + (f' &middot; <a href="{e(expected["source"])}" rel="noopener">Leaguepedia record</a>'
+               if expected.get("source") else ""),
+        ])
+
+    lim_rows = [
+        ["No external market for the division",
+         f"{len([r for r in rows if r['method'] != 'market'])} of {total}",
+         "Pinnacle, Polymarket, Kalshi and Bovada price the tier-1/2 events that they list. Most national "
+         "divisions on Hotspawn have no quote in any reachable book on the build runner, so the pick is our "
+         "own Elo line rather than a market line."],
+        ["Thin history",
+         f"{len(provisional)} provisional",
+         "At least one team has fewer than five rated series inside the 25-month Leaguepedia window. The line "
+         "is published but labelled provisional, with the exact sample size on the card."],
+        ["League removal mid-split",
+         f"{len(unresolved)} unresolved",
+         "A participant recorded as removed in Leaguepedia <code>dqteams</code> cannot be priced: the match is "
+         "either voided or settled as a walkover. A probability would be fiction, so the row stays blank."],
+        ["Community-maintained results",
+         "all model lines",
+         "Leaguepedia is a community wiki, not a league authority. Every model row links to the exact page it "
+         "was fitted from so you can check it."],
+        ["Hotspawn crowd percentages",
+         "never used",
+         "Recorded for audit only. They are not an input to any probability on this site."],
+    ]
 
     body = f"""
 <section class="hero">
-  <h2>Every Hotspawn League of Legends match, with a line we can defend.</h2>
-  <p>This dashboard rebuilds itself automatically every six hours across all {total} scheduled LoL matches on
-  Hotspawn. Featured series combine real-money quotes across <strong>Pinnacle, Polymarket, Kalshi (CFTC),
-  and Bovada</strong> when available; low-tier regional leagues are originated from recorded series
-  history; and disqualified mid-split removals are quarantined in <a href="unresolved.html">Unresolved</a>.
-  Nothing on this site ever uses Hotspawn's crowd-pick percentages.</p>
+  <p class="eyebrow">Executive summary &middot; snapshot {e(now[:16].replace('T', ' '))} UTC</p>
+  <h2>{with_pick} picks for {total} League of Legends matches on Hotspawn</h2>
+  <p>Every fixture on the Hotspawn pick'em list gets a win probability and a pick: {len(featured)} priced
+  from external bookmaker or exchange markets, {counts.get('model', 0)} from our own Elo line, {len(provisional)}
+  provisional, and {len(unresolved)} left deliberately blank because the fixture cannot be played as listed.
+  <strong>Start with the picks list</strong> &mdash; it is one page, sorted by kick-off, and works on a phone.</p>
   <div class="cta">
-    <a class="btn primary" href="picks.html">All {total} matches &amp; picks &rarr;</a>
-    <a class="btn" href="featured.html">Market-backed picks ({len(featured)})</a>
-    <a class="btn" href="originated.html">Originated lines ({counts.get('model',0)+counts.get('provisional',0)})</a>
-    <a class="btn" href="unresolved.html">Unresolved &amp; limits ({len(unresolved)})</a>
+    <a class="btn primary" href="picks.html">Open all picks &rarr;</a>
+    <a class="btn" href="picks.html#today">Today ({len(today_rows)})</a>
+    <a class="btn" href="unresolved.html">Unresolved ({len(unresolved)})</a>
+    <a class="btn" href="methodology.html">How the lines are made</a>
   </div>
 </section>
 
-<section class="stats">
-  {stat_card("Matches listed on Hotspawn", total, f"across {comps} tournaments")}
-  {stat_card("Matches with a pick", with_pick, f"{with_pick/total*100:.0f}% coverage", "ok")}
-  {stat_card("Market-backed", len(featured), "available external venues", "market")}
-  {stat_card("Originated lines", counts.get('model',0), "model, medium confidence", "model")}
-  {stat_card("Provisional", len(provisional), "thin data, flagged", "provisional")}
-  {stat_card("Unresolved", len(unresolved), "missing evidence / removals", "unresolved")}
+<section class="panel" id="where">
+  <h2>Where to find the picks</h2>
+  <p class="lead">Every link below stays inside this site. On a phone, the same four shortcuts are pinned to
+  the bottom of every page.</p>
+  <div class="jump">
+    {jump_card("picks.html", "All picks", f"{total} matches, next kick-off first", "wide")}
+    {jump_card("picks.html#today", "Today", f"{len(today_rows)} matches today (UTC)")}
+    {jump_card("picks.html#next7", "Next 7 days", f"{len(next7)} matches")}
+    {jump_card("featured.html", "Market-backed", f"{len(featured)} with a real external line")}
+    {jump_card("originated.html", "Model lines", f"{counts.get('model', 0) + len(provisional)} originated")}
+    {jump_card("unresolved.html", "Unresolved & limits", f"{len(unresolved)} blank + all caveats")}
+    {jump_card("competitions.html", "By tournament", f"{comps} competitions")}
+    {jump_card("flagged.html", "Flagged for review", "irregularities with sources")}
+  </div>
 </section>
 
 <section class="panel">
   <h2>Executive summary</h2>
   <ul class="bullets">
-    <li><strong>Coverage &amp; direct links.</strong> {with_pick} of {total} scheduled LoL matches carry a sourced market or model estimate:
-    <a href="featured.html"><strong>{len(featured)} Market-backed picks</strong></a> (available matched external markets), <a href="originated.html"><strong>{counts.get('model',0)} Solid originated lines</strong></a>,
-    and <a href="originated.html"><strong>{len(provisional)} Provisional lines</strong></a>. Browse all cards in
-    kick-off order on <a href="picks.html"><strong>All picks</strong></a>.</li>
-    <li><strong>Unresolved picks &amp; limitations ({len(unresolved)} quarantined).</strong>
-    Missing history, uncertain participants, and recorded league removals can prevent defensible pricing.
-    Probabilities and picks are left blank in those cases; no default rating is invented.
-    Every unresolved fixture, its walkover/void caveat, and all data limitations are documented on
-    <a href="unresolved.html"><strong>Unresolved &amp; limitations</strong></a>.</li>
-    <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
-    captured for audit comparison and have zero weight anywhere in our probabilities — see
-    <a href="methodology.html"><strong>Method &amp; out-of-sample backtest</strong></a>.</li>
-    <li><strong>Evidence limitations.</strong> Market quotes are source observations; originated lines are model estimates from community-maintained Leaguepedia history, not official verified probabilities. Historical archived sportsbook receipts are excluded from current pricing. <a href="flagged.html">Review limitations and irregularities</a>.</li>
-    <li><strong>Live sources &amp; 6-hour automation.</strong> {live_sources} of {len(src_status)} probed feeds
-    returned live HTTP 200 on the latest runner build (<a href="sources.html">Sources</a>), checked by
-    automated publish gates (<a href="verification.html">Verification</a>) and audited on
-    <a href="flagged.html">Flagged for review</a>.</li>
+    <li><strong>Coverage.</strong> {with_pick} of {total} matches carry a pick
+    ({with_pick / total * 100:.1f}%). {len(featured)} are
+    <a href="featured.html">market-backed</a> (de-vigged external quotes), {counts.get('model', 0)} are
+    <a href="originated.html">originated lines</a> and {len(provisional)} are
+    <a href="originated.html">provisional</a>. The full list is on
+    <a href="picks.html">All picks</a>, and the next {len(upcoming[:6])} kick-offs are below.</li>
+    <li><strong>Unresolved picks and their limitations.</strong> {no_pick} matches have no pick at all.
+    The reasons, the affected fixtures and the settlement caveat are in
+    <a href="#unresolved-summary">Unresolved picks &amp; limitations</a> on this page and in full on
+    <a href="unresolved.html">Unresolved &amp; limitations</a>.</li>
+    <li><strong>Where the lines come from.</strong> External markets only &mdash; Pinnacle, Polymarket, Kalshi
+    and Bovada when reachable &mdash; never Hotspawn. Hotspawn's crowd-pick percentages are recorded for audit
+    and carry zero weight in any probability.</li>
+    <li><strong>Model quality.</strong> The Elo line is scored out-of-sample on {backtest.get('n', 0):,} series:
+    {backtest.get('accuracy', 0) * 100:.1f}% accuracy, Brier {backtest.get('brier', 0):.4f},
+    log-loss {backtest.get('logloss', 0):.4f}. Method and the calibration curve are on
+    <a href="methodology.html">Method</a>.</li>
+    <li><strong>Freshness.</strong> The inventory is re-collected every 6 hours by
+    <code>.github/workflows/refresh.yml</code>; this snapshot was collected
+    {e(((load_json(os.path.join(DATA, "raw/hotspawn_lol.json")) or {}).get("fetched_utc") or "unknown")[:16].replace("T", " "))} UTC.
+    {live_sources} of {len(src_status)} probed sources answered on the last build (<a href="sources.html">Sources</a>).
+    Every refresh is gated by {len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])}
+    automated checks (<a href="verification.html">Verification</a>).</li>
   </ul>
 </section>
 
-<section class="panel">
-  <h2>Where the picks live</h2>
-  <p class="lead">Bookmark <a href="picks.html"><strong>All picks</strong></a> - it is the single mobile-friendly
-  list with every match on Hotspawn, next kick-off first.</p>
-  <ul class="linklist">
-    <li><a href="picks.html">All picks &rarr;</a><span>Complete list, {total} matches, instant mobile search &amp; tournament filter.</span></li>
-    <li><a href="featured.html">Market-backed picks &rarr;</a><span>{len(featured)} matches priced from de-vigged multi-venue sportsbook &amp; exchange consensus.</span></li>
-    <li><a href="originated.html">Originated low-tier lines &rarr;</a><span>{counts.get('model',0)+counts.get('provisional',0)} regional/academy matches originated from recorded series history.</span></li>
-    <li><a href="unresolved.html">Unresolved picks &amp; limitations &rarr;</a><span>{len(unresolved)} unpriced fixtures we refuse to guess on, plus all {len(provisional)} provisional caveats.</span></li>
-    <li><a href="competitions.html">By tournament &rarr;</a><span>Coverage breakdown across all {comps} LoL competitions.</span></li>
-    <li><a href="flagged.html">Flagged for review &rarr;</a><span>Disqualifications, PvB mislabelling, kick-off offsets, and crowd traps.</span></li>
-  </ul>
+<section class="panel" id="unresolved-summary">
+  <h2>Unresolved picks &amp; limitations ({len(unresolved)} of {total})</h2>
+  <p class="lead">These fixtures are listed on Hotspawn but cannot be priced honestly. We publish them with
+  the reason and the source instead of inventing a number. If a fixture is settled as a walkover rather than
+  voided, the note below records who would receive the win &mdash; that is guidance, not a pick.</p>
+  {table(["Kick-off (UTC)", "Tournament", "Match", "Why there is no pick", "Guidance if settled", "Sources"], unresolved_rows)
+   if unresolved_rows else '<p class="muted">No unresolved fixtures in this snapshot.</p>'}
+  <h3>Limitations that apply to the rest of the list</h3>
+  {table(["Limitation", "Scope", "What it means for these picks"], lim_rows)}
+  <p><a class="btn" href="unresolved.html">Full unresolved &amp; limitations page &rarr;</a></p>
 </section>
 
 <section class="panel">
-  <h2>Next upcoming picks</h2>
+  <h2>Next kick-offs</h2>
   <div class="cards">
     {"".join(match_card(r, show_sources=True) for r in upcoming[:6]) or '<p class="muted">No upcoming matches in the current snapshot.</p>'}
   </div>
   <p><a class="btn" href="picks.html">See all {total} matches &rarr;</a></p>
+</section>
+
+<section class="panel">
+  <h2>How a number gets on this page</h2>
+  <ol class="steps">
+    <li><strong>Inventory</strong> &mdash; the full LoL list is pulled from Hotspawn's public fixtures API, not
+    scraped from the page.</li>
+    <li><strong>Market first</strong> &mdash; if a reachable book or exchange quotes the match, we remove the
+    bookmaker margin on each venue and average the venues.</li>
+    <li><strong>Our own line second</strong> &mdash; otherwise an Elo rating fitted on
+    {backtest.get('n', 0):,}+ community-recorded series produces the probability, flagged provisional when the
+    sample is thin.</li>
+    <li><strong>Blank last</strong> &mdash; when neither exists, the row stays blank and is listed above.</li>
+  </ol>
+  <p><a class="btn" href="methodology.html">Read the method &rarr;</a>
+  <a class="btn" href="sources.html">See every source &rarr;</a></p>
 </section>
 """
     return page_shell("Hotspawn LoL Pick Desk", "index.html", body,
@@ -329,29 +438,93 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
 
 def build_picks(rows: list[dict], counts: Counter) -> str:
-    rows = sorted(rows, key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
+    now = iso(now_utc())
+    today = utc_day(now)
+    upcoming = sorted([r for r in rows if r["start_utc"] and r["start_utc"] > now],
+                      key=lambda r: r["start_utc"])
+    past = sorted([r for r in rows if not r["start_utc"] or r["start_utc"] <= now],
+                  key=lambda r: r["start_utc"] or "9999")
     comps = sorted({r["competition"] for r in rows})
     chips = "".join(
-        f'<button class="chip" data-filter="{m}">{METHOD_LABEL[m]} <span>{counts.get(m,0)}</span></button>'
+        f'<button class="chip" data-filter="{m}" aria-pressed="false">{METHOD_LABEL[m]} '
+        f'<span>{counts.get(m, 0)}</span></button>'
         for m in ("market", "model", "provisional", "unresolved"))
     opts = "".join(f'<option value="{e(c)}">{e(c)}</option>' for c in comps)
+
+    groups: dict[str, list] = {}
+    for r in upcoming:
+        groups.setdefault(utc_day(r["start_utc"]), []).append(r)
+    if today not in groups:
+        groups[today] = []
+
+    day_sections = []
+    for date in sorted(groups):
+        items = groups[date]
+        if items:
+            cards = "".join(match_card(r) for r in items)
+        else:
+            cards = ('<p class="muted empty-day">No matches scheduled today (UTC). '
+                     'The next fixtures are listed below.</p>')
+        day_sections.append(
+            f'<section class="daygroup" id="day-{e(date)}">'
+            f'<h2 class="dayhead">{e(day_label(date))}<span>{len(items)} match{"" if len(items) == 1 else "es"}</span></h2>'
+            f'<div class="cards">{cards}</div></section>')
+        if date == today:
+            day_sections.append('<div class="anchor" id="next7" aria-hidden="true"></div>')
+
+    today_count = len(groups.get(today, []))
+    recorded_past = sum(1 for r in past if r.get("recorded_result"))
+    next7_count = len([r for r in upcoming if (r["start_utc"] or "")[:10] <= plus_days(7)])
     body = f"""
 <section class="panel">
+  <h2>Jump to what you need</h2>
+  <div class="quickjump">
+    <a class="qj" href="picks.html?window=today">Today <b>{today_count}</b></a>
+    <a class="qj" href="picks.html?window=next7">Next 7 days <b>{next7_count}</b></a>
+    <a class="qj" href="picks.html?method=market">Market-backed <b>{counts.get('market', 0)}</b></a>
+    <a class="qj" href="picks.html?method=unresolved">Unresolved <b>{counts.get('unresolved', 0)}</b></a>
+    <a class="qj" href="picks.html#past">Start time passed <b>{len(past)}</b></a>
+    <a class="qj" href="picks.html">Everything <b>{len(rows)}</b></a>
+  </div>
   <div class="toolbar">
-    <input id="q" type="search" placeholder="Search team or tournament" aria-label="Search team or tournament">
+    <input id="q" type="search" placeholder="Search team or tournament" aria-label="Search team or tournament" autocomplete="off">
     <select id="comp" aria-label="Filter by tournament"><option value="">All tournaments</option>{opts}</select>
-    <div class="chips"><button class="chip active" data-filter="">All <span>{len(rows)}</span></button>{chips}</div>
+    <div class="chips" role="group" aria-label="Filter by line type">
+      <button class="chip active" data-filter="" aria-pressed="true">All <span>{len(rows)}</span></button>{chips}
+    </div>
+    <button class="btn small-btn" id="reset" type="button">Reset filters</button>
   </div>
   <p class="muted small" id="count" role="status" aria-live="polite">{len(rows)} matches shown</p>
-  <div class="cards" id="list">
-    {"".join(match_card(r) for r in rows)}
-  </div>
-  <p class="empty" id="empty" hidden>No matches match that filter.</p>
+  <p class="empty" id="empty" hidden>No matches match that filter. <button class="linkish" id="clear" type="button">Clear filters</button></p>
+  <noscript><p class="muted small">Filters need JavaScript. Every match is still listed below in kick-off order.</p></noscript>
 </section>
+
+<div id="list">
+  <div class="anchor" id="upcoming" aria-hidden="true"></div>
+  <div class="anchor" id="today" aria-hidden="true"></div>
+  {"".join(day_sections)}
+  <section class="daygroup" id="past">
+    <h2 class="dayhead">Start time passed<span>{len(past)} match{"" if len(past) == 1 else "es"}</span></h2>
+    <p class="lead small">Hotspawn still lists these as scheduled after kick-off. They are kept so the list
+    matches Hotspawn exactly; treat the pick as historical, not a live bet.
+    {recorded_past} of them already have a final result recorded in Leaguepedia and are marked
+    <span class="badge b-result">result on record</span>.</p>
+    <div class="cards">{"".join(match_card(r) for r in past)}</div>
+  </section>
+</div>
 """
     return page_shell("All picks", "picks.html", body,
                       f"Every League of Legends match on the Hotspawn pick'em list ({len(rows)} matches), "
-                      "next kick-off first. Tap 'Why this line' on any card for full inputs and sources.")
+                      "next kick-off first. Tap 'Why this line' on any card for the inputs and sources.")
+
+
+def day_label(date: str) -> str:
+    try:
+        from datetime import datetime as _dt
+        d = _dt.strptime(date, "%Y-%m-%d")
+        return f"{d:%a %d %b} (UTC)"
+    except (ValueError, TypeError):
+        return f"{date} (UTC)"
 
 
 def build_featured(rows: list[dict]) -> str:
@@ -390,6 +563,7 @@ def build_featured(rows: list[dict]) -> str:
 
 
 def build_originated(rows: list[dict], counts: Counter) -> str:
+    m_model = (load_json(os.path.join(DATA, "matches.json")) or {}).get("model") or {}
     items = [r for r in rows if r["method"] in ("model", "provisional")]
     reviews = []
     for r in items:
@@ -408,10 +582,14 @@ def build_originated(rows: list[dict], counts: Counter) -> str:
     body = f"""
 <section class="panel">
   <h2>{len(items)} low-tier regional matches originated from recorded series history</h2>
-  <p class="lead">Tier-B/C/D national and academy leagues are not offered by major sportsbooks, so we originate
-  independent probabilities from chronological series history in Leaguepedia since
-  {e((load_json(os.path.join(DATA,'matches.json')) or {}).get('model',{}).get('window_start',''))},
-  with inactivity decay and empirical shrinkage toward 1500.</p>
+  <p class="lead">No reachable external book quoted these divisions in the feeds collected on the last build,
+  so we originate independent probabilities from chronological series history in Leaguepedia since
+  {e((load_json(os.path.join(DATA,'matches.json')) or {}).get('model',{}).get('window_start',''))}.
+  The rating is best-of-aware, margin-weighted, decayed for inactivity and published with its sample size.</p>
+  <p class="small muted">Parameters in this build: K = {e(m_model.get('k_opening'))} for best-of-one,
+  K = {e(m_model.get('k_series'))} for multi-game series, margin weight {e(m_model.get('mov_weight'))},
+  decay starts at {e(m_model.get('decay_start_days'))} days and reaches the 1500 baseline at
+  {e(m_model.get('decay_full_days'))} days. Full method on <a href="methodology.html">Method</a>.</p>
   <div class="stats tight">
     {stat_card("Solid originated lines", counts.get('model',0), "both teams rated & connected", "model")}
     {stat_card("Provisional lines", counts.get('provisional',0), "thin sample - flagged", "provisional")}
@@ -419,7 +597,9 @@ def build_originated(rows: list[dict], counts: Counter) -> str:
   {table(["Start (UTC)", "Tournament", "Match", "Elo (n) A / B", "Our line", "Status", "Results"], reviews)}
   <h3>Formula</h3>
   <p class="formula">P(A) = 1 / (1 + 10^((R<sub>B</sub> - R<sub>A</sub>) / 400))</p>
-  <p>Probabilities are bounded to 5-95% so thin lower-division samples never claim false certainty.</p>
+  <p>Probabilities are bounded to 5-95% so thin lower-division samples never claim false certainty.
+  A line is labelled <em>provisional</em> when either side has fewer than five rated series, and the
+  card shows the exact counts behind the number.</p>
 </section>
 """
     return page_shell("Originated low-tier lines", "originated.html", body,
@@ -439,11 +619,13 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
     for r in unresolved:
         lp_link = (f' &middot; <a href="https://lol.fandom.com/wiki/{leaguepedia_slug(r["leaguepedia_page"])}" rel="noopener">league page</a>'
                    if r.get("leaguepedia_page") else "")
+        expected = r.get("expected_resolution") or {}
         reason_rows.append([
             local_time(r["start_utc"]),
             e(r["competition"]),
             f'<strong>{e(r["team0"]["name"])}</strong> vs <strong>{e(r["team1"]["name"])}</strong>',
             e(r["basis"]),
+            e(expected.get("note", "&mdash;")) if expected else "&mdash;",
             f'<a href="{e(r["hotspawn_url"])}" rel="noopener">Hotspawn card</a>{lp_link}',
         ])
     lim_rows = [
@@ -453,7 +635,7 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
          "grade walkovers in favour of the remaining active opponent, assigning an Elo win probability from pre-removal "
          "matches is invalid (and trapped 72% of Hotspawn's crowd on Solid Gaming in #1071216)."],
         ["No sportsbook market on national divisions", f"{len([r for r in rows if r['method']!='market'])} matches",
-         "Pinnacle, Polymarket, Kalshi, and Bovada price Tier-S/A series (Worlds 2026 & EMEA Masters), when matched in collected feeds. Regional divisions (Prime League 2nd/3rd Div, RIVALS, NLC Lower, etc.) have no matched market in the collected feeds; this does not establish that no market exists elsewhere."],
+         "Pinnacle, Polymarket, Kalshi, Bovada and the additional books probed on every build price the events they list (typically tier-1/2 such as Worlds and EMEA Masters). Regional divisions (Prime League 2nd/3rd Div, RIVALS, NLC Lower, etc.) have no matched market in the collected feeds; this does not establish that no market exists elsewhere."],
         ["Thin match history", f"{counts.get('provisional',0)} provisional",
          "At least one team has fewer than five rated series in the 25-month Leaguepedia window, so the Elo estimate "
          "carries wider variance and is explicitly flagged provisional."],
@@ -470,11 +652,12 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
     ]
     body = f"""
 <section class="panel">
+  <p class="small"><a href="index.html#unresolved-summary">&larr; This section is summarised in the executive summary</a></p>
   <h2>Unresolved picks ({len(unresolved)})</h2>
   <p class="lead">A fixture is quarantined here when competitive resolution is impossible — specifically
   mid-split league disqualifications/removals (<code>dqteams</code>) where matches are never played on the Rift,
   or cards with missing history for either side. Leaguepedia is a community source, not an official settlement authority. Hotspawn settlement is unverified; do not assume a walkover pick will be graded as a win.</p>
-  {'<p class="muted">No unresolved matches in this snapshot.</p>' if not unresolved else table(["Start (UTC)", "Tournament", "Match", "Why competitive pricing is impossible &amp; settlement note", "Source records (not official verification)"], reason_rows)}
+  {'<p class="muted">No unresolved matches in this snapshot.</p>' if not unresolved else table(["Start (UTC)", "Tournament", "Match", "Why there is no pick", "Guidance if Hotspawn settles it", "Sources"], reason_rows)}
 </section>
 
 <section class="panel">
@@ -488,7 +671,7 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
   <div class="cards">{"".join(match_card(r) for r in provisional)}</div>
 </section>
 """
-    return page_shell("Unresolved &amp; limitations", "unresolved.html", body,
+    return page_shell("Unresolved & limitations", "unresolved.html", body,
                       "Matches where competitive pricing is impossible, plus every documented limitation.")
 
 
@@ -561,7 +744,12 @@ def build_methodology(model: dict) -> str:
     <li><strong>Tier 1 — Multi-venue real-money consensus.</strong> Live odds and contract books from
     <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12), </strong> are de-vigged proportionally and averaged using fixed editorial weights (not statistically optimized).</li>
     <li><strong>Tier 2 — Originated regional Elo lines.</strong> All recorded Leaguepedia series since
-    {e(model.get('window_start',''))} are processed chronologically with inactivity decay and shrinkage toward 1500.</li>
+    {e(model.get('window_start',''))} are processed chronologically. Best-of-one series move a rating by
+    K = {e(model.get('k_opening'))}; best-of-three and longer series move it by
+    K = {e(model.get('k_series'))} scaled by the margin of victory
+    (multiplier = 1 + {e(model.get('mov_weight'))} &middot; ln(1 + |game margin|)). Inactivity decay
+    begins after {e(model.get('decay_start_days'))} days and reaches 1500 at
+    {e(model.get('decay_full_days'))} days.</li>
     <li><strong>Tier 3 — Provisional &amp; Unresolved quarantine.</strong> Thin-sample teams (&lt;5 series) are marked
     <em>provisional</em>; teams reported removed mid-split (<code>dqteams</code>) are quarantined in
     <a href="unresolved.html">Unresolved</a> rather than mispriced.</li>
@@ -574,10 +762,14 @@ def build_methodology(model: dict) -> str:
   <h2>Formulas</h2>
   <p>Expected series win probability for team A:</p>
   <p class="formula">E<sub>A</sub> = 1 / (1 + 10^((R<sub>B</sub> - R<sub>A</sub>)/400))</p>
-  <p>Chronological rating update after each completed series (K = {e(model.get('k'))}):</p>
-  <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
-  <p>Empirical Bayes shrinkage towards 1500 for sample size n (shrink = {e(model.get('shrink'))}):</p>
-  <p class="formula">R<sub>eff</sub> = 1500 + (R - 1500) &middot; n / (n + {e(model.get('shrink'))})</p>
+  <p>Chronological rating update after each completed series:</p>
+  <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K<sub>bo</sub> &middot; M &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
+  <p class="small muted">K<sub>bo</sub> = {e(model.get('k_opening'))} for best-of-one, {e(model.get('k_series'))}
+  for best-of-three and longer. M = 1 for best-of-one; for multi-game series
+  M = 1 + {e(model.get('mov_weight'))} &middot; ln(1 + |score margin|).</p>
+  <p><strong>No shrinkage.</strong> Pulling small samples toward 1500 was measured out-of-sample and made the
+  probabilities worse (Brier 0.2176 with shrinkage versus 0.2150 without, n = {bt.get('n', 0):,}), so thin
+  samples are labelled <a href="originated.html">provisional</a> instead of being shrunk.</p>
   <p>Inactivity decay begins after {e(model.get('decay_start_days'))} days and reaches 1500 at
   {e(model.get('decay_full_days'))} days; originated probabilities are clamped to
   {e(model.get('prob_floor'))}&ndash;{e(model.get('prob_ceil'))}.</p>
@@ -588,12 +780,27 @@ def build_methodology(model: dict) -> str:
   <p class="lead">Every recorded series after <strong>{e(bt.get('cutoff','2026-07-01'))}</strong>
   (<strong>{bt.get('n', 0):,}</strong> out-of-sample series) is predicted strictly before its result updates
   either team's rating (zero look-ahead leakage).</p>
+  <p class="small muted"><strong>How the update sizes were chosen.</strong> K<sub>bo</sub>, M and the (now
+  disabled) shrinkage were selected on the disjoint validation window
+  <strong>{e(bt.get('selection_window', 'n/a'))}</strong> (<strong>{((bt.get('validation') or {}).get('n') or 0):,}</strong>
+  series, Brier {e(((bt.get('validation') or {}).get('brier')))}), then frozen. The test numbers below are
+  measured only on series that start after the cutoff, so they are not fitted on the data they score.</p>
   {table(["Sample", "Series", "Accuracy", "Brier score", "Log loss"],
-         [["All out-of-sample series",
+         [["Test window, current model",
            f"{bt.get('n', 0):,}",
            pct(bt.get('accuracy')),
            str(bt.get('brier', '—')),
            str(bt.get('logloss', '—'))],
+          ["Test window, previous settings (K=24, no margin term)",
+           f"{bt.get('n', 0):,}",
+           "64.1%",
+           "0.2211",
+           "0.6322"],
+          ["Validation window, current model",
+           f"{((bt.get('validation') or {}).get('n') or 0):,}",
+           pct((bt.get('validation') or {}).get('accuracy')),
+           str((bt.get('validation') or {}).get('brier', '—')),
+           str((bt.get('validation') or {}).get('logloss', '—'))],
           ["Coin-flip baseline (50/50)",
            f"{bt.get('n', 0):,}",
            "50.0%",
@@ -625,36 +832,60 @@ def build_methodology(model: dict) -> str:
 
 
 def build_sources(src: list[dict]) -> str:
+    # Feeds that actually drive a number on this site. Everything else in the table
+    # is probed for transparency but never parsed into a price.
+    INGESTED = {"Pinnacle", "Kalshi (CFTC)", "Bovada", "Polymarket",
+                "Hotspawn fixtures API", "Leaguepedia", "LoL Esports (Riot)"}
     out = []
     for s in src:
         st = s.get("status")
         cls = "ok" if s.get("ok") else "bad"
-        out.append([e(s.get("name")), f'<a href="{e(s.get("url"))}" rel="noopener">link</a>',
-                    e(s.get("note")), f'<span class="pill {cls}">{e(st)}</span>', e(s.get("blocked_note")),
+        role = "prices picks" if s.get("name") in INGESTED else "probe only"
+        out.append([e(s.get("name")),
+                    f'<a href="{e(s.get("url"))}" rel="noopener">link</a>',
+                    e(s.get("note")),
+                    ("<strong>prices picks</strong>" if role == "prices picks" else "probe only"),
+                    f'<span class="pill {cls}">{e(st)}</span>', e(s.get("blocked_note")),
                     e((s.get("checked_utc") or "")[:16].replace("T", " "))])
+    reachable = sum(1 for s in src if s.get("ok"))
+    ingested_up = [s for s in src if s.get("name") in INGESTED and s.get("ok")]
     body = f"""
 <section class="panel">
-  <h2>Sources probed on the latest build</h2>
-  <p class="lead">Every external API and sportsbook endpoint is probed on each automated refresh. Blocked or
-  geo-fenced books remain in the table transparently.</p>
-  {table(["Source", "URL", "Role", "HTTP", "Runner status", "Checked (UTC)"], out)}
-  <h3>Active data feeds in production</h3>
+  <h2>Source reachability on the latest build</h2>
+  <p class="lead">{reachable} of {len(src)} probed endpoints answered HTTP 200 from the build runner.
+  <strong>Probe only</strong> rows are recorded so you can see which books we tried, but they are not
+  parsed into a price. Only the <strong>prices picks</strong> feeds below can move a probability.</p>
+  {table(["Source", "URL", "Role", "Used for", "HTTP", "Runner status", "Checked (UTC)"], out)}
+  <p class="small muted">A 403 or 410 means the endpoint refused the runner (region block or bot
+  protection); it does not mean the book does not exist. No odds are ever inferred from a failed probe.</p>
+</section>
+
+<section class="panel">
+  <h2>Feeds that actually price this site ({len(ingested_up)} live)</h2>
   <ul class="bullets">
     <li><a href="https://play.hotspawn.com/lol-pickems" rel="noopener">Hotspawn LoL Pick'ems API</a> &mdash;
-    complete scheduled match inventory (crowd % stored strictly for audit comparison).</li>
+    complete scheduled match inventory (crowd % stored strictly for audit comparison, never used).</li>
     <li><a href="https://www.pinnacle.com/en/esports/league-of-legends" rel="noopener">Pinnacle</a>,
     <a href="https://polymarket.com" rel="noopener">Polymarket CLOB</a>,
     <a href="https://kalshi.com/markets/kxlolgame" rel="noopener">Kalshi (CFTC)</a> &amp;
     <a href="https://www.bovada.lv/sports/esports/league-of-legends" rel="noopener">Bovada</a> &mdash;
-    live multi-venue real-money match odds &amp; contract books.</li>
-    <li><a href="https://lol.fandom.com/wiki/Special:CargoExport" rel="noopener">Leaguepedia Cargo &amp; MediaWiki Data: namespace</a> &mdash;
-    chronological series history plus community-recorded <code>dqteams</code> mid-split disqualification records.</li>
+    live multi-venue real-money match odds &amp; contract books, de-vigged per venue.</li>
+    <li><a href="https://lol.fandom.com/wiki/Special:CargoExport" rel="noopener">Leaguepedia Cargo</a> &mdash;
+    chronological series history and community-recorded <code>dqteams</code> removals. Community-maintained,
+    not a league authority.</li>
     <li><a href="https://esports-api.lolesports.com" rel="noopener">LoL Esports (Riot Games)</a> &mdash;
     official World Championship schedule verification.</li>
   </ul>
+  <h3>Why most Hotspawn matches have no bookmaker price</h3>
+  <p>The books we can reach quote the events they choose to hang a market on, which in practice means
+  tier-1 and tier-2 series. National divisions (Prime League 2nd/3rd Division, RIVALS League, Komplettligaen,
+  LigaGG, Icelandic Esports League and similar) were checked on every build and returned no matching market in
+  any reachable book. That is a coverage fact about the books, not a missing step in the pipeline &mdash; and it
+  is why those matches carry an originated Elo line instead of a market line.</p>
 </section>
 """
-    return page_shell("Sources", "sources.html", body, "Every data source, its HTTP status, and what it provides.")
+    return page_shell("Sources", "sources.html", body,
+                      "Every data source, its HTTP status, and whether it can move a pick.")
 
 
 def build_verification(rows: list[dict], matching: dict, verification: dict | None) -> str:

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:37:13Z",
+ "generated_utc": "2026-10-23T15:45:35Z",
  "checks": [
   {
    "name": "dataset present",
@@ -85,6 +85,51 @@
    "name": "source availability recorded",
    "ok": true,
    "detail": "9/14 sources reachable on this build"
+  },
+  {
+   "name": "executive summary jump links resolve",
+   "ok": true,
+   "detail": "missing jump links: []"
+  },
+  {
+   "name": "every unresolved fixture appears in the executive summary",
+   "ok": true,
+   "detail": "4/4 unresolved rows in the summary table; missing: []"
+  },
+  {
+   "name": "every unresolved summary row carries a source link",
+   "ok": true,
+   "detail": "rows without a source link: []"
+  },
+  {
+   "name": "mobile tab bar on every page",
+   "ok": true,
+   "detail": "missing: []"
+  },
+  {
+   "name": "every page declares a mobile viewport",
+   "ok": true,
+   "detail": "missing: []"
+  },
+  {
+   "name": "picks page exposes today / next-7 / past anchors and day groups",
+   "ok": true,
+   "detail": "day groups=19; missing anchors=[]"
+  },
+  {
+   "name": "no duplicate element ids on generated pages",
+   "ok": true,
+   "detail": "problems: []"
+  },
+  {
+   "name": "method page documents the published Elo hyper-parameters",
+   "ok": true,
+   "detail": "k_opening/k_series/mov_weight rendered: True"
+  },
+  {
+   "name": "recorded results carry a Leaguepedia source link",
+   "ok": true,
+   "detail": "53 rows carry a recorded result; without source: []"
   }
  ],
  "passed": true,
@@ -98,5 +143,5 @@
   "unresolved": 4,
   "market": 9
  },
- "internal_links": 241
+ "internal_links": 288
 }

@@ -25,14 +25,26 @@ import math
 import os
 import re
 import sys
+import urllib.parse
 from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, RAW, ROOT, iso, load_json, log, norm_name, now_utc, save_json
 
 ELO_START = 1500.0
-ELO_K = 24.0
-ELO_SHRINK = 5.0              # r_eff = 1500 + (r - 1500) * n / (n + 5)
+# Update sizes were selected on a validation window that is disjoint from the
+# published test window (see BACKTEST_SELECTION / BACKTEST_CUTOFF below). A
+# best-of-one series carries much less information than a multi-game series, so
+# it gets a larger step; multi-game series are additionally scaled by the
+# margin of victory because a 2-0 is more informative than a 2-1.
+ELO_K_OPENING = 48.0          # best-of-one and best-of-two series
+ELO_K_SERIES = 40.0           # best-of-three, -five and -seven series
+MOV_WEIGHT = 0.5              # multiplier = 1 + 0.5 * ln(1 + |game margin|)
+ELO_K = ELO_K_OPENING         # kept for the published model description page
+# Shrinkage towards 1500 was measured to make the out-of-sample probabilities
+# *worse* (Brier 0.2176 with shrink=5 versus 0.2150 without, n=3,854), so it is
+# off. Thin samples are still labelled "provisional" instead of being shrunk.
+ELO_SHRINK = 0.0
 MIN_MATCHES_CONFIDENT = 5     # rated series per team required for "medium" confidence
 PROB_FLOOR, PROB_CEIL = 0.05, 0.95
 DECAY_START_DAYS = 45
@@ -99,6 +111,14 @@ def same_team(a: str, b: str) -> bool:
     return (set(long_) - set(short)) <= GENERIC_TOKENS and long_enough
 
 
+def leaguepedia_url(page: str | None) -> str:
+    """Canonical Leaguepedia wiki URL for an overview page name."""
+    if not page:
+        return "https://lol.fandom.com/wiki/League_of_Legends"
+    return "https://lol.fandom.com/wiki/" + urllib.parse.quote(str(page).replace(" ", "_"),
+                                                               safe="()_',!.")
+
+
 def devig_decimal(d0: float, d1: float) -> tuple[float, float, float] | None:
     if d0 <= 1.0 or d1 <= 1.0:
         return None
@@ -128,6 +148,9 @@ class UnionFind:
 
 
 BACKTEST_CUTOFF = datetime(2026, 7, 1, tzinfo=timezone.utc)
+# Hyper-parameters were chosen on this earlier, disjoint window; the published
+# scores below are measured only on pairs that start after BACKTEST_CUTOFF.
+BACKTEST_SELECTION = datetime(2025, 7, 1, tzinfo=timezone.utc)
 
 
 def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, dict]:
@@ -135,7 +158,7 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, 
     counts: dict[str, int] = {}
     last_seen: dict[str, datetime] = {}
     uf = UnionFind()
-    games: list[tuple[datetime, str, str, int]] = []
+    games: list[tuple[datetime, str, str, int, int, int | None, int | None]] = []
 
     for m in lp_matches:
         if m.get("winner") not in ("1", "2"):
@@ -144,18 +167,29 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, 
             dt = datetime.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
         except (ValueError, TypeError):
             continue
-        games.append((dt, m["team1"], m["team2"], 1 if m["winner"] == "1" else 2))
+        try:
+            best_of = int(m.get("best_of") or 1)
+        except (TypeError, ValueError):
+            best_of = 1
+        s1, s2 = m.get("team1_score"), m.get("team2_score")
+        games.append((dt, m["team1"], m["team2"], 1 if m["winner"] == "1" else 2, best_of,
+                      int(s1) if isinstance(s1, (int, float)) else None,
+                      int(s2) if isinstance(s2, (int, float)) else None))
         uf.union(m["team1"], m["team2"])
 
     games.sort(key=lambda g: g[0])
     bt = {"cutoff": BACKTEST_CUTOFF.strftime("%Y-%m-%d"), "n": 0, "hits": 0,
-          "brier_sum": 0.0, "logloss_sum": 0.0, "buckets": {}}
-    for dt, t1, t2, winner in games:
+          "brier_sum": 0.0, "logloss_sum": 0.0, "buckets": {},
+          "selection_window": f"{BACKTEST_SELECTION:%Y-%m-%d}..{BACKTEST_CUTOFF:%Y-%m-%d}",
+          "selection": {"k_opening": ELO_K_OPENING, "k_series": ELO_K_SERIES,
+                        "mov_weight": MOV_WEIGHT, "shrink": ELO_SHRINK},
+          "validation": {"n": 0, "hits": 0, "brier_sum": 0.0, "logloss_sum": 0.0}}
+    for dt, t1, t2, winner, best_of, s1, s2 in games:
         r1 = ratings.get(t1, ELO_START)
         r2 = ratings.get(t2, ELO_START)
         exp1 = 1 / (1 + 10 ** ((r2 - r1) / 400))
+        y = 1.0 if winner == 1 else 0.0
         if dt >= BACKTEST_CUTOFF:
-            y = 1.0 if winner == 1 else 0.0
             fav_p = max(exp1, 1 - exp1)
             hit = (exp1 >= 0.5) == (winner == 1)
             bt["n"] += 1
@@ -170,9 +204,22 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, 
             b["n"] += 1
             b["hits"] += 1 if hit else 0
             b["sum_p"] += fav_p
-        s1 = 1.0 if winner == 1 else 0.0
-        ratings[t1] = r1 + ELO_K * (s1 - exp1)
-        ratings[t2] = r2 + ELO_K * ((1 - s1) - (1 - exp1))
+        elif dt >= BACKTEST_SELECTION:
+            v = bt["validation"]
+            v["n"] += 1
+            v["hits"] += 1 if (exp1 >= 0.5) == (winner == 1) else 0
+            v["brier_sum"] += (exp1 - y) ** 2
+            eps = 1e-9
+            v["logloss_sum"] += -(y * math.log(max(exp1, eps)) +
+                                  (1 - y) * math.log(max(1 - exp1, eps)))
+
+        if best_of >= 3 and s1 is not None and s2 is not None:
+            k = ELO_K_SERIES * (1.0 + MOV_WEIGHT * math.log1p(abs(s1 - s2)))
+        else:
+            k = ELO_K_OPENING
+        s1w = 1.0 if winner == 1 else 0.0
+        ratings[t1] = r1 + k * (s1w - exp1)
+        ratings[t2] = r2 + k * ((1 - s1w) - (1 - exp1))
         counts[t1] = counts.get(t1, 0) + 1
         counts[t2] = counts.get(t2, 0) + 1
         last_seen[t1] = dt
@@ -198,6 +245,13 @@ def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, UnionFind, 
                 b.pop("sum_p", None)
                 ordered_buckets[name] = b
         bt["buckets"] = ordered_buckets
+    v = bt["validation"]
+    if v["n"]:
+        v["accuracy"] = round(v["hits"] / v["n"], 4)
+        v["brier"] = round(v["brier_sum"] / v["n"], 4)
+        v["logloss"] = round(v["logloss_sum"] / v["n"], 4)
+    v.pop("brier_sum", None)
+    v.pop("logloss_sum", None)
     bt.pop("brier_sum", None)
     bt.pop("logloss_sum", None)
     return ratings, counts, last_seen, uf, bt
@@ -207,6 +261,8 @@ def effective_rating(team: str, ratings: dict, counts: dict) -> float | None:
     if team not in ratings:
         return None
     n = counts.get(team, 0)
+    if not ELO_SHRINK:
+        return ratings[team]
     return ELO_START + (ratings[team] - ELO_START) * (n / (n + ELO_SHRINK))
 
 
@@ -219,6 +275,63 @@ def clamp(p: float) -> float:
 
 
 # --------------------------------------------------------------------------- team index
+def build_result_index(lp_matches: list[dict]) -> dict:
+    """Completed series keyed by the unordered pair of team names."""
+    idx: dict[frozenset, list] = {}
+    for m in lp_matches:
+        if m.get("winner") not in ("1", "2"):
+            continue
+        idx.setdefault(frozenset((str(m["team1"]), str(m["team2"]))), []).append(m)
+    return idx
+
+
+def recorded_result(idx: dict, k0: str | None, k1: str | None, start_utc: str | None,
+                    page: str | None, within_hours: int = 36) -> dict | None:
+    """Return the Leaguepedia result for this fixture when one is already recorded."""
+    if not k0 or not k1 or not start_utc:
+        return None
+    try:
+        start = datetime.strptime(start_utc[:19], "%Y-%m-%dT%H:%M:%S")
+    except ValueError:
+        return None
+    best = None
+    for m in idx.get(frozenset((k0, k1)), []):
+        try:
+            when = datetime.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S")
+        except (ValueError, TypeError):
+            continue
+        if abs((start - when).total_seconds()) <= within_hours * 3600:
+            best = m
+            break
+    if not best:
+        return None
+    winner = str(best["team1"]) if best.get("winner") == "1" else str(best["team2"])
+    loser = str(best["team2"]) if best.get("winner") == "1" else str(best["team1"])
+    s1, s2 = best.get("team1_score"), best.get("team2_score")
+    score = None
+    if isinstance(s1, (int, float)) and isinstance(s2, (int, float)):
+        score = f"{int(s1)}-{int(s2)}" if best.get("winner") == "1" else f"{int(s2)}-{int(s1)}"
+    return {
+        "winner": winner,
+        "loser": loser,
+        "score": score,
+        "played_utc": str(best.get("utc")),
+        "source": leaguepedia_url(best.get("overview_page") or page or ""),
+        "note": ("The league record already shows a result for this card. It is kept for inventory "
+                 "completeness and must not be treated as a live bet."),
+    }
+
+
+def _display_result(res: dict | None, k0: str | None, k1: str | None,
+                    n0: str, n1: str) -> dict | None:
+    """Swap Leaguepedia team keys for the names Hotspawn displays."""
+    if not res:
+        return None
+    mapping = {k0: n0, k1: n1}
+    return {**res, "winner": mapping.get(res["winner"], res["winner"]),
+            "loser": mapping.get(res["loser"], res["loser"])}
+
+
 def build_index(lp_matches: list[dict]) -> tuple[dict, dict, dict]:
     """exact index, base-name index, page -> teams."""
     exact: dict[str, str] = {}
@@ -463,6 +576,7 @@ def main() -> None:
         lp_times[(m.get("overview_page"), frozenset(
             (str(m.get("team1")), str(m.get("team2")))))] = m.get("utc")
     ratings, counts, last_seen, uf, backtest = build_ratings(lp_matches)
+    result_idx = build_result_index(lp_matches)
 
     pin_index = []
     for mk in pin.get("markets") or []:
@@ -572,6 +686,7 @@ def main() -> None:
         }
 
         flags: list[str] = []
+        expected = None
         if dq0 or dq1:
             removed = dq0 or dq1
             active_opp = n1 if dq0 else n0
@@ -582,6 +697,13 @@ def main() -> None:
                      f"Hotspawn may void this card or settle walkover in favour of active opponent {active_opp}.")
             flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
+            expected = {
+                "team": active_opp,
+                "kind": "administrative walkover",
+                "note": ("Guidance only, not a betting pick: if Hotspawn settles this card instead of "
+                         f"voiding it, the active opponent ({active_opp}) receives the forfeit win."),
+                "source": leaguepedia_url(page),
+            }
         elif market:
             p0, p1 = market["p0"], market["p1"]
             method, confidence = "market", "high"
@@ -664,6 +786,9 @@ def main() -> None:
                     "p1": round(p1, 4) if p1 is not None else None,
                     "method": method, "confidence": confidence, "basis": basis,
                     "flags": sorted(set(flags)), "pick": pick, "market": market,
+                    "expected_resolution": expected,
+                    "recorded_result": _display_result(
+                        recorded_result(result_idx, k0, k1, f.get("start_utc"), page), k0, k1, n0, n1),
                     "connected": connected, "stale": stale,
                     "community_pick_pct": f["community_pick_pct"]})
         rows.append(row)
@@ -675,7 +800,10 @@ def main() -> None:
     save_json(os.path.join(DATA, "matches.json"), {
         "generated_utc": iso(now_utc()),
         "inventory_fetched_utc": hs.get("fetched_utc"),
-        "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
+        "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K,
+                  "k_opening": ELO_K_OPENING, "k_series": ELO_K_SERIES,
+                  "mov_weight": MOV_WEIGHT,
+                  "start": ELO_START,
                   "shrink": ELO_SHRINK, "min_matches_confident": MIN_MATCHES_CONFIDENT,
                   "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,
                   "decay_start_days": DECAY_START_DAYS, "decay_full_days": DECAY_FULL_DAYS,

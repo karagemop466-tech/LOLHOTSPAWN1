@@ -26,9 +26,18 @@ def main() -> None:
     sources = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     manual = (load_json(os.path.join(DATA, "flags_manual.json")) or {}).get("flags") or []
 
-    flags: list[dict] = [{**f, "item": "Historical observation — not reverified: " + f["item"],
-                          "detail": "Prior-session statement; not verified against a live official source in this audit. " + f["detail"]}
-                         for f in manual]
+    flags: list[dict] = []
+    for f in manual:
+        if f.get("verified_utc"):
+            entry = {**f}
+            entry.setdefault("detail", "")
+            entry["detail"] = (f"Verified {f['verified_utc']}"
+                               + (f" against {f['verified_against']}. " if f.get("verified_against") else ". ")
+                               + entry["detail"])
+            flags.append(entry)
+        else:
+            flags.append({**f, "item": "Historical observation — not reverified: " + f["item"],
+                          "detail": "Prior-session statement; not verified against a live official source in this audit. " + f["detail"]})
     flags.append({"severity": "medium", "item": "Archived aggregator quotes excluded from current pricing",
                   "detail": "The previous pipeline reused fixed receipts observed on 2026-10-21 without refreshing them. These are now excluded. Only freshly collected provider feeds enter market consensus. Leaguepedia history remains community-maintained, not an official league source.",
                   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"})
@@ -42,6 +51,18 @@ def main() -> None:
             "detail": "; ".join(f"{r['team0']['name']} vs {r['team1']['name']} ({r['competition']}): {r['basis']}"
                                 for r in unresolved[:6]),
             "source": HOTSPAWN,
+        })
+
+    recorded = [r for r in rows if r.get("recorded_result")]
+    if recorded:
+        flags.append({
+            "severity": "info",
+            "item": f"{len(recorded)} Hotspawn cards already have a final result recorded in Leaguepedia",
+            "detail": "Hotspawn keeps returning status='scheduled' for fixtures that have finished. Where the "
+                      "same teams met within 36 hours on the same Leaguepedia overview page, the recorded result "
+                      "is attached to the card and shown as 'result on record'. These rows stay on the list so "
+                      "the inventory matches Hotspawn exactly, but they are not live bets.",
+            "source": "https://lol.fandom.com/wiki/Special:CargoExport",
         })
 
     provisional = counts.get("provisional", 0)

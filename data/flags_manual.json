@@ -2,6 +2,14 @@
  "note": "Curated, human-reviewed observations. Derived flags are appended by tools/flags.py on every build.",
  "flags": [
   {
+   "severity": "low",
+   "item": "Hotspawn lists a participant literally named 'DELETED' (#1082002, Arabian Regional Championship qualifier)",
+   "detail": "The Hotspawn fixtures API returns participants0_name = 'DELETED' for fixture #1082002 (2026-10-16 15:00 UTC, Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine). Leaguepedia's page for the same qualifier records a series 'DELETED 0-1 S7raa' on the same date and time, so the placeholder is upstream in both sources. The name is reproduced verbatim; the original organisation is not inferred, and the card is marked stale with its recorded result.",
+   "source": "https://www.hotspawn.com/matches/deleted-vs-s7raa-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082002",
+   "verified_utc": "2026-10-23T15:45:00Z",
+   "verified_against": "data/raw/hotspawn_lol.json (fixture 1082002) and https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS"
+  },
+  {
    "severity": "high",
    "item": "Komplettligaen removed Solid Gaming in Round 10 (#1071216 Solid Gaming vs DMG Esports Norway)",
    "detail": "Leaguepedia's official Data:Komplettligaen/2026_Season/Autumn_Season template records '|dqteams=Solid Gaming' ('Solid Gaming was removed from the league in Round 10; remaining matches forfeited 0-1'). Hotspawn still lists upcoming fixture #1071216 (2026-10-27 17:00 UTC) as scheduled, and 72% of Hotspawn's crowd picked Solid Gaming on stale pre-removal wins. Rather than picking a disqualified team, the pipeline quarantines all dqteams fixtures to Unresolved and notes that if Hotspawn settles walkovers rather than voiding, active opponent DMG Esports Norway receives the default win.",

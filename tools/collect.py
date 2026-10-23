@@ -429,14 +429,36 @@ BOOK_PROBES = [
      "Esportsbook pre-match decimal moneyline coupon JSON", None),
     ("Polymarket", "https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends",
      "CLOB prediction market (full-series filtered)", None),
+    # Established betting sites. A probe only records whether the source was
+    # reachable from the build runner; nothing here is parsed unless a dedicated
+    # collector above produced verified numbers.
     ("GG.BET", "https://gg.bet/en/esports/league-of-legends", "Established LoL betting site", None),
     ("BC.GAME", "https://bc.game/sports", "Crypto esportsbook", None),
-    ("EGamersWorld", "https://egamersworld.com/lol/matches", "Esports odds aggregator (verified fallback receipt for LCP Promotion)", None),
+    ("DraftKings", "https://sportsbook-nash-usnj.draftkings.com/api/sportscontent/dkusnj/v1/leagues/191252",
+     "US regulated sportsbook, LoL league feed", None),
+    ("FanDuel", "https://sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=esports",
+     "US regulated sportsbook, esports lobby", None),
+    ("BetMGM", "https://sports.online-betmgm.com/cds-api/bettingoffer/fixtures", "US regulated sportsbook", None),
+    ("Betway", "https://www.betway.com/en/esports/league-of-legends", "Established esportsbook", None),
+    ("Unibet/Kambi", "https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports.json",
+     "Esportsbook API", None),
+    ("BetOnline", "https://www.betonline.ag/sportsbook/esports", "Established esportsbook", None),
+    ("BetUS", "https://www.betus.com.pa/sportsbook/esports/", "Established esportsbook", None),
+    ("MyBookie", "https://www.mybookie.ag/sportsbook/esports/", "Established esportsbook", None),
+    # Esports-native books and exchanges.
+    ("Thunderpick", "https://thunderpick.io/esports/league-of-legends", "Esports-native sportsbook", None),
+    ("Rivalry", "https://www.rivalry.com/esports/league-of-legends", "Esports-native sportsbook", None),
+    ("Luckbox", "https://luckbox.com/esports/league-of-legends", "Esports betting site", None),
+    # Odds aggregators / comparison engines.
+    ("EGamersWorld", "https://egamersworld.com/lol/matches", "Esports odds aggregator", None),
     ("Oddspedia", "https://oddspedia.com/esports/league-of-legends", "Odds comparison engine", None),
     ("OddsPortal", "https://www.oddsportal.com/esports/league-of-legends/", "Odds comparison engine", None),
     ("BetExplorer", "https://www.betexplorer.com/esports/league-of-legends/", "Odds comparison engine", None),
-    ("Unibet/Kambi", "https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports.json",
-     "Esportsbook API", None),
+    ("EsportsBets", "https://esportsbets.com/odds/", "Esports odds comparison", None),
+    ("VegasInsider", "https://www.vegasinsider.com/esports/odds/", "US odds aggregator", None),
+    ("Action Network", "https://www.actionnetwork.com/esports/league-of-legends", "US odds aggregator", None),
+    ("The Odds API", "https://api.the-odds-api.com/v4/sports/esports_lol/odds/?regions=eu&markets=h2h",
+     "Commercial odds API (requires a key; 401 proves the feed exists but is not usable without one)", None),
     ("Hotspawn fixtures API", HOTSPAWN_FIXTURES,
      "Match inventory (crowd % stored for audit only, NEVER used as probability)", None),
     ("Leaguepedia", "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId&limit=1&format=json",
@@ -449,7 +471,7 @@ BOOK_PROBES = [
 def collect_source_status() -> dict:
     rows = []
     for name, url, note, headers in BOOK_PROBES:
-        st, body = http_get(url, headers=headers, timeout=20, retries=0)
+        st, body = http_get(url, headers=headers, timeout=12, retries=0)
         rows.append({
             "name": name, "url": url, "note": note, "status": st,
             "ok": st == 200, "bytes": len(body),

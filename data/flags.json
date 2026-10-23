@@ -1,7 +1,15 @@
 {
- "generated_utc": "2026-10-23T15:37:13Z",
- "count": 18,
+ "generated_utc": "2026-10-23T15:45:35Z",
+ "count": 20,
  "flags": [
+  {
+   "severity": "low",
+   "item": "Hotspawn lists a participant literally named 'DELETED' (#1082002, Arabian Regional Championship qualifier)",
+   "detail": "Verified 2026-10-23T15:45:00Z against data/raw/hotspawn_lol.json (fixture 1082002) and https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS. The Hotspawn fixtures API returns participants0_name = 'DELETED' for fixture #1082002 (2026-10-16 15:00 UTC, Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine). Leaguepedia's page for the same qualifier records a series 'DELETED 0-1 S7raa' on the same date and time, so the placeholder is upstream in both sources. The name is reproduced verbatim; the original organisation is not inferred, and the card is marked stale with its recorded result.",
+   "source": "https://www.hotspawn.com/matches/deleted-vs-s7raa-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082002",
+   "verified_utc": "2026-10-23T15:45:00Z",
+   "verified_against": "data/raw/hotspawn_lol.json (fixture 1082002) and https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS"
+  },
   {
    "severity": "high",
    "item": "Historical observation — not reverified: Komplettligaen removed Solid Gaming in Round 10 (#1071216 Solid Gaming vs DMG Esports Norway)",
@@ -79,6 +87,12 @@
    "item": "4 match(es) could not be priced",
    "detail": "Solid Gaming vs VES Japan (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent VES Japan.; Solid Gaming vs Playwell Rød Q (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Playwell Rød Q.; Volda E-Sport vs Solid Gaming (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Volda E-Sport.; Solid Gaming vs NTNUI Kometkameratene (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent NTNUI Kometkameratene.",
    "source": "https://play.hotspawn.com/lol-pickems"
+  },
+  {
+   "severity": "info",
+   "item": "53 Hotspawn cards already have a final result recorded in Leaguepedia",
+   "detail": "Hotspawn keeps returning status='scheduled' for fixtures that have finished. Where the same teams met within 36 hours on the same Leaguepedia overview page, the recorded result is attached to the card and shown as 'result on record'. These rows stay on the list so the inventory matches Hotspawn exactly, but they are not live bets.",
+   "source": "https://lol.fandom.com/wiki/Special:CargoExport"
   },
   {
    "severity": "low",
