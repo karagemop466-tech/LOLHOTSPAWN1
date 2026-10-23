@@ -1,0 +1,334 @@
+{
+ "checked_utc": "2026-10-23T15:40:36Z",
+ "note": "Deep research probe. HTML 200 + no embedded hydration JSON means the prices are fetched client-side by JavaScript after page load, which this pipeline cannot consume; such a venue is recorded as unparseable instead of being scraped blindly.",
+ "evidence": [
+  {
+   "kind": "page",
+   "name": "rivalry-lol",
+   "url": "https://www.rivalry.com/esports/league-of-legends",
+   "status": 200,
+   "bytes": 61219,
+   "checked_utc": "2026-10-23T15:40:25Z",
+   "embedded_json": [],
+   "tokens": {
+    "has_decimal_word": 0,
+    "has_odds_word": 0,
+    "has_moneyline": 0,
+    "has_price_word": 0,
+    "has_american": 9,
+    "has_league_of_legends": 1,
+    "has_teams_t1_geng": 0,
+    "has_teams_faker": 1
+   },
+   "snapshot": "research/raw/rivalry-lol.html"
+  },
+  {
+   "kind": "page",
+   "name": "draftkings-lol",
+   "url": "https://sportsbook.draftkings.com/leagues/esports/league-of-legends",
+   "status": 404,
+   "bytes": 257742,
+   "checked_utc": "2026-10-23T15:40:25Z",
+   "embedded_json": [
+    {
+     "label": "__INITIAL_STATE__",
+     "chars": 2
+    }
+   ],
+   "tokens": {
+    "has_decimal_word": 0,
+    "has_odds_word": 61,
+    "has_moneyline": 0,
+    "has_price_word": 0,
+    "has_american": 0,
+    "has_league_of_legends": 0,
+    "has_teams_t1_geng": 0,
+    "has_teams_faker": 2
+   },
+   "snapshot": "research/raw/draftkings-lol.json"
+  },
+  {
+   "kind": "page",
+   "name": "fanduel-lol",
+   "url": "https://sportsbook.fanduel.com/esports/league-of-legends",
+   "status": 200,
+   "bytes": 11177,
+   "checked_utc": "2026-10-23T15:40:25Z",
+   "embedded_json": [],
+   "tokens": {
+    "has_decimal_word": 0,
+    "has_odds_word": 0,
+    "has_moneyline": 0,
+    "has_price_word": 0,
+    "has_american": 1,
+    "has_league_of_legends": 0,
+    "has_teams_t1_geng": 0,
+    "has_teams_faker": 0
+   },
+   "snapshot": "research/raw/fanduel-lol.html"
+  },
+  {
+   "kind": "page",
+   "name": "betonline-esports",
+   "url": "https://www.betonline.ag/sportsbook/esports",
+   "status": 200,
+   "bytes": 365964,
+   "checked_utc": "2026-10-23T15:40:26Z",
+   "embedded_json": [],
+   "tokens": {
+    "has_decimal_word": 0,
+    "has_odds_word": 14,
+    "has_moneyline": 0,
+    "has_price_word": 0,
+    "has_american": 0,
+    "has_league_of_legends": 0,
+    "has_teams_t1_geng": 0,
+    "has_teams_faker": 37
+   },
+   "snapshot": "research/raw/betonline-esports.html"
+  },
+  {
+   "kind": "page",
+   "name": "oddsportal-lol",
+   "url": "https://www.oddsportal.com/esports/league-of-legends/",
+   "status": 200,
+   "bytes": 335416,
+   "checked_utc": "2026-10-23T15:40:28Z",
+   "embedded_json": [
+    {
+     "label": "json-ld",
+     "chars": 263
+    }
+   ],
+   "tokens": {
+    "has_decimal_word": 13,
+    "has_odds_word": 567,
+    "has_moneyline": 0,
+    "has_price_word": 0,
+    "has_american": 24,
+    "has_league_of_legends": 14,
+    "has_teams_t1_geng": 0,
+    "has_teams_faker": 49
+   },
+   "snapshot": "research/raw/oddsportal-lol.json"
+  },
+  {
+   "kind": "page",
+   "name": "bcgame-sports",
+   "url": "https://bc.game/sports",
+   "status": 200,
+   "bytes": 10735,
+   "checked_utc": "2026-10-23T15:40:28Z",
+   "embedded_json": [
+    {
+     "label": "json-ld",
+     "chars": 0
+    }
+   ],
+   "tokens": {
+    "has_decimal_word": 0,
+    "has_odds_word": 4,
+    "has_moneyline": 0,
+    "has_price_word": 0,
+    "has_american": 0,
+    "has_league_of_legends": 0,
+    "has_teams_t1_geng": 0,
+    "has_teams_faker": 1
+   },
+   "snapshot": "research/raw/bcgame-sports.json"
+  },
+  {
+   "kind": "api",
+   "name": "odds-api.io sports",
+   "url": "https://api.odds-api.io/v3/sports",
+   "status": 502,
+   "bytes": 4682,
+   "json": false,
+   "top_level_keys": [],
+   "fingerprint": "<!doctype html><meta name=viewport content=\"width=device-width,initial-scale=1\"><meta charset=utf-8><title>502 Bad Gateway</title><style media=screen>       :root {         --bg: hsl(250, 24%, 9%);         --fg: hsl(0, 0",
+   "checked_utc": "2026-10-23T15:40:28Z"
+  },
+  {
+   "kind": "api",
+   "name": "odds-api.io leagues",
+   "url": "https://api.odds-api.io/v3/leagues?sport=esports",
+   "status": 502,
+   "bytes": 4682,
+   "json": false,
+   "top_level_keys": [],
+   "fingerprint": "<!doctype html><meta name=viewport content=\"width=device-width,initial-scale=1\"><meta charset=utf-8><title>502 Bad Gateway</title><style media=screen>       :root {         --bg: hsl(250, 24%, 9%);         --fg: hsl(0, 0",
+   "checked_utc": "2026-10-23T15:40:29Z"
+  },
+  {
+   "kind": "api",
+   "name": "odds-api.io events",
+   "url": "https://api.odds-api.io/v3/events?sport=esports&limit=5",
+   "status": 502,
+   "bytes": 4682,
+   "json": false,
+   "top_level_keys": [],
+   "fingerprint": "<!doctype html><meta name=viewport content=\"width=device-width,initial-scale=1\"><meta charset=utf-8><title>502 Bad Gateway</title><style media=screen>       :root {         --bg: hsl(250, 24%, 9%);         --fg: hsl(0, 0",
+   "checked_utc": "2026-10-23T15:40:29Z"
+  },
+  {
+   "kind": "api",
+   "name": "odds-api.io esports leagues",
+   "url": "https://api.odds-api.io/v3/leagues?sport=esports_lol",
+   "status": 502,
+   "bytes": 4682,
+   "json": false,
+   "top_level_keys": [],
+   "fingerprint": "<!doctype html><meta name=viewport content=\"width=device-width,initial-scale=1\"><meta charset=utf-8><title>502 Bad Gateway</title><style media=screen>       :root {         --bg: hsl(250, 24%, 9%);         --fg: hsl(0, 0",
+   "checked_utc": "2026-10-23T15:40:29Z"
+  },
+  {
+   "kind": "api",
+   "name": "draftkings sportscontent",
+   "url": "https://sportsbook-nash.draftkings.com/api/sportscontent/dkusoh/v1/sports",
+   "status": 403,
+   "bytes": 438,
+   "json": false,
+   "top_level_keys": [],
+   "fingerprint": "<HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1>   You don't have permission to access \"http&#58;&#47;&#47;sportsbook&#45;nash&#46;draftkings&#46;com&#47;api&#47;sportscontent&#47;dkusoh&#47",
+   "checked_utc": "2026-10-23T15:40:29Z"
+  },
+  {
+   "kind": "api",
+   "name": "draftkings leagues",
+   "url": "https://sportsbook-nash.draftkings.com/api/sportscontent/dkusoh/v1/leagues",
+   "status": 403,
+   "bytes": 439,
+   "json": false,
+   "top_level_keys": [],
+   "fingerprint": "<HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1>   You don't have permission to access \"http&#58;&#47;&#47;sportsbook&#45;nash&#46;draftkings&#46;com&#47;api&#47;sportscontent&#47;dkusoh&#47",
+   "checked_utc": "2026-10-23T15:40:29Z"
+  },
+  {
+   "kind": "api",
+   "name": "fanduel content page",
+   "url": "https://sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=esports_league-of-legends",
+   "status": 200,
+   "bytes": 11177,
+   "json": false,
+   "top_level_keys": [],
+   "fingerprint": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><title>FanDuel Sportsbook</title><link rel=\"icon shortcut\" href=\"https://spor",
+   "checked_utc": "2026-10-23T15:40:29Z"
+  },
+  {
+   "kind": "api",
+   "name": "rivalry graphql",
+   "url": "https://api.rivalry.com/graphql",
+   "status": 502,
+   "bytes": 884,
+   "json": true,
+   "top_level_keys": [
+    "type",
+    "title",
+    "status",
+    "detail",
+    "instance",
+    "error_code",
+    "error_name",
+    "error_category",
+    "ray_id",
+    "timestamp",
+    "zone",
+    "cloudflare_error"
+   ],
+   "fingerprint": "{\"type\":\"https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/error-502/\",\"title\":\"Error 502: Bad gateway\",\"status\":502,\"detail\":\"The origin web server returned an invalid or ",
+   "checked_utc": "2026-10-23T15:40:33Z"
+  },
+  {
+   "kind": "api",
+   "name": "pinnacle lol leagues",
+   "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues/9587/matchups",
+   "status": 404,
+   "bytes": 205,
+   "json": true,
+   "top_level_keys": [
+    "detail",
+    "status",
+    "title",
+    "type"
+   ],
+   "fingerprint": "{   \"detail\": \"The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.\",   \"status\": 404,   \"title\": \"Not Found\",   \"type\": \"about:blank\" } ",
+   "checked_utc": "2026-10-23T15:40:33Z"
+  },
+  {
+   "kind": "api",
+   "name": "polymarket clob",
+   "url": "https://clob.polymarket.com/markets?limit=5&tag_slug=league-of-legends",
+   "status": 200,
+   "bytes": 1838355,
+   "json": true,
+   "top_level_keys": [
+    "data",
+    "next_cursor",
+    "limit",
+    "count"
+   ],
+   "fingerprint": "{\"data\":[{\"enable_order_book\":false,\"active\":true,\"closed\":true,\"archived\":false,\"accepting_orders\":false,\"accepting_order_timestamp\":null,\"minimum_order_size\":5,\"minimum_tick_size\":0.01,\"condition_id\":\"0xb62f71aef4c9972",
+   "checked_utc": "2026-10-23T15:40:34Z"
+  },
+  {
+   "kind": "api",
+   "name": "kalshi exchange status",
+   "url": "https://api.elections.kalshi.com/trade-api/v2/exchange/status",
+   "status": 200,
+   "bytes": 667,
+   "json": true,
+   "top_level_keys": [
+    "exchange_active",
+    "exchange_index_statuses",
+    "intra_exchange_transfers_active",
+    "trading_active"
+   ],
+   "fingerprint": "{\"exchange_active\":true,\"exchange_index_statuses\":[{\"description\":\"Default\",\"exchange_active\":true,\"exchange_index\":0,\"intra_exchange_transfers_active\":true,\"trading_active\":true},{\"description\":\"Combos\",\"exchange_active",
+   "checked_utc": "2026-10-23T15:40:34Z"
+  },
+  {
+   "kind": "api",
+   "name": "bovada lol coupon",
+   "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends",
+   "status": 200,
+   "bytes": 215699,
+   "json": true,
+   "top_level_keys": [],
+   "fingerprint": "[{\"path\":[{\"id\":\"9417391\",\"link\":\"/esports/league-of-legends/world-championship-26\",\"description\":\"World Championship '26\",\"type\":\"LEAGUE\",\"sportCode\":\"ESPT\",\"order\":9223372036854775807,\"leaf\":true,\"current\":false},{\"id\"",
+   "checked_utc": "2026-10-23T15:40:35Z"
+  },
+  {
+   "kind": "api",
+   "name": "betsson kambi listview",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/betsson/listView/esports.json",
+   "status": 429,
+   "bytes": 9,
+   "json": false,
+   "top_level_keys": [],
+   "fingerprint": "No access",
+   "checked_utc": "2026-10-23T15:40:35Z"
+  },
+  {
+   "kind": "api",
+   "name": "coolbet esports",
+   "url": "https://www.coolbet.com/api/esports/v1/sports",
+   "status": 403,
+   "bytes": 962,
+   "json": false,
+   "top_level_keys": [],
+   "fingerprint": "<html style=\"height:100%\"><head><META NAME=\"ROBOTS\" CONTENT=\"NOINDEX, NOFOLLOW\"><meta name=\"format-detection\" content=\"telephone=no\"><meta name=\"viewport\" content=\"initial-scale=1.0\"><meta http-equiv=\"X-UA-Compatible\" co",
+   "checked_utc": "2026-10-23T15:40:36Z"
+  },
+  {
+   "kind": "api",
+   "name": "tonybet esports",
+   "url": "https://www.tonybet.com/api/esports/leagues",
+   "status": 200,
+   "bytes": 7148,
+   "json": false,
+   "top_level_keys": [],
+   "fingerprint": "<!doctype html>\r <html>\r \r <head>\r \r <!-- Google Tag Manager -->\r <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\r new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\r j=d.createE",
+   "checked_utc": "2026-10-23T15:40:36Z"
+  }
+ ]
+}
