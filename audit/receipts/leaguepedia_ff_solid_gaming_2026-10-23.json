@@ -1,0 +1,27 @@
+{
+  "receipt": "Leaguepedia MatchSchedule forfeit (FF) field for every Solid Gaming fixture in Komplettligaen 2026 Autumn",
+  "retrieved_utc": "2026-10-23T15:49:00Z",
+  "source_url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchId,Team1,Team2,Winner,Team1Score,Team2Score,FF,DateTime_UTC&where=OverviewPage%3D%27Komplettligaen%2F2026%20Season%2FAutumn%20Split%27%20AND%20(Team1%3D%27Solid%20Gaming%27%20OR%20Team2%3D%27Solid%20Gaming%27)&limit=50&format=json",
+  "source_type": "community wiki (lol.fandom.com), not an official Riot or league source",
+  "field_semantics": "FF=1 -> Team1 forfeited; FF=2 -> Team2 forfeited; null -> no forfeit recorded",
+  "matches": [
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 1_5", "team1": "Solid Gaming", "team2": "Mixlag fra Trondheim", "winner": 2, "team1_score": 0, "team2_score": 2, "ff": null, "utc": "2026-09-08 18:15:00"},
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 10_2", "team1": "Solid Gaming", "team2": "Ascent Gaming", "winner": 2, "team1_score": 0, "team2_score": 2, "ff": 1, "utc": "2026-10-18 15:00:00"},
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 11_5", "team1": "Solid Gaming", "team2": "DMG Esports Norway", "winner": 2, "team1_score": 0, "team2_score": 2, "ff": 1, "utc": "2026-10-22 15:00:00"},
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 2_5", "team1": "Phenti", "team2": "Solid Gaming", "winner": 1, "team1_score": 2, "team2_score": 0, "ff": null, "utc": "2026-10-02 17:00:00"},
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 3_5", "team1": "Solid Gaming", "team2": "VES Japan", "winner": 2, "team1_score": 0, "team2_score": 2, "ff": 1, "utc": "2026-10-01 16:00:00"},
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 4_5", "team1": "Your Saviours", "team2": "Solid Gaming", "winner": 1, "team1_score": 2, "team2_score": 0, "ff": 2, "utc": "2026-09-25 17:00:00"},
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 5_1", "team1": "Solid Gaming", "team2": "Rich Gang (Norwegian Team)", "winner": 2, "team1_score": 0, "team2_score": 2, "ff": null, "utc": "2026-09-24 15:00:00"},
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 6_6", "team1": "Solid Gaming", "team2": "NTNUI Kometkameratene", "winner": 2, "team1_score": 0, "team2_score": 2, "ff": 1, "utc": "2026-10-13 17:00:00"},
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 7_2", "team1": "CNG Royal", "team2": "Solid Gaming", "winner": 1, "team1_score": 2, "team2_score": 0, "ff": 2, "utc": "2026-10-01 15:00:00"},
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 8_4", "team1": "Solid Gaming", "team2": "Playwell R\u00f8d Q", "winner": 2, "team1_score": 0, "team2_score": 2, "ff": 1, "utc": "2026-10-04 15:00:00"},
+    {"match_id": "Komplettligaen/2026 Season/Autumn Split_Round 9_3", "team1": "Volda E-Sport", "team2": "Solid Gaming", "winner": 1, "team1_score": 2, "team2_score": 0, "ff": 2, "utc": "2026-10-11 15:00:00"}
+  ],
+  "conclusion": "Eight of the eleven Solid Gaming series carry a forfeit flag. Three do not (Rounds 1, 2 and 5), so a blanket statement that 'every remaining series was a forfeit' is too strong. The four fixtures Hotspawn still lists as scheduled (1071170, 1071200, 1071206, 1071186) all map to flagged forfeits, but Solid Gaming's 0-2 result in Round 2 (Phenti) is a played result without a flag.",
+  "fixture_mapping": {
+    "1071170": {"hotspawn_utc": "2026-09-17T15:00:00Z", "leaguepedia_match": "Round 3_5", "leaguepedia_utc": "2026-10-01 16:00:00", "ff": 1, "note": "date differs by 337 h"},
+    "1071200": {"hotspawn_utc": "2026-10-04T15:00:00Z", "leaguepedia_match": "Round 8_4", "leaguepedia_utc": "2026-10-04 15:00:00", "ff": 1, "note": "same date"},
+    "1071206": {"hotspawn_utc": "2026-10-11T15:00:00Z", "leaguepedia_match": "Round 9_3", "leaguepedia_utc": "2026-10-11 15:00:00", "ff": 2, "note": "same date"},
+    "1071186": {"hotspawn_utc": "2026-10-13T17:00:00Z", "leaguepedia_match": "Round 6_6", "leaguepedia_utc": "2026-10-13 17:00:00", "ff": 1, "note": "same date"}
+  }
+}
