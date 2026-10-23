@@ -92,6 +92,32 @@ SOURCES = [
     ("Escorenews LoL", "https://escorenews.com/en/lol", "esports news + odds", "match pages carry book prices"),
     ("BetExplorer LoL", "https://www.betexplorer.com/esports/league-of-legends/", "odds aggregator", "multi-book comparison"),
 
+    # --- round 2: the JSON endpoints the bookmaker pages call themselves ------
+    # The landing pages above answer with HTML chrome and paint prices client-side.
+    # These are the same books' own data endpoints, which sometimes answer JSON to a
+    # plain GET. A 200 here is only a lead: a parser still has to be written and
+    # verified before anything is priced from it.
+    ("Bovada coupon (unfiltered)", "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?lang=en",
+     "established book", "does the unfiltered coupon list more LoL than marketFilterId=def?"),
+    ("DraftKings sportscontent", "https://sportsbook-nash.draftkings.com/api/sportscontent/dkusoh/v1/leagues?format=json",
+     "established book API", "DK's own data endpoint for its Leagues page"),
+    ("DraftKings esports JSON", "https://sportsbook-nash.draftkings.com/api/sportscontent/dkusoh/v1/sports",
+     "established book API", "DK sport index, to find the esports sport id"),
+    ("FanDuel managed page", "https://sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=league-of-legends&_ak=FhMFpcPWXMeyZxOxGExQFdENwDQ",
+     "established book API", "FanDuel's public web key, same call its SPA makes"),
+    ("Kambi/Unibet esports", "https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports.json?lang=en_GB&market=GB&client_id=2&channel_id=1",
+     "established book API", "Unibet's offering feed with a full parameter set"),
+    ("Kambi/Betsson esports", "https://eu-offering-api.kambicdn.com/offering/v2018/betsson/listView/esports.json?lang=en_GB&market=SE&client_id=2&channel_id=1",
+     "established book API", "Betsson runs on Kambi; second operator, same feed shape"),
+    ("Odds-API.io leagues", "https://api.odds-api.io/v3/leagues?sport=esports",
+     "odds aggregator API", "free-tier key may be required; records the unauthenticated answer"),
+    ("Polymarket CLOB book", "https://clob.polymarket.com/markets?limit=5&tag_slug=league-of-legends",
+     "prediction market API", "second, independent read of a venue we already price from"),
+    ("Kalshi all open events", "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=200&with_nested_markets=false",
+     "regulated exchange API", "is there any LoL series ticker other than KXLOLGAME?"),
+    ("Pinnacle league matchups", "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+     "established book API", "per-league matchup endpoint (league id from the league list)"),
+
     # --- official / results sources (no odds, used for fixtures/results) -----
     ("Riot LoL Esports schedule", "https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=en-US",
      "official", "official schedule cross-check (needs api key header)"),
