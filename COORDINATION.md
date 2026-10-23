@@ -272,3 +272,9 @@ quarantine (all 5 `Solid Gaming` fixtures in Komplettligaen 2026 Autumn → unre
 site, incl. `#1071216` which the Node dashboard still prices from its Elo model — the Node pipeline
 will adopt the dq quarantine in a future pass; until then the canonical root site's treatment is the
 authoritative one), and the backtest rendering fix (gate now 15/15).
+
+## Task board — current session `29d6fe6a`
+
+| # | Task | Status | Owner | File scope | Notes |
+|---|---|---|---|---|---|
+| 9 | Audit public claims about source authority and probability verification; make source/model limitations explicit in shared dashboard | in progress | 29d6fe6a | `tools/site.py`, `tools/verify.py`, generated root `*.html`, `data/verification.json`, `COORDINATION.md` | Scope limited to clarity and verification gating; no changes to collected match probabilities or source records. |
