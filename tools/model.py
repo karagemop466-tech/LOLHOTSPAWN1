@@ -406,25 +406,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 })
                 break
 
-    # 5. Verified Specialist Esportsbook quote (includes #1081423 LCP 2027 Promotion)
-    eb = esportsbook_map.get(str(fixture_id))
-    if eb and not eb.get("placeholder"):
-        d0_v = float(eb.get("decimal0") or eb.get("team0_decimal") or 0)
-        d1_v = float(eb.get("decimal1") or eb.get("team1_decimal") or 0)
-        dv = devig_decimal(d0_v, d1_v)
-        if dv:
-            p0_v, p1_v, overround = dv
-            if primary_decimal is None:
-                primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
-            venues.append({
-                "name": "Esportsbook",
-                "weight": VENUE_WEIGHTS["Esportsbook"],
-                "p0": round(p0_v, 4),
-                "p1": round(p1_v, 4),
-                "quote": f"{d0_v:.3g}/{d1_v:.3g}",
-                "overround": round(overround, 4),
-                "url": eb["source_url"],
-            })
+    # Archived aggregator receipts are not refreshed, so they must never enter a current line.
 
     if not venues:
         return None
@@ -433,8 +415,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     p0 = sum(v["weight"] * v["p0"] for v in venues) / wsum
     p1 = round(1.0 - round(p0, 4), 4)
     p0 = round(p0, 4)
-    if primary_decimal is None:
-        primary_decimal = {"home": round(1.0 / max(p0, 0.01), 3), "away": round(1.0 / max(p1, 0.01), 3)}
+    # Never present derived fair odds as an observed bookmaker quote.
 
     book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
     return {
@@ -464,8 +445,7 @@ def main() -> None:
     pmkt = load_json(os.path.join(RAW, "polymarket.json")) or {}
     kalshi = load_json(os.path.join(RAW, "kalshi_lol.json")) or {}
     bovada = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
-    receipts_doc = load_json(os.path.join(ROOT, "archive", "session-8336fb7e", "data", "book_receipts.json")) or {}
-    receipts = receipts_doc.get("quotes") or receipts_doc.get("receipts") or {}
+    receipts = {}  # Historical archive is evidence only, never a live pricing input.
     sources = load_json(os.path.join(DATA, "sources_status.json")) or {}
 
     fixtures = hs.get("fixtures") or []
@@ -597,10 +577,10 @@ def main() -> None:
             active_opp = n1 if dq0 else n0
             p0 = p1 = None
             method, confidence = "unresolved", "none"
-            basis = (f"Participant removed mid-split: official Data:{page} records "
+            basis = (f"Participant removed mid-split: community-maintained Leaguepedia Data:{page} records "
                      f"'dqteams={removed}' (remaining matches forfeited to opponents). "
                      f"Hotspawn may void this card or settle walkover in favour of active opponent {active_opp}.")
-            flags.append(f"official league removal: {removed} listed in Data:{page} dqteams "
+            flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
         elif market:
             p0, p1 = market["p0"], market["p1"]
@@ -642,14 +622,11 @@ def main() -> None:
             if n0c < MIN_MATCHES_CONFIDENT or n1c < MIN_MATCHES_CONFIDENT:
                 flags.append("fewer than 5 rated series for at least one team")
         elif er0 is not None or er1 is not None:
-            rated_is_0 = er0 is not None
-            p0 = clamp(win_probability(er0 if rated_is_0 else ELO_START,
-                                       ELO_START if rated_is_0 else er1))
-            p1 = round(1 - p0, 4)
-            method, confidence = "provisional", "low"
-            missing = n1 if rated_is_0 else n0
-            basis = (f"Elo line with one unrated side: {missing} has no rated series on "
-                     f"record, so the 1500 baseline is used for that side.")
+            p0 = p1 = None
+            method, confidence = "unresolved", "none"
+            missing = n1 if er0 is not None else n0
+            basis = (f"No collected external market and no rated series for {missing}. "
+                     "A baseline rating would be an unsupported assumption; probability left blank.")
             flags.append(f"{missing} has no rated series in Leaguepedia")
         else:
             p0 = p1 = None
@@ -672,7 +649,7 @@ def main() -> None:
                 stale = False
         if stale:
             flags.append("start time has passed but Hotspawn still lists the fixture as scheduled "
-                         "(likely postponed or awaiting a result)")
+                         "(reason unverified)")
         if row["team0"]["join"] == "ambiguous" or row["team1"]["join"] == "ambiguous":
             flags.append("team name could not be matched unambiguously")
 
@@ -697,6 +674,7 @@ def main() -> None:
 
     save_json(os.path.join(DATA, "matches.json"), {
         "generated_utc": iso(now_utc()),
+        "inventory_fetched_utc": hs.get("fetched_utc"),
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
                   "shrink": ELO_SHRINK, "min_matches_confident": MIN_MATCHES_CONFIDENT,
                   "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,

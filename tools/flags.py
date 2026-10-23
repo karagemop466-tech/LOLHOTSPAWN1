@@ -26,7 +26,12 @@ def main() -> None:
     sources = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     manual = (load_json(os.path.join(DATA, "flags_manual.json")) or {}).get("flags") or []
 
-    flags: list[dict] = list(manual)
+    flags: list[dict] = [{**f, "item": "Historical observation — not reverified: " + f["item"],
+                          "detail": "Prior-session statement; not verified against a live official source in this audit. " + f["detail"]}
+                         for f in manual]
+    flags.append({"severity": "medium", "item": "Archived aggregator quotes excluded from current pricing",
+                  "detail": "The previous pipeline reused fixed receipts observed on 2026-10-21 without refreshing them. These are now excluded. Only freshly collected provider feeds enter market consensus. Leaguepedia history remains community-maintained, not an official league source.",
+                  "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"})
     counts = Counter(r["method"] for r in rows)
 
     unresolved = [r for r in rows if r["method"] == "unresolved"]
@@ -79,7 +84,7 @@ def main() -> None:
                       "published start time is more than three hours in the past (earliest "
                       f"{min((r['start_utc'] or '') for r in stale)}). They are kept in the list to mirror "
                       "Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming "
-                      "matches. Most likely postponed or awaiting a result.",
+                      "matches. The reason is unverified.",
             "source": HOTSPAWN,
         })
 

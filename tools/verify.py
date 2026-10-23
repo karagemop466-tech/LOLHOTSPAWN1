@@ -11,6 +11,7 @@ import sys
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from integrity import row_errors
 from common import DATA, ROOT, iso, load_json, log, now_utc, save_json
 
 DOCS = ROOT  # GitHub Pages serves the branch root
@@ -27,6 +28,14 @@ def main() -> None:
     rows = data.get("matches") or []
     add("dataset present", len(rows) > 0, f"{len(rows)} matches loaded")
 
+    raw = load_json(os.path.join(DATA, "raw/hotspawn_lol.json")) or {}
+    inventory_ids = [str(f["id"]) for f in raw.get("fixtures", [])]
+    row_ids = [str(r.get("id")) for r in rows]
+    add("complete inventory reconciliation", bool(inventory_ids) and sorted(inventory_ids) == sorted(row_ids),
+        f"raw fixtures={len(inventory_ids)}, published rows={len(row_ids)}; exact ID multiset comparison")
+    failures = [(r.get("id"), row_errors(r)) for r in rows if row_errors(r)]
+    add("finite probabilities and correctly named picks", not failures, str(failures[:5]))
+
     # --- per-row checks -----------------------------------------------------
     missing_source, bad_prob, bad_method, bad_pick, dupes = [], [], [], [], []
     seen = set()
@@ -40,19 +49,9 @@ def main() -> None:
             bad_pick.append(r.get("id"))
         if r.get("method") not in ALLOWED:
             bad_method.append(r.get("id"))
-        if r.get("method") != "unresolved":
-            p0, p1 = r.get("p0"), r.get("p1")
-            if p0 is None or p1 is None or abs((p0 + p1) - 1.0) > 0.002:
-                bad_prob.append(r.get("id"))
-            if not r.get("pick") or not r["pick"].get("team"):
-                bad_pick.append(r.get("id"))
-            else:
-                top = max(p0, p1)
-                if abs(r["pick"]["probability"] - top) > 0.001:
-                    bad_pick.append(r.get("id"))
-        else:
-            if r.get("pick") is not None or r.get("p0") is not None:
-                bad_pick.append(r.get("id"))
+        if row_errors(r):
+            bad_prob.append(r.get("id"))
+            bad_pick.append(r.get("id"))
         if r.get("method") == "market":
             mk = r.get("market") or {}
             if not mk.get("source_url") or not (mk.get("decimal") or mk.get("kind") == "prediction market"):
@@ -61,7 +60,7 @@ def main() -> None:
     add("every row links to its Hotspawn match card", not missing_source,
         f"{len(rows) - len(missing_source)}/{len(rows)} rows carry a Hotspawn URL")
     add("probabilities sum to 100% (tolerance 0.2pp)", not bad_prob,
-        f"{len(rows) - len(bad_prob)} priced rows verified; problems: {bad_prob[:5]}")
+        f"{sum(r.get('method') != 'unresolved' for r in rows)} priced rows checked; problems: {bad_prob[:5]}")
     add("pick matches the higher probability", not bad_pick,
         f"{len(rows) - len(set(bad_pick))} rows consistent; problems: {sorted(set(bad_pick))[:5]}")
     add("method values are known", not bad_method, f"methods used: {sorted(set(r['method'] for r in rows))}")
@@ -106,7 +105,8 @@ def main() -> None:
     add("no empty/None values rendered", not none_literal, f"problems: {none_literal[:6]}")
 
     picks_html = open(os.path.join(DOCS, "picks.html"), encoding="utf-8").read()
-    on_page = sum(1 for r in rows if f'data-comp="{r["competition"]}"' in picks_html)
+    import html
+    on_page = sum(1 for r in rows if picks_html.count(f'id="match-{html.escape(str(r["id"]), quote=True)}"') == 1)
     add("all matches rendered on the picks page", on_page == len(rows),
         f"{on_page}/{len(rows)} match cards found")
 

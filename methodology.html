@@ -20,7 +20,8 @@
   <div class="pagehead">
     <h1>Method</h1>
     <p class="sub">How every probability on this site is computed, backtested, and audited.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-23 11:43 UTC</strong> &middot; refreshed automatically every 6 hours</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-23 15:37 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T11:42:37Z">Inventory collected: 2026-10-23T11:42:37Z. Check source timestamps before use.</p>
   </div>
   
 <section class="panel">
@@ -29,15 +30,14 @@
     <li><strong>Inventory.</strong> Every League of Legends fixture is pulled from Hotspawn's public fixtures API
     (<a href="https://play.hotspawn.com/lol-pickems" rel="noopener">play.hotspawn.com/lol-pickems</a>).</li>
     <li><strong>Tier 1 — Multi-venue real-money consensus.</strong> Live odds and contract books from
-    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12), and
-    verified specialist esportsbooks (0.10)</strong> are de-vigged proportionally and precision-weighted.</li>
+    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12), </strong> are de-vigged proportionally and averaged using fixed editorial weights (not statistically optimized).</li>
     <li><strong>Tier 2 — Originated regional Elo lines.</strong> All recorded Leaguepedia series since
     MatchSchedule.DateTime_UTC &gt;= &#x27;2024-09-01 00:00:00&#x27; are processed chronologically with inactivity decay and shrinkage toward 1500.</li>
     <li><strong>Tier 3 — Provisional &amp; Unresolved quarantine.</strong> Thin-sample teams (&lt;5 series) are marked
-    <em>provisional</em>; officially removed mid-split teams (<code>dqteams</code>) are quarantined in
+    <em>provisional</em>; teams reported removed mid-split (<code>dqteams</code>) are quarantined in
     <a href="unresolved.html">Unresolved</a> rather than mispriced.</li>
     <li><strong>Automated publish gate.</strong> Every 6 hours GitHub Actions re-runs the full pipeline and
-    executes 15 strict assertions (<a href="verification.html">Verification</a>) before publishing to GitHub Pages.</li>
+    executes strict integrity assertions (<a href="verification.html">Verification</a>) before publishing to GitHub Pages.</li>
   </ol>
 </section>
 
@@ -97,11 +97,12 @@
 
 </main>
 <footer class="wrap foot">
-  <p>Independent research dashboard. Every row links to its official source. Zero Hotspawn crowd-pick input.</p>
+  <p>Independent research dashboard. Rows link to source records. Leaguepedia is community-maintained; model lines are estimates, not verified facts. Zero Hotspawn crowd-pick input.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
+<a class="mobile-picks" href="picks.html">All picks &rarr;</a>
 <script src="assets/app.js"></script>
 </body>
 </html>
