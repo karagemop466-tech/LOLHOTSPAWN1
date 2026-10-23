@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:55:17Z",
+ "generated_utc": "2026-10-23T15:55:37Z",
  "checks": [
   {
    "name": "dataset present",
@@ -143,13 +143,13 @@
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
-   "ok": false,
-   "detail": "0 expired receipts, 0 live receipts, limit None h; inconsistencies: []"
+   "ok": true,
+   "detail": "11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []"
   },
   {
    "name": "no published market row is built from a rejected quote",
    "ok": true,
-   "detail": "0 quote(s) rejected this build (placeholders / extremes); 0 extreme"
+   "detail": "1 quote(s) rejected this build (placeholders / extremes); 0 extreme"
   },
   {
    "name": "coverage matrix: every competition row links to a source",
@@ -172,12 +172,17 @@
    "detail": "32 venues probed on 2026-10-23T15:38:55Z; dossier present"
   },
   {
+   "name": "coverage arithmetic reconciles to the inventory",
+   "ok": true,
+   "detail": "priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241"
+  },
+  {
    "name": "source availability recorded",
    "ok": true,
    "detail": "9/14 sources reachable on this build"
   }
  ],
- "passed": false,
+ "passed": true,
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
