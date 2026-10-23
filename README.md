@@ -3,8 +3,9 @@
 **Live dashboard:** <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>
 
 A self-running pipeline that mirrors the complete League of Legends pick'em list from
-`play.hotspawn.com/lol-pickems` and publishes an independent win probability for **every** match on it.
-Probabilities come from real bookmaker lines where they exist, and from a results-based Elo model
+`play.hotspawn.com/lol-pickems` and publishes a pick for **every** match on it: an independent win
+probability wherever one can be defended, and an explicit settlement pick with no probability where it
+cannot. Probabilities come from real bookmaker lines where they exist, and from a results-based Elo model
 where they do not. Hotspawn's own crowd-pick percentages are never used as an input.
 
 The site rebuilds itself every six hours from GitHub Actions; nothing here needs a laptop to stay current.
@@ -39,7 +40,7 @@ tools/flags.py     derived irregularities + curated notes (data/flags_manual.jso
       ↓
 tools/site.py      11 static pages, mobile-first, no framework
       ↓
-tools/verify.py    14 assertions; a failure aborts the commit instead of publishing bad data
+tools/verify.py    25 assertions; a failure aborts the commit instead of publishing bad data
 ```
 
 A single workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) runs that chain on `main`,
@@ -57,6 +58,9 @@ Only `tools/` writes the published pages.
 - **Originated lines** — Elo fitted on Leaguepedia series results, recency-weighted, with a
   connected-opponent graph guard; teams with too little recorded history are labelled *provisional*
   rather than silently given a confident number.
+- **Settlement picks** — a fixture whose participant was removed mid-split (`dqteams`) gets the
+  administratively correct side (the remaining active opponent) and **no percentage**, because a
+  competitive probability cannot be justified for a series that may be voided or awarded as a walkover.
 - **Never used** — Hotspawn's `picked_percent`, its tiers, or its points as probability inputs.
 - **Blank beats wrong** — a value that cannot be confirmed from a primary source is left blank and
   listed on `flagged.html`; nothing is inferred to fill a gap.
@@ -119,6 +123,13 @@ Where the two dashboards agree (9 Pinnacle-priced matches, same pick sides, same
 found independently) is the strongest verification this repo offers; where they differ, both
 presentations are one click apart and each row carries its source links.
 
+## Mobile use
+
+The dashboard is mobile-first. A persistent bottom bar (Summary · All picks · Market · Unresolved ·
+Flags) is fixed to the bottom of every page on phones, the header `Menu` button now actually opens the
+full 11-page navigation, and `picks.html` has a working search box, tournament filter and pick-type
+chips that filter instantly client-side with no page reload.
+
 ## Running it locally
 
 ```bash
@@ -143,6 +154,8 @@ If either team has no matched rated history and no collected market, probabiliti
 and picks remain blank. Recorded removals remain quarantined pending settlement.
 Historical manual findings are visibly marked as not reverified.
 
-Run `python3 -m unittest discover -s tests -v` and `python3 tools/verify.py`.
-The gate reconciles the exact inventory ID multiset, checks finite probabilities,
-checks the actual named favourite, and checks each match card's unique ID.
+Run `python3 -m unittest discover -s tests -v`, `NODE_PATH=<jsdom> node tests/dashboard.cjs`
+and `python3 tools/verify.py`. The gate reconciles the exact inventory ID multiset, checks
+finite probabilities via `tools/integrity.py`, checks the actual named favourite, checks each
+match card's unique ID, and enforces the settlement-pick contract (a settlement pick names a
+listed participant and carries no probability).

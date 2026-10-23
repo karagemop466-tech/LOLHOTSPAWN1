@@ -32,6 +32,15 @@ METHOD_HELP = {
     "unresolved": "No defensible competitive line (mid-split league removal / unrated).",
 }
 
+# Always-visible navigation on phones (a persistent bottom bar beats a hidden menu).
+MOBILE_NAV = [
+    ("index.html", "Summary"),
+    ("picks.html", "All picks"),
+    ("featured.html", "Market"),
+    ("unresolved.html", "Unresolved"),
+    ("flagged.html", "Flags"),
+]
+
 NAV = [
     ("index.html", "Summary"),
     ("picks.html", "All picks"),
@@ -80,9 +89,15 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
         cls = ' class="active"' if href == active else ""
         nav_parts.append(f'<a href="{e(href)}"{cls}>{e(label)}</a>')
     nav = "".join(nav_parts)
+    bottom_parts = []
+    for href, label in MOBILE_NAV:
+        cls = ' class="active"' if href == active else ""
+        bottom_parts.append(f'<a href="{e(href)}"{cls}><span>{e(label)}</span></a>')
+    bottom_nav = "".join(bottom_parts)
     meta = load_json(os.path.join(DATA, "matches.json")) or {}
-    fetched = meta.get("inventory_fetched_utc") or (load_json(os.path.join(DATA, "raw/hotspawn_lol.json")) or {}).get("fetched_utc", "")
     updated = (meta.get("generated_utc") or "")[:16].replace("T", " ")
+    fetched = (meta.get("inventory_fetched_utc")
+               or (load_json(os.path.join(DATA, "raw", "hotspawn_lol.json")) or {}).get("fetched_utc", ""))
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,7 +112,7 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
 <header class="topbar">
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle page menu">Menu</button>
     <nav id="nav" class="nav">{nav}</nav>
   </div>
 </header>
@@ -106,7 +121,7 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
     <h1>{e(title)}</h1>
     {f'<p class="sub">{subtitle}</p>' if subtitle else ''}
     <p class="stamp">Data snapshot: <strong>{e(updated)} UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="{e(fetched)}">Inventory collected: {e(fetched)}. Check source timestamps before use.</p>
+    <p id="snapshot-age" class="stamp" data-fetched="{e(fetched)}">Hotspawn inventory collected: {e(fetched) or "unknown"}. Check source timestamps before use.</p>
   </div>
   {body}
 </main>
@@ -135,7 +150,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
         bar = (f'<div class="split" role="img" aria-label="{e(t0["name"])} {w:.0f} percent, '
                f'{e(t1["name"])} {100 - w:.0f} percent">'
                f'<span class="s0" style="width:{w:.1f}%"></span></div>')
-    if pick:
+    if pick and pick.get("probability") is not None:
         pick_html = (f'<div class="pickline"><span class="picklabel">Pick</span> '
                      f'<strong>{e(pick["team"])}</strong> '
                      f'<span class="pickpct">{pick["probability"]*100:.1f}%</span></div>')
@@ -146,8 +161,8 @@ def match_card(r: dict, show_sources: bool = True) -> str:
                      f'<span class="muted small">no probability &middot; '
                      f'<a href="{e(res["source"])}" rel="noopener">record</a></span></div>')
     else:
-        pick_html = ('<div class="pickline"><span class="picklabel">Unresolved</span> '
-                     '<span class="muted">see Unresolved &amp; why below</span></div>')
+        pick_html = ('<div class="pickline"><span class="picklabel">No pick</span> '
+                     '<span class="muted">see Unresolved &amp; limitations</span></div>')
     flags = ""
     if r["flags"]:
         flags = '<ul class="flags">' + "".join(f"<li>{e(f)}</li>" for f in r["flags"]) + "</ul>"
@@ -324,8 +339,8 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
         ])
 
     body = f"""
-<section class="hero">
-  <h2>Every Hotspawn League of Legends match, with a line we can defend.</h2>
+<section class="hero" id="start">
+  <h2>Every Hotspawn League of Legends match, with a pick you can find in one tap.</h2>
   <p>This dashboard rebuilds itself automatically every six hours across all {total} scheduled LoL matches on
   Hotspawn. {len(featured)} featured series are priced from de-vigged real-money quotes
   ({e(venues_txt)}); {originated_n} regional and academy series are originated from recorded series history;
@@ -506,7 +521,8 @@ def build_picks(rows: list[dict], counts: Counter) -> str:
   <div class="cards" id="list">
     {"".join(match_card(r) for r in rows)}
   </div>
-  <p class="empty" id="empty" hidden>No matches match that filter.</p>
+  <p class="empty" id="empty" hidden>No match found &mdash; clear the search or pick another tournament.</p>
+  <p style="text-align:center;margin:14px 0 0"><button class="btn" type="button" id="totop">Back to top</button></p>
 </section>
 """
     return page_shell("All picks", "picks.html", body,
@@ -524,12 +540,20 @@ def build_featured(rows: list[dict]) -> str:
             f'<a href="{e(v["url"])}" rel="noopener">{e(v["name"])} ({e(v["quote"])})</a>'
             for v in (m.get("venues") or [])
         ) or f'<a href="{e(m.get("market_url") or m.get("source_url"))}" rel="noopener">line</a>'
+        cross = (m.get("model_cross_check"))
+        if cross is not None:
+            gap = abs((r["p0"] or 0) - cross) * 100
+            cross_cell = (f'{pct(cross)} / {pct(1 - cross)}'
+                          f'<br><span class="muted small">{"&#9888; " if gap >= 20 else ""}{gap:.0f} pp gap</span>')
+        else:
+            cross_cell = '<span class="muted">not rated</span>'
         rows_html.append([
             local_time(r["start_utc"]),
             e(r["competition"]),
             f'<strong>{e(r["pick"]["team"])}</strong> ({r["pick"]["probability"]*100:.1f}%)<br>'
             f'<span class="muted small">{e(r["team0"]["name"])} vs {e(r["team1"]["name"])}</span>',
             pct(r["p0"]) + " / " + pct(r["p1"]),
+            cross_cell,
             f'{e(m["book"])}',
             f'{dec.get("home","")} / {dec.get("away","")}',
             f'{vlinks} &middot; <a href="{e(r["hotspawn_url"])}" rel="noopener">card</a>',
@@ -717,7 +741,7 @@ def build_teams(rows: list[dict]) -> str:
     body = f"""
 <section class="panel">
   <h2>{len(ordered)} teams on the current list</h2>
-  <p class="lead">Ratings are fitted chronologically from community-recorded series results. Non-exact name joins are
+  <p class="lead">Ratings are fitted chronologically from official series results. Non-exact name joins are
   audited individually on <a href="verification.html">Verification</a>.</p>
   {table(["Team (Hotspawn)", "Leaguepedia team", "Elo", "Rated series", "Last played", "Join"], out)}
 </section>
@@ -802,6 +826,14 @@ def build_methodology(model: dict) -> str:
     <li><strong>Explicit quarantine over guesswork.</strong> Disqualified teams (<code>dqteams</code>) and unrated
     cards are documented transparently on <a href="unresolved.html">Unresolved</a> and
     <a href="flagged.html">Flagged for review</a>.</li>
+    <li><strong>Receipts expire.</strong> A bookmaker quote captured from a match page is a line only while it is
+    fresh; archived receipts older than 24 hours are excluded from the consensus, so an affected match falls back
+    to the live venues or to the model rather than to a stale price.</li>
+    <li><strong>Market vs model is disclosed.</strong> Every market-priced row also publishes our own Elo
+    probability and flags a gap of 20 percentage points or more, instead of quietly blending the two.</li>
+    <li><strong>Explicit quarantine over guesswork.</strong> Disqualified teams (<code>dqteams</code>) get a
+    settlement pick with no probability, and every caveat is documented on
+    <a href="unresolved.html">Unresolved</a> and <a href="flagged.html">Flagged for review</a>.</li>
   </ul>
 </section>
 """
@@ -921,7 +953,9 @@ def build_verification(rows: list[dict], matching: dict, verification: dict | No
 
 
 def build_flagged(flags: list[dict]) -> str:
-    out = [[e(f.get("severity")), e(f.get("item")), e(f.get("detail")),
+    out = [[e(f.get("severity")), e(f.get("item")),
+            e(f.get("detail")) + (f'<br><span class="verify-state">{e(f["verification"])}</span>'
+                                  if f.get("verification") else ""),
             f'<a href="{e(f.get("source"))}" rel="noopener">source</a>' if f.get("source") else "&mdash;"]
            for f in flags]
     body = f"""

@@ -74,8 +74,8 @@
   },
   {
    "severity": "medium",
-   "item": "4 match(es) could not be priced",
-   "detail": "Solid Gaming vs VES Japan (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent VES Japan.; Solid Gaming vs Playwell Rød Q (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Playwell Rød Q.; Volda E-Sport vs Solid Gaming (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent Volda E-Sport.; Solid Gaming vs NTNUI Kometkameratene (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming' (remaining matches forfeited to opponents). Hotspawn may void this card or settle walkover in favour of active opponent NTNUI Kometkameratene.",
+   "item": "4 match(es) have no win probability (settlement pick only)",
+   "detail": "Solid Gaming vs VES Japan (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for opponent VES Japan; the settlement is unverified, so no competitive probability is claimed.; Solid Gaming vs Playwell Rød Q (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for opponent Playwell Rød Q; the settlement is unverified, so no competitive probability is claimed.; Volda E-Sport vs Solid Gaming (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for opponent Volda E-Sport; the settlement is unverified, so no competitive probability is claimed.; Solid Gaming vs NTNUI Kometkameratene (Komplettligaen 2026 Autumn): Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming', and every remaining Solid Gaming series in that schedule is entered as a forfeit (score 0-2 with the ff flag) in favour of the opponent. Hotspawn may void this card or settle the walkover for opponent NTNUI Kometkameratene; the settlement is unverified, so no competitive probability is claimed.",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
   {
@@ -101,6 +101,48 @@
    "item": "66 fixtures still listed as 'scheduled' although their start time has passed",
    "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time is more than three hours in the past (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. The reason is unverified.",
    "source": "https://play.hotspawn.com/lol-pickems"
+  },
+  {
+   "severity": "medium",
+   "item": "11 archived esportsbook receipts expired and are no longer used as market input",
+   "detail": "A bookmaker quote captured from a match page is a line only while it is fresh. These receipts were captured on 2026-10-21 (up to 43 h old, limit 24 h) and are now excluded from the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, Kalshi, Bovada) or to our own Elo line. The receipts stay in the audit trail: #1081205 [1.86, 1.8] (2026-10-21T20:36:00Z); #1067878 [1.2, 4.4] (2026-10-21T20:36:00Z); #1067677 [1.2, 4.05] (2026-10-21T20:36:00Z); #1067680 [1.17, 4.88] (2026-10-21T20:36:00Z); #1067675 [1.38, 2.63] (2026-10-21T20:36:00Z); #1067676 [2.18, 1.61] (2026-10-21T20:36:00Z)",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"
+  },
+  {
+   "severity": "medium",
+   "item": "1 market-priced match(es) disagree with our own model by 20 pp or more",
+   "detail": "LØS vs T1 (Worlds 2026 Main Event). The market side is what the site publishes and the model value is printed next to it on the Market page, so the gap is visible rather than hidden.",
+   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+  },
+  {
+   "severity": "medium",
+   "item": "1 market row(s) rest on a single prediction market with almost no traded volume",
+   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $5 traded volume (thin-market threshold $1,000), priced 32.5%/67.5%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
+   "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
+  },
+  {
+   "severity": "high",
+   "item": "4 match(es) carry a settlement pick only - no win probability is claimed",
+   "detail": "For these cards the listed participant was removed mid-split by the league (#1071170 Solid Gaming vs VES Japan; #1071200 Solid Gaming vs Playwell Rød Q; #1071206 Volda E-Sport vs Solid Gaming; #1071186 Solid Gaming vs NTNUI Kometkameratene). We publish the administratively correct side (the active opponent, per the official dqteams ruling) and publish no percentage at all, because a competitive probability cannot be justified if the series is voided or awarded as a walkover.",
+   "source": "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split"
+  },
+  {
+   "severity": "medium",
+   "item": "1 bookmaker-priced matches disagree on kick-off time",
+   "detail": "Pinnacle's start times differ from Hotspawn's by 2-5 hours on these fixtures. Because Hotspawn and Leaguepedia agree with each other (recorded in each card's 'Why this line'), the odds are treated as valid for the pairing; the card prints both times. Verify before betting: Mental Rush vs Vitality Rising Bees",
+   "source": "https://www.pinnacle.com/en/esports/league-of-legends"
+  },
+  {
+   "severity": "medium",
+   "item": "18 fixtures list a different kick-off than the official Leaguepedia record",
+   "detail": "Hotspawn's published start time and the date/time in Leaguepedia's Data: schedule disagree by 1.5 hours or more on these cards (most differ by whole days, e.g. a Hotspawn card dated this week against a Leaguepedia record in November). 4 of them are still ahead of their Hotspawn kick-off, so the date matters. Each affected card prints both times. Examples: DMG Esports Norway vs Playwell Rød Q (Komplettligaen 2026 Autumn); Solid Gaming vs VES Japan (Komplettligaen 2026 Autumn); Mixlag fra Trondheim vs CNG Royal (Komplettligaen 2026 Autumn); Invictus Team vs Smoke Tram Ascension (LigaGG CELOL A 2026 Split 2); Lund Esports Organization vs Karolinerna Black (Superstrike League 2026); Dziady cz.67 vs Adam West Corp (Legends Academy powered by Żabka Season 3 Playoffs)",
+   "source": "https://lol.fandom.com/wiki/Special:CargoExport"
+  },
+  {
+   "severity": "medium",
+   "item": "Crowd vs real-money gap: Babos Gaming vs Hannover Esports e.V. (PRM 2nd Division 26-27 Fall) - crowd 8% on Babos Gaming against our 65.1%",
+   "detail": "25 Hotspawn users have picked this card and 8% of them chose Babos Gaming; our line, built only from external sources (model), puts that team at 65.1% - a 57.1 pp gap. Recalculated on every build across all cards with at least 20 crowd picks: Babos Gaming vs Hannover Esports e.V. 57 pp, Rich Gang vs Phenti 52 pp, Team Lucidity Esports vs Team cd 50 pp, AceGaming vs Babos Gaming 49 pp.",
+   "source": "https://www.hotspawn.com/matches/babos-gaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1079027"
   },
   {
    "severity": "info",
