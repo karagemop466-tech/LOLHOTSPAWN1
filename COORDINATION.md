@@ -298,3 +298,20 @@ Existing completed scopes are retained. This session uses the fixed Arena branch
 - Fresh inventory: **241 rows; 9 market, 163 model, 65 provisional, 4 unresolved**. Every raw inventory ID appears exactly once in published picks. No claim is made that model estimates are official verified win probabilities.
 - GitHub Pages deployment succeeded: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/39980169572 . Pages API reports `built`, commit `a44583f32fc1c277786fe066c6cd74a954d8f7da`, 2026-10-23T15:39:58Z. Site: https://karagemop466-tech.github.io/LOLHOTSPAWN1/ . This confirms deployment through GitHub; direct live-site HTTP verification is unavailable under this sandbox's host restrictions.
 - Post-refresh checks: Python 5/5 tests and jsdom interaction tests pass against the fresh generated pages. Local link gate reports zero broken internal links across 11 canonical pages. Independent secondary `docs/` dashboard remains outside this session's scope; root dashboard is canonical.
+
+---
+
+# Session `7f76a03b` — secondary dashboard audit + live coverage verification + closing integration (started 2026-10-23T15:45Z)
+
+Branch: `arena/7f76a03b-lolhotspawn1` (Arena session branch). Claimed at start; no other session had
+claimed the scopes below.
+
+## Task board — session `7f76a03b`
+
+| # | Task | Status | Owner | File scope | Notes |
+|---|---|---|---|---|---|
+| N1 | Secondary `docs/` (Node) dashboard audit: fix stale/incorrect fixture-state rendering, line-by-line verification of the docs pages against `data/node/` snapshots | claimed | 7f76a03b | `scripts/`, `docs/`, `data/node/**`, `.github/workflows/refresh-docs.yml` | Open item from the third-pass record ("the Node pipeline will adopt the dq quarantine in a future pass"). No other session has claimed `scripts/`/`docs/`/`data/node`. |
+| V1 | Live full-coverage audit: diff the live Hotspawn `status=scheduled` inventory against `data/matches.json` and confirm every listed fixture carries a pick/probability; record irregularities here | claimed | 7f76a03b | `audit/**` (new), COORDINATION.md append | Read-only w.r.t. `tools/` and canonical data; any pipeline fixes are logged as requests, not edited here. Fresh fetches run on GitHub Actions (sandbox egress restricted). |
+| I1 | Closing integration for this round: after other sessions' PRs land, re-verify combined data, PR → main, merge, confirm Pages deploy, record PR link here | claimed | 7f76a03b | COORDINATION.md append | Protocol's final integration session; run after the in-flight sessions (`b91181f0`, `a91e528d`, `29d6fe6a`, `4106ce94`) finish. |
+
+- `2026-10-23T15:45Z` — claim committed and pushed; starting N1.
