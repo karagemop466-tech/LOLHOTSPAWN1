@@ -87,6 +87,16 @@
     <a href="coverage.html"><strong>External line coverage</strong></a> lists every competition with its
     method, the external price we captured for it (with the source page and capture time) and the
     evidence that no reachable bookmaker prices the rest.</li>
+    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
+    We probed <strong>32 external venues</strong> directly from the build runner (established
+    books, esportsbooks, exchanges, odds aggregators); 14 answered and
+    7 returned JSON, and only four of those are price feeds. Across every reachable
+    venue the same slice of the calendar is quoted: <strong>Pinnacle 8 series</strong>,
+    <strong>Kalshi 8 contracts</strong> and
+    <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds
+    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
+    The full probe table, HTTP verdict per venue and the receipt files are on
+    <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Unresolved picks and the limitations on producing them (4 matches).</strong>
     These are the 4 Komplettligaen 2026 Autumn fixtures involving
     <strong>Solid Gaming</strong>, which the community-maintained Leaguepedia record
@@ -111,7 +121,7 @@
     <li><strong>Refresh and verification.</strong> The pipeline reruns every 6 hours and re-reads Hotspawn's
     fixture list on every run, so new cards appear without any manual step. 9 of 14
     probed feeds answered on the latest runner build (<a href="sources.html">Sources</a>), and
-    28 automated publish gates must pass before anything is committed
+    29 automated publish gates must pass before anything is committed
     (<a href="verification.html">Verification</a>). Irregularities are published on
     <a href="flagged.html">Flagged for review</a>.</li>
   </ul>

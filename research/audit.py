@@ -68,8 +68,13 @@ def main() -> None:
     for r in rows:
         p0, p1 = r.get("p0"), r.get("p1")
         if r.get("method") == "unresolved":
-            if p0 is not None or r.get("pick"):
+            pick = r.get("pick") or {}
+            if p0 is not None or p1 is not None:
                 bad("probability", f"{r['id']} unresolved row carries a probability")
+            if pick and pick.get("probability") is not None:
+                bad("probability", f"{r['id']} settlement pick claims a probability")
+            if pick and pick.get("team") not in (r["team0"]["name"], r["team1"]["name"]):
+                bad("probability", f"{r['id']} settlement pick names a side outside the fixture")
             continue
         if p0 is None or p1 is None:
             bad("probability", f"{r['id']} priced row missing a probability")
