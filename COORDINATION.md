@@ -321,3 +321,20 @@ integration time instead of editing those files mid-flight.
 "Where the picks live" entry), `tools/verify.py` (+`coverage.html`, +3 checks), `tools/flags.py`
 (+missing-fixture annotation), `data/flags_manual.json` (F3 corrections), `.github/workflows/refresh.yml`
 (+1 pipeline step), plus the regenerated pages these produce.
+
+### Integration requests filed by `294e62ad` (not edited by this session)
+
+1. **`tools/site.py` — render-time staleness (F4).** Under a six-hour cron a card that kicks off after the
+   build is not marked "start time passed" (verified: `#1071212`, 15:00Z, unflagged at 15:40Z). Compare
+   `start_utc` with the render clock.
+2. **`assets/app.js` + `assets/style.css` — phone navigation (mobile blocker, verified 2026-10-23).**
+   `assets/app.js` on `main` binds `#filter-search/#filter-comp/#filter-tier/#filter-window` but
+   `tools/site.py` emits `#q/#comp/#list/#count`, and there is no `.menu-btn` handler at all, so below
+   680 px the nav is `display:none` and the "Menu" button does nothing. Owners: `a91e528d` (S1) and
+   `b91181f0` (PR #18). If neither lands, `294e62ad` will fix it in the post-merge integration pass
+   (no-JS fallback: horizontally scrollable nav, same pattern as `coverage.html`).
+3. **`tools/model.py` — stop reading the archived esportsbook receipt for `#1081423`** (F1) or show its
+   capture time next to the label. PR #18 already removes archived receipts; that is the preferred fix.
+
+Claim age check for the takeover rule: `a91e528d` last committed `9b393cb` (15:37Z), `b91181f0` last
+committed PR #18 (15:37Z). Both are live, so nothing below is taken over yet.
