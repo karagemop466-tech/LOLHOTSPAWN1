@@ -110,8 +110,10 @@ def main() -> None:
     notes.append(f"elo: {elo_checked} rows reproduced from committed ratings")
 
     # 4. market consensus --------------------------------------------------
-    w = {"Pinnacle": 0.36, "Polymarket": 0.24, "Kalshi": 0.18, "Bovada": 0.12,
-         "Unibet": 0.10, "Esportsbook": 0.10}
+    w = dict(model.get("venue_weights") or {
+        "Pinnacle": 0.36, "Polymarket": 0.24, "Kalshi": 0.18, "Bovada": 0.12,
+        "Unibet": 0.10, "Esportsbook": 0.10,
+    })
     market_checked = 0
     for r in rows:
         if r.get("method") != "market":

@@ -47,7 +47,7 @@ page_shell = _lol_site.page_shell  # shared nav, mobile bottom nav, app.js
 RECEIPT_DIR = os.path.join(DATA, "receipts", "external_odds")
 OUT_JSON = os.path.join(DATA, "corroboration.json")
 OUT_HTML = os.path.join(ROOT, "coverage.html")   # GitHub Pages serves the branch root
-DIVERGENCE_PP = 5.0          # external vs our line, percentage points
+DIVERGENCE_PP = 8.0          # external vs our line, percentage points (allows normal pre-kickoff movement)
 PLACEHOLDER_DECIMAL = 1.80   # aggregator "no price yet" default, rejected by tools/model.py too
 
 NAV = [

@@ -759,17 +759,25 @@ def main() -> None:
             })
 
     kambi_index = []
-    for ev in kambi.get("events") or []:
-        outs = ev.get("outcomes") or []
-        if len(outs) == 2:
-            kambi_index.append({
-                "names": [outs[0]["name"], outs[1]["name"]],
-                "d0": float(outs[0]["decimal"]),
-                "d1": float(outs[1]["decimal"]),
-                "start": ev.get("start_utc"),
-                "url": ev.get("url") or kambi.get("source_url") or "",
-                "observed_utc": ev.get("changed_utc") or kambi_obs,
-            })
+    kambi_fresh = False
+    if kambi_obs:
+        try:
+            kambi_age_h = (now_utc() - datetime.strptime(str(kambi_obs)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)).total_seconds() / 3600
+            kambi_fresh = kambi_age_h <= RECEIPT_MAX_AGE_HOURS
+        except ValueError:
+            kambi_fresh = False
+    if kambi_fresh:
+        for ev in kambi.get("events") or []:
+            outs = ev.get("outcomes") or []
+            if len(outs) == 2:
+                kambi_index.append({
+                    "names": [outs[0]["name"], outs[1]["name"]],
+                    "d0": float(outs[0]["decimal"]),
+                    "d1": float(outs[1]["decimal"]),
+                    "start": ev.get("start_utc"),
+                    "url": ev.get("url") or kambi.get("source_url") or "",
+                    "observed_utc": ev.get("changed_utc") or kambi_obs,
+                })
 
     now_dt_eval = now_utc()
     rows, join_log = [], []

@@ -129,12 +129,33 @@ def main() -> None:
     add("Pinnacle quote URLs point at collected matchups", not bad_pin_ids,
         f"{len(pin_ids)} matchup ids in feed; problems: {bad_pin_ids[:5]}")
 
-    five_venue = [r["id"] for r in rows if r.get("method") == "market"
-                  and {v.get("name") for v in (r.get("market") or {}).get("venues") or []}
-                  == {"Pinnacle", "Polymarket", "Kalshi", "Bovada", "Unibet"}]
-    add("all Worlds series carry 5-venue live consensus including Unibet/Kambi",
-        len(five_venue) >= 8,
-        f"{len(five_venue)} fixtures carry Pinnacle+Polymarket+Kalshi+Bovada+Unibet")
+    from model import same_team
+    kambi_raw = load_json(os.path.join(DATA, "raw", "kambi_lol.json")) or {}
+    kambi_fresh = False
+    try:
+        from datetime import datetime as _dt_k, timezone as _tz_k
+        k_age = (now_utc() - _dt_k.strptime(str(kambi_raw.get("fetched_utc") or "")[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=_tz_k.utc)).total_seconds() / 3600
+        kambi_fresh = k_age <= 24.0
+    except ValueError:
+        kambi_fresh = False
+    expected_unibet = set()
+    if kambi_fresh:
+        for kev in kambi_raw.get("events") or []:
+            kouts = kev.get("outcomes") or []
+            if len(kouts) != 2:
+                continue
+            for r in rows:
+                if r.get("method") != "market":
+                    continue
+                if ((same_team(r["team0"]["name"], kouts[0]["name"]) and same_team(r["team1"]["name"], kouts[1]["name"]))
+                        or (same_team(r["team0"]["name"], kouts[1]["name"]) and same_team(r["team1"]["name"], kouts[0]["name"]))):
+                    expected_unibet.add(r["id"])
+    actual_unibet = {r["id"] for r in rows if r.get("method") == "market"
+                     and any(v.get("name") == "Unibet" for v in (r.get("market") or {}).get("venues") or [])}
+    missing_unibet = sorted(expected_unibet - actual_unibet)
+    add("all fresh Unibet/Kambi moneylines matched into market consensus",
+        not missing_unibet,
+        f"{len(actual_unibet)}/{len(expected_unibet)} fresh Unibet fixtures matched; missing: {missing_unibet[:5]}")
 
     wo = [r for r in rows if r.get("resolution")]
     bad_wo = [r["id"] for r in wo

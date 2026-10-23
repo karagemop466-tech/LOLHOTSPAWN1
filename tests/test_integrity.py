@@ -79,14 +79,29 @@ class IntegrityTests(unittest.TestCase):
         doc = json.loads((root / 'data' / 'matches.json').read_text(encoding='utf-8'))
         counts = doc['counts']
         self.assertEqual(sum(counts.values()), doc['total'])
-        five_venue = [
-            r for r in doc['matches']
-            if r['method'] == 'market'
-            and {v['name'] for v in (r.get('market') or {}).get('venues') or []}
-            == {'Pinnacle', 'Polymarket', 'Kalshi', 'Bovada', 'Unibet'}
-        ]
-        self.assertGreaterEqual(len(five_venue), 8)
         for html_file in root.glob('*.html'):
             txt = html_file.read_text(encoding='utf-8')
             self.assertNotIn('www.pinnacle.com/en/', txt, html_file.name)
+
+    def test_preserve_recent_on_http_error_respects_ttl(self):
+        import json
+        import tempfile
+        import collect as col_mod
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / 'kambi_lol.json'
+            fresh_ts = col_mod.iso(col_mod.now_utc())
+            p.write_text(json.dumps({
+                'fetched_utc': fresh_ts,
+                'events': [{'event_id': 1, 'outcomes': [{'name': 'A', 'decimal': 1.5}, {'name': 'B', 'decimal': 2.5}]}],
+            }), encoding='utf-8')
+            kept = col_mod._preserve_recent_on_http_error(str(p), 'events', 429, 'kambi', max_age_h=24.0)
+            self.assertIsNotNone(kept)
+            self.assertEqual(kept['count'], 1)
+            stale = {
+                'fetched_utc': '2026-10-20T00:00:00Z',
+                'events': [{'event_id': 1}],
+            }
+            p.write_text(json.dumps(stale), encoding='utf-8')
+            expired = col_mod._preserve_recent_on_http_error(str(p), 'events', 429, 'kambi', max_age_h=24.0)
+            self.assertIsNone(expired)
 
