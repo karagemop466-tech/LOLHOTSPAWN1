@@ -453,8 +453,7 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
          "grade walkovers in favour of the remaining active opponent, assigning an Elo win probability from pre-removal "
          "matches is invalid (and trapped 72% of Hotspawn's crowd on Solid Gaming in #1071216)."],
         ["No sportsbook market on national divisions", f"{len([r for r in rows if r['method']!='market'])} matches",
-         "Pinnacle, Polymarket, Kalshi, and Bovada price Tier-S/A series (Worlds 2026 & EMEA Masters), plus specialist "
-         "books cover LCP 2027 Promotion. Regional divisions (Prime League 2nd/3rd Div, RIVALS, NLC Lower, etc.) have no matched market in the collected feeds; this does not establish that no market exists elsewhere."],
+         "Pinnacle, Polymarket, Kalshi, and Bovada price Tier-S/A series (Worlds 2026 & EMEA Masters), when matched in collected feeds. Regional divisions (Prime League 2nd/3rd Div, RIVALS, NLC Lower, etc.) have no matched market in the collected feeds; this does not establish that no market exists elsewhere."],
         ["Thin match history", f"{counts.get('provisional',0)} provisional",
          "At least one team has fewer than five rated series in the 25-month Leaguepedia window, so the Elo estimate "
          "carries wider variance and is explicitly flagged provisional."],
@@ -543,7 +542,7 @@ def build_teams(rows: list[dict]) -> str:
     body = f"""
 <section class="panel">
   <h2>{len(ordered)} teams on the current list</h2>
-  <p class="lead">Ratings are fitted chronologically from official series results. Non-exact name joins are
+  <p class="lead">Ratings are fitted chronologically from community-recorded series results. Non-exact name joins are
   audited individually on <a href="verification.html">Verification</a>.</p>
   {table(["Team (Hotspawn)", "Leaguepedia team", "Elo", "Rated series", "Last played", "Join"], out)}
 </section>
@@ -564,7 +563,7 @@ def build_methodology(model: dict) -> str:
     <li><strong>Tier 2 — Originated regional Elo lines.</strong> All recorded Leaguepedia series since
     {e(model.get('window_start',''))} are processed chronologically with inactivity decay and shrinkage toward 1500.</li>
     <li><strong>Tier 3 — Provisional &amp; Unresolved quarantine.</strong> Thin-sample teams (&lt;5 series) are marked
-    <em>provisional</em>; officially removed mid-split teams (<code>dqteams</code>) are quarantined in
+    <em>provisional</em>; teams reported removed mid-split (<code>dqteams</code>) are quarantined in
     <a href="unresolved.html">Unresolved</a> rather than mispriced.</li>
     <li><strong>Automated publish gate.</strong> Every 6 hours GitHub Actions re-runs the full pipeline and
     executes strict integrity assertions (<a href="verification.html">Verification</a>) before publishing to GitHub Pages.</li>
@@ -649,7 +648,7 @@ def build_sources(src: list[dict]) -> str:
     <a href="https://www.bovada.lv/sports/esports/league-of-legends" rel="noopener">Bovada</a> &mdash;
     live multi-venue real-money match odds &amp; contract books.</li>
     <li><a href="https://lol.fandom.com/wiki/Special:CargoExport" rel="noopener">Leaguepedia Cargo &amp; MediaWiki Data: namespace</a> &mdash;
-    chronological series history plus official <code>dqteams</code> mid-split disqualification records.</li>
+    chronological series history plus community-recorded <code>dqteams</code> mid-split disqualification records.</li>
     <li><a href="https://esports-api.lolesports.com" rel="noopener">LoL Esports (Riot Games)</a> &mdash;
     official World Championship schedule verification.</li>
   </ul>
@@ -685,7 +684,7 @@ def build_verification(rows: list[dict], matching: dict, verification: dict | No
   <h2>Row coverage</h2>
   <div class="stats tight">
     {stat_card("Rows checked", stats.get("rows_checked", len(rows)), "every match on Hotspawn")}
-    {stat_card("Rows with verified source link", stats.get("rows_with_source", 0), "100% row-level provenance", "ok")}
+    {stat_card("Rows with source link", stats.get("rows_with_source", 0), "Link presence checked; not source endorsement", "ok")}
     {stat_card("Valid probability rows", stats.get("rows_prob_ok", 0), "A + B = 100.0% verified", "market")}
     {stat_card("Provisional or quarantined", stats.get("unverified", 0), "explicitly flagged", "provisional")}
   </div>
@@ -720,12 +719,12 @@ def build_flagged(flags: list[dict]) -> str:
 <section class="panel">
   <h2>Flagged for review ({len(flags)})</h2>
   <p class="lead">Audited upstream feed irregularities, mid-split team disqualifications, placeholder odds traps,
-  and thin-sample caveats — published openly with official source links.</p>
+  and thin-sample caveats — published openly with source links and verification caveats.</p>
   {table(["Severity", "Item", "Detail", "Source"], out)}
 </section>
 """
     return page_shell("Flagged for review", "flagged.html", body,
-                      "Irregularities and unverified items, with official source links.")
+                      "Irregularities and unverified items, with source links and verification caveats.")
 
 
 # --------------------------------------------------------------------------- main

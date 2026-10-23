@@ -280,3 +280,13 @@ authoritative one), and the backtest rendering fix (gate now 15/15).
 | Audit canonical fallback safety, mobile navigation, provenance and refresh gate; integrate and deploy | in progress | b91181f0 | `tools/`, `assets/`, root generated HTML, `.github/workflows/refresh.yml`, tests, README, COORDINATION.md |
 
 Existing completed scopes are retained. This session uses the fixed Arena branch rather than creating another branch. External source access from this sandbox is restricted; fresh collection must run on GitHub Actions, not be represented as live local verification.
+
+### b91181f0 audit findings and local verification
+
+- Fixed broken mobile menu and all canonical pick filters (old JS targeted a different DOM).
+- Removed archived 2026-10-21 aggregator receipts from current consensus. This reduced locally recomputed market rows from 10 to 9; the affected match now has a history-based model line. No odds invented.
+- Removed the one-unrated-side 1500 baseline fallback; missing evidence now produces null probabilities and a documented unresolved reason.
+- Labelled Leaguepedia as community-maintained, not an official league authority. Historical manual findings explicitly say not reverified. Added collection timestamp/8-hour stale warning and persistent mobile All picks link.
+- Local verification uses the committed 2026-10-23T11:42:37Z Hotspawn snapshot, NOT a new live fetch. Exact inventory reconciliation: 241/241; 17 integrity/link/render gates pass. Five Python regression tests pass, including NaN/out-of-range/wrong-team rejection. jsdom interaction tests pass for menu, search, empty state, method and tournament filters over all 241 cards.
+- Source records: https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/raw/hotspawn_lol.json and the provider URLs on Sources. GitHub Pages configuration confirmed via GitHub API (main /, status built).
+- Irregularity: manual Actions dispatch returns HTTP 403 (integration permission). A new collection cannot be requested from this sandbox; merging pipeline changes triggers the existing push workflow. No credentials requested. Fresh verification/deploy result to be recorded below.

@@ -415,8 +415,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     p0 = sum(v["weight"] * v["p0"] for v in venues) / wsum
     p1 = round(1.0 - round(p0, 4), 4)
     p0 = round(p0, 4)
-    if primary_decimal is None:
-        primary_decimal = {"home": round(1.0 / max(p0, 0.01), 3), "away": round(1.0 / max(p1, 0.01), 3)}
+    # Never present derived fair odds as an observed bookmaker quote.
 
     book_label = (f"{len(venues)}-Venue Consensus" if len(venues) >= 2 else venues[0]["name"])
     return {
