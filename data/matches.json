@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-23T15:53:00Z",
- "inventory_fetched_utc": "2026-10-23T15:37:40Z",
+ "generated_utc": "2026-10-23T15:53:16Z",
+ "inventory_fetched_utc": "2026-10-23T15:50:53Z",
  "receipt_audit": {
   "max_age_hours": 24,
   "used": [],
@@ -110,7 +110,7 @@
   "settlement": 4
  },
  "market_hygiene": {
-  "pinnacle_kills_derivatives_excluded": 6,
+  "pinnacle_kills_derivatives_excluded": 0,
   "archived_receipts_retired": 10,
   "esportsbook_venue_active": false
  },
@@ -5212,25 +5212,19 @@
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "3-Venue Consensus",
-    "kind": "bookmaker",
-    "source_url": "https://www.pinnacle.com/en/event/1638754606",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638754606/markets/related/straight",
-    "market_url": "https://www.pinnacle.com/en/event/1638754606",
-    "decimal": {
-     "home": 2.23,
-     "away": 1.69
-    },
-    "american": {
-     "home": 123,
-     "away": -145
-    },
-    "p0": 0.4234,
-    "p1": 0.5766,
-    "overround": 0.0403,
-    "start_utc": "2026-10-24T00:00:00Z",
-    "league": "League of Legends - World Championship",
-    "venue_count": 3,
+    "book": "2-Venue Consensus",
+    "kind": "prediction market",
+    "source_url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23",
+    "api_url": "https://gamma-api.polymarket.com/events?slug=lol-tsw-ly-2026-10-23",
+    "market_url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23",
+    "decimal": null,
+    "american": null,
+    "p0": 0.4168,
+    "p1": 0.5832,
+    "overround": 0.0,
+    "start_utc": "2026-10-24 00:00:00+00",
+    "league": null,
+    "venue_count": 2,
     "total_volume_usd": 68134.77,
     "volume_usd": 68134.77,
     "venues": [
