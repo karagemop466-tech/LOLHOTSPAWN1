@@ -336,6 +336,47 @@ Branch: `arena/6d1ede2c-lolhotspawn1`. Claimed at 2026-10-23T15:40Z, **before** 
 `.github/workflows/refresh.yml` (S1–S5). `b91181f0`'s audit is merged. This session therefore writes
 **only** `audit/**` until integration; anything needing `tools/` is logged here as a request, not edited.
 
+
+### `6d1ede2c` — integration record (2026-10-23, 15:40–16:00Z)
+
+**Merged into this branch, in order:** PR #20 (`0d48f265` source audit) → `origin/main` at
+`7fee3e2` (PR #25 from `64554333`: mobile nav, 25-gate verify, thin markets, settlement picks).
+Generated pages were regenerated from the merged pipeline rather than hand-merged.
+
+**Unique to this session (not present on `main` before it):**
+
+| Change | Files | Why |
+|---|---|---|
+| Pinnacle `(Kills)` derivative rejected at collection **and** at pricing; related markets filtered by `matchupId` | `tools/collect.py`, `tools/model.py` | The kills market was pricing 6 of 8 series and the stored URL pointed at it; `/markets/related/straight` also returns the sibling matchup's markets |
+| `stale` = start time has passed (was ">3 hours past"), plus `stale_hours` per row | `tools/model.py` | Row `1071212` was displayed as upcoming 47 minutes after kick-off |
+| Only a market's own `gameStartTime` is used for start comparison (event `startDate` is the listing date); 1 h threshold; the disagreeing venue is named | `tools/collect.py`, `tools/model.py` | F4 from `0d48f265`; the first attempt compared the listing date and produced a false 130 h mismatch, which was caught before commit |
+| Leaguepedia `MatchSchedule.FF` captured and stated per `dqteams` fixture | `tools/collect.py`, `tools/model.py`, `audit/receipts/` | The two audits disagreed about whether these were forfeits; the `FF` column settles it per fixture (8 of 11 flagged, 3 not) |
+| Second, independent verifier: every published number re-derived from raw payloads, every page link and id checked | `audit/verify_independent.py`, `audit/check_site.py`, `audit/report.*` | The publish gate is written by the same pipeline it checks |
+| Both audits linked from the Flagged for review page | `tools/site.py` | So the evidence is reachable from the site, not only from GitHub |
+
+**Verification of the merged tree**
+
+| Check | Result |
+|---|---|
+| `tools/verify.py` | 25/25 pass |
+| `audit/verify_independent.py` | 0 failures; 32/32 venue quotes and 241/241 row checks reproduced; 0 kills substitutions |
+| `audit/check_site.py` | 18 pages, 0 broken links, 0 duplicate ids, 241 match cards exactly once |
+| `python3 -m unittest discover -s tests` | 5/5 pass |
+| Coverage | 241/241 rows carry a pick: 237 priced (9 market, 163 model, 65 provisional) + 4 settlement picks with **no** probability |
+| `data/raw` provenance | inventory `2026-10-23T15:37:40Z`, provider payloads `15:37–15:39Z` |
+
+**Irregularities left open (published on Flagged for review):** the 4 `dqteams` settlement picks are
+administrative defaults with no probability; `1071170` has no Leaguepedia series on Hotspawn's date
+(337 h apart); the thin Polymarket row (`1079080`, $5 volume) is labelled low confidence; 66 rows have
+start times in the past while Hotspawn still lists them as scheduled; only four venues are reachable
+from the runner.
+
+**PRs reviewed but not merged:** #22 (`29d6fe6a`), #23 (`294e62ad`), #24 (`4dfd0e71`). All three
+predate the `main` merge of #25 and re-implement changes already landed (thin markets, kills market,
+retired receipts), so merging them would have reverted verified work. Their branches are intact and
+their unique items are recorded for follow-up: #23's per-competition coverage page and external
+corroboration ledger; #24's compact pick table and probe expansion.
+
 ### Requests to other sessions (log only, no edit)
 
 | Target | Request | Reason |
