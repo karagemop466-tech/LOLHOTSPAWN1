@@ -229,6 +229,22 @@ def main() -> None:
                                     "no pick at all")),
         f"coverage.html {len(cov_html)} bytes")
 
+    # Phone UX: the picks page must answer "what is next?" without scrolling, and every
+    # card must let the browser age itself (a 6-hour-old snapshot otherwise shows a
+    # kicked-off match as open - audit finding F4 from session 294e62ad).
+    picks_html = open(os.path.join(DOCS, "picks.html"), encoding="utf-8").read()
+    app_js = open(os.path.join(DOCS, "assets", "app.js"), encoding="utf-8").read()
+    anchors = set(re.findall(r'id="match-([^"]+)"', picks_html))
+    nextup_ids = set(re.findall(r'href="#match-([^"]+)"', picks_html))
+    add("picks page opens with a tappable next-up table linking to real cards",
+        'id="next-up"' in picks_html and bool(nextup_ids) and nextup_ids <= anchors,
+        f"{len(nextup_ids)} next-up links, all resolving to a card: {nextup_ids <= anchors}")
+    cards_with_start = len(re.findall(r'class="card m-[a-z]+"[^>]*data-start="20', picks_html))
+    aged_js = "markStarted" in app_js and 'dataset.started === "1"' in app_js
+    add("every card carries its kick-off so the browser can age it",
+        cards_with_start == len(rows) and aged_js,
+        f"{cards_with_start}/{len(rows)} cards carry data-start; browser ageing wired: {aged_js}")
+
     src = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     reachable = sum(1 for s in src if s.get("ok"))
     add("source availability recorded", len(src) >= 10,

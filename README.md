@@ -65,7 +65,9 @@ Only `tools/` writes the published pages.
   listed on `flagged.html`; nothing is inferred to fill a gap.
 - **Stale rows** — the API keeps returning `status:"scheduled"` for fixtures whose start time has
   passed. They stay on the list (so coverage matches Hotspawn exactly), are marked "start time passed"
-  and are sorted after upcoming matches.
+  and are sorted after upcoming matches. Upcoming cards also carry `data-start`, so `assets/app.js`
+  marks them "started" in the reader's own browser once the clock passes - a six-hour-old snapshot
+  never presents a kicked-off match as still open.
 
 ### Verification gate
 
@@ -76,15 +78,16 @@ every market row has at least one venue with a source URL, ids are unique, `pick
 dataset, all 11 pages exist, every internal link resolves, no `None`/empty value is rendered, every
 match appears on `picks.html`, the executive summary links to every view and carries the coverage,
 unresolved and where-to-find-picks blocks, the mobile nav bar and menu/filter JS are present on every
-page, curated flags cite only currently listed fixtures, stale receipts are excluded from the
-consensus, and each source's availability is recorded.
+page, the picks page opens with a next-up table whose links all resolve to a real card, every card
+carries its kick-off so the browser can age it between builds, curated flags cite only currently listed
+fixtures, stale receipts are excluded from the consensus, and each source's availability is recorded.
 
 ## Manual review links
 
 - `data/picks.csv` — one row per match: competition, teams, pick, probability, method, source URLs.
 - `data/matches.json` — full record per match, including odds, Elo inputs and flags.
 - `data/matching_report.json` — every team join that was not an exact string match, with its evidence.
-- `data/verification.json` — the machine-readable result of the gate (25 checks).
+- `data/verification.json` — the machine-readable result of the gate (30 checks).
 - `data/flags.json` — every irregularity published on `flagged.html`, curated + derived on each build.
 - `data/build.log` — the last automated run, verbatim.
 - `COORDINATION.md` — task board, session log and the integration decisions taken across sessions.

@@ -237,3 +237,15 @@ details.why summary{padding:8px 0;min-height:32px}
 /* Carried over from the accessibility pass (session b91181f0). */
 .stale-warning{padding:12px;border:2px solid var(--warn);border-radius:8px;font-weight:600}
 :focus-visible{outline:3px solid #d98100;outline-offset:3px}
+
+/* ---- next-up table: the phone answer to "what do I pick next?" ---------------- */
+.nextup{border-left:4px solid var(--accent,#4f8cff)}
+.nextup h2{margin:0 0 4px;font-size:20px}
+.t-next td:first-child{white-space:nowrap}
+.t-next td{vertical-align:top}
+.card.started{opacity:.62}
+.badge.b-past{background:#8a5a00;color:#fff}
+@media(max-width:680px){
+  .t-next td::before{display:block}
+  .t-next tr{grid-template-columns:1fr}
+}

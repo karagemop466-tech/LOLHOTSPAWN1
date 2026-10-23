@@ -138,7 +138,35 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * 4. Back-to-top: the all-picks list is long on a phone               *
+   * 4. Age the cards in the browser                              *
+   *    The HTML is a snapshot: a build at 09:00 cannot know that a   *
+   *    15:00 kick-off has already started by the time you read it.   *
+   *    Mark anything past its own data-start as started, and keep the *
+   *    card in place (the pick is still the record of the line).      *
+   * ------------------------------------------------------------------ */
+  function markStarted() {
+    var cards = document.querySelectorAll(".card[data-start]");
+    var now = Date.now();
+    for (var i = 0; i < cards.length; i++) {
+      var iso = cards[i].getAttribute("data-start");
+      if (!iso) continue;
+      var t = Date.parse(iso);
+      if (isNaN(t) || t > now) continue;
+      if (cards[i].dataset.started === "1") continue;
+      cards[i].dataset.started = "1";
+      cards[i].classList.add("started");
+      var badges = cards[i].querySelector(".badges");
+      if (badges && !badges.querySelector(".b-past")) {
+        var span = document.createElement("span");
+        span.className = "badge b-past";
+        span.textContent = "started";
+        badges.insertBefore(span, badges.firstChild);
+      }
+    }
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 5. Back-to-top: the all-picks list is long on a phone               *
    * ------------------------------------------------------------------ */
   function initToTop() {
     var btn = document.getElementById("totop");
@@ -153,6 +181,7 @@
     hydrateTimestamps();
     initMenu();
     initPickFilters();
+    markStarted();
     initToTop();
   }
 

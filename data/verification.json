@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:49:36Z",
+ "generated_utc": "2026-10-23T15:53:27Z",
  "checks": [
   {
    "name": "dataset present",
@@ -135,6 +135,16 @@
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
    "detail": "coverage.html 40007 bytes"
+  },
+  {
+   "name": "picks page opens with a tappable next-up table linking to real cards",
+   "ok": true,
+   "detail": "12 next-up links, all resolving to a card: True"
+  },
+  {
+   "name": "every card carries its kick-off so the browser can age it",
+   "ok": true,
+   "detail": "241/241 cards carry data-start; browser ageing wired: True"
   },
   {
    "name": "source availability recorded",

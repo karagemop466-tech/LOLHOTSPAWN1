@@ -189,6 +189,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
         sources = '<div class="src">' + "".join(links) + "</div>"
 
     return f"""<article id="match-{e(r['id'])}" class="card m-{e(m)}" data-method="{e(m)}" data-comp="{e(r['competition'])}"
+  data-start="{e(r.get('start_utc') or '')}"
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
@@ -293,11 +294,13 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   from recorded series history. The other {len(settlement)} are league removals where we publish a settlement
   pick and no probability. Nothing here ever uses Hotspawn's crowd-pick percentages.</p>
   <div class="cta">
-    <a class="btn primary" href="picks.html">Open all {total} picks &rarr;</a>
+    <a class="btn primary" href="picks.html#next-up">Next kick-offs &amp; all {total} picks &rarr;</a>
     <a class="btn" href="unresolved.html">Unresolved &amp; limitations ({len(unresolved)})</a>
   </div>
-  <p class="hero-note">On a phone: tap <strong>Menu</strong> (top right) or the black bar at the bottom of the
-  screen. <a href="picks.html#list">All picks</a> has a search box and a tournament filter.</p>
+  <p class="hero-note">On a phone: tap <strong>Menu</strong> (top right) or the bar at the bottom of the
+  screen. <a href="picks.html#next-up">All picks</a> opens with the next 12 kick-offs in one table, then the
+  full list with search and a tournament filter. Cards you have scrolled past are marked
+  <em>started</em>, so a snapshot taken hours ago never looks live.</p>
 </section>
 
 <section class="panel" id="find">
@@ -387,6 +390,36 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
                       "Independent win probabilities for every League of Legends match in the Hotspawn pick'em.")
 
 
+def next_up_block(rows: list[dict], limit: int = 12) -> str:
+    """The next kick-offs as a scannable table that deep-links to the full card."""
+    upcoming = [r for r in rows if r.get("start_utc") and not r.get("stale")][:limit]
+    if not upcoming:
+        return ""
+    body = []
+    for r in upcoming:
+        pick = r.get("pick") or {}
+        team = pick.get("team") or "&mdash;"
+        prob = f'{pick["probability"]*100:.0f}%' if pick.get("probability") is not None else "settlement"
+        body.append([
+            local_time(r["start_utc"]),
+            f'<a href="#match-{e(r["id"])}"><strong>{e(r["team0"]["name"])}</strong> vs '
+            f'<strong>{e(r["team1"]["name"])}</strong></a><br><span class="muted small">{e(r["competition"])}</span>',
+            f'<strong>{e(team)}</strong>',
+            prob,
+            badge(r["method"]),
+        ])
+    return f"""
+<section class="panel nextup" id="next-up">
+  <h2>Next {len(upcoming)} kick-offs</h2>
+  <p class="muted small">The soonest matches on the Hotspawn list. Tap a match to jump to its card,
+  or use the search and filters below for the full list of {len(rows)}.</p>
+  {table(["Kick-off", "Match", "Pick", "Win prob.", "Type"], body, "t-next")}
+  <p class="small"><a href="#all-picks">Jump to the full pick list &darr;</a></p>
+</section>
+
+"""
+
+
 def build_picks(rows: list[dict], counts: Counter) -> str:
     rows = sorted(rows, key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
     comps = sorted({r["competition"] for r in rows})
@@ -394,8 +427,8 @@ def build_picks(rows: list[dict], counts: Counter) -> str:
         f'<button class="chip" data-filter="{m}">{METHOD_LABEL[m]} <span>{counts.get(m,0)}</span></button>'
         for m in ("market", "model", "provisional", "unresolved"))
     opts = "".join(f'<option value="{e(c)}">{e(c)}</option>' for c in comps)
-    body = f"""
-<section class="panel">
+    body = next_up_block(rows) + f"""
+<section class="panel" id="all-picks">
   <div class="toolbar">
     <input id="q" type="search" placeholder="Search team or tournament" aria-label="Search team or tournament">
     <select id="comp" aria-label="Filter by tournament"><option value="">All tournaments</option>{opts}</select>
