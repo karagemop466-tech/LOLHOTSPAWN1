@@ -74,7 +74,7 @@ Deep probe run: **2026-10-23T15:40:36Z**. Each page below answered HTTP 200 but 
 
 ## 3. The external-market ceiling for League of Legends
 
-Measured **2026-10-23T15:42:45Z** by enumerating every LoL league on Pinnacle's guest API and the full Kalshi and Polymarket LoL inventory.
+Measured **2026-10-23T15:48:23Z** by enumerating every LoL league on Pinnacle's guest API and the full Kalshi and Polymarket LoL inventory.
 
 | Venue | Inventory observed | Two-sided match-winner prices |
 |---|---|---|
@@ -109,5 +109,5 @@ Unique match moneylines across all variants: **8**. The unfiltered coupon is ~19
 
 - `data/source_probes.json` — generated 2026-10-23T15:38:55Z
 - `research/probe_deep.json` — generated 2026-10-23T15:40:36Z
-- `research/market_ceiling.json` — generated 2026-10-23T15:42:45Z
+- `research/market_ceiling.json` — generated 2026-10-23T15:48:23Z
 - `research/bovada_full.json` — generated 2026-10-23T15:41:36Z
