@@ -87,7 +87,7 @@ jobs:
           set -e
           git config user.name  "arena-refresh-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/*.json data/*.csv data/build.log data/raw assets *.html
+          git add data/*.json data/*.csv data/build.log data/raw data/receipts assets *.html
           if git diff --cached --quiet; then
             echo "no changes"
             exit 0
@@ -105,9 +105,18 @@ jobs:
             fi
             echo "push rejected (attempt ${attempt}); rebasing onto origin/${GITHUB_REF_NAME}"
             git fetch origin "${GITHUB_REF_NAME}"
-            if ! git rebase -X ours "origin/${GITHUB_REF_NAME}"; then
+            # NOTE: inside a rebase the meaning of -X ours/theirs is inverted - "ours" is the
+            # upstream we are replaying onto, "theirs" is this run's commit. We want this run's
+            # freshly generated files to win, so the rebase must use `-X theirs`. (In the merge
+            # fallback below the normal meaning applies, so that one stays `-X ours`.)
+            if ! git rebase -X theirs "origin/${GITHUB_REF_NAME}"; then
               git rebase --abort || true
-              git merge -X ours -m "merge origin/${GITHUB_REF_NAME} after push race" "origin/${GITHUB_REF_NAME}"
+              if ! git merge -X ours -m "merge origin/${GITHUB_REF_NAME} after push race" "origin/${GITHUB_REF_NAME}"; then
+                git merge --abort || true
+                git reset --soft "origin/${GITHUB_REF_NAME}"
+                git add -A
+                git commit -q -m "chore(data): refresh fixtures, lines and site" || true
+              fi
             fi
             sleep $((attempt * 5))
           done
