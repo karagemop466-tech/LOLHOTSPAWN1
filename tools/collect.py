@@ -35,8 +35,11 @@ KALSHI_URL = ("https://api.elections.kalshi.com/trade-api/v2/events"
               "?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100")
 BOVADA_URL = ("https://www.bovada.lv/services/sports/event/coupon/events/A/description/"
               "esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en")
-KAMBI_URL = ("https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/"
-             "league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ")
+KAMBI_URLS = [
+    "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+    "https://eu1.offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+]
+KAMBI_URL = KAMBI_URLS[0]
 LEAGUEPEDIA_WINDOW_START = "2024-09-01 00:00:00"  # ~25 months of series results
 
 
@@ -93,12 +96,36 @@ def american_to_decimal(price: float) -> float | None:
     return round(1 + (p / 100 if p > 0 else 100 / abs(p)), 4)
 
 
+def _preserve_recent_on_http_error(out_path: str, list_key: str, st: int, label: str, max_age_h: float = 24.0) -> dict | None:
+    """When a bookmaker CDN blocks or rate-limits a cloud runner IP (st != 200),
+    keep a verified <max_age_h snapshot rather than clobbering it with []."""
+    if st == 200 or not os.path.exists(out_path):
+        return None
+    prev = load_json(out_path) or {}
+    items = prev.get(list_key) or []
+    prev_ts = prev.get("fetched_utc") or ""
+    try:
+        age_h = (now_utc() - datetime.strptime(str(prev_ts)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)).total_seconds() / 3600
+    except ValueError:
+        age_h = 999.0
+    if items and age_h <= max_age_h:
+        prev["last_runner_probe_status"] = st
+        prev["last_runner_probe_utc"] = iso(now_utc())
+        save_json(out_path, prev)
+        log(f"{label}: runner got status={st}; preserved verified <{max_age_h:.0f}h snapshot ({len(items)} items, age={age_h:.1f}h)")
+        return {"count": len(items), "status": st, "cached_age_h": round(age_h, 1)}
+    return None
+
+
 def collect_pinnacle() -> dict:
     st, matchups, err = get_json("https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
                                  headers=PINNACLE_KEY, retries=3)
     if st != 200 or not isinstance(matchups, list):
+        kept = _preserve_recent_on_http_error(os.path.join(RAW, "pinnacle_lol.json"), "markets", st, "pinnacle")
+        if kept is not None:
+            return kept
         save_json(os.path.join(RAW, "pinnacle_lol.json"),
-                  {"fetched_utc": iso(now_utc()), "error": f"status={st} {err}", "matchups": []})
+                  {"fetched_utc": iso(now_utc()), "error": f"status={st} {err}", "markets": []})
         log(f"pinnacle: FAILED status={st} {err}")
         return {"count": 0, "error": err}
 
@@ -184,6 +211,9 @@ def collect_kalshi() -> dict:
                     "sub_title": ev.get("sub_title"),
                     "markets": mkts,
                 })
+    kept = _preserve_recent_on_http_error(os.path.join(RAW, "kalshi_lol.json"), "events", st, "kalshi")
+    if kept is not None:
+        return kept
     save_json(os.path.join(RAW, "kalshi_lol.json"), {
         "fetched_utc": iso(now_utc()),
         "source_url": KALSHI_URL,
@@ -240,6 +270,9 @@ def collect_bovada() -> dict:
                                 ],
                             })
                             break
+    kept = _preserve_recent_on_http_error(os.path.join(RAW, "bovada_lol.json"), "events", st, "bovada")
+    if kept is not None:
+        return kept
     save_json(os.path.join(RAW, "bovada_lol.json"), {
         "fetched_utc": iso(now_utc()),
         "source_url": BOVADA_URL,
@@ -254,7 +287,12 @@ def collect_bovada() -> dict:
 
 # --------------------------------------------------------------------------- kambi / unibet
 def collect_kambi() -> dict:
-    st, data, err = get_json(KAMBI_URL, retries=2)
+    st, data, err, used_url = 0, None, "", KAMBI_URL
+    for cand_url in KAMBI_URLS:
+        st, data, err = get_json(cand_url, headers={"Accept": "application/json", "Origin": "https://www.unibet.com"}, retries=1)
+        used_url = cand_url
+        if st == 200 and isinstance(data, dict):
+            break
     events_out = []
     if st == 200 and isinstance(data, dict):
         for item in data.get("events") or []:
@@ -290,9 +328,12 @@ def collect_kambi() -> dict:
                         "outcomes": parsed,
                     })
                     break
+    kept = _preserve_recent_on_http_error(os.path.join(RAW, "kambi_lol.json"), "events", st, "kambi")
+    if kept is not None:
+        return kept
     save_json(os.path.join(RAW, "kambi_lol.json"), {
         "fetched_utc": iso(now_utc()),
-        "source_url": KAMBI_URL,
+        "source_url": used_url,
         "status": st,
         "error": err,
         "event_count": len(events_out),

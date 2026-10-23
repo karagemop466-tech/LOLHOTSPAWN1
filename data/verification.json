@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T16:13:53Z",
+ "generated_utc": "2026-10-23T16:23:09Z",
  "checks": [
   {
    "name": "dataset present",
@@ -72,9 +72,9 @@
    "detail": "8 matchup ids in feed; problems: []"
   },
   {
-   "name": "all Worlds series carry 5-venue live consensus including Unibet/Kambi",
+   "name": "all fresh Unibet/Kambi moneylines matched into market consensus",
    "ok": true,
-   "detail": "8 fixtures carry Pinnacle+Polymarket+Kalshi+Bovada+Unibet"
+   "detail": "8/8 fresh Unibet fixtures matched; missing: []"
   },
   {
    "name": "every official-forfeit resolution names a winner and a source URL",
@@ -164,7 +164,7 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "17 usable receipts, 0 rejected, 0 diverging >5.0pp"
+   "detail": "17 usable receipts, 0 rejected, 0 diverging >8.0pp"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
