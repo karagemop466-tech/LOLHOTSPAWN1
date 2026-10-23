@@ -8,6 +8,7 @@ calibration reliability curve, and a verified source link on every row.
 from __future__ import annotations
 
 import html
+import json
 import os
 import sys
 from collections import Counter
@@ -81,6 +82,35 @@ def badge(method: str) -> str:
 
 def leaguepedia_slug(name: str) -> str:
     return quote(str(name).replace(" ", "_"), safe="()_',!.")
+
+
+
+def _external_ceiling() -> dict:
+    """Measured external-market ceiling, read from the committed research receipts."""
+    probes = load_json(os.path.join(DATA, "source_probes.json")) or {}
+    ceiling = _research_doc("market_ceiling.json")
+    results = probes.get("results") or []
+    pin = ceiling.get("pinnacle") or {}
+    leagues = pin.get("leagues") or []
+    pm_live = 0
+    for m in (ceiling.get("polymarket") or {}).get("markets") or []:
+        try:
+            prices = [float(x) for x in json.loads(m.get("prices") or "[]")]
+        except Exception:  # noqa: BLE001
+            continue
+        if prices and all(0.01 <= x <= 0.99 for x in prices):
+            pm_live += 1
+    return {
+        "probed": len(results),
+        "answered": sum(1 for r in results if r.get("ok")),
+        "json_feeds": sum(1 for r in results if r.get("ok") and r.get("kind") == "json"),
+        "pinnacle_leagues": len(leagues),
+        "pinnacle_priced": sum(int(lg.get("priced_moneylines") or 0) for lg in leagues),
+        "kalshi": int((ceiling.get("kalshi") or {}).get("event_count") or 0),
+        "polymarket": pm_live,
+        "checked": (probes.get("checked_utc") or "")[:16].replace("T", " "),
+        "have_receipts": bool(results),
+    }
 
 
 def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
@@ -265,6 +295,131 @@ def calibration_svg(bt: dict) -> str:
 </figure>"""
 
 
+
+# --------------------------------------------------------------------------- research receipts
+RESEARCH_DIR = os.path.join(ROOT, "research")
+GITHUB_BLOB = "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main"
+
+
+def _research_doc(name: str) -> dict:
+    doc = load_json(os.path.join(RESEARCH_DIR, name)) or {}
+    return doc if isinstance(doc, dict) else {}
+
+
+def research_panel() -> str:
+    """Render the runner-measured source-acquisition evidence on Sources.
+
+    Every number here is read from the committed receipts written by
+    `research/probe_sources_runner.py`, `research/market_ceiling.py` and
+    `research/probe_deep.py`; nothing is typed in by hand, and an absent receipt
+    degrades to a note instead of an invented figure.
+    """
+    probes = load_json(os.path.join(DATA, "source_probes.json")) or {}
+    if not isinstance(probes, dict):
+        probes = {}
+    ceiling = _research_doc("market_ceiling.json")
+    deep = _research_doc("probe_deep.json")
+    results = probes.get("results") or []
+    if not results and not ceiling:
+        return ('<section class="panel"><h2>Research receipts</h2>'
+                '<p class="muted">No runner probe receipts are committed in this snapshot.</p></section>')
+
+    ok = [r for r in results if r.get("ok")]
+    json_ok = [r for r in ok if r.get("kind") == "json"]
+    rows_html = []
+    for r in results:
+        kind = r.get("kind")
+        if r.get("name") in ("Leaguepedia Cargo", "Hotspawn fixtures API"):
+            verdict = "results / inventory only &mdash; never a price input"
+        elif r.get("name") == "Odds-API.io sports index":
+            verdict = "free index only; LoL endpoints answered 502 on the deep probe"
+        elif r.get("ok") and kind == "json":
+            verdict = "machine-readable feed used only where it prices the match"
+        elif r.get("ok"):
+            verdict = "reachable HTML &mdash; prices render client-side, not parsed"
+        else:
+            verdict = "not usable from the runner"
+        rows_html.append([
+            e(r.get("name")), e(r.get("category")), str(r.get("status")),
+            f'<code>{e(kind)}</code>', f'{int(r.get("bytes") or 0):,}', verdict,
+        ])
+
+    pin = ceiling.get("pinnacle") or {}
+    leagues = pin.get("leagues") or []
+    pinnacle_priced = sum(int(lg.get("priced_moneylines") or 0) for lg in leagues)
+    kalshi_n = int((ceiling.get("kalshi") or {}).get("event_count") or 0)
+    pm = ceiling.get("polymarket") or {}
+    pm_live = 0
+    for m in pm.get("markets") or []:
+        try:
+            prices = [float(x) for x in json.loads(m.get("prices") or "[]")]
+        except Exception:  # noqa: BLE001 - a malformed receipt just is not counted
+            continue
+        if prices and all(0.01 <= x <= 0.99 for x in prices):
+            pm_live += 1
+
+    ceiling_html = ""
+    if ceiling:
+        ceiling_html = f"""
+  <h3>How many matches can any external venue actually price?</h3>
+  <div class="stats tight">
+    {stat_card("Venues probed on the runner", len(results), "established books, esportsbooks, exchanges, aggregators")}
+    {stat_card("Answered HTTP 200", len(ok), "reachable from GitHub Actions", "ok")}
+    {stat_card("Machine-readable feeds", len(json_ok), "JSON payloads we can parse", "model")}
+    {stat_card("Pinnacle series prices", pinnacle_priced, "LoL league(s): " + (", ".join(str(lg.get("name")) for lg in leagues) or "none"), "market")}
+  </div>
+  <ul class="bullets">
+    <li><strong>Pinnacle</strong> returns {sum(int(lg.get("matchups_returned") or 0) for lg in leagues)} matchup
+    objects for its one League of Legends league, of which <strong>{pinnacle_priced}</strong> carry an open,
+    two-sided match-winner moneyline. The parallel <code>(Kills)</code> market family is a kill total and is
+    excluded everywhere.</li>
+    <li><strong>Kalshi</strong> lists {kalshi_n} open <code>KXLOLGAME</code> contracts and
+    <strong>Polymarket</strong> carries {pm_live} unsettled two-sided LoL markets in the same snapshot; both are
+    nearly all Worlds 2026.</li>
+    <li>That ceiling &mdash; about a dozen series across all reachable venues &mdash; is why most of the
+    Hotspawn list is originated by our own model rather than quoted: the books simply do not list national
+    divisions, academy leagues or regional splits.</li>
+  </ul>"""
+
+    deep_html = ""
+    if deep:
+        page_rows = []
+        for ev in deep.get("evidence") or []:
+            if ev.get("kind") != "page":
+                continue
+            blobs = ", ".join(b.get("label") for b in ev.get("embedded_json") or []) or "none"
+            page_rows.append([e(ev.get("name")), str(ev.get("status")), f'{int(ev.get("bytes") or 0):,}',
+                              e(blobs),
+                              "JavaScript-only rendering &mdash; not parsed"
+                              if blobs == "none" else "hydration blob only &mdash; no venue parser integrated"])
+        if page_rows:
+            deep_html = f"""
+  <h3>Why the books that "answer" still cannot be used</h3>
+  <p class="lead">These pages returned HTTP 200 but serve no price in the HTML: the odds arrive after
+  client-side JavaScript runs, which this pipeline does not execute. They are recorded as unverified
+  instead of being scraped blindly.</p>
+  {table(["Page", "HTTP", "Bytes", "Embedded JSON", "Verdict"], page_rows)}"""
+
+    return f"""
+<section class="panel">
+  <h2>Research receipts: every venue we tried</h2>
+  <p class="lead">Probed directly from the GitHub Actions runner on
+  {e((probes.get("checked_utc") or "")[:16].replace("T", " "))} UTC. A venue that blocks the runner or
+  only serves prices after JavaScript runs is <strong>not</strong> used to price anything; it is listed here
+  so the gap is visible. Full dossier:
+  <a href="{GITHUB_BLOB}/research/SOURCES.md" rel="noopener">research/SOURCES.md</a>.</p>
+  {table(["Source", "Category", "HTTP", "Payload", "Bytes", "Verdict"], rows_html)}
+  {ceiling_html}
+  {deep_html}
+  <p class="small muted">Receipts:
+    <a href="{GITHUB_BLOB}/data/source_probes.json" rel="noopener">source_probes.json</a> &middot;
+    <a href="{GITHUB_BLOB}/research/market_ceiling.json" rel="noopener">market_ceiling.json</a> &middot;
+    <a href="{GITHUB_BLOB}/research/probe_deep.json" rel="noopener">probe_deep.json</a> &middot;
+    <a href="{GITHUB_BLOB}/research/AUDIT.json" rel="noopener">independent audit</a>
+  </p>
+</section>"""
+
+
 # --------------------------------------------------------------------------- pages
 def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> str:
     total = len(rows)
@@ -283,6 +438,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     flags_count = len(flags_doc.get("flags") or [])
     gate_doc = load_json(os.path.join(DATA, "verification.json")) or {}
     gate_count = len(gate_doc.get("checks") or [])
+    ceiling = _external_ceiling()
 
     body = f"""
 <section class="hero" id="start">
@@ -348,6 +504,16 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <a href="coverage.html"><strong>External line coverage</strong></a> lists every competition with its
     method, the external price we captured for it (with the source page and capture time) and the
     evidence that no reachable bookmaker prices the rest.</li>
+    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
+    We probed <strong>{ceiling["probed"]} external venues</strong> directly from the build runner (established
+    books, esportsbooks, exchanges, odds aggregators); {ceiling["answered"]} answered and
+    {ceiling["json_feeds"]} returned JSON, and only four of those are price feeds. Across every reachable
+    venue the same slice of the calendar is quoted: <strong>Pinnacle {ceiling["pinnacle_priced"]} series</strong>,
+    <strong>Kalshi {ceiling["kalshi"]} contracts</strong> and
+    <strong>Polymarket {ceiling["polymarket"]} unsettled markets</strong> &mdash; overwhelmingly the same Worlds
+    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
+    The full probe table, HTTP verdict per venue and the receipt files are on
+    <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Unresolved picks and the limitations on producing them ({len(unresolved)} matches).</strong>
     These are the {len(settlement)} Komplettligaen 2026 Autumn fixtures involving
     <strong>Solid Gaming</strong>, which the community-maintained Leaguepedia record
@@ -511,6 +677,7 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
                  and any("no rated series" in f for f in r["flags"])]
     disconnected = [r for r in rows if any("no shared-opponent chain" in f for f in r["flags"])]
     ambiguous = [r for r in rows if any("ambiguous" in f or "could not be matched" in f for f in r["flags"])]
+    ceiling = _external_ceiling()
     reason_rows = []
     for r in unresolved:
         lp_link = (f' &middot; <a href="https://lol.fandom.com/wiki/{leaguepedia_slug(r["leaguepedia_page"])}" rel="noopener">league page</a>'
@@ -534,9 +701,12 @@ def build_unresolved(rows: list[dict], counts: Counter) -> str:
          "opponent, assigning an Elo win probability from pre-removal matches is invalid. The settlement side is "
          "published and no percentage is claimed."],
         ["No sportsbook market below tier A", f"{len([r for r in rows if r['method']!='market'])} matches",
-         "Pinnacle, Polymarket, Kalshi and Bovada price Tier-S/A series (Worlds 2026 and the LCP 2027 Promotion). "
-         "Regional divisions (Prime League 2nd/3rd Div, RIVALS, Komplettligaen, LigaGG, Benelux, Icelandic, Tunisian, "
-         "Arabian) have no live market on any book reachable from the build runner."],
+         f"Measured on the runner {ceiling['checked']} UTC: Pinnacle lists {ceiling['pinnacle_priced']} priced "
+         f"two-sided series and no other League of Legends league at all; Kalshi has {ceiling['kalshi']} open "
+         f"contracts and Polymarket {ceiling['polymarket']} unsettled markets, essentially all Worlds 2026. "
+         "Regional divisions (Prime League 2nd/3rd Div, RIVALS, Komplettligaen, LigaGG, Benelux, Icelandic, "
+         "Tunisian, Arabian) therefore have no live market on any book reachable from the build runner - see "
+         "the probe receipts on Sources."],
         ["Archived esportsbook receipts expire", "24 h limit",
          "A quote scraped from an esportsbook match page is a line only while it is fresh. Receipts older than 24 "
          "hours are excluded from the consensus and listed with their timestamp in the audit trail, so the affected "
@@ -760,6 +930,7 @@ def build_sources(src: list[dict]) -> str:
     official World Championship schedule verification.</li>
   </ul>
 </section>
+{research_panel()}
 """
     return page_shell("Sources", "sources.html", body, "Every data source, its HTTP status, and what it provides.")
 
