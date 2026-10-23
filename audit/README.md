@@ -101,3 +101,26 @@ were code-level defects rather than source limitations, fixed in `tools/`:
 
 `audit/AUDIT.md` and `audit/audit.csv` are that session's evidence and are kept verbatim; where they
 describe the pre-merge data (F2), this README records the current state.
+
+## Forfeit claim resolved against the primary source (Leaguepedia `FF` field)
+
+Two audits disagreed: one stated the `dqteams` fixtures were recorded as forfeits, another that the wiki
+text does not say "forfeit". The Leaguepedia `MatchSchedule` table has a dedicated `FF` column
+(1 = Team1 forfeited, 2 = Team2 forfeited), which neither collector nor audit had been fetching.
+
+Live query (retrieved 2026-10-23T15:49Z, transcribed in `audit/receipts/leaguepedia_ff_solid_gaming_2026-10-23.json`):
+
+| Hotspawn fixture | Leaguepedia record | FF | Meaning |
+|---|---|---|---|
+| `1071200` Solid Gaming v Playwell Rød Q | Round 8_4, 2026-10-04 15:00 | 1 | Solid Gaming forfeited |
+| `1071206` Volda E-Sport v Solid Gaming | Round 9_3, 2026-10-11 15:00 | 2 | Solid Gaming forfeited |
+| `1071186` Solid Gaming v NTNUI Kometkameratene | Round 6_6, 2026-10-13 17:00 | 1 | Solid Gaming forfeited |
+| `1071170` Solid Gaming v VES Japan | Round 3_5, 2026-10-01 16:00 (Hotspawn says 09-17) | 1 | Solid Gaming forfeited; **date differs by 337 h** |
+
+Three of Solid Gaming's eleven series carry **no** flag (Rounds 1, 2 and 5), so the blanket wording
+"every remaining series was a forfeit" was too strong and has been replaced by a per-fixture statement.
+`tools/collect.py` now requests `MatchSchedule.FF`, and the card text states the flag value when the
+snapshot has one, otherwise that no flag was captured. No probability is attached to these four rows in
+either case.
+
+Source: <https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchId,Team1,Team2,Winner,Team1Score,Team2Score,FF,DateTime_UTC&where=OverviewPage%3D%27Komplettligaen%2F2026%20Season%2FAutumn%20Split%27%20AND%20(Team1%3D%27Solid%20Gaming%27%20OR%20Team2%3D%27Solid%20Gaming%27)&limit=50&format=json>

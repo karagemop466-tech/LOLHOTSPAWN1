@@ -264,7 +264,7 @@ def collect_leaguepedia(max_rows: int = 60000) -> dict:
     fields = ("MatchSchedule.MatchId,MatchSchedule.OverviewPage,MatchSchedule.Team1,"
               "MatchSchedule.Team2,MatchSchedule.Winner,MatchSchedule.Team1Score,"
               "MatchSchedule.Team2Score,MatchSchedule.DateTime_UTC,MatchSchedule.BestOf,"
-              "MatchSchedule.Tab,MatchSchedule.Round,MatchSchedule.UniqueMatch")
+              "MatchSchedule.Tab,MatchSchedule.Round,MatchSchedule.UniqueMatch,MatchSchedule.FF")
     rows: list[dict] = []
     offset = 0
     err = ""
@@ -298,6 +298,9 @@ def collect_leaguepedia(max_rows: int = 60000) -> dict:
             "team1": t1,
             "team2": t2,
             "winner": str(winner) if winner not in (None, "") else None,
+            # FF is Leaguepedia's forfeit flag: 1 = Team1 forfeited, 2 = Team2 forfeited.
+            # It is the only field that distinguishes a forfeit from a played 0-2 series.
+            "ff": r.get("FF"),
             "team1_score": r.get("Team1Score"),
             "team2_score": r.get("Team2Score"),
             "utc": r.get("DateTime UTC") or r.get("DateTime_UTC"),

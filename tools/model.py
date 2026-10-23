@@ -536,6 +536,30 @@ def main() -> None:
             lp_times.setdefault(key, []).append(m.get("utc"))
     ratings, counts, last_seen, uf, backtest = build_ratings(lp_matches)
 
+    lp_by_pair: dict[frozenset, list] = {}
+    for m in lp_matches:
+        lp_by_pair.setdefault(frozenset((norm_name(str(m.get("team1"))),
+                                         norm_name(str(m.get("team2"))))), []).append(m)
+
+    def leaguepedia_row(n0: str, n1: str, start: str | None):
+        """The Leaguepedia record for this fixture: same team pair, closest kick-off."""
+        cands = lp_by_pair.get(frozenset((norm_name(n0), norm_name(n1)))) or []
+        if not cands:
+            return None
+        if not start:
+            return cands[0]
+        try:
+            want = datetime.strptime(start, "%Y-%m-%dT%H:%M:%SZ")
+        except ValueError:
+            return cands[0]
+        def gap(m):
+            try:
+                return abs((datetime.strptime(str(m.get("utc"))[:19], "%Y-%m-%d %H:%M:%S")
+                            - want).total_seconds())
+            except ValueError:
+                return float("inf")
+        return min(cands, key=gap)
+
     pin_index = []
     for mk in pin.get("markets") or []:
         names = [p["name"] for p in mk.get("participants", [])]
@@ -657,11 +681,20 @@ def main() -> None:
             p0 = p1 = None
             method, confidence = "unresolved", "none"
             pick_type = "settlement"
+            lp_row = leaguepedia_row(n0, n1, f.get("start_utc"))
+            ff = (lp_row or {}).get("ff")
+            if ff in (1, 2):
+                forfeit_note = (f"Leaguepedia records this series with its forfeit flag (FF={ff}, i.e. "
+                                f"{removed} forfeited), 0-2 in favour of {active_opp}. ")
+            elif lp_row:
+                forfeit_note = (f"Leaguepedia records the series as a 0-2 loss for {removed}, but this "
+                                f"snapshot captured no forfeit flag for it. ")
+            else:
+                forfeit_note = (f"Leaguepedia records no series between these teams on this date. ")
             basis = (f"Participant removed mid-split: community-maintained Leaguepedia Data:{page} records "
-                     f"'dqteams={removed}', and every remaining {removed} series in that schedule is entered as a "
-                     f"forfeit (score 0-2 with the ff flag) in favour of the opponent. "
-                     f"Hotspawn may void this card or settle the walkover for opponent {active_opp}; the settlement "
-                     f"is unverified, so no competitive probability is claimed.")
+                     f"'dqteams={removed}'. " + forfeit_note +
+                     f"Hotspawn may void this card or settle the walkover for opponent {active_opp}; the "
+                     f"settlement is unverified, so no competitive probability is claimed.")
             flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
         elif market:
