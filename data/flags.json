@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T15:59:35Z",
+ "generated_utc": "2026-10-23T16:00:38Z",
  "count": 27,
  "flags": [
   {
@@ -111,7 +111,7 @@
   },
   {
    "severity": "medium",
-   "item": "66 fixtures still listed as 'scheduled' although their start time has passed",
+   "item": "69 fixtures still listed as 'scheduled' although their start time has passed",
    "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time has already passed (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. The reason is unverified.",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
@@ -136,7 +136,7 @@
   {
    "severity": "medium",
    "item": "1 market row(s) rest on a single prediction market with almost no traded volume",
-   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $5 traded volume (thin-market threshold $1,000), priced 35.0%/65.0%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
+   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $5 traded volume (thin-market threshold $1,000), priced 34.5%/65.5%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
    "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
   },
   {
