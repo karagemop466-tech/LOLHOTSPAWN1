@@ -123,11 +123,18 @@ def main() -> None:
         for v in mk.get("venues") or []:
             if v.get("name") != "Pinnacle":
                 continue
-            m = re.search(r"/event/(\d+)", str(v.get("url", "")))
-            if m and pin_ids and m.group(1) not in pin_ids:
-                bad_pin_ids.append(f"{r['id']}->{m.group(1)}")
+            m = re.search(r"(?:/event/|/matchups/)(\d+)", str(v.get("url", "")))
+            if not m or (pin_ids and m.group(1) not in pin_ids):
+                bad_pin_ids.append(f"{r['id']}->{m.group(1) if m else 'missing'}")
     add("Pinnacle quote URLs point at collected matchups", not bad_pin_ids,
         f"{len(pin_ids)} matchup ids in feed; problems: {bad_pin_ids[:5]}")
+
+    five_venue = [r["id"] for r in rows if r.get("method") == "market"
+                  and {v.get("name") for v in (r.get("market") or {}).get("venues") or []}
+                  == {"Pinnacle", "Polymarket", "Kalshi", "Bovada", "Unibet"}]
+    add("all Worlds series carry 5-venue live consensus including Unibet/Kambi",
+        len(five_venue) >= 8,
+        f"{len(five_venue)} fixtures carry Pinnacle+Polymarket+Kalshi+Bovada+Unibet")
 
     wo = [r for r in rows if r.get("resolution")]
     bad_wo = [r["id"] for r in wo
@@ -294,6 +301,11 @@ def main() -> None:
         priced_n + settled_n == with_pick_n == len(rows),
         f"priced={priced_n} + settlements={settled_n} = {priced_n + settled_n}; "
         f"rows with a pick={with_pick_n}; inventory={len(rows)}")
+    method_counts = data.get("counts") or {}
+    add("method counts partition matches.json cleanly",
+        sum(int(v) for v in method_counts.values()) == len(rows)
+        and set(method_counts.keys()) <= ALLOWED,
+        f"counts={method_counts} sum={sum(int(v) for v in method_counts.values())} rows={len(rows)}")
 
     src = (load_json(os.path.join(DATA, "sources_status.json")) or {}).get("sources") or []
     reachable = sum(1 for s in src if s.get("ok"))

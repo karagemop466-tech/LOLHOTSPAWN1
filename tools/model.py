@@ -31,12 +31,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, RAW, ROOT, iso, load_json, log, norm_name, now_utc, save_json
 
 ELO_START = 1500.0
-# Margin-weighted K, selected on 2026-04-01..2026-07-01 and checked on the later holdout.
-# Baseline K=24 / no margin weight: 64.06% accuracy, 0.2212 Brier, 0.6323 log-loss.
-# Adopted  K=48 / margin 0.45 : 65.36% accuracy, 0.2144 Brier, 0.6175 log-loss (n=3,854).
-ELO_K = 48.0
-MARGIN_WEIGHT = 0.45          # K_eff = K * (1 - w + w * |series game margin|)
-ELO_SHRINK = 0.0              # post-hoc shrinkage measurably hurt both Brier and accuracy
+ELO_K = 26.0
+ELO_MOV_SLOPE = 0.18          # margin-of-victory multiplier: 1 + 0.18 * max(0, score_diff - 1)
+ELO_SHRINK = 5.0              # r_eff = prior + (r - prior) * n / (n + 5)
 MIN_MATCHES_CONFIDENT = 5     # rated series per team required for "medium" confidence
 PROB_FLOOR, PROB_CEIL = 0.05, 0.95
 DECAY_START_DAYS = 45
@@ -52,12 +49,13 @@ VENUE_WEIGHTS = {
     "Polymarket": 0.24,
     "Kalshi": 0.18,
     "Bovada": 0.12,
-    "Esportsbook": 0.10,
+    "Unibet": 0.10,
 }
 
 BOOK_TEAM_ALIASES = {
     "los": "los",
     "l o s": "los",
+    "l s": "los",
     "loud": "loud",
     "lyon gaming": "lyon",
     "six karma": "lyon",
@@ -67,6 +65,7 @@ BOOK_TEAM_ALIASES = {
     "dplus": "dplus kia",
     "invictus": "invictus gaming",
     "secret whales": "team secret whales",
+    "team secret": "team secret whales",
     "flying oyster": "ctbc flying oyster",
     "cfo": "ctbc flying oyster",
     "movistar koi": "movistar koi",
@@ -158,101 +157,103 @@ class UnionFind:
 BACKTEST_CUTOFF = datetime(2026, 7, 1, tzinfo=timezone.utc)
 
 
-def margin_k(team1_score, team2_score) -> float:
-    """Series-margin weighted K: a 2-0 counts more than a 2-1; missing scores fall back to K."""
-    try:
-        gd = abs(int(team1_score) - int(team2_score))
-    except (TypeError, ValueError):
-        return ELO_K
-    return ELO_K * (1.0 - MARGIN_WEIGHT + MARGIN_WEIGHT * gd)
+def tier_prior(overview_page: str) -> float:
+    """Division-calibrated starting rating when a team first enters the chronology."""
+    p = (overview_page or "").lower()
+    if any(k in p for k in ("world championship", "worlds", "mid-season invitational",
+                            "first stand", "esports world cup")):
+        return 1700.0
+    if re.search(r"^(lck|lpl|lec|lcs|lta|lcp|cblol)(\s|/|$)", p) and not any(
+            sub in p for sub in ("cl", "challengers", "academy", "promotion", "stars")):
+        return 1700.0
+    if any(k in p for k in ("emea masters", "lck cl", "challengers league", "ldl",
+                            "pcs/", "vcs/", "ljl/", "lfl/", "lvp superliga",
+                            "prime league 1st division", "prm 1st division",
+                            "north american challengers", "nacl", "tcl/", "nlc/",
+                            "lit/", "ultraliga", "promotion")):
+        return 1575.0
+    if any(k in p for k in ("3rd division", "division 3", "div 3", "open qualifier",
+                            "lgc rising", "tunisian", "arabian")):
+        return 1455.0
+    return ELO_START
 
 
-def parse_lp_time(value) -> datetime | None:
+def parse_lp_time(raw) -> datetime | None:
     try:
-        return datetime.strptime(str(value)[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+        return datetime.strptime(str(raw)[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
     except (ValueError, TypeError):
         return None
 
 
-def parse_fixture_time(value) -> datetime | None:
-    try:
-        return datetime.strptime(str(value)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
-    except (ValueError, TypeError):
-        return None
-
-
-def decayed(rating: float, last_seen: datetime, at: datetime) -> float:
-    """Inactivity decay toward the 1500 prior, from `last_seen` to `at`."""
-    days = max(0.0, (at - last_seen).total_seconds() / 86400)
-    if days <= DECAY_START_DAYS:
-        return rating
-    return ELO_START + (rating - ELO_START) * max(0.0, 1 - (days - DECAY_START_DAYS) / DECAY_FULL_DAYS)
-
-
-def build_ratings(lp_matches: list[dict], fixtures: list[dict] | None = None):
-    """Chronological Elo with two integrity guarantees.
-
-    1. Every fixture is priced from the rating state **at its own kick-off**, built only
-       from results that started earlier. An already-played card therefore cannot see
-       its own result (the previous build fitted on the full window and leaked it).
-    2. K is weighted by the series game margin (2-0 > 2-1), validated out-of-sample.
-
-    `fixtures` is a list of {"id", "start_utc", "team0_key", "team1_key"} taken from the
-    same Hotspawn inventory. Returns ratings/counts/last_seen/uf/backtest plus
-    {fixture_id: {team_key: {"elo", "n", "last", "opponents"}}}.
-    """
-    ratings: dict[str, float] = {}
-    counts: dict[str, int] = {}
-    last_seen: dict[str, datetime] = {}
-    opponents: dict[str, set] = {}
-    uf = UnionFind()
-    games: list[tuple] = []
-
+def parse_chronology(lp_matches: list[dict]) -> list[tuple[datetime, str, str, int, int, str]]:
+    games: list[tuple[datetime, str, str, int, int, str]] = []
     for m in lp_matches:
         if m.get("winner") not in ("1", "2"):
             continue
         dt = parse_lp_time(m.get("utc"))
         if dt is None:
             continue
+        try:
+            s1 = int(m.get("team1_score"))
+            s2 = int(m.get("team2_score"))
+            diff = max(1, abs(s1 - s2))
+        except (TypeError, ValueError):
+            diff = 1
         games.append((dt, m["team1"], m["team2"], 1 if m["winner"] == "1" else 2,
-                      m.get("team1_score"), m.get("team2_score")))
-        uf.union(m["team1"], m["team2"])
+                      diff, m.get("overview_page") or ""))
     games.sort(key=lambda g: g[0])
+    return games
 
-    pending = []
-    for f in fixtures or []:
-        dt = parse_fixture_time(f.get("start_utc"))
-        if dt is None:
-            continue
-        pending.append((dt, f["id"], f.get("team0_key"), f.get("team1_key")))
-    pending.sort(key=lambda x: x[0])
 
-    asof: dict[str, dict] = {}
+def snapshot_ratings(games: list[tuple[datetime, str, str, int, int, str]],
+                     cutoff: datetime) -> tuple[dict, dict, dict, dict, UnionFind]:
+    """Compute strictly pre-cutoff ratings, counts, last_seen, priors and graph."""
+    ratings: dict[str, float] = {}
+    priors: dict[str, float] = {}
+    counts: dict[str, int] = {}
+    last_seen: dict[str, datetime] = {}
+    uf = UnionFind()
+    for dt, t1, t2, winner, diff, page in games:
+        if dt >= cutoff:
+            break
+        p1_prior = priors.setdefault(t1, tier_prior(page))
+        p2_prior = priors.setdefault(t2, tier_prior(page))
+        r1 = ratings.get(t1, p1_prior)
+        r2 = ratings.get(t2, p2_prior)
+        exp1 = 1 / (1 + 10 ** ((r2 - r1) / 400))
+        s1 = 1.0 if winner == 1 else 0.0
+        k_eff = ELO_K * (1.0 + ELO_MOV_SLOPE * max(0, diff - 1))
+        ratings[t1] = r1 + k_eff * (s1 - exp1)
+        ratings[t2] = r2 + k_eff * ((1 - s1) - (1 - exp1))
+        counts[t1] = counts.get(t1, 0) + 1
+        counts[t2] = counts.get(t2, 0) + 1
+        last_seen[t1] = dt
+        last_seen[t2] = dt
+        uf.union(t1, t2)
+    for team in list(ratings.keys()):
+        base_r = priors.get(team, ELO_START)
+        days = max(0.0, (cutoff - last_seen[team]).total_seconds() / 86400)
+        if days > DECAY_START_DAYS:
+            factor = max(0.0, 1 - (days - DECAY_START_DAYS) / DECAY_FULL_DAYS)
+            ratings[team] = base_r + (ratings[team] - base_r) * factor
+    return ratings, priors, counts, last_seen, uf
 
-    def snapshot(fx: tuple) -> None:
-        dt, fid, k0, k1 = fx
-        snap: dict[str, dict] = {}
-        for key in (k0, k1):
-            if not key:
-                continue
-            if key in ratings:
-                snap[key] = {"elo": round(decayed(ratings[key], last_seen[key], dt), 1),
-                             "n": counts.get(key, 0),
-                             "last": last_seen[key].strftime("%Y-%m-%d"),
-                             "opponents": frozenset(opponents.get(key, ()))}
-            else:
-                snap[key] = {"elo": ELO_START, "n": 0, "last": None, "opponents": frozenset()}
-        asof[fid] = snap
+
+def build_ratings(lp_matches: list[dict]) -> tuple[dict, dict, dict, dict, UnionFind, dict, list]:
+    games = parse_chronology(lp_matches)
+    ratings: dict[str, float] = {}
+    priors: dict[str, float] = {}
+    counts: dict[str, int] = {}
+    last_seen: dict[str, datetime] = {}
+    uf = UnionFind()
 
     bt = {"cutoff": BACKTEST_CUTOFF.strftime("%Y-%m-%d"), "n": 0, "hits": 0,
           "brier_sum": 0.0, "logloss_sum": 0.0, "buckets": {}}
-    fi = 0
-    for dt, t1, t2, winner, s1, s2 in games:
-        while fi < len(pending) and pending[fi][0] <= dt:
-            snapshot(pending[fi])
-            fi += 1
-        r1 = ratings.get(t1, ELO_START)
-        r2 = ratings.get(t2, ELO_START)
+    for dt, t1, t2, winner, diff, page in games:
+        p1_prior = priors.setdefault(t1, tier_prior(page))
+        p2_prior = priors.setdefault(t2, tier_prior(page))
+        r1 = ratings.get(t1, p1_prior)
+        r2 = ratings.get(t2, p2_prior)
         exp1 = 1 / (1 + 10 ** ((r2 - r1) / 400))
         if dt >= BACKTEST_CUTOFF:
             y = 1.0 if winner == 1 else 0.0
@@ -270,20 +271,23 @@ def build_ratings(lp_matches: list[dict], fixtures: list[dict] | None = None):
             b["n"] += 1
             b["hits"] += 1 if hit else 0
             b["sum_p"] += fav_p
-        s1v = 1.0 if winner == 1 else 0.0
-        kk = margin_k(s1, s2)
-        ratings[t1] = r1 + kk * (s1v - exp1)
-        ratings[t2] = r2 + kk * ((1 - s1v) - (1 - exp1))
+        s1 = 1.0 if winner == 1 else 0.0
+        k_eff = ELO_K * (1.0 + ELO_MOV_SLOPE * max(0, diff - 1))
+        ratings[t1] = r1 + k_eff * (s1 - exp1)
+        ratings[t2] = r2 + k_eff * ((1 - s1) - (1 - exp1))
         counts[t1] = counts.get(t1, 0) + 1
         counts[t2] = counts.get(t2, 0) + 1
         last_seen[t1] = dt
         last_seen[t2] = dt
-        opponents.setdefault(t1, set()).add(t2)
-        opponents.setdefault(t2, set()).add(t1)
+        uf.union(t1, t2)
 
-    while fi < len(pending):
-        snapshot(pending[fi])
-        fi += 1
+    today = datetime.now(timezone.utc)
+    for team in ratings:
+        base_r = priors.get(team, ELO_START)
+        days = max(0.0, (today - last_seen[team]).total_seconds() / 86400)
+        if days > DECAY_START_DAYS:
+            factor = max(0.0, 1 - (days - DECAY_START_DAYS) / DECAY_FULL_DAYS)
+            ratings[team] = base_r + (ratings[team] - base_r) * factor
 
     if bt["n"]:
         bt["accuracy"] = round(bt["hits"] / bt["n"], 4)
@@ -300,18 +304,17 @@ def build_ratings(lp_matches: list[dict], fixtures: list[dict] | None = None):
         bt["buckets"] = ordered
     bt.pop("brier_sum", None)
     bt.pop("logloss_sum", None)
-
-    today = datetime.now(timezone.utc)
-    for team in list(ratings):
-        ratings[team] = decayed(ratings[team], last_seen[team], today)
-    return ratings, counts, last_seen, uf, bt, asof
+    return ratings, priors, counts, last_seen, uf, bt, games
 
 
-def effective_rating(team: str, ratings: dict, counts: dict) -> float | None:
-    if team not in ratings:
+def effective_rating(team: str | None, ratings: dict, counts: dict,
+                     priors: dict | None = None, page: str | None = None) -> float | None:
+    if not team:
         return None
     n = counts.get(team, 0)
-    return ELO_START + (ratings[team] - ELO_START) * (n / (n + ELO_SHRINK))
+    base_r = (priors or {}).get(team) or tier_prior(page or "")
+    r = ratings.get(team, base_r)
+    return base_r + (r - base_r) * (n / (n + ELO_SHRINK))
 
 
 def win_probability(r_a: float, r_b: float) -> float:
@@ -359,12 +362,16 @@ def map_competitions(fixtures: list[dict], page_teams: dict, base: dict) -> dict
 
 def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
                  page: str | None, page_teams: dict) -> tuple[str | None, str, list]:
-    """Resolve a Hotspawn team name to an exact Leaguepedia team name."""
+    """Resolve a Hotspawn team name to an exact Leaguepedia team name.
+
+    Competition-scoped matching runs BEFORE global exact lookup so a homonymous
+    regional team (e.g. 'Last Dance (Benelux Team)' vs Portuguese 'Last Dance', or
+    'Team Gromp (Australian Team)' vs European 'Team Gromp') never silently binds to
+    the wrong continent's team record.
+    """
     key = norm_name(name)
     if not key:
         return None, "none", []
-    if key in exact:
-        return exact[key], "exact", []
     if key in aliases:
         target = aliases[key]
         if norm_name(target) in exact:
@@ -375,11 +382,26 @@ def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
             return target, "alias", [f"explicit alias to '{target}' recorded in data/aliases.json "
                                      f"with fixture-level evidence (see Flagged for review)"]
 
+    page_set = page_teams.get(page or "", set())
+    if page_set:
+        bkey = norm_name(base_name(name))
+        in_page = sorted(c for c in page_set if norm_name(base_name(c)) == bkey)
+        if len(in_page) == 1:
+            chosen = in_page[0]
+            if norm_name(chosen) == key:
+                return chosen, "exact", []
+            other = exact.get(key)
+            extra = f" rather than homonymous '{other}'" if other and other != chosen else ""
+            return chosen, "competition-page", [
+                f"resolved within '{page}' to '{chosen}'{extra}"]
+
+    if key in exact:
+        return exact[key], "exact", []
+
     candidates = sorted(base.get(norm_name(base_name(name)), set()))
     if len(candidates) == 1:
         return candidates[0], "base-name", [f"Leaguepedia lists this team as '{candidates[0]}'"]
     if len(candidates) > 1:
-        page_set = page_teams.get(page or "", set())
         narrowed = [c for c in candidates if c in page_set]
         if len(narrowed) == 1:
             return narrowed[0], "competition-page", [
@@ -392,7 +414,7 @@ def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
 # --------------------------------------------------------------------------- multi-venue market consensus
 def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                   pin_index: list, pm_index: list, kalshi_index: list,
-                  bovada_index: list, esportsbook_map: dict, within_hours: int = 36):
+                  bovada_index: list, kambi_index: list, within_hours: int = 36):
     """Combine all independent real-money venues covering this fixture."""
     def close_in_time(a: str | None, b: str | None) -> bool:
         if not a or not b:
@@ -435,7 +457,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 primary_american = {k: v.get("american") for k, v in row["prices"].items()}
                 primary_start = item["start"]
                 primary_league = row.get("league")
-                primary_api_url = f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{row['matchup_id']}/markets/related/straight"
+                pin_receipt_url = f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{row['matchup_id']}/markets/related/straight"
+                primary_api_url = pin_receipt_url
                 venues.append({
                     "name": "Pinnacle",
                     "weight": VENUE_WEIGHTS["Pinnacle"],
@@ -443,7 +466,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "p1": round(p1_v, 4),
                     "quote": f"{d0_v:.2f}/{d1_v:.2f}",
                     "overround": round(overround, 4),
-                    "url": f"https://www.pinnacle.com/en/event/{row['matchup_id']}",
+                    "observed_utc": item.get("observed_utc"),
+                    "url": pin_receipt_url,
                 })
                 break
 
@@ -465,6 +489,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "p1": round(p1_v, 4),
                     "quote": f"{p0_v*100:.1f}¢/{p1_v*100:.1f}¢",
                     "overround": round(tot - 1.0, 4),
+                    "observed_utc": item.get("observed_utc"),
                     "url": f"https://polymarket.com/event/{item['slug']}",
                     "volume_usd": round(float(item.get("volume") or 0.0), 2),
                 })
@@ -490,6 +515,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "p1": round(p1_v, 4),
                     "quote": f"{pa*100:.0f}¢/{pb*100:.0f}¢",
                     "overround": round(tot - 1.0, 4),
+                    "observed_utc": item.get("observed_utc"),
                     "url": f"https://kalshi.com/markets/kxlolgame/{item['event_ticker'].lower()}",
                 })
                 break
@@ -507,6 +533,10 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 p0_v, p1_v, overround = dv
                 if primary_decimal is None:
                     primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
+                bov_url = item["url"]
+                if bov_url.startswith("https://www.bovada.lv/esports/"):
+                    bov_url = bov_url.replace("https://www.bovada.lv/esports/",
+                                              "https://www.bovada.lv/sports/esports/", 1)
                 venues.append({
                     "name": "Bovada",
                     "weight": VENUE_WEIGHTS["Bovada"],
@@ -514,6 +544,32 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "p1": round(p1_v, 4),
                     "quote": f"{d0_v:.2f}/{d1_v:.2f}",
                     "overround": round(overround, 4),
+                    "observed_utc": item.get("observed_utc"),
+                    "url": bov_url,
+                })
+                break
+
+    # 5. Unibet / Kambi European Regulated Sportsbook JSON Feed
+    for item in kambi_index:
+        a, b = item["names"]
+        if close_in_time(start, item["start"]) and (
+                (same_team(name0, a) and same_team(name1, b)) or
+                (same_team(name0, b) and same_team(name1, a))):
+            d0_v = item["d0"] if same_team(name0, a) else item["d1"]
+            d1_v = item["d1"] if same_team(name0, a) else item["d0"]
+            dv = devig_decimal(d0_v, d1_v, {"fixture_id": fixture_id, "venue": "Unibet"})
+            if dv:
+                p0_v, p1_v, overround = dv
+                if primary_decimal is None:
+                    primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
+                venues.append({
+                    "name": "Unibet",
+                    "weight": VENUE_WEIGHTS["Unibet"],
+                    "p0": round(p0_v, 4),
+                    "p1": round(p1_v, 4),
+                    "quote": f"{d0_v:.2f}/{d1_v:.2f}",
+                    "overround": round(overround, 4),
+                    "observed_utc": item.get("observed_utc"),
                     "url": item["url"],
                 })
                 break
@@ -545,7 +601,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         "thin_note": (f"single Polymarket venue with ${float(venues[0].get('volume_usd') or 0):,.0f} "
                       f"traded volume (thin-market threshold ${THIN_VOLUME_USD:,.0f})") if thin else "",
         "book": book_label,
-        "kind": "bookmaker" if any(v["name"] in ("Pinnacle", "Bovada", "Esportsbook") for v in venues) else "prediction market",
+        "kind": "bookmaker" if any(v["name"] in ("Pinnacle", "Bovada", "Unibet") for v in venues) else "prediction market",
         "source_url": venues[0]["url"],
         "api_url": primary_api_url or venues[0]["url"],
         "market_url": venues[0]["url"],
@@ -572,6 +628,7 @@ def main() -> None:
     pmkt = load_json(os.path.join(RAW, "polymarket.json")) or {}
     kalshi = load_json(os.path.join(RAW, "kalshi_lol.json")) or {}
     bovada = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
+    kambi = load_json(os.path.join(RAW, "kambi_lol.json")) or {}
     # Historical archive is evidence only, never a live pricing input: it cannot be
     # re-verified on the build machine, so it is excluded and reported instead.
     receipts = {}
@@ -596,17 +653,8 @@ def main() -> None:
         key = (m.get("overview_page"), frozenset((str(m.get("team1")), str(m.get("team2")))))
         if m.get("utc"):
             lp_times.setdefault(key, []).append(m.get("utc"))
-    # Resolve every team once; the same keys feed the kick-off Elo snapshots and the rows.
-    resolved: dict[str, tuple] = {}
-    for f in fixtures:
-        page = (comp_map.get(f["competition"]) or {}).get("page")
-        r0 = resolve_team(f["team0"]["name"], exact, base, aliases, page, page_teams)
-        r1 = resolve_team(f["team1"]["name"], exact, base, aliases, page, page_teams)
-        resolved[f["id"]] = (r0[0], r0[1], r0[2], r1[0], r1[1], r1[2], page)
-    fx_meta = [{"id": f["id"], "start_utc": f.get("start_utc"),
-                "team0_key": resolved[f["id"]][0], "team1_key": resolved[f["id"]][3]}
-               for f in fixtures]
-    ratings, counts, last_seen, uf, backtest, asof = build_ratings(lp_matches, fx_meta)
+    ratings, priors, counts, last_seen, uf, backtest, chrono_games = build_ratings(lp_matches)
+    snap_cache: dict[str, tuple[dict, dict, dict, dict, UnionFind]] = {}
 
     lp_by_pair: dict[frozenset, list] = {}
     for m in lp_matches:
@@ -632,6 +680,12 @@ def main() -> None:
                 return float("inf")
         return min(cands, key=gap)
 
+    pin_obs = pin.get("fetched_utc")
+    pm_obs = pmkt.get("fetched_utc")
+    kalshi_obs = kalshi.get("fetched_utc")
+    bovada_obs = bovada.get("fetched_utc")
+    kambi_obs = kambi.get("fetched_utc")
+
     pin_index = []
     pin_kills_excluded = 0
     for mk in pin.get("markets") or []:
@@ -642,7 +696,8 @@ def main() -> None:
             pin_kills_excluded += 1
             continue
         if len(names) == 2:
-            pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc")})
+            pin_index.append({"names": names, "row": mk, "start": mk.get("start_utc"),
+                              "observed_utc": pin_obs})
 
     pm_candidates = []
     for mk in pmkt.get("match_markets") or []:
@@ -662,7 +717,8 @@ def main() -> None:
             continue
         pm_candidates.append({"names": outcomes, "p0": pa, "p1": pb, "volume": vol,
                               "slug": mk.get("slug"),
-                              "start": mk.get("game_start")})
+                              "start": mk.get("game_start"),
+                              "observed_utc": pm_obs})
     pm_index = sorted(pm_candidates, key=lambda x: -x["volume"])
 
     kalshi_index = []
@@ -686,6 +742,7 @@ def main() -> None:
                 "p0": mids[0][1],
                 "p1": mids[1][1],
                 "event_ticker": ev.get("event_ticker") or "",
+                "observed_utc": kalshi_obs,
             })
 
     bovada_index = []
@@ -698,35 +755,64 @@ def main() -> None:
                 "d1": float(outs[1]["decimal"]),
                 "start": ev.get("start_utc"),
                 "url": ev.get("url") or "https://www.bovada.lv/sports/esports/league-of-legends",
+                "observed_utc": bovada_obs,
             })
 
+    kambi_index = []
+    for ev in kambi.get("events") or []:
+        outs = ev.get("outcomes") or []
+        if len(outs) == 2:
+            kambi_index.append({
+                "names": [outs[0]["name"], outs[1]["name"]],
+                "d0": float(outs[0]["decimal"]),
+                "d1": float(outs[1]["decimal"]),
+                "start": ev.get("start_utc"),
+                "url": ev.get("url") or kambi.get("source_url") or "",
+                "observed_utc": ev.get("changed_utc") or kambi_obs,
+            })
+
+    now_dt_eval = now_utc()
     rows, join_log = [], []
     for f in fixtures:
         n0, n1 = f["team0"]["name"], f["team1"]["name"]
-        k0, m0, note0, k1, m1, note1, page = resolved[f["id"]]
+        page = (comp_map.get(f["competition"]) or {}).get("page")
+        k0, m0, note0 = resolve_team(n0, exact, base, aliases, page, page_teams)
+        k1, m1, note1 = resolve_team(n1, exact, base, aliases, page, page_teams)
         for name, key, method, notes in ((n0, k0, m0, note0), (n1, k1, m1, note1)):
             if method not in ("exact",):
                 join_log.append({"hotspawn_id": f["id"], "team": name, "resolved": key,
                                  "method": method, "notes": notes})
 
-        snap = asof.get(f["id"], {})
-        s0 = snap.get(k0) if k0 else None
-        s1 = snap.get(k1) if k1 else None
-        er0 = s0.get("elo") if s0 else None
-        er1 = s1.get("elo") if s1 else None
-        n0c = int(s0.get("n") or 0) if s0 else 0
-        n1c = int(s1.get("n") or 0) if s1 else 0
-        # "connected" = at least one shared opponent before kick-off. The old union-find
-        # test spanned 34k series and was true for almost every pair.
-        connected = bool(k0 and k1 and (s0.get("opponents") or frozenset()) &
-                         (s1.get("opponents") or frozenset()))
+        # Strictly pre-kickoff ratings for every fixture (dt < start_utc), preventing any
+        # look-ahead leakage into published win probabilities and decaying to kick-off date.
+        use_r, use_p, use_c, use_ls, use_uf = ratings, priors, counts, last_seen, uf
+        fix_start_dt = None
+        if f.get("start_utc"):
+            try:
+                fix_start_dt = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+                skey = f["start_utc"]
+                if skey not in snap_cache:
+                    snap_cache[skey] = snapshot_ratings(chrono_games, fix_start_dt)
+                use_r, use_p, use_c, use_ls, use_uf = snap_cache[skey]
+            except ValueError:
+                fix_start_dt = None
+
+        er0_raw = effective_rating(k0, use_r, use_c, use_p, page) if k0 else None
+        er1_raw = effective_rating(k1, use_r, use_c, use_p, page) if k1 else None
+        er0_now = effective_rating(k0, ratings, counts, priors, page) if k0 else None
+        er1_now = effective_rating(k1, ratings, counts, priors, page) if k1 else None
+        er0 = round(er0_raw, 1) if er0_raw is not None else None
+        er1 = round(er1_raw, 1) if er1_raw is not None else None
+        n0c = use_c.get(k0, 0) if k0 else 0
+        n1c = use_c.get(k1, 0) if k1 else 0
+        connected = bool(k0 and k1 and use_uf.find(k0) == use_uf.find(k1))
 
         dq_norms = {norm_name(t): t for t in (lp_dq.get(page or "") or [])}
         dq0 = dq_norms.get(norm_name(k0 or n0))
         dq1 = dq_norms.get(norm_name(k1 or n1))
 
         market = market_lookup(f["id"], n0, n1, f.get("start_utc"),
-                               pin_index, pm_index, kalshi_index, bovada_index, receipts)
+                               pin_index, pm_index, kalshi_index, bovada_index, kambi_index)
         row = {
             "id": f["id"],
             "competition": f["competition"],
@@ -740,18 +826,18 @@ def main() -> None:
             "leaguepedia_page": page,
             "team0": {"name": n0, "leaguepedia": k0, "join": m0, "join_notes": note0,
                       "rating_matches": n0c,
-                      "last_played": (s0 or {}).get("last"),
                       "rating_as_of": f["start_utc"],
-                      "elo": round(er0, 1) if er0 is not None else None,
-                      "elo_now": round(ratings[k0], 1) if k0 in ratings else None,
-                      "elo_raw": round(ratings[k0], 1) if k0 in ratings else None},
+                      "last_played": use_ls.get(k0).strftime("%Y-%m-%d") if k0 in use_ls else None,
+                      "elo_raw": round(use_r[k0], 1) if k0 in use_r else None,
+                      "elo_now": round(er0_now, 1) if er0_now is not None else None,
+                      "elo": er0},
             "team1": {"name": n1, "leaguepedia": k1, "join": m1, "join_notes": note1,
                       "rating_matches": n1c,
-                      "last_played": (s1 or {}).get("last"),
                       "rating_as_of": f["start_utc"],
-                      "elo": round(er1, 1) if er1 is not None else None,
-                      "elo_now": round(ratings[k1], 1) if k1 in ratings else None,
-                      "elo_raw": round(ratings[k1], 1) if k1 in ratings else None},
+                      "last_played": use_ls.get(k1).strftime("%Y-%m-%d") if k1 in use_ls else None,
+                      "elo_raw": round(use_r[k1], 1) if k1 in use_r else None,
+                      "elo_now": round(er1_now, 1) if er1_now is not None else None,
+                      "elo": er1},
         }
 
         flags: list[str] = []
@@ -882,18 +968,29 @@ def main() -> None:
         for side, notes in ((row["team0"], note0), (row["team1"], note1)):
             flags.extend(notes)
         stale = False
-        stale_hours = 0.0
-        if f.get("start_utc"):
-            try:
-                start_dt = datetime.strptime(f["start_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
-                # Any fixture whose published start time has passed is marked, so a card can
-                # never look like an upcoming pick after kick-off (flag reason stays unverified).
-                stale = (datetime.now(timezone.utc) - start_dt).total_seconds() > 0
-            except ValueError:
-                stale = False
+        if fix_start_dt is not None:
+            # Any fixture whose published start time has passed is marked, so a card can
+            # never look like an upcoming pick after kick-off. Pre-kickoff ratings above ensure
+            # post-start outcomes never leak into p0/p1.
+            stale = (now_dt_eval - fix_start_dt).total_seconds() > 0
         if stale:
-            flags.append("start time has passed but Hotspawn still lists the fixture as scheduled "
-                         "(reason unverified)")
+            lp_done = leaguepedia_row(k0 or n0, k1 or n1, f.get("start_utc"))
+            done_note = None
+            if lp_done and lp_done.get("winner") in ("1", "2") and lp_done.get("utc"):
+                try:
+                    lp_dt_done = datetime.strptime(str(lp_done["utc"])[:19], "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+                    if abs((lp_dt_done - fix_start_dt).total_seconds()) <= 12 * 3600:
+                        s_a, s_b = lp_done.get("team1_score"), lp_done.get("team2_score")
+                        done_note = (f"{lp_done.get('team1')} {s_a}-{s_b} {lp_done.get('team2')} "
+                                     f"(Leaguepedia Data:{lp_done.get('overview_page')})")
+                except ValueError:
+                    done_note = None
+            if done_note and method != "unresolved":
+                flags.append(f"start time has passed and Leaguepedia records completed series {done_note}; "
+                             f"probability reflects strictly pre-kickoff ratings while Hotspawn card remains open")
+            else:
+                flags.append("start time has passed but Hotspawn still lists the fixture as scheduled "
+                             "(reason unverified)")
         # Cross-check the published kick-off against the official Leaguepedia series record.
         if f.get("start_utc") and page and k0 and k1:
             lp_list = lp_times.get((page, frozenset((str(k0), str(k1))))) or []
@@ -944,8 +1041,6 @@ def main() -> None:
     counts_by_method: dict[str, int] = {}
     for r in rows:
         counts_by_method[r["method"]] = counts_by_method.get(r["method"], 0) + 1
-    counts_by_method["walkover"] = sum(1 for r in rows if r.get("resolution"))
-    counts_by_method["settlement"] = sum(1 for r in rows if r.get("pick_type") == "settlement")
 
     live_ids = {r["id"] for r in rows}
     retired = []
@@ -990,13 +1085,15 @@ def main() -> None:
             age_h = round((now_dt - obs).total_seconds() / 3600, 1)
         except (TypeError, ValueError):
             age_h = None
-        entry = {"fixture_id": str(fid), "observed_at": q.get("observed_at"), "age_hours": age_h,
-                 "source_url": q.get("source_url")}
+        d0, d1 = q.get("decimal0"), q.get("decimal1")
+        entry = {"fixture_id": str(fid), "decimal": [d0, d1], "observed_at": q.get("observed_at"),
+                 "age_hours": age_h, "source_url": q.get("source_url")}
         if age_h is None or age_h > RECEIPT_MAX_AGE_HOURS:
             expired.append(entry)
-        d0, d1 = q.get("decimal0"), q.get("decimal1")
         if d0 and d1 and abs(float(d0) - 1.8) < 1e-9 and abs(float(d1) - 1.8) < 1e-9:
-            rejected_quotes.append({"fixture_id": str(fid), "reject": "symmetric 1.80/1.80 placeholder"})
+            rejected_quotes.append({"fixture_id": str(fid),
+                                    "venue": q.get("book_label") or "archived aggregator",
+                                    "reject": "symmetric 1.80/1.80 placeholder"})
     receipt_audit = {
         "max_age_hours": RECEIPT_MAX_AGE_HOURS,
         "used": [],
@@ -1012,13 +1109,14 @@ def main() -> None:
         "inventory_fetched_utc": hs.get("fetched_utc"),
         "receipt_audit": receipt_audit,
         "model": {"name": "LOLHOTSPAWN Elo", "k": ELO_K, "start": ELO_START,
-                  "margin_weight": MARGIN_WEIGHT, "shrink": ELO_SHRINK,
+                  "margin_weight": ELO_MOV_SLOPE, "shrink": ELO_SHRINK,
                   "rating_as_of": "kick-off", "min_matches_confident": MIN_MATCHES_CONFIDENT,
                   "prob_floor": PROB_FLOOR, "prob_ceil": PROB_CEIL,
                   "decay_start_days": DECAY_START_DAYS, "decay_full_days": DECAY_FULL_DAYS,
                   "window_start": lp.get("query", {}).get("where")},
         "sources": {"hotspawn": hs.get("source_url"), "pinnacle": pin.get("source_url"),
                     "kalshi": kalshi.get("source_url"), "bovada": bovada.get("source_url"),
+                    "unibet": kambi.get("source_url"),
                     "leaguepedia": lp.get("source_url"), "polymarket": pmkt.get("source_url"),
                     "source_status_utc": sources.get("checked_utc")},
         "counts": counts_by_method,
@@ -1026,6 +1124,7 @@ def main() -> None:
             "pinnacle_kills_derivatives_excluded": pin_kills_excluded,
             "archived_receipts_retired": len(retired),
             "esportsbook_venue_active": bool(receipts),
+            "walkover_settlement_count": sum(1 for r in rows if r.get("pick_type") == "settlement"),
         },
         "backtest": backtest,
         "total": len(rows),

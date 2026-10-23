@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T16:09:02Z",
+ "generated_utc": "2026-10-23T16:13:53Z",
  "checks": [
   {
    "name": "dataset present",
@@ -70,6 +70,11 @@
    "name": "Pinnacle quote URLs point at collected matchups",
    "ok": true,
    "detail": "8 matchup ids in feed; problems: []"
+  },
+  {
+   "name": "all Worlds series carry 5-venue live consensus including Unibet/Kambi",
+   "ok": true,
+   "detail": "8 fixtures carry Pinnacle+Polymarket+Kalshi+Bovada+Unibet"
   },
   {
    "name": "every official-forfeit resolution names a winner and a source URL",
@@ -159,12 +164,12 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "9 usable receipts, 0 rejected, 0 diverging >5.0pp"
+   "detail": "17 usable receipts, 0 rejected, 0 diverging >5.0pp"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 40109 bytes"
+   "detail": "coverage.html 47908 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -177,9 +182,14 @@
    "detail": "priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241"
   },
   {
+   "name": "method counts partition matches.json cleanly",
+   "ok": true,
+   "detail": "counts={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} sum=241 rows=241"
+  },
+  {
    "name": "source availability recorded",
    "ok": true,
-   "detail": "9/14 sources reachable on this build"
+   "detail": "10/14 sources reachable on this build"
   },
   {
    "name": "every Hotspawn fixture is in the dataset (1:1 ids)",
@@ -201,11 +211,11 @@
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
- "unverified": 84,
+ "unverified": 81,
  "counts": {
-  "provisional": 80,
-  "model": 148,
+  "model": 151,
   "unresolved": 4,
+  "provisional": 77,
   "market": 9
  },
  "internal_links": 400,

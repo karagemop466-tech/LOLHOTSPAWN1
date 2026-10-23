@@ -119,15 +119,17 @@ details.why p{margin:8px 0 4px;font-size:13.5px;color:#33405a}
 
 /* toolbar */
 .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
-#q,#comp{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;min-height:44px}
-#q{flex:1 1 220px;min-width:0}
-#comp{flex:1 1 200px}
+#q,#comp,#tq,#tcomp{font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);min-height:44px}
+#q,#tq{flex:1 1 220px;min-width:0}
+#comp,#tcomp{flex:1 1 200px}
 .chips{display:flex;gap:6px;overflow-x:auto;width:100%;padding-bottom:2px}
 .chip{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;border-radius:999px;
   padding:9px 12px;cursor:pointer;white-space:nowrap;min-height:40px}
 .chip span{color:var(--muted);margin-left:4px}
 .chip.active{background:var(--brand);color:#fff;border-color:var(--brand)}
 .chip.active span{color:#cbd5e1}
+.chip-toggle.active{background:var(--ok);color:#fff;border-color:var(--ok)}
+.chip-toggle.active span{color:#dcfce7}
 .empty{text-align:center;padding:28px;color:var(--muted)}
 
 /* tables */
@@ -170,12 +172,17 @@ tr:last-child td{border-bottom:0}
     --ok:#4ade80;--ok-weak:#12301f;--warn:#fbbf24;--warn-weak:#3a2c0a;
     --bad:#fb7185;--bad-weak:#3a1220;--shadow:none}
   .hero{background:linear-gradient(160deg,#0b1020,#152a5c)}
+  .card,.quicklinks a{background:var(--panel)}
   .btn{background:#152036;color:#e8edf7;border-color:var(--line)}
   .btn.primary{background:#38d39f;color:#06301f}
   .formula,th{background:#0f1728}
   .split{background:#1e293b}
-  #q,#comp,.chip{background:#0f1728;color:var(--ink)}
+  #q,#comp,#tq,#tcomp,.chip{background:#0f1728;color:var(--ink)}
   .chip.active{background:#38d39f;color:#06301f}
+  .chip.active span{color:#06301f}
+  .chip-toggle.active{background:#4ade80;color:#052e16}
+  .chip-toggle.active span{color:#052e16}
+  .pill.no{background:#22304a;color:#94a3b8}
 }
 
 /* quick links (executive summary) */

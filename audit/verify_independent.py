@@ -69,7 +69,8 @@ def norm(name: str) -> str:
     s = s.lower()
     s = re.sub(r"\([^)]*\)", " ", s)              # drop parentheticals e.g. "(Kills)"
     s = re.sub(r"\b(esports?|e-?sport(s)?|team|gaming|club|academy|esport)\b", " ", s)
-    return re.sub(r"[^a-z0-9]+", "", s)
+    out = re.sub(r"[^a-z0-9]+", "", s)
+    return {"secret": "secretwhales"}.get(out, out)
 
 
 def devig(d0: float, d1: float):
@@ -91,6 +92,7 @@ def main() -> int:
     bov = load(os.path.join(RAW, "bovada_lol.json"))
     kal = load(os.path.join(RAW, "kalshi_lol.json"))
     pol = load(os.path.join(RAW, "polymarket.json"))
+    kam = load(os.path.join(RAW, "kambi_lol.json")) if os.path.exists(os.path.join(RAW, "kambi_lol.json")) else {}
     hs = load(os.path.join(RAW, "hotspawn_lol.json"))
 
     build_ts = parse_ts(matches_doc.get("generated_utc"))
@@ -136,6 +138,11 @@ def main() -> int:
         outs = mk.get("outcomes") or []
         if len(outs) == 2:
             pol_index.append({"names": outs, "raw": mk})
+    kam_index = []
+    for ev in kam.get("events") or []:
+        outs = ev.get("outcomes") or []
+        if len(outs) == 2:
+            kam_index.append({"names": [o["name"] for o in outs], "raw": ev})
 
     def find_all(index, n0, n1, symmetric=True):
         k0, k1 = norm(n0), norm(n1)
@@ -225,10 +232,11 @@ def main() -> int:
                     fail("D arithmetic", f"{row['id']}: Pinnacle de-vig {dv[0]:.4f}/{dv[1]:.4f} != "
                                          f"published {p0:.4f}/{p1:.4f}")
 
-            elif vname == "Bovada":
-                hits = find_all(bov_index, n0, n1)
+            elif vname in ("Bovada", "Unibet"):
+                src_idx = bov_index if vname == "Bovada" else kam_index
+                hits = find_all(src_idx, n0, n1)
                 if not hits:
-                    fail("B provenance", f"{row['id']}: Bovada quote {quote} not found for {n0} vs {n1}")
+                    fail("B provenance", f"{row['id']}: {vname} quote {quote} not found for {n0} vs {n1}")
                     continue
                 numbers = re.findall(r"\d+\.?\d*", quote)
                 d0, d1 = float(numbers[0]), float(numbers[1])
@@ -240,10 +248,10 @@ def main() -> int:
                     if close(rd0, d0, 0.01) and close(rd1, d1, 0.01):
                         ok = True
                 if not ok:
-                    fail("B provenance", f"{row['id']}: Bovada quote {quote} matches no raw price")
+                    fail("B provenance", f"{row['id']}: {vname} quote {quote} matches no raw price")
                 dv = devig(d0, d1)
                 if dv and not (close(dv[0], p0) and close(dv[1], p1)):
-                    fail("D arithmetic", f"{row['id']}: Bovada de-vig {dv[0]:.4f}/{dv[1]:.4f} != published")
+                    fail("D arithmetic", f"{row['id']}: {vname} de-vig {dv[0]:.4f}/{dv[1]:.4f} != published")
 
             elif vname in ("Polymarket", "Kalshi"):
                 index = pol_index if vname == "Polymarket" else kal_index
@@ -355,7 +363,7 @@ def main() -> int:
 
     # ------------------------------------------------------------- F freshness
     for name, doc in (("pinnacle", pin), ("bovada", bov), ("kalshi", kal),
-                      ("polymarket", pol), ("hotspawn", hs)):
+                      ("polymarket", pol), ("unibet", kam), ("hotspawn", hs)):
         ts = parse_ts(doc.get("fetched_utc"))
         if ts is None or build_ts is None:
             warn("F freshness", f"{name}: missing fetch or build timestamp")

@@ -82,6 +82,8 @@ def pp(value) -> str:
 
 
 GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", "lol", "e", "v"}
+RECEIPT_ALIASES = {"team secret": "team secret whales", "secret whales": "team secret whales",
+                   "lyon gaming": "lyon", "l s": "los", "l o s": "los"}
 
 
 def same(a: str, b: str) -> bool:
@@ -91,7 +93,8 @@ def same(a: str, b: str) -> bool:
     string compare would silently drop a valid receipt. The extra tokens must all
     be generic org words, and the shorter name must still be distinctive.
     """
-    na, nb = norm_name(a), norm_name(b)
+    na = RECEIPT_ALIASES.get(norm_name(a), norm_name(a))
+    nb = RECEIPT_ALIASES.get(norm_name(b), norm_name(b))
     if not na or not nb:
         return False
     if na == nb:
@@ -652,7 +655,7 @@ def render(doc: dict) -> str:
 
 def explain_method(method: str) -> str:
     return {
-        "market": "De-vigged real-money market line (Pinnacle, Polymarket, Kalshi, Bovada, verified esportsbook).",
+        "market": "De-vigged real-money market line (Pinnacle, Polymarket, Kalshi, Bovada, Unibet).",
         "model": "Our own Elo line from recorded series results; both teams rated and connected.",
         "provisional": "Our Elo line with thin data - shown with a low-confidence flag.",
         "unresolved": "No defensible line: participant removed mid-split (official dqteams) or no rating path.",
