@@ -415,6 +415,9 @@ def collect_polymarket() -> dict:
                     "event": ev.get("title"), "question": q, "slug": mk.get("slug"),
                     "outcomes": outcomes, "prices": prices,
                     "volume": mk.get("volume"), "end": mk.get("endDate"),
+                    # event.startDate is when the market was listed, NOT the kick-off;
+                    # gameStartTime on the market itself is the stated match start.
+                    "game_start": mk.get("gameStartTime"),
                     "event_start": ev.get("startDate"),
                 })
     save_json(os.path.join(RAW, "polymarket.json"), {

@@ -169,7 +169,7 @@ def match_card(r: dict, show_sources: bool = True) -> str:
   data-text="{e((r['competition'] + ' ' + t0['name'] + ' ' + t1['name']).lower())}">
   <div class="card-top">
     <span class="when">{local_time(r['start_utc'])}</span>
-    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{badge(m)}</span>
+    <span class="badges">{f'<span class="badge b-past">start time passed</span>' if r.get('stale') else ''}{'<span class="badge b-thin" title="single thin prediction market">thin market</span>' if (r.get('market') or {}).get('thin') else ''}{badge(m)}</span>
   </div>
   <div class="comp">{e(r['competition'])}{f" &middot; {e(r['best_of'])}-game series" if r.get('best_of') else ""}</div>
   <div class="teams">
@@ -721,6 +721,17 @@ def build_flagged(flags: list[dict]) -> str:
   <p class="lead">Audited upstream feed irregularities, mid-split team disqualifications, placeholder odds traps,
   and thin-sample caveats — published openly with source links and verification caveats.</p>
   {table(["Severity", "Item", "Detail", "Source"], out)}
+</section>
+<section class="panel">
+  <h2>Independent audits behind this page</h2>
+  <p class="lead">Two separate audit passes re-checked the committed snapshot and did not use the same code as
+  the publish gate. Both are published in full, including what they could not verify.</p>
+  <ul class="linklist">
+    <li><a href="audit/AUDIT.md">Source audit (row by row) &rarr;</a><span>241-row table, live receipts, findings F1&ndash;F8.</span></li>
+    <li><a href="audit/audit.csv">Row audit CSV &rarr;</a><span>Per-match verdict and Hotspawn card link.</span></li>
+    <li><a href="audit/README.md">Recomputation audit &rarr;</a><span>Every published number re-derived from the raw provider payloads.</span></li>
+    <li><a href="audit/report.md">Latest recomputation result &rarr;</a><span>Failures and warnings for the current build.</span></li>
+  </ul>
 </section>
 """
     return page_shell("Flagged for review", "flagged.html", body,

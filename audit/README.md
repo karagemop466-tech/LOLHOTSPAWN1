@@ -83,3 +83,21 @@ series matchup `1638748200`. All 17 publish gates still pass.
   re-derived from committed evidence.
 - The Elo backtest (3,854 series, 64.1 % accuracy, Brier 0.221) is reproduced by re-running
   `tools/model.py`; its out-of-sample construction was read but not independently re-implemented.
+
+## Findings adopted from the `0d48f265` source audit (merged as PR #20)
+
+That audit worked row by row against live venue pages. Its findings were reviewed here and, where they
+were code-level defects rather than source limitations, fixed in `tools/`:
+
+| Finding | What it said | Action taken here |
+|---|---|---|
+| F1 | row `1071212` kicked off at 15:00Z but was not stale-flagged, because "stale" meant *more than three hours past start* | `stale` is now true as soon as the start time has passed (66 rows at this build); `stale_hours` is published per row |
+| F2 | the Pinnacle link on Gen.G v Invictus did not serve the price used | fixed before the merge (D1/D2 above): the collector drops `(Kills)` matchups and filters by `matchupId`; all 8 Pinnacle links now point at the series matchup |
+| F3 | Mental Rush v Vitality Rising Bees was priced from a Polymarket market with **$5** traded volume | the market block now carries `volume_usd`; a single-venue Polymarket row under $1,000 is marked `thin`, drops to *low* confidence, shows a **thin market** badge, and carries an explicit flag |
+| F4 | start time disagreed (Hotspawn 17:00Z vs Polymarket 16:00Z) | only a market's own `gameStartTime` is used for comparison (the event `startDate` is the listing date), the threshold is 1.0 h, and the flag names the venue that disagrees. The committed snapshot predates the collector change, so this row shows no mismatch until the next collection |
+| F6 | consensus weights are house choices, not external figures | already stated on the methodology page as "fixed editorial weights (not statistically optimized)"; kept |
+| F7 | Leaguepedia and gol.gg are third-party | labelling unchanged: "community-maintained", never "official" |
+| F5 | the four `dqteams` rows are past-dated and the opponent won each recorded series | **no pick is published for them.** A 0–2 score is consistent with a walkover but the source does not say "forfeit", so a pick would be an inference. The unresolved page states the conditional outcome instead |
+
+`audit/AUDIT.md` and `audit/audit.csv` are that session's evidence and are kept verbatim; where they
+describe the pre-merge data (F2), this README records the current state.

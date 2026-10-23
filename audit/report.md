@@ -1,9 +1,9 @@
 # Independent verification report
 
-Generated: `2026-10-23T15:41:50Z` · dataset: `2026-10-23T15:41:40Z`
+Generated: `2026-10-23T15:45:22Z` · dataset: `2026-10-23T15:44:58Z`
 
 - rows: **241** · market rows: **9** · venue quotes re-derived: **32**
-- failures: **0** · warnings: **10**
+- failures: **0** · warnings: **9**
 
 ## Failures
 
@@ -11,7 +11,6 @@ None.
 
 ## Warnings
 
-- **B provenance** — 1067878: Pinnacle lists 2 priced records for Gen.G vs Invictus Gaming with differing prices
 - **B provenance** — 1067878: venue quotes carry no per-quote capture time
 - **B provenance** — 1067677: venue quotes carry no per-quote capture time
 - **B provenance** — 1067680: venue quotes carry no per-quote capture time
