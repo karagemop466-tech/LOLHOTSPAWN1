@@ -1,0 +1,53 @@
+name: probe-bo3
+
+# Evidence-only research workflow for this session.
+#
+# The sandbox that writes this repository has no outbound HTTPS, so every
+# "is this source reachable and does it carry prices" question has to be
+# answered from a GitHub Actions runner. This job runs tools/probe_bo3.py,
+# commits the resulting JSON (bounded previews, no invented prices) and exits.
+# It never touches the published pages or the match dataset.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: de975e8d-probe-bo3
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Probe
+        run: python3 tools/probe_bo3.py 2>&1 | tee /tmp/probe.log
+
+      - name: Commit evidence
+        run: |
+          set -e
+          git config user.name "arena-build-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/probe/bo3.json
+          if git diff --cached --quiet; then
+            echo "no change"
+            exit 0
+          fi
+          git commit -m "chore(probe): bo3.gg API evidence $(date -u +%FT%TZ) [skip ci]"
+          for i in 1 2 3; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then exit 0; fi
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || git rebase --abort
+            sleep 4
+          done
+          exit 1
