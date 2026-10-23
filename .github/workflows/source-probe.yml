@@ -1,0 +1,75 @@
+name: Source reachability probe (manual)
+
+# Maintenance tool, manual dispatch only. It never writes to the repository and
+# never commits. It asks a runner to fetch each candidate odds source and prints
+# the HTTP status, content type and first bytes, so that tools/collect.py only
+# ever ingests sources that a runner has actually reached.
+#
+#   gh workflow run source-probe.yml --ref <branch>
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Probe candidate League of Legends odds sources
+        run: |
+          set -u
+          probe () {
+            name="$1"; url="$2"; extra="${3:-}"
+            out=$(curl -sS -L --max-time 25 -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36" \
+                  -H "Accept: application/json,text/html;q=0.9,*/*;q=0.8" -H "Accept-Language: en-US,en;q=0.9" \
+                  $extra -o /tmp/body -w "%{http_code}|%{content_type}|%{size_download}" "$url" 2>/tmp/err || true)
+            code=$(echo "$out" | cut -d'|' -f1); ctype=$(echo "$out" | cut -d'|' -f2); size=$(echo "$out" | cut -d'|' -f3)
+            echo "----- $name"
+            echo "URL: $url"
+            echo "STATUS: ${code:-curl-error} CTYPE: ${ctype:-none} BYTES: ${size:-0}"
+            head -c 240 /tmp/body 2>/dev/null | tr -d '\000' | tr '\n' ' '; echo
+            head -c 160 /tmp/err 2>/dev/null | tr '\n' ' '; echo
+          }
+
+          # --- regulated sportsbooks / exchanges -----------------------------
+          probe "pinnacle-guest-leagues" "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues" \
+                '-H "x-api-key: CmX2KcMrXuFmNg6YFbmTxE0y9CIrOi0R"'
+          probe "polymarket-gamma" "https://gamma-api.polymarket.com/events?closed=false&tag_slug=league-of-legends&limit=5"
+          probe "kalshi-lol" "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&limit=5"
+          probe "bovada-lol" "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en"
+          probe "draftkings-lol" "https://sportsbook-nash-usnj.draftkings.com/api/sportscontent/dkusnj/v1/leagues/191252"
+          probe "fanduel-lol" "https://sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=esports"
+          probe "betmgm-lol" "https://sports.online-betmgm.com/cds-api/bettingoffer/fixtures?x-bwin-accessid=NTY1NTM5NzctYjE4Yy00MQ&lang=en&country=US&sportIds=239&competitionIds=&fixtureTypes=Standard&state=Latest"
+
+          # --- esports-native books ------------------------------------------
+          probe "ggbet-esports" "https://gg.bet/en/esports"
+          probe "thunderpick" "https://thunderpick.io/esports/league-of-legends"
+          probe "rivalry-lol" "https://www.rivalry.com/esports/league-of-legends"
+          probe "betway-esports" "https://www.betway.com/en/esports/league-of-legends"
+          probe "luckbox-lol" "https://luckbox.com/esports/league-of-legends"
+          probe "betonline-esports" "https://www.betonline.ag/sportsbook/esports"
+          probe "betus-esports" "https://www.betus.com.pa/sportsbook/esports/"
+          probe "mybookie-esports" "https://www.mybookie.ag/sportsbook/esports/"
+          probe "bovada-alt" "https://www.bovada.lv/sports/esports/league-of-legends"
+
+          # --- odds aggregators / comparison sites ---------------------------
+          probe "oddspedia-lol" "https://oddspedia.com/esports/league-of-legends"
+          probe "oddspedia-api" "https://api.oddspedia.com/api/v1/sports/league-of-legends"
+          probe "egamersworld-bets" "https://egamersworld.com/lol/bets"
+          probe "betexplorer-lol" "https://www.betexplorer.com/esports/league-of-legends/"
+          probe "oddsportal-lol" "https://www.oddsportal.com/esports/league-of-legends/"
+          probe "esportsbets-odds" "https://esportsbets.com/odds/"
+          probe "actionnetwork-lol" "https://www.actionnetwork.com/esports/league-of-legends"
+          probe "vegasinsider-esports" "https://www.vegasinsider.com/esports/odds/"
+
+          # --- the-odds-api without a key: proves the endpoint, not the data
+          probe "the-odds-api-lol" "https://api.the-odds-api.com/v4/sports/esports_lol/odds/?regions=eu&markets=h2h"
+
+          # --- reference / schedule sources ---------------------------------
+          probe "leaguepedia-cargo" "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId&limit=2&format=json"
+          probe "lolesports-schedule" "https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=en-US" \
+                '-H "x-api-key: 0TvQnueqKa5mxJntVWt0w4LpLfEkrV1Ta8rQBb9Z"'
+          probe "lolesports-official" "https://lolesports.com/schedule"
