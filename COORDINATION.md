@@ -272,3 +272,11 @@ quarantine (all 5 `Solid Gaming` fixtures in Komplettligaen 2026 Autumn → unre
 site, incl. `#1071216` which the Node dashboard still prices from its Elo model — the Node pipeline
 will adopt the dq quarantine in a future pass; until then the canonical root site's treatment is the
 authoritative one), and the backtest rendering fix (gate now 15/15).
+
+## Session b91181f0 — 2026-10-23
+
+| Task | Status | Owner | Scope |
+|---|---|---|---|
+| Audit canonical fallback safety, mobile navigation, provenance and refresh gate; integrate and deploy | in progress | b91181f0 | `tools/`, `assets/`, root generated HTML, `.github/workflows/refresh.yml`, tests, README, COORDINATION.md |
+
+Existing completed scopes are retained. This session uses the fixed Arena branch rather than creating another branch. External source access from this sandbox is restricted; fresh collection must run on GitHub Actions, not be represented as live local verification.
