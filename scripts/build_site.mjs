@@ -55,7 +55,16 @@ function countdown(ms) {
 const openM = matches.filter((m) => m.state === "open").sort((a, b) => (a.lock_ms ?? Infinity) - (b.lock_ms ?? Infinity));
 const lockedM = matches.filter((m) => ["locked", "live"].includes(m.state)).sort((a, b) => (a.start_ms ?? 0) - (b.start_ms ?? 0));
 const endedM = matches.filter((m) => ["ended", "forfeited"].includes(m.state)).sort((a, b) => (b.start_ms ?? 0) - (a.start_ms ?? 0));
-const unresolved = openM.filter((m) => !m.pick);
+// Active matches without a pick: still-open rows AND rows that locked/live'd
+// without ever getting a verifiable line — both belong in the unresolved
+// section (session 7f76a03b: a locked-without-pick row previously vanished
+// from every page, e.g. #1082105 Team VDS vs Pegasus Esports).
+const unresolved = matches
+  .filter((m) => ["open", "locked", "live"].includes(m.state) && !m.pick)
+  .sort((a, b) => (a.state === "open" ? 0 : 1) - (b.state === "open" ? 0 : 1) ||
+                  (a.lock_ms ?? a.start_ms ?? 0) - (b.lock_ms ?? b.start_ms ?? 0));
+const unresolvedOpenN = unresolved.filter((m) => m.state === "open").length;
+const unresolvedLockedN = unresolved.length - unresolvedOpenN;
 const srcKey = (m) => (m.market_pinnacle ? "pinnacle" : m.market_polymarket ? "polymarket" : m.pick ? "model" : "none");
 const srcBadge = (m) => {
   const k = srcKey(m);
@@ -184,7 +193,7 @@ const indexBody = `
   <a class="cta" href="picks.html">✅ View all picks &amp; probabilities <span class="big">→</span></a>
 </div>
 <div class="cta-row">
-  <a class="cta alt" href="unresolved.html">⚠️ Unresolved picks <small>${c.unresolved_open} without a line — see limitations</small></a>
+  <a class="cta alt" href="unresolved.html">⚠️ Unresolved picks <small>${unresolved.length} without a line — see limitations</small></a>
   <a class="cta alt" href="flagged.html">🚩 Flagged for review <small>${c.flags_needs_review} items</small></a>
   <a class="cta alt" href="results.html">📈 Results &amp; accuracy <small>${acc.tracked ? `${acc.hits}/${acc.tracked} correct (${acc.rate}%)` : "tracking builds up"}</small></a>
 </div>
@@ -193,7 +202,7 @@ const indexBody = `
   <div class="kpi acc"><div class="n">${c.open}</div><div class="l">Open LoL matches</div></div>
   <div class="kpi good"><div class="n">${openMarket}</div><div class="l">Picks from betting lines</div></div>
   <div class="kpi warn"><div class="n">${openModel}</div><div class="l">Picks from own model</div></div>
-  <div class="kpi bad"><div class="n">${c.unresolved_open}</div><div class="l">Unresolved (no pick)</div></div>
+  <div class="kpi bad"><div class="n">${unresolved.length}</div><div class="l">Unresolved (no pick)</div></div>
   <div class="kpi"><div class="n">${c.ended_this_week}</div><div class="l">Settled this week</div></div>
 </div>
 
@@ -203,7 +212,7 @@ const indexBody = `
   <ul style="margin:8px 0 0;padding-left:20px;color:var(--mut);font-size:14.5px">
     <li><b>Coverage:</b> ${openWithPick} of ${c.open} open matches (${openPct}%) carry a pick with a win probability for each team. ${openMarket} priced by external betting lines (Pinnacle${c.market_polymarket_only ? " / Polymarket" : ""}), ${openModel} by our own Elo-style model built from the full Hotspawn results archive.</li>
     <li><b>Picks are external:</b> Hotspawn crowd "% picked" is never used as a probability. Lines come from Pinnacle's guest odds API and Polymarket markets; where no market exists we originate our own line from real match results.</li>
-    <li><b>Unresolved:</b> ${c.unresolved_open} open match${c.unresolved_open === 1 ? "" : "es"} could not be priced — no bookmaker/prediction market lists them and at least one team has no recorded series history. Details + limitations: <a href="unresolved.html">Unresolved Picks</a>.</li>
+    <li><b>Unresolved:</b> ${unresolved.length} match${unresolved.length === 1 ? "" : "es"} have no pick (${unresolvedOpenN} open, ${unresolvedLockedN} locked before a verifiable line existed) — no bookmaker/prediction market lists them and at least one team has no recorded series history. Details + limitations: <a href="unresolved.html">Unresolved Picks</a>.</li>
     <li><b>Quality control:</b> ${c.flags_needs_review} item(s) need manual review (name-match ambiguity, line divergences, thin markets) — <a href="flagged.html">Flagged for Review</a>. ${c.flags_info} informational note(s).${c.stale ? ` ${c.stale} stale unplayed fixtures excluded from lists (info flag).` : ""}</li>
     <li><b>Freshness:</b> GitHub Actions re-collects every 6h (within the 4–8h requirement). Last collect: ${esc(collectLog.fetched_at ? fmtDT(collectLog.fetched_at) : "unknown")}${collectLog.duration_s ? ` (took ${collectLog.duration_s}s)` : ""}.</li>
   </ul>
@@ -217,8 +226,8 @@ const indexBody = `
 
 <section class="card">
   <h2>⚠️ Unresolved picks &amp; limitations</h2>
-  <p class="desc">Required disclosure: these open matches have <b>no pick</b> and why. Full list: <a href="unresolved.html">unresolved.html</a>.</p>
-  ${unresolved.length ? `<ul style="margin:6px 0;padding-left:20px;color:var(--mut);font-size:14px">${unresolvedNames}${unresolved.length > 12 ? `<li>…and ${unresolved.length - 12} more on the <a href="unresolved.html">Unresolved page</a>.</li>` : ""}</ul>` : `<p style="color:var(--good);font-weight:700">✓ Every open match currently has a pick.</p>`}
+  <p class="desc">Required disclosure: these matches have <b>no pick</b> and why. Full list: <a href="unresolved.html">unresolved.html</a>.</p>
+  ${unresolved.length ? `<ul style="margin:6px 0;padding-left:20px;color:var(--mut);font-size:14px">${unresolvedNames}${unresolved.length > 12 ? `<li>…and ${unresolved.length - 12} more on the <a href="unresolved.html">Unresolved page</a>.</li>` : ""}</ul>` : `<p style="color:var(--good);font-weight:700">✓ Every active match currently has a pick.</p>`}
   <p class="small" style="margin-top:8px">Why some matches stay unresolved: (1) low-tier leagues (e.g. amateur/regional divisions) are not priced by any established esports book or exchange we can verify; (2) Polymarket only lists major events; (3) our own model needs at least one recorded series for both teams — brand-new rosters have zero history, and inventing a number would violate our no-hallucination rule.</p>
 </section>
 
@@ -267,7 +276,7 @@ const picksPage = `
 <div class="hero">
   <h1>✅ All picks — ${c.open} open LoL matches</h1>
   <p class="sub">Every match currently pickable on the Hotspawn lobby, sorted by lock time. The <b style="color:var(--good)">PICK</b> tag marks our selection; percentages are each team's win probability from the best available line (Pinnacle → Polymarket → own model).</p>
-  <span class="updated"><span class="dot"></span> Updated <b>${fmtDT(GEN_MS)}</b> · ${openWithPick}/${c.open} with picks · ${c.unresolved_open} unresolved (<a href="unresolved.html">why</a>)</span>
+  <span class="updated"><span class="dot"></span> Updated <b>${fmtDT(GEN_MS)}</b> · ${openWithPick}/${c.open} with picks · ${unresolved.length} unresolved (<a href="unresolved.html">why</a>)</span>
 </div>
 <div class="filters">
   <input id="f-q" type="search" placeholder="Search team or tournament…" autocomplete="off">
@@ -301,13 +310,14 @@ function unresolvedReason(m) {
   r.push(`No Polymarket market: no open two-outcome LoL market matches “${esc(m.team0.name)} vs ${esc(m.team1.name)}” (Polymarket lists mainly tier-1 events).`);
   const h = m.team_history ?? { n0: 0, n1: 0 };
   if (!m.model) r.push(`Own model impossible: recorded series in the Hotspawn results archive — ${esc(m.team0.name)}: <b>${h.n0}</b>, ${esc(m.team1.name)}: <b>${h.n1}</b>. With zero history on one side, any probability would be invented, not derived.`);
+  if (m.state !== "open") r.push(`Lock has already passed (state: ${esc(m.state)}) — Hotspawn no longer accepts a pick for this match; it is listed here so the gap stays visible.`);
   return r;
 }
 
 const unresolvedPage = `
 <div class="hero">
   <h1>⚠️ Unresolved picks &amp; limitations</h1>
-  <p class="sub">${c.unresolved_open} open match${c.unresolved_open === 1 ? "" : "es"} have <b>no pick</b>. We publish the reason for each instead of inventing probabilities. Every other open match has a pick on the <a href="picks.html">Picks page</a>.</p>
+  <p class="sub">${unresolved.length} match${unresolved.length === 1 ? "" : "es"} currently have <b>no pick</b> (${unresolvedOpenN} still open${unresolvedLockedN ? `, ${unresolvedLockedN} locked before a line could be verified` : ""}). We publish the reason for each instead of inventing probabilities. Every other active match has a pick on the <a href="picks.html">Picks page</a>.</p>
 </div>
 <section class="card">
   <h2>Why a match can be unresolvable</h2>
@@ -321,7 +331,7 @@ const unresolvedPage = `
 <h2 class="sec">Matches without a pick (${unresolved.length})</h2>
 ${unresolved.map((m) => `
   <article class="match" id="m-${esc(m.id)}">
-    <div class="meta"><span>🕒 ${fmtDT(m.start_ms)}</span><span>· ${countdown(m.lock_ms)}</span>${tierBadge(m)}<span>· ${m.offered_points ?? "—"} pts</span></div>
+    <div class="meta"><span>🕒 ${fmtDT(m.start_ms)}</span><span>· ${countdown(m.lock_ms)}</span>${tierBadge(m)}${m.state !== "open" ? `<span class="badge state">${esc(m.state.toUpperCase())}</span>` : ""}<span>· ${m.offered_points ?? "—"} pts</span></div>
     <div class="meta" style="margin-bottom:8px"><span>🏆 ${esc(m.competition)}</span></div>
     <div class="teams">
       <div class="team-row"><div class="team-name"><span class="nm">${esc(m.team0.name)}</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
@@ -362,16 +372,20 @@ ${inf.map(flagCard).join("") || '<p class="small">None this run. ✓</p>'}
 const accByBasis = Object.entries(acc.by_basis || {}).map(([b, v]) => `<span class="pill">${esc(b)}: <b>${v.hits}/${v.tracked}</b></span>`).join("");
 const resultsRows = endedM.map((m) => {
   const e = ledger[m.id];
+  const hasScore = m.score0 != null && m.score1 != null;
   let pickCell = '<span class="small">— not tracked</span>';
   if (e) {
     if (e.settled) pickCell = `${esc(e.team)} <span class="badge ${e.settled.hit ? "hit" : "miss"}">${e.settled.hit ? "HIT ✓" : "MISS ✗"}</span> <span class="small">(${pct(e.p)}, ${esc(e.basis)})</span>`;
+    else if (m.state === "forfeited" && !hasScore) pickCell = `${esc(e.team)} <span class="badge state">VOID</span> <span class="small">(forfeit with no official result recorded — not graded; recorded line was ${pct(e.p)}, ${esc(e.basis)})</span>`;
     else pickCell = `${esc(e.team)} <span class="badge state">pending</span> <span class="small">(${pct(e.p)}, ${esc(e.basis)})</span>`;
   }
-  const winner = m.score0 > m.score1 ? m.team0.name : m.score1 > m.score0 ? m.team1.name : "—";
+  const winner = hasScore ? (m.score0 > m.score1 ? m.team0.name : m.team1.name) : "—";
+  // Never fabricate a score: only render one when the official source recorded it.
+  const scoreTxt = hasScore ? `${m.score0}–${m.score1}` : "vs (no official score)";
   return `<tr>
     <td>${fmtDT(m.start_ms)}</td>
     <td>${esc(m.competition)}</td>
-    <td><a href="${esc(m.hotspawn_url)}" rel="noopener" target="_blank">${esc(m.team0.name)} ${m.score0 ?? 0}–${m.score1 ?? 0} ${esc(m.team1.name)}</a>${m.forfeit ? ' <span class="badge state">FORFEIT</span>' : ""}<br><span class="small">winner: <b>${esc(winner)}</b></span></td>
+    <td><a href="${esc(m.hotspawn_url)}" rel="noopener" target="_blank">${esc(m.team0.name)} ${scoreTxt} ${esc(m.team1.name)}</a>${m.forfeit ? ' <span class="badge state">FORFEIT</span>' : ""}<br><span class="small">winner: <b>${esc(winner)}</b></span></td>
     <td>${pickCell}</td>
   </tr>`;
 }).join("");
@@ -553,5 +567,5 @@ for (const [file] of pages) {
     }
   }
 }
-console.log(`\nSite built: ${pages.length} pages into docs/ · open=${c.open} picks=${c.picks_total} unresolved=${c.unresolved_open} flags=${flagsData.flags.length}`);
+console.log(`\nSite built: ${pages.length} pages into docs/ · open=${c.open} picks=${c.picks_total} unresolved=${unresolved.length} (${unresolvedOpenN} open + ${unresolvedLockedN} locked) flags=${flagsData.flags.length}`);
 if (broken) { console.error(`${broken} broken internal link(s).`); process.exit(1); }

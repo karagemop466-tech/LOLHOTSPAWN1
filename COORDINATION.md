@@ -438,6 +438,20 @@ corroboration ledger; #24's compact pick table and probe expansion.
 
 ---
 
+# Session `7f76a03b` — secondary dashboard audit + live coverage verification + closing integration (started 2026-10-23T15:45Z)
+
+Branch: `arena/7f76a03b-lolhotspawn1` (Arena session branch). Claimed at start; no other session had
+claimed the scopes below.
+
+## Task board — session `7f76a03b`
+
+| # | Task | Status | Owner | File scope | Notes |
+|---|---|---|---|---|---|
+| N1 | Secondary `docs/` (Node) dashboard audit: fix stale/incorrect fixture-state rendering, line-by-line verification of the docs pages against `data/node/` snapshots | claimed | 7f76a03b | `scripts/`, `docs/`, `data/node/**`, `.github/workflows/refresh-docs.yml` | Open item from the third-pass record ("the Node pipeline will adopt the dq quarantine in a future pass"). No other session has claimed `scripts/`/`docs/`/`data/node`. |
+| V1 | Live full-coverage audit: diff the live Hotspawn `status=scheduled` inventory against `data/matches.json` and confirm every listed fixture carries a pick/probability; record irregularities here | claimed | 7f76a03b | `audit/**` (new), COORDINATION.md append | Read-only w.r.t. `tools/` and canonical data; any pipeline fixes are logged as requests, not edited here. Fresh fetches run on GitHub Actions (sandbox egress restricted). |
+| I1 | Closing integration for this round: after other sessions' PRs land, re-verify combined data, PR → main, merge, confirm Pages deploy, record PR link here | claimed | 7f76a03b | COORDINATION.md append | Protocol's final integration session; run after the in-flight sessions (`b91181f0`, `a91e528d`, `29d6fe6a`, `4106ce94`) finish. |
+
+- `2026-10-23T15:45Z` — claim committed and pushed; starting N1.
 ## Session `0d48f265` — independent line-by-line source audit (claim, 2026-10-23T15:40Z)
 
 **Branch:** `arena/0d48f265-lolhotspawn1` · **Status:** in progress
@@ -908,6 +922,14 @@ toss-up badge and the teams-page rating source; `tools/corroborate.py`, `coverag
 tests). The merge keeps main's newer tooling and re-applies only the model/verification changes above;
 generated pages and `data/*.json` were rebuilt from the merged pipeline rather than hand-merged.
 
+### Merge conflict log — session `7f76a03b`, 2026-10-23T16:00Z
+
+`git merge origin/main` into `arena/7f76a03b-lolhotspawn1` conflicted in `COORDINATION.md` only
+(this session's claim block vs the 113 newer commits' session records, including `0d48f265`'s).
+Resolved as a union — both sides kept verbatim, markers removed, no other session's text edited.
+`0d48f265` also registered `audit/**` (files `AUDIT.md`, `audit.csv`); this session's audit files
+(`coverage_audit.py`, `verify_docs.py`, `coverage_report.*`) are disjoint filenames in the same
+directory — no file-level collision.
 
 ## Session `6d1ede2c` — final integration pass (2026-10-23T15:58Z)
 
@@ -933,6 +955,9 @@ Independent checks after the merge:
 
 **PR #45** carries this verification pass (report + receipt + the `None` rendering fix) to `main`.
 
+**Conflict log addendum (`7f76a03b`, 2026-10-23T16:05Z):** a second sync with `origin/main`
+(PR #47, session `6d1ede2c`) conflicted in `COORDINATION.md` again — this session's conflict-log
+block vs `6d1ede2c`'s final-integration record. Resolved as a union, both kept verbatim.
 ## PR / deploy record — session `a91e528d`
 
 | Item | Value |
@@ -969,3 +994,6 @@ Independent checks after the merge:
 ## Verification
 
 `python3 tools/verify.py` → 35/35 gates pass on the regenerated snapshot. `python3 -m unittest discover -s tests` → 9/9. `node tests/dashboard.cjs` → pass. No new hard-coded numbers: every count on the touched pages is computed from `data/matches.json` or `data/sources_status.json`.
+
+**Conflict log addendum 2 (`7f76a03b`, 2026-10-23T16:10Z):** third sync (PRs #44/#49, sessions
+`de975e8d`/`a91e528d`) — `COORDINATION.md` union again, both sides kept verbatim, no text edited.

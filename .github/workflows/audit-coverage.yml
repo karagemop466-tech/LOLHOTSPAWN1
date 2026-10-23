@@ -1,0 +1,57 @@
+name: audit-coverage
+
+# Session 7f76a03b (V1): live Hotspawn inventory vs published picks dataset.
+# Report-only: commits audit/coverage_report.json back to this branch so the
+# numbers in COORDINATION.md come from a fresh fetch on the runner (this
+# sandbox has no direct egress to the data sources).
+
+on:
+  push:
+    branches: ["arena/7f76a03b-lolhotspawn1"]
+    paths:
+      - "audit/**"
+      - ".github/workflows/audit-coverage.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-picks
+  cancel-in-progress: false
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/7f76a03b-lolhotspawn1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run live coverage audit
+        id: audit
+        continue-on-error: true
+        run: python3 audit/coverage_audit.py 2>&1 | tee audit/coverage_report.txt
+
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit/coverage_report.json audit/coverage_report.txt
+          if git diff --cached --quiet; then
+            echo "no report change"
+          else
+            git commit -m "chore(audit): live coverage report [skip ci]"
+            git push origin arena/7f76a03b-lolhotspawn1
+          fi
+
+      - name: Fail on structural coverage hole
+        if: steps.audit.outcome == 'failure'
+        run: |
+          echo "coverage audit reported a structural hole (live fixture missing from both datasets) or a fetch error"
+          exit 1
