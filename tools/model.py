@@ -1231,14 +1231,21 @@ def main() -> None:
         w = csv.writer(fh)
         w.writerow(["hotspawn_id", "start_utc", "competition", "tier", "team0", "p0", "team1", "p1",
                     "pick", "pick_probability", "method", "confidence", "basis", "flags",
-                    "hotspawn_url", "market_source"])
+                    "hotspawn_url", "market_source", "grade", "result_winner", "result_score",
+                    "result_source"])
         for r in rows:
+            res = r.get("result") or {}
             w.writerow([r["id"], r["start_utc"], r["competition"], r["tier"],
                         r["team0"]["name"], r["p0"], r["team1"]["name"], r["p1"],
                         r["pick"]["team"] if r["pick"] else "",
                         r["pick"]["probability"] if r["pick"] else "",
                         r["method"], r["confidence"], r["basis"], "; ".join(r["flags"]),
-                        r["hotspawn_url"], (r["market"] or {}).get("api_url", "")])
+                        r["hotspawn_url"], (r["market"] or {}).get("api_url", ""),
+                        r.get("grade") or "",
+                        (r["team0"]["name"] if res.get("winner_side") == 0 else
+                         (r["team1"]["name"] if res.get("winner_side") == 1 else "")),
+                        (f'{res.get("score0")}-{res.get("score1")}' if res else ""),
+                        res.get("source", "")])
     log(f"rows={len(rows)} methods={counts_by_method} joins={len(join_log)}")
     log(f"backtest n={backtest.get('n')} acc={backtest.get('accuracy')} brier={backtest.get('brier')}")
 

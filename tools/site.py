@@ -853,8 +853,10 @@ def build_table(rows: list[dict], counts: Counter) -> str:
         hay = (r["team0"]["name"] + " " + r["team1"]["name"] + " " + r["competition"]).lower()
         cells = [
             '<td data-label="Kick-off" class="nowrap">' + local_time(r["start_utc"]) + "</td>",
-            '<td data-label="Match"><strong>' + e(r["team0"]["name"]) + '</strong> <span class="muted">vs</span> <strong>'
-            + e(r["team1"]["name"]) + '</strong><div class="small muted">' + _prob_cell(r) + "</div></td>",
+            '<td data-label="Match"><div class="mrow"><strong>' + e(r["team0"]["name"]) + '</strong>'
+            + f'<span class="pct">{pct(r["p0"])}</span></div>'
+            + '<div class="mrow"><strong>' + e(r["team1"]["name"]) + '</strong>'
+            + f'<span class="pct">{pct(r["p1"])}</span></div></td>',
             '<td data-label="Pick">' + _pick_cell(r) + "</td>",
             '<td data-label="Method" class="opt">' + badge(method) + "</td>",
             '<td data-label="Tournament" class="opt small">' + e(r["competition"]) + "</td>",

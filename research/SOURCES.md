@@ -111,3 +111,31 @@ Unique match moneylines across all variants: **8**. The unfiltered coupon is ~19
 - `research/probe_deep.json` — generated 2026-10-23T15:40:36Z
 - `research/market_ceiling.json` — generated 2026-10-23T15:48:23Z
 - `research/bovada_full.json` — generated 2026-10-23T15:41:36Z
+
+---
+
+## 7. 2026-10-24 re-probe — established books, esportsbooks, exchanges, aggregators
+
+Run from a GitHub Actions runner at **2026-10-24T16:22:42Z** (`data/source_probes.json`, 44
+candidate endpoints). Nothing here prices a match on its own: it is a reachability record.
+
+| Result | Venues |
+|---|---|
+| HTTP 200 + JSON | Pinnacle guest API, Pinnacle LoL league list, Kalshi (CFTC), Bovada, Polymarket Gamma, Unibet/Kambi `ubse`, Kambi `paf`, Leaguepedia Cargo, Odds-API.io sports index, Hotspawn fixtures API |
+| HTTP 200 but HTML / no public price feed | Rivalry (site), BC.GAME (site), Betano API, BetOnline, DraftKings, FanDuel, OddsPortal, EsportsBets, Midnite, gol.gg |
+| Blocked for the runner | GG.BET 403, Thunderpick 403, Stake 403, Tips.GG 403, BetMGM 403, Betfair Exchange 403, bet365 403, Betsson 429, 1xBet 203, Betway 404, Everygame 404, BetExplorer 404, Oddspedia 410, Rivalry API 403 / 530, Thunderpick API unreachable, GG.BET API 403, OddsPapi 401, Oracle's Elixir 403 |
+
+Two findings that change how the pipeline is wired:
+
+1. **Kambi-powered books share a single LoL offering.** The `ubse` (Unibet) and `paf` payloads were
+   byte-identical (14,029 bytes, same first event id 1029609648), so a second operator cannot add
+   fixtures. `paf` is now wired only as a fallback when `ubse` rate-limits the runner, and it is never
+   counted as a second venue.
+2. **The external market ceiling is structural, not a gap in this crawler.** Every reachable price feed
+   quotes the same tier-1 slice of the calendar (Worlds 2026); no reachable venue publishes moneyline
+   prices for the national and academy divisions on the Hotspawn list. Those rows are therefore
+   originated by the Elo model and labelled as such, and the limitation is published on
+   `unresolved.html` and `sources.html`.
+
+A blocked or HTML-only probe is recorded as an observation. It is never presented as proof that a book
+does not price a match.
