@@ -256,18 +256,34 @@ def main() -> None:
         bt_n > 500 and f"{bt_n:,}" in meth_html and "<svg" in meth_html,
         f"backtest series rendered: {bt_n:,}")
 
-    # --- curated flag integrity: a flag may not cite a fixture that is not listed ---
+    # --- curated flag integrity: every reference to a fixture that has left the list must be
+    #     annotated as historical by tools/flags.py. Time passing (a card kicking off) is not a
+    #     build failure; an unannotated stale claim is.
     listed_ids = {str(r.get("id")) for r in rows}
     manual = (load_json(os.path.join(DATA, "flags_manual.json")) or {}).get("flags") or []
-    stale_refs = []
+    built_flags = (load_json(os.path.join(DATA, "flags.json")) or {}).get("flags") or []
+    built_refs = {}
+    for f in built_flags:
+        for fid in (f.get("delisted_refs_auto") or []):
+            built_refs.setdefault(str(fid), set()).add(f.get("item", ""))
+    stale_refs, unannotated = [], []
     for f in manual:
         blob = f"{f.get('item', '')} {f.get('detail', '')}"
         declared = {str(x) for x in (f.get("delisted_refs") or [])}
         for fid in re.findall(r"#(\d{6,8})", blob):
-            if fid not in listed_ids and fid not in declared:
+            if fid in listed_ids:
+                continue
+            if fid in declared:
+                continue
+            # the build must have published this reference as a historical observation
+            if fid in built_refs:
                 stale_refs.append(fid)
-    add("curated flags cite only currently listed fixtures", not stale_refs,
-        f"{len(manual)} curated flags scanned; stale references: {sorted(set(stale_refs))}")
+            else:
+                unannotated.append(fid)
+    add("curated flags annotate every reference to a fixture that has left the list",
+        not unannotated,
+        f"{len(manual)} curated flags scanned; delisted-and-annotated: {sorted(set(stale_refs))}; "
+        f"unannotated: {sorted(set(unannotated))}")
 
     # --- line integrity audit ---
     audit = data.get("receipt_audit") or {}
