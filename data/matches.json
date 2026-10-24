@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-24T16:57:09Z",
- "inventory_fetched_utc": "2026-10-24T16:55:09Z",
+ "generated_utc": "2026-10-24T17:04:39Z",
+ "inventory_fetched_utc": "2026-10-24T17:02:51Z",
  "receipt_audit": {
   "max_age_hours": 24,
   "used": [],
@@ -12,7 +12,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -22,7 +22,7 @@
      4.4
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -32,7 +32,7 @@
      4.05
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -42,7 +42,7 @@
      4.88
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -52,7 +52,7 @@
      2.63
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -62,7 +62,7 @@
      1.61
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -72,7 +72,7 @@
      3.11
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -82,7 +82,7 @@
      1.06
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -92,7 +92,7 @@
      1.51
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -102,7 +102,7 @@
      10.5
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
    },
    {
@@ -112,7 +112,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.4,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    }
   ],
@@ -147,7 +147,7 @@
   "unibet": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
   "leaguepedia": "https://lol.fandom.com/wiki/Special:CargoExport",
   "polymarket": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=league-of-legends",
-  "source_status_utc": "2026-10-24T16:56:41Z"
+  "source_status_utc": "2026-10-24T17:04:09Z"
  },
  "counts": {
   "model": 150,
@@ -202,7 +202,7 @@
   "accuracy": 0.5897,
   "brier": 0.2445,
   "settled_forfeits": 3,
-  "ungraded_started": 39,
+  "ungraded_started": 40,
   "by_method": {
    "model": {
     "graded": 16,
@@ -5880,23 +5880,25 @@
     "elo_now": 1792.2,
     "elo": 1792.2
    },
-   "p0": 0.3666,
-   "p1": 0.6334,
+   "p0": 0.3663,
+   "p1": 0.6337,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (36.7% / 63.3%): Pinnacle 38.3%/61.7% (2.51/1.56), Polymarket 36.5%/63.5% (36.5¢/63.5¢), Kalshi 36.5%/63.5% (36¢/64¢), Bovada 34.8%/65.1% (2.70/1.44), Unibet 33.7%/66.3% (2.75/1.40).",
-   "flags": [],
+   "basis": "4-Venue Consensus de-vigged line (36.6% / 63.4%): Pinnacle 38.3%/61.7% (2.51/1.56), Polymarket 35.5%/64.5% (35.5¢/64.5¢), Kalshi 36.5%/63.5% (36¢/64¢), Unibet 33.7%/66.3% (2.75/1.40).",
+   "flags": [
+    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
+   ],
    "pick": {
     "side": 1,
     "team": "Anyone's Legend",
-    "probability": 0.6334,
-    "other_probability": 0.3666
+    "probability": 0.6337,
+    "other_probability": 0.3663
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "5-Venue Consensus",
+    "book": "4-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
@@ -5909,12 +5911,12 @@
      "home": 151,
      "away": -180
     },
-    "p0": 0.3666,
-    "p1": 0.6334,
+    "p0": 0.3663,
+    "p1": 0.6337,
     "overround": 0.0412,
     "start_utc": "2026-10-24T17:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 4,
     "total_volume_usd": 368613.74,
     "volume_usd": 368613.74,
     "venues": [
@@ -5925,17 +5927,17 @@
       "p1": 0.6174,
       "quote": "2.51/1.56",
       "overround": 0.0412,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight"
      },
      {
       "name": "Polymarket",
       "weight": 0.24,
-      "p0": 0.365,
-      "p1": 0.635,
-      "quote": "36.5¢/63.5¢",
+      "p0": 0.355,
+      "p1": 0.645,
+      "quote": "35.5¢/64.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:56:32Z",
+      "observed_utc": "2026-10-24T17:04:02Z",
       "url": "https://polymarket.com/event/lol-tes-al-2026-10-24",
       "volume_usd": 368613.74
      },
@@ -5946,18 +5948,8 @@
       "p1": 0.635,
       "quote": "36¢/64¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241900altes"
-     },
-     {
-      "name": "Bovada",
-      "weight": 0.12,
-      "p0": 0.3485,
-      "p1": 0.6515,
-      "quote": "2.70/1.44",
-      "overround": 0.0627,
-      "observed_utc": "2026-10-24T16:55:13Z",
-      "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/top-esports-anyone-s-legend-202610241300"
      },
      {
       "name": "Unibet",
@@ -5975,7 +5967,7 @@
    },
    "resolution": null,
    "connected": true,
-   "stale": false,
+   "stale": true,
    "result": null,
    "grade": null,
    "community_pick_pct": {
@@ -6246,7 +6238,7 @@
       "p1": 0.3214,
       "quote": "1.41/2.98",
       "overround": 0.044,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight"
      },
      {
@@ -6256,7 +6248,7 @@
       "p1": 0.315,
       "quote": "68.5¢/31.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:56:32Z",
+      "observed_utc": "2026-10-24T17:04:02Z",
       "url": "https://polymarket.com/event/lol-cfo-mkoi-2026-10-24",
       "volume_usd": 163571.32
      },
@@ -6267,7 +6259,7 @@
       "p1": 0.315,
       "quote": "68¢/32¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241400mkoicfo"
      },
      {
@@ -6277,7 +6269,7 @@
       "p1": 0.3294,
       "quote": "1.40/2.85",
       "overround": 0.0652,
-      "observed_utc": "2026-10-24T16:55:13Z",
+      "observed_utc": "2026-10-24T17:02:54Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/ctbc-flying-oyster-movistar-koi-202610241400"
      },
      {
@@ -6385,7 +6377,7 @@
       "p1": 0.2227,
       "quote": "1.23/4.28",
       "overround": 0.0492,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight"
      },
      {
@@ -6395,7 +6387,7 @@
       "p1": 0.185,
       "quote": "81.5¢/18.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:56:32Z",
+      "observed_utc": "2026-10-24T17:04:02Z",
       "url": "https://polymarket.com/event/lol-g2-los-2026-10-24",
       "volume_usd": 166992.02
      },
@@ -6406,7 +6398,7 @@
       "p1": 0.185,
       "quote": "82¢/18¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241700losg2"
      },
      {
@@ -6416,7 +6408,7 @@
       "p1": 0.2129,
       "quote": "1.19/4.40",
       "overround": 0.0676,
-      "observed_utc": "2026-10-24T16:55:13Z",
+      "observed_utc": "2026-10-24T17:02:54Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/g2-esports-los-grandes-202610241500"
      },
      {
@@ -6652,7 +6644,7 @@
       "p1": 0.5526,
       "quote": "2.15/1.74",
       "overround": 0.0396,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight"
      },
      {
@@ -6662,7 +6654,7 @@
       "p1": 0.545,
       "quote": "45.5¢/54.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:56:32Z",
+      "observed_utc": "2026-10-24T17:04:02Z",
       "url": "https://polymarket.com/event/lol-ly-kc-2026-10-24",
       "volume_usd": 154025.15
      },
@@ -6673,7 +6665,7 @@
       "p1": 0.555,
       "quote": "44¢/56¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly"
      },
      {
@@ -6683,7 +6675,7 @@
       "p1": 0.5306,
       "quote": "2.00/1.77",
       "overround": 0.0652,
-      "observed_utc": "2026-10-24T16:55:13Z",
+      "observed_utc": "2026-10-24T17:02:54Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/lyon-gaming-karmine-corp-202610241600"
      },
      {
@@ -6793,7 +6785,7 @@
       "p1": 0.312,
       "quote": "1.39/3.07",
       "overround": 0.044,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight"
      },
      {
@@ -6803,7 +6795,7 @@
       "p1": 0.315,
       "quote": "68.5¢/31.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:56:32Z",
+      "observed_utc": "2026-10-24T17:04:02Z",
       "url": "https://polymarket.com/event/lol-ig1-tsw-2026-10-24",
       "volume_usd": 58675.03
      },
@@ -6814,7 +6806,7 @@
       "p1": 0.315,
       "quote": "68¢/32¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241800tswig"
      },
      {
@@ -6824,7 +6816,7 @@
       "p1": 0.2941,
       "quote": "1.33/3.20",
       "overround": 0.0625,
-      "observed_utc": "2026-10-24T16:55:13Z",
+      "observed_utc": "2026-10-24T17:02:54Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/invictus-gaming-team-secret-202610241700"
      },
      {
@@ -6932,7 +6924,7 @@
       "p1": 0.5857,
       "quote": "2.32/1.64",
       "overround": 0.0404,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight"
      },
      {
@@ -6942,7 +6934,7 @@
       "p1": 0.585,
       "quote": "41.5¢/58.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:56:32Z",
+      "observed_utc": "2026-10-24T17:04:02Z",
       "url": "https://polymarket.com/event/lol-hle1-gen-2026-10-24",
       "volume_usd": 89433.41
      },
@@ -6953,7 +6945,7 @@
       "p1": 0.5707,
       "quote": "42¢/56¢",
       "overround": -0.01,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241500genhle"
      },
      {
@@ -6963,7 +6955,7 @@
       "p1": 0.5721,
       "quote": "2.20/1.65",
       "overround": 0.0624,
-      "observed_utc": "2026-10-24T16:55:13Z",
+      "observed_utc": "2026-10-24T17:02:54Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-gen-g-202610241800"
      },
      {
@@ -7071,7 +7063,7 @@
       "p1": 0.5591,
       "quote": "2.18/1.72",
       "overround": 0.0403,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127310/markets/related/straight"
      },
      {
@@ -7081,7 +7073,7 @@
       "p1": 0.565,
       "quote": "43.5¢/56.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:56:32Z",
+      "observed_utc": "2026-10-24T17:04:02Z",
       "url": "https://polymarket.com/event/lol-dk-t1-2026-10-24",
       "volume_usd": 101293.09
      },
@@ -7092,7 +7084,7 @@
       "p1": 0.565,
       "quote": "44¢/56¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241300t1dk"
      },
      {
@@ -7102,7 +7094,7 @@
       "p1": 0.5721,
       "quote": "2.20/1.65",
       "overround": 0.0624,
-      "observed_utc": "2026-10-24T16:55:13Z",
+      "observed_utc": "2026-10-24T17:02:54Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/dplus-kia-t1-202610241900"
      },
      {
@@ -7210,7 +7202,7 @@
       "p1": 0.2803,
       "quote": "1.33/3.41",
       "overround": 0.0463,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121259/markets/related/straight"
      },
      {
@@ -7220,7 +7212,7 @@
       "p1": 0.245,
       "quote": "75.5¢/24.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:56:32Z",
+      "observed_utc": "2026-10-24T17:04:02Z",
       "url": "https://polymarket.com/event/lol-tl2-blg-2026-10-24",
       "volume_usd": 62771.98
      },
@@ -7231,7 +7223,7 @@
       "p1": 0.245,
       "quote": "76¢/24¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:55:12Z",
+      "observed_utc": "2026-10-24T17:02:53Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct242000blgtl"
      },
      {
@@ -7241,7 +7233,7 @@
       "p1": 0.2892,
       "quote": "1.32/3.25",
       "overround": 0.0638,
-      "observed_utc": "2026-10-24T16:55:13Z",
+      "observed_utc": "2026-10-24T17:02:54Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-bilibili-gaming-202610242000"
      },
      {
@@ -9178,7 +9170,7 @@
       "p1": 0.61,
       "quote": "39.0¢/61.0¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:56:32Z",
+      "observed_utc": "2026-10-24T17:04:02Z",
       "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
       "volume_usd": 13.77
      }
