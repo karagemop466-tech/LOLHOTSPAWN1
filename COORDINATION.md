@@ -1127,3 +1127,20 @@ Branch: `arena/bcfdfa66-lolhotspawn1` (Arena session branch; do not switch branc
 - PR **#60** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/60 — merged at **2026-10-24T16:16:59Z**, merge commit `40e249c44e0a5cb6ee56ea61ccc58e1d5f260fe6`.
 - GitHub Pages deployment run **40110836425** succeeded after the merge; `gh api repos/karagemop466-tech/LOLHOTSPAWN1/pages` reported `status: built`. Official check: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40110836425.
 - This deployment published the documentation correction and coordination record only. It did **not** refresh the canonical 241-match root dataset; the age warning and unresolved refresh-failure note above remain applicable.
+
+---
+
+# Session `6669f798` — secondary (`docs/`) 5-venue + full-241 coverage upgrade, live cross-source entity/line audit & closing integration (2026-10-24)
+
+Branch: `arena/6669f798-lolhotspawn1` (fixed Arena session branch). Read the board and checked active 2026-10-24 session branches (`80c624cd`, `c0a05820`, `ada2798c`, `bcfdfa66`) before claiming so that every file below is strictly disjoint from all in-flight claims (`tools/**`, `assets/**`, root `*.html`, `data/*.json` owned by `80c624cd` / `ada2798c`; `audit/session_c0a05820/**` owned by `c0a05820`).
+
+## Claim (opened 2026-10-24T16:19Z)
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `N1` | **Secondary (`docs/` Node) collector & market consensus upgrade**: reject Pinnacle `(Kills)` derivative markets explicitly, use live per-matchup HTTP 200 straight JSON receipts, and add Kalshi CFTC (`KXLOLGAME`), Bovada LoL `Head To Head`, and Unibet/Kambi CDN (`ubse`) + Leaguepedia secondary fallback (`Data:` `dqteams` + series history ONLY for matches unresolved by market or Hotspawn archive) | in progress | `6669f798` | `scripts/collect.mjs`, `scripts/analyze.mjs`, `data/node/**`, `.github/workflows/refresh-docs.yml` |
+| `N2` | **Full 241-match Hotspawn coverage + `dqteams` quarantine + no-look-ahead Elo on `docs/`**: adopt the `dqteams` mid-split disqualification walkover settlement quarantine (closing the open item from third-pass integration), enforce strictly pre-kickoff Elo (`ended.start_ms < f.start_ms`), resolve unpriced low-tier matches via verified Leaguepedia series history where confirmed, and leave zero-history / unverified matches blank with explicit limitation notes | in progress | `6669f798` | `scripts/analyze.mjs`, `data/node/**` |
+| `N3` | **Mobile-first `docs/` table + executive summary upgrade**: add responsive `docs/table.html` covering every listed Hotspawn match with per-row official source links, sticky mobile bottom navigation, search/tournament/method/upcoming filters, and executive summary in-site links + dedicated Unresolved Picks & Limitations section | in progress | `6669f798` | `scripts/build_site.mjs`, `docs/**`, `audit/verify_docs.py` |
+| `A_6669f798` | **Independent live line-by-line source & entity verification**: verify live Hotspawn lobby (`241` cards across `29` tournaments), Worlds Round 2 lines across 5 venues, low-tier unresolved/provisional matches (incl. `LCP 2027 Promotion` and `Logitech G SuperStrike Cup Qualifier`), and cross-pipeline reconciliation; log any canonical-pipeline requests here without touching `80c624cd`'s files | in progress | `6669f798` | `audit/session_6669f798/**`, `research/session_6669f798/**`, `COORDINATION.md` |
+| `I_6669f798` | **Re-verification, PR → `main`, merge & GitHub Pages deployment confirmation** | pending | `6669f798` | `COORDINATION.md` |
+
