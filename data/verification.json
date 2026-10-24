@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:26:25Z",
+ "generated_utc": "2026-10-24T16:28:58Z",
  "checks": [
   {
    "name": "dataset present",
@@ -142,9 +142,9 @@
    "detail": "backtest series rendered: 3,896"
   },
   {
-   "name": "curated flags cite only currently listed fixtures",
+   "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "10 curated flags scanned; stale references: []"
+   "detail": "13 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -164,12 +164,12 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "15 usable receipts, 0 malformed, 16 stale unmatched (non-blocking), 0 diverging >8.0pp (flagged, non-blocking)"
+   "detail": "15 usable receipts, 0 malformed, 0 stale unmatched (non-blocking), 0 diverging >8.0pp (flagged, non-blocking)"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 56951 bytes"
+   "detail": "coverage.html 61686 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -218,6 +218,6 @@
   "provisional": 78,
   "market": 9
  },
- "internal_links": 400,
+ "internal_links": 411,
  "lookahead_violations": 0
 }
