@@ -46,11 +46,79 @@ jobs:
       - name: Collect + analyze + build docs site
         run: node scripts/run_all.mjs
 
+      # The Actions log API is not retrievable for this repository (log and artifact
+      # downloads from results-receiver.actions.githubusercontent.com and
+      # *.blob.core.windows.net end in EOF), so a failing refresh used to be
+      # undiagnosable and two runs were lost to guesswork. The gates therefore write
+      # their own output plus a summary of the freshly generated snapshot into
+      # audit/refresh_diagnostics/latest.md, which is published to main whether or not
+      # they passed. Nothing is pushed to data/ or docs/ unless every gate passed.
       - name: Verify docs integrity & site links
+        id: verify
+        continue-on-error: true
         run: |
-          python3 audit/verify_docs.py
-          python3 audit/check_site.py
-          node audit/session_6669f798/test_node_pipeline.mjs
+          mkdir -p audit/refresh_diagnostics
+          DIAG=audit/refresh_diagnostics/latest.md
+          {
+            echo "# refresh-docs verification output"
+            echo
+            echo "run ${{ github.run_id }} attempt ${{ github.run_attempt }} · commit \`${GITHUB_SHA}\` · $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo
+            echo "## freshly generated snapshot"
+            echo '```'
+            node -e '
+              const p = require("./data/node/picks.json"), f = require("./data/node/flags.json");
+              const s = p.matches.filter((m) => m.status === "scheduled");
+              const cal = p.summary.calibration || {};
+              console.log("generated_at", p.summary.generated_at, "| raw feed", p.summary.raw_hotspawn_fetched_at);
+              console.log("counts", JSON.stringify(p.summary.counts));
+              console.log("calibration", JSON.stringify({ n: cal.oos_evaluated, brier: cal.brier, series: cal.series_replayed }));
+              console.log("rows", p.matches.length, "| scheduled", s.length);
+              console.log("market rows:", s.filter((m) => m.market_consensus).map((m) => m.id + ":" + m.market_consensus.venue_count + "[" + (m.market_consensus.venues || []).map((v) => v.venue_label).join("+") + "]").join(" ") || "none");
+              console.log("scheduled rows with best_of != null:", s.filter((m) => m.best_of != null).length);
+              console.log("flags", f.count, "|", f.flags.map((x) => x.id).join(" "));
+            ' 2>&1
+            echo '```'
+            echo
+            echo "## git diff --stat of this run's output"
+            echo '```'
+            git --no-pager diff --stat 2>&1 | tail -n 25
+            echo '```'
+          } > "$DIAG" 2>&1
+          for cmd in "python3 audit/verify_docs.py" "python3 audit/check_site.py" "node audit/session_6669f798/test_node_pipeline.mjs" "python3 audit/verify_docs_parity.py"; do
+            { echo; echo "## $cmd"; echo '```'; } >> "$DIAG"
+            set +e
+            out=$($cmd 2>&1); rc=$?
+            set -e
+            printf '%s\n' "$out" | tail -n 150 >> "$DIAG"
+            { echo "exit=$rc"; echo '```'; } >> "$DIAG"
+            echo "$cmd -> exit=$rc"
+          done
+
+      - name: Fail the job if any gate failed
+        if: steps.verify.outcome != 'success'
+        run: |
+          echo "A verification gate failed. Diagnostics are published to audit/refresh_diagnostics/latest.md on main."
+          tail -n 60 audit/refresh_diagnostics/latest.md || true
+          exit 1
+
+      - name: Publish verification diagnostics
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]"
+          git add audit/refresh_diagnostics
+          if git diff --cached --quiet; then echo "No diagnostics change."; exit 0; fi
+          MSG="chore(diag): refresh-docs verification output (run ${{ github.run_id }}) [skip ci]"
+          git commit -m "$MSG"
+          if ! git pull --rebase -X theirs origin main; then
+            git rebase --abort 2>/dev/null || true
+            git fetch origin main
+            git reset --soft origin/main
+            git add audit/refresh_diagnostics
+            git diff --cached --quiet || git commit -m "$MSG"
+          fi
+          git push origin HEAD:main || echo "diagnostics push lost a race; the gates' own output is still in the run log"
 
       - name: Commit and push refreshed data + docs site
         run: |
