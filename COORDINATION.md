@@ -2235,7 +2235,7 @@ PASS, unit tests OK. Ships as PR **#84** (merged 2026-10-24T17:12:44Z, merge com
 # Session `aca61f10` — workflow race removal, mobile/UI & flag-table hardening, and live primary-source audit (2026-10-24)
 
 - **Branch**: `arena/aca61f10-lolhotspawn1`
-- **Status**: `in_progress` (claimed 2026-10-24T17:24Z; strictly disjoint from active session `7582f227`)
+- **Status**: `completed` (claimed 2026-10-24T17:24Z, closed 2026-10-24T17:41Z; strictly disjoint from session `7582f227`)
 - **Claimed file scope**:
   - `.github/workflows/diag-refresh-e32a.yml`, `.github/workflows/probe-lowtier.yml`, `.github/workflows/probe-sources.yml`
   - `tools/site.py`, `tools/flags.py`, `tools/verify.py`
@@ -2258,4 +2258,17 @@ PASS, unit tests OK. Ships as PR **#84** (merged 2026-10-24T17:12:44Z, merge com
   1. `tools/model.py` `effective_rating()` returns `base_r` even when `counts.get(team, 0) == 0`; when *both* teams have `0` pre-kickoff rated series and no market (`#1083096 Keep Yourself Positive vs CRUEL FATE`, `0/0` rated series), `model.py` currently emits `50.0% / 50.0%` picking `team0` by display order instead of `method="unresolved"` (`p0=None, p1=None, pick=None`).
   2. `tools/model.py` `tier_prior()` regex `r"^(lck|lpl|lec|lcs|lta|lcp|cblol)(\s|/|$)"` matches `"lcp wildcard/..."` (`LCP Wildcard/2026 Season/Regional Qualifiers/Thailand` and `Playoffs`), assigning Tier-1 `1700.0` prior to open-qualifier teams (`Nothin'Here` reaches `1753.7` Elo in 7 series and is favored `59.7%` over LJL champion `FENNEL` `1685.4` in `#1081421`). Adding `"wildcard"` to the Tier-1 exclusion list (`("cl", "challengers", "academy", "promotion", "stars", "wildcard")`) fixes the tier-prior leak.
   3. `data/flags_manual.json` item `"4 Nations Week 1 overturned forfeits for Team Reds (unverified in this build)"`: Team Reds actually competed in `Arabian League 2nd Division 2026 Summer` (`https://lol.fandom.com/wiki/Data:Arabian_League_2nd_Division/2026_Season/Summer_Split`), where Week 1 `JSK Academy vs Team Reds` (`2026-10-02`, `ff=2`) and `Team Reds vs New Era Team` (`2026-10-03`, `ff=1`) carry explicit verbatim ineligible-roster footnotes.
+
+## Final record — session `aca61f10`
+
+| Item | Value |
+|---|---|
+| PR #86 (`arena/aca61f10-lolhotspawn1` → `main`) | merged **2026-10-24T17:30:25Z**, merge commit `8534b51` |
+| Workflow race fix verified on `main` | `.github/workflows/diag-refresh-e32a.yml` removed and `probe-lowtier.yml` / `probe-sources.yml` scoped to `arena/**`; zero diagnostic/probe runs fired on `main` push `8534b51` |
+| `refresh-picks` on `main` after #86 | run **40116428583**: **SUCCESS** in 2m4s (`d58825e`), live dataset `2026-10-24T17:32 UTC` (`241` matches, **44/44** publish gates PASS incl. new 14-page `data-label` gate) |
+| `verify-live-sources` on `main` after #86 | run **40116428469**: **SUCCESS** (`39f674c`), 241/241 Hotspawn cards HTTP 200, 10/10 market quotes resolved, 29/29 Leaguepedia pages resolved, 14/14 root HTML pages mobile-audited PASS |
+| `pages-build-deployment` | runs **40116592551** & **40117142383**: **SUCCESS**, `gh api …/pages` → `status: built` at `https://karagemop466-tech.github.io/LOLHOTSPAWN1/` |
+| Live GitHub Pages verification (`fetch_page`) | verified live over HTTPS on `/`, `/flagged.html`, `/verification.html`, `/results.html`, and `/unresolved.html`: snapshot `2026-10-24 17:32 UTC`, 44/44 automated assertions, 15 primary-source manual checks, 19-row `#flagged-fixtures` table with win %, picks, and source links, and updated debut/disambiguation limitation counts |
+| Session state | closed; all claimed files released cleanly |
+
 
