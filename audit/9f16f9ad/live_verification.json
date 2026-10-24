@@ -1,0 +1,99 @@
+{
+  "session": "9f16f9ad",
+  "generated_utc": "2026-10-24T17:28:10Z",
+  "method": "Independent live re-reads with the agent's own web tooling (the sandbox shell has no egress to these hosts) plus arithmetic re-derivation from the committed snapshots. Every value below is what the source returned; nothing is inferred.",
+  "checks": [
+    {
+      "id": "A-hotspawn-series-format",
+      "claim_under_test": "Hotspawn publishes no series format, so a rendered 'Bo1' is an invented value",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
+      "observed": "every fixture object in the live response carries \"best_of\": null and \"series_format\": null (checked on the first ten objects: 1053095, 1053096, 1066214, 1053111, 1071584, 1070209, 1070210, 1069849, 1071167, 1071170)",
+      "committed_evidence": "data/node/raw/hotspawn_lol_fixtures.json (fetched 2026-10-24T16:49:38Z) and data/raw/hotspawn_lol.json: best_of null on 241/241 scheduled fixtures",
+      "verdict": "CONFIRMED - irregularity was real; fixed in scripts/analyze.mjs (published best_of stays null, best_of_source records provenance) and in scripts/build_site.mjs (renders 'Bo -')",
+      "severity": "medium"
+    },
+    {
+      "id": "B-leaguepedia-bo5-lcp-promotion",
+      "claim_under_test": "The single-map assumption is wrong for at least one listed fixture",
+      "source_url": "https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw",
+      "observed": "{{MatchSchedule/Start|tab=FFA Round 1|bestof=5|shownname=LCP 2027 Promotion}} followed by {{MatchSchedule||initialorder=1|team1=FENNEL|team2=Nothin'Here|date=2026-11-10|time=14:00|timezone=KST|dst=no|stream=https://www.twitch.tv/lolpacificen}}; no scores recorded yet",
+      "cross_reference": "Hotspawn #1081421 lists the same fixture at 2026-11-10T05:00:00Z (= 14:00 KST) with best_of null; both dashboards price it",
+      "verdict": "CONFIRMED Bo5 for #1081421 - the official community record contradicts an assumed Bo1",
+      "severity": "medium"
+    },
+    {
+      "id": "B2-leaguepedia-regional-merit-alias",
+      "claim_under_test": "Whether the second LCP Promotion card is the same fixture as Hotspawn #1081423",
+      "source_url": "https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw",
+      "observed": "Regional Merit Match tab (bestof=5): {{MatchSchedule||initialorder=1|team1=GZ|team2=FAK HK|date=2026-11-11|time=18:00|timezone=KST}} = 2026-11-11T09:00Z, which is Hotspawn #1081423's kick-off; Leaguepedia labels the participants 'GZ' and 'FAK HK' while Hotspawn labels them 'Ground Zero Gaming' and 'Frank Esports'",
+      "verdict": "UNRESOLVED - same competition and kick-off, different participant labels. Recorded as a probable alias, NOT asserted, and not used to change any probability",
+      "severity": "info"
+    },
+    {
+      "id": "C-pinnacle-live-moneyline-1067688",
+      "claim_under_test": "The canonical market line for Worlds 2026 Main Event #1067688 comes from a live Pinnacle series moneyline",
+      "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
+      "observed": "period 0 moneyline home +136 / away -166, status open, limit 4500 maxRiskStake, cutoffAt 2026-10-24T21:12:31Z, version 3778506957; period 1 moneyline identical; team_total / spread / total derivatives also present",
+      "recomputed": {
+        "live_decimal": [
+          2.36,
+          1.6024
+        ],
+        "live_implied": [
+          0.4237,
+          0.6241
+        ],
+        "live_overround": 0.0478,
+        "live_devigged": [
+          0.4044,
+          0.5956
+        ],
+        "snapshot_1655Z_decimal": [
+          2.51,
+          1.56
+        ],
+        "snapshot_1655Z_devigged": [
+          0.3833,
+          0.6167
+        ],
+        "snapshot_overround": 0.0394,
+        "home_delta_pp": 2.11
+      },
+      "verdict": "CONFIRMED live moneyline; the 2.1 pp home-side difference from the committed 16:55:12Z snapshot is line movement between observations (the listed 17:00Z kick-off had passed), not a data error. No '(Kills)' derivative appears in this response",
+      "severity": "info"
+    },
+    {
+      "id": "C2-pinnacle-cutoff-vs-hotspawn-kickoff",
+      "claim_under_test": "Whether Pinnacle's cutoff agrees with Hotspawn's listed kick-off",
+      "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
+      "observed": "Pinnacle cutoffAt 2026-10-24T21:12:31Z for the series moneyline while Hotspawn lists scheduled_start_time 2026-10-24T17:00:00Z and lock_time 16:55Z for #1067688",
+      "verdict": "UNRESOLVED - recorded, not inferred. Hotspawn's time governs pick submission; a Pinnacle cutoff can legitimately be set after the listed start, but this session did not confirm why the two differ by 4h12m",
+      "severity": "info"
+    },
+    {
+      "id": "D-two-dashboard-divergence",
+      "claim_under_test": "How far apart the two published dashboards are on the same inventory",
+      "sources": [
+        "data/matches.json",
+        "data/node/picks.json"
+      ],
+      "recomputed": {
+        "shared_fixture_ids": 241,
+        "both_publish_a_probability": 231,
+        "probability_on_one_side_only": 10,
+        "opposite_picks": 12,
+        "mean_abs_gap_pp": 2.24,
+        "max_abs_gap_pp": 18.9,
+        "max_gap_fixture": "1081421 FENNEL vs Nothin'Here - canonical p0 0.403 (FENNEL 1685.4 / Nothin'Here 1753.7, 30/7 rated series) vs secondary p0 0.592 (Elo 1671 / 1644.5, effective 1642.5 / 1577.8)",
+        "cause": "two independently fitted pre-kickoff Elo pools over different series sets and different thin-history shrinkage; not a data error"
+      },
+      "verdict": "PUBLISHED as an audit finding on docs/index.html#reconcile and marked on every affected row",
+      "severity": "medium"
+    }
+  ],
+  "integration_requests": [
+    "root index.html does not link to the secondary view (audit/verify_docs_parity.py reports 'root page references docs/: False' in its earlier revision); tools/site.py is owned by session 80c624cd (C3/C4) - please add one labelled link to /docs/ from the canonical executive summary so neither dashboard is a dead end",
+    "data/flags_manual.json (curated canonical flags) should carry the unpublished-series-format finding with the Leaguepedia Bo5 counter-example; that file is outside this session's claimed scope",
+    "the canonical dataset leaves best_of null for all 241 rows, which is correct; if a verified format source is ever joined, both dashboards should consume the same one"
+  ]
+}

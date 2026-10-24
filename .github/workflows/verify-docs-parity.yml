@@ -1,0 +1,72 @@
+name: Secondary dashboard parity gate
+
+# Read-only gate for the SECONDARY publisher (scripts/ -> docs/, data/node/**).
+#
+# The repository serves two dashboards from one GitHub Pages domain:
+#   canonical  root *.html   (tools/, data/matches.json)      <- the pick list
+#   secondary  docs/*.html   (scripts/, data/node/**)         <- results & history
+#
+# This workflow proves the two cannot be mistaken for each other: distinct
+# titles, a banner on every secondary page, a published reconciliation whose
+# numbers come from the committed snapshots, and a per-card deep link to the
+# canonical pick.  It never writes a file, so it cannot race the publishers.
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "scripts/**"
+      - "docs/**"
+      - "audit/verify_docs_parity.py"
+      - "audit/verify_docs.py"
+      - ".github/workflows/verify-docs-parity.yml"
+  schedule:
+    # once a day, after the 00:05 UTC secondary refresh
+    - cron: "41 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-docs-parity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Gate the committed secondary pages
+        run: |
+          set -euo pipefail
+          python3 audit/verify_docs.py
+          python3 audit/verify_docs_parity.py
+
+      - name: Regenerate docs/ from the committed data and gate again
+        # Proves the generator (not just the committed snapshot) still produces
+        # pages that pass both gates. The rebuild stays in the runner workspace;
+        # this job has read-only permissions and commits nothing.
+        run: |
+          set -euo pipefail
+          node scripts/build_site.mjs
+          python3 audit/verify_docs.py
+          python3 audit/verify_docs_parity.py
+
+      - name: Upload the parity receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-parity-receipt
+          path: audit/9f16f9ad/docs_parity.json
+          if-no-files-found: warn

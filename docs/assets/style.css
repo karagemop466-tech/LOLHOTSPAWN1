@@ -622,3 +622,93 @@ table.data-table {
   justify-content: space-between;
   align-items: center;
 }
+
+/* ---------------------------------------------------------------------------
+ * Secondary-view identification & canonical cross-reference (session 9f16f9ad)
+ *
+ * docs/ is the companion audit; the canonical pick list is the repository root.
+ * These styles make that impossible to miss on a 360 px screen: a banner as the
+ * first element of every page, a canonical row inside every card, a divergence
+ * marker where the two dashboards disagree, and a stacked reconciliation table.
+ * ------------------------------------------------------------------------- */
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin: 0 0 16px;
+}
+.panel p { margin: 0 0 10px; color: var(--text-muted); font-size: 14.5px; line-height: 1.5; }
+.recon-note { font-size: 13px; color: var(--text-dim); margin-top: 10px !important; }
+
+.canonbar {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.22), rgba(56, 189, 248, 0.18));
+  border-bottom: 1px solid var(--border-strong);
+}
+.canonbar-in {
+  max-width: 1180px; margin: 0 auto; padding: 8px 14px;
+  display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline;
+  font-size: 13px; color: var(--text);
+}
+.cb-tag {
+  flex: 0 0 auto; background: var(--prov); color: #1a1206; font-weight: 800;
+  font-size: 10.5px; letter-spacing: .7px; padding: 3px 8px; border-radius: 999px;
+  white-space: nowrap;
+}
+.cb-txt { flex: 1 1 240px; }
+.cb-txt a { color: #fff; font-weight: 700; text-decoration: underline; }
+
+.brand-sub {
+  font-size: 10.5px; font-weight: 700; letter-spacing: .4px; color: var(--prov);
+  border: 1px solid rgba(245, 158, 11, 0.5); border-radius: 999px; padding: 2px 7px;
+  white-space: nowrap; margin-left: 4px;
+}
+.site-nav a[href^="../"] { border-color: var(--pick-border); background: var(--pick-soft); }
+
+.canon {
+  display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline;
+  margin-top: 10px; padding: 9px 10px;
+  background: var(--pick-soft); border: 1px solid var(--pick-border);
+  border-left: 4px solid var(--pick); border-radius: 8px;
+  font-size: 13px; color: var(--text);
+}
+.canon.none { background: var(--bg-elev); border-color: var(--border); border-left-color: var(--text-dim); color: var(--text-muted); }
+.canon.divergent { background: var(--unres-soft); border-color: rgba(244, 63, 94, 0.55); border-left-color: var(--unres); }
+.canon-tag {
+  flex: 0 0 auto; background: var(--pick); color: #05231a; font-weight: 800;
+  font-size: 10px; letter-spacing: .6px; padding: 3px 7px; border-radius: 999px; white-space: nowrap;
+}
+.canon.none .canon-tag { background: var(--text-dim); color: #0b101b; }
+.canon.divergent .canon-tag { background: var(--unres); color: #2a0710; }
+.canon i { color: var(--text-muted); font-style: normal; }
+.canon a { font-weight: 700; white-space: nowrap; }
+.canon-note { color: var(--text-muted); }
+.canon code { background: var(--bg-elev); padding: 1px 5px; border-radius: 5px; font-size: 12px; }
+
+.canon-diverge {
+  display: inline-block; background: var(--unres-soft); color: var(--unres);
+  border: 1px solid rgba(244, 63, 94, 0.5); border-radius: 999px;
+  font-size: 10px; font-weight: 800; letter-spacing: .5px; padding: 2px 7px; white-space: nowrap;
+}
+.canon-cell { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+.canon-cell a { color: var(--pick); font-weight: 700; }
+.th-sub { font-size: 11px; color: var(--text-dim); font-weight: 600; }
+
+/* reconciliation table: two compared columns, stacked into cards on a phone */
+table.recon th[scope="row"] {
+  text-align: left; color: var(--text); font-weight: 700; white-space: normal; min-width: 92px;
+}
+table.recon td { color: var(--text-muted); font-size: 13px; vertical-align: top; }
+table.recon td:first-of-type { color: var(--text); }
+table.recon code { background: var(--bg-elev); padding: 1px 5px; border-radius: 5px; font-size: 11.5px; }
+@media (max-width: 760px) {
+  table.recon thead { display: none; }
+  table.recon tr {
+    display: block; border: 1px solid var(--border); border-radius: 10px;
+    background: var(--bg-elev); padding: 8px 10px; margin-bottom: 10px;
+  }
+  table.recon th[scope="row"], table.recon td { display: block; width: 100%; border: 0; padding: 3px 0; }
+  table.recon th[scope="row"] { font-size: 12.5px; color: var(--accent); }
+  table.recon td:first-of-type::before { content: "⭐ Canonical: "; color: var(--pick); font-weight: 700; font-size: 11.5px; }
+  table.recon td:last-of-type::before { content: "📈 This view: "; color: var(--prov); font-weight: 700; font-size: 11.5px; }
+}
