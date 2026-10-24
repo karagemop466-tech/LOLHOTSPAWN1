@@ -85,6 +85,7 @@ jobs:
             git --no-pager diff --stat 2>&1 | tail -n 25
             echo '```'
           } > "$DIAG" 2>&1
+          worst=0
           for cmd in "python3 audit/verify_docs.py" "python3 audit/check_site.py" "node audit/session_6669f798/test_node_pipeline.mjs" "python3 audit/verify_docs_parity.py"; do
             { echo; echo "## $cmd"; echo '```'; } >> "$DIAG"
             set +e
@@ -93,7 +94,13 @@ jobs:
             printf '%s\n' "$out" | tail -n 150 >> "$DIAG"
             { echo "exit=$rc"; echo '```'; } >> "$DIAG"
             echo "$cmd -> exit=$rc"
+            if [ "$rc" -ne 0 ]; then worst=$rc; fi
           done
+          # The step's own exit code decides steps.verify.outcome; without this the loop's
+          # trailing echo returned 0 and run 40122190234 published data although
+          # test_node_pipeline.mjs had exited 1. continue-on-error keeps the job alive so
+          # the diagnostics step still publishes.
+          exit "$worst"
 
       - name: Fail the job if any gate failed
         if: steps.verify.outcome != 'success'
