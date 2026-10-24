@@ -1365,3 +1365,29 @@ conflict was `COORDINATION.md` (union) or a generated file (taken from the publi
 data produced by the existing pipeline. **Not touched:** `tools/collect.py`, `tools/model.py`,
 `tools/verify.py`, `tools/flags.py`, `tools/corroborate.py`, `assets/**`, `docs/**`, `scripts/**`,
 `audit/**`, `archive/**`.
+
+### `ada2798c` — PR, merge and deploy record (2026-10-24T16:33Z)
+
+| Item | Value |
+|---|---|
+| Pull request | **#65** — <https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/65> |
+| Merge | merged without waiting for review at **2026-10-24T16:25:38Z**, merge commit `da872e9` (the branch was rebased onto `main` @ `66c15fd` and then merged `origin/main` once more; the only conflict was `COORDINATION.md`, resolved as a **union** with session `0ae1366a`'s record kept verbatim) |
+| Content | `research/ada2798c/EXTERNAL_LINES.md`, `audit/ada2798c/**` (probes, receipts, independent page verification), `tests/test_corroborate_offlist.py`, `.github/workflows/ada2798c-research.yml` (branch-guarded). **No probability, pick or published page changed** |
+| Gates on the merged tree | `tools/verify.py` PASS · `unittest` 25/25 · `audit/check_site.py` 20 pages / 0 failures · `audit/verify_independent.py` 241 rows / 33 venues / 0 failures · `audit/ada2798c/verify_published.py` 14/14 |
+| Pages | `gh api …/pages` → `status: built`; live homepage re-fetched at 16:33Z shows **Data snapshot 2026-10-24 16:21 UTC**, "Hotspawn inventory is 2m old", the six one-tap picks links, the *Next up* strip and the *Unresolved picks and the limitations (4)* section |
+| Refresh health | the canonical 6-hourly `refresh-picks` **succeeded** on `main` at 16:23Z (run `40110996859`) and committed `42cb155`; the four-run outage is over |
+
+**Findings that survive the merge and should drive the next round** (details in
+`research/ada2798c/EXTERNAL_LINES.md`):
+
+1. The measured ceiling for a bookmaker-backed probability on this list is **8 of 241 fixtures
+   (3.3 %), all Worlds**; Pinnacle's entire LoL offer is one league (World Championship, id 9587).
+   The regional/academy tail must stay on the originated line — that is a market fact, not a
+   scraping failure.
+2. `paf` and `ubse` are the same Kambi feed with identical prices: they corroborate each other but
+   are **not** two independent venues.
+3. **77 of the 241 listed fixtures had already kicked off** and remain `status=scheduled` on
+   Hotspawn. The site mirrors Hotspawn exactly and marks them; the share of the list that is
+   genuinely *upcoming* is 164, which is the number a reader should compare the market ceiling to.
+4. `Bovada 0 series` on the 16:21Z build is a geo-filter of the runner, not an absence of markets;
+   the collector retries it every build and `sources.html` records the verdict.
