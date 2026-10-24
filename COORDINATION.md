@@ -26,7 +26,7 @@ Handoff note: open PRs #22/#26/#35/#36/#40/#56 last committed 2026-10-23 ~15:44�
 | S1 | Unblock `refresh-picks` (4 consecutive scheduled failures since 2026-10-23T17:13Z). | done | 1a1a3b1b | `.github/workflows/refresh.yml`, `tools/verify.py`, `tools/collect.py` |
 | S2 | Live Hotspawn LoL inventory + external lines for **every** listed match. Extra esportsbook probes (not Rivalry). Originate remaining. Unresolved + limitations in the exec summary. | done | 1a1a3b1b | `tools/collect.py`, `tools/flags.py`, `tools/site.py`, `data/*`, root `*.html` |
 | S3 | Mobile-first exec summary; phone Picks tab = compact table. Fix leftover README merge markers. | done | 1a1a3b1b | `tools/site.py`, `assets/style.css`, `README.md` |
-| S4 | PR → `main`, merge, confirm Pages. | in progress | 1a1a3b1b | — |
+| S4 | PR → `main`, merge, confirm Pages. | done | 1a1a3b1b | — |
 
 ### What was broken
 
@@ -78,8 +78,9 @@ receipts for departed scheduled fixtures being classified as current-match valid
 now retained in a separate archived/stale ledger and never enter pricing. Listed-fixture team mismatches,
 malformed receipts and divergent lines still fail verification; the initial repaired branch passed 17 focused unit tests.
 
-R2/R3 integration evidence: this session locally integrated PR #71 (`80c624cd` results/mobile work) and
-then merged `origin/main` at `73dab0b`. Conflicts affected the refresh workflow, receipt verification,
+R2/R3 integration evidence: this session locally integrated PR #71 (`80c624cd` results/mobile work),
+then merged `origin/main` at `73dab0b` and again after PRs #71/#74 and the canonical refresh at `0288327`.
+Conflicts affected the refresh workflow, receipt verification,
 landing-page source wording, generated data/HTML and this file. The resolution retains the integrated
 usable/expired/historic/rejected receipt taxonomy and result grading, restores `main`'s latest raw source
 captures plus `data/receipts/external_odds/2026-10-24.json`, incorporates `main`'s measured esportsbook
@@ -87,7 +88,7 @@ probe explanation, and unions every coordination record. No side's generated sna
 other: all outputs were rebuilt from the merged source. A blank/missing receipt fixture ID is malformed,
 not historic, with a focused regression test.
 
-The merged snapshot was generated at `2026-10-24T16:35:53Z` from inventory fetched at `16:29:28Z`:
+The merged snapshot was generated at `2026-10-24T16:39:33Z` from inventory fetched at `16:34:24Z`:
 241/241 fixtures across 29 competitions, 9 market + 150 model + 78 provisional + 4 settlement-only picks;
 39 graded results (23 hits, 16 misses), kept separate from forecast probabilities. All 32 external
 captures are accounted for: 14 usable (all agree), 1 expired, 16 historic, 1 informational placeholder,
@@ -99,6 +100,16 @@ Polymarket venue whose published raw weight is 0.24; its probability is correctl
 weight irregularity is published on `flagged.html`. Branch-only diagnostics were not retained in the
 integration; failure artifacts retain `data/build.log`, `data/verification.json` and
 `data/sources_status.json` for seven days under a run-specific name.
+### PR / deploy record — session `1a1a3b1b`
+
+| Item | Value |
+|---|---|
+| Pull request | **#67** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/67 |
+| Merge | merged 2026-10-24T16:29:15Z, merge commit `c74bbf6` |
+| Pages | `gh api …/pages` → `status: built`; post-merge `pages-build-deployment` **success** (`40111778020`, `40111834017`) |
+| Post-merge `refresh-picks` | run **40111777927** **success** in 2m32s on `main` (first successful publisher after the 23 Oct outage on this session's gate fix); auto-commit `73dab0b` |
+| Live | https://karagemop466-tech.github.io/LOLHOTSPAWN1/ HTTP 200 — 241/241 picks, 29 tournaments, Next up is 24 Oct (TES vs AL `#1067688` Anyone's Legend 63%), unresolved Solid Gaming table with Leaguepedia sources, Pick table CTA |
+| Session | closed |
 
 ## Session `64554333` — claim (opened 2026-10-23T15:40Z)
 
@@ -1543,6 +1554,7 @@ gate failing on the passage of time. It is a *request-and-apply*: the diff is co
 (26 lines), the merged `verify.py` now contains both that gate and `80c624cd`'s newer gates, and nothing
 of theirs was reverted. If `80c624cd` prefers a different taxonomy, only the assertion name and the
 `delisted_refs_auto` lookup need to change.
+
 ### `ada2798c` — PR, merge and deploy record (2026-10-24T16:33Z)
 
 | Item | Value |
@@ -1587,3 +1599,19 @@ of theirs was reverted. If `80c624cd` prefers a different taxonomy, only the ass
 
 **Session `0ae1366a` closed.** No hard-coded site number was introduced: every count on the touched
 pages is computed from `data/matches.json`, `data/sources_status.json` or `data/esportsbook_probe.json`.
+
+### Final record — session `0ae1366a` (close-out, 2026-10-24T16:36Z)
+
+| Item | Value |
+|---|---|
+| Work PR | **#64** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/64 — merged 2026-10-24T16:25:06Z, merge commit `3911707` |
+| Follow-up PR (feed sentence + deploy record) | **#70** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/70 — merged 2026-10-24T16:30Z, merge commit `7a74961` |
+| Publisher after the merge | `refresh-picks` run on `7a74961` **success** → commit `87a9471`, snapshot `2026-10-24T16:34:00Z`, inventory `16:32:05Z`, 241 matches, 9 market / 150 model / 78 provisional / 4 unresolved |
+| Pages | `pages-build-deployment` on `7a74961` **success**; live pages re-fetched at 16:36Z show snapshot `2026-10-24 16:34 UTC`, inventory **3 minutes old**, executive summary first, and the feed sentence listing Pinnacle 8 / Bovada 8 / Unibet 8 / Kalshi 8 / Polymarket 12 (Bovada now quotes, so the "silent feeds" clause correctly disappears) |
+| Gate on the merged tree | `tools/verify.py` exit 0; `unittest` **44/44 OK** (main's suite plus this session's 6 probe-contract tests); `research/verify_0ae1366a.py` **PASS** |
+| Flagged for review | 30 items live on `flagged.html`, including the 24-hour publisher outage with the failing run link and this session's runner-side evidence |
+
+Session `0ae1366a` is closed. The 4-8 h refresh cadence is restored and verified end to end
+(gate fix → green run → fresh snapshot on the live site), the low-tier line research is published with
+per-endpoint receipts, and the landing page opens with the executive summary and one-tap links to every
+list of picks.

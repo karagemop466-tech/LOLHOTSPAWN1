@@ -1346,6 +1346,34 @@ def build_sources(src: list[dict]) -> str:
         out.append([e(s.get("name")), f'<a href="{e(s.get("url"))}" rel="noopener">link</a>',
                     e(s.get("note")), f'<span class="pill {cls}">{e(st)}</span>', e(s.get("blocked_note")),
                     e((s.get("checked_utc") or "")[:16].replace("T", " "))])
+    probe = _esportsbook_probe()
+    probe_rows = []
+    for slug, row in probe["blocked"].items():
+        probe_rows.append([
+            e(row.get("name")),
+            e(row.get("category")),
+            f'<a href="{e(row.get("url"))}" rel="noopener">endpoint</a>',
+            f'<span class="pill bad">{e(row.get("status") if row.get("status") is not None else "err")}</span>',
+            e((row.get("reason") or "")[:160]),
+            e((row.get("checked_utc") or "")[:16].replace("T", " ")),
+        ])
+    if probe["have"]:
+        probe_block = f"""
+<section class="panel" id="esportsbook-probe">
+  <h2>Esportsbook and aggregator probe ({probe["tested"]} endpoints, {probe["usable"]} usable)</h2>
+  <p class="lead">The client brief asks for a real betting line wherever one exists, including low-tier and
+  national LoL leagues, before we fall back to our own originated line. This is the result of calling each
+  candidate endpoint from the build runner on {e(probe["checked"])} UTC. A venue is only usable if it returned a
+  named fixture with a decimal price; a blocked or browser-only venue is recorded here rather than worked
+  around, and no price is ever reconstructed from a screenshot or a memory.</p>
+  {table(["Endpoint", "Category", "Link", "HTTP", "What came back", "Checked (UTC)"], probe_rows) if probe_rows else '<p class="muted">Every probed endpoint returned a usable price this run.</p>'}
+  <p class="small muted">Raw bounded previews are committed with the receipt, so each verdict can be re-checked:
+  <a href="data/esportsbook_probe.json">data/esportsbook_probe.json</a>. Nothing in this table is used as a
+  probability input unless the row is listed as usable.</p>
+</section>
+"""
+    else:
+        probe_block = ""
     body = f"""
 <section class="panel">
   <h2>Sources probed on the latest build</h2>
@@ -1368,6 +1396,7 @@ def build_sources(src: list[dict]) -> str:
     official World Championship schedule verification.</li>
   </ul>
 </section>
+{probe_block}
 {research_panel()}
 """
     return page_shell("Sources", "sources.html", body, "Every data source, its HTTP status, and what it provides.")

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:35:53Z",
+ "generated_utc": "2026-10-24T16:39:34Z",
  "count": 30,
  "flags": [
   {
@@ -134,8 +134,8 @@
   },
   {
    "severity": "low",
-   "item": "7 betting/odds sources were unreachable from the build runner",
-   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 404 (unavailable); Thunderpick HTTP 403 (blocked by bot protection); Tips.GG HTTP 403 (blocked by bot protection); OddsPortal Worlds HTTP 503 (unavailable)",
+   "item": "6 betting/odds sources were unreachable from the build runner",
+   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 404 (unavailable); Thunderpick HTTP 403 (blocked by bot protection); Tips.GG HTTP 403 (blocked by bot protection)",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/sources_status.json"
   },
   {
@@ -165,7 +165,7 @@
   {
    "severity": "medium",
    "item": "1 market row(s) rest on a single prediction market with almost no traded volume",
-   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $14 traded volume (thin-market threshold $1,000), priced 38.5%/61.5%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
+   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $14 traded volume (thin-market threshold $1,000), priced 39.0%/61.0%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
    "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
   },
   {
