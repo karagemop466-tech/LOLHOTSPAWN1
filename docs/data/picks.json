@@ -1,6 +1,6 @@
 {
  "summary": {
-  "generated_at": "2026-10-24T10:30:43.074Z",
+  "generated_at": "2026-10-24T15:34:33.091Z",
   "week": {
    "start": "2026-10-19T00:00:00.000Z",
    "end": "2026-10-26T00:00:00.000Z"
@@ -21,17 +21,17 @@
    }
   },
   "counts": {
-   "open": 168,
-   "locked_or_live": 0,
+   "open": 169,
+   "locked_or_live": 7,
    "stale": 65,
-   "ended_this_week": 79,
+   "ended_this_week": 89,
    "cancelled": 16,
-   "picks_total": 163,
+   "picks_total": 171,
    "market_pinnacle": 8,
    "market_polymarket_only": 1,
-   "model_only": 154,
-   "unresolved_open": 5,
-   "flags_needs_review": 7,
+   "model_only": 162,
+   "unresolved_open": 1,
+   "flags_needs_review": 3,
    "flags_info": 2
   },
   "sources_ok": {
@@ -78,10 +78,10 @@
   "RIVALS LEAGUE Season 2": {
    "competition": "RIVALS LEAGUE Season 2",
    "tier": null,
-   "open": 17,
-   "resolved": 17,
+   "open": 18,
+   "resolved": 18,
    "market": 0,
-   "model": 17
+   "model": 18
   },
   "Worlds 2026 Main Event": {
    "competition": "Worlds 2026 Main Event",
@@ -115,6 +115,14 @@
    "market": 0,
    "model": 36
   },
+  "4 Nations 2026 Halloween Heist": {
+   "competition": "4 Nations 2026 Halloween Heist",
+   "tier": null,
+   "open": 4,
+   "resolved": 4,
+   "market": 0,
+   "model": 4
+  },
   "LGC Rising 2026 Playoffs": {
    "competition": "LGC Rising 2026 Playoffs",
    "tier": "a",
@@ -122,6 +130,14 @@
    "resolved": 1,
    "market": 1,
    "model": 0
+  },
+  "Komplettligaen 2026 Autumn Playoffs": {
+   "competition": "Komplettligaen 2026 Autumn Playoffs",
+   "tier": null,
+   "open": 3,
+   "resolved": 3,
+   "market": 0,
+   "model": 3
   },
   "LCP 2027 Promotion": {
    "competition": "LCP 2027 Promotion",
@@ -750,7 +766,7 @@
     "p0": 0.548,
     "p1": 0.452,
     "r0": 1478,
-    "r1": 1444,
+    "r1": 1445,
     "n0": 18,
     "n1": 10,
     "confidence": "high"
@@ -2881,8 +2897,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.455,
-    "p1": 0.545,
+    "p0": 0.456,
+    "p1": 0.544,
     "r0": 1476,
     "r1": 1539,
     "n0": 4,
@@ -2969,8 +2985,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.555,
-    "p1": 0.445,
+    "p0": 0.554,
+    "p1": 0.446,
     "r0": 1545,
     "r1": 1497,
     "n0": 6,
@@ -4412,8 +4428,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.443,
-    "p1": 0.557,
+    "p0": 0.444,
+    "p1": 0.556,
     "r0": 1459,
     "r1": 1538,
     "n0": 3,
@@ -5512,8 +5528,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.445,
-    "p1": 0.555,
+    "p0": 0.446,
+    "p1": 0.554,
     "r0": 1497,
     "r1": 1545,
     "n0": 8,
@@ -6526,13 +6542,453 @@
    "pick": null
   },
   {
+   "id": "1083155",
+   "state": "ended",
+   "forfeit": false,
+   "competition_id": "36330",
+   "competition": "LCK AS 2026 2nd Championship",
+   "tier": "b",
+   "stage": null,
+   "offered_points": 15,
+   "start_utc": "2026-10-24T05:00:00.000Z",
+   "lock_utc": "2026-10-24T04:55:00.000Z",
+   "start_ms": 1792818000000,
+   "lock_ms": 1792817700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "252029",
+    "name": "DN SOOPers Academy"
+   },
+   "team1": {
+    "id": "263894",
+    "name": "Kiwoom DRX Academy"
+   },
+   "team_history": {
+    "n0": 21,
+    "n1": 21
+   },
+   "score0": 2,
+   "score1": 0,
+   "hotspawn_url": "https://www.hotspawn.com/matches/dn-soopers-academy-vs-kiwoom-drx-academy-lck-as-2026-2nd-championship-1083155",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.806,
+    "p1": 0.194,
+    "r0": 1559,
+    "r1": 1311,
+    "n0": 21,
+    "n1": 21,
+    "confidence": "high"
+   },
+   "pick": null
+  },
+  {
+   "id": "1083156",
+   "state": "ended",
+   "forfeit": false,
+   "competition_id": "36330",
+   "competition": "LCK AS 2026 2nd Championship",
+   "tier": "b",
+   "stage": null,
+   "offered_points": 15,
+   "start_utc": "2026-10-24T05:00:00.000Z",
+   "lock_utc": "2026-10-24T04:55:00.000Z",
+   "start_ms": 1792818000000,
+   "lock_ms": 1792817700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "75736",
+    "name": "Dplus KIA Youth"
+   },
+   "team1": {
+    "id": "26746",
+    "name": "Nongshim RedForce Academy"
+   },
+   "team_history": {
+    "n0": 21,
+    "n1": 21
+   },
+   "score0": 2,
+   "score1": 0,
+   "hotspawn_url": "https://www.hotspawn.com/matches/dplus-kia-youth-vs-nongshim-redforce-academy-lck-as-2026-2nd-championship-1083156",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.749,
+    "p1": 0.251,
+    "r0": 1658,
+    "r1": 1468,
+    "n0": 21,
+    "n1": 21,
+    "confidence": "high"
+   },
+   "pick": null
+  },
+  {
+   "id": "1083157",
+   "state": "ended",
+   "forfeit": false,
+   "competition_id": "36330",
+   "competition": "LCK AS 2026 2nd Championship",
+   "tier": "b",
+   "stage": null,
+   "offered_points": 15,
+   "start_utc": "2026-10-24T05:00:00.000Z",
+   "lock_utc": "2026-10-24T04:55:00.000Z",
+   "start_ms": 1792818000000,
+   "lock_ms": 1792817700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "81647",
+    "name": "Gen.G Scholars"
+   },
+   "team1": {
+    "id": "23665",
+    "name": "Hanwha Life Esports Academy"
+   },
+   "team_history": {
+    "n0": 21,
+    "n1": 21
+   },
+   "score0": 1,
+   "score1": 2,
+   "hotspawn_url": "https://www.hotspawn.com/matches/gen-g-scholars-vs-hanwha-life-esports-academy-lck-as-2026-2nd-championship-1083157",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.331,
+    "p1": 0.669,
+    "r0": 1431,
+    "r1": 1554,
+    "n0": 21,
+    "n1": 21,
+    "confidence": "high"
+   },
+   "pick": null
+  },
+  {
+   "id": "1083158",
+   "state": "ended",
+   "forfeit": false,
+   "competition_id": "36330",
+   "competition": "LCK AS 2026 2nd Championship",
+   "tier": "b",
+   "stage": null,
+   "offered_points": 15,
+   "start_utc": "2026-10-24T05:00:00.000Z",
+   "lock_utc": "2026-10-24T04:55:00.000Z",
+   "start_ms": 1792818000000,
+   "lock_ms": 1792817700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "23670",
+    "name": "KT Rolster Academy"
+   },
+   "team1": {
+    "id": "252718",
+    "name": "HANJIN BRION Academy"
+   },
+   "team_history": {
+    "n0": 21,
+    "n1": 21
+   },
+   "score0": 0,
+   "score1": 2,
+   "hotspawn_url": "https://www.hotspawn.com/matches/kt-rolster-academy-vs-hanjin-brion-academy-lck-as-2026-2nd-championship-1083158",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.535,
+    "p1": 0.465,
+    "r0": 1521,
+    "r1": 1496,
+    "n0": 21,
+    "n1": 21,
+    "confidence": "high"
+   },
+   "pick": null
+  },
+  {
+   "id": "1083159",
+   "state": "ended",
+   "forfeit": false,
+   "competition_id": "36330",
+   "competition": "LCK AS 2026 2nd Championship",
+   "tier": "b",
+   "stage": null,
+   "offered_points": 15,
+   "start_utc": "2026-10-24T05:00:00.000Z",
+   "lock_utc": "2026-10-24T04:55:00.000Z",
+   "start_ms": 1792818000000,
+   "lock_ms": 1792817700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "192208",
+    "name": "T1 Esports Academy Rookies"
+   },
+   "team1": {
+    "id": "263893",
+    "name": "Eunpyeong Meditech High School"
+   },
+   "team_history": {
+    "n0": 21,
+    "n1": 21
+   },
+   "score0": 2,
+   "score1": 0,
+   "hotspawn_url": "https://www.hotspawn.com/matches/t1-esports-academy-rookies-vs-eunpyeong-meditech-high-school-lck-as-2026-2nd-championship-1083159",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.886,
+    "p1": 0.114,
+    "r0": 1679,
+    "r1": 1323,
+    "n0": 21,
+    "n1": 21,
+    "confidence": "high"
+   },
+   "pick": null
+  },
+  {
+   "id": "1082055",
+   "state": "ended",
+   "forfeit": false,
+   "competition_id": "36330",
+   "competition": "LCK AS 2026 2nd Championship",
+   "tier": "b",
+   "stage": null,
+   "offered_points": 15,
+   "start_utc": "2026-10-24T07:00:00.000Z",
+   "lock_utc": "2026-10-24T06:55:00.000Z",
+   "start_ms": 1792825200000,
+   "lock_ms": 1792824900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "75736",
+    "name": "Dplus KIA Youth"
+   },
+   "team1": {
+    "id": "192208",
+    "name": "T1 Esports Academy Rookies"
+   },
+   "team_history": {
+    "n0": 21,
+    "n1": 21
+   },
+   "score0": 0,
+   "score1": 2,
+   "hotspawn_url": "https://www.hotspawn.com/matches/dplus-kia-youth-vs-t1-esports-academy-rookies-lck-as-2026-2nd-championship-1082055",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.47,
+    "p1": 0.53,
+    "r0": 1658,
+    "r1": 1679,
+    "n0": 21,
+    "n1": 21,
+    "confidence": "high"
+   },
+   "pick": null
+  },
+  {
+   "id": "1082056",
+   "state": "ended",
+   "forfeit": false,
+   "competition_id": "36330",
+   "competition": "LCK AS 2026 2nd Championship",
+   "tier": "b",
+   "stage": null,
+   "offered_points": 15,
+   "start_utc": "2026-10-24T07:00:00.000Z",
+   "lock_utc": "2026-10-24T06:55:00.000Z",
+   "start_ms": 1792825200000,
+   "lock_ms": 1792824900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "263893",
+    "name": "Eunpyeong Meditech High School"
+   },
+   "team1": {
+    "id": "81647",
+    "name": "Gen.G Scholars"
+   },
+   "team_history": {
+    "n0": 21,
+    "n1": 21
+   },
+   "score0": 0,
+   "score1": 2,
+   "hotspawn_url": "https://www.hotspawn.com/matches/eunpyeong-meditech-high-school-vs-gen-g-scholars-lck-as-2026-2nd-championship-1082056",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.349,
+    "p1": 0.651,
+    "r0": 1323,
+    "r1": 1431,
+    "n0": 21,
+    "n1": 21,
+    "confidence": "high"
+   },
+   "pick": null
+  },
+  {
+   "id": "1082057",
+   "state": "ended",
+   "forfeit": false,
+   "competition_id": "36330",
+   "competition": "LCK AS 2026 2nd Championship",
+   "tier": "b",
+   "stage": null,
+   "offered_points": 15,
+   "start_utc": "2026-10-24T07:00:00.000Z",
+   "lock_utc": "2026-10-24T06:55:00.000Z",
+   "start_ms": 1792825200000,
+   "lock_ms": 1792824900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "252718",
+    "name": "HANJIN BRION Academy"
+   },
+   "team1": {
+    "id": "26746",
+    "name": "Nongshim RedForce Academy"
+   },
+   "team_history": {
+    "n0": 21,
+    "n1": 21
+   },
+   "score0": 2,
+   "score1": 1,
+   "hotspawn_url": "https://www.hotspawn.com/matches/hanjin-brion-academy-vs-nongshim-redforce-academy-lck-as-2026-2nd-championship-1082057",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.541,
+    "p1": 0.459,
+    "r0": 1496,
+    "r1": 1468,
+    "n0": 21,
+    "n1": 21,
+    "confidence": "high"
+   },
+   "pick": null
+  },
+  {
+   "id": "1082058",
+   "state": "ended",
+   "forfeit": false,
+   "competition_id": "36330",
+   "competition": "LCK AS 2026 2nd Championship",
+   "tier": "b",
+   "stage": null,
+   "offered_points": 15,
+   "start_utc": "2026-10-24T07:00:00.000Z",
+   "lock_utc": "2026-10-24T06:55:00.000Z",
+   "start_ms": 1792825200000,
+   "lock_ms": 1792824900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "23665",
+    "name": "Hanwha Life Esports Academy"
+   },
+   "team1": {
+    "id": "252029",
+    "name": "DN SOOPers Academy"
+   },
+   "team_history": {
+    "n0": 21,
+    "n1": 21
+   },
+   "score0": 0,
+   "score1": 2,
+   "hotspawn_url": "https://www.hotspawn.com/matches/hanwha-life-esports-academy-vs-dn-soopers-academy-lck-as-2026-2nd-championship-1082058",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.493,
+    "p1": 0.507,
+    "r0": 1554,
+    "r1": 1559,
+    "n0": 21,
+    "n1": 21,
+    "confidence": "high"
+   },
+   "pick": null
+  },
+  {
+   "id": "1082059",
+   "state": "ended",
+   "forfeit": false,
+   "competition_id": "36330",
+   "competition": "LCK AS 2026 2nd Championship",
+   "tier": "b",
+   "stage": null,
+   "offered_points": 15,
+   "start_utc": "2026-10-24T07:00:00.000Z",
+   "lock_utc": "2026-10-24T06:55:00.000Z",
+   "start_ms": 1792825200000,
+   "lock_ms": 1792824900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "23670",
+    "name": "KT Rolster Academy"
+   },
+   "team1": {
+    "id": "263894",
+    "name": "Kiwoom DRX Academy"
+   },
+   "team_history": {
+    "n0": 21,
+    "n1": 21
+   },
+   "score0": 2,
+   "score1": 0,
+   "hotspawn_url": "https://www.hotspawn.com/matches/kt-rolster-academy-vs-kiwoom-drx-academy-lck-as-2026-2nd-championship-1082059",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.77,
+    "p1": 0.23,
+    "r0": 1521,
+    "r1": 1311,
+    "n0": 21,
+    "n1": 21,
+    "confidence": "high"
+   },
+   "pick": null
+  },
+  {
    "id": "1083096",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36629",
    "competition": "Logitech G SuperStrike Cup Qualifier",
    "tier": null,
-   "stage": null,
+   "stage": "qualifier",
    "offered_points": 10,
    "start_utc": "2026-10-24T11:00:00.000Z",
    "lock_utc": "2026-10-24T10:55:00.000Z",
@@ -6562,12 +7018,12 @@
   },
   {
    "id": "1083097",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36629",
    "competition": "Logitech G SuperStrike Cup Qualifier",
    "tier": null,
-   "stage": null,
+   "stage": "qualifier",
    "offered_points": 10,
    "start_utc": "2026-10-24T11:00:00.000Z",
    "lock_utc": "2026-10-24T10:55:00.000Z",
@@ -6597,12 +7053,12 @@
   },
   {
    "id": "1083098",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36629",
    "competition": "Logitech G SuperStrike Cup Qualifier",
    "tier": null,
-   "stage": null,
+   "stage": "qualifier",
    "offered_points": 10,
    "start_utc": "2026-10-24T11:00:00.000Z",
    "lock_utc": "2026-10-24T10:55:00.000Z",
@@ -6632,12 +7088,12 @@
   },
   {
    "id": "1083105",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36629",
    "competition": "Logitech G SuperStrike Cup Qualifier",
    "tier": null,
-   "stage": null,
+   "stage": "qualifier",
    "offered_points": 10,
    "start_utc": "2026-10-24T12:00:00.000Z",
    "lock_utc": "2026-10-24T11:55:00.000Z",
@@ -6667,7 +7123,7 @@
   },
   {
    "id": "1075719",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36438",
    "competition": "PRM 3rd Division 26-27 Fall",
@@ -6694,7 +7150,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/berlin-5-vs-acegaming-hearts-prm-3rd-division-26-27-fall-1075719",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -6719,7 +7175,7 @@
   },
   {
    "id": "1081085",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36563",
    "competition": "LigaGG CELOL B 2026 Split 2 Playoffs",
@@ -6746,7 +7202,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/baronx-vs-marere-academy-ligagg-celol-b-2026-split-2-playoffs-1081085",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -6771,7 +7227,7 @@
   },
   {
    "id": "1081086",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36563",
    "competition": "LigaGG CELOL B 2026 Split 2 Playoffs",
@@ -6798,7 +7254,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/final-level-esports-academy-vs-infinity-gaming-ligagg-celol-b-2026-split-2-playoffs-1081086",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -7466,58 +7922,6 @@
    }
   },
   {
-   "id": "1075731",
-   "state": "open",
-   "forfeit": false,
-   "competition_id": "36438",
-   "competition": "PRM 3rd Division 26-27 Fall",
-   "tier": null,
-   "stage": null,
-   "offered_points": 10,
-   "start_utc": "2026-10-24T17:00:00.000Z",
-   "lock_utc": "2026-10-24T16:55:00.000Z",
-   "start_ms": 1792861200000,
-   "lock_ms": 1792860900000,
-   "start_discrepancy": null,
-   "team0": {
-    "id": "203886",
-    "name": "Whalepower Humpbacks"
-   },
-   "team1": {
-    "id": "20355",
-    "name": "1. Esport Club Frankfurt e.V."
-   },
-   "team_history": {
-    "n0": 2,
-    "n1": 3
-   },
-   "score0": null,
-   "score1": null,
-   "hotspawn_url": "https://www.hotspawn.com/matches/whalepower-humpbacks-vs-1-esport-club-frankfurt-e-v-prm-3rd-division-26-27-fall-1075731",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": null,
-   "market_polymarket": null,
-   "model": {
-    "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.491,
-    "p1": 0.509,
-    "r0": 1522,
-    "r1": 1539,
-    "n0": 2,
-    "n1": 3,
-    "confidence": "low"
-   },
-   "pick": {
-    "team_index": 1,
-    "team_id": "20355",
-    "team": "1. Esport Club Frankfurt e.V.",
-    "p": 0.509,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.018
-   }
-  },
-  {
    "id": "1082258",
    "state": "cancelled",
    "forfeit": false,
@@ -7599,12 +8003,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1639121258,
-    "odds0": 159,
-    "odds1": -190,
-    "dec0": 2.59,
-    "dec1": 1.53,
-    "p0": 0.371,
-    "p1": 0.629,
+    "odds0": 153,
+    "odds1": -182,
+    "dec0": 2.53,
+    "dec1": 1.55,
+    "p0": 0.38,
+    "p1": 0.62,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -7617,8 +8021,8 @@
     "p0": 0.365,
     "p1": 0.635,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 475487.1732,
-    "volume": 125410.113424,
+    "liquidity": 647909.9659,
+    "volume": 213726.894591,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7636,10 +8040,62 @@
     "team_index": 1,
     "team_id": "57842",
     "team": "Anyone's Legend",
-    "p": 0.629,
+    "p": 0.62,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.258
+    "margin": 0.24
+   }
+  },
+  {
+   "id": "1075731",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36438",
+   "competition": "PRM 3rd Division 26-27 Fall",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-10-24T17:30:00.000Z",
+   "lock_utc": "2026-10-24T17:25:00.000Z",
+   "start_ms": 1792863000000,
+   "lock_ms": 1792862700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "203886",
+    "name": "Whalepower Humpbacks"
+   },
+   "team1": {
+    "id": "20355",
+    "name": "1. Esport Club Frankfurt e.V."
+   },
+   "team_history": {
+    "n0": 2,
+    "n1": 3
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/whalepower-humpbacks-vs-1-esport-club-frankfurt-e-v-prm-3rd-division-26-27-fall-1075731",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.491,
+    "p1": 0.509,
+    "r0": 1522,
+    "r1": 1539,
+    "n0": 2,
+    "n1": 3,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "20355",
+    "team": "1. Esport Club Frankfurt e.V.",
+    "p": 0.509,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.018
    }
   },
   {
@@ -7784,12 +8240,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1639127311,
-    "odds0": -245,
-    "odds1": 199,
-    "dec0": 1.41,
-    "dec1": 2.99,
-    "p0": 0.68,
-    "p1": 0.32,
+    "odds0": -231,
+    "odds1": 189,
+    "dec0": 1.43,
+    "dec1": 2.89,
+    "p0": 0.669,
+    "p1": 0.331,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -7802,8 +8258,8 @@
     "p0": 0.685,
     "p1": 0.315,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 376399.7588,
-    "volume": 86326.365225,
+    "liquidity": 564749.8306,
+    "volume": 114243.623209,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7821,10 +8277,10 @@
     "team_index": 0,
     "team_id": "145233",
     "team": "Movistar KOI",
-    "p": 0.68,
+    "p": 0.669,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.36
+    "margin": 0.337
    }
   },
   {
@@ -7865,12 +8321,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1639136407,
-    "odds0": -450,
-    "odds1": 332,
+    "odds0": -463,
+    "odds1": 340,
     "dec0": 1.22,
-    "dec1": 4.32,
-    "p0": 0.779,
-    "p1": 0.221,
+    "dec1": 4.4,
+    "p0": 0.783,
+    "p1": 0.217,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -7883,8 +8339,8 @@
     "p0": 0.815,
     "p1": 0.185,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 337233.002,
-    "volume": 128364.37551,
+    "liquidity": 428166.751,
+    "volume": 168071.060123,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -7902,10 +8358,10 @@
     "team_index": 0,
     "team_id": "14958",
     "team": "G2 Esports",
-    "p": 0.779,
+    "p": 0.783,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.559
+    "margin": 0.567
    }
   },
   {
@@ -8050,12 +8506,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1639127313,
-    "odds0": 115,
-    "odds1": -135,
-    "dec0": 2.15,
-    "dec1": 1.74,
-    "p0": 0.447,
-    "p1": 0.553,
+    "odds0": 114,
+    "odds1": -134,
+    "dec0": 2.14,
+    "dec1": 1.75,
+    "p0": 0.449,
+    "p1": 0.551,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -8068,8 +8524,8 @@
     "p0": 0.455,
     "p1": 0.545,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 292811.3325,
-    "volume": 139728.53640399998,
+    "liquidity": 408107.5686,
+    "volume": 159640.357381,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -8087,10 +8543,10 @@
     "team_index": 1,
     "team_id": "26929",
     "team": "Karmine Corp",
-    "p": 0.553,
+    "p": 0.551,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.105
+    "margin": 0.101
    }
   },
   {
@@ -8131,12 +8587,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1639127314,
-    "odds0": -254,
-    "odds1": 206,
+    "odds0": -255,
+    "odds1": 207,
     "dec0": 1.39,
-    "dec1": 3.06,
-    "p0": 0.687,
-    "p1": 0.313,
+    "dec1": 3.07,
+    "p0": 0.688,
+    "p1": 0.312,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -8146,11 +8602,11 @@
     "url": "https://polymarket.com/event/lol-ig1-tsw-2026-10-24",
     "event": "lol-ig1-tsw-2026-10-24",
     "question": "LoL: Invictus Gaming vs Team Secret Whales (BO1) - Worlds Group Stage",
-    "p0": 0.695,
-    "p1": 0.305,
+    "p0": 0.685,
+    "p1": 0.315,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 204063.7025,
-    "volume": 34588.155912,
+    "liquidity": 388676.0708,
+    "volume": 54578.46068000001,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -8168,10 +8624,10 @@
     "team_index": 0,
     "team_id": "5531",
     "team": "Invictus Gaming",
-    "p": 0.687,
+    "p": 0.688,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.374
+    "margin": 0.376
    }
   },
   {
@@ -8212,12 +8668,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1639127312,
-    "odds0": 128,
-    "odds1": -150,
-    "dec0": 2.28,
-    "dec1": 1.67,
-    "p0": 0.422,
-    "p1": 0.578,
+    "odds0": 132,
+    "odds1": -156,
+    "dec0": 2.32,
+    "dec1": 1.64,
+    "p0": 0.414,
+    "p1": 0.586,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -8227,11 +8683,11 @@
     "url": "https://polymarket.com/event/lol-hle1-gen-2026-10-24",
     "event": "lol-hle1-gen-2026-10-24",
     "question": "LoL: Hanwha Life Esports vs Gen.G (BO1) - Worlds Group Stage",
-    "p0": 0.425,
-    "p1": 0.575,
+    "p0": 0.415,
+    "p1": 0.585,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 198600.9139,
-    "volume": 69735.537426,
+    "liquidity": 349673.6044,
+    "volume": 86439.498668,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -8249,10 +8705,10 @@
     "team_index": 1,
     "team_id": "6194",
     "team": "Gen.G",
-    "p": 0.578,
+    "p": 0.586,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.155
+    "margin": 0.171
    }
   },
   {
@@ -8293,12 +8749,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1639127310,
-    "odds0": 120,
-    "odds1": -141,
-    "dec0": 2.2,
-    "dec1": 1.71,
-    "p0": 0.437,
-    "p1": 0.563,
+    "odds0": 117,
+    "odds1": -137,
+    "dec0": 2.17,
+    "dec1": 1.73,
+    "p0": 0.444,
+    "p1": 0.556,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -8311,8 +8767,8 @@
     "p0": 0.435,
     "p1": 0.565,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 286352.1987,
-    "volume": 83723.448513,
+    "liquidity": 415721.4635,
+    "volume": 103462.12148100001,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -8330,10 +8786,10 @@
     "team_index": 1,
     "team_id": "10168",
     "team": "T1",
-    "p": 0.563,
+    "p": 0.556,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.126
+    "margin": 0.113
    }
   },
   {
@@ -8374,12 +8830,12 @@
     "league": "League of Legends - World Championship",
     "league_id": 9587,
     "matchup_id": 1639121259,
-    "odds0": -300,
-    "odds1": 238,
+    "odds0": -305,
+    "odds1": 241,
     "dec0": 1.33,
-    "dec1": 3.38,
-    "p0": 0.717,
-    "p1": 0.283,
+    "dec1": 3.41,
+    "p0": 0.72,
+    "p1": 0.28,
     "match_quality": "exact",
     "best_of": 1,
     "listing": "live"
@@ -8392,8 +8848,8 @@
     "p0": 0.755,
     "p1": 0.245,
     "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 315477.741,
-    "volume": 41233.263941,
+    "liquidity": 443127.4257,
+    "volume": 66823.928213,
     "spread": 0.01,
     "match_quality": "exact"
    },
@@ -8411,10 +8867,10 @@
     "team_index": 0,
     "team_id": "5746",
     "team": "Bilibili Gaming",
-    "p": 0.717,
+    "p": 0.72,
     "basis": "market-pinnacle",
     "confidence": "high",
-    "margin": 0.434
+    "margin": 0.439
    }
   },
   {
@@ -9998,6 +10454,58 @@
    }
   },
   {
+   "id": "1081700",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36571",
+   "competition": "4 Nations 2026 Halloween Heist",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-10-26T19:00:00.000Z",
+   "lock_utc": "2026-10-26T18:55:00.000Z",
+   "start_ms": 1793041200000,
+   "lock_ms": 1793040900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "248837",
+    "name": "Inari Esports"
+   },
+   "team1": {
+    "id": "19606",
+    "name": "Bulldog Esports"
+   },
+   "team_history": {
+    "n0": 7,
+    "n1": 6
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/inari-esports-vs-bulldog-esports-4-nations-2026-halloween-heist-1081700",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.512,
+    "p1": 0.488,
+    "r0": 1556,
+    "r1": 1546,
+    "n0": 7,
+    "n1": 6,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "248837",
+    "team": "Inari Esports",
+    "p": 0.512,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0.024
+   }
+  },
+  {
    "id": "1081831",
    "state": "open",
    "forfeit": false,
@@ -10140,7 +10648,7 @@
     "p0": 0.39,
     "p1": 0.61,
     "price_kind": "outcomePrices",
-    "liquidity": 989.4467,
+    "liquidity": 884.4067,
     "volume": 13.766231999999999,
     "spread": 0.08,
     "match_quality": "exact"
@@ -10267,6 +10775,58 @@
     "basis": "model-elo",
     "confidence": "low",
     "margin": 0.012
+   }
+  },
+  {
+   "id": "1083162",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36332",
+   "competition": "RIVALS LEAGUE Season 2",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-10-27T18:00:00.000Z",
+   "lock_utc": "2026-10-27T17:55:00.000Z",
+   "start_ms": 1793124000000,
+   "lock_ms": 1793123700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "54530",
+    "name": "Karolinerna"
+   },
+   "team1": {
+    "id": "263907",
+    "name": "Turbo Gaming"
+   },
+   "team_history": {
+    "n0": 7,
+    "n1": 4
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/karolinerna-vs-turbo-gaming-rivals-league-season-2-1083162",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.466,
+    "p1": 0.534,
+    "r0": 1484,
+    "r1": 1524,
+    "n0": 7,
+    "n1": 4,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "263907",
+    "team": "Turbo Gaming",
+    "p": 0.534,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0.068
    }
   },
   {
@@ -10738,6 +11298,58 @@
    }
   },
   {
+   "id": "1081701",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36571",
+   "competition": "4 Nations 2026 Halloween Heist",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-10-29T19:00:00.000Z",
+   "lock_utc": "2026-10-29T18:55:00.000Z",
+   "start_ms": 1793300400000,
+   "lock_ms": 1793300100000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "265504",
+    "name": "Crownless"
+   },
+   "team1": {
+    "id": "19455",
+    "name": "Absolved"
+   },
+   "team_history": {
+    "n0": 6,
+    "n1": 6
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/crownless-vs-absolved-4-nations-2026-halloween-heist-1081701",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.5,
+    "p1": 0.5,
+    "r0": 1545,
+    "r1": 1545,
+    "n0": 6,
+    "n1": 6,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "265504",
+    "team": "Crownless",
+    "p": 0.5,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0
+   }
+  },
+  {
    "id": "1079145",
    "state": "open",
    "forfeit": false,
@@ -10839,6 +11451,162 @@
     "basis": "model-elo",
     "confidence": "low",
     "margin": 0.018
+   }
+  },
+  {
+   "id": "1083039",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36628",
+   "competition": "Komplettligaen 2026 Autumn Playoffs",
+   "tier": null,
+   "stage": "playoffs",
+   "offered_points": 10,
+   "start_utc": "2026-10-30T17:00:00.000Z",
+   "lock_utc": "2026-10-30T16:55:00.000Z",
+   "start_ms": 1793379600000,
+   "lock_ms": 1793379300000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "255774",
+    "name": "Playwell Rød Q"
+   },
+   "team1": {
+    "id": "207552",
+    "name": "Your Saviours"
+   },
+   "team_history": {
+    "n0": 9,
+    "n1": 10
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/playwell-r-d-q-vs-your-saviours-komplettligaen-2026-autumn-playoffs-1083039",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.615,
+    "p1": 0.385,
+    "r0": 1545,
+    "r1": 1464,
+    "n0": 9,
+    "n1": 10,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "255774",
+    "team": "Playwell Rød Q",
+    "p": 0.615,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0.23
+   }
+  },
+  {
+   "id": "1083040",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36628",
+   "competition": "Komplettligaen 2026 Autumn Playoffs",
+   "tier": null,
+   "stage": "playoffs",
+   "offered_points": 10,
+   "start_utc": "2026-10-30T17:00:00.000Z",
+   "lock_utc": "2026-10-30T16:55:00.000Z",
+   "start_ms": 1793379600000,
+   "lock_ms": 1793379300000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "256687",
+    "name": "VES Japan"
+   },
+   "team1": {
+    "id": "37072",
+    "name": "Rich Gang"
+   },
+   "team_history": {
+    "n0": 10,
+    "n1": 13
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/ves-japan-vs-rich-gang-komplettligaen-2026-autumn-playoffs-1083040",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.488,
+    "p1": 0.512,
+    "r0": 1613,
+    "r1": 1621,
+    "n0": 10,
+    "n1": 13,
+    "confidence": "high"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "37072",
+    "team": "Rich Gang",
+    "p": 0.512,
+    "basis": "model-elo",
+    "confidence": "high",
+    "margin": 0.024
+   }
+  },
+  {
+   "id": "1083041",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36628",
+   "competition": "Komplettligaen 2026 Autumn Playoffs",
+   "tier": null,
+   "stage": "playoffs",
+   "offered_points": 10,
+   "start_utc": "2026-10-30T17:00:00.000Z",
+   "lock_utc": "2026-10-30T16:55:00.000Z",
+   "start_ms": 1793379600000,
+   "lock_ms": 1793379300000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "126625",
+    "name": "Volda E-Sport"
+   },
+   "team1": {
+    "id": "181075",
+    "name": "Ascent Gaming"
+   },
+   "team_history": {
+    "n0": 11,
+    "n1": 10
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/volda-e-sport-vs-ascent-gaming-komplettligaen-2026-autumn-playoffs-1083041",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.494,
+    "p1": 0.506,
+    "r0": 1542,
+    "r1": 1546,
+    "n0": 11,
+    "n1": 10,
+    "confidence": "high"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "181075",
+    "team": "Ascent Gaming",
+    "p": 0.506,
+    "basis": "model-elo",
+    "confidence": "high",
+    "margin": 0.012
    }
   },
   {
@@ -12766,6 +13534,58 @@
    }
   },
   {
+   "id": "1081702",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36571",
+   "competition": "4 Nations 2026 Halloween Heist",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-11-02T19:00:00.000Z",
+   "lock_utc": "2026-11-02T18:55:00.000Z",
+   "start_ms": 1793646000000,
+   "lock_ms": 1793645700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "265462",
+    "name": "Ruddy Ultras"
+   },
+   "team1": {
+    "id": "258970",
+    "name": "Rich Gang UK"
+   },
+   "team_history": {
+    "n0": 6,
+    "n1": 7
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/ruddy-ultras-vs-rich-gang-uk-4-nations-2026-halloween-heist-1081702",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.513,
+    "p1": 0.487,
+    "r0": 1520,
+    "r1": 1509,
+    "n0": 6,
+    "n1": 7,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "265462",
+    "team": "Ruddy Ultras",
+    "p": 0.513,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0.026
+   }
+  },
+  {
    "id": "1079043",
    "state": "open",
    "forfeit": false,
@@ -13023,6 +13843,58 @@
     "basis": "model-elo",
     "confidence": "medium",
     "margin": 0.006
+   }
+  },
+  {
+   "id": "1081703",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36571",
+   "competition": "4 Nations 2026 Halloween Heist",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-11-05T19:00:00.000Z",
+   "lock_utc": "2026-11-05T18:55:00.000Z",
+   "start_ms": 1793905200000,
+   "lock_ms": 1793904900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "232208",
+    "name": "Brod n Friends"
+   },
+   "team1": {
+    "id": "265461",
+    "name": "PNS"
+   },
+   "team_history": {
+    "n0": 6,
+    "n1": 6
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/brod-n-friends-vs-pns-4-nations-2026-halloween-heist-1081703",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.499,
+    "p1": 0.501,
+    "r0": 1522,
+    "r1": 1523,
+    "n0": 6,
+    "n1": 6,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "265461",
+    "team": "PNS",
+    "p": 0.501,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0.002
    }
   },
   {
@@ -14654,8 +15526,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.512,
-    "p1": 0.488,
+    "p0": 0.511,
+    "p1": 0.489,
     "r0": 1517,
     "r1": 1497,
     "n0": 3,
@@ -14666,10 +15538,10 @@
     "team_index": 0,
     "team_id": "199980",
     "team": "Locked IN",
-    "p": 0.512,
+    "p": 0.511,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.024
+    "margin": 0.022
    }
   },
   {
