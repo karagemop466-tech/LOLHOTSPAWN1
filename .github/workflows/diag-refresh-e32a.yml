@@ -98,17 +98,33 @@ jobs:
         if: always()
         run: |
           set -e
-          mkdir -p data/diag
-          cp -f data/verification.json data/diag/verification.json 2>/dev/null || echo '{"note":"no verification.json"}' > data/diag/verification.json
-          cp -f data/sources_status.json data/diag/sources_status.json 2>/dev/null || echo '{"note":"no sources_status.json"}' > data/diag/sources_status.json
+          # The pipeline step dirties every generated file. Park ONLY the
+          # evidence, hard-reset to the pushed branch, then commit cleanly.
+          mkdir -p /tmp/diag-evidence
+          cp -f data/diag/diag.log /tmp/diag-evidence/diag.log 2>/dev/null || echo "no diag.log produced" > /tmp/diag-evidence/diag.log
+          cp -f data/verification.json /tmp/diag-evidence/verification.json 2>/dev/null || echo '{"note":"no verification.json"}' > /tmp/diag-evidence/verification.json
+          cp -f data/sources_status.json /tmp/diag-evidence/sources_status.json 2>/dev/null || echo '{"note":"no sources_status.json"}' > /tmp/diag-evidence/sources_status.json
           git config user.name "arena-diag-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/diag/
-          if git diff --cached --quiet; then
-            echo "no change"
-            exit 0
-          fi
-          git commit -m "chore(diag): refresh stage-by-stage runner log (e32a5c4b E1) [skip ci]"
-          git fetch origin "${GITHUB_REF_NAME}"
-          git rebase -X theirs "origin/${GITHUB_REF_NAME}" || { git rebase --abort; git reset --soft "origin/${GITHUB_REF_NAME}"; git add data/diag/; git commit -m "chore(diag): refresh stage-by-stage runner log (e32a5c4b E1) [skip ci]"; }
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "${GITHUB_REF_NAME}"
+            git reset --hard "origin/${GITHUB_REF_NAME}"
+            mkdir -p data/diag
+            cp -f /tmp/diag-evidence/diag.log data/diag/diag.log
+            cp -f /tmp/diag-evidence/verification.json data/diag/verification.json
+            cp -f /tmp/diag-evidence/sources_status.json data/diag/sources_status.json
+            git add data/diag/
+            if git diff --cached --quiet; then
+              echo "evidence unchanged; nothing to commit"
+              exit 0
+            fi
+            git commit -m "chore(diag): refresh stage-by-stage runner log (e32a5c4b E1) [skip ci]"
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "pushed on attempt ${attempt}"
+              exit 0
+            fi
+            echo "push race (attempt ${attempt}); retrying"
+            sleep $((attempt * 5))
+          done
+          echo "could not push evidence after 5 attempts"
+          exit 1
