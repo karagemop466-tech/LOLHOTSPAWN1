@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:26:48.092844Z",
+ "generated_utc": "2026-10-24T16:34:27.290310Z",
  "data_generated_utc": "2026-10-24T16:26:47Z",
  "rules": {
   "corroboration_only": true,
@@ -14,15 +14,15 @@
    "url": "https://bo3.gg/lol/matches/current",
    "kind": "esports odds display (prices link to the Thunderpick affiliate feed)",
    "runner_reachable": "HTTP 200 from Actions, but the price cells are rendered client-side, so the runner receives no prices",
-   "note": "Displayed clock is UTC-4 (US Eastern). 13:00 on the page == 17:00Z, matching Hotspawn/Pinnacle."
+   "note": "Displayed clock is US Eastern (UTC-4 in EDT, UTC-5 in EST). 13:00 on 2026-10-24 == 17:00Z, matching Hotspawn fixture 1067688."
   },
   {
    "key": "egamersworld",
    "name": "EGamersWorld LoL",
    "url": "https://egamersworld.com/lol/matches",
    "kind": "esports odds aggregator (best-price average across books)",
-   "runner_reachable": "HTTP 403 from Actions (bot protection); readable from a browser user-agent",
-   "note": "Displayed clock is UTC-4 (US Eastern). Prices moved between two reads 4 minutes apart; both reads are recorded."
+   "runner_reachable": "HTTP 403 from Actions (bot protection); readable from a research sandbox",
+   "note": "Displayed clock is US Eastern (UTC-4 in EDT, UTC-5 in EST). Verified against Hotspawn on 2026-10-24 (EDT) and on the 2026-11-10/11 LCP cards (EST)."
   },
   {
    "key": "oddsportal",
@@ -64,6 +64,30 @@
    "observation": "The match centre lists only the 8 Worlds 2026 matches for 2026-10-23, each with a decimal pair. No national-division match appears on the page at all.",
    "verbatim": "today, October 23 ... Worlds 2026 (x8)",
    "_file": "2026-10-23.json"
+  },
+  {
+   "source": "bo3gg",
+   "captured_utc": "2026-10-24T16:19:00Z",
+   "url": "https://bo3.gg/lol/matches/current",
+   "observation": "bo3.gg's LoL match centre listed exactly 8 cards on 2026-10-24, all of them 'Worlds 2026' (s-tier). No tier-2, national or academy league appeared anywhere on the page, so bo3.gg cannot price the long tail of the Hotspawn list.",
+   "verbatim": "s-tier | Time | Match | Prediction | Tournament ... Worlds 2026 (x8)",
+   "_file": "2026-10-24-longtail.json"
+  },
+  {
+   "source": "egamersworld",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "url": "https://egamersworld.com/lol/matches",
+   "observation": "EGamersWorld listed 8 Worlds 2026 cards for 2026-10-24 plus exactly three non-Worlds cards: LGC 2026 Rising (2026-10-27) and two LCP 2027 Promotion cards (2026-11-10, 2026-11-11). That is the widest external LoL coverage found anywhere so far - 11 priced series against Hotspawn's 241 scheduled cards - and it is still confined to international/regional-tier events. Not one of the 29 national, academy or third-division tournaments on Hotspawn is priced.",
+   "verbatim": "27.10.26 Upcoming Matches - LGC 2026 Rising ... 10.11.26 / 11.11.26 Upcoming Matches - LCP 2027 Promotion",
+   "_file": "2026-10-24-longtail.json"
+  },
+  {
+   "source": "egamersworld",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "url": "https://egamersworld.com/lol/event/lcp-2027-promotion-eDTgthgYk",
+   "observation": "The 2026-10-23 retirement of the Ground Zero Gaming / Frank Esports line is now contradicted: that page shows the symmetric 1.80/1.80 placeholder only some of the time. Read on 2026-10-24 it again publishes 1.025 / 10.50, the same price the repository archived on 2026-10-21 and then retired as 'unverifiable'. The price is real; the placeholder was a transient page state.",
+   "verbatim": "Ground Zero Gaming 11.11.26 04:00 Bo5 Frank Esports | 1.025  Make a bet  10.5",
+   "_file": "2026-10-24-longtail.json"
   }
  ],
  "summary": {
@@ -76,20 +100,20 @@
    "provisional": 77,
    "market": 9
   },
-  "receipts": 18,
-  "usable_receipts": 17,
-  "placeholders": 1,
+  "receipts": 37,
+  "usable_receipts": 19,
+  "placeholders": 2,
   "rejected_receipts": 0,
-  "retired_receipts": 0,
-  "agrees": 17,
-  "diverges": 0,
+  "retired_receipts": 16,
+  "agrees": 18,
+  "diverges": 1,
   "conflicting": 1,
-  "max_delta_pp": 3.9,
-  "mean_delta_pp": 1.16,
+  "max_delta_pp": 66.3,
+  "mean_delta_pp": 4.65,
   "divergence_threshold_pp": 8.0,
-  "competitions_with_external_price": 2,
-  "competitions_without_external_price": 25,
-  "competitions_conflicting_only": 1
+  "competitions_with_external_price": 3,
+  "competitions_without_external_price": 24,
+  "competitions_conflicting_only": 0
  },
  "archived_venue_audit": {
   "source_file": "archive/session-8336fb7e/data/book_receipts.json",
@@ -184,7 +208,7 @@
   {
    "competition": "RIVALS LEAGUE Season 2",
    "fixtures": 28,
-   "future": 21,
+   "future": 15,
    "method": {
     "provisional": 11,
     "model": 17
@@ -341,8 +365,10 @@
     "model": 2,
     "provisional": 1
    },
-   "external_priced": 0,
-   "external_sources": [],
+   "external_priced": 1,
+   "external_sources": [
+    "EGamersWorld LoL"
+   ],
    "conflicting": 1,
    "conflicting_sources": [
     "EGamersWorld LoL"
@@ -461,7 +487,7 @@
    "method": {
     "market": 1
    },
-   "external_priced": 1,
+   "external_priced": 2,
    "external_sources": [
     "EGamersWorld LoL"
    ],
@@ -1111,9 +1137,282 @@
    "overround": 0.0795,
    "delta_pp": -0.12,
    "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1079080",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/event/lgc-2026-rising-CVSRRqh2Q",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "LGC 2026 Rising | Vitality Rising Bees 27.10.26 13:00 Mental Rush | 1.41  Make a bet  2.59",
+   "receipt_file": "2026-10-24-longtail.json",
+   "competition": "LGC Rising 2026 Playoffs",
+   "start_utc": "2026-10-27T17:00:00Z",
+   "our_team0": "Mental Rush",
+   "our_team1": "Vitality Rising Bees",
+   "our_p0": 0.33,
+   "our_p1": 0.67,
+   "our_method": "market",
+   "our_pick": "Vitality Rising Bees",
+   "hotspawn_url": "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080",
+   "name_match": "tolerant",
+   "page_team0": "Mental Rush",
+   "page_team1": "Vitality Rising Bees",
+   "decimal": [
+    2.59,
+    1.41
+   ],
+   "swapped": true,
+   "status": "usable",
+   "ext_p0": 0.3525,
+   "ext_p1": 0.6475,
+   "overround": 0.0953,
+   "delta_pp": 2.25,
+   "verdict": "agrees"
+  },
+  {
+   "fixture_id": "1081421",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/event/lcp-2027-promotion-eDTgthgYk",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "LCP 2027 Promotion | FENNEL 10.11.26 00:00 Nothin'Here | 1.8  Make a bet  1.8 (symmetric 1.80/1.80 - the aggregator's 'no price yet' default, recorded, never used)",
+   "receipt_file": "2026-10-24-longtail.json",
+   "competition": "LCP 2027 Promotion",
+   "start_utc": "2026-11-10T05:00:00Z",
+   "our_team0": "FENNEL",
+   "our_team1": "Nothin'Here",
+   "our_p0": 0.4031,
+   "our_p1": 0.5969,
+   "our_method": "model",
+   "our_pick": "Nothin'Here",
+   "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothin-here-lcp-2027-promotion-1081421",
+   "name_match": "exact",
+   "page_team0": "FENNEL",
+   "page_team1": "Nothin'Here",
+   "decimal": [
+    1.8,
+    1.8
+   ],
+   "swapped": false,
+   "status": "placeholder",
+   "reason": "symmetric 1.80/1.80 is the aggregator's 'no price' default, not a line",
+   "ext_p0": null,
+   "ext_p1": null,
+   "delta_pp": null,
+   "verdict": "not usable"
+  },
+  {
+   "fixture_id": "1081423",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/event/lcp-2027-promotion-eDTgthgYk",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "LCP 2027 Promotion | Ground Zero Gaming 11.11.26 04:00 Bo5 Frank Esports | 1.025  Make a bet  10.5",
+   "receipt_file": "2026-10-24-longtail.json",
+   "competition": "LCP 2027 Promotion",
+   "start_utc": "2026-11-11T09:00:00Z",
+   "our_team0": "Ground Zero Gaming",
+   "our_team1": "Frank Esports",
+   "our_p0": 0.2481,
+   "our_p1": 0.7519,
+   "our_method": "model",
+   "our_pick": "Frank Esports",
+   "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423",
+   "name_match": "exact",
+   "page_team0": "Ground Zero Gaming",
+   "page_team1": "Frank Esports",
+   "decimal": [
+    1.025,
+    10.5
+   ],
+   "swapped": false,
+   "status": "usable",
+   "ext_p0": 0.9111,
+   "ext_p1": 0.0889,
+   "overround": 0.0708,
+   "delta_pp": 66.3,
+   "verdict": "diverges"
   }
  ],
  "rejected": [],
- "retired": [],
+ "retired": [
+  {
+   "fixture_id": "1067688",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-24T16:19:00Z",
+   "verbatim": "13:00 Top Esports Bo1 Anyone's Legend 20 - 1 | 1 2.60  2 1.45  +120 | Worlds 2026",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067881",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-24T16:19:00Z",
+   "verbatim": "14:00 CTBC Flying Oyster Bo1 Movistar KOI 20 - 1 | 1 2.90  2 1.35  +120 | Worlds 2026",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067686",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-24T16:19:00Z",
+   "verbatim": "15:00 G2 Esports Bo1 LOS 11 - 0 | 1 1.20  2 4.00  +116 | Worlds 2026",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067684",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-24T16:19:00Z",
+   "verbatim": "16:00 LYON Bo1 Karmine Corp 20 - 1 | 1 2.10  2 1.65  +122 | Worlds 2026",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067687",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-24T16:19:00Z",
+   "verbatim": "17:00 Invictus Gaming Bo1 Team Secret Whales 11 - 0 | 1 1.32  2 3.10  +121 | Worlds 2026",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067683",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-24T16:19:00Z",
+   "verbatim": "18:00 Hanwha Life Esports Bo1 Gen.G Esports 11 - 0 | 1 2.20  2 1.58  +123 | Worlds 2026",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067880",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-24T16:19:00Z",
+   "verbatim": "19:00 Dplus KIA Bo1 T1 11 - 0 | 1 2.10  2 1.65  +124 | Worlds 2026",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067689",
+   "source": "bo3gg",
+   "source_name": "bo3.gg LoL match centre",
+   "page_url": "https://bo3.gg/lol/matches/current",
+   "captured_utc": "2026-10-24T16:19:00Z",
+   "verbatim": "20:00 Team Liquid Bo1 Bilibili Gaming 20 - 1 | 1 3.20  2 1.30  +119 | Worlds 2026",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067688",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/matches",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "2026 World Championship | Top Esports 24.10.26 13:00 Bo1 AG.AL | 2.51  Make a bet  1.45",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067881",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/matches",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "2026 World Championship | CTBC Flying Oyster 24.10.26 14:00 Bo1 Movistar KOI | 2.91  Make a bet  1.36",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067686",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/matches",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "2026 World Championship | G2 Esports 24.10.26 15:00 Bo1 LOS | 1.14  Make a bet  4.87",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067684",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/matches",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "2026 World Championship | LYON 24.10.26 16:00 Bo1 Karmine Corp | 2.09  Make a bet  1.64",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067687",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/matches",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "2026 World Championship | Secret Whales 24.10.26 17:00 Bo1 Invictus Gaming | 3.01  Make a bet  1.37",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067683",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/matches",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "2026 World Championship | Hanwha Life Esports 24.10.26 18:00 Bo1 Gen.G | 2.16  Make a bet  1.65",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067880",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/matches",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "2026 World Championship | T1 24.10.26 19:00 Bo1 Dplus KIA | 1.65  Make a bet  2.08",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  },
+  {
+   "fixture_id": "1067689",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/matches",
+   "captured_utc": "2026-10-24T16:28:00Z",
+   "verbatim": "2026 World Championship | Team Liquid 24.10.26 20:00 Bo1 Bilibili Gaming | 3.2  Make a bet  1.32",
+   "receipt_file": "2026-10-24-longtail.json",
+   "status": "retired",
+   "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); kept as historical evidence, excluded from live corroboration"
+  }
+ ],
  "problems": []
 }

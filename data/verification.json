@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:26:48Z",
+ "generated_utc": "2026-10-24T16:34:27Z",
  "checks": [
   {
    "name": "dataset present",
@@ -190,13 +190,13 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "17 usable receipts, 0 defective, 0 retired (fixture no longer listed on Hotspawn - expected lifecycle, not an error)",
+   "detail": "19 usable receipts, 0 defective, 16 retired (fixture no longer listed on Hotspawn - expected lifecycle, not an error)",
    "severity": "critical"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 48946 bytes",
+   "detail": "coverage.html 61411 bytes",
    "severity": "critical"
   },
   {
@@ -246,18 +246,18 @@
   {
    "name": "curated flags cite only currently listed fixtures",
    "ok": true,
-   "detail": "10 curated flags scanned; stale references: []",
+   "detail": "13 curated flags scanned; stale references: []",
    "severity": "advisory"
   },
   {
    "name": "external corroboration agrees with our published line",
-   "ok": true,
-   "detail": "0 receipt(s) more than 8.0pp from our line; corroboration only - it cannot change a pick, so it never blocks a refresh",
+   "ok": false,
+   "detail": "1 receipt(s) more than 8.0pp from our line; corroboration only - it cannot change a pick, so it never blocks a refresh",
    "severity": "advisory"
   }
  ],
  "passed": true,
- "passed_strict": true,
+ "passed_strict": false,
  "critical_checks": 40,
  "advisory_checks": 2,
  "rows_checked": 241,

@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-24T16:26:47Z",
- "count": 27,
+ "generated_utc": "2026-10-24T16:31:50Z",
+ "count": 30,
  "flags": [
   {
    "severity": "high",
@@ -77,6 +77,51 @@
    "detail": "In the 2026-10-23 snapshot, 171 of 241 cards return tier=null and the rest return a single letter (c 49, s 11, d 9, a 1). Tier is reproduced verbatim from the API and never inferred from the league name, so it is not used to select a pricing method.",
    "source": "https://play.hotspawn.com/lol-pickems",
    "verification": "verified from data/raw/hotspawn_lol.json (counts recomputed on this build)"
+  },
+  {
+   "severity": "high",
+   "item": "Fixture 1081423: a live external moneyline contradicts the published pick by 66.3 percentage points [captured verbatim 2026-10-24T16:28Z into data/receipts/external_odds/2026-10-24-longtail.json; Hotspawn kick-off 2026-11-11T09:00:00Z for fixture 1081423 confirmed against the live fixtures API snapshot in data/node/raw/hotspawn_lol_fixtures.json (fetched 2026-10-24T15:34:30Z); page clock is US Eastern, 04:00 on 11.11.2026 == 09:00Z (EST, UTC-5)]",
+   "detail": "Ground Zero Gaming vs Frank Esports (LCP 2027 Promotion, 2026-11-11 09:00Z) is published as Frank Esports 75.2% / Ground Zero Gaming 24.8% from our Elo line (Ground Zero Gaming 1511 vs Frank Esports 1703). Read on 2026-10-24T16:28Z, EGamersWorld publishes 1.025 / 10.50 for the same card, which de-vigs to Ground Zero Gaming 91.1% / Frank Esports 8.9% - a 66.3 pp gap and the opposite side. Two things make the external line credible: (1) this repository archived the identical 1.025/10.50 price on 2026-10-21 and then retired it as unverifiable because the page was showing symmetric 1.80/1.80 placeholders on 2026-10-23 - today's read shows the placeholder was a transient page state, so the retirement reason no longer holds; (2) an existing curated flag already records that Leaguepedia's Frank Esports rating may aggregate a cross-division PCS/LDL roster rather than the LCP promotion team, which is exactly the error that would inflate Frank Esports to 1703. The pick is left as published - a corroboration receipt is not an input to the model - but it should be treated as contested until the roster question is settled. The gap is reported by tools/corroborate.py on coverage.html as a divergence.",
+   "source": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
+   "verification": "captured verbatim 2026-10-24T16:28Z into data/receipts/external_odds/2026-10-24-longtail.json; Hotspawn kick-off 2026-11-11T09:00:00Z for fixture 1081423 confirmed against the live fixtures API snapshot in data/node/raw/hotspawn_lol_fixtures.json (fetched 2026-10-24T15:34:30Z); page clock is US Eastern, 04:00 on 11.11.2026 == 09:00Z (EST, UTC-5)",
+   "delisted_refs": []
+  },
+  {
+   "severity": "high",
+   "item": "The published list was missing 20 live Hotspawn fixtures because refresh-picks failed four scheduled runs in a row [independent cross-pipeline comparison, 2026-10-24: canonical data/matches.json (inventory 2026-10-23T17:11:12Z, 241 rows) vs data/node/raw/hotspawn_lol_fixtures.json (fetched 2026-10-24T15:34:30Z, 241 scheduled of 1540 total). The eight Worlds kick-off times were separately confirmed against bo3.gg and EGamersWorld, which list the same eight cards on 2026-10-24 at the same US Eastern times.]",
+   "detail": "The canonical dataset was frozen at 2026-10-23T17:11:12Z while Hotspawn had already rotated its scheduled list. Comparing the published rows with the fixtures API snapshot the secondary pipeline fetched on 2026-10-24T15:34:30Z: 20 fixtures on the live feed are absent from the published site - all eight Worlds 2026 Main Event cards for 2026-10-24/25, four 4 Nations 2026 Halloween Heist cards, three Komplettligaen 2026 Autumn Playoffs cards, four Logitech G SuperStrike Cup Qualifier cards and one RIVALS LEAGUE Season 2 card - and 20 published rows had already been played and left the feed. Cause: the publish gate 'external receipts validated against the dataset' treated a book receipt whose fixture had simply been played as a hard failure, so committing any receipt guaranteed a self-inflicted outage within about a day. Failed runs: 40026767003, 40063260000, 40088464687, 40109474033. Fixed on branch arena/62ba9cfe-lolhotspawn1: such receipts are now retired rather than rejected, and corroboration-only checks are advisory, so they can never stop a data refresh again. The list below is the set of fixtures that were missing at the time this was written; it will be empty on the first successful refresh after the merge.",
+   "source": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
+   "verification": "independent cross-pipeline comparison, 2026-10-24: canonical data/matches.json (inventory 2026-10-23T17:11:12Z, 241 rows) vs data/node/raw/hotspawn_lol_fixtures.json (fetched 2026-10-24T15:34:30Z, 241 scheduled of 1540 total). The eight Worlds kick-off times were separately confirmed against bo3.gg and EGamersWorld, which list the same eight cards on 2026-10-24 at the same US Eastern times.",
+   "delisted_refs": [
+    "1067683",
+    "1067684",
+    "1067686",
+    "1067687",
+    "1067688",
+    "1067689",
+    "1067880",
+    "1067881",
+    "1081700",
+    "1081701",
+    "1081702",
+    "1081703",
+    "1083039",
+    "1083040",
+    "1083041",
+    "1083096",
+    "1083097",
+    "1083098",
+    "1083105",
+    "1083162"
+   ]
+  },
+  {
+   "severity": "medium",
+   "item": "The 'displayed clock is UTC-4' note for bo3.gg and EGamersWorld is only correct until 2026-11-01 [three independent fixture/page time pairs reconciled against the Hotspawn fixtures API on 2026-10-24; DST end date 2026-11-01 is the US federal rule (first Sunday in November)]",
+   "detail": "data/corroboration.json records both aggregators as 'Displayed clock is UTC-4 (US Eastern)'. Both actually display US Eastern local time, which is UTC-4 during EDT and UTC-5 during EST. US daylight saving ends on 2026-11-01, so from that date the same note is off by an hour and any receipt mapped with it lands on the wrong fixture. Verified both ways: 13:00 on 24.10.2026 (EDT) == 17:00Z, matching fixture 1067688; 00:00 on 10.11.2026 (EST) == 05:00Z, matching fixture 1081421; 04:00 on 11.11.2026 (EST) == 09:00Z, matching fixture 1081423. The correction is written into the receipt file header and into research/LONGTAIL_VENUES.md; the wording in data/corroboration.json is generated by tools/corroborate.py and is corrected there.",
+   "source": "https://egamersworld.com/lol/event/lcp-2027-promotion-eDTgthgYk",
+   "verification": "three independent fixture/page time pairs reconciled against the Hotspawn fixtures API on 2026-10-24; DST end date 2026-11-01 is the US federal rule (first Sunday in November)",
+   "delisted_refs": []
   },
   {
    "severity": "info",

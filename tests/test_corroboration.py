@@ -148,6 +148,21 @@ class CorroborationReceiptLifecycleTests(unittest.TestCase):
         self.assertTrue(all(r["status"] in ("malformed", "unmatched") for r in doc["rejected"]))
         self.assertEqual(doc["summary"]["rejected_receipts"], 3)
 
+    def test_egamersworld_ticker_ag_al_matches_hotspawns_full_name(self):
+        """EGamersWorld writes 'AG.AL' where Hotspawn writes "Anyone's Legend" (fixture 1067688).
+
+        Without the alias the receipt is filed as defective and the publish gate blocks the refresh,
+        so the alias is load-bearing, not cosmetic.
+        """
+        self.assertTrue(corroborate.same("AG.AL", "Anyone's Legend"))
+        self.assertTrue(corroborate.same("Anyone's Legend", "AG.AL"))
+        self.write_dataset([_match("1067688", "Top Esports", "Anyone's Legend")])
+        self.write_receipts([_capture("1067688", decimal=(2.51, 1.45),
+                                      page_teams=("Top Esports", "AG.AL"))])
+        doc = self.run_build()
+        self.assertEqual(doc["rejected"], [])
+        self.assertEqual(doc["rows"][0]["status"], "usable")
+
     def test_placeholder_quote_is_quarantined_neither_retired_nor_rejected(self):
         self.write_dataset([_match("1000001")])
         self.write_receipts([_capture("1000001", decimal=(1.80, 1.80))])

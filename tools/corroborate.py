@@ -88,7 +88,12 @@ def pp(value) -> str:
 
 GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", "lol", "e", "v"}
 RECEIPT_ALIASES = {"team secret": "team secret whales", "secret whales": "team secret whales",
-                   "lyon gaming": "lyon", "l s": "los", "l o s": "los"}
+                   "lyon gaming": "lyon", "l s": "los", "l o s": "los",
+                   # EGamersWorld shortens "Anyone's Legend" (LPL) to the org's ticker "AG.AL".
+                   # Hotspawn writes the full name. Verified against the same card on two pages:
+                   # bo3.gg/lol/matches/top-esports-lol-vs-anyones-legend-24-10-2026 and
+                   # egamersworld.com/lol/match/.../top-esports-vs-agal-p1yWEbksN, both 2026-10-24.
+                   "ag al": "anyones legend"}
 
 
 def same(a: str, b: str) -> bool:
