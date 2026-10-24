@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-24T18:46:07.292Z",
+  "fetched_at": "2026-10-24T18:51:58.203Z",
   "duration_s": 9,
   "hotspawn_fixtures": 1552,
   "hotspawn_lobby_ids": 152,
@@ -7,55 +7,55 @@
   "pinnacle_matchups": 7,
   "pinnacle_excluded_kills": 6,
   "polymarket_events": 20,
-  "kalshi_events": 8,
+  "kalshi_events": 7,
   "bovada_events": 8,
   "kambi_events": 6,
   "dq_competitions": 1,
   "log": [
     {
-      "ts": "2026-10-24T18:45:59.823Z",
+      "ts": "2026-10-24T18:51:50.739Z",
       "source": "hotspawn",
       "msg": "fixtures API: 1552 LoL fixtures ({\"ended\":1168,\"cancelled\":80,\"scheduled\":241,\"forfeited\":63})",
       "ok": true
     },
     {
-      "ts": "2026-10-24T18:46:02.000Z",
+      "ts": "2026-10-24T18:51:52.371Z",
       "source": "hotspawn-lobby",
       "msg": "SSR page fetched (1538332 bytes), 152 match permalinks, tiers counts [241]",
       "ok": true
     },
     {
-      "ts": "2026-10-24T18:46:02.219Z",
+      "ts": "2026-10-24T18:51:52.494Z",
       "source": "pinnacle",
       "msg": "1 LoL leagues: League of Legends - World Championship(9587)",
       "ok": true
     },
     {
-      "ts": "2026-10-24T18:46:02.614Z",
+      "ts": "2026-10-24T18:51:53.594Z",
       "source": "polymarket",
       "msg": "20 LoL events kept (1 pages fetched)",
       "ok": true
     },
     {
-      "ts": "2026-10-24T18:46:02.725Z",
+      "ts": "2026-10-24T18:51:53.635Z",
       "source": "kalshi",
-      "msg": "8 open CFTC KXLOLGAME match events",
+      "msg": "7 open CFTC KXLOLGAME match events",
       "ok": true
     },
     {
-      "ts": "2026-10-24T18:46:03.404Z",
+      "ts": "2026-10-24T18:51:54.252Z",
       "source": "bovada",
       "msg": "runner geo-filtered (0 events) — preserved <12h snapshot (8 events)",
       "ok": false
     },
     {
-      "ts": "2026-10-24T18:46:03.606Z",
+      "ts": "2026-10-24T18:51:54.509Z",
       "source": "kambi",
       "msg": "6 Unibet/Kambi (ubse) LoL match moneylines",
       "ok": true
     },
     {
-      "ts": "2026-10-24T18:46:07.292Z",
+      "ts": "2026-10-24T18:51:58.203Z",
       "source": "leaguepedia-dq",
       "msg": "wiki unreachable (HTTP 403) — preserved previous dqteams ledger",
       "ok": false
