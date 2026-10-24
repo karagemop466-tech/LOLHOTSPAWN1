@@ -1391,3 +1391,4 @@ data produced by the existing pipeline. **Not touched:** `tools/collect.py`, `to
    genuinely *upcoming* is 164, which is the number a reader should compare the market ceiling to.
 4. `Bovada 0 series` on the 16:21Z build is a geo-filter of the runner, not an absence of markets;
    the collector retries it every build and `sources.html` records the verdict.
+| PR #68 (this record) | merged **2026-10-24T16:36Z**, merge commit `fb40fed`; `pages-build-deployment` run `40111683564` **success**, `gh api …/pages` → `status: built`. Live `index.html` re-fetched: snapshot 16:21 UTC, inventory 2 min old, six one-tap picks links, *Next up* strip, *Unresolved picks and the limitations (4)*. Live `table.html` re-fetched: 241 rows, both probabilities, pick, method, Hotspawn + venue + results link on every row, `Upcoming only 164` filter present |
