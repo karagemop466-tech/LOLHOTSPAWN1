@@ -20,8 +20,8 @@
   <div class="pagehead">
     <h1>Hotspawn LoL Pick Desk</h1>
     <p class="sub">Independent win probabilities and a pick for every League of Legends match in the Hotspawn pick'em.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-24 16:57 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-24T16:55:09Z">Hotspawn inventory collected: 2026-10-24T16:55:09Z. Check source timestamps before use.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-24 17:04 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-24T17:02:51Z">Hotspawn inventory collected: 2026-10-24T17:02:51Z. Check source timestamps before use.</p>
   </div>
   
 <section class="hero" id="start">
@@ -93,7 +93,7 @@
     We probed <strong>45 external venues</strong> from the build runner (established books,
     esportsbooks, exchanges, odds aggregators); 21 answered and 11
     returned JSON. On this build the feeds that actually quoted a listed match were:
-    <strong>Pinnacle 8 series</strong>, <strong>Bovada 8 series</strong>, <strong>Unibet (Kambi) 8 series</strong>, <strong>Kalshi 8 contracts</strong>, <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds 2026 ties. Everything below that ceiling
+    <strong>Pinnacle 8 series</strong>, <strong>Bovada 7 series</strong>, <strong>Unibet (Kambi) 8 series</strong>, <strong>Kalshi 8 contracts</strong>, <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds 2026 ties. Everything below that ceiling
     has no external line to quote, so we originate it ourselves.
     Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Extra sources tried for the low-tier tail.</strong> 17 further esportsbook and odds-aggregator endpoints were called from the build runner on 2026-10-24 16:20 UTC: <strong>0 returned a machine-readable LoL price</strong> (3 blocked or key-gated, 4 browser-only pages, 10 error or empty responses). Those leagues therefore keep the originated line rather than a borrowed or invented quote. <a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; <a href="sources.html">Sources</a>. A separate 52-venue low-tier probe (2026-10-24) is documented in the <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/low-tier-sources-2026-10-24.md" rel="noopener">research memo and receipts</a>; see the <a href="unresolved.html#fallback">competition-by-competition fallback ledger</a>.</li>
@@ -105,7 +105,7 @@
     are source observations, not official verification; originated lines are model estimates from
     community-maintained Leaguepedia history; any walkover grade instead of Hotspawn's published void
     rule remains conditional &mdash; see <a href="flagged.html">Flagged for review</a>.</li>
-    <li><strong>Verification.</strong> 12 of the 18 polled feeds answered on the
+    <li><strong>Verification.</strong> 10 of the 18 polled feeds answered on the
     last build, every row links to its official source, and the 43-check publish gate
     (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
     probabilities fail to sum to 100%, or an internal link breaks.</li>
