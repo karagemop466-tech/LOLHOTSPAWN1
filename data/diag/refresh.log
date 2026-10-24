@@ -1,14 +1,21 @@
-=== diag 2026-10-24T16:22:24Z ref=arena/80c624cd-lolhotspawn1 sha=d722dc7dddbac1edf7786d14afc703cdaf16ca36 ===
+=== diag 2026-10-24T16:25:04Z ref=arena/80c624cd-lolhotspawn1 sha=ff319cc60611678290c247d2e0ddb489541887d7 ===
 --- unittest ---
 test_age_hours (test_corroborate.ReceiptLedgerTests.test_age_hours) ... ok
 test_buckets (test_corroborate.ReceiptLedgerTests.test_buckets) ... ok
 test_expired_is_never_counted_as_usable_evidence (test_corroborate.ReceiptLedgerTests.test_expired_is_never_counted_as_usable_evidence) ... ok
 test_historic_receipt_is_not_a_rejection (test_corroborate.ReceiptLedgerTests.test_historic_receipt_is_not_a_rejection) ... ok
 test_ledger_accounts_for_every_receipt (test_corroborate.ReceiptLedgerTests.test_ledger_accounts_for_every_receipt) ... ok
+test_every_graded_row_cites_its_source (test_grading.GradingTests.test_every_graded_row_cites_its_source) ... ok
+test_grade_only_with_result (test_grading.GradingTests.test_grade_only_with_result) ... ok
+test_grade_values (test_grading.GradingTests.test_grade_values) ... ok
+test_hit_miss_matches_winner_side (test_grading.GradingTests.test_hit_miss_matches_winner_side) ... ok
+test_result_scores_agree_with_winner (test_grading.GradingTests.test_result_scores_agree_with_winner) ... ok
+test_settlement_picks_never_carry_probability (test_grading.GradingTests.test_settlement_picks_never_carry_probability) ... ok
+test_track_record_matches_rows (test_grading.GradingTests.test_track_record_matches_rows) ... ok
 test_competition_page_disambiguates_homonyms_before_global_exact (test_integrity.IntegrityTests.test_competition_page_disambiguates_homonyms_before_global_exact) ... ok
 test_invalid_probabilities (test_integrity.IntegrityTests.test_invalid_probabilities) ... ok
 test_live_venue_name_aliases (test_integrity.IntegrityTests.test_live_venue_name_aliases) ... ok
-test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [16:22:24] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
+test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [16:25:04] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
 ok
 test_published_dataset_and_html_invariants (test_integrity.IntegrityTests.test_published_dataset_and_html_invariants) ... ok
 test_settlement_pick_is_valid_without_probability (test_integrity.IntegrityTests.test_settlement_pick_is_valid_without_probability) ... ok
@@ -21,24 +28,24 @@ test_valid (test_integrity.IntegrityTests.test_valid) ... ok
 test_wrong_team_same_probability (test_integrity.IntegrityTests.test_wrong_team_same_probability) ... ok
 
 ----------------------------------------------------------------------
-Ran 18 tests in 0.099s
+Ran 25 tests in 0.068s
 
 OK
 unittest exit: 0
 --- tools/collect.py ---
-[16:22:25] hotspawn: 241 LoL fixtures
-[16:22:28] pinnacle: 136 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
-[16:22:28] kalshi: 9 CFTC match events (status=200)
-[16:22:29] bovada: 8 LoL moneylines (status=200)
-[16:22:29] kambi: 8 Unibet/Kambi LoL match moneylines (status=200)
-[16:23:36] leaguepedia: 34664 series rows, 11 pages with dqteams (err='')
-[16:23:36] lolesports: 80 Worlds events (status=200)
-[16:23:36] polymarket: 45 match-level markets (status=200)
-[16:23:42] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[16:25:05] hotspawn: 241 LoL fixtures
+[16:25:08] pinnacle: 136 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
+[16:25:08] kalshi: 9 CFTC match events (status=200)
+[16:25:09] bovada: 0 LoL moneylines (status=200)
+[16:25:09] kambi: 8 Unibet/Kambi LoL match moneylines (status=200)
+[16:26:12] leaguepedia: 34663 series rows, 11 pages with dqteams (err='')
+[16:26:12] lolesports: 80 Worlds events (status=200)
+[16:26:13] polymarket: 45 match-level markets (status=200)
+[16:26:18] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 tools/collect.py exit: 0
 --- tools/model.py ---
-[16:24:03] rows=241 methods={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} joins=33
-[16:24:03] backtest n=3896 acc=0.6496 brier=0.2185
+[16:26:57] rows=241 methods={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} joins=33
+[16:26:57] backtest n=3896 acc=0.6491 brier=0.2185
 tools/model.py exit: 0
 --- tools/report.py ---
 {
@@ -176,27 +183,27 @@ NON-EXACT JOINS 16
   competition-page | Team Gromp -> Team Gromp (Australian Team) | resolved within 'LCP/2027 Season/Promotion' to 'Team Gromp (Australian Team)' rather than 
 
 PRICED 9
-  Worlds 2026 Main Event | ['Top Esports', "Anyone's Legend"] 0.3682 {'home': 2.55, 'away': 1.544}
-  Worlds 2026 Main Event | ['Movistar KOI', 'CTBC Flying Oyster'] 0.6799 {'home': 1.4, 'away': 3.03}
-  Worlds 2026 Main Event | ['G2 Esports', 'LØS'] 0.796 {'home': 1.226, 'away': 4.28}
-  Worlds 2026 Main Event | ['LYON', 'Karmine Corp'] 0.4524 {'home': 2.15, 'away': 1.741}
-  Worlds 2026 Main Event | ['Invictus Gaming', 'Team Secret Whales'] 0.6897 {'home': 1.392, 'away': 3.07}
-  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Gen.G'] 0.4195 {'home': 2.32, 'away': 1.641}
-  Worlds 2026 Main Event | ['Dplus KIA', 'T1'] 0.4335 {'home': 2.17, 'away': 1.73}
-  Worlds 2026 Main Event | ['Bilibili Gaming', 'Team Liquid'] 0.7337 {'home': 1.328, 'away': 3.41}
+  Worlds 2026 Main Event | ['Top Esports', "Anyone's Legend"] 0.3681 {'home': 2.55, 'away': 1.544}
+  Worlds 2026 Main Event | ['Movistar KOI', 'CTBC Flying Oyster'] 0.6821 {'home': 1.4, 'away': 3.03}
+  Worlds 2026 Main Event | ['G2 Esports', 'LØS'] 0.7966 {'home': 1.226, 'away': 4.28}
+  Worlds 2026 Main Event | ['LYON', 'Karmine Corp'] 0.4501 {'home': 2.15, 'away': 1.741}
+  Worlds 2026 Main Event | ['Invictus Gaming', 'Team Secret Whales'] 0.6875 {'home': 1.392, 'away': 3.07}
+  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Gen.G'] 0.4183 {'home': 2.32, 'away': 1.641}
+  Worlds 2026 Main Event | ['Dplus KIA', 'T1'] 0.4343 {'home': 2.17, 'away': 1.73}
+  Worlds 2026 Main Event | ['Bilibili Gaming', 'Team Liquid'] 0.7368 {'home': 1.328, 'away': 3.41}
   LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.385 None
 tools/report.py exit: 0
 --- tools/flags.py ---
-[16:24:03] flags: 27 items
+[16:26:57] flags: 27 items
 tools/flags.py exit: 0
 --- tools/site.py ---
-[16:24:03] site: wrote 13 pages to the published root
+[16:26:57] site: wrote 13 pages to the published root
 tools/site.py exit: 0
 --- tools/corroborate.py ---
-[16:24:03] corroborate: 0 usable receipts (0 agree / 0 diverge / 1 placeholder), 0/29 competitions priced externally
+[16:26:57] corroborate: 0 usable receipts (0 agree / 0 diverge / 1 placeholder), 0/29 competitions priced externally
 tools/corroborate.py exit: 0
 --- tools/verify.py ---
-[16:24:04] verification passed
+[16:26:58] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -232,7 +239,7 @@ PASS coverage matrix: every competition row links to a source :: 29 competition 
 PASS external receipts validated against the dataset :: 0 usable receipts, 0 rejected, 0 diverging >8.0pp, 1 expired, 16 historic (not counted)
 PASS corroboration ledger accounts for every receipt :: receipts=18 = usable 0 + placeholder 1 + rejected 0 + expired 1 + historic 16
 PASS coverage page shows every match method and the unresolved ledger :: coverage.html 45179 bytes
-PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
+PASS external source research receipts are committed :: 44 venues probed on 2026-10-24T16:22:42Z; dossier present
 PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
 PASS method counts partition matches.json cleanly :: counts={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} sum=241 rows=241
 PASS source availability recorded :: 10/14 sources reachable on this build
@@ -284,7 +291,7 @@ PASS coverage matrix: every competition row links to a source :: 29 competition 
 PASS external receipts validated against the dataset :: 0 usable receipts, 0 rejected, 0 diverging >8.0pp, 1 expired, 16 historic (not counted)
 PASS corroboration ledger accounts for every receipt :: receipts=18 = usable 0 + placeholder 1 + rejected 0 + expired 1 + historic 16
 PASS coverage page shows every match method and the unresolved ledger :: coverage.html 45179 bytes
-PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
+PASS external source research receipts are committed :: 44 venues probed on 2026-10-24T16:22:42Z; dossier present
 PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
 PASS method counts partition matches.json cleanly :: counts={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} sum=241 rows=241
 PASS source availability recorded :: 10/14 sources reachable on this build
