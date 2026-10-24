@@ -1,213 +1,265 @@
 {
- "generated_utc": "2026-10-23T17:13:13Z",
+ "generated_utc": "2026-10-24T16:26:48Z",
  "checks": [
   {
    "name": "dataset present",
    "ok": true,
-   "detail": "241 matches loaded"
+   "detail": "241 matches loaded",
+   "severity": "critical"
   },
   {
    "name": "complete inventory reconciliation",
    "ok": true,
-   "detail": "raw fixtures=241, published rows=241; exact ID multiset comparison"
+   "detail": "raw fixtures=241, published rows=241; exact ID multiset comparison",
+   "severity": "critical"
   },
   {
    "name": "finite probabilities and correctly named picks",
    "ok": true,
-   "detail": "[]"
+   "detail": "[]",
+   "severity": "critical"
   },
   {
    "name": "every row links to its Hotspawn match card",
    "ok": true,
-   "detail": "241/241 rows carry a Hotspawn URL"
+   "detail": "241/241 rows carry a Hotspawn URL",
+   "severity": "critical"
   },
   {
    "name": "probabilities sum to 100% (tolerance 0.2pp)",
    "ok": true,
-   "detail": "241 priced rows verified; problems: []"
+   "detail": "241 priced rows verified; problems: []",
+   "severity": "critical"
   },
   {
    "name": "pick matches the higher probability",
    "ok": true,
-   "detail": "241 rows consistent; problems: []"
+   "detail": "241 rows consistent; problems: []",
+   "severity": "critical"
   },
   {
    "name": "every match has a pick or is documented as unpickable",
    "ok": true,
-   "detail": "241 rows: 241 with a pick (4 settlement-only), 0 documented unpickable"
+   "detail": "241 rows: 241 with a pick (4 settlement-only), 0 documented unpickable",
+   "severity": "critical"
   },
   {
    "name": "settlement picks name a participant and claim no probability",
    "ok": true,
-   "detail": "0 problems: []"
+   "detail": "0 problems: []",
+   "severity": "critical"
   },
   {
    "name": "every market row has at least one venue with a source URL",
    "ok": true,
-   "detail": "0 problems: []"
+   "detail": "0 problems: []",
+   "severity": "critical"
   },
   {
    "name": "method values are known",
    "ok": true,
-   "detail": "methods used: ['market', 'model', 'provisional', 'unresolved']"
+   "detail": "methods used: ['market', 'model', 'provisional', 'unresolved']",
+   "severity": "critical"
   },
   {
    "name": "no duplicate match ids",
    "ok": true,
-   "detail": "241 unique ids; duplicates: []"
+   "detail": "241 unique ids; duplicates: []",
+   "severity": "critical"
   },
   {
    "name": "no '(Kills)' derivative market is used as a match line",
    "ok": true,
-   "detail": "violations: []"
+   "detail": "violations: []",
+   "severity": "critical"
   },
   {
    "name": "every market pick carries an official quote URL",
    "ok": true,
-   "detail": "problems: []"
+   "detail": "problems: []",
+   "severity": "critical"
   },
   {
    "name": "Pinnacle quote URLs point at collected matchups",
    "ok": true,
-   "detail": "8 matchup ids in feed; problems: []"
+   "detail": "8 matchup ids in feed; problems: []",
+   "severity": "critical"
   },
   {
    "name": "all fresh Unibet/Kambi moneylines matched into market consensus",
    "ok": true,
-   "detail": "8/8 fresh Unibet fixtures matched; missing: []"
+   "detail": "8/8 fresh Unibet fixtures matched; missing: []",
+   "severity": "critical"
   },
   {
    "name": "every official-forfeit resolution names a winner and a source URL",
    "ok": true,
-   "detail": "4 resolutions checked; problems: []"
+   "detail": "4 resolutions checked; problems: []",
+   "severity": "critical"
   },
   {
    "name": "official-forfeit resolutions carry no invented probability",
    "ok": true,
-   "detail": "problems: []"
+   "detail": "problems: []",
+   "severity": "critical"
   },
   {
    "name": "picks.csv mirrors the dataset",
    "ok": true,
-   "detail": "csv rows=241 json rows=241"
+   "detail": "csv rows=241 json rows=241",
+   "severity": "critical"
   },
   {
    "name": "all site pages exist",
    "ok": true,
-   "detail": "13/13 pages"
+   "detail": "13/13 pages",
+   "severity": "critical"
   },
   {
    "name": "no broken internal links",
    "ok": true,
-   "detail": "0 problems: []"
+   "detail": "0 problems: []",
+   "severity": "critical"
   },
   {
    "name": "navigation on every page",
    "ok": true,
-   "detail": "missing: []"
+   "detail": "missing: []",
+   "severity": "critical"
   },
   {
    "name": "no empty/None values rendered",
    "ok": true,
-   "detail": "problems: []"
+   "detail": "problems: []",
+   "severity": "critical"
   },
   {
    "name": "all matches rendered on the picks page",
    "ok": true,
-   "detail": "241/241 match cards found"
+   "detail": "241/241 match cards found",
+   "severity": "critical"
   },
   {
    "name": "pick table renders one row per match",
    "ok": true,
-   "detail": "241/241 table rows"
+   "detail": "241/241 table rows",
+   "severity": "critical"
   },
   {
    "name": "executive summary links to every picks view",
    "ok": true,
-   "detail": "present: ['picks.html', 'table.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks']"
+   "detail": "present: ['picks.html', 'table.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks']",
+   "severity": "critical"
   },
   {
    "name": "executive summary carries coverage, unresolved section and a where-to-find-picks block",
    "ok": true,
-   "detail": "missing: []"
+   "detail": "missing: []",
+   "severity": "critical"
   },
   {
    "name": "mobile navigation rendered on every page and wired in JS",
    "ok": true,
-   "detail": "missing mobnav: []; menu+filter handlers present: True"
+   "detail": "missing mobnav: []; menu+filter handlers present: True",
+   "severity": "critical"
   },
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
-   "detail": "backtest series rendered: 3,854"
-  },
-  {
-   "name": "curated flags cite only currently listed fixtures",
-   "ok": true,
-   "detail": "10 curated flags scanned; stale references: []"
+   "detail": "backtest series rendered: 3,854",
+   "severity": "critical"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
    "ok": true,
-   "detail": "11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []"
+   "detail": "11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []",
+   "severity": "critical"
   },
   {
    "name": "no published market row is built from a rejected quote",
    "ok": true,
-   "detail": "1 quote(s) rejected this build (placeholders / extremes); 0 extreme"
+   "detail": "1 quote(s) rejected this build (placeholders / extremes); 0 extreme",
+   "severity": "critical"
   },
   {
    "name": "coverage matrix: every competition row links to a source",
    "ok": true,
-   "detail": "27 competition rows; missing links: []"
+   "detail": "27 competition rows; missing links: []",
+   "severity": "critical"
   },
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "17 usable receipts, 0 rejected, 0 diverging >8.0pp"
+   "detail": "17 usable receipts, 0 defective, 0 retired (fixture no longer listed on Hotspawn - expected lifecycle, not an error)",
+   "severity": "critical"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 47906 bytes"
+   "detail": "coverage.html 48946 bytes",
+   "severity": "critical"
   },
   {
    "name": "external source research receipts are committed",
    "ok": true,
-   "detail": "32 venues probed on 2026-10-23T15:38:55Z; dossier present"
+   "detail": "32 venues probed on 2026-10-23T15:38:55Z; dossier present",
+   "severity": "critical"
   },
   {
    "name": "coverage arithmetic reconciles to the inventory",
    "ok": true,
-   "detail": "priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241"
+   "detail": "priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241",
+   "severity": "critical"
   },
   {
    "name": "method counts partition matches.json cleanly",
    "ok": true,
-   "detail": "counts={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} sum=241 rows=241"
+   "detail": "counts={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} sum=241 rows=241",
+   "severity": "critical"
   },
   {
    "name": "source availability recorded",
    "ok": true,
-   "detail": "10/14 sources reachable on this build"
+   "detail": "10/14 sources reachable on this build",
+   "severity": "critical"
   },
   {
    "name": "every Hotspawn fixture is in the dataset (1:1 ids)",
    "ok": true,
-   "detail": "feed=241 dataset=241 missing=[] extra=[]"
+   "detail": "feed=241 dataset=241 missing=[] extra=[]",
+   "severity": "critical"
   },
   {
    "name": "per-tournament counts match the Hotspawn feed",
    "ok": true,
-   "detail": "27 tournaments; differences: []"
+   "detail": "27 tournaments; differences: []",
+   "severity": "critical"
   },
   {
    "name": "no look-ahead: ratings use only results before kick-off",
    "ok": true,
-   "detail": "0 violations; examples: []"
+   "detail": "0 violations; examples: []",
+   "severity": "critical"
+  }
+ ],
+ "advisory": [
+  {
+   "name": "curated flags cite only currently listed fixtures",
+   "ok": true,
+   "detail": "10 curated flags scanned; stale references: []",
+   "severity": "advisory"
+  },
+  {
+   "name": "external corroboration agrees with our published line",
+   "ok": true,
+   "detail": "0 receipt(s) more than 8.0pp from our line; corroboration only - it cannot change a pick, so it never blocks a refresh",
+   "severity": "advisory"
   }
  ],
  "passed": true,
+ "passed_strict": true,
+ "critical_checks": 40,
+ "advisory_checks": 2,
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,

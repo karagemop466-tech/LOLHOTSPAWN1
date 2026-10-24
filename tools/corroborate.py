@@ -23,6 +23,11 @@ Hard rules
   probability or a method. It cannot make a match look priced when it is not.
 * A price that is not in a receipt is never inferred, averaged in, or invented.
 * A missing receipt is reported as "no external price found", not as an error.
+* A receipt whose fixture has left the Hotspawn ``status=scheduled`` feed (i.e. the series has been
+  played) is **retired**, not **rejected**. Retirement is the normal lifecycle of a receipt and must
+  never block a publish; only a defective receipt (malformed quote, price <= 1.0, wrong teams) is
+  rejected. Before 2026-10-24 the two were conflated, which made every manual receipt brick the
+  six-hourly refresh within a day of being committed.
 """
 from __future__ import annotations
 
@@ -163,7 +168,8 @@ def build() -> dict:
     observations = receipts["observations"]
 
     rows: list[dict] = []
-    off_list: list[dict] = []
+    off_list: list[dict] = []       # genuinely defective receipts (malformed quote / wrong teams)
+    retired_list: list[dict] = []   # expected lifecycle: the fixture is no longer listed on Hotspawn
     for cap in captures:
         fid = str(cap.get("fixture_id") or "")
         match = by_id.get(fid)
@@ -177,8 +183,18 @@ def build() -> dict:
             "receipt_file": cap.get("_file"),
         }
         if match is None:
-            off_list.append({**base, "status": "unmatched",
-                             "reason": "fixture id is not in data/matches.json (stale receipt)"})
+            # Hotspawn's fixtures API only returns cards that are still `status=scheduled`, so a
+            # receipt necessarily stops matching once its series has been played. That is the normal
+            # lifecycle of a receipt, not a data defect, and receipts are corroboration only (see the
+            # module docstring): they can never change a pick, a probability or a method. Classifying
+            # this as "rejected" bricked the six-hourly refresh on 2026-10-24 - 16 of the 17 receipts
+            # captured on 2026-10-23 pointed at Worlds ties that had by then been played, which failed
+            # the publish gate for four consecutive scheduled runs and froze the site for 23 h.
+            retired_list.append({
+                **base, "status": "retired",
+                "reason": "fixture is no longer listed on Hotspawn (played, settled or de-listed); "
+                          "kept as historical evidence, excluded from live corroboration",
+            })
             continue
         t0, t1 = match["team0"]["name"], match["team1"]["name"]
         page_teams = cap.get("page_teams") or []
@@ -335,10 +351,11 @@ def build() -> dict:
         "priced_by_us": sum(1 for m in matches if m.get("p0") is not None),
         "unresolved_by_us": sum(1 for m in matches if m.get("method") == "unresolved"),
         "method_counts": {},
-        "receipts": len(rows) + len(off_list),
+        "receipts": len(rows) + len(off_list) + len(retired_list),
         "usable_receipts": len(usable),
         "placeholders": sum(1 for r in rows if r["status"] == "placeholder"),
         "rejected_receipts": len(off_list),
+        "retired_receipts": len(retired_list),
         "agrees": sum(1 for r in usable if r["verdict"] == "agrees"),
         "diverges": sum(1 for r in usable if r["verdict"] == "diverges"),
         "conflicting": sum(1 for r in rows if "conflict" in r),
@@ -374,6 +391,7 @@ def build() -> dict:
         "coverage": coverage,
         "rows": rows,
         "rejected": off_list,
+        "retired": retired_list,
         "problems": problems,
     }
 
@@ -397,6 +415,9 @@ def render(doc: dict) -> str:
   <div class="stat provisional"><div class="sv">{s['placeholders'] + s['rejected_receipts']}</div>
     <div class="sl">receipts rejected</div>
     <div class="sn">{s['placeholders']} placeholder &middot; {s['rejected_receipts']} malformed/unmatched</div></div>
+  <div class="stat"><div class="sv">{s['retired_receipts']}</div>
+    <div class="sl">receipts retired</div>
+    <div class="sn">their fixture is no longer listed on Hotspawn &mdash; expected, not an error</div></div>
 </section>
 """
 
@@ -500,6 +521,31 @@ def render(doc: dict) -> str:
             + '.</p>'
         )
 
+    retired_rows_html = "".join(
+        f'<tr><td data-label="Fixture"><span class="muted">#{e(r.get("fixture_id"))}</span></td>'
+        f'<td data-label="Book">{e(r.get("source_name"))}</td>'
+        f'<td data-label="Captured">{e((r.get("captured_utc") or "")[:16].replace("T", " "))}Z'
+        f'<br><span class="muted small">{e(r.get("receipt_file"))}</span></td>'
+        f'<td data-label="Receipt"><a href="{e(r.get("page_url"))}">source page</a>'
+        f'<br><span class="muted small">{e(r.get("reason"))}</span></td></tr>'
+        for r in doc["retired"]
+    )
+    retired_block = f"""<section class="panel">
+  <h2>3b. Retired receipts ({len(doc['retired'])})</h2>
+  <p class="muted small">A receipt is retired when the Hotspawn fixture it was captured for is no longer
+  in the <code>status=scheduled</code> feed &mdash; normally because the series has been played. This is
+  the expected lifecycle of a receipt, <strong>not a data defect</strong>, and it is listed here instead of
+  being counted as rejected so that the six-hourly refresh is never blocked by it. Retired receipts stay in
+  the repository as historical evidence and are never used to price anything.</p>
+  <div class="tablewrap">
+  <table class="table stack">
+    <thead><tr><th>Fixture</th><th>Book</th><th>Captured</th><th>Receipt</th></tr></thead>
+    <tbody>{retired_rows_html or '<tr><td colspan="4" class="muted">no retired receipts on this build</td></tr>'}</tbody>
+  </table>
+  </div>
+</section>
+"""
+
     def quote_text(a: dict) -> str:
         q = a.get("quote")
         if not q or None in q:
@@ -601,6 +647,7 @@ def render(doc: dict) -> str:
   </div>
 </section>
 
+{retired_block}
 <section class="panel">
   <h2>4. No external market: what we checked and what it showed</h2>
   <p>For the {len(gaps)} competitions with no external price, the pick is our own line
