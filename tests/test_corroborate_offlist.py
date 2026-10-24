@@ -84,21 +84,21 @@ class OffListReceiptTests(unittest.TestCase):
 
     def test_rolled_off_fixture_is_historical_not_rejected(self):
         doc = corroborate.build()
-        self.assertEqual([r["fixture_id"] for r in doc["historical"]], ["9999"])
+        self.assertEqual([r["fixture_id"] for r in doc["historic"]], ["9999"])
         self.assertEqual(doc["rejected"], [])
-        self.assertEqual(doc["summary"]["historical_receipts"], 1)
+        self.assertEqual(doc["summary"]["historic_receipts"], 1)
         self.assertEqual(doc["summary"]["rejected_receipts"], 0)
         self.assertEqual(doc["summary"]["usable_receipts"], 1)
         self.assertEqual(doc["summary"]["receipts"], 2)
 
     def test_off_list_receipt_carries_its_source_link(self):
         doc = corroborate.build()
-        row = doc["historical"][0]
-        self.assertEqual(row["status"], "off-list")
+        row = doc["historic"][0]
+        self.assertEqual(row["status"], "historic")
         self.assertEqual(row["page_url"], "https://example.com/m/9999")
         self.assertEqual(row["captured_utc"], "2026-10-23T00:00:00Z")
-        self.assertIn("no longer on the Hotspawn list", row["reason"])
-        self.assertEqual(row["verdict"], "historical evidence")
+        self.assertIn("no longer listed by Hotspawn", row["reason"])
+        self.assertEqual(row["status"], "historic")
 
     def test_listed_fixture_with_wrong_teams_is_still_rejected(self):
         rec = json.loads(json.dumps(RECEIPT))

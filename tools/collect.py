@@ -35,9 +35,15 @@ KALSHI_URL = ("https://api.elections.kalshi.com/trade-api/v2/events"
               "?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100")
 BOVADA_URL = ("https://www.bovada.lv/services/sports/event/coupon/events/A/description/"
               "esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en")
+KAMBI_PATH = "/offering/v2018/{op}/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ"
+# Operators on the Kambi platform share one LoL offering: on 2026-10-24 the ubse (Unibet) and paf
+# payloads were byte-identical (14,029 bytes, same first event id). So a second operator is used
+# only as a fallback when the preferred one rate-limits the runner - it is never counted twice
+# and it cannot inflate coverage. Probe receipt: data/source_probes.json (2026-10-24T16:22:42Z).
 KAMBI_URLS = [
-    "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
-    "https://eu1.offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+    "https://eu-offering-api.kambicdn.com" + KAMBI_PATH.format(op="ubse"),
+    "https://eu1.offering-api.kambicdn.com" + KAMBI_PATH.format(op="ubse"),
+    "https://eu-offering-api.kambicdn.com" + KAMBI_PATH.format(op="paf"),
 ]
 # Extra Kambi operator ids: each is a separate sportsbook on the same CDN. ubse already
 # covers Worlds; others are probed in case a brand lists LGC / LCP / national LoL.

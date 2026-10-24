@@ -1,11 +1,13 @@
 {
- "generated_utc": "2026-10-24T16:31:39.621756Z",
- "data_generated_utc": "2026-10-24T16:31:38Z",
+ "generated_utc": "2026-10-24T16:33:53.999275Z",
+ "data_generated_utc": "2026-10-24T16:33:53Z",
  "rules": {
   "corroboration_only": true,
   "divergence_threshold_pp": 8.0,
   "placeholder_decimal": 1.8,
-  "no_inference": "a price absent from a receipt is never inferred or averaged in"
+  "receipt_max_age_hours": 24,
+  "no_inference": "a price absent from a receipt is never inferred or averaged in",
+  "classification": "every capture lands in exactly one bucket: usable (fresh, matched, non-placeholder), expired (fresh window passed), historic (fixture no longer listed) or rejected (malformed / wrong teams). Only malformed or mismatched receipts and divergences fail the publish gate."
  },
  "sources": [
   {
@@ -84,18 +86,20 @@
    "market": 9
   },
   "receipts": 32,
-  "usable_receipts": 15,
+  "usable_receipts": 14,
   "placeholders": 1,
   "rejected_receipts": 0,
-  "historical_receipts": 16,
-  "agrees": 15,
+  "historic_receipts": 16,
+  "expired_receipts": 1,
+  "receipt_window_hours": 24,
+  "agrees": 14,
   "diverges": 0,
   "conflicting": 1,
-  "max_delta_pp": 4.6,
-  "mean_delta_pp": 1.41,
+  "max_delta_pp": 3.56,
+  "mean_delta_pp": 1.19,
   "divergence_threshold_pp": 8.0,
-  "competitions_with_external_price": 2,
-  "competitions_without_external_price": 27,
+  "competitions_with_external_price": 1,
+  "competitions_without_external_price": 28,
   "competitions_conflicting_only": 1
  },
  "archived_venue_audit": {
@@ -495,10 +499,8 @@
    "method": {
     "market": 1
    },
-   "external_priced": 1,
-   "external_sources": [
-    "EGamersWorld LoL"
-   ],
+   "external_priced": 0,
+   "external_sources": [],
    "conflicting": 0,
    "conflicting_sources": [],
    "hotspawn_url": "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080"
@@ -565,6 +567,7 @@
    "captured_utc": "2026-10-23T15:43:00Z",
    "verbatim": "Vitality Rising Bees 1.4 ... Mental Rush 2.73 ; betting tips text: 'average odds 1.432 ... average odds 2.605'",
    "receipt_file": "2026-10-23.json",
+   "age_hours": 24.85,
    "competition": "LGC Rising 2026 Playoffs",
    "start_utc": "2026-10-27T17:00:00Z",
    "our_team0": "Mental Rush",
@@ -582,12 +585,13 @@
     1.4
    ],
    "swapped": true,
-   "status": "usable",
+   "status": "expired",
    "ext_p0": 0.339,
    "ext_p1": 0.661,
    "overround": 0.0806,
    "delta_pp": -4.6,
-   "verdict": "agrees"
+   "verdict": "expired (archival evidence only)",
+   "reason": "captured 24.85 h ago; the current-line window is 24 h"
   },
   {
    "fixture_id": "1081423",
@@ -597,6 +601,7 @@
    "captured_utc": "2026-10-23T15:44:00Z",
    "verbatim": "Ground Zero Gaming 1.8 ... Frank Esports 1.8",
    "receipt_file": "2026-10-23.json",
+   "age_hours": 24.83,
    "competition": "LCP 2027 Promotion",
    "start_utc": "2026-11-11T09:00:00Z",
    "our_team0": "Ground Zero Gaming",
@@ -642,6 +647,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "event 1029609648 TOP Esports - Anyone's Legend start=2026-10-24T17:10:00Z OT_TWO Anyone's Legend odds=1420 OT_ONE TOP Esports odds=2650",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T17:00:00Z",
    "our_team0": "Top Esports",
@@ -674,6 +680,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "19:00 Anyone's Legend - Top Esports 1.54 2.50",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T17:00:00Z",
    "our_team0": "Top Esports",
@@ -706,6 +713,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "event 1029609639 CTBC Flying Oyster - Movistar KOI start=2026-10-24T18:10:00Z OT_ONE 2750 OT_TWO 1400",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T18:00:00Z",
    "our_team0": "Movistar KOI",
@@ -738,6 +746,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "20:00 CTBC Flying Oyster - Movistar KOI 2.90 1.37",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T18:00:00Z",
    "our_team0": "Movistar KOI",
@@ -770,6 +779,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "event 1029609646 G2 Esports - LØS start=2026-10-24T19:10:00Z OT_ONE 1180 OT_TWO 4400",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T19:00:00Z",
    "our_team0": "G2 Esports",
@@ -802,6 +812,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "21:00 G2 Esports - LOS 1.21 4.20",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T19:00:00Z",
    "our_team0": "G2 Esports",
@@ -834,6 +845,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "event 1029609641 Lyon Gaming - Karmine Corp start=2026-10-24T20:10:00Z OT_ONE 2020 OT_TWO 1700",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T20:00:00Z",
    "our_team0": "LYON",
@@ -866,6 +878,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "22:00 Lyon Gaming - Karmine Corp 2.10 1.71",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T20:00:00Z",
    "our_team0": "LYON",
@@ -898,6 +911,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "event 1029609640 Hanwha Life Esports - Gen.G Esports start=2026-10-24T22:00:00Z OT_ONE 2200 OT_TWO 1600",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T22:00:00Z",
    "our_team0": "Hanwha Life Esports",
@@ -930,6 +944,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "00:00 Gen.G - Hanwha Life 1.62 2.25",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T22:00:00Z",
    "our_team0": "Hanwha Life Esports",
@@ -962,6 +977,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "event 1029609638 Dplus KIA - T1 start=2026-10-24T23:00:00Z OT_ONE 2330 OT_TWO 1540",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T23:00:00Z",
    "our_team0": "Dplus KIA",
@@ -994,6 +1010,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "01:00 T1 - Dplus Kia 1.62 2.15",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-24T23:00:00Z",
    "our_team0": "Dplus KIA",
@@ -1026,6 +1043,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "event 1029609649 Team Liquid - Bilibili Gaming start=2026-10-25T00:00:00Z OT_ONE 3350 OT_TWO 1290",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-25T00:00:00Z",
    "our_team0": "Bilibili Gaming",
@@ -1058,6 +1076,7 @@
    "captured_utc": "2026-10-24T16:16:00Z",
    "verbatim": "02:00 Team Liquid - Bilibili Gaming 3.25 1.31",
    "receipt_file": "2026-10-24.json",
+   "age_hours": 0.3,
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-25T00:00:00Z",
    "our_team0": "Bilibili Gaming",
@@ -1084,7 +1103,7 @@
   }
  ],
  "rejected": [],
- "historical": [
+ "historic": [
   {
    "fixture_id": "1067878",
    "source": "bo3gg",
@@ -1093,9 +1112,9 @@
    "captured_utc": "2026-10-23T15:39:50Z",
    "verbatim": "13:00 Gen.G Esports Bo1 Invictus Gaming 1.25 3.50",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.9,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067677",
@@ -1105,9 +1124,9 @@
    "captured_utc": "2026-10-23T15:39:50Z",
    "verbatim": "14:00 Hanwha Life Esports Bo1 Top Esports 1.22 3.80",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.9,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067680",
@@ -1117,9 +1136,9 @@
    "captured_utc": "2026-10-23T15:39:50Z",
    "verbatim": "15:00 Bilibili Gaming Bo1 Movistar KOI 1.17 4.40",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.9,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067675",
@@ -1129,9 +1148,9 @@
    "captured_utc": "2026-10-23T15:39:50Z",
    "verbatim": "16:00 Anyone's Legend Bo1 Karmine Corp 1.42 2.70",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.9,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067676",
@@ -1141,9 +1160,9 @@
    "captured_utc": "2026-10-23T15:39:50Z",
    "verbatim": "17:00 G2 Esports Bo1 Dplus KIA 2.30 1.55",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.9,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067879",
@@ -1153,9 +1172,9 @@
    "captured_utc": "2026-10-23T15:39:50Z",
    "verbatim": "18:00 Team Liquid Bo1 CTBC Flying Oyster 1.32 3.10",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.9,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067678",
@@ -1165,9 +1184,9 @@
    "captured_utc": "2026-10-23T15:39:50Z",
    "verbatim": "19:00 LOS Bo1 T1 6.30 1.08",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.9,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067679",
@@ -1177,9 +1196,9 @@
    "captured_utc": "2026-10-23T15:39:50Z",
    "verbatim": "20:00 Team Secret Whales Bo1 LYON 2.20 1.58",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.9,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067878",
@@ -1189,9 +1208,9 @@
    "captured_utc": "2026-10-23T16:10:00Z",
    "verbatim": "eventId 1029547040 Match Odds: Gen.G Esports odds=1170 (-590), Invictus Gaming odds=4400 (340)",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.4,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067677",
@@ -1201,9 +1220,9 @@
    "captured_utc": "2026-10-23T16:10:00Z",
    "verbatim": "eventId 1029547044 Match Odds: Hanwha Life Esports odds=1200 (-500), TOP Esports odds=4100 (310)",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.4,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067680",
@@ -1213,9 +1232,9 @@
    "captured_utc": "2026-10-23T16:10:00Z",
    "verbatim": "eventId 1029547055 Match Odds: Bilibili Gaming odds=1190 (-530), Movistar KOI odds=4100 (310)",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.4,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067675",
@@ -1225,9 +1244,9 @@
    "captured_utc": "2026-10-23T16:10:00Z",
    "verbatim": "eventId 1029547042 Match Odds: Anyone's Legend odds=1420 (-240), Karmine Corp odds=2700 (170)",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.4,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067676",
@@ -1237,9 +1256,9 @@
    "captured_utc": "2026-10-23T16:10:00Z",
    "verbatim": "eventId 1029547043 Match Odds: G2 Esports odds=2060 (106), Dplus KIA odds=1680 (-148)",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.4,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067879",
@@ -1249,9 +1268,9 @@
    "captured_utc": "2026-10-23T16:10:00Z",
    "verbatim": "eventId 1029547041 Match Odds: Team Liquid odds=1300 (-335), CTBC Flying Oyster odds=3250 (225)",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.4,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067678",
@@ -1261,9 +1280,9 @@
    "captured_utc": "2026-10-23T16:10:00Z",
    "verbatim": "eventId 1029547051 Match Odds: LØS odds=7000 (600), T1 odds=1070 (-1430)",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.4,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
   },
   {
    "fixture_id": "1067679",
@@ -1273,9 +1292,45 @@
    "captured_utc": "2026-10-23T16:10:00Z",
    "verbatim": "eventId 1029547054 Match Odds: Lyon Gaming odds=1600 (-167), Team Secret Whales odds=2200 (120)",
    "receipt_file": "2026-10-23.json",
-   "status": "off-list",
-   "reason": "fixture is no longer on the Hotspawn list (it has kicked off or been removed since capture); kept as historical evidence and excluded from every current quote and every probability",
-   "verdict": "historical evidence"
+   "age_hours": 24.4,
+   "status": "historic",
+   "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"
+  }
+ ],
+ "expired": [
+  {
+   "fixture_id": "1079080",
+   "source": "egamersworld",
+   "source_name": "EGamersWorld LoL",
+   "page_url": "https://egamersworld.com/lol/match/CVSRRqh2Q/vitality-rising-bees-vs-mental-rush-rildGvqP0",
+   "captured_utc": "2026-10-23T15:43:00Z",
+   "verbatim": "Vitality Rising Bees 1.4 ... Mental Rush 2.73 ; betting tips text: 'average odds 1.432 ... average odds 2.605'",
+   "receipt_file": "2026-10-23.json",
+   "age_hours": 24.85,
+   "competition": "LGC Rising 2026 Playoffs",
+   "start_utc": "2026-10-27T17:00:00Z",
+   "our_team0": "Mental Rush",
+   "our_team1": "Vitality Rising Bees",
+   "our_p0": 0.385,
+   "our_p1": 0.615,
+   "our_method": "market",
+   "our_pick": "Vitality Rising Bees",
+   "hotspawn_url": "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080",
+   "name_match": "tolerant",
+   "page_team0": "Mental Rush",
+   "page_team1": "Vitality Rising Bees",
+   "decimal": [
+    2.73,
+    1.4
+   ],
+   "swapped": true,
+   "status": "expired",
+   "ext_p0": 0.339,
+   "ext_p1": 0.661,
+   "overround": 0.0806,
+   "delta_pp": -4.6,
+   "verdict": "expired (archival evidence only)",
+   "reason": "captured 24.85 h ago; the current-line window is 24 h"
   }
  ],
  "problems": []

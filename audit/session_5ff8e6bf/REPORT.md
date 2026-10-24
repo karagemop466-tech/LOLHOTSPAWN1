@@ -1,6 +1,6 @@
 # Independent verification of the published dashboard
 
-Run: 2026-10-24T16:23:36Z · verifier: `audit/session_5ff8e6bf/verify_published.py`
+Run: 2026-10-24T16:32:26Z · verifier: `audit/session_5ff8e6bf/verify_published.py`
 
 **Result: 27/28 checks pass.**
 
@@ -23,21 +23,21 @@ Run: 2026-10-24T16:23:36Z · verifier: `audit/session_5ff8e6bf/verify_published.
 | 15 | every row links to its own Hotspawn match card (id in the URL) | PASS | `241/241; problems: []` |
 | 16 | every rendered source URL is https on a named host | PASS | `6 hosts: ['eu-offering-api.kambicdn.com', 'guest.api.arcadia.pinnacle.com', 'kalshi.com', 'lol.fandom.com', 'polymarket.com', 'www.hotspawn.com']; problems: []` |
 | 17 | picks.csv mirrors the dataset row for row | PASS | `csv=241 json=241 problems: []` |
-| 18 | all published pages exist | PASS | `13/13; missing: []` |
+| 18 | all published pages exist | PASS | `14/14; missing: []` |
 | 19 | every page declares a mobile viewport | PASS | `missing: []` |
 | 20 | every page carries the desktop nav and the mobile bottom bar | PASS | `nav missing: []; mobnav missing: []` |
 | 21 | no page renders a literal None/nan value | PASS | `problems: []` |
-| 22 | no broken internal links | PASS | `2974 links parsed; problems: []` |
+| 22 | no broken internal links | PASS | `3218 links parsed; problems: []` |
 | 23 | the table page renders exactly one row per match | PASS | `table rows=241 matches=241` |
 | 24 | the card page renders exactly one card per match | PASS | `cards=241 matches=241` |
 | 25 | the executive summary links every picks view, the unresolved section and the flag page | PASS | `missing: []` |
-| 26 | the published snapshot is younger than the 8 h refresh ceiling | PASS | `generated_utc=2026-10-24T16:21:25Z age=0.0h` |
-| 27 | the Hotspawn inventory was fetched recently enough to be current | PASS | `inventory_fetched_utc=2026-10-24T16:19:35Z age=0.1h` |
+| 26 | the published snapshot is younger than the 8 h refresh ceiling | PASS | `generated_utc=2026-10-24T16:31:50Z age=0.0h` |
+| 27 | the Hotspawn inventory was fetched recently enough to be current | PASS | `inventory_fetched_utc=2026-10-24T16:23:12Z age=0.2h` |
 | 28 | the out-of-sample backtest is internally consistent | PASS | `n=3896 hits=2531 acc=0.6496 buckets n=3896 hits=2531 brier=0.2185` |
 
 Inputs re-derived from:
 
-- `data/matches.json`: {'rows': 241, 'generated_utc': '2026-10-24T16:21:25Z', 'inventory_fetched_utc': '2026-10-24T16:19:35Z'}
-- `data/raw/hotspawn_lol.json`: {'fixtures': 241, 'fetched_utc': '2026-10-24T16:19:35Z'}
+- `data/matches.json`: {'rows': 241, 'generated_utc': '2026-10-24T16:31:50Z', 'inventory_fetched_utc': '2026-10-24T16:23:12Z'}
+- `data/raw/hotspawn_lol.json`: {'fixtures': 241, 'fetched_utc': '2026-10-24T16:23:12Z'}
 - `data/picks.csv`: {'rows': 241}
-- `pages`: {'index.html': {'rows': 0, 'cards': 6, 'links': 97}, 'table.html': {'rows': 241, 'cards': 0, 'links': 518}, 'picks.html': {'rows': 0, 'cards': 241, 'links': 1032}, 'featured.html': {'rows': 0, 'cards': 9, 'links': 138}, 'originated.html': {'rows': 0, 'cards': 0, 'links': 254}, 'unresolved.html': {'rows': 0, 'cards': 78, 'links': 365}, 'competitions.html': {'rows': 0, 'cards': 0, 'links': 55}, 'teams.html': {'rows': 0, 'cards': 0, 'links': 224}, 'flagged.html': {'rows': 0, 'cards': 0, 'links': 63}, 'coverage.html': {'rows': 0, 'cards': 0, 'links': 97}, 'verification.html': {'rows': 0, 'cards': 0, 'links': 45}, 'sources.html': {'rows': 0, 'cards': 0, 'links': 53}, 'methodology.html': {'rows': 0, 'cards': 0, 'links': 33}}
+- `pages`: {'index.html': {'rows': 0, 'cards': 6, 'links': 117}, 'table.html': {'rows': 241, 'cards': 0, 'links': 519}, 'picks.html': {'rows': 0, 'cards': 241, 'links': 1033}, 'results.html': {'rows': 0, 'cards': 0, 'links': 157}, 'featured.html': {'rows': 0, 'cards': 9, 'links': 139}, 'originated.html': {'rows': 0, 'cards': 0, 'links': 255}, 'unresolved.html': {'rows': 0, 'cards': 78, 'links': 370}, 'competitions.html': {'rows': 0, 'cards': 0, 'links': 56}, 'teams.html': {'rows': 0, 'cards': 0, 'links': 225}, 'flagged.html': {'rows': 0, 'cards': 0, 'links': 64}, 'coverage.html': {'rows': 0, 'cards': 0, 'links': 127}, 'verification.html': {'rows': 0, 'cards': 0, 'links': 46}, 'sources.html': {'rows': 0, 'cards': 0, 'links': 76}, 'methodology.html': {'rows': 0, 'cards': 0, 'links': 34}}

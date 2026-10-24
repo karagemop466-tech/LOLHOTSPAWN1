@@ -13,14 +13,14 @@
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle page menu">Menu</button>
-    <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="table.html">Table</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+    <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="table.html">Table</a><a href="results.html">Results</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
 </header>
 <main id="main" class="wrap">
   <div class="pagehead">
     <h1>Hotspawn LoL Pick Desk</h1>
     <p class="sub">Independent win probabilities for every League of Legends match in the Hotspawn pick'em.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-24 16:31 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-24 16:33 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
     <p id="snapshot-age" class="stamp" data-fetched="2026-10-24T16:29:28Z">Hotspawn inventory collected: 2026-10-24T16:29:28Z. Check source timestamps before use.</p>
   </div>
   
@@ -62,15 +62,11 @@
     (Bovada, Kalshi, Pinnacle, Polymarket, Unibet), <a href="originated.html">150 originated</a> and
     <a href="originated.html">78 provisional</a>.</li>
     <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
-    We probed <strong>33 external venues</strong> from the build runner (established books,
-    esportsbooks, exchanges, odds aggregators); 15 answered and 8
-    returned JSON, of which five are live match-price feeds. Across every reachable venue the same slice of the
-    calendar is quoted: <strong>Pinnacle 8 series</strong>,
-    <strong>Bovada 8 series</strong>,
-    <strong>Unibet (Kambi) 8 series</strong>,
-    <strong>Kalshi 8 contracts</strong> and
-    <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds
-    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
+    We probed <strong>45 external venues</strong> from the build runner (established books,
+    esportsbooks, exchanges, odds aggregators); 21 answered and 11
+    returned JSON. On this build the feeds that actually quoted a listed match were:
+    <strong>Pinnacle 8 series</strong>, <strong>Bovada 8 series</strong>, <strong>Unibet (Kambi) 8 series</strong>, <strong>Kalshi 8 contracts</strong>, <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds 2026 ties. Everything below that ceiling
+    has no external line to quote, so we originate it ourselves.
     Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Extra sources tried for the low-tier tail.</strong> 17 further esportsbook and odds-aggregator endpoints were called from the build runner on 2026-10-24 16:20 UTC (1xBet / 22Bet / Melbet / Betwinner LineFeed, Rivalry, DraftKings, GG.BET, Thunderpick, Midnite, BetOnline, OddsPortal, BC.GAME, Abios, PandaScore): <strong>0 returned a machine-readable LoL price</strong> (3 blocked or key-gated, 4 browser-only pages, 10 error or empty responses). Those leagues therefore keep the originated line rather than a borrowed or invented quote. <a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; <a href="sources.html">Sources</a>.</li>
     <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
@@ -82,7 +78,7 @@
     <a href="methodology.html">Method &amp; out-of-sample backtest</a>.</li>
     <li><strong>Verification.</strong> 11 of the 18 feeds the collector polls
     answered on the last build (<a href="sources.html">Sources</a> &mdash; a separate, wider probe of
-    33 venues including esportsbooks and aggregators is published there too). Every row
+    45 venues including esportsbooks and aggregators is published there too). Every row
     links to its official source, and the 41-check publish gate
     (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
     probabilities fail to sum to 100%, or an internal link breaks.</li>
