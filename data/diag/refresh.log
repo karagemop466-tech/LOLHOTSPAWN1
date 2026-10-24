@@ -275,3 +275,15 @@ PASS source availability recorded :: 10/14 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
+
+=== diagnosis (2026-10-24, session 80c624cd) ===
+Root cause of the three failed `refresh-picks` runs on main:
+  tools/corroborate.py classified every archived receipt whose fixture is no longer on the
+  Hotspawn list as "rejected", and after 2026-10-23T17:13Z the 17 archived esportsbook
+  captures also aged past the 24 h window. verify.py gate "external receipts validated
+  against the dataset" then failed (1 usable, 16 rejected) and the workflow aborted before
+  the commit step. Because the failing build is the only thing that would have refreshed the
+  receipts, the failure was self-sustaining: published data stayed at 2026-10-23T17:13Z.
+Fix (commit with this log): receipts are bucketed usable / expired / historic / rejected;
+  only malformed, wrong-team and diverging receipts fail the gate, and the refresh workflow
+  records its log even when the gate fails (data/build_failure.log).

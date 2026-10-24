@@ -295,9 +295,25 @@ def main() -> None:
         f"{len(cov_rows)} competition rows; missing links: {no_link[:3]}")
     bad_receipts = corr.get("rejected") or []
     diverged = [r for r in (corr.get("rows") or []) if r.get("verdict") == "diverges"]
+    # An archived receipt that has aged out, or that belongs to a fixture Hotspawn has since
+    # delisted, is history - not a data error. Failing the gate on either deadlocks the refresh:
+    # a stale snapshot makes every receipt stale, which blocks the build that would refresh it.
+    # Only malformed / wrong-team receipts and live divergences fail here.
     add("external receipts validated against the dataset", not bad_receipts and not diverged,
         f"{corr.get('summary',{}).get('usable_receipts',0)} usable receipts, "
-        f"{len(bad_receipts)} rejected, {len(diverged)} diverging >{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp")
+        f"{len(bad_receipts)} rejected, {len(diverged)} diverging "
+        f">{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp, "
+        f"{corr.get('summary',{}).get('expired_receipts',0)} expired, "
+        f"{corr.get('summary',{}).get('historic_receipts',0)} historic (not counted)")
+    cs = corr.get("summary") or {}
+    accounted = (cs.get("usable_receipts", 0) + cs.get("placeholders", 0)
+                 + cs.get("rejected_receipts", 0) + cs.get("expired_receipts", 0)
+                 + cs.get("historic_receipts", 0))
+    add("corroboration ledger accounts for every receipt",
+        bool(corr) and accounted == cs.get("receipts", -1) and cs.get("receipts", 0) > 0,
+        f"receipts={cs.get('receipts')} = usable {cs.get('usable_receipts',0)} + placeholder "
+        f"{cs.get('placeholders',0)} + rejected {cs.get('rejected_receipts',0)} + expired "
+        f"{cs.get('expired_receipts',0)} + historic {cs.get('historic_receipts',0)}")
     cov_path = os.path.join(DOCS, "coverage.html")
     cov_html = open(cov_path, encoding="utf-8").read() if os.path.exists(cov_path) else ""
     add("coverage page shows every match method and the unresolved ledger",
