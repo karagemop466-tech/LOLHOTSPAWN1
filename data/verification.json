@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:18:34Z",
+ "generated_utc": "2026-10-24T16:21:27Z",
  "checks": [
   {
    "name": "dataset present",
@@ -139,7 +139,7 @@
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
-   "detail": "backtest series rendered: 3,854"
+   "detail": "backtest series rendered: 3,896"
   },
   {
    "name": "curated flags cite only currently listed fixtures",
@@ -159,17 +159,17 @@
   {
    "name": "coverage matrix: every competition row links to a source",
    "ok": true,
-   "detail": "27 competition rows; missing links: []"
+   "detail": "29 competition rows; missing links: []"
   },
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "17 usable receipts, 0 rejected, 0 diverging >8.0pp"
+   "detail": "1 usable receipts, 0 rejected, 0 diverging >8.0pp"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 47922 bytes"
+   "detail": "coverage.html 48656 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -184,7 +184,7 @@
   {
    "name": "method counts partition matches.json cleanly",
    "ok": true,
-   "detail": "counts={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} sum=241 rows=241"
+   "detail": "counts={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} sum=241 rows=241"
   },
   {
    "name": "source availability recorded",
@@ -199,7 +199,7 @@
   {
    "name": "per-tournament counts match the Hotspawn feed",
    "ok": true,
-   "detail": "27 tournaments; differences: []"
+   "detail": "29 tournaments; differences: []"
   },
   {
    "name": "no look-ahead: ratings use only results before kick-off",
@@ -211,11 +211,11 @@
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
- "unverified": 81,
+ "unverified": 82,
  "counts": {
-  "model": 151,
+  "model": 150,
   "unresolved": 4,
-  "provisional": 77,
+  "provisional": 78,
   "market": 9
  },
  "internal_links": 400,
