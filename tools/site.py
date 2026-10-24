@@ -567,7 +567,14 @@ def next_strip(rows: list[dict]) -> str:
 
 
 def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> str:
-    """Landing page: the phone-first answer to "where are the picks, and what are they?"."""
+    """Landing page: the phone-first answer to "where are the picks, and what are they?".
+
+    Structure (top to bottom): hero with the primary calls to action, "Where the picks are"
+    (six in-site links with live counts), the next eight kick-offs as one-tap rows, the stat
+    strip, the executive summary (coverage, the external ceiling and what was tried below it,
+    the unresolved section, evidence limits, independence, verification), then the unresolved
+    ledger and the track record. Everything numeric is computed from the committed dataset.
+    """
     t = _stat_totals(rows)
     total = t["total"]
     walkover = t["walkover"]
@@ -578,7 +585,6 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     resolved_total = t["with_pick"]
     meta = load_json(os.path.join(DATA, "matches.json")) or {}
     track = meta.get("track_record") or {}
-    fetched = meta.get("inventory_fetched_utc") or ""
     upcoming = sorted([r for r in rows
                        if r["start_utc"] and r["start_utc"] > iso(now_utc()) and r["pick"]],
                       key=lambda r: r["start_utc"])
@@ -590,9 +596,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     ceiling = _external_ceiling()
     probe = _esportsbook_probe()
     gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
-<<<<<<< HEAD
 
-=======
     if probe["have"]:
         other = probe["tested"] - probe["usable"] - probe["http_blocked"] - probe["html_only"]
         probe_line = (
@@ -604,14 +608,12 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
             f'{other} error or empty responses). Those leagues therefore keep the originated line rather '
             'than a borrowed or invented quote.'
         )
-        probe_link = (
-            '<a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; '
-            '<a href="sources.html">Sources</a>'
-        )
+        probe_link = ('<a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; '
+                      '<a href="sources.html">Sources</a>')
     else:
         probe_line = "No additional esportsbook probe receipt is committed for this build."
         probe_link = '<a href="sources.html">Sources</a>'
->>>>>>> origin/main
+
     unres_rows = []
     for r in unresolved:
         unres_rows.append([
@@ -642,7 +644,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   </div>
 </section>
 
-<section class="panel" id="where">
+<section class="panel" id="where-picks">
   <h2>Where the picks are</h2>
   <p class="lead">Six ways in. Every link stays inside this site and every row links out to the source it came
   from.</p>
@@ -662,56 +664,6 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   </div>
 </section>
 
-<section class="panel" id="exec-summary">
-  <h2>Executive summary</h2>
-  <div class="cta" id="where-picks">
-    <a class="btn primary" href="table.html">Where the picks are: pick table ({total} matches) &rarr;</a>
-    <a class="btn" href="picks.html">Card view</a>
-    <a class="btn" href="featured.html">Market-backed ({len(featured)})</a>
-    <a class="btn" href="originated.html">Originated ({originated_n})</a>
-    <a class="btn" href="unresolved.html">Unresolved &amp; limits ({len(unresolved)})</a>
-    <a class="btn" href="flagged.html">Flagged for review</a>
-  </div>
-  <ul class="bullets">
-    <li><strong>Where the picks are.</strong> On a phone, bookmark
-    <a href="table.html"><strong>Pick table</strong></a> - one row per match with the pick, both win
-    probabilities, the method and source links. <a href="picks.html"><strong>Card view</strong></a> shows the
-    same {total} matches with the full reasoning. Both pages are searchable and filterable by tournament and
-    by method.</li>
-    <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
-    ({resolved_total/total*100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
-    official forfeit winner with no probability claimed.
-    Priced: <a href="featured.html">{len(featured)} market-backed</a>
-    ({e(venues_txt)}), <a href="originated.html">{counts.get('model',0)} originated</a> and
-    <a href="originated.html">{len(provisional)} provisional</a>.</li>
-    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
-    We probed <strong>{ceiling["probed"]} external venues</strong> from the build runner (established books,
-    esportsbooks, exchanges, odds aggregators); {ceiling["answered"]} answered and {ceiling["json_feeds"]}
-    returned JSON, of which five are live match-price feeds. Across every reachable venue the same slice of the
-    calendar is quoted: <strong>Pinnacle {ceiling["pinnacle_priced"]} series</strong>,
-    <strong>Bovada {ceiling["bovada"]} series</strong>,
-    <strong>Unibet (Kambi) {ceiling["unibet"]} series</strong>,
-    <strong>Kalshi {ceiling["kalshi"]} contracts</strong> and
-    <strong>Polymarket {ceiling["polymarket"]} unsettled markets</strong> &mdash; overwhelmingly the same Worlds
-    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
-    Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
-    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.</li>
-    <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
-    originated lines are model estimates from community-maintained Leaguepedia history; archived sportsbook
-    receipts are excluded from pricing; and the Hotspawn settlement of a forfeited card is unverified - see
-    <a href="flagged.html">Flagged for review</a>.</li>
-    <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
-    captured for audit comparison only and carry zero weight in any probability - see
-    <a href="methodology.html">Method &amp; out-of-sample backtest</a>.</li>
-    <li><strong>Verification.</strong> {live_sources} of the {len(src_status)} feeds the collector polls
-    answered on the last build (<a href="sources.html">Sources</a> &mdash; a separate, wider probe of
-    {ceiling["probed"]} venues including esportsbooks and aggregators is published there too). Every row
-    links to its official source, and the {gate_count}-check publish gate
-    (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
-    probabilities fail to sum to 100%, or an internal link breaks.</li>
-  </ul>
-</section>
-
 <section class="panel" id="next">
   <h2>Next up</h2>
   <p class="lead">The next eight kick-offs. Tap a row for the full card.</p>
@@ -729,9 +681,14 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   {stat_card("Graded picks", track.get("graded", 0), f"{acc*100:.0f}% correct" if acc is not None else "none yet", "ok")}
 </section>
 
-<<<<<<< HEAD
-<section class="panel" id="summary">
+<section class="panel" id="exec-summary">
   <h2>Executive summary</h2>
+  <div class="cta">
+    <a class="btn" href="featured.html">Market-backed ({len(featured)})</a>
+    <a class="btn" href="originated.html">Originated ({originated_n})</a>
+    <a class="btn" href="unresolved.html">Unresolved &amp; limits ({len(unresolved)})</a>
+    <a class="btn" href="flagged.html">Flagged for review</a>
+  </div>
   <ul class="bullets">
     <li><strong>Where the picks are.</strong> On a phone, start at the
     <a href="table.html">pick table</a> &mdash; one row per match with the pick, both win probabilities, the
@@ -756,6 +713,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <strong>Polymarket {ceiling["polymarket"]} markets</strong> &mdash; overwhelmingly the same Worlds ties.
     Below that ceiling no external line exists to quote, so we originate one from results.
     Probe table and receipts: <a href="sources.html">Sources</a>.</li>
+    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.</li>
     <li><strong>Unresolved picks &amp; limitations.</strong> {len(unresolved)} cards cannot carry a playable
     probability today; they are listed with their reason and source in the section below and in full on
     <a href="unresolved.html">Unresolved &amp; limitations</a>. Nothing is padded with a guessed number.</li>
@@ -770,8 +728,6 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     probabilities fail to sum to 100%, or an internal link breaks.</li>
   </ul>
 </section>
-=======
->>>>>>> origin/main
 
 <section class="panel" id="unresolved-summary">
   <h2>Unresolved picks and the limitations ({len(unresolved)})</h2>
@@ -783,19 +739,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><strong>Why a card can have no line.</strong> A team officially removed mid-split
     (<code>dqteams</code>) may have its remaining fixtures voided or graded as walkovers, so a probability
     built from its earlier results would be fiction.</li>
-<<<<<<< HEAD
     <li><strong>No market on national and academy divisions.</strong> {total - len(featured)} of {total}
     matches are not priced by any book reachable from the runner; their lines come from recorded series
     history rather than an aggregator placeholder.</li>
-=======
-    <li><strong>No market on national divisions.</strong> {total - len(featured)} of {total} matches are not
-    priced by any book reachable from the runner; their lines come from recorded series history rather than
-    an aggregator placeholder.</li>
-    <li><strong>What we tried for the low-tier tail.</strong> {probe["tested"]} esportsbook and aggregator
-    endpoints were called from a runner on {e(probe["checked"])} UTC; {probe["usable"]} returned a
-    machine-readable LoL price, so these leagues keep an originated line instead of a borrowed or invented
-    one. Full status codes and raw previews: {probe_link}.</li>
->>>>>>> origin/main
     <li><strong>Thin samples.</strong> {len(provisional)} lines are labelled <em>provisional</em> because at
     least one side has fewer than five rated series in the 25-month window.</li>
     <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
