@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-23T17:13:12Z",
- "count": 27,
+ "generated_utc": "2026-10-24T16:22:41Z",
+ "count": 28,
  "flags": [
   {
    "severity": "high",
@@ -180,6 +180,12 @@
    "item": "4 fixtures resolved only by official forfeit, not by a playing line",
    "detail": "#1071170 Solid Gaming vs VES Japan -> VES Japan (official forfeit; https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split); #1071200 Solid Gaming vs Playwell Rød Q -> Playwell Rød Q (official forfeit; https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split); #1071206 Volda E-Sport vs Solid Gaming -> Volda E-Sport (official forfeit; https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split); #1071186 Solid Gaming vs NTNUI Kometkameratene -> NTNUI Kometkameratene (official forfeit; https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split)",
    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+  },
+  {
+   "severity": "high",
+   "item": "Hotspawn inventory snapshot is 23h old (refresh window is 4–8h)",
+   "detail": "Collected 2026-10-23T17:11:12Z. Scheduled refresh-picks runs after this timestamp did not publish a new snapshot. Treat kick-off times and market lines as unverified until the next successful collect. Live lobby: https://play.hotspawn.com/lol-pickems",
+   "source": "https://play.hotspawn.com/lol-pickems"
   }
  ]
 }

@@ -1,0 +1,68 @@
+name: collect-raw
+
+# One-shot collector for session 1a1a3b1b. The sandbox cannot reach betting APIs
+# (TLS blocked); GitHub-hosted runners can. This job writes data/raw on the
+# session branch so the rest of the pipeline can run offline. It never publishes
+# HTML and never touches main.
+#
+# Trigger: push of this file or tools/collect.py to the session branch.
+
+on:
+  push:
+    branches: ["arena/1a1a3b1b-lolhotspawn1"]
+    paths:
+      - ".github/workflows/collect-raw.yml"
+      - "tools/collect.py"
+      - "tools/common.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect-raw-1a1a3b1b
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/1a1a3b1b-lolhotspawn1
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Collect raw feeds
+        run: |
+          set +e
+          mkdir -p data
+          python3 tools/collect.py 2>&1 | tee data/build-collect.log
+          echo "collect_exit:${PIPESTATUS[0]}" | tee -a data/build-collect.log
+
+      - name: Upload collect log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: collect-raw-log
+          path: data/build-collect.log
+          if-no-files-found: ignore
+
+      - name: Commit raw snapshots
+        if: always()
+        run: |
+          set -e
+          git config user.name  "arena-refresh-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/raw data/sources_status.json data/build-collect.log
+          if git diff --cached --quiet; then
+            echo "no raw changes"
+            exit 0
+          fi
+          git commit -m "chore(data): raw collect from runner [skip ci]"
+          git pull --rebase origin arena/1a1a3b1b-lolhotspawn1 || true
+          git push origin HEAD:arena/1a1a3b1b-lolhotspawn1

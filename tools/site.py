@@ -34,9 +34,10 @@ METHOD_HELP = {
 }
 
 # Always-visible navigation on phones (a persistent bottom bar beats a hidden menu).
+# "Picks" opens the compact table — the readable phone list — not the 200+ card wall.
 MOBILE_NAV = [
     ("index.html", "Summary"),
-    ("picks.html", "All picks"),
+    ("table.html", "Picks"),
     ("featured.html", "Market"),
     ("unresolved.html", "Unresolved"),
     ("flagged.html", "Flags"),
@@ -611,11 +612,11 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 <section class="panel">
   <h2>Executive summary</h2>
   <ul class="bullets">
-    <li><strong>Where the picks are.</strong> On a phone, bookmark
-    <a href="table.html"><strong>Pick table</strong></a> - one row per match with the pick, both win
-    probabilities, the method and source links. <a href="picks.html"><strong>Card view</strong></a> shows the
-    same {total} matches with the full reasoning. Both pages are searchable and filterable by tournament and
-    by method.</li>
+    <li><strong>Where the picks are.</strong> On a phone, tap <a href="table.html"><strong>Picks</strong></a>
+    in the bar at the bottom of every page — one row per match with the pick, both win
+    probabilities, the method and source links. Bookmark that table. <a href="picks.html"><strong>Card view</strong></a>
+    shows the same {total} matches with the full reasoning. Both pages are searchable and filterable by
+    tournament and by method. Next kick-offs are on this page under <a href="#next">Next up</a>.</li>
     <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
     ({resolved_total/total*100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
     official forfeit winner with no probability claimed.
@@ -704,12 +705,15 @@ def build_table(rows: list[dict], counts: Counter) -> str:
             '<td data-label="Tournament" class="opt small">' + e(r["competition"]) + "</td>",
             '<td data-label="Sources" class="srcs small">' + _row_sources(r) + "</td>",
         ]
-        trs.append('<tr class="prow m-' + e(method) + '" data-method="' + e(method) + '" data-comp="'
+        trs.append('<tr class="prow m-' + e(method) + '" id="row-' + e(r["id"]) + '" data-method="' + e(method) + '" data-comp="'
                    + e(r["competition"]) + '" data-start="' + e(r["start_utc"] or "")
                    + '" data-stale="' + ("1" if r.get("stale") else "0") + '" data-text="' + e(hay) + '">'
                    + "".join(cells) + "</tr>")
     body = f"""
 <section class="panel">
+  <p class="lead">Every listed League of Legends match, next kick-off first. The <strong>Pick</strong> column
+  is the side we take. On a phone this page is the <strong>Picks</strong> tab in the bar at the bottom of
+  every screen. Search and filter work without a reload.</p>
   <div class="toolbar">
     <input id="tq" type="search" placeholder="Search team or tournament" aria-label="Search team or tournament">
     <select id="tcomp" aria-label="Filter by tournament"><option value="">All tournaments</option>{opts}</select>

@@ -49,23 +49,51 @@ jobs:
 
       - name: Run pipeline (captured log)
         run: |
-          set -euo pipefail
-          python3 -m unittest discover -s tests -v
+          # GitHub Actions starts bash with -e; keep going so the log always captures
+          # which stage died (four scheduled runs on 2026-10-24 left no log at all).
+          set +e
+          set -uo pipefail
           mkdir -p data
+          : > data/build.log
+          fail=0
           {
             echo "=== build $(date -u +%FT%TZ) ==="
-            python3 tools/collect.py   2>&1
-            python3 tools/model.py     2>&1
-            python3 tools/report.py    2>&1
-            python3 tools/flags.py     2>&1
-            python3 tools/site.py      2>&1
-            python3 tools/corroborate.py 2>&1
-            python3 tools/verify.py    2>&1
-            python3 tools/site.py      2>&1
-            python3 tools/corroborate.py 2>&1
-            python3 tools/verify.py    2>&1
-          } | tee data/build.log
-          echo "pipeline exit: ${PIPESTATUS[0]}"
+            python3 -m unittest discover -s tests -v
+            echo "unittest_exit:$?"
+            python3 tools/collect.py
+            echo "collect_exit:$?"
+            python3 tools/model.py
+            echo "model_exit:$?"
+            python3 tools/report.py
+            echo "report_exit:$?"
+            python3 tools/flags.py
+            echo "flags_exit:$?"
+            python3 tools/site.py
+            echo "site_exit:$?"
+            python3 tools/corroborate.py
+            echo "corroborate_exit:$?"
+            python3 tools/verify.py
+            echo "verify_exit:$?"
+            python3 tools/site.py
+            echo "site2_exit:$?"
+            python3 tools/corroborate.py
+            echo "corroborate2_exit:$?"
+            python3 tools/verify.py
+            echo "verify2_exit:$?"
+          } 2>&1 | tee data/build.log
+          echo "pipeline tee done"
+          if grep -E -q '^(FAIL |unittest_exit:[1-9]|collect_exit:[1-9]|model_exit:[1-9]|verify_exit:[1-9]|verify2_exit:[1-9]|verification FAILED)' data/build.log; then
+            fail=1
+          fi
+          exit $fail
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: refresh-build-log
+          path: data/build.log
+          if-no-files-found: ignore
 
       - name: Stop on failed gate
         run: |

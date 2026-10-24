@@ -85,14 +85,10 @@ resolves, no `None`/empty value is rendered, every match appears on `picks.html`
 - `data/picks.csv` — one row per match: competition, teams, pick, probability, method, source URLs.
 - `data/matches.json` — full record per match, including odds, Elo inputs and flags.
 - `data/matching_report.json` — every team join that was not an exact string match, with its evidence.
-<<<<<<< HEAD
-- `data/verification.json` — the machine-readable result of the gate (31 checks).
-- `data/flags.json` — every irregularity published on `flagged.html`, curated + derived on each build.
-=======
 - `data/verification.json` — the machine-readable result of the gate.
+- `data/flags.json` — every irregularity published on `flagged.html`, curated + derived on each build.
 - `data/audit.json` — the manual, line-by-line source audit rendered on `verification.html`.
 - `data/retired_quotes.json` — archived quotes that were excluded as unverifiable, with the reason.
->>>>>>> origin/main
 - `data/build.log` — the last automated run, verbatim.
 - `COORDINATION.md` — task board, session log and the integration decisions taken across sessions.
 
