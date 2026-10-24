@@ -2427,3 +2427,76 @@ format record and was **not** used to fill `best_of` anywhere (Hotspawn still pu
 that card), but it shows a machine-readable third-party format label exists for some fixtures. If a format
 source is ever joined, it should be one shared source for both pipelines with a `best_of_source` column,
 preferring an official record (Leaguepedia wikitext `bestof=`) over bookmaker titles.
+
+## Session `9f16f9ad` — repair of the failing `refresh-docs` run after PR #88 (takeover, noted per protocol)
+
+`refresh-docs` run **40119321364** on merge commit `41f9488` (18:08:24Z) **failed** at step 5 "Verify docs
+integrity & site links"; step 4 (collect + analyze + build) succeeded, so no bad data was pushed and the site
+kept serving the committed pages (Pages deployment `40119320421` succeeded). The secondary dashboard would
+have stopped refreshing until this was fixed, which breaks the 4–8 h refresh requirement, so it was repaired
+in this session rather than left for the next one.
+
+### Diagnosis (the Actions log API EOFs, so it was reproduced offline)
+
+Four live states that the 18:08Z refresh could plausibly have seen were simulated against the committed
+snapshots — S1 `#1067688` loses its market consensus as books suspend post-kickoff (9 → 8 market rows);
+S2 a Worlds row drops to 3 live venues; S3 `#1067688` rolls off `scheduled` (241 → 240); S4 Hotspawn lists a
+new fixture the canonical inventory has not picked up yet (242):
+
+| gate | S1 | S2 | S3 | S4 |
+|---|---|---|---|---|
+| `audit/verify_docs.py` (17 checks, data-driven) | PASS | PASS | PASS | PASS |
+| `audit/check_site.py` | PASS | PASS | PASS | PASS |
+| `audit/verify_docs_parity.py` (this session) | PASS | PASS | PASS | FAIL → fixed (see below) |
+| `audit/session_6669f798/test_node_pipeline.mjs` | **FAIL** `expected 9 market-backed series` | **FAIL** `#1067881 should match >=4 live venues` | **FAIL** `expected 9 market-backed series` | **FAIL** `expected 9 market-backed series` |
+
+Live evidence that venue availability is exactly what moved: Hotspawn still lists `#1067688` as
+`status=scheduled` at `18:12Z` (`participants*_score 0`, kick-off `17:00Z` passed, `best_of: null`), while
+Polymarket traded it to `0.9995` at `17:54Z` and the canonical `17:31Z` quotes had already fallen from 5
+venues to 3. The pinned assertions in that test cannot survive the first kick-off.
+
+### Takeover note
+
+`audit/session_6669f798/test_node_pipeline.mjs` and `.github/workflows/refresh-docs.yml` were claimed by
+session `6669f798`, whose task board above is fully `done` and which has no commits since; no active claim
+covers them. Per the standing rule that any session may take over a finished/stale claim and note the
+handoff, this session repaired them. **Intent preserved, snapshot pinning removed:**
+
+- every market-backed row must join `>= 2` independent venues whose receipts are published, each with a
+  de-vigged `p0`/`p1` pair, no `(Kills)` derivative, and `venue_count` equal to the receipts published
+- `>= 4` venues is required only while at least one Worlds 2026 Main Event row is still **pre-kickoff**;
+  when none is, the test prints a note and skips that assertion instead of weakening it
+- fixture-specific assertions (`#1083097` PNG homonym quarantine, `#1079031` Swiss PvB, `#1081423` pick,
+  the four Solid Gaming DQ walkovers, `#1079080` Kalshi + Polymarket pair) are guarded by presence and print
+  a note when a fixture has rolled off the feed — they still assert everything they did while it is scheduled
+- unchanged and still strict: 1:1 scheduled-ID reconciliation with the raw feed, zero `picked_percent` /
+  `offered_points` leakage in `analyze.mjs`, calibration thresholds (`oos_evaluated > 20000`, Brier `< 0.24`,
+  `flags.count >= 10`)
+- **new invariant #8:** `best_of` must stay `null` wherever the Hotspawn feed publishes none — this is the
+  regression guard for the fabricated-`Bo1` irregularity fixed in PR #88
+- `.github/workflows/refresh-docs.yml` push triggers now include `audit/verify_docs_parity.py` and
+  `audit/session_6669f798/test_node_pipeline.mjs`, so editing a gate re-verifies the refresh
+
+### Two fixes this diagnosis produced in scope
+
+1. `docs/table.html` rows now state `⭐ not in the canonical snapshot (inventory <time>)` when Hotspawn lists
+   a fixture the canonical inventory has not picked up yet (simulation S4 — a real state, since the two
+   publishers refresh on separate 6 h clocks). Parity check 5 caught it; previously only the summary counts
+   mentioned those rows.
+2. `data/node/**` and `docs/**` were regenerated locally with the fixed analyzer (`analyze.mjs` only, offline
+   — no fetch, so every quote is still the committed `16:49Z` one) so the **committed** tree carries
+   `best_of: null`, `best_of_source` and the `series-format-not-published` flag, and all five gates pass on
+   the committed tree instead of only after the next CI refresh. **All `p0`/`p1` are unchanged**; only
+   freshness fields moved: active `176 → 172`, stale `65 → 69`, active unresolved `4 → 0` (those fixtures
+   passed their kick-off), flags `17 → 18`, OOS Brier `0.2250 → 0.2251` over `n = 22,344`, `generated_at`
+   `18:20:13Z`. The `00:05Z` scheduled refresh supersedes this with live data.
+
+### Gates on the repaired tree
+
+`node scripts/analyze.mjs` → 241 scheduled · `node scripts/build_site.mjs` → 10 pages ·
+`audit/session_6669f798/test_node_pipeline.mjs` → **PASS** (241 scheduled, 9 market rows, 42 venue quotes,
+OOS Brier 0.2251) · `audit/verify_docs.py` → **ALL DOCS CHECKS PASS** (17/17; 566 rows, 241 scheduled,
+172 active, flags 18, ledger 259) · `audit/verify_docs_parity.py` → **ALL DOCS-PARITY CHECKS PASS** (10/10;
+231 rows priced on both sides, 34 divergent, mean 2.35 pp, max 28.04 pp) · `audit/check_site.py` → **24 pages,
+0 failures** · `tools/verify.py` → **PASS** (`data/verification.json` reverted) · simulations S1–S4 re-run
+after the repair: all four gates PASS in every scenario.

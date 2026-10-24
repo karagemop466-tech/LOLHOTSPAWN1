@@ -677,6 +677,13 @@ function buildTablePage(picks) {
       if (cmp.cm) {
         const cpk = cmp.cm.pick ?? {};
         pickCell += `<br><span class="canon-cell">⭐ ${cpk.probability == null ? `${esc(cpk.team ?? "settlement")} (no probability)` : `${esc(cpk.team ?? "?")} ${pct1(cpk.probability)}`} <a href="${CANON_CARDS}#match-${esc(m.id)}">↗</a></span>`;
+      } else if (!CANON_OK) {
+        pickCell += `<br><span class="canon-cell canon-none">⭐ canonical snapshot unreadable at build time</span>`;
+      } else {
+        /* Hotspawn lists a fixture the canonical inventory has not picked up yet (the two
+           publishers refresh on separate 6 h clocks). Say so on the row instead of leaving
+           the reader to wonder whether the canonical side is silent or missing. */
+        pickCell += `<br><span class="canon-cell canon-none">⭐ not in the canonical snapshot (inventory ${esc(CANON?.inventory_fetched_utc ?? "unknown")})</span>`;
       }
       const staleAttr = m.state === "stale" ? "1" : "0";
       const searchStr = `${m.id} ${m.competition_name} ${m.team0.name} ${m.team1.name} ${m.pick?.team_name || ""} ${cmp.cm?.pick?.team || ""}`;

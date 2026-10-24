@@ -16,6 +16,8 @@ on:
       - "scripts/**"
       - "docs/assets/**"
       - "audit/verify_docs.py"
+      - "audit/verify_docs_parity.py"
+      - "audit/session_6669f798/test_node_pipeline.mjs"
       - ".github/workflows/refresh-docs.yml"
 
 permissions:
