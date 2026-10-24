@@ -7,6 +7,7 @@ calibration reliability curve, and a verified source link on every row.
 """
 from __future__ import annotations
 
+import glob
 import html
 import json
 import os
@@ -526,6 +527,65 @@ def _stat_totals(rows: list[dict]) -> dict:
     }
 
 
+HOTSPAWN_RULES_URL = "https://play.hotspawn.com/how-it-works"
+LOWTIER_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/"
+                    "research/low-tier-sources-2026-10-24.md")
+
+
+def _lowtier_matrix() -> tuple[dict, str, int]:
+    """Latest low-tier probe receipts (tools/probe_lowtier.py), if committed."""
+    files = sorted(glob.glob(os.path.join(DATA, "probe", "lowtier_*.json")))
+    if not files:
+        return {}, "", 0
+    doc = load_json(files[-1]) or {}
+    return (doc.get("coverage_matrix") or {},
+            (doc.get("generated_utc") or "")[:10],
+            int(doc.get("venues_probed") or 0))
+
+
+def _fallback_rows(rows: list[dict]) -> list[list[str]]:
+    """Per-competition fallback ledger derived only from matches and probe receipts."""
+    matrix, probe_date, n_venues = _lowtier_matrix()
+    by_comp: dict[str, list[dict]] = {}
+    for r in rows:
+        by_comp.setdefault(r["competition"], []).append(r)
+    out = []
+    for comp, crs in sorted(by_comp.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+        c = Counter(r["method"] for r in crs)
+        parts = []
+        if c.get("market"):
+            parts.append(f"{c['market']} market")
+        if c.get("model"):
+            parts.append(f"{c['model']} originated")
+        if c.get("provisional"):
+            parts.append(f"{c['provisional']} provisional")
+        if c.get("unresolved"):
+            parts.append(f"{c['unresolved']} settlement")
+        venues = matrix.get(comp) or []
+        if venues:
+            ext = "Yes &mdash; " + e(", ".join(venues[:3])) + ("&hellip;" if len(venues) > 3 else "")
+        elif c.get("market"):
+            ext = "Yes (integrated feed)"
+        elif n_venues:
+            ext = f"No line found (0 of {n_venues} venues, probed {e(probe_date)})"
+        else:
+            ext = "No line integrated"
+        n = len(crs)
+        if c.get("market") == n:
+            limit = "Featured resolution: de-vigged book consensus."
+        elif c.get("unresolved"):
+            limit = ("Includes official-forfeit settlements (no %; Hotspawn voids "
+                     "forfeited-match predictions, so expect 0 points either way).")
+        elif c.get("provisional", 0) * 2 >= n:
+            limit = "Thin recorded history on most cards - treat % as directional only."
+        elif c.get("provisional"):
+            limit = "No book prices this league; originated Elo, some thin-history cards flagged."
+        else:
+            limit = "No book prices this league; originated Elo from recorded series history."
+        out.append([e(comp), str(n), e(" · ".join(parts)), ext, limit])
+    return out
+
+
 def short_time(iso_utc: str | None) -> str:
     """Compact, locale-independent kick-off label for the phone strip."""
     if not iso_utc:
@@ -550,12 +610,12 @@ def next_strip(rows: list[dict]) -> str:
         if prob is not None:
             value, cls = f"{prob * 100:.0f}%", "np"
         elif team:
-            value, cls = "walkover", "np settle"
+            value, cls = "forfeit", "np settle"
         else:
             value, cls = "&mdash;", "np settle"
         note = f"Pick: {team}" if team else "No pick - see Unresolved"
         if prob is None and team:
-            note += " (league rule, no price)"
+            note += " (forfeit - expected void, no price)"
         out.append(
             f'<a class="nextrow" href="picks.html#match-{e(r["id"])}">'
             f'<span class="nw">{short_time(r["start_utc"])}</span>'
@@ -589,6 +649,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     originated_n = counts.get("model", 0) + len(provisional)
     ceiling = _external_ceiling()
     probe = _esportsbook_probe()
+    _, lowtier_date, lowtier_n = _lowtier_matrix()
     # Describe only feeds that actually carried a listed-match price on this
     # build; an HTTP 200 with an empty coupon is not a live price feed.
     ceiling_parts = []
@@ -623,6 +684,12 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     else:
         probe_line = "No additional esportsbook probe receipt is committed for this build."
         probe_link = '<a href="sources.html">Sources</a>'
+    lowtier_note = (
+        f' A separate {lowtier_n}-venue low-tier probe ({e(lowtier_date)}) is documented in the '
+        f'<a href="{LOWTIER_MEMO_URL}" rel="noopener">research memo and receipts</a>; see the '
+        '<a href="unresolved.html#fallback">competition-by-competition fallback ledger</a>.'
+        if lowtier_n else ""
+    )
     gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
 
     unres_rows = []
@@ -675,8 +742,8 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   </div>
 </section>
 
-<section class="panel" id="next">
-  <h2>Next up</h2>
+<section class="panel" id="soon">
+  <h2 id="next">Starting soon</h2>
   <p class="lead">The next eight kick-offs. Tap a row for the full card.</p>
   <div class="nextlist">{next_strip(upcoming[:8]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
   <p style="margin:12px 0 0"><a class="btn" href="table.html">All {total} matches &rarr;</a></p>
@@ -714,15 +781,15 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     {ceiling_txt} &mdash; overwhelmingly the same Worlds 2026 ties.{silent_txt} Everything below that ceiling
     has no external line to quote, so we originate it ourselves.
     Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
-    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.</li>
+    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.{lowtier_note}</li>
     <li><strong>Unresolved picks &amp; limitations.</strong> {len(unresolved)} cards cannot carry a playable
     probability today; they are listed with their reason and source in the section below and in full on
     <a href="unresolved.html">Unresolved &amp; limitations</a>. Nothing is padded with a guessed number.</li>
     <li><strong>Independence and limits.</strong> Hotspawn's public pick percentages are captured for audit
     only and carry zero weight in any probability (see <a href="methodology.html">Method</a>). Market quotes
     are source observations, not official verification; originated lines are model estimates from
-    community-maintained Leaguepedia history; a Hotspawn forfeit settlement is unverified &mdash;
-    see <a href="flagged.html">Flagged for review</a>.</li>
+    community-maintained Leaguepedia history; any walkover grade instead of Hotspawn's published void
+    rule remains conditional &mdash; see <a href="flagged.html">Flagged for review</a>.</li>
     <li><strong>Verification.</strong> {live_sources} of the {len(src_status)} polled feeds answered on the
     last build, every row links to its official source, and the {gate_count}-check publish gate
     (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
@@ -734,7 +801,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   <h2>Unresolved picks and the limitations ({len(unresolved)})</h2>
   <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror
   Hotspawn exactly, are reported separately, and are never padded with a guessed number. Where the league
-  itself has ruled a forfeit, the official settlement winner is shown - it is <em>not</em> a forecast.</p>
+  itself has ruled a forfeit, the official settlement winner is shown - it is <em>not</em> a forecast.
+  <a href="{HOTSPAWN_RULES_URL}" rel="noopener">Hotspawn's published rule</a> voids forfeited-match
+  predictions, with no points awarded or deducted.</p>
   {table(["Kick-off", "Tournament", "Match", "Settlement pick", "Sources"], unres_rows) if unres_rows else '<p class="muted">No unresolved matches in this snapshot.</p>'}
   <ul class="bullets">
     <li><strong>Why a card can have no line.</strong> A team officially removed mid-split
@@ -924,6 +993,9 @@ def build_table(rows: list[dict], counts: Counter) -> str:
                    + "".join(cells) + "</tr>")
     body = f"""
 <section class="panel">
+  <p class="lead">Every listed League of Legends match, next kick-off first. The <strong>Pick</strong> column
+  is the side we take. On a phone this page is the <strong>Picks</strong> tab in the bar at the bottom of
+  every screen. Search and filter work without a reload.</p>
   <div class="toolbar">
     <input id="tq" type="search" placeholder="Search team or tournament" aria-label="Search team or tournament">
     <select id="tcomp" aria-label="Filter by tournament"><option value="">All tournaments</option>{opts}</select>
@@ -1112,9 +1184,9 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
         ["Mid-split league removals (dqteams)", f"{len(unresolved)} matches",
          "Leaguepedia's Data: page for the competition records the removal (for Komplettligaen, Round 10 carries the "
          "footnote '[[Solid Gaming]] is removed from the league.' and every remaining series is scored 0-2 with an ff "
-         "flag). Because Hotspawn may either void the card or grade a walkover for the remaining active opponent, an "
-         "Elo probability built from pre-removal results is invalid, so the row is quarantined and only the official "
-         "settlement winner is shown."],
+         "flag). Hotspawn's published rule voids all predictions on a forfeited match, so the expected outcome "
+         "is 0 points either way; an Elo probability built from pre-removal results would be invalid, so the row "
+         "is quarantined and only the administrative winner is shown, with no percentage."],
         ["No sportsbook market on national divisions", f"{len([r for r in rows if r['method']!='market'])} matches",
          "Only the competitions listed on the Market page have a reachable price in this snapshot. The remaining "
          "national, academy and third-division leagues are not offered by any book the build runner can reach, so "
@@ -1145,6 +1217,7 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
         ])
     hunt_table = (table(["Source", "What it is", "Runner verdict", "Checked (UTC)"], hunt_rows)
                   if hunt_rows else '<p class="muted">No source probe recorded on this build.</p>')
+    _, lowtier_date, lowtier_n = _lowtier_matrix()
 
     body = f"""
 <section class="panel">
@@ -1153,13 +1226,31 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
   mid-split league disqualifications/removals (<code>dqteams</code>) where matches are never played on the Rift,
   or cards with no match history on either side. Where the competition record already awards a forfeit, the
   official settlement winner is listed in its own column. Leaguepedia is a community source, not a settlement
-  authority, and Hotspawn's grading of a voided card is unverified: treat a forfeit pick as conditional.</p>
+  authority. Hotspawn's published rule is explicit &mdash; <em>&ldquo;If a match is forfeited, all predictions
+  for that match are voided. No points are awarded or deducted&rdquo;</em>
+  (<a href="{HOTSPAWN_RULES_URL}" rel="noopener">Hotspawn &mdash; How Pick'ems Works</a>, checked 2026-10-24)
+  &mdash; so expect a forfeit card to score zero whichever side you tap; the winner shown is the
+  administratively correct side only if Hotspawn grades a walkover instead of voiding.</p>
   {'<p class="muted">No unresolved matches in this snapshot.</p>' if not unresolved else table(["Start (UTC)", "Tournament", "Match", "Official settlement pick", "Why competitive pricing is impossible", "Verified Sources"], reason_rows)}
 </section>
 
 <section class="panel">
   <h2>Documented limitations across the list</h2>
   {table(["Limitation", "Scope", "Impact &amp; handling"], lim_rows)}
+</section>
+
+<section class="panel" id="fallback">
+  <h2>Fallback by competition &mdash; how non-featured picks are guided</h2>
+  <p class="lead">For every competition the featured (market) resolution cannot price, this is what guides the
+  pick instead, and the limitation to keep in mind. Order of trust: <strong>market</strong> (de-vigged book
+  consensus) &rarr; <strong>originated</strong> (our Elo from recorded series history) &rarr;
+  <strong>provisional</strong> (same Elo on thin data, % shrunk toward 50%) &rarr;
+  <strong>settlement</strong> (administrative forfeit winner, no %; Hotspawn voids forfeited-match predictions).
+  External-line evidence: {lowtier_n} established books, esportsbooks, exchanges and aggregators probed from the
+  build runner on {e(lowtier_date)} &mdash; <a href="{LOWTIER_MEMO_URL}" rel="noopener">research memo</a> and
+  machine-readable receipts in <code>data/probe/lowtier_20261024.json</code>. A keyed odds API might widen
+  coverage but needs an owner-provided credential; none is used and none is circumvented.</p>
+  {table(["Competition", "Matches", "Pick basis", "External line found?", "Limitation"], _fallback_rows(rows))}
 </section>
 
 <section class="panel" id="line-hunt">

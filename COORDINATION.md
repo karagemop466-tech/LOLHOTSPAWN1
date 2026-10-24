@@ -511,23 +511,24 @@ The final integration below refines valid divergence into a disclosed, non-prici
 recreate the same refresh deadlock.
 
 R2/R3 integration evidence: this session locally integrated PR #71 (`80c624cd` results/mobile work),
-then merged successive `origin/main` updates at `73dab0b`, `0288327`, `1e50b87` and `9ac1044`, including
-PRs #71/#74/#75/#78 and both branch-runner evidence commits. Conflicts affected the refresh workflow,
+then merged successive `origin/main` updates at `73dab0b`, `0288327`, `1e50b87`, `9ac1044` and `462329c`,
+including PRs #71/#74/#75/#76/#78 and both branch-runner evidence commits. Conflicts affected the refresh workflow,
 receipt verification,
 landing-page source wording, generated data/HTML and this file. The resolution retains the integrated
 usable/expired/historic/rejected receipt taxonomy and result grading, restores `main`'s latest raw source
-captures plus `data/receipts/external_odds/2026-10-24.json`, incorporates `main`'s measured esportsbook
-probe explanation, and unions every coordination record. No side's generated snapshot was chosen over the
+captures plus the October 24 external/long-tail receipts, incorporates `main`'s measured esportsbook
+and 51-venue low-tier probes, the Starting soon phone list, per-competition fallback ledger and official
+Hotspawn forfeit-void rule, and unions every coordination record. No side's generated snapshot was chosen over the
 other: all outputs were rebuilt from the merged source. A blank/missing receipt fixture ID is malformed,
 not historic, with a focused regression test.
 
-The merged snapshot was generated at `2026-10-24T16:46:16Z` from inventory fetched at `16:34:24Z`:
+The merged snapshot was generated at `2026-10-24T16:51:00Z` from inventory fetched at `16:42:54Z`:
 241/241 fixtures across 29 competitions, 9 market + 150 model + 78 provisional + 4 settlement-only picks;
 39 graded results (23 hits, 16 misses), kept separate from forecast probabilities. All 51 external
 captures are accounted for: 32 usable (31 agree, 1 diverges), 1 expired, 16 historic, 2 informational
 placeholders and 0 rejected. The divergent EGamersWorld observation for fixture `1081423` is source-linked
 and flagged; it never enters pricing, so it is non-blocking, while malformed and wrong-fixture receipts
-still fail closed. Verification: **56/56 unit tests**, **42/42 publish gates**, independent
+still fail closed. Verification: **56/56 unit tests**, **43/43 publish gates**, independent
 probability/source audit PASS, site audit **21 pages / 0 failures / 0 warnings**, independent row/venue
 audit **0 failures / 0 warnings** across 41 checked venues, jsdom mobile/search/filter PASS, and the
 cross-pipeline freshness/inventory audit reports **0 missing fixtures / 0 missing picks / OK**. The
@@ -546,6 +547,65 @@ seven days under a run-specific name.
 | Post-merge `refresh-picks` | run **40111777927** **success** in 2m32s on `main` (first successful publisher after the 23 Oct outage on this session's gate fix); auto-commit `73dab0b` |
 | Live | https://karagemop466-tech.github.io/LOLHOTSPAWN1/ HTTP 200 — 241/241 picks, 29 tournaments, Next up is 24 Oct (TES vs AL `#1067688` Anyone's Legend 63%), unresolved Solid Gaming table with Leaguepedia sources, Pick table CTA |
 | Session | closed |
+
+## Session `e32a5c4b` — claim (opened 2026-10-24)
+
+Branch: `arena/e32a5c4b-lolhotspawn1` (fixed Arena session branch, from `main` `8b84531`).
+Brief: a pick for **every** Hotspawn LoL match incl. low-tier / off-Polymarket cards, fresh
+line-source research for the non-featured tail, an unresolved+limitations section inside the
+executive summary, and a phone-first executive summary with in-site links. Local gates on the
+published (2026-10-23) data all pass (`verify.py` 41 checks, `check_site.py` 20 pages 0 failures,
+`unittest` 13/13), but the scheduled `refresh-picks` workflow on `main` is failing in the
+pipeline step (runs `40063260000`, `40088464687`, `40109474033`), so the live picks are stale.
+Fixing that is task E1. Open PRs #22/#26/#35/#36/#40/#56 (all 2026-10-23) predate the merged
+union in PRs #54/#55/#57/#59 and overlap the pipeline files; this session works on top of
+current `main` and does **not** merge or close them — they are listed on Flagged for Review
+for the owner. In particular PR #56 (Rivalry venue, `4106ce94`) touches `tools/collect.py`,
+`tools/model.py`, `tools/verify.py`: if it is revived it must rebase over E1, not vice versa.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|-----------|
+| E1 | Diagnose + fix the failing scheduled refresh so the 6 h auto-refresh publishes again (runner diagnostic committed back as evidence) | done | e32a5c4b | `tools/model.py` (basis text only), `tools/verify.py`, `.github/workflows/diag-refresh-e32a.yml` (new), `data/diag/` (new) |
+| E2 | Fresh line-source research for every non-featured (non-market) competition: established books → esportsbooks → aggregators/exchanges, with runner receipts and a per-competition fallback ledger (what was tried, why no line, what guides the pick instead) | done | e32a5c4b | `tools/probe_lowtier.py` (new), `.github/workflows/probe-lowtier.yml` (new), `research/low-tier-sources-2026-10-24.md` (new), `data/probe/lowtier_20261024.json`, `data/line_source_research.json`, `data/flags_manual.json` |
+| E3 | Phone-first executive summary: "Starting soon" next-48 h pick list at the top of `index.html`, featured-market cards (de-duplicated), unresolved+limitations section with the E2 fallback ledger + official forfeit-void rule; 48 px tap targets | done | e32a5c4b | `tools/site.py`, `assets/style.css`, generated root `*.html`, `README.md` |
+| E4 | Line-by-line verification, PR → `main`, merge, confirm Pages deploy + post-merge refresh success | in progress | e32a5c4b | — |
+
+### Completion record (2026-10-24, session `e32a5c4b`)
+
+- **E1 root cause (independently reproduced).** Staged runner diagnostic (`data/diag/diag.log`,
+  run `40111246710`) on pre-fix code: every stage exits 0 until `verify`, which failed exactly one
+  check — *external receipts validated* (`1 usable, 16 rejected`): 2026-10-23 manual EGamersWorld
+  receipts for kicked-off Worlds fixtures aged into `rejected` and blocked every scheduled refresh
+  (`40063260000`, `40088464687`, `40109474033`). The fix (classify off-list receipts as historical)
+  landed meanwhile via PR #62 (`0ab57dc` + `tests/test_corroborate_history.py`); merged into this
+  branch, re-verified locally on fresh data (`1 usable / 0 rejected / 16 historical`). Main
+  `refresh-picks` is green again (auto-commit `42cb155`, data 2026-10-24T16:21Z: 241 = 9 market +
+  150 originated + 78 provisional + 4 settlements). Diag workflow kept (now also triggers on
+  `site.py`/`corroborate.py`); delete after a week of green scheduled runs.
+- **E2 finding.** 51-venue probe vs the live 241-fixture inventory (`data/probe/lowtier_20261024.json`):
+  only Worlds (5 venues) + LGC Rising (Polymarket) appear anywhere; **27/29 competitions appear in
+  no venue payload**. 200-shells (Bwin, Rivalry, BC.GAME, …) expose no JSON price feed; 403 walls
+  (GG.BET, Thunderpick, Stake, EGamersWorld, …) cannot power automation. Per-competition fallback
+  ledger: `research/low-tier-sources-2026-10-24.md` + rendered at `unresolved.html#fallback` and in
+  the index unresolved section. Keyed APIs (OddsPapi/PandaScore/Betfair) flagged as owner-credential
+  options; TonyBet/BetOnline + in-browser coupons logged as unprobed limitations. No pick changed.
+- **Official-rule correction.** Hotspawn voids forfeited-match predictions
+  (<https://play.hotspawn.com/how-it-works>): the 4 Solid Gaming settlement picks are now labelled
+  *expected void (0 pts either way)* everywhere (`site.py` copy + `model.py` basis/resolution text +
+  curated flag). Pick lock (5 min before start) cited on the Starting-soon list.
+- **E3.** Index now opens with *Starting soon — next 48 hours* (39 matches at build, first 15
+  soonest-first, big pick %), duplicate "Next upcoming picks" cards replaced by *Featured market
+  picks*, exec summary gained a low-tier-tail bullet linking `#fallback` + the memo, fallback ledger
+  embedded (expandable) in the index unresolved section; 48 px mobile tap targets. New publish gate
+  (42nd check) asserts all three renders.
+- **Verification (all green, fresh data).** `verify.py` 42/42 PASS · `unittest` 18/18 ·
+  `audit/check_site.py` 20 pages 0 failures · `audit/verify_independent.py` 0 failures ·
+  `audit/verify_docs.py` PASS · `research/audit.py` PASS · `tests/dashboard.cjs` PASS (jsdom via
+  `NODE_PATH`). Flagged (non-blocking, on Flagged page): forfeit-void expectation, 27-competition
+  no-line finding, superseded open PRs #22/#26/#35/#36/#40/#56 for the owner to close/keep.
+
+Rule (unchanged): Hotspawn crowd percentages are never a probability input; an unconfirmable
+value stays blank and is flagged; every published row keeps a source link.
 
 ## Session `64554333` — claim (opened 2026-10-23T15:40Z)
 
