@@ -17,6 +17,31 @@ before touching shared files, claim a task, and keep your scope disjoint.
 | Integration session | `b166e06b` |
 | Current session | `64554333` (branch `arena/64554333-lolhotspawn1`) |
 
+## Session `e32a5c4b` — claim (opened 2026-10-24)
+
+Branch: `arena/e32a5c4b-lolhotspawn1` (fixed Arena session branch, from `main` `8b84531`).
+Brief: a pick for **every** Hotspawn LoL match incl. low-tier / off-Polymarket cards, fresh
+line-source research for the non-featured tail, an unresolved+limitations section inside the
+executive summary, and a phone-first executive summary with in-site links. Local gates on the
+published (2026-10-23) data all pass (`verify.py` 41 checks, `check_site.py` 20 pages 0 failures,
+`unittest` 13/13), but the scheduled `refresh-picks` workflow on `main` is failing in the
+pipeline step (runs `40063260000`, `40088464687`, `40109474033`), so the live picks are stale.
+Fixing that is task E1. Open PRs #22/#26/#35/#36/#40/#56 (all 2026-10-23) predate the merged
+union in PRs #54/#55/#57/#59 and overlap the pipeline files; this session works on top of
+current `main` and does **not** merge or close them — they are listed on Flagged for Review
+for the owner. In particular PR #56 (Rivalry venue, `4106ce94`) touches `tools/collect.py`,
+`tools/model.py`, `tools/verify.py`: if it is revived it must rebase over E1, not vice versa.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|-----------|
+| E1 | Diagnose + fix the failing scheduled refresh so the 6 h auto-refresh publishes again (runner diagnostic committed back as evidence) | in progress | e32a5c4b | `tools/collect.py`, `tools/model.py`, `tools/verify.py`, `tools/flags.py`, `.github/workflows/diag-refresh-e32a.yml` (new), `data/diag/` (new) |
+| E2 | Fresh line-source research for every non-featured (non-market) competition: established books → esportsbooks → aggregators/exchanges, with runner receipts and a per-competition fallback ledger (what was tried, why no line, what guides the pick instead) | in progress | e32a5c4b | `tools/probe_lowtier.py` (new), `.github/workflows/probe-lowtier.yml` (new), `research/low-tier-sources-2026-10-24.md` (new), `data/probe/lowtier_*.json` (new), `data/line_source_research.json` |
+| E3 | Phone-first executive summary: "starting soon" big-tap pick list at the top of `index.html`, one-tap links to every picks view, expanded unresolved+limitations section with the E2 fallback table; 390 px no-horizontal-scroll audit | unclaimed→e32a5c4b | e32a5c4b | `tools/site.py`, `assets/style.css`, `assets/app.js`, generated root `*.html` |
+| E4 | Line-by-line verification, PR → `main`, merge, confirm Pages deploy + post-merge refresh success | unclaimed→e32a5c4b | e32a5c4b | — |
+
+Rule (unchanged): Hotspawn crowd percentages are never a probability input; an unconfirmable
+value stays blank and is flagged; every published row keeps a source link.
+
 ## Session `64554333` — claim (opened 2026-10-23T15:40Z)
 
 Scope (disjoint from every earlier session; all earlier tasks are `done`):
