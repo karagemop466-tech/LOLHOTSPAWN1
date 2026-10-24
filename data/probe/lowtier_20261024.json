@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T17:02:16Z",
+ "generated_utc": "2026-10-24T18:04:38Z",
  "runner": "GitHub Actions ubuntu-latest, python urllib, honest User-Agent, 1 GET per venue",
  "hotspawn_inventory": {
   "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
@@ -48,7 +48,7 @@
    "status": 200,
    "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
    "content_type": "application/json",
-   "bytes": 665726,
+   "bytes": 607534,
    "is_json": true,
    "odds_like_keys": false,
    "error": "",
@@ -88,7 +88,7 @@
    "status": 200,
    "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
    "content_type": "application/json",
-   "bytes": 5582,
+   "bytes": 5580,
    "is_json": true,
    "odds_like_keys": false,
    "error": "",
@@ -104,14 +104,13 @@
    "status": 200,
    "final_url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
    "content_type": "application/json",
-   "bytes": 14013,
+   "bytes": 12461,
    "is_json": true,
    "odds_like_keys": true,
    "error": "",
    "competitions_matched": {
     "Worlds 2026 Main Event": {
      "teams_found": [
-      "anyone s legend",
       "bilibili gaming",
       "ctbc flying oyster",
       "dplus kia",
@@ -122,13 +121,13 @@
       "karmine corp",
       "lyon",
       "movistar koi",
-      "team liquid"
+      "team liquid",
+      "team secret whales"
      ],
      "competition_name_found": false
     }
    },
    "distinct_current_teams_found": [
-    "anyone s legend",
     "bilibili gaming",
     "ctbc flying oyster",
     "dplus kia",
@@ -140,8 +139,7 @@
     "lyon",
     "movistar koi",
     "team liquid",
-    "team secret whales",
-    "top esports"
+    "team secret whales"
    ],
    "verdict": "REACHABLE + mentions current low-tier teams/competitions (manual parser review required before any use)"
   },
@@ -153,16 +151,14 @@
    "status": 200,
    "final_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en",
    "content_type": "application/json",
-   "bytes": 11750,
+   "bytes": 8902,
    "is_json": true,
    "odds_like_keys": true,
    "error": "",
    "competitions_matched": {
     "Worlds 2026 Main Event": {
      "teams_found": [
-      "anyone s legend",
       "bilibili gaming",
-      "ctbc flying oyster",
       "dplus kia",
       "g2 esports",
       "gen g",
@@ -170,16 +166,13 @@
       "invictus gaming",
       "karmine corp",
       "lyon",
-      "movistar koi",
       "team liquid"
      ],
      "competition_name_found": false
     }
    },
    "distinct_current_teams_found": [
-    "anyone s legend",
     "bilibili gaming",
-    "ctbc flying oyster",
     "dplus kia",
     "g2 esports",
     "gen g",
@@ -187,9 +180,7 @@
     "invictus gaming",
     "karmine corp",
     "lyon",
-    "movistar koi",
-    "team liquid",
-    "top esports"
+    "team liquid"
    ],
    "verdict": "REACHABLE + mentions current low-tier teams/competitions (manual parser review required before any use)"
   },
@@ -201,7 +192,7 @@
    "status": 200,
    "final_url": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=league-of-legends",
    "content_type": "application/json",
-   "bytes": 4358369,
+   "bytes": 4371773,
    "is_json": true,
    "odds_like_keys": false,
    "error": "",
@@ -260,14 +251,13 @@
    "status": 200,
    "final_url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100",
    "content_type": "application/json",
-   "bytes": 51800,
+   "bytes": 46011,
    "is_json": true,
    "odds_like_keys": false,
    "error": "",
    "competitions_matched": {
     "Worlds 2026 Main Event": {
      "teams_found": [
-      "anyone s legend",
       "bilibili gaming",
       "ctbc flying oyster",
       "dplus kia",
@@ -278,13 +268,13 @@
       "karmine corp",
       "lyon",
       "movistar koi",
-      "team liquid"
+      "team liquid",
+      "team secret whales"
      ],
      "competition_name_found": false
     }
    },
    "distinct_current_teams_found": [
-    "anyone s legend",
     "bilibili gaming",
     "ctbc flying oyster",
     "dplus kia",
@@ -297,8 +287,7 @@
     "mental rush",
     "movistar koi",
     "team liquid",
-    "team secret whales",
-    "top esports"
+    "team secret whales"
    ],
    "verdict": "REACHABLE + mentions current low-tier teams/competitions (manual parser review required before any use)"
   },
@@ -406,7 +395,7 @@
    "status": 403,
    "final_url": "https://www.betano.com/sport/esports/league-of-legends/",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 904,
+   "bytes": 914,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -422,7 +411,7 @@
    "status": 403,
    "final_url": "https://www.marathonbet.com/en/betting/Esports/League+of+Legends+-+2777942",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 2244,
+   "bytes": 2255,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -438,7 +427,7 @@
    "status": 203,
    "final_url": "https://1xbet.com/en/block?sports=249&count=50&mode=4&country=1&getEmpty=true",
    "content_type": "text/html;charset=utf-8",
-   "bytes": 2665,
+   "bytes": 2662,
    "is_json": false,
    "odds_like_keys": false,
    "error": "",
@@ -454,7 +443,7 @@
    "status": 203,
    "final_url": "https://melbet.com/en/block?sports=249&count=50&mode=4&country=1&getEmpty=true",
    "content_type": "text/html;charset=utf-8",
-   "bytes": 2894,
+   "bytes": 2891,
    "is_json": false,
    "odds_like_keys": false,
    "error": "",
@@ -486,7 +475,7 @@
    "status": 200,
    "final_url": "https://www.888sport.com/esports/",
    "content_type": "text/html; charset=utf-8",
-   "bytes": 209029,
+   "bytes": 209028,
    "is_json": false,
    "odds_like_keys": false,
    "error": "",
@@ -521,7 +510,7 @@
    "status": 403,
    "final_url": "https://thunderpick.io/esports/league-of-legends",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 3246,
+   "bytes": 3252,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -537,7 +526,7 @@
    "status": 403,
    "final_url": "https://thunderpick.io/api/v1/sports",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 3252,
+   "bytes": 3232,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -572,7 +561,7 @@
    "status": 502,
    "final_url": "https://api.rivalry.com/api/v1/sport/league-of-legends",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 6487,
+   "bytes": 6481,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 502 Bad Gateway",
@@ -588,7 +577,7 @@
    "status": 403,
    "final_url": "https://stake.com/sports/esport/league-of-legends",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 3233,
+   "bytes": 3264,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -620,7 +609,7 @@
    "status": 401,
    "final_url": "https://betboom.ru/sport/esports/league-of-legends",
    "content_type": "text/html",
-   "bytes": 1686,
+   "bytes": 1683,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 401 Unauthorized",
@@ -684,7 +673,7 @@
    "status": 403,
    "final_url": "https://duelbits.com/sportsbook/esports/league-of-legends",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 3277,
+   "bytes": 3267,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -716,7 +705,7 @@
    "status": 403,
    "final_url": "https://egamersworld.com/lol/matches",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 3257,
+   "bytes": 3233,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -732,7 +721,7 @@
    "status": 200,
    "final_url": "https://www.oddsportal.com/esports/league-of-legends/",
    "content_type": "text/html; charset=utf-8",
-   "bytes": 327896,
+   "bytes": 334272,
    "is_json": false,
    "odds_like_keys": false,
    "error": "",
@@ -751,7 +740,7 @@
    "status": 403,
    "final_url": "https://oddspedia.com/esports/league-of-legends",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 3252,
+   "bytes": 3261,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -850,7 +839,7 @@
    "status": 403,
    "final_url": "https://escorenews.com/en/lol",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 3184,
+   "bytes": 3217,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -914,7 +903,7 @@
    "status": 403,
    "final_url": "https://www.betfair.com/exchange/plus/esports",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 1531,
+   "bytes": 1525,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -1000,7 +989,7 @@
    "status": 403,
    "final_url": "https://oracleselixir.com/tools/downloads",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 3170,
+   "bytes": 3161,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
@@ -1032,7 +1021,7 @@
    "status": 403,
    "final_url": "https://www.sheepesports.com/league-of-legends",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 40316,
+   "bytes": 40311,
    "is_json": false,
    "odds_like_keys": false,
    "error": "HTTP 403 Forbidden",
