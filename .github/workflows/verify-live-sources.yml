@@ -1,0 +1,60 @@
+name: verify-live-sources
+
+# Independent verification (session c0a05820, tasks I1/I2).
+# Resolves every source URL the dashboard publishes - Hotspawn match cards, book
+# receipts, venue quotes, Leaguepedia pages - and re-checks the mobile rules on
+# every generated page. Runs on the GitHub runner because the session sandbox has
+# no egress to those hosts. It only writes audit/session_c0a05820/**.
+
+on:
+  schedule:
+    - cron: "40 3 * * *"     # daily, after the 03:17 refresh
+  workflow_dispatch:
+  push:
+    branches: ["arena/**", "main"]
+    paths:
+      - "audit/live_source_verify.py"
+      - "audit/mobile_audit.py"
+      - ".github/workflows/verify-live-sources.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: verify-live-sources-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Mobile readability audit
+        run: python3 audit/mobile_audit.py --json audit/session_c0a05820/mobile_audit.json
+
+      - name: Live source resolution
+        run: python3 audit/live_source_verify.py
+
+      - name: Commit receipts
+        if: always()
+        run: |
+          set -e
+          git config user.name "arena-verify-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add audit/session_c0a05820
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          git commit -m "chore(audit): live source + mobile verification receipts [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then exit 0; fi
+            git fetch origin "${GITHUB_REF_NAME}" && git rebase -X theirs "origin/${GITHUB_REF_NAME}" || true
+            sleep $((attempt * 5))
+          done
+          echo "could not push receipts"; exit 0

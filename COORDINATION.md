@@ -2111,3 +2111,72 @@ Branch: `arena/6669f798-lolhotspawn1` (fixed Arena session branch). All implemen
 **Session `6669f798` closed.** All tasks `N1`–`N3`, `A_6669f798`, and `I_6669f798` are complete, merged, and verified live.
 
 
+
+---
+
+# Session `c0a05820` — verification results (2026-10-24T17:0xZ)
+
+Scope as re-claimed above (I1/I2/I3). Nothing in `tools/collect.py`, `tools/model.py`,
+`tools/site.py`, `tools/verify.py`, `assets/**` or `.github/workflows/refresh.yml` was edited — those
+belonged to `80c624cd` (merged as PR #66) and `cc8c7362`/others.
+
+## What was added
+
+| File | Purpose |
+|---|---|
+| `audit/live_source_verify.py` | Resolves **every** source URL the dashboard publishes — 241 Hotspawn match cards, 10 book receipts, 41 venue quotes, 29 Leaguepedia pages, the pickem page, and all 13 published pages — from a GitHub runner, and classifies each verdict. |
+| `audit/mobile_audit.py` | Static phone audit of all pages + CSS: viewport meta, scroll wrappers, `data-label` stacked cells, 16 px base type, ≤480 px breakpoint, ≥40 px tap targets, bottom nav, and one-tap links to every picks list from the landing page. |
+| `.github/workflows/verify-live-sources.yml` | Runs both audits on the runner (cron `40 3 * * *`, on dispatch, and on change), commits the receipts to `audit/session_c0a05820/`. |
+| `tools/corroborate.py` (3 lines) | **Real defect fixed:** the "How each match was priced" table on `coverage.html` was emitted without a `.tablewrap` scroll container and without `data-label` on its cells, so on a phone it neither scrolled nor showed field labels. Now wrapped and labelled like every other table. |
+
+## Measured results (receipts committed)
+
+`audit/session_c0a05820/source_verify.md`, runner, **PASS 13/13**, dataset `2026-10-24T16:36:17Z`:
+
+| Check | Result |
+|---|---|
+| Hotspawn match cards resolve | **241/241** HTTP 2xx |
+| Book receipt / venue quote URLs | **43/51** resolved; 8 Kalshi **429 rate-limited** (classified, not broken) |
+| Leaguepedia competition pages | **29/29** confirmed through the MediaWiki API |
+| Published inventory == live feed | **241 = 241**, 0 new, 0 gone |
+| Rows with a pick | **241/241** (237 priced + 4 settlement) |
+| Probabilities sum to 100%, pick = argmax | 241/241, 0 violations |
+| Rows with at least one resolving source | **241/241** |
+| Published pages resolve | **13/13** |
+
+`audit/session_c0a05820/mobile_audit.json`: **PASS** — CSS clean, 13/13 pages clean, 360 px rules hold.
+
+Classification mattering for honesty: a 429 from a site that throttles a crawler and a 404 on a
+closed bookmaker event page are **not** broken links; the verifier separates `rate_limited`,
+`expired_event`, `blocked_by_wiki` from `broken`/`not_found`/`auth_required` so a throttle can never
+be published as rot, and two false-alarm classes were removed during the run (bare-Chrome UA was
+403'd by `hotspawn.com`; `lol.fandom.com/wiki/...` 403s any datacentre request, so page existence is
+confirmed through `api.php`, the endpoint the collector already uses).
+
+## Root cause of the stalled refresh (found independently, fixed by `80c624cd` in PR #66)
+
+`tools/verify.py` was failing one gate — `external receipts validated against the dataset :: 1 usable
+receipts, 16 rejected` — because the static archived esportsbook receipts pointed at fixtures that
+had dropped off the live Hotspawn feed. That aborted `refresh.yml` before its commit step for four
+consecutive scheduled runs, so `main` kept serving the 2026-10-23T17:13Z dataset. Confirmed green
+again after the fix: `refresh-picks` runs 40111777927 / 40111834883 / 40112154225 all **success**,
+dataset now `2026-10-24T16:36:17Z`.
+
+## Local gates on the integrated tree (after rebase onto `main`)
+
+| Gate | Result |
+|---|---|
+| `tools/verify.py` | **41/41 PASS** |
+| `python3 -m unittest discover -s tests` | **44/44 OK** |
+| `NODE_PATH=… node tests/dashboard.cjs` | **PASS** (241 matches, menu, search, filters) |
+| `audit/check_site.py` | 21 pages, **0 failures**, 0 warnings |
+| `audit/verify_independent.py` | **0 failures**, 0 warnings, 41 venues |
+| `audit/verify_docs.py` | **12/12 PASS** |
+| `research/audit.py` | **PASS** |
+| `audit/mobile_audit.py` | **PASS** (was FAIL on `coverage.html`) |
+
+
+**History note (`c0a05820`):** this branch was rebased onto `origin/main` and the earlier
+`chore(audit)` bot receipts were regenerated rather than merged, so the branch tip was force-pushed
+with `--force-with-lease`. The only commits replaced are this session's own generated receipts; no
+other session's commit, file or text was discarded.
