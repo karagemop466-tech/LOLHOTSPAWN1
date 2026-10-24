@@ -2180,3 +2180,29 @@ dataset now `2026-10-24T16:36:17Z`.
 `chore(audit)` bot receipts were regenerated rather than merged, so the branch tip was force-pushed
 with `--force-with-lease`. The only commits replaced are this session's own generated receipts; no
 other session's commit, file or text was discarded.
+
+## PR / deploy record — session `c0a05820`
+
+| Item | Value |
+|---|---|
+| Pull request | **#82** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/82 (`arena/c0a05820-lolhotspawn1` → `main`) |
+| Merge | merged without waiting for review at **2026-10-24T17:02:35Z**, merge commit `197da48` |
+| Pages | `pages-build-deployment` for `197da48`: **success**; `gh api …/pages` → `status: built` |
+| Post-merge pipeline | `refresh-picks` on `197da48`: **success** (the six-hourly publisher is healthy again) |
+| Live check | Homepage fetched 2026-10-24T17:1xZ: snapshot **2026-10-24 16:57 UTC**, "Hotspawn inventory is 3m old", **241 matches / 241 picks**, 9 market-backed, 228 model, 4 rule settlements, "Where the picks are" block with in-site links to `table.html`, `picks.html`, `results.html`, `featured.html`, `originated.html`, `unresolved.html`, an explicit *Unresolved picks & limitations* bullet, and the mobile bottom bar |
+| Result | 241/241 matches carry a pick; every published source URL resolves; all pages pass the 360 px rules |
+
+### Irregularities / limitations to keep on the record
+
+- **81 of the 241 listed cards have a kick-off in the past** and are still returned by Hotspawn with
+  `status=scheduled`. They are ordered behind the upcoming ones on `table.html`/`picks.html` and
+  carry a stale flag, but they occupy the inventory. Not fixable on our side: it is Hotspawn's feed.
+- **Kalshi's public web pages answer 429 to a datacentre crawler** even at 1 request/1.5 s. Their
+  quotes are verified through the exchange API at collection time; the published human page is
+  classified `rate_limited`, never "broken".
+- **`lol.fandom.com/wiki/<page>` returns 403 to any datacentre IP**, so Leaguepedia page existence
+  is confirmed through `api.php` (the endpoint `collect.py` already uses). The published link is
+  still the human page.
+- **Archived esportsbook receipts age out** as fixtures leave the feed; that was the exact gate that
+  stalled the refresh (see the root-cause note above). Any future receipt set must tolerate
+  off-list fixtures or the publisher will abort again.
