@@ -128,7 +128,7 @@ def _fetch_once(url: str, timeout: int, retries: int, delay: float,
     pol = policy_for(url)
     retries = max(retries, pol["retries"])
     delay = delay or pol["delay"]
-    headers = {"User-Agent": BROWSER_UA, "Accept": "*/*"}
+    headers = {"User-Agent": CONTACT_UA, "Accept": "*/*"}
     headers.update(extra_headers or pol.get("headers") or {})
     if delay:
         time.sleep(delay * random.random())
@@ -205,6 +205,31 @@ def dedupe(urls) -> list[str]:
         seen.add(u)
         out.append(u)
     return out
+
+
+def verify_wiki_page(url: str) -> dict:
+    """Confirm a Leaguepedia page exists via the wiki's MediaWiki API.
+
+    `lol.fandom.com/wiki/<Page>` returns HTTP 403 to a datacentre IP whatever UA we
+    send, but `api.php` (the same host the collector uses for Cargo queries) answers.
+    The published link stays the human page; the receipt records that the check was
+    made through the API, so a 403 is never reported as a broken link.
+    """
+    title = urllib.parse.unquote(url.split("/wiki/", 1)[1])
+    api = ("https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles="
+           + urllib.parse.quote(title))
+    verdict, payload = fetch_json(api)
+    exists, missing = False, False
+    if isinstance(payload, dict):
+        for page in ((payload.get("query") or {}).get("pages") or {}).values():
+            if "missing" in page or "invalid" in page:
+                missing = True
+            elif page.get("title"):
+                exists = True
+    cause = "resolved" if exists else ("not_found" if missing else verdict.get("cause", "broken"))
+    return {"url": url, "status": verdict.get("status", -1), "ok": exists,
+            "cause": cause, "verified_via": api, "method": "mediawiki-api",
+            "query_title": title, "bytes": verdict.get("bytes", 0), "error": verdict.get("error", "")}
 
 
 def leaguepedia_url(page: str | None) -> str | None:
@@ -315,6 +340,11 @@ def main() -> int:
     def crawl_host(host: str, urls: list[str]) -> None:
         pol = policy_for(urls[0])
         delay = pol["delay"]
+        if host == "lol.fandom.com":
+            for u in urls:
+                by_url[u] = {**verify_wiki_page(u), "role": role_of[u]}
+                time.sleep(0.4)
+            return
         if pol["concurrency"] <= 1:
             for u in urls:
                 verdict = fetch(u)
