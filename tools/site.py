@@ -979,9 +979,11 @@ def build_table(rows: list[dict], counts: Counter) -> str:
         cells = [
             '<td data-label="Kick-off" class="nowrap">' + local_time(r["start_utc"]) + "</td>",
             '<td data-label="Match"><div class="mrow"><strong>' + e(r["team0"]["name"]) + '</strong>'
-            + f'<span class="pct">{pct(r["p0"])}</span></div>'
+            # pct_pair, not pct() twice: rounding each side independently makes seven
+            # rows print pairs that add up to 99.9% or 100.1%.
+            + f'<span class="pct">{pct_pair(r["p0"], r["p1"])[0]}</span></div>'
             + '<div class="mrow"><strong>' + e(r["team1"]["name"]) + '</strong>'
-            + f'<span class="pct">{pct(r["p1"])}</span></div></td>',
+            + f'<span class="pct">{pct_pair(r["p0"], r["p1"])[1]}</span></div></td>',
             '<td data-label="Pick">' + _pick_cell(r) + "</td>",
             '<td data-label="Method" class="opt">' + badge(method) + "</td>",
             '<td data-label="Tournament" class="opt small">' + e(r["competition"]) + "</td>",
