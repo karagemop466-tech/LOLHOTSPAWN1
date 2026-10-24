@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from collections import Counter
 
@@ -36,15 +37,32 @@ def main() -> None:
 
     # Curated items that state how they were checked keep their own wording; anything that
     # cannot point at a verification is explicitly relabelled rather than silently trusted.
+    #
+    # A curated note usually quotes the fixture id it is about, and Hotspawn drops a card
+    # from the list once it kicks off. That is time passing, not a defect, so the reference
+    # is annotated here as a historical observation instead of stalling the build (the
+    # publish gate asserts that this annotation happened - see tools/verify.py).
+    listed_ids = {str(r.get("id")) for r in rows}
     flags: list[dict] = []
     for f in manual:
+        refs = sorted(set(re.findall(r"#(\d{6,8})", f"{f.get('item', '')} {f.get('detail', '')}")))
+        delisted = [i for i in refs if i not in listed_ids]
+        entry = {**f}
+        if delisted:
+            declared = [str(x) for x in (f.get("delisted_refs") or [])]
+            entry["delisted_refs"] = sorted(set(declared) | set(delisted))
+            entry["delisted_refs_auto"] = sorted(set(delisted) - set(declared))
+            entry["detail"] = (f.get("detail", "") +
+                               " Fixture " + ", ".join(f"#{i}" for i in entry["delisted_refs_auto"]) +
+                               " has since left the Hotspawn list (the card kicked off or was removed); the "
+                               "statement is kept as a historical observation about that card.")
         if f.get("verification"):
-            flags.append({**f, "item": f["item"] + " [" + f["verification"] + "]"})
+            entry["item"] = f["item"] + " [" + f["verification"] + "]"
         else:
-            flags.append({**f,
-                          "item": "Not reverified: " + f["item"],
-                          "detail": ("Prior statement, not checked against a live official source in this "
-                                     "build. " + f["detail"])})
+            entry["item"] = "Not reverified: " + f["item"]
+            entry["detail"] = ("Prior statement, not checked against a live official source in this "
+                               "build. " + entry["detail"])
+        flags.append(entry)
     flags.append({
         "severity": "info",
         "item": "Leaguepedia is community-maintained, not an official league source",

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:24:33Z",
+ "generated_utc": "2026-10-24T16:24:25Z",
  "checks": [
   {
    "name": "dataset present",
@@ -94,7 +94,7 @@
   {
    "name": "all site pages exist",
    "ok": true,
-   "detail": "14/14 pages"
+   "detail": "13/13 pages"
   },
   {
    "name": "no broken internal links",
@@ -124,7 +124,7 @@
   {
    "name": "executive summary links to every picks view",
    "ok": true,
-   "detail": "present: ['picks.html', 'table.html', 'results.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks', 'Where the picks are']"
+   "detail": "present: ['picks.html', 'table.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks']"
   },
   {
    "name": "executive summary carries coverage, unresolved section and a where-to-find-picks block",
@@ -139,12 +139,12 @@
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
-   "detail": "backtest series rendered: 3,854"
+   "detail": "backtest series rendered: 3,896"
   },
   {
-   "name": "curated flags cite only currently listed fixtures",
+   "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "10 curated flags scanned; stale references: []"
+   "detail": "13 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -159,27 +159,22 @@
   {
    "name": "coverage matrix: every competition row links to a source",
    "ok": true,
-   "detail": "27 competition rows; missing links: []"
+   "detail": "29 competition rows; missing links: []"
   },
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "0 usable receipts, 0 rejected, 0 diverging >8.0pp, 17 expired, 0 historic (not counted)"
-  },
-  {
-   "name": "corroboration ledger accounts for every receipt",
-   "ok": true,
-   "detail": "receipts=18 = usable 0 + placeholder 1 + rejected 0 + expired 17 + historic 0"
+   "detail": "1 usable receipts, 0 rejected, 0 diverging >8.0pp"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 48738 bytes"
+   "detail": "coverage.html 48656 bytes"
   },
   {
    "name": "external source research receipts are committed",
    "ok": true,
-   "detail": "44 venues probed on 2026-10-24T16:22:42Z; dossier present"
+   "detail": "32 venues probed on 2026-10-23T15:38:55Z; dossier present"
   },
   {
    "name": "coverage arithmetic reconciles to the inventory",
@@ -189,7 +184,7 @@
   {
    "name": "method counts partition matches.json cleanly",
    "ok": true,
-   "detail": "counts={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} sum=241 rows=241"
+   "detail": "counts={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} sum=241 rows=241"
   },
   {
    "name": "source availability recorded",
@@ -204,7 +199,7 @@
   {
    "name": "per-tournament counts match the Hotspawn feed",
    "ok": true,
-   "detail": "27 tournaments; differences: []"
+   "detail": "29 tournaments; differences: []"
   },
   {
    "name": "no look-ahead: ratings use only results before kick-off",
@@ -216,13 +211,13 @@
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
- "unverified": 81,
+ "unverified": 82,
  "counts": {
-  "model": 151,
+  "model": 150,
   "unresolved": 4,
-  "provisional": 77,
+  "provisional": 78,
   "market": 9
  },
- "internal_links": 446,
+ "internal_links": 411,
  "lookahead_violations": 0
 }

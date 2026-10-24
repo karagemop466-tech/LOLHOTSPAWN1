@@ -98,20 +98,20 @@ class ReceiptLedgerTests(unittest.TestCase):
         self.assertEqual(s["receipts"], 4, s)
         self.assertEqual(s["usable_receipts"], 1, s)
         self.assertEqual(s["expired_receipts"], 1, s)
-        self.assertEqual(s["historic_receipts"], 1, s)
+        self.assertEqual(s["historical_receipts"], 1, s)
         self.assertEqual(s["rejected_receipts"], 1, s)
         self.assertEqual(len(doc["rejected"]), 1)
         self.assertEqual(doc["rejected"][0]["fixture_id"], "1001")
         self.assertEqual(len(doc["expired"]), 1)
         self.assertEqual(doc["expired"][0]["fixture_id"], "1002")
-        self.assertEqual(len(doc["historic"]), 1)
-        self.assertEqual(doc["historic"][0]["fixture_id"], "9999")
+        self.assertEqual(len(doc["historical"]), 1)
+        self.assertEqual(doc["historical"][0]["fixture_id"], "9999")
 
     def test_ledger_accounts_for_every_receipt(self) -> None:
         doc = corroborate.build()
         s = doc["summary"]
         accounted = (s["usable_receipts"] + s["placeholders"] + s["rejected_receipts"]
-                     + s["expired_receipts"] + s["historic_receipts"])
+                     + s["expired_receipts"] + s["historical_receipts"])
         self.assertEqual(accounted, s["receipts"], s)
 
     def test_expired_is_never_counted_as_usable_evidence(self) -> None:
