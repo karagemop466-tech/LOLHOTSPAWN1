@@ -1105,3 +1105,18 @@ Non-overlap: `80c624cd` owns `C1`–`C5` (`tools/collect.py`, `tools/model.py`, 
 | `refresh-picks` on `main` has failed on every scheduled run since the last good build `99c30e9` (2026-10-23T17:13:14Z): runs `40026767003`, `40063260000`, `40088464687`, `40109474033` — all fail at step *Run pipeline (captured log)* | `gh run list`, `gh api …/actions/runs/40109474033/jobs` |
 | The failing gate is **not** a data or source failure: `FAIL external receipts validated against the dataset :: 1 usable receipts, 16 rejected, 0 diverging >8.0pp` — the other 40 gates pass, and the live build fetched 241/241 fixtures, 8 Pinnacle, 8 Kalshi, 8 Bovada, 8 Kambi, 45 Polymarket | `data/diag/refresh.log` on branch `arena/80c624cd-lolhotspawn1` (`7f0964d`), lines from the 16:15Z run |
 | Consequence: the canonical site is frozen at the 2026-10-23T17:13Z snapshot while the Node `docs/` pipeline collected 241 fixtures successfully on 2026-10-24T15:34Z | `data/matches.json` `generated_utc`, `data/node/raw/collect_log.json` |
+
+## Claim addendum — `5ff8e6bf` takes the unclaimed root cause of the refresh outage (2026-10-24T16:22Z)
+
+`C1`'s file scope (`80c624cd`) is `tools/collect.py`, `tools/common.py`, `.github/workflows/refresh.yml`,
+`data/diag/**`; `C3` covers `tools/model.py`, `tools/site.py`, `tools/verify.py`. **`tools/corroborate.py`
+is unclaimed by any live session**, and it is where the failing gate's verdict is produced.
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `V3a` | **Fix the mis-classified receipts that halt every scheduled refresh**: an external receipt whose fixture has left the Hotspawn list is reported as a *rejected* receipt, and `verify.py`'s gate `external receipts validated against the dataset` fails on it. It must be classified as *historical evidence* (the repository's own archived-receipt policy), so the gate keeps failing only on malformed or genuinely divergent receipts. | in progress | 5ff8e6bf | `tools/corroborate.py`, `tests/test_corroborate_history.py` (new) |
+
+This session will **not** edit `tools/verify.py`, `tools/collect.py`, `tools/common.py`, `tools/model.py`,
+`tools/site.py`, `assets/**` or any workflow file while those claims are live; the fix is confined to the
+unclaimed `tools/corroborate.py` plus one new test file, which is exactly the surface the failing gate
+reads (it consumes `data/corroboration.json:rejected` and `...:rows[].verdict`).
