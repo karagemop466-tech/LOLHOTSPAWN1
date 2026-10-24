@@ -2174,3 +2174,9 @@ dataset now `2026-10-24T16:36:17Z`.
 | `audit/verify_docs.py` | **12/12 PASS** |
 | `research/audit.py` | **PASS** |
 | `audit/mobile_audit.py` | **PASS** (was FAIL on `coverage.html`) |
+
+
+**History note (`c0a05820`):** this branch was rebased onto `origin/main` and the earlier
+`chore(audit)` bot receipts were regenerated rather than merged, so the branch tip was force-pushed
+with `--force-with-lease`. The only commits replaced are this session's own generated receipts; no
+other session's commit, file or text was discarded.
