@@ -457,8 +457,9 @@ def render(doc: dict) -> str:
     # sourcing method table
     mc = s["method_counts"]
     method_rows = "".join(
-        f"<tr><td><span class=\"badge b-{e(k)}\">{e(k)}</span></td><td class=\"num\">{v}</td>"
-        f"<td>{e(explain_method(k))}</td></tr>"
+        f"<tr><td data-label=\"Method\"><span class=\"badge b-{e(k)}\">{e(k)}</span></td>"
+        f"<td data-label=\"Matches\" class=\"num\">{v}</td>"
+        f"<td data-label=\"What it means\">{e(explain_method(k))}</td></tr>"
         for k, v in sorted(mc.items(), key=lambda kv: -kv[1])
     )
 
@@ -632,10 +633,12 @@ def render(doc: dict) -> str:
 
 <section class="panel">
   <h2>1. How each match was priced</h2>
-  <table class="table">
+  <div class="tablewrap">
+  <table class="table stack">
     <thead><tr><th>Method</th><th class="num">Matches</th><th>What it means</th></tr></thead>
     <tbody>{method_rows}</tbody>
   </table>
+  </div>
 </section>
 
 <section class="panel">
