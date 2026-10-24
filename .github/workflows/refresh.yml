@@ -18,10 +18,7 @@ on:
     - cron: "17 */6 * * *"
   workflow_dispatch:
   push:
-    # The session branch trigger is temporary: it lets the exact production
-    # pipeline be exercised before merge in sandboxes where workflow_dispatch
-    # is forbidden. It is removed after the verified branch run.
-    branches: ["main", "arena/cc8c7362-lolhotspawn1"]
+    branches: ["main"]
     paths:
       - "tools/**"
       - ".github/workflows/refresh.yml"
@@ -80,37 +77,6 @@ jobs:
           done
           echo "pipeline finished at $(date -u +%FT%TZ)" | tee -a data/build.log
 
-      - name: Upload build diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: refresh-picks-${{ github.run_id }}
-          path: |
-            data/build.log
-            data/verification.json
-            data/sources_status.json
-          if-no-files-found: warn
-          retention-days: 7
-
-      - name: Preserve branch failure log
-        if: failure() && github.ref_name == 'arena/cc8c7362-lolhotspawn1'
-        run: |
-          set -euo pipefail
-          test -s data/build.log
-          git config user.name "arena-refresh-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add data/build.log
-          if git diff --cached --quiet; then
-            echo "failure log already committed"
-            exit 0
-          fi
-          git commit -m "chore(diagnostics): preserve failed refresh log [skip ci]"
-          # Collection leaves many generated files dirty even when the gate
-          # fails. Auto-stash them so the small diagnostic commit can rebase;
-          # only data/build.log is published by this failure path.
-          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
-
       - name: Stop on failed gate
         run: |
           tail -3 data/build.log
@@ -151,11 +117,17 @@ jobs:
           done
           true
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload build diagnostics
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: build-log
-          path: data/build.log
+          name: refresh-picks-${{ github.run_id }}
+          path: |
+            data/build.log
+            data/verification.json
+            data/sources_status.json
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Commit data and site
         run: |

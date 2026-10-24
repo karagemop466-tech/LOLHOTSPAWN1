@@ -732,8 +732,7 @@ def main() -> None:
         fh.write(html_text)
     s = doc["summary"]
     log(f"corroborate: {s['usable_receipts']} usable receipts "
-        f"({s['agrees']} agree / {s['diverges']} diverge / {s['placeholders']} placeholder; "
-        f"{s['rejected_receipts']} rejected / {s['stale_receipts']} archived), "
+        f"({s['agrees']} agree / {s['diverges']} diverge / {s['placeholders']} placeholder), "
         f"{s['competitions_with_external_price']}/{len(doc['coverage'])} competitions priced externally")
     for p in doc["problems"]:
         log(f"corroborate WARNING: {p}")
