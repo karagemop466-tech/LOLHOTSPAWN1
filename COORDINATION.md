@@ -1106,3 +1106,38 @@ touches only the files listed above.
 | `refresh-picks` failed on 2026-10-24T15:59Z at the "Run pipeline (captured log)" step (exit 1); the two previous scheduled runs failed the same way | `gh run view 40109474033`, `40088464687`, `40063260000` |
 | The published canonical dataset is therefore from 2026-10-23T17:13:12Z while the Node `docs/` pipeline collected successfully at 2026-10-24T15:34Z with `scheduled: 241` fixtures | `data/matches.json`, `data/node/raw/collect_log.json` |
 | The sandbox this session runs in has **no** outbound access to Hotspawn/Pinnacle/Kalshi/Bovada/Kambi/Polymarket/Leaguepedia (all `HTTP 000`), so every live fetch must run on GitHub Actions and be read back from a committed log | local `curl` probe, 2026-10-24 |
+
+## Session `80c624cd` — completion record (work merged to `main` via the PR below)
+
+| # | Task | Status | Evidence |
+|---|---|---|---|
+| `C1` | Restore the 6-hourly refresh | **done** | Root cause proved from a runner log, not guessed: `tools/corroborate.py` marked every receipt whose fixture Hotspawn had delisted as `rejected`, and the 17 archived captures also aged past the 24 h window, so `verify.py`'s "external receipts validated against the dataset" gate failed (1 usable / 16 rejected) and `refresh.yml` aborted **before** the commit step. The failing build is the only thing that refreshes the receipts, so the failure was self-sustaining: published data froze at `2026-10-23T17:13:12Z` while three scheduled runs failed (`40109474033`, `40088464687`, `40063260000`). Fix: receipts are bucketed **usable / expired / historic / rejected**; only malformed, wrong-team or diverging receipts fail; a new gate proves every capture is accounted for exactly once; the workflow now captures each stage, uploads the log and commits `data/build_failure.log` on failure. Proof on the runner: branch run `40111245604` (diag-branch) → all 7 stages exit 0, **42/42 gates**, live 241 fixtures. |
+| `C2` | Widen external line coverage | **done (measured)** | 44-venue probe executed from the Actions runner at `2026-10-24T16:22:42Z` (`data/source_probes.json`, `research/SOURCES.md` §7). Reachable JSON feeds: Pinnacle, Pinnacle league list, Kalshi, Bovada, Polymarket, Unibet/Kambi `ubse`, Kambi `paf`, Leaguepedia, Odds-API.io index, Hotspawn. Blocked/HTML-only: GG.BET 403, Thunderpick 403, Stake 403, Tips.GG 403, BetMGM 403, Betfair 403, bet365 403, Betsson 429, 1xBet 203, Rivalry API 403/530, Betway 404, BetExplorer 404, Oddspedia 410, OddsPapi 401, Betano/BC.GAME/Rivalry/OddsPortal/EsportsBets/Midnite HTML only. Two findings: Kambi operators share one LoL book (`ubse` and `paf` payloads byte-identical → `paf` wired as fallback only, never double-counted), and **no reachable venue quotes below the tier-1 (Worlds) ceiling**, which is why the other 228 cards are originated. |
+| `C3` | A pick for every listed match + unresolved section in the executive summary | **done** | 241/241 rows carry a pick (237 priced + 4 official-forfeit settlements with no invented probability). The landing page keeps a dedicated **"Unresolved picks and the limitations (4)"** section with a per-row table and the four limitation statements, each linking to `unresolved.html` / `flagged.html`. |
+| `C4` | Mobile-first picks hub | **done** | Landing page rebuilt around *Where the picks are* (six in-site links with counts), a three-button hero CTA, next-eight kick-offs as one-tap rows, and the executive summary. `table.html` now prints **each team on its own line with its own win probability**. New `results.html`. Mobile bottom bar changed to Summary · Picks · Results · Limits · Flags, so the picks list is always one tap away; `tests/dashboard.cjs` passes on 241 cards. |
+| `C5` | Verification, PR, merge, Pages | **done** | See the PR/deploy record below. Local gates: `tools/verify.py` **42/42**, `unittest` **25/25**, jsdom dashboard PASS, `audit/check_site.py` **21 pages / 0 failures**, regenerated HTML parses with no unclosed tags. |
+
+### New in this session (source of record for review)
+
+| Change | Files | Source / evidence |
+|---|---|---|
+| Receipt ledger bucketing + gate semantics + failure-log retention | `tools/corroborate.py`, `tools/verify.py`, `.github/workflows/refresh.yml`, `tests/test_corroborate.py` | Runner log `data/diag/refresh.log` (failing gate line) and run `40111245604` (green) |
+| Official-result grading + track record + `results.html` | `tools/model.py`, `tools/site.py`, `tests/test_grading.py` | Leaguepedia `Data:` series records, matched on team pair and kick-off within 12 h, winner must agree with the recorded score. Current snapshot: **36 graded, 21 hits, 15 misses (58.3%), Brier 0.2485**, 3 settlements, 50 started-but-ungraded |
+| Landing-page restructure and per-team probabilities in the pick table | `tools/site.py`, `assets/style.css` | `index.html`, `table.html`; `audit/check_site.py` 21 pages / 0 failures |
+| paf (Kambi) fallback operator | `tools/collect.py` | `data/source_probes.json` — identical payload to `ubse`, so it cannot double-count |
+| Probe refresh to 44 documented endpoints | `research/probe_sources_runner.py`, `data/source_probes.json`, `research/SOURCES.md` | Runner probes at `2026-10-24T16:22:42Z` |
+
+### Irregularities logged (published, non-blocking)
+
+- **A failing gate must not be able to block its own repair.** The 2026-10-23→24 outage was caused by
+  the gate treating ageing archives as errors. This class of failure is now impossible for receipts, and
+  every future failure leaves `data/build_failure.log` behind.
+- **50 started cards remain ungraded** (no consistent Leaguepedia record: unmatched pair, name mismatch
+  or a kick-off more than 12 h apart). They are listed on `results.html` and are never scored from an
+  assumption.
+- **Track-record sample is small and low-tier-weighted** (36 graded, 58.3%). It is published next to the
+  out-of-sample backtest (3,854 series, 65.0% accuracy, Brier 0.2183) and is not presented as an edge.
+- **Kambi `betsson` operator returned HTTP 429** to the runner on this probe; `ubse` and `paf` answered 200.
+- The sandbox for this session had no outbound access to any odds source (`HTTP 000` on every venue), so
+  every live figure in this record comes from a GitHub Actions run, and the local rebuild uses the
+  committed snapshot.
