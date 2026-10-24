@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:21:27Z",
+ "generated_utc": "2026-10-24T16:23:36Z",
  "checks": [
   {
    "name": "dataset present",
@@ -142,9 +142,9 @@
    "detail": "backtest series rendered: 3,896"
   },
   {
-   "name": "curated flags cite only currently listed fixtures",
+   "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "10 curated flags scanned; stale references: []"
+   "detail": "13 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
