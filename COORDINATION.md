@@ -26,7 +26,7 @@ Handoff note: open PRs #22/#26/#35/#36/#40/#56 last committed 2026-10-23 ~15:44�
 | S1 | Unblock `refresh-picks` (4 consecutive scheduled failures since 2026-10-23T17:13Z). | done | 1a1a3b1b | `.github/workflows/refresh.yml`, `tools/verify.py`, `tools/collect.py` |
 | S2 | Live Hotspawn LoL inventory + external lines for **every** listed match. Extra esportsbook probes (not Rivalry). Originate remaining. Unresolved + limitations in the exec summary. | done | 1a1a3b1b | `tools/collect.py`, `tools/flags.py`, `tools/site.py`, `data/*`, root `*.html` |
 | S3 | Mobile-first exec summary; phone Picks tab = compact table. Fix leftover README merge markers. | done | 1a1a3b1b | `tools/site.py`, `assets/style.css`, `README.md` |
-| S4 | PR → `main`, merge, confirm Pages. | in progress | 1a1a3b1b | — |
+| S4 | PR → `main`, merge, confirm Pages. | done | 1a1a3b1b | — |
 
 ### What was broken
 
@@ -58,6 +58,17 @@ Cause: `tools/verify.py` treated corroboration receipts whose fixture_id had rol
 - 4 Solid Gaming cards remain settlement-only.
 
 Mobile: bottom bar **Picks** now opens `table.html` (one row per match). Exec summary tells a phone user to tap that tab. README merge markers removed.
+
+### PR / deploy record — session `1a1a3b1b`
+
+| Item | Value |
+|---|---|
+| Pull request | **#67** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/67 |
+| Merge | merged 2026-10-24T16:29:15Z, merge commit `c74bbf6` |
+| Pages | `gh api …/pages` → `status: built`; post-merge `pages-build-deployment` **success** (`40111778020`, `40111834017`) |
+| Post-merge `refresh-picks` | run **40111777927** **success** in 2m32s on `main` (first successful publisher after the 23 Oct outage on this session's gate fix); auto-commit `73dab0b` |
+| Live | https://karagemop466-tech.github.io/LOLHOTSPAWN1/ HTTP 200 — 241/241 picks, 29 tournaments, Next up is 24 Oct (TES vs AL `#1067688` Anyone's Legend 63%), unresolved Solid Gaming table with Leaguepedia sources, Pick table CTA |
+| Session | closed |
 
 ## Session `64554333` — claim (opened 2026-10-23T15:40Z)
 
