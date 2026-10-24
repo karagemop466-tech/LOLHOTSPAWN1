@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-24T16:49:45.446Z",
-  "count": 17,
+  "generated_at": "2026-10-24T18:29:16.968Z",
+  "count": 18,
   "flags": [
     {
       "id": "dq-walkover-1071170",
@@ -77,11 +77,11 @@
     {
       "id": "unverified-zero-history-1083096",
       "match_id": "1083096",
-      "severity": "medium",
+      "severity": "low",
       "kind": "unverified-zero-history",
       "competition": "Logitech G SuperStrike Cup Qualifier",
       "matchup": "Keep Yourself Positive vs CRUEL FATE",
-      "state": "locked",
+      "state": "stale",
       "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and Keep Yourself Positive (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: Keep Yourself Positive 0–1 CRUEL FATE.",
       "hotspawn_url": "https://www.hotspawn.com/matches/keep-yourself-positive-vs-cruel-fate-logitech-g-superstrike-cup-qualifier-1083096",
       "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
@@ -93,7 +93,7 @@
       "kind": "entity-collision",
       "competition": "Logitech G SuperStrike Cup Qualifier",
       "matchup": "paiN Gaming vs Non-toxic Gaming",
-      "state": "locked",
+      "state": "stale",
       "detail": "Hotspawn mis-bound Bulgarian amateur tag 'PNG' (billy/Bla6ko/metko/ifo/anditobate) to Brazilian CBLOL 'paiN Gaming'; quarantined to PNG.",
       "hotspawn_url": "https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097",
       "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
@@ -101,11 +101,11 @@
     {
       "id": "unverified-zero-history-1083097",
       "match_id": "1083097",
-      "severity": "medium",
+      "severity": "low",
       "kind": "unverified-zero-history",
       "competition": "Logitech G SuperStrike Cup Qualifier",
       "matchup": "paiN Gaming vs Non-toxic Gaming",
-      "state": "locked",
+      "state": "stale",
       "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and paiN Gaming [resolved: PNG] (0 prior official matches) & Non-toxic Gaming (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: Non-toxic Gaming 1–0 PNG.",
       "hotspawn_url": "https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097",
       "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
@@ -113,11 +113,11 @@
     {
       "id": "unverified-zero-history-1083098",
       "match_id": "1083098",
-      "severity": "medium",
+      "severity": "low",
       "kind": "unverified-zero-history",
       "competition": "Logitech G SuperStrike Cup Qualifier",
       "matchup": "TUPKACHI NA KORICI vs FAME",
-      "state": "locked",
+      "state": "stale",
       "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and FAME [resolved: FAME (Bulgarian Team)] (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: TUPKACHI NA KORICI 1–0 FAME (Bulgarian Team).",
       "hotspawn_url": "https://www.hotspawn.com/matches/tupkachi-na-korici-vs-fame-logitech-g-superstrike-cup-qualifier-1083098",
       "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
@@ -125,11 +125,11 @@
     {
       "id": "unverified-zero-history-1083105",
       "match_id": "1083105",
-      "severity": "medium",
+      "severity": "low",
       "kind": "unverified-zero-history",
       "competition": "Logitech G SuperStrike Cup Qualifier",
       "matchup": "КАПИБАРА vs Ultim8",
-      "state": "locked",
+      "state": "stale",
       "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and КАПИБАРА (0 prior official matches) prior to 2026-10-24T12:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: КАПИБАРА 0–1 Ultim8.",
       "hotspawn_url": "https://www.hotspawn.com/matches/vs-ultim8-logitech-g-superstrike-cup-qualifier-1083105",
       "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
@@ -205,6 +205,18 @@
       "detail": "Leaguepedia uses a single page 'Rich Gang (Norwegian Team)' across Komplettligaen 2026 Autumn and Prime League 3rd Division 26-27 Fall; model rating pools both rosters' pre-kickoff matches.",
       "hotspawn_url": "https://www.hotspawn.com/matches/rich-gang-vs-looksmaxxer-prm-3rd-division-26-27-fall-1075758",
       "source_url": "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+    },
+    {
+      "id": "series-format-not-published",
+      "match_id": "1081421",
+      "severity": "medium",
+      "kind": "unverified-field-left-blank",
+      "competition": "LCP 2027 Promotion",
+      "matchup": "241 scheduled fixtures with best_of = null in the Hotspawn feed",
+      "state": "open",
+      "detail": "Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothinhere-lcp-2027-promotion-1081421",
+      "source_url": "https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw"
     }
   ]
 }
