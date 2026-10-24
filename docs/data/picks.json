@@ -1,38 +1,38 @@
 {
  "summary": {
-  "generated_at": "2026-10-24T03:46:19.348Z",
+  "generated_at": "2026-10-24T10:30:43.074Z",
   "week": {
    "start": "2026-10-19T00:00:00.000Z",
    "end": "2026-10-26T00:00:00.000Z"
   },
   "accuracy": {
-   "tracked": 38,
-   "hits": 28,
-   "rate": 73.7,
+   "tracked": 44,
+   "hits": 30,
+   "rate": 68.2,
    "by_basis": {
     "market-pinnacle": {
      "tracked": 5,
      "hits": 3
     },
     "model-elo": {
-     "tracked": 33,
-     "hits": 25
+     "tracked": 39,
+     "hits": 27
     }
    }
   },
   "counts": {
-   "open": 160,
-   "locked_or_live": 7,
+   "open": 168,
+   "locked_or_live": 0,
    "stale": 65,
-   "ended_this_week": 72,
-   "cancelled": 12,
-   "picks_total": 159,
-   "market_pinnacle": 0,
+   "ended_this_week": 79,
+   "cancelled": 16,
+   "picks_total": 163,
+   "market_pinnacle": 8,
    "market_polymarket_only": 1,
-   "model_only": 158,
-   "unresolved_open": 7,
+   "model_only": 154,
+   "unresolved_open": 5,
    "flags_needs_review": 7,
-   "flags_info": 12
+   "flags_info": 2
   },
   "sources_ok": {
    "hotspawn_fixtures": true,
@@ -43,21 +43,13 @@
   }
  },
  "tournaments": {
-  "PRM 2nd Division 26-27 Fall": {
-   "competition": "PRM 2nd Division 26-27 Fall",
-   "tier": "c",
-   "open": 40,
-   "resolved": 33,
+  "Logitech G SuperStrike Cup Qualifier": {
+   "competition": "Logitech G SuperStrike Cup Qualifier",
+   "tier": null,
+   "open": 4,
+   "resolved": 0,
    "market": 0,
-   "model": 33
-  },
-  "Worlds 2026 Main Event": {
-   "competition": "Worlds 2026 Main Event",
-   "tier": "s",
-   "open": 3,
-   "resolved": 3,
-   "market": 0,
-   "model": 3
+   "model": 0
   },
   "PRM 3rd Division 26-27 Fall": {
    "competition": "PRM 3rd Division 26-27 Fall",
@@ -86,10 +78,18 @@
   "RIVALS LEAGUE Season 2": {
    "competition": "RIVALS LEAGUE Season 2",
    "tier": null,
-   "open": 21,
-   "resolved": 21,
+   "open": 17,
+   "resolved": 17,
    "market": 0,
-   "model": 21
+   "model": 17
+  },
+  "Worlds 2026 Main Event": {
+   "competition": "Worlds 2026 Main Event",
+   "tier": "s",
+   "open": 8,
+   "resolved": 8,
+   "market": 8,
+   "model": 0
   },
   "Arabian League 2nd Division 2026 Summer": {
    "competition": "Arabian League 2nd Division 2026 Summer",
@@ -106,6 +106,14 @@
    "resolved": 2,
    "market": 0,
    "model": 2
+  },
+  "PRM 2nd Division 26-27 Fall": {
+   "competition": "PRM 2nd Division 26-27 Fall",
+   "tier": "c",
+   "open": 36,
+   "resolved": 36,
+   "market": 0,
+   "model": 36
   },
   "LGC Rising 2026 Playoffs": {
    "competition": "LGC Rising 2026 Playoffs",
@@ -1643,8 +1651,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.329,
-    "p1": 0.671,
+    "p0": 0.33,
+    "p1": 0.67,
     "r0": 1430,
     "r1": 1553,
     "n0": 8,
@@ -3007,7 +3015,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.425,
     "p1": 0.575,
-    "r0": 1456,
+    "r0": 1457,
     "r1": 1546,
     "n0": 4,
     "n1": 6,
@@ -3269,8 +3277,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.427,
-    "p1": 0.573,
+    "p0": 0.428,
+    "p1": 0.572,
     "r0": 1453,
     "r1": 1509,
     "n0": 8,
@@ -3401,8 +3409,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.411,
-    "p1": 0.589,
+    "p0": 0.412,
+    "p1": 0.588,
     "r0": 1478,
     "r1": 1556,
     "n0": 6,
@@ -3492,7 +3500,7 @@
     "p0": 0.555,
     "p1": 0.445,
     "r0": 1520,
-    "r1": 1456,
+    "r1": 1457,
     "n0": 6,
     "n1": 4,
     "confidence": "medium"
@@ -3786,8 +3794,8 @@
     "name": "reGOLD eSport"
    },
    "team_history": {
-    "n0": 3,
-    "n1": 3
+    "n0": 4,
+    "n1": 4
    },
    "score0": 0,
    "score1": 2,
@@ -3797,12 +3805,12 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.513,
-    "p1": 0.487,
-    "r0": 1509,
-    "r1": 1491,
-    "n0": 3,
-    "n1": 3,
+    "p0": 0.49,
+    "p1": 0.51,
+    "r0": 1495,
+    "r1": 1506,
+    "n0": 4,
+    "n1": 4,
     "confidence": "medium"
    },
    "pick": null
@@ -3875,7 +3883,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 2
+    "n1": 3
    },
    "score0": 0,
    "score1": 2,
@@ -3885,13 +3893,13 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.476,
-    "p1": 0.524,
+    "p0": 0.481,
+    "p1": 0.519,
     "r0": 1458,
-    "r1": 1499,
+    "r1": 1484,
     "n0": 3,
-    "n1": 2,
-    "confidence": "low"
+    "n1": 3,
+    "confidence": "medium"
    },
    "pick": null
   },
@@ -3919,7 +3927,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 3
+    "n1": 4
    },
    "score0": null,
    "score1": null,
@@ -3929,12 +3937,12 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.463,
-    "p1": 0.537,
+    "p0": 0.473,
+    "p1": 0.527,
     "r0": 1458,
-    "r1": 1509,
+    "r1": 1495,
     "n0": 3,
-    "n1": 3,
+    "n1": 4,
     "confidence": "medium"
    },
    "pick": null
@@ -3963,7 +3971,7 @@
    },
    "team_history": {
     "n0": 0,
-    "n1": 2
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -4099,7 +4107,7 @@
     "p0": 0.381,
     "p1": 0.619,
     "r0": 1476,
-    "r1": 1622,
+    "r1": 1621,
     "n0": 4,
     "n1": 13,
     "confidence": "medium"
@@ -4218,7 +4226,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 2
+    "n1": 3
    },
    "score0": 0,
    "score1": 2,
@@ -4228,13 +4236,13 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.503,
-    "p1": 0.497,
+    "p0": 0.495,
+    "p1": 0.505,
     "r0": 1509,
-    "r1": 1504,
+    "r1": 1517,
     "n0": 3,
-    "n1": 2,
-    "confidence": "low"
+    "n1": 3,
+    "confidence": "medium"
    },
    "pick": null
   },
@@ -4494,7 +4502,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.513,
     "p1": 0.487,
-    "r0": 1630,
+    "r0": 1629,
     "r1": 1620,
     "n0": 15,
     "n1": 13,
@@ -4888,8 +4896,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.411,
-    "p1": 0.589,
+    "p0": 0.412,
+    "p1": 0.588,
     "r0": 1478,
     "r1": 1556,
     "n0": 6,
@@ -4934,7 +4942,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.425,
     "p1": 0.575,
-    "r0": 1456,
+    "r0": 1457,
     "r1": 1546,
     "n0": 4,
     "n1": 6,
@@ -4976,8 +4984,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.573,
-    "p1": 0.427,
+    "p0": 0.572,
+    "p1": 0.428,
     "r0": 1509,
     "r1": 1453,
     "n0": 7,
@@ -5155,7 +5163,7 @@
     "p0": 0.392,
     "p1": 0.608,
     "r0": 1545,
-    "r1": 1622,
+    "r1": 1621,
     "n0": 9,
     "n1": 13,
     "confidence": "medium"
@@ -5639,7 +5647,7 @@
     "p0": 0.555,
     "p1": 0.445,
     "r0": 1520,
-    "r1": 1456,
+    "r1": 1457,
     "n0": 6,
     "n1": 4,
     "confidence": "medium"
@@ -5726,7 +5734,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.693,
     "p1": 0.307,
-    "r0": 1622,
+    "r0": 1621,
     "r1": 1480,
     "n0": 13,
     "n1": 10,
@@ -5736,7 +5744,7 @@
   },
   {
    "id": "1082745",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36492",
    "competition": "PRM 2nd Division 26-27 Fall",
@@ -5757,34 +5765,26 @@
     "name": "Hannover Esports e.V."
    },
    "team_history": {
-    "n0": 3,
-    "n1": 2
+    "n0": 4,
+    "n1": 3
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 2,
    "hotspawn_url": "https://www.hotspawn.com/matches/reveal-multigaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1082745",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.489,
-    "p1": 0.511,
-    "r0": 1509,
-    "r1": 1528,
-    "n0": 3,
-    "n1": 2,
-    "confidence": "low"
+    "p0": 0.466,
+    "p1": 0.534,
+    "r0": 1495,
+    "r1": 1542,
+    "n0": 4,
+    "n1": 3,
+    "confidence": "medium"
    },
-   "pick": {
-    "team_index": 1,
-    "team_id": "245774",
-    "team": "Hannover Esports e.V.",
-    "p": 0.511,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.022
-   }
+   "pick": null
   },
   {
    "id": "1082839",
@@ -5832,7 +5832,7 @@
   },
   {
    "id": "1079023",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36492",
    "competition": "PRM 2nd Division 26-27 Fall",
@@ -5853,34 +5853,26 @@
     "name": "The Bandits Prime"
    },
    "team_history": {
-    "n0": 2,
-    "n1": 2
+    "n0": 3,
+    "n1": 3
    },
-   "score0": null,
-   "score1": null,
+   "score0": 2,
+   "score1": 1,
    "hotspawn_url": "https://www.hotspawn.com/matches/locked-in-vs-the-bandits-prime-prm-2nd-division-26-27-fall-1079023",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.487,
-    "p1": 0.513,
-    "r0": 1504,
-    "r1": 1526,
-    "n0": 2,
-    "n1": 2,
-    "confidence": "low"
+    "p0": 0.503,
+    "p1": 0.497,
+    "r0": 1517,
+    "r1": 1513,
+    "n0": 3,
+    "n1": 3,
+    "confidence": "medium"
    },
-   "pick": {
-    "team_index": 1,
-    "team_id": "264942",
-    "team": "The Bandits Prime",
-    "p": 0.513,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.026
-   }
+   "pick": null
   },
   {
    "id": "1079024",
@@ -6148,7 +6140,7 @@
   },
   {
    "id": "1079849",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36492",
    "competition": "PRM 2nd Division 26-27 Fall",
@@ -6169,38 +6161,30 @@
     "name": "Team 300"
    },
    "team_history": {
-    "n0": 3,
-    "n1": 2
+    "n0": 4,
+    "n1": 3
    },
-   "score0": null,
-   "score1": null,
+   "score0": 2,
+   "score1": 0,
    "hotspawn_url": "https://www.hotspawn.com/matches/regold-esport-vs-team-300-prm-2nd-division-26-27-fall-1079849",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.495,
-    "p1": 0.505,
-    "r0": 1491,
-    "r1": 1499,
-    "n0": 3,
-    "n1": 2,
-    "confidence": "low"
+    "p0": 0.516,
+    "p1": 0.484,
+    "r0": 1506,
+    "r1": 1484,
+    "n0": 4,
+    "n1": 3,
+    "confidence": "medium"
    },
-   "pick": {
-    "team_index": 1,
-    "team_id": "37855",
-    "team": "Team 300",
-    "p": 0.505,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.01
-   }
+   "pick": null
   },
   {
    "id": "1079025",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36492",
    "competition": "PRM 2nd Division 26-27 Fall",
@@ -6221,16 +6205,25 @@
     "name": "Babos Gaming"
    },
    "team_history": {
-    "n0": 0,
-    "n1": 1
+    "n0": 1,
+    "n1": 2
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 2,
    "hotspawn_url": "https://www.hotspawn.com/matches/acegaming-vs-babos-gaming-prm-2nd-division-26-27-fall-1079025",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.481,
+    "p1": 0.519,
+    "r0": 1486,
+    "r1": 1529,
+    "n0": 1,
+    "n1": 2,
+    "confidence": "low"
+   },
    "pick": null
   },
   {
@@ -6256,7 +6249,7 @@
     "name": "ex-A41G"
    },
    "team_history": {
-    "n0": 3,
+    "n0": 4,
     "n1": 0
    },
    "score0": null,
@@ -6402,7 +6395,7 @@
   },
   {
    "id": "1067879",
-   "state": "live",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -6423,38 +6416,30 @@
     "name": "CTBC Flying Oyster"
    },
    "team_history": {
-    "n0": 6,
-    "n1": 2
+    "n0": 7,
+    "n1": 3
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 1,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-liquid-vs-ctbc-flying-oyster-worlds-2026-main-event-1067879",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.535,
-    "p1": 0.465,
-    "r0": 1558,
-    "r1": 1497,
-    "n0": 6,
-    "n1": 2,
-    "confidence": "low"
+    "p0": 0.524,
+    "p1": 0.476,
+    "r0": 1544,
+    "r1": 1511,
+    "n0": 7,
+    "n1": 3,
+    "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "14945",
-    "team": "Team Liquid",
-    "p": 0.535,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.07
-   }
+   "pick": null
   },
   {
    "id": "1067678",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -6475,38 +6460,30 @@
     "name": "T1"
    },
    "team_history": {
-    "n0": 7,
-    "n1": 4
+    "n0": 8,
+    "n1": 5
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 1,
    "hotspawn_url": "https://www.hotspawn.com/matches/l-s-vs-t1-worlds-2026-main-event-1067678",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.581,
-    "p1": 0.419,
-    "r0": 1596,
-    "r1": 1500,
-    "n0": 7,
-    "n1": 4,
+    "p0": 0.566,
+    "p1": 0.434,
+    "r0": 1581,
+    "r1": 1515,
+    "n0": 8,
+    "n1": 5,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "74020",
-    "team": "LØS",
-    "p": 0.581,
-    "basis": "model-elo",
-    "confidence": "medium",
-    "margin": 0.162
-   }
+   "pick": null
   },
   {
    "id": "1067679",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -6527,34 +6504,166 @@
     "name": "LYON"
    },
    "team_history": {
-    "n0": 1,
-    "n1": 7
+    "n0": 2,
+    "n1": 8
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 1,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.492,
-    "p1": 0.508,
-    "r0": 1517,
-    "r1": 1536,
-    "n0": 1,
-    "n1": 7,
+    "p0": 0.476,
+    "p1": 0.524,
+    "r0": 1506,
+    "r1": 1548,
+    "n0": 2,
+    "n1": 8,
     "confidence": "low"
    },
-   "pick": {
-    "team_index": 1,
-    "team_id": "203378",
-    "team": "LYON",
-    "p": 0.508,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.016
-   }
+   "pick": null
+  },
+  {
+   "id": "1083096",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36629",
+   "competition": "Logitech G SuperStrike Cup Qualifier",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-10-24T11:00:00.000Z",
+   "lock_utc": "2026-10-24T10:55:00.000Z",
+   "start_ms": 1792839600000,
+   "lock_ms": 1792839300000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "265837",
+    "name": "Keep Yourself Positive"
+   },
+   "team1": {
+    "id": "262676",
+    "name": "CRUEL FATE"
+   },
+   "team_history": {
+    "n0": 0,
+    "n1": 0
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/keep-yourself-positive-vs-cruel-fate-logitech-g-superstrike-cup-qualifier-1083096",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": null,
+   "pick": null
+  },
+  {
+   "id": "1083097",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36629",
+   "competition": "Logitech G SuperStrike Cup Qualifier",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-10-24T11:00:00.000Z",
+   "lock_utc": "2026-10-24T10:55:00.000Z",
+   "start_ms": 1792839600000,
+   "lock_ms": 1792839300000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "247",
+    "name": "paiN Gaming"
+   },
+   "team1": {
+    "id": "265838",
+    "name": "Non-toxic Gaming"
+   },
+   "team_history": {
+    "n0": 4,
+    "n1": 0
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": null,
+   "pick": null
+  },
+  {
+   "id": "1083098",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36629",
+   "competition": "Logitech G SuperStrike Cup Qualifier",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-10-24T11:00:00.000Z",
+   "lock_utc": "2026-10-24T10:55:00.000Z",
+   "start_ms": 1792839600000,
+   "lock_ms": 1792839300000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "215662",
+    "name": "TUPKACHI NA KORICI"
+   },
+   "team1": {
+    "id": "265840",
+    "name": "FAME"
+   },
+   "team_history": {
+    "n0": 0,
+    "n1": 0
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/tupkachi-na-korici-vs-fame-logitech-g-superstrike-cup-qualifier-1083098",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": null,
+   "pick": null
+  },
+  {
+   "id": "1083105",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36629",
+   "competition": "Logitech G SuperStrike Cup Qualifier",
+   "tier": null,
+   "stage": null,
+   "offered_points": 10,
+   "start_utc": "2026-10-24T12:00:00.000Z",
+   "lock_utc": "2026-10-24T11:55:00.000Z",
+   "start_ms": 1792843200000,
+   "lock_ms": 1792842900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "265841",
+    "name": "КАПИБАРА"
+   },
+   "team1": {
+    "id": "249924",
+    "name": "Ultim8"
+   },
+   "team_history": {
+    "n0": 0,
+    "n1": 0
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/-vs-ultim8-logitech-g-superstrike-cup-qualifier-1083105",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
+   "model": null,
+   "pick": null
   },
   {
    "id": "1075719",
@@ -6592,7 +6701,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.5,
     "p1": 0.5,
-    "r0": 1472,
+    "r0": 1473,
     "r1": 1472,
     "n0": 2,
     "n1": 2,
@@ -6974,7 +7083,7 @@
   },
   {
    "id": "1074652",
-   "state": "open",
+   "state": "cancelled",
    "forfeit": false,
    "competition_id": "36332",
    "competition": "RIVALS LEAGUE Season 2",
@@ -7001,7 +7110,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/2-massive-vs-lund-esports-organization-ogs-rivals-league-season-2-1074652",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -7014,15 +7123,7 @@
     "n1": 3,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "247777",
-    "team": "2 Massive",
-    "p": 0.516,
-    "basis": "model-elo",
-    "confidence": "medium",
-    "margin": 0.032
-   }
+   "pick": null
   },
   {
    "id": "1074653",
@@ -7070,7 +7171,7 @@
   },
   {
    "id": "1074654",
-   "state": "open",
+   "state": "cancelled",
    "forfeit": false,
    "competition_id": "36332",
    "competition": "RIVALS LEAGUE Season 2",
@@ -7097,7 +7198,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/flamehard-vs-b2u-rivals-league-season-2-1074654",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -7110,15 +7211,7 @@
     "n1": 8,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "150322",
-    "team": "FlameHard",
-    "p": 0.509,
-    "basis": "model-elo",
-    "confidence": "medium",
-    "margin": 0.018
-   }
+   "pick": null
   },
   {
    "id": "1074655",
@@ -7469,6 +7562,87 @@
    "pick": null
   },
   {
+   "id": "1067688",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36142",
+   "competition": "Worlds 2026 Main Event",
+   "tier": "s",
+   "stage": null,
+   "offered_points": 30,
+   "start_utc": "2026-10-24T17:00:00.000Z",
+   "lock_utc": "2026-10-24T16:55:00.000Z",
+   "start_ms": 1792861200000,
+   "lock_ms": 1792860900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "12139",
+    "name": "Top Esports"
+   },
+   "team1": {
+    "id": "57842",
+    "name": "Anyone's Legend"
+   },
+   "team_history": {
+    "n0": 6,
+    "n1": 5
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/top-esports-vs-anyones-legend-worlds-2026-main-event-1067688",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1639121258,
+    "odds0": 159,
+    "odds1": -190,
+    "dec0": 2.59,
+    "dec1": 1.53,
+    "p0": 0.371,
+    "p1": 0.629,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
+   "market_polymarket": {
+    "source": "Polymarket",
+    "url": "https://polymarket.com/event/lol-tes-al-2026-10-24",
+    "event": "lol-tes-al-2026-10-24",
+    "question": "LoL: Top Esports vs Anyone's Legend (BO1) - Worlds Group Stage",
+    "p0": 0.365,
+    "p1": 0.635,
+    "price_kind": "mid(bid/ask, spread 0.01)",
+    "liquidity": 475487.1732,
+    "volume": 125410.113424,
+    "spread": 0.01,
+    "match_quality": "exact"
+   },
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.47,
+    "p1": 0.53,
+    "r0": 1484,
+    "r1": 1514,
+    "n0": 6,
+    "n1": 5,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "57842",
+    "team": "Anyone's Legend",
+    "p": 0.629,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.258
+   }
+  },
+  {
    "id": "1079141",
    "state": "open",
    "forfeit": false,
@@ -7573,6 +7747,168 @@
    }
   },
   {
+   "id": "1067881",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36142",
+   "competition": "Worlds 2026 Main Event",
+   "tier": "s",
+   "stage": null,
+   "offered_points": 30,
+   "start_utc": "2026-10-24T18:00:00.000Z",
+   "lock_utc": "2026-10-24T17:55:00.000Z",
+   "start_ms": 1792864800000,
+   "lock_ms": 1792864500000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "145233",
+    "name": "Movistar KOI"
+   },
+   "team1": {
+    "id": "59292",
+    "name": "CTBC Flying Oyster"
+   },
+   "team_history": {
+    "n0": 6,
+    "n1": 3
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/movistar-koi-vs-ctbc-flying-oyster-worlds-2026-main-event-1067881",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1639127311,
+    "odds0": -245,
+    "odds1": 199,
+    "dec0": 1.41,
+    "dec1": 2.99,
+    "p0": 0.68,
+    "p1": 0.32,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
+   "market_polymarket": {
+    "source": "Polymarket",
+    "url": "https://polymarket.com/event/lol-cfo-mkoi-2026-10-24",
+    "event": "lol-cfo-mkoi-2026-10-24",
+    "question": "LoL: CTBC Flying Oyster vs Movistar KOI (BO1) - Worlds Group Stage",
+    "p0": 0.685,
+    "p1": 0.315,
+    "price_kind": "mid(bid/ask, spread 0.01)",
+    "liquidity": 376399.7588,
+    "volume": 86326.365225,
+    "spread": 0.01,
+    "match_quality": "exact"
+   },
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.526,
+    "p1": 0.474,
+    "r0": 1547,
+    "r1": 1511,
+    "n0": 6,
+    "n1": 3,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "145233",
+    "team": "Movistar KOI",
+    "p": 0.68,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.36
+   }
+  },
+  {
+   "id": "1067686",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36142",
+   "competition": "Worlds 2026 Main Event",
+   "tier": "s",
+   "stage": null,
+   "offered_points": 30,
+   "start_utc": "2026-10-24T19:00:00.000Z",
+   "lock_utc": "2026-10-24T18:55:00.000Z",
+   "start_ms": 1792868400000,
+   "lock_ms": 1792868100000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "14958",
+    "name": "G2 Esports"
+   },
+   "team1": {
+    "id": "74020",
+    "name": "LØS"
+   },
+   "team_history": {
+    "n0": 4,
+    "n1": 8
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/g2-esports-vs-los-worlds-2026-main-event-1067686",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1639136407,
+    "odds0": -450,
+    "odds1": 332,
+    "dec0": 1.22,
+    "dec1": 4.32,
+    "p0": 0.779,
+    "p1": 0.221,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
+   "market_polymarket": {
+    "source": "Polymarket",
+    "url": "https://polymarket.com/event/lol-g2-los-2026-10-24",
+    "event": "lol-g2-los-2026-10-24",
+    "question": "LoL: G2 Esports vs LOS (BO1) - Worlds Group Stage",
+    "p0": 0.815,
+    "p1": 0.185,
+    "price_kind": "mid(bid/ask, spread 0.01)",
+    "liquidity": 337233.002,
+    "volume": 128364.37551,
+    "spread": 0.01,
+    "match_quality": "exact"
+   },
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.461,
+    "p1": 0.539,
+    "r0": 1536,
+    "r1": 1581,
+    "n0": 4,
+    "n1": 8,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "14958",
+    "team": "G2 Esports",
+    "p": 0.779,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.559
+   }
+  },
+  {
    "id": "1082914",
    "state": "open",
    "forfeit": false,
@@ -7674,6 +8010,411 @@
     "basis": "model-elo",
     "confidence": "medium",
     "margin": 0.034
+   }
+  },
+  {
+   "id": "1067684",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36142",
+   "competition": "Worlds 2026 Main Event",
+   "tier": "s",
+   "stage": null,
+   "offered_points": 30,
+   "start_utc": "2026-10-24T20:00:00.000Z",
+   "lock_utc": "2026-10-24T19:55:00.000Z",
+   "start_ms": 1792872000000,
+   "lock_ms": 1792871700000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "203378",
+    "name": "LYON"
+   },
+   "team1": {
+    "id": "26929",
+    "name": "Karmine Corp"
+   },
+   "team_history": {
+    "n0": 8,
+    "n1": 8
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/lyon-vs-karmine-corp-worlds-2026-main-event-1067684",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1639127313,
+    "odds0": 115,
+    "odds1": -135,
+    "dec0": 2.15,
+    "dec1": 1.74,
+    "p0": 0.447,
+    "p1": 0.553,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
+   "market_polymarket": {
+    "source": "Polymarket",
+    "url": "https://polymarket.com/event/lol-ly-kc-2026-10-24",
+    "event": "lol-ly-kc-2026-10-24",
+    "question": "LoL: LYON vs Karmine Corp (BO1) - Worlds Group Stage",
+    "p0": 0.455,
+    "p1": 0.545,
+    "price_kind": "mid(bid/ask, spread 0.01)",
+    "liquidity": 292811.3325,
+    "volume": 139728.53640399998,
+    "spread": 0.01,
+    "match_quality": "exact"
+   },
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.49,
+    "p1": 0.51,
+    "r0": 1548,
+    "r1": 1555,
+    "n0": 8,
+    "n1": 8,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "26929",
+    "team": "Karmine Corp",
+    "p": 0.553,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.105
+   }
+  },
+  {
+   "id": "1067687",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36142",
+   "competition": "Worlds 2026 Main Event",
+   "tier": "s",
+   "stage": null,
+   "offered_points": 30,
+   "start_utc": "2026-10-24T21:00:00.000Z",
+   "lock_utc": "2026-10-24T20:55:00.000Z",
+   "start_ms": 1792875600000,
+   "lock_ms": 1792875300000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "5531",
+    "name": "Invictus Gaming"
+   },
+   "team1": {
+    "id": "201555",
+    "name": "Team Secret Whales"
+   },
+   "team_history": {
+    "n0": 18,
+    "n1": 2
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/invictus-gaming-vs-team-secret-whales-worlds-2026-main-event-1067687",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1639127314,
+    "odds0": -254,
+    "odds1": 206,
+    "dec0": 1.39,
+    "dec1": 3.06,
+    "p0": 0.687,
+    "p1": 0.313,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
+   "market_polymarket": {
+    "source": "Polymarket",
+    "url": "https://polymarket.com/event/lol-ig1-tsw-2026-10-24",
+    "event": "lol-ig1-tsw-2026-10-24",
+    "question": "LoL: Invictus Gaming vs Team Secret Whales (BO1) - Worlds Group Stage",
+    "p0": 0.695,
+    "p1": 0.305,
+    "price_kind": "mid(bid/ask, spread 0.01)",
+    "liquidity": 204063.7025,
+    "volume": 34588.155912,
+    "spread": 0.01,
+    "match_quality": "exact"
+   },
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.484,
+    "p1": 0.516,
+    "r0": 1478,
+    "r1": 1506,
+    "n0": 18,
+    "n1": 2,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "5531",
+    "team": "Invictus Gaming",
+    "p": 0.687,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.374
+   }
+  },
+  {
+   "id": "1067683",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36142",
+   "competition": "Worlds 2026 Main Event",
+   "tier": "s",
+   "stage": null,
+   "offered_points": 30,
+   "start_utc": "2026-10-24T22:00:00.000Z",
+   "lock_utc": "2026-10-24T21:55:00.000Z",
+   "start_ms": 1792879200000,
+   "lock_ms": 1792878900000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "10170",
+    "name": "Hanwha Life Esports"
+   },
+   "team1": {
+    "id": "6194",
+    "name": "Gen.G"
+   },
+   "team_history": {
+    "n0": 5,
+    "n1": 4
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/hanwha-life-esports-vs-gen-g-worlds-2026-main-event-1067683",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1639127312,
+    "odds0": 128,
+    "odds1": -150,
+    "dec0": 2.28,
+    "dec1": 1.67,
+    "p0": 0.422,
+    "p1": 0.578,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
+   "market_polymarket": {
+    "source": "Polymarket",
+    "url": "https://polymarket.com/event/lol-hle1-gen-2026-10-24",
+    "event": "lol-hle1-gen-2026-10-24",
+    "question": "LoL: Hanwha Life Esports vs Gen.G (BO1) - Worlds Group Stage",
+    "p0": 0.425,
+    "p1": 0.575,
+    "price_kind": "mid(bid/ask, spread 0.01)",
+    "liquidity": 198600.9139,
+    "volume": 69735.537426,
+    "spread": 0.01,
+    "match_quality": "exact"
+   },
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.463,
+    "p1": 0.537,
+    "r0": 1511,
+    "r1": 1554,
+    "n0": 5,
+    "n1": 4,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "6194",
+    "team": "Gen.G",
+    "p": 0.578,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.155
+   }
+  },
+  {
+   "id": "1067880",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36142",
+   "competition": "Worlds 2026 Main Event",
+   "tier": "s",
+   "stage": null,
+   "offered_points": 30,
+   "start_utc": "2026-10-24T23:00:00.000Z",
+   "lock_utc": "2026-10-24T22:55:00.000Z",
+   "start_ms": 1792882800000,
+   "lock_ms": 1792882500000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "74448",
+    "name": "Dplus KIA"
+   },
+   "team1": {
+    "id": "10168",
+    "name": "T1"
+   },
+   "team_history": {
+    "n0": 5,
+    "n1": 5
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/dplus-kia-vs-t1-worlds-2026-main-event-1067880",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1639127310,
+    "odds0": 120,
+    "odds1": -141,
+    "dec0": 2.2,
+    "dec1": 1.71,
+    "p0": 0.437,
+    "p1": 0.563,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
+   "market_polymarket": {
+    "source": "Polymarket",
+    "url": "https://polymarket.com/event/lol-dk-t1-2026-10-24",
+    "event": "lol-dk-t1-2026-10-24",
+    "question": "LoL: Dplus KIA vs T1 (BO1) - Worlds Group Stage",
+    "p0": 0.435,
+    "p1": 0.565,
+    "price_kind": "mid(bid/ask, spread 0.01)",
+    "liquidity": 286352.1987,
+    "volume": 83723.448513,
+    "spread": 0.01,
+    "match_quality": "exact"
+   },
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.495,
+    "p1": 0.505,
+    "r0": 1510,
+    "r1": 1515,
+    "n0": 5,
+    "n1": 5,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "10168",
+    "team": "T1",
+    "p": 0.563,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.126
+   }
+  },
+  {
+   "id": "1067689",
+   "state": "open",
+   "forfeit": false,
+   "competition_id": "36142",
+   "competition": "Worlds 2026 Main Event",
+   "tier": "s",
+   "stage": null,
+   "offered_points": 30,
+   "start_utc": "2026-10-25T00:00:00.000Z",
+   "lock_utc": "2026-10-24T23:55:00.000Z",
+   "start_ms": 1792886400000,
+   "lock_ms": 1792886100000,
+   "start_discrepancy": null,
+   "team0": {
+    "id": "5746",
+    "name": "Bilibili Gaming"
+   },
+   "team1": {
+    "id": "14945",
+    "name": "Team Liquid"
+   },
+   "team_history": {
+    "n0": 4,
+    "n1": 7
+   },
+   "score0": null,
+   "score1": null,
+   "hotspawn_url": "https://www.hotspawn.com/matches/bilibili-gaming-vs-team-liquid-worlds-2026-main-event-1067689",
+   "hotspawn_url_constructed": false,
+   "market_pinnacle": {
+    "source": "Pinnacle",
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
+    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
+    "site_url": "https://www.pinnacle.com/en/esports",
+    "league": "League of Legends - World Championship",
+    "league_id": 9587,
+    "matchup_id": 1639121259,
+    "odds0": -300,
+    "odds1": 238,
+    "dec0": 1.33,
+    "dec1": 3.38,
+    "p0": 0.717,
+    "p1": 0.283,
+    "match_quality": "exact",
+    "best_of": 1,
+    "listing": "live"
+   },
+   "market_polymarket": {
+    "source": "Polymarket",
+    "url": "https://polymarket.com/event/lol-tl2-blg-2026-10-24",
+    "event": "lol-tl2-blg-2026-10-24",
+    "question": "LoL: Team Liquid vs Bilibili Gaming (BO1) - Worlds Group Stage",
+    "p0": 0.755,
+    "p1": 0.245,
+    "price_kind": "mid(bid/ask, spread 0.01)",
+    "liquidity": 315477.741,
+    "volume": 41233.263941,
+    "spread": 0.01,
+    "match_quality": "exact"
+   },
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.466,
+    "p1": 0.534,
+    "r0": 1505,
+    "r1": 1544,
+    "n0": 4,
+    "n1": 7,
+    "confidence": "medium"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "5746",
+    "team": "Bilibili Gaming",
+    "p": 0.717,
+    "basis": "market-pinnacle",
+    "confidence": "high",
+    "margin": 0.434
    }
   },
   {
@@ -8128,7 +8869,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.561,
     "p1": 0.439,
-    "r0": 1622,
+    "r0": 1621,
     "r1": 1535,
     "n0": 13,
     "n1": 3,
@@ -8219,8 +8960,8 @@
     "name": "Hannover Esports e.V."
    },
    "team_history": {
-    "n0": 1,
-    "n1": 2
+    "n0": 2,
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -8230,22 +8971,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.494,
-    "p1": 0.506,
-    "r0": 1515,
-    "r1": 1528,
-    "n0": 1,
-    "n1": 2,
+    "p0": 0.493,
+    "p1": 0.507,
+    "r0": 1529,
+    "r1": 1542,
+    "n0": 2,
+    "n1": 3,
     "confidence": "low"
    },
    "pick": {
     "team_index": 1,
     "team_id": "245774",
     "team": "Hannover Esports e.V.",
-    "p": 0.506,
+    "p": 0.507,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.012
+    "margin": 0.014
    }
   },
   {
@@ -8271,8 +9012,8 @@
     "name": "AceGaming"
    },
    "team_history": {
-    "n0": 3,
-    "n1": 0
+    "n0": 4,
+    "n1": 1
    },
    "score0": null,
    "score1": null,
@@ -8280,8 +9021,25 @@
    "hotspawn_url_constructed": false,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
-   "pick": null
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.504,
+    "p1": 0.496,
+    "r0": 1495,
+    "r1": 1486,
+    "n0": 4,
+    "n1": 1,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "235214",
+    "team": "Reveal Multigaming",
+    "p": 0.504,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.008
+   }
   },
   {
    "id": "1075750",
@@ -8372,7 +9130,7 @@
     "p0": 0.524,
     "p1": 0.476,
     "r0": 1515,
-    "r1": 1472,
+    "r1": 1473,
     "n0": 3,
     "n1": 2,
     "confidence": "low"
@@ -8797,7 +9555,7 @@
   },
   {
    "id": "1074665",
-   "state": "open",
+   "state": "cancelled",
    "forfeit": false,
    "competition_id": "36332",
    "competition": "RIVALS LEAGUE Season 2",
@@ -8823,8 +9581,8 @@
    },
    "score0": null,
    "score1": null,
-   "hotspawn_url": "https://www.hotspawn.com/matches/rich-gang-sweden-vs-northern-wolves-esports-rivals-league-season-2-1074665",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url": "https://www.hotspawn.com/matches/northern-wolves-esports-vs-rich-gang-sweden-rivals-league-season-2-1074665",
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -8837,15 +9595,7 @@
     "n1": 5,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "263904",
-    "team": "Northern Wolves Esports",
-    "p": 0.532,
-    "basis": "model-elo",
-    "confidence": "medium",
-    "margin": 0.064
-   }
+   "pick": null
   },
   {
    "id": "1074666",
@@ -8953,7 +9703,7 @@
   },
   {
    "id": "1074662",
-   "state": "open",
+   "state": "cancelled",
    "forfeit": false,
    "competition_id": "36332",
    "competition": "RIVALS LEAGUE Season 2",
@@ -8980,7 +9730,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/karolinerna-vs-lund-esports-organization-ogs-rivals-league-season-2-1074662",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -8993,15 +9743,7 @@
     "n1": 3,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 1,
-    "team_id": "264343",
-    "team": "Lund Esports Organization OGs",
-    "p": 0.522,
-    "basis": "model-elo",
-    "confidence": "medium",
-    "margin": 0.044
-   }
+   "pick": null
   },
   {
    "id": "1074663",
@@ -9130,7 +9872,7 @@
     "name": "DKB XPERION NXT"
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 1
    },
    "score0": null,
@@ -9141,11 +9883,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.507,
-    "p1": 0.493,
-    "r0": 1504,
+    "p0": 0.512,
+    "p1": 0.488,
+    "r0": 1517,
     "r1": 1488,
-    "n0": 2,
+    "n0": 3,
     "n1": 1,
     "confidence": "low"
    },
@@ -9153,10 +9895,10 @@
     "team_index": 0,
     "team_id": "199980",
     "team": "Locked IN",
-    "p": 0.507,
+    "p": 0.512,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.014
+    "margin": 0.024
    }
   },
   {
@@ -9395,12 +10137,12 @@
     "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "event": "lol-rb-mr-2026-10-27",
     "question": "LoL: Vitality Rising Bees vs Mental Rush (BO5) - LGC Rising Playoffs",
-    "p0": 0.35,
-    "p1": 0.65,
+    "p0": 0.39,
+    "p1": 0.61,
     "price_kind": "outcomePrices",
-    "liquidity": 1448.137,
+    "liquidity": 989.4467,
     "volume": 13.766231999999999,
-    "spread": 0.12,
+    "spread": 0.08,
     "match_quality": "exact"
    },
    "model": {
@@ -9417,10 +10159,10 @@
     "team_index": 1,
     "team_id": "163988",
     "team": "Vitality Rising Bees",
-    "p": 0.65,
+    "p": 0.61,
     "basis": "market-polymarket",
-    "confidence": "medium",
-    "margin": 0.3
+    "confidence": "low",
+    "margin": 0.22
    }
   },
   {
@@ -9499,7 +10241,7 @@
    },
    "team_history": {
     "n0": 2,
-    "n1": 0
+    "n1": 1
    },
    "score0": null,
    "score1": null,
@@ -9507,8 +10249,25 @@
    "hotspawn_url_constructed": false,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
-   "pick": null
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.506,
+    "p1": 0.494,
+    "r0": 1500,
+    "r1": 1486,
+    "n0": 2,
+    "n1": 1,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "29694",
+    "team": "No Need Orga",
+    "p": 0.506,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.012
+   }
   },
   {
    "id": "1079033",
@@ -9533,7 +10292,7 @@
     "name": "No Need Orga"
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 2
    },
    "score0": null,
@@ -9544,11 +10303,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.516,
-    "p1": 0.484,
-    "r0": 1528,
+    "p0": 0.524,
+    "p1": 0.476,
+    "r0": 1542,
     "r1": 1500,
-    "n0": 2,
+    "n0": 3,
     "n1": 2,
     "confidence": "low"
    },
@@ -9556,10 +10315,10 @@
     "team_index": 0,
     "team_id": "245774",
     "team": "Hannover Esports e.V.",
-    "p": 0.516,
+    "p": 0.524,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.032
+    "margin": 0.048
    }
   },
   {
@@ -10053,8 +10812,8 @@
     "name": "reGOLD eSport"
    },
    "team_history": {
-    "n0": 0,
-    "n1": 3
+    "n0": 1,
+    "n1": 4
    },
    "score0": null,
    "score1": null,
@@ -10062,8 +10821,25 @@
    "hotspawn_url_constructed": false,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
-   "pick": null
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.491,
+    "p1": 0.509,
+    "r0": 1486,
+    "r1": 1506,
+    "n0": 1,
+    "n1": 4,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "265041",
+    "team": "reGOLD eSport",
+    "p": 0.509,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.018
+   }
   },
   {
    "id": "1079036",
@@ -10088,8 +10864,8 @@
     "name": "Team 300"
    },
    "team_history": {
-    "n0": 3,
-    "n1": 2
+    "n0": 4,
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -10099,22 +10875,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.506,
-    "p1": 0.494,
-    "r0": 1509,
-    "r1": 1499,
-    "n0": 3,
-    "n1": 2,
-    "confidence": "low"
+    "p0": 0.508,
+    "p1": 0.492,
+    "r0": 1495,
+    "r1": 1484,
+    "n0": 4,
+    "n1": 3,
+    "confidence": "medium"
    },
    "pick": {
     "team_index": 0,
     "team_id": "235214",
     "team": "Reveal Multigaming",
-    "p": 0.506,
+    "p": 0.508,
     "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.012
+    "confidence": "medium",
+    "margin": 0.016
    }
   },
   {
@@ -10608,8 +11384,8 @@
     "name": "Hannover Esports e.V."
    },
    "team_history": {
-    "n0": 2,
-    "n1": 2
+    "n0": 3,
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -10619,22 +11395,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.484,
-    "p1": 0.516,
-    "r0": 1499,
-    "r1": 1528,
-    "n0": 2,
-    "n1": 2,
-    "confidence": "low"
+    "p0": 0.459,
+    "p1": 0.541,
+    "r0": 1484,
+    "r1": 1542,
+    "n0": 3,
+    "n1": 3,
+    "confidence": "medium"
    },
    "pick": {
     "team_index": 1,
     "team_id": "245774",
     "team": "Hannover Esports e.V.",
-    "p": 0.516,
+    "p": 0.541,
     "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.032
+    "confidence": "medium",
+    "margin": 0.082
    }
   },
   {
@@ -10674,7 +11450,7 @@
     "p0": 0.442,
     "p1": 0.558,
     "r0": 1539,
-    "r1": 1622,
+    "r1": 1621,
     "n0": 3,
     "n1": 13,
     "confidence": "medium"
@@ -10725,7 +11501,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.5,
     "p1": 0.5,
-    "r0": 1472,
+    "r0": 1473,
     "r1": 1472,
     "n0": 2,
     "n1": 2,
@@ -11440,7 +12216,7 @@
     "name": "No Need Orga"
    },
    "team_history": {
-    "n0": 1,
+    "n0": 2,
     "n1": 2
    },
    "score0": null,
@@ -11451,11 +12227,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.507,
-    "p1": 0.493,
-    "r0": 1515,
+    "p0": 0.517,
+    "p1": 0.483,
+    "r0": 1529,
     "r1": 1500,
-    "n0": 1,
+    "n0": 2,
     "n1": 2,
     "confidence": "low"
    },
@@ -11463,10 +12239,10 @@
     "team_index": 0,
     "team_id": "190299",
     "team": "Babos Gaming",
-    "p": 0.507,
+    "p": 0.517,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.014
+    "margin": 0.034
    }
   },
   {
@@ -11909,7 +12685,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 2
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -11919,22 +12695,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.477,
-    "p1": 0.523,
+    "p0": 0.463,
+    "p1": 0.537,
     "r0": 1465,
-    "r1": 1504,
+    "r1": 1517,
     "n0": 3,
-    "n1": 2,
-    "confidence": "low"
+    "n1": 3,
+    "confidence": "medium"
    },
    "pick": {
     "team_index": 1,
     "team_id": "199980",
     "team": "Locked IN",
-    "p": 0.523,
+    "p": 0.537,
     "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.046
+    "confidence": "medium",
+    "margin": 0.074
    }
   },
   {
@@ -11960,7 +12736,7 @@
     "name": "404 Multigaming e.V."
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 2
    },
    "score0": null,
@@ -11971,11 +12747,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.517,
-    "p1": 0.483,
-    "r0": 1526,
+    "p0": 0.509,
+    "p1": 0.491,
+    "r0": 1513,
     "r1": 1497,
-    "n0": 2,
+    "n0": 3,
     "n1": 2,
     "confidence": "low"
    },
@@ -11983,10 +12759,10 @@
     "team_index": 0,
     "team_id": "264942",
     "team": "The Bandits Prime",
-    "p": 0.517,
+    "p": 0.509,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.034
+    "margin": 0.018
    }
   },
   {
@@ -12221,7 +12997,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 2
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -12231,22 +13007,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.49,
-    "p1": 0.51,
+    "p0": 0.497,
+    "p1": 0.503,
     "r0": 1509,
-    "r1": 1526,
+    "r1": 1513,
     "n0": 3,
-    "n1": 2,
-    "confidence": "low"
+    "n1": 3,
+    "confidence": "medium"
    },
    "pick": {
     "team_index": 1,
     "team_id": "264942",
     "team": "The Bandits Prime",
-    "p": 0.51,
+    "p": 0.503,
     "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.02
+    "confidence": "medium",
+    "margin": 0.006
    }
   },
   {
@@ -12324,7 +13100,7 @@
     "name": "VfB eSports"
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 3
    },
    "score0": null,
@@ -12335,22 +13111,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.511,
-    "p1": 0.489,
-    "r0": 1504,
+    "p0": 0.523,
+    "p1": 0.477,
+    "r0": 1517,
     "r1": 1485,
-    "n0": 2,
+    "n0": 3,
     "n1": 3,
-    "confidence": "low"
+    "confidence": "medium"
    },
    "pick": {
     "team_index": 0,
     "team_id": "199980",
     "team": "Locked IN",
-    "p": 0.511,
+    "p": 0.523,
     "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.022
+    "confidence": "medium",
+    "margin": 0.046
    }
   },
   {
@@ -12377,7 +13153,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 1
+    "n1": 2
    },
    "score0": null,
    "score1": null,
@@ -12387,22 +13163,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.476,
-    "p1": 0.524,
+    "p0": 0.459,
+    "p1": 0.541,
     "r0": 1458,
-    "r1": 1515,
+    "r1": 1529,
     "n0": 3,
-    "n1": 1,
+    "n1": 2,
     "confidence": "low"
    },
    "pick": {
     "team_index": 1,
     "team_id": "190299",
     "team": "Babos Gaming",
-    "p": 0.524,
+    "p": 0.541,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.048
+    "margin": 0.082
    }
   },
   {
@@ -12428,8 +13204,8 @@
     "name": "AceGaming"
    },
    "team_history": {
-    "n0": 2,
-    "n1": 0
+    "n0": 3,
+    "n1": 1
    },
    "score0": null,
    "score1": null,
@@ -12437,8 +13213,25 @@
    "hotspawn_url_constructed": false,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
-   "pick": null
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.499,
+    "p1": 0.501,
+    "r0": 1484,
+    "r1": 1486,
+    "n0": 3,
+    "n1": 1,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "86632",
+    "team": "AceGaming",
+    "p": 0.501,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.002
+   }
   },
   {
    "id": "1080943",
@@ -12723,7 +13516,7 @@
     "name": "BvP"
    },
    "team_history": {
-    "n0": 0,
+    "n0": 1,
     "n1": 3
    },
    "score0": null,
@@ -12732,8 +13525,25 @@
    "hotspawn_url_constructed": false,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
-   "pick": null
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.512,
+    "p1": 0.488,
+    "r0": 1486,
+    "r1": 1458,
+    "n0": 1,
+    "n1": 3,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "86632",
+    "team": "AceGaming",
+    "p": 0.512,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.024
+   }
   },
   {
    "id": "1079852",
@@ -12758,8 +13568,8 @@
     "name": "Babos Gaming"
    },
    "team_history": {
-    "n0": 3,
-    "n1": 1
+    "n0": 4,
+    "n1": 2
    },
    "score0": null,
    "score1": null,
@@ -12769,22 +13579,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.49,
-    "p1": 0.51,
-    "r0": 1491,
-    "r1": 1515,
-    "n0": 3,
-    "n1": 1,
+    "p0": 0.487,
+    "p1": 0.513,
+    "r0": 1506,
+    "r1": 1529,
+    "n0": 4,
+    "n1": 2,
     "confidence": "low"
    },
    "pick": {
     "team_index": 1,
     "team_id": "190299",
     "team": "Babos Gaming",
-    "p": 0.51,
+    "p": 0.513,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.02
+    "margin": 0.026
    }
   },
   {
@@ -13136,7 +13946,7 @@
     "p0": 0.538,
     "p1": 0.462,
     "r0": 1539,
-    "r1": 1472,
+    "r1": 1473,
     "n0": 3,
     "n1": 2,
     "confidence": "low"
@@ -13291,7 +14101,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.606,
     "p1": 0.394,
-    "r0": 1622,
+    "r0": 1621,
     "r1": 1464,
     "n0": 13,
     "n1": 3,
@@ -13642,7 +14452,7 @@
     "name": "VfB eSports"
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 3
    },
    "score0": null,
@@ -13653,22 +14463,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.524,
-    "p1": 0.476,
-    "r0": 1526,
+    "p0": 0.52,
+    "p1": 0.48,
+    "r0": 1513,
     "r1": 1485,
-    "n0": 2,
+    "n0": 3,
     "n1": 3,
-    "confidence": "low"
+    "confidence": "medium"
    },
    "pick": {
     "team_index": 0,
     "team_id": "264942",
     "team": "The Bandits Prime",
-    "p": 0.524,
+    "p": 0.52,
     "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.048
+    "confidence": "medium",
+    "margin": 0.04
    }
   },
   {
@@ -13833,7 +14643,7 @@
     "name": "404 Multigaming e.V."
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 2
    },
    "score0": null,
@@ -13844,11 +14654,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.504,
-    "p1": 0.496,
-    "r0": 1504,
+    "p0": 0.512,
+    "p1": 0.488,
+    "r0": 1517,
     "r1": 1497,
-    "n0": 2,
+    "n0": 3,
     "n1": 2,
     "confidence": "low"
    },
@@ -13856,10 +14666,10 @@
     "team_index": 0,
     "team_id": "199980",
     "team": "Locked IN",
-    "p": 0.504,
+    "p": 0.512,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.008
+    "margin": 0.024
    }
   },
   {
@@ -13886,7 +14696,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 2
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -13899,10 +14709,10 @@
     "p0": 0.465,
     "p1": 0.535,
     "r0": 1465,
-    "r1": 1526,
+    "r1": 1513,
     "n0": 3,
-    "n1": 2,
-    "confidence": "low"
+    "n1": 3,
+    "confidence": "medium"
    },
    "pick": {
     "team_index": 1,
@@ -13910,7 +14720,7 @@
     "team": "The Bandits Prime",
     "p": 0.535,
     "basis": "model-elo",
-    "confidence": "low",
+    "confidence": "medium",
     "margin": 0.07
    }
   },
@@ -14210,7 +15020,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.484,
     "p1": 0.516,
-    "r0": 1472,
+    "r0": 1473,
     "r1": 1501,
     "n0": 2,
     "n1": 2,
@@ -14626,7 +15436,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.556,
     "p1": 0.444,
-    "r0": 1622,
+    "r0": 1621,
     "r1": 1522,
     "n0": 13,
     "n1": 2,
@@ -14821,8 +15631,8 @@
     "name": "Hannover Esports e.V."
    },
    "team_history": {
-    "n0": 0,
-    "n1": 2
+    "n0": 1,
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -14830,8 +15640,25 @@
    "hotspawn_url_constructed": false,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
-   "pick": null
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.476,
+    "p1": 0.524,
+    "r0": 1486,
+    "r1": 1542,
+    "n0": 1,
+    "n1": 3,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 1,
+    "team_id": "245774",
+    "team": "Hannover Esports e.V.",
+    "p": 0.524,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.048
+   }
   },
   {
    "id": "1079060",
@@ -14856,8 +15683,8 @@
     "name": "Reveal Multigaming"
    },
    "team_history": {
-    "n0": 1,
-    "n1": 3
+    "n0": 2,
+    "n1": 4
    },
    "score0": null,
    "score1": null,
@@ -14867,22 +15694,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.502,
-    "p1": 0.498,
-    "r0": 1515,
-    "r1": 1509,
-    "n0": 1,
-    "n1": 3,
+    "p0": 0.52,
+    "p1": 0.48,
+    "r0": 1529,
+    "r1": 1495,
+    "n0": 2,
+    "n1": 4,
     "confidence": "low"
    },
    "pick": {
     "team_index": 0,
     "team_id": "190299",
     "team": "Babos Gaming",
-    "p": 0.502,
+    "p": 0.52,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.004
+    "margin": 0.04
    }
   },
   {
@@ -14908,7 +15735,7 @@
     "name": "No Need Orga"
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 2
    },
    "score0": null,
@@ -14919,22 +15746,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.5,
-    "p1": 0.5,
-    "r0": 1499,
+    "p0": 0.491,
+    "p1": 0.509,
+    "r0": 1484,
     "r1": 1500,
-    "n0": 2,
+    "n0": 3,
     "n1": 2,
     "confidence": "low"
    },
    "pick": {
-    "team_index": 0,
-    "team_id": "37855",
-    "team": "Team 300",
-    "p": 0.5,
+    "team_index": 1,
+    "team_id": "29694",
+    "team": "No Need Orga",
+    "p": 0.509,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0
+    "margin": 0.018
    }
   },
   {
@@ -14961,7 +15788,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 3
+    "n1": 4
    },
    "score0": null,
    "score1": null,
@@ -14971,22 +15798,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.476,
-    "p1": 0.524,
+    "p0": 0.465,
+    "p1": 0.535,
     "r0": 1458,
-    "r1": 1491,
+    "r1": 1506,
     "n0": 3,
-    "n1": 3,
+    "n1": 4,
     "confidence": "medium"
    },
    "pick": {
     "team_index": 1,
     "team_id": "265041",
     "team": "reGOLD eSport",
-    "p": 0.524,
+    "p": 0.535,
     "basis": "model-elo",
     "confidence": "medium",
-    "margin": 0.048
+    "margin": 0.07
    }
   }
  ]
