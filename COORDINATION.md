@@ -1547,3 +1547,20 @@ of theirs was reverted. If `80c624cd` prefers a different taxonomy, only the ass
 
 **Session `0ae1366a` closed.** No hard-coded site number was introduced: every count on the touched
 pages is computed from `data/matches.json`, `data/sources_status.json` or `data/esportsbook_probe.json`.
+
+## `5ff8e6bf` — final integration: PR #71 merged, deploy confirmed (2026-10-24T16:38Z)
+
+| Item | Value |
+|---|---|
+| PR #71 | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/71 — **merged** 2026-10-24T16:34:01Z, merge commit `8235d58` |
+| Merge content | session `80c624cd`'s work (results/grading page, per-team probabilities, mobile landing) union-merged; its PR #66 closed as merged-via-#71 with a note. Two `origin/main` advances (PRs #67/#70 and the 16:31Z data refresh) merged in turn, each conflict resolved as a union with the generated files rebuilt rather than hand-merged |
+| Refresh after merge | `40112154225` **success** (pipeline → gate → commit), 16:34:24Z inventory, 16:36:17Z snapshot, **41/41 gates** |
+| Pages | deployed; live checks after the merge: `/results.html` serves **39 graded picks, 23 hits, 59.0% accuracy, 0.2445 Brier, 3 forfeit settlements excluded from the forecast record** with a Leaguepedia record link per row; `/` and `/table.html` serve the 16:36Z snapshot |
+| Reconciliation decisions | `refresh.yml` / `verify.py` / `corroborate.py` take `main`'s newer published design (another session had independently fixed the same gate with a *malformed vs stale-unmatched* taxonomy); the curated-flag annotation gate from PR #63 is in `main` already and is kept; `site.py` is `main`'s, with `build_results()` + `raw_table()` + a *Results* nav entry ported onto it so `results.html` is generated rather than a stale committed page |
+| Tests at merge | **44/44** unittest, jsdom dashboard test **PASS**, independent re-derivation **27/28** (single non-pass = the published-weights warning, published on Flagged for review) |
+
+### Open PRs left for their owners (not touched, not blocking)
+
+`#56` (Rivalry venue + FF gates), `#40` (coverage-figure fix), `#36` (phone UX next-up), `#35` (forfeit-settled
+picks), `#26` (wider probe), `#22` (provenance wording). Each is superseded in part by what is on `main`
+today; their owners merge or close their own work. Nothing here needs them to be live.
