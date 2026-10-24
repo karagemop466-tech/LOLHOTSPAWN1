@@ -15,7 +15,18 @@ before touching shared files, claim a task, and keep your scope disjoint.
 | Refresh | `.github/workflows/refresh.yml`, cron `17 */6 * * *` (every 6 h, inside the 4–8 h brief) |
 | Gate | `tools/verify.py` fails the build instead of publishing bad data |
 | Integration session | `b166e06b` |
-| Current session | `64554333` (branch `arena/64554333-lolhotspawn1`) |
+| Current session | `1a1a3b1b` (branch `arena/1a1a3b1b-lolhotspawn1`) |
+
+## Session `1a1a3b1b` — claim (opened 2026-10-24T16:15Z)
+
+Handoff note: open PRs #22/#26/#35/#36/#40/#56 last committed 2026-10-23 ~15:44–16:26Z (>20 h, no subsequent commits). Per protocol a claim older than 60 minutes with no commits may be taken over. This session does **not** edit those PRs; it takes the unowned live-site gap (failed `refresh-picks` since 2026-10-23T17:13Z) and the remaining brief items below. File scopes below are disjoint from any *active* claim.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|-----------|
+| S1 | Diagnose and unblock `refresh-picks` (4 consecutive scheduled failures; last good snapshot 2026-10-23T17:13Z). Upload build logs on failure; stop stale-receipt divergence from blocking a fresh publish. | in progress | 1a1a3b1b | `.github/workflows/refresh.yml`, `tools/verify.py`, `tools/corroborate.py`, `tools/collect.py` |
+| S2 | Live Hotspawn LoL inventory + external lines for **every** listed match (incl. low-tier / non-Polymarket). Additional esportsbook probes (not Rivalry — PR #56). Originate remaining. Unresolved + limitations in the executive summary. | in progress | 1a1a3b1b | `tools/collect.py`, `tools/model.py`, `tools/site.py`, `tools/flags.py`, `data/*`, root `*.html`, `assets/*` |
+| S3 | Mobile-first executive summary: in-site links to the pick table / cards / unresolved; phone-readable pick list. Fix leftover README merge markers. | in progress | 1a1a3b1b | `tools/site.py`, `assets/style.css`, `assets/app.js`, `README.md`, `index.html` |
+| S4 | PR → `main`, merge, confirm Pages deploy and a successful refresh. | unclaimed | 1a1a3b1b | — |
 
 ## Session `64554333` — claim (opened 2026-10-23T15:40Z)
 
