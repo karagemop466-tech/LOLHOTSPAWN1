@@ -1942,3 +1942,16 @@ Re-verified after that merge, 2026-10-24T16:41Z — `python3 -m unittest discove
 **verdict OK** (inventory `2026-10-24T16:32:05Z`, 0 missing, 0 stale, 241/241 rows with a pick).
 Corroboration on the merged tree: **51 receipts, 32 usable, 31 agree, 1 diverges (the contested
 #1081423), 2 placeholders, 16 historic, 1 expired, 0 rejected** — i.e. nothing blocks the refresh.
+
+### PR / deploy record — session `62ba9cfe`
+
+| Item | Value |
+|---|---|
+| Pull request | **#78** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/78 |
+| Merge | merged without waiting for review at **2026-10-24T16:42:39Z**, merge commit `9ac1044` |
+| `refresh-picks` after the merge | run **`40112820076`** on `main` → **success** in `2m19s`, auto-commit **`473aa8f`** (`chore(data): refresh fixtures, lines and site`). Published dataset now `generated 2026-10-24T16:44:52Z`, inventory fetched `2026-10-24T16:42:54Z`, **241 rows, 0 without a pick** |
+| Pages | `pages-build-deployment` **`40112819553`** and **`40112992874`** both **success**; `gh api …/pages` → `status: built` |
+| Live verification | `https://karagemop466-tech.github.io/LOLHOTSPAWN1/` serves data snapshot **2026-10-24 16:36 UTC** with the banner "Hotspawn inventory is 4m old" — the 23-hour staleness is gone. The executive summary carries in-site links to every picks view (pick table · card view · market-backed · originated · unresolved & limits · flagged), the mobile instruction ("on a phone, tap **Picks** in the bar at the bottom of every page"), a Next-up table of the next eight kick-offs, and the coverage line **241 of 241 matches carry a pick (100%)** |
+| Corroboration on the merged `main` | **51 receipts — 32 usable, 31 agree, 1 diverges (`#1081423`, 66.3 pp, published as a flag), 2 placeholders, 16 historic, 1 expired, 0 rejected.** All 19 of this session's `2026-10-24-longtail.json` receipts still match a listed fixture |
+
+Session `62ba9cfe` is closed. Its claim `G1`–`G4` is **done**.
