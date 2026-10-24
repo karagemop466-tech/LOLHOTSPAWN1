@@ -1077,3 +1077,13 @@ Branch: `arena/2dbdbafb-lolhotspawn1` (fixed Arena session branch; merged `origi
   - PR **#55** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/55`) merged into `main` (`144fd36`) and triggered live `refresh-picks` run **`39986468229`** (**success** in `2m5s`, auto-commit **`026f983`**, live HTTP 200 across Hotspawn, Pinnacle, Kalshi, Unibet/Kambi `ubse`, LoL Esports, Leaguepedia, Polymarket) + `pages-build-deployment` **`39986760442`** (**success**, `status: built`).
   - PR **#57** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/57`) merged into `main`, triggering live `refresh-picks` run **`39987137479`** (**success**, auto-commit **`a6a9207`**: `241` Hotspawn fixtures, `8` Pinnacle series moneylines, `8` Kalshi CFTC contracts, `8` upcoming `<12h` Bovada moneylines, `8` live Unibet/Kambi `ubse` moneylines at `status=200`, `45` Polymarket markets, `34,617` Leaguepedia series rows + `11` `dqteams` pages with `err=''`, out-of-sample `n=3,854`, `acc=65.02%`, `brier=0.2183`) and `pages-build-deployment` run **`39987441211`** (**success**, `status: built`). Live site verified via HTTP 200 across `index.html`, `featured.html`, `table.html`, `methodology.html`, and `flagged.html` at `https://karagemop466-tech.github.io/LOLHOTSPAWN1/`. Session `2dbdbafb` closed cleanly.
 
+
+---
+
+# Session `bcfdfa66` — current repository audit and documentation integrity (2026-10-24)
+
+Branch: `arena/bcfdfa66-lolhotspawn1` (Arena session branch; do not switch branches).
+
+| # | Task | Status | Owner | File scope | Notes |
+|---|---|---|---|---|---|
+| C1 | Audit current dashboard/build evidence and repair documentation-level merge artifacts or stale/unsupported claims | in progress | bcfdfa66 | `README.md`, `COORDINATION.md` | Keep published match data/model untouched unless tests establish a concrete defect; sources and checks to be recorded here. |
