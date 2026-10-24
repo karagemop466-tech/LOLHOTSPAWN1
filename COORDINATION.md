@@ -17,6 +17,19 @@ before touching shared files, claim a task, and keep your scope disjoint.
 | Integration session | `b166e06b` |
 | Current session | `64554333` (branch `arena/64554333-lolhotspawn1`) |
 
+## Session `cc8c7362` — refresh repair and final integration (opened 2026-10-24T16:17Z)
+
+Branch: `arena/cc8c7362-lolhotspawn1` (the fixed Arena session branch; no additional branch will be created).
+The older implementation claims below are more than 60 minutes old. PR #60 (`bcfdfa66`) is a concurrent
+README/freshness-documentation audit; this claim deliberately excludes `README.md` and changes only this
+session's own appended board records in `COORDINATION.md`.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| R1 | Diagnose and repair the failed canonical 6-hour refresh; preserve source evidence and fail closed on unverified data | in progress | cc8c7362 | `.github/workflows/refresh.yml`, `tools/collect.py`, `tools/common.py`, new refresh-specific tests/evidence only |
+| R2 | Produce and independently verify a current full-inventory build; confirm every listed LoL fixture has a priced/model/settlement pick or an explicit limitation | unclaimed | cc8c7362 | canonical `data/` outputs (excluding `data/node/**`), generated root `*.html`, `assets/**`, `tools/model.py`, `tools/site.py`, `tools/verify.py` only if a verified defect requires it |
+| R3 | Final integration, PR to `main`, merge, and GitHub Pages deployment verification | unclaimed | cc8c7362 | this session record in `COORDINATION.md`; no `README.md` edits |
+
 ## Session `64554333` — claim (opened 2026-10-23T15:40Z)
 
 Scope (disjoint from every earlier session; all earlier tasks are `done`):
