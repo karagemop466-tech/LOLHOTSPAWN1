@@ -1,4 +1,4 @@
-=== build 2026-10-24T16:29:27Z ===
+=== build 2026-10-24T16:32:03Z ===
 test_coverage_page_renders_the_historical_receipts (test_corroborate_history.ReceiptHistoryTests.test_coverage_page_renders_the_historical_receipts) ... ok
 test_malformed_receipt_still_fails_the_gate (test_corroborate_history.ReceiptHistoryTests.test_malformed_receipt_still_fails_the_gate) ... ok
 test_receipt_for_a_delisted_fixture_is_historical_not_rejected (test_corroborate_history.ReceiptHistoryTests.test_receipt_for_a_delisted_fixture_is_historical_not_rejected) ... ok
@@ -16,13 +16,13 @@ test_every_row_records_what_came_back (test_esportsbook_probe.EsportsbookProbeTe
 test_receipt_shape (test_esportsbook_probe.EsportsbookProbeTests.test_receipt_shape) ... ok
 test_summary_list_matches_rows (test_esportsbook_probe.EsportsbookProbeTests.test_summary_list_matches_rows) ... ok
 test_usable_requires_a_named_fixture_with_a_price (test_esportsbook_probe.EsportsbookProbeTests.test_usable_requires_a_named_fixture_with_a_price) ... ok
-test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [16:29:27] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp5r8x8khw/flags.json' mode='r' encoding='utf-8'>
+test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [16:32:03] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmphehp_ibj/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [16:29:27] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp400_fyit/flags.json' mode='r' encoding='utf-8'>
+test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [16:32:03] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp6a_no5i9/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -30,7 +30,7 @@ test_competition_page_disambiguates_homonyms_before_global_exact (test_integrity
 test_invalid_probabilities (test_integrity.IntegrityTests.test_invalid_probabilities) ... ok
 test_kambi_parse_events_reads_match_odds (test_integrity.IntegrityTests.test_kambi_parse_events_reads_match_odds) ... ok
 test_live_venue_name_aliases (test_integrity.IntegrityTests.test_live_venue_name_aliases) ... ok
-test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [16:29:27] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
+test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [16:32:03] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
 ok
 test_published_dataset_and_html_invariants (test_integrity.IntegrityTests.test_published_dataset_and_html_invariants) ... ok
 test_settlement_pick_is_valid_without_probability (test_integrity.IntegrityTests.test_settlement_pick_is_valid_without_probability) ... ok
@@ -43,26 +43,26 @@ test_valid (test_integrity.IntegrityTests.test_valid) ... ok
 test_wrong_team_same_probability (test_integrity.IntegrityTests.test_wrong_team_same_probability) ... ok
 
 ----------------------------------------------------------------------
-Ran 32 tests in 0.171s
+Ran 32 tests in 0.322s
 
 OK
 unittest_exit:0
-[16:29:28] hotspawn: 241 LoL fixtures
-[16:29:31] pinnacle: 136 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
-[16:29:31] kalshi: 9 CFTC match events (status=200)
-[16:29:32] bovada: 8 LoL moneylines (status=200)
-[16:29:33] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
-[16:29:33] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
-[16:29:33] kambi/nordicbet: status=429 No access
-[16:29:33] kambi/coolbet: 0 events, 0 new moneylines
-[16:29:33] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
-[16:30:48] leaguepedia: 34664 series rows, 11 pages with dqteams (err='')
-[16:30:48] lolesports: 80 Worlds events (status=200)
-[16:30:49] polymarket: 45 match-level markets (status=200)
-[16:30:59] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=503, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[16:32:05] hotspawn: 241 LoL fixtures
+[16:32:07] pinnacle: 136 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
+[16:32:07] kalshi: 9 CFTC match events (status=200)
+[16:32:08] bovada: runner geo-filtered (200, 0 items); preserved 8 upcoming <12h quotes (age=0.0h)
+[16:32:08] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
+[16:32:08] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
+[16:32:09] kambi/nordicbet: status=429 No access
+[16:32:09] kambi/coolbet: 0 events, 0 new moneylines
+[16:32:09] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
+[16:33:09] leaguepedia: 34664 series rows, 11 pages with dqteams (err='')
+[16:33:09] lolesports: 80 Worlds events (status=200)
+[16:33:11] polymarket: 45 match-level markets (status=200)
+[16:33:20] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 collect_exit:0
-[16:31:38] rows=241 methods={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} joins=33
-[16:31:38] backtest n=3896 acc=0.6496 brier=0.2185
+[16:34:00] rows=241 methods={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} joins=33
+[16:34:00] backtest n=3896 acc=0.6496 brier=0.2185
 model_exit:0
 {
  "total": 241,
@@ -207,15 +207,15 @@ PRICED 9
   Worlds 2026 Main Event | ['Hanwha Life Esports', 'Gen.G'] 0.4195 {'home': 2.32, 'away': 1.641}
   Worlds 2026 Main Event | ['Dplus KIA', 'T1'] 0.4335 {'home': 2.17, 'away': 1.73}
   Worlds 2026 Main Event | ['Bilibili Gaming', 'Team Liquid'] 0.7337 {'home': 1.328, 'away': 3.41}
-  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.385 None
+  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.39 None
 report_exit:0
-[16:31:38] flags: 30 items
+[16:34:00] flags: 30 items
 flags_exit:0
-[16:31:38] site: wrote 12 pages to the published root
+[16:34:00] site: wrote 12 pages to the published root
 site_exit:0
-[16:31:38] corroborate: 15 usable receipts (15 agree / 0 diverge / 1 placeholder / 16 historical off-list / 0 malformed), 2/29 competitions priced externally
+[16:34:00] corroborate: 15 usable receipts (15 agree / 0 diverge / 1 placeholder / 16 historical off-list / 0 malformed), 2/29 competitions priced externally
 corroborate_exit:0
-[16:31:39] verification passed
+[16:34:01] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -253,16 +253,16 @@ PASS coverage page shows every match method and the unresolved ledger :: coverag
 PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
 PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
 PASS method counts partition matches.json cleanly :: counts={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} sum=241 rows=241
-PASS source availability recorded :: 11/18 sources reachable on this build
+PASS source availability recorded :: 12/18 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
 verify_exit:0
-[16:31:39] site: wrote 12 pages to the published root
+[16:34:01] site: wrote 12 pages to the published root
 site2_exit:0
-[16:31:39] corroborate: 15 usable receipts (15 agree / 0 diverge / 1 placeholder / 16 historical off-list / 0 malformed), 2/29 competitions priced externally
+[16:34:01] corroborate: 15 usable receipts (15 agree / 0 diverge / 1 placeholder / 16 historical off-list / 0 malformed), 2/29 competitions priced externally
 corroborate2_exit:0
-[16:31:40] verification passed
+[16:34:01] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -300,7 +300,7 @@ PASS coverage page shows every match method and the unresolved ledger :: coverag
 PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
 PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
 PASS method counts partition matches.json cleanly :: counts={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} sum=241 rows=241
-PASS source availability recorded :: 11/18 sources reachable on this build
+PASS source availability recorded :: 12/18 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
