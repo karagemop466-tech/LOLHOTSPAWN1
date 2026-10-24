@@ -1,7 +1,7 @@
 # Live source verification
 
-- generated: `2026-10-24T17:02:43Z`
-- dataset: `2026-10-24T16:57:09Z`
+- generated: `2026-10-24T17:12:12Z`
+- dataset: `2026-10-24T17:04:39Z`
 - rows: **241**
 - result: **PASS**
 
@@ -14,12 +14,13 @@
 | published inventory == live Hotspawn feed (1:1 ids, freshness) | PASS | live=241 dataset=241 new on feed since publish=0 gone from feed=0 |
 | no broken hotspawn card URL | PASS | 241/241 resolved this run; causes={'resolved': 241} |
 | no broken market quote URL | PASS | 10/10 resolved this run; causes={'resolved': 10} |
-| no broken venue receipt URL | PASS | 33/41 resolved this run; causes={'resolved': 33, 'rate_limited': 8} |
+| no broken venue receipt URL | PASS | 32/40 resolved this run; causes={'resolved': 32, 'rate_limited': 8} |
 | no broken leaguepedia page URL | PASS | 29/29 resolved this run; causes={'resolved': 29} |
 | no broken pickem URL | PASS | 1/1 resolved this run; causes={'resolved': 1} |
 | every row has at least one resolving piece of evidence (no broken links) | PASS | 241/241 rows; 0 unverified this run (throttle/expiry) |
 | every published dashboard page resolves | PASS | 13/13 HTTP 2xx |
 | table.html renders at least one row per match | PASS | rendered=241 rows=241 |
+| every displayed win-probability pair adds to 100.0% | PASS | 0 row(s) off: [] |
 
 ## Resolution by evidence role
 
@@ -27,6 +28,6 @@
 |---|---|---|---|
 | hotspawn_card | 241 | 241 | `{'resolved': 241}` |
 | market_quote | 10 | 10 | `{'resolved': 10}` |
-| venue_receipt | 41 | 33 | `{'resolved': 33, 'rate_limited': 8}` |
+| venue_receipt | 40 | 32 | `{'resolved': 32, 'rate_limited': 8}` |
 | leaguepedia_page | 29 | 29 | `{'resolved': 29}` |
 | pickem | 1 | 1 | `{'resolved': 1}` |
