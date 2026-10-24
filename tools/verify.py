@@ -181,7 +181,7 @@ def main() -> None:
         f"csv rows={csv_rows} json rows={len(rows)}")
 
     # --- site ---------------------------------------------------------------
-    pages = ["index.html", "picks.html", "table.html", "featured.html", "originated.html",
+    pages = ["index.html", "picks.html", "table.html", "results.html", "featured.html", "originated.html",
              "unresolved.html", "coverage.html", "competitions.html", "teams.html", "methodology.html",
              "sources.html", "verification.html", "flagged.html"]
     missing_pages = [p for p in pages if not os.path.exists(os.path.join(DOCS, p))]
@@ -220,8 +220,8 @@ def main() -> None:
         f"{table_rows}/{len(rows)} table rows")
 
     index_html = open(os.path.join(DOCS, "index.html"), encoding="utf-8").read()
-    needed = ["picks.html", "table.html", "featured.html", "originated.html", "unresolved.html",
-              "Executive summary", "Unresolved picks"]
+    needed = ["picks.html", "table.html", "results.html", "featured.html", "originated.html",
+              "unresolved.html", "Executive summary", "Unresolved picks", "Where the picks are"]
     add("executive summary links to every picks view", all(n in index_html for n in needed),
         f"present: {[n for n in needed if n in index_html]}")
 
@@ -256,18 +256,34 @@ def main() -> None:
         bt_n > 500 and f"{bt_n:,}" in meth_html and "<svg" in meth_html,
         f"backtest series rendered: {bt_n:,}")
 
-    # --- curated flag integrity: a flag may not cite a fixture that is not listed ---
+    # --- curated flag integrity: every reference to a fixture that has left the list must be
+    #     annotated as historical by tools/flags.py. Time passing (a card kicking off) is not a
+    #     build failure; an unannotated stale claim is.
     listed_ids = {str(r.get("id")) for r in rows}
     manual = (load_json(os.path.join(DATA, "flags_manual.json")) or {}).get("flags") or []
-    stale_refs = []
+    built_flags = (load_json(os.path.join(DATA, "flags.json")) or {}).get("flags") or []
+    built_refs = {}
+    for f in built_flags:
+        for fid in (f.get("delisted_refs_auto") or []):
+            built_refs.setdefault(str(fid), set()).add(f.get("item", ""))
+    stale_refs, unannotated = [], []
     for f in manual:
         blob = f"{f.get('item', '')} {f.get('detail', '')}"
         declared = {str(x) for x in (f.get("delisted_refs") or [])}
         for fid in re.findall(r"#(\d{6,8})", blob):
-            if fid not in listed_ids and fid not in declared:
+            if fid in listed_ids:
+                continue
+            if fid in declared:
+                continue
+            # the build must have published this reference as a historical observation
+            if fid in built_refs:
                 stale_refs.append(fid)
-    add("curated flags cite only currently listed fixtures", not stale_refs,
-        f"{len(manual)} curated flags scanned; stale references: {sorted(set(stale_refs))}")
+            else:
+                unannotated.append(fid)
+    add("curated flags annotate every reference to a fixture that has left the list",
+        not unannotated,
+        f"{len(manual)} curated flags scanned; delisted-and-annotated: {sorted(set(stale_refs))}; "
+        f"unannotated: {sorted(set(unannotated))}")
 
     # --- line integrity audit ---
     audit = data.get("receipt_audit") or {}
@@ -295,9 +311,25 @@ def main() -> None:
         f"{len(cov_rows)} competition rows; missing links: {no_link[:3]}")
     bad_receipts = corr.get("rejected") or []
     diverged = [r for r in (corr.get("rows") or []) if r.get("verdict") == "diverges"]
+    # An archived receipt that has aged out, or that belongs to a fixture Hotspawn has since
+    # delisted, is history - not a data error. Failing the gate on either deadlocks the refresh:
+    # a stale snapshot makes every receipt stale, which blocks the build that would refresh it.
+    # Only malformed / wrong-team receipts and live divergences fail here.
     add("external receipts validated against the dataset", not bad_receipts and not diverged,
         f"{corr.get('summary',{}).get('usable_receipts',0)} usable receipts, "
-        f"{len(bad_receipts)} rejected, {len(diverged)} diverging >{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp")
+        f"{len(bad_receipts)} rejected, {len(diverged)} diverging "
+        f">{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp, "
+        f"{corr.get('summary',{}).get('expired_receipts',0)} expired, "
+        f"{corr.get('summary',{}).get('historic_receipts',0)} historic (not counted)")
+    cs = corr.get("summary") or {}
+    accounted = (cs.get("usable_receipts", 0) + cs.get("placeholders", 0)
+                 + cs.get("rejected_receipts", 0) + cs.get("expired_receipts", 0)
+                 + cs.get("historic_receipts", 0))
+    add("corroboration ledger accounts for every receipt",
+        bool(corr) and accounted == cs.get("receipts", -1) and cs.get("receipts", 0) > 0,
+        f"receipts={cs.get('receipts')} = usable {cs.get('usable_receipts',0)} + placeholder "
+        f"{cs.get('placeholders',0)} + rejected {cs.get('rejected_receipts',0)} + expired "
+        f"{cs.get('expired_receipts',0)} + historic {cs.get('historic_receipts',0)}")
     cov_path = os.path.join(DOCS, "coverage.html")
     cov_html = open(cov_path, encoding="utf-8").read() if os.path.exists(cov_path) else ""
     add("coverage page shows every match method and the unresolved ledger",

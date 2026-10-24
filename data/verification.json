@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:28:24Z",
+ "generated_utc": "2026-10-24T16:29:35Z",
  "checks": [
   {
    "name": "dataset present",
@@ -94,7 +94,7 @@
   {
    "name": "all site pages exist",
    "ok": true,
-   "detail": "13/13 pages"
+   "detail": "14/14 pages"
   },
   {
    "name": "no broken internal links",
@@ -124,7 +124,7 @@
   {
    "name": "executive summary links to every picks view",
    "ok": true,
-   "detail": "present: ['picks.html', 'table.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks']"
+   "detail": "present: ['picks.html', 'table.html', 'results.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks', 'Where the picks are']"
   },
   {
    "name": "executive summary carries coverage, unresolved section and a where-to-find-picks block",
@@ -142,9 +142,9 @@
    "detail": "backtest series rendered: 3,896"
   },
   {
-   "name": "curated flags cite only currently listed fixtures",
+   "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "10 curated flags scanned; stale references: []"
+   "detail": "13 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -164,17 +164,22 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "1 usable receipts, 0 rejected, 0 diverging >8.0pp"
+   "detail": "0 usable receipts, 0 rejected, 0 diverging >8.0pp, 1 expired, 16 historic (not counted)"
+  },
+  {
+   "name": "corroboration ledger accounts for every receipt",
+   "ok": true,
+   "detail": "receipts=18 = usable 0 + placeholder 1 + rejected 0 + expired 1 + historic 16"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 46948 bytes"
+   "detail": "coverage.html 45179 bytes"
   },
   {
    "name": "external source research receipts are committed",
    "ok": true,
-   "detail": "32 venues probed on 2026-10-23T15:38:55Z; dossier present"
+   "detail": "44 venues probed on 2026-10-24T16:22:42Z; dossier present"
   },
   {
    "name": "coverage arithmetic reconciles to the inventory",
@@ -218,6 +223,6 @@
   "provisional": 78,
   "market": 9
  },
- "internal_links": 400,
+ "internal_links": 446,
  "lookahead_violations": 0
 }

@@ -1,0 +1,77 @@
+name: ada2798c-research
+
+# Branch-only research probe for session ada2798c. It never runs on main and never
+# writes a published page: it captures the live Hotspawn inventory (to measure how far
+# data/matches.json has drifted from the list the site actually serves) and records the
+# HTTP verdict of every candidate external price source, so blocked books are documented
+# with evidence instead of being asserted.
+#
+# Results are committed to the branch under audit/ada2798c/ because the agent sandbox has
+# no outbound HTTPS to any of these hosts.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["arena/ada2798c-lolhotspawn1"]
+    paths:
+      - "audit/ada2798c/probe.py"
+      - "audit/ada2798c/probe2.py"
+      - ".github/workflows/ada2798c-research.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ada2798c-research
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    if: github.ref_name != 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Probe live inventory and candidate venues
+        run: python3 audit/ada2798c/probe.py 2>&1 | tee audit/ada2798c/probe.log
+
+      - name: Join the live inventory against every reachable book
+        run: python3 audit/ada2798c/probe2.py 2>&1 | tee audit/ada2798c/probe2.log
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ada2798c-probe
+          path: |
+            audit/ada2798c/coverage_delta.json
+            audit/ada2798c/venue_probe.json
+            audit/ada2798c/venue_coverage.json
+            audit/ada2798c/pinnacle_leagues.json
+            audit/ada2798c/probe.log
+            audit/ada2798c/probe2.log
+
+      - name: Commit the receipts to the branch
+        if: always()
+        run: |
+          set -e
+          git config user.name "arena-research-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -f audit/ada2798c/coverage_delta.json audit/ada2798c/venue_probe.json \
+                     audit/ada2798c/venue_coverage.json audit/ada2798c/pinnacle_leagues.json \
+                     audit/ada2798c/raw audit/ada2798c/probe.log audit/ada2798c/probe2.log audit/ada2798c/hotspawn_live.json
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -m "chore(research): live inventory delta + external venue probe [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then exit 0; fi
+            sleep 5
+          done
+          echo "could not publish the receipts"; exit 1
