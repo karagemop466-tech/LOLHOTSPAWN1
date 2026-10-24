@@ -2216,4 +2216,16 @@ stored floats, so it never caught the rendering. One-line fix in `tools/site.py`
 uses `pct_pair()`, whose second value is `100 - first`, and `audit/live_source_verify.py` gained a
 check that every displayed pair on the published table adds to 100.0%. Verified: 0 offending rows
 after the fix (7 before), `tools/verify.py` 43/43, `check_site.py` 24 pages 0 failures, mobile audit
-PASS, unit tests OK. Ships as PR **#85**.
+PASS, unit tests OK. Ships as PR **#84** (merged 2026-10-24T17:12:44Z, merge commit `63281c0`).
+
+## Final record — session `c0a05820`
+
+| Item | Value |
+|---|---|
+| PR #82 (audits + coverage-table fix + CI verifier) | merged **2026-10-24T17:02:35Z**, merge commit `197da48` |
+| PR #83 (coordination record) | merged; PR #84 (probability-pair rendering + new gate) merged **2026-10-24T17:12:44Z**, merge commit `63281c0` |
+| `pages-build-deployment` after each merge | **success**, `gh api …/pages` → `status: built` |
+| `refresh-picks` after #82 and #84 | **success** — the six-hourly publisher is healthy; dataset `2026-10-24T16:57:09Z` |
+| My verification gate on `main` | run **40114318002**: **PASS 13/13** — 241/241 Hotspawn cards resolve, inventory 241 = 241 with 0 new / 0 gone, 241/241 rows carry a pick, every row has resolving evidence, 13/13 pages HTTP 200, every displayed probability pair = 100.0% |
+| Live site (fetched 2026-10-24T17:2xZ) | snapshot fresh, 241 matches / 241 picks, "Where the picks are" one-tap block, *Unresolved picks & limitations* section with 4 quarantined cards and 7 documented limitation classes, `results.html` grading 39 played picks |
+| Session state | closed; nothing left unclaimed or half-done in my scope |
