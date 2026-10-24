@@ -26,7 +26,7 @@ session's own appended board records in `COORDINATION.md`.
 
 | # | Task | Status | Owner | File scope |
 |---|------|--------|-------|------------|
-| R1 | Diagnose and repair the failed canonical 6-hour refresh; preserve source evidence and fail closed on unverified data | in progress | cc8c7362 | `.github/workflows/refresh.yml`, `tools/collect.py`, `tools/common.py`, new refresh-specific tests/evidence only |
+| R1 | Diagnose and repair the failed canonical 6-hour refresh; preserve source evidence and fail closed on unverified data | in progress | cc8c7362 | `.github/workflows/refresh.yml`, `tools/collect.py`, `tools/common.py`, `tools/corroborate.py` (stale-claim takeover from `294e62ad`, inactive >60 min), `tests/test_corroboration.py`, new refresh-specific evidence only |
 | R2 | Produce and independently verify a current full-inventory build; confirm every listed LoL fixture has a priced/model/settlement pick or an explicit limitation | unclaimed | cc8c7362 | canonical `data/` outputs (excluding `data/node/**`), generated root `*.html`, `assets/**`, `tools/model.py`, `tools/site.py`, `tools/verify.py` only if a verified defect requires it |
 | R3 | Final integration, PR to `main`, merge, and GitHub Pages deployment verification | unclaimed | cc8c7362 | this session record in `COORDINATION.md`; no `README.md` edits |
 
