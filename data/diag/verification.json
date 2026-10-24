@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:24:08Z",
+ "generated_utc": "2026-10-24T16:37:55Z",
  "checks": [
   {
    "name": "dataset present",
@@ -132,6 +132,11 @@
    "detail": "missing: []"
   },
   {
+   "name": "starting-soon phone list and fallback ledger rendered",
+   "ok": true,
+   "detail": "missing: []"
+  },
+  {
    "name": "mobile navigation rendered on every page and wired in JS",
    "ok": true,
    "detail": "missing mobnav: []; menu+filter handlers present: True"
@@ -144,7 +149,7 @@
   {
    "name": "curated flags cite only currently listed fixtures",
    "ok": true,
-   "detail": "10 curated flags scanned; stale references: []"
+   "detail": "12 curated flags scanned; stale references: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -163,13 +168,13 @@
   },
   {
    "name": "external receipts validated against the dataset",
-   "ok": false,
-   "detail": "1 usable receipts, 16 rejected, 0 diverging >8.0pp"
+   "ok": true,
+   "detail": "1 usable receipts, 0 rejected, 0 diverging >8.0pp"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 43921 bytes"
+   "detail": "coverage.html 49012 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -207,7 +212,7 @@
    "detail": "0 violations; examples: []"
   }
  ],
- "passed": false,
+ "passed": true,
  "rows_checked": 241,
  "rows_with_source": 241,
  "rows_prob_ok": 241,
@@ -218,6 +223,6 @@
   "provisional": 78,
   "market": 9
  },
- "internal_links": 400,
+ "internal_links": 411,
  "lookahead_violations": 0
 }
