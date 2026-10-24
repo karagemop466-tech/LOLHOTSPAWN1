@@ -24,6 +24,133 @@ const DOCS = path.join(ROOT, "docs");
 const REPO_URL = "https://github.com/karagemop466-tech/LOLHOTSPAWN1";
 const CANON_LIVE_URL = "https://karagemop466-tech.github.io/LOLHOTSPAWN1/";
 
+/* ------------------------------------------------- canonical cross-reference
+ * Two dashboards are published from this repository onto one GitHub Pages
+ * domain:
+ *
+ *   canonical  root *.html  — tools/ pipeline, data/matches.json. The pick list.
+ *   secondary  docs/*.html  — this Node pipeline, data/node/**. Companion audit.
+ *
+ * Both now cover the same 241-card Hotspawn inventory but fit their own Elo, so
+ * they can and do disagree (12 opposite picks at the 2026-10-24T16:49Z
+ * snapshot). Before session 9f16f9ad nothing on this dashboard said which view
+ * was authoritative, and a phone user could read either number as "the pick".
+ *
+ * data/matches.json is READ ONLY here — it belongs to the canonical publisher.
+ * If it is missing or partial, every comparison degrades to an explicit
+ * "canonical snapshot unavailable" line instead of a guessed one.
+ */
+const CANON_HOME = "../index.html";
+const CANON_TABLE = "../table.html";
+const CANON_CARDS = "../picks.html";
+const CANON_UNRESOLVED = "../unresolved.html";
+const CANON_RESULTS = "../results.html";
+const CANON_METHOD = "../methodology.html";
+
+let CANON = null;
+try {
+  CANON = JSON.parse(await readFile(path.join(ROOT, "data", "matches.json"), "utf8"));
+} catch {
+  CANON = null;
+}
+const CANON_ROWS = Array.isArray(CANON?.matches) ? CANON.matches : [];
+const CANON_BY_ID = new Map(CANON_ROWS.map((r) => [String(r.id), r]));
+const CANON_OK = CANON_ROWS.length > 0;
+const CANON_METHOD_LABEL = {
+  market: "market consensus",
+  model: "originated Elo line",
+  provisional: "originated Elo line (provisional — thin history)",
+  unresolved: "official-forfeit settlement",
+};
+
+/* Hotspawn's own feed is the only authority for the series format. It publishes
+ * best_of = null for every scheduled fixture, so "Bo1" must never be rendered as
+ * a fact (Leaguepedia lists LCP 2027 Promotion FFA Round 1 as bestof=5). */
+let HOTSPAWN_RAW_ROWS = [];
+try {
+  const raw = JSON.parse(await readFile(path.join(DATA, "raw", "hotspawn_lol_fixtures.json"), "utf8"));
+  HOTSPAWN_RAW_ROWS = Array.isArray(raw?.fixtures) ? raw.fixtures : Array.isArray(raw) ? raw : [];
+} catch {
+  HOTSPAWN_RAW_ROWS = [];
+}
+const RAW_BEST_OF = new Map(HOTSPAWN_RAW_ROWS.map((f) => [String(f.id), f.best_of ?? null]));
+let RAW_FETCHED_AT = null;
+try {
+  const rawDoc = JSON.parse(await readFile(path.join(DATA, "raw", "hotspawn_lol_fixtures.json"), "utf8"));
+  RAW_FETCHED_AT = rawDoc?.fetched_at ?? null;
+} catch {
+  RAW_FETCHED_AT = null;
+}
+function bestOfKnown(m) {
+  const id = String(m.id);
+  if (RAW_BEST_OF.has(id)) return RAW_BEST_OF.get(id);
+  return Number.isFinite(m.best_of) ? m.best_of : null;
+}
+function boLabel(m) {
+  const v = bestOfKnown(m);
+  return v ? `Bo${v}` : "Bo —";
+}
+
+/** Compare one secondary row with the canonical row for the same fixture. */
+function canonCompare(m) {
+  const cm = CANON_BY_ID.get(String(m.id)) ?? null;
+  if (!cm) return { cm: null, delta: null, oppositePick: false, bothProb: false };
+  const bothProb = m.p0 != null && cm.p0 != null;
+  const delta = bothProb ? m.p0 - cm.p0 : null;
+  const docsPickName = m.pick?.team_name ?? m.settlement_pick?.team_name ?? null;
+  const canonPickName = cm.pick?.team ?? null;
+  const oppositePick = Boolean(docsPickName && canonPickName && docsPickName !== canonPickName);
+  return { cm, delta, oppositePick, bothProb, docsPickName, canonPickName };
+}
+
+/** Divergence worth showing to a human: opposite pick, or >= 5 pp apart. */
+const DIVERGE_PP = 5;
+function isDivergent(cmp) {
+  if (!cmp.cm) return false;
+  if (cmp.oppositePick) return true;
+  return cmp.delta != null && Math.abs(cmp.delta) * 100 >= DIVERGE_PP;
+}
+
+function canonRowHtml(m, cmp = canonCompare(m)) {
+  if (!CANON_OK) {
+    return `<div class="canon none"><span class="canon-tag">CANONICAL</span><span>The canonical snapshot (<code>data/matches.json</code>) was not readable when this page was built, so no comparison is shown rather than a guessed one. Open the <a href="${CANON_HOME}">canonical executive summary</a>.</span></div>`;
+  }
+  if (!cmp.cm) {
+    return `<div class="canon none"><span class="canon-tag">CANONICAL</span><span>Fixture #${esc(m.id)} is not in the canonical snapshot (inventory ${esc(CANON?.inventory_fetched_utc ?? "unknown")}) — that list carries only the ${CANON_ROWS.length} cards Hotspawn still lists as <code>status=scheduled</code>. <a href="${CANON_TABLE}">Canonical match table ↗</a></span></div>`;
+  }
+  const cm = cmp.cm;
+  const pk = cm.pick ?? {};
+  const label = CANON_METHOD_LABEL[cm.method] ?? String(cm.method ?? "unknown");
+  const venues = cm.market?.venues?.length
+    ? ` · ${cm.market.venues.length} venues (${esc(cm.market.venues.map((v) => v.name).join(", "))})`
+    : "";
+  const conf = cm.confidence ? ` · confidence ${esc(String(cm.confidence))}` : "";
+  const tossUp = cm.p0 != null && cm.p1 != null && Math.abs(cm.p0 - cm.p1) < 1e-9
+    ? ` <span class="canon-note">toss-up: identical kick-off ratings, no edge claimed</span>`
+    : "";
+  const prob = pk.probability == null
+    ? "no probability published"
+    : `${esc(pk.team ?? "?")} <b>${pct1(pk.probability)}</b> vs ${pct1(pk.other_probability)}`;
+  const settle = cm.resolution?.type
+    ? ` <span class="canon-note">${esc(cm.resolution.type)} → ${esc(cm.resolution.winner ?? pk.team ?? "")}${cm.resolution.source ? ` · <a href="${esc(cm.resolution.source)}" target="_blank" rel="noopener">official ruling ↗</a>` : ""}</span>`
+    : "";
+  const diverge = isDivergent(cmp)
+    ? `<span class="canon-diverge" title="This view and the canonical dashboard disagree">${cmp.oppositePick ? "OPPOSITE PICK" : "DIVERGES"}${cmp.delta != null ? ` ${(cmp.delta > 0 ? "+" : "−")}${Math.abs(cmp.delta * 100).toFixed(1)} pp` : ""}</span>`
+    : "";
+  return `<div class="canon${cmp.oppositePick ? " divergent" : ""}"><span class="canon-tag">CANONICAL PICK</span><span>${prob}${tossUp}${settle} · <i>${esc(label)}${venues}${conf}</i> ${diverge}— <a href="${CANON_CARDS}#match-${esc(m.id)}">canonical card ↗</a></span></div>`;
+}
+
+function canonBanner() {
+  if (!CANON_OK) {
+    return `<div class="canonbar"><div class="canonbar-in"><span class="cb-tag">SECONDARY VIEW</span><span class="cb-txt">Companion audit — results, calibration and history. The canonical pick list is the <a href="${CANON_HOME}">main dashboard</a>.</span></div></div>`;
+  }
+  const track = CANON.track_record;
+  return `<div class="canonbar"><div class="canonbar-in">
+    <span class="cb-tag">SECONDARY VIEW</span>
+    <span class="cb-txt">Companion audit, <b>not</b> the canonical pick list. Canonical picks for all <b>${CANON_ROWS.length}</b> listed matches: <a href="${CANON_HOME}">executive summary ↗</a> · <a href="${CANON_TABLE}">one-table view ↗</a> · <a href="${CANON_UNRESOLVED}">unresolved &amp; limitations ↗</a>${track?.graded ? ` · graded ${track.hits}/${track.graded} correct` : ""}. <a href="index.html#reconcile">Why the two dashboards differ</a>.</span>
+  </div></div>`;
+}
+
 function esc(v) {
   if (v == null) return "";
   return String(v)
@@ -79,7 +206,7 @@ function renderShell({ activePage, title, description, summary, bodyHtml }) {
   const c = summary.counts;
   const navItems = [
     { href: "index.html", label: "Overview", cnt: null },
-    { href: "table.html", label: "All 241 Table", cnt: c.scheduled_total },
+    { href: "table.html", label: `All ${c.scheduled_total} Table`, cnt: c.scheduled_total },
     { href: "picks.html", label: "Active Picks", cnt: c.active_market + c.active_model },
     { href: "featured.html", label: "Market Lines", cnt: c.scheduled_market },
     { href: "originated.html", label: "Model Picks", cnt: c.scheduled_model },
@@ -88,6 +215,7 @@ function renderShell({ activePage, title, description, summary, bodyHtml }) {
     { href: "flagged.html", label: "Flagged", cnt: c.flags },
     { href: "results.html", label: "Results", cnt: null },
     { href: "methodology.html", label: "Methodology", cnt: null },
+    { href: CANON_HOME, label: "⭐ Canonical picks", cnt: CANON_OK ? CANON_ROWS.length : null },
   ];
 
   const navLinks = navItems
@@ -103,16 +231,17 @@ function renderShell({ activePage, title, description, summary, bodyHtml }) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${esc(title)} — LoL Hotspawn Pick'em Companion Audit</title>
+  <title>${esc(title)} — Companion Audit (secondary view) · LoL Hotspawn Pick'ems</title>
   <meta name="description" content="${esc(description)}">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+${canonBanner()}
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="index.html">
         <span class="brand-dot" aria-hidden="true"></span>
-        <span>Hotspawn LoL Pick'ems · Audit Suite</span>
+        <span>Hotspawn LoL Pick'ems · Audit Suite <span class="brand-sub">secondary view</span></span>
       </a>
       <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         Menu ▾
@@ -126,7 +255,7 @@ function renderShell({ activePage, title, description, summary, bodyHtml }) {
   <div class="fresh-bar" data-generated-at="${esc(summary.generated_at)}">
     <div class="fresh-inner">
       <span>Snapshot: <time class="mono" data-utc="${esc(summary.generated_at)}">${esc(fmtUtc(summary.generated_at))}</time> · Auto-refresh every 6h</span>
-      <span>Zero Hotspawn crowd/tier/points inputs · <a href="${CANON_LIVE_URL}">Canonical Root Dashboard ↗</a> · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
+      <span>Zero Hotspawn crowd/tier/points inputs · <a href="${CANON_HOME}">Canonical dashboard ↗</a> (<a href="${CANON_LIVE_URL}" target="_blank" rel="noopener">live ↗</a>${CANON?.generated_utc ? ` · canonical snapshot ${esc(fmtUtc(CANON.generated_utc))}` : ""}) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
   <main>
@@ -134,7 +263,7 @@ ${bodyHtml}
   </main>
   <footer class="site-footer">
     <div class="footer-inner">
-      <span>Independent quantitative companion for <a href="https://play.hotspawn.com/lol-pickems">Hotspawn LoL Pick'ems</a>.</span>
+      <span>Independent quantitative <b>companion</b> for <a href="https://play.hotspawn.com/lol-pickems">Hotspawn LoL Pick'ems</a>. The pick to submit is the one on the <a href="${CANON_HOME}">canonical dashboard</a>; this view exists to audit it — every card here shows the canonical line beside its own.</span>
       <span><a href="unresolved.html">Unresolved &amp; Limitations</a> · <a href="flagged.html">Flagged for Review</a> · <a href="methodology.html">Methodology &amp; Calibration</a> · <a href="${REPO_URL}">GitHub Source</a></span>
     </div>
   </footer>
@@ -188,7 +317,7 @@ function renderPickedCard(m, idPrefix = "m-") {
     });
     metaDetail = `De-vigged consensus across ${vParts.join(" + ")} · spread ${m.market_consensus.spread_pp.toFixed(1)} pp.`;
   } else if (m.model) {
-    metaDetail = `Pre-kickoff Elo ${m.model.elo0.toFixed(0)} (${m.model.n0} series) vs ${m.model.elo1.toFixed(0)} (${m.model.n1} series) · Bo${m.best_of}.`;
+    metaDetail = `Pre-kickoff Elo ${m.model.elo0.toFixed(0)} (${m.model.n0} series) vs ${m.model.elo1.toFixed(0)} (${m.model.n1} series) · ${boLabel(m)}${bestOfKnown(m) ? "" : " (format not published by Hotspawn — the model treats an unknown format as a single-map series)"}.`;
   }
 
   const staleAttr = m.state === "stale" ? "1" : "0";
@@ -196,7 +325,7 @@ function renderPickedCard(m, idPrefix = "m-") {
 
   return `<article class="card" id="${idPrefix}${esc(m.id)}" data-item="1" data-method="${methodShort(m)}" data-comp="${esc(m.competition_name)}" data-stale="${staleAttr}" data-search="${esc(searchStr)}">
     <div class="card-top">
-      <span class="card-comp">${esc(m.competition_name)} · Bo${m.best_of}</span>
+      <span class="card-comp">${esc(m.competition_name)} · ${boLabel(m)}</span>
       <span>${methodBadge(m)} ${stateBadge(m.state)}</span>
     </div>
     <div class="card-top">
@@ -224,6 +353,7 @@ function renderPickedCard(m, idPrefix = "m-") {
       <div class="${winIdx === 1 ? "prob-seg-win" : "prob-seg1"}" style="width:${w1}%"></div>
     </div>
     <div class="card-meta">${metaDetail}</div>
+    ${canonRowHtml(m)}
     <div class="card-links">${renderSourceLinks(m)}</div>
   </article>`;
 }
@@ -235,7 +365,7 @@ function renderUnresolvedCard(m, idPrefix = "m-") {
 
   return `<article class="card unres-card" id="${idPrefix}${esc(m.id)}">
     <div class="card-top">
-      <span class="card-comp">${esc(m.competition_name)} · Bo${m.best_of}</span>
+      <span class="card-comp">${esc(m.competition_name)} · ${boLabel(m)}</span>
       <span>${methodBadge(m)} ${stateBadge(m.state)}</span>
     </div>
     <div class="card-top">
@@ -254,6 +384,7 @@ function renderUnresolvedCard(m, idPrefix = "m-") {
     </div>
     ${settleNote}
     <div class="card-meta">${esc(m.unresolved_reason || "Insufficient pre-kickoff evidence.")}</div>
+    ${canonRowHtml(m)}
     <div class="card-links">${renderSourceLinks(m)}</div>
   </article>`;
 }
@@ -267,16 +398,158 @@ function buildIndexPage(picks, flags) {
   const mktRows = scheduled.filter((m) => m.market_consensus != null);
   const activeUnres = scheduled.filter((m) => (m.state === "open" || m.state === "locked" || m.state === "live") && !m.pick);
   const dqWalkovers = scheduled.filter((m) => m.settlement_pick != null);
+  const venueQuotes = scheduled.flatMap((m) => m.market_consensus?.venues ?? []);
+  const venueLabels = [...new Set(venueQuotes.map((v) => v.venue_label).filter(Boolean))];
+  const maxVenues = scheduled.reduce((mx, m) => Math.max(mx, m.market_consensus?.venue_count ?? 0), 0);
 
   const mktPreview = mktRows.map((m) => renderPickedCard(m, "idx-m-")).join("\n");
   const unresPreview = activeUnres.length
     ? activeUnres.map((m) => renderUnresolvedCard(m, "idx-u-")).join("\n")
     : `<div class="empty-state">Zero items this run. ✓</div>`;
 
+  /* ---- reconciliation with the canonical dashboard (all numbers computed) ---- */
+  const cmpAll = scheduled.map((m) => ({ m, cmp: canonCompare(m) }));
+  const inCanon = cmpAll.filter((x) => x.cmp.cm);
+  const bothProb = inCanon.filter((x) => x.cmp.bothProb);
+  const opposite = inCanon.filter((x) => x.cmp.oppositePick);
+  const divergent = inCanon.filter((x) => isDivergent(x.cmp));
+  const absDeltas = bothProb.map((x) => Math.abs(x.cmp.delta)).sort((a, b) => b - a);
+  const meanDelta = absDeltas.length ? absDeltas.reduce((a, b) => a + b, 0) / absDeltas.length : null;
+  const band = (pp) => bothProb.filter((x) => Math.abs(x.cmp.delta) * 100 > pp).length;
+  const oneSidedBlank = inCanon.filter((x) => !x.cmp.bothProb);
+  const docsOnly = scheduled.filter((m) => !CANON_BY_ID.has(String(m.id)));
+  const canonOnly = CANON_OK ? CANON_ROWS.filter((r) => !scheduled.some((m) => String(m.id) === String(r.id))) : [];
+  const noFormat = scheduled.filter((m) => !bestOfKnown(m));
+  const worst = divergent.slice().sort((a, b) => Math.abs(b.cmp.delta ?? 0) - Math.abs(a.cmp.delta ?? 0))[0] ?? null;
+  /* A venue quote observed after the listed kick-off is an in-play price, not a
+     pick-time probability: Hotspawn locks each card before start, so it cannot be
+     acted on. Computed per side from the committed snapshots; nothing is inferred. */
+  const canonQuoteTimes = (cm) => (cm?.market?.venues ?? []).map((v) => Date.parse(v.observed_utc)).filter(Number.isFinite);
+  const docsQuoteTimes = (m) => ["market_pinnacle", "market_polymarket", "market_kalshi", "market_bovada", "market_kambi"]
+    .map((k) => Date.parse(m?.[k]?.fetched_at)).filter(Number.isFinite);
+  const kickoffMs = (m, cm) => {
+    const t = Date.parse(cm?.start_utc ?? m?.start_iso ?? "");
+    return Number.isFinite(t) ? t : Number(m?.scheduled_start_time) || NaN;
+  };
+  const inPlayCanon = inCanon.filter(({ m, cmp }) => {
+    const ko = kickoffMs(m, cmp.cm), t = canonQuoteTimes(cmp.cm);
+    return Number.isFinite(ko) && t.length > 0 && Math.max(...t) > ko;
+  });
+  const inPlayDocs = scheduled.filter((m) => {
+    const ko = kickoffMs(m, null), t = docsQuoteTimes(m);
+    return Number.isFinite(ko) && t.length > 0 && Math.max(...t) > ko;
+  });
+  const inPlayIds = new Set(inPlayCanon.map(({ m }) => String(m.id)));
+  const isDocsMarket = (m) => m.source_category === "market_consensus" || m.pick?.source === "market_consensus";
+  const isCanonMarket = (cm) => String(cm?.method ?? "").includes("market");
+  const hhmm = (ms) => new Date(ms).toISOString().slice(11, 16);
+  const pp = (v) => (v == null ? "—" : pct1(v));
+  const track = CANON?.track_record ?? null;
+  const canonVenues = [...new Set(CANON_ROWS.flatMap((r) => (r.market?.venues ?? []).map((v) => v.name).filter(Boolean)))];
+  const reconRow = (label, a, b) =>
+    `<tr><th scope="row">${label}</th><td data-label="Canonical">${a}</td><td data-label="This view">${b}</td></tr>`;
+
+  const divergeRows = divergent
+    .sort((a, b) => Math.abs(b.cmp.delta ?? 0) - Math.abs(a.cmp.delta ?? 0))
+    .map(({ m, cmp }) => {
+      const cm = cmp.cm;
+      const dp = m.pick?.probability ?? null;
+      const cp = cm.pick?.probability ?? null;
+      return `<tr>
+        <td data-label="Kickoff" class="mono"><time data-utc="${esc(m.start_iso || "")}">${esc(fmtUtc(m.start_iso))}</time></td>
+        <td data-label="Match"><strong>${esc(m.team0.name)}</strong> vs <strong>${esc(m.team1.name)}</strong><br><span class="mono">#${esc(m.id)} · ${esc(m.competition_name)}</span></td>
+        <td data-label="This view">${m.pick ? `${esc(m.pick.team_name)} <b>${pct1(dp)}</b>` : m.settlement_pick ? `walkover → ${esc(m.settlement_pick.team_name)}` : "blank"} <span class="mono">(${esc(methodShort(m))})</span></td>
+        <td data-label="Canonical">${cm.pick ? `${esc(cm.pick.team)} <b>${pct1(cp)}</b>` : "no pick"} <span class="mono">(${esc(cm.method ?? "?")}${cm.confidence ? " · " + esc(cm.confidence) : ""})</span></td>
+        <td data-label="Gap" class="num">${cmp.delta == null ? "—" : `${cmp.delta > 0 ? "+" : "−"}${Math.abs(cmp.delta * 100).toFixed(1)} pp`}${cmp.oppositePick ? ' <span class="canon-diverge">OPPOSITE</span>' : ""}${inPlayIds.has(String(m.id)) ? ' <span class="canon-diverge" title="the canonical venue quotes for this row were observed after the listed kick-off">IN-PLAY QUOTES</span>' : ""}</td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="${CANON_CARDS}#match-${esc(m.id)}">Canonical card ↗</a><a class="src-link" href="table.html#row-${esc(m.id)}">This view ↗</a><a class="src-link" href="${esc(m.hotspawn_url)}" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+      </tr>`;
+    })
+    .join("\n");
+
+  const worstDetail = (() => {
+    if (!worst) return "";
+    const m = worst.m, cm = worst.cmp.cm;
+    const ct = canonQuoteTimes(cm), dt = docsQuoteTimes(m);
+    const ko = kickoffMs(m, cm);
+    const canonLate = ct.length > 0 && Number.isFinite(ko) && Math.max(...ct) > ko;
+    const docsLate = dt.length > 0 && Number.isFinite(ko) && Math.max(...dt) > ko;
+    const docsSide = isDocsMarket(m)
+      ? `this view prices it from a <b>${m.market_consensus?.venue_count ?? 0}-venue de-vigged market consensus</b> (${esc((m.market_consensus?.venues ?? []).map((v) => `${v.venue_label} ${(v.p0 * 100).toFixed(1)}% for ${m.team0.name}`).join("; "))}) captured in this snapshot${dt.length ? ` at ${esc(hhmm(Math.max(...dt)))} UTC` : ""}`
+      : `this view prices it from its own <b>pre-kickoff ratings</b> — ${esc(m.team0.name)} ${m.model ? m.model.elo0.toFixed(0) : "—"} (${m.model?.n0 ?? "—"} series) vs ${esc(m.team1.name)} ${m.model ? m.model.elo1.toFixed(0) : "—"} (${m.model?.n1 ?? "—"} series)${m.model?.eff_elo0 != null ? `, shrunk to effective ${m.model.eff_elo0.toFixed(0)} / ${m.model.eff_elo1.toFixed(0)}` : ""}`;
+    const canonSide = isCanonMarket(cm)
+      ? `the canonical dashboard prices it from a <b>market consensus</b>${cm.basis ? ` (<i>${esc(cm.basis)}</i>)` : ""}${ct.length ? ` whose quotes were observed ${esc(hhmm(Math.min(...ct)))}–${esc(hhmm(Math.max(...ct)))} UTC` : ""}`
+      : `the canonical dashboard prices it from its own <b>pre-kickoff Elo</b> — ${esc(m.team0.name)} ${cm.team0?.elo?.toFixed?.(0) ?? "—"} (${cm.team0?.rating_matches ?? "—"} rated series) vs ${esc(m.team1.name)} ${cm.team1?.elo?.toFixed?.(0) ?? "—"} (${cm.team1?.rating_matches ?? "—"} rated series)${cm.basis ? ` (<i>${esc(cm.basis)}</i>)` : ""}`;
+    const cause = canonLate && isCanonMarket(cm)
+      ? `This gap is <b>not</b> two models disagreeing: the canonical quotes were observed <b>after</b> the listed kick-off ${esc(fmtUtc(m.start_iso))}${Number.isFinite(Number(m.lock_time)) ? ` and after Hotspawn locked this card at ${esc(hhmm(Number(m.lock_time)))} UTC` : ""}, so they are in-play prices, while this view's quotes were captured ${docsLate ? "also after kick-off" : "<b>before</b> kick-off"}${dt.length ? ` (${esc(hhmm(Math.max(...dt)))} UTC)` : ""}. A post-lock price cannot be acted on — the pick had to be submitted before the lock. Both views name the same two teams in the same order, so this is a capture-time difference, not an inverted market, and neither side is "wrong": they answer different questions (probability at pick time vs price while the series is running).`
+      : (isDocsMarket(m) || isCanonMarket(cm))
+        ? `One side is priced from real-money venues and the other from ratings, at two different snapshot times (this view ${esc(fmtUtc(RAW_FETCHED_AT ?? s.raw_hotspawn_fetched_at))} vs canonical inventory ${esc(CANON.inventory_fetched_utc ?? "unknown")}), so the gap mixes a market read with a model read rather than comparing like with like.`
+        : `Same fixture, same kick-off, two independently fitted pre-kickoff rating pools over different series sets and different thin-history shrinkage — a modelling difference, not a data error.`;
+    return `<p class="recon-note"><b>Worked example — the largest gap (#${esc(m.id)}, ${esc(m.competition_name)}, ${esc(m.team0.name)} vs ${esc(m.team1.name)}):</b>
+       ${docsSide} → <b>${pp(m.p0)}</b> / ${pp(m.p1)}; ${canonSide} → <b>${pp(cm.p0)}</b> / ${pp(cm.p1)}.
+       ${cause} The gap is published rather than averaged away; where the two differ, <b>submit the canonical pick</b>${canonLate ? " — and check whether its quotes predate the lock before quoting its probability as a pre-match number" : ""}.</p>`;
+  })();
+
+  const reconcileHtml = CANON_OK ? `
+    <div class="sec-head">
+      <h2 id="reconcile">Two Dashboards, One Pick List — Which Number to Submit</h2>
+      <span>Computed from both committed snapshots at build time</span>
+    </div>
+    <section class="panel">
+      <p>This repository publishes two views of the same Hotspawn pick'em on one domain. They cover the same
+      <strong>${c.scheduled_total}</strong>-card inventory but fit their own ratings, so their numbers differ.
+      <strong>The canonical dashboard is the pick to submit</strong>; this companion audit exists to check it,
+      grade it against official results, and publish where the two disagree.</p>
+      <div class="table-wrap">
+        <table class="data-table mobile-cards recon">
+          <thead><tr><th>&nbsp;</th><th>⭐ Canonical dashboard (authoritative)</th><th>📈 This companion audit</th></tr></thead>
+          <tbody>
+            ${reconRow("Opens at", `<a href="${CANON_HOME}">/LOLHOTSPAWN1/</a> — executive summary, then <a href="${CANON_TABLE}">one table with every match</a>`, `<a href="index.html">/LOLHOTSPAWN1/docs/</a> — this audit suite`)}
+            ${reconRow("Snapshot", `inventory ${esc(CANON.inventory_fetched_utc ?? "unknown")} · built ${esc(CANON.generated_utc ?? "unknown")}`, `built ${esc(fmtUtc(s.generated_at))} · Hotspawn feed ${esc(fmtUtc(RAW_FETCHED_AT ?? s.raw_hotspawn_fetched_at) )}`)}
+            ${reconRow("Pipeline", `<code>tools/collect.py → model.py → report.py → flags.py → site.py → corroborate.py → verify.py</code>, published by <code>refresh.yml</code>; a failing gate aborts the commit`, `<code>scripts/collect.mjs → analyze.mjs → build_site.mjs</code>, published by <code>refresh-docs.yml</code>`)}
+            ${reconRow("Universe", `<b>${CANON_ROWS.length}</b> cards Hotspawn lists as <code>status=scheduled</code> (${esc(Object.entries(CANON.counts ?? {}).map(([k, v]) => `${k} ${v}`).join(" · "))})`, `<b>${scheduled.length}</b> scheduled rows out of <b>${picks.matches.length}</b> fixtures in the archive (${c.active_open_locked} active, ${c.stale_scheduled} stale, ${c.ended_recent} ended, ${c.forfeited_recent} forfeited, ${c.cancelled_recent} cancelled)`)}
+            ${reconRow("Overlap", `<b>${canonOnly.length}</b> canonical cards are not in this view's snapshot`, `<b>${inCanon.length}</b> of ${scheduled.length} scheduled rows are in the canonical snapshot; <b>${docsOnly.length}</b> are not`)}
+            ${reconRow("External venues", `<b>${canonVenues.length}</b> — ${esc(canonVenues.join(", ") || "none quoted this run")}`, `<b>${venueLabels.length}</b> — ${esc(venueLabels.join(", ") || "none quoted this run")} (${venueQuotes.length} quotes joined)`)}
+            ${reconRow("Originated line", `Elo on Leaguepedia series results${CANON.model?.window_start ? `, window <code>${esc(CANON.model.window_start)}</code>` : ""}${CANON.model?.k ? `, K=${CANON.model.k}` : ""}, ratings as of ${esc(CANON.model?.rating_as_of ?? "kick-off")}${CANON.backtest?.accuracy ? ` · out-of-sample ${(CANON.backtest.accuracy * 100).toFixed(2)}% over ${CANON.backtest.n.toLocaleString()} series, Brier ${CANON.backtest.brier}` : ""}`, `Elo/Bradley-Terry on Leaguepedia <b>and</b> Hotspawn series, tier prior + thin-history shrinkage, strictly pre-kickoff · walk-forward OOS Brier ${s.calibration?.brier?.toFixed(4) ?? "—"} over ${(s.calibration?.oos_evaluated ?? 0).toLocaleString()} series`)}
+            ${reconRow("Unresolved", `<b>${CANON.counts?.unresolved ?? 0}</b> — settlement-only cards (official forfeit), no probability invented · <a href="${CANON_UNRESOLVED}">ledger ↗</a>`, `<b>${c.scheduled_unresolved}</b> scheduled rows without a sporting pick (${c.scheduled_walkover_settlement} of them walkover settlements) · <a href="unresolved.html">ledger</a>`)}
+            ${reconRow("Results grading", `<a href="${CANON_RESULTS}">canonical scoreboard ↗</a> — ${track?.graded ? `${track.hits}/${track.graded} graded picks correct (${(track.accuracy * 100).toFixed(1)}%, Brier ${track.brier}) from ${esc(track.result_source ?? "the official series record")}` : "no graded picks yet"}`, `<a href="results.html">this view's scoreboard</a> — pre-lock ledger graded against the official Hotspawn score; a forfeit with no recorded score is VOID, never 0–0`)}
+            ${reconRow("Series format", `not rendered — Hotspawn publishes no <code>best_of</code> for these fixtures`, `<b>${noFormat.length}</b> of ${scheduled.length} scheduled rows have no published format; rendered as <span class="mono">Bo —</span> and the model treats an unknown format as a single-map series`)}
+            ${reconRow("Quotes after kick-off", inPlayCanon.length ? `<b>${inPlayCanon.length}</b> market ${inPlayCanon.length === 1 ? "row carries" : "rows carry"} venue quotes observed <i>after</i> their listed kick-off (latest ${esc(hhmm(Math.max(...inPlayCanon.flatMap(({ cmp }) => canonQuoteTimes(cmp.cm)))))} UTC) — an in-play price, not a pick-time probability, because Hotspawn locks each card before start. Flagged here and logged as a cross-scope request; the canonical pipeline is not edited from this session.` : "none — every venue quote predates its listed kick-off", inPlayDocs.length ? `<b>${inPlayDocs.length}</b> ${inPlayDocs.length === 1 ? "row carries" : "rows carry"} venue quotes observed after their listed kick-off; this snapshot was captured at ${esc(fmtUtc(RAW_FETCHED_AT ?? s.raw_hotspawn_fetched_at))}` : `none — every venue quote in this snapshot predates its listed kick-off (captured ${esc(fmtUtc(RAW_FETCHED_AT ?? s.raw_hotspawn_fetched_at))})`)}
+            ${reconRow("Use it for", "the pick to submit and the probability to quote", "auditing the canonical line, grading it against official results, calibration and run history")}
+          </tbody>
+        </table>
+      </div>
+      <p class="recon-note">Neither view uses Hotspawn crowd "% picked", tier labels or offered points as a probability input.
+      Both refresh on their own GitHub Actions schedule (every 6 h, inside the required 4–8 h window); their snapshots are minutes apart, not identical.</p>
+    </section>
+
+    <div class="sec-head">
+      <h2>Where the Two Dashboards Disagree (${divergent.length} fixtures)</h2>
+      <span>Published, not averaged away</span>
+    </div>
+    <section class="panel">
+      <p>Of <b>${bothProb.length}</b> fixtures where both views publish a probability for the same team ordering,
+      the mean absolute gap is <b>${meanDelta == null ? "—" : (meanDelta * 100).toFixed(2) + " pp"}</b> and the largest is
+      <b>${absDeltas.length ? (absDeltas[0] * 100).toFixed(1) + " pp" : "—"}</b>
+      (${band(2)} rows differ by more than 2 pp, ${band(5)} by more than 5 pp, ${band(10)} by more than 10 pp).
+      <b>${opposite.length}</b> fixtures carry <b>opposite picks</b>; <b>${oneSidedBlank.length}</b> have a probability on one view only and are left blank on the other rather than guessed.
+      Every divergent row is listed here and marked on its card.</p>
+      ${divergent.length ? `<div class="table-wrap"><table class="data-table mobile-cards">
+        <thead><tr><th>Kickoff (UTC)</th><th>Match</th><th>This view's pick</th><th>⭐ Canonical pick</th><th class="num">Gap</th><th>Sources</th></tr></thead>
+        <tbody>${divergeRows}</tbody></table></div>${worstDetail}`
+      : `<p class="recon-note">No fixture diverges by ${DIVERGE_PP} pp or carries an opposite pick in this snapshot. ✓</p>`}
+    </section>
+` : `
+    <section class="panel">
+      <h2 id="reconcile">Canonical comparison unavailable</h2>
+      <p><code>data/matches.json</code> could not be read when this page was built, so no comparison against the
+      canonical dashboard is shown. Open it directly: <a href="${CANON_HOME}">canonical executive summary</a> ·
+      <a href="${CANON_TABLE}">canonical match table</a>.</p>
+    </section>`;
+
   const bodyHtml = `
     <section class="page-hero">
       <h1>Executive Summary — Hotspawn League of Legends Pick'ems</h1>
-      <p>Complete line-by-line coverage of all <strong>${c.scheduled_total}</strong> listed Hotspawn LoL matches across <strong>29</strong> competitions. Probabilities come exclusively from de-vigged real-money bookmaker &amp; CFTC/CLOB prediction markets (${c.scheduled_market} series across up to 4 independent venues) and strictly pre-kickoff Leaguepedia + Hotspawn Elo/Bradley-Terry ratings (${c.scheduled_model} series). Hotspawn crowd percentages, tiers, and offered points are never used as probability inputs.</p>
+      <p>Complete line-by-line coverage of all <strong>${c.scheduled_total}</strong> listed Hotspawn LoL matches across <strong>${new Set(scheduled.map((m) => m.competition_name)).size}</strong> competitions. Probabilities come from de-vigged real-money bookmaker &amp; CFTC/CLOB prediction markets (${c.scheduled_market} matches, up to ${maxVenues} independent venues: ${esc(venueLabels.join(" · ")) || "none quoted this run"}) and from strictly pre-kickoff Leaguepedia + Hotspawn Elo/Bradley-Terry ratings (${c.scheduled_model} matches priced this way; the rating pool replays ${(s.calibration?.oos_evaluated ?? 0).toLocaleString()} pre-kickoff series). Hotspawn crowd percentages, tiers, and offered points are never used as probability inputs. <b>This is the companion audit — the pick to submit is the ⭐ canonical line shown on every row.</b></p>
     </section>
 
     <section class="kpi-grid" aria-label="Coverage metrics">
@@ -312,13 +585,15 @@ function buildIndexPage(picks, flags) {
       </div>
     </section>
 
+    ${reconcileHtml}
+
     <div class="sec-head">
       <h2>Where to Find Updated Picks &amp; Audits</h2>
       <span>Organized by source category &amp; mobile workflow</span>
     </div>
     <section class="hub-grid">
       <a class="hub-card" href="table.html">
-        <div class="hub-title">Compact All-241 Picks Table →</div>
+        <div class="hub-title">Compact All-${c.scheduled_total} Picks Table →</div>
         <div class="hub-desc">Single-screen sortable/filterable table of every scheduled match with win %, pick badge, CSV export, and source links.</div>
       </a>
       <a class="hub-card" href="picks.html">
@@ -397,11 +672,17 @@ function buildTablePage(picks) {
       } else if (m.settlement_pick) {
         pickCell = `<span class="badge b-prov">Walkover → ${esc(m.settlement_pick.team_name)}</span>`;
       }
+      const cmp = canonCompare(m);
+      if (isDivergent(cmp)) pickCell += ` <span class="canon-diverge" title="The canonical dashboard publishes a different line for this fixture">${cmp.oppositePick ? "OPPOSITE PICK" : "DIVERGES"}</span>`;
+      if (cmp.cm) {
+        const cpk = cmp.cm.pick ?? {};
+        pickCell += `<br><span class="canon-cell">⭐ ${cpk.probability == null ? `${esc(cpk.team ?? "settlement")} (no probability)` : `${esc(cpk.team ?? "?")} ${pct1(cpk.probability)}`} <a href="${CANON_CARDS}#match-${esc(m.id)}">↗</a></span>`;
+      }
       const staleAttr = m.state === "stale" ? "1" : "0";
-      const searchStr = `${m.id} ${m.competition_name} ${m.team0.name} ${m.team1.name} ${m.pick?.team_name || ""}`;
+      const searchStr = `${m.id} ${m.competition_name} ${m.team0.name} ${m.team1.name} ${m.pick?.team_name || ""} ${cmp.cm?.pick?.team || ""}`;
       return `<tr id="row-${esc(m.id)}" data-item="1" data-method="${methodShort(m)}" data-comp="${esc(m.competition_name)}" data-stale="${staleAttr}" data-search="${esc(searchStr)}">
         <td data-label="Start" class="mono"><time data-utc="${esc(m.start_iso || "")}">${esc(fmtUtc(m.start_iso))}</time><br>${stateBadge(m.state)}</td>
-        <td data-label="Tournament">${esc(m.competition_name)} <span class="mono">(Bo${m.best_of})</span></td>
+        <td data-label="Tournament">${esc(m.competition_name)} <span class="mono">(${boLabel(m)})</span></td>
         <td data-label="Team A"><strong>${esc(m.team0.name)}</strong></td>
         <td data-label="Win % A" class="num">${p0Disp}</td>
         <td data-label="Team B"><strong>${esc(m.team1.name)}</strong></td>
@@ -416,14 +697,14 @@ function buildTablePage(picks) {
   const bodyHtml = `
     <section class="page-hero">
       <h1>Complete Scheduled LoL Picks Table (${scheduled.length})</h1>
-      <p>Every scheduled fixture in the Hotspawn LoL feed, line by line, with win probabilities, explicit pick badge, blank unverified cells where pre-kickoff evidence is absent, and clickable official source receipts.</p>
+      <p>Every scheduled fixture in the Hotspawn LoL feed, line by line, with this view's win probabilities, an explicit pick badge, the <b>⭐ canonical pick</b> beside it, blank unverified cells where pre-kickoff evidence is absent, and clickable official source receipts. Where the two dashboards disagree the row is marked <span class="canon-diverge">DIVERGES</span> and the canonical line is the one to submit.</p>
     </section>
 
     <div class="toolbar">
       <div class="toolbar-row">
         <input id="q" class="input-search" type="search" placeholder="Search team, tournament, or match ID…" aria-label="Search matches">
         <select id="comp" class="select-comp" aria-label="Filter by tournament">
-          <option value="">All 29 tournaments (${scheduled.length})</option>
+          <option value="">All ${comps.length} tournaments (${scheduled.length})</option>
           ${compOpts}
         </select>
         <button id="upcoming-btn" class="pill-btn" type="button" aria-pressed="false">Hide stale (&gt;6h past start)</button>
@@ -449,7 +730,7 @@ function buildTablePage(picks) {
             <th class="num">P(A)</th>
             <th>Team B</th>
             <th class="num">P(B)</th>
-            <th>Recommended Pick</th>
+            <th>Recommended Pick <span class="th-sub">(⭐ = canonical)</span></th>
             <th>Source Tier</th>
             <th>Official Receipts</th>
           </tr>
@@ -464,8 +745,8 @@ function buildTablePage(picks) {
 
   return renderShell({
     activePage: "table.html",
-    title: "All 241 Picks Table",
-    description: "Compact sortable and filterable table of all 241 scheduled Hotspawn League of Legends matches.",
+    title: `All ${scheduled.length} Picks Table`,
+    description: `Compact sortable and filterable table of all ${scheduled.length} scheduled Hotspawn League of Legends matches, each with the canonical pick beside it.`,
     summary: s,
     bodyHtml,
   });
@@ -484,7 +765,7 @@ function buildPicksPage(picks) {
   const bodyHtml = `
     <section class="page-hero">
       <h1>Active LoL Picks (${activePicked.length})</h1>
-      <p>Every open or recently locked Hotspawn LoL match carrying a verified probability pair. Active zero-evidence amateur debuts (${s.counts.active_unresolved}) are isolated on <a href="unresolved.html">Unresolved Picks</a> rather than guessed; stale cards (&gt;6h past scheduled start) remain accessible on <a href="table.html">All 241 Table</a>.</p>
+      <p>Every open or recently locked Hotspawn LoL match carrying a verified probability pair. Active zero-evidence amateur debuts (${s.counts.active_unresolved}) are isolated on <a href="unresolved.html">Unresolved Picks</a> rather than guessed; stale cards (&gt;6h past scheduled start) remain accessible on <a href="table.html">the all-${s.counts.scheduled_total} table</a>.</p>
     </section>
 
     <div class="toolbar">
@@ -532,7 +813,7 @@ function buildFeaturedPage(picks) {
       const pol = m.market_polymarket ? `${pct1(m.market_polymarket.p0)} / ${pct1(m.market_polymarket.p1)}` : "—";
       return `<tr>
         <td class="mono">${esc(fmtUtc(m.start_iso))}</td>
-        <td><strong>${esc(m.team0.name)}</strong> vs <strong>${esc(m.team1.name)}</strong><br><span class="mono" style="color:var(--text-dim)">${esc(m.competition_name)} · Bo${m.best_of}</span></td>
+        <td><strong>${esc(m.team0.name)}</strong> vs <strong>${esc(m.team1.name)}</strong><br><span class="mono" style="color:var(--text-dim)">${esc(m.competition_name)} · ${boLabel(m)}</span></td>
         <td class="num">${pin}</td>
         <td class="num">${kam}</td>
         <td class="num">${bov}</td>
@@ -684,7 +965,7 @@ function buildTournamentsPage(picks) {
             : `<span class="badge b-unres">— Unresolved</span>`;
           return `<tr>
             <td class="mono">${esc(fmtUtc(m.start_iso))} ${stateBadge(m.state)}</td>
-            <td><strong>${esc(m.team0.name)}</strong> vs <strong>${esc(m.team1.name)}</strong> (Bo${m.best_of})</td>
+            <td><strong>${esc(m.team0.name)}</strong> vs <strong>${esc(m.team1.name)}</strong> (${boLabel(m)})</td>
             <td class="num">${pDisp}</td>
             <td>${pickTxt}</td>
             <td>${methodBadge(m)}</td>
@@ -1056,6 +1337,29 @@ function buildMethodologyPage(picks) {
   const s = picks.summary;
   const cal = s.calibration;
 
+  /* canonical cross-reference figures — computed, never hard-coded */
+  const schedAll = picks.matches.filter((m) => m.status === "scheduled");
+  const scheduledCount = schedAll.length;
+  const noFormatCount = schedAll.filter((m) => !bestOfKnown(m)).length;
+  /* Verified against Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion
+   * (bestof=5, FFA Round 1) on 2026-10-24; the card's own fields are read from the
+   * snapshot so the sentence cannot drift away from the data. */
+  const boExample = schedAll.find((m) => String(m.id) === "1081421") ?? null;
+  const canonVenueList = [...new Set(CANON_ROWS.flatMap((r) => (r.market?.venues ?? []).map((v) => v.name).filter(Boolean)))];
+  const canonCmps = schedAll.map((m) => canonCompare(m));
+  const canonBoth = canonCmps.filter((x) => x.bothProb);
+  const canonDeltas = canonBoth.map((x) => Math.abs(x.delta));
+  const canonOverlap = {
+    scheduled: scheduledCount,
+    inCanon: canonCmps.filter((x) => x.cm).length,
+    docsOnly: canonCmps.filter((x) => !x.cm).length,
+    canonOnly: CANON_OK ? CANON_ROWS.filter((r) => !schedAll.some((m) => String(m.id) === String(r.id))).length : 0,
+    bothProb: canonBoth.length,
+    opposite: canonCmps.filter((x) => x.oppositePick).length,
+    meanDeltaPp: canonDeltas.length ? (canonDeltas.reduce((a, b) => a + b, 0) / canonDeltas.length * 100).toFixed(2) : "—",
+    maxDeltaPp: canonDeltas.length ? (Math.max(...canonDeltas) * 100).toFixed(1) : "—",
+  };
+
   const binRows = (cal.reliability_bins || [])
     .map(
       (b) => `<tr>
@@ -1073,6 +1377,43 @@ function buildMethodologyPage(picks) {
       <h1>Methodology, Walk-Forward Calibration &amp; Venue Audit</h1>
       <p>Full technical specification of the 6-hour scheduled Hotspawn LoL ingestion pipeline, Shin power de-vigging, 5-venue consensus weighting, strict pre-kickoff Elo/Bradley-Terry ratings, and competition-scoped entity disambiguation.</p>
     </section>
+
+    <div class="sec-head">
+      <h2>0. Relationship to the Canonical Dashboard</h2>
+      <span>Read this before quoting any number from this site</span>
+    </div>
+    <div class="callout">
+      <p>Two publishers run in this repository and both are served from one GitHub Pages domain. The
+      <b>canonical</b> dashboard (<code>tools/</code> &rarr; repository root, <a href="${CANON_HOME}">/LOLHOTSPAWN1/</a>,
+      data in <code>data/matches.json</code>) is the pick list: ${CANON_OK ? `<b>${CANON_ROWS.length}</b> cards Hotspawn lists as <code>status=scheduled</code>, priced from ${canonVenueList.length ? esc(canonVenueList.join(", ")) : "external venues"} with an Elo model over Leaguepedia series results and a publish gate (<code>tools/verify.py</code>) that aborts the commit on any failed check` : "snapshot unavailable when this page was built"}.
+      <b>This companion audit</b> (<code>scripts/</code> &rarr; <code>/docs/</code>, data in <code>data/node/**</code>) re-collects the same
+      feed, fits its own ratings (Leaguepedia <i>and</i> Hotspawn series, tier prior, thin-history shrinkage) and grades
+      recorded picks against official scores. Every card and table row here carries a
+      <span class="canon-tag">CANONICAL PICK</span> line with the canonical probability and a deep link, and rows where the
+      two disagree by ${DIVERGE_PP} pp or more — or name opposite winners — are marked
+      <span class="canon-diverge">DIVERGES</span> and listed on the <a href="index.html#reconcile">overview</a>.
+      Where they differ, <b>submit the canonical pick</b>; the gap is published as an audit finding, never averaged away.</p>
+      ${CANON_OK ? `<p class="recon-note">Snapshot parity at this build: ${canonOverlap.inCanon} of ${canonOverlap.scheduled} scheduled rows appear in the canonical inventory; ${canonOverlap.docsOnly} rows here are not in it; ${canonOverlap.canonOnly} canonical cards are not in this snapshot; ${canonOverlap.bothProb} rows have a probability on both sides, ${canonOverlap.opposite} of them opposite picks (mean |gap| ${canonOverlap.meanDeltaPp} pp, max ${canonOverlap.maxDeltaPp} pp).</p>` : ""}
+    </div>
+
+    <div class="sec-head">
+      <h2>0.1 Series Format Is Not Published by Hotspawn</h2>
+    </div>
+    <div class="callout warn">
+      <p>Hotspawn's fixtures API returns <code>best_of: null</code> for <b>${noFormatCount}</b> of the ${scheduledCount} scheduled
+      fixtures in this snapshot, so this dashboard renders <span class="mono">Bo —</span> rather than a number: an unverified
+      format is left blank per the project's no-inference rule. The rating model still has to assume something, and it treats an
+      unknown format as a <b>single-map series</b> (no best-of amplification), which is the neutral assumption. That assumption is
+      demonstrably wrong for at least one fixture: Leaguepedia's official
+      <a href="https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw" target="_blank" rel="noopener">Data:LCP/2027 Season/Promotion</a>
+      wikitext opens its FFA Round 1 MatchSchedule/Start block with the parameters
+      <code>tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion</code> for the fixture
+      <code>team1=${esc(boExample ? boExample.team0.name : "FENNEL")} | team2=${esc(boExample ? boExample.team1.name : "Nothin&#39;Here")}</code>
+      on ${esc(boExample ? boExample.start_iso?.slice(0, 16).replace("T", " ") + " UTC" : "2026-11-10 05:00 UTC")} —
+      ${boExample ? `Hotspawn card <a href="${esc(boExample.hotspawn_url)}" target="_blank" rel="noopener">#${esc(boExample.id)}</a> (${esc(boExample.competition_name)}), which this snapshot renders as <span class="mono">${boLabel(boExample)}</span>` : "a Hotspawn card that is not in this snapshot"}:
+      a Bo5, not a Bo1. Format-sensitive probabilities for that fixture (and any other Leaguepedia Bo3/Bo5 card Hotspawn leaves null)
+      are therefore understated in amplitude, in this view and in the canonical one, until a verified format source is joined.</p>
+    </div>
 
     <div class="sec-head">
       <h2>1. Strict Independence from Hotspawn Signals</h2>

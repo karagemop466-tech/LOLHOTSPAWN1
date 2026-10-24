@@ -1158,7 +1158,15 @@ for (const f of selectedFixtures) {
     state,
     tier: f.tier,
     stage: f.stage,
-    best_of: Number(f.best_of) || 1,
+    /* Hotspawn's fixtures API returns best_of = null for every scheduled card, so the
+     * published row keeps it null and names the source instead of printing an invented
+     * "Bo1" (project rule: a value that cannot be confirmed is left blank and flagged).
+     * The rating model still needs an assumption and keeps its own single-map default
+     * inside mapProbToSeriesProb(), which is disclosed on docs/methodology.html.
+     * Verified 2026-10-24: Leaguepedia's Data:LCP/2027 Season/Promotion wikitext lists
+     * FENNEL v Nothin'Here (#1081421, 2026-11-10 05:00 UTC) under bestof=5. */
+    best_of: Number.isFinite(Number(f.best_of)) && Number(f.best_of) > 0 ? Number(f.best_of) : null,
+    best_of_source: Number.isFinite(Number(f.best_of)) && Number(f.best_of) > 0 ? "hotspawn_fixtures_api" : null,
     offered_points: f.offered_points,
     scheduled_start_time: startMs,
     start_iso: startIso,
@@ -1219,6 +1227,30 @@ if (rgMatches.length) {
     detail: "Leaguepedia uses a single page 'Rich Gang (Norwegian Team)' across Komplettligaen 2026 Autumn and Prime League 3rd Division 26-27 Fall; model rating pools both rosters' pre-kickoff matches.",
     hotspawn_url: rgMatches[0].hotspawn_url,
     source_url: "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split",
+  });
+}
+
+// Series format is not published by Hotspawn for any scheduled card: leave it blank,
+// flag it, and cite the official counter-example that was verified by hand.
+const noFormatRows = matches.filter((m) => m.status === "scheduled" && m.best_of == null);
+if (noFormatRows.length) {
+  const example = matches.find((m) => String(m.id) === "1081421") ?? noFormatRows[0];
+  flags.push({
+    id: "series-format-not-published",
+    match_id: example.id,
+    severity: "medium",
+    kind: "unverified-field-left-blank",
+    competition: example.competition_name,
+    matchup: `${noFormatRows.length} scheduled fixtures with best_of = null in the Hotspawn feed`,
+    state: example.state,
+    detail:
+      "Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. " +
+      "The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). " +
+      "That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens " +
+      "its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. " +
+      "Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.",
+    hotspawn_url: example.hotspawn_url,
+    source_url: "https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw",
   });
 }
 

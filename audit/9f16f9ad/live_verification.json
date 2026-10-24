@@ -1,0 +1,158 @@
+{
+  "session": "9f16f9ad",
+  "generated_utc": "2026-10-24T18:01:59Z",
+  "method": "Independent live re-reads with the agent's own web tooling (the sandbox shell has no egress to these hosts) plus arithmetic re-derivation from the committed snapshots. Every value below is what the source returned; nothing is inferred.",
+  "checks": [
+    {
+      "id": "A-hotspawn-series-format",
+      "claim_under_test": "Hotspawn publishes no series format, so a rendered 'Bo1' is an invented value",
+      "source_url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
+      "observed": "every fixture object in the live response carries \"best_of\": null and \"series_format\": null (checked on the first ten objects: 1053095, 1053096, 1066214, 1053111, 1071584, 1070209, 1070210, 1069849, 1071167, 1071170)",
+      "committed_evidence": "data/node/raw/hotspawn_lol_fixtures.json (fetched 2026-10-24T16:49:38Z) and data/raw/hotspawn_lol.json: best_of null on 241/241 scheduled fixtures",
+      "verdict": "CONFIRMED - irregularity was real; fixed in scripts/analyze.mjs (published best_of stays null, best_of_source records provenance) and in scripts/build_site.mjs (renders 'Bo -')",
+      "severity": "medium"
+    },
+    {
+      "id": "B-leaguepedia-bo5-lcp-promotion",
+      "claim_under_test": "The single-map assumption is wrong for at least one listed fixture",
+      "source_url": "https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw",
+      "observed": "{{MatchSchedule/Start|tab=FFA Round 1|bestof=5|shownname=LCP 2027 Promotion}} followed by {{MatchSchedule||initialorder=1|team1=FENNEL|team2=Nothin'Here|date=2026-11-10|time=14:00|timezone=KST|dst=no|stream=https://www.twitch.tv/lolpacificen}}; no scores recorded yet",
+      "cross_reference": "Hotspawn #1081421 lists the same fixture at 2026-11-10T05:00:00Z (= 14:00 KST) with best_of null; both dashboards price it",
+      "verdict": "CONFIRMED Bo5 for #1081421 - the official community record contradicts an assumed Bo1",
+      "severity": "medium"
+    },
+    {
+      "id": "B2-leaguepedia-regional-merit-alias",
+      "claim_under_test": "Whether the second LCP Promotion card is the same fixture as Hotspawn #1081423",
+      "source_url": "https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw",
+      "observed": "Regional Merit Match tab (bestof=5): {{MatchSchedule||initialorder=1|team1=GZ|team2=FAK HK|date=2026-11-11|time=18:00|timezone=KST}} = 2026-11-11T09:00Z, which is Hotspawn #1081423's kick-off; Leaguepedia labels the participants 'GZ' and 'FAK HK' while Hotspawn labels them 'Ground Zero Gaming' and 'Frank Esports'",
+      "verdict": "UNRESOLVED - same competition and kick-off, different participant labels. Recorded as a probable alias, NOT asserted, and not used to change any probability",
+      "severity": "info"
+    },
+    {
+      "id": "C-pinnacle-live-moneyline-1067688",
+      "claim_under_test": "The canonical market line for Worlds 2026 Main Event #1067688 comes from a live Pinnacle series moneyline",
+      "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
+      "observed": "period 0 (series) moneyline home +136 / away -166, status open, limit 4500 maxRiskStake, cutoffAt 2026-10-24T21:12:31Z, version 3778506957; period 1 moneyline identical; team_total / spread / total derivatives present; NO '(Kills)' market in this response",
+      "recomputed": {
+        "live_decimal": [
+          2.36,
+          1.6024
+        ],
+        "live_implied": [
+          0.4237,
+          0.6241
+        ],
+        "live_overround": 0.0478,
+        "live_devigged": [
+          0.4044,
+          0.5956
+        ],
+        "committed_snapshot_1712Z": {
+          "quote": "2.55/1.54",
+          "observed_utc": "2026-10-24T17:12:58Z",
+          "devigged": [
+            0.3765,
+            0.6235
+          ],
+          "overround": 0.0415,
+          "canonical_basis_agrees": "yes - data/matches.json basis string says 'Pinnacle 37.7%/62.3% (2.55/1.54)'"
+        },
+        "earlier_snapshot_1655Z": {
+          "quote": "2.51/1.56",
+          "observed_utc": "2026-10-24T16:55:12Z",
+          "devigged": [
+            0.3833,
+            0.6167
+          ]
+        },
+        "home_side_pp": [
+          38.33,
+          37.65,
+          40.44
+        ],
+        "home_delta_live_vs_committed_pp": 2.79
+      },
+      "verdict": "CONFIRMED: a live Pinnacle series moneyline exists for this fixture and the canonical pipeline's de-vig arithmetic reproduces exactly from the quoted decimals. Three observations 27 minutes apart (16:55:12Z 38.3% home, 17:12:58Z 37.7% home, ~17:22Z 40.4% home) show ordinary in-play line movement around the listed 17:00Z kick-off - the fixture is itself flagged 'start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)'. Recorded as movement, not as a data error; the committed 4-venue consensus p0 0.4014 stands as captured at 17:12-17:14Z.",
+      "severity": "info"
+    },
+    {
+      "id": "C2-pinnacle-cutoff-vs-hotspawn-kickoff",
+      "claim_under_test": "Whether Pinnacle's cutoff agrees with Hotspawn's listed kick-off",
+      "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
+      "observed": "Pinnacle cutoffAt 2026-10-24T21:12:31Z for the series moneyline while Hotspawn lists scheduled_start_time 2026-10-24T17:00:00Z and lock_time 16:55Z for #1067688",
+      "verdict": "UNRESOLVED - recorded, not inferred. Hotspawn's time governs pick submission; a Pinnacle cutoff can legitimately be set after the listed start, but this session did not confirm why the two differ by 4h12m",
+      "severity": "info"
+    },
+    {
+      "id": "D-two-dashboard-divergence",
+      "claim_under_test": "How far apart the two published dashboards are on the same inventory",
+      "sources": [
+        "data/matches.json",
+        "data/node/picks.json"
+      ],
+      "recomputed": {
+        "shared_fixture_ids": 241,
+        "both_publish_a_probability": 231,
+        "probability_on_one_side_only": 10,
+        "opposite_picks": 12,
+        "mean_abs_gap_pp": 2.26,
+        "max_abs_gap_pp": 18.9,
+        "max_gap_fixture": "1081421 FENNEL vs Nothin'Here - canonical p0 0.403 (FENNEL 1685.4 / Nothin'Here 1753.7, 30/7 rated series) vs secondary p0 0.592 (Elo 1671 / 1644.5, effective 1642.5 / 1577.8)",
+        "cause": "two independently fitted pre-kickoff Elo pools over different series sets and different thin-history shrinkage; not a data error",
+        "snapshot": "data/matches.json generated 2026-10-24T17:14:52Z (inventory 17:12:56Z) vs data/node/picks.json 16:49:45Z",
+        "divergent_rows_marked": 33,
+        "note": "divergent = union of 12 opposite picks and 24 rows apart by >= 5 pp (3 overlap) = 33 rows marked DIVERGES/OPPOSITE PICK on docs/table.html and listed on docs/index.html#reconcile"
+      },
+      "verdict": "PUBLISHED as an audit finding on docs/index.html#reconcile and marked on every affected row",
+      "severity": "medium"
+    },
+    {
+      "id": "E-inplay-market-quotes-1067688",
+      "claim_under_test": "Whether the largest cross-view divergence (#1067688, 28.0 pp, opposite picks) is an inverted market mapping or something else",
+      "sources": [
+        "https://gamma-api.polymarket.com/events?slug=lol-tes-al-2026-10-24",
+        "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
+        "data/matches.json (inventory 2026-10-24T17:12:56Z / 17:32:27Z refresh)",
+        "data/node/picks.json (16:49:45Z)"
+      ],
+      "observed": {
+        "polymarket_gamma_live_read": "event lol-tes-al-2026-10-24, market 6102531: outcomes [\"Top Esports\", \"Anyone's Legend\"], outcomePrices [\"0.9995\", \"0.0005\"], gameStartTime 2026-10-24 17:05:00+00, updatedAt 2026-10-24T17:54:38Z, active true / closed false, liquidity 1.84M USD, volume 2.30M USD, resolution source gol.gg",
+        "side_order": "Polymarket's first outcome is Top Esports = canonical team0 = this view's team0, so NO inversion exists on either side",
+        "canonical_quotes_1732Z": "Polymarket 62.5c/37.5c at 17:31:53Z, Kalshi 62c/38c at 17:30:43Z, Unibet 1.38/2.85 at 17:30:04Z -> consensus p0 0.6344 (basis string matches exactly)",
+        "canonical_quotes_1714Z": "Pinnacle 2.55/1.54 at 17:12:58Z, Polymarket 41.5c/58.5c at 17:14:08Z, Kalshi 44c/56c at 17:12:58Z, Unibet 2.33/1.54 at 17:12:26Z -> consensus p0 0.4014",
+        "secondary_quotes_1649Z": "Pinnacle 2.51/1.556 (0.3753/0.6247), Unibet/Kambi 0.3173/0.6827, Polymarket 0.365/0.635, Kalshi 0.365/0.635, Bovada 0.3338/0.6662 -> consensus p0 0.354 (Anyone's Legend 64.6%), all fetched 16:49 UTC, i.e. pre-kickoff",
+        "hotspawn_clock": "scheduled_start_time 2026-10-24T17:00:00Z, lock_time 16:55:00Z (lock_offset_sec 300)"
+      },
+      "recomputed": {
+        "in_play_canonical_market_rows": 1,
+        "in_play_secondary_rows": 0,
+        "progression_home_side_pp": [
+          38.3,
+          37.7,
+          40.4,
+          62.5,
+          63.4,
+          99.95
+        ],
+        "progression_times_utc": [
+          "16:55:12",
+          "17:12:58",
+          "~17:22 (this session's live Pinnacle re-read)",
+          "17:31:53",
+          "17:32:27 refresh",
+          "17:54:38 (this session's live Polymarket re-read)"
+        ]
+      },
+      "verdict": "RESOLVED as a capture-time difference, not a data error and not an inverted market: the fixture actually started at 17:05Z (Polymarket gameStartTime), so the canonical pipeline's 17:30-17:32Z quotes are IN-PLAY prices while this view's 16:49Z quotes are pre-lock pick-time prices. The live Polymarket read at 17:54Z shows 0.9995 for Top Esports, i.e. the series had effectively decided in Top Esports' favour by then, which is consistent with the 40% -> 63% -> 100% progression. Action taken in scope: docs/index.html now computes post-kickoff quote capture on both sides (reconciliation row 'Quotes after kick-off'), tags affected ledger rows IN-PLAY QUOTES, and the worked example explains capture time instead of asserting a modelling difference.",
+      "irregularity_logged_for_canonical_owner": "data/matches.json row #1067688 publishes method=market, confidence=high, p0=0.6344 from quotes observed 17:30:04Z-17:31:53Z, i.e. AFTER Hotspawn's 16:55Z lock and after the 17:00Z listed kick-off. Its existing flags ('start time has passed but Hotspawn still lists the fixture as scheduled', 'market and model disagree by 23 pp') disclose the situation partially, but the published probability is an in-play price presented as a pick probability. Requested (not edited here): treat quotes with observed_utc > start_utc as in-play - either keep the last pre-lock quote as the published pick probability or label the row in-play so a reader cannot quote 63.4% as a pre-match number. tools/verify.py gates look-ahead for ratings but has no equivalent gate for market quote capture time.",
+      "format_lead_not_asserted": "Polymarket's own title for this event reads 'LoL: Top Esports vs Anyone's Legend (BO1) - Worlds Group Stage'. A bookmaker's title is not an official format record and is NOT used to fill best_of anywhere, but it shows a machine-readable third-party format label exists for some fixtures and could be joined later with a provenance column. Hotspawn still publishes best_of: null for this card.",
+      "severity": "high"
+    }
+  ],
+  "integration_requests": [
+    "root index.html does not link to the secondary view (audit/verify_docs_parity.py reports 'root page references docs/: False' in its earlier revision); tools/site.py is owned by session 80c624cd (C3/C4) - please add one labelled link to /docs/ from the canonical executive summary so neither dashboard is a dead end",
+    "data/flags_manual.json (curated canonical flags) should carry the unpublished-series-format finding with the Leaguepedia Bo5 counter-example; that file is outside this session's claimed scope",
+    "the canonical dataset leaves best_of null for all 241 rows, which is correct; if a verified format source is ever joined, both dashboards should consume the same one"
+  ]
+}

@@ -3,22 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Methodology &amp; Calibration — LoL Hotspawn Pick'em Companion Audit</title>
+  <title>Methodology &amp; Calibration — Companion Audit (secondary view) · LoL Hotspawn Pick'ems</title>
   <meta name="description" content="Mathematical specification, 22,372-series walk-forward calibration curve, and external venue audit.">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<div class="canonbar"><div class="canonbar-in">
+    <span class="cb-tag">SECONDARY VIEW</span>
+    <span class="cb-txt">Companion audit, <b>not</b> the canonical pick list. Canonical picks for all <b>241</b> listed matches: <a href="../index.html">executive summary ↗</a> · <a href="../table.html">one-table view ↗</a> · <a href="../unresolved.html">unresolved &amp; limitations ↗</a> · graded 23/39 correct. <a href="index.html#reconcile">Why the two dashboards differ</a>.</span>
+  </div></div>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="index.html">
         <span class="brand-dot" aria-hidden="true"></span>
-        <span>Hotspawn LoL Pick'ems · Audit Suite</span>
+        <span>Hotspawn LoL Pick'ems · Audit Suite <span class="brand-sub">secondary view</span></span>
       </a>
       <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         Menu ▾
       </button>
       <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 241 Table</span><span class="nav-cnt">241</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">172</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">9</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">222</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">8</span></a><a href="flagged.html"><span>Flagged</span><span class="nav-cnt">17</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html" class="active" aria-current="page"><span>Methodology</span></a>
+        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 241 Table</span><span class="nav-cnt">241</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">172</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">9</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">222</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">8</span></a><a href="flagged.html"><span>Flagged</span><span class="nav-cnt">17</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html" class="active" aria-current="page"><span>Methodology</span></a><a href="../index.html"><span>⭐ Canonical picks</span><span class="nav-cnt">241</span></a>
       </nav>
     </div>
   </header>
@@ -26,7 +30,7 @@
   <div class="fresh-bar" data-generated-at="2026-10-24T16:49:45.446Z">
     <div class="fresh-inner">
       <span>Snapshot: <time class="mono" data-utc="2026-10-24T16:49:45.446Z">2026-10-24 16:49 UTC</time> · Auto-refresh every 6h</span>
-      <span>Zero Hotspawn crowd/tier/points inputs · <a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/">Canonical Root Dashboard ↗</a> · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
+      <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-24 17:32 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
   <main>
@@ -35,6 +39,43 @@
       <h1>Methodology, Walk-Forward Calibration &amp; Venue Audit</h1>
       <p>Full technical specification of the 6-hour scheduled Hotspawn LoL ingestion pipeline, Shin power de-vigging, 5-venue consensus weighting, strict pre-kickoff Elo/Bradley-Terry ratings, and competition-scoped entity disambiguation.</p>
     </section>
+
+    <div class="sec-head">
+      <h2>0. Relationship to the Canonical Dashboard</h2>
+      <span>Read this before quoting any number from this site</span>
+    </div>
+    <div class="callout">
+      <p>Two publishers run in this repository and both are served from one GitHub Pages domain. The
+      <b>canonical</b> dashboard (<code>tools/</code> &rarr; repository root, <a href="../index.html">/LOLHOTSPAWN1/</a>,
+      data in <code>data/matches.json</code>) is the pick list: <b>241</b> cards Hotspawn lists as <code>status=scheduled</code>, priced from Polymarket, Kalshi, Unibet, Pinnacle, Bovada with an Elo model over Leaguepedia series results and a publish gate (<code>tools/verify.py</code>) that aborts the commit on any failed check.
+      <b>This companion audit</b> (<code>scripts/</code> &rarr; <code>/docs/</code>, data in <code>data/node/**</code>) re-collects the same
+      feed, fits its own ratings (Leaguepedia <i>and</i> Hotspawn series, tier prior, thin-history shrinkage) and grades
+      recorded picks against official scores. Every card and table row here carries a
+      <span class="canon-tag">CANONICAL PICK</span> line with the canonical probability and a deep link, and rows where the
+      two disagree by 5 pp or more — or name opposite winners — are marked
+      <span class="canon-diverge">DIVERGES</span> and listed on the <a href="index.html#reconcile">overview</a>.
+      Where they differ, <b>submit the canonical pick</b>; the gap is published as an audit finding, never averaged away.</p>
+      <p class="recon-note">Snapshot parity at this build: 241 of 241 scheduled rows appear in the canonical inventory; 0 rows here are not in it; 0 canonical cards are not in this snapshot; 231 rows have a probability on both sides, 13 of them opposite picks (mean |gap| 2.34 pp, max 28.0 pp).</p>
+    </div>
+
+    <div class="sec-head">
+      <h2>0.1 Series Format Is Not Published by Hotspawn</h2>
+    </div>
+    <div class="callout warn">
+      <p>Hotspawn's fixtures API returns <code>best_of: null</code> for <b>241</b> of the 241 scheduled
+      fixtures in this snapshot, so this dashboard renders <span class="mono">Bo —</span> rather than a number: an unverified
+      format is left blank per the project's no-inference rule. The rating model still has to assume something, and it treats an
+      unknown format as a <b>single-map series</b> (no best-of amplification), which is the neutral assumption. That assumption is
+      demonstrably wrong for at least one fixture: Leaguepedia's official
+      <a href="https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw" target="_blank" rel="noopener">Data:LCP/2027 Season/Promotion</a>
+      wikitext opens its FFA Round 1 MatchSchedule/Start block with the parameters
+      <code>tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion</code> for the fixture
+      <code>team1=FENNEL | team2=Nothin'Here</code>
+      on 2026-11-10 05:00 UTC —
+      Hotspawn card <a href="https://www.hotspawn.com/matches/fennel-vs-nothinhere-lcp-2027-promotion-1081421" target="_blank" rel="noopener">#1081421</a> (LCP 2027 Promotion), which this snapshot renders as <span class="mono">Bo —</span>:
+      a Bo5, not a Bo1. Format-sensitive probabilities for that fixture (and any other Leaguepedia Bo3/Bo5 card Hotspawn leaves null)
+      are therefore understated in amplitude, in this view and in the canonical one, until a verified format source is joined.</p>
+    </div>
 
     <div class="sec-head">
       <h2>1. Strict Independence from Hotspawn Signals</h2>
@@ -208,7 +249,7 @@
   </main>
   <footer class="site-footer">
     <div class="footer-inner">
-      <span>Independent quantitative companion for <a href="https://play.hotspawn.com/lol-pickems">Hotspawn LoL Pick'ems</a>.</span>
+      <span>Independent quantitative <b>companion</b> for <a href="https://play.hotspawn.com/lol-pickems">Hotspawn LoL Pick'ems</a>. The pick to submit is the one on the <a href="../index.html">canonical dashboard</a>; this view exists to audit it — every card here shows the canonical line beside its own.</span>
       <span><a href="unresolved.html">Unresolved &amp; Limitations</a> · <a href="flagged.html">Flagged for Review</a> · <a href="methodology.html">Methodology &amp; Calibration</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1">GitHub Source</a></span>
     </div>
   </footer>

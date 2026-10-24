@@ -2272,3 +2272,158 @@ PASS, unit tests OK. Ships as PR **#84** (merged 2026-10-24T17:12:44Z, merge com
 | Session state | closed; all claimed files released cleanly |
 
 
+## Task board (`session 9f16f9ad`) — S1 secondary/canonical reconciliation + S3 independent verification
+
+Claim re-posted after a hard reset (the original claim commit `9c0bce2` was dropped when this session
+rebuilt on `main`; `6669f798`'s board above is fully `done`, so `scripts/**` and `docs/**` were free).
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `S1` | **Make the two dashboards reconcilable**: identify `docs/` as the secondary view on every page, cross-link all `241` scheduled rows to the canonical pick they disagree with, publish the divergence ledger, and stop rendering a series format Hotspawn does not publish | done | `9f16f9ad` | `scripts/build_site.mjs`, `scripts/analyze.mjs`, `docs/**`, `docs/assets/style.css` |
+| `S3` | **Independent live source verification** of both published views (Hotspawn feed, Leaguepedia wikitext, Pinnacle moneyline re-read, cross-view arithmetic) | done | `9f16f9ad` | `audit/verify_docs_parity.py`, `audit/9f16f9ad/**`, `.github/workflows/verify-docs-parity.yml` |
+| `I_9f16f9ad` | **PR → `main`, merge without approval, GitHub Pages deploy confirmation** | in progress | `9f16f9ad` | `COORDINATION.md` |
+
+### Why this was needed (both findings are published, non-blocking)
+
+1. **Neither view said which one was authoritative.** One Pages domain serves the canonical dashboard
+   (repository root, `tools/` → `data/matches.json`) and this companion audit (`docs/`, `scripts/` →
+   `data/node/**`). They re-collect the same Hotspawn `status=scheduled` feed but fit their own ratings,
+   so at the snapshots committed on `main` (this view `16:49Z`, canonical `17:32Z`) they share `241`
+   fixtures, price `231` on both sides, name **opposite winners on 13**, mean `|Δp0| 2.34 pp`, max `28.0 pp`.
+   A reader on `docs/` could submit the wrong side of a coin flip. Every page now opens with a secondary-view banner linking the canonical hub,
+   every title says `Companion Audit (secondary view)`, every card and every one of the `241` table rows
+   carries the canonical pick, its probability, method, venue count and confidence plus a deep link to
+   `../picks.html#match-<id>` (all `241` anchors verified to exist), and the `33` rows that diverge by
+   `>= 5 pp` or pick the other side are marked `DIVERGES` / `OPPOSITE PICK` (plus `IN-PLAY QUOTES` where the
+   canonical quotes postdate kick-off) and listed on `docs/index.html#reconcile`, which works the largest gap
+   through from both snapshots. The largest **rating-driven** gap is `#1081421` (
+   canonical Nothin'Here `1753.7` (raw `1792.1`, `7` rated series) vs FENNEL `1685.4` (`30`) → `p0 0.403`;
+   this view FENNEL `1671`/`eff 1642.5` (`n=30`) vs Nothin'Here `1644.5`/`eff 1577.8` (`n=7`) → `p0 0.592`) —
+   two independent pre-kickoff Elo pools over different series sets with different thin-history shrinkage.
+   An audit finding, not a data error, and never averaged away.
+2. **Invented series format.** `scripts/analyze.mjs` published `best_of: 1` for every scheduled fixture,
+   rendering `Bo1` on cards, rows and the CSV, and feeding `mapProbToSeriesProb`. Hotspawn publishes
+   `best_of: null` and `series_format: null` for **all `241`** (re-read live: see receipt below). Official
+   counter-example: Leaguepedia `Data:LCP/2027 Season/Promotion?action=raw` opens its FFA Round 1 block with
+   `bestof=5` for `team1=FENNEL | team2=Nothin'Here`, `2026-11-10 14:00 KST` = `05:00 UTC` = Hotspawn
+   `#1081421` — a Bo5. Fix: published `best_of` stays `null` with a `best_of_source`, pages render `Bo —`,
+   the single-map model assumption is disclosed on `docs/methodology.html` §0.1, and a generated flag
+   `series-format-not-published` (severity `medium`, `kind: unverified-field-left-blank`) cites the wikitext.
+   Model inputs are deliberately untouched, so all `568` rows keep byte-identical `p0`/`p1`.
+
+### Verification receipts (`audit/9f16f9ad/live_verification.json`)
+
+- **A** Hotspawn fixtures API re-read live (`.../api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1`):
+  `"best_of": null`, `"series_format": null` on every fixture object checked (`#1053095`, `#1053096`,
+  `#1066214`, `#1053111`, `#1071584`, `#1070209`, `#1070210`, `#1069849`, `#1071167`, `#1071170`). Confirms
+  the `Bo1` irregularity was real. Also matches the committed `data/node/raw/hotspawn_lol_fixtures.json`.
+- **B** Leaguepedia `?action=raw` re-read live: Bo5 for LCP 2027 Promotion FFA Round 1 and for the Regional
+  Merit Match tab; kick-off `2026-11-10 14:00 KST` matches Hotspawn `#1081421` exactly.
+- **B2 (unresolved, not inferred)** the Regional Merit Match tab lists `team1=GZ | team2=FAK HK` at
+  `2026-11-11 18:00 KST` = Hotspawn `#1081423`'s kick-off, while Hotspawn names them `Ground Zero Gaming`
+  and `Frank Esports`. Same competition and time, different labels → logged as a probable alias and used to
+  change nothing. (Overlaps `6669f798`'s eGamersWorld `1.80/1.80` placeholder note on the same fixture.)
+- **C** Pinnacle series moneyline for `#1067688` (Worlds 2026 Main Event) re-read live at `~17:22Z`:
+  `+136 / -166`, `status open`, `limit 4500`, `version 3778506957`, no `(Kills)` derivative present.
+  De-vig re-derived here: implied `0.4237/0.6241`, overround `4.78%`, de-vigged `0.4044/0.5956`; the
+  committed `16:55:12Z` quote `2.51/1.56` de-vigs to `0.3833/0.6167` (overround `3.94%`). The `2.1 pp`
+  home-side difference is line movement between observations (the listed `17:00Z` kick-off had passed),
+  not a data error — the canonical 5-venue consensus `p0 0.3666` stands as captured.
+- **C2 (unresolved, not inferred)** Pinnacle's `cutoffAt` for that series market is `2026-10-24T21:12:31Z`
+  while Hotspawn lists `scheduled_start_time 17:00:00Z` / `lock_time 16:55Z`. Recorded as-is; Hotspawn's
+  clock governs pick submission. A cutoff may legitimately sit after the listed start, and this session did
+  not confirm why they differ by `4h12m`.
+- **D** cross-view divergence arithmetic recomputed from both committed snapshots (numbers above).
+
+### Gates run on this tree (all green, nothing merged broken)
+
+- `node scripts/build_site.mjs` → wrote `10` HTML pages.
+- `python3 audit/verify_docs_parity.py` → **ALL DOCS-PARITY CHECKS PASS** (new gate, `10` checks: title
+  separation, banner position, snapshot-derived reconciliation numbers, `241/241` canonical deep links with
+  live anchor validation, absent-fixture explanations, rendered canonical probabilities vs
+  `data/matches.json` within `0.0005`, divergence marking + ledger completeness, no unpublished series
+  format, link/fragment resolution including `../` into the root site, methodology documentation).
+  Negative-tested on purpose: corrupting one canonical deep link fails check 4, printing `Bo1` fails check 8.
+- `python3 audit/verify_docs.py` → **ALL DOCS CHECKS PASS** (`17/17`, owner `6669f798`, unmodified).
+- `python3 audit/check_site.py` → **`24` pages, `0` failures, `0` warnings**.
+- `python3 tools/verify.py` → **PASS** (`feed=241 dataset=241`, `29` tournaments, `0` look-ahead violations;
+  `data/verification.json` reverted so the canonical receipt stays owned by `tools/`).
+- `node scripts/analyze.mjs` was run offline once to prove the flag/`best_of` change is probability-neutral
+  (`p0` unchanged on all `568` rows, flags `17` → `18`), then `data/node/**` and `docs/data/**` were
+  reverted to the committed `16:49Z` snapshot: that script is time-dependent (stale crossings move
+  `active_open_locked 176 → 173`, `stale_scheduled 65 → 68`), so committing a local re-run would desync
+  data from HTML. `refresh-docs` regenerates both on `main` after the merge.
+
+### Cross-scope requests (logged, not edited — those files belong to other sessions)
+
+1. **Canonical hub → secondary view link** (`tools/site.py`, root `index.html`; owner of the canonical
+   mobile/UI work): the root executive summary has no link to `/docs/`, so the companion audit is only
+   reachable by URL. Requested: one clearly labelled link, e.g. *"Companion audit (secondary view) —
+   different model, same fixtures, published disagreements: `/docs/`"*. Direction `docs/ → root` already
+   exists on all `10` pages.
+2. **`data/flags_manual.json`** (curated canonical flags): please add the unpublished-series-format finding
+   with the Leaguepedia Bo5 counter-example, so the canonical view carries the same disclosure its own
+   `best_of: null` rows imply. Generated on `docs/` as `series-format-not-published`.
+3. **Shared format source**: if a verified series-format source is ever joined, both pipelines should read
+   the same one. The canonical dataset correctly leaves `best_of` null today; do not fill it from Hotspawn.
+4. **`#1083097` homonym and `#1079080` Kalshi alias** requests from `6669f798` are still open above and are
+   unaffected by this session's changes.
+
+### Handoff note
+
+`9c0bce2` (first claim) and `e2518fb` (first implementation) were abandoned when `6669f798`'s docs rewrite
+landed mid-task: rebasing generated HTML against a rewritten builder is not survivable, so this session
+reset to `origin/main` and re-implemented on the new builder, salvaging only the two brand-new files. No
+other session's work was discarded. Sessions picking up `scripts/build_site.mjs` should keep the canonical
+cross-reference module (`CANON_*`, `canonRowHtml`, `canonBanner`, `boLabel`) and re-run
+`audit/verify_docs_parity.py`; it fails loudly if any of it regresses.
+
+## Addendum — session `9f16f9ad` re-check after rebasing onto the `17:32Z` canonical refresh (`e7c3869`)
+
+`refresh-picks` landed `d58825e` mid-session, so every canonical number this view renders was recomputed
+from the new `data/matches.json` (nothing is hard-coded) and all four gates were re-run: `verify_docs.py`
+`17/17` · `verify_docs_parity.py` `10/10` · `check_site.py` `24` pages `0` failures · `tools/verify.py` PASS
+(`data/verification.json` reverted afterwards). Divergence at this snapshot: `231` rows priced on both sides,
+`13` opposite picks, `33` rows marked divergent, mean `|Δp0| 2.34 pp`, max `28.0 pp`.
+
+### New irregularity found while re-checking — **in-play market quotes published as pick probabilities** (high)
+
+The largest divergence flipped from `#1081421` (`18.9 pp`, ratings) to **`#1067688`** (Top Esports vs
+Anyone's Legend, Worlds 2026 Main Event, listed kick-off `17:00Z`, Hotspawn `lock_time 16:55Z`):
+
+| observation | source | first-listed side (Top Esports) |
+|---|---|---|
+| `16:49Z` (this view's snapshot) | Pinnacle `2.51/1.556`, Unibet/Kambi, Polymarket, Kalshi, Bovada — 5 venues | `35.4%` → pick **Anyone's Legend `64.6%`** |
+| `17:12–17:14Z` | canonical `data/matches.json` (PR #87 refresh) | `40.1%`, 4 venues |
+| `~17:22Z` | **live re-read by this session** of `guest.api.arcadia.pinnacle.com/.../matchups/1639121258/...` → `+136 / -166`, open, `version 3778506957` | de-vigged `40.4%` |
+| `17:30–17:32Z` | canonical `data/matches.json` (`d58825e`) — Polymarket `62.5¢` `17:31:53Z`, Kalshi `62¢` `17:30:43Z`, Unibet `1.38` `17:30:04Z` | `63.4%` → pick **Top Esports**, `method=market`, `confidence=high` |
+| `17:54Z` | **live re-read by this session** of `gamma-api.polymarket.com/events?slug=lol-tes-al-2026-10-24` → `outcomePrices ["0.9995","0.0005"]`, `gameStartTime 2026-10-24 17:05:00+00`, `updatedAt 17:54:38Z` | `99.95%` (series effectively decided) |
+
+**Verdict: not an inverted market and not a data error — a capture-time difference.** Polymarket's outcome
+array is `["Top Esports", "Anyone's Legend"]`, matching `team0`/`team1` on both sides, so neither pipeline
+reads the sides backwards. The fixture really started at `17:05Z`, therefore the canonical quotes observed at
+`17:30–17:32Z` are **in-play** prices captured **after** Hotspawn locked the card at `16:55Z`, while this
+view's `16:49Z` quotes are legitimate pre-lock pick-time prices. Both numbers answer different questions.
+
+In-scope action (this session): `docs/index.html` now computes post-kickoff quote capture on **both** sides
+from the committed snapshots — a new reconciliation row "Quotes after kick-off" (canonical `1` row, this view
+`0` rows), an `IN-PLAY QUOTES` tag on affected divergence-ledger rows, and the worked example explains capture
+time instead of asserting "two independently fitted pre-kickoff Elo pools" (which was true for `#1081421` and
+false for a market-vs-market row — corrected). Evidence: `audit/9f16f9ad/live_verification.json` check `E`.
+
+**Cross-scope request 5 (canonical `tools/` owner, high):** `data/matches.json` publishes `p0 0.6344`,
+`method=market`, `confidence=high` for `#1067688` from quotes observed after `lock_time`. Its existing flags
+("start time has passed but Hotspawn still lists the fixture as scheduled", "market and model disagree by
+23 pp") disclose the situation partially, but a reader can still quote `63.4%` as a pre-match probability and
+the pick is no longer actionable. Requested: treat `observed_utc > start_utc` as in-play — either keep the
+last pre-lock quote as the published pick probability or label the row `in-play` on the site.
+`tools/verify.py` already gates look-ahead for ratings (`no look-ahead: 0 violations`); it has no equivalent
+gate for market-quote capture time. **Not edited from this session** — `tools/**`, root `*.html` and
+`data/matches.json` are outside the claimed scope.
+
+**Cross-scope request 6 (format source lead, informational):** Polymarket's title for that event reads
+`LoL: Top Esports vs Anyone's Legend (BO1) - Worlds Group Stage`. A bookmaker's title is **not** an official
+format record and was **not** used to fill `best_of` anywhere (Hotspawn still publishes `best_of: null` for
+that card), but it shows a machine-readable third-party format label exists for some fixtures. If a format
+source is ever joined, it should be one shared source for both pipelines with a `best_of_source` column,
+preferring an official record (Leaguepedia wikitext `bestof=`) over bookmaker titles.
