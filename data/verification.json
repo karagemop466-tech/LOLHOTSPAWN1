@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:29:35Z",
+ "generated_utc": "2026-10-24T16:35:54Z",
  "checks": [
   {
    "name": "dataset present",
@@ -164,22 +164,22 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "0 usable receipts, 0 rejected, 0 diverging >8.0pp, 1 expired, 16 historic (not counted)"
+   "detail": "14 usable receipts, 0 rejected, 0 diverging >8.0pp, 1 expired, 16 historic (not counted)"
   },
   {
    "name": "corroboration ledger accounts for every receipt",
    "ok": true,
-   "detail": "receipts=18 = usable 0 + placeholder 1 + rejected 0 + expired 1 + historic 16"
+   "detail": "receipts=32 = usable 14 + placeholder 1 + rejected 0 + expired 1 + historic 16"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 45179 bytes"
+   "detail": "coverage.html 58203 bytes"
   },
   {
    "name": "external source research receipts are committed",
    "ok": true,
-   "detail": "44 venues probed on 2026-10-24T16:22:42Z; dossier present"
+   "detail": "44 venues probed on 2026-10-24T16:30:38Z; dossier present"
   },
   {
    "name": "coverage arithmetic reconciles to the inventory",
@@ -194,7 +194,7 @@
   {
    "name": "source availability recorded",
    "ok": true,
-   "detail": "10/14 sources reachable on this build"
+   "detail": "11/18 sources reachable on this build"
   },
   {
    "name": "every Hotspawn fixture is in the dataset (1:1 ids)",
@@ -223,6 +223,6 @@
   "provisional": 78,
   "market": 9
  },
- "internal_links": 446,
+ "internal_links": 450,
  "lookahead_violations": 0
 }

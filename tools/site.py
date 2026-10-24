@@ -129,6 +129,29 @@ def _external_ceiling() -> dict:
     }
 
 
+def _esportsbook_probe() -> dict:
+    """Result of the dedicated esportsbook/aggregator probe, read from its committed receipt.
+
+    Everything returned here is counted from `data/esportsbook_probe.json`; nothing is typed in by
+    hand, so the sentence on the site cannot drift away from the evidence file.
+    """
+    doc = load_json(os.path.join(DATA, "esportsbook_probe.json")) or {}
+    rows = doc.get("rows") or []
+    usable = [r for r in rows if r.get("usable")]
+    blocked = {r.get("slug"): r for r in rows if not r.get("usable")}
+    return {
+        "have": bool(rows),
+        "tested": len(rows),
+        "usable": len(usable),
+        "usable_names": [r.get("name") for r in usable],
+        "http_blocked": sum(1 for r in rows if isinstance(r.get("status"), int) and r["status"] in (401, 403, 429, 451)),
+        "html_only": sum(1 for r in rows if isinstance(r.get("status"), int) and r["status"] == 200 and not r.get("json")),
+        "checked": (doc.get("generated_utc") or "")[:16].replace("T", " "),
+        "run_id": (doc.get("runner") or {}).get("github_run_id") or "",
+        "blocked": blocked,
+    }
+
+
 def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
     nav_parts = []
     for href, label in NAV:
@@ -565,6 +588,41 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     venues_txt = ", ".join(venue_names) if venue_names else "no reachable book this build"
     originated_n = counts.get("model", 0) + len(provisional)
     ceiling = _external_ceiling()
+    probe = _esportsbook_probe()
+    # Describe only feeds that actually carried a listed-match price on this
+    # build; an HTTP 200 with an empty coupon is not a live price feed.
+    ceiling_parts = []
+    for label, key in (("Pinnacle", "pinnacle_priced"), ("Bovada", "bovada"),
+                       ("Unibet (Kambi)", "unibet")):
+        if ceiling[key]:
+            ceiling_parts.append(f'<strong>{label} {ceiling[key]} series</strong>')
+    if ceiling["kalshi"]:
+        ceiling_parts.append(f'<strong>Kalshi {ceiling["kalshi"]} contracts</strong>')
+    if ceiling["polymarket"]:
+        ceiling_parts.append(f'<strong>Polymarket {ceiling["polymarket"]} unsettled markets</strong>')
+    ceiling_txt = ", ".join(ceiling_parts) if ceiling_parts else "no venue quoted a listed match"
+    silent = [label for label, key in (("Bovada", "bovada"), ("Unibet (Kambi)", "unibet"),
+                                       ("Kalshi", "kalshi"), ("Polymarket", "polymarket"))
+              if not ceiling[key]]
+    silent_txt = (" Feeds that returned no LoL price on this build: " + ", ".join(silent) + "."
+                  if silent else "")
+    if probe["have"]:
+        other = probe["tested"] - probe["usable"] - probe["http_blocked"] - probe["html_only"]
+        probe_line = (
+            f'{probe["tested"]} further esportsbook and odds-aggregator endpoints were called from the '
+            f'build runner on {e(probe["checked"])} UTC: '
+            f'<strong>{probe["usable"]} returned a machine-readable LoL price</strong> '
+            f'({probe["http_blocked"]} blocked or key-gated, {probe["html_only"]} browser-only pages, '
+            f'{other} error or empty responses). Those leagues therefore keep the originated line rather '
+            'than a borrowed or invented quote.'
+        )
+        probe_link = (
+            '<a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; '
+            '<a href="sources.html">Sources</a>'
+        )
+    else:
+        probe_line = "No additional esportsbook probe receipt is committed for this build."
+        probe_link = '<a href="sources.html">Sources</a>'
     gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
 
     unres_rows = []
@@ -637,12 +695,12 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 <section class="panel" id="summary">
   <h2>Executive summary</h2>
   <ul class="bullets">
-    <li><strong>Where the picks are.</strong> On a phone, start at the
-    <a href="table.html">pick table</a> &mdash; one row per match with the pick, both win probabilities, the
-    method and the source links. <a href="picks.html">Card view</a> shows the same {total} matches with the
+    <li><strong>Where the picks are.</strong> On a phone, tap <a href="table.html"><strong>Picks</strong></a>
+    in the bar at the bottom of every page: one row per match with the pick, both win probabilities, the
+    method and source links. <a href="picks.html">Card view</a> shows the same {total} matches with the
     reasoning behind each line, and <a href="results.html">Results</a> grades the picks that have already
-    played. Every list is searchable and filterable by tournament and by method, and the same five links sit
-    in the bar at the bottom of every page.</li>
+    played. Every list is searchable and filterable by tournament and by method. Next kick-offs are under
+    <a href="#next">Next up</a>.</li>
     <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
     ({resolved_total/total*100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
     official forfeit winner with no probability claimed. Priced:
@@ -652,14 +710,11 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
     We probed <strong>{ceiling["probed"]} external venues</strong> from the build runner (established books,
     esportsbooks, exchanges, odds aggregators); {ceiling["answered"]} answered and {ceiling["json_feeds"]}
-    returned JSON, of which five are live match-price feeds. Every reachable venue quotes the same slice of
-    the calendar: <strong>Pinnacle {ceiling["pinnacle_priced"]} series</strong>,
-    <strong>Bovada {ceiling["bovada"]} series</strong>,
-    <strong>Unibet (Kambi) {ceiling["unibet"]} series</strong>,
-    <strong>Kalshi {ceiling["kalshi"]} contracts</strong> and
-    <strong>Polymarket {ceiling["polymarket"]} markets</strong> &mdash; overwhelmingly the same Worlds ties.
-    Below that ceiling no external line exists to quote, so we originate one from results.
-    Probe table and receipts: <a href="sources.html">Sources</a>.</li>
+    returned JSON. On this build the feeds that actually quoted a listed match were:
+    {ceiling_txt} &mdash; overwhelmingly the same Worlds 2026 ties.{silent_txt} Everything below that ceiling
+    has no external line to quote, so we originate it ourselves.
+    Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
+    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.</li>
     <li><strong>Unresolved picks &amp; limitations.</strong> {len(unresolved)} cards cannot carry a playable
     probability today; they are listed with their reason and source in the section below and in full on
     <a href="unresolved.html">Unresolved &amp; limitations</a>. Nothing is padded with a guessed number.</li>
@@ -688,6 +743,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><strong>No market on national and academy divisions.</strong> {total - len(featured)} of {total}
     matches are not priced by any book reachable from the runner; their lines come from recorded series
     history rather than an aggregator placeholder.</li>
+    <li><strong>What we tried for the low-tier tail.</strong> {probe_line} {probe_link}.</li>
     <li><strong>Thin samples.</strong> {len(provisional)} lines are labelled <em>provisional</em> because at
     least one side has fewer than five rated series in the 25-month window.</li>
     <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining

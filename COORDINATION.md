@@ -15,7 +15,49 @@ before touching shared files, claim a task, and keep your scope disjoint.
 | Refresh | `.github/workflows/refresh.yml`, cron `17 */6 * * *` (every 6 h, inside the 4–8 h brief) |
 | Gate | `tools/verify.py` fails the build instead of publishing bad data |
 | Integration session | `b166e06b` |
-| Current session | `64554333` (branch `arena/64554333-lolhotspawn1`) |
+| Current session | `1a1a3b1b` (branch `arena/1a1a3b1b-lolhotspawn1`) |
+
+## Session `1a1a3b1b` — claim (opened 2026-10-24T16:15Z) — done 2026-10-24T16:27Z
+
+Handoff note: open PRs #22/#26/#35/#36/#40/#56 last committed 2026-10-23 ~15:44–16:26Z (>20 h, no subsequent commits). Per protocol a claim older than 60 minutes with no commits may be taken over. This session did **not** edit those PRs.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|-----------|
+| S1 | Unblock `refresh-picks` (4 consecutive scheduled failures since 2026-10-23T17:13Z). | done | 1a1a3b1b | `.github/workflows/refresh.yml`, `tools/verify.py`, `tools/collect.py` |
+| S2 | Live Hotspawn LoL inventory + external lines for **every** listed match. Extra esportsbook probes (not Rivalry). Originate remaining. Unresolved + limitations in the exec summary. | done | 1a1a3b1b | `tools/collect.py`, `tools/flags.py`, `tools/site.py`, `data/*`, root `*.html` |
+| S3 | Mobile-first exec summary; phone Picks tab = compact table. Fix leftover README merge markers. | done | 1a1a3b1b | `tools/site.py`, `assets/style.css`, `README.md` |
+| S4 | PR → `main`, merge, confirm Pages. | in progress | 1a1a3b1b | — |
+
+### What was broken
+
+`refresh-picks` runs 40026767003, 40063260000, 40088464687, 40109474033 all failed at "Run pipeline" after ~2 min. Last good snapshot: 2026-10-23T17:13Z. The live lobby had already rolled Worlds Swiss to 24 Oct cards (`#1067688` TES vs AL, …) while the site still showed 23 Oct (`#1067878` GEN vs IG).
+
+Cause: `tools/verify.py` treated corroboration receipts whose fixture_id had rolled off Hotspawn as `rejected`, and `not bad_receipts` was a publish blocker. A successful collect of the new 241-row feed therefore never committed. Confirmed on the rebuilt snapshot: **16 stale unmatched receipts, 0 malformed** — previously fatal, now flagged.
+
+### Live rebuild (runner collect 40111307318 + local model)
+
+| Item | Value | Source |
+|---|---|---|
+| Hotspawn inventory | 241 fixtures, 29 tournaments, fetched 2026-10-24T16:23:12Z | `data/raw/hotspawn_lol.json` · [lobby](https://play.hotspawn.com/lol-pickems) |
+| Picks | 241/241 (237 priced + 4 Solid Gaming forfeit settlements) | `data/matches.json` |
+| Market | 9 (8 Worlds 2026 Swiss + 1 LGC Rising) | Pinnacle 8, Unibet/Kambi ubse 8, Kalshi 9, Polymarket 45 match markets, Bovada 0 (geo-empty) |
+| Originated | 150 model + 78 provisional | Leaguepedia Cargo 34,664 series, 11 `dqteams` pages |
+| Unresolved | 4 Komplettligaen Solid Gaming walkovers, no invented probability | [Data:Komplettligaen/2026 Season/Autumn Split](https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split) |
+| New vs 23 Oct snapshot | +Logitech G SuperStrike Cup Qualifier (4), +Komplettligaen Autumn Playoffs (3), 4 Nations 1→5; PRM 2nd 40→36, RIVALS 28→25 | live API vs previous `matches.json` |
+| Extra book probes | Thunderpick 403, Tips.GG 403, Midnite 200 HTML, OddsPortal Worlds 200, Kambi leovegas/888sport 400, nordicbet 429, coolbet 0 new | `data/build-collect.log` |
+| OddsPortal LoL index 2026-10-24 | still **only** World Championship (11) — no national division coupon | [oddsportal LoL](https://www.oddsportal.com/esports/league-of-legends/) |
+| Gate | 41/41 PASS; 14/14 unit tests PASS | `data/verification.json` |
+| Corroboration | 15 usable agree / 0 diverge / 16 unmatched (non-blocking) | `data/corroboration.json` · receipts `data/receipts/external_odds/2026-10-24.json` |
+
+### Irregularities (non-blocking, on Flagged for review)
+
+- Extra Kambi operators (`leovegas`, `888sport`) return HTTP 400 "Unable to resolve customer"; `nordicbet` 429; `coolbet` 200 with 0 LoL events. Structural ceiling unchanged: reachable books still only price Worlds (+ LGC Rising on Polymarket).
+- Bovada coupon HTTP 200 with 0 moneylines from the runner (geo-filter); no <12h upcoming quotes remained to preserve.
+- Thunderpick / Tips.GG 403 from the runner; Midnite 200 HTML SPA, not parsed.
+- 78 provisional lines (thin history), including all 4 Logitech G SuperStrike Cup Qualifier cards.
+- 4 Solid Gaming cards remain settlement-only.
+
+Mobile: bottom bar **Picks** now opens `table.html` (one row per match). Exec summary tells a phone user to tap that tab. README merge markers removed.
 
 ## Session `cc8c7362` — refresh repair and final integration (opened 2026-10-24T16:17Z)
 
@@ -27,14 +69,36 @@ session's own appended board records in `COORDINATION.md`.
 | # | Task | Status | Owner | File scope |
 |---|------|--------|-------|------------|
 | R1 | Diagnose and repair the failed canonical 6-hour refresh; preserve source evidence and fail closed on unverified data | done | cc8c7362 | `.github/workflows/refresh.yml`, `tools/collect.py`, `tools/common.py`, `tools/corroborate.py` (stale-claim takeover from `294e62ad`, inactive >60 min), `tests/test_corroboration.py`, new refresh-specific evidence only |
-| R2 | Produce and independently verify a current full-inventory build; confirm every listed LoL fixture has a priced/model/settlement pick or an explicit limitation | in progress | cc8c7362 | canonical `data/` outputs (excluding `data/node/**`), generated root `*.html`, `assets/**`, `tools/model.py`, `tools/site.py`, `tools/verify.py` only if a verified defect requires it |
-| R3 | Final integration, PR to `main`, merge, and GitHub Pages deployment verification | unclaimed | cc8c7362 | this session record in `COORDINATION.md`; no `README.md` edits |
+| R2 | Produce and independently verify a current full-inventory build; confirm every listed LoL fixture has a priced/model/settlement pick or an explicit limitation | done | cc8c7362 | canonical `data/` outputs (excluding `data/node/**`), generated root `*.html`, `assets/**`, `tools/model.py`, `tools/site.py`, `tools/verify.py` only if a verified defect requires it |
+| R3 | Final integration, PR to `main`, merge, and GitHub Pages deployment verification | in progress | cc8c7362 | this session record in `COORDINATION.md`; no `README.md` edits |
 
 R1 evidence: branch run [40111491764](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40111491764)
 passed at 2026-10-24T16:28Z and committed `2462d32`. The four production failures were caused by 16
 receipts for departed scheduled fixtures being classified as current-match validation failures. They are
 now retained in a separate archived/stale ledger and never enter pricing. Listed-fixture team mismatches,
-malformed receipts and divergent lines still fail verification; 17 unit tests pass.
+malformed receipts and divergent lines still fail verification; the initial repaired branch passed 17 focused unit tests.
+
+R2/R3 integration evidence: this session locally integrated PR #71 (`80c624cd` results/mobile work) and
+then merged `origin/main` at `73dab0b`. Conflicts affected the refresh workflow, receipt verification,
+landing-page source wording, generated data/HTML and this file. The resolution retains the integrated
+usable/expired/historic/rejected receipt taxonomy and result grading, restores `main`'s latest raw source
+captures plus `data/receipts/external_odds/2026-10-24.json`, incorporates `main`'s measured esportsbook
+probe explanation, and unions every coordination record. No side's generated snapshot was chosen over the
+other: all outputs were rebuilt from the merged source. A blank/missing receipt fixture ID is malformed,
+not historic, with a focused regression test.
+
+The merged snapshot was generated at `2026-10-24T16:35:53Z` from inventory fetched at `16:29:28Z`:
+241/241 fixtures across 29 competitions, 9 market + 150 model + 78 provisional + 4 settlement-only picks;
+39 graded results (23 hits, 16 misses), kept separate from forecast probabilities. All 32 external
+captures are accounted for: 14 usable (all agree), 1 expired, 16 historic, 1 informational placeholder,
+0 rejected and 0 divergent. Verification: **45/45 unit tests**, **42/42 publish gates**, independent
+probability/source audit PASS, site audit **21 pages / 0 failures / 0 warnings**, independent row/venue
+audit **0 failures / 0 warnings** across 41 checked venues, and jsdom mobile/search/filter PASS. The
+independent publication audit has one documented low-severity warning: LGC fixture `1079080` has one thin
+Polymarket venue whose published raw weight is 0.24; its probability is correctly normalised and the
+weight irregularity is published on `flagged.html`. Branch-only diagnostics were not retained in the
+integration; failure artifacts retain `data/build.log`, `data/verification.json` and
+`data/sources_status.json` for seven days under a run-specific name.
 
 ## Session `64554333` — claim (opened 2026-10-23T15:40Z)
 
@@ -1479,3 +1543,47 @@ gate failing on the passage of time. It is a *request-and-apply*: the diff is co
 (26 lines), the merged `verify.py` now contains both that gate and `80c624cd`'s newer gates, and nothing
 of theirs was reverted. If `80c624cd` prefers a different taxonomy, only the assertion name and the
 `delisted_refs_auto` lookup need to change.
+### `ada2798c` — PR, merge and deploy record (2026-10-24T16:33Z)
+
+| Item | Value |
+|---|---|
+| Pull request | **#65** — <https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/65> |
+| Merge | merged without waiting for review at **2026-10-24T16:25:38Z**, merge commit `da872e9` (the branch was rebased onto `main` @ `66c15fd` and then merged `origin/main` once more; the only conflict was `COORDINATION.md`, resolved as a **union** with session `0ae1366a`'s record kept verbatim) |
+| Content | `research/ada2798c/EXTERNAL_LINES.md`, `audit/ada2798c/**` (probes, receipts, independent page verification), `tests/test_corroborate_offlist.py`, `.github/workflows/ada2798c-research.yml` (branch-guarded). **No probability, pick or published page changed** |
+| Gates on the merged tree | `tools/verify.py` PASS · `unittest` 25/25 · `audit/check_site.py` 20 pages / 0 failures · `audit/verify_independent.py` 241 rows / 33 venues / 0 failures · `audit/ada2798c/verify_published.py` 14/14 |
+| Pages | `gh api …/pages` → `status: built`; live homepage re-fetched at 16:33Z shows **Data snapshot 2026-10-24 16:21 UTC**, "Hotspawn inventory is 2m old", the six one-tap picks links, the *Next up* strip and the *Unresolved picks and the limitations (4)* section |
+| Refresh health | the canonical 6-hourly `refresh-picks` **succeeded** on `main` at 16:23Z (run `40110996859`) and committed `42cb155`; the four-run outage is over |
+
+**Findings that survive the merge and should drive the next round** (details in
+`research/ada2798c/EXTERNAL_LINES.md`):
+
+1. The measured ceiling for a bookmaker-backed probability on this list is **8 of 241 fixtures
+   (3.3 %), all Worlds**; Pinnacle's entire LoL offer is one league (World Championship, id 9587).
+   The regional/academy tail must stay on the originated line — that is a market fact, not a
+   scraping failure.
+2. `paf` and `ubse` are the same Kambi feed with identical prices: they corroborate each other but
+   are **not** two independent venues.
+3. **77 of the 241 listed fixtures had already kicked off** and remain `status=scheduled` on
+   Hotspawn. The site mirrors Hotspawn exactly and marks them; the share of the list that is
+   genuinely *upcoming* is 164, which is the number a reader should compare the market ceiling to.
+4. `Bovada 0 series` on the 16:21Z build is a geo-filter of the runner, not an absence of markets;
+   the collector retries it every build and `sources.html` records the verdict.
+| PR #68 (this record) | merged **2026-10-24T16:36Z**, merge commit `fb40fed`; `pages-build-deployment` run `40111683564` **success**, `gh api …/pages` → `status: built`. Live `index.html` re-fetched: snapshot 16:21 UTC, inventory 2 min old, six one-tap picks links, *Next up* strip, *Unresolved picks and the limitations (4)*. Live `table.html` re-fetched: 241 rows, both probabilities, pick, method, Hotspawn + venue + results link on every row, `Upcoming only 164` filter present |
+
+
+### R5 — pull request and deploy record (session `0ae1366a`)
+
+| Item | Value |
+|---|---|
+| Pull request | **#64** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/64 |
+| Merge | merged without waiting for review at **2026-10-24T16:25:06Z**, merge commit `39117070deb7f597f21c57e24a8b6f6a6ce5bee2` |
+| Basis | branch merged `origin/main` three times during the session (PRs #60–#63, #65, #68); every `COORDINATION.md` conflict resolved as a union with nothing dropped, and every generated-file conflict resolved by taking the publisher's file and rebuilding locally |
+| Recovery publisher run | `40110996859` **success** (2026-10-24T16:19Z) → commit `42cb155`, inventory `2026-10-24T16:19:35Z`, the first green canonical refresh since `2026-10-23T17:11Z` |
+| Post-merge publisher runs | `40111371041` success → `245e927` (snapshot `2026-10-24T16:26:09Z`, inventory `16:24:05Z`, 241 matches / 29 tournaments / 9 market / 150 model / 78 provisional / 4 unresolved); `40111491764` on another session's branch also succeeded |
+| GitHub Pages | `pages-build-deployment` runs `40111508569`, `40111557405`, `4011159…` (commit `fb40fed`) all **success**; `gh api …/pages` → `status: built` |
+| Live verification (fetched 2026-10-24T16:30Z with a cache-buster) | `…/LOLHOTSPAWN1/` shows *Data snapshot 2026-10-24 16:26 UTC · inventory 5m old*, the **Executive summary directly under the hero** with the six-button jump row (pick table 241 · card view · market-backed 9 · originated 228 · unresolved & limits 4 · flagged), the coverage line *241 of 241 carry a pick (237 priced + 4 settlement)*, the new *Extra sources tried for the low-tier tail* bullet linking `data/esportsbook_probe.json`, and the unresolved block naming the four walkover-settled cards with Hotspawn + Leaguepedia links |
+| Live discrepancy found and fixed | the template said *"of which five are live match-price feeds"* while Bovada quoted **0** series on the 16:26 build. `build_index()` now lists only feeds that actually quoted a matched fixture and names the silent ones separately (follow-up PR); no probability changed |
+| Flagged irregularities carried forward (non-blocking) | publisher outage + receipt classification (curated flag + `data/diag/refresh_diag.json`), 17 esportsbook endpoints with no machine-readable LoL price, four settlement-only cards, Pinnacle receipt 401-from-datacenter behaviour |
+
+**Session `0ae1366a` closed.** No hard-coded site number was introduced: every count on the touched
+pages is computed from `data/matches.json`, `data/sources_status.json` or `data/esportsbook_probe.json`.
