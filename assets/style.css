@@ -254,3 +254,11 @@ tr:last-child td{border-bottom:0}
   .nextrow .nt strong{font-size:15px}
   .nextrow .np{font-size:19px}
 }
+
+/* e32a5c4b E3: phone ergonomics - 48px tap targets, readable pick rows,
+   no horizontal scroll from long competition/team names */
+@media(max-width:700px){
+  .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+  .nextrow .nm{white-space:normal;overflow:visible;text-overflow:clip}
+  details.why summary{min-height:44px;display:flex;align-items:center}
+}

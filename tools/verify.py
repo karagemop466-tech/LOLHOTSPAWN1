@@ -235,6 +235,20 @@ def main() -> None:
     add("executive summary carries coverage, unresolved section and a where-to-find-picks block",
         not missing_markers, f"missing: {missing_markers}")
 
+    # Phone-first entry points (e32a5c4b E3): a starting-soon list on the landing
+    # page and a per-competition fallback ledger incl. Hotspawn's forfeit-void rule.
+    unres_html = open(os.path.join(DOCS, "unresolved.html"), encoding="utf-8").read() \
+        if os.path.exists(os.path.join(DOCS, "unresolved.html")) else ""
+    e3_missing = []
+    if "Starting soon" not in index_html or 'id="soon"' not in index_html:
+        e3_missing.append("index starting-soon list")
+    if "Fallback by competition" not in unres_html:
+        e3_missing.append("unresolved fallback ledger")
+    if "how-it-works" not in unres_html or "how-it-works" not in index_html:
+        e3_missing.append("Hotspawn forfeit-void rule link")
+    add("starting-soon phone list and fallback ledger rendered", not e3_missing,
+        f"missing: {e3_missing}")
+
     # Mobile usability: a persistent nav bar and a wired-up menu button on every page.
     mob_missing = []
     for page in pages:

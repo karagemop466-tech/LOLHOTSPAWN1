@@ -14,7 +14,7 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 
 | Page | Contents |
 | --- | --- |
-| `index.html` | Executive summary, headline counts, in-site links to every list and a dedicated *Unresolved picks & limitations* section |
+| `index.html` | Executive summary: *Starting soon* (next-48h picks, soonest first) at the top, headline counts, in-site links to every list, featured market picks, and a dedicated *Unresolved picks & limitations* section with the per-competition fallback ledger |
 | `table.html` | **All matches in one responsive table** — kick-off, match, both win probabilities, pick, method and source links (the page to bookmark on a phone) |
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
 | `featured.html` | Matches with a real bookmaker price, the raw odds and the de-vig arithmetic |
@@ -143,6 +143,8 @@ chips that filter instantly client-side with no page reload.
 ```bash
 python3 tools/collect.py && python3 tools/model.py && python3 tools/report.py \
   && python3 tools/flags.py && python3 tools/site.py && python3 tools/verify.py
+# research-only: does any book list the low-tier tail? (runner receipts, never prices a match)
+python3 tools/probe_lowtier.py   # -> data/probe/lowtier_<date>.json; memo: research/low-tier-sources-2026-10-24.md
 ```
 
 The collector needs outbound HTTPS to the sources listed on `sources.html`; the rest runs offline on

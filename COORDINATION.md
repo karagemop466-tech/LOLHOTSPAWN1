@@ -34,10 +34,44 @@ for the owner. In particular PR #56 (Rivalry venue, `4106ce94`) touches `tools/c
 
 | # | Task | Status | Owner | File scope |
 |---|------|--------|-------|-----------|
-| E1 | Diagnose + fix the failing scheduled refresh so the 6 h auto-refresh publishes again (runner diagnostic committed back as evidence) | in progress | e32a5c4b | `tools/collect.py`, `tools/model.py`, `tools/verify.py`, `tools/flags.py`, `.github/workflows/diag-refresh-e32a.yml` (new), `data/diag/` (new) |
-| E2 | Fresh line-source research for every non-featured (non-market) competition: established books → esportsbooks → aggregators/exchanges, with runner receipts and a per-competition fallback ledger (what was tried, why no line, what guides the pick instead) | in progress | e32a5c4b | `tools/probe_lowtier.py` (new), `.github/workflows/probe-lowtier.yml` (new), `research/low-tier-sources-2026-10-24.md` (new), `data/probe/lowtier_*.json` (new), `data/line_source_research.json` |
-| E3 | Phone-first executive summary: "starting soon" big-tap pick list at the top of `index.html`, one-tap links to every picks view, expanded unresolved+limitations section with the E2 fallback table; 390 px no-horizontal-scroll audit | unclaimed→e32a5c4b | e32a5c4b | `tools/site.py`, `assets/style.css`, `assets/app.js`, generated root `*.html` |
-| E4 | Line-by-line verification, PR → `main`, merge, confirm Pages deploy + post-merge refresh success | unclaimed→e32a5c4b | e32a5c4b | — |
+| E1 | Diagnose + fix the failing scheduled refresh so the 6 h auto-refresh publishes again (runner diagnostic committed back as evidence) | done | e32a5c4b | `tools/model.py` (basis text only), `tools/verify.py`, `.github/workflows/diag-refresh-e32a.yml` (new), `data/diag/` (new) |
+| E2 | Fresh line-source research for every non-featured (non-market) competition: established books → esportsbooks → aggregators/exchanges, with runner receipts and a per-competition fallback ledger (what was tried, why no line, what guides the pick instead) | done | e32a5c4b | `tools/probe_lowtier.py` (new), `.github/workflows/probe-lowtier.yml` (new), `research/low-tier-sources-2026-10-24.md` (new), `data/probe/lowtier_20261024.json`, `data/line_source_research.json`, `data/flags_manual.json` |
+| E3 | Phone-first executive summary: "Starting soon" next-48 h pick list at the top of `index.html`, featured-market cards (de-duplicated), unresolved+limitations section with the E2 fallback ledger + official forfeit-void rule; 48 px tap targets | done | e32a5c4b | `tools/site.py`, `assets/style.css`, generated root `*.html`, `README.md` |
+| E4 | Line-by-line verification, PR → `main`, merge, confirm Pages deploy + post-merge refresh success | in progress | e32a5c4b | — |
+
+### Completion record (2026-10-24, session `e32a5c4b`)
+
+- **E1 root cause (independently reproduced).** Staged runner diagnostic (`data/diag/diag.log`,
+  run `40111246710`) on pre-fix code: every stage exits 0 until `verify`, which failed exactly one
+  check — *external receipts validated* (`1 usable, 16 rejected`): 2026-10-23 manual EGamersWorld
+  receipts for kicked-off Worlds fixtures aged into `rejected` and blocked every scheduled refresh
+  (`40063260000`, `40088464687`, `40109474033`). The fix (classify off-list receipts as historical)
+  landed meanwhile via PR #62 (`0ab57dc` + `tests/test_corroborate_history.py`); merged into this
+  branch, re-verified locally on fresh data (`1 usable / 0 rejected / 16 historical`). Main
+  `refresh-picks` is green again (auto-commit `42cb155`, data 2026-10-24T16:21Z: 241 = 9 market +
+  150 originated + 78 provisional + 4 settlements). Diag workflow kept (now also triggers on
+  `site.py`/`corroborate.py`); delete after a week of green scheduled runs.
+- **E2 finding.** 51-venue probe vs the live 241-fixture inventory (`data/probe/lowtier_20261024.json`):
+  only Worlds (5 venues) + LGC Rising (Polymarket) appear anywhere; **27/29 competitions appear in
+  no venue payload**. 200-shells (Bwin, Rivalry, BC.GAME, …) expose no JSON price feed; 403 walls
+  (GG.BET, Thunderpick, Stake, EGamersWorld, …) cannot power automation. Per-competition fallback
+  ledger: `research/low-tier-sources-2026-10-24.md` + rendered at `unresolved.html#fallback` and in
+  the index unresolved section. Keyed APIs (OddsPapi/PandaScore/Betfair) flagged as owner-credential
+  options; TonyBet/BetOnline + in-browser coupons logged as unprobed limitations. No pick changed.
+- **Official-rule correction.** Hotspawn voids forfeited-match predictions
+  (<https://play.hotspawn.com/how-it-works>): the 4 Solid Gaming settlement picks are now labelled
+  *expected void (0 pts either way)* everywhere (`site.py` copy + `model.py` basis/resolution text +
+  curated flag). Pick lock (5 min before start) cited on the Starting-soon list.
+- **E3.** Index now opens with *Starting soon — next 48 hours* (39 matches at build, first 15
+  soonest-first, big pick %), duplicate "Next upcoming picks" cards replaced by *Featured market
+  picks*, exec summary gained a low-tier-tail bullet linking `#fallback` + the memo, fallback ledger
+  embedded (expandable) in the index unresolved section; 48 px mobile tap targets. New publish gate
+  (42nd check) asserts all three renders.
+- **Verification (all green, fresh data).** `verify.py` 42/42 PASS · `unittest` 18/18 ·
+  `audit/check_site.py` 20 pages 0 failures · `audit/verify_independent.py` 0 failures ·
+  `audit/verify_docs.py` PASS · `research/audit.py` PASS · `tests/dashboard.cjs` PASS (jsdom via
+  `NODE_PATH`). Flagged (non-blocking, on Flagged page): forfeit-void expectation, 27-competition
+  no-line finding, superseded open PRs #22/#26/#35/#36/#40/#56 for the owner to close/keep.
 
 Rule (unchanged): Hotspawn crowd percentages are never a probability input; an unconfirmable
 value stays blank and is flagged; every published row keeps a source link.

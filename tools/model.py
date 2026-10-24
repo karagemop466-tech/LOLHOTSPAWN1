@@ -869,8 +869,9 @@ def main() -> None:
                 forfeit_note = (f"Leaguepedia records no series between these teams on this date. ")
             basis = (f"Participant removed mid-split: community-maintained Leaguepedia Data:{page} records "
                      f"'dqteams={removed}'. " + forfeit_note +
-                     f"Hotspawn may void this card or settle the walkover for opponent {active_opp}; the "
-                     f"settlement is unverified, so no competitive probability is claimed.")
+                     f"Hotspawn's published rule voids all predictions on a forfeited match "
+                     f"(play.hotspawn.com/how-it-works), so expect 0 points either way; if graded as a "
+                     f"walkover instead, the winner is {active_opp}. No competitive probability is claimed.")
             flags.append(f"Leaguepedia-reported league removal: {removed} listed in Data:{page} dqteams "
                          f"(if not voided by Hotspawn, active opponent is {active_opp})")
             resolution = {
@@ -878,8 +879,9 @@ def main() -> None:
                 "winner": active_opp,
                 "loser": removed,
                 "note": (f"Leaguepedia records every remaining {removed} fixture as a 0-2 forfeit "
-                         f"(ff flag), so the official settlement pick is {active_opp}. Use only if "
-                         f"Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick."),
+                         f"(ff flag), so the official settlement pick is {active_opp}. Hotspawn's "
+                         f"published rule voids forfeited-match predictions (0 points either way); "
+                         f"the pick matters only if Hotspawn grades a walkover instead."),
                 "source": f"https://lol.fandom.com/wiki/Data:{page.replace(' ', '_')}",
             }
         elif market:

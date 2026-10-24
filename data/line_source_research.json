@@ -89,6 +89,22 @@
    "result": "HTTP 200; each prices only the tier-1 series it lists (Worlds, LCP Promotion, LGC Rising).",
    "verdict": "used where they price; no regional coverage",
    "evidence": "data/sources_status.json"
+  },
+  {
+   "name": "51-venue low-tier probe (2026-10-24, session e32a5c4b)",
+   "url": "tools/probe_lowtier.py",
+   "purpose": "does ANY established book / esportsbook / exchange / aggregator list the 27 non-featured Hotspawn competitions?",
+   "result": "HTTP 200 Hotspawn inventory (241 fixtures, 29 competitions). Only Worlds (5 venues) and LGC Rising (Polymarket) matched. 17x200 (mostly HTML shells with zero tail fixtures), 18x403, 6x404, 2x429 Kambi alt-operators. 888sport/Rivalry word hits are generic-word false positives; Pinnacle lists a PRM team name but prices no PRM series moneyline.",
+   "verdict": "no usable low-tier line anywhere reachable; originated/provisional/settlement fallback is the only honest resolution",
+   "evidence": "data/probe/lowtier_20261024.json; research/low-tier-sources-2026-10-24.md"
+  },
+  {
+   "name": "Hotspawn Pick'ems rules (official)",
+   "url": "https://play.hotspawn.com/how-it-works",
+   "purpose": "pick lock time + forfeited/cancelled match settlement",
+   "result": "Picks lock 5 minutes before scheduled start. Forfeited match: all predictions voided, no points awarded or deducted. Cancelled match: predictions cancelled, no points.",
+   "verdict": "official settlement authority for the 4 Solid Gaming cards: expected VOID; settlement pick shown is conditional on walkover grading",
+   "evidence": "fetched live 2026-10-24; cited on index.html + unresolved.html"
   }
  ]
 }
