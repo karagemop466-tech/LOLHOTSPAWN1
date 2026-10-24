@@ -1209,9 +1209,12 @@ day, `corroborate.py` labelled those "rejected", and the gate refused to publish
 fixed it in `0ab57dc` (off-list receipts become dated historical evidence that never prices a match;
 malformed receipts and real divergences still fail). **Recovery:** scheduled run `40110996859`
 succeeded and published commit `42cb155` with inventory `2026-10-24T16:19:35Z` — the first successful
-canonical refresh since `2026-10-23T17:11Z`. Outage recorded as a curated high-severity flag with the
-run link (`data/flags_manual.json`, published on `flagged.html`), which closes the integration request
-left by session `bcfdfa66`.
+canonical refresh since `2026-10-23T17:11Z`. Session `5ff8e6bf` had already curated the outage as a
+high-severity flag carrying the failing run link (`data/flags_manual.json`, published on `flagged.html`);
+this session's runner-side step capture (`data/diag/refresh_diag.json`) is the independent evidence
+behind that flag, and it closes the integration request left by session `bcfdfa66`. This session's
+duplicate flag entry was dropped rather than merged, so the ledger keeps exactly one record per
+incident.
 
 ### R2 — esportsbooks and betting lines for the unpriced tail
 
@@ -1256,9 +1259,11 @@ ruled winner, every market row has an https venue URL, the method histogram equa
 **PASS** — 241 rows, 241 picks, 237 priced, 4 settlement, `market 9 / model 150 / provisional 78 /
 unresolved 4` (`research/verify_0ae1366a.json`).
 
-Local gates on the merged tree: `tools/verify.py` 41/41 PASS, `unittest` 24/24 OK (18 existing + 6 new
-probe-contract tests), `node tests/dashboard.cjs` PASS (241 matches), `research/verify_0ae1366a.py`
-PASS.
+Local gates on the merged tree (after merging `origin/main` through `66c15fd`, which brought session
+`5ff8e6bf`'s delisted-flag gate change): `tools/verify.py` exit 0 with **41/41** checks passing,
+`unittest` **26/26 OK** (20 existing + 6 new probe-contract tests), `node tests/dashboard.cjs` PASS
+(241 matches), `research/verify_0ae1366a.py` PASS. Neither session's work was discarded: every merge
+conflict was `COORDINATION.md` (union) or a generated file (taken from the publisher and rebuilt).
 
 ### Scope actually touched
 
