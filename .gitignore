@@ -9,5 +9,7 @@ research/raw/
 
 # session 0ae1366a probe raw previews are bounded evidence, keep them
 !data/probe/esportsbook_raw/
+
+# local test dependencies (tests/dashboard.cjs needs jsdom; installed with npm install --no-save jsdom)
 node_modules/
 package-lock.json

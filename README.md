@@ -16,6 +16,7 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 | --- | --- |
 | `index.html` | Executive summary: *Starting soon* (next-48h picks, soonest first) at the top, headline counts, in-site links to every list, featured market picks, and a dedicated *Unresolved picks & limitations* section with the per-competition fallback ledger |
 | `table.html` | **All matches in one responsive table** — kick-off, match, both win probabilities, pick, method and source links (the page to bookmark on a phone) |
+| `results.html` | **The scoreboard** — every pick that has kicked off, graded HIT/MISS against the official series record; nothing is graded by assumption |
 | `results.html` | **Track record** — every started card graded hit/miss against the official series record, accuracy by method, forfeit settlements, and the started-but-ungraded list |
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
 | `featured.html` | Matches with a real bookmaker price, the raw odds and the de-vig arithmetic |
