@@ -1,114 +1,217 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1020">
-<meta name="description" content="How probabilities are produced, verified and refreshed.">
-<title>Methodology &amp; Sources — LoL Hotspawn</title>
-<link rel="stylesheet" href="assets/style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Ctext%20y%3D'.9em'%20font-size%3D'90'%3E%F0%9F%8E%AF%3C%2Ftext%3E%3C%2Fsvg%3E">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Methodology &amp; Calibration — LoL Hotspawn Pick'em Companion Audit</title>
+  <meta name="description" content="Mathematical specification, 22,372-series walk-forward calibration curve, and external venue audit.">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="top"><div class="top-in">
-  <a class="brand" href="index.html"><span class="logo">🎯</span> LoL Hotspawn Picks</a>
-  <nav class="main"><a href="index.html" class="">📊 Summary</a><a href="picks.html" class="">✅ Picks</a><a href="unresolved.html" class="">⚠️ Unresolved</a><a href="flagged.html" class="">🚩 Flagged</a><a href="results.html" class="">📈 Results</a><a href="tournaments.html" class="">🏆 Tournaments</a><a href="methodology.html" class="active">📖 Method</a></nav>
-</div></header>
-<main class="wrap">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Hotspawn LoL Pick'ems · Audit Suite</span>
+      </a>
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        Menu ▾
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 241 Table</span><span class="nav-cnt">241</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">172</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">9</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">222</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">8</span></a><a href="flagged.html"><span>Flagged</span><span class="nav-cnt">17</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html" class="active" aria-current="page"><span>Methodology</span></a>
+      </nav>
+    </div>
+  </header>
+  <div id="stale-snapshot-alert" class="stale-alert" hidden></div>
+  <div class="fresh-bar" data-generated-at="2026-10-24T16:43:59.080Z">
+    <div class="fresh-inner">
+      <span>Snapshot: <time class="mono" data-utc="2026-10-24T16:43:59.080Z">2026-10-24 16:43 UTC</time> · Auto-refresh every 6h</span>
+      <span>Zero Hotspawn crowd/tier/points inputs · <a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/">Canonical Root Dashboard ↗</a> · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
+    </div>
+  </div>
+  <main>
 
-<div class="hero">
-  <h1>📖 Methodology &amp; sources</h1>
-  <p class="sub">How every probability on this site is produced, verified, and refreshed — with links so you can check each step yourself.</p>
-</div>
+    <section class="page-hero">
+      <h1>Methodology, Walk-Forward Calibration &amp; Venue Audit</h1>
+      <p>Full technical specification of the 6-hour scheduled Hotspawn LoL ingestion pipeline, Shin power de-vigging, 5-venue consensus weighting, strict pre-kickoff Elo/Bradley-Terry ratings, and competition-scoped entity disambiguation.</p>
+    </section>
 
-<section class="card">
-  <h2>1. Match inventory (what we cover)</h2>
-  <p class="desc">Primary: Hotspawn's own embedded public fixtures API — the same data play.hotspawn.com renders.</p>
-  <ul style="color:var(--mut);font-size:14.5px;padding-left:20px">
-    <li>Fixtures API: <a href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol" rel="noopener" target="_blank">phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol</a> — all LoL fixtures with status, tier, stage, lock time, points, participants, scores.</li>
-    <li>SSR cross-check: <a href="https://play.hotspawn.com/lol-pickems" rel="noopener" target="_blank">play.hotspawn.com/lol-pickems</a> — rendered lobby; we scrape match permalinks + counts and reconcile against the API each run. Mismatches are flagged, never silently dropped.</li>
-    <li>Open match = status <code>scheduled</code> with <code>lock_time</code> in the future. Every row links to its official Hotspawn match page.</li>
-    <li><b>Not used as a probability input:</b> Hotspawn crowd “% picked”. It is collected for audit only and shown nowhere as a likelihood.</li>
-  </ul>
-</section>
+    <div class="sec-head">
+      <h2>1. Strict Independence from Hotspawn Signals</h2>
+    </div>
+    <div class="callout">
+      <p>Hotspawn's public API exposes <code>participants0_picked_percent</code>, <code>participants1_picked_percent</code>, <code>offered_points</code>, and <code>tier</code>. Zero Hotspawn crowd or gamification fields are ever read by any probability, consensus, or rating function in <code>scripts/analyze.mjs</code>. Every published win probability derives solely from external real-money markets or external historical match outcomes.</p>
+    </div>
 
-<section class="card">
-  <h2>2. Probability sources &amp; precedence</h2>
-  <p class="desc">For each match we take the best available line. Order: sharpest book first, prediction market second, own model third.</p>
-  <ol style="color:var(--mut);font-size:14.5px;padding-left:20px">
-    <li><b>Pinnacle (market)</b> — guest odds API, no key needed:
-      leagues <a href="https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues" rel="noopener" target="_blank">/0.1/sports/12/leagues</a> (filter <code>League of Legends *</code>; live now: League of Legends - World Championship),
-      matchups <code>/0.1/leagues/{id}/matchups</code>, moneylines <code>/0.1/leagues/{id}/markets/straight</code> (period 0 = series winner).
-      American odds → decimal → implied, then <b>devig</b>: p(team) = (1/dec) / Σ(1/dec). Two-sided markets only; vig is removed proportionally.</li>
-    <li><b>Polymarket (market)</b> — <a href="https://gamma-api.polymarket.com/events?closed=false&tag_slug=league-of-legends" rel="noopener" target="_blank">gamma-api.polymarket.com/events?closed=false&amp;tag_slug=league-of-legends</a>. Two-outcome team markets; probability = mid of best bid/ask when quoted, else last outcome prices, renormalized to 100%. Thin liquidity (&lt;$500) or wide spread (&gt;0.10) is flagged.</li>
-    <li><b>Own model (originated line)</b> — Elo-style rating built exclusively from <b>actual results</b> in the Hotspawn fixtures archive (every ended LoL series with scores): E = 1/(1+10^((R_opp−R)/400)); K = 24 × margin-mult (1+0.25×(|Δgames|−1)) × recency 0.5^(age/365d). Predictions shrink toward 50% for thin history: p = 0.5 + (E−0.5)×min(1,(min(n)+2)/10), clamped to [3%,97%]. Ratings for every team: <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/model/ratings.json" rel="noopener" target="_blank">data/model/ratings.json</a>.</li>
-  </ol>
-  <p class="note mb0">The own-model line is computed for <b>every match with history</b> and shown alongside market lines — when both exist and disagree by &gt;25 points, the match is auto-flagged for review. The pick always follows the precedence above.</p>
-</section>
+    <div class="sec-head">
+      <h2>2. Tier-1 &amp; Tier-2 Multi-Venue Market Consensus</h2>
+    </div>
+    <div class="table-wrap" style="margin-bottom:1.25rem">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Venue</th>
+            <th>Endpoint / Feed</th>
+            <th class="num">Consensus Weight</th>
+            <th>De-Vig &amp; Derivative Safeguards</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pinnacle</strong></td>
+            <td class="mono">guest.api.arcadia.pinnacle.com/0.1</td>
+            <td class="num">1.00</td>
+            <td>Shin power de-vig (<code>q0^k + q1^k = 1</code>) on <code>period=0</code> series moneylines; <code>(Kills)</code> props strictly rejected.</td>
+          </tr>
+          <tr>
+            <td><strong>Unibet / Kambi</strong></td>
+            <td class="mono">eu-offering-api.kambicdn.com (ubse)</td>
+            <td class="num">0.70</td>
+            <td>Shin power de-vig on pre-match <code>Match Odds</code> (criterion type 2); per-event JSON receipts linked.</td>
+          </tr>
+          <tr>
+            <td><strong>Kalshi CFTC</strong></td>
+            <td class="mono">api.elections.kalshi.com (KXLOLGAME)</td>
+            <td class="num">0.40–0.55</td>
+            <td>Regulated US CFTC binary contracts; bid/ask midpoint normalized across both team contracts (includes Tier-2 LGC Rising).</td>
+          </tr>
+          <tr>
+            <td><strong>Bovada</strong></td>
+            <td class="mono">bovada.lv/services/sports/event/coupon</td>
+            <td class="num">0.50</td>
+            <td>Shin power de-vig on pre-match <code>Head To Head</code> moneylines when available from runner region.</td>
+          </tr>
+          <tr>
+            <td><strong>Polymarket CLOB</strong></td>
+            <td class="mono">gamma-api.polymarket.com</td>
+            <td class="num">0.25–0.65</td>
+            <td>Liquidity-scaled CLOB match winner contracts (<code>spread &le; 0.14</code>); map/over-under/odd-even derivatives excluded.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.86rem;color:var(--text-muted)"><strong>Evaluated &amp; excluded external venues:</strong> Rivalry (<code>rivalry.com/operationally-closed</code> — operations permanently ceased), Midnite (0 LoL markets listed), Bet365 / DraftKings / GG.bet / Thunderpick (commercial anti-bot / Cloudflare blocks without public JSON receipts), and aggregator placeholders (<code>1.80 / 1.80</code> symmetric unpriced templates rejected). Analytical LoL reference portals consulted for cross-verification include <a href="https://lol.fandom.com/wiki/League_of_Legends_Esports_Wiki" target="_blank" rel="noopener">Leaguepedia</a>, <a href="https://gol.gg/tournament/list/" target="_blank" rel="noopener">Games of Legends (gol.gg)</a>, and <a href="https://bo3.gg/lol" target="_blank" rel="noopener">bo3.gg</a>.</p>
 
-<section class="card">
-  <h2>3. Confidence labels</h2>
-  <ul style="color:var(--mut);font-size:14.5px;padding-left:20px">
-    <li><b>HIGH</b> — Pinnacle devigged line (sharp, high-limit book), or own model with ≥10 recorded series per side.</li>
-    <li><b>MEDIUM</b> — Polymarket line with ≥$1,000 liquidity, or model with 3–9 series per side.</li>
-    <li><b>LOW</b> — thin Polymarket market, or model with 1–2 series per side (early-season rosters).</li>
-  </ul>
-</section>
+    <div class="sec-head">
+      <h2>3. Self-Originated Pre-Kickoff Elo / Bradley-Terry Model</h2>
+    </div>
+    <div class="callout">
+      <ul>
+        <li><strong>Dataset:</strong> <code>32,536</code> completed non-forfeit Leaguepedia + Hotspawn LoL series replayed in strict chronological order; administrative forfeits (<code>ff</code>) are excluded from skill updates.</li>
+        <li><strong>Zero look-ahead:</strong> Every Hotspawn fixture at timestamp <code>T</code> is scored exclusively from ratings accumulated across matches with <code>t &lt; T</code>.</li>
+        <li><strong>Competition-scoped entity disambiguation:</strong> Teams are resolved inside their specific Leaguepedia tournament page before global matching, preventing cross-region homonym contamination (such as Bulgarian amateur <code>PNG</code> vs Brazilian <code>paiN Gaming</code> on <code>#1083097</code>, or Swiss <code>PvB (Swiss Team)</code> vs Vietnamese <code>Phong Vũ Buffalo</code> on <code>#1079031</code>).</li>
+        <li><strong>Empirical-Bayes shrinkage &amp; series transform:</strong> Ratings initialize at <code>1500</code> with dynamic <code>K = 38 / 28 / 22</code>, shrink toward <code>1500</code> via <code>n / (n + 6)</code>, and map to Bo3/Bo5 series probabilities with correlated-game damping (<code>&alpha; = 0.72</code>). Full current ratings JSON: <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/node/model/ratings.json" target="_blank" rel="noopener">data/node/model/ratings.json ↗</a>.</li>
+      </ul>
+    </div>
 
-<section class="card">
-  <h2>4. Refresh cadence &amp; pipeline</h2>
-  <p class="desc">GitHub Actions runs every 6 hours (requirement: 4–8h) + on demand:</p>
-  <ol style="color:var(--mut);font-size:14.5px;padding-left:20px">
-    <li><b>collect</b> — fetch all four sources (3 retries each, browser UA); failures logged, pipeline degrades gracefully and flags gaps.</li>
-    <li><b>analyze</b> — rebuild Elo from full results history, match markets to fixtures (exact normalized-name match first; fuzzy token similarity ≥0.66 + ±6h time window, and any fuzzy hit is flagged for review), generate picks + flags, update the pick ledger used for accuracy tracking.</li>
-    <li><b>build</b> — render this static site (no client-side dependencies) and verify internal links.</li>
-    <li><b>publish</b> — commit data + docs; GitHub Pages serves <code>docs/</code> from <code>main</code>. Run history: <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions" rel="noopener" target="_blank">Actions log</a>.</li>
-  </ol>
-</section>
-
-<section class="card">
-  <h2>5. Verification policy</h2>
-  <ul style="color:var(--mut);font-size:14.5px;padding-left:20px">
-    <li>Every match row links to its official Hotspawn match page; every market line links to the exact Pinnacle matchup or Polymarket event.</li>
-    <li>Values that cannot be confirmed from a source are left blank (“—”) and the match goes to <a href="unresolved.html">Unresolved</a> or <a href="flagged.html">Flagged</a> — never inferred.</li>
-    <li>Inventory is reconciled against the rendered lobby each run; discrepancies are flagged with the specific IDs.</li>
-  </ul>
-</section>
-
-<section class="card">
-  <h2>6. Known limitations</h2>
-  <ul style="color:var(--mut);font-size:14.5px;padding-left:20px">
-    <li>Market coverage is concentrated on tier-1/2 events (Pinnacle currently prices: League of Legends - World Championship); hundreds of amateur-division matches have no market line anywhere we can verify.</li>
-    <li>The own model measures teams as they appear in Hotspawn's archive — roster swaps, academy/main-team promotion, and smurf/stand-in games are invisible to it. Tier-1 teams appear rarely in that archive (it skews to minor leagues), which is why Worlds-level matches rely on market lines.</li>
-    <li>Cross-source team names are unified by normalization (diacritic folding incl. Ø→O, dropped org suffixes like “Esports/Gaming/Team/Club”, plus a small alias table for major orgs — e.g. HLE→Hanwha Life, LØS→LOS). Every non-exact match is flagged for review.</li>
-    <li><b>Start-time metadata can disagree across platforms.</b> Verified example (2026-10-21): Hotspawn lists Worlds group-stage matches in hourly slots that differ from Pinnacle and Polymarket's official rules (e.g. Hanwha Life vs Top Esports — Hotspawn 18:00 UTC vs Pinnacle/Polymarket 21:00 UTC / 5:00 PM ET). Displayed times and locks are Hotspawn's (they govern pick submission); discrepancies &gt;90 min are auto-flagged.</li>
-    <li>Hotspawn leaves fixtures in “scheduled” status long after they were supposed to start; those (>24h past start, unplayed) are classified <b>stale</b>, excluded from pick lists, and counted in an info flag.</li>
-    <li>Best-of-1 formats (most minor leagues) are high-variance; even correct probabilities lose often.</li>
-    <li>The Hotspawn SSR lobby is CDN-cached and occasionally 403s; the fixtures API is the authoritative inventory, the page is a cross-check.</li>
-    <li>Polymarket prices move continuously; snapshots are point-in-time (timestamp on every page). Polymarket mid-prices are only used when the order-book spread is ≤6¢, else last outcome prices.</li>
-  </ul>
-</section>
-
-<section class="card">
-  <h2>7. Source register</h2>
-  <div class="tablewrap"><table class="tbl">
-    <thead><tr><th>Source</th><th>What it provides</th><th>Link</th></tr></thead>
-    <tbody>
-      <tr><td>Hotspawn fixtures API</td><td>Match inventory, tiers, lock times, full results history</td><td><a href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol" rel="noopener" target="_blank">api/v1/fixtures?sport_alias=lol</a></td></tr>
-      <tr><td>Hotspawn LoL lobby</td><td>SSR cross-check, official match permalinks</td><td><a href="https://play.hotspawn.com/lol-pickems" rel="noopener" target="_blank">play.hotspawn.com/lol-pickems</a></td></tr>
-      <tr><td>Pinnacle guest API</td><td>Sharp moneyline odds (devigged to probabilities)</td><td><a href="https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues" rel="noopener" target="_blank">guest.api.arcadia.pinnacle.com/0.1</a></td></tr>
-      <tr><td>Polymarket gamma API</td><td>Prediction-market prices for major LoL matches</td><td><a href="https://gamma-api.polymarket.com/events?closed=false&tag_slug=league-of-legends" rel="noopener" target="_blank">gamma-api.polymarket.com</a></td></tr>
-      <tr><td>Own Elo-style model</td><td>Originated line for matches without market coverage</td><td><a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/model/ratings.json" rel="noopener" target="_blank">data/model/ratings.json</a></td></tr>
-      <tr><td>Corroboration (not ingested)</td><td>Odds boards cross-checked manually during development</td><td><a href="https://bo5.gg/lol/betting/odds/" rel="noopener" target="_blank">bo5.gg</a> · <a href="https://egamersworld.com/lol/bets" rel="noopener" target="_blank">egamersworld.com/lol/bets</a></td></tr>
-    </tbody>
-  </table></div>
-</section>
-<footer class="bot">
-  <p><b>LoL Hotspawn Picks</b> — independent analytics for the League of Legends matches listed on the Hotspawn pick'em lobby. Not affiliated with Hotspawn, Riot Games, or any bookmaker. Nothing here is betting advice.</p>
-  <p>Probabilities come from external betting lines (Pinnacle, Polymarket) and our own Elo-style model built from real match results — never from Hotspawn crowd pick percentages. Data refreshes every 6 hours via GitHub Actions.</p>
-  <p>Built Sat, Oct 24, 15:34 UTC · <a href="methodology.html">Methodology &amp; sources</a> · <a href="data/picks.json">Raw data (JSON)</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1" rel="noopener" target="_blank">GitHub repo</a></p>
-</footer>
-</main>
-<script src="assets/app.js" defer></script>
+    <div class="sec-head">
+      <h2>4. Out-of-Sample Walk-Forward Calibration (22,372 Series)</h2>
+      <span>Brier 0.2250 (coinflip 0.2500) · Log-Loss 0.6414 · Accuracy 64.1%</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.25rem;align-items:start">
+      <div><svg viewBox="0 0 440 280" width="100%" style="max-width:480px;background:#0b101b;border:1px solid var(--border);border-radius:8px;display:block" role="img" aria-label="Out-of-sample reliability calibration curve">
+    <line x1="42" y1="238" x2="398" y2="42" stroke="#64748b" stroke-dasharray="4 4" stroke-width="1.5"/>
+    <line x1="42" y1="238" x2="398" y2="238" stroke="#364c78" stroke-width="1"/>
+    <line x1="42" y1="42" x2="42" y2="238" stroke="#364c78" stroke-width="1"/>
+    <polyline fill="none" stroke="#38bdf8" stroke-width="2" points="69.1,217.6 99.0,193.0 133.5,185.5 168.6,169.8 206.0,146.6 234.3,115.1 271.3,95.9 306.5,86.9 341.7,76.1 370.4,67.2"/>
+    <circle cx="69.1" cy="217.6" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 7.6% vs Realized 10.4% (n=77)</title></circle><circle cx="99.0" cy="193.0" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 16.0% vs Realized 23.0% (n=383)</title></circle><circle cx="133.5" cy="185.5" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 25.7% vs Realized 26.8% (n=1097)</title></circle><circle cx="168.6" cy="169.8" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 35.6% vs Realized 34.8% (n=2514)</title></circle><circle cx="206.0" cy="146.6" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 46.1% vs Realized 46.7% (n=6176)</title></circle><circle cx="234.3" cy="115.1" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 54.0% vs Realized 62.7% (n=6996)</title></circle><circle cx="271.3" cy="95.9" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 64.4% vs Realized 72.5% (n=3061)</title></circle><circle cx="306.5" cy="86.9" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 74.3% vs Realized 77.1% (n=1413)</title></circle><circle cx="341.7" cy="76.1" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 84.2% vs Realized 82.6% (n=546)</title></circle><circle cx="370.4" cy="67.2" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 92.3% vs Realized 87.2% (n=109)</title></circle>
+    <text x="220" y="270" fill="#9cb0d1" font-size="11" text-anchor="middle">Predicted Pre-Kickoff Win Probability</text>
+    <text x="14" y="140" fill="#9cb0d1" font-size="11" text-anchor="middle" transform="rotate(-90 14 140)">Empirical Win Rate</text>
+    <text x="42" y="252" fill="#6f84a8" font-size="10">0%</text>
+    <text x="380" y="252" fill="#6f84a8" font-size="10">100%</text>
+  </svg></div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Predicted Bin</th>
+              <th class="num">Series (n)</th>
+              <th class="num">Mean Pred</th>
+              <th class="num">Realized Win %</th>
+              <th class="num">Calibration Gap</th>
+            </tr>
+          </thead>
+          <tbody><tr>
+      <td class="mono">0-10%</td>
+      <td class="num">77</td>
+      <td class="num">7.6%</td>
+      <td class="num">10.4%</td>
+      <td class="num">2.79 pp</td>
+    </tr>
+<tr>
+      <td class="mono">10-20%</td>
+      <td class="num">383</td>
+      <td class="num">16.0%</td>
+      <td class="num">23.0%</td>
+      <td class="num">6.96 pp</td>
+    </tr>
+<tr>
+      <td class="mono">20-30%</td>
+      <td class="num">1,097</td>
+      <td class="num">25.7%</td>
+      <td class="num">26.8%</td>
+      <td class="num">1.10 pp</td>
+    </tr>
+<tr>
+      <td class="mono">30-40%</td>
+      <td class="num">2,514</td>
+      <td class="num">35.6%</td>
+      <td class="num">34.8%</td>
+      <td class="num">-0.75 pp</td>
+    </tr>
+<tr>
+      <td class="mono">40-50%</td>
+      <td class="num">6,176</td>
+      <td class="num">46.1%</td>
+      <td class="num">46.7%</td>
+      <td class="num">0.57 pp</td>
+    </tr>
+<tr>
+      <td class="mono">50-60%</td>
+      <td class="num">6,996</td>
+      <td class="num">54.0%</td>
+      <td class="num">62.7%</td>
+      <td class="num">8.67 pp</td>
+    </tr>
+<tr>
+      <td class="mono">60-70%</td>
+      <td class="num">3,061</td>
+      <td class="num">64.4%</td>
+      <td class="num">72.5%</td>
+      <td class="num">8.08 pp</td>
+    </tr>
+<tr>
+      <td class="mono">70-80%</td>
+      <td class="num">1,413</td>
+      <td class="num">74.3%</td>
+      <td class="num">77.1%</td>
+      <td class="num">2.76 pp</td>
+    </tr>
+<tr>
+      <td class="mono">80-90%</td>
+      <td class="num">546</td>
+      <td class="num">84.2%</td>
+      <td class="num">82.6%</td>
+      <td class="num">-1.58 pp</td>
+    </tr>
+<tr>
+      <td class="mono">90-100%</td>
+      <td class="num">109</td>
+      <td class="num">92.3%</td>
+      <td class="num">87.2%</td>
+      <td class="num">-5.09 pp</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>Independent quantitative companion for <a href="https://play.hotspawn.com/lol-pickems">Hotspawn LoL Pick'ems</a>.</span>
+      <span><a href="unresolved.html">Unresolved &amp; Limitations</a> · <a href="flagged.html">Flagged for Review</a> · <a href="methodology.html">Methodology &amp; Calibration</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1">GitHub Source</a></span>
+    </div>
+  </footer>
+  <script src="assets/app.js"></script>
 </body>
 </html>

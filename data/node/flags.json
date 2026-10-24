@@ -1,64 +1,210 @@
 {
- "generated_at": "2026-10-24T15:34:33.091Z",
- "flags": [
-  {
-   "severity": "needs-review",
-   "title": "Large divergence: Pinnacle vs own model",
-   "detail": "G2 Esports vs LØS: Pinnacle implies 78% for G2, own model 46% for G2 Esports. Pick follows the market line; divergence may signal roster/news the model can't see (or a matching error).",
-   "links": [
-    "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "https://www.hotspawn.com/matches/g2-esports-vs-los-worlds-2026-main-event-1067686"
-   ],
-   "match_id": "1067686",
-   "ts": "2026-10-24T15:34:33.091Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "Large divergence: Pinnacle vs own model",
-   "detail": "Bilibili Gaming vs Team Liquid: Pinnacle implies 72% for Bilibili, own model 47% for Bilibili Gaming. Pick follows the market line; divergence may signal roster/news the model can't see (or a matching error).",
-   "links": [
-    "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "https://www.hotspawn.com/matches/bilibili-gaming-vs-team-liquid-worlds-2026-main-event-1067689"
-   ],
-   "match_id": "1067689",
-   "ts": "2026-10-24T15:34:33.091Z"
-  },
-  {
-   "severity": "needs-review",
-   "title": "UNRESOLVED: no market line and no model line",
-   "detail": "Ground Zero Gaming vs Frank Esports (LCP 2027 Promotion, 2026-11-11T09:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.",
-   "links": [
-    "https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423"
-   ],
-   "match_id": "1081423",
-   "ts": "2026-10-24T15:34:33.091Z"
-  },
-  {
-   "severity": "info",
-   "title": "83 model-only picks have LOW confidence (thin history)",
-   "detail": "These picks come solely from our own Elo-style model where one or both sides have fewer than 3 recorded series (new season, new rosters, amateur divisions). They are shown with a LOW badge on the Picks page. Examples: Jendouba Esports vs Enfida Esports (2/2 series); JSK Esports vs El Menzah Esports (12/1 series); Olympique Mnihla vs Supreme Leaders (2/1 series); Simplicity Gaming vs JSK Academy (2/6 series); Zahrouni Esports vs Olympique Mnihla Academy (2/2 series); Whalepower Humpbacks vs 1. Esport Club Frankfurt e.V. (2/3 series); AceGaming Hearts vs Emperors Bremen (2/2 series); Defiance eSports vs REH Gaming (1/2 series); Duplex Silva Pigeons Edition vs Sissi State Punks (3/2 series); Whalepower Humpbacks vs Socken und Sandalen (2/3 series); Babos Gaming vs Hannover Esports e.V. (2/3 series); Reveal Multigaming vs AceGaming (4/1 series); ….",
-   "links": [
-    "https://www.hotspawn.com/matches/jendouba-esports-vs-enfida-esports-tunisian-super-league-2026-1080923",
-    "https://www.hotspawn.com/matches/jsk-esports-vs-el-menzah-esports-tunisian-super-league-2026-1080924",
-    "https://www.hotspawn.com/matches/olympique-mnihla-vs-supreme-leaders-tunisian-super-league-2026-1080925",
-    "https://www.hotspawn.com/matches/simplicity-gaming-vs-jsk-academy-tunisian-super-league-2026-1080926",
-    "https://www.hotspawn.com/matches/zahrouni-esports-vs-olympique-mnihla-academy-tunisian-super-league-2026-1080927",
-    "https://www.hotspawn.com/matches/whalepower-humpbacks-vs-1-esport-club-frankfurt-e-v-prm-3rd-division-26-27-fall-1075731",
-    "https://www.hotspawn.com/matches/acegaming-hearts-vs-emperors-bremen-prm-3rd-division-26-27-fall-1075747",
-    "https://www.hotspawn.com/matches/defiance-esports-vs-reh-gaming-prm-3rd-division-26-27-fall-1075752"
-   ],
-   "match_id": null,
-   "ts": "2026-10-24T15:34:33.091Z"
-  },
-  {
-   "severity": "info",
-   "title": "65 stale Hotspawn fixtures excluded from picks",
-   "detail": "These fixtures still carry status \"scheduled\" although their start time passed more than 24h ago (Hotspawn never settled or cancelled them — likely postponed/abandoned, e.g. Mind Blue eSports v LAST DANCE (Benelux Ascend Series 2026 Summer Split, 2026-08-26T17:00:00.000Z); Nameless v BiPOLAR (Benelux Ascend Series 2026 Summer Split, 2026-08-26T18:00:00.000Z); Epic Avalanche v Finnish Red Mafia (FPL 2026 Summer Playoffs, 2026-08-27T15:00:00.000Z); Team VS Esport v GALA Esports (Benelux Ascend Series Rising 2026 Summer Playoffs, 2026-09-05T11:00:00.000Z)). They cannot be picked on Hotspawn (lock passed) and are excluded from the site's match lists; kept in data/picks.json with state=\"stale\" for audit.",
-   "links": [
-    "https://play.hotspawn.com/lol-pickems"
-   ],
-   "match_id": null,
-   "ts": "2026-10-24T15:34:33.091Z"
-  }
- ]
+  "generated_at": "2026-10-24T16:43:59.080Z",
+  "count": 17,
+  "flags": [
+    {
+      "id": "dq-walkover-1071170",
+      "match_id": "1071170",
+      "severity": "high",
+      "kind": "mid-split-disqualification",
+      "competition": "Komplettligaen 2026 Autumn",
+      "matchup": "Solid Gaming vs VES Japan",
+      "state": "stale",
+      "detail": "Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors VES Japan.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-ves-japan-komplettligaen-2026-autumn-1071170",
+      "source_url": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+    },
+    {
+      "id": "unverified-zero-history-1074627",
+      "match_id": "1074627",
+      "severity": "low",
+      "kind": "unverified-zero-history",
+      "competition": "RIVALS LEAGUE Season 2",
+      "matchup": "Northern Wolves Esports vs Lundqvist Darkside",
+      "state": "stale",
+      "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and Northern Wolves Esports (0 prior official matches) prior to 2026-09-27T17:15:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: Northern Wolves Esports 0–2 Lundqvist Darkside.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/northern-wolves-esports-vs-lundqvist-darkside-rivals-league-season-2-1074627",
+      "source_url": "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+    },
+    {
+      "id": "dq-walkover-1071200",
+      "match_id": "1071200",
+      "severity": "high",
+      "kind": "mid-split-disqualification",
+      "competition": "Komplettligaen 2026 Autumn",
+      "matchup": "Solid Gaming vs Playwell Rød Q",
+      "state": "stale",
+      "detail": "Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors Playwell Rød Q.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071200",
+      "source_url": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+    },
+    {
+      "id": "dq-walkover-1071206",
+      "match_id": "1071206",
+      "severity": "high",
+      "kind": "mid-split-disqualification",
+      "competition": "Komplettligaen 2026 Autumn",
+      "matchup": "Volda E-Sport vs Solid Gaming",
+      "state": "stale",
+      "detail": "Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors Volda E-Sport.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/volda-e-sport-vs-solid-gaming-komplettligaen-2026-autumn-1071206",
+      "source_url": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+    },
+    {
+      "id": "dq-walkover-1071186",
+      "match_id": "1071186",
+      "severity": "high",
+      "kind": "mid-split-disqualification",
+      "competition": "Komplettligaen 2026 Autumn",
+      "matchup": "Solid Gaming vs NTNUI Kometkameratene",
+      "state": "stale",
+      "detail": "Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors NTNUI Kometkameratene.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/solid-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071186",
+      "source_url": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+    },
+    {
+      "id": "unverified-zero-history-1082002",
+      "match_id": "1082002",
+      "severity": "low",
+      "kind": "unverified-zero-history",
+      "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+      "matchup": "DELETED vs S7raa",
+      "state": "stale",
+      "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and DELETED (0 prior official matches) prior to 2026-10-16T15:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: DELETED 0–1 S7raa.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/deleted-vs-s7raa-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082002",
+      "source_url": "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS"
+    },
+    {
+      "id": "unverified-zero-history-1083096",
+      "match_id": "1083096",
+      "severity": "medium",
+      "kind": "unverified-zero-history",
+      "competition": "Logitech G SuperStrike Cup Qualifier",
+      "matchup": "Keep Yourself Positive vs CRUEL FATE",
+      "state": "locked",
+      "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and Keep Yourself Positive (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: Keep Yourself Positive 0–1 CRUEL FATE.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/keep-yourself-positive-vs-cruel-fate-logitech-g-superstrike-cup-qualifier-1083096",
+      "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
+    },
+    {
+      "id": "entity-collision-1083097",
+      "match_id": "1083097",
+      "severity": "high",
+      "kind": "entity-collision",
+      "competition": "Logitech G SuperStrike Cup Qualifier",
+      "matchup": "paiN Gaming vs Non-toxic Gaming",
+      "state": "locked",
+      "detail": "Hotspawn mis-bound Bulgarian amateur tag 'PNG' (billy/Bla6ko/metko/ifo/anditobate) to Brazilian CBLOL 'paiN Gaming'; quarantined to PNG.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097",
+      "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
+    },
+    {
+      "id": "unverified-zero-history-1083097",
+      "match_id": "1083097",
+      "severity": "medium",
+      "kind": "unverified-zero-history",
+      "competition": "Logitech G SuperStrike Cup Qualifier",
+      "matchup": "paiN Gaming vs Non-toxic Gaming",
+      "state": "locked",
+      "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and paiN Gaming [resolved: PNG] (0 prior official matches) & Non-toxic Gaming (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: Non-toxic Gaming 1–0 PNG.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097",
+      "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
+    },
+    {
+      "id": "unverified-zero-history-1083098",
+      "match_id": "1083098",
+      "severity": "medium",
+      "kind": "unverified-zero-history",
+      "competition": "Logitech G SuperStrike Cup Qualifier",
+      "matchup": "TUPKACHI NA KORICI vs FAME",
+      "state": "locked",
+      "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and FAME [resolved: FAME (Bulgarian Team)] (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: TUPKACHI NA KORICI 1–0 FAME (Bulgarian Team).",
+      "hotspawn_url": "https://www.hotspawn.com/matches/tupkachi-na-korici-vs-fame-logitech-g-superstrike-cup-qualifier-1083098",
+      "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
+    },
+    {
+      "id": "unverified-zero-history-1083105",
+      "match_id": "1083105",
+      "severity": "medium",
+      "kind": "unverified-zero-history",
+      "competition": "Logitech G SuperStrike Cup Qualifier",
+      "matchup": "КАПИБАРА vs Ultim8",
+      "state": "locked",
+      "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and КАПИБАРА (0 prior official matches) prior to 2026-10-24T12:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: КАПИБАРА 0–1 Ultim8.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/vs-ultim8-logitech-g-superstrike-cup-qualifier-1083105",
+      "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
+    },
+    {
+      "id": "entity-collision-1079031",
+      "match_id": "1079031",
+      "severity": "high",
+      "kind": "entity-collision",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "matchup": "DKB XPERION NXT vs Phong Vũ Buffalo",
+      "state": "open",
+      "detail": "Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).",
+      "hotspawn_url": "https://www.hotspawn.com/matches/dkb-xperion-nxt-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079031",
+      "source_url": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+    },
+    {
+      "id": "entity-collision-1079038",
+      "match_id": "1079038",
+      "severity": "high",
+      "kind": "entity-collision",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "matchup": "VfB eSports vs Phong Vũ Buffalo",
+      "state": "open",
+      "detail": "Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).",
+      "hotspawn_url": "https://www.hotspawn.com/matches/vfb-esports-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079038",
+      "source_url": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+    },
+    {
+      "id": "entity-collision-1082746",
+      "match_id": "1082746",
+      "severity": "high",
+      "kind": "entity-collision",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "matchup": "Phong Vũ Buffalo vs 404 Multigaming e.V.",
+      "state": "open",
+      "detail": "Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).",
+      "hotspawn_url": "https://www.hotspawn.com/matches/phong-vu-buffalo-vs-404-multigaming-e-v-prm-2nd-division-26-27-fall-1082746",
+      "source_url": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+    },
+    {
+      "id": "entity-collision-1079053",
+      "match_id": "1079053",
+      "severity": "high",
+      "kind": "entity-collision",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "matchup": "Phong Vũ Buffalo vs MT1 Esports",
+      "state": "open",
+      "detail": "Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).",
+      "hotspawn_url": "https://www.hotspawn.com/matches/phong-vu-buffalo-vs-mt1-esports-prm-2nd-division-26-27-fall-1079053",
+      "source_url": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+    },
+    {
+      "id": "entity-collision-1079057",
+      "match_id": "1079057",
+      "severity": "high",
+      "kind": "entity-collision",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "matchup": "Phong Vũ Buffalo vs regnum4games",
+      "state": "open",
+      "detail": "Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).",
+      "hotspawn_url": "https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057",
+      "source_url": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+    },
+    {
+      "id": "org-pooling-rich-gang-prm3",
+      "match_id": "1075758",
+      "severity": "low",
+      "kind": "multi-roster-org-pooling",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "matchup": "Rich Gang (4 scheduled series: #1075758, #1075762, #1075786, #1075803)",
+      "state": "open",
+      "detail": "Leaguepedia uses a single page 'Rich Gang (Norwegian Team)' across Komplettligaen 2026 Autumn and Prime League 3rd Division 26-27 Fall; model rating pools both rosters' pre-kickoff matches.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/rich-gang-vs-looksmaxxer-prm-3rd-division-26-27-fall-1075758",
+      "source_url": "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+    }
+  ]
 }
