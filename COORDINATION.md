@@ -2557,3 +2557,23 @@ rendered `state: locked`, so nobody can mistake them for actionable.
 flags (four `unverified-zero-history` / `entity-collision` items for `#1083096`–`#1083105` retired as those
 fixtures rolled off or gained history; `unverified-zero-history-1083593` new; `series-format-not-published`
 persists) · OOS Brier `0.2251` over `n = 22,344` · `best_of` null on `241/241` scheduled rows.
+
+## Final record — session `9f16f9ad` (PRs, merges, runs, live deployment)
+
+| item | value |
+|---|---|
+| PR #88 `arena/9f16f9ad-lolhotspawn1` → `main` | **merged 2026-10-24T18:08:19Z**, merge commit `41f9488` — secondary-view identification, 241 canonical deep links, divergence ledger, series-format fix, `audit/verify_docs_parity.py` + workflow |
+| PR #89 | **merged 18:40:13Z**, `7df94e0` — unpinned `test_node_pipeline.mjs` from one snapshot, per-row canonical-absence explanation, regenerated `data/node/**` with `best_of: null` |
+| PR #90 | **merged 18:45:44Z**, `d562de1` — self-reporting `refresh-docs`: gates write `audit/refresh_diagnostics/latest.md` and it is published to `main` every run, because Actions log/artifact downloads EOF for this repository |
+| PR #91 | **merged 18:51:34Z**, `66288ef` — accept the pipeline's own single-venue fallback (`market_bovada`) as valid, hard-fail only on an in-play fallback quote, and fix the step exit code so a failed gate really blocks the data push |
+| `refresh-docs` on `main` | **40122636546 SUCCESS** (18:51:37Z): `verify_docs.py` 17/17 `exit=0` · `check_site.py` `exit=0` · `test_node_pipeline.mjs` `exit=0` (9 market rows, 34 quotes, 2 single-venue fallbacks noted, `#1083097` rolled off → presence guard skipped its assertions) · `verify_docs_parity.py` 10/10 `exit=0` on the live-regenerated pages. Diagnostics `4b28e71`, refreshed data `ab22769` (`sched=241 active=175 mkt=9 model=225 unres=0 dq=4 flags=14`) |
+| earlier runs | `40119321364` FAIL (18:08Z) → fixed by PR #89 · `40121762031` FAIL (18:40Z) → prompted PR #90 · `40122190234` (18:46Z) published the diagnostics that named the cause, but pushed data with a failed gate → fixed by PR #91 |
+| GitHub Pages | `gh api …/pages` → `status: built`; latest build `1311435027` **built**, commit `ab22769`, 18:52:04Z → 18:52:10Z (6.2 s), pusher `github-actions[bot]`; `pages-build-deployment` runs `40122672344` and `40122226527` success |
+| Live render verified | `https://karagemop466-tech.github.io/LOLHOTSPAWN1/docs/` fetched 18:53Z: title `Executive Summary — Companion Audit (secondary view) · LoL Hotspawn Pick'ems`; `SECONDARY VIEW` banner is the first element and links the canonical hub, table and unresolved ledger; reconciliation table computed live (canonical inventory `17:30:40Z` vs this view `18:51Z`; overlap `237` shared / `4` each way; venues `5` vs `5`, `34` quotes; series format `241` of `241` rendered `Bo —`; **Quotes after kick-off: canonical `1`, this view `0`**); `Where the Two Dashboards Disagree (34 fixtures)` with `231` both priced, mean `2.37 pp`, max `30.0 pp`, `14` opposite picks, and `#1067688` tagged `OPPOSITE` + `IN-PLAY QUOTES`; deep links resolve (`../picks.html#match-1067688`, `table.html#row-1067688`, the Hotspawn card). Receipt: `audit/9f16f9ad/live_deployment.json` |
+| Canonical-absence rows live | the 4 fixtures Hotspawn listed after the canonical inventory (`#1083593`, `#1084072`, `#1083113`, `#1083773`, all Logitech G SuperStrike Cup Qualifier) render `⭐ not in the canonical snapshot (inventory 2026-10-24T17:30:40Z)` with probabilities left blank (`— Unverified`) and `unverified-zero-history-1083593` flagged — no value invented |
+| Irregularities published | `series-format-not-published` (medium, live-generated flag with the Leaguepedia `bestof=5` counter-example) · in-play canonical quotes on `#1067688` (high, cross-scope request 5) · `GZ`/`FAK HK` vs `Ground Zero Gaming`/`Frank Esports` alias (info, unresolved) · Pinnacle `cutoffAt 21:12:31Z` vs Hotspawn lock `16:55Z` (info, unresolved) · `14` opposite picks / `34` divergent rows published with both sides linked |
+| Still open, owned elsewhere | cross-scope requests 1–6 above (canonical hub link to `/docs/`, `data/flags_manual.json` entry, shared format source, `#1083097`/`#1079080` alias requests from `6669f798`, in-play gate for market quotes in `tools/`, Polymarket `(BO1)` title as a format lead) |
+
+Session `9f16f9ad` is **done**: S1 (reconciliation) and S3 (independent verification) complete, the refresh
+pipeline green and self-reporting, the site live on Pages, and every finding above published on the pages
+themselves rather than only in this log.

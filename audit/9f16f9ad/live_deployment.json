@@ -1,0 +1,84 @@
+{
+  "session": "9f16f9ad",
+  "generated_utc": "2026-10-24T18:55:37Z",
+  "what": "Live verification of the deployed GitHub Pages output after PRs #88-#91, plus the pipeline runs that produced it.",
+  "pages": {
+    "site": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/",
+    "secondary_view": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/docs/",
+    "api_status": "built",
+    "latest_build": {
+      "id": 1311435027,
+      "status": "built",
+      "error": null,
+      "commit": "ab22769ba083ffff28b2439804ef6da2a842738e",
+      "created_at": "2026-10-24T18:52:04Z",
+      "updated_at": "2026-10-24T18:52:10Z",
+      "duration_ms": 6238,
+      "pusher": "github-actions[bot]"
+    },
+    "pages_build_deployment_runs": [
+      "40122672344 success (18:52:04Z)",
+      "40122226527 success (18:46:14Z)"
+    ]
+  },
+  "observed_on_deployed_docs_index": {
+    "fetched_utc": "2026-10-24T18:53Z",
+    "title": "Executive Summary \u2014 Companion Audit (secondary view) \u00b7 LoL Hotspawn Pick'ems",
+    "banner_first_element": "SECONDARY VIEW \u2014 Companion audit, not the canonical pick list. Canonical picks for all 241 listed matches: executive summary / one-table view / unresolved & limitations, graded 23/39 correct, plus 'Why the two dashboards differ' -> #reconcile",
+    "snapshot_line": "Snapshot: 2026-10-24 18:51 UTC \u00b7 Auto-refresh every 6h \u00b7 canonical snapshot 2026-10-24 17:32 UTC",
+    "reconciliation_table": {
+      "universe": "canonical 241 cards (model 150 \u00b7 unresolved 4 \u00b7 provisional 78 \u00b7 market 9) | this view 241 scheduled of 578 archive rows (175 active, 66 stale, 259 ended, 32 forfeited, 46 cancelled)",
+      "overlap": "4 canonical cards not in this view; 237 of 241 rows in the canonical snapshot, 4 not",
+      "external_venues": "canonical 5 (Polymarket, Kalshi, Unibet, Pinnacle, Bovada) | this view 5 (Bovada, Pinnacle, Unibet (Kambi), Polymarket, Kalshi CFTC), 34 quotes joined",
+      "originated_line": "canonical Elo K=26 window >= 2024-09-01, OOS 64.97% over 3,897 series Brier 0.2185 | this view walk-forward OOS Brier 0.2251 over 22,344 series",
+      "series_format": "canonical not rendered | this view 241 of 241 rows have no published format, rendered 'Bo \u2014', model treats unknown as single-map",
+      "quotes_after_kickoff": "canonical 1 market row (latest 17:31 UTC) | this view none (captured 18:51 UTC)"
+    },
+    "divergence_section": {
+      "fixtures_listed": 34,
+      "both_priced": 231,
+      "mean_abs_gap_pp": 2.37,
+      "max_abs_gap_pp": 30.0,
+      "opposite_picks": 14,
+      "one_sided_blank": 6,
+      "bands": {
+        "gt_2pp": 97,
+        "gt_5pp": 24,
+        "gt_10pp": 3
+      },
+      "top_row": "#1067688 Top Esports vs Anyone's Legend, Worlds 2026 Main Event, 2026-10-24 17:00 UTC \u2014 this view Anyone's Legend 66.6% (market) vs canonical Top Esports 63.4% (market \u00b7 high), \u221230.0 pp, tagged OPPOSITE and IN-PLAY QUOTES",
+      "second_row": "#1081421 FENNEL vs Nothin'Here, LCP 2027 Promotion, 2026-11-10 05:00 UTC \u2014 FENNEL 59.2% (model) vs Nothin'Here 59.7% (model \u00b7 medium), +18.9 pp, OPPOSITE"
+    },
+    "deep_links_verified_in_deployed_html": [
+      "https://karagemop466-tech.github.io/LOLHOTSPAWN1/picks.html#match-1067688",
+      "https://karagemop466-tech.github.io/LOLHOTSPAWN1/docs/table.html#row-1067688",
+      "https://www.hotspawn.com/matches/top-esports-vs-anyone-s-legend-worlds-2026-main-event-1067688"
+    ]
+  },
+  "docs_only_rows_rendered_in_deployed_table": {
+    "count": 4,
+    "ids": [
+      "1083593",
+      "1084072",
+      "1083113",
+      "1083773"
+    ],
+    "all_competition": "Logitech G SuperStrike Cup Qualifier (listed by Hotspawn after the canonical 17:30:40Z inventory)",
+    "rendered_text": "\u2b50 not in the canonical snapshot (inventory 2026-10-24T17:30:40Z)",
+    "probabilities": "left blank (\u2014 Unverified / Unresolved) \u2014 zero-history debuts are not inferred; flag unverified-zero-history-1083593 published",
+    "canonical_only_cards": [
+      "1083096",
+      "1083097",
+      "1083098",
+      "1083105"
+    ]
+  },
+  "pipeline_runs": {
+    "refresh_docs_after_pr88": "40119321364 FAILURE at step 5 (18:08:24Z) \u2014 snapshot-pinned assertions; diagnosed offline, fixed in PR #89",
+    "refresh_docs_after_pr89": "40121762031 FAILURE at step 5 (18:40:15Z) \u2014 log unreadable, prompted the self-reporting diagnostics in PR #90",
+    "refresh_docs_after_pr90": "40122190234 (18:46:07Z) \u2014 published diagnostics naming the real cause: '#1067688 market row must join >= 2 independent venues, got 1'; data pushed as b6c4e3c although a gate had failed, because the step exited 0 (defect fixed in PR #91)",
+    "refresh_docs_after_pr91": "40122636546 SUCCESS (18:51:37Z) \u2014 all four gates exit=0 (verify_docs 17/17, check_site 24 pages, test_node_pipeline PASS with 2 single-venue fallbacks noted, verify_docs_parity 10/10); diagnostics 4b28e71, data ab22769",
+    "secondary_parity_gate": "40119022994, 40121686213, 40119321398, 40121761979 \u2014 all success"
+  },
+  "conclusion": "The secondary view is live, labelled, cross-linked to the canonical pick on all 241 rows, honest about the unpublished series format, and its refresh pipeline now both passes and reports itself. Open items are the six cross-scope requests in COORDINATION.md, all owned by other sessions' files."
+}
