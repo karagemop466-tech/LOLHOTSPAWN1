@@ -95,7 +95,10 @@ jobs:
             exit 0
           fi
           git commit -m "chore(diagnostics): preserve failed refresh log [skip ci]"
-          git pull --rebase origin "${GITHUB_REF_NAME}"
+          # Collection leaves many generated files dirty even when the gate
+          # fails. Auto-stash them so the small diagnostic commit can rebase;
+          # only data/build.log is published by this failure path.
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Stop on failed gate
