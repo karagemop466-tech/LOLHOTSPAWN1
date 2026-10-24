@@ -1452,3 +1452,40 @@ data produced by the existing pipeline. **Not touched:** `tools/collect.py`, `to
 
 **Session `0ae1366a` closed.** No hard-coded site number was introduced: every count on the touched
 pages is computed from `data/matches.json`, `data/sources_status.json` or `data/esportsbook_probe.json`.
+
+---
+
+# Session `1a46a678` — independent verification pass; refresh blocker already resolved on `main` (2026-10-24)
+
+Branch `arena/1a46a678-lolhotspawn1`, realigned to `origin/main` @ `73dab0b`.
+
+This session independently diagnosed the four failing `refresh-picks` runs (40026767003,
+40063260000, 40088464687, 40109474033): the publish gate rejected the archived esportsbook receipts
+whose fixtures had left the live Hotspawn scheduled list, so `refresh.yml` aborted before committing
+and the published dataset stayed frozen at 2026-10-23T17:13Z. Root cause confirmed from the runner's
+stage-by-stage log (`data/diag/refresh.log`, session `80c624cd`): every stage exits 0 and the only
+failing assertion is `FAIL external receipts validated against the dataset :: 1 usable receipts,
+16 rejected, 0 diverging >8.0pp`.
+
+The same fix was merged on `main` by sessions `cc8c7362` (PR #64) and `ada2798c` (PR #65/#69):
+`tools/corroborate.py` now classifies those captures as `historical` (status `off-list`) and
+`tools/verify.py` fails only on `malformed` receipts, with a regression test in
+`tests/test_corroborate_history.py`. This session's own equivalent implementation was opened as PR #72
+and then **closed as superseded** rather than merged, so the published site keeps exactly one
+implementation. No other session's work was discarded.
+
+## Independent verification of `main` (2026-10-24 ~16:35Z)
+
+| Check | Result | Source |
+|---|---|---|
+| `python3 -m unittest discover -s tests` | 32/32 OK | `tests/` |
+| `python3 tools/verify.py` | 41/41 PASS | `data/verification.json` |
+| All 13 pages carry a viewport meta tag and the mobile bottom nav | present on every page | root `*.html` |
+| `table.html` | 241 data rows, 241 Hotspawn source links | `table.html` |
+| `picks.html` | 241 Hotspawn source links | `picks.html` |
+| Executive summary | in-site links to every picks view + "Unresolved picks and the limitations (4)" | `index.html` |
+| Live site | HTTP 200; snapshot 2026-10-24 16:21 UTC; Hotspawn inventory 2 min old | https://karagemop466-tech.github.io/LOLHOTSPAWN1/ |
+| Refresh loop | `refresh-picks` runs on `main` completing successfully; `pages-build-deployment` building/succeeding | GitHub Actions |
+
+No manual input is required; no value was inferred or filled. Flagged irregularities remain published
+on `flagged.html`.
