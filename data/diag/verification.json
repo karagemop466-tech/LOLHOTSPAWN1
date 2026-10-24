@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:49:26Z",
+ "generated_utc": "2026-10-24T16:54:31Z",
  "checks": [
   {
    "name": "dataset present",
@@ -94,7 +94,7 @@
   {
    "name": "all site pages exist",
    "ok": true,
-   "detail": "13/13 pages"
+   "detail": "14/14 pages"
   },
   {
    "name": "no broken internal links",
@@ -124,7 +124,7 @@
   {
    "name": "executive summary links to every picks view",
    "ok": true,
-   "detail": "present: ['picks.html', 'table.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks']"
+   "detail": "present: ['picks.html', 'table.html', 'results.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks', 'Where the picks are']"
   },
   {
    "name": "executive summary carries coverage, unresolved section and a where-to-find-picks block",
@@ -169,17 +169,22 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "32 usable receipts, 0 malformed, 0 stale unmatched (non-blocking), 1 diverging >8.0pp (flagged, non-blocking)"
+   "detail": "32 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)"
+  },
+  {
+   "name": "corroboration ledger accounts for every receipt",
+   "ok": true,
+   "detail": "receipts=51 = usable 32 + placeholder 2 + rejected 0 + expired 1 + historic 16"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 75982 bytes"
+   "detail": "coverage.html 75989 bytes"
   },
   {
    "name": "external source research receipts are committed",
    "ok": true,
-   "detail": "44 venues probed on 2026-10-24T16:40:49Z; dossier present"
+   "detail": "44 venues probed on 2026-10-24T16:41:31Z; dossier present"
   },
   {
    "name": "coverage arithmetic reconciles to the inventory",
@@ -194,7 +199,7 @@
   {
    "name": "source availability recorded",
    "ok": true,
-   "detail": "11/18 sources reachable on this build"
+   "detail": "12/18 sources reachable on this build"
   },
   {
    "name": "every Hotspawn fixture is in the dataset (1:1 ids)",
@@ -223,6 +228,6 @@
   "provisional": 78,
   "market": 9
  },
- "internal_links": 436,
+ "internal_links": 452,
  "lookahead_violations": 0
 }

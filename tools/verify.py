@@ -181,7 +181,7 @@ def main() -> None:
         f"csv rows={csv_rows} json rows={len(rows)}")
 
     # --- site ---------------------------------------------------------------
-    pages = ["index.html", "picks.html", "table.html", "featured.html", "originated.html",
+    pages = ["index.html", "picks.html", "table.html", "results.html", "featured.html", "originated.html",
              "unresolved.html", "coverage.html", "competitions.html", "teams.html", "methodology.html",
              "sources.html", "verification.html", "flagged.html"]
     missing_pages = [p for p in pages if not os.path.exists(os.path.join(DOCS, p))]
@@ -220,8 +220,8 @@ def main() -> None:
         f"{table_rows}/{len(rows)} table rows")
 
     index_html = open(os.path.join(DOCS, "index.html"), encoding="utf-8").read()
-    needed = ["picks.html", "table.html", "featured.html", "originated.html", "unresolved.html",
-              "Executive summary", "Unresolved picks"]
+    needed = ["picks.html", "table.html", "results.html", "featured.html", "originated.html",
+              "unresolved.html", "Executive summary", "Unresolved picks", "Where the picks are"]
     add("executive summary links to every picks view", all(n in index_html for n in needed),
         f"present: {[n for n in needed if n in index_html]}")
 
@@ -323,20 +323,29 @@ def main() -> None:
     no_link = [c["competition"] for c in cov_rows if not str(c.get("hotspawn_url") or "").startswith("https://")]
     add("coverage matrix: every competition row links to a source", bool(cov_rows) and not no_link,
         f"{len(cov_rows)} competition rows; missing links: {no_link[:3]}")
-    rejected = corr.get("rejected") or []
-    stale_unmatched = [r for r in rejected if r.get("status") == "unmatched"]
-    malformed = [r for r in rejected if r.get("status") != "unmatched"]
+    bad_receipts = corr.get("rejected") or []
     diverged = [r for r in (corr.get("rows") or []) if r.get("verdict") == "diverges"]
-    # Unmatched receipts are the expected leftover when Hotspawn rolls a BO1 off
-    # the scheduled feed (Worlds Swiss turns over daily). Divergence of a
-    # corroboration-only receipt against a newly collected line is a FLAG, not a
-    # publish blocker. Treating either as a hard fail froze the site on the
-    # 2026-10-23 17:13Z snapshot through four scheduled refresh-picks runs.
-    add("external receipts validated against the dataset", not malformed,
+    # An archived receipt that has aged out, or that belongs to a fixture Hotspawn has since
+    # delisted, is history - not a data error. Failing the gate on either deadlocks the refresh:
+    # a stale snapshot makes every receipt stale, which blocks the build that would refresh it.
+    # Malformed / wrong-team receipts still fail. A valid but divergent comparison is disclosed,
+    # not fatal: corroboration receipts never enter pricing, so blocking on disagreement would
+    # recreate the same self-sustaining outage without protecting a published probability.
+    add("external receipts validated against the dataset", not bad_receipts,
         f"{corr.get('summary',{}).get('usable_receipts',0)} usable receipts, "
-        f"{len(malformed)} malformed, {len(stale_unmatched)} stale unmatched (non-blocking), "
-        f"{len(diverged)} diverging >{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp "
-        f"(flagged, non-blocking)")
+        f"{len(bad_receipts)} rejected, {len(diverged)} diverging "
+        f">{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp (non-blocking), "
+        f"{corr.get('summary',{}).get('expired_receipts',0)} expired, "
+        f"{corr.get('summary',{}).get('historic_receipts',0)} historic (not counted)")
+    cs = corr.get("summary") or {}
+    accounted = (cs.get("usable_receipts", 0) + cs.get("placeholders", 0)
+                 + cs.get("rejected_receipts", 0) + cs.get("expired_receipts", 0)
+                 + cs.get("historic_receipts", 0))
+    add("corroboration ledger accounts for every receipt",
+        bool(corr) and accounted == cs.get("receipts", -1) and cs.get("receipts", 0) > 0,
+        f"receipts={cs.get('receipts')} = usable {cs.get('usable_receipts',0)} + placeholder "
+        f"{cs.get('placeholders',0)} + rejected {cs.get('rejected_receipts',0)} + expired "
+        f"{cs.get('expired_receipts',0)} + historic {cs.get('historic_receipts',0)}")
     cov_path = os.path.join(DOCS, "coverage.html")
     cov_html = open(cov_path, encoding="utf-8").read() if os.path.exists(cov_path) else ""
     add("coverage page shows every match method and the unresolved ledger",

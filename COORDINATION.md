@@ -489,6 +489,56 @@ Cause: `tools/verify.py` treated corroboration receipts whose fixture_id had rol
 
 Mobile: bottom bar **Picks** now opens `table.html` (one row per match). Exec summary tells a phone user to tap that tab. README merge markers removed.
 
+## Session `cc8c7362` — refresh repair and final integration (opened 2026-10-24T16:17Z)
+
+Branch: `arena/cc8c7362-lolhotspawn1` (the fixed Arena session branch; no additional branch will be created).
+The older implementation claims below are more than 60 minutes old. PR #60 (`bcfdfa66`) is a concurrent
+README/freshness-documentation audit; this claim deliberately excludes `README.md` and changes only this
+session's own appended board records in `COORDINATION.md`.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| R1 | Diagnose and repair the failed canonical 6-hour refresh; preserve source evidence and fail closed on unverified data | done | cc8c7362 | `.github/workflows/refresh.yml`, `tools/collect.py`, `tools/common.py`, `tools/corroborate.py` (stale-claim takeover from `294e62ad`, inactive >60 min), `tests/test_corroboration.py`, new refresh-specific evidence only |
+| R2 | Produce and independently verify a current full-inventory build; confirm every listed LoL fixture has a priced/model/settlement pick or an explicit limitation | done | cc8c7362 | canonical `data/` outputs (excluding `data/node/**`), generated root `*.html`, `assets/**`, `tools/model.py`, `tools/site.py`, `tools/verify.py` only if a verified defect requires it |
+| R3 | Final integration, PR to `main`, merge, and GitHub Pages deployment verification | in progress | cc8c7362 | this session record in `COORDINATION.md`; no `README.md` edits |
+
+R1 evidence: branch run [40111491764](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40111491764)
+passed at 2026-10-24T16:28Z and committed `2462d32`. The four production failures were caused by 16
+receipts for departed scheduled fixtures being classified as current-match validation failures. They are
+now retained in a separate archived/stale ledger and never enter pricing. Listed-fixture team mismatches
+and malformed receipts still fail verification; the initial repaired branch passed 17 focused unit tests.
+The final integration below refines valid divergence into a disclosed, non-pricing comparison so it cannot
+recreate the same refresh deadlock.
+
+R2/R3 integration evidence: this session locally integrated PR #71 (`80c624cd` results/mobile work),
+then merged successive `origin/main` updates at `73dab0b`, `0288327`, `1e50b87`, `9ac1044`, `462329c`
+and `2633f85`, including PRs #71/#74/#75/#76/#78/#79 and both branch-runner evidence commits.
+Conflicts affected the refresh workflow,
+receipt verification,
+landing-page source wording, generated data/HTML and this file. The resolution retains the integrated
+usable/expired/historic/rejected receipt taxonomy and result grading, restores `main`'s latest raw source
+captures plus the October 24 external/long-tail receipts, incorporates `main`'s measured esportsbook
+and 51-venue low-tier probes, the Starting soon phone list, per-competition fallback ledger and official
+Hotspawn forfeit-void rule, and unions every coordination record. No side's generated snapshot was chosen over the
+other: all outputs were rebuilt from the merged source. A blank/missing receipt fixture ID is malformed,
+not historic, with a focused regression test.
+
+The merged snapshot was generated at `2026-10-24T16:53:15Z` from inventory fetched at `16:46:02Z`:
+241/241 fixtures across 29 competitions, 9 market + 150 model + 78 provisional + 4 settlement-only picks;
+39 graded results (23 hits, 16 misses), kept separate from forecast probabilities. All 51 external
+captures are accounted for: 32 usable (31 agree, 1 diverges), 1 expired, 16 historic, 2 informational
+placeholders and 0 rejected. The divergent EGamersWorld observation for fixture `1081423` is source-linked
+and flagged; it never enters pricing, so it is non-blocking, while malformed and wrong-fixture receipts
+still fail closed. Verification: **56/56 unit tests**, **43/43 publish gates**, independent
+probability/source audit PASS, site audit **24 pages / 0 failures / 0 warnings**, independent row/venue
+audit **0 failures / 0 warnings** across 41 checked venues, jsdom mobile/search/filter PASS, secondary
+Node-pipeline test PASS (241 scheduled / 9 market / 42 joined venue quotes), all 16 documentation audits
+PASS, and the cross-pipeline freshness/inventory audit reports **0 missing fixtures / 0 missing picks / OK**. The
+independent publication audit has one documented low-severity warning: LGC fixture `1079080` has one thin
+Polymarket venue whose published raw weight is 0.24; its probability is correctly normalised and the
+weight irregularity is published on `flagged.html`. Branch-only refresh triggers were not retained;
+failure artifacts retain `data/build.log`, `data/verification.json` and `data/sources_status.json` for
+seven days under a run-specific name.
 ### PR / deploy record — session `1a1a3b1b`
 
 | Item | Value |

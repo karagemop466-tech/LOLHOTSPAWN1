@@ -197,6 +197,10 @@ def build() -> dict:
             "receipt_file": cap.get("_file"),
             "age_hours": age_hours(cap.get("captured_utc")),
         }
+        if not fid:
+            off_list.append({**base, "status": "malformed",
+                             "reason": "receipt must name its Hotspawn fixture id"})
+            continue
         if match is None:
             # Not an error: Hotspawn rotates fixtures off the list, so an archived capture of a
             # delisted card is history, not a broken receipt. It stays in the ledger, excluded
@@ -669,7 +673,7 @@ def render(doc: dict) -> str:
   <p>For the {len(gaps)} competitions with no external price, the pick is our own line
   (<a href="methodology.html">method</a>) and the limitation is published rather than hidden:</p>
   <ul class="tightlist">{gap_list}</ul>
-  {conflict_block}
+{conflict_block}
   <div class="tablewrap">
   <table class="table stack">
     <thead><tr><th>Source</th><th>What it showed</th><th>Capture</th></tr></thead>

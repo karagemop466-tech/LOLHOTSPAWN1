@@ -13,14 +13,15 @@ Cause: Hotspawn's fixtures API only returns cards that are still ``status=schedu
 series is played its id leaves the feed, so every manually captured book receipt stops matching within
 about a day. ``tools/corroborate.py`` filed those receipts as *rejected* and ``tools/verify.py`` treated
 any rejected receipt as a hard build failure - so committing a receipt guaranteed a self-inflicted
-outage. Receipts are corroboration only and can never change a pick, so they must never block one.
+outage. Receipts are corroboration only and can never change a pick, so historic/expired receipts and
+valid divergence must not block one; malformed or wrong-fixture evidence still fails closed.
 
 Two sessions fixed this independently on 2026-10-24 (``80c624cd`` / ``1a46a678`` on main, ``62ba9cfe``
 on its own branch); main's naming won the merge - a de-listed receipt is ``historic``. These tests pin
 the merged behaviour so the class of failure cannot come back:
 
 * a receipt whose fixture has left the feed is **historic**, never **rejected**;
-* only a genuinely malformed receipt (price <= 1.0, missing price) can block a publish;
+* only genuinely malformed or wrong-fixture evidence (price <= 1.0, missing price/ID/teams) can block a publish;
 * the ``AG.AL`` / ``Anyone's Legend`` alias is load-bearing, not cosmetic.
 """
 import json
@@ -29,7 +30,9 @@ import shutil
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -128,11 +131,10 @@ class CorroborationReceiptLifecycleTests(unittest.TestCase):
         doc = corroborate.build()
         self.assertEqual(doc["rejected"], [])
         self.assertEqual(len(doc["historic"]), 3)
-        # this is the exact list the blocking publish gate is built from (see tools/verify.py)
-        malformed = [r for r in doc["rejected"] if r.get("status") != "unmatched"]
-        self.assertEqual(malformed, [], "no malformed receipt, so the refresh must publish")
+        # no rejected receipt means the exact blocking list used by tools/verify.py is empty
+        self.assertEqual(doc["rejected"], [], "no rejected receipt, so the refresh must publish")
 
-    def test_only_malformed_receipts_are_rejected(self):
+    def test_malformed_and_wrong_team_receipts_are_rejected(self):
         self.write_dataset([_match("1000001"), _match("1000003", "Charlie", "Delta")])
         self.write_receipts([
             _capture("1000001", decimal=(0.95, 2.10)),      # price <= 1.0
@@ -144,7 +146,7 @@ class CorroborationReceiptLifecycleTests(unittest.TestCase):
         malformed = [r for r in doc["rejected"] if r.get("status") != "unmatched"]
         unmatched = [r for r in doc["rejected"] if r.get("status") == "unmatched"]
         self.assertEqual(len(malformed), 2, "price <= 1.0 and a single price are both malformed")
-        self.assertEqual(len(unmatched), 1, "wrong teams is unmatched, which is non-blocking")
+        self.assertEqual(len(unmatched), 1, "wrong teams is rejected separately from malformed prices")
         self.assertEqual(doc["summary"]["rejected_receipts"], 3)
 
     def test_placeholder_quote_is_quarantined_neither_historic_nor_rejected(self):
@@ -186,15 +188,15 @@ class CorroborationReceiptLifecycleTests(unittest.TestCase):
 class PublishGateRegressionTests(unittest.TestCase):
     """Pin the shape of the gate that froze the site, so it cannot silently become blocking again."""
 
-    def test_the_blocking_condition_only_looks_at_malformed_receipts(self):
+    def test_the_blocking_condition_only_looks_at_rejected_receipts(self):
         src = (ROOT / "tools" / "verify.py").read_text(encoding="utf-8")
         gate = src.split('add("external receipts validated against the dataset", ', 1)[1]
         condition = gate.split(",", 1)[0].strip()
-        self.assertEqual(condition, "not malformed",
-                         "the blocking condition may only look at malformed receipts; historic "
-                         "receipts, stale-unmatched receipts and corroboration divergence must "
-                         "never stop a publish (that froze the site for 23 h on 2026-10-24)")
-        self.assertIn("non-blocking", gate, "the gate detail must say which parts are non-blocking")
+        self.assertEqual(condition, "not bad_receipts",
+                         "historic and expired receipts plus valid corroboration divergence must "
+                         "never stop a publish; malformed and wrong-fixture evidence still must")
+        self.assertIn("non-blocking", gate, "the gate detail must disclose non-blocking divergence")
+        self.assertNotIn("not bad_receipts and not diverged", gate)
 
     def test_corroborate_separates_historic_from_rejected_in_its_output(self):
         src = (ROOT / "tools" / "corroborate.py").read_text(encoding="utf-8")
@@ -218,9 +220,60 @@ class PublishGateRegressionTests(unittest.TestCase):
     def test_committed_corroboration_has_no_blocking_receipt_defect(self):
         with open(ROOT / "data" / "corroboration.json", encoding="utf-8") as fh:
             corr = json.load(fh)
-        malformed = [r for r in corr.get("rejected") or [] if r.get("status") != "unmatched"]
-        self.assertEqual(malformed, [], "a malformed committed receipt would block every refresh")
+        blocking = corr.get("rejected") or []
+        self.assertEqual(blocking, [], "a malformed or wrong-fixture committed receipt would block every refresh")
         self.assertGreaterEqual(corr["summary"]["receipts"], 1)
+
+
+class ReceiptIdentityTests(unittest.TestCase):
+    def test_missing_fixture_id_is_malformed_not_historic(self):
+        """A blank ID is not evidence for a fixture that legitimately left the feed."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            data = root / "data"
+            receipts = data / "receipts" / "external_odds"
+            receipts.mkdir(parents=True)
+            (data / "matches.json").write_text(json.dumps({
+                "generated_utc": "2026-10-24T00:00:00Z",
+                "matches": [{
+                    "id": "current-1",
+                    "competition": "Synthetic test league",
+                    "start_utc": "2099-01-01T00:00:00Z",
+                    "team0": {"name": "Alpha"},
+                    "team1": {"name": "Beta"},
+                    "method": "market",
+                    "p0": 0.6,
+                    "p1": 0.4,
+                    "pick": {"team": "Alpha"},
+                    "hotspawn_url": "https://example.test/hotspawn/current-1",
+                }],
+            }), encoding="utf-8")
+            (receipts / "test.json").write_text(json.dumps({
+                "sources": [{"key": "test-book", "name": "Synthetic test book"}],
+                "captures": [{
+                    "fixture_id": "",
+                    "source": "test-book",
+                    "page_url": "https://example.test/odds/receipt",
+                    "captured_utc": datetime.now(timezone.utc).isoformat(),
+                    "page_teams": ["Alpha", "Beta"],
+                    "decimal": [1.5, 2.5],
+                    "verbatim": "synthetic test receipt; never used as production evidence",
+                }],
+            }), encoding="utf-8")
+            with mock.patch.object(corroborate, "ROOT", str(root)), \
+                 mock.patch.object(corroborate, "DATA", str(data)), \
+                 mock.patch.object(corroborate, "RECEIPT_DIR", str(receipts)):
+                doc = corroborate.build()
+
+        self.assertEqual(doc["rows"], [])
+        self.assertEqual(doc["historic"], [])
+        self.assertEqual(doc["expired"], [])
+        self.assertEqual(len(doc["rejected"]), 1)
+        self.assertEqual(doc["rejected"][0]["status"], "malformed")
+        self.assertIn("fixture id", doc["rejected"][0]["reason"])
+        self.assertEqual(doc["summary"]["receipts"], 1)
+        self.assertEqual(doc["summary"]["rejected_receipts"], 1)
+        self.assertEqual(doc["summary"]["historic_receipts"], 0)
 
 
 if __name__ == "__main__":

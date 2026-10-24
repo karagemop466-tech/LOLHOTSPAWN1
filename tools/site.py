@@ -13,7 +13,6 @@ import json
 import os
 import sys
 from collections import Counter
-from datetime import timedelta
 from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -36,24 +35,23 @@ METHOD_HELP = {
 }
 
 # Always-visible navigation on phones (a persistent bottom bar beats a hidden menu).
-# "Picks" opens the compact table — the readable phone list — not the 200+ card wall.
 MOBILE_NAV = [
     ("index.html", "Summary"),
     ("table.html", "Picks"),
-    ("featured.html", "Market"),
-    ("unresolved.html", "Unresolved"),
+    ("results.html", "Results"),
+    ("unresolved.html", "Limits"),
     ("flagged.html", "Flags"),
 ]
 
 NAV = [
     ("index.html", "Summary"),
-    ("picks.html", "All picks"),
-    ("table.html", "Table"),
+    ("table.html", "Pick table"),
+    ("picks.html", "Cards"),
     ("results.html", "Results"),
-    ("featured.html", "Market"),
-    ("originated.html", "Model"),
-    ("coverage.html", "Coverage"),
+    ("featured.html", "Market lines"),
+    ("originated.html", "Model lines"),
     ("unresolved.html", "Unresolved"),
+    ("coverage.html", "Coverage"),
     ("competitions.html", "Tournaments"),
     ("teams.html", "Teams"),
     ("methodology.html", "Method"),
@@ -294,18 +292,18 @@ def stat_card(label: str, value, note: str = "", cls: str = "") -> str:
             f'<div class="sl">{e(label)}</div>{f"<div class=sn>{e(note)}</div>" if note else ""}</div>')
 
 
-def raw_table(headers: list[str], raw_rows: list[str], cls: str = "") -> str:
-    """Table built from ready-made <tr> strings (used by the results page)."""
-    head = "".join(f"<th>{h}</th>" for h in headers)
-    return (f'<div class="tablewrap"><table class="{cls}"><thead><tr>{head}</tr></thead>'
-            f'<tbody>{"".join(raw_rows)}</tbody></table></div>')
-
-
 def table(headers: list[str], rows: list[list[str]], cls: str = "") -> str:
     head = "".join(f"<th>{h}</th>" for h in headers)
     body = "".join("<tr>" + "".join(f"<td data-label=\"{headers[i]}\">{c}</td>"
                                      for i, c in enumerate(row)) + "</tr>" for row in rows)
     return f'<div class="tablewrap"><table class="{cls}"><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>'
+
+
+def raw_table(headers: list[str], row_html: list[str], cls: str = "table stack") -> str:
+    """Table from pre-rendered <tr> rows that already carry their own data-label cells."""
+    head = "".join(f"<th>{h}</th>" for h in headers)
+    return (f'<div class="tablewrap"><table class="{cls}"><thead><tr>{head}</tr></thead>'
+            f'<tbody>{"".join(row_html)}</tbody></table></div>')
 
 
 def calibration_svg(bt: dict) -> str:
@@ -546,9 +544,7 @@ def _lowtier_matrix() -> tuple[dict, str, int]:
 
 
 def _fallback_rows(rows: list[dict]) -> list[list[str]]:
-    """Per-competition fallback ledger: how every pick is made when no featured
-    (market) resolution exists, and the limitation that applies. Derived only
-    from matches.json + the committed probe matrix - nothing inferred."""
+    """Per-competition fallback ledger derived only from matches and probe receipts."""
     matrix, probe_date, n_venues = _lowtier_matrix()
     by_comp: dict[str, list[dict]] = {}
     for r in rows:
@@ -631,6 +627,7 @@ def next_strip(rows: list[dict]) -> str:
 
 
 def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> str:
+    """Landing page: the phone-first answer to "where are the picks, and what are they?"."""
     t = _stat_totals(rows)
     total = t["total"]
     walkover = t["walkover"]
@@ -639,30 +636,27 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     provisional = t["provisional"]
     priced_n = t["priced"]
     resolved_total = t["with_pick"]
-    now_iso = iso(now_utc())
-    soon_cutoff = iso(now_utc() + timedelta(hours=48))
-    upcoming = sorted([r for r in rows if r["start_utc"] and r["start_utc"] > now_iso and r["pick"]],
+    meta = load_json(os.path.join(DATA, "matches.json")) or {}
+    track = meta.get("track_record") or {}
+    fetched = meta.get("inventory_fetched_utc") or ""
+    upcoming = sorted([r for r in rows
+                       if r["start_utc"] and r["start_utc"] > iso(now_utc()) and r["pick"]],
                       key=lambda r: r["start_utc"])
-    soon = [r for r in upcoming if r["start_utc"] <= soon_cutoff]
-    soon_rows = soon[:15] if soon else upcoming[:8]
-    featured_cards = sorted(featured, key=lambda r: r["start_utc"] or "9999")[:6]
-    fallback_html = table(
-        ["Competition", "Matches", "Pick basis", "External line found?", "Limitation"],
-        _fallback_rows(rows))
     live_sources = sum(1 for s in src_status if s.get("ok"))
-    venue_names = sorted({v["name"] for r in featured for v in (r.get("market") or {}).get("venues") or []})
+    venue_names = sorted({v["name"] for r in featured
+                          for v in (r.get("market") or {}).get("venues") or []})
     venues_txt = ", ".join(venue_names) if venue_names else "no reachable book this build"
     originated_n = counts.get("model", 0) + len(provisional)
-
     ceiling = _external_ceiling()
     probe = _esportsbook_probe()
-    # Only quote the feeds that actually carried a price on this build; a book that answered but had
-    # no LoL coupon must not be described as a live price feed.
+    _, lowtier_date, lowtier_n = _lowtier_matrix()
+    # Describe only feeds that actually carried a listed-match price on this
+    # build; an HTTP 200 with an empty coupon is not a live price feed.
     ceiling_parts = []
-    for label, key in (("Pinnacle", "pinnacle_priced"), ("Bovada", "bovada"), ("Unibet (Kambi)", "unibet")):
+    for label, key in (("Pinnacle", "pinnacle_priced"), ("Bovada", "bovada"),
+                       ("Unibet (Kambi)", "unibet")):
         if ceiling[key]:
-            unit = "contracts" if key == "kalshi" else "series"
-            ceiling_parts.append(f'<strong>{label} {ceiling[key]} {unit}</strong>')
+            ceiling_parts.append(f'<strong>{label} {ceiling[key]} series</strong>')
     if ceiling["kalshi"]:
         ceiling_parts.append(f'<strong>Kalshi {ceiling["kalshi"]} contracts</strong>')
     if ceiling["polymarket"]:
@@ -673,14 +667,12 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
               if not ceiling[key]]
     silent_txt = (" Feeds that returned no LoL price on this build: " + ", ".join(silent) + "."
                   if silent else "")
-    gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
     if probe["have"]:
         other = probe["tested"] - probe["usable"] - probe["http_blocked"] - probe["html_only"]
         probe_line = (
             f'{probe["tested"]} further esportsbook and odds-aggregator endpoints were called from the '
-            f'build runner on {e(probe["checked"])} UTC (1xBet / 22Bet / Melbet / Betwinner LineFeed, '
-            f'Rivalry, DraftKings, GG.BET, Thunderpick, Midnite, BetOnline, OddsPortal, BC.GAME, Abios, '
-            f'PandaScore): <strong>{probe["usable"]} returned a machine-readable LoL price</strong> '
+            f'build runner on {e(probe["checked"])} UTC: '
+            f'<strong>{probe["usable"]} returned a machine-readable LoL price</strong> '
             f'({probe["http_blocked"]} blocked or key-gated, {probe["html_only"]} browser-only pages, '
             f'{other} error or empty responses). Those leagues therefore keep the originated line rather '
             'than a borrowed or invented quote.'
@@ -692,53 +684,95 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     else:
         probe_line = "No additional esportsbook probe receipt is committed for this build."
         probe_link = '<a href="sources.html">Sources</a>'
+    lowtier_note = (
+        f' A separate {lowtier_n}-venue low-tier probe ({e(lowtier_date)}) is documented in the '
+        f'<a href="{LOWTIER_MEMO_URL}" rel="noopener">research memo and receipts</a>; see the '
+        '<a href="unresolved.html#fallback">competition-by-competition fallback ledger</a>.'
+        if lowtier_n else ""
+    )
+    gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
+
     unres_rows = []
     for r in unresolved:
         unres_rows.append([
             local_time(r["start_utc"]),
-            '<a href="unresolved.html#m' + e(r["id"]) + '">' + e(r["competition"]) + '</a>',
-            '<strong>' + e(r["team0"]["name"]) + '</strong> vs <strong>' + e(r["team1"]["name"]) + '</strong>',
+            '<a href="unresolved.html#m' + e(r["id"]) + '">' + e(r["competition"]) + "</a>",
+            "<strong>" + e(r["team0"]["name"]) + "</strong> vs <strong>" + e(r["team1"]["name"]) + "</strong>",
             _pick_cell(r) if r.get("resolution") else '<span class="muted">no pick</span>',
             _row_sources(r),
         ])
 
+    acc = track.get("accuracy")
+    track_line = (
+        f'<a href="results.html"><strong>{track.get("hits", 0)} of {track.get("graded", 0)}</strong> '
+        f'graded picks won ({acc*100:.1f}%)</a>' if acc is not None
+        else "no graded picks yet")
+
     body = f"""
 <section class="hero" id="start">
-  <h2>Every Hotspawn League of Legends match, with a pick you can find in one tap.</h2>
-  <p>This dashboard rebuilds itself automatically every six hours across all {total} scheduled LoL matches on
-  Hotspawn. {len(featured)} featured series are priced from de-vigged real-money quotes
-  ({e(venues_txt)}); {originated_n} regional and academy series are originated from recorded series history;
-  {len(unresolved)} unplayable cards are quarantined and, where the league itself has ruled a forfeit,
-  resolved to the official winner instead of being left blank. Nothing on this site ever uses Hotspawn's
-  crowd-pick percentages.</p>
+  <h2>Every League of Legends match on Hotspawn, with a pick you can reach in one tap.</h2>
+  <p>All <strong>{total}</strong> scheduled LoL cards, refreshed automatically every six hours. Every card
+  carries a pick: <strong>{len(featured)}</strong> priced from real-money bookmaker lines,
+  <strong>{originated_n}</strong> originated from recorded series results, and
+  <strong>{len(walkover)}</strong> resolved by league rule. Hotspawn's own crowd vote is never an input.</p>
   <div class="cta">
-    <a class="btn primary" href="table.html">Pick table - all {total} matches &rarr;</a>
+    <a class="btn primary" href="table.html">Pick table &mdash; all {total} matches &rarr;</a>
     <a class="btn" href="picks.html">Card view</a>
-    <a class="btn" href="unresolved.html">Unresolved &amp; limits ({len(unresolved)})</a>
+    <a class="btn" href="results.html">Results ({track.get("graded", 0)} graded)</a>
   </div>
 </section>
 
-<section class="panel" id="exec-summary">
-  <h2>Executive summary</h2>
-  <div class="cta" id="where-picks">
-    <a class="btn primary" href="table.html">Where the picks are: pick table ({total} matches) &rarr;</a>
-    <a class="btn" href="picks.html">Card view</a>
-    <a class="btn" href="featured.html">Market-backed ({len(featured)})</a>
-    <a class="btn" href="originated.html">Originated ({originated_n})</a>
-    <a class="btn" href="unresolved.html">Unresolved &amp; limits ({len(unresolved)})</a>
-    <a class="btn" href="flagged.html">Flagged for review</a>
+<section class="panel" id="where">
+  <h2>Where the picks are</h2>
+  <p class="lead">Six ways in. Every link stays inside this site and every row links out to the source it came
+  from.</p>
+  <div class="quicklinks">
+    <a href="table.html"><span class="ql-t">Pick table &mdash; {total} matches</span>
+      <span class="ql-d">One row per match: both win probabilities, the pick, the method and source links. The fastest page on a phone.</span></a>
+    <a href="picks.html"><span class="ql-t">Card view &mdash; {total} matches</span>
+      <span class="ql-d">The same list as cards, each with the reasoning behind the number and every source.</span></a>
+    <a href="results.html"><span class="ql-t">Results &mdash; {track.get("graded", 0)} graded</span>
+      <span class="ql-d">Whether the published picks actually won, graded against the official series record.</span></a>
+    <a href="featured.html"><span class="ql-t">Market-backed &mdash; {len(featured)}</span>
+      <span class="ql-d">De-vigged consensus of real-money books and exchanges ({e(venues_txt)}), with the raw quotes.</span></a>
+    <a href="originated.html"><span class="ql-t">Model lines &mdash; {originated_n}</span>
+      <span class="ql-d">Our own Elo line where no sportsbook prices the league, with the inputs and records behind it.</span></a>
+    <a href="unresolved.html"><span class="ql-t">Unresolved &amp; limits &mdash; {len(unresolved)}</span>
+      <span class="ql-d">Every card that cannot carry a probability, why, and every limitation that applies to the rest.</span></a>
   </div>
+</section>
+
+<section class="panel" id="soon">
+  <h2 id="next">Starting soon</h2>
+  <p class="lead">The next eight kick-offs. Tap a row for the full card.</p>
+  <div class="nextlist">{next_strip(upcoming[:8]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
+  <p style="margin:12px 0 0"><a class="btn" href="table.html">All {total} matches &rarr;</a></p>
+</section>
+
+<section class="stats">
+  {stat_card("Matches on Hotspawn", total, f"across {t['comps']} tournaments")}
+  {stat_card("With a win probability", priced_n, f"{priced_n/total*100:.0f}% of the list", "ok")}
+  {stat_card("With a pick", resolved_total, f"{resolved_total/total*100:.0f}% incl. {len(walkover)} rule settlements")}
+  {stat_card("Market-backed", len(featured), "real-money consensus", "market")}
+  {stat_card("Model lines", counts.get('model',0), "medium confidence", "model")}
+  {stat_card("Provisional", len(provisional), "thin data, flagged", "provisional")}
+  {stat_card("Graded picks", track.get("graded", 0), f"{acc*100:.0f}% correct" if acc is not None else "none yet", "ok")}
+</section>
+
+<section class="panel" id="summary">
+  <h2>Executive summary</h2>
   <ul class="bullets">
     <li><strong>Where the picks are.</strong> On a phone, tap <a href="table.html"><strong>Picks</strong></a>
-    in the bar at the bottom of every page — one row per match with the pick, both win
-    probabilities, the method and source links. Bookmark that table. <a href="picks.html"><strong>Card view</strong></a>
-    shows the same {total} matches with the full reasoning. Both pages are searchable and filterable by
-    tournament and by method. Next kick-offs are under <a href="#soon">Starting soon</a> below.</li>
+    in the bar at the bottom of every page: one row per match with the pick, both win probabilities, the
+    method and source links. <a href="picks.html">Card view</a> shows the same {total} matches with the
+    reasoning behind each line, and <a href="results.html">Results</a> grades the picks that have already
+    played. Every list is searchable and filterable by tournament and by method. Next kick-offs are under
+    <a href="#next">Next up</a>.</li>
     <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
     ({resolved_total/total*100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
-    official forfeit winner with no probability claimed.
-    Priced: <a href="featured.html">{len(featured)} market-backed</a>
-    ({e(venues_txt)}), <a href="originated.html">{counts.get('model',0)} originated</a> and
+    official forfeit winner with no probability claimed. Priced:
+    <a href="featured.html">{len(featured)} market-backed</a> ({e(venues_txt)}),
+    <a href="originated.html">{counts.get('model',0)} model</a> and
     <a href="originated.html">{len(provisional)} provisional</a>.</li>
     <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
     We probed <strong>{ceiling["probed"]} external venues</strong> from the build runner (established books,
@@ -747,107 +781,186 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     {ceiling_txt} &mdash; overwhelmingly the same Worlds 2026 ties.{silent_txt} Everything below that ceiling
     has no external line to quote, so we originate it ourselves.
     Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
-    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}. A second, wider 51-venue probe (2026-10-24) reached the same conclusion &mdash; <a href="{LOWTIER_MEMO_URL}" rel="noopener">research memo &amp; receipts</a>. Competition-by-competition fallback and limitations: <a href="unresolved.html#fallback"><strong>Fallback by competition</strong></a>.</li>
-    <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
-    originated lines are model estimates from community-maintained Leaguepedia history; archived sportsbook
-    receipts are excluded from pricing; and forfeited cards follow Hotspawn's published void rule
-    (no points either way) - see <a href="unresolved.html">Unresolved &amp; limitations</a> and
-    <a href="flagged.html">Flagged for review</a>.</li>
-    <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
-    captured for audit comparison only and carry zero weight in any probability - see
-    <a href="methodology.html">Method &amp; out-of-sample backtest</a>.</li>
-    <li><strong>Verification.</strong> {live_sources} of the {len(src_status)} feeds the collector polls
-    answered on the last build (<a href="sources.html">Sources</a> &mdash; a separate, wider probe of
-    {ceiling["probed"]} venues including esportsbooks and aggregators is published there too). Every row
-    links to its official source, and the {gate_count}-check publish gate
+    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.{lowtier_note}</li>
+    <li><strong>Unresolved picks &amp; limitations.</strong> {len(unresolved)} cards cannot carry a playable
+    probability today; they are listed with their reason and source in the section below and in full on
+    <a href="unresolved.html">Unresolved &amp; limitations</a>. Nothing is padded with a guessed number.</li>
+    <li><strong>Independence and limits.</strong> Hotspawn's public pick percentages are captured for audit
+    only and carry zero weight in any probability (see <a href="methodology.html">Method</a>). Market quotes
+    are source observations, not official verification; originated lines are model estimates from
+    community-maintained Leaguepedia history; any walkover grade instead of Hotspawn's published void
+    rule remains conditional &mdash; see <a href="flagged.html">Flagged for review</a>.</li>
+    <li><strong>Verification.</strong> {live_sources} of the {len(src_status)} polled feeds answered on the
+    last build, every row links to its official source, and the {gate_count}-check publish gate
     (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
     probabilities fail to sum to 100%, or an internal link breaks.</li>
   </ul>
 </section>
 
-<section class="panel" id="soon">
-  <h2>Starting soon &mdash; picks for the next 48 hours</h2>
-  <p class="lead">{len(soon)} matches kick off in the next 48 hours; the first {len(soon_rows)} are below,
-  soonest first. The big number is our win probability for the <strong>Pick</strong> team.
-  Hotspawn picks lock 5 minutes before the scheduled start
-  (<a href="{HOTSPAWN_RULES_URL}" rel="noopener">Hotspawn rules</a>), so work down this list first.
-  Tap any row for the full reasoning and sources.</p>
-  <div class="nextlist">{next_strip(soon_rows) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
-  <p style="margin:12px 0 0"><a class="btn primary" href="table.html">All {total} matches in one table &rarr;</a>
-  <a class="btn" href="picks.html">Card view &rarr;</a></p>
+<section class="panel" id="unresolved-summary">
+  <h2>Unresolved picks and the limitations ({len(unresolved)})</h2>
+  <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror
+  Hotspawn exactly, are reported separately, and are never padded with a guessed number. Where the league
+  itself has ruled a forfeit, the official settlement winner is shown - it is <em>not</em> a forecast.
+  <a href="{HOTSPAWN_RULES_URL}" rel="noopener">Hotspawn's published rule</a> voids forfeited-match
+  predictions, with no points awarded or deducted.</p>
+  {table(["Kick-off", "Tournament", "Match", "Settlement pick", "Sources"], unres_rows) if unres_rows else '<p class="muted">No unresolved matches in this snapshot.</p>'}
+  <ul class="bullets">
+    <li><strong>Why a card can have no line.</strong> A team officially removed mid-split
+    (<code>dqteams</code>) may have its remaining fixtures voided or graded as walkovers, so a probability
+    built from its earlier results would be fiction.</li>
+    <li><strong>No market on national and academy divisions.</strong> {total - len(featured)} of {total}
+    matches are not priced by any book reachable from the runner; their lines come from recorded series
+    history rather than an aggregator placeholder.</li>
+    <li><strong>What we tried for the low-tier tail.</strong> {probe_line} {probe_link}.</li>
+    <li><strong>Thin samples.</strong> {len(provisional)} lines are labelled <em>provisional</em> because at
+    least one side has fewer than five rated series in the 25-month window.</li>
+    <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
+    limitations are on <a href="unresolved.html">Unresolved &amp; limitations</a>; data irregularities are on
+    <a href="flagged.html">Flagged for review</a>.</li>
+  </ul>
 </section>
 
-<section class="panel" id="jumpto">
-  <h2>Start here</h2>
-  <div class="quicklinks">
-    <a href="table.html"><span class="ql-t">Pick table</span><span class="ql-d">Every match in one scannable table: pick, both win probabilities, method and source links.</span></a>
-    <a href="picks.html"><span class="ql-t">Card view</span><span class="ql-d">The same list as cards, with the full reasoning behind each line.</span></a>
-    <a href="featured.html"><span class="ql-t">Market-backed ({len(featured)})</span><span class="ql-d">De-vigged consensus from real-money books and exchanges.</span></a>
-    <a href="originated.html"><span class="ql-t">Originated lines ({originated_n})</span><span class="ql-d">Our own Elo line where no sportsbook prices the league.</span></a>
-    <a href="unresolved.html"><span class="ql-t">Unresolved &amp; limits ({len(unresolved)})</span><span class="ql-d">Cards that cannot be priced, plus every documented limitation.</span></a>
-    <a href="flagged.html"><span class="ql-t">Flagged for review</span><span class="ql-d">Irregularities, corrections and unverified items.</span></a>
+<section class="panel" id="track">
+  <h2>Track record</h2>
+  <p class="lead">{track_line}. Grading rule and every graded row:
+  <a href="results.html">Results</a>. Source for results: community-maintained Leaguepedia series records.</p>
+</section>
+"""
+    return page_shell("Hotspawn LoL Pick Desk", "index.html", body,
+                      "Independent win probabilities and a pick for every League of Legends match in the "
+                      "Hotspawn pick'em.")
+
+
+def build_results(rows: list[dict]) -> str:
+    """Track record: every started card we can grade against the official series record."""
+    doc = load_json(os.path.join(DATA, "matches.json")) or {}
+    track = doc.get("track_record") or {}
+    graded = sorted([r for r in rows if r.get("grade") in ("hit", "miss")],
+                    key=lambda r: (r.get("start_utc") or ""), reverse=True)
+    settled = [r for r in rows if r.get("grade") == "settled"]
+    ungraded = [r for r in rows if r.get("stale") and not r.get("grade")]
+
+    def grade_pill(g: str | None) -> str:
+        if g == "hit":
+            return '<span class="pill ok">HIT</span>'
+        if g == "miss":
+            return '<span class="pill bad">MISS</span>'
+        if g == "settled":
+            return '<span class="pill warn">SETTLED</span>'
+        return '<span class="pill no">ungraded</span>'
+
+    def result_cell(r: dict) -> str:
+        res = r.get("result") or {}
+        if not res:
+            return '<span class="muted">no official record matched</span>'
+        sc0, sc1 = res.get("score0"), res.get("score1")
+        winner = r["team0"]["name"] if res.get("winner_side") == 0 else r["team1"]["name"]
+        ff = res.get("forfeit_flag")
+        ff_txt = f' <span class="muted small">FF={e(ff)}</span>' if ff not in (None, "", 0) else ""
+        return (f'<strong>{e(winner)}</strong> won'
+                f'<br><span class="muted small">{e(r["team0"]["name"])} {e(sc0)}&ndash;{e(sc1)} '
+                f'{e(r["team1"]["name"])}{ff_txt}</span>'
+                f'<br><a class="small" href="{e(res.get("source"))}" rel="noopener">Leaguepedia record</a>')
+
+    def pick_cell(r: dict) -> str:
+        p = r.get("pick") or {}
+        if p.get("probability") is None:
+            return (f'<strong class="res">{e(p.get("team") or "&mdash;")}</strong>'
+                    f'<br><span class="small muted">settlement, no probability</span>')
+        return (f'<strong>{e(p.get("team"))}</strong>'
+                f'<br><span class="small muted">{p["probability"]*100:.1f}% to win</span>')
+
+    trs = []
+    for r in graded:
+        trs.append(
+            '<tr class="m-' + e(r["method"]) + '">'
+            f'<td data-label="Kick-off" class="nowrap small">{e((r.get("start_utc") or "")[:16].replace("T", " "))} UTC</td>'
+            f'<td data-label="Tournament" class="small">{e(r["competition"])}</td>'
+            f'<td data-label="Match"><strong>{e(r["team0"]["name"])}</strong> <span class="muted">vs</span> '
+            f'<strong>{e(r["team1"]["name"])}</strong></td>'
+            f'<td data-label="Published pick">{pick_cell(r)}</td>'
+            f'<td data-label="Official result">{result_cell(r)}</td>'
+            f'<td data-label="Grade">{grade_pill(r.get("grade"))}</td>'
+            f'<td data-label="Sources" class="srcs small">{_row_sources(r)}</td>'
+            '</tr>')
+    settled_rows = []
+    for r in sorted(settled, key=lambda r: (r.get("start_utc") or ""), reverse=True):
+        settled_rows.append(
+            f'<tr><td data-label="Kick-off" class="small">{e((r.get("start_utc") or "")[:16].replace("T", " "))} UTC</td>'
+            f'<td data-label="Tournament" class="small">{e(r["competition"])}</td>'
+            f'<td data-label="Match">{e(r["team0"]["name"])} vs {e(r["team1"]["name"])}</td>'
+            f'<td data-label="Settlement pick">{pick_cell(r)}</td>'
+            f'<td data-label="Official record">{result_cell(r)}</td>'
+            f'<td data-label="Grade">{grade_pill("settled")}</td>'
+            f'<td data-label="Sources" class="srcs small">{_row_sources(r)}</td></tr>')
+
+    by_method_rows = []
+    for name, m in sorted((track.get("by_method") or {}).items(), key=lambda kv: -kv[1]["graded"]):
+        by_method_rows.append(
+            f'<tr><td>{badge(name)}</td><td class="num">{m["graded"]}</td><td class="num">{m["hits"]}</td>'
+            f'<td class="num">{m["graded"] - m["hits"]}</td>'
+            f'<td class="num">{m["accuracy"]*100:.1f}%</td></tr>')
+
+    acc = track.get("accuracy")
+    brier = track.get("brier")
+    body = f"""
+<section class="hero">
+  <h2>Did the published picks actually win?</h2>
+  <p>Every card on this site that has kicked off is graded against the official series record once one
+  exists. This page is the honest scoreboard: it counts hits and misses of the <em>published</em> pick,
+  never a probability rewritten after the result.</p>
+  <div class="cta">
+    <a class="btn primary" href="table.html">All matches &amp; picks &rarr;</a>
+    <a class="btn" href="unresolved.html">Unresolved &amp; limitations</a>
   </div>
 </section>
 
 <section class="stats">
-  {stat_card("Matches listed on Hotspawn", total, f"across {t['comps']} tournaments")}
-  {stat_card("With a win probability", priced_n, f"{priced_n/total*100:.0f}% priced", "ok")}
-  {stat_card("With a pick", resolved_total, f"{resolved_total/total*100:.0f}% incl. {len(walkover)} forfeit settlements")}
-  {stat_card("Market-backed", len(featured), "real-money consensus", "market")}
-  {stat_card("Originated lines", counts.get('model',0), "model, medium confidence", "model")}
-  {stat_card("Provisional", len(provisional), "thin data, flagged", "provisional")}
-  {stat_card("Walkover-resolved", len(walkover), "official forfeit, no probability", "unresolved")}
+  {stat_card("Graded picks", track.get("graded", 0), "official series record matched", "ok")}
+  {stat_card("Hits", track.get("hits", 0), "published pick won", "ok")}
+  {stat_card("Misses", track.get("misses", 0), "the other side won", "unresolved")}
+  {stat_card("Accuracy", f"{acc*100:.1f}%" if acc is not None else "&mdash;", "graded picks only", "model")}
+  {stat_card("Brier score", f"{brier:.4f}" if brier is not None else "&mdash;", "lower is better", "")}
+  {stat_card("Forfeit settlements", track.get("settled_forfeits", 0), "not counted as forecast wins", "provisional")}
+  {stat_card("Started, ungraded", len(ungraded), "no consistent official record", "")}
 </section>
 
-<section class="panel" id="unresolved-summary">
-  <h2>Unresolved picks and the limitations ({len(unresolved)})</h2>
-  <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror Hotspawn
-  exactly, are reported separately, and are never padded with a guessed number. Where the league itself has
-  ruled a forfeit, the official settlement winner is shown - it is <em>not</em> a forecast.
-  Hotspawn's published rule <strong>voids all predictions on a forfeited match</strong> (no points either way),
-  so expect these cards to score zero whichever side you tap
-  (<a href="{HOTSPAWN_RULES_URL}" rel="noopener">Hotspawn &mdash; How Pick'ems Works</a>).</p>
-  {table(["Kick-off", "Tournament", "Match", "Settlement pick", "Sources"], unres_rows) if unres_rows else '<p class="muted">No unresolved matches in this snapshot.</p>'}
-  <ul class="bullets">
-    <li><strong>Why some matches have no line.</strong> A team officially removed mid-split
-    (<code>dqteams</code>) may have its remaining fixtures voided or graded as walkovers, so a probability
-    built from its earlier results would be fiction.</li>
-    <li><strong>No market on national divisions.</strong> {total - len(featured)} of {total} matches are not
-    priced by any book reachable from the runner; their lines come from recorded series history rather than
-    an aggregator placeholder.</li>
-    <li><strong>What we tried for the low-tier tail.</strong> {probe["tested"]} esportsbook and aggregator
-    endpoints were called from a runner on {e(probe["checked"])} UTC; {probe["usable"]} returned a
-    machine-readable LoL price, so these leagues keep an originated line instead of a borrowed or invented
-    one. Full status codes and raw previews: {probe_link}.</li>
-    <li><strong>Thin samples.</strong> {len(provisional)} lines are labelled <em>provisional</em> because at
-    least one side has fewer than five rated series in the 25-month window.</li>
-    <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
-    limitations are on <a href="unresolved.html"><strong>Unresolved &amp; limitations</strong></a>; the
-    irregularities are on <a href="flagged.html">Flagged for review</a>.</li>
-  </ul>
-  <details class="why">
-    <summary>All {t['comps']} competitions: how each pick is made when no book prices it (tap to expand)</summary>
-    {fallback_html}
-    <p class="small muted">External-line column: 51-venue probe, 2026-10-24
-    (<a href="{LOWTIER_MEMO_URL}" rel="noopener">memo &amp; receipts</a>). Originated = our Elo from recorded
-    series history; provisional = same model on thin data; settlement = official forfeit winner, no %.</p>
-  </details>
+<section class="panel">
+  <h2>Graded picks</h2>
+  <p class="lead">Newest first. A pick is graded only when the official record matches this fixture's team
+  pair and kick-off (within 12 hours) and the recorded winner agrees with the recorded score. Anything less
+  stays ungraded rather than being guessed.</p>
+  {raw_table(["Kick-off", "Tournament", "Match", "Published pick", "Official result", "Grade", "Sources"], trs) if trs else '<p class="muted">No graded picks in this snapshot yet.</p>'}
 </section>
 
-<section class="panel" id="featured-picks">
-  <h2>Featured market picks ({len(featured)})</h2>
-  <p class="lead">The matches real-money books actually price, soonest first, with the de-vigged consensus.
-  Everything else on Hotspawn is priced by our originated line &mdash; see
-  <a href="originated.html">Originated lines</a>.</p>
-  <div class="cards">
-    {"".join(match_card(r, show_sources=True) for r in featured_cards) or '<p class="muted">No market-backed matches in the current snapshot.</p>'}
-  </div>
-  <p><a class="btn" href="featured.html">All market-backed picks &rarr;</a>
-  <a class="btn" href="table.html">Full table ({total} matches) &rarr;</a></p>
+<section class="panel">
+  <h2>Accuracy by how the line was made</h2>
+  {raw_table(["Method", "Graded", "Hits", "Misses", "Accuracy"], by_method_rows, "table stack") if by_method_rows else '<p class="muted">No graded picks yet.</p>'}
+  <p class="muted small">A market line and a model line are expected to differ: the market-backed
+  sample is small (a handful of Worlds series), so read the model and provisional rows as the meaningful
+  sample. Out-of-sample backtest of the rating model itself is on
+  <a href="methodology.html">Method</a>.</p>
+</section>
+
+<section class="panel">
+  <h2>Forfeit settlements</h2>
+  <p class="lead">These cards were resolved by league rule, not by play. They are listed for completeness and
+  never counted as a successful forecast.</p>
+  {raw_table(["Kick-off", "Tournament", "Match", "Settlement pick", "Official record", "Grade", "Sources"], settled_rows) if settled_rows else '<p class="muted">No forfeit settlements in this snapshot.</p>'}
+</section>
+
+<section class="panel">
+  <h2>Started but ungraded ({len(ungraded)})</h2>
+  <p class="lead">Hotspawn keeps <code>status=scheduled</code> on cards whose start time has passed. Where
+  Leaguepedia holds no consistent record for the pair, the card stays listed and ungraded here - it is never
+  scored from an assumption.</p>
+  <p>The full list is on <a href="unresolved.html">Unresolved &amp; limitations</a>, together with every
+  documented limitation of the data.</p>
 </section>
 """
-    return page_shell("Hotspawn LoL Pick Desk", "index.html", body,
-                      "Independent win probabilities for every League of Legends match in the Hotspawn pick'em.")
+    return page_shell("Results and track record", "results.html", body,
+                      "Every published pick graded against the official League of Legends series record.")
 
 
 def build_table(rows: list[dict], counts: Counter) -> str:
@@ -865,14 +978,16 @@ def build_table(rows: list[dict], counts: Counter) -> str:
         hay = (r["team0"]["name"] + " " + r["team1"]["name"] + " " + r["competition"]).lower()
         cells = [
             '<td data-label="Kick-off" class="nowrap">' + local_time(r["start_utc"]) + "</td>",
-            '<td data-label="Match"><strong>' + e(r["team0"]["name"]) + '</strong> <span class="muted">vs</span> <strong>'
-            + e(r["team1"]["name"]) + '</strong><div class="small muted">' + _prob_cell(r) + "</div></td>",
+            '<td data-label="Match"><div class="mrow"><strong>' + e(r["team0"]["name"]) + '</strong>'
+            + f'<span class="pct">{pct(r["p0"])}</span></div>'
+            + '<div class="mrow"><strong>' + e(r["team1"]["name"]) + '</strong>'
+            + f'<span class="pct">{pct(r["p1"])}</span></div></td>',
             '<td data-label="Pick">' + _pick_cell(r) + "</td>",
             '<td data-label="Method" class="opt">' + badge(method) + "</td>",
             '<td data-label="Tournament" class="opt small">' + e(r["competition"]) + "</td>",
             '<td data-label="Sources" class="srcs small">' + _row_sources(r) + "</td>",
         ]
-        trs.append('<tr class="prow m-' + e(method) + '" id="row-' + e(r["id"]) + '" data-method="' + e(method) + '" data-comp="'
+        trs.append('<tr class="prow m-' + e(method) + '" data-method="' + e(method) + '" data-comp="'
                    + e(r["competition"]) + '" data-start="' + e(r["start_utc"] or "")
                    + '" data-stale="' + ("1" if r.get("stale") else "0") + '" data-text="' + e(hay) + '">'
                    + "".join(cells) + "</tr>")
@@ -1069,9 +1184,9 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
         ["Mid-split league removals (dqteams)", f"{len(unresolved)} matches",
          "Leaguepedia's Data: page for the competition records the removal (for Komplettligaen, Round 10 carries the "
          "footnote '[[Solid Gaming]] is removed from the league.' and every remaining series is scored 0-2 with an ff "
-         "flag). Hotspawn's published rule voids all predictions on a forfeited match (play.hotspawn.com/how-it-works), "
-         "so the expected outcome is 0 points either way; an Elo probability built from pre-removal results would be "
-         "fiction, so the row is quarantined and only the official settlement winner is shown, with no percentage."],
+         "flag). Hotspawn's published rule voids all predictions on a forfeited match, so the expected outcome "
+         "is 0 points either way; an Elo probability built from pre-removal results would be invalid, so the row "
+         "is quarantined and only the administrative winner is shown, with no percentage."],
         ["No sportsbook market on national divisions", f"{len([r for r in rows if r['method']!='market'])} matches",
          "Only the competitions listed on the Market page have a reachable price in this snapshot. The remaining "
          "national, academy and third-division leagues are not offered by any book the build runner can reach, so "
@@ -1102,6 +1217,7 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
         ])
     hunt_table = (table(["Source", "What it is", "Runner verdict", "Checked (UTC)"], hunt_rows)
                   if hunt_rows else '<p class="muted">No source probe recorded on this build.</p>')
+    _, lowtier_date, lowtier_n = _lowtier_matrix()
 
     body = f"""
 <section class="panel">
@@ -1129,12 +1245,11 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
   pick instead, and the limitation to keep in mind. Order of trust: <strong>market</strong> (de-vigged book
   consensus) &rarr; <strong>originated</strong> (our Elo from recorded series history) &rarr;
   <strong>provisional</strong> (same Elo on thin data, % shrunk toward 50%) &rarr;
-  <strong>settlement</strong> (official forfeit winner, no %; Hotspawn voids forfeited-match predictions).
-  External-line evidence: 51 established books, esportsbooks, exchanges and aggregators probed from the build
-  runner on 2026-10-24 &mdash; <a href="{LOWTIER_MEMO_URL}" rel="noopener">research memo</a> and machine-readable
-  receipts in <code>data/probe/lowtier_20261024.json</code>. A keyed odds API (e.g. OddsPapi, PandaScore,
-  Betfair API) might widen coverage but needs an owner-provided credential; none is used and none is
-  circumvented &mdash; see the memo.</p>
+  <strong>settlement</strong> (administrative forfeit winner, no %; Hotspawn voids forfeited-match predictions).
+  External-line evidence: {lowtier_n} established books, esportsbooks, exchanges and aggregators probed from the
+  build runner on {e(lowtier_date)} &mdash; <a href="{LOWTIER_MEMO_URL}" rel="noopener">research memo</a> and
+  machine-readable receipts in <code>data/probe/lowtier_20261024.json</code>. A keyed odds API might widen
+  coverage but needs an owner-provided credential; none is used and none is circumvented.</p>
   {table(["Competition", "Matches", "Pick basis", "External line found?", "Limitation"], _fallback_rows(rows))}
 </section>
 
@@ -1495,140 +1610,6 @@ def build_flagged(flags: list[dict]) -> str:
 
 
 # --------------------------------------------------------------------------- main
-def build_results(rows: list[dict]) -> str:
-    """Track record: every started card we can grade against the official series record."""
-    doc = load_json(os.path.join(DATA, "matches.json")) or {}
-    track = doc.get("track_record") or {}
-    graded = sorted([r for r in rows if r.get("grade") in ("hit", "miss")],
-                    key=lambda r: (r.get("start_utc") or ""), reverse=True)
-    settled = [r for r in rows if r.get("grade") == "settled"]
-    ungraded = [r for r in rows if r.get("stale") and not r.get("grade")]
-
-    def grade_pill(g: str | None) -> str:
-        if g == "hit":
-            return '<span class="pill ok">HIT</span>'
-        if g == "miss":
-            return '<span class="pill bad">MISS</span>'
-        if g == "settled":
-            return '<span class="pill warn">SETTLED</span>'
-        return '<span class="pill no">ungraded</span>'
-
-    def result_cell(r: dict) -> str:
-        res = r.get("result") or {}
-        if not res:
-            return '<span class="muted">no official record matched</span>'
-        sc0, sc1 = res.get("score0"), res.get("score1")
-        winner = r["team0"]["name"] if res.get("winner_side") == 0 else r["team1"]["name"]
-        ff = res.get("forfeit_flag")
-        ff_txt = f' <span class="muted small">FF={e(ff)}</span>' if ff not in (None, "", 0) else ""
-        return (f'<strong>{e(winner)}</strong> won'
-                f'<br><span class="muted small">{e(r["team0"]["name"])} {e(sc0)}&ndash;{e(sc1)} '
-                f'{e(r["team1"]["name"])}{ff_txt}</span>'
-                f'<br><a class="small" href="{e(res.get("source"))}" rel="noopener">Leaguepedia record</a>')
-
-    def pick_cell(r: dict) -> str:
-        p = r.get("pick") or {}
-        if p.get("probability") is None:
-            return (f'<strong class="res">{e(p.get("team") or "&mdash;")}</strong>'
-                    f'<br><span class="small muted">settlement, no probability</span>')
-        return (f'<strong>{e(p.get("team"))}</strong>'
-                f'<br><span class="small muted">{p["probability"]*100:.1f}% to win</span>')
-
-    trs = []
-    for r in graded:
-        trs.append(
-            '<tr class="m-' + e(r["method"]) + '">'
-            f'<td data-label="Kick-off" class="nowrap small">{e((r.get("start_utc") or "")[:16].replace("T", " "))} UTC</td>'
-            f'<td data-label="Tournament" class="small">{e(r["competition"])}</td>'
-            f'<td data-label="Match"><strong>{e(r["team0"]["name"])}</strong> <span class="muted">vs</span> '
-            f'<strong>{e(r["team1"]["name"])}</strong></td>'
-            f'<td data-label="Published pick">{pick_cell(r)}</td>'
-            f'<td data-label="Official result">{result_cell(r)}</td>'
-            f'<td data-label="Grade">{grade_pill(r.get("grade"))}</td>'
-            f'<td data-label="Sources" class="srcs small">{_row_sources(r)}</td>'
-            '</tr>')
-    settled_rows = []
-    for r in sorted(settled, key=lambda r: (r.get("start_utc") or ""), reverse=True):
-        settled_rows.append(
-            f'<tr><td data-label="Kick-off" class="small">{e((r.get("start_utc") or "")[:16].replace("T", " "))} UTC</td>'
-            f'<td data-label="Tournament" class="small">{e(r["competition"])}</td>'
-            f'<td data-label="Match">{e(r["team0"]["name"])} vs {e(r["team1"]["name"])}</td>'
-            f'<td data-label="Settlement pick">{pick_cell(r)}</td>'
-            f'<td data-label="Official record">{result_cell(r)}</td>'
-            f'<td data-label="Grade">{grade_pill("settled")}</td>'
-            f'<td data-label="Sources" class="srcs small">{_row_sources(r)}</td></tr>')
-
-    by_method_rows = []
-    for name, m in sorted((track.get("by_method") or {}).items(), key=lambda kv: -kv[1]["graded"]):
-        by_method_rows.append(
-            f'<tr><td>{badge(name)}</td><td class="num">{m["graded"]}</td><td class="num">{m["hits"]}</td>'
-            f'<td class="num">{m["graded"] - m["hits"]}</td>'
-            f'<td class="num">{m["accuracy"]*100:.1f}%</td></tr>')
-
-    acc = track.get("accuracy")
-    brier = track.get("brier")
-    body = f"""
-<section class="hero">
-  <h2>Did the published picks actually win?</h2>
-  <p>Every card on this site that has kicked off is graded against the official series record once one
-  exists. This page is the honest scoreboard: it counts hits and misses of the <em>published</em> pick,
-  never a probability rewritten after the result.</p>
-  <div class="cta">
-    <a class="btn primary" href="table.html">All matches &amp; picks &rarr;</a>
-    <a class="btn" href="unresolved.html">Unresolved &amp; limitations</a>
-  </div>
-</section>
-
-<section class="stats">
-  {stat_card("Graded picks", track.get("graded", 0), "official series record matched", "ok")}
-  {stat_card("Hits", track.get("hits", 0), "published pick won", "ok")}
-  {stat_card("Misses", track.get("misses", 0), "the other side won", "unresolved")}
-  {stat_card("Accuracy", f"{acc*100:.1f}%" if acc is not None else "&mdash;", "graded picks only", "model")}
-  {stat_card("Brier score", f"{brier:.4f}" if brier is not None else "&mdash;", "lower is better", "")}
-  {stat_card("Forfeit settlements", track.get("settled_forfeits", 0), "not counted as forecast wins", "provisional")}
-  {stat_card("Started, ungraded", len(ungraded), "no consistent official record", "")}
-</section>
-
-<section class="panel">
-  <h2>Graded picks</h2>
-  <p class="lead">Newest first. A pick is graded only when the official record matches this fixture's team
-  pair and kick-off (within 12 hours) and the recorded winner agrees with the recorded score. Anything less
-  stays ungraded rather than being guessed.</p>
-  {raw_table(["Kick-off", "Tournament", "Match", "Published pick", "Official result", "Grade", "Sources"], trs) if trs else '<p class="muted">No graded picks in this snapshot yet.</p>'}
-</section>
-
-<section class="panel">
-  <h2>Accuracy by how the line was made</h2>
-  {raw_table(["Method", "Graded", "Hits", "Misses", "Accuracy"], by_method_rows, "table stack") if by_method_rows else '<p class="muted">No graded picks yet.</p>'}
-  <p class="muted small">A market line and a model line are expected to differ: the market-backed
-  sample is small (a handful of Worlds series), so read the model and provisional rows as the meaningful
-  sample. Out-of-sample backtest of the rating model itself is on
-  <a href="methodology.html">Method</a>.</p>
-</section>
-
-<section class="panel">
-  <h2>Forfeit settlements</h2>
-  <p class="lead">These cards were resolved by league rule, not by play. They are listed for completeness and
-  never counted as a successful forecast.</p>
-  {raw_table(["Kick-off", "Tournament", "Match", "Settlement pick", "Official record", "Grade", "Sources"], settled_rows) if settled_rows else '<p class="muted">No forfeit settlements in this snapshot.</p>'}
-</section>
-
-<section class="panel">
-  <h2>Started but ungraded ({len(ungraded)})</h2>
-  <p class="lead">Hotspawn keeps <code>status=scheduled</code> on cards whose start time has passed. Where
-  Leaguepedia holds no consistent record for the pair, the card stays listed and ungraded here - it is never
-  scored from an assumption.</p>
-  <p>The full list is on <a href="unresolved.html">Unresolved &amp; limitations</a>, together with every
-  documented limitation of the data.</p>
-</section>
-"""
-    return page_shell("Results and track record", "results.html", body,
-                      "Every published pick graded against the official League of Legends series record.")
-
-
-
-
-
 def main() -> None:
     data = load_json(os.path.join(DATA, "matches.json")) or {}
     rows = data.get("matches") or []
