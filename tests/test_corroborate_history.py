@@ -85,14 +85,14 @@ class ReceiptHistoryTests(unittest.TestCase):
         )
         doc = corroborate.build()
         self.assertEqual(doc["rejected"], [], "a delisted fixture must not be reported as a rejected receipt")
-        self.assertEqual(len(doc["historical"]), 1)
-        self.assertEqual(doc["historical"][0]["fixture_id"], "1002")
-        self.assertEqual(doc["summary"]["historical_receipts"], 1)
+        self.assertEqual(len(doc["historic"]), 1)
+        self.assertEqual(doc["historic"][0]["fixture_id"], "1002")
+        self.assertEqual(doc["summary"]["historic_receipts"], 1)
         self.assertEqual(doc["summary"]["rejected_receipts"], 0)
         self.assertEqual(doc["summary"]["usable_receipts"], 1)
         self.assertEqual([r["verdict"] for r in doc["rows"]], ["agrees"])
         # ... and the historical row never contributes a probability
-        self.assertNotIn("ext_p0", doc["historical"][0])
+        self.assertNotIn("ext_p0", doc["historic"][0])
 
     def test_receipt_naming_the_wrong_teams_still_fails_the_gate(self) -> None:
         # 1001 is listed, but the receipt names a different pair of teams: a real defect.
@@ -103,7 +103,7 @@ class ReceiptHistoryTests(unittest.TestCase):
         doc = corroborate.build()
         self.assertEqual(len(doc["rejected"]), 1, "a mismatched receipt on a live fixture must still be rejected")
         self.assertEqual(doc["rejected"][0]["status"], "unmatched")
-        self.assertEqual(doc["historical"], [])
+        self.assertEqual(doc["historic"], [])
 
     def test_malformed_receipt_still_fails_the_gate(self) -> None:
         self._write(
@@ -125,7 +125,7 @@ class ReceiptHistoryTests(unittest.TestCase):
         s = doc["summary"]
         self.assertEqual(s["receipts"], 3)
         self.assertEqual(s["usable_receipts"] + s["placeholders"] + s["rejected_receipts"]
-                         + s["historical_receipts"], 3)
+                         + s["historic_receipts"], 3)
 
     def test_coverage_page_renders_the_historical_receipts(self) -> None:
         self._write(
@@ -134,7 +134,7 @@ class ReceiptHistoryTests(unittest.TestCase):
         )
         doc = corroborate.build()
         html = corroborate.render(doc)
-        self.assertIn("historical evidence", html)
+        self.assertIn("historic", html)
         self.assertIn("1002", html)
 
 

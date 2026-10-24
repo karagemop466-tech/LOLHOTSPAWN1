@@ -1,10 +1,10 @@
 {
- "generated_utc": "2026-10-24T16:27:01Z",
+ "generated_utc": "2026-10-24T16:29:49Z",
  "verifier": "audit/session_5ff8e6bf/verify_published.py (independent re-derivation; does not import tools/)",
  "inputs": {
   "data/matches.json": {
    "rows": 241,
-   "generated_utc": "2026-10-24T16:26:09Z",
+   "generated_utc": "2026-10-24T16:29:16Z",
    "inventory_fetched_utc": "2026-10-24T16:24:05Z"
   },
   "data/raw/hotspawn_lol.json": {
@@ -17,68 +17,73 @@
   "pages": {
    "index.html": {
     "rows": 0,
-    "cards": 6,
-    "links": 107
+    "cards": 0,
+    "links": 72
    },
    "table.html": {
     "rows": 241,
     "cards": 0,
-    "links": 518
+    "links": 519
    },
    "picks.html": {
     "rows": 0,
     "cards": 241,
-    "links": 1032
+    "links": 1033
+   },
+   "results.html": {
+    "rows": 0,
+    "cards": 0,
+    "links": 157
    },
    "featured.html": {
     "rows": 0,
     "cards": 9,
-    "links": 138
+    "links": 139
    },
    "originated.html": {
     "rows": 0,
     "cards": 0,
-    "links": 254
+    "links": 255
    },
    "unresolved.html": {
     "rows": 0,
     "cards": 78,
-    "links": 365
+    "links": 366
    },
    "competitions.html": {
     "rows": 0,
     "cards": 0,
-    "links": 55
+    "links": 56
    },
    "teams.html": {
     "rows": 0,
     "cards": 0,
-    "links": 224
+    "links": 225
    },
    "flagged.html": {
     "rows": 0,
     "cards": 0,
-    "links": 63
+    "links": 64
    },
    "coverage.html": {
     "rows": 0,
     "cards": 0,
-    "links": 97
+    "links": 98
    },
    "verification.html": {
     "rows": 0,
     "cards": 0,
-    "links": 45
+    "links": 46
    },
    "sources.html": {
     "rows": 0,
     "cards": 0,
-    "links": 71
+    "links": 54
    },
    "methodology.html": {
     "rows": 0,
     "cards": 0,
-    "links": 33
+    "links": 34
    }
   }
  },
@@ -196,7 +201,7 @@
   {
    "name": "all published pages exist",
    "ok": true,
-   "detail": "13/13; missing: []",
+   "detail": "14/14; missing: []",
    "severity": "fail"
   },
   {
@@ -220,7 +225,7 @@
   {
    "name": "no broken internal links",
    "ok": true,
-   "detail": "3002 links parsed; problems: []",
+   "detail": "3118 links parsed; problems: []",
    "severity": "fail"
   },
   {
@@ -244,13 +249,13 @@
   {
    "name": "the published snapshot is younger than the 8 h refresh ceiling",
    "ok": true,
-   "detail": "generated_utc=2026-10-24T16:26:09Z age=0.0h",
+   "detail": "generated_utc=2026-10-24T16:29:16Z age=0.0h",
    "severity": "fail"
   },
   {
    "name": "the Hotspawn inventory was fetched recently enough to be current",
    "ok": true,
-   "detail": "inventory_fetched_utc=2026-10-24T16:24:05Z age=0.0h",
+   "detail": "inventory_fetched_utc=2026-10-24T16:24:05Z age=0.1h",
    "severity": "fail"
   },
   {

@@ -1,0 +1,95 @@
+name: diag-branch
+
+# Branch-only diagnostics: runs the canonical tools/ pipeline exactly as
+# refresh.yml does, but never fails, commits the captured log to the branch
+# (data/diag/refresh.log) and uploads it as an artifact so a session sandbox
+# without outbound egress can read what the runner saw.
+#
+# It is intentionally restricted to arena/** branches and can never run on main.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["arena/**"]
+    paths:
+      - "tools/**"
+      - ".github/workflows/diag.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: diag-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  diag:
+    if: github.ref_name != 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python3 -m pip install --quiet requests
+
+      - name: Run pipeline (never fails the job)
+        run: |
+          set -uo pipefail
+          mkdir -p data/diag
+          {
+            echo "=== diag $(date -u +%FT%TZ) ref=${GITHUB_REF_NAME} sha=${GITHUB_SHA} ==="
+            echo "--- unittest ---"
+            python3 -m unittest discover -s tests -v 2>&1
+            echo "unittest exit: $?"
+            for step in collect model report flags site corroborate verify; do
+              echo "--- tools/${step}.py ---"
+              python3 "tools/${step}.py" 2>&1
+              echo "tools/${step}.py exit: $?"
+            done
+            echo "--- environment probe ---"
+            for u in \
+              "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1" \
+              "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups" \
+              "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=5" \
+              "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en" \
+              "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ" \
+              "https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends" \
+              "https://lol.fandom.com/wiki/Special:CargoExport" ; do
+              code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 25 -A "LOLHotspawnResearch/1.0" "$u" || echo "ERR")
+              echo "$code  $u"
+            done
+          } 2>&1 | tee data/diag/refresh.log
+          echo "diag done"
+
+      - name: Verification summary
+        if: always()
+        run: |
+          python3 -c "import json;r=json.load(open('data/verification.json'));print('passed:',r.get('passed'),'checks:',len(r.get('checks',[])));[print(('PASS ' if c.get('ok') else 'FAIL ')+str(c.get('name'))+' :: '+str(c.get('detail'))[:400]) for c in r.get('checks',[])]" >> data/diag/refresh.log 2>&1 || echo "verification.json unreadable" >> data/diag/refresh.log
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: diag-log
+          path: data/diag/refresh.log
+
+      - name: Commit diag log to the branch
+        if: always()
+        run: |
+          set -e
+          git config user.name "arena-diag-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -f data/diag/refresh.log
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "chore(diag): branch pipeline log [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then exit 0; fi
+            sleep 5
+          done

@@ -254,3 +254,11 @@ tr:last-child td{border-bottom:0}
   .nextrow .nt strong{font-size:15px}
   .nextrow .np{font-size:19px}
 }
+
+/* pick table: each team on its own line with its own win probability (phone-first) */
+.mrow{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.mrow .pct{font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted);white-space:nowrap}
+@media(max-width:680px){
+  .mrow{gap:6px}
+  .mrow strong{overflow-wrap:anywhere}
+}

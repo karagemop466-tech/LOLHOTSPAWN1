@@ -48,33 +48,49 @@ jobs:
         run: python3 -m pip install --quiet requests
 
       - name: Run pipeline (captured log)
+        # Each stage is captured, not fatal on its own: a crash in one stage must still leave a
+        # complete log behind so the failure is diagnosable from the repository. The gate step
+        # below is what decides pass/fail. (Before 2026-10-24 a failing gate aborted the shell
+        # before the log was committed, so three consecutive scheduled runs failed with no
+        # visible reason in the repo.)
         run: |
-          set -euo pipefail
-          python3 -m unittest discover -s tests -v
+          set -uo pipefail
           mkdir -p data
-          {
-            echo "=== build $(date -u +%FT%TZ) ==="
-            python3 tools/collect.py   2>&1
-            python3 tools/model.py     2>&1
-            python3 tools/report.py    2>&1
-            python3 tools/flags.py     2>&1
-            python3 tools/site.py      2>&1
-            python3 tools/corroborate.py 2>&1
-            python3 tools/verify.py    2>&1
-            python3 tools/site.py      2>&1
-            python3 tools/corroborate.py 2>&1
-            python3 tools/verify.py    2>&1
-          } | tee data/build.log
-          echo "pipeline exit: ${PIPESTATUS[0]}"
+          rm -f data/build_failed_steps.txt
+          : > data/build.log
+          echo "=== build $(date -u +%FT%TZ) sha=${GITHUB_SHA} ===" | tee -a data/build.log
+          if python3 -m unittest discover -s tests -v >> data/build.log 2>&1; then
+            echo "OK   unit tests" | tee -a data/build.log
+          else
+            echo "FAIL unit tests" | tee -a data/build.log
+            echo "unit-tests" >> data/build_failed_steps.txt
+          fi
+          for stage in collect model report flags site corroborate verify; do
+            echo "--- tools/${stage}.py ---" | tee -a data/build.log
+            if python3 "tools/${stage}.py" >> data/build.log 2>&1; then
+              echo "OK   tools/${stage}.py" | tee -a data/build.log
+            else
+              rc=$?
+              echo "FAIL tools/${stage}.py (exit ${rc})" | tee -a data/build.log
+              echo "${stage}" >> data/build_failed_steps.txt
+            fi
+          done
+          echo "pipeline finished at $(date -u +%FT%TZ)" | tee -a data/build.log
 
       - name: Stop on failed gate
         run: |
           tail -3 data/build.log
           python3 - <<'PY'
-          import json, sys
+          import json, os, sys
+          failed_steps = []
+          if os.path.exists("data/build_failed_steps.txt"):
+              failed_steps = [s.strip() for s in open("data/build_failed_steps.txt") if s.strip()]
           report = json.load(open("data/verification.json"))
           failed = [c for c in report["checks"] if not c["ok"]]
           print(f"gate: {len(report['checks']) - len(failed)}/{len(report['checks'])} checks pass")
+          if failed_steps:
+              print("FAILED STAGES:", failed_steps)
+              sys.exit(1)
           if not report["passed"] or failed:
               print("FAILED:", [c["name"] for c in failed])
               sys.exit(1)
@@ -82,6 +98,30 @@ jobs:
               print("FAILED: expected at least 20 publish gates, found", len(report["checks"]))
               sys.exit(1)
           PY
+
+      - name: Keep the failing log in the repository
+        # A failed build still has to be inspectable by the next session, otherwise the same
+        # failure repeats unseen. This log is diagnostic only and never published to the site.
+        if: failure()
+        run: |
+          git config user.name  "arena-refresh-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp data/build.log data/build_failure.log || true
+          git add -f data/build_failure.log data/build_failed_steps.txt || true
+          git diff --cached --quiet || git commit -q -m "chore(diag): record failing build log [skip ci]"
+          for i in 1 2 3; do
+            git fetch origin "${GITHUB_REF_NAME}" || true
+            git rebase --autostash "origin/${GITHUB_REF_NAME}" || { git rebase --abort || true; }
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+            sleep 5
+          done
+          true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-log
+          path: data/build.log
 
       - name: Commit data and site
         run: |
