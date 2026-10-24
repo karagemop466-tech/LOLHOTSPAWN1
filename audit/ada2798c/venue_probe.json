@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-24T16:22:30Z",
+ "checked_utc": "2026-10-24T16:25:26Z",
  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36",
  "rows": [
   {
@@ -9,7 +9,7 @@
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 676559,
-   "seconds": 0.06,
+   "seconds": 0.07,
    "verdict": "reachable JSON paying load",
    "signal": {
     "json": true,
@@ -24,12 +24,12 @@
    "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
    "http_status": 200,
    "content_type": "application/json",
-   "bytes": 6137,
-   "seconds": 0.08,
+   "bytes": 5582,
+   "seconds": 0.03,
    "verdict": "reachable JSON paying load",
    "signal": {
     "json": true,
-    "decimal_like_values": 36,
+    "decimal_like_values": 26,
     "mentions_team_pair": true
    },
    "excerpt": ""
@@ -41,7 +41,7 @@
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 51806,
-   "seconds": 0.04,
+   "seconds": 0.05,
    "verdict": "reachable JSON paying load",
    "signal": {
     "json": true,
@@ -55,14 +55,14 @@
    "kind": "esportsbook",
    "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en",
    "http_status": 200,
-   "content_type": "application/json",
-   "bytes": 11752,
-   "seconds": 0.73,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 2,
+   "seconds": 0.6,
    "verdict": "reachable JSON paying load",
    "signal": {
     "json": true,
     "decimal_like_values": 0,
-    "mentions_team_pair": true
+    "mentions_team_pair": false
    },
    "excerpt": ""
   },
@@ -72,7 +72,7 @@
    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
    "http_status": 200,
    "content_type": "application/json",
-   "bytes": 14029,
+   "bytes": 14032,
    "seconds": 0.24,
    "verdict": "reachable JSON paying load",
    "signal": {
@@ -88,8 +88,8 @@
    "url": "https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends",
    "http_status": 200,
    "content_type": "application/json",
-   "bytes": 81280,
-   "seconds": 0.05,
+   "bytes": 81293,
+   "seconds": 0.32,
    "verdict": "reachable JSON paying load",
    "signal": {
     "json": true,
@@ -105,7 +105,7 @@
    "http_status": 400,
    "content_type": "application/json",
    "bytes": 87,
-   "seconds": 0.19,
+   "seconds": 0.18,
    "verdict": "http 400",
    "signal": {
     "json": true,
@@ -121,7 +121,7 @@
    "http_status": 400,
    "content_type": "application/json",
    "bytes": 87,
-   "seconds": 0.19,
+   "seconds": 0.18,
    "verdict": "http 400",
    "signal": {
     "json": true,
@@ -152,8 +152,8 @@
    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/paf/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
    "http_status": 200,
    "content_type": "application/json",
-   "bytes": 14029,
-   "seconds": 0.19,
+   "bytes": 14032,
+   "seconds": 0.14,
    "verdict": "reachable JSON paying load",
    "signal": {
     "json": true,
@@ -184,8 +184,8 @@
    "url": "https://api.rivalry.com/api/v1/games",
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 5851,
-   "seconds": 0.08,
+   "bytes": 5852,
+   "seconds": 0.07,
    "verdict": "blocked",
    "signal": {
     "json": false,
@@ -198,11 +198,11 @@
    "name": "Rivalry LoL matches",
    "kind": "esportsbook",
    "url": "https://api.rivalry.com/api/v1/matches?game_id=24",
-   "http_status": 530,
+   "http_status": 502,
    "content_type": "application/json; charset=utf-8",
-   "bytes": 777,
-   "seconds": 0.07,
-   "verdict": "http 530",
+   "bytes": 884,
+   "seconds": 0.15,
+   "verdict": "http 502",
    "signal": {
     "json": true,
     "decimal_like_values": 0,
@@ -217,7 +217,7 @@
    "http_status": 403,
    "content_type": "text/plain",
    "bytes": 126,
-   "seconds": 0.07,
+   "seconds": 0.1,
    "verdict": "blocked",
    "signal": {
     "json": false,
@@ -233,7 +233,7 @@
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5801,
-   "seconds": 0.04,
+   "seconds": 0.19,
    "verdict": "blocked",
    "signal": {
     "json": false,
@@ -249,7 +249,7 @@
    "http_status": 200,
    "content_type": "text/html; charset=utf-8",
    "bytes": 33885,
-   "seconds": 0.23,
+   "seconds": 0.16,
    "verdict": "reachable but not JSON",
    "signal": {
     "json": false,
@@ -265,7 +265,7 @@
    "http_status": 404,
    "content_type": "text/plain",
    "bytes": 9,
-   "seconds": 0.39,
+   "seconds": 0.26,
    "verdict": "unavailable",
    "signal": {
     "json": false,
@@ -280,8 +280,8 @@
    "url": "https://1xbet.com/Line/Esports/League-of-Legends",
    "http_status": 203,
    "content_type": "text/html;charset=utf-8",
-   "bytes": 2636,
-   "seconds": 0.44,
+   "bytes": 2637,
+   "seconds": 0.34,
    "verdict": "http 203",
    "signal": {
     "json": false,
@@ -313,7 +313,7 @@
    "http_status": 200,
    "content_type": "application/json; charset=utf-8",
    "bytes": 4695,
-   "seconds": 0.25,
+   "seconds": 0.4,
    "verdict": "reachable JSON paying load",
    "signal": {
     "json": true,
@@ -329,7 +329,7 @@
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5749,
-   "seconds": 0.09,
+   "seconds": 0.08,
    "verdict": "blocked",
    "signal": {
     "json": false,
@@ -344,8 +344,8 @@
    "url": "https://www.oddsportal.com/esports/league-of-legends/",
    "http_status": 200,
    "content_type": "text/html; charset=utf-8",
-   "bytes": 335418,
-   "seconds": 1.83,
+   "bytes": 335416,
+   "seconds": 1.28,
    "verdict": "reachable but not JSON",
    "signal": {
     "json": false,
@@ -361,7 +361,7 @@
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5788,
-   "seconds": 0.04,
+   "seconds": 0.06,
    "verdict": "blocked",
    "signal": {
     "json": false,
@@ -377,7 +377,7 @@
    "http_status": 403,
    "content_type": "application/json",
    "bytes": 48,
-   "seconds": 0.04,
+   "seconds": 0.03,
    "verdict": "blocked",
    "signal": {
     "json": true,
@@ -393,7 +393,7 @@
    "http_status": 403,
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5739,
-   "seconds": 0.06,
+   "seconds": 0.07,
    "verdict": "blocked",
    "signal": {
     "json": false,
@@ -409,7 +409,7 @@
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 75,
-   "seconds": 0.3,
+   "seconds": 0.43,
    "verdict": "reachable JSON paying load",
    "signal": {
     "json": true,
@@ -425,7 +425,7 @@
    "http_status": 200,
    "content_type": "application/json",
    "bytes": 42,
-   "seconds": 0.07,
+   "seconds": 0.11,
    "verdict": "reachable JSON paying load",
    "signal": {
     "json": true,
@@ -441,7 +441,7 @@
    "http_status": 403,
    "content_type": "application/json",
    "bytes": 23,
-   "seconds": 0.17,
+   "seconds": 0.24,
    "verdict": "blocked",
    "signal": {
     "json": true,
@@ -457,7 +457,7 @@
    "http_status": 403,
    "content_type": "application/json",
    "bytes": 23,
-   "seconds": 0.08,
+   "seconds": 0.09,
    "verdict": "blocked",
    "signal": {
     "json": true,

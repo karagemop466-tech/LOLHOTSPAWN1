@@ -13,15 +13,15 @@
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle page menu">Menu</button>
-    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="table.html">Pick table</a><a href="picks.html" class="active">Cards</a><a href="results.html">Results</a><a href="featured.html">Market lines</a><a href="originated.html">Model lines</a><a href="unresolved.html">Unresolved</a><a href="coverage.html">Coverage</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html" class="active">All picks</a><a href="table.html">Table</a><a href="results.html">Results</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
 </header>
 <main id="main" class="wrap">
   <div class="pagehead">
     <h1>All picks</h1>
     <p class="sub">Every League of Legends match on the Hotspawn pick'em list (241 matches), next kick-off first. Tap 'Why this line' on any card for full inputs and sources.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-24 16:29 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-24T16:24:05Z">Hotspawn inventory collected: 2026-10-24T16:24:05Z. Check source timestamps before use.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-24 16:31 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-24T16:23:12Z">Hotspawn inventory collected: 2026-10-24T16:23:12Z. Check source timestamps before use.</p>
   </div>
   
 <section class="panel">
@@ -31,103 +31,11 @@
   <div class="toolbar">
     <input id="q" type="search" placeholder="Search team or tournament" aria-label="Search team or tournament">
     <select id="comp" aria-label="Filter by tournament"><option value="">All tournaments</option><option value="4 Nations 2026 Halloween Heist">4 Nations 2026 Halloween Heist</option><option value="Arabian League 2nd Division 2026 Summer">Arabian League 2nd Division 2026 Summer</option><option value="Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine">Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine</option><option value="Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait">Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait</option><option value="Benelux Ascend Series 2026 Summer Playoffs">Benelux Ascend Series 2026 Summer Playoffs</option><option value="Benelux Ascend Series 2026 Summer Split">Benelux Ascend Series 2026 Summer Split</option><option value="Benelux Ascend Series 2027 Winter Promotion">Benelux Ascend Series 2027 Winter Promotion</option><option value="Benelux Ascend Series Rising 2026 Summer Playoffs">Benelux Ascend Series Rising 2026 Summer Playoffs</option><option value="FPL 2026 Summer Playoffs">FPL 2026 Summer Playoffs</option><option value="Hitpoint 2nd Div Challengers 2026 Summer Playoffs">Hitpoint 2nd Div Challengers 2026 Summer Playoffs</option><option value="Icelandic Esports League 2026 Autumn">Icelandic Esports League 2026 Autumn</option><option value="Komplettligaen 2026 Autumn">Komplettligaen 2026 Autumn</option><option value="Komplettligaen 2026 Autumn Playoffs">Komplettligaen 2026 Autumn Playoffs</option><option value="LCP 2027 Promotion">LCP 2027 Promotion</option><option value="LGC Rising 2026 Playoffs">LGC Rising 2026 Playoffs</option><option value="LIT 2027 Winter Promotion">LIT 2027 Winter Promotion</option><option value="Legends Academy powered by Żabka Season 3 Playoffs">Legends Academy powered by Żabka Season 3 Playoffs</option><option value="LigaGG CELOL A 2026 Split 2">LigaGG CELOL A 2026 Split 2</option><option value="LigaGG CELOL A 2026 Split 2 Playoffs">LigaGG CELOL A 2026 Split 2 Playoffs</option><option value="LigaGG CELOL B 2026 Split 2">LigaGG CELOL B 2026 Split 2</option><option value="LigaGG CELOL B 2026 Split 2 Playoffs">LigaGG CELOL B 2026 Split 2 Playoffs</option><option value="Logitech G SuperStrike Cup Qualifier">Logitech G SuperStrike Cup Qualifier</option><option value="POP Esports Masters Season 7">POP Esports Masters Season 7</option><option value="PRM 2nd Division 26-27 Fall">PRM 2nd Division 26-27 Fall</option><option value="PRM 3rd Division 26-27 Fall">PRM 3rd Division 26-27 Fall</option><option value="RIVALS LEAGUE Season 2">RIVALS LEAGUE Season 2</option><option value="Superstrike League 2026">Superstrike League 2026</option><option value="Tunisian Super League 2026">Tunisian Super League 2026</option><option value="Worlds 2026 Main Event">Worlds 2026 Main Event</option></select>
-    <div class="chips"><button class="chip active" data-filter="">All <span>241</span></button><button class="chip chip-toggle" type="button" id="upcoming" aria-pressed="false">Upcoming only <span>164</span></button><button class="chip" data-filter="market">Market line <span>9</span></button><button class="chip" data-filter="model">Model line <span>150</span></button><button class="chip" data-filter="provisional">Provisional <span>78</span></button><button class="chip" data-filter="unresolved">Unresolved <span>4</span></button></div>
+    <div class="chips"><button class="chip active" data-filter="">All <span>241</span></button><button class="chip chip-toggle" type="button" id="upcoming" aria-pressed="false">Upcoming only <span>160</span></button><button class="chip" data-filter="market">Market line <span>9</span></button><button class="chip" data-filter="model">Model line <span>150</span></button><button class="chip" data-filter="provisional">Provisional <span>78</span></button><button class="chip" data-filter="unresolved">Unresolved <span>4</span></button></div>
   </div>
   <p class="muted small" id="count" role="status" aria-live="polite">241 matches shown</p>
   <div class="cards" id="list">
-    <article id="match-1074655" class="card m-model" data-method="model" data-comp="RIVALS LEAGUE Season 2"
-  data-start="2026-10-24T16:30:00Z" data-stale="0"
-  data-text="rivals league season 2 karolinerna turbo gaming">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
-    <span class="badges"><span class="badge b-model">Model line</span></span>
-  </div>
-  <div class="comp">RIVALS LEAGUE Season 2</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">Karolinerna</span><span class="tpct">45.6%</span>
-    </div>
-    <div class="split" role="img" aria-label="Karolinerna 46 percent, Turbo Gaming 54 percent"><span class="s0" style="width:45.6%"></span></div>
-    <div class="team fav">
-      <span class="tname">Turbo Gaming</span><span class="tpct">54.4%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Turbo Gaming</strong> <span class="pickpct">54.4%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Karolinerna 1482 vs Turbo Gaming 1513 (31/6 rated series).</p>
-    <ul class="flags"><li>kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-24T16:30:00Z while Data:RIVALS LEAGUE/2026 Season/Season 2 records 2026-10-27 18:00Z (74h apart) - confirm before relying on the time</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/karolinerna-vs-turbo-gaming-rivals-league-season-2-1074655" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Karolinerna" rel="noopener">Karolinerna</a><a href="https://lol.fandom.com/wiki/Turbo_Gaming" rel="noopener">Turbo Gaming</a></div>
-</article><article id="match-1074657" class="card m-model" data-method="model" data-comp="RIVALS LEAGUE Season 2"
-  data-start="2026-10-24T16:30:00Z" data-stale="0"
-  data-text="rivals league season 2 onlywinbyff rich gang sweden">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
-    <span class="badges"><span class="badge b-model">Model line</span></span>
-  </div>
-  <div class="comp">RIVALS LEAGUE Season 2</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">OnlyWinByFF</span><span class="tpct">42.1%</span>
-    </div>
-    <div class="split" role="img" aria-label="OnlyWinByFF 42 percent, Rich Gang Sweden 58 percent"><span class="s0" style="width:42.1%"></span></div>
-    <div class="team fav">
-      <span class="tname">Rich Gang Sweden</span><span class="tpct">57.9%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Rich Gang Sweden</strong> <span class="pickpct">57.9%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: OnlyWinByFF 1433 vs Rich Gang Sweden 1488 (13/5 rated series).</p>
-    
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/onlywinbyff-vs-rich-gang-sweden-rivals-league-season-2-1074657" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/OnlyWinByFF" rel="noopener">OnlyWinByFF</a><a href="https://lol.fandom.com/wiki/Rich_Gang_Sweden" rel="noopener">Rich Gang Sweden</a></div>
-</article><article id="match-1074658" class="card m-provisional" data-method="provisional" data-comp="RIVALS LEAGUE Season 2"
-  data-start="2026-10-24T16:30:00Z" data-stale="0"
-  data-text="rivals league season 2 team cd tung sahur mid">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">RIVALS LEAGUE Season 2</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">Team cd</span><span class="tpct">51.0%</span>
-    </div>
-    <div class="split" role="img" aria-label="Team cd 51 percent, Tung Sahur Mid 49 percent"><span class="s0" style="width:51.0%"></span></div>
-    <div class="team ">
-      <span class="tname">Tung Sahur Mid</span><span class="tpct">49.0%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team cd</strong> <span class="pickpct">51.0%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Team CD 1519 vs Tung Sahur Mid 1512 (32/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/team-cd-vs-tung-sahur-mid-rivals-league-season-2-1074658" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_CD" rel="noopener">Team cd</a><a href="https://lol.fandom.com/wiki/Tung_Sahur_Mid" rel="noopener">Tung Sahur Mid</a></div>
-</article><article id="match-1074659" class="card m-model" data-method="model" data-comp="RIVALS LEAGUE Season 2"
-  data-start="2026-10-24T16:30:00Z" data-stale="0"
-  data-text="rivals league season 2 team lucidity esports fritt fall">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
-    <span class="badges"><span class="badge b-model">Model line</span></span>
-  </div>
-  <div class="comp">RIVALS LEAGUE Season 2</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">Team Lucidity Esports</span><span class="tpct">42.9%</span>
-    </div>
-    <div class="split" role="img" aria-label="Team Lucidity Esports 43 percent, Fritt Fall 57 percent"><span class="s0" style="width:42.9%"></span></div>
-    <div class="team fav">
-      <span class="tname">Fritt Fall</span><span class="tpct">57.1%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Fritt Fall</strong> <span class="pickpct">57.1%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Team Lucidity Esports 1448 vs Fritt Fall 1498 (10/9 rated series).</p>
-    
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/team-lucidity-esports-vs-fritt-fall-rivals-league-season-2-1074659" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_Lucidity_Esports" rel="noopener">Team Lucidity Esports</a><a href="https://lol.fandom.com/wiki/Fritt_Fall" rel="noopener">Fritt Fall</a></div>
-</article><article id="match-1067688" class="card m-market" data-method="market" data-comp="Worlds 2026 Main Event"
+    <article id="match-1067688" class="card m-market" data-method="market" data-comp="Worlds 2026 Main Event"
   data-start="2026-10-24T17:00:00Z" data-stale="0"
   data-text="worlds 2026 main event top esports anyone&#x27;s legend">
   <div class="card-top">
@@ -3228,7 +3136,7 @@
   </div>
   <div class="pickline"><span class="picklabel">Pick</span> <strong>Nothin&#x27;Here</strong> <span class="pickpct">59.7%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: FENNEL 1685 vs Nothin&#x27;Here 1754 (30/7 rated series).</p>
+    <p>Elo line: FENNEL 1686 vs Nothin&#x27;Here 1754 (30/7 rated series).</p>
     
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/fennel-vs-nothin-here-lcp-2027-promotion-1081421" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/LCP%2F2027_Season%2FPromotion" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/FENNEL" rel="noopener">FENNEL</a><a href="https://lol.fandom.com/wiki/Nothin'Here" rel="noopener">Nothin&#x27;Here</a></div>
@@ -3817,14 +3725,14 @@
   <div class="comp">Benelux Ascend Series 2026 Summer Split</div>
   <div class="teams">
     <div class="team ">
-      <span class="tname">Mind Blue eSports</span><span class="tpct">49.9%</span>
+      <span class="tname">Mind Blue eSports</span><span class="tpct">50.0%</span>
     </div>
-    <div class="split" role="img" aria-label="Mind Blue eSports 50 percent, LAST DANCE 50 percent"><span class="s0" style="width:49.9%"></span></div>
+    <div class="split" role="img" aria-label="Mind Blue eSports 50 percent, LAST DANCE 50 percent"><span class="s0" style="width:50.0%"></span></div>
     <div class="team fav">
-      <span class="tname">LAST DANCE</span><span class="tpct">50.1%</span>
+      <span class="tname">LAST DANCE</span><span class="tpct">50.0%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>LAST DANCE</strong> <span class="pickpct">50.1%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>LAST DANCE</strong> <span class="pickpct">50.0%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: Mind Blue eSports 1600 vs Last Dance (Benelux Team) 1600 (94/34 rated series).</p>
     <ul class="flags"><li>resolved within &#x27;Benelux Ascend Series/2026 Season/Summer Split&#x27; to &#x27;Last Dance (Benelux Team)&#x27; rather than homonymous &#x27;LAST DANCE&#x27;</li><li>start time has passed and Leaguepedia records completed series Mind Blue eSports 0-2 Last Dance (Benelux Team) (Leaguepedia Data:Benelux Ascend Series/2026 Season/Summer Split); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open</li></ul>
@@ -5578,6 +5486,98 @@
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/zahrouni-esports-vs-olympique-mnihla-academy-tunisian-super-league-2026-1080927" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Zahrouni_Esports" rel="noopener">Zahrouni Esports</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla_Academy" rel="noopener">Olympique Mnihla Academy</a></div>
+</article><article id="match-1074655" class="card m-model" data-method="model" data-comp="RIVALS LEAGUE Season 2"
+  data-start="2026-10-24T16:30:00Z" data-stale="1"
+  data-text="rivals league season 2 karolinerna turbo gaming">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
+    <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-model">Model line</span></span>
+  </div>
+  <div class="comp">RIVALS LEAGUE Season 2</div>
+  <div class="teams">
+    <div class="team ">
+      <span class="tname">Karolinerna</span><span class="tpct">45.6%</span>
+    </div>
+    <div class="split" role="img" aria-label="Karolinerna 46 percent, Turbo Gaming 54 percent"><span class="s0" style="width:45.6%"></span></div>
+    <div class="team fav">
+      <span class="tname">Turbo Gaming</span><span class="tpct">54.4%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Turbo Gaming</strong> <span class="pickpct">54.4%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: Karolinerna 1482 vs Turbo Gaming 1513 (31/6 rated series).</p>
+    <ul class="flags"><li>kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-24T16:30:00Z while Data:RIVALS LEAGUE/2026 Season/Season 2 records 2026-10-27 18:00Z (74h apart) - confirm before relying on the time</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/karolinerna-vs-turbo-gaming-rivals-league-season-2-1074655" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Karolinerna" rel="noopener">Karolinerna</a><a href="https://lol.fandom.com/wiki/Turbo_Gaming" rel="noopener">Turbo Gaming</a></div>
+</article><article id="match-1074657" class="card m-model" data-method="model" data-comp="RIVALS LEAGUE Season 2"
+  data-start="2026-10-24T16:30:00Z" data-stale="1"
+  data-text="rivals league season 2 onlywinbyff rich gang sweden">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
+    <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-model">Model line</span></span>
+  </div>
+  <div class="comp">RIVALS LEAGUE Season 2</div>
+  <div class="teams">
+    <div class="team ">
+      <span class="tname">OnlyWinByFF</span><span class="tpct">42.1%</span>
+    </div>
+    <div class="split" role="img" aria-label="OnlyWinByFF 42 percent, Rich Gang Sweden 58 percent"><span class="s0" style="width:42.1%"></span></div>
+    <div class="team fav">
+      <span class="tname">Rich Gang Sweden</span><span class="tpct">57.9%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Rich Gang Sweden</strong> <span class="pickpct">57.9%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: OnlyWinByFF 1433 vs Rich Gang Sweden 1488 (13/5 rated series).</p>
+    <ul class="flags"><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/onlywinbyff-vs-rich-gang-sweden-rivals-league-season-2-1074657" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/OnlyWinByFF" rel="noopener">OnlyWinByFF</a><a href="https://lol.fandom.com/wiki/Rich_Gang_Sweden" rel="noopener">Rich Gang Sweden</a></div>
+</article><article id="match-1074658" class="card m-provisional" data-method="provisional" data-comp="RIVALS LEAGUE Season 2"
+  data-start="2026-10-24T16:30:00Z" data-stale="1"
+  data-text="rivals league season 2 team cd tung sahur mid">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
+    <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-provisional">Provisional</span></span>
+  </div>
+  <div class="comp">RIVALS LEAGUE Season 2</div>
+  <div class="teams">
+    <div class="team fav">
+      <span class="tname">Team cd</span><span class="tpct">51.0%</span>
+    </div>
+    <div class="split" role="img" aria-label="Team cd 51 percent, Tung Sahur Mid 49 percent"><span class="s0" style="width:51.0%"></span></div>
+    <div class="team ">
+      <span class="tname">Tung Sahur Mid</span><span class="tpct">49.0%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team cd</strong> <span class="pickpct">51.0%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: Team CD 1519 vs Tung Sahur Mid 1512 (32/4 rated series).</p>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/team-cd-vs-tung-sahur-mid-rivals-league-season-2-1074658" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_CD" rel="noopener">Team cd</a><a href="https://lol.fandom.com/wiki/Tung_Sahur_Mid" rel="noopener">Tung Sahur Mid</a></div>
+</article><article id="match-1074659" class="card m-model" data-method="model" data-comp="RIVALS LEAGUE Season 2"
+  data-start="2026-10-24T16:30:00Z" data-stale="1"
+  data-text="rivals league season 2 team lucidity esports fritt fall">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
+    <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-model">Model line</span></span>
+  </div>
+  <div class="comp">RIVALS LEAGUE Season 2</div>
+  <div class="teams">
+    <div class="team ">
+      <span class="tname">Team Lucidity Esports</span><span class="tpct">42.9%</span>
+    </div>
+    <div class="split" role="img" aria-label="Team Lucidity Esports 43 percent, Fritt Fall 57 percent"><span class="s0" style="width:42.9%"></span></div>
+    <div class="team fav">
+      <span class="tname">Fritt Fall</span><span class="tpct">57.1%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Fritt Fall</strong> <span class="pickpct">57.1%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: Team Lucidity Esports 1448 vs Fritt Fall 1498 (10/9 rated series).</p>
+    <ul class="flags"><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/team-lucidity-esports-vs-fritt-fall-rivals-league-season-2-1074659" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_Lucidity_Esports" rel="noopener">Team Lucidity Esports</a><a href="https://lol.fandom.com/wiki/Fritt_Fall" rel="noopener">Fritt Fall</a></div>
 </article>
   </div>
   <p class="empty" id="empty" hidden>No match found &mdash; clear the search or pick another tournament.</p>
@@ -5591,7 +5591,7 @@
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
-<nav class="mobnav" aria-label="Quick navigation"><a href="index.html"><span>Summary</span></a><a href="table.html"><span>Picks</span></a><a href="results.html"><span>Results</span></a><a href="unresolved.html"><span>Limits</span></a><a href="flagged.html"><span>Flags</span></a></nav>
+<nav class="mobnav" aria-label="Quick navigation"><a href="index.html"><span>Summary</span></a><a href="table.html"><span>Picks</span></a><a href="featured.html"><span>Market</span></a><a href="unresolved.html"><span>Unresolved</span></a><a href="flagged.html"><span>Flags</span></a></nav>
 <a class="mobile-picks" href="table.html">All picks &rarr;</a>
 <script src="assets/app.js"></script>
 </body>

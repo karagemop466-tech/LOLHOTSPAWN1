@@ -1,15 +1,15 @@
 {
- "generated_utc": "2026-10-24T16:29:49Z",
+ "generated_utc": "2026-10-24T16:32:26Z",
  "verifier": "audit/session_5ff8e6bf/verify_published.py (independent re-derivation; does not import tools/)",
  "inputs": {
   "data/matches.json": {
    "rows": 241,
-   "generated_utc": "2026-10-24T16:29:16Z",
-   "inventory_fetched_utc": "2026-10-24T16:24:05Z"
+   "generated_utc": "2026-10-24T16:31:50Z",
+   "inventory_fetched_utc": "2026-10-24T16:23:12Z"
   },
   "data/raw/hotspawn_lol.json": {
    "fixtures": 241,
-   "fetched_utc": "2026-10-24T16:24:05Z"
+   "fetched_utc": "2026-10-24T16:23:12Z"
   },
   "data/picks.csv": {
    "rows": 241
@@ -17,8 +17,8 @@
   "pages": {
    "index.html": {
     "rows": 0,
-    "cards": 0,
-    "links": 72
+    "cards": 6,
+    "links": 117
    },
    "table.html": {
     "rows": 241,
@@ -48,7 +48,7 @@
    "unresolved.html": {
     "rows": 0,
     "cards": 78,
-    "links": 366
+    "links": 370
    },
    "competitions.html": {
     "rows": 0,
@@ -68,7 +68,7 @@
    "coverage.html": {
     "rows": 0,
     "cards": 0,
-    "links": 98
+    "links": 127
    },
    "verification.html": {
     "rows": 0,
@@ -78,7 +78,7 @@
    "sources.html": {
     "rows": 0,
     "cards": 0,
-    "links": 54
+    "links": 76
    },
    "methodology.html": {
     "rows": 0,
@@ -225,7 +225,7 @@
   {
    "name": "no broken internal links",
    "ok": true,
-   "detail": "3118 links parsed; problems: []",
+   "detail": "3218 links parsed; problems: []",
    "severity": "fail"
   },
   {
@@ -249,19 +249,19 @@
   {
    "name": "the published snapshot is younger than the 8 h refresh ceiling",
    "ok": true,
-   "detail": "generated_utc=2026-10-24T16:29:16Z age=0.0h",
+   "detail": "generated_utc=2026-10-24T16:31:50Z age=0.0h",
    "severity": "fail"
   },
   {
    "name": "the Hotspawn inventory was fetched recently enough to be current",
    "ok": true,
-   "detail": "inventory_fetched_utc=2026-10-24T16:24:05Z age=0.1h",
+   "detail": "inventory_fetched_utc=2026-10-24T16:23:12Z age=0.2h",
    "severity": "fail"
   },
   {
    "name": "the out-of-sample backtest is internally consistent",
    "ok": true,
-   "detail": "n=3896 hits=2529 acc=0.6491 buckets n=3896 hits=2529 brier=0.2185",
+   "detail": "n=3896 hits=2531 acc=0.6496 buckets n=3896 hits=2531 brier=0.2185",
    "severity": "fail"
   }
  ],
