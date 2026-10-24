@@ -1,9 +1,14 @@
-=== diag 2026-10-24T16:13:43Z ref=arena/80c624cd-lolhotspawn1 sha=a6a4a186c60b2b5b789be969c12090702c2810e6 ===
+=== diag 2026-10-24T16:18:46Z ref=arena/80c624cd-lolhotspawn1 sha=1c57d02ac86b54b38c0da994831e7d2140b389fe ===
 --- unittest ---
+test_age_hours (test_corroborate.ReceiptLedgerTests.test_age_hours) ... ok
+test_buckets (test_corroborate.ReceiptLedgerTests.test_buckets) ... ok
+test_expired_is_never_counted_as_usable_evidence (test_corroborate.ReceiptLedgerTests.test_expired_is_never_counted_as_usable_evidence) ... ok
+test_historic_receipt_is_not_a_rejection (test_corroborate.ReceiptLedgerTests.test_historic_receipt_is_not_a_rejection) ... ok
+test_ledger_accounts_for_every_receipt (test_corroborate.ReceiptLedgerTests.test_ledger_accounts_for_every_receipt) ... ok
 test_competition_page_disambiguates_homonyms_before_global_exact (test_integrity.IntegrityTests.test_competition_page_disambiguates_homonyms_before_global_exact) ... ok
 test_invalid_probabilities (test_integrity.IntegrityTests.test_invalid_probabilities) ... ok
 test_live_venue_name_aliases (test_integrity.IntegrityTests.test_live_venue_name_aliases) ... ok
-test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [16:13:44] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
+test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [16:18:46] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
 ok
 test_published_dataset_and_html_invariants (test_integrity.IntegrityTests.test_published_dataset_and_html_invariants) ... ok
 test_settlement_pick_is_valid_without_probability (test_integrity.IntegrityTests.test_settlement_pick_is_valid_without_probability) ... ok
@@ -16,24 +21,24 @@ test_valid (test_integrity.IntegrityTests.test_valid) ... ok
 test_wrong_team_same_probability (test_integrity.IntegrityTests.test_wrong_team_same_probability) ... ok
 
 ----------------------------------------------------------------------
-Ran 13 tests in 0.082s
+Ran 18 tests in 0.048s
 
 OK
 unittest exit: 0
 --- tools/collect.py ---
-[16:13:44] hotspawn: 241 LoL fixtures
-[16:13:48] pinnacle: 136 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
-[16:13:48] kalshi: 9 CFTC match events (status=200)
-[16:13:48] bovada: 8 LoL moneylines (status=200)
-[16:13:49] kambi: 8 Unibet/Kambi LoL match moneylines (status=200)
-[16:14:58] leaguepedia: 34663 series rows, 11 pages with dqteams (err='')
-[16:14:58] lolesports: 80 Worlds events (status=200)
-[16:14:58] polymarket: 45 match-level markets (status=200)
-[16:15:05] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[16:18:48] hotspawn: 241 LoL fixtures
+[16:18:50] pinnacle: 136 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
+[16:18:51] kalshi: 9 CFTC match events (status=200)
+[16:18:51] bovada: 0 LoL moneylines (status=200)
+[16:18:51] kambi: 8 Unibet/Kambi LoL match moneylines (status=200)
+[16:20:04] leaguepedia: 34664 series rows, 11 pages with dqteams (err='')
+[16:20:04] lolesports: 80 Worlds events (status=200)
+[16:20:05] polymarket: 45 match-level markets (status=200)
+[16:20:14] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 tools/collect.py exit: 0
 --- tools/model.py ---
-[16:15:43] rows=241 methods={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} joins=33
-[16:15:43] backtest n=3896 acc=0.6496 brier=0.2185
+[16:20:49] rows=241 methods={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} joins=33
+[16:20:49] backtest n=3896 acc=0.6496 brier=0.2185
 tools/model.py exit: 0
 --- tools/report.py ---
 {
@@ -171,27 +176,27 @@ NON-EXACT JOINS 16
   competition-page | Team Gromp -> Team Gromp (Australian Team) | resolved within 'LCP/2027 Season/Promotion' to 'Team Gromp (Australian Team)' rather than 
 
 PRICED 9
-  Worlds 2026 Main Event | ['Top Esports', "Anyone's Legend"] 0.3724 {'home': 2.47, 'away': 1.571}
-  Worlds 2026 Main Event | ['Movistar KOI', 'CTBC Flying Oyster'] 0.6799 {'home': 1.4, 'away': 3.03}
-  Worlds 2026 Main Event | ['G2 Esports', 'LØS'] 0.7982 {'home': 1.216, 'away': 4.4}
-  Worlds 2026 Main Event | ['LYON', 'Karmine Corp'] 0.4541 {'home': 2.13, 'away': 1.758}
-  Worlds 2026 Main Event | ['Invictus Gaming', 'Team Secret Whales'] 0.6897 {'home': 1.392, 'away': 3.07}
-  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Gen.G'] 0.4195 {'home': 2.32, 'away': 1.641}
-  Worlds 2026 Main Event | ['Dplus KIA', 'T1'] 0.4352 {'home': 2.17, 'away': 1.73}
-  Worlds 2026 Main Event | ['Bilibili Gaming', 'Team Liquid'] 0.7337 {'home': 1.328, 'away': 3.41}
+  Worlds 2026 Main Event | ['Top Esports', "Anyone's Legend"] 0.3681 {'home': 2.55, 'away': 1.544}
+  Worlds 2026 Main Event | ['Movistar KOI', 'CTBC Flying Oyster'] 0.6821 {'home': 1.4, 'away': 3.03}
+  Worlds 2026 Main Event | ['G2 Esports', 'LØS'] 0.7966 {'home': 1.226, 'away': 4.28}
+  Worlds 2026 Main Event | ['LYON', 'Karmine Corp'] 0.4501 {'home': 2.15, 'away': 1.741}
+  Worlds 2026 Main Event | ['Invictus Gaming', 'Team Secret Whales'] 0.6875 {'home': 1.392, 'away': 3.07}
+  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Gen.G'] 0.4183 {'home': 2.32, 'away': 1.641}
+  Worlds 2026 Main Event | ['Dplus KIA', 'T1'] 0.4343 {'home': 2.17, 'away': 1.73}
+  Worlds 2026 Main Event | ['Bilibili Gaming', 'Team Liquid'] 0.7368 {'home': 1.328, 'away': 3.41}
   LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.39 None
 tools/report.py exit: 0
 --- tools/flags.py ---
-[16:15:44] flags: 27 items
+[16:20:49] flags: 27 items
 tools/flags.py exit: 0
 --- tools/site.py ---
-[16:15:44] site: wrote 12 pages to the published root
+[16:20:49] site: wrote 12 pages to the published root
 tools/site.py exit: 0
 --- tools/corroborate.py ---
-[16:15:44] corroborate: 1 usable receipts (1 agree / 0 diverge / 1 placeholder), 1/29 competitions priced externally
+[16:20:49] corroborate: 0 usable receipts (0 agree / 0 diverge / 1 placeholder), 0/29 competitions priced externally
 tools/corroborate.py exit: 0
 --- tools/verify.py ---
-[16:15:44] verification FAILED
+[16:20:50] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -224,8 +229,9 @@ PASS curated flags cite only currently listed fixtures :: 10 curated flags scann
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 29 competition rows; missing links: []
-FAIL external receipts validated against the dataset :: 1 usable receipts, 16 rejected, 0 diverging >8.0pp
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 43921 bytes
+PASS external receipts validated against the dataset :: 0 usable receipts, 0 rejected, 0 diverging >8.0pp, 1 expired, 16 historic (not counted)
+PASS corroboration ledger accounts for every receipt :: receipts=18 = usable 0 + placeholder 1 + rejected 0 + expired 1 + historic 16
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 45140 bytes
 PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
 PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
 PASS method counts partition matches.json cleanly :: counts={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} sum=241 rows=241
@@ -233,7 +239,16 @@ PASS source availability recorded :: 10/14 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
-passed: False checks: 41
+tools/verify.py exit: 0
+--- environment probe ---
+200  https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1
+200  https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups
+200  https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=5
+200  https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en
+200  https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ
+200  https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends
+200  https://lol.fandom.com/wiki/Special:CargoExport
+passed: True checks: 42
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -266,8 +281,9 @@ PASS curated flags cite only currently listed fixtures :: 10 curated flags scann
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 29 competition rows; missing links: []
-FAIL external receipts validated against the dataset :: 1 usable receipts, 16 rejected, 0 diverging >8.0pp
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 43921 bytes
+PASS external receipts validated against the dataset :: 0 usable receipts, 0 rejected, 0 diverging >8.0pp, 1 expired, 16 historic (not counted)
+PASS corroboration ledger accounts for every receipt :: receipts=18 = usable 0 + placeholder 1 + rejected 0 + expired 1 + historic 16
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 45140 bytes
 PASS external source research receipts are committed :: 32 venues probed on 2026-10-23T15:38:55Z; dossier present
 PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
 PASS method counts partition matches.json cleanly :: counts={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} sum=241 rows=241
@@ -275,15 +291,3 @@ PASS source availability recorded :: 10/14 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
-
-=== diagnosis (2026-10-24, session 80c624cd) ===
-Root cause of the three failed `refresh-picks` runs on main:
-  tools/corroborate.py classified every archived receipt whose fixture is no longer on the
-  Hotspawn list as "rejected", and after 2026-10-23T17:13Z the 17 archived esportsbook
-  captures also aged past the 24 h window. verify.py gate "external receipts validated
-  against the dataset" then failed (1 usable, 16 rejected) and the workflow aborted before
-  the commit step. Because the failing build is the only thing that would have refreshed the
-  receipts, the failure was self-sustaining: published data stayed at 2026-10-23T17:13Z.
-Fix (commit with this log): receipts are bucketed usable / expired / historic / rejected;
-  only malformed, wrong-team and diverging receipts fail the gate, and the refresh workflow
-  records its log even when the gate fails (data/build_failure.log).
