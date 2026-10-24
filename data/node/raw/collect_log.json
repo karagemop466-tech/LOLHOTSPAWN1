@@ -1,11 +1,11 @@
 {
-  "fetched_at": "2026-10-24T16:47:17.954Z",
-  "duration_s": 33,
+  "fetched_at": "2026-10-24T16:49:45.417Z",
+  "duration_s": 9,
   "hotspawn_fixtures": 1540,
-  "hotspawn_lobby_ids": 166,
+  "hotspawn_lobby_ids": 157,
   "pinnacle_leagues": 1,
   "pinnacle_matchups": 8,
-  "pinnacle_excluded_kills": 0,
+  "pinnacle_excluded_kills": 8,
   "polymarket_events": 20,
   "kalshi_events": 9,
   "bovada_events": 8,
@@ -13,51 +13,51 @@
   "dq_competitions": 1,
   "log": [
     {
-      "ts": "2026-10-24T16:46:48.346Z",
+      "ts": "2026-10-24T16:49:38.085Z",
       "source": "hotspawn",
-      "msg": "fixtures API unreachable (fetch failed) — preserved <24h snapshot (1540 fixtures from 2026-10-24T15:34:30.580Z)",
-      "ok": false
+      "msg": "fixtures API: 1540 LoL fixtures ({\"ended\":1156,\"cancelled\":80,\"scheduled\":241,\"forfeited\":63})",
+      "ok": true
     },
     {
-      "ts": "2026-10-24T16:46:51.991Z",
+      "ts": "2026-10-24T16:49:39.998Z",
       "source": "hotspawn-lobby",
-      "msg": "SSR page unreachable (fetch failed) — preserved <24h snapshot",
-      "ok": false
+      "msg": "SSR page fetched (1578590 bytes), 157 match permalinks, tiers counts [241]",
+      "ok": true
     },
     {
-      "ts": "2026-10-24T16:46:55.735Z",
+      "ts": "2026-10-24T16:49:40.074Z",
       "source": "pinnacle",
-      "msg": "leagues endpoint unreachable (fetch failed) — preserved <24h snapshot (2026-10-24T15:34:32.399Z)",
-      "ok": false
+      "msg": "1 LoL leagues: League of Legends - World Championship(9587)",
+      "ok": true
     },
     {
-      "ts": "2026-10-24T16:46:59.438Z",
+      "ts": "2026-10-24T16:49:40.601Z",
       "source": "polymarket",
-      "msg": "gamma API unreachable (fetch failed) — preserved <24h snapshot (20 events)",
-      "ok": false
+      "msg": "20 LoL events kept (1 pages fetched)",
+      "ok": true
     },
     {
-      "ts": "2026-10-24T16:47:03.106Z",
+      "ts": "2026-10-24T16:49:40.732Z",
       "source": "kalshi",
-      "msg": "API unreachable (fetch failed) — preserved <24h snapshot (9 events)",
-      "ok": false
+      "msg": "9 open CFTC KXLOLGAME match events",
+      "ok": true
     },
     {
-      "ts": "2026-10-24T16:47:06.920Z",
+      "ts": "2026-10-24T16:49:41.338Z",
       "source": "bovada",
-      "msg": "API unreachable (fetch failed) — preserved <24h snapshot (8 events)",
+      "msg": "runner geo-filtered (0 events) — preserved <12h snapshot (8 events)",
       "ok": false
     },
     {
-      "ts": "2026-10-24T16:47:14.336Z",
+      "ts": "2026-10-24T16:49:41.642Z",
       "source": "kambi",
-      "msg": "CDN unreachable/429 (fetch failed) — preserved <24h snapshot (8 events)",
-      "ok": false
+      "msg": "8 Unibet/Kambi (ubse) LoL match moneylines",
+      "ok": true
     },
     {
-      "ts": "2026-10-24T16:47:17.954Z",
+      "ts": "2026-10-24T16:49:45.417Z",
       "source": "leaguepedia-dq",
-      "msg": "wiki unreachable (fetch failed) — preserved previous dqteams ledger",
+      "msg": "wiki unreachable (HTTP 403) — preserved previous dqteams ledger",
       "ok": false
     }
   ]
