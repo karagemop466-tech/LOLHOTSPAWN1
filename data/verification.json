@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T17:13:13Z",
+ "generated_utc": "2026-10-24T16:29:34Z",
  "checks": [
   {
    "name": "dataset present",
@@ -164,12 +164,17 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "17 usable receipts, 0 rejected, 0 diverging >8.0pp"
+   "detail": "17 usable receipts, 0 rejected, 0 archived, 0 diverging >8.0pp"
+  },
+  {
+   "name": "archived receipts are exactly the stale-fixture captures, not validation failures",
+   "ok": true,
+   "detail": "0 archived receipts, misclassified: 0"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 47906 bytes"
+   "detail": "coverage.html 48103 bytes"
   },
   {
    "name": "external source research receipts are committed",

@@ -12,6 +12,9 @@ What this stage does
    exist, the two team names must be the two teams on that fixture, every price
    must be a real decimal > 1.0, and symmetric 1.80/1.80-style aggregator
    defaults are quarantined as ``placeholder`` instead of being treated as a line.
+   A receipt whose fixture has since left Hotspawn's scheduled list is **archived**
+   (reported, not rejected): fixtures are played and drop off the list, and that is
+   not a defect in the receipt.
 3. De-vigs each usable receipt and compares the implied probability with the
    probability this repository published, producing an agreed / divergent verdict.
 4. Writes ``data/corroboration.json`` (machine-readable) and ``coverage.html``
@@ -150,6 +153,101 @@ PAGE_STYLE = """<style>
 
 
 # --------------------------------------------------------------------------- core
+def classify_receipt(cap: dict, by_id: dict, sources: dict) -> tuple[str, dict]:
+    """Classify one external receipt against the *live* dataset.
+
+    Returns ``(kind, entry)`` with ``kind`` one of:
+
+    * ``"archived"`` - the fixture this receipt captured is **no longer on the live
+      Hotspawn scheduled list**. That is not a validation failure: fixtures leave the
+      list as they are played, so a receipt captured while the fixture was live becomes
+      historical evidence. It is archived, reported on the coverage page, and excluded
+      from the corroboration counts - it must never block a refresh.
+    * ``"rejected"`` - the receipt claims to corroborate a *live* fixture but does not
+      validate against it (malformed price, unmatched teams, non-numeric decimal).
+    * ``"row"``      - a usable (or placeholder) receipt row for a live fixture.
+    """
+    fid = str(cap.get("fixture_id") or "")
+    match = by_id.get(fid)
+    base = {
+        "fixture_id": fid,
+        "source": cap.get("source"),
+        "source_name": (sources.get(cap.get("source")) or {}).get("name") or cap.get("source"),
+        "page_url": cap.get("page_url"),
+        "captured_utc": cap.get("captured_utc"),
+        "verbatim": cap.get("verbatim", ""),
+        "receipt_file": cap.get("_file"),
+    }
+    if match is None:
+        return "archived", {
+            **base, "status": "archived",
+            "reason": "fixture id is not in the live dataset - the fixture has left Hotspawn's "
+                      "scheduled list; archived historical evidence, not a validation failure",
+        }
+    t0, t1 = match["team0"]["name"], match["team1"]["name"]
+    page_teams = cap.get("page_teams") or []
+    dec = cap.get("decimal") or []
+    base.update({
+        "competition": match.get("competition"),
+        "start_utc": match.get("start_utc"),
+        "our_team0": t0, "our_team1": t1,
+        "our_p0": match.get("p0"), "our_p1": match.get("p1"),
+        "our_method": match.get("method"),
+        "our_pick": (match.get("pick") or {}).get("team"),
+        "hotspawn_url": match.get("hotspawn_url"),
+    })
+    if len(page_teams) != 2 or len(dec) != 2:
+        return "rejected", {**base, "status": "malformed",
+                            "reason": "receipt needs exactly two teams and two decimal prices"}
+    try:
+        d0, d1 = float(dec[0]), float(dec[1])
+    except (TypeError, ValueError):
+        return "rejected", {**base, "status": "malformed", "reason": "non-numeric decimal price"}
+    if min(d0, d1) <= 1.0:
+        return "rejected", {**base, "status": "malformed",
+                            "reason": f"decimal price <= 1.0 ({d0}/{d1}) - not a valid quote"}
+    aligned = same(page_teams[0], t0) and same(page_teams[1], t1)
+    swapped = same(page_teams[0], t1) and same(page_teams[1], t0)
+    base["name_match"] = "exact" if (same(page_teams[0], t0) and norm_name(page_teams[0]) == norm_name(t0)) else "tolerant"
+    if not (aligned or swapped):
+        return "rejected", {**base, "status": "unmatched",
+                            "reason": f"receipt teams {page_teams} are not this fixture's teams "
+                                      f"({t0} vs {t1})"}
+    if swapped:
+        # normalise to fixture order (team0 first) so a comparison is like-for-like
+        page_teams = [page_teams[1], page_teams[0]]
+        d0, d1 = d1, d0
+
+    row = {**base, "page_team0": page_teams[0], "page_team1": page_teams[1],
+           "decimal": [d0, d1], "swapped": swapped}
+
+    conflict = cap.get("conflict")
+    if is_placeholder(d0, d1):
+        row.update({"status": "placeholder",
+                    "reason": "symmetric 1.80/1.80 is the aggregator's 'no price' default, not a line",
+                    "ext_p0": None, "ext_p1": None, "delta_pp": None, "verdict": "not usable"})
+        if conflict:
+            row["conflict"] = conflict
+            row["verdict"] = "conflicting / not reproducible"
+        return "row", row
+
+    ext_p0, ext_p1, overround = devig(d0, d1)
+    our_p0 = match.get("p0")
+    delta = None if our_p0 is None else (ext_p0 - float(our_p0)) * 100.0
+    verdict = "unpriced by us"
+    if delta is not None:
+        verdict = "agrees" if abs(delta) <= DIVERGENCE_PP else "diverges"
+    if conflict:
+        verdict = "conflicting / not reproducible"
+    row.update({"status": "usable", "ext_p0": round(ext_p0, 4), "ext_p1": round(ext_p1, 4),
+                "overround": round(overround, 4),
+                "delta_pp": None if delta is None else round(delta, 2),
+                "verdict": verdict})
+    if conflict:
+        row["conflict"] = conflict
+    return "row", row
+
+
 def build() -> dict:
     doc = load_json(os.path.join(DATA, "matches.json")) or {}
     matches = doc.get("matches") or []
@@ -164,89 +262,11 @@ def build() -> dict:
 
     rows: list[dict] = []
     off_list: list[dict] = []
+    archived: list[dict] = []
+    buckets = {"row": rows, "rejected": off_list, "archived": archived}
     for cap in captures:
-        fid = str(cap.get("fixture_id") or "")
-        match = by_id.get(fid)
-        base = {
-            "fixture_id": fid,
-            "source": cap.get("source"),
-            "source_name": (sources.get(cap.get("source")) or {}).get("name") or cap.get("source"),
-            "page_url": cap.get("page_url"),
-            "captured_utc": cap.get("captured_utc"),
-            "verbatim": cap.get("verbatim", ""),
-            "receipt_file": cap.get("_file"),
-        }
-        if match is None:
-            off_list.append({**base, "status": "unmatched",
-                             "reason": "fixture id is not in data/matches.json (stale receipt)"})
-            continue
-        t0, t1 = match["team0"]["name"], match["team1"]["name"]
-        page_teams = cap.get("page_teams") or []
-        dec = cap.get("decimal") or []
-        base.update({
-            "competition": match.get("competition"),
-            "start_utc": match.get("start_utc"),
-            "our_team0": t0, "our_team1": t1,
-            "our_p0": match.get("p0"), "our_p1": match.get("p1"),
-            "our_method": match.get("method"),
-            "our_pick": (match.get("pick") or {}).get("team"),
-            "hotspawn_url": match.get("hotspawn_url"),
-        })
-        if len(page_teams) != 2 or len(dec) != 2:
-            off_list.append({**base, "status": "malformed",
-                             "reason": "receipt needs exactly two teams and two decimal prices"})
-            continue
-        try:
-            d0, d1 = float(dec[0]), float(dec[1])
-        except (TypeError, ValueError):
-            off_list.append({**base, "status": "malformed", "reason": "non-numeric decimal price"})
-            continue
-        if min(d0, d1) <= 1.0:
-            off_list.append({**base, "status": "malformed",
-                             "reason": f"decimal price <= 1.0 ({d0}/{d1}) - not a valid quote"})
-            continue
-        aligned = same(page_teams[0], t0) and same(page_teams[1], t1)
-        swapped = same(page_teams[0], t1) and same(page_teams[1], t0)
-        base["name_match"] = "exact" if (same(page_teams[0], t0) and norm_name(page_teams[0]) == norm_name(t0)) else "tolerant"
-        if not (aligned or swapped):
-            off_list.append({**base, "status": "unmatched",
-                             "reason": f"receipt teams {page_teams} are not this fixture's teams "
-                                       f"({t0} vs {t1})"})
-            continue
-        if swapped:
-            # normalise to fixture order (team0 first) so a comparison is like-for-like
-            page_teams = [page_teams[1], page_teams[0]]
-            d0, d1 = d1, d0
-
-        row = {**base, "page_team0": page_teams[0], "page_team1": page_teams[1],
-               "decimal": [d0, d1], "swapped": swapped}
-
-        conflict = cap.get("conflict")
-        if is_placeholder(d0, d1):
-            row.update({"status": "placeholder",
-                        "reason": "symmetric 1.80/1.80 is the aggregator's 'no price' default, not a line",
-                        "ext_p0": None, "ext_p1": None, "delta_pp": None, "verdict": "not usable"})
-            if conflict:
-                row["conflict"] = conflict
-                row["verdict"] = "conflicting / not reproducible"
-            rows.append(row)
-            continue
-
-        ext_p0, ext_p1, overround = devig(d0, d1)
-        our_p0 = match.get("p0")
-        delta = None if our_p0 is None else (ext_p0 - float(our_p0)) * 100.0
-        verdict = "unpriced by us"
-        if delta is not None:
-            verdict = "agrees" if abs(delta) <= DIVERGENCE_PP else "diverges"
-        if conflict:
-            verdict = "conflicting / not reproducible"
-        row.update({"status": "usable", "ext_p0": round(ext_p0, 4), "ext_p1": round(ext_p1, 4),
-                    "overround": round(overround, 4),
-                    "delta_pp": None if delta is None else round(delta, 2),
-                    "verdict": verdict})
-        if conflict:
-            row["conflict"] = conflict
-        rows.append(row)
+        kind, entry = classify_receipt(cap, by_id, sources)
+        buckets[kind].append(entry)
 
     # ---- per-competition coverage matrix
     comp: dict[str, dict] = {}
@@ -335,10 +355,11 @@ def build() -> dict:
         "priced_by_us": sum(1 for m in matches if m.get("p0") is not None),
         "unresolved_by_us": sum(1 for m in matches if m.get("method") == "unresolved"),
         "method_counts": {},
-        "receipts": len(rows) + len(off_list),
+        "receipts": len(rows) + len(off_list) + len(archived),
         "usable_receipts": len(usable),
         "placeholders": sum(1 for r in rows if r["status"] == "placeholder"),
         "rejected_receipts": len(off_list),
+        "archived_receipts": len(archived),
         "agrees": sum(1 for r in usable if r["verdict"] == "agrees"),
         "diverges": sum(1 for r in usable if r["verdict"] == "diverges"),
         "conflicting": sum(1 for r in rows if "conflict" in r),
@@ -374,6 +395,7 @@ def build() -> dict:
         "coverage": coverage,
         "rows": rows,
         "rejected": off_list,
+        "archived": archived,
         "problems": problems,
     }
 
@@ -397,6 +419,9 @@ def render(doc: dict) -> str:
   <div class="stat provisional"><div class="sv">{s['placeholders'] + s['rejected_receipts']}</div>
     <div class="sl">receipts rejected</div>
     <div class="sn">{s['placeholders']} placeholder &middot; {s['rejected_receipts']} malformed/unmatched</div></div>
+  <div class="stat"><div class="sv">{s['archived_receipts']}</div>
+    <div class="sl">receipts archived</div>
+    <div class="sn">fixture left the live list - historical evidence, not a validation failure</div></div>
 </section>
 """
 
@@ -464,6 +489,32 @@ def render(doc: dict) -> str:
             f'<span class="muted small">{e(r.get("reason"))}</span></td>'
             "</tr>"
         )
+
+    stale_rows_html = "".join(
+        f'<tr><td data-label="Receipt"><a href="{e(r.get("page_url"))}">{e(r.get("receipt_file"))}</a>'
+        f'<br><span class="muted small">fixture {e(r.get("fixture_id"))}</span></td>'
+        f'<td data-label="Source">{e(r.get("source_name"))}</td>'
+        f'<td data-label="Captured">{e((r.get("captured_utc") or "")[:16].replace("T", " "))}Z</td>'
+        f'<td data-label="Status"><span class="pill">archived</span>'
+        f'<br><span class="muted small">{e(r.get("reason"))}</span></td></tr>'
+        for r in doc["archived"]
+    )
+    stale_block = ""
+    if doc["archived"]:
+        stale_block = f"""<section class="panel">
+  <h2>3b. Archived receipts - fixtures that left the live list</h2>
+  <p class="muted small">These {len(doc['archived'])} receipts were captured while their fixture was on
+  Hotspawn's scheduled list. The fixture has since been played and left the list, so there is no live row to
+  validate against. They are kept as historical evidence, reported here, and never count against the
+  corroboration or the publish gate.</p>
+  <div class="tablewrap">
+  <table class="table stack">
+    <thead><tr><th>Receipt</th><th>Source</th><th>Captured</th><th>Status</th></tr></thead>
+    <tbody>{stale_rows_html}</tbody>
+  </table>
+  </div>
+</section>
+"""
 
     obs_rows = "".join(
         f'<tr><td data-label="Source"><a href="{e(o.get("url"))}">{e((sources.get(o.get("source")) or {}).get("name") or o.get("source"))}</a></td>'
@@ -601,6 +652,8 @@ def render(doc: dict) -> str:
   </div>
 </section>
 
+{stale_block}
+
 <section class="panel">
   <h2>4. No external market: what we checked and what it showed</h2>
   <p>For the {len(gaps)} competitions with no external price, the pick is our own line
@@ -671,6 +724,7 @@ def main() -> None:
     s = doc["summary"]
     log(f"corroborate: {s['usable_receipts']} usable receipts "
         f"({s['agrees']} agree / {s['diverges']} diverge / {s['placeholders']} placeholder), "
+        f"{s['rejected_receipts']} rejected, {s['archived_receipts']} archived, "
         f"{s['competitions_with_external_price']}/{len(doc['coverage'])} competitions priced externally")
     for p in doc["problems"]:
         log(f"corroborate WARNING: {p}")

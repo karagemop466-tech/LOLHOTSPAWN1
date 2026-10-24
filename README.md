@@ -78,7 +78,9 @@ side, ids are unique, no `(Kills)` derivative market is used as a match line, ev
 an official quote URL, every official-forfeit resolution names a winner and a source URL without
 inventing a probability, `picks.csv` mirrors the dataset, all 13 pages exist, every internal link
 resolves, no `None`/empty value is rendered, every match appears on `picks.html` **and** in the table on
-`table.html`, the executive summary links to every view, and each source's availability is recorded.
+`table.html`, the executive summary links to every view, each source's availability is recorded, and
+external receipts whose fixture has since left the live Hotspawn list are **archived** (reported on the
+coverage page) rather than rejected - so a fixture completing its series can never abort a refresh.
 
 ## Manual review links
 

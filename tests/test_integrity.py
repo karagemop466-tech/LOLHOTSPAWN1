@@ -105,3 +105,59 @@ class IntegrityTests(unittest.TestCase):
             expired = col_mod._preserve_recent_on_http_error(str(p), 'events', 429, 'kambi', max_age_h=24.0)
             self.assertIsNone(expired)
 
+    def test_stale_receipt_is_archived_not_rejected(self):
+        # A receipt whose fixture has left Hotspawn's scheduled list is historical
+        # evidence, not a validation failure. It must be classified "archived" and
+        # must NOT land in "rejected" (which aborts the six-hourly refresh).
+        import json
+        import tempfile
+        from unittest import mock
+        import corroborate
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            data = root / 'data'
+            receipts = data / 'receipts' / 'external_odds'
+            receipts.mkdir(parents=True)
+            (data / 'matches.json').write_text(json.dumps({
+                "generated_utc": "2026-10-24T00:00:00Z",
+                "matches": [{
+                    "id": "1", "competition": "C", "start_utc": "2026-10-24T10:00:00Z",
+                    "team0": {"name": "Alpha"}, "team1": {"name": "Beta"},
+                    "p0": 0.5, "p1": 0.5, "method": "model",
+                    "pick": {"team": "Alpha", "probability": 0.5},
+                    "hotspawn_url": "https://www.hotspawn.com/matches/a-b-c-1",
+                }],
+            }), encoding='utf-8')
+            (receipts / '2026-10-23.json').write_text(json.dumps({
+                "sources": [{"key": "s1", "name": "Book One"}],
+                "captures": [
+                    # live fixture, valid -> usable row
+                    {"fixture_id": "1", "source": "s1", "page_teams": ["Alpha", "Beta"],
+                     "decimal": [2.0, 2.0], "captured_utc": "2026-10-23T12:00:00Z",
+                     "page_url": "https://book.example/1"},
+                    # stale fixture (no longer listed) -> archived
+                    {"fixture_id": "999", "source": "s1", "page_teams": ["Gamma", "Delta"],
+                     "decimal": [1.5, 2.5], "captured_utc": "2026-10-23T12:00:00Z",
+                     "page_url": "https://book.example/999"},
+                    # live fixture, malformed price -> rejected
+                    {"fixture_id": "1", "source": "s1", "page_teams": ["Alpha", "Beta"],
+                     "decimal": [1.0, 2.0], "captured_utc": "2026-10-23T12:00:00Z",
+                     "page_url": "https://book.example/bad"},
+                ],
+            }), encoding='utf-8')
+
+            with mock.patch.object(corroborate, 'DATA', str(data)), \
+                 mock.patch.object(corroborate, 'ROOT', str(root)), \
+                 mock.patch.object(corroborate, 'RECEIPT_DIR', str(receipts)):
+                doc = corroborate.build()
+
+        s = doc['summary']
+        self.assertEqual(s['usable_receipts'], 1)
+        self.assertEqual(s['archived_receipts'], 1)
+        self.assertEqual(s['rejected_receipts'], 1)
+        self.assertEqual([r['fixture_id'] for r in doc['archived']], ['999'])
+        self.assertEqual(doc['archived'][0]['status'], 'archived')
+        self.assertEqual(doc['rejected'][0]['fixture_id'], '1')
+        self.assertEqual(doc['rejected'][0]['status'], 'malformed')
+

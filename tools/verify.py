@@ -294,10 +294,20 @@ def main() -> None:
     add("coverage matrix: every competition row links to a source", bool(cov_rows) and not no_link,
         f"{len(cov_rows)} competition rows; missing links: {no_link[:3]}")
     bad_receipts = corr.get("rejected") or []
+    archived = corr.get("archived") or []
     diverged = [r for r in (corr.get("rows") or []) if r.get("verdict") == "diverges"]
     add("external receipts validated against the dataset", not bad_receipts and not diverged,
         f"{corr.get('summary',{}).get('usable_receipts',0)} usable receipts, "
-        f"{len(bad_receipts)} rejected, {len(diverged)} diverging >{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp")
+        f"{len(bad_receipts)} rejected, {len(archived)} archived, "
+        f"{len(diverged)} diverging >{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp")
+    # Archived receipts are historical captures whose fixture has since left Hotspawn's scheduled
+    # list. They must be classified as archived - never silently counted as rejected, which would
+    # abort the six-hourly refresh for a non-defect (it did: runs 40026767003..40109474033).
+    misclassified = [r for r in archived if r.get("status") != "archived"
+                     or not str(r.get("reason") or "").strip()]
+    add("archived receipts are exactly the stale-fixture captures, not validation failures",
+        not misclassified,
+        f"{len(archived)} archived receipts, misclassified: {len(misclassified)}")
     cov_path = os.path.join(DOCS, "coverage.html")
     cov_html = open(cov_path, encoding="utf-8").read() if os.path.exists(cov_path) else ""
     add("coverage page shows every match method and the unresolved ledger",
