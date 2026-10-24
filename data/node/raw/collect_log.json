@@ -1,32 +1,32 @@
 {
-  "fetched_at": "2026-10-23T16:40:40.461Z",
-  "duration_s": 3,
+  "fetched_at": "2026-10-24T03:46:19.308Z",
+  "duration_s": 4,
   "hotspawn_fixtures": 1510,
-  "hotspawn_lobby_ids": 172,
+  "hotspawn_lobby_ids": 160,
   "pinnacle_leagues": 1,
-  "pinnacle_matchups": 16,
+  "pinnacle_matchups": 8,
   "polymarket_events": 20,
   "log": [
     {
-      "ts": "2026-10-23T16:40:38.340Z",
+      "ts": "2026-10-24T03:46:16.684Z",
       "source": "hotspawn",
-      "msg": "fixtures API: 1510 LoL fixtures ({\"ended\":1131,\"cancelled\":76,\"scheduled\":241,\"forfeited\":62})",
+      "msg": "fixtures API: 1510 LoL fixtures ({\"ended\":1139,\"cancelled\":76,\"scheduled\":231,\"forfeited\":63,\"started\":1})",
       "ok": true
     },
     {
-      "ts": "2026-10-23T16:40:39.971Z",
+      "ts": "2026-10-24T03:46:18.407Z",
       "source": "hotspawn-lobby",
-      "msg": "SSR page fetched (1672745 bytes), 172 match permalinks, tiers counts [241]",
+      "msg": "SSR page fetched (1566711 bytes), 160 match permalinks, tiers counts [231]",
       "ok": true
     },
     {
-      "ts": "2026-10-23T16:40:40.048Z",
+      "ts": "2026-10-24T03:46:18.533Z",
       "source": "pinnacle",
       "msg": "1 LoL leagues: League of Legends - World Championship(9587)",
       "ok": true
     },
     {
-      "ts": "2026-10-23T16:40:40.457Z",
+      "ts": "2026-10-24T03:46:19.243Z",
       "source": "polymarket",
       "msg": "20 LoL events kept (1 pages fetched)",
       "ok": true

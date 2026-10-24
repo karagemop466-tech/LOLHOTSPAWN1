@@ -1,34 +1,38 @@
 {
  "summary": {
-  "generated_at": "2026-10-23T16:40:40.497Z",
+  "generated_at": "2026-10-24T03:46:19.348Z",
   "week": {
    "start": "2026-10-19T00:00:00.000Z",
    "end": "2026-10-26T00:00:00.000Z"
   },
   "accuracy": {
-   "tracked": 31,
-   "hits": 24,
-   "rate": 77.4,
+   "tracked": 38,
+   "hits": 28,
+   "rate": 73.7,
    "by_basis": {
+    "market-pinnacle": {
+     "tracked": 5,
+     "hits": 3
+    },
     "model-elo": {
-     "tracked": 31,
-     "hits": 24
+     "tracked": 33,
+     "hits": 25
     }
    }
   },
   "counts": {
-   "open": 172,
-   "locked_or_live": 5,
-   "stale": 64,
-   "ended_this_week": 63,
+   "open": 160,
+   "locked_or_live": 7,
+   "stale": 65,
+   "ended_this_week": 72,
    "cancelled": 12,
-   "picks_total": 165,
-   "market_pinnacle": 8,
+   "picks_total": 159,
+   "market_pinnacle": 0,
    "market_polymarket_only": 1,
-   "model_only": 156,
-   "unresolved_open": 10,
-   "flags_needs_review": 13,
-   "flags_info": 3
+   "model_only": 158,
+   "unresolved_open": 7,
+   "flags_needs_review": 7,
+   "flags_info": 12
   },
   "sources_ok": {
    "hotspawn_fixtures": true,
@@ -39,22 +43,6 @@
   }
  },
  "tournaments": {
-  "Arabian League 2nd Division 2026 Summer": {
-   "competition": "Arabian League 2nd Division 2026 Summer",
-   "tier": null,
-   "open": 9,
-   "resolved": 6,
-   "market": 0,
-   "model": 6
-  },
-  "Komplettligaen 2026 Autumn": {
-   "competition": "Komplettligaen 2026 Autumn",
-   "tier": "c",
-   "open": 1,
-   "resolved": 1,
-   "market": 0,
-   "model": 1
-  },
   "PRM 2nd Division 26-27 Fall": {
    "competition": "PRM 2nd Division 26-27 Fall",
    "tier": "c",
@@ -63,21 +51,13 @@
    "market": 0,
    "model": 33
   },
-  "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine": {
-   "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
-   "tier": "d",
-   "open": 1,
-   "resolved": 0,
-   "market": 0,
-   "model": 0
-  },
   "Worlds 2026 Main Event": {
    "competition": "Worlds 2026 Main Event",
    "tier": "s",
-   "open": 8,
-   "resolved": 8,
-   "market": 8,
-   "model": 0
+   "open": 3,
+   "resolved": 3,
+   "market": 0,
+   "model": 3
   },
   "PRM 3rd Division 26-27 Fall": {
    "competition": "PRM 3rd Division 26-27 Fall",
@@ -110,6 +90,14 @@
    "resolved": 21,
    "market": 0,
    "model": 21
+  },
+  "Arabian League 2nd Division 2026 Summer": {
+   "competition": "Arabian League 2nd Division 2026 Summer",
+   "tier": null,
+   "open": 6,
+   "resolved": 6,
+   "market": 0,
+   "model": 6
   },
   "LigaGG CELOL A 2026 Split 2 Playoffs": {
    "competition": "LigaGG CELOL A 2026 Split 2 Playoffs",
@@ -740,7 +728,7 @@
     "name": "Smoke Tram Ascension"
    },
    "team_history": {
-    "n0": 17,
+    "n0": 18,
     "n1": 10
    },
    "score0": null,
@@ -751,11 +739,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.563,
-    "p1": 0.437,
-    "r0": 1488,
+    "p0": 0.548,
+    "p1": 0.452,
+    "r0": 1478,
     "r1": 1444,
-    "n0": 17,
+    "n0": 18,
     "n1": 10,
     "confidence": "high"
    },
@@ -944,8 +932,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.462,
-    "p1": 0.538,
+    "p0": 0.463,
+    "p1": 0.537,
     "r0": 1474,
     "r1": 1540,
     "n0": 2,
@@ -1732,7 +1720,7 @@
     "name": "Slam Dunk"
    },
    "team_history": {
-    "n0": 2,
+    "n0": 3,
     "n1": 3
    },
    "score0": null,
@@ -1743,13 +1731,13 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.478,
-    "p1": 0.522,
-    "r0": 1498,
+    "p0": 0.461,
+    "p1": 0.539,
+    "r0": 1482,
     "r1": 1537,
-    "n0": 2,
+    "n0": 3,
     "n1": 3,
-    "confidence": "low"
+    "confidence": "medium"
    },
    "pick": null
   },
@@ -2357,7 +2345,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 1
+    "n1": 2
    },
    "score0": null,
    "score1": null,
@@ -2367,12 +2355,12 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.521,
-    "p1": 0.479,
+    "p0": 0.519,
+    "p1": 0.481,
     "r0": 1534,
-    "r1": 1486,
+    "r1": 1501,
     "n0": 3,
-    "n1": 1,
+    "n1": 2,
     "confidence": "low"
    },
    "pick": null
@@ -2514,7 +2502,7 @@
     "name": "Team Fifty Fifty"
    },
    "team_history": {
-    "n0": 0,
+    "n0": 1,
     "n1": 0
    },
    "score0": null,
@@ -2549,7 +2537,7 @@
     "name": "RATCLUB"
    },
    "team_history": {
-    "n0": 0,
+    "n0": 1,
     "n1": 0
    },
    "score0": null,
@@ -3061,8 +3049,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.631,
-    "p1": 0.369,
+    "p0": 0.63,
+    "p1": 0.37,
     "r0": 1556,
     "r1": 1453,
     "n0": 7,
@@ -3237,8 +3225,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.301,
-    "p1": 0.699,
+    "p0": 0.302,
+    "p1": 0.698,
     "r0": 1396,
     "r1": 1542,
     "n0": 9,
@@ -4242,7 +4230,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.503,
     "p1": 0.497,
-    "r0": 1510,
+    "r0": 1509,
     "r1": 1504,
     "n0": 3,
     "n1": 2,
@@ -4419,7 +4407,7 @@
     "p0": 0.443,
     "p1": 0.557,
     "r0": 1459,
-    "r1": 1539,
+    "r1": 1538,
     "n0": 3,
     "n1": 3,
     "confidence": "medium"
@@ -4548,8 +4536,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.704,
-    "p1": 0.296,
+    "p0": 0.703,
+    "p1": 0.297,
     "r0": 1546,
     "r1": 1396,
     "n0": 10,
@@ -5065,7 +5053,7 @@
     "name": "Victorious Demons"
    },
    "team_history": {
-    "n0": 1,
+    "n0": 2,
     "n1": 2
    },
    "score0": null,
@@ -5076,11 +5064,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.493,
-    "p1": 0.507,
-    "r0": 1486,
+    "p0": 0.499,
+    "p1": 0.501,
+    "r0": 1501,
     "r1": 1502,
-    "n0": 1,
+    "n0": 2,
     "n1": 2,
     "confidence": "low"
    },
@@ -5088,7 +5076,7 @@
   },
   {
    "id": "1082105",
-   "state": "locked",
+   "state": "stale",
    "forfeit": false,
    "competition_id": "36502",
    "competition": "Arabian League 2nd Division 2026 Summer",
@@ -5109,8 +5097,8 @@
     "name": "Pegasus Esports"
    },
    "team_history": {
-    "n0": 0,
-    "n1": 1
+    "n0": 1,
+    "n1": 2
    },
    "score0": null,
    "score1": null,
@@ -5118,7 +5106,16 @@
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.493,
+    "p1": 0.507,
+    "r0": 1485,
+    "r1": 1501,
+    "n0": 1,
+    "n1": 2,
+    "confidence": "low"
+   },
    "pick": null
   },
   {
@@ -5463,8 +5460,8 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.369,
-    "p1": 0.631,
+    "p0": 0.37,
+    "p1": 0.63,
     "r0": 1453,
     "r1": 1556,
     "n0": 8,
@@ -5695,8 +5692,8 @@
   },
   {
    "id": "1071212",
-   "state": "locked",
-   "forfeit": false,
+   "state": "forfeited",
+   "forfeit": true,
    "competition_id": "36279",
    "competition": "Komplettligaen 2026 Autumn",
    "tier": "c",
@@ -5719,8 +5716,8 @@
     "n0": 13,
     "n1": 10
    },
-   "score0": null,
-   "score1": null,
+   "score0": 1,
+   "score1": 0,
    "hotspawn_url": "https://www.hotspawn.com/matches/rich-gang-vs-phenti-komplettligaen-2026-autumn-1071212",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
@@ -5735,15 +5732,7 @@
     "n1": 10,
     "confidence": "high"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "37072",
-    "team": "Rich Gang",
-    "p": 0.693,
-    "basis": "model-elo",
-    "confidence": "high",
-    "margin": 0.386
-   }
+   "pick": null
   },
   {
    "id": "1082745",
@@ -5799,7 +5788,7 @@
   },
   {
    "id": "1082839",
-   "state": "locked",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36588",
    "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
@@ -5820,16 +5809,25 @@
     "name": "MTN ESPORTS TEAM"
    },
    "team_history": {
-    "n0": 0,
-    "n1": 0
+    "n0": 1,
+    "n1": 1
    },
-   "score0": null,
-   "score1": null,
+   "score0": 2,
+   "score1": 0,
    "hotspawn_url": "https://www.hotspawn.com/matches/levelers-vs-mtn-esports-team-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082839",
    "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.513,
+    "p1": 0.487,
+    "r0": 1515,
+    "r1": 1485,
+    "n0": 1,
+    "n1": 1,
+    "confidence": "low"
+   },
    "pick": null
   },
   {
@@ -5930,7 +5928,7 @@
   },
   {
    "id": "1067878",
-   "state": "open",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -5951,67 +5949,30 @@
     "name": "Invictus Gaming"
    },
    "team_history": {
-    "n0": 3,
-    "n1": 17
+    "n0": 4,
+    "n1": 18
    },
-   "score0": null,
-   "score1": null,
+   "score0": 1,
+   "score1": 0,
    "hotspawn_url": "https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": {
-    "source": "Pinnacle",
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
-    "site_url": "https://www.pinnacle.com/en/esports",
-    "league": "League of Legends - World Championship",
-    "league_id": 9587,
-    "matchup_id": 1638748200,
-    "odds0": -360,
-    "odds1": 277,
-    "dec0": 1.28,
-    "dec1": 3.77,
-    "p0": 0.747,
-    "p1": 0.253,
-    "match_quality": "exact",
-    "best_of": 1,
-    "listing": "live"
-   },
-   "market_polymarket": {
-    "source": "Polymarket",
-    "url": "https://polymarket.com/event/lol-gen-ig1-2026-10-23",
-    "event": "lol-gen-ig1-2026-10-23",
-    "question": "LoL: Gen.G vs Invictus Gaming (BO1) - Worlds Group Stage",
-    "p0": 0.765,
-    "p1": 0.235,
-    "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 248885.5774,
-    "volume": 415638.46988900006,
-    "spread": 0.01,
-    "match_quality": "exact"
-   },
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.54,
-    "p1": 0.46,
-    "r0": 1544,
-    "r1": 1488,
-    "n0": 3,
-    "n1": 17,
+    "p0": 0.565,
+    "p1": 0.435,
+    "r0": 1554,
+    "r1": 1478,
+    "n0": 4,
+    "n1": 18,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "6194",
-    "team": "Gen.G",
-    "p": 0.747,
-    "basis": "market-pinnacle",
-    "confidence": "high",
-    "margin": 0.494
-   }
+   "pick": null
   },
   {
    "id": "1079139",
-   "state": "open",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36502",
    "competition": "Arabian League 2nd Division 2026 Summer",
@@ -6032,34 +5993,26 @@
     "name": "Pegasus Esports"
    },
    "team_history": {
-    "n0": 2,
-    "n1": 1
+    "n0": 3,
+    "n1": 2
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 2,
    "hotspawn_url": "https://www.hotspawn.com/matches/nextgeneration-esports-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079139",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.505,
-    "p1": 0.495,
-    "r0": 1498,
-    "r1": 1486,
-    "n0": 2,
-    "n1": 1,
+    "p0": 0.489,
+    "p1": 0.511,
+    "r0": 1482,
+    "r1": 1501,
+    "n0": 3,
+    "n1": 2,
     "confidence": "low"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "206997",
-    "team": "NextGeneration Esports",
-    "p": 0.505,
-    "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.01
-   }
+   "pick": null
   },
   {
    "id": "1079140",
@@ -6085,7 +6038,7 @@
    },
    "team_history": {
     "n0": 2,
-    "n1": 3
+    "n1": 4
    },
    "score0": null,
    "score1": null,
@@ -6095,19 +6048,19 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.506,
-    "p1": 0.494,
+    "p0": 0.497,
+    "p1": 0.503,
     "r0": 1502,
-    "r1": 1491,
+    "r1": 1507,
     "n0": 2,
-    "n1": 3,
+    "n1": 4,
     "confidence": "low"
    },
    "pick": null
   },
   {
    "id": "1067677",
-   "state": "open",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -6128,67 +6081,30 @@
     "name": "Top Esports"
    },
    "team_history": {
-    "n0": 4,
-    "n1": 5
+    "n0": 5,
+    "n1": 6
    },
-   "score0": null,
-   "score1": null,
+   "score0": 1,
+   "score1": 0,
    "hotspawn_url": "https://www.hotspawn.com/matches/hanwha-life-esports-vs-top-esports-worlds-2026-main-event-1067677",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": {
-    "source": "Pinnacle",
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
-    "site_url": "https://www.pinnacle.com/en/esports",
-    "league": "League of Legends - World Championship",
-    "league_id": 9587,
-    "matchup_id": 1638748203,
-    "odds0": -398,
-    "odds1": 301,
-    "dec0": 1.25,
-    "dec1": 4.01,
-    "p0": 0.762,
-    "p1": 0.238,
-    "match_quality": "exact",
-    "best_of": 1,
-    "listing": "live"
-   },
-   "market_polymarket": {
-    "source": "Polymarket",
-    "url": "https://polymarket.com/event/lol-hle1-tes-2026-10-23",
-    "event": "lol-hle1-tes-2026-10-23",
-    "question": "LoL: Hanwha Life Esports vs Top Esports (BO1) - Worlds Group Stage",
-    "p0": 0.765,
-    "p1": 0.235,
-    "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 241114.4456,
-    "volume": 312647.29807099997,
-    "spread": 0.01,
-    "match_quality": "exact"
-   },
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.503,
-    "p1": 0.497,
-    "r0": 1499,
-    "r1": 1496,
-    "n0": 4,
-    "n1": 5,
+    "p0": 0.527,
+    "p1": 0.473,
+    "r0": 1511,
+    "r1": 1484,
+    "n0": 5,
+    "n1": 6,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "10170",
-    "team": "Hanwha Life Esports",
-    "p": 0.762,
-    "basis": "market-pinnacle",
-    "confidence": "high",
-    "margin": 0.524
-   }
+   "pick": null
   },
   {
    "id": "1082106",
-   "state": "open",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36502",
    "competition": "Arabian League 2nd Division 2026 Summer",
@@ -6209,21 +6125,30 @@
     "name": "Team Reds"
    },
    "team_history": {
-    "n0": 0,
-    "n1": 3
+    "n0": 1,
+    "n1": 4
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 2,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-vds-vs-team-reds-arabian-league-2nd-division-2026-summer-1082106",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.49,
+    "p1": 0.51,
+    "r0": 1485,
+    "r1": 1507,
+    "n0": 1,
+    "n1": 4,
+    "confidence": "low"
+   },
    "pick": null
   },
   {
    "id": "1079849",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36492",
    "competition": "PRM 2nd Division 26-27 Fall",
@@ -6250,7 +6175,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/regold-esport-vs-team-300-prm-2nd-division-26-27-fall-1079849",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": {
@@ -6275,7 +6200,7 @@
   },
   {
    "id": "1079025",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36492",
    "competition": "PRM 2nd Division 26-27 Fall",
@@ -6302,7 +6227,7 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/acegaming-vs-babos-gaming-prm-2nd-division-26-27-fall-1079025",
-   "hotspawn_url_constructed": false,
+   "hotspawn_url_constructed": true,
    "market_pinnacle": null,
    "market_polymarket": null,
    "model": null,
@@ -6345,7 +6270,7 @@
   },
   {
    "id": "1067680",
-   "state": "open",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -6366,67 +6291,30 @@
     "name": "Movistar KOI"
    },
    "team_history": {
-    "n0": 3,
-    "n1": 5
+    "n0": 4,
+    "n1": 6
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 1,
    "hotspawn_url": "https://www.hotspawn.com/matches/bilibili-gaming-vs-movistar-koi-worlds-2026-main-event-1067680",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": {
-    "source": "Pinnacle",
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
-    "site_url": "https://www.pinnacle.com/en/esports",
-    "league": "League of Legends - World Championship",
-    "league_id": 9587,
-    "matchup_id": 1638755459,
-    "odds0": -400,
-    "odds1": 302,
-    "dec0": 1.25,
-    "dec1": 4.02,
-    "p0": 0.763,
-    "p1": 0.237,
-    "match_quality": "exact",
-    "best_of": 1,
-    "listing": "live"
-   },
-   "market_polymarket": {
-    "source": "Polymarket",
-    "url": "https://polymarket.com/event/lol-blg-mkoi-2026-10-23",
-    "event": "lol-blg-mkoi-2026-10-23",
-    "question": "LoL: Bilibili Gaming vs Movistar KOI (BO1) - Worlds Group Stage",
-    "p0": 0.805,
-    "p1": 0.195,
-    "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 289068.0394,
-    "volume": 216405.18443,
-    "spread": 0.01,
-    "match_quality": "exact"
-   },
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.486,
-    "p1": 0.514,
-    "r0": 1516,
-    "r1": 1536,
-    "n0": 3,
-    "n1": 5,
+    "p0": 0.464,
+    "p1": 0.536,
+    "r0": 1505,
+    "r1": 1547,
+    "n0": 4,
+    "n1": 6,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "5746",
-    "team": "Bilibili Gaming",
-    "p": 0.763,
-    "basis": "market-pinnacle",
-    "confidence": "high",
-    "margin": 0.526
-   }
+   "pick": null
   },
   {
    "id": "1067675",
-   "state": "open",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -6447,67 +6335,30 @@
     "name": "Karmine Corp"
    },
    "team_history": {
-    "n0": 4,
-    "n1": 7
+    "n0": 5,
+    "n1": 8
    },
-   "score0": null,
-   "score1": null,
-   "hotspawn_url": "https://www.hotspawn.com/matches/anyones-legend-vs-karmine-corp-worlds-2026-main-event-1067675",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": {
-    "source": "Pinnacle",
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
-    "site_url": "https://www.pinnacle.com/en/esports",
-    "league": "League of Legends - World Championship",
-    "league_id": 9587,
-    "matchup_id": 1638750902,
-    "odds0": -201,
-    "odds1": 167,
-    "dec0": 1.5,
-    "dec1": 2.67,
-    "p0": 0.641,
-    "p1": 0.359,
-    "match_quality": "exact",
-    "best_of": 1,
-    "listing": "live"
-   },
-   "market_polymarket": {
-    "source": "Polymarket",
-    "url": "https://polymarket.com/event/lol-al-kc-2026-10-23",
-    "event": "lol-al-kc-2026-10-23",
-    "question": "LoL: Anyone's Legend vs Karmine Corp (BO1) - Worlds Group Stage",
-    "p0": 0.645,
-    "p1": 0.355,
-    "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 334967.0634,
-    "volume": 319709.577621,
-    "spread": 0.01,
-    "match_quality": "exact"
-   },
+   "score0": 0,
+   "score1": 1,
+   "hotspawn_url": "https://www.hotspawn.com/matches/anyone-s-legend-vs-karmine-corp-worlds-2026-main-event-1067675",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.484,
-    "p1": 0.516,
-    "r0": 1525,
-    "r1": 1544,
-    "n0": 4,
-    "n1": 7,
+    "p0": 0.459,
+    "p1": 0.541,
+    "r0": 1514,
+    "r1": 1555,
+    "n0": 5,
+    "n1": 8,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 0,
-    "team_id": "57842",
-    "team": "Anyone's Legend",
-    "p": 0.641,
-    "basis": "market-pinnacle",
-    "confidence": "high",
-    "margin": 0.281
-   }
+   "pick": null
   },
   {
    "id": "1067676",
-   "state": "open",
+   "state": "ended",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -6528,67 +6379,30 @@
     "name": "Dplus KIA"
    },
    "team_history": {
-    "n0": 3,
-    "n1": 4
+    "n0": 4,
+    "n1": 5
    },
-   "score0": null,
-   "score1": null,
+   "score0": 0,
+   "score1": 1,
    "hotspawn_url": "https://www.hotspawn.com/matches/g2-esports-vs-dplus-kia-worlds-2026-main-event-1067676",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": {
-    "source": "Pinnacle",
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
-    "site_url": "https://www.pinnacle.com/en/esports",
-    "league": "League of Legends - World Championship",
-    "league_id": 9587,
-    "matchup_id": 1638750815,
-    "odds0": 124,
-    "odds1": -146,
-    "dec0": 2.24,
-    "dec1": 1.68,
-    "p0": 0.429,
-    "p1": 0.571,
-    "match_quality": "exact",
-    "best_of": 1,
-    "listing": "live"
-   },
-   "market_polymarket": {
-    "source": "Polymarket",
-    "url": "https://polymarket.com/event/lol-g2-dk-2026-10-23",
-    "event": "lol-g2-dk-2026-10-23",
-    "question": "LoL: G2 Esports vs Dplus KIA (BO1) - Worlds Group Stage",
-    "p0": 0.395,
-    "p1": 0.605,
-    "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 475412.7047,
-    "volume": 352124.90043200005,
-    "spread": 0.01,
-    "match_quality": "exact"
-   },
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.538,
-    "p1": 0.462,
-    "r0": 1550,
-    "r1": 1496,
-    "n0": 3,
-    "n1": 4,
+    "p0": 0.522,
+    "p1": 0.478,
+    "r0": 1536,
+    "r1": 1510,
+    "n0": 4,
+    "n1": 5,
     "confidence": "medium"
    },
-   "pick": {
-    "team_index": 1,
-    "team_id": "74448",
-    "team": "Dplus KIA",
-    "p": 0.571,
-    "basis": "market-pinnacle",
-    "confidence": "high",
-    "margin": 0.141
-   }
+   "pick": null
   },
   {
    "id": "1067879",
-   "state": "open",
+   "state": "live",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -6615,38 +6429,9 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-liquid-vs-ctbc-flying-oyster-worlds-2026-main-event-1067879",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": {
-    "source": "Pinnacle",
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
-    "site_url": "https://www.pinnacle.com/en/esports",
-    "league": "League of Legends - World Championship",
-    "league_id": 9587,
-    "matchup_id": 1638750814,
-    "odds0": -290,
-    "odds1": 231,
-    "dec0": 1.34,
-    "dec1": 3.31,
-    "p0": 0.711,
-    "p1": 0.289,
-    "match_quality": "exact",
-    "best_of": 1,
-    "listing": "live"
-   },
-   "market_polymarket": {
-    "source": "Polymarket",
-    "url": "https://polymarket.com/event/lol-tl2-cfo-2026-10-23",
-    "event": "lol-tl2-cfo-2026-10-23",
-    "question": "LoL: Team Liquid vs CTBC Flying Oyster (BO1) - Worlds Group Stage",
-    "p0": 0.715,
-    "p1": 0.285,
-    "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 333425.5597,
-    "volume": 41809.703401,
-    "spread": 0.01,
-    "match_quality": "exact"
-   },
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.535,
@@ -6661,15 +6446,15 @@
     "team_index": 0,
     "team_id": "14945",
     "team": "Team Liquid",
-    "p": 0.711,
-    "basis": "market-pinnacle",
-    "confidence": "high",
-    "margin": 0.422
+    "p": 0.535,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.07
    }
   },
   {
    "id": "1067678",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -6695,39 +6480,10 @@
    },
    "score0": null,
    "score1": null,
-   "hotspawn_url": "https://www.hotspawn.com/matches/los-vs-t1-worlds-2026-main-event-1067678",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": {
-    "source": "Pinnacle",
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
-    "site_url": "https://www.pinnacle.com/en/esports",
-    "league": "League of Legends - World Championship",
-    "league_id": 9587,
-    "matchup_id": 1638748205,
-    "odds0": 492,
-    "odds1": -750,
-    "dec0": 5.92,
-    "dec1": 1.13,
-    "p0": 0.161,
-    "p1": 0.839,
-    "match_quality": "exact",
-    "best_of": 1,
-    "listing": "live"
-   },
-   "market_polymarket": {
-    "source": "Polymarket",
-    "url": "https://polymarket.com/event/lol-los-t1-2026-10-23",
-    "event": "lol-los-t1-2026-10-23",
-    "question": "LoL: LOS vs T1 (BO1) - Worlds Group Stage",
-    "p0": 0.125,
-    "p1": 0.875,
-    "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 350791.7789,
-    "volume": 67368.71057,
-    "spread": 0.01,
-    "match_quality": "exact"
-   },
+   "hotspawn_url": "https://www.hotspawn.com/matches/l-s-vs-t1-worlds-2026-main-event-1067678",
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.581,
@@ -6739,18 +6495,18 @@
     "confidence": "medium"
    },
    "pick": {
-    "team_index": 1,
-    "team_id": "10168",
-    "team": "T1",
-    "p": 0.839,
-    "basis": "market-pinnacle",
-    "confidence": "high",
-    "margin": 0.679
+    "team_index": 0,
+    "team_id": "74020",
+    "team": "LØS",
+    "p": 0.581,
+    "basis": "model-elo",
+    "confidence": "medium",
+    "margin": 0.162
    }
   },
   {
    "id": "1067679",
-   "state": "open",
+   "state": "locked",
    "forfeit": false,
    "competition_id": "36142",
    "competition": "Worlds 2026 Main Event",
@@ -6777,38 +6533,9 @@
    "score0": null,
    "score1": null,
    "hotspawn_url": "https://www.hotspawn.com/matches/team-secret-whales-vs-lyon-worlds-2026-main-event-1067679",
-   "hotspawn_url_constructed": false,
-   "market_pinnacle": {
-    "source": "Pinnacle",
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight",
-    "matchups_url": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/matchups",
-    "site_url": "https://www.pinnacle.com/en/esports",
-    "league": "League of Legends - World Championship",
-    "league_id": 9587,
-    "matchup_id": 1638754606,
-    "odds0": 123,
-    "odds1": -145,
-    "dec0": 2.23,
-    "dec1": 1.69,
-    "p0": 0.431,
-    "p1": 0.569,
-    "match_quality": "exact",
-    "best_of": 1,
-    "listing": "live"
-   },
-   "market_polymarket": {
-    "source": "Polymarket",
-    "url": "https://polymarket.com/event/lol-tsw-ly-2026-10-23",
-    "event": "lol-tsw-ly-2026-10-23",
-    "question": "LoL: Team Secret Whales vs LYON (BO1) - Worlds Group Stage",
-    "p0": 0.415,
-    "p1": 0.585,
-    "price_kind": "mid(bid/ask, spread 0.01)",
-    "liquidity": 364606.5599,
-    "volume": 69490.83123899999,
-    "spread": 0.01,
-    "match_quality": "exact"
-   },
+   "hotspawn_url_constructed": true,
+   "market_pinnacle": null,
+   "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.492,
@@ -6823,10 +6550,10 @@
     "team_index": 1,
     "team_id": "203378",
     "team": "LYON",
-    "p": 0.569,
-    "basis": "market-pinnacle",
-    "confidence": "high",
-    "margin": 0.138
+    "p": 0.508,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.016
    }
   },
   {
@@ -8402,7 +8129,7 @@
     "p0": 0.561,
     "p1": 0.439,
     "r0": 1622,
-    "r1": 1536,
+    "r1": 1535,
     "n0": 13,
     "n1": 3,
     "confidence": "medium"
@@ -9455,8 +9182,8 @@
     "name": "Team Reds"
    },
    "team_history": {
-    "n0": 1,
-    "n1": 3
+    "n0": 2,
+    "n1": 4
    },
    "score0": null,
    "score1": null,
@@ -9468,10 +9195,10 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.497,
     "p1": 0.503,
-    "r0": 1486,
-    "r1": 1491,
-    "n0": 1,
-    "n1": 3,
+    "r0": 1501,
+    "r1": 1507,
+    "n0": 2,
+    "n1": 4,
     "confidence": "low"
    },
    "pick": null
@@ -9668,12 +9395,12 @@
     "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "event": "lol-rb-mr-2026-10-27",
     "question": "LoL: Vitality Rising Bees vs Mental Rush (BO5) - LGC Rising Playoffs",
-    "p0": 0.33,
-    "p1": 0.67,
+    "p0": 0.35,
+    "p1": 0.65,
     "price_kind": "outcomePrices",
-    "liquidity": 4249.5718,
-    "volume": 7.272728,
-    "spread": 0.2,
+    "liquidity": 1448.137,
+    "volume": 13.766231999999999,
+    "spread": 0.12,
     "match_quality": "exact"
    },
    "model": {
@@ -9690,10 +9417,10 @@
     "team_index": 1,
     "team_id": "163988",
     "team": "Vitality Rising Bees",
-    "p": 0.67,
+    "p": 0.65,
     "basis": "market-polymarket",
     "confidence": "medium",
-    "margin": 0.34
+    "margin": 0.3
    }
   },
   {
@@ -9872,7 +9599,7 @@
     "p0": 0.482,
     "p1": 0.518,
     "r0": 1485,
-    "r1": 1510,
+    "r1": 1509,
     "n0": 3,
     "n1": 3,
     "confidence": "medium"
@@ -10274,7 +10001,7 @@
     "name": "JSK Academy"
    },
    "team_history": {
-    "n0": 1,
+    "n0": 2,
     "n1": 6
    },
    "score0": null,
@@ -10285,11 +10012,11 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.504,
-    "p1": 0.496,
-    "r0": 1486,
+    "p0": 0.515,
+    "p1": 0.485,
+    "r0": 1501,
     "r1": 1475,
-    "n0": 1,
+    "n0": 2,
     "n1": 6,
     "confidence": "low"
    },
@@ -10297,10 +10024,10 @@
     "team_index": 0,
     "team_id": "88512",
     "team": "Pegasus Esports",
-    "p": 0.504,
+    "p": 0.515,
     "basis": "model-elo",
     "confidence": "low",
-    "margin": 0.008
+    "margin": 0.03
    }
   },
   {
@@ -10413,8 +10140,8 @@
     "name": "NextGeneration Esports"
    },
    "team_history": {
-    "n0": 3,
-    "n1": 2
+    "n0": 4,
+    "n1": 3
    },
    "score0": null,
    "score1": null,
@@ -10424,22 +10151,22 @@
    "market_polymarket": null,
    "model": {
     "source": "own Elo-style model (Hotspawn results archive)",
-    "p0": 0.496,
-    "p1": 0.504,
-    "r0": 1491,
-    "r1": 1498,
-    "n0": 3,
-    "n1": 2,
-    "confidence": "low"
+    "p0": 0.518,
+    "p1": 0.482,
+    "r0": 1507,
+    "r1": 1482,
+    "n0": 4,
+    "n1": 3,
+    "confidence": "medium"
    },
    "pick": {
-    "team_index": 1,
-    "team_id": "206997",
-    "team": "NextGeneration Esports",
-    "p": 0.504,
+    "team_index": 0,
+    "team_id": "264945",
+    "team": "Team Reds",
+    "p": 0.518,
     "basis": "model-elo",
-    "confidence": "low",
-    "margin": 0.008
+    "confidence": "medium",
+    "margin": 0.036
    }
   },
   {
@@ -10479,7 +10206,7 @@
     "p0": 0.491,
     "p1": 0.509,
     "r0": 1488,
-    "r1": 1510,
+    "r1": 1509,
     "n0": 1,
     "n1": 3,
     "confidence": "low"
@@ -10830,7 +10557,7 @@
    },
    "team_history": {
     "n0": 3,
-    "n1": 0
+    "n1": 1
    },
    "score0": null,
    "score1": null,
@@ -10838,8 +10565,25 @@
    "hotspawn_url_constructed": false,
    "market_pinnacle": null,
    "market_polymarket": null,
-   "model": null,
-   "pick": null
+   "model": {
+    "source": "own Elo-style model (Hotspawn results archive)",
+    "p0": 0.521,
+    "p1": 0.479,
+    "r0": 1534,
+    "r1": 1485,
+    "n0": 3,
+    "n1": 1,
+    "confidence": "low"
+   },
+   "pick": {
+    "team_index": 0,
+    "team_id": "252804",
+    "team": "Void Walkers",
+    "p": 0.521,
+    "basis": "model-elo",
+    "confidence": "low",
+    "margin": 0.042
+   }
   },
   {
    "id": "1079040",
@@ -11294,7 +11038,7 @@
     "p0": 0.478,
     "p1": 0.522,
     "r0": 1501,
-    "r1": 1539,
+    "r1": 1538,
     "n0": 2,
     "n1": 3,
     "confidence": "low"
@@ -11397,7 +11141,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.508,
     "p1": 0.492,
-    "r0": 1536,
+    "r0": 1535,
     "r1": 1522,
     "n0": 3,
     "n1": 2,
@@ -12489,7 +12233,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.49,
     "p1": 0.51,
-    "r0": 1510,
+    "r0": 1509,
     "r1": 1526,
     "n0": 3,
     "n1": 2,
@@ -13184,7 +12928,7 @@
     "p0": 0.49,
     "p1": 0.51,
     "r0": 1515,
-    "r1": 1539,
+    "r1": 1538,
     "n0": 1,
     "n1": 3,
     "confidence": "low"
@@ -13287,7 +13031,7 @@
     "source": "own Elo-style model (Hotspawn results archive)",
     "p0": 0.498,
     "p1": 0.502,
-    "r0": 1536,
+    "r0": 1535,
     "r1": 1539,
     "n0": 3,
     "n1": 3,
@@ -14207,7 +13951,7 @@
     "p0": 0.493,
     "p1": 0.507,
     "r0": 1498,
-    "r1": 1510,
+    "r1": 1509,
     "n0": 2,
     "n1": 3,
     "confidence": "low"
@@ -14363,7 +14107,7 @@
     "p0": 0.494,
     "p1": 0.506,
     "r0": 1528,
-    "r1": 1539,
+    "r1": 1538,
     "n0": 2,
     "n1": 3,
     "confidence": "low"
@@ -14675,7 +14419,7 @@
     "p0": 0.451,
     "p1": 0.549,
     "r0": 1467,
-    "r1": 1536,
+    "r1": 1535,
     "n0": 3,
     "n1": 3,
     "confidence": "medium"
