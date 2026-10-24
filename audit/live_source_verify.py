@@ -440,6 +440,18 @@ def main() -> int:
                 "ok": rendered >= len(matches),
                 "detail": f"rendered={rendered} rows={len(matches)}",
             })
+            # Displayed pairs must add to 100.0%: rounding each side independently
+            # printed seven rows that read 99.9% / 100.1% before 2026-10-24.
+            odd = []
+            for row in re.findall(r'<tr class="prow.*?</tr>', html, re.S):
+                pair = [float(x) for x in re.findall(r'class="pct">([\d.]+)%', row)]
+                if len(pair) == 2 and abs(sum(pair) - 100.0) > 0.05:
+                    odd.append(pair)
+            report["checks"].append({
+                "name": "every displayed win-probability pair adds to 100.0%",
+                "ok": not odd,
+                "detail": f"{len(odd)} row(s) off: {odd[:5]}",
+            })
         except Exception as exc:  # noqa: BLE001
             report["checks"].append({"name": "table.html body readable", "ok": False, "detail": str(exc)[:200]})
 

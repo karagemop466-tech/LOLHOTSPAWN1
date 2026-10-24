@@ -2206,3 +2206,14 @@ other session's commit, file or text was discarded.
 - **Archived esportsbook receipts age out** as fixtures leave the feed; that was the exact gate that
   stalled the refresh (see the root-cause note above). Any future receipt set must tolerate
   off-list fixtures or the publisher will abort again.
+
+## Follow-up defect fixed — displayed probability pairs (`c0a05820`)
+
+`table.html` printed each side's win probability with `pct()` twice, so the two numbers were
+rounded independently: **7 rows of the live table read 99.9% or 100.1% in total** (e.g. `LØS Academy
+74.7% / Marere E-Sports 25.4%`; the underlying values are 0.7465 / 0.2535). The gate only checks the
+stored floats, so it never caught the rendering. One-line fix in `tools/site.py`: the table row now
+uses `pct_pair()`, whose second value is `100 - first`, and `audit/live_source_verify.py` gained a
+check that every displayed pair on the published table adds to 100.0%. Verified: 0 offending rows
+after the fix (7 before), `tools/verify.py` 43/43, `check_site.py` 24 pages 0 failures, mobile audit
+PASS, unit tests OK. Ships as PR **#85**.
