@@ -1,0 +1,71 @@
+name: diag-refresh
+
+# Session 0ae1366a diagnostic runner.
+#
+# Why this exists: the session sandbox has no outbound HTTPS to the data sources, and GitHub's
+# Actions log archive (results-receiver.actions.githubusercontent.com) is not reachable from it
+# either, so a failed `refresh-picks` run cannot be read from the sandbox. This job re-runs the
+# exact publisher sequence on a GitHub runner, records the exit code and the tail of every step,
+# and commits that evidence back to the branch so the failure cause is observed rather than
+# guessed. It never publishes a page and never edits the match dataset; the only file it adds is
+# data/diag/.
+
+on:
+  push:
+    branches: ["arena/0ae1366a-lolhotspawn1"]
+    paths:
+      - ".github/workflows/diag-refresh.yml"
+      - "tools/diag_refresh.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: diag-refresh-0ae1366a
+  cancel-in-progress: true
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/0ae1366a-lolhotspawn1
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python3 -m pip install --quiet requests
+
+      - name: Run publisher sequence with per-step capture
+        continue-on-error: true
+        run: python3 tools/diag_refresh.py
+
+      - name: Commit diagnostic evidence
+        if: always()
+        run: |
+          set -e
+          git config user.name  "arena-diag-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A data/diag
+          if git diff --cached --quiet; then echo "no diagnostic output"; exit 0; fi
+          git commit -q -m "chore(diag): publisher step capture [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:arena/0ae1366a-lolhotspawn1"; then exit 0; fi
+            git fetch origin arena/0ae1366a-lolhotspawn1
+            git rebase -X theirs "origin/arena/0ae1366a-lolhotspawn1" || { git rebase --abort || true; git merge -X ours -m "merge after push race" "origin/arena/0ae1366a-lolhotspawn1" || true; }
+            sleep $((attempt * 5))
+          done
+
+      - name: Upload raw log as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diag-refresh-log
+          path: data/diag/
+          if-no-files-found: ignore

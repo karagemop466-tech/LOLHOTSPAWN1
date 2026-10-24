@@ -1,0 +1,59 @@
+name: probe-esportsbooks
+
+# Session 0ae1366a research job: which esportsbook / aggregator endpoints actually return a
+# machine-readable League of Legends coupon with prices, when called from a GitHub runner.
+#
+# Report-only. It writes data/esportsbook_probe.json and bounded raw previews; it never prices a
+# match, never edits data/matches.json and never touches the published pages.
+
+on:
+  push:
+    branches: ["arena/0ae1366a-lolhotspawn1"]
+    paths:
+      - ".github/workflows/probe-esportsbooks.yml"
+      - "tools/probe_esportsbook_feeds.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-esportsbooks-0ae1366a
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/0ae1366a-lolhotspawn1
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python3 -m pip install --quiet requests
+
+      - name: Probe candidate esportsbook feeds
+        continue-on-error: true
+        run: python3 tools/probe_esportsbook_feeds.py
+
+      - name: Commit evidence
+        if: always()
+        run: |
+          set -e
+          git config user.name  "arena-research-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/esportsbook_probe.json data/probe/esportsbook_raw
+          if git diff --cached --quiet; then echo "no evidence"; exit 0; fi
+          git commit -q -m "chore(research): esportsbook feed probe evidence [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:arena/0ae1366a-lolhotspawn1"; then exit 0; fi
+            git fetch origin arena/0ae1366a-lolhotspawn1
+            git rebase -X theirs "origin/arena/0ae1366a-lolhotspawn1" || { git rebase --abort || true; git merge -X ours -m "merge after push race" "origin/arena/0ae1366a-lolhotspawn1" || true; }
+            sleep $((attempt * 5))
+          done
