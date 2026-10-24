@@ -34,6 +34,7 @@ METHOD_HELP = {
 }
 
 # Always-visible navigation on phones (a persistent bottom bar beats a hidden menu).
+# "Picks" opens the compact table — the readable phone list — not the 200+ card wall.
 MOBILE_NAV = [
     ("index.html", "Summary"),
     ("table.html", "Picks"),
@@ -595,6 +596,23 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     originated_n = counts.get("model", 0) + len(provisional)
     ceiling = _external_ceiling()
     probe = _esportsbook_probe()
+    # Only quote the feeds that actually carried a price on this build; a book that answered but had
+    # no LoL coupon must not be described as a live price feed.
+    ceiling_parts = []
+    for label, key in (("Pinnacle", "pinnacle_priced"), ("Bovada", "bovada"), ("Unibet (Kambi)", "unibet")):
+        if ceiling[key]:
+            unit = "contracts" if key == "kalshi" else "series"
+            ceiling_parts.append(f'<strong>{label} {ceiling[key]} {unit}</strong>')
+    if ceiling["kalshi"]:
+        ceiling_parts.append(f'<strong>Kalshi {ceiling["kalshi"]} contracts</strong>')
+    if ceiling["polymarket"]:
+        ceiling_parts.append(f'<strong>Polymarket {ceiling["polymarket"]} unsettled markets</strong>')
+    ceiling_txt = ", ".join(ceiling_parts) if ceiling_parts else "no venue quoted a listed match"
+    silent = [label for label, key in (("Bovada", "bovada"), ("Unibet (Kambi)", "unibet"),
+                                       ("Kalshi", "kalshi"), ("Polymarket", "polymarket"))
+              if not ceiling[key]]
+    silent_txt = (" Feeds that returned no LoL price on this build: " + ", ".join(silent) + "."
+                  if silent else "")
     gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
 
     if probe["have"]:
@@ -690,12 +708,13 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <a class="btn" href="flagged.html">Flagged for review</a>
   </div>
   <ul class="bullets">
-    <li><strong>Where the picks are.</strong> On a phone, start at the
-    <a href="table.html">pick table</a> &mdash; one row per match with the pick, both win probabilities, the
-    method and the source links. <a href="picks.html">Card view</a> shows the same {total} matches with the
-    reasoning behind each line, and <a href="results.html">Results</a> grades the picks that have already
-    played. Every list is searchable and filterable by tournament and by method, and the same five links sit
-    in the bar at the bottom of every page.</li>
+    <li><strong>Where the picks are.</strong> On a phone, tap <a href="table.html"><strong>Picks</strong></a>
+    in the bar at the bottom of every page &mdash; one row per match with the pick, both win probabilities, the
+    method and the source links. Bookmark that table. <a href="picks.html"><strong>Card view</strong></a> shows
+    the same {total} matches with the reasoning behind each line, and <a href="results.html"><strong>Results</strong></a>
+    grades the picks that have already played (hit / miss / forfeit settlement, never rewritten after the
+    result). Both lists are searchable and filterable by tournament and by method. Next kick-offs are under
+    <a href="#next">Next up</a>.</li>
     <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
     ({resolved_total/total*100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
     official forfeit winner with no probability claimed. Priced:
@@ -916,12 +935,15 @@ def build_table(rows: list[dict], counts: Counter) -> str:
             '<td data-label="Tournament" class="opt small">' + e(r["competition"]) + "</td>",
             '<td data-label="Sources" class="srcs small">' + _row_sources(r) + "</td>",
         ]
-        trs.append('<tr class="prow m-' + e(method) + '" data-method="' + e(method) + '" data-comp="'
+        trs.append('<tr class="prow m-' + e(method) + '" id="row-' + e(r["id"]) + '" data-method="' + e(method) + '" data-comp="'
                    + e(r["competition"]) + '" data-start="' + e(r["start_utc"] or "")
                    + '" data-stale="' + ("1" if r.get("stale") else "0") + '" data-text="' + e(hay) + '">'
                    + "".join(cells) + "</tr>")
     body = f"""
 <section class="panel">
+  <p class="lead">Every listed League of Legends match, next kick-off first. The <strong>Pick</strong> column
+  is the side we take. On a phone this page is the <strong>Picks</strong> tab in the bar at the bottom of
+  every screen. Search and filter work without a reload.</p>
   <div class="toolbar">
     <input id="tq" type="search" placeholder="Search team or tournament" aria-label="Search team or tournament">
     <select id="tcomp" aria-label="Filter by tournament"><option value="">All tournaments</option>{opts}</select>

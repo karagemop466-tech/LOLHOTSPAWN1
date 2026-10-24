@@ -54,6 +54,11 @@ jobs:
         # before the log was committed, so three consecutive scheduled runs failed with no
         # visible reason in the repo.)
         run: |
+          # GitHub Actions runs bash with -e; a failing stage must not end the log, because
+          # four scheduled runs on 2026-10-24 failed with no log committed at all. Every stage
+          # is captured, recorded in data/build_failed_steps.txt, and the gate step below is
+          # what decides pass/fail.
+          set +e
           set -uo pipefail
           mkdir -p data
           rm -f data/build_failed_steps.txt
@@ -76,6 +81,7 @@ jobs:
             fi
           done
           echo "pipeline finished at $(date -u +%FT%TZ)" | tee -a data/build.log
+          test ! -s data/build_failed_steps.txt
 
       - name: Stop on failed gate
         run: |

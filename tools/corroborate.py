@@ -375,7 +375,7 @@ def build() -> dict:
         "priced_by_us": sum(1 for m in matches if m.get("p0") is not None),
         "unresolved_by_us": sum(1 for m in matches if m.get("method") == "unresolved"),
         "method_counts": {},
-        "receipts": len(rows) + len(off_list) + len(historical),
+        "receipts": len(rows) + len(off_list) + len(historical),  # rows already holds usable/placeholder/expired
         "usable_receipts": len(usable),
         "placeholders": sum(1 for r in rows if r["status"] == "placeholder"),
         "rejected_receipts": len(off_list),
