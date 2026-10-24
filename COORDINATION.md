@@ -1077,3 +1077,32 @@ Branch: `arena/2dbdbafb-lolhotspawn1` (fixed Arena session branch; merged `origi
   - PR **#55** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/55`) merged into `main` (`144fd36`) and triggered live `refresh-picks` run **`39986468229`** (**success** in `2m5s`, auto-commit **`026f983`**, live HTTP 200 across Hotspawn, Pinnacle, Kalshi, Unibet/Kambi `ubse`, LoL Esports, Leaguepedia, Polymarket) + `pages-build-deployment` **`39986760442`** (**success**, `status: built`).
   - PR **#57** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/57`) merged into `main`, triggering live `refresh-picks` run **`39987137479`** (**success**, auto-commit **`a6a9207`**: `241` Hotspawn fixtures, `8` Pinnacle series moneylines, `8` Kalshi CFTC contracts, `8` upcoming `<12h` Bovada moneylines, `8` live Unibet/Kambi `ubse` moneylines at `status=200`, `45` Polymarket markets, `34,617` Leaguepedia series rows + `11` `dqteams` pages with `err=''`, out-of-sample `n=3,854`, `acc=65.02%`, `brier=0.2183`) and `pages-build-deployment` run **`39987441211`** (**success**, `status: built`). Live site verified via HTTP 200 across `index.html`, `featured.html`, `table.html`, `methodology.html`, and `flagged.html` at `https://karagemop466-tech.github.io/LOLHOTSPAWN1/`. Session `2dbdbafb` closed cleanly.
 
+
+---
+
+# Session `80c624cd` — full pick coverage, live line expansion, mobile picks hub (2026-10-24)
+
+Branch: `arena/80c624cd-lolhotspawn1` (fixed Arena session branch). Claim filed at session start,
+before any pipeline edit, per protocol.
+
+## Claim
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `C1` | Restore the canonical 6-hourly refresh: `refresh-picks` has failed on `main` for the last three scheduled runs and the published data is stale (last successful build 2026-10-23T17:13Z). Diagnose from the runner itself, fix the cause, prove the pipeline green on a real run | in progress | 80c624cd | `.github/workflows/refresh.yml`, `.github/workflows/diag.yml` (branch-only diagnostics), `tools/collect.py`, `tools/common.py`, `data/diag/` |
+| `C2` | Widen **external** line coverage beyond the current 9/241 market rows: probe established LoL betting sites, esportsbooks and esports odds feeds from the GitHub runner, ingest every reachable real-money moneyline with a receipt, and record the blocked ones with their HTTP status | in progress | 80c624cd | `tools/collect.py`, `tools/model.py`, `data/raw/*`, `data/receipts/external_odds/*`, `research/venue_probe.json` |
+| `C3` | A pick for **every** listed match, with an explicit *unresolved picks & limitations* section inside the executive summary (why each unpriced card is unpriced, and what would resolve it) | in progress | 80c624cd | `tools/model.py`, `tools/site.py`, `tools/verify.py` |
+| `C4` | Mobile-first picks hub: executive summary with large in-site links to every picks list, one readable row/card per match (both probabilities, the pick, the source link), no horizontal scrolling on a 360 px viewport | in progress | 80c624cd | `tools/site.py`, `assets/style.css`, `assets/app.js`, `tests/dashboard.cjs` |
+| `C5` | Line-by-line verification of the combined tree and the published site; logged irregularities; PR → `main`, merge, confirm the Pages deploy | in progress | 80c624cd | `audit/verify_independent.py`, `COORDINATION.md`, `README.md` |
+
+Non-overlap: every earlier session's claim is closed (`done`) except the open PRs #22, #26, #35, #36,
+#40, #56, which this session does not edit or merge (each owner merges its own PR). This session
+touches only the files listed above.
+
+### Notes recorded at claim time (verified, with links)
+
+| Observation | Evidence |
+|---|---|
+| `refresh-picks` failed on 2026-10-24T15:59Z at the "Run pipeline (captured log)" step (exit 1); the two previous scheduled runs failed the same way | `gh run view 40109474033`, `40088464687`, `40063260000` |
+| The published canonical dataset is therefore from 2026-10-23T17:13:12Z while the Node `docs/` pipeline collected successfully at 2026-10-24T15:34Z with `scheduled: 241` fixtures | `data/matches.json`, `data/node/raw/collect_log.json` |
+| The sandbox this session runs in has **no** outbound access to Hotspawn/Pinnacle/Kalshi/Bovada/Kambi/Polymarket/Leaguepedia (all `HTTP 000`), so every live fetch must run on GitHub Actions and be read back from a committed log | local `curl` probe, 2026-10-24 |
