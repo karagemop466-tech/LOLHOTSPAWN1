@@ -1,63 +1,122 @@
-/* LoL Hotspawn Picks — progressive enhancement: filters for the picks list.
-   All content is server-rendered; this only hides/shows rows. */
+/* docs/assets/app.js — Progressive enhancement for mobile nav, filters & freshness */
 (function () {
-  var q = document.getElementById("f-q");
-  if (!q) return;
-  var tour = document.getElementById("f-tour");
-  var src = document.getElementById("f-src");
-  var soon = document.getElementById("f-soon");
-  // deep-link support: picks.html?tour=<competition_id>&q=<term>&src=<source>
-  try {
-    var params = new URLSearchParams(location.search);
-    if (tour && params.get("tour")) tour.value = params.get("tour");
-    if (src && params.get("src")) src.value = params.get("src");
-    if (q && params.get("q")) q.value = params.get("q");
-    if (soon && params.get("soon") === "1") soon.checked = true;
-  } catch (e) {}
-  var count = document.getElementById("f-count");
-  var matches = Array.prototype.slice.call(document.querySelectorAll(".match[data-searchable]"));
-  var dayhdrs = Array.prototype.slice.call(document.querySelectorAll(".dayhdr[data-dayhdr]"));
+  "use strict";
 
-  function apply() {
-    var term = (q.value || "").trim().toLowerCase();
-    var tsel = tour ? tour.value : "";
-    var ssel = src ? src.value : "";
-    var soonOn = soon && soon.checked;
-    var now = Date.now();
-    var shown = 0;
-    matches.forEach(function (el) {
-      var ok = true;
-      if (term && (el.getAttribute("data-searchable") || "").indexOf(term) === -1) ok = false;
-      if (ok && tsel && el.getAttribute("data-tour") !== tsel) ok = false;
-      if (ok && ssel) {
-        var s = el.getAttribute("data-src");
-        if (ssel === "market" && s !== "pinnacle" && s !== "polymarket") ok = false;
-        if (ssel === "model" && s !== "model") ok = false;
-        if (ssel === "unresolved" && s !== "none") ok = false;
-        if (ssel === "pinnacle" && s !== "pinnacle") ok = false;
-        if (ssel === "polymarket" && s !== "polymarket") ok = false;
+  function init() {
+    if (document.documentElement.dataset.docsAppInit === "1") return;
+    document.documentElement.dataset.docsAppInit = "1";
+
+    // 1. Mobile navigation drawer
+    var btn = document.getElementById("nav-toggle");
+    var nav = document.getElementById("site-nav");
+    if (btn && nav) {
+      btn.addEventListener("click", function () {
+        var open = nav.classList.toggle("open");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && nav.classList.contains("open")) {
+          nav.classList.remove("open");
+          btn.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+
+    // 2. Stale snapshot warning (>12h old)
+    var bar = document.querySelector("[data-generated-at]");
+    var alertBox = document.getElementById("stale-snapshot-alert");
+    if (bar && alertBox) {
+      var ts = Date.parse(bar.getAttribute("data-generated-at") || "");
+      if (ts && Date.now() - ts > 12 * 3600 * 1000) {
+        var hrs = Math.round((Date.now() - ts) / 3600000);
+        alertBox.textContent =
+          "Snapshot age notice: this build was generated " +
+          hrs +
+          "h ago (scheduled auto-refresh runs every 6 hours). Verify live lines before locking.";
+        alertBox.hidden = false;
       }
-      if (ok && soonOn) {
-        var lock = Number(el.getAttribute("data-lock") || "0");
-        if (!lock || lock - now > 24 * 3600 * 1000) ok = false;
+    }
+
+    // 3. Local timezone hint on <time data-utc="...">
+    var times = document.querySelectorAll("time[data-utc]");
+    for (var i = 0; i < times.length; i++) {
+      var t = times[i];
+      var ms = Date.parse(t.getAttribute("data-utc") || "");
+      if (!isNaN(ms)) {
+        try {
+          t.title = "Local: " + new Date(ms).toLocaleString();
+        } catch (_e) {}
       }
-      el.classList.toggle("hidden", !ok);
-      if (ok) shown++;
-    });
-    // hide empty day headers
-    dayhdrs.forEach(function (h) {
-      var n = h.nextElementSibling;
-      var anyVisible = false;
-      while (n && !n.hasAttribute("data-dayhdr")) {
-        if (n.classList.contains("match") && !n.classList.contains("hidden")) anyVisible = true;
-        n = n.nextElementSibling;
+    }
+
+    // 4. Unified filter controller for cards & table rows
+    var list = document.getElementById("filter-list");
+    if (!list) return;
+
+    var items = Array.prototype.slice.call(list.querySelectorAll("[data-item]"));
+    var qInput = document.getElementById("q");
+    var compSel = document.getElementById("comp");
+    var upBtn = document.getElementById("upcoming-btn");
+    var pillBtns = Array.prototype.slice.call(document.querySelectorAll("[data-method-filter]"));
+    var countEl = document.getElementById("visible-count");
+    var emptyEl = document.getElementById("empty-state");
+
+    var activeMethod = "";
+    var hideStale = upBtn ? upBtn.getAttribute("aria-pressed") === "true" : false;
+
+    function applyFilters() {
+      var q = qInput ? qInput.value.trim().toLowerCase() : "";
+      var comp = compSel ? compSel.value : "";
+      var shown = 0;
+
+      for (var j = 0; j < items.length; j++) {
+        var el = items[j];
+        var ok = true;
+        if (hideStale && el.getAttribute("data-stale") === "1") ok = false;
+        if (ok && activeMethod && el.getAttribute("data-method") !== activeMethod) ok = false;
+        if (ok && comp && el.getAttribute("data-comp") !== comp) ok = false;
+        if (ok && q) {
+          var hay = (el.getAttribute("data-search") || "").toLowerCase();
+          if (hay.indexOf(q) === -1) ok = false;
+        }
+        el.hidden = !ok;
+        if (ok) shown++;
       }
-      h.classList.toggle("hidden", !anyVisible);
-    });
-    if (count) count.textContent = shown + " match" + (shown === 1 ? "" : "es") + " shown";
+      if (countEl) {
+        countEl.textContent = shown + " / " + items.length + " shown";
+      }
+      if (emptyEl) {
+        emptyEl.hidden = shown > 0;
+      }
+    }
+
+    if (qInput) qInput.addEventListener("input", applyFilters);
+    if (compSel) compSel.addEventListener("change", applyFilters);
+    if (upBtn) {
+      upBtn.addEventListener("click", function () {
+        hideStale = !hideStale;
+        upBtn.setAttribute("aria-pressed", hideStale ? "true" : "false");
+        upBtn.classList.toggle("active", hideStale);
+        applyFilters();
+      });
+    }
+    for (var k = 0; k < pillBtns.length; k++) {
+      (function (b) {
+        b.addEventListener("click", function () {
+          activeMethod = b.getAttribute("data-method-filter") || "";
+          for (var x = 0; x < pillBtns.length; x++) {
+            pillBtns[x].classList.toggle("active", pillBtns[x] === b);
+          }
+          applyFilters();
+        });
+      })(pillBtns[k]);
+    }
+    applyFilters();
   }
 
-  [q, tour, src].forEach(function (el) { if (el) el.addEventListener("input", apply); if (el) el.addEventListener("change", apply); });
-  if (soon) soon.addEventListener("change", apply);
-  apply();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();

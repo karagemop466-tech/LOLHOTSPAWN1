@@ -14,6 +14,8 @@ on:
     branches: [main]
     paths:
       - "scripts/**"
+      - "docs/assets/**"
+      - "audit/verify_docs.py"
       - ".github/workflows/refresh-docs.yml"
 
 permissions:
@@ -42,11 +44,17 @@ jobs:
       - name: Collect + analyze + build docs site
         run: node scripts/run_all.mjs
 
+      - name: Verify docs integrity & site links
+        run: |
+          python3 audit/verify_docs.py
+          python3 audit/check_site.py
+          node audit/session_6669f798/test_node_pipeline.mjs
+
       - name: Commit and push refreshed data + docs site
         run: |
           set -e
           BR="${GITHUB_REF_NAME}"
-          COUNTS=$(node -e "const s=require('./data/node/picks.json').summary.counts; console.log('open='+s.open+' picks='+s.picks_total+' mkt='+(s.market_pinnacle+s.market_polymarket_only)+' model='+s.model_only+' unresolved='+s.unresolved_open+' flags='+s.flags_needs_review)")
+          COUNTS=$(node -e "const s=require('./data/node/picks.json').summary.counts; console.log('sched='+s.scheduled_total+' active='+s.active_open_locked+' mkt='+s.scheduled_market+' model='+s.scheduled_model+' unres='+s.active_unresolved+' dq='+s.scheduled_walkover_settlement+' flags='+s.flags)")
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/node docs
@@ -55,8 +63,6 @@ jobs:
             exit 0
           fi
           git commit -m "chore(docs): refresh Node-pipeline dashboard — ${COUNTS} [skip ci]"
-          # Sync with remote. If another run/push landed meanwhile, the freshly
-          # generated files from THIS run win (they are the newest snapshot).
           if ! git pull --rebase -X theirs origin "$BR"; then
             echo "Rebase conflict — replaying fresh outputs on top of remote HEAD."
             git rebase --abort 2>/dev/null || true

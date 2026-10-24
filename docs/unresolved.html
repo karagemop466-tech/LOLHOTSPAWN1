@@ -1,93 +1,313 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1020">
-<meta name="description" content="Hotspawn LoL matches without a pick and the specific limitations behind each.">
-<title>Unresolved Picks — LoL Hotspawn</title>
-<link rel="stylesheet" href="assets/style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Ctext%20y%3D'.9em'%20font-size%3D'90'%3E%F0%9F%8E%AF%3C%2Ftext%3E%3C%2Fsvg%3E">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unresolved Picks &amp; Limitations — LoL Hotspawn Pick'em Companion Audit</title>
+  <meta name="description" content="Unresolved zero-history matches, mid-split disqualification walkover settlements, and structural limitations.">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="top"><div class="top-in">
-  <a class="brand" href="index.html"><span class="logo">🎯</span> LoL Hotspawn Picks</a>
-  <nav class="main"><a href="index.html" class="">📊 Summary</a><a href="picks.html" class="">✅ Picks</a><a href="unresolved.html" class="active">⚠️ Unresolved</a><a href="flagged.html" class="">🚩 Flagged</a><a href="results.html" class="">📈 Results</a><a href="tournaments.html" class="">🏆 Tournaments</a><a href="methodology.html" class="">📖 Method</a></nav>
-</div></header>
-<main class="wrap">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Hotspawn LoL Pick'ems · Audit Suite</span>
+      </a>
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        Menu ▾
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 241 Table</span><span class="nav-cnt">241</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">172</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">9</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">222</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html" class="active" aria-current="page"><span>Unresolved</span><span class="nav-cnt">8</span></a><a href="flagged.html"><span>Flagged</span><span class="nav-cnt">17</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html"><span>Methodology</span></a>
+      </nav>
+    </div>
+  </header>
+  <div id="stale-snapshot-alert" class="stale-alert" hidden></div>
+  <div class="fresh-bar" data-generated-at="2026-10-24T16:47:17.988Z">
+    <div class="fresh-inner">
+      <span>Snapshot: <time class="mono" data-utc="2026-10-24T16:47:17.988Z">2026-10-24 16:47 UTC</time> · Auto-refresh every 6h</span>
+      <span>Zero Hotspawn crowd/tier/points inputs · <a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/">Canonical Root Dashboard ↗</a> · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
+    </div>
+  </div>
+  <main>
 
-<div class="hero">
-  <h1>⚠️ Unresolved picks &amp; limitations</h1>
-  <p class="sub">5 matches currently have <b>no pick</b> (1 still open, 4 locked before a line could be verified). We publish the reason for each instead of inventing probabilities. Every other active match has a pick on the <a href="picks.html">Picks page</a>.</p>
-</div>
-<section class="card">
-  <h2>Why a match can be unresolvable</h2>
-  <ul style="margin:6px 0;padding-left:20px;color:var(--mut);font-size:14.5px">
-    <li><b>No market coverage.</b> Established esports books (Pinnacle and the sportsbooks aggregated by odds sites) price tier-1/tier-2 events; amateur and regional divisions (e.g. PRM 3rd Division, RIVALS LEAGUE, Tunisian Super League, Icelandic Esports League, Arabian Regional Championship) are not offered.</li>
-    <li><b>No prediction-market coverage.</b> Polymarket lists only high-profile LoL matches (Worlds, major regional leagues).</li>
-    <li><b>No history for our own line.</b> Our Elo-style model is built from real results in the Hotspawn archive. If either team has never played a recorded series, the model has nothing to rate — outputting 50/50 (or any number) would be fabricated precision.</li>
-    <li><b>No manual input.</b> Per project requirements, nothing is filled in by hand or guessed; unresolvable matches stay unresolvable until a source appears (each refresh re-checks all sources).</li>
-  </ul>
-</section>
-<h2 class="sec">Matches without a pick (5)</h2>
+    <section class="page-hero">
+      <h1>Unresolved Picks &amp; Limitations</h1>
+      <p>Transparent accounting of every match where a sporting win probability cannot be verified from external betting markets or pre-kickoff match history, alongside administrative mid-split disqualification settlements and feed limitations.</p>
+    </section>
 
-  <article class="match" id="m-1081423">
-    <div class="meta"><span>🕒 Wed, Nov 11, 09:00 UTC</span><span>· locks in 17d 17h</span><span class="badge tier">TIER S</span><span>· 30 pts</span></div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 LCP 2027 Promotion</span></div>
-    <div class="teams">
-      <div class="team-row"><div class="team-name"><span class="nm">Ground Zero Gaming</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
-      <div class="team-row"><div class="team-name"><span class="nm">Frank Esports</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
+    <div class="sec-head">
+      <h2>1. Active Unresolved Matches (4)</h2>
+      <span>Zero pre-kickoff history &amp; zero market lines — probabilities intentionally left blank</span>
     </div>
-    <div class="lines"><b>Why unresolved:</b><ul style="margin:4px 0 0;padding-left:18px"><li>No Pinnacle moneyline: Pinnacle's guest API currently lists LoL leagues [League of Legends - World Championship] — “LCP 2027 Promotion” is not among them.</li><li>No Polymarket market: no open two-outcome LoL market matches “Ground Zero Gaming vs Frank Esports” (Polymarket lists mainly tier-1 events).</li><li>Own model impossible: recorded series in the Hotspawn results archive — Ground Zero Gaming: <b>0</b>, Frank Esports: <b>1</b>. With zero history on one side, any probability would be invented, not derived.</li></ul></div>
-    <div class="foot"><a href="https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423" rel="noopener" target="_blank">Hotspawn match ↗</a> <span class="badge src-none">NO LINE</span></div>
-  </article>
-  <article class="match" id="m-1083096">
-    <div class="meta"><span>🕒 Sat, Oct 24, 11:00 UTC</span><span>· locked</span><span class="badge state">LOCKED</span><span>· 10 pts</span></div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 Logitech G SuperStrike Cup Qualifier</span></div>
-    <div class="teams">
-      <div class="team-row"><div class="team-name"><span class="nm">Keep Yourself Positive</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
-      <div class="team-row"><div class="team-name"><span class="nm">CRUEL FATE</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
+    <section class="cards-grid">
+      <article class="card unres-card" id="m-1083096">
+    <div class="card-top">
+      <span class="card-comp">Logitech G SuperStrike Cup Qualifier · Bo1</span>
+      <span><span class="badge b-unres">Unresolved</span> <span class="badge b-state">locked</span></span>
     </div>
-    <div class="lines"><b>Why unresolved:</b><ul style="margin:4px 0 0;padding-left:18px"><li>No Pinnacle moneyline: Pinnacle's guest API currently lists LoL leagues [League of Legends - World Championship] — “Logitech G SuperStrike Cup Qualifier” is not among them.</li><li>No Polymarket market: no open two-outcome LoL market matches “Keep Yourself Positive vs CRUEL FATE” (Polymarket lists mainly tier-1 events).</li><li>Own model impossible: recorded series in the Hotspawn results archive — Keep Yourself Positive: <b>0</b>, CRUEL FATE: <b>0</b>. With zero history on one side, any probability would be invented, not derived.</li><li>Lock has already passed (state: locked) — Hotspawn no longer accepts a pick for this match; it is listed here so the gap stays visible.</li></ul></div>
-    <div class="foot"><a href="https://www.hotspawn.com/matches/keep-yourself-positive-vs-cruel-fate-logitech-g-superstrike-cup-qualifier-1083096" rel="noopener" target="_blank">Hotspawn match ↗</a> <span class="badge src-none">NO LINE</span></div>
-  </article>
-  <article class="match" id="m-1083097">
-    <div class="meta"><span>🕒 Sat, Oct 24, 11:00 UTC</span><span>· locked</span><span class="badge state">LOCKED</span><span>· 10 pts</span></div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 Logitech G SuperStrike Cup Qualifier</span></div>
-    <div class="teams">
-      <div class="team-row"><div class="team-name"><span class="nm">paiN Gaming</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
-      <div class="team-row"><div class="team-name"><span class="nm">Non-toxic Gaming</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T11:00:00.000Z">2026-10-24 11:00 UTC</time>
+      <span class="mono">#1083096</span>
     </div>
-    <div class="lines"><b>Why unresolved:</b><ul style="margin:4px 0 0;padding-left:18px"><li>No Pinnacle moneyline: Pinnacle's guest API currently lists LoL leagues [League of Legends - World Championship] — “Logitech G SuperStrike Cup Qualifier” is not among them.</li><li>No Polymarket market: no open two-outcome LoL market matches “paiN Gaming vs Non-toxic Gaming” (Polymarket lists mainly tier-1 events).</li><li>Own model impossible: recorded series in the Hotspawn results archive — paiN Gaming: <b>4</b>, Non-toxic Gaming: <b>0</b>. With zero history on one side, any probability would be invented, not derived.</li><li>Lock has already passed (state: locked) — Hotspawn no longer accepts a pick for this match; it is listed here so the gap stays visible.</li></ul></div>
-    <div class="foot"><a href="https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097" rel="noopener" target="_blank">Hotspawn match ↗</a> <span class="badge src-none">NO LINE</span></div>
-  </article>
-  <article class="match" id="m-1083098">
-    <div class="meta"><span>🕒 Sat, Oct 24, 11:00 UTC</span><span>· locked</span><span class="badge state">LOCKED</span><span>· 10 pts</span></div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 Logitech G SuperStrike Cup Qualifier</span></div>
-    <div class="teams">
-      <div class="team-row"><div class="team-name"><span class="nm">TUPKACHI NA KORICI</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
-      <div class="team-row"><div class="team-name"><span class="nm">FAME</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">Keep Yourself Positive</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">CRUEL FATE</span>
+        <span class="team-prob">—</span>
+      </div>
     </div>
-    <div class="lines"><b>Why unresolved:</b><ul style="margin:4px 0 0;padding-left:18px"><li>No Pinnacle moneyline: Pinnacle's guest API currently lists LoL leagues [League of Legends - World Championship] — “Logitech G SuperStrike Cup Qualifier” is not among them.</li><li>No Polymarket market: no open two-outcome LoL market matches “TUPKACHI NA KORICI vs FAME” (Polymarket lists mainly tier-1 events).</li><li>Own model impossible: recorded series in the Hotspawn results archive — TUPKACHI NA KORICI: <b>0</b>, FAME: <b>0</b>. With zero history on one side, any probability would be invented, not derived.</li><li>Lock has already passed (state: locked) — Hotspawn no longer accepts a pick for this match; it is listed here so the gap stays visible.</li></ul></div>
-    <div class="foot"><a href="https://www.hotspawn.com/matches/tupkachi-na-korici-vs-fame-logitech-g-superstrike-cup-qualifier-1083098" rel="noopener" target="_blank">Hotspawn match ↗</a> <span class="badge src-none">NO LINE</span></div>
+    <div><span class="badge b-unres">No Sporting Pick — Left Blank (Unverified / 0 Prior Matches)</span></div>
+    <div class="card-meta">Unverified / insufficient pre-kickoff evidence: no external betting line and Keep Yourself Positive (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/keep-yourself-positive-vs-cruel-fate-logitech-g-superstrike-cup-qualifier-1083096" target="_blank" rel="noopener">Hotspawn #1083096 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
   </article>
-  <article class="match" id="m-1083105">
-    <div class="meta"><span>🕒 Sat, Oct 24, 12:00 UTC</span><span>· locked</span><span class="badge state">LOCKED</span><span>· 10 pts</span></div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 Logitech G SuperStrike Cup Qualifier</span></div>
-    <div class="teams">
-      <div class="team-row"><div class="team-name"><span class="nm">КАПИБАРА</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
-      <div class="team-row"><div class="team-name"><span class="nm">Ultim8</span></div><div class="prob">—</div><div class="bar"><i style="width:0%"></i></div></div>
+<article class="card unres-card" id="m-1083097">
+    <div class="card-top">
+      <span class="card-comp">Logitech G SuperStrike Cup Qualifier · Bo1</span>
+      <span><span class="badge b-unres">Unresolved</span> <span class="badge b-state">locked</span></span>
     </div>
-    <div class="lines"><b>Why unresolved:</b><ul style="margin:4px 0 0;padding-left:18px"><li>No Pinnacle moneyline: Pinnacle's guest API currently lists LoL leagues [League of Legends - World Championship] — “Logitech G SuperStrike Cup Qualifier” is not among them.</li><li>No Polymarket market: no open two-outcome LoL market matches “КАПИБАРА vs Ultim8” (Polymarket lists mainly tier-1 events).</li><li>Own model impossible: recorded series in the Hotspawn results archive — КАПИБАРА: <b>0</b>, Ultim8: <b>0</b>. With zero history on one side, any probability would be invented, not derived.</li><li>Lock has already passed (state: locked) — Hotspawn no longer accepts a pick for this match; it is listed here so the gap stays visible.</li></ul></div>
-    <div class="foot"><a href="https://www.hotspawn.com/matches/-vs-ultim8-logitech-g-superstrike-cup-qualifier-1083105" rel="noopener" target="_blank">Hotspawn match ↗</a> <span class="badge src-none">NO LINE</span></div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T11:00:00.000Z">2026-10-24 11:00 UTC</time>
+      <span class="mono">#1083097</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">paiN Gaming</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">Non-toxic Gaming</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-unres">No Sporting Pick — Left Blank (Unverified / 0 Prior Matches)</span></div>
+    <div class="card-meta">Unverified / insufficient pre-kickoff evidence: no external betting line and paiN Gaming [resolved: PNG] (0 prior official matches) &amp; Non-toxic Gaming (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097" target="_blank" rel="noopener">Hotspawn #1083097 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
   </article>
+<article class="card unres-card" id="m-1083098">
+    <div class="card-top">
+      <span class="card-comp">Logitech G SuperStrike Cup Qualifier · Bo1</span>
+      <span><span class="badge b-unres">Unresolved</span> <span class="badge b-state">locked</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T11:00:00.000Z">2026-10-24 11:00 UTC</time>
+      <span class="mono">#1083098</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">TUPKACHI NA KORICI</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">FAME</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-unres">No Sporting Pick — Left Blank (Unverified / 0 Prior Matches)</span></div>
+    <div class="card-meta">Unverified / insufficient pre-kickoff evidence: no external betting line and FAME [resolved: FAME (Bulgarian Team)] (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/tupkachi-na-korici-vs-fame-logitech-g-superstrike-cup-qualifier-1083098" target="_blank" rel="noopener">Hotspawn #1083098 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card unres-card" id="m-1083105">
+    <div class="card-top">
+      <span class="card-comp">Logitech G SuperStrike Cup Qualifier · Bo1</span>
+      <span><span class="badge b-unres">Unresolved</span> <span class="badge b-state">locked</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T12:00:00.000Z">2026-10-24 12:00 UTC</time>
+      <span class="mono">#1083105</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">КАПИБАРА</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">Ultim8</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-unres">No Sporting Pick — Left Blank (Unverified / 0 Prior Matches)</span></div>
+    <div class="card-meta">Unverified / insufficient pre-kickoff evidence: no external betting line and КАПИБАРА (0 prior official matches) prior to 2026-10-24T12:00:00.000Z. Left blank rather than inferred.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/vs-ultim8-logitech-g-superstrike-cup-qualifier-1083105" target="_blank" rel="noopener">Hotspawn #1083105 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+    </section>
 
-<footer class="bot">
-  <p><b>LoL Hotspawn Picks</b> — independent analytics for the League of Legends matches listed on the Hotspawn pick'em lobby. Not affiliated with Hotspawn, Riot Games, or any bookmaker. Nothing here is betting advice.</p>
-  <p>Probabilities come from external betting lines (Pinnacle, Polymarket) and our own Elo-style model built from real match results — never from Hotspawn crowd pick percentages. Data refreshes every 6 hours via GitHub Actions.</p>
-  <p>Built Sat, Oct 24, 15:34 UTC · <a href="methodology.html">Methodology &amp; sources</a> · <a href="data/picks.json">Raw data (JSON)</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1" rel="noopener" target="_blank">GitHub repo</a></p>
-</footer>
-</main>
-<script src="assets/app.js" defer></script>
+    <div class="sec-head" id="walkover-settlements">
+      <h2>2. Mid-Split Disqualification Walkover Settlements (4)</h2>
+      <span>Official league removal — administrative walkover settlement only, no sporting probability</span>
+    </div>
+    <section class="cards-grid">
+      <article class="card unres-card" id="dq-1071170">
+    <div class="card-top">
+      <span class="card-comp">Komplettligaen 2026 Autumn · Bo1</span>
+      <span><span class="badge b-unres">Walkover DQ Settlement</span> <span class="badge b-state">stale (&gt;6h)</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-09-17T15:00:00.000Z">2026-09-17 15:00 UTC</time>
+      <span class="mono">#1071170</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">Solid Gaming</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row is-pick">
+        <span class="team-name">VES Japan</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-pick">Walkover Settlement → VES Japan</span></div>
+    <div class="card-meta">Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors VES Japan.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/solid-gaming-vs-ves-japan-komplettligaen-2026-autumn-1071170" target="_blank" rel="noopener">Hotspawn #1071170 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" target="_blank" rel="noopener">Official DQ Ledger ↗</a></div>
+  </article>
+<article class="card unres-card" id="dq-1071200">
+    <div class="card-top">
+      <span class="card-comp">Komplettligaen 2026 Autumn · Bo1</span>
+      <span><span class="badge b-unres">Walkover DQ Settlement</span> <span class="badge b-state">stale (&gt;6h)</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-04T15:00:00.000Z">2026-10-04 15:00 UTC</time>
+      <span class="mono">#1071200</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">Solid Gaming</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row is-pick">
+        <span class="team-name">Playwell Rød Q</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-pick">Walkover Settlement → Playwell Rød Q</span></div>
+    <div class="card-meta">Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors Playwell Rød Q.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/solid-gaming-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071200" target="_blank" rel="noopener">Hotspawn #1071200 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" target="_blank" rel="noopener">Official DQ Ledger ↗</a></div>
+  </article>
+<article class="card unres-card" id="dq-1071206">
+    <div class="card-top">
+      <span class="card-comp">Komplettligaen 2026 Autumn · Bo1</span>
+      <span><span class="badge b-unres">Walkover DQ Settlement</span> <span class="badge b-state">stale (&gt;6h)</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-11T15:00:00.000Z">2026-10-11 15:00 UTC</time>
+      <span class="mono">#1071206</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row is-pick">
+        <span class="team-name">Volda E-Sport</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">Solid Gaming</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-pick">Walkover Settlement → Volda E-Sport</span></div>
+    <div class="card-meta">Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors Volda E-Sport.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/volda-e-sport-vs-solid-gaming-komplettligaen-2026-autumn-1071206" target="_blank" rel="noopener">Hotspawn #1071206 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" target="_blank" rel="noopener">Official DQ Ledger ↗</a></div>
+  </article>
+<article class="card unres-card" id="dq-1071186">
+    <div class="card-top">
+      <span class="card-comp">Komplettligaen 2026 Autumn · Bo1</span>
+      <span><span class="badge b-unres">Walkover DQ Settlement</span> <span class="badge b-state">stale (&gt;6h)</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-13T17:00:00.000Z">2026-10-13 17:00 UTC</time>
+      <span class="mono">#1071186</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">Solid Gaming</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row is-pick">
+        <span class="team-name">NTNUI Kometkameratene</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-pick">Walkover Settlement → NTNUI Kometkameratene</span></div>
+    <div class="card-meta">Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors NTNUI Kometkameratene.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/solid-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071186" target="_blank" rel="noopener">Hotspawn #1071186 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" target="_blank" rel="noopener">Official DQ Ledger ↗</a></div>
+  </article>
+    </section>
+
+    <div class="sec-head" id="stale-unresolved">
+      <h2>3. Stale Past-Kickoff Debut Cards (2)</h2>
+      <span>Hotspawn status remains 'scheduled' &gt;6h after kickoff; 0 prior matches at kickoff</span>
+    </div>
+    <section class="cards-grid">
+      <article class="card unres-card" id="st-1074627">
+    <div class="card-top">
+      <span class="card-comp">RIVALS LEAGUE Season 2 · Bo1</span>
+      <span><span class="badge b-unres">Unresolved</span> <span class="badge b-state">stale (&gt;6h)</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-09-27T17:15:00.000Z">2026-09-27 17:15 UTC</time>
+      <span class="mono">#1074627</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">Northern Wolves Esports</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">Lundqvist Darkside</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-unres">No Sporting Pick — Left Blank (Unverified / 0 Prior Matches)</span></div>
+    <div class="card-meta">Unverified / insufficient pre-kickoff evidence: no external betting line and Northern Wolves Esports (0 prior official matches) prior to 2026-09-27T17:15:00.000Z. Left blank rather than inferred.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/northern-wolves-esports-vs-lundqvist-darkside-rivals-league-season-2-1074627" target="_blank" rel="noopener">Hotspawn #1074627 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card unres-card" id="st-1082002">
+    <div class="card-top">
+      <span class="card-comp">Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine · Bo1</span>
+      <span><span class="badge b-unres">Unresolved</span> <span class="badge b-state">stale (&gt;6h)</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-16T15:00:00.000Z">2026-10-16 15:00 UTC</time>
+      <span class="mono">#1082002</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">DELETED</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">S7raa</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-unres">No Sporting Pick — Left Blank (Unverified / 0 Prior Matches)</span></div>
+    <div class="card-meta">Unverified / insufficient pre-kickoff evidence: no external betting line and DELETED (0 prior official matches) prior to 2026-10-16T15:00:00.000Z. Left blank rather than inferred.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/deleted-vs-s7raa-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082002" target="_blank" rel="noopener">Hotspawn #1082002 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+    </section>
+
+    <div class="sec-head" id="limitations">
+      <h2>4. Documented Structural &amp; Data Limitations</h2>
+    </div>
+    <div class="callout">
+      <h3>Known Feed &amp; Modeling Constraints</h3>
+      <ul>
+        <li><strong>Amateur open qualifiers with zero match history:</strong> Grassroots open qualifiers (such as Round 1 of <em>Logitech G SuperStrike Cup Qualifier</em>) feature newly formed 5-stacks with zero prior official series on Leaguepedia or Hotspawn and no regulated bookmaker lines. Per strict non-fabrication policy, these rows remain blank (<code>—</code>) rather than guessed.</li>
+        <li><strong>Cross-region acronym collisions in upstream Hotspawn feed:</strong> Hotspawn occasionally binds amateur/regional short tags to Tier-1 homonyms (e.g., Bulgarian <code>PNG</code> bound to Brazilian CBLOL <code>paiN Gaming</code> on <code>#1083097</code>; Swiss <code>PvB (Swiss Team)</code> bound to defunct Vietnamese VCS <code>Phong Vũ Buffalo</code> on <code>#1079031</code>). Competition-scoped entity resolution quarantines these before rating lookup.</li>
+        <li><strong>Multi-roster organization pooling on Leaguepedia:</strong> In <em>PRM 3rd Division 26-27 Fall</em>, Leaguepedia records the academy roster under <code>Rich Gang (Norwegian Team)</code> alongside the organization's Komplettligaen squad; pre-kickoff Elo reflects pooled org history and is flagged on <a href="flagged.html">Flagged for Review</a>.</li>
+        <li><strong>Stale upstream Hotspawn cards:</strong> 65 lower-tier fixtures remain in <code>status="scheduled"</code> on Hotspawn more than 6 hours after scheduled start because upstream tournament admins have not settled the card yet. Pre-kickoff probabilities are preserved without post-kickoff look-ahead.</li>
+        <li><strong>Sportsbook coverage ceiling on grassroots ERLs:</strong> Regulated esportsbooks and prediction markets price Tier-1 (Worlds) and select Tier-2 (LGC Rising) events (~4% of scheduled volume); the remaining ~93% rely on self-originated pre-kickoff Elo models, which carry wider epistemic uncertainty (OOS Brier <code>0.2250</code>).</li>
+      </ul>
+    </div>
+  
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>Independent quantitative companion for <a href="https://play.hotspawn.com/lol-pickems">Hotspawn LoL Pick'ems</a>.</span>
+      <span><a href="unresolved.html">Unresolved &amp; Limitations</a> · <a href="flagged.html">Flagged for Review</a> · <a href="methodology.html">Methodology &amp; Calibration</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1">GitHub Source</a></span>
+    </div>
+  </footer>
+  <script src="assets/app.js"></script>
 </body>
 </html>
