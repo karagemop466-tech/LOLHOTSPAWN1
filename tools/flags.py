@@ -8,8 +8,10 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from collections import Counter
+from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, iso, load_json, log, now_utc, save_json
@@ -36,15 +38,32 @@ def main() -> None:
 
     # Curated items that state how they were checked keep their own wording; anything that
     # cannot point at a verification is explicitly relabelled rather than silently trusted.
+    #
+    # A curated note usually quotes the fixture id it is about, and Hotspawn drops a card
+    # from the list once it kicks off. That is time passing, not a defect, so the reference
+    # is annotated here as a historical observation instead of stalling the build (the
+    # publish gate asserts that this annotation happened - see tools/verify.py).
+    listed_ids = {str(r.get("id")) for r in rows}
     flags: list[dict] = []
     for f in manual:
+        refs = sorted(set(re.findall(r"#(\d{6,8})", f"{f.get('item', '')} {f.get('detail', '')}")))
+        delisted = [i for i in refs if i not in listed_ids]
+        entry = {**f}
+        if delisted:
+            declared = [str(x) for x in (f.get("delisted_refs") or [])]
+            entry["delisted_refs"] = sorted(set(declared) | set(delisted))
+            entry["delisted_refs_auto"] = sorted(set(delisted) - set(declared))
+            entry["detail"] = (f.get("detail", "") +
+                               " Fixture " + ", ".join(f"#{i}" for i in entry["delisted_refs_auto"]) +
+                               " has since left the Hotspawn list (the card kicked off or was removed); the "
+                               "statement is kept as a historical observation about that card.")
         if f.get("verification"):
-            flags.append({**f, "item": f["item"] + " [" + f["verification"] + "]"})
+            entry["item"] = f["item"] + " [" + f["verification"] + "]"
         else:
-            flags.append({**f,
-                          "item": "Not reverified: " + f["item"],
-                          "detail": ("Prior statement, not checked against a live official source in this "
-                                     "build. " + f["detail"])})
+            entry["item"] = "Not reverified: " + f["item"]
+            entry["detail"] = ("Prior statement, not checked against a live official source in this "
+                               "build. " + entry["detail"])
+        flags.append(entry)
     flags.append({
         "severity": "info",
         "item": "Leaguepedia is community-maintained, not an official league source",
@@ -294,6 +313,44 @@ def main() -> None:
                 f"#{r['id']} {r['team0']['name']} vs {r['team1']['name']} -> {r['resolution']['winner']} "
                 f"(official forfeit; {r['resolution']['source']})" for r in walkover),
             "source": walkover[0]["resolution"]["source"],
+        })
+
+    fetched = str(data.get("inventory_fetched_utc") or "")
+    try:
+        age_h = (now_utc() - datetime.strptime(fetched[:19], "%Y-%m-%dT%H:%M:%S").replace(
+            tzinfo=timezone.utc)).total_seconds() / 3600
+    except ValueError:
+        age_h = None
+    if age_h is not None and age_h > 8:
+        flags.append({
+            "severity": "high",
+            "item": f"Hotspawn inventory snapshot is {age_h:.0f}h old (refresh window is 4–8h)",
+            "detail": (f"Collected {fetched}. Scheduled refresh-picks runs after this timestamp did not "
+                       "publish a new snapshot. Treat kick-off times and market lines as unverified until "
+                       "the next successful collect. Live lobby: " + HOTSPAWN),
+            "source": HOTSPAWN,
+        })
+
+    corr = load_json(os.path.join(DATA, "corroboration.json")) or {}
+    unmatched = [r for r in (corr.get("rejected") or []) if r.get("status") == "unmatched"]
+    if unmatched:
+        flags.append({
+            "severity": "low",
+            "item": f"{len(unmatched)} corroboration receipt(s) refer to fixtures no longer on Hotspawn",
+            "detail": ("Expected when Worlds BO1s roll off the scheduled feed. Receipts stay as audit "
+                       "evidence and are never used as prices. "
+                       + "; ".join(f"#{r.get('fixture_id')} {r.get('source')}" for r in unmatched[:8])),
+            "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/corroboration.json",
+        })
+    diverged = [r for r in (corr.get("rows") or []) if r.get("verdict") == "diverges"]
+    if diverged:
+        flags.append({
+            "severity": "medium",
+            "item": f"{len(diverged)} external corroboration receipt(s) diverge from the published line",
+            "detail": ("Corroboration only — the published pick is unchanged. "
+                       + "; ".join(f"#{r.get('fixture_id')} {r.get('source_name')} {r.get('delta_pp')}pp"
+                                   for r in diverged[:8])),
+            "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/corroboration.json",
         })
 
     save_json(os.path.join(DATA, "flags.json"), {

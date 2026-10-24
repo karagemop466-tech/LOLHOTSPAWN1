@@ -13,15 +13,15 @@
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle page menu">Menu</button>
-    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="table.html">Table</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html" class="active">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+    <nav id="nav" class="nav"><a href="index.html">Summary</a><a href="picks.html">All picks</a><a href="table.html">Table</a><a href="results.html">Results</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html" class="active">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
 </header>
 <main id="main" class="wrap">
   <div class="pagehead">
     <h1>Unresolved &amp; limitations</h1>
     <p class="sub">Matches where competitive pricing is impossible, plus every documented limitation.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-24 16:26 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-23T17:11:12Z">Hotspawn inventory collected: 2026-10-23T17:11:12Z. Check source timestamps before use.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-24 16:38 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-24T16:32:05Z">Hotspawn inventory collected: 2026-10-24T16:32:05Z. Check source timestamps before use.</p>
   </div>
   
 <section class="panel">
@@ -36,7 +36,7 @@
 
 <section class="panel">
   <h2>Documented limitations across the list</h2>
-  <div class="tablewrap"><table class=""><thead><tr><th>Limitation</th><th>Scope</th><th>Impact &amp; handling</th></tr></thead><tbody><tr><td data-label="Limitation">Mid-split league removals (dqteams)</td><td data-label="Scope">4 matches</td><td data-label="Impact &amp; handling">Leaguepedia's Data: page for the competition records the removal (for Komplettligaen, Round 10 carries the footnote '[[Solid Gaming]] is removed from the league.' and every remaining series is scored 0-2 with an ff flag). Because Hotspawn may either void the card or grade a walkover for the remaining active opponent, an Elo probability built from pre-removal results is invalid, so the row is quarantined and only the official settlement winner is shown.</td></tr><tr><td data-label="Limitation">No sportsbook market on national divisions</td><td data-label="Scope">232 matches</td><td data-label="Impact &amp; handling">Only the competitions listed on the Market page have a reachable price in this snapshot. The remaining national, academy and third-division leagues are not offered by any book the build runner can reach, so their lines are originated from recorded series history rather than borrowed from a placeholder.</td></tr><tr><td data-label="Limitation">Thin match history</td><td data-label="Scope">77 provisional</td><td data-label="Impact &amp; handling">At least one team has fewer than five rated series in the 25-month Leaguepedia window, so the Elo estimate carries wider variance and is explicitly flagged provisional.</td></tr><tr><td data-label="Limitation">One-sided history</td><td data-label="Scope">0 matches</td><td data-label="Impact &amp; handling">One side is newly promoted or newly formed with zero prior Leaguepedia series and receives the 1500 prior.</td></tr><tr><td data-label="Limitation">Name disambiguation</td><td data-label="Scope">0 matches</td><td data-label="Impact &amp; handling">Homonymous regional teams (e.g. 'Fenrir (Icelandic Team)' vs Polish 'Fenrir', 'PvB (Swiss Team)' mislabelled by Hotspawn as Vietnamese 'Phong Vũ Buffalo') are joined only via competition-scoped roster evidence.</td></tr><tr><td data-label="Limitation">Disconnected opponent graphs</td><td data-label="Scope">7 matches</td><td data-label="Impact &amp; handling">Cross-pool teams without a shared opponent chain are flagged rather than treated as high-confidence lines.</td></tr><tr><td data-label="Limitation">Geo-fenced / bot-protected books</td><td data-label="Scope">see Sources</td><td data-label="Impact &amp; handling">Every book probed on this build, its HTTP status and the reason it could not be used are listed on Sources. A book that returns a page but only renders symmetric 1.8/1.8 placeholders (EGamersWorld) is never treated as a price.</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Limitation</th><th>Scope</th><th>Impact &amp; handling</th></tr></thead><tbody><tr><td data-label="Limitation">Mid-split league removals (dqteams)</td><td data-label="Scope">4 matches</td><td data-label="Impact &amp; handling">Leaguepedia's Data: page for the competition records the removal (for Komplettligaen, Round 10 carries the footnote '[[Solid Gaming]] is removed from the league.' and every remaining series is scored 0-2 with an ff flag). Because Hotspawn may either void the card or grade a walkover for the remaining active opponent, an Elo probability built from pre-removal results is invalid, so the row is quarantined and only the official settlement winner is shown.</td></tr><tr><td data-label="Limitation">No sportsbook market on national divisions</td><td data-label="Scope">232 matches</td><td data-label="Impact &amp; handling">Only the competitions listed on the Market page have a reachable price in this snapshot. The remaining national, academy and third-division leagues are not offered by any book the build runner can reach, so their lines are originated from recorded series history rather than borrowed from a placeholder.</td></tr><tr><td data-label="Limitation">Thin match history</td><td data-label="Scope">78 provisional</td><td data-label="Impact &amp; handling">At least one team has fewer than five rated series in the 25-month Leaguepedia window, so the Elo estimate carries wider variance and is explicitly flagged provisional.</td></tr><tr><td data-label="Limitation">One-sided history</td><td data-label="Scope">0 matches</td><td data-label="Impact &amp; handling">One side is newly promoted or newly formed with zero prior Leaguepedia series and receives the 1500 prior.</td></tr><tr><td data-label="Limitation">Name disambiguation</td><td data-label="Scope">0 matches</td><td data-label="Impact &amp; handling">Homonymous regional teams (e.g. 'Fenrir (Icelandic Team)' vs Polish 'Fenrir', 'PvB (Swiss Team)' mislabelled by Hotspawn as Vietnamese 'Phong Vũ Buffalo') are joined only via competition-scoped roster evidence.</td></tr><tr><td data-label="Limitation">Disconnected opponent graphs</td><td data-label="Scope">11 matches</td><td data-label="Impact &amp; handling">Cross-pool teams without a shared opponent chain are flagged rather than treated as high-confidence lines.</td></tr><tr><td data-label="Limitation">Geo-fenced / bot-protected books</td><td data-label="Scope">see Sources</td><td data-label="Impact &amp; handling">Every book probed on this build, its HTTP status and the reason it could not be used are listed on Sources. A book that returns a page but only renders symmetric 1.8/1.8 placeholders (EGamersWorld) is never treated as a price.</td></tr></tbody></table></div>
 </section>
 
 <section class="panel" id="line-hunt">
@@ -47,59 +47,13 @@
   where it might show a price in a browser. Additional sources that were researched and ruled out, with the
   exact response each returned, are logged in
   <a href="data/line_source_research.json" rel="noopener">line_source_research.json</a>.</p>
-  <div class="tablewrap"><table class=""><thead><tr><th>Source</th><th>What it is</th><th>Runner verdict</th><th>Checked (UTC)</th></tr></thead><tbody><tr><td data-label="Source"><a href="https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups" rel="noopener">Pinnacle</a></td><td data-label="What it is">Sharp esportsbook; guest REST API</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&amp;status=open&amp;with_nested_markets=true&amp;limit=100" rel="noopener">Kalshi (CFTC)</a></td><td data-label="What it is">CFTC-regulated US exchange; KXLOLGAME series contract book</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&amp;preMatchOnly=true&amp;lang=en" rel="noopener">Bovada</a></td><td data-label="What it is">Esportsbook pre-match decimal moneyline coupon JSON</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://gamma-api.polymarket.com/events?closed=false&amp;limit=5&amp;tag_slug=league-of-legends" rel="noopener">Polymarket</a></td><td data-label="What it is">CLOB prediction market (full-series filtered)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://gg.bet/en/esports/league-of-legends" rel="noopener">GG.BET</a></td><td data-label="What it is">Established LoL betting site</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://bc.game/sports" rel="noopener">BC.GAME</a></td><td data-label="What it is">Crypto esportsbook</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://egamersworld.com/lol/matches" rel="noopener">EGamersWorld</a></td><td data-label="What it is">Esports odds aggregator (verified fallback receipt for LCP Promotion)</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://oddspedia.com/esports/league-of-legends" rel="noopener">Oddspedia</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill bad">410</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://www.oddsportal.com/esports/league-of-legends/" rel="noopener">OddsPortal</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://www.betexplorer.com/esports/league-of-legends/" rel="noopener">BetExplorer</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill bad">404</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet/Kambi</a></td><td data-label="What it is">European regulated sportsbook JSON feed (ubse LoL match odds)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&amp;status=scheduled&amp;tenantId=1" rel="noopener">Hotspawn fixtures API</a></td><td data-label="What it is">Match inventory (crowd % stored for audit only, NEVER used as probability)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&amp;fields=MatchSchedule.MatchId&amp;limit=1&amp;format=json" rel="noopener">Leaguepedia</a></td><td data-label="What it is">Series results + Data: dqteams directives</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr><tr><td data-label="Source"><a href="https://esports-api.lolesports.com/persisted/gw/getLeagues?hl=en-US" rel="noopener">LoL Esports (Riot)</a></td><td data-label="What it is">Official Riot esports API</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-23 17:12</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Source</th><th>What it is</th><th>Runner verdict</th><th>Checked (UTC)</th></tr></thead><tbody><tr><td data-label="Source"><a href="https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups" rel="noopener">Pinnacle</a></td><td data-label="What it is">Sharp esportsbook; guest REST API</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&amp;status=open&amp;with_nested_markets=true&amp;limit=100" rel="noopener">Kalshi (CFTC)</a></td><td data-label="What it is">CFTC-regulated US exchange; KXLOLGAME series contract book</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&amp;preMatchOnly=true&amp;lang=en" rel="noopener">Bovada</a></td><td data-label="What it is">Esportsbook pre-match decimal moneyline coupon JSON</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://gamma-api.polymarket.com/events?closed=false&amp;limit=5&amp;tag_slug=league-of-legends" rel="noopener">Polymarket</a></td><td data-label="What it is">CLOB prediction market (full-series filtered)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://gg.bet/en/esports/league-of-legends" rel="noopener">GG.BET</a></td><td data-label="What it is">Established LoL betting site</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://bc.game/sports" rel="noopener">BC.GAME</a></td><td data-label="What it is">Crypto esportsbook</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://egamersworld.com/lol/matches" rel="noopener">EGamersWorld</a></td><td data-label="What it is">Esports odds aggregator (verified fallback receipt for LCP Promotion)</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://oddspedia.com/esports/league-of-legends" rel="noopener">Oddspedia</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill bad">410</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://www.oddsportal.com/esports/league-of-legends/" rel="noopener">OddsPortal</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://www.betexplorer.com/esports/league-of-legends/" rel="noopener">BetExplorer</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill bad">404</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet/Kambi</a></td><td data-label="What it is">European regulated sportsbook JSON feed (ubse LoL match odds)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://thunderpick.io/en/esports/league-of-legends" rel="noopener">Thunderpick</a></td><td data-label="What it is">Esportsbook LoL coupon (HTML; prices are client-rendered)</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://tips.gg/esports/league-of-legends/" rel="noopener">Tips.GG</a></td><td data-label="What it is">Esports odds + tips page used as coverage evidence, never as a price</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://www.midnite.com/esports/league-of-legends" rel="noopener">Midnite</a></td><td data-label="What it is">UK esportsbook LoL coupon (HTML SPA)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/" rel="noopener">OddsPortal Worlds</a></td><td data-label="What it is">Odds comparison: World Championship coupon (coverage ceiling check)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&amp;status=scheduled&amp;tenantId=1" rel="noopener">Hotspawn fixtures API</a></td><td data-label="What it is">Match inventory (crowd % stored for audit only, NEVER used as probability)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&amp;fields=MatchSchedule.MatchId&amp;limit=1&amp;format=json" rel="noopener">Leaguepedia</a></td><td data-label="What it is">Series results + Data: dqteams directives</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr><tr><td data-label="Source"><a href="https://esports-api.lolesports.com/persisted/gw/getLeagues?hl=en-US" rel="noopener">LoL Esports (Riot)</a></td><td data-label="What it is">Official Riot esports API</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-24 16:33</td></tr></tbody></table></div>
 </section>
 
 <section class="panel">
-  <h2>Provisional lines (77)</h2>
+  <h2>Provisional lines (78)</h2>
   <p class="lead">Low-confidence originated picks with thin match samples. Every card lists its exact caveat.</p>
-  <div class="cards"><article id="match-1074652" class="card m-provisional" data-method="provisional" data-comp="RIVALS LEAGUE Season 2"
-  data-start="2026-10-24T16:30:00Z" data-stale="0"
-  data-text="rivals league season 2 2 massive lund esports organization ogs">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">RIVALS LEAGUE Season 2</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">2 Massive</span><span class="tpct">52.4%</span>
-    </div>
-    <div class="split" role="img" aria-label="2 Massive 52 percent, Lund Esports Organization OGs 48 percent"><span class="s0" style="width:52.4%"></span></div>
-    <div class="team ">
-      <span class="tname">Lund Esports Organization OGs</span><span class="tpct">47.6%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>2 Massive</strong> <span class="pickpct">52.4%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: 2 Massive 1531 vs Lund Esports Organization OGs 1515 (16/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-24T16:30:00Z while Data:RIVALS LEAGUE/2026 Season/Season 2 records 2026-11-03 18:00Z (242h apart) - confirm before relying on the time</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/2-massive-vs-lund-esports-organization-ogs-rivals-league-season-2-1074652" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/2_Massive" rel="noopener">2 Massive</a><a href="https://lol.fandom.com/wiki/Lund_Esports_Organization_OGs" rel="noopener">Lund Esports Organization OGs</a></div>
-</article><article id="match-1074658" class="card m-provisional" data-method="provisional" data-comp="RIVALS LEAGUE Season 2"
-  data-start="2026-10-24T16:30:00Z" data-stale="0"
-  data-text="rivals league season 2 team cd tung sahur mid">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">RIVALS LEAGUE Season 2</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">Team cd</span><span class="tpct">51.0%</span>
-    </div>
-    <div class="split" role="img" aria-label="Team cd 51 percent, Tung Sahur Mid 49 percent"><span class="s0" style="width:51.0%"></span></div>
-    <div class="team ">
-      <span class="tname">Tung Sahur Mid</span><span class="tpct">49.0%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team cd</strong> <span class="pickpct">51.0%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Team CD 1519 vs Tung Sahur Mid 1512 (32/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/team-cd-vs-tung-sahur-mid-rivals-league-season-2-1074658" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_CD" rel="noopener">Team cd</a><a href="https://lol.fandom.com/wiki/Tung_Sahur_Mid" rel="noopener">Tung Sahur Mid</a></div>
-</article><article id="match-1079142" class="card m-provisional" data-method="provisional" data-comp="Arabian League 2nd Division 2026 Summer"
+  <div class="cards"><article id="match-1079142" class="card m-provisional" data-method="provisional" data-comp="Arabian League 2nd Division 2026 Summer"
   data-start="2026-10-24T18:00:00Z" data-stale="0"
   data-text="arabian league 2nd division 2026 summer void walkers slam dunk">
   <div class="card-top">
@@ -329,29 +283,6 @@
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/blackdivision-vs-kanji-esports-kin-prm-3rd-division-26-27-fall-1075751" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_3rd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/BlackDivision" rel="noopener">BlackDivision</a><a href="https://lol.fandom.com/wiki/Kanji_Esports_KIN" rel="noopener">Kanji Esports KIN</a></div>
-</article><article id="match-1074662" class="card m-provisional" data-method="provisional" data-comp="RIVALS LEAGUE Season 2"
-  data-start="2026-10-25T18:00:00Z" data-stale="0"
-  data-text="rivals league season 2 karolinerna lund esports organization ogs">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-25T18:00:00Z" class="utc" data-utc="2026-10-25T18:00:00Z">2026-10-25 18:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">RIVALS LEAGUE Season 2</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">Karolinerna</span><span class="tpct">45.3%</span>
-    </div>
-    <div class="split" role="img" aria-label="Karolinerna 45 percent, Lund Esports Organization OGs 55 percent"><span class="s0" style="width:45.3%"></span></div>
-    <div class="team fav">
-      <span class="tname">Lund Esports Organization OGs</span><span class="tpct">54.7%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Lund Esports Organization OGs</strong> <span class="pickpct">54.7%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Karolinerna 1482 vs Lund Esports Organization OGs 1515 (31/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-25T18:00:00Z while Data:RIVALS LEAGUE/2026 Season/Season 2 records 2026-11-01 18:00Z (168h apart) - confirm before relying on the time</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/karolinerna-vs-lund-esports-organization-ogs-rivals-league-season-2-1074662" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Karolinerna" rel="noopener">Karolinerna</a><a href="https://lol.fandom.com/wiki/Lund_Esports_Organization_OGs" rel="noopener">Lund Esports Organization OGs</a></div>
 </article><article id="match-1081831" class="card m-provisional" data-method="provisional" data-comp="RIVALS LEAGUE Season 2"
   data-start="2026-10-26T19:00:00Z" data-stale="0"
   data-text="rivals league season 2 lund esports organization ogs tung sahur mid">
@@ -753,16 +684,16 @@
   <div class="comp">PRM 2nd Division 26-27 Fall</div>
   <div class="teams">
     <div class="team ">
-      <span class="tname">BvP</span><span class="tpct">30.6%</span>
+      <span class="tname">BvP</span><span class="tpct">29.7%</span>
     </div>
-    <div class="split" role="img" aria-label="BvP 31 percent, Babos Gaming 69 percent"><span class="s0" style="width:30.6%"></span></div>
+    <div class="split" role="img" aria-label="BvP 30 percent, Babos Gaming 70 percent"><span class="s0" style="width:29.7%"></span></div>
     <div class="team fav">
-      <span class="tname">Babos Gaming</span><span class="tpct">69.4%</span>
+      <span class="tname">Babos Gaming</span><span class="tpct">70.3%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Babos Gaming</strong> <span class="pickpct">69.4%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Babos Gaming</strong> <span class="pickpct">70.3%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: BvP 1486 vs Babos Gaming 1628 (3/58 rated series).</p>
+    <p>Elo line: BvP 1486 vs Babos Gaming 1635 (3/59 rated series).</p>
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/bvp-vs-babos-gaming-prm-2nd-division-26-27-fall-1079049" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_2nd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/BvP" rel="noopener">BvP</a><a href="https://lol.fandom.com/wiki/Babos_Gaming" rel="noopener">Babos Gaming</a></div>
@@ -868,16 +799,16 @@
   <div class="comp">PRM 2nd Division 26-27 Fall</div>
   <div class="teams">
     <div class="team ">
-      <span class="tname">AceGaming</span><span class="tpct">47.9%</span>
+      <span class="tname">AceGaming</span><span class="tpct">45.7%</span>
     </div>
-    <div class="split" role="img" aria-label="AceGaming 48 percent, BvP 52 percent"><span class="s0" style="width:47.9%"></span></div>
+    <div class="split" role="img" aria-label="AceGaming 46 percent, BvP 54 percent"><span class="s0" style="width:45.7%"></span></div>
     <div class="team fav">
-      <span class="tname">BvP</span><span class="tpct">52.1%</span>
+      <span class="tname">BvP</span><span class="tpct">54.3%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>BvP</strong> <span class="pickpct">52.1%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>BvP</strong> <span class="pickpct">54.3%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: AceGaming 1471 vs BvP 1486 (16/3 rated series).</p>
+    <p>Elo line: AceGaming 1456 vs BvP 1486 (17/3 rated series).</p>
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/acegaming-vs-bvp-prm-2nd-division-26-27-fall-1079051" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_2nd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/AceGaming" rel="noopener">AceGaming</a><a href="https://lol.fandom.com/wiki/BvP" rel="noopener">BvP</a></div>
@@ -1098,16 +1029,16 @@
   <div class="comp">PRM 2nd Division 26-27 Fall</div>
   <div class="teams">
     <div class="team ">
-      <span class="tname">BvP</span><span class="tpct">48.0%</span>
+      <span class="tname">BvP</span><span class="tpct">46.5%</span>
     </div>
-    <div class="split" role="img" aria-label="BvP 48 percent, reGOLD eSport 52 percent"><span class="s0" style="width:48.0%"></span></div>
+    <div class="split" role="img" aria-label="BvP 46 percent, reGOLD eSport 54 percent"><span class="s0" style="width:46.5%"></span></div>
     <div class="team fav">
-      <span class="tname">reGOLD eSport</span><span class="tpct">52.0%</span>
+      <span class="tname">reGOLD eSport</span><span class="tpct">53.5%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>reGOLD eSport</strong> <span class="pickpct">52.0%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>reGOLD eSport</strong> <span class="pickpct">53.5%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: BvP 1486 vs reGOLD eSport 1499 (3/7 rated series).</p>
+    <p>Elo line: BvP 1486 vs reGOLD eSport 1510 (3/8 rated series).</p>
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/bvp-vs-regold-esport-prm-2nd-division-26-27-fall-1079853" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_2nd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/BvP" rel="noopener">BvP</a><a href="https://lol.fandom.com/wiki/reGOLD_eSport" rel="noopener">reGOLD eSport</a></div>
@@ -1709,29 +1640,98 @@
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed and Leaguepedia records completed series Glorp Cat 1-0 Impel (Leaguepedia Data:4 Nations/2026 Season/Halloween Heist); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/glorp-cat-vs-impel-4-nations-2026-halloween-heist-1082061" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/4_Nations%2F2026_Season%2FHalloween_Heist" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Glorp_Cat" rel="noopener">Glorp Cat</a><a href="https://lol.fandom.com/wiki/Impel" rel="noopener">Impel</a></div>
-</article><article id="match-1082839" class="card m-provisional" data-method="provisional" data-comp="Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine"
-  data-start="2026-10-23T16:00:00Z" data-stale="1"
-  data-text="arabian regional championship 2026: lebanon-libya-syria-palestine levelers mtn esports team">
+</article><article id="match-1083096" class="card m-provisional" data-method="provisional" data-comp="Logitech G SuperStrike Cup Qualifier"
+  data-start="2026-10-24T11:00:00Z" data-stale="1"
+  data-text="logitech g superstrike cup qualifier keep yourself positive cruel fate">
   <div class="card-top">
-    <span class="when"><time datetime="2026-10-23T16:00:00Z" class="utc" data-utc="2026-10-23T16:00:00Z">2026-10-23 16:00 UTC</time></span>
+    <span class="when"><time datetime="2026-10-24T11:00:00Z" class="utc" data-utc="2026-10-24T11:00:00Z">2026-10-24 11:00 UTC</time></span>
+    <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-flip" title="identical kick-off ratings - display order only">toss-up</span><span class="badge b-provisional">Provisional</span></span>
+  </div>
+  <div class="comp">Logitech G SuperStrike Cup Qualifier</div>
+  <div class="teams">
+    <div class="team fav">
+      <span class="tname">Keep Yourself Positive</span><span class="tpct">50.0%</span>
+    </div>
+    <div class="split" role="img" aria-label="Keep Yourself Positive 50 percent, CRUEL FATE 50 percent"><span class="s0" style="width:50.0%"></span></div>
+    <div class="team ">
+      <span class="tname">CRUEL FATE</span><span class="tpct">50.0%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Keep Yourself Positive</strong> <span class="pickpct">50.0%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: Keep Yourself Positive 1500 vs CRUEL FATE 1500 (0/0 rated series).</p>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>no shared-opponent chain between the two teams</li><li>start time has passed and Leaguepedia records completed series Keep Yourself Positive 0-1 CRUEL FATE (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/keep-yourself-positive-vs-cruel-fate-logitech-g-superstrike-cup-qualifier-1083096" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup%2FQualifier" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Keep_Yourself_Positive" rel="noopener">Keep Yourself Positive</a><a href="https://lol.fandom.com/wiki/CRUEL_FATE" rel="noopener">CRUEL FATE</a></div>
+</article><article id="match-1083097" class="card m-provisional" data-method="provisional" data-comp="Logitech G SuperStrike Cup Qualifier"
+  data-start="2026-10-24T11:00:00Z" data-stale="1"
+  data-text="logitech g superstrike cup qualifier pain gaming non-toxic gaming">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-24T11:00:00Z" class="utc" data-utc="2026-10-24T11:00:00Z">2026-10-24 11:00 UTC</time></span>
     <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-provisional">Provisional</span></span>
   </div>
-  <div class="comp">Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine</div>
+  <div class="comp">Logitech G SuperStrike Cup Qualifier</div>
   <div class="teams">
-    <div class="team ">
-      <span class="tname">Levelers</span><span class="tpct">41.2%</span>
-    </div>
-    <div class="split" role="img" aria-label="Levelers 41 percent, MTN ESPORTS TEAM 59 percent"><span class="s0" style="width:41.2%"></span></div>
     <div class="team fav">
-      <span class="tname">MTN ESPORTS TEAM</span><span class="tpct">58.8%</span>
+      <span class="tname">paiN Gaming</span><span class="tpct">60.9%</span>
+    </div>
+    <div class="split" role="img" aria-label="paiN Gaming 61 percent, Non-toxic Gaming 39 percent"><span class="s0" style="width:60.9%"></span></div>
+    <div class="team ">
+      <span class="tname">Non-toxic Gaming</span><span class="tpct">39.1%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>MTN ESPORTS TEAM</strong> <span class="pickpct">58.8%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>paiN Gaming</strong> <span class="pickpct">60.9%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Levelers 1481 vs MTN ESPORTS TEAM 1543 (4/10 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+    <p>Elo line: paiN Gaming 1577 vs Non-toxic Gaming 1500 (62/0 rated series).</p>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>no shared-opponent chain between the two teams</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
   </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/levelers-vs-mtn-esports-team-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082839" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026%2FQualifiers%2FLB-Li-SY-PS" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Levelers" rel="noopener">Levelers</a><a href="https://lol.fandom.com/wiki/MTN_ESPORTS_TEAM" rel="noopener">MTN ESPORTS TEAM</a></div>
+  <div class="src"><a href="https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup%2FQualifier" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/paiN_Gaming" rel="noopener">paiN Gaming</a><a href="https://lol.fandom.com/wiki/Non-toxic_Gaming" rel="noopener">Non-toxic Gaming</a></div>
+</article><article id="match-1083098" class="card m-provisional" data-method="provisional" data-comp="Logitech G SuperStrike Cup Qualifier"
+  data-start="2026-10-24T11:00:00Z" data-stale="1"
+  data-text="logitech g superstrike cup qualifier tupkachi na korici fame">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-24T11:00:00Z" class="utc" data-utc="2026-10-24T11:00:00Z">2026-10-24 11:00 UTC</time></span>
+    <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-provisional">Provisional</span></span>
+  </div>
+  <div class="comp">Logitech G SuperStrike Cup Qualifier</div>
+  <div class="teams">
+    <div class="team fav">
+      <span class="tname">TUPKACHI NA KORICI</span><span class="tpct">60.6%</span>
+    </div>
+    <div class="split" role="img" aria-label="TUPKACHI NA KORICI 61 percent, FAME 39 percent"><span class="s0" style="width:60.6%"></span></div>
+    <div class="team ">
+      <span class="tname">FAME</span><span class="tpct">39.4%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>TUPKACHI NA KORICI</strong> <span class="pickpct">60.6%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: TUPKACHI NA KORICI 1575 vs FAME (Bulgarian Team) 1500 (2/0 rated series).</p>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>no shared-opponent chain between the two teams</li><li>resolved within &#x27;Logitech G SuperStrike Cup/Qualifier&#x27; to &#x27;FAME (Bulgarian Team)&#x27;</li><li>start time has passed and Leaguepedia records completed series TUPKACHI NA KORICI 1-0 FAME (Bulgarian Team) (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/tupkachi-na-korici-vs-fame-logitech-g-superstrike-cup-qualifier-1083098" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup%2FQualifier" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/TUPKACHI_NA_KORICI" rel="noopener">TUPKACHI NA KORICI</a><a href="https://lol.fandom.com/wiki/FAME_(Bulgarian_Team)" rel="noopener">FAME</a></div>
+</article><article id="match-1083105" class="card m-provisional" data-method="provisional" data-comp="Logitech G SuperStrike Cup Qualifier"
+  data-start="2026-10-24T12:00:00Z" data-stale="1"
+  data-text="logitech g superstrike cup qualifier капибара ultim8">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-24T12:00:00Z" class="utc" data-utc="2026-10-24T12:00:00Z">2026-10-24 12:00 UTC</time></span>
+    <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-provisional">Provisional</span></span>
+  </div>
+  <div class="comp">Logitech G SuperStrike Cup Qualifier</div>
+  <div class="teams">
+    <div class="team ">
+      <span class="tname">КАПИБАРА</span><span class="tpct">42.3%</span>
+    </div>
+    <div class="split" role="img" aria-label="КАПИБАРА 42 percent, Ultim8 58 percent"><span class="s0" style="width:42.3%"></span></div>
+    <div class="team fav">
+      <span class="tname">Ultim8</span><span class="tpct">57.7%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Ultim8</strong> <span class="pickpct">57.7%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: КАПИБАРА 1500 vs Ultim8 1554 (0/5 rated series).</p>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>no shared-opponent chain between the two teams</li><li>start time has passed and Leaguepedia records completed series КАПИБАРА 0-1 Ultim8 (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/-vs-ultim8-logitech-g-superstrike-cup-qualifier-1083105" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup%2FQualifier" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/%D0%9A%D0%90%D0%9F%D0%98%D0%91%D0%90%D0%A0%D0%90" rel="noopener">КАПИБАРА</a><a href="https://lol.fandom.com/wiki/Ultim8" rel="noopener">Ultim8</a></div>
 </article><article id="match-1080923" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
   data-start="2026-10-24T16:00:00Z" data-stale="1"
   data-text="tunisian super league 2026 jendouba esports enfida esports">
@@ -1824,6 +1824,29 @@
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/zahrouni-esports-vs-olympique-mnihla-academy-tunisian-super-league-2026-1080927" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Zahrouni_Esports" rel="noopener">Zahrouni Esports</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla_Academy" rel="noopener">Olympique Mnihla Academy</a></div>
+</article><article id="match-1074658" class="card m-provisional" data-method="provisional" data-comp="RIVALS LEAGUE Season 2"
+  data-start="2026-10-24T16:30:00Z" data-stale="1"
+  data-text="rivals league season 2 team cd tung sahur mid">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-24T16:30:00Z" class="utc" data-utc="2026-10-24T16:30:00Z">2026-10-24 16:30 UTC</time></span>
+    <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-provisional">Provisional</span></span>
+  </div>
+  <div class="comp">RIVALS LEAGUE Season 2</div>
+  <div class="teams">
+    <div class="team fav">
+      <span class="tname">Team cd</span><span class="tpct">51.0%</span>
+    </div>
+    <div class="split" role="img" aria-label="Team cd 51 percent, Tung Sahur Mid 49 percent"><span class="s0" style="width:51.0%"></span></div>
+    <div class="team ">
+      <span class="tname">Tung Sahur Mid</span><span class="tpct">49.0%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Team cd</strong> <span class="pickpct">51.0%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: Team CD 1519 vs Tung Sahur Mid 1512 (32/4 rated series).</p>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/team-cd-vs-tung-sahur-mid-rivals-league-season-2-1074658" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/RIVALS_LEAGUE%2F2026_Season%2FSeason_2" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_CD" rel="noopener">Team cd</a><a href="https://lol.fandom.com/wiki/Tung_Sahur_Mid" rel="noopener">Tung Sahur Mid</a></div>
 </article></div>
 </section>
 
@@ -1834,7 +1857,7 @@
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
-<nav class="mobnav" aria-label="Quick navigation"><a href="index.html"><span>Summary</span></a><a href="picks.html"><span>All picks</span></a><a href="featured.html"><span>Market</span></a><a href="unresolved.html" class="active"><span>Unresolved</span></a><a href="flagged.html"><span>Flags</span></a></nav>
+<nav class="mobnav" aria-label="Quick navigation"><a href="index.html"><span>Summary</span></a><a href="table.html"><span>Picks</span></a><a href="featured.html"><span>Market</span></a><a href="unresolved.html" class="active"><span>Unresolved</span></a><a href="flagged.html"><span>Flags</span></a></nav>
 <a class="mobile-picks" href="table.html">All picks &rarr;</a>
 <script src="assets/app.js"></script>
 </body>

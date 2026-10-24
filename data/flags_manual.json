@@ -4,6 +4,27 @@
  "flags": [
   {
    "severity": "high",
+   "item": "The six-hourly refresh failed for 24 hours because receipts for delisted fixtures were counted as rejected",
+   "detail": "Hotspawn's fixtures API only returns cards with status=scheduled and drops a card once it kicks off, so a static external-odds receipt points at a fixture that is no longer listed within a day. tools/corroborate.py classified those as 'unmatched / rejected', and the publish gate 'external receipts validated against the dataset' fails whenever any receipt is rejected. Every scheduled refresh from 2026-10-23T17:13Z to 2026-10-24T16:19Z therefore failed at the gate (40 of 41 checks passing) and the published site stayed frozen at the 2026-10-23T17:13:12Z snapshot. Fixed in PR #62: such a receipt is now classified as historical evidence, kept and dated on the coverage page, excluded from every price and from the gate, which still fails on malformed receipts and on receipts that name the wrong teams for a fixture we do list. The first green run after the fix is 40110996859 (2026-10-24T16:19Z, 241/241 fixtures, 41/41 gates, 16 historical receipts).",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40109474033",
+   "verification": "verified 2026-10-24 against the failing run's own log and the green run after the fix"
+  },
+  {
+   "severity": "low",
+   "item": "Two market rows publish venue weights that do not sum to 1.0 (#1067878, #1079080)",
+   "detail": "The per-venue 'weight' fields are published as collected (Pinnacle 0.36, Polymarket 0.24, Kalshi 0.18, Unibet 0.10 on #1067878, which sums to 0.88 because Bovada returned no price in that build; #1079080 is a single thin Polymarket venue published at 0.24). The published probability is the correctly normalised weighted mean of those quotes, so no probability is wrong: an independent re-derivation reproduces p0 for every market row within 0.01. The display is what is inconsistent, and a reader adding up the weights on the card would not get 100%.",
+   "source": "https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878",
+   "verification": "re-derived 2026-10-24 with audit/session_5ff8e6bf/verify_published.py"
+  },
+  {
+   "severity": "low",
+   "item": "Pinnacle JSON receipts answer HTTP 401 to some datacenter clients and HTTP 200 in a browser",
+   "detail": "Every Pinnacle row links its receipt at guest.api.arcadia.pinnacle.com/0.1/matchups/<id>/markets/related/straight. A GitHub-runner harvest of all 241 source links recorded 401 for 8 of the 10 market-quote URLs, while the same URL fetched normally returns the straight-market JSON (spot-checked 2026-10-24 for matchup 1639121258: moneyline 155 / -184, cutoff 2026-10-24T17:00Z). The links are therefore valid for a human reviewer but not machine-resolvable from every host, so link-resolution counts taken from a cloud runner understate them.",
+   "source": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
+   "verification": "fetched 2026-10-24; 200 with straight-market JSON"
+  },
+  {
+   "severity": "high",
    "item": "Pinnacle publishes each LoL series twice and the pick engine was using the (Kills) derivative",
    "detail": "Pinnacle's guest API lists a series moneyline plus a parallel '(Kills)' market (e.g. 'Gen.G (Kills)' vs 'Invictus (Kills)'). In the 2026-10-23T11:42Z snapshot six of eight Worlds picks were taken from the (Kills) market: Gen.G vs Invictus Gaming carried 1.282/3.740 from matchup 1638758865 while the series market 1638748200 was 1.259/3.940. A kills derivative is not a series-winner price. Fixed in this build: tools/collect.py and tools/model.py now reject any participant name containing '(Kills)' or parentId derivatives, 8 derivative markets were excluded, and the 9 remaining market picks are all true series moneylines.",
    "source": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638758865/markets/related/straight",
@@ -87,11 +108,11 @@
    "delisted_refs": []
   },
   {
-   "severity": "high",
-   "item": "The published list was missing 20 live Hotspawn fixtures because refresh-picks failed four scheduled runs in a row",
-   "detail": "The canonical dataset was frozen at 2026-10-23T17:11:12Z while Hotspawn had already rotated its scheduled list. Comparing the published rows with the fixtures API snapshot the secondary pipeline fetched on 2026-10-24T15:34:30Z: 20 fixtures on the live feed are absent from the published site - all eight Worlds 2026 Main Event cards for 2026-10-24/25, four 4 Nations 2026 Halloween Heist cards, three Komplettligaen 2026 Autumn Playoffs cards, four Logitech G SuperStrike Cup Qualifier cards and one RIVALS LEAGUE Season 2 card - and 20 published rows had already been played and left the feed. Cause: the publish gate 'external receipts validated against the dataset' treated a book receipt whose fixture had simply been played as a hard failure, so committing any receipt guaranteed a self-inflicted outage within about a day. Failed runs: 40026767003, 40063260000, 40088464687, 40109474033. Fixed on branch arena/62ba9cfe-lolhotspawn1: such receipts are now retired rather than rejected, and corroboration-only checks are advisory, so they can never stop a data refresh again. The list below is the set of fixtures that were missing at the time this was written; it will be empty on the first successful refresh after the merge.",
+   "severity": "medium",
+   "item": "RESOLVED 2026-10-24: the published list had been missing 20 live Hotspawn fixtures because refresh-picks failed four scheduled runs in a row",
+   "detail": "Historical finding, kept for the audit trail and re-verified as fixed. The canonical dataset had been frozen at 2026-10-23T17:11:12Z while Hotspawn had already rotated its scheduled list. Comparing the published rows with the fixtures API snapshot the secondary pipeline fetched on 2026-10-24T15:34:30Z: 20 fixtures on the live feed were absent from the published site - all eight Worlds 2026 Main Event cards for 2026-10-24/25, four 4 Nations 2026 Halloween Heist cards, three Komplettligaen 2026 Autumn Playoffs cards, four Logitech G SuperStrike Cup Qualifier cards and one RIVALS LEAGUE Season 2 card - and 20 published rows had already been played and left the feed. Cause: the publish gate 'external receipts validated against the dataset' treated a book receipt whose fixture had simply been played as a hard failure, so committing any receipt guaranteed a self-inflicted outage within about a day. Failed runs: 40026767003, 40063260000, 40088464687, 40109474033. Independently fixed on main (session 80c624cd / 1a46a678) by classifying such receipts as 'historic' rather than 'rejected', and re-verified here by session 62ba9cfe: audit/verify_gate_regression.py now reports 'published inventory 2026-10-24T16:32:05Z age 0.1 h fresh / MISSING 0 / NO LONGER ON HOTSPAWN 0 / rows without a pick 0 / verdict OK' against 241 rows. The new audit script keeps the two pipelines cross-checking each other so this cannot recur silently.",
    "source": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
-   "verification": "independent cross-pipeline comparison, 2026-10-24: canonical data/matches.json (inventory 2026-10-23T17:11:12Z, 241 rows) vs data/node/raw/hotspawn_lol_fixtures.json (fetched 2026-10-24T15:34:30Z, 241 scheduled of 1540 total). The eight Worlds kick-off times were separately confirmed against bo3.gg and EGamersWorld, which list the same eight cards on 2026-10-24 at the same US Eastern times.",
+   "verification": "re-verified 2026-10-24T16:37Z by audit/verify_gate_regression.py (report committed at audit/gate_regression_report.json); the eight Worlds kick-off times were separately confirmed against bo3.gg and EGamersWorld, which list the same eight cards on 2026-10-24 at the same US Eastern times",
    "delisted_refs": [
     "1067683",
     "1067684",
