@@ -421,6 +421,29 @@ function buildIndexPage(picks, flags) {
   const canonOnly = CANON_OK ? CANON_ROWS.filter((r) => !scheduled.some((m) => String(m.id) === String(r.id))) : [];
   const noFormat = scheduled.filter((m) => !bestOfKnown(m));
   const worst = divergent.slice().sort((a, b) => Math.abs(b.cmp.delta ?? 0) - Math.abs(a.cmp.delta ?? 0))[0] ?? null;
+  /* A venue quote observed after the listed kick-off is an in-play price, not a
+     pick-time probability: Hotspawn locks each card before start, so it cannot be
+     acted on. Computed per side from the committed snapshots; nothing is inferred. */
+  const canonQuoteTimes = (cm) => (cm?.market?.venues ?? []).map((v) => Date.parse(v.observed_utc)).filter(Number.isFinite);
+  const docsQuoteTimes = (m) => ["market_pinnacle", "market_polymarket", "market_kalshi", "market_bovada", "market_kambi"]
+    .map((k) => Date.parse(m?.[k]?.fetched_at)).filter(Number.isFinite);
+  const kickoffMs = (m, cm) => {
+    const t = Date.parse(cm?.start_utc ?? m?.start_iso ?? "");
+    return Number.isFinite(t) ? t : Number(m?.scheduled_start_time) || NaN;
+  };
+  const inPlayCanon = inCanon.filter(({ m, cmp }) => {
+    const ko = kickoffMs(m, cmp.cm), t = canonQuoteTimes(cmp.cm);
+    return Number.isFinite(ko) && t.length > 0 && Math.max(...t) > ko;
+  });
+  const inPlayDocs = scheduled.filter((m) => {
+    const ko = kickoffMs(m, null), t = docsQuoteTimes(m);
+    return Number.isFinite(ko) && t.length > 0 && Math.max(...t) > ko;
+  });
+  const inPlayIds = new Set(inPlayCanon.map(({ m }) => String(m.id)));
+  const isDocsMarket = (m) => m.source_category === "market_consensus" || m.pick?.source === "market_consensus";
+  const isCanonMarket = (cm) => String(cm?.method ?? "").includes("market");
+  const hhmm = (ms) => new Date(ms).toISOString().slice(11, 16);
+  const pp = (v) => (v == null ? "—" : pct1(v));
   const track = CANON?.track_record ?? null;
   const canonVenues = [...new Set(CANON_ROWS.flatMap((r) => (r.market?.venues ?? []).map((v) => v.name).filter(Boolean)))];
   const reconRow = (label, a, b) =>
@@ -437,18 +460,34 @@ function buildIndexPage(picks, flags) {
         <td data-label="Match"><strong>${esc(m.team0.name)}</strong> vs <strong>${esc(m.team1.name)}</strong><br><span class="mono">#${esc(m.id)} · ${esc(m.competition_name)}</span></td>
         <td data-label="This view">${m.pick ? `${esc(m.pick.team_name)} <b>${pct1(dp)}</b>` : m.settlement_pick ? `walkover → ${esc(m.settlement_pick.team_name)}` : "blank"} <span class="mono">(${esc(methodShort(m))})</span></td>
         <td data-label="Canonical">${cm.pick ? `${esc(cm.pick.team)} <b>${pct1(cp)}</b>` : "no pick"} <span class="mono">(${esc(cm.method ?? "?")}${cm.confidence ? " · " + esc(cm.confidence) : ""})</span></td>
-        <td data-label="Gap" class="num">${cmp.delta == null ? "—" : `${cmp.delta > 0 ? "+" : "−"}${Math.abs(cmp.delta * 100).toFixed(1)} pp`}${cmp.oppositePick ? ' <span class="canon-diverge">OPPOSITE</span>' : ""}</td>
+        <td data-label="Gap" class="num">${cmp.delta == null ? "—" : `${cmp.delta > 0 ? "+" : "−"}${Math.abs(cmp.delta * 100).toFixed(1)} pp`}${cmp.oppositePick ? ' <span class="canon-diverge">OPPOSITE</span>' : ""}${inPlayIds.has(String(m.id)) ? ' <span class="canon-diverge" title="the canonical venue quotes for this row were observed after the listed kick-off">IN-PLAY QUOTES</span>' : ""}</td>
         <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="${CANON_CARDS}#match-${esc(m.id)}">Canonical card ↗</a><a class="src-link" href="table.html#row-${esc(m.id)}">This view ↗</a><a class="src-link" href="${esc(m.hotspawn_url)}" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
       </tr>`;
     })
     .join("\n");
 
-  const worstDetail = worst
-    ? `<p class="recon-note"><b>Worked example — the largest gap (#${esc(worst.m.id)}, ${esc(worst.m.competition_name)}, ${esc(worst.m.team0.name)} vs ${esc(worst.m.team1.name)}):</b>
-       this view rates ${esc(worst.m.team0.name)} ${worst.m.model ? worst.m.model.elo0.toFixed(0) : "—"} (${worst.m.model?.n0 ?? "—"} series) vs ${esc(worst.m.team1.name)} ${worst.m.model ? worst.m.model.elo1.toFixed(0) : "—"} (${worst.m.model?.n1 ?? "—"} series)${worst.m.model?.eff_elo0 != null ? `, shrunk to effective ${worst.m.model.eff_elo0.toFixed(0)} / ${worst.m.model.eff_elo1.toFixed(0)}` : ""} → <b>${pct1(worst.m.p0)}</b> / ${pct1(1 - worst.m.p0)}.
-       The canonical dashboard rates the same pair ${worst.cmp.cm.team0?.elo?.toFixed?.(0) ?? "—"} (${worst.cmp.cm.team0?.rating_matches ?? "—"} rated series) vs ${worst.cmp.cm.team1?.elo?.toFixed?.(0) ?? "—"} (${worst.cmp.cm.team1?.rating_matches ?? "—"} rated series) → <b>${pct1(worst.cmp.cm.p0)}</b> / ${pct1(worst.cmp.cm.p1)}${worst.cmp.cm.basis ? ` (<i>${esc(worst.cmp.cm.basis)}</i>)` : ""}.
-       Same fixture, same kick-off, two independently fitted pre-kickoff Elo pools — the gap is a modelling difference, not a data error, and it is published rather than averaged away.</p>`
-    : "";
+  const worstDetail = (() => {
+    if (!worst) return "";
+    const m = worst.m, cm = worst.cmp.cm;
+    const ct = canonQuoteTimes(cm), dt = docsQuoteTimes(m);
+    const ko = kickoffMs(m, cm);
+    const canonLate = ct.length > 0 && Number.isFinite(ko) && Math.max(...ct) > ko;
+    const docsLate = dt.length > 0 && Number.isFinite(ko) && Math.max(...dt) > ko;
+    const docsSide = isDocsMarket(m)
+      ? `this view prices it from a <b>${m.market_consensus?.venue_count ?? 0}-venue de-vigged market consensus</b> (${esc((m.market_consensus?.venues ?? []).map((v) => `${v.venue_label} ${(v.p0 * 100).toFixed(1)}% for ${m.team0.name}`).join("; "))}) captured in this snapshot${dt.length ? ` at ${esc(hhmm(Math.max(...dt)))} UTC` : ""}`
+      : `this view prices it from its own <b>pre-kickoff ratings</b> — ${esc(m.team0.name)} ${m.model ? m.model.elo0.toFixed(0) : "—"} (${m.model?.n0 ?? "—"} series) vs ${esc(m.team1.name)} ${m.model ? m.model.elo1.toFixed(0) : "—"} (${m.model?.n1 ?? "—"} series)${m.model?.eff_elo0 != null ? `, shrunk to effective ${m.model.eff_elo0.toFixed(0)} / ${m.model.eff_elo1.toFixed(0)}` : ""}`;
+    const canonSide = isCanonMarket(cm)
+      ? `the canonical dashboard prices it from a <b>market consensus</b>${cm.basis ? ` (<i>${esc(cm.basis)}</i>)` : ""}${ct.length ? ` whose quotes were observed ${esc(hhmm(Math.min(...ct)))}–${esc(hhmm(Math.max(...ct)))} UTC` : ""}`
+      : `the canonical dashboard prices it from its own <b>pre-kickoff Elo</b> — ${esc(m.team0.name)} ${cm.team0?.elo?.toFixed?.(0) ?? "—"} (${cm.team0?.rating_matches ?? "—"} rated series) vs ${esc(m.team1.name)} ${cm.team1?.elo?.toFixed?.(0) ?? "—"} (${cm.team1?.rating_matches ?? "—"} rated series)${cm.basis ? ` (<i>${esc(cm.basis)}</i>)` : ""}`;
+    const cause = canonLate && isCanonMarket(cm)
+      ? `This gap is <b>not</b> two models disagreeing: the canonical quotes were observed <b>after</b> the listed kick-off ${esc(fmtUtc(m.start_iso))}${Number.isFinite(Number(m.lock_time)) ? ` and after Hotspawn locked this card at ${esc(hhmm(Number(m.lock_time)))} UTC` : ""}, so they are in-play prices, while this view's quotes were captured ${docsLate ? "also after kick-off" : "<b>before</b> kick-off"}${dt.length ? ` (${esc(hhmm(Math.max(...dt)))} UTC)` : ""}. A post-lock price cannot be acted on — the pick had to be submitted before the lock. Both views name the same two teams in the same order, so this is a capture-time difference, not an inverted market, and neither side is "wrong": they answer different questions (probability at pick time vs price while the series is running).`
+      : (isDocsMarket(m) || isCanonMarket(cm))
+        ? `One side is priced from real-money venues and the other from ratings, at two different snapshot times (this view ${esc(fmtUtc(RAW_FETCHED_AT ?? s.raw_hotspawn_fetched_at))} vs canonical inventory ${esc(CANON.inventory_fetched_utc ?? "unknown")}), so the gap mixes a market read with a model read rather than comparing like with like.`
+        : `Same fixture, same kick-off, two independently fitted pre-kickoff rating pools over different series sets and different thin-history shrinkage — a modelling difference, not a data error.`;
+    return `<p class="recon-note"><b>Worked example — the largest gap (#${esc(m.id)}, ${esc(m.competition_name)}, ${esc(m.team0.name)} vs ${esc(m.team1.name)}):</b>
+       ${docsSide} → <b>${pp(m.p0)}</b> / ${pp(m.p1)}; ${canonSide} → <b>${pp(cm.p0)}</b> / ${pp(cm.p1)}.
+       ${cause} The gap is published rather than averaged away; where the two differ, <b>submit the canonical pick</b>${canonLate ? " — and check whether its quotes predate the lock before quoting its probability as a pre-match number" : ""}.</p>`;
+  })();
 
   const reconcileHtml = CANON_OK ? `
     <div class="sec-head">
@@ -474,6 +513,7 @@ function buildIndexPage(picks, flags) {
             ${reconRow("Unresolved", `<b>${CANON.counts?.unresolved ?? 0}</b> — settlement-only cards (official forfeit), no probability invented · <a href="${CANON_UNRESOLVED}">ledger ↗</a>`, `<b>${c.scheduled_unresolved}</b> scheduled rows without a sporting pick (${c.scheduled_walkover_settlement} of them walkover settlements) · <a href="unresolved.html">ledger</a>`)}
             ${reconRow("Results grading", `<a href="${CANON_RESULTS}">canonical scoreboard ↗</a> — ${track?.graded ? `${track.hits}/${track.graded} graded picks correct (${(track.accuracy * 100).toFixed(1)}%, Brier ${track.brier}) from ${esc(track.result_source ?? "the official series record")}` : "no graded picks yet"}`, `<a href="results.html">this view's scoreboard</a> — pre-lock ledger graded against the official Hotspawn score; a forfeit with no recorded score is VOID, never 0–0`)}
             ${reconRow("Series format", `not rendered — Hotspawn publishes no <code>best_of</code> for these fixtures`, `<b>${noFormat.length}</b> of ${scheduled.length} scheduled rows have no published format; rendered as <span class="mono">Bo —</span> and the model treats an unknown format as a single-map series`)}
+            ${reconRow("Quotes after kick-off", inPlayCanon.length ? `<b>${inPlayCanon.length}</b> market ${inPlayCanon.length === 1 ? "row carries" : "rows carry"} venue quotes observed <i>after</i> their listed kick-off (latest ${esc(hhmm(Math.max(...inPlayCanon.flatMap(({ cmp }) => canonQuoteTimes(cmp.cm)))))} UTC) — an in-play price, not a pick-time probability, because Hotspawn locks each card before start. Flagged here and logged as a cross-scope request; the canonical pipeline is not edited from this session.` : "none — every venue quote predates its listed kick-off", inPlayDocs.length ? `<b>${inPlayDocs.length}</b> ${inPlayDocs.length === 1 ? "row carries" : "rows carry"} venue quotes observed after their listed kick-off; this snapshot was captured at ${esc(fmtUtc(RAW_FETCHED_AT ?? s.raw_hotspawn_fetched_at))}` : `none — every venue quote in this snapshot predates its listed kick-off (captured ${esc(fmtUtc(RAW_FETCHED_AT ?? s.raw_hotspawn_fetched_at))})`)}
             ${reconRow("Use it for", "the pick to submit and the probability to quote", "auditing the canonical line, grading it against official results, calibration and run history")}
           </tbody>
         </table>

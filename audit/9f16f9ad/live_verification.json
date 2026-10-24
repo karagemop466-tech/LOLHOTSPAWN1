@@ -1,6 +1,6 @@
 {
   "session": "9f16f9ad",
-  "generated_utc": "2026-10-24T17:46:28Z",
+  "generated_utc": "2026-10-24T18:01:59Z",
   "method": "Independent live re-reads with the agent's own web tooling (the sandbox shell has no egress to these hosts) plus arithmetic re-derivation from the committed snapshots. Every value below is what the source returned; nothing is inferred.",
   "checks": [
     {
@@ -106,6 +106,48 @@
       },
       "verdict": "PUBLISHED as an audit finding on docs/index.html#reconcile and marked on every affected row",
       "severity": "medium"
+    },
+    {
+      "id": "E-inplay-market-quotes-1067688",
+      "claim_under_test": "Whether the largest cross-view divergence (#1067688, 28.0 pp, opposite picks) is an inverted market mapping or something else",
+      "sources": [
+        "https://gamma-api.polymarket.com/events?slug=lol-tes-al-2026-10-24",
+        "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
+        "data/matches.json (inventory 2026-10-24T17:12:56Z / 17:32:27Z refresh)",
+        "data/node/picks.json (16:49:45Z)"
+      ],
+      "observed": {
+        "polymarket_gamma_live_read": "event lol-tes-al-2026-10-24, market 6102531: outcomes [\"Top Esports\", \"Anyone's Legend\"], outcomePrices [\"0.9995\", \"0.0005\"], gameStartTime 2026-10-24 17:05:00+00, updatedAt 2026-10-24T17:54:38Z, active true / closed false, liquidity 1.84M USD, volume 2.30M USD, resolution source gol.gg",
+        "side_order": "Polymarket's first outcome is Top Esports = canonical team0 = this view's team0, so NO inversion exists on either side",
+        "canonical_quotes_1732Z": "Polymarket 62.5c/37.5c at 17:31:53Z, Kalshi 62c/38c at 17:30:43Z, Unibet 1.38/2.85 at 17:30:04Z -> consensus p0 0.6344 (basis string matches exactly)",
+        "canonical_quotes_1714Z": "Pinnacle 2.55/1.54 at 17:12:58Z, Polymarket 41.5c/58.5c at 17:14:08Z, Kalshi 44c/56c at 17:12:58Z, Unibet 2.33/1.54 at 17:12:26Z -> consensus p0 0.4014",
+        "secondary_quotes_1649Z": "Pinnacle 2.51/1.556 (0.3753/0.6247), Unibet/Kambi 0.3173/0.6827, Polymarket 0.365/0.635, Kalshi 0.365/0.635, Bovada 0.3338/0.6662 -> consensus p0 0.354 (Anyone's Legend 64.6%), all fetched 16:49 UTC, i.e. pre-kickoff",
+        "hotspawn_clock": "scheduled_start_time 2026-10-24T17:00:00Z, lock_time 16:55:00Z (lock_offset_sec 300)"
+      },
+      "recomputed": {
+        "in_play_canonical_market_rows": 1,
+        "in_play_secondary_rows": 0,
+        "progression_home_side_pp": [
+          38.3,
+          37.7,
+          40.4,
+          62.5,
+          63.4,
+          99.95
+        ],
+        "progression_times_utc": [
+          "16:55:12",
+          "17:12:58",
+          "~17:22 (this session's live Pinnacle re-read)",
+          "17:31:53",
+          "17:32:27 refresh",
+          "17:54:38 (this session's live Polymarket re-read)"
+        ]
+      },
+      "verdict": "RESOLVED as a capture-time difference, not a data error and not an inverted market: the fixture actually started at 17:05Z (Polymarket gameStartTime), so the canonical pipeline's 17:30-17:32Z quotes are IN-PLAY prices while this view's 16:49Z quotes are pre-lock pick-time prices. The live Polymarket read at 17:54Z shows 0.9995 for Top Esports, i.e. the series had effectively decided in Top Esports' favour by then, which is consistent with the 40% -> 63% -> 100% progression. Action taken in scope: docs/index.html now computes post-kickoff quote capture on both sides (reconciliation row 'Quotes after kick-off'), tags affected ledger rows IN-PLAY QUOTES, and the worked example explains capture time instead of asserting a modelling difference.",
+      "irregularity_logged_for_canonical_owner": "data/matches.json row #1067688 publishes method=market, confidence=high, p0=0.6344 from quotes observed 17:30:04Z-17:31:53Z, i.e. AFTER Hotspawn's 16:55Z lock and after the 17:00Z listed kick-off. Its existing flags ('start time has passed but Hotspawn still lists the fixture as scheduled', 'market and model disagree by 23 pp') disclose the situation partially, but the published probability is an in-play price presented as a pick probability. Requested (not edited here): treat quotes with observed_utc > start_utc as in-play - either keep the last pre-lock quote as the published pick probability or label the row in-play so a reader cannot quote 63.4% as a pre-match number. tools/verify.py gates look-ahead for ratings but has no equivalent gate for market quote capture time.",
+      "format_lead_not_asserted": "Polymarket's own title for this event reads 'LoL: Top Esports vs Anyone's Legend (BO1) - Worlds Group Stage'. A bookmaker's title is not an official format record and is NOT used to fill best_of anywhere, but it shows a machine-readable third-party format label exists for some fixtures and could be joined later with a provenance column. Hotspawn still publishes best_of: null for this card.",
+      "severity": "high"
     }
   ],
   "integration_requests": [
