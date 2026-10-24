@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-24T16:26:09Z",
- "count": 30,
+ "generated_utc": "2026-10-24T16:28:58Z",
+ "count": 31,
  "flags": [
   {
    "severity": "high",
@@ -134,8 +134,8 @@
   },
   {
    "severity": "low",
-   "item": "4 betting/odds sources were unreachable from the build runner",
-   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 404 (unavailable)",
+   "item": "6 betting/odds sources were unreachable from the build runner",
+   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 404 (unavailable); Thunderpick HTTP 403 (blocked by bot protection); Tips.GG HTTP 403 (blocked by bot protection)",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/sources_status.json"
   },
   {
@@ -209,6 +209,12 @@
    "item": "4 fixtures resolved only by official forfeit, not by a playing line",
    "detail": "#1071170 Solid Gaming vs VES Japan -> VES Japan (official forfeit; https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split); #1071200 Solid Gaming vs Playwell Rød Q -> Playwell Rød Q (official forfeit; https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split); #1071206 Volda E-Sport vs Solid Gaming -> Volda E-Sport (official forfeit; https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split); #1071186 Solid Gaming vs NTNUI Kometkameratene -> NTNUI Kometkameratene (official forfeit; https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split)",
    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+  },
+  {
+   "severity": "low",
+   "item": "16 corroboration receipt(s) refer to fixtures no longer on Hotspawn",
+   "detail": "Expected when Worlds BO1s roll off the scheduled feed. Receipts stay as audit evidence and are never used as prices. #1067878 bo3gg; #1067677 bo3gg; #1067680 bo3gg; #1067675 bo3gg; #1067676 bo3gg; #1067879 bo3gg; #1067678 bo3gg; #1067679 bo3gg",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/corroboration.json"
   }
  ]
 }

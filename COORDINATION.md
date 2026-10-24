@@ -15,7 +15,49 @@ before touching shared files, claim a task, and keep your scope disjoint.
 | Refresh | `.github/workflows/refresh.yml`, cron `17 */6 * * *` (every 6 h, inside the 4–8 h brief) |
 | Gate | `tools/verify.py` fails the build instead of publishing bad data |
 | Integration session | `b166e06b` |
-| Current session | `64554333` (branch `arena/64554333-lolhotspawn1`) |
+| Current session | `1a1a3b1b` (branch `arena/1a1a3b1b-lolhotspawn1`) |
+
+## Session `1a1a3b1b` — claim (opened 2026-10-24T16:15Z) — done 2026-10-24T16:27Z
+
+Handoff note: open PRs #22/#26/#35/#36/#40/#56 last committed 2026-10-23 ~15:44–16:26Z (>20 h, no subsequent commits). Per protocol a claim older than 60 minutes with no commits may be taken over. This session did **not** edit those PRs.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|-----------|
+| S1 | Unblock `refresh-picks` (4 consecutive scheduled failures since 2026-10-23T17:13Z). | done | 1a1a3b1b | `.github/workflows/refresh.yml`, `tools/verify.py`, `tools/collect.py` |
+| S2 | Live Hotspawn LoL inventory + external lines for **every** listed match. Extra esportsbook probes (not Rivalry). Originate remaining. Unresolved + limitations in the exec summary. | done | 1a1a3b1b | `tools/collect.py`, `tools/flags.py`, `tools/site.py`, `data/*`, root `*.html` |
+| S3 | Mobile-first exec summary; phone Picks tab = compact table. Fix leftover README merge markers. | done | 1a1a3b1b | `tools/site.py`, `assets/style.css`, `README.md` |
+| S4 | PR → `main`, merge, confirm Pages. | in progress | 1a1a3b1b | — |
+
+### What was broken
+
+`refresh-picks` runs 40026767003, 40063260000, 40088464687, 40109474033 all failed at "Run pipeline" after ~2 min. Last good snapshot: 2026-10-23T17:13Z. The live lobby had already rolled Worlds Swiss to 24 Oct cards (`#1067688` TES vs AL, …) while the site still showed 23 Oct (`#1067878` GEN vs IG).
+
+Cause: `tools/verify.py` treated corroboration receipts whose fixture_id had rolled off Hotspawn as `rejected`, and `not bad_receipts` was a publish blocker. A successful collect of the new 241-row feed therefore never committed. Confirmed on the rebuilt snapshot: **16 stale unmatched receipts, 0 malformed** — previously fatal, now flagged.
+
+### Live rebuild (runner collect 40111307318 + local model)
+
+| Item | Value | Source |
+|---|---|---|
+| Hotspawn inventory | 241 fixtures, 29 tournaments, fetched 2026-10-24T16:23:12Z | `data/raw/hotspawn_lol.json` · [lobby](https://play.hotspawn.com/lol-pickems) |
+| Picks | 241/241 (237 priced + 4 Solid Gaming forfeit settlements) | `data/matches.json` |
+| Market | 9 (8 Worlds 2026 Swiss + 1 LGC Rising) | Pinnacle 8, Unibet/Kambi ubse 8, Kalshi 9, Polymarket 45 match markets, Bovada 0 (geo-empty) |
+| Originated | 150 model + 78 provisional | Leaguepedia Cargo 34,664 series, 11 `dqteams` pages |
+| Unresolved | 4 Komplettligaen Solid Gaming walkovers, no invented probability | [Data:Komplettligaen/2026 Season/Autumn Split](https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split) |
+| New vs 23 Oct snapshot | +Logitech G SuperStrike Cup Qualifier (4), +Komplettligaen Autumn Playoffs (3), 4 Nations 1→5; PRM 2nd 40→36, RIVALS 28→25 | live API vs previous `matches.json` |
+| Extra book probes | Thunderpick 403, Tips.GG 403, Midnite 200 HTML, OddsPortal Worlds 200, Kambi leovegas/888sport 400, nordicbet 429, coolbet 0 new | `data/build-collect.log` |
+| OddsPortal LoL index 2026-10-24 | still **only** World Championship (11) — no national division coupon | [oddsportal LoL](https://www.oddsportal.com/esports/league-of-legends/) |
+| Gate | 41/41 PASS; 14/14 unit tests PASS | `data/verification.json` |
+| Corroboration | 15 usable agree / 0 diverge / 16 unmatched (non-blocking) | `data/corroboration.json` · receipts `data/receipts/external_odds/2026-10-24.json` |
+
+### Irregularities (non-blocking, on Flagged for review)
+
+- Extra Kambi operators (`leovegas`, `888sport`) return HTTP 400 "Unable to resolve customer"; `nordicbet` 429; `coolbet` 200 with 0 LoL events. Structural ceiling unchanged: reachable books still only price Worlds (+ LGC Rising on Polymarket).
+- Bovada coupon HTTP 200 with 0 moneylines from the runner (geo-filter); no <12h upcoming quotes remained to preserve.
+- Thunderpick / Tips.GG 403 from the runner; Midnite 200 HTML SPA, not parsed.
+- 78 provisional lines (thin history), including all 4 Logitech G SuperStrike Cup Qualifier cards.
+- 4 Solid Gaming cards remain settlement-only.
+
+Mobile: bottom bar **Picks** now opens `table.html` (one row per match). Exec summary tells a phone user to tap that tab. README merge markers removed.
 
 ## Session `64554333` — claim (opened 2026-10-23T15:40Z)
 

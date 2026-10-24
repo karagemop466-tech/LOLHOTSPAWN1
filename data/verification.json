@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:26:11Z",
+ "generated_utc": "2026-10-24T16:28:58Z",
  "checks": [
   {
    "name": "dataset present",
@@ -164,12 +164,12 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "1 usable receipts, 0 rejected, 0 diverging >8.0pp"
+   "detail": "15 usable receipts, 0 malformed, 0 stale unmatched (non-blocking), 0 diverging >8.0pp (flagged, non-blocking)"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 48656 bytes"
+   "detail": "coverage.html 61686 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -189,7 +189,7 @@
   {
    "name": "source availability recorded",
    "ok": true,
-   "detail": "10/14 sources reachable on this build"
+   "detail": "12/18 sources reachable on this build"
   },
   {
    "name": "every Hotspawn fixture is in the dataset (1:1 ids)",

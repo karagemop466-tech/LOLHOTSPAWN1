@@ -11,6 +11,7 @@ import os
 import re
 import sys
 from collections import Counter
+from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, iso, load_json, log, now_utc, save_json
@@ -312,6 +313,44 @@ def main() -> None:
                 f"#{r['id']} {r['team0']['name']} vs {r['team1']['name']} -> {r['resolution']['winner']} "
                 f"(official forfeit; {r['resolution']['source']})" for r in walkover),
             "source": walkover[0]["resolution"]["source"],
+        })
+
+    fetched = str(data.get("inventory_fetched_utc") or "")
+    try:
+        age_h = (now_utc() - datetime.strptime(fetched[:19], "%Y-%m-%dT%H:%M:%S").replace(
+            tzinfo=timezone.utc)).total_seconds() / 3600
+    except ValueError:
+        age_h = None
+    if age_h is not None and age_h > 8:
+        flags.append({
+            "severity": "high",
+            "item": f"Hotspawn inventory snapshot is {age_h:.0f}h old (refresh window is 4–8h)",
+            "detail": (f"Collected {fetched}. Scheduled refresh-picks runs after this timestamp did not "
+                       "publish a new snapshot. Treat kick-off times and market lines as unverified until "
+                       "the next successful collect. Live lobby: " + HOTSPAWN),
+            "source": HOTSPAWN,
+        })
+
+    corr = load_json(os.path.join(DATA, "corroboration.json")) or {}
+    unmatched = [r for r in (corr.get("rejected") or []) if r.get("status") == "unmatched"]
+    if unmatched:
+        flags.append({
+            "severity": "low",
+            "item": f"{len(unmatched)} corroboration receipt(s) refer to fixtures no longer on Hotspawn",
+            "detail": ("Expected when Worlds BO1s roll off the scheduled feed. Receipts stay as audit "
+                       "evidence and are never used as prices. "
+                       + "; ".join(f"#{r.get('fixture_id')} {r.get('source')}" for r in unmatched[:8])),
+            "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/corroboration.json",
+        })
+    diverged = [r for r in (corr.get("rows") or []) if r.get("verdict") == "diverges"]
+    if diverged:
+        flags.append({
+            "severity": "medium",
+            "item": f"{len(diverged)} external corroboration receipt(s) diverge from the published line",
+            "detail": ("Corroboration only — the published pick is unchanged. "
+                       + "; ".join(f"#{r.get('fixture_id')} {r.get('source_name')} {r.get('delta_pp')}pp"
+                                   for r in diverged[:8])),
+            "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/corroboration.json",
         })
 
     save_json(os.path.join(DATA, "flags.json"), {

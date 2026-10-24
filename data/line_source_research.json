@@ -89,6 +89,24 @@
    "result": "HTTP 200; each prices only the tier-1 series it lists (Worlds, LCP Promotion, LGC Rising).",
    "verdict": "used where they price; no regional coverage",
    "evidence": "data/sources_status.json"
+  },
+  {
+   "name": "OddsPortal LoL index (re-read 2026-10-24)",
+   "url": "https://www.oddsportal.com/esports/league-of-legends/",
+   "purpose": "confirm whether any national/academy LoL coupon appeared after Worlds Swiss day 2",
+   "result": "HTTP 200. The LoL index still lists exactly one competition: 'League of Legends World Championship (11)'. No PRM, RIVALS, Tunisian Super League, Arabian League, Komplettligaen or other Hotspawn national division is present.",
+   "verdict": "coverage evidence only — structural ceiling unchanged; regional matches stay on originated Elo",
+   "evidence": "fetched 2026-10-24T16:16Z from oddsportal.com/esports/league-of-legends/",
+   "observed_utc": "2026-10-24T16:16:00Z"
+  },
+  {
+   "name": "Unibet/Kambi ubse LoL JSON (re-read 2026-10-24)",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+   "purpose": "live regulated sportsbook moneylines for matches Hotspawn lists",
+   "result": "HTTP 200 JSON. Open Match Odds for Worlds 2026 Swiss only (TOP Esports vs Anyone's Legend, CTBC Flying Oyster vs Movistar KOI, G2 Esports vs LØS, Lyon Gaming vs Karmine Corp, Invictus Gaming vs Team Secret Whales, plus later Swiss ties). No national-division events in the feed.",
+   "verdict": "used as the Unibet venue in the market consensus where team names join a Hotspawn fixture; no regional coverage",
+   "evidence": "live Kambi ubse JSON 2026-10-24T16:16Z",
+   "observed_utc": "2026-10-24T16:16:00Z"
   }
  ]
 }
