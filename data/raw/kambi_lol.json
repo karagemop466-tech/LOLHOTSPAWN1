@@ -1,12 +1,17 @@
 {
- "fetched_utc": "2026-10-24T16:19:38Z",
+ "fetched_utc": "2026-10-24T16:32:09Z",
  "source_url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
  "status": 200,
  "error": "",
+ "operators_ok": [
+  "ubse",
+  "coolbet+0"
+ ],
  "event_count": 8,
  "events": [
   {
    "event_id": 1029609648,
+   "operator": "ubse",
    "name": "TOP Esports - Anyone's Legend",
    "group": "World Championship",
    "start_utc": "2026-10-24T17:10:00Z",
@@ -27,26 +32,28 @@
   },
   {
    "event_id": 1029609639,
+   "operator": "ubse",
    "name": "CTBC Flying Oyster - Movistar KOI",
    "group": "World Championship",
    "start_utc": "2026-10-24T18:10:00Z",
-   "changed_utc": "2026-10-24T14:31:38Z",
+   "changed_utc": "2026-10-24T16:25:40Z",
    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609639.json?lang=en_GB&market=ZZ",
    "outcomes": [
     {
      "name": "CTBC Flying Oyster",
-     "decimal": 2.75,
-     "american": "175"
+     "decimal": 2.95,
+     "american": "195"
     },
     {
      "name": "Movistar KOI",
-     "decimal": 1.4,
-     "american": "-250"
+     "decimal": 1.36,
+     "american": "-278"
     }
    ]
   },
   {
    "event_id": 1029609646,
+   "operator": "ubse",
    "name": "G2 Esports - LØS",
    "group": "World Championship",
    "start_utc": "2026-10-24T19:10:00Z",
@@ -67,6 +74,7 @@
   },
   {
    "event_id": 1029609641,
+   "operator": "ubse",
    "name": "Lyon Gaming - Karmine Corp",
    "group": "World Championship",
    "start_utc": "2026-10-24T20:10:00Z",
@@ -87,6 +95,7 @@
   },
   {
    "event_id": 1029609647,
+   "operator": "ubse",
    "name": "Invictus Gaming - Team Secret Whales",
    "group": "World Championship",
    "start_utc": "2026-10-24T21:10:00Z",
@@ -107,6 +116,7 @@
   },
   {
    "event_id": 1029609640,
+   "operator": "ubse",
    "name": "Hanwha Life Esports - Gen.G Esports",
    "group": "World Championship",
    "start_utc": "2026-10-24T22:00:00Z",
@@ -127,6 +137,7 @@
   },
   {
    "event_id": 1029609638,
+   "operator": "ubse",
    "name": "Dplus KIA - T1",
    "group": "World Championship",
    "start_utc": "2026-10-24T23:00:00Z",
@@ -147,6 +158,7 @@
   },
   {
    "event_id": 1029609649,
+   "operator": "ubse",
    "name": "Team Liquid - Bilibili Gaming",
    "group": "World Championship",
    "start_utc": "2026-10-25T00:00:00Z",

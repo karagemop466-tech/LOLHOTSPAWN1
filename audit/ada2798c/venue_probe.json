@@ -1,0 +1,470 @@
+{
+ "checked_utc": "2026-10-24T16:25:26Z",
+ "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36",
+ "rows": [
+  {
+   "name": "Pinnacle (guest API, in use)",
+   "kind": "sharp book",
+   "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
+   "http_status": 200,
+   "content_type": "application/json",
+   "bytes": 676559,
+   "seconds": 0.07,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 1509,
+    "mentions_team_pair": true
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Pinnacle league list",
+   "kind": "sharp book",
+   "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
+   "http_status": 200,
+   "content_type": "application/json",
+   "bytes": 5582,
+   "seconds": 0.03,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 26,
+    "mentions_team_pair": true
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Kalshi KXLOLGAME (in use)",
+   "kind": "CFTC exchange",
+   "url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100",
+   "http_status": 200,
+   "content_type": "application/json",
+   "bytes": 51806,
+   "seconds": 0.05,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Bovada (in use)",
+   "kind": "esportsbook",
+   "url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en",
+   "http_status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 2,
+   "seconds": 0.6,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Unibet/Kambi ubse (in use)",
+   "kind": "regulated book",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+   "http_status": 200,
+   "content_type": "application/json",
+   "bytes": 14032,
+   "seconds": 0.24,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 8,
+    "mentions_team_pair": true
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Polymarket (in use)",
+   "kind": "prediction market",
+   "url": "https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends",
+   "http_status": 200,
+   "content_type": "application/json",
+   "bytes": 81293,
+   "seconds": 0.32,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 61,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Kambi ubus",
+   "kind": "regulated book",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubus/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+   "http_status": 400,
+   "content_type": "application/json",
+   "bytes": 87,
+   "seconds": 0.18,
+   "verdict": "http 400",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Kambi ubpl",
+   "kind": "regulated book",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubpl/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+   "http_status": 400,
+   "content_type": "application/json",
+   "bytes": 87,
+   "seconds": 0.18,
+   "verdict": "http 400",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Kambi ubde",
+   "kind": "regulated book",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubde/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+   "http_status": 400,
+   "content_type": "application/json",
+   "bytes": 87,
+   "seconds": 0.19,
+   "verdict": "http 400",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Kambi paf",
+   "kind": "regulated book",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/paf/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+   "http_status": 200,
+   "content_type": "application/json",
+   "bytes": 14032,
+   "seconds": 0.14,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 8,
+    "mentions_team_pair": true
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Kambi coolbet",
+   "kind": "regulated book",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/coolbet/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+   "http_status": 200,
+   "content_type": "application/json",
+   "bytes": 633,
+   "seconds": 0.18,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Rivalry games",
+   "kind": "esportsbook",
+   "url": "https://api.rivalry.com/api/v1/games",
+   "http_status": 403,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5852,
+   "seconds": 0.07,
+   "verdict": "blocked",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>"
+  },
+  {
+   "name": "Rivalry LoL matches",
+   "kind": "esportsbook",
+   "url": "https://api.rivalry.com/api/v1/matches?game_id=24",
+   "http_status": 502,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 884,
+   "seconds": 0.15,
+   "verdict": "http 502",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "GG.BET LoL",
+   "kind": "established book",
+   "url": "https://gg.bet/en/esports/league-of-legends",
+   "http_status": 403,
+   "content_type": "text/plain",
+   "bytes": 126,
+   "seconds": 0.1,
+   "verdict": "blocked",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "This internet site is not accepting visitors from your region. If you have any questions please address them to support@gg.bet"
+  },
+  {
+   "name": "Thunderpick esports",
+   "kind": "esportsbook",
+   "url": "https://thunderpick.io/api/v1/sports/esports/matches",
+   "http_status": 403,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5801,
+   "seconds": 0.19,
+   "verdict": "blocked",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content"
+  },
+  {
+   "name": "Midnite esports",
+   "kind": "esportsbook",
+   "url": "https://www.midnite.com/api/events?sport=league-of-legends",
+   "http_status": 200,
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 33885,
+   "seconds": 0.16,
+   "verdict": "reachable but not JSON",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "<!DOCTYPE html><html><head><meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no\" />\n<base href=\"/\" />\n<title>"
+  },
+  {
+   "name": "Betway esports",
+   "kind": "established book",
+   "url": "https://www.betway.com/sports/esports/league-of-legends",
+   "http_status": 404,
+   "content_type": "text/plain",
+   "bytes": 9,
+   "seconds": 0.26,
+   "verdict": "unavailable",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "Not found"
+  },
+  {
+   "name": "1xBet LoL",
+   "kind": "established book",
+   "url": "https://1xbet.com/Line/Esports/League-of-Legends",
+   "http_status": 203,
+   "content_type": "text/html;charset=utf-8",
+   "bytes": 2637,
+   "seconds": 0.34,
+   "verdict": "http 203",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "<!DOCTYPE html><html  data-capo=\"\"><head><meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<link rel=\"stylesheet\" href"
+  },
+  {
+   "name": "Betano esports tree",
+   "kind": "established book",
+   "url": "https://www.betano.com/api/sporttree/esports",
+   "http_status": 403,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 1657,
+   "seconds": 0.08,
+   "verdict": "blocked",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Betano Splash Screen</title"
+  },
+  {
+   "name": "bo3.gg matches API",
+   "kind": "aggregator",
+   "url": "https://api.bo3.gg/api/v1/matches?page[limit]=5",
+   "http_status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 4695,
+   "seconds": 0.4,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 24,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "EGamersWorld LoL",
+   "kind": "aggregator",
+   "url": "https://egamersworld.com/lol/matches",
+   "http_status": 403,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5749,
+   "seconds": 0.08,
+   "verdict": "blocked",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content"
+  },
+  {
+   "name": "OddsPortal LoL",
+   "kind": "aggregator",
+   "url": "https://www.oddsportal.com/esports/league-of-legends/",
+   "http_status": 200,
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 335416,
+   "seconds": 1.28,
+   "verdict": "reachable but not JSON",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "<!DOCTYPE html><html lang=\"en\" class=\"opensans_aaadb7a3-module__b9fGUa__variable montserrat_5d237d23-module__hkFSxG__variable\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" co"
+  },
+  {
+   "name": "Oddspedia LoL",
+   "kind": "aggregator",
+   "url": "https://oddspedia.com/esports/league-of-legends",
+   "http_status": 403,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5788,
+   "seconds": 0.06,
+   "verdict": "blocked",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content"
+  },
+  {
+   "name": "Sofascore LoL",
+   "kind": "aggregator",
+   "url": "https://api.sofascore.com/api/v1/sport/esports/scheduled-events/2026-10-25",
+   "http_status": 403,
+   "content_type": "application/json",
+   "bytes": 48,
+   "seconds": 0.03,
+   "verdict": "blocked",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "escorenews LoL",
+   "kind": "aggregator",
+   "url": "https://escorenews.com/en/league-of-legends",
+   "http_status": 403,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5739,
+   "seconds": 0.07,
+   "verdict": "blocked",
+   "signal": {
+    "json": false,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content"
+  },
+  {
+   "name": "Leaguepedia Cargo",
+   "kind": "community wiki",
+   "url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId&limit=1&format=json",
+   "http_status": 200,
+   "content_type": "application/json",
+   "bytes": 75,
+   "seconds": 0.43,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "Leaguepedia scoreboard players",
+   "kind": "community wiki",
+   "url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=ScoreboardPlayers&fields=ScoreboardPlayers.Name&limit=1&format=json",
+   "http_status": 200,
+   "content_type": "application/json",
+   "bytes": 42,
+   "seconds": 0.11,
+   "verdict": "reachable JSON paying load",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "LoL Esports (Riot) schedule",
+   "kind": "official",
+   "url": "https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=en-US",
+   "http_status": 403,
+   "content_type": "application/json",
+   "bytes": 23,
+   "seconds": 0.24,
+   "verdict": "blocked",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  },
+  {
+   "name": "LoL Esports (Riot) leagues",
+   "kind": "official",
+   "url": "https://esports-api.lolesports.com/persisted/gw/getLeagues?hl=en-US",
+   "http_status": 403,
+   "content_type": "application/json",
+   "bytes": 23,
+   "seconds": 0.09,
+   "verdict": "blocked",
+   "signal": {
+    "json": true,
+    "decimal_like_values": 0,
+    "mentions_team_pair": false
+   },
+   "excerpt": ""
+  }
+ ]
+}

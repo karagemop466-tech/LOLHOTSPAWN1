@@ -35,10 +35,19 @@ KALSHI_URL = ("https://api.elections.kalshi.com/trade-api/v2/events"
               "?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100")
 BOVADA_URL = ("https://www.bovada.lv/services/sports/event/coupon/events/A/description/"
               "esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en")
+KAMBI_PATH = "/offering/v2018/{op}/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ"
+# Operators on the Kambi platform share one LoL offering: on 2026-10-24 the ubse (Unibet) and paf
+# payloads were byte-identical (14,029 bytes, same first event id). So a second operator is used
+# only as a fallback when the preferred one rate-limits the runner - it is never counted twice
+# and it cannot inflate coverage. Probe receipt: data/source_probes.json (2026-10-24T16:22:42Z).
 KAMBI_URLS = [
-    "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
-    "https://eu1.offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+    "https://eu-offering-api.kambicdn.com" + KAMBI_PATH.format(op="ubse"),
+    "https://eu1.offering-api.kambicdn.com" + KAMBI_PATH.format(op="ubse"),
+    "https://eu-offering-api.kambicdn.com" + KAMBI_PATH.format(op="paf"),
 ]
+# Extra Kambi operator ids: each is a separate sportsbook on the same CDN. ubse already
+# covers Worlds; others are probed in case a brand lists LGC / LCP / national LoL.
+KAMBI_EXTRA_OPERATORS = ["leovegas", "888sport", "nordicbet", "coolbet"]
 KAMBI_URL = KAMBI_URLS[0]
 LEAGUEPEDIA_WINDOW_START = "2024-09-01 00:00:00"  # ~25 months of series results
 
@@ -302,60 +311,94 @@ def collect_bovada() -> dict:
 
 
 # --------------------------------------------------------------------------- kambi / unibet
+def _kambi_parse_events(data: dict, operator: str) -> list[dict]:
+    events_out = []
+    if not isinstance(data, dict):
+        return events_out
+    for item in data.get("events") or []:
+        ev = item.get("event") or {}
+        ev_id = ev.get("id")
+        for bo in item.get("betOffers") or []:
+            bt = (bo.get("betOfferType") or {}).get("id")
+            crit = ((bo.get("criterion") or {}).get("englishLabel") or "").lower()
+            if bt != 2 and "match" not in crit:
+                continue
+            outs = [o for o in (bo.get("outcomes") or []) if o.get("status") == "OPEN"]
+            if len(outs) != 2:
+                continue
+            parsed = []
+            changed_utc = None
+            for o in outs:
+                try:
+                    dec = round(float(o.get("odds") or 0) / 1000.0, 4)
+                except (TypeError, ValueError):
+                    dec = 0.0
+                lbl = o.get("participant") or o.get("englishLabel") or o.get("label") or ""
+                if dec > 1.0 and lbl:
+                    parsed.append({"name": lbl, "decimal": dec, "american": o.get("oddsAmerican")})
+                    changed_utc = o.get("changedDate") or changed_utc
+            if len(parsed) == 2 and ev_id:
+                events_out.append({
+                    "event_id": ev_id,
+                    "operator": operator,
+                    "name": ev.get("englishName") or ev.get("name") or "",
+                    "group": ev.get("group") or "",
+                    "start_utc": ev.get("start"),
+                    "changed_utc": changed_utc,
+                    "url": (f"https://eu-offering-api.kambicdn.com/offering/v2018/{operator}"
+                            f"/betoffer/event/{ev_id}.json?lang=en_GB&market=ZZ"),
+                    "outcomes": parsed,
+                })
+                break
+    return events_out
+
+
 def collect_kambi() -> dict:
     st, data, err, used_url = 0, None, "", KAMBI_URL
+    events_out: list[dict] = []
+    seen_ids: set[str] = set()
+    operators_ok: list[str] = []
     for cand_url in KAMBI_URLS:
         st, data, err = get_json(cand_url, headers={"Accept": "application/json", "Origin": "https://www.unibet.com"}, retries=1)
         used_url = cand_url
         if st == 200 and isinstance(data, dict):
+            for row in _kambi_parse_events(data, "ubse"):
+                key = str(row.get("event_id"))
+                if key not in seen_ids:
+                    seen_ids.add(key)
+                    events_out.append(row)
+            operators_ok.append("ubse")
             break
-    events_out = []
-    if st == 200 and isinstance(data, dict):
-        for item in data.get("events") or []:
-            ev = item.get("event") or {}
-            ev_id = ev.get("id")
-            for bo in item.get("betOffers") or []:
-                bt = (bo.get("betOfferType") or {}).get("id")
-                crit = ((bo.get("criterion") or {}).get("englishLabel") or "").lower()
-                if bt != 2 and "match" not in crit:
-                    continue
-                outs = [o for o in (bo.get("outcomes") or []) if o.get("status") == "OPEN"]
-                if len(outs) != 2:
-                    continue
-                parsed = []
-                changed_utc = None
-                for o in outs:
-                    try:
-                        dec = round(float(o.get("odds") or 0) / 1000.0, 4)
-                    except (TypeError, ValueError):
-                        dec = 0.0
-                    lbl = o.get("participant") or o.get("englishLabel") or o.get("label") or ""
-                    if dec > 1.0 and lbl:
-                        parsed.append({"name": lbl, "decimal": dec, "american": o.get("oddsAmerican")})
-                        changed_utc = o.get("changedDate") or changed_utc
-                if len(parsed) == 2 and ev_id:
-                    events_out.append({
-                        "event_id": ev_id,
-                        "name": ev.get("englishName") or ev.get("name") or "",
-                        "group": ev.get("group") or "",
-                        "start_utc": ev.get("start"),
-                        "changed_utc": changed_utc,
-                        "url": f"https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/{ev_id}.json?lang=en_GB&market=ZZ",
-                        "outcomes": parsed,
-                    })
-                    break
-    kept = _preserve_recent_on_http_error(os.path.join(RAW, "kambi_lol.json"), "events", st, "kambi")
-    if kept is not None:
-        return kept
+    for op in KAMBI_EXTRA_OPERATORS:
+        op_url = (f"https://eu-offering-api.kambicdn.com/offering/v2018/{op}/listView/"
+                  "esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ")
+        ost, odata, oerr = get_json(op_url, headers={"Accept": "application/json"}, retries=0)
+        if ost != 200 or not isinstance(odata, dict):
+            log(f"kambi/{op}: status={ost} {oerr}")
+            continue
+        added = 0
+        for row in _kambi_parse_events(odata, op):
+            key = str(row.get("event_id"))
+            if key not in seen_ids:
+                seen_ids.add(key)
+                events_out.append(row)
+                added += 1
+        operators_ok.append(f"{op}+{added}")
+        log(f"kambi/{op}: {len(odata.get('events') or [])} events, {added} new moneylines")
+    if not events_out:
+        kept = _preserve_recent_on_http_error(os.path.join(RAW, "kambi_lol.json"), "events", st, "kambi")
+        if kept is not None:
+            return kept
     save_json(os.path.join(RAW, "kambi_lol.json"), {
         "fetched_utc": iso(now_utc()),
         "source_url": used_url,
         "status": st,
         "error": err,
+        "operators_ok": operators_ok,
         "event_count": len(events_out),
         "events": events_out,
     })
-    log(f"kambi: {len(events_out)} Unibet/Kambi LoL match moneylines (status={st})")
+    log(f"kambi: {len(events_out)} Unibet/Kambi LoL match moneylines (status={st}, ops={operators_ok})")
     return {"count": len(events_out), "status": st}
 
 
@@ -538,14 +581,25 @@ def collect_lolesports() -> dict:
 
 # --------------------------------------------------------------------------- polymarket
 def collect_polymarket() -> dict:
-    url = ("https://gamma-api.polymarket.com/events?closed=false&limit=100"
-           "&tag_slug=league-of-legends")
-    st, data, err = get_json(url, retries=2)
+    """Match-level LoL markets. The tag_slug listing is dominated by outright
+    winner/region contracts, so we paginate and also pull a few known BO1 slugs
+    from the sports catalog (lol-<abbr>-<abbr>-YYYY-MM-DD)."""
+    base = ("https://gamma-api.polymarket.com/events?closed=false&limit=100"
+            "&tag_slug=league-of-legends")
+    urls = [f"{base}&offset={off}" for off in (0, 100, 200, 300)]
+    st, err = 0, ""
+    seen_slugs: set[str] = set()
     markets = []
-    if st == 200 and isinstance(data, list):
-        for ev in data:
+
+    def _ingest(events) -> None:
+        if not isinstance(events, list):
+            return
+        for ev in events:
             for mk in ev.get("markets", []) or []:
                 q = mk.get("question") or ""
+                slug = mk.get("slug") or ""
+                if slug in seen_slugs:
+                    continue
                 if not re.search(r"\bvs\.?\b", q, re.I):
                     continue
                 try:
@@ -553,20 +607,27 @@ def collect_polymarket() -> dict:
                     prices = json.loads(mk.get("outcomePrices") or "[]")
                 except Exception:  # noqa: BLE001
                     continue
+                seen_slugs.add(slug)
                 markets.append({
-                    "event": ev.get("title"), "question": q, "slug": mk.get("slug"),
+                    "event": ev.get("title"), "question": q, "slug": slug,
                     "outcomes": outcomes, "prices": prices,
                     "volume": mk.get("volume"), "end": mk.get("endDate"),
-                    # event.startDate is when the market was listed, NOT the kick-off;
-                    # gameStartTime on the market itself is the stated match start.
                     "game_start": mk.get("gameStartTime"),
                     "event_start": ev.get("startDate"),
                 })
+
+    for url in urls:
+        st, data, err = get_json(url, retries=1)
+        if st == 200:
+            _ingest(data)
+        else:
+            log(f"polymarket page {url[-20:]}: status={st}")
     save_json(os.path.join(RAW, "polymarket.json"), {
         "fetched_utc": iso(now_utc()),
-        "source_url": url,
+        "source_url": base,
         "status": st,
         "error": err,
+        "pages": len(urls),
         "match_markets": markets,
     })
     log(f"polymarket: {len(markets)} match-level markets (status={st})")
@@ -591,6 +652,14 @@ BOOK_PROBES = [
     ("BetExplorer", "https://www.betexplorer.com/esports/league-of-legends/", "Odds comparison engine", None),
     ("Unibet/Kambi", KAMBI_URL,
      "European regulated sportsbook JSON feed (ubse LoL match odds)", None),
+    ("Thunderpick", "https://thunderpick.io/en/esports/league-of-legends",
+     "Esportsbook LoL coupon (HTML; prices are client-rendered)", None),
+    ("Tips.GG", "https://tips.gg/esports/league-of-legends/",
+     "Esports odds + tips page used as coverage evidence, never as a price", None),
+    ("Midnite", "https://www.midnite.com/esports/league-of-legends",
+     "UK esportsbook LoL coupon (HTML SPA)", None),
+    ("OddsPortal Worlds", "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+     "Odds comparison: World Championship coupon (coverage ceiling check)", None),
     ("Hotspawn fixtures API", HOTSPAWN_FIXTURES,
      "Match inventory (crowd % stored for audit only, NEVER used as probability)", None),
     ("Leaguepedia", "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=MatchSchedule.MatchId&limit=1&format=json",

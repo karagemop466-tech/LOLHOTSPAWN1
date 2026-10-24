@@ -16,6 +16,7 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 | --- | --- |
 | `index.html` | Executive summary: *Starting soon* (next-48h picks, soonest first) at the top, headline counts, in-site links to every list, featured market picks, and a dedicated *Unresolved picks & limitations* section with the per-competition fallback ledger |
 | `table.html` | **All matches in one responsive table** — kick-off, match, both win probabilities, pick, method and source links (the page to bookmark on a phone) |
+| `results.html` | **Track record** — every started card graded hit/miss against the official series record, accuracy by method, forfeit settlements, and the started-but-ungraded list |
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
 | `featured.html` | Matches with a real bookmaker price, the raw odds and the de-vig arithmetic |
 | `originated.html` | Matches with no market price: our own line, the Elo inputs and the team records behind it |
@@ -39,9 +40,11 @@ tools/report.py    per-tournament and per-team summaries
       ↓
 tools/flags.py     derived irregularities + curated notes (data/flags_manual.json)
       ↓
-tools/site.py      13 static pages, mobile-first, no framework
+tools/site.py      14 static pages, mobile-first, no framework
       ↓
 tools/verify.py    publish-integrity gates (the count evolves as checks are added); a failure aborts the commit instead of publishing bad data
+
+tools/verify.py    42 assertions; a failure aborts the commit instead of publishing bad data
 ```
 
 A single canonical workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) attempts that
@@ -83,6 +86,45 @@ an official quote URL, every official-forfeit resolution names a winner and a so
 inventing a probability, `picks.csv` mirrors the dataset, all 13 pages exist, every internal link
 resolves, no `None`/empty value is rendered, every match appears on `picks.html` **and** in the table on
 `table.html`, the executive summary links to every view, and each source's availability is recorded.
+
+## Track record (graded picks)
+
+Every card whose start time has passed is graded against the official series record once one exists:
+the pick counts as a **hit** if the recorded winner is the published side, a **miss** otherwise. A pick
+is graded only when the record matches the fixture's team pair and kick-off (within 12 hours) and the
+recorded winner is consistent with the recorded score; anything less stays ungraded instead of being
+guessed. Forfeit settlements are reported as *settled* and are never counted as forecast wins.
+`data/matches.json` carries the per-row `result` / `grade` and a `track_record` summary; `results.html`
+renders it. `tests/test_grading.py` enforces the rules (no grade without a result, no hit that
+contradicts the winner, no settled pick with a probability, track record equal to the rows).
+
+## Reliability of the six-hourly refresh
+
+`refresh-picks` failed on three consecutive scheduled runs on 2026-10-24 and left the published data a
+day stale. The cause was a self-sustaining gate, not the sources: `tools/corroborate.py` counted every
+archived receipt whose fixture Hotspawn had delisted as "rejected", and once the 17 archived captures
+aged past the 24 h window the `external receipts validated against the dataset` gate failed. Because
+the failing build was the only thing that could refresh the receipts, the failure could never clear.
+
+- Receipts are now bucketed **usable / expired / historic / rejected**. Only malformed, wrong-team and
+  diverging receipts fail the gate; every capture is accounted for exactly once (42nd gate).
+- `refresh.yml` captures each stage separately, uploads the log as an artifact, and commits
+  `data/build_failure.log` when the gate fails, so the next failure is diagnosable from the repository.
+- `tests/test_corroborate.py` locks the classification in.
+
+## External line coverage (measured, not assumed)
+
+`data/source_probes.json` is a runner-executed probe of every candidate venue (44 on 2026-10-24T16:22Z),
+kept as evidence. The last run answered **HTTP 200** for Pinnacle, Kalshi, Bovada, Polymarket, Unibet
+(Kambi `ubse`), Pinnacle's LoL league list, Leaguepedia and Odds-API.io's sports index; **blocked**:
+GG.BET 403, Thunderpick 403, Stake 403, Rivalry API 403/530, Tips.GG 403, BetMGM 403, Betfair 403,
+Bet365 403, 1xBet 203, Betway 404, BetExplorer 404, Oddspedia 410, OddsPapi 401. Books that answer in
+HTML without a public price feed are recorded as such and are never parsed into a number.
+
+Two conclusions are published on the site rather than assumed: Kambi-powered operators share one LoL
+offering (the `ubse` and `paf` payloads were byte-identical, so `paf` is used only as a fallback and can
+never double-count), and every reachable venue quotes the same tier-1 slice of the calendar. Below that
+ceiling there is no external line to quote, which is exactly why the model originates one.
 
 ## Manual review links
 

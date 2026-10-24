@@ -13,22 +13,22 @@
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="dot"></span> Hotspawn LoL Pick Desk</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Toggle page menu">Menu</button>
-    <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="table.html">Table</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
+    <nav id="nav" class="nav"><a href="index.html" class="active">Summary</a><a href="picks.html">All picks</a><a href="table.html">Table</a><a href="results.html">Results</a><a href="featured.html">Market</a><a href="originated.html">Model</a><a href="coverage.html">Coverage</a><a href="unresolved.html">Unresolved</a><a href="competitions.html">Tournaments</a><a href="teams.html">Teams</a><a href="methodology.html">Method</a><a href="verification.html">Verify</a><a href="sources.html">Sources</a><a href="flagged.html">Flags</a></nav>
   </div>
 </header>
 <main id="main" class="wrap">
   <div class="pagehead">
     <h1>Hotspawn LoL Pick Desk</h1>
     <p class="sub">Independent win probabilities for every League of Legends match in the Hotspawn pick'em.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-24 16:21 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-24T16:19:35Z">Hotspawn inventory collected: 2026-10-24T16:19:35Z. Check source timestamps before use.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-24 16:34 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-24T16:32:05Z">Hotspawn inventory collected: 2026-10-24T16:32:05Z. Check source timestamps before use.</p>
   </div>
   
 <section class="hero" id="start">
   <h2>Every Hotspawn League of Legends match, with a pick you can find in one tap.</h2>
   <p>This dashboard rebuilds itself automatically every six hours across all 241 scheduled LoL matches on
   Hotspawn. 9 featured series are priced from de-vigged real-money quotes
-  (Kalshi, Pinnacle, Polymarket, Unibet); 228 regional and academy series are originated from recorded series history;
+  (Bovada, Kalshi, Pinnacle, Polymarket, Unibet); 228 regional and academy series are originated from recorded series history;
   4 unplayable cards are quarantined and, where the league itself has ruled a forfeit,
   resolved to the official winner instead of being left blank. Nothing on this site ever uses Hotspawn's
   crowd-pick percentages.</p>
@@ -39,6 +39,53 @@
   </div>
 </section>
 
+<section class="panel" id="exec-summary">
+  <h2>Executive summary</h2>
+  <div class="cta" id="where-picks">
+    <a class="btn primary" href="table.html">Where the picks are: pick table (241 matches) &rarr;</a>
+    <a class="btn" href="picks.html">Card view</a>
+    <a class="btn" href="featured.html">Market-backed (9)</a>
+    <a class="btn" href="originated.html">Originated (228)</a>
+    <a class="btn" href="unresolved.html">Unresolved &amp; limits (4)</a>
+    <a class="btn" href="flagged.html">Flagged for review</a>
+  </div>
+  <ul class="bullets">
+    <li><strong>Where the picks are.</strong> On a phone, tap <a href="table.html"><strong>Picks</strong></a>
+    in the bar at the bottom of every page — one row per match with the pick, both win
+    probabilities, the method and source links. Bookmark that table. <a href="picks.html"><strong>Card view</strong></a>
+    shows the same 241 matches with the full reasoning. Both pages are searchable and filterable by
+    tournament and by method. Next kick-offs are under <a href="#soon">Starting soon</a> below.</li>
+    <li><strong>Coverage.</strong> 241 of 241 matches carry a pick
+    (100%): 237 with a win probability and 4 resolved to the
+    official forfeit winner with no probability claimed.
+    Priced: <a href="featured.html">9 market-backed</a>
+    (Bovada, Kalshi, Pinnacle, Polymarket, Unibet), <a href="originated.html">150 originated</a> and
+    <a href="originated.html">78 provisional</a>.</li>
+    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
+    We probed <strong>45 external venues</strong> from the build runner (established books,
+    esportsbooks, exchanges, odds aggregators); 20 answered and 11
+    returned JSON. On this build the feeds that actually quoted a listed match were:
+    <strong>Pinnacle 8 series</strong>, <strong>Bovada 8 series</strong>, <strong>Unibet (Kambi) 8 series</strong>, <strong>Kalshi 8 contracts</strong>, <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds 2026 ties. Everything below that ceiling
+    has no external line to quote, so we originate it ourselves.
+    Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
+    <li><strong>Extra sources tried for the low-tier tail.</strong> 17 further esportsbook and odds-aggregator endpoints were called from the build runner on 2026-10-24 16:20 UTC (1xBet / 22Bet / Melbet / Betwinner LineFeed, Rivalry, DraftKings, GG.BET, Thunderpick, Midnite, BetOnline, OddsPortal, BC.GAME, Abios, PandaScore): <strong>0 returned a machine-readable LoL price</strong> (3 blocked or key-gated, 4 browser-only pages, 10 error or empty responses). Those leagues therefore keep the originated line rather than a borrowed or invented quote. <a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; <a href="sources.html">Sources</a>. A second, wider 51-venue probe (2026-10-24) reached the same conclusion &mdash; <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/low-tier-sources-2026-10-24.md" rel="noopener">research memo &amp; receipts</a>. Competition-by-competition fallback and limitations: <a href="unresolved.html#fallback"><strong>Fallback by competition</strong></a>.</li>
+    <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
+    originated lines are model estimates from community-maintained Leaguepedia history; archived sportsbook
+    receipts are excluded from pricing; and forfeited cards follow Hotspawn's published void rule
+    (no points either way) - see <a href="unresolved.html">Unresolved &amp; limitations</a> and
+    <a href="flagged.html">Flagged for review</a>.</li>
+    <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
+    captured for audit comparison only and carry zero weight in any probability - see
+    <a href="methodology.html">Method &amp; out-of-sample backtest</a>.</li>
+    <li><strong>Verification.</strong> 12 of the 18 feeds the collector polls
+    answered on the last build (<a href="sources.html">Sources</a> &mdash; a separate, wider probe of
+    45 venues including esportsbooks and aggregators is published there too). Every row
+    links to its official source, and the 41-check publish gate
+    (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
+    probabilities fail to sum to 100%, or an internal link breaks.</li>
+  </ul>
+</section>
+
 <section class="panel" id="soon">
   <h2>Starting soon &mdash; picks for the next 48 hours</h2>
   <p class="lead">39 matches kick off in the next 48 hours; the first 15 are below,
@@ -46,7 +93,7 @@
   Hotspawn picks lock 5 minutes before the scheduled start
   (<a href="https://play.hotspawn.com/how-it-works" rel="noopener">Hotspawn rules</a>), so work down this list first.
   Tap any row for the full reasoning and sources.</p>
-  <div class="nextlist"><a class="nextrow" href="picks.html#match-1067688"><span class="nw"><time datetime="2026-10-24T17:00:00Z" data-utc="2026-10-24T17:00:00Z">24 Oct 17:00</time></span><span class="nt"><strong>Top Esports vs Anyone&#x27;s Legend</strong><span class="nm">Pick: Anyone&#x27;s Legend &middot; Worlds 2026 Main Event</span></span><span class="np">63%</span></a><a class="nextrow" href="picks.html#match-1075731"><span class="nw"><time datetime="2026-10-24T17:30:00Z" data-utc="2026-10-24T17:30:00Z">24 Oct 17:30</time></span><span class="nt"><strong>Whalepower Humpbacks vs 1. Esport Club Frankfurt e.V.</strong><span class="nm">Pick: 1. Esport Club Frankfurt e.V. &middot; PRM 3rd Division 26-27 Fall</span></span><span class="np">52%</span></a><a class="nextrow" href="picks.html#match-1079141"><span class="nw"><time datetime="2026-10-24T18:00:00Z" data-utc="2026-10-24T18:00:00Z">24 Oct 18:00</time></span><span class="nt"><strong>JSK Academy vs New Era Team</strong><span class="nm">Pick: JSK Academy &middot; Arabian League 2nd Division 2026 Summer</span></span><span class="np">56%</span></a><a class="nextrow" href="picks.html#match-1079142"><span class="nw"><time datetime="2026-10-24T18:00:00Z" data-utc="2026-10-24T18:00:00Z">24 Oct 18:00</time></span><span class="nt"><strong>Void Walkers vs Slam Dunk</strong><span class="nm">Pick: Void Walkers &middot; Arabian League 2nd Division 2026 Summer</span></span><span class="np">52%</span></a><a class="nextrow" href="picks.html#match-1067881"><span class="nw"><time datetime="2026-10-24T18:00:00Z" data-utc="2026-10-24T18:00:00Z">24 Oct 18:00</time></span><span class="nt"><strong>Movistar KOI vs CTBC Flying Oyster</strong><span class="nm">Pick: Movistar KOI &middot; Worlds 2026 Main Event</span></span><span class="np">68%</span></a><a class="nextrow" href="picks.html#match-1067686"><span class="nw"><time datetime="2026-10-24T19:00:00Z" data-utc="2026-10-24T19:00:00Z">24 Oct 19:00</time></span><span class="nt"><strong>G2 Esports vs LØS</strong><span class="nm">Pick: G2 Esports &middot; Worlds 2026 Main Event</span></span><span class="np">80%</span></a><a class="nextrow" href="picks.html#match-1082914"><span class="nw"><time datetime="2026-10-24T20:00:00Z" data-utc="2026-10-24T20:00:00Z">24 Oct 20:00</time></span><span class="nt"><strong>Clã NKZ VÓRAX vs Neon eSports</strong><span class="nm">Pick: Clã NKZ VÓRAX &middot; LigaGG CELOL A 2026 Split 2 Playoffs</span></span><span class="np">51%</span></a><a class="nextrow" href="picks.html#match-1082915"><span class="nw"><time datetime="2026-10-24T20:00:00Z" data-utc="2026-10-24T20:00:00Z">24 Oct 20:00</time></span><span class="nt"><strong>LØS Academy vs Marere E-Sports</strong><span class="nm">Pick: LØS Academy &middot; LigaGG CELOL A 2026 Split 2 Playoffs</span></span><span class="np">75%</span></a><a class="nextrow" href="picks.html#match-1067684"><span class="nw"><time datetime="2026-10-24T20:00:00Z" data-utc="2026-10-24T20:00:00Z">24 Oct 20:00</time></span><span class="nt"><strong>LYON vs Karmine Corp</strong><span class="nm">Pick: Karmine Corp &middot; Worlds 2026 Main Event</span></span><span class="np">55%</span></a><a class="nextrow" href="picks.html#match-1067687"><span class="nw"><time datetime="2026-10-24T21:00:00Z" data-utc="2026-10-24T21:00:00Z">24 Oct 21:00</time></span><span class="nt"><strong>Invictus Gaming vs Team Secret Whales</strong><span class="nm">Pick: Invictus Gaming &middot; Worlds 2026 Main Event</span></span><span class="np">69%</span></a><a class="nextrow" href="picks.html#match-1067683"><span class="nw"><time datetime="2026-10-24T22:00:00Z" data-utc="2026-10-24T22:00:00Z">24 Oct 22:00</time></span><span class="nt"><strong>Hanwha Life Esports vs Gen.G</strong><span class="nm">Pick: Gen.G &middot; Worlds 2026 Main Event</span></span><span class="np">58%</span></a><a class="nextrow" href="picks.html#match-1067880"><span class="nw"><time datetime="2026-10-24T23:00:00Z" data-utc="2026-10-24T23:00:00Z">24 Oct 23:00</time></span><span class="nt"><strong>Dplus KIA vs T1</strong><span class="nm">Pick: T1 &middot; Worlds 2026 Main Event</span></span><span class="np">57%</span></a><a class="nextrow" href="picks.html#match-1067689"><span class="nw"><time datetime="2026-10-25T00:00:00Z" data-utc="2026-10-25T00:00:00Z">25 Oct 00:00</time></span><span class="nt"><strong>Bilibili Gaming vs Team Liquid</strong><span class="nm">Pick: Bilibili Gaming &middot; Worlds 2026 Main Event</span></span><span class="np">74%</span></a><a class="nextrow" href="picks.html#match-1081083"><span class="nw"><time datetime="2026-10-25T15:00:00Z" data-utc="2026-10-25T15:00:00Z">25 Oct 15:00</time></span><span class="nt"><strong>Docta Esports Club vs Clã NKZ Revengers</strong><span class="nm">Pick: Docta Esports Club &middot; LigaGG CELOL B 2026 Split 2 Playoffs</span></span><span class="np">54%</span></a><a class="nextrow" href="picks.html#match-1081084"><span class="nw"><time datetime="2026-10-25T15:00:00Z" data-utc="2026-10-25T15:00:00Z">25 Oct 15:00</time></span><span class="nt"><strong>Maze GG vs Viktus</strong><span class="nm">Pick: Maze GG &middot; LigaGG CELOL B 2026 Split 2 Playoffs</span></span><span class="np">55%</span></a></div>
+  <div class="nextlist"><a class="nextrow" href="picks.html#match-1067688"><span class="nw"><time datetime="2026-10-24T17:00:00Z" data-utc="2026-10-24T17:00:00Z">24 Oct 17:00</time></span><span class="nt"><strong>Top Esports vs Anyone&#x27;s Legend</strong><span class="nm">Pick: Anyone&#x27;s Legend &middot; Worlds 2026 Main Event</span></span><span class="np">63%</span></a><a class="nextrow" href="picks.html#match-1075731"><span class="nw"><time datetime="2026-10-24T17:30:00Z" data-utc="2026-10-24T17:30:00Z">24 Oct 17:30</time></span><span class="nt"><strong>Whalepower Humpbacks vs 1. Esport Club Frankfurt e.V.</strong><span class="nm">Pick: 1. Esport Club Frankfurt e.V. &middot; PRM 3rd Division 26-27 Fall</span></span><span class="np">52%</span></a><a class="nextrow" href="picks.html#match-1079141"><span class="nw"><time datetime="2026-10-24T18:00:00Z" data-utc="2026-10-24T18:00:00Z">24 Oct 18:00</time></span><span class="nt"><strong>JSK Academy vs New Era Team</strong><span class="nm">Pick: JSK Academy &middot; Arabian League 2nd Division 2026 Summer</span></span><span class="np">56%</span></a><a class="nextrow" href="picks.html#match-1079142"><span class="nw"><time datetime="2026-10-24T18:00:00Z" data-utc="2026-10-24T18:00:00Z">24 Oct 18:00</time></span><span class="nt"><strong>Void Walkers vs Slam Dunk</strong><span class="nm">Pick: Void Walkers &middot; Arabian League 2nd Division 2026 Summer</span></span><span class="np">52%</span></a><a class="nextrow" href="picks.html#match-1067881"><span class="nw"><time datetime="2026-10-24T18:00:00Z" data-utc="2026-10-24T18:00:00Z">24 Oct 18:00</time></span><span class="nt"><strong>Movistar KOI vs CTBC Flying Oyster</strong><span class="nm">Pick: Movistar KOI &middot; Worlds 2026 Main Event</span></span><span class="np">68%</span></a><a class="nextrow" href="picks.html#match-1067686"><span class="nw"><time datetime="2026-10-24T19:00:00Z" data-utc="2026-10-24T19:00:00Z">24 Oct 19:00</time></span><span class="nt"><strong>G2 Esports vs LØS</strong><span class="nm">Pick: G2 Esports &middot; Worlds 2026 Main Event</span></span><span class="np">80%</span></a><a class="nextrow" href="picks.html#match-1082914"><span class="nw"><time datetime="2026-10-24T20:00:00Z" data-utc="2026-10-24T20:00:00Z">24 Oct 20:00</time></span><span class="nt"><strong>Clã NKZ VÓRAX vs Neon eSports</strong><span class="nm">Pick: Clã NKZ VÓRAX &middot; LigaGG CELOL A 2026 Split 2 Playoffs</span></span><span class="np">51%</span></a><a class="nextrow" href="picks.html#match-1082915"><span class="nw"><time datetime="2026-10-24T20:00:00Z" data-utc="2026-10-24T20:00:00Z">24 Oct 20:00</time></span><span class="nt"><strong>LØS Academy vs Marere E-Sports</strong><span class="nm">Pick: LØS Academy &middot; LigaGG CELOL A 2026 Split 2 Playoffs</span></span><span class="np">75%</span></a><a class="nextrow" href="picks.html#match-1067684"><span class="nw"><time datetime="2026-10-24T20:00:00Z" data-utc="2026-10-24T20:00:00Z">24 Oct 20:00</time></span><span class="nt"><strong>LYON vs Karmine Corp</strong><span class="nm">Pick: Karmine Corp &middot; Worlds 2026 Main Event</span></span><span class="np">55%</span></a><a class="nextrow" href="picks.html#match-1067687"><span class="nw"><time datetime="2026-10-24T21:00:00Z" data-utc="2026-10-24T21:00:00Z">24 Oct 21:00</time></span><span class="nt"><strong>Invictus Gaming vs Team Secret Whales</strong><span class="nm">Pick: Invictus Gaming &middot; Worlds 2026 Main Event</span></span><span class="np">69%</span></a><a class="nextrow" href="picks.html#match-1067683"><span class="nw"><time datetime="2026-10-24T22:00:00Z" data-utc="2026-10-24T22:00:00Z">24 Oct 22:00</time></span><span class="nt"><strong>Hanwha Life Esports vs Gen.G</strong><span class="nm">Pick: Gen.G &middot; Worlds 2026 Main Event</span></span><span class="np">58%</span></a><a class="nextrow" href="picks.html#match-1067880"><span class="nw"><time datetime="2026-10-24T23:00:00Z" data-utc="2026-10-24T23:00:00Z">24 Oct 23:00</time></span><span class="nt"><strong>Dplus KIA vs T1</strong><span class="nm">Pick: T1 &middot; Worlds 2026 Main Event</span></span><span class="np">57%</span></a><a class="nextrow" href="picks.html#match-1067689"><span class="nw"><time datetime="2026-10-25T00:00:00Z" data-utc="2026-10-25T00:00:00Z">25 Oct 00:00</time></span><span class="nt"><strong>Bilibili Gaming vs Team Liquid</strong><span class="nm">Pick: Bilibili Gaming &middot; Worlds 2026 Main Event</span></span><span class="np">73%</span></a><a class="nextrow" href="picks.html#match-1081083"><span class="nw"><time datetime="2026-10-25T15:00:00Z" data-utc="2026-10-25T15:00:00Z">25 Oct 15:00</time></span><span class="nt"><strong>Docta Esports Club vs Clã NKZ Revengers</strong><span class="nm">Pick: Docta Esports Club &middot; LigaGG CELOL B 2026 Split 2 Playoffs</span></span><span class="np">54%</span></a><a class="nextrow" href="picks.html#match-1081084"><span class="nw"><time datetime="2026-10-25T15:00:00Z" data-utc="2026-10-25T15:00:00Z">25 Oct 15:00</time></span><span class="nt"><strong>Maze GG vs Viktus</strong><span class="nm">Pick: Maze GG &middot; LigaGG CELOL B 2026 Split 2 Playoffs</span></span><span class="np">55%</span></a></div>
   <p style="margin:12px 0 0"><a class="btn primary" href="table.html">All 241 matches in one table &rarr;</a>
   <a class="btn" href="picks.html">Card view &rarr;</a></p>
 </section>
@@ -73,48 +120,6 @@
   <div class="stat unresolved"><div class="sv">4</div><div class="sl">Walkover-resolved</div><div class=sn>official forfeit, no probability</div></div>
 </section>
 
-<section class="panel">
-  <h2>Executive summary</h2>
-  <ul class="bullets">
-    <li><strong>Where the picks are.</strong> On a phone, bookmark
-    <a href="table.html"><strong>Pick table</strong></a> - one row per match with the pick, both win
-    probabilities, the method and source links. <a href="picks.html"><strong>Card view</strong></a> shows the
-    same 241 matches with the full reasoning. Both pages are searchable and filterable by tournament and
-    by method.</li>
-    <li><strong>Coverage.</strong> 241 of 241 matches carry a pick
-    (100%): 237 with a win probability and 4 resolved to the
-    official forfeit winner with no probability claimed.
-    Priced: <a href="featured.html">9 market-backed</a>
-    (Kalshi, Pinnacle, Polymarket, Unibet), <a href="originated.html">150 originated</a> and
-    <a href="originated.html">78 provisional</a>.</li>
-    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
-    We probed <strong>33 external venues</strong> from the build runner (established books,
-    esportsbooks, exchanges, odds aggregators); 15 answered and 8
-    returned JSON, of which five are live match-price feeds. Across every reachable venue the same slice of the
-    calendar is quoted: <strong>Pinnacle 8 series</strong>,
-    <strong>Bovada 0 series</strong>,
-    <strong>Unibet (Kambi) 8 series</strong>,
-    <strong>Kalshi 8 contracts</strong> and
-    <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds
-    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
-    Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
-    <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
-    originated lines are model estimates from community-maintained Leaguepedia history; archived sportsbook
-    receipts are excluded from pricing; and forfeited cards follow Hotspawn's published void rule
-    (no points either way) - see <a href="unresolved.html">Unresolved &amp; limitations</a> and
-    <a href="flagged.html">Flagged for review</a>.</li>
-    <li><strong>Strictly independent of Hotspawn crowd votes.</strong> Hotspawn's public pick percentages are
-    captured for audit comparison only and carry zero weight in any probability - see
-    <a href="methodology.html">Method &amp; out-of-sample backtest</a>.</li>
-    <li><strong>Verification.</strong> 10 of the 14 feeds the collector polls
-    answered on the last build (<a href="sources.html">Sources</a> &mdash; a separate, wider probe of
-    33 venues including esportsbooks and aggregators is published there too). Every row
-    links to its official source, and the 42-check publish gate
-    (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
-    probabilities fail to sum to 100%, or an internal link breaks.</li>
-  </ul>
-</section>
-
 <section class="panel" id="unresolved-summary">
   <h2>Unresolved picks and the limitations (4)</h2>
   <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror Hotspawn
@@ -131,6 +136,10 @@
     <li><strong>No market on national divisions.</strong> 232 of 241 matches are not
     priced by any book reachable from the runner; their lines come from recorded series history rather than
     an aggregator placeholder.</li>
+    <li><strong>What we tried for the low-tier tail.</strong> 17 esportsbook and aggregator
+    endpoints were called from a runner on 2026-10-24 16:20 UTC; 0 returned a
+    machine-readable LoL price, so these leagues keep an originated line instead of a borrowed or invented
+    one. Full status codes and raw previews: <a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; <a href="sources.html">Sources</a>.</li>
     <li><strong>Thin samples.</strong> 78 lines are labelled <em>provisional</em> because at
     least one side has fewer than five rated series in the 25-month window.</li>
     <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
@@ -162,19 +171,19 @@
   <div class="comp">Worlds 2026 Main Event</div>
   <div class="teams">
     <div class="team ">
-      <span class="tname">Top Esports</span><span class="tpct">36.8%</span>
+      <span class="tname">Top Esports</span><span class="tpct">36.6%</span>
     </div>
-    <div class="split" role="img" aria-label="Top Esports 37 percent, Anyone&#x27;s Legend 63 percent"><span class="s0" style="width:36.8%"></span></div>
+    <div class="split" role="img" aria-label="Top Esports 37 percent, Anyone&#x27;s Legend 63 percent"><span class="s0" style="width:36.6%"></span></div>
     <div class="team fav">
-      <span class="tname">Anyone&#x27;s Legend</span><span class="tpct">63.2%</span>
+      <span class="tname">Anyone&#x27;s Legend</span><span class="tpct">63.4%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Anyone&#x27;s Legend</strong> <span class="pickpct">63.2%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Anyone&#x27;s Legend</strong> <span class="pickpct">63.4%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>4-Venue Consensus de-vigged line (36.8% / 63.2%): Pinnacle 37.7%/62.3% (2.55/1.54), Polymarket 36.5%/63.5% (36.5¢/63.5¢), Kalshi 36.5%/63.5% (36¢/64¢), Unibet 34.9%/65.1% (2.65/1.42).</p>
+    <p>5-Venue Consensus de-vigged line (36.6% / 63.4%): Pinnacle 37.7%/62.3% (2.55/1.54), Polymarket 36.5%/63.5% (36.5¢/63.5¢), Kalshi 36.5%/63.5% (36¢/64¢), Bovada 34.8%/65.1% (2.70/1.44), Unibet 34.9%/65.1% (2.65/1.42).</p>
     
   </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/top-esports-vs-anyone-s-legend-worlds-2026-main-event-1067688" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-tes-al-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241900altes" rel="noopener">Kalshi</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609648.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Top_Esports" rel="noopener">Top Esports</a><a href="https://lol.fandom.com/wiki/Anyone's_Legend" rel="noopener">Anyone&#x27;s Legend</a></div>
+  <div class="src"><a href="https://www.hotspawn.com/matches/top-esports-vs-anyone-s-legend-worlds-2026-main-event-1067688" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-tes-al-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241900altes" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/top-esports-anyone-s-legend-202610241300" rel="noopener">Bovada</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609648.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Top_Esports" rel="noopener">Top Esports</a><a href="https://lol.fandom.com/wiki/Anyone's_Legend" rel="noopener">Anyone&#x27;s Legend</a></div>
 </article><article id="match-1067881" class="card m-market" data-method="market" data-comp="Worlds 2026 Main Event"
   data-start="2026-10-24T18:00:00Z" data-stale="0"
   data-text="worlds 2026 main event movistar koi ctbc flying oyster">
@@ -185,19 +194,19 @@
   <div class="comp">Worlds 2026 Main Event</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">Movistar KOI</span><span class="tpct">68.2%</span>
+      <span class="tname">Movistar KOI</span><span class="tpct">68.3%</span>
     </div>
-    <div class="split" role="img" aria-label="Movistar KOI 68 percent, CTBC Flying Oyster 32 percent"><span class="s0" style="width:68.2%"></span></div>
+    <div class="split" role="img" aria-label="Movistar KOI 68 percent, CTBC Flying Oyster 32 percent"><span class="s0" style="width:68.3%"></span></div>
     <div class="team ">
-      <span class="tname">CTBC Flying Oyster</span><span class="tpct">31.8%</span>
+      <span class="tname">CTBC Flying Oyster</span><span class="tpct">31.7%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Movistar KOI</strong> <span class="pickpct">68.2%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Movistar KOI</strong> <span class="pickpct">68.3%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>4-Venue Consensus de-vigged line (68.2% / 31.8%): Pinnacle 68.4%/31.6% (1.40/3.03), Polymarket 68.5%/31.5% (68.5¢/31.5¢), Kalshi 68.5%/31.5% (68¢/32¢), Unibet 66.3%/33.7% (1.40/2.75).</p>
+    <p>5-Venue Consensus de-vigged line (68.3% / 31.7%): Pinnacle 68.4%/31.6% (1.40/3.03), Polymarket 68.5%/31.5% (68.5¢/31.5¢), Kalshi 68.5%/31.5% (68¢/32¢), Bovada 67.1%/32.9% (1.40/2.85), Unibet 68.5%/31.6% (1.36/2.95).</p>
     
   </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/movistar-koi-vs-ctbc-flying-oyster-worlds-2026-main-event-1067881" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-cfo-mkoi-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241400mkoicfo" rel="noopener">Kalshi</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609639.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Movistar_KOI" rel="noopener">Movistar KOI</a><a href="https://lol.fandom.com/wiki/CTBC_Flying_Oyster" rel="noopener">CTBC Flying Oyster</a></div>
+  <div class="src"><a href="https://www.hotspawn.com/matches/movistar-koi-vs-ctbc-flying-oyster-worlds-2026-main-event-1067881" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-cfo-mkoi-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241400mkoicfo" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/ctbc-flying-oyster-movistar-koi-202610241400" rel="noopener">Bovada</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609639.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Movistar_KOI" rel="noopener">Movistar KOI</a><a href="https://lol.fandom.com/wiki/CTBC_Flying_Oyster" rel="noopener">CTBC Flying Oyster</a></div>
 </article><article id="match-1067686" class="card m-market" data-method="market" data-comp="Worlds 2026 Main Event"
   data-start="2026-10-24T19:00:00Z" data-stale="0"
   data-text="worlds 2026 main event g2 esports løs">
@@ -208,19 +217,19 @@
   <div class="comp">Worlds 2026 Main Event</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">G2 Esports</span><span class="tpct">79.7%</span>
+      <span class="tname">G2 Esports</span><span class="tpct">79.6%</span>
     </div>
-    <div class="split" role="img" aria-label="G2 Esports 80 percent, LØS 20 percent"><span class="s0" style="width:79.7%"></span></div>
+    <div class="split" role="img" aria-label="G2 Esports 80 percent, LØS 20 percent"><span class="s0" style="width:79.6%"></span></div>
     <div class="team ">
-      <span class="tname">LØS</span><span class="tpct">20.3%</span>
+      <span class="tname">LØS</span><span class="tpct">20.4%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>G2 Esports</strong> <span class="pickpct">79.7%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>G2 Esports</strong> <span class="pickpct">79.6%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>4-Venue Consensus de-vigged line (79.7% / 20.3%): Pinnacle 77.7%/22.3% (1.23/4.28), Polymarket 81.5%/18.5% (81.5¢/18.5¢), Kalshi 81.5%/18.5% (82¢/18¢), Unibet 78.8%/21.1% (1.18/4.40).</p>
+    <p>5-Venue Consensus de-vigged line (79.6% / 20.4%): Pinnacle 77.7%/22.3% (1.23/4.28), Polymarket 81.5%/18.5% (81.5¢/18.5¢), Kalshi 81.5%/18.5% (82¢/18¢), Bovada 79.2%/20.8% (1.18/4.50), Unibet 78.8%/21.1% (1.18/4.40).</p>
     
   </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/g2-esports-vs-l-s-worlds-2026-main-event-1067686" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-g2-los-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241700losg2" rel="noopener">Kalshi</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609646.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/G2_Esports" rel="noopener">G2 Esports</a><a href="https://lol.fandom.com/wiki/L%C3%98S" rel="noopener">LØS</a></div>
+  <div class="src"><a href="https://www.hotspawn.com/matches/g2-esports-vs-l-s-worlds-2026-main-event-1067686" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-g2-los-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241700losg2" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/g2-esports-los-grandes-202610241500" rel="noopener">Bovada</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609646.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/G2_Esports" rel="noopener">G2 Esports</a><a href="https://lol.fandom.com/wiki/L%C3%98S" rel="noopener">LØS</a></div>
 </article><article id="match-1067684" class="card m-market" data-method="market" data-comp="Worlds 2026 Main Event"
   data-start="2026-10-24T20:00:00Z" data-stale="0"
   data-text="worlds 2026 main event lyon karmine corp">
@@ -231,19 +240,19 @@
   <div class="comp">Worlds 2026 Main Event</div>
   <div class="teams">
     <div class="team ">
-      <span class="tname">LYON</span><span class="tpct">45.0%</span>
+      <span class="tname">LYON</span><span class="tpct">45.2%</span>
     </div>
-    <div class="split" role="img" aria-label="LYON 45 percent, Karmine Corp 55 percent"><span class="s0" style="width:45.0%"></span></div>
+    <div class="split" role="img" aria-label="LYON 45 percent, Karmine Corp 55 percent"><span class="s0" style="width:45.2%"></span></div>
     <div class="team fav">
-      <span class="tname">Karmine Corp</span><span class="tpct">55.0%</span>
+      <span class="tname">Karmine Corp</span><span class="tpct">54.8%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Karmine Corp</strong> <span class="pickpct">55.0%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Karmine Corp</strong> <span class="pickpct">54.8%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>4-Venue Consensus de-vigged line (45.0% / 55.0%): Pinnacle 44.7%/55.3% (2.15/1.74), Polymarket 45.5%/54.5% (45.5¢/54.5¢), Kalshi 44.5%/55.5% (44¢/56¢), Unibet 45.7%/54.3% (2.02/1.70).</p>
+    <p>5-Venue Consensus de-vigged line (45.2% / 54.8%): Pinnacle 44.7%/55.3% (2.15/1.74), Polymarket 45.5%/54.5% (45.5¢/54.5¢), Kalshi 44.5%/55.5% (44¢/56¢), Bovada 46.9%/53.1% (2.00/1.77), Unibet 45.7%/54.3% (2.02/1.70).</p>
     <ul class="flags"><li>resolved within &#x27;2026 Season World Championship/Main Event&#x27; to &#x27;LYON (2024 American Team)&#x27;</li></ul>
   </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/lyon-vs-karmine-corp-worlds-2026-main-event-1067684" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-ly-kc-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly" rel="noopener">Kalshi</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609641.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/LYON_(2024_American_Team)" rel="noopener">LYON</a><a href="https://lol.fandom.com/wiki/Karmine_Corp" rel="noopener">Karmine Corp</a></div>
+  <div class="src"><a href="https://www.hotspawn.com/matches/lyon-vs-karmine-corp-worlds-2026-main-event-1067684" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-ly-kc-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/lyon-gaming-karmine-corp-202610241600" rel="noopener">Bovada</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609641.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/LYON_(2024_American_Team)" rel="noopener">LYON</a><a href="https://lol.fandom.com/wiki/Karmine_Corp" rel="noopener">Karmine Corp</a></div>
 </article><article id="match-1067687" class="card m-market" data-method="market" data-comp="Worlds 2026 Main Event"
   data-start="2026-10-24T21:00:00Z" data-stale="0"
   data-text="worlds 2026 main event invictus gaming team secret whales">
@@ -254,19 +263,19 @@
   <div class="comp">Worlds 2026 Main Event</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">Invictus Gaming</span><span class="tpct">68.8%</span>
+      <span class="tname">Invictus Gaming</span><span class="tpct">69.0%</span>
     </div>
-    <div class="split" role="img" aria-label="Invictus Gaming 69 percent, Team Secret Whales 31 percent"><span class="s0" style="width:68.8%"></span></div>
+    <div class="split" role="img" aria-label="Invictus Gaming 69 percent, Team Secret Whales 31 percent"><span class="s0" style="width:69.0%"></span></div>
     <div class="team ">
-      <span class="tname">Team Secret Whales</span><span class="tpct">31.2%</span>
+      <span class="tname">Team Secret Whales</span><span class="tpct">31.0%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Invictus Gaming</strong> <span class="pickpct">68.8%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Invictus Gaming</strong> <span class="pickpct">69.0%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>4-Venue Consensus de-vigged line (68.8% / 31.2%): Pinnacle 68.8%/31.2% (1.39/3.07), Polymarket 68.5%/31.5% (68.5¢/31.5¢), Kalshi 68.5%/31.5% (68¢/32¢), Unibet 69.6%/30.4% (1.33/3.05).</p>
-    <ul class="flags"><li>market and model disagree by 42 pp (market 68.8% vs our Elo 73.7%) - the market side is published, the gap is disclosed</li></ul>
+    <p>5-Venue Consensus de-vigged line (69.0% / 31.0%): Pinnacle 68.8%/31.2% (1.39/3.07), Polymarket 68.5%/31.5% (68.5¢/31.5¢), Kalshi 68.5%/31.5% (68¢/32¢), Bovada 70.6%/29.4% (1.33/3.20), Unibet 69.6%/30.4% (1.33/3.05).</p>
+    <ul class="flags"><li>market and model disagree by 43 pp (market 69.0% vs our Elo 73.7%) - the market side is published, the gap is disclosed</li></ul>
   </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/invictus-gaming-vs-team-secret-whales-worlds-2026-main-event-1067687" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-ig1-tsw-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241800tswig" rel="noopener">Kalshi</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609647.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Invictus_Gaming" rel="noopener">Invictus Gaming</a><a href="https://lol.fandom.com/wiki/Team_Secret_Whales" rel="noopener">Team Secret Whales</a></div>
+  <div class="src"><a href="https://www.hotspawn.com/matches/invictus-gaming-vs-team-secret-whales-worlds-2026-main-event-1067687" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-ig1-tsw-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241800tswig" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/invictus-gaming-team-secret-202610241700" rel="noopener">Bovada</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609647.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Invictus_Gaming" rel="noopener">Invictus Gaming</a><a href="https://lol.fandom.com/wiki/Team_Secret_Whales" rel="noopener">Team Secret Whales</a></div>
 </article><article id="match-1067683" class="card m-market" data-method="market" data-comp="Worlds 2026 Main Event"
   data-start="2026-10-24T22:00:00Z" data-stale="0"
   data-text="worlds 2026 main event hanwha life esports gen.g">
@@ -277,19 +286,19 @@
   <div class="comp">Worlds 2026 Main Event</div>
   <div class="teams">
     <div class="team ">
-      <span class="tname">Hanwha Life Esports</span><span class="tpct">41.8%</span>
+      <span class="tname">Hanwha Life Esports</span><span class="tpct">41.9%</span>
     </div>
-    <div class="split" role="img" aria-label="Hanwha Life Esports 42 percent, Gen.G 58 percent"><span class="s0" style="width:41.8%"></span></div>
+    <div class="split" role="img" aria-label="Hanwha Life Esports 42 percent, Gen.G 58 percent"><span class="s0" style="width:41.9%"></span></div>
     <div class="team fav">
-      <span class="tname">Gen.G</span><span class="tpct">58.2%</span>
+      <span class="tname">Gen.G</span><span class="tpct">58.1%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Gen.G</strong> <span class="pickpct">58.2%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Gen.G</strong> <span class="pickpct">58.1%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>4-Venue Consensus de-vigged line (41.8% / 58.2%): Pinnacle 41.4%/58.6% (2.32/1.64), Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 42.9%/57.1% (42¢/56¢), Unibet 42.1%/57.9% (2.20/1.60).</p>
+    <p>5-Venue Consensus de-vigged line (41.9% / 58.1%): Pinnacle 41.4%/58.6% (2.32/1.64), Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 42.9%/57.1% (42¢/56¢), Bovada 42.8%/57.2% (2.20/1.65), Unibet 42.1%/57.9% (2.20/1.60).</p>
     
   </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/hanwha-life-esports-vs-gen-g-worlds-2026-main-event-1067683" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-hle1-gen-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241500genhle" rel="noopener">Kalshi</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609640.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Hanwha_Life_Esports" rel="noopener">Hanwha Life Esports</a><a href="https://lol.fandom.com/wiki/Gen.G" rel="noopener">Gen.G</a></div>
+  <div class="src"><a href="https://www.hotspawn.com/matches/hanwha-life-esports-vs-gen-g-worlds-2026-main-event-1067683" rel="noopener">Hotspawn card</a><a href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight" rel="noopener">Pinnacle</a><a href="https://polymarket.com/event/lol-hle1-gen-2026-10-24" rel="noopener">Polymarket</a><a href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241500genhle" rel="noopener">Kalshi</a><a href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-gen-g-202610241800" rel="noopener">Bovada</a><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609640.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet</a><a href="https://lol.fandom.com/wiki/2026_Season_World_Championship%2FMain_Event" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Hanwha_Life_Esports" rel="noopener">Hanwha Life Esports</a><a href="https://lol.fandom.com/wiki/Gen.G" rel="noopener">Gen.G</a></div>
 </article>
   </div>
   <p><a class="btn" href="featured.html">All market-backed picks &rarr;</a>
@@ -303,7 +312,7 @@
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
 </footer>
-<nav class="mobnav" aria-label="Quick navigation"><a href="index.html" class="active"><span>Summary</span></a><a href="picks.html"><span>All picks</span></a><a href="featured.html"><span>Market</span></a><a href="unresolved.html"><span>Unresolved</span></a><a href="flagged.html"><span>Flags</span></a></nav>
+<nav class="mobnav" aria-label="Quick navigation"><a href="index.html" class="active"><span>Summary</span></a><a href="table.html"><span>Picks</span></a><a href="featured.html"><span>Market</span></a><a href="unresolved.html"><span>Unresolved</span></a><a href="flagged.html"><span>Flags</span></a></nav>
 <a class="mobile-picks" href="table.html">All picks &rarr;</a>
 <script src="assets/app.js"></script>
 </body>
