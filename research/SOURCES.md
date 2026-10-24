@@ -74,7 +74,7 @@ Deep probe run: **2026-10-23T15:40:36Z**. Each page below answered HTTP 200 but 
 
 ## 3. The external-market ceiling for League of Legends
 
-Measured **2026-10-23T15:48:23Z** by enumerating every LoL league on Pinnacle's guest API and the full Kalshi and Polymarket LoL inventory.
+Measured **2026-10-23T16:01:54Z** by enumerating every LoL league on Pinnacle's guest API and the full Kalshi and Polymarket LoL inventory.
 
 | Venue | Inventory observed | Two-sided match-winner prices |
 |---|---|---|
@@ -88,7 +88,7 @@ Pinnacle's 138 matchup objects for Worlds include per-game and prop markets; onl
 
 ## 4. Bovada coupon breadth check
 
-Checked **2026-10-23T15:41:36Z**.
+Checked **2026-10-23T15:56:21Z**.
 
 | Coupon variant | HTTP | Events | Moneylines |
 |---|---|---|---|
@@ -98,9 +98,17 @@ Checked **2026-10-23T15:41:36Z**.
 
 Unique match moneylines across all variants: **8**. The unfiltered coupon is ~19× larger but contains no additional LoL match moneylines, so the production collector keeps the filtered feed.
 
+## 4b. Superseded since these receipts were captured
+
+A receipt is a point-in-time observation. Where a later build reached a working endpoint, the correction is recorded here with its own evidence rather than by rewriting the receipt above.
+
+| Source | Receipt above says | Verified since (current build) | Evidence |
+|---|---|---|---|
+| Unibet/Kambi esports | `ubus` listView without `lang`/`market` → HTTP 400 `lang may not be null` | `ubse` LoL matches JSON → HTTP 200, 14032 bytes, moneyline venues in the live consensus | [`https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ`](https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ) · checked 2026-10-24T16:25:27Z |
+
 ## 5. What this means for the site
 
-- Market-backed rows use only de-vigged, two-sided prices from venues that returned HTTP 200 JSON on the run (`Pinnacle`, `Polymarket`, `Kalshi`, `Bovada`).
+- Market-backed rows use only de-vigged, two-sided prices from venues that returned HTTP 200 JSON on the run (`Pinnacle`, `Polymarket`, `Kalshi`, `Bovada`, `Unibet/Kambi`).
 - Venues that block the runner (403 region, bot challenge), or that only serve prices after client-side JavaScript runs, are recorded as unverified and are **not** used. They are listed on Sources so the gap is visible rather than silently filled.
 - Every remaining match is originated by our own Elo line from Leaguepedia series history, with decay, shrinkage and explicit confidence labels.
 - Matches whose participants were formally removed mid-split (`dqteams`) are quarantined in the Unresolved section with the settlement basis spelled out, never given an invented probability.
@@ -109,5 +117,6 @@ Unique match moneylines across all variants: **8**. The unfiltered coupon is ~19
 
 - `data/source_probes.json` — generated 2026-10-23T15:38:55Z
 - `research/probe_deep.json` — generated 2026-10-23T15:40:36Z
-- `research/market_ceiling.json` — generated 2026-10-23T15:48:23Z
-- `research/bovada_full.json` — generated 2026-10-23T15:41:36Z
+- `research/market_ceiling.json` — generated 2026-10-23T16:01:54Z
+- `research/bovada_full.json` — generated 2026-10-23T15:56:21Z
+- `data/sources_status.json` — generated 2026-10-24T16:25:29Z

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:51:55Z",
+ "generated_utc": "2026-10-24T16:47:59Z",
  "checks": [
   {
    "name": "dataset present",
@@ -132,6 +132,11 @@
    "detail": "missing: []"
   },
   {
+   "name": "starting-soon phone list and fallback ledger rendered",
+   "ok": true,
+   "detail": "missing: []"
+  },
+  {
    "name": "mobile navigation rendered on every page and wired in JS",
    "ok": true,
    "detail": "missing mobnav: []; menu+filter handlers present: True"
@@ -142,9 +147,9 @@
    "detail": "backtest series rendered: 3,896"
   },
   {
-   "name": "curated flags cite only currently listed fixtures",
+   "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "10 curated flags scanned; stale references: []"
+   "detail": "18 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -164,17 +169,17 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "1 usable receipts, 0 rejected, 16 retired (fixture no longer listed - match concluded, historical evidence), 0 diverging >8.0pp"
+   "detail": "32 usable receipts, 0 malformed, 0 stale unmatched (non-blocking), 1 diverging >8.0pp (flagged, non-blocking)"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 48512 bytes"
+   "detail": "coverage.html 75982 bytes"
   },
   {
    "name": "external source research receipts are committed",
    "ok": true,
-   "detail": "32 venues probed on 2026-10-23T15:38:55Z; dossier present"
+   "detail": "44 venues probed on 2026-10-24T16:40:49Z; dossier present"
   },
   {
    "name": "coverage arithmetic reconciles to the inventory",
@@ -189,7 +194,7 @@
   {
    "name": "source availability recorded",
    "ok": true,
-   "detail": "10/14 sources reachable on this build"
+   "detail": "10/18 sources reachable on this build"
   },
   {
    "name": "every Hotspawn fixture is in the dataset (1:1 ids)",
@@ -218,6 +223,6 @@
   "provisional": 78,
   "market": 9
  },
- "internal_links": 400,
+ "internal_links": 436,
  "lookahead_violations": 0
 }

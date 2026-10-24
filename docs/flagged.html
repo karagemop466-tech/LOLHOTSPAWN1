@@ -1,65 +1,250 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1020">
-<meta name="description" content="Irregularities found by the automated pipeline, with source links.">
-<title>Flagged for Review — LoL Hotspawn</title>
-<link rel="stylesheet" href="assets/style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Ctext%20y%3D'.9em'%20font-size%3D'90'%3E%F0%9F%8E%AF%3C%2Ftext%3E%3C%2Fsvg%3E">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flagged for Review — LoL Hotspawn Pick'em Companion Audit</title>
+  <meta name="description" content="Audit log of entity-resolution collisions, mid-split disqualifications, and unverified Hotspawn LoL items.">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="top"><div class="top-in">
-  <a class="brand" href="index.html"><span class="logo">🎯</span> LoL Hotspawn Picks</a>
-  <nav class="main"><a href="index.html" class="">📊 Summary</a><a href="picks.html" class="">✅ Picks</a><a href="unresolved.html" class="">⚠️ Unresolved</a><a href="flagged.html" class="active">🚩 Flagged</a><a href="results.html" class="">📈 Results</a><a href="tournaments.html" class="">🏆 Tournaments</a><a href="methodology.html" class="">📖 Method</a></nav>
-</div></header>
-<main class="wrap">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Hotspawn LoL Pick'ems · Audit Suite</span>
+      </a>
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        Menu ▾
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 241 Table</span><span class="nav-cnt">241</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">172</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">9</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">222</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">8</span></a><a href="flagged.html" class="active" aria-current="page"><span>Flagged</span><span class="nav-cnt">17</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html"><span>Methodology</span></a>
+      </nav>
+    </div>
+  </header>
+  <div id="stale-snapshot-alert" class="stale-alert" hidden></div>
+  <div class="fresh-bar" data-generated-at="2026-10-24T16:49:45.446Z">
+    <div class="fresh-inner">
+      <span>Snapshot: <time class="mono" data-utc="2026-10-24T16:49:45.446Z">2026-10-24 16:49 UTC</time> · Auto-refresh every 6h</span>
+      <span>Zero Hotspawn crowd/tier/points inputs · <a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/">Canonical Root Dashboard ↗</a> · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
+    </div>
+  </div>
+  <main>
 
-<div class="hero">
-  <h1>🚩 Flagged for Review</h1>
-  <p class="sub">Irregularities found by the automated pipeline. Per project rules these are <b>published, not blocking</b> — the site stays live and picks keep updating while a human reviews them. Raised Sat, Oct 24, 15:34 UTC.</p>
-</div>
-<div class="kpis">
-  <div class="kpi bad"><div class="n">3</div><div class="l">Needs review</div></div>
-  <div class="kpi acc"><div class="n">2</div><div class="l">Informational</div></div>
-</div>
-<h2 class="sec">Needs review (3)</h2>
+    <section class="page-hero">
+      <h1>Flagged for Review (17)</h1>
+      <p>Every upstream entity-resolution collision, mid-split league disqualification, unverified zero-history debut, cross-venue market spread, and multi-roster pooling notice — each backed by official Hotspawn and Leaguepedia/bookmaker source links.</p>
+    </section>
 
-  <div class="flag needs-review">
-    <h3>Large divergence: Pinnacle vs own model <span class="small">· match #1067686</span></h3>
-    <p>G2 Esports vs LØS: Pinnacle implies 78% for G2, own model 46% for G2 Esports. Pick follows the market line; divergence may signal roster/news the model can&#39;t see (or a matching error).</p>
-    <div class="links"><a href="https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight" rel="noopener" target="_blank">guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/stra ↗</a><a href="https://www.hotspawn.com/matches/g2-esports-vs-los-worlds-2026-main-event-1067686" rel="noopener" target="_blank">www.hotspawn.com/matches/g2-esports-vs-los-worlds-2026-main- ↗</a></div>
-  </div>
-  <div class="flag needs-review">
-    <h3>Large divergence: Pinnacle vs own model <span class="small">· match #1067689</span></h3>
-    <p>Bilibili Gaming vs Team Liquid: Pinnacle implies 72% for Bilibili, own model 47% for Bilibili Gaming. Pick follows the market line; divergence may signal roster/news the model can&#39;t see (or a matching error).</p>
-    <div class="links"><a href="https://guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/straight" rel="noopener" target="_blank">guest.api.arcadia.pinnacle.com/0.1/leagues/9587/markets/stra ↗</a><a href="https://www.hotspawn.com/matches/bilibili-gaming-vs-team-liquid-worlds-2026-main-event-1067689" rel="noopener" target="_blank">www.hotspawn.com/matches/bilibili-gaming-vs-team-liquid-worl ↗</a></div>
-  </div>
-  <div class="flag needs-review">
-    <h3>UNRESOLVED: no market line and no model line <span class="small">· match #1081423</span></h3>
-    <p>Ground Zero Gaming vs Frank Esports (LCP 2027 Promotion, 2026-11-11T09:00:00.000Z): no bookmaker/prediction-market line found and neither team has any recorded match history in the Hotspawn results archive, so no independent probability can be originated without guessing. See Unresolved Picks page.</p>
-    <div class="links"><a href="https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423" rel="noopener" target="_blank">www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports ↗</a></div>
-  </div>
-<h2 class="sec">Informational (2)</h2>
-
-  <div class="flag info">
-    <h3>83 model-only picks have LOW confidence (thin history)</h3>
-    <p>These picks come solely from our own Elo-style model where one or both sides have fewer than 3 recorded series (new season, new rosters, amateur divisions). They are shown with a LOW badge on the Picks page. Examples: Jendouba Esports vs Enfida Esports (2/2 series); JSK Esports vs El Menzah Esports (12/1 series); Olympique Mnihla vs Supreme Leaders (2/1 series); Simplicity Gaming vs JSK Academy (2/6 series); Zahrouni Esports vs Olympique Mnihla Academy (2/2 series); Whalepower Humpbacks vs 1. Esport Club Frankfurt e.V. (2/3 series); AceGaming Hearts vs Emperors Bremen (2/2 series); Defiance eSports vs REH Gaming (1/2 series); Duplex Silva Pigeons Edition vs Sissi State Punks (3/2 series); Whalepower Humpbacks vs Socken und Sandalen (2/3 series); Babos Gaming vs Hannover Esports e.V. (2/3 series); Reveal Multigaming vs AceGaming (4/1 series); ….</p>
-    <div class="links"><a href="https://www.hotspawn.com/matches/jendouba-esports-vs-enfida-esports-tunisian-super-league-2026-1080923" rel="noopener" target="_blank">www.hotspawn.com/matches/jendouba-esports-vs-enfida-esports- ↗</a><a href="https://www.hotspawn.com/matches/jsk-esports-vs-el-menzah-esports-tunisian-super-league-2026-1080924" rel="noopener" target="_blank">www.hotspawn.com/matches/jsk-esports-vs-el-menzah-esports-tu ↗</a><a href="https://www.hotspawn.com/matches/olympique-mnihla-vs-supreme-leaders-tunisian-super-league-2026-1080925" rel="noopener" target="_blank">www.hotspawn.com/matches/olympique-mnihla-vs-supreme-leaders ↗</a><a href="https://www.hotspawn.com/matches/simplicity-gaming-vs-jsk-academy-tunisian-super-league-2026-1080926" rel="noopener" target="_blank">www.hotspawn.com/matches/simplicity-gaming-vs-jsk-academy-tu ↗</a><a href="https://www.hotspawn.com/matches/zahrouni-esports-vs-olympique-mnihla-academy-tunisian-super-league-2026-1080927" rel="noopener" target="_blank">www.hotspawn.com/matches/zahrouni-esports-vs-olympique-mnihl ↗</a><a href="https://www.hotspawn.com/matches/whalepower-humpbacks-vs-1-esport-club-frankfurt-e-v-prm-3rd-division-26-27-fall-1075731" rel="noopener" target="_blank">www.hotspawn.com/matches/whalepower-humpbacks-vs-1-esport-cl ↗</a><a href="https://www.hotspawn.com/matches/acegaming-hearts-vs-emperors-bremen-prm-3rd-division-26-27-fall-1075747" rel="noopener" target="_blank">www.hotspawn.com/matches/acegaming-hearts-vs-emperors-bremen ↗</a><a href="https://www.hotspawn.com/matches/defiance-esports-vs-reh-gaming-prm-3rd-division-26-27-fall-1075752" rel="noopener" target="_blank">www.hotspawn.com/matches/defiance-esports-vs-reh-gaming-prm- ↗</a></div>
-  </div>
-  <div class="flag info">
-    <h3>65 stale Hotspawn fixtures excluded from picks</h3>
-    <p>These fixtures still carry status &quot;scheduled&quot; although their start time passed more than 24h ago (Hotspawn never settled or cancelled them — likely postponed/abandoned, e.g. Mind Blue eSports v LAST DANCE (Benelux Ascend Series 2026 Summer Split, 2026-08-26T17:00:00.000Z); Nameless v BiPOLAR (Benelux Ascend Series 2026 Summer Split, 2026-08-26T18:00:00.000Z); Epic Avalanche v Finnish Red Mafia (FPL 2026 Summer Playoffs, 2026-08-27T15:00:00.000Z); Team VS Esport v GALA Esports (Benelux Ascend Series Rising 2026 Summer Playoffs, 2026-09-05T11:00:00.000Z)). They cannot be picked on Hotspawn (lock passed) and are excluded from the site&#39;s match lists; kept in data/picks.json with state=&quot;stale&quot; for audit.</p>
-    <div class="links"><a href="https://play.hotspawn.com/lol-pickems" rel="noopener" target="_blank">play.hotspawn.com/lol-pickems ↗</a></div>
-  </div>
-
-<footer class="bot">
-  <p><b>LoL Hotspawn Picks</b> — independent analytics for the League of Legends matches listed on the Hotspawn pick'em lobby. Not affiliated with Hotspawn, Riot Games, or any bookmaker. Nothing here is betting advice.</p>
-  <p>Probabilities come from external betting lines (Pinnacle, Polymarket) and our own Elo-style model built from real match results — never from Hotspawn crowd pick percentages. Data refreshes every 6 hours via GitHub Actions.</p>
-  <p>Built Sat, Oct 24, 15:34 UTC · <a href="methodology.html">Methodology &amp; sources</a> · <a href="data/picks.json">Raw data (JSON)</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1" rel="noopener" target="_blank">GitHub repo</a></p>
-</footer>
-</main>
-<script src="assets/app.js" defer></script>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Severity / Type</th>
+            <th>Matchup &amp; Competition</th>
+            <th>Forensic Finding &amp; Resolution</th>
+            <th>Verification Links</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="flag-dq-walkover-1071170">
+            <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">mid-split-disqualification</span></td>
+            <td><strong>Solid Gaming vs VES Japan</strong><br><span style="color:var(--text-muted)">Komplettligaen 2026 Autumn</span> · <span class="badge b-state">stale (&gt;6h)</span></td>
+            <td>Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors VES Japan.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/solid-gaming-vs-ves-japan-komplettligaen-2026-autumn-1071170" target="_blank" rel="noopener">Hotspawn #1071170 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-unverified-zero-history-1074627">
+            <td><span class="badge b-model">LOW</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">unverified-zero-history</span></td>
+            <td><strong>Northern Wolves Esports vs Lundqvist Darkside</strong><br><span style="color:var(--text-muted)">RIVALS LEAGUE Season 2</span> · <span class="badge b-state">stale (&gt;6h)</span></td>
+            <td>Unverified / insufficient pre-kickoff evidence: no external betting line and Northern Wolves Esports (0 prior official matches) prior to 2026-09-27T17:15:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: Northern Wolves Esports 0–2 Lundqvist Darkside.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/northern-wolves-esports-vs-lundqvist-darkside-rivals-league-season-2-1074627" target="_blank" rel="noopener">Hotspawn #1074627 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-dq-walkover-1071200">
+            <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">mid-split-disqualification</span></td>
+            <td><strong>Solid Gaming vs Playwell Rød Q</strong><br><span style="color:var(--text-muted)">Komplettligaen 2026 Autumn</span> · <span class="badge b-state">stale (&gt;6h)</span></td>
+            <td>Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors Playwell Rød Q.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/solid-gaming-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071200" target="_blank" rel="noopener">Hotspawn #1071200 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-dq-walkover-1071206">
+            <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">mid-split-disqualification</span></td>
+            <td><strong>Volda E-Sport vs Solid Gaming</strong><br><span style="color:var(--text-muted)">Komplettligaen 2026 Autumn</span> · <span class="badge b-state">stale (&gt;6h)</span></td>
+            <td>Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors Volda E-Sport.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/volda-e-sport-vs-solid-gaming-komplettligaen-2026-autumn-1071206" target="_blank" rel="noopener">Hotspawn #1071206 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-dq-walkover-1071186">
+            <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">mid-split-disqualification</span></td>
+            <td><strong>Solid Gaming vs NTNUI Kometkameratene</strong><br><span style="color:var(--text-muted)">Komplettligaen 2026 Autumn</span> · <span class="badge b-state">stale (&gt;6h)</span></td>
+            <td>Solid Gaming was removed mid-split from Komplettligaen 2026 Autumn (Leaguepedia dqteams + Data:Komplettligaen/2026_Season/Autumn_Split records mid-split league removal (remaining series scored 0-2 ff).); no sporting probability emitted — administrative walkover settlement favors NTNUI Kometkameratene.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/solid-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071186" target="_blank" rel="noopener">Hotspawn #1071186 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-unverified-zero-history-1082002">
+            <td><span class="badge b-model">LOW</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">unverified-zero-history</span></td>
+            <td><strong>DELETED vs S7raa</strong><br><span style="color:var(--text-muted)">Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine</span> · <span class="badge b-state">stale (&gt;6h)</span></td>
+            <td>Unverified / insufficient pre-kickoff evidence: no external betting line and DELETED (0 prior official matches) prior to 2026-10-16T15:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: DELETED 0–1 S7raa.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/deleted-vs-s7raa-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082002" target="_blank" rel="noopener">Hotspawn #1082002 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-unverified-zero-history-1083096">
+            <td><span class="badge b-prov">MEDIUM</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">unverified-zero-history</span></td>
+            <td><strong>Keep Yourself Positive vs CRUEL FATE</strong><br><span style="color:var(--text-muted)">Logitech G SuperStrike Cup Qualifier</span> · <span class="badge b-state">locked</span></td>
+            <td>Unverified / insufficient pre-kickoff evidence: no external betting line and Keep Yourself Positive (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: Keep Yourself Positive 0–1 CRUEL FATE.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/keep-yourself-positive-vs-cruel-fate-logitech-g-superstrike-cup-qualifier-1083096" target="_blank" rel="noopener">Hotspawn #1083096 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-entity-collision-1083097">
+            <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">entity-collision</span></td>
+            <td><strong>paiN Gaming vs Non-toxic Gaming</strong><br><span style="color:var(--text-muted)">Logitech G SuperStrike Cup Qualifier</span> · <span class="badge b-state">locked</span></td>
+            <td>Hotspawn mis-bound Bulgarian amateur tag 'PNG' (billy/Bla6ko/metko/ifo/anditobate) to Brazilian CBLOL 'paiN Gaming'; quarantined to PNG.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097" target="_blank" rel="noopener">Hotspawn #1083097 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-unverified-zero-history-1083097">
+            <td><span class="badge b-prov">MEDIUM</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">unverified-zero-history</span></td>
+            <td><strong>paiN Gaming vs Non-toxic Gaming</strong><br><span style="color:var(--text-muted)">Logitech G SuperStrike Cup Qualifier</span> · <span class="badge b-state">locked</span></td>
+            <td>Unverified / insufficient pre-kickoff evidence: no external betting line and paiN Gaming [resolved: PNG] (0 prior official matches) &amp; Non-toxic Gaming (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: Non-toxic Gaming 1–0 PNG.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097" target="_blank" rel="noopener">Hotspawn #1083097 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-unverified-zero-history-1083098">
+            <td><span class="badge b-prov">MEDIUM</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">unverified-zero-history</span></td>
+            <td><strong>TUPKACHI NA KORICI vs FAME</strong><br><span style="color:var(--text-muted)">Logitech G SuperStrike Cup Qualifier</span> · <span class="badge b-state">locked</span></td>
+            <td>Unverified / insufficient pre-kickoff evidence: no external betting line and FAME [resolved: FAME (Bulgarian Team)] (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: TUPKACHI NA KORICI 1–0 FAME (Bulgarian Team).</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/tupkachi-na-korici-vs-fame-logitech-g-superstrike-cup-qualifier-1083098" target="_blank" rel="noopener">Hotspawn #1083098 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-unverified-zero-history-1083105">
+            <td><span class="badge b-prov">MEDIUM</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">unverified-zero-history</span></td>
+            <td><strong>КАПИБАРА vs Ultim8</strong><br><span style="color:var(--text-muted)">Logitech G SuperStrike Cup Qualifier</span> · <span class="badge b-state">locked</span></td>
+            <td>Unverified / insufficient pre-kickoff evidence: no external betting line and КАПИБАРА (0 prior official matches) prior to 2026-10-24T12:00:00.000Z. Left blank rather than inferred. Post-kickoff official Leaguepedia result: КАПИБАРА 0–1 Ultim8.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/vs-ultim8-logitech-g-superstrike-cup-qualifier-1083105" target="_blank" rel="noopener">Hotspawn #1083105 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-entity-collision-1079031">
+            <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">entity-collision</span></td>
+            <td><strong>DKB XPERION NXT vs Phong Vũ Buffalo</strong><br><span style="color:var(--text-muted)">PRM 2nd Division 26-27 Fall</span> · <span class="badge b-state">open</span></td>
+            <td>Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/dkb-xperion-nxt-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079031" target="_blank" rel="noopener">Hotspawn #1079031 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-entity-collision-1079038">
+            <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">entity-collision</span></td>
+            <td><strong>VfB eSports vs Phong Vũ Buffalo</strong><br><span style="color:var(--text-muted)">PRM 2nd Division 26-27 Fall</span> · <span class="badge b-state">open</span></td>
+            <td>Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/vfb-esports-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079038" target="_blank" rel="noopener">Hotspawn #1079038 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-entity-collision-1082746">
+            <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">entity-collision</span></td>
+            <td><strong>Phong Vũ Buffalo vs 404 Multigaming e.V.</strong><br><span style="color:var(--text-muted)">PRM 2nd Division 26-27 Fall</span> · <span class="badge b-state">open</span></td>
+            <td>Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/phong-vu-buffalo-vs-404-multigaming-e-v-prm-2nd-division-26-27-fall-1082746" target="_blank" rel="noopener">Hotspawn #1082746 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-entity-collision-1079053">
+            <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">entity-collision</span></td>
+            <td><strong>Phong Vũ Buffalo vs MT1 Esports</strong><br><span style="color:var(--text-muted)">PRM 2nd Division 26-27 Fall</span> · <span class="badge b-state">open</span></td>
+            <td>Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/phong-vu-buffalo-vs-mt1-esports-prm-2nd-division-26-27-fall-1079053" target="_blank" rel="noopener">Hotspawn #1079053 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-entity-collision-1079057">
+            <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">entity-collision</span></td>
+            <td><strong>Phong Vũ Buffalo vs regnum4games</strong><br><span style="color:var(--text-muted)">PRM 2nd Division 26-27 Fall</span> · <span class="badge b-state">open</span></td>
+            <td>Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/regnum4games-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079057" target="_blank" rel="noopener">Hotspawn #1079057 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+<tr id="flag-org-pooling-rich-gang-prm3">
+            <td><span class="badge b-model">LOW</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">multi-roster-org-pooling</span></td>
+            <td><strong>Rich Gang (4 scheduled series: #1075758, #1075762, #1075786, #1075803)</strong><br><span style="color:var(--text-muted)">PRM 3rd Division 26-27 Fall</span> · <span class="badge b-state">open</span></td>
+            <td>Leaguepedia uses a single page 'Rich Gang (Norwegian Team)' across Komplettligaen 2026 Autumn and Prime League 3rd Division 26-27 Fall; model rating pools both rosters' pre-kickoff matches.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/rich-gang-vs-looksmaxxer-prm-3rd-division-26-27-fall-1075758" target="_blank" rel="noopener">Hotspawn #1075758 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>Independent quantitative companion for <a href="https://play.hotspawn.com/lol-pickems">Hotspawn LoL Pick'ems</a>.</span>
+      <span><a href="unresolved.html">Unresolved &amp; Limitations</a> · <a href="flagged.html">Flagged for Review</a> · <a href="methodology.html">Methodology &amp; Calibration</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1">GitHub Source</a></span>
+    </div>
+  </footer>
+  <script src="assets/app.js"></script>
 </body>
 </html>

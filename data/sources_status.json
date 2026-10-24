@@ -1,5 +1,5 @@
 {
- "checked_utc": "2026-10-24T16:51:13Z",
+ "checked_utc": "2026-10-24T16:47:17Z",
  "sources": [
   {
    "name": "Pinnacle",
@@ -9,7 +9,7 @@
    "ok": true,
    "bytes": 718431,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T16:51:07Z"
+   "checked_utc": "2026-10-24T16:47:09Z"
   },
   {
    "name": "Kalshi (CFTC)",
@@ -19,7 +19,7 @@
    "ok": true,
    "bytes": 51804,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T16:51:07Z"
+   "checked_utc": "2026-10-24T16:47:09Z"
   },
   {
    "name": "Bovada",
@@ -29,7 +29,7 @@
    "ok": true,
    "bytes": 2,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T16:51:08Z"
+   "checked_utc": "2026-10-24T16:47:10Z"
   },
   {
    "name": "Polymarket",
@@ -37,9 +37,9 @@
    "note": "CLOB prediction market (full-series filtered)",
    "status": 200,
    "ok": true,
-   "bytes": 81278,
+   "bytes": 81248,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T16:51:08Z"
+   "checked_utc": "2026-10-24T16:47:10Z"
   },
   {
    "name": "GG.BET",
@@ -49,7 +49,7 @@
    "ok": false,
    "bytes": 126,
    "blocked_note": "region blocked",
-   "checked_utc": "2026-10-24T16:51:08Z"
+   "checked_utc": "2026-10-24T16:47:10Z"
   },
   {
    "name": "BC.GAME",
@@ -59,7 +59,7 @@
    "ok": true,
    "bytes": 10374,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T16:51:08Z"
+   "checked_utc": "2026-10-24T16:47:10Z"
   },
   {
    "name": "EGamersWorld",
@@ -69,7 +69,7 @@
    "ok": false,
    "bytes": 5706,
    "blocked_note": "blocked by bot protection",
-   "checked_utc": "2026-10-24T16:51:08Z"
+   "checked_utc": "2026-10-24T16:47:10Z"
   },
   {
    "name": "Oddspedia",
@@ -77,19 +77,19 @@
    "note": "Odds comparison engine",
    "status": 410,
    "ok": false,
-   "bytes": 341188,
+   "bytes": 341185,
    "blocked_note": "unavailable",
-   "checked_utc": "2026-10-24T16:51:09Z"
+   "checked_utc": "2026-10-24T16:47:11Z"
   },
   {
    "name": "OddsPortal",
    "url": "https://www.oddsportal.com/esports/league-of-legends/",
    "note": "Odds comparison engine",
-   "status": 200,
-   "ok": true,
-   "bytes": 335418,
-   "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T16:51:11Z"
+   "status": 503,
+   "ok": false,
+   "bytes": 0,
+   "blocked_note": "unavailable",
+   "checked_utc": "2026-10-24T16:47:14Z"
   },
   {
    "name": "BetExplorer",
@@ -99,7 +99,7 @@
    "ok": false,
    "bytes": 0,
    "blocked_note": "unavailable",
-   "checked_utc": "2026-10-24T16:51:12Z"
+   "checked_utc": "2026-10-24T16:47:15Z"
   },
   {
    "name": "Unibet/Kambi",
@@ -109,7 +109,47 @@
    "ok": true,
    "bytes": 14028,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T16:51:12Z"
+   "checked_utc": "2026-10-24T16:47:15Z"
+  },
+  {
+   "name": "Thunderpick",
+   "url": "https://thunderpick.io/en/esports/league-of-legends",
+   "note": "Esportsbook LoL coupon (HTML; prices are client-rendered)",
+   "status": 403,
+   "ok": false,
+   "bytes": 5755,
+   "blocked_note": "blocked by bot protection",
+   "checked_utc": "2026-10-24T16:47:15Z"
+  },
+  {
+   "name": "Tips.GG",
+   "url": "https://tips.gg/esports/league-of-legends/",
+   "note": "Esports odds + tips page used as coverage evidence, never as a price",
+   "status": 403,
+   "ok": false,
+   "bytes": 5836,
+   "blocked_note": "blocked by bot protection",
+   "checked_utc": "2026-10-24T16:47:16Z"
+  },
+  {
+   "name": "Midnite",
+   "url": "https://www.midnite.com/esports/league-of-legends",
+   "note": "UK esportsbook LoL coupon (HTML SPA)",
+   "status": 200,
+   "ok": true,
+   "bytes": 33885,
+   "blocked_note": "reachable",
+   "checked_utc": "2026-10-24T16:47:16Z"
+  },
+  {
+   "name": "OddsPortal Worlds",
+   "url": "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+   "note": "Odds comparison: World Championship coupon (coverage ceiling check)",
+   "status": 503,
+   "ok": false,
+   "bytes": 0,
+   "blocked_note": "unavailable",
+   "checked_utc": "2026-10-24T16:47:16Z"
   },
   {
    "name": "Hotspawn fixtures API",
@@ -119,7 +159,7 @@
    "ok": true,
    "bytes": 188788,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T16:51:13Z"
+   "checked_utc": "2026-10-24T16:47:17Z"
   },
   {
    "name": "Leaguepedia",
@@ -129,7 +169,7 @@
    "ok": true,
    "bytes": 75,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T16:51:13Z"
+   "checked_utc": "2026-10-24T16:47:17Z"
   },
   {
    "name": "LoL Esports (Riot)",
@@ -139,7 +179,7 @@
    "ok": true,
    "bytes": 12216,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T16:51:13Z"
+   "checked_utc": "2026-10-24T16:47:17Z"
   }
  ]
 }

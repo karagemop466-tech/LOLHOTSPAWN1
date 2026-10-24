@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-24T16:51:53Z",
- "inventory_fetched_utc": "2026-10-24T16:50:02Z",
+ "generated_utc": "2026-10-24T16:47:57Z",
+ "inventory_fetched_utc": "2026-10-24T16:46:02Z",
  "receipt_audit": {
   "max_age_hours": 24,
   "used": [],
@@ -12,7 +12,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -22,7 +22,7 @@
      4.4
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -32,7 +32,7 @@
      4.05
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -42,7 +42,7 @@
      4.88
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -52,7 +52,7 @@
      2.63
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -62,7 +62,7 @@
      1.61
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -72,7 +72,7 @@
      3.11
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -82,7 +82,7 @@
      1.06
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -92,7 +92,7 @@
      1.51
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -102,7 +102,7 @@
      10.5
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
    },
    {
@@ -112,7 +112,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.3,
+    "age_hours": 68.2,
     "source_url": "https://egamersworld.com/lol/matches"
    }
   ],
@@ -147,7 +147,7 @@
   "unibet": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
   "leaguepedia": "https://lol.fandom.com/wiki/Special:CargoExport",
   "polymarket": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=league-of-legends",
-  "source_status_utc": "2026-10-24T16:51:13Z"
+  "source_status_utc": "2026-10-24T16:47:17Z"
  },
  "counts": {
   "model": 150,
@@ -164,25 +164,25 @@
  "backtest": {
   "cutoff": "2026-07-01",
   "n": 3896,
-  "hits": 2529,
+  "hits": 2531,
   "buckets": {
    "50-60%": {
-    "n": 2078,
-    "hits": 1182,
-    "accuracy": 0.5688,
-    "mean_predicted": 0.5409
+    "n": 2077,
+    "hits": 1183,
+    "accuracy": 0.5696,
+    "mean_predicted": 0.5408
    },
    "60-70%": {
-    "n": 1036,
-    "hits": 708,
-    "accuracy": 0.6834,
+    "n": 1037,
+    "hits": 709,
+    "accuracy": 0.6837,
     "mean_predicted": 0.645
    },
    "70-80%": {
     "n": 561,
     "hits": 445,
     "accuracy": 0.7932,
-    "mean_predicted": 0.7456
+    "mean_predicted": 0.7457
    },
    "80%+": {
     "n": 221,
@@ -191,9 +191,32 @@
     "mean_predicted": 0.8509
    }
   },
-  "accuracy": 0.6491,
+  "accuracy": 0.6496,
   "brier": 0.2185,
   "logloss": 0.6259
+ },
+ "track_record": {
+  "graded": 39,
+  "hits": 23,
+  "misses": 16,
+  "accuracy": 0.5897,
+  "brier": 0.2445,
+  "settled_forfeits": 3,
+  "ungraded_started": 39,
+  "by_method": {
+   "model": {
+    "graded": 16,
+    "hits": 10,
+    "accuracy": 0.625
+   },
+   "provisional": {
+    "graded": 23,
+    "hits": 13,
+    "accuracy": 0.5652
+   }
+  },
+  "result_source": "Leaguepedia MatchSchedule (community-maintained), matched on team pair and kick-off within 12 h",
+  "grading_rule": "hit = the published pick is the recorded series winner; miss = the other side won; settled = an official-forfeit settlement pick, never counted as a forecast win. Rows without a consistent official record stay ungraded."
  },
  "total": 241,
  "matches": [
@@ -217,7 +240,7 @@
     "rating_as_of": "2026-08-26T17:00:00Z",
     "last_played": "2026-08-21",
     "elo_raw": 1605.0,
-    "elo_now": 1559.6,
+    "elo_now": 1559.5,
     "elo": 1599.7
    },
    "team1": {
@@ -232,10 +255,10 @@
     "last_played": "2026-08-19",
     "elo_raw": 1614.8,
     "elo_now": 1652.2,
-    "elo": 1600.1
+    "elo": 1600.0
    },
-   "p0": 0.4994,
-   "p1": 0.5006,
+   "p0": 0.4996,
+   "p1": 0.5004,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Mind Blue eSports 1600 vs Last Dance (Benelux Team) 1600 (94/34 rated series).",
@@ -246,14 +269,16 @@
    "pick": {
     "side": 1,
     "team": "LAST DANCE",
-    "probability": 0.5006,
-    "other_probability": 0.4994
+    "probability": 0.5004,
+    "other_probability": 0.4996
    },
    "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -281,9 +306,9 @@
     "rating_matches": 50,
     "rating_as_of": "2026-08-26T18:00:00Z",
     "last_played": "2026-08-21",
-    "elo_raw": 1566.3,
+    "elo_raw": 1566.2,
     "elo_now": 1548.4,
-    "elo": 1556.2
+    "elo": 1556.1
    },
    "team1": {
     "name": "BiPOLAR",
@@ -299,8 +324,8 @@
     "elo_now": 1630.6,
     "elo": 1614.8
    },
-   "p0": 0.4165,
-   "p1": 0.5835,
+   "p0": 0.4163,
+   "p1": 0.5837,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Nameless (Benelux Team) 1556 vs BiPOLAR (Benelux Team) 1615 (50/17 rated series).",
@@ -312,14 +337,16 @@
    "pick": {
     "side": 1,
     "team": "BiPOLAR",
-    "probability": 0.5835,
-    "other_probability": 0.4165
+    "probability": 0.5837,
+    "other_probability": 0.4163
    },
    "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -380,6 +407,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 2,
+    "score1": 3,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Finnish Pro League/2026 Season/Summer Playoffs_Round 1_3",
+    "leaguepedia_page": "Finnish Pro League/2026 Season/Summer Playoffs",
+    "utc": "2026-08-27T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Finnish_Pro_League/2026_Season/Summer_Playoffs",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -440,6 +480,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 3,
+    "score1": 1,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Benelux Ascend Series Rising/2026 Season/Summer Playoffs_Round 1_1",
+    "leaguepedia_page": "Benelux Ascend Series Rising/2026 Season/Summer Playoffs",
+    "utc": "2026-09-05T11:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -500,6 +553,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "LIT/2027 Season/Winter Promotion_Semifinals_2",
+    "leaguepedia_page": "LIT/2027 Season/Winter Promotion",
+    "utc": "2026-09-07T17:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:LIT/2027_Season/Winter_Promotion",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 50,
     "team1": 50,
@@ -563,6 +629,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 50,
     "team1": 50,
@@ -623,6 +691,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 1,
+    "score1": 3,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Benelux Ascend Series Rising/2026 Season/Summer Playoffs_Round 1_4",
+    "leaguepedia_page": "Benelux Ascend Series Rising/2026 Season/Summer Playoffs",
+    "utc": "2026-09-13T11:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 50,
     "team1": 50,
@@ -683,6 +764,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "LigaGG/CELOL Série B/2026 Season/Split 2_Day 2_3",
+    "leaguepedia_page": "LigaGG/CELOL Série B/2026 Season/Split 2",
+    "utc": "2026-09-13T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:LigaGG/CELOL_Série_B/2026_Season/Split_2",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 67,
     "team1": 33,
@@ -744,6 +838,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -789,7 +885,7 @@
    "p1": null,
    "method": "unresolved",
    "confidence": "none",
-   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of VES Japan. Hotspawn may void this card or settle the walkover for opponent VES Japan; the settlement is unverified, so no competitive probability is claimed.",
+   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of VES Japan. Hotspawn's published rule voids all predictions on a forfeited match (play.hotspawn.com/how-it-works), so expect 0 points either way; if graded as a walkover instead, the winner is VES Japan. No competitive probability is claimed.",
    "flags": [
     "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is VES Japan)",
     "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-09-17T15:00:00Z while Data:Komplettligaen/2026 Season/Autumn Split records 2026-10-01 16:00Z (337h apart) - confirm before relying on the time",
@@ -808,11 +904,13 @@
     "type": "official-forfeit",
     "winner": "VES Japan",
     "loser": "Solid Gaming",
-    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is VES Japan. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is VES Japan. Hotspawn's published rule voids forfeited-match predictions (0 points either way); the pick matters only if Hotspawn grades a walkover instead.",
     "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
    },
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -874,6 +972,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -937,6 +1037,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -997,6 +1099,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 1,
+    "score1": 3,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Benelux Ascend Series Rising/2026 Season/Summer Playoffs_Round 3_1",
+    "leaguepedia_page": "Benelux Ascend Series Rising/2026 Season/Summer Playoffs",
+    "utc": "2026-09-19T11:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 50,
     "team1": 50,
@@ -1058,6 +1173,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "LigaGG/CELOL Série B/2026 Season/Split 2_Day 3_2",
+    "leaguepedia_page": "LigaGG/CELOL Série B/2026 Season/Split 2",
+    "utc": "2026-09-19T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:LigaGG/CELOL_Série_B/2026_Season/Split_2",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 67,
     "team1": 33,
@@ -1120,6 +1248,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1181,6 +1311,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 1,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "POP Esports Masters/Season 7_Finals_1",
+    "leaguepedia_page": "POP Esports Masters/Season 7",
+    "utc": "2026-09-19T21:59:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:POP_Esports_Masters/Season_7",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 33,
     "team1": 67,
@@ -1241,6 +1384,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 1,
+    "score1": 3,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Benelux Ascend Series Rising/2026 Season/Summer Playoffs_Round 2_1",
+    "leaguepedia_page": "Benelux Ascend Series Rising/2026 Season/Summer Playoffs",
+    "utc": "2026-09-20T11:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1302,6 +1458,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1363,6 +1521,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 1,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Legends Academy/2026/Season 3 Playoffs_Finals_1",
+    "leaguepedia_page": "Legends Academy/2026/Season 3 Playoffs",
+    "utc": "2026-09-20T11:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Legends_Academy/2026/Season_3_Playoffs",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -1424,6 +1595,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1486,6 +1659,19 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "RIVALS LEAGUE/2026 Season/Season 2_Week 1_14",
+    "leaguepedia_page": "RIVALS LEAGUE/2026 Season/Season 2",
+    "utc": "2026-09-27T17:15:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:RIVALS_LEAGUE/2026_Season/Season_2",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1547,6 +1733,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1608,6 +1796,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Icelandic Esports League/2026 Season/Autumn Split_Week 2_5",
+    "leaguepedia_page": "Icelandic Esports League/2026 Season/Autumn Split",
+    "utc": "2026-10-01T19:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Icelandic_Esports_League/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1671,6 +1872,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1732,6 +1935,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Icelandic Esports League/2026 Season/Autumn Split_Week 2_6",
+    "leaguepedia_page": "Icelandic Esports League/2026 Season/Autumn Split",
+    "utc": "2026-10-01T19:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Icelandic_Esports_League/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1792,6 +2008,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Benelux Ascend Series/2027 Season/Winter Promotion_Round 1_1",
+    "leaguepedia_page": "Benelux Ascend Series/2027 Season/Winter Promotion",
+    "utc": "2026-10-02T17:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series/2027_Season/Winter_Promotion",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1831,7 +2060,7 @@
     "rating_matches": 52,
     "rating_as_of": "2026-10-02T18:00:00Z",
     "last_played": "2026-09-04",
-    "elo_raw": 1544.3,
+    "elo_raw": 1544.2,
     "elo_now": 1548.4,
     "elo": 1536.4
    },
@@ -1855,6 +2084,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1900,7 +2131,7 @@
    "p1": null,
    "method": "unresolved",
    "confidence": "none",
-   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of Playwell Rød Q. Hotspawn may void this card or settle the walkover for opponent Playwell Rød Q; the settlement is unverified, so no competitive probability is claimed.",
+   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of Playwell Rød Q. Hotspawn's published rule voids all predictions on a forfeited match (play.hotspawn.com/how-it-works), so expect 0 points either way; if graded as a walkover instead, the winner is Playwell Rød Q. No competitive probability is claimed.",
    "flags": [
     "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Playwell Rød Q)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -1918,11 +2149,25 @@
     "type": "official-forfeit",
     "winner": "Playwell Rød Q",
     "loser": "Solid Gaming",
-    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is Playwell Rød Q. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is Playwell Rød Q. Hotspawn's published rule voids forfeited-match predictions (0 points either way); the pick matters only if Hotspawn grades a walkover instead.",
     "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
    },
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Komplettligaen/2026 Season/Autumn Split_Round 8_4",
+    "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split",
+    "utc": "2026-10-04T15:00:00Z",
+    "forfeit_flag": 1,
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia",
+    "settlement_matched": true
+   },
+   "grade": "settled",
    "community_pick_pct": {
     "team0": 50,
     "team1": 50,
@@ -1984,6 +2229,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -2047,6 +2294,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -2108,6 +2357,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Icelandic Esports League/2026 Season/Autumn Split_Week 3_2",
+    "leaguepedia_page": "Icelandic Esports League/2026 Season/Autumn Split",
+    "utc": "2026-10-05T19:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Icelandic_Esports_League/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -2169,6 +2431,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Icelandic Esports League/2026 Season/Autumn Split_Week 3_3",
+    "leaguepedia_page": "Icelandic Esports League/2026 Season/Autumn Split",
+    "utc": "2026-10-05T19:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Icelandic_Esports_League/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -2229,6 +2504,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Benelux Ascend Series/2027 Season/Winter Promotion_Round 1_3",
+    "leaguepedia_page": "Benelux Ascend Series/2027 Season/Winter Promotion",
+    "utc": "2026-10-07T17:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series/2027_Season/Winter_Promotion",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2290,6 +2578,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Icelandic Esports League/2026 Season/Autumn Split_Week 3_4",
+    "leaguepedia_page": "Icelandic Esports League/2026 Season/Autumn Split",
+    "utc": "2026-10-08T19:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Icelandic_Esports_League/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2354,6 +2655,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2415,6 +2718,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Icelandic Esports League/2026 Season/Autumn Split_Week 3_6",
+    "leaguepedia_page": "Icelandic Esports League/2026 Season/Autumn Split",
+    "utc": "2026-10-08T19:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Icelandic_Esports_League/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2476,6 +2792,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2537,6 +2855,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2598,6 +2918,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Superstrike League 2026_Week 4_5",
+    "leaguepedia_page": "Superstrike League 2026",
+    "utc": "2026-10-10T17:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Superstrike_League_2026",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2659,6 +2992,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2704,7 +3039,7 @@
    "p1": null,
    "method": "unresolved",
    "confidence": "none",
-   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=2, i.e. Solid Gaming forfeited), 0-2 in favour of Volda E-Sport. Hotspawn may void this card or settle the walkover for opponent Volda E-Sport; the settlement is unverified, so no competitive probability is claimed.",
+   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=2, i.e. Solid Gaming forfeited), 0-2 in favour of Volda E-Sport. Hotspawn's published rule voids all predictions on a forfeited match (play.hotspawn.com/how-it-works), so expect 0 points either way; if graded as a walkover instead, the winner is Volda E-Sport. No competitive probability is claimed.",
    "flags": [
     "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is Volda E-Sport)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -2722,11 +3057,25 @@
     "type": "official-forfeit",
     "winner": "Volda E-Sport",
     "loser": "Solid Gaming",
-    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is Volda E-Sport. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is Volda E-Sport. Hotspawn's published rule voids forfeited-match predictions (0 points either way); the pick matters only if Hotspawn grades a walkover instead.",
     "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
    },
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Komplettligaen/2026 Season/Autumn Split_Round 9_3",
+    "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split",
+    "utc": "2026-10-11T15:00:00Z",
+    "forfeit_flag": 2,
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia",
+    "settlement_matched": true
+   },
+   "grade": "settled",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2787,6 +3136,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 1,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "RIVALS LEAGUE/2026 Season/Season 2_Week 3_5",
+    "leaguepedia_page": "RIVALS LEAGUE/2026 Season/Season 2",
+    "utc": "2026-10-11T16:30:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:RIVALS_LEAGUE/2026_Season/Season_2",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2848,6 +3210,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "RIVALS LEAGUE/2026 Season/Season 2_Week 3_3",
+    "leaguepedia_page": "RIVALS LEAGUE/2026 Season/Season 2",
+    "utc": "2026-10-11T16:30:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:RIVALS_LEAGUE/2026_Season/Season_2",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -2908,6 +3283,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "RIVALS LEAGUE/2026 Season/Season 2_Week 3_4",
+    "leaguepedia_page": "RIVALS LEAGUE/2026 Season/Season 2",
+    "utc": "2026-10-11T16:30:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:RIVALS_LEAGUE/2026_Season/Season_2",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -2969,6 +3357,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "RIVALS LEAGUE/2026 Season/Season 2_Week 3_6",
+    "leaguepedia_page": "RIVALS LEAGUE/2026 Season/Season 2",
+    "utc": "2026-10-11T17:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:RIVALS_LEAGUE/2026_Season/Season_2",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3029,6 +3430,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "RIVALS LEAGUE/2026 Season/Season 2_Week 3_7",
+    "leaguepedia_page": "RIVALS LEAGUE/2026 Season/Season 2",
+    "utc": "2026-10-11T17:30:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:RIVALS_LEAGUE/2026_Season/Season_2",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3090,6 +3504,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3154,6 +3570,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3215,6 +3633,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3260,7 +3680,7 @@
    "p1": null,
    "method": "unresolved",
    "confidence": "none",
-   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of NTNUI Kometkameratene. Hotspawn may void this card or settle the walkover for opponent NTNUI Kometkameratene; the settlement is unverified, so no competitive probability is claimed.",
+   "basis": "Participant removed mid-split: community-maintained Leaguepedia Data:Komplettligaen/2026 Season/Autumn Split records 'dqteams=Solid Gaming'. Leaguepedia records this series with its forfeit flag (FF=1, i.e. Solid Gaming forfeited), 0-2 in favour of NTNUI Kometkameratene. Hotspawn's published rule voids all predictions on a forfeited match (play.hotspawn.com/how-it-works), so expect 0 points either way; if graded as a walkover instead, the winner is NTNUI Kometkameratene. No competitive probability is claimed.",
    "flags": [
     "Leaguepedia-reported league removal: Solid Gaming listed in Data:Komplettligaen/2026 Season/Autumn Split dqteams (if not voided by Hotspawn, active opponent is NTNUI Kometkameratene)",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -3278,11 +3698,25 @@
     "type": "official-forfeit",
     "winner": "NTNUI Kometkameratene",
     "loser": "Solid Gaming",
-    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is NTNUI Kometkameratene. Use only if Hotspawn grades the card as a walkover; if Hotspawn voids it there is no pick.",
+    "note": "Leaguepedia records every remaining Solid Gaming fixture as a 0-2 forfeit (ff flag), so the official settlement pick is NTNUI Kometkameratene. Hotspawn's published rule voids forfeited-match predictions (0 points either way); the pick matters only if Hotspawn grades a walkover instead.",
     "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
    },
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Komplettligaen/2026 Season/Autumn Split_Round 6_6",
+    "leaguepedia_page": "Komplettligaen/2026 Season/Autumn Split",
+    "utc": "2026-10-13T17:00:00Z",
+    "forfeit_flag": 1,
+    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia",
+    "settlement_matched": true
+   },
+   "grade": "settled",
    "community_pick_pct": {
     "team0": 75,
     "team1": 25,
@@ -3343,6 +3777,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 3,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Benelux Ascend Series/2027 Season/Winter Promotion_Round 2_3",
+    "leaguepedia_page": "Benelux Ascend Series/2027 Season/Winter Promotion",
+    "utc": "2026-10-14T17:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series/2027_Season/Winter_Promotion",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -3406,6 +3853,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3470,6 +3919,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 75,
     "team1": 25,
@@ -3534,6 +3985,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 25,
     "team1": 75,
@@ -3595,6 +4048,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Arabian League 2nd Division/2026 Season/Summer Split_Week 3_2",
+    "leaguepedia_page": "Arabian League 2nd Division/2026 Season/Summer Split",
+    "utc": "2026-10-15T18:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Arabian_League_2nd_Division/2026_Season/Summer_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 69,
     "team1": 31,
@@ -3656,6 +4122,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 1,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "RIVALS LEAGUE/2026 Season/Season 2_Week 4_4",
+    "leaguepedia_page": "RIVALS LEAGUE/2026 Season/Season 2",
+    "utc": "2026-10-15T18:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:RIVALS_LEAGUE/2026_Season/Season_2",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
@@ -3718,6 +4197,19 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 1,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS_Round 2_6",
+    "leaguepedia_page": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS",
+    "utc": "2026-10-16T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -3780,6 +4272,19 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 1,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS_Round 2_7",
+    "leaguepedia_page": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS",
+    "utc": "2026-10-16T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -3842,6 +4347,19 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 1,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS_Round 4_2",
+    "leaguepedia_page": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS",
+    "utc": "2026-10-16T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -3904,6 +4422,19 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 1,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS_Round 4_1",
+    "leaguepedia_page": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS",
+    "utc": "2026-10-16T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -3966,6 +4497,19 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 1,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS_Round 2_8",
+    "leaguepedia_page": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS",
+    "utc": "2026-10-16T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -4028,6 +4572,19 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 1,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS_Round 2_5",
+    "leaguepedia_page": "Arabian Regional Championship 2026/Qualifiers/LB-Li-SY-PS",
+    "utc": "2026-10-16T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -4088,6 +4645,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 1,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs_Round 1_3",
+    "leaguepedia_page": "LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs",
+    "utc": "2026-10-17T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:LigaGG/CELOL_Série_B/2026_Season/Split_2_Playoffs",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -4149,6 +4719,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 1,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "4 Nations/2026 Season/Halloween Heist_Tiebreakers_1",
+    "leaguepedia_page": "4 Nations/2026 Season/Halloween Heist",
+    "utc": "2026-10-17T16:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:4_Nations/2026_Season/Halloween_Heist",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -4209,6 +4792,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Arabian League 2nd Division/2026 Season/Summer Split_Week 4_2",
+    "leaguepedia_page": "Arabian League 2nd Division/2026 Season/Summer Split",
+    "utc": "2026-10-22T18:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Arabian_League_2nd_Division/2026_Season/Summer_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 24,
     "team1": 76,
@@ -4271,6 +4867,19 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 1,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Logitech G SuperStrike Cup/Qualifier_Round 1_3",
+    "leaguepedia_page": "Logitech G SuperStrike Cup/Qualifier",
+    "utc": "2026-10-24T11:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Logitech_G_SuperStrike_Cup/Qualifier",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 83,
     "team1": 17,
@@ -4333,6 +4942,8 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -4398,6 +5009,8 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 83,
     "team1": 17,
@@ -4460,6 +5073,19 @@
    "resolution": null,
    "connected": false,
    "stale": true,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 1,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Logitech G SuperStrike Cup/Qualifier_Round 2_3",
+    "leaguepedia_page": "Logitech G SuperStrike Cup/Qualifier",
+    "utc": "2026-10-24T12:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Logitech_G_SuperStrike_Cup/Qualifier",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 86,
     "team1": 14,
@@ -4520,6 +5146,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 86,
     "team1": 14,
@@ -4580,6 +5208,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 9,
     "team1": 91,
@@ -4643,6 +5273,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 4,
     "team1": 96,
@@ -4704,6 +5336,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
@@ -4730,8 +5364,8 @@
     "rating_as_of": "2026-10-24T16:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.5,
-    "elo": 1610.5
+    "elo_now": 1610.4,
+    "elo": 1610.4
    },
    "team1": {
     "name": "El Menzah Esports",
@@ -4745,8 +5379,8 @@
     "elo_now": 1447.6,
     "elo": 1447.6
    },
-   "p0": 0.7186,
-   "p1": 0.2814,
+   "p0": 0.7185,
+   "p1": 0.2815,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: JSK Esports 1610 vs El Menzah Esports 1448 (68/4 rated series).",
@@ -4757,14 +5391,16 @@
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.7186,
-    "other_probability": 0.2814
+    "probability": 0.7185,
+    "other_probability": 0.2815
    },
    "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 93,
     "team1": 7,
@@ -4826,6 +5462,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 21,
     "team1": 79,
@@ -4886,6 +5524,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
@@ -4947,6 +5587,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 14,
     "team1": 86,
@@ -5008,6 +5650,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 22,
     "team1": 78,
@@ -5068,6 +5712,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 77,
     "team1": 23,
@@ -5129,6 +5775,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -5189,6 +5837,8 @@
    "resolution": null,
    "connected": true,
    "stale": true,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -5230,23 +5880,23 @@
     "elo_now": 1792.2,
     "elo": 1792.2
    },
-   "p0": 0.3691,
-   "p1": 0.6309,
+   "p0": 0.3666,
+   "p1": 0.6334,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (36.9% / 63.1%): Pinnacle 38.3%/61.7% (2.51/1.56), Polymarket 36.5%/63.5% (36.5¢/63.5¢), Kalshi 36.5%/63.5% (36¢/64¢), Unibet 33.7%/66.3% (2.75/1.40).",
+   "basis": "5-Venue Consensus de-vigged line (36.7% / 63.3%): Pinnacle 38.3%/61.7% (2.51/1.56), Polymarket 36.5%/63.5% (36.5¢/63.5¢), Kalshi 36.5%/63.5% (36¢/64¢), Bovada 34.8%/65.1% (2.70/1.44), Unibet 33.7%/66.3% (2.75/1.40).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Anyone's Legend",
-    "probability": 0.6309,
-    "other_probability": 0.3691
+    "probability": 0.6334,
+    "other_probability": 0.3666
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "4-Venue Consensus",
+    "book": "5-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
@@ -5259,12 +5909,12 @@
      "home": 151,
      "away": -180
     },
-    "p0": 0.3691,
-    "p1": 0.6309,
+    "p0": 0.3666,
+    "p1": 0.6334,
     "overround": 0.0412,
     "start_utc": "2026-10-24T17:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 4,
+    "venue_count": 5,
     "total_volume_usd": 297830.24,
     "volume_usd": 297830.24,
     "venues": [
@@ -5275,7 +5925,7 @@
       "p1": 0.6174,
       "quote": "2.51/1.56",
       "overround": 0.0412,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight"
      },
      {
@@ -5285,7 +5935,7 @@
       "p1": 0.635,
       "quote": "36.5¢/63.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:51:07Z",
+      "observed_utc": "2026-10-24T16:47:09Z",
       "url": "https://polymarket.com/event/lol-tes-al-2026-10-24",
       "volume_usd": 297830.24
      },
@@ -5296,8 +5946,18 @@
       "p1": 0.635,
       "quote": "36¢/64¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241900altes"
+     },
+     {
+      "name": "Bovada",
+      "weight": 0.12,
+      "p0": 0.3485,
+      "p1": 0.6515,
+      "quote": "2.70/1.44",
+      "overround": 0.0627,
+      "observed_utc": "2026-10-24T16:29:32Z",
+      "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/top-esports-anyone-s-legend-202610241300"
      },
      {
       "name": "Unibet",
@@ -5316,6 +5976,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -5374,6 +6036,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 72,
     "team1": 28,
@@ -5432,6 +6096,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
@@ -5492,6 +6158,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 68,
     "team1": 32,
@@ -5533,52 +6201,52 @@
     "elo_now": 1753.2,
     "elo": 1753.2
    },
-   "p0": 0.6823,
-   "p1": 0.3177,
+   "p0": 0.6817,
+   "p1": 0.3183,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (68.2% / 31.8%): Pinnacle 67.9%/32.1% (1.41/2.98), Polymarket 68.5%/31.5% (68.5¢/31.5¢), Kalshi 68.5%/31.5% (68¢/32¢), Unibet 68.5%/31.6% (1.36/2.95).",
+   "basis": "5-Venue Consensus de-vigged line (68.2% / 31.8%): Pinnacle 68.1%/31.9% (1.41/3.00), Polymarket 68.5%/31.5% (68.5¢/31.5¢), Kalshi 68.5%/31.5% (68¢/32¢), Bovada 67.1%/32.9% (1.40/2.85), Unibet 68.5%/31.6% (1.36/2.95).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Movistar KOI",
-    "probability": 0.6823,
-    "other_probability": 0.3177
+    "probability": 0.6817,
+    "other_probability": 0.3183
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "4-Venue Consensus",
+    "book": "5-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight",
     "market_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight",
     "decimal": {
-     "home": 1.411,
-     "away": 2.98
+     "home": 1.407,
+     "away": 3.0
     },
     "american": {
-     "home": 198,
-     "away": -243
+     "home": 200,
+     "away": -246
     },
-    "p0": 0.6823,
-    "p1": 0.3177,
-    "overround": 0.044,
+    "p0": 0.6817,
+    "p1": 0.3183,
+    "overround": 0.0443,
     "start_utc": "2026-10-24T18:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 4,
+    "venue_count": 5,
     "total_volume_usd": 161144.11,
     "volume_usd": 161144.11,
     "venues": [
      {
       "name": "Pinnacle",
       "weight": 0.36,
-      "p0": 0.6786,
-      "p1": 0.3214,
-      "quote": "1.41/2.98",
-      "overround": 0.044,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "p0": 0.6808,
+      "p1": 0.3192,
+      "quote": "1.41/3.00",
+      "overround": 0.0443,
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight"
      },
      {
@@ -5588,7 +6256,7 @@
       "p1": 0.315,
       "quote": "68.5¢/31.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:51:07Z",
+      "observed_utc": "2026-10-24T16:47:09Z",
       "url": "https://polymarket.com/event/lol-cfo-mkoi-2026-10-24",
       "volume_usd": 161144.11
      },
@@ -5599,8 +6267,18 @@
       "p1": 0.315,
       "quote": "68¢/32¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241400mkoicfo"
+     },
+     {
+      "name": "Bovada",
+      "weight": 0.12,
+      "p0": 0.6706,
+      "p1": 0.3294,
+      "quote": "1.40/2.85",
+      "overround": 0.0652,
+      "observed_utc": "2026-10-24T16:29:32Z",
+      "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/ctbc-flying-oyster-movistar-koi-202610241400"
      },
      {
       "name": "Unibet",
@@ -5619,6 +6297,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -5656,27 +6336,27 @@
     "rating_matches": 68,
     "rating_as_of": "2026-10-24T19:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1815.8,
-    "elo_now": 1794.2,
-    "elo": 1794.2
+    "elo_raw": 1816.0,
+    "elo_now": 1794.4,
+    "elo": 1794.4
    },
-   "p0": 0.7966,
-   "p1": 0.2034,
+   "p0": 0.796,
+   "p1": 0.204,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (79.7% / 20.3%): Pinnacle 77.7%/22.3% (1.23/4.28), Polymarket 81.5%/18.5% (81.5¢/18.5¢), Kalshi 81.5%/18.5% (82¢/18¢), Unibet 78.8%/21.1% (1.18/4.40).",
+   "basis": "5-Venue Consensus de-vigged line (79.6% / 20.4%): Pinnacle 77.7%/22.3% (1.23/4.28), Polymarket 81.5%/18.5% (81.5¢/18.5¢), Kalshi 81.5%/18.5% (82¢/18¢), Bovada 79.2%/20.8% (1.18/4.50), Unibet 78.8%/21.1% (1.18/4.40).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "G2 Esports",
-    "probability": 0.7966,
-    "other_probability": 0.2034
+    "probability": 0.796,
+    "other_probability": 0.204
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "4-Venue Consensus",
+    "book": "5-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight",
@@ -5689,12 +6369,12 @@
      "home": -442,
      "away": 328
     },
-    "p0": 0.7966,
-    "p1": 0.2034,
+    "p0": 0.796,
+    "p1": 0.204,
     "overround": 0.0492,
     "start_utc": "2026-10-24T19:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 4,
+    "venue_count": 5,
     "total_volume_usd": 166121.64,
     "volume_usd": 166121.64,
     "venues": [
@@ -5705,7 +6385,7 @@
       "p1": 0.2227,
       "quote": "1.23/4.28",
       "overround": 0.0492,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight"
      },
      {
@@ -5715,7 +6395,7 @@
       "p1": 0.185,
       "quote": "81.5¢/18.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:51:07Z",
+      "observed_utc": "2026-10-24T16:47:09Z",
       "url": "https://polymarket.com/event/lol-g2-los-2026-10-24",
       "volume_usd": 166121.64
      },
@@ -5726,8 +6406,18 @@
       "p1": 0.185,
       "quote": "82¢/18¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241700losg2"
+     },
+     {
+      "name": "Bovada",
+      "weight": 0.12,
+      "p0": 0.792,
+      "p1": 0.208,
+      "quote": "1.18/4.50",
+      "overround": 0.0684,
+      "observed_utc": "2026-10-24T16:29:32Z",
+      "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/g2-esports-los-grandes-202610241500"
      },
      {
       "name": "Unibet",
@@ -5740,12 +6430,14 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609646.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.637,
+    "model_cross_check": 0.6367,
     "start_mismatch_hours": 0.0
    },
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -5808,6 +6500,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 20,
     "team1": 80,
@@ -5866,6 +6560,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 27,
     "team1": 73,
@@ -5909,25 +6605,25 @@
     "elo_now": 1906.3,
     "elo": 1906.3
    },
-   "p0": 0.4501,
-   "p1": 0.5499,
+   "p0": 0.4524,
+   "p1": 0.5476,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (45.0% / 55.0%): Pinnacle 44.7%/55.3% (2.15/1.74), Polymarket 45.5%/54.5% (45.5¢/54.5¢), Kalshi 44.5%/55.5% (44¢/56¢), Unibet 45.7%/54.3% (2.02/1.70).",
+   "basis": "5-Venue Consensus de-vigged line (45.2% / 54.8%): Pinnacle 44.7%/55.3% (2.15/1.74), Polymarket 45.5%/54.5% (45.5¢/54.5¢), Kalshi 44.5%/55.5% (44¢/56¢), Bovada 46.9%/53.1% (2.00/1.77), Unibet 45.7%/54.3% (2.02/1.70).",
    "flags": [
     "resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'"
    ],
    "pick": {
     "side": 1,
     "team": "Karmine Corp",
-    "probability": 0.5499,
-    "other_probability": 0.4501
+    "probability": 0.5476,
+    "other_probability": 0.4524
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "4-Venue Consensus",
+    "book": "5-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight",
@@ -5940,12 +6636,12 @@
      "home": 115,
      "away": -135
     },
-    "p0": 0.4501,
-    "p1": 0.5499,
+    "p0": 0.4524,
+    "p1": 0.5476,
     "overround": 0.0396,
     "start_utc": "2026-10-24T20:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 4,
+    "venue_count": 5,
     "total_volume_usd": 152563.5,
     "volume_usd": 152563.5,
     "venues": [
@@ -5956,7 +6652,7 @@
       "p1": 0.5526,
       "quote": "2.15/1.74",
       "overround": 0.0396,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight"
      },
      {
@@ -5966,7 +6662,7 @@
       "p1": 0.545,
       "quote": "45.5¢/54.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:51:07Z",
+      "observed_utc": "2026-10-24T16:47:09Z",
       "url": "https://polymarket.com/event/lol-ly-kc-2026-10-24",
       "volume_usd": 152563.5
      },
@@ -5977,8 +6673,18 @@
       "p1": 0.555,
       "quote": "44¢/56¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly"
+     },
+     {
+      "name": "Bovada",
+      "weight": 0.12,
+      "p0": 0.4694,
+      "p1": 0.5306,
+      "quote": "2.00/1.77",
+      "overround": 0.0652,
+      "observed_utc": "2026-10-24T16:29:32Z",
+      "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/lyon-gaming-karmine-corp-202610241600"
      },
      {
       "name": "Unibet",
@@ -5997,6 +6703,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 10,
     "team1": 90,
@@ -6038,25 +6746,25 @@
     "elo_now": 1857.1,
     "elo": 1857.1
    },
-   "p0": 0.6875,
-   "p1": 0.3125,
+   "p0": 0.6897,
+   "p1": 0.3103,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (68.8% / 31.2%): Pinnacle 68.8%/31.2% (1.39/3.07), Polymarket 68.5%/31.5% (68.5¢/31.5¢), Kalshi 68.5%/31.5% (68¢/32¢), Unibet 69.6%/30.4% (1.33/3.05).",
+   "basis": "5-Venue Consensus de-vigged line (69.0% / 31.0%): Pinnacle 68.8%/31.2% (1.39/3.07), Polymarket 68.5%/31.5% (68.5¢/31.5¢), Kalshi 68.5%/31.5% (68¢/32¢), Bovada 70.6%/29.4% (1.33/3.20), Unibet 69.6%/30.4% (1.33/3.05).",
    "flags": [
-    "market and model disagree by 42 pp (market 68.8% vs our Elo 73.7%) - the market side is published, the gap is disclosed"
+    "market and model disagree by 43 pp (market 69.0% vs our Elo 73.7%) - the market side is published, the gap is disclosed"
    ],
    "pick": {
     "side": 0,
     "team": "Invictus Gaming",
-    "probability": 0.6875,
-    "other_probability": 0.3125
+    "probability": 0.6897,
+    "other_probability": 0.3103
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "4-Venue Consensus",
+    "book": "5-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight",
@@ -6069,12 +6777,12 @@
      "home": -255,
      "away": 207
     },
-    "p0": 0.6875,
-    "p1": 0.3125,
+    "p0": 0.6897,
+    "p1": 0.3103,
     "overround": 0.044,
     "start_utc": "2026-10-24T21:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 4,
+    "venue_count": 5,
     "total_volume_usd": 57519.5,
     "volume_usd": 57519.5,
     "venues": [
@@ -6085,7 +6793,7 @@
       "p1": 0.312,
       "quote": "1.39/3.07",
       "overround": 0.044,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight"
      },
      {
@@ -6095,7 +6803,7 @@
       "p1": 0.315,
       "quote": "68.5¢/31.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:51:07Z",
+      "observed_utc": "2026-10-24T16:47:09Z",
       "url": "https://polymarket.com/event/lol-ig1-tsw-2026-10-24",
       "volume_usd": 57519.5
      },
@@ -6106,8 +6814,18 @@
       "p1": 0.315,
       "quote": "68¢/32¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241800tswig"
+     },
+     {
+      "name": "Bovada",
+      "weight": 0.12,
+      "p0": 0.7059,
+      "p1": 0.2941,
+      "quote": "1.33/3.20",
+      "overround": 0.0625,
+      "observed_utc": "2026-10-24T16:29:32Z",
+      "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/invictus-gaming-team-secret-202610241700"
      },
      {
       "name": "Unibet",
@@ -6126,6 +6844,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -6167,23 +6887,23 @@
     "elo_now": 1952.7,
     "elo": 1952.7
    },
-   "p0": 0.4183,
-   "p1": 0.5817,
+   "p0": 0.4195,
+   "p1": 0.5805,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (41.8% / 58.2%): Pinnacle 41.4%/58.6% (2.32/1.64), Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 42.9%/57.1% (42¢/56¢), Unibet 42.1%/57.9% (2.20/1.60).",
+   "basis": "5-Venue Consensus de-vigged line (41.9% / 58.1%): Pinnacle 41.4%/58.6% (2.32/1.64), Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 42.9%/57.1% (42¢/56¢), Bovada 42.8%/57.2% (2.20/1.65), Unibet 42.1%/57.9% (2.20/1.60).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Gen.G",
-    "probability": 0.5817,
-    "other_probability": 0.4183
+    "probability": 0.5805,
+    "other_probability": 0.4195
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "4-Venue Consensus",
+    "book": "5-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight",
@@ -6196,12 +6916,12 @@
      "home": 132,
      "away": -156
     },
-    "p0": 0.4183,
-    "p1": 0.5817,
+    "p0": 0.4195,
+    "p1": 0.5805,
     "overround": 0.0404,
     "start_utc": "2026-10-24T22:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 4,
+    "venue_count": 5,
     "total_volume_usd": 87808.37,
     "volume_usd": 87808.37,
     "venues": [
@@ -6212,7 +6932,7 @@
       "p1": 0.5857,
       "quote": "2.32/1.64",
       "overround": 0.0404,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight"
      },
      {
@@ -6222,7 +6942,7 @@
       "p1": 0.585,
       "quote": "41.5¢/58.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:51:07Z",
+      "observed_utc": "2026-10-24T16:47:09Z",
       "url": "https://polymarket.com/event/lol-hle1-gen-2026-10-24",
       "volume_usd": 87808.37
      },
@@ -6233,8 +6953,18 @@
       "p1": 0.5707,
       "quote": "42¢/56¢",
       "overround": -0.01,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241500genhle"
+     },
+     {
+      "name": "Bovada",
+      "weight": 0.12,
+      "p0": 0.4279,
+      "p1": 0.5721,
+      "quote": "2.20/1.65",
+      "overround": 0.0624,
+      "observed_utc": "2026-10-24T16:29:32Z",
+      "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-gen-g-202610241800"
      },
      {
       "name": "Unibet",
@@ -6253,6 +6983,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -6294,23 +7026,23 @@
     "elo_now": 1880.6,
     "elo": 1880.6
    },
-   "p0": 0.4332,
-   "p1": 0.5668,
+   "p0": 0.4326,
+   "p1": 0.5674,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (43.3% / 56.7%): Pinnacle 44.1%/55.9% (2.18/1.72), Polymarket 43.5%/56.5% (43.5¢/56.5¢), Kalshi 43.5%/56.5% (44¢/56¢), Unibet 39.8%/60.2% (2.33/1.54).",
+   "basis": "5-Venue Consensus de-vigged line (43.3% / 56.7%): Pinnacle 44.1%/55.9% (2.18/1.72), Polymarket 43.5%/56.5% (43.5¢/56.5¢), Kalshi 43.5%/56.5% (44¢/56¢), Bovada 42.8%/57.2% (2.20/1.65), Unibet 39.8%/60.2% (2.33/1.54).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "T1",
-    "probability": 0.5668,
-    "other_probability": 0.4332
+    "probability": 0.5674,
+    "other_probability": 0.4326
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "4-Venue Consensus",
+    "book": "5-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127310/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127310/markets/related/straight",
@@ -6323,12 +7055,12 @@
      "home": 118,
      "away": -139
     },
-    "p0": 0.4332,
-    "p1": 0.5668,
+    "p0": 0.4326,
+    "p1": 0.5674,
     "overround": 0.0403,
     "start_utc": "2026-10-24T23:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 4,
+    "venue_count": 5,
     "total_volume_usd": 99896.94,
     "volume_usd": 99896.94,
     "venues": [
@@ -6339,7 +7071,7 @@
       "p1": 0.5591,
       "quote": "2.18/1.72",
       "overround": 0.0403,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127310/markets/related/straight"
      },
      {
@@ -6349,7 +7081,7 @@
       "p1": 0.565,
       "quote": "43.5¢/56.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:51:07Z",
+      "observed_utc": "2026-10-24T16:47:09Z",
       "url": "https://polymarket.com/event/lol-dk-t1-2026-10-24",
       "volume_usd": 99896.94
      },
@@ -6360,8 +7092,18 @@
       "p1": 0.565,
       "quote": "44¢/56¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241300t1dk"
+     },
+     {
+      "name": "Bovada",
+      "weight": 0.12,
+      "p0": 0.4279,
+      "p1": 0.5721,
+      "quote": "2.20/1.65",
+      "overround": 0.0624,
+      "observed_utc": "2026-10-24T16:29:32Z",
+      "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/dplus-kia-t1-202610241900"
      },
      {
       "name": "Unibet",
@@ -6380,6 +7122,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -6421,23 +7165,23 @@
     "elo_now": 1825.4,
     "elo": 1825.4
    },
-   "p0": 0.7368,
-   "p1": 0.2632,
+   "p0": 0.7337,
+   "p1": 0.2663,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (73.7% / 26.3%): Pinnacle 72.0%/28.0% (1.33/3.41), Polymarket 75.5%/24.5% (75.5¢/24.5¢), Kalshi 75.5%/24.5% (76¢/24¢), Unibet 72.2%/27.8% (1.29/3.35).",
+   "basis": "5-Venue Consensus de-vigged line (73.4% / 26.6%): Pinnacle 72.0%/28.0% (1.33/3.41), Polymarket 75.5%/24.5% (75.5¢/24.5¢), Kalshi 75.5%/24.5% (76¢/24¢), Bovada 71.1%/28.9% (1.32/3.25), Unibet 72.2%/27.8% (1.29/3.35).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Bilibili Gaming",
-    "probability": 0.7368,
-    "other_probability": 0.2632
+    "probability": 0.7337,
+    "other_probability": 0.2663
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "4-Venue Consensus",
+    "book": "5-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121259/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121259/markets/related/straight",
@@ -6450,12 +7194,12 @@
      "home": 241,
      "away": -305
     },
-    "p0": 0.7368,
-    "p1": 0.2632,
+    "p0": 0.7337,
+    "p1": 0.2663,
     "overround": 0.0463,
     "start_utc": "2026-10-25T00:00:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 4,
+    "venue_count": 5,
     "total_volume_usd": 62207.56,
     "volume_usd": 62207.56,
     "venues": [
@@ -6466,7 +7210,7 @@
       "p1": 0.2803,
       "quote": "1.33/3.41",
       "overround": 0.0463,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121259/markets/related/straight"
      },
      {
@@ -6476,7 +7220,7 @@
       "p1": 0.245,
       "quote": "75.5¢/24.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:51:07Z",
+      "observed_utc": "2026-10-24T16:47:09Z",
       "url": "https://polymarket.com/event/lol-tl2-blg-2026-10-24",
       "volume_usd": 62207.56
      },
@@ -6487,8 +7231,18 @@
       "p1": 0.245,
       "quote": "76¢/24¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:50:05Z",
+      "observed_utc": "2026-10-24T16:46:05Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct242000blgtl"
+     },
+     {
+      "name": "Bovada",
+      "weight": 0.12,
+      "p0": 0.7108,
+      "p1": 0.2892,
+      "quote": "1.32/3.25",
+      "overround": 0.0638,
+      "observed_utc": "2026-10-24T16:29:32Z",
+      "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-bilibili-gaming-202610242000"
      },
      {
       "name": "Unibet",
@@ -6507,6 +7261,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 90,
     "team1": 10,
@@ -6565,6 +7321,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 32,
     "team1": 68,
@@ -6623,6 +7381,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 18,
     "team1": 82,
@@ -6681,6 +7441,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 16,
     "team1": 84,
@@ -6739,6 +7501,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 44,
     "team1": 56,
@@ -6799,6 +7563,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 79,
     "team1": 21,
@@ -6857,6 +7623,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -6917,6 +7685,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 38,
     "team1": 63,
@@ -6975,6 +7745,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 76,
     "team1": 24,
@@ -7033,6 +7805,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 20,
     "team1": 80,
@@ -7091,6 +7865,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -7153,6 +7929,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 28,
     "team1": 72,
@@ -7213,6 +7991,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
@@ -7271,6 +8051,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 12,
     "team1": 88,
@@ -7329,6 +8111,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -7355,8 +8139,8 @@
     "rating_as_of": "2026-10-25T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.5,
-    "elo": 1610.5
+    "elo_now": 1610.4,
+    "elo": 1610.4
    },
    "team1": {
     "name": "Enfida Esports",
@@ -7370,8 +8154,8 @@
     "elo_now": 1419.2,
     "elo": 1419.2
    },
-   "p0": 0.7505,
-   "p1": 0.2495,
+   "p0": 0.7504,
+   "p1": 0.2496,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: JSK Esports 1610 vs Enfida Esports 1419 (68/6 rated series).",
@@ -7379,14 +8163,16 @@
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.7505,
-    "other_probability": 0.2495
+    "probability": 0.7504,
+    "other_probability": 0.2496
    },
    "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -7447,6 +8233,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
@@ -7507,6 +8295,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 24,
     "team1": 76,
@@ -7567,6 +8357,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
@@ -7627,6 +8419,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 17,
     "team1": 83,
@@ -7687,6 +8481,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 96,
     "team1": 4,
@@ -7745,6 +8541,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 17,
     "team1": 83,
@@ -7803,6 +8601,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 91,
     "team1": 9,
@@ -7863,6 +8663,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 76,
     "team1": 24,
@@ -7921,6 +8723,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 26,
     "team1": 74,
@@ -7983,6 +8787,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 65,
     "team1": 35,
@@ -8041,6 +8847,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 9,
     "team1": 91,
@@ -8099,6 +8907,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -8161,6 +8971,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -8221,6 +9033,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 48,
     "team1": 52,
@@ -8279,6 +9093,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 24,
     "team1": 76,
@@ -8362,7 +9178,7 @@
       "p1": 0.61,
       "quote": "39.0¢/61.0¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T16:51:07Z",
+      "observed_utc": "2026-10-24T16:47:09Z",
       "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
       "volume_usd": 13.77
      }
@@ -8372,6 +9188,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -8434,6 +9252,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -8492,6 +9312,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 82,
     "team1": 18,
@@ -8550,6 +9372,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -8608,6 +9432,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 91,
     "team1": 9,
@@ -8666,6 +9492,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 82,
     "team1": 18,
@@ -8724,6 +9552,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 78,
     "team1": 22,
@@ -8782,6 +9612,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 92,
     "team1": 8,
@@ -8840,6 +9672,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -8898,6 +9732,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 81,
     "team1": 19,
@@ -8958,6 +9794,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -9016,6 +9854,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -9074,6 +9914,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 81,
     "team1": 19,
@@ -9132,6 +9974,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -9190,6 +10034,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -9248,6 +10094,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -9310,6 +10158,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -9368,6 +10218,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -9426,6 +10278,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -9484,6 +10338,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 5,
     "team1": 95,
@@ -9542,6 +10398,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -9600,6 +10458,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -9662,6 +10522,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 95,
     "team1": 5,
@@ -9722,6 +10584,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 25,
     "team1": 75,
@@ -9748,8 +10612,8 @@
     "rating_as_of": "2026-10-31T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.5,
-    "elo": 1610.5
+    "elo_now": 1610.4,
+    "elo": 1610.4
    },
    "team1": {
     "name": "Olympique Mnihla",
@@ -9763,8 +10627,8 @@
     "elo_now": 1510.5,
     "elo": 1510.5
    },
-   "p0": 0.6401,
-   "p1": 0.3599,
+   "p0": 0.6399,
+   "p1": 0.3601,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: JSK Esports 1610 vs Olympique Mnihla 1510 (68/40 rated series).",
@@ -9772,14 +10636,16 @@
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.6401,
-    "other_probability": 0.3599
+    "probability": 0.6399,
+    "other_probability": 0.3601
    },
    "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 90,
     "team1": 10,
@@ -9840,6 +10706,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 15,
     "team1": 85,
@@ -9900,6 +10768,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -9960,6 +10830,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 25,
     "team1": 75,
@@ -10018,6 +10890,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
@@ -10076,6 +10950,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 95,
     "team1": 5,
@@ -10134,6 +11010,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 90,
     "team1": 10,
@@ -10196,6 +11074,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -10254,6 +11134,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -10314,6 +11196,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 5,
     "team1": 95,
@@ -10372,6 +11256,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -10430,6 +11316,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 11,
     "team1": 89,
@@ -10490,6 +11378,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -10548,6 +11438,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 95,
     "team1": 5,
@@ -10608,6 +11500,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 74,
     "team1": 26,
@@ -10666,6 +11560,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 16,
     "team1": 84,
@@ -10724,6 +11620,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 10,
     "team1": 90,
@@ -10782,6 +11680,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -10840,6 +11740,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 84,
     "team1": 16,
@@ -10898,6 +11800,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
@@ -10958,6 +11862,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
@@ -11016,6 +11922,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -11074,6 +11982,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 18,
     "team1": 82,
@@ -11134,6 +12044,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -11194,6 +12106,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 94,
     "team1": 6,
@@ -11254,6 +12168,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 6,
     "team1": 94,
@@ -11292,11 +12208,11 @@
     "rating_as_of": "2026-11-01T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.5,
-    "elo": 1610.5
+    "elo_now": 1610.4,
+    "elo": 1610.4
    },
-   "p0": 0.5362,
-   "p1": 0.4638,
+   "p0": 0.5363,
+   "p1": 0.4637,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Simplicity Gaming 1636 vs JSK Esports 1610 (38/68 rated series).",
@@ -11304,14 +12220,16 @@
    "pick": {
     "side": 0,
     "team": "Simplicity Gaming",
-    "probability": 0.5362,
-    "other_probability": 0.4638
+    "probability": 0.5363,
+    "other_probability": 0.4637
    },
    "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
@@ -11372,6 +12290,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 83,
     "team1": 17,
@@ -11432,6 +12352,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -11490,6 +12412,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -11552,6 +12476,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 83,
     "team1": 17,
@@ -11610,6 +12536,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 82,
     "team1": 18,
@@ -11668,6 +12596,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -11728,6 +12658,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 82,
     "team1": 18,
@@ -11790,6 +12722,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 30,
     "team1": 70,
@@ -11850,6 +12784,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 88,
     "team1": 13,
@@ -11908,6 +12844,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 76,
     "team1": 24,
@@ -11966,6 +12904,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 13,
     "team1": 87,
@@ -12024,6 +12964,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -12082,6 +13024,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 13,
     "team1": 87,
@@ -12144,6 +13088,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 73,
     "team1": 27,
@@ -12204,6 +13150,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -12262,6 +13210,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 93,
     "team1": 7,
@@ -12322,6 +13272,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -12360,11 +13312,11 @@
     "rating_as_of": "2026-11-07T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.5,
-    "elo": 1610.5
+    "elo_now": 1610.4,
+    "elo": 1610.4
    },
-   "p0": 0.3378,
-   "p1": 0.6622,
+   "p0": 0.338,
+   "p1": 0.662,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: JSK Academy 1494 vs JSK Esports 1610 (29/68 rated series).",
@@ -12372,14 +13324,16 @@
    "pick": {
     "side": 1,
     "team": "JSK Esports",
-    "probability": 0.6622,
-    "other_probability": 0.3378
+    "probability": 0.662,
+    "other_probability": 0.338
    },
    "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -12440,6 +13394,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -12500,6 +13456,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 13,
     "team1": 87,
@@ -12560,6 +13518,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -12620,6 +13580,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 87,
     "team1": 13,
@@ -12678,6 +13640,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -12738,6 +13702,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 87,
     "team1": 13,
@@ -12796,6 +13762,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 93,
     "team1": 7,
@@ -12854,6 +13822,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 93,
     "team1": 7,
@@ -12912,6 +13882,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 87,
     "team1": 13,
@@ -12970,6 +13942,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 93,
     "team1": 7,
@@ -13028,6 +14002,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -13086,6 +14062,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 20,
     "team1": 80,
@@ -13144,6 +14122,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -13204,6 +14184,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 93,
     "team1": 7,
@@ -13266,6 +14248,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 93,
     "team1": 7,
@@ -13324,6 +14308,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -13384,6 +14370,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 20,
     "team1": 80,
@@ -13444,6 +14432,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 87,
     "team1": 13,
@@ -13502,6 +14492,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 80,
     "team1": 20,
@@ -13560,6 +14552,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 13,
     "team1": 87,
@@ -13622,6 +14616,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -13680,6 +14676,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 20,
     "team1": 80,
@@ -13705,9 +14703,9 @@
     "rating_matches": 30,
     "rating_as_of": "2026-11-10T05:00:00Z",
     "last_played": "2026-09-25",
-    "elo_raw": 1703.8,
-    "elo_now": 1685.6,
-    "elo": 1685.4
+    "elo_raw": 1703.9,
+    "elo_now": 1685.7,
+    "elo": 1685.5
    },
    "team1": {
     "name": "Nothin'Here",
@@ -13721,23 +14719,25 @@
     "elo_now": 1753.7,
     "elo": 1753.7
    },
-   "p0": 0.403,
-   "p1": 0.597,
+   "p0": 0.4031,
+   "p1": 0.5969,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: FENNEL 1685 vs Nothin'Here 1754 (30/7 rated series).",
+   "basis": "Elo line: FENNEL 1686 vs Nothin'Here 1754 (30/7 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Nothin'Here",
-    "probability": 0.597,
-    "other_probability": 0.403
+    "probability": 0.5969,
+    "other_probability": 0.4031
    },
    "pick_type": null,
    "market": null,
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 88,
     "team1": 13,
@@ -13801,6 +14801,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -13861,6 +14863,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -13923,6 +14927,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 6,
     "team1": 94,
@@ -13981,6 +14987,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 94,
     "team1": 6,
@@ -14043,6 +15051,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 6,
     "team1": 94,
@@ -14101,6 +15111,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 75,
     "team1": 25,
@@ -14159,6 +15171,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -14217,6 +15231,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -14275,6 +15291,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 14,
     "team1": 86,
@@ -14335,6 +15353,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -14393,6 +15413,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 86,
     "team1": 14,
@@ -14453,6 +15475,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -14511,6 +15535,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -14569,6 +15595,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 86,
     "team1": 14,
@@ -14627,6 +15655,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 86,
     "team1": 14,
@@ -14685,6 +15715,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -14745,6 +15777,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -14807,6 +15841,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 14,
     "team1": 86,
@@ -14865,6 +15901,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
@@ -14923,6 +15961,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 86,
     "team1": 14,
@@ -14983,6 +16023,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 85,
     "team1": 15,
@@ -15041,6 +16083,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 7,
     "team1": 93,
@@ -15099,6 +16143,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -15157,6 +16203,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 86,
     "team1": 14,
@@ -15217,6 +16265,8 @@
    "resolution": null,
    "connected": true,
    "stale": false,
+   "result": null,
+   "grade": null,
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,

@@ -178,10 +178,37 @@ def main() -> None:
                      "so the production collector keeps the filtered feed.")
         lines.append("")
 
+    # ---- later verified supersessions: a receipt is a point-in-time observation, and two of
+    # them have since been overtaken by a working endpoint that the build now uses. This block
+    # is generated from the current build's own status file, so the correction is evidence, not
+    # an edit to the historical receipt.
+    live = load("data/sources_status.json") or {}
+    live_rows = {str(x.get("name")): x for x in (live.get("sources") or [])}
+    supersessions = []
+    kambi = live_rows.get("Unibet/Kambi")
+    if kambi and kambi.get("status") == 200:
+        supersessions.append(
+            "| Unibet/Kambi esports | `ubus` listView without `lang`/`market` → HTTP 400 "
+            "`lang may not be null` | `ubse` LoL matches JSON → HTTP 200, "
+            f"{kambi.get('bytes')} bytes, moneyline venues in the live consensus | "
+            f"[`{esc(kambi.get('url'))}`]({kambi.get('url')}) · checked {esc(kambi.get('checked_utc'))} |")
+    if supersessions:
+        lines.append("## 4b. Superseded since these receipts were captured")
+        lines.append("")
+        lines.append("A receipt is a point-in-time observation. Where a later build reached a working "
+                     "endpoint, the correction is recorded here with its own evidence rather than by "
+                     "rewriting the receipt above.")
+        lines.append("")
+        lines.append("| Source | Receipt above says | Verified since (current build) | Evidence |")
+        lines.append("|---|---|---|---|")
+        lines.extend(supersessions)
+        lines.append("")
+
     lines.append("## 5. What this means for the site")
     lines.append("")
     lines.append("- Market-backed rows use only de-vigged, two-sided prices from venues that returned "
-                 "HTTP 200 JSON on the run (`Pinnacle`, `Polymarket`, `Kalshi`, `Bovada`).")
+                 "HTTP 200 JSON on the run (`Pinnacle`, `Polymarket`, `Kalshi`, `Bovada`, "
+                 "`Unibet/Kambi`).")
     lines.append("- Venues that block the runner (403 region, bot challenge), or that only serve prices "
                  "after client-side JavaScript runs, are recorded as unverified and are **not** used. "
                  "They are listed on Sources so the gap is visible rather than silently filled.")
@@ -194,7 +221,8 @@ def main() -> None:
     lines.append("## 6. Receipts")
     lines.append("")
     for path, doc in (("data/source_probes.json", stage1), ("research/probe_deep.json", deep),
-                      ("research/market_ceiling.json", ceiling), ("research/bovada_full.json", bovada)):
+                      ("research/market_ceiling.json", ceiling), ("research/bovada_full.json", bovada),
+                      ("data/sources_status.json", live)):
         if doc:
             lines.append(f"- `{path}` — generated {esc(doc.get('checked_utc'))}")
     lines.append("")

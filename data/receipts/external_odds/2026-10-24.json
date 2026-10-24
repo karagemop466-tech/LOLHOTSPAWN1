@@ -1,0 +1,179 @@
+{
+ "_README": [
+  "Live captures for Worlds 2026 Swiss day 2 (2026-10-24), taken from public pages/JSON.",
+  "Corroboration only — these never set a published pick. tools/corroborate.py matches",
+  "fixture_id to data/matches.json and de-vigs the decimals.",
+  "Unibet quotes: Kambi ubse Match Odds, odds/1000 = decimal, observed 2026-10-24T16:16Z.",
+  "OddsPortal quotes: World Championship coupon HTML, observed 2026-10-24T16:16Z.",
+  "Hotspawn fixture ids taken from play.hotspawn.com/lol-pickems permalinks the same hour."
+ ],
+ "captured_by": "session 1a1a3b1b (fetch of public Unibet/Kambi JSON + OddsPortal Worlds coupon)",
+ "captured_utc": "2026-10-24T16:16:00Z",
+ "sources": [
+  {
+   "key": "unibet_kambi",
+   "name": "Unibet (Kambi ubse European Sportsbook JSON)",
+   "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+   "kind": "regulated European sportsbook JSON feed (Match Odds)",
+   "runner_reachable": "HTTP 200 JSON from public Kambi CDN (ubse operator)"
+  },
+  {
+   "key": "oddsportal",
+   "name": "OddsPortal eSports / League of Legends World Championship",
+   "url": "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+   "kind": "odds comparison engine (best listed decimal on the coupon)",
+   "runner_reachable": "HTTP 200 HTML; prices visible in the fetched document on 2026-10-24"
+  }
+ ],
+ "coverage_observations": [
+  {
+   "source": "oddsportal",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "url": "https://www.oddsportal.com/esports/league-of-legends/",
+   "observation": "The LoL index still lists exactly one priced competition: League of Legends World Championship (11). No national or academy division appears.",
+   "verbatim": "League of Legends World Championship (11)"
+  }
+ ],
+ "captures": [
+  {
+   "source": "unibet_kambi",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609648.json?lang=en_GB&market=ZZ",
+   "fixture_id": "1067688",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["TOP Esports", "Anyone's Legend"],
+   "decimal": [2.65, 1.42],
+   "verbatim": "event 1029609648 TOP Esports - Anyone's Legend start=2026-10-24T17:10:00Z OT_TWO Anyone's Legend odds=1420 OT_ONE TOP Esports odds=2650"
+  },
+  {
+   "source": "oddsportal",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+   "fixture_id": "1067688",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["Anyone's Legend", "Top Esports"],
+   "decimal": [1.54, 2.50],
+   "verbatim": "19:00 Anyone's Legend - Top Esports 1.54 2.50"
+  },
+  {
+   "source": "unibet_kambi",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609639.json?lang=en_GB&market=ZZ",
+   "fixture_id": "1067881",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["CTBC Flying Oyster", "Movistar KOI"],
+   "decimal": [2.75, 1.40],
+   "verbatim": "event 1029609639 CTBC Flying Oyster - Movistar KOI start=2026-10-24T18:10:00Z OT_ONE 2750 OT_TWO 1400"
+  },
+  {
+   "source": "oddsportal",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+   "fixture_id": "1067881",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["CTBC Flying Oyster", "Movistar KOI"],
+   "decimal": [2.90, 1.37],
+   "verbatim": "20:00 CTBC Flying Oyster - Movistar KOI 2.90 1.37"
+  },
+  {
+   "source": "unibet_kambi",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609646.json?lang=en_GB&market=ZZ",
+   "fixture_id": "1067686",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["G2 Esports", "LØS"],
+   "decimal": [1.18, 4.40],
+   "verbatim": "event 1029609646 G2 Esports - LØS start=2026-10-24T19:10:00Z OT_ONE 1180 OT_TWO 4400"
+  },
+  {
+   "source": "oddsportal",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+   "fixture_id": "1067686",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["G2 Esports", "LOS"],
+   "decimal": [1.21, 4.20],
+   "verbatim": "21:00 G2 Esports - LOS 1.21 4.20"
+  },
+  {
+   "source": "unibet_kambi",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609641.json?lang=en_GB&market=ZZ",
+   "fixture_id": "1067684",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["Lyon Gaming", "Karmine Corp"],
+   "decimal": [2.02, 1.70],
+   "verbatim": "event 1029609641 Lyon Gaming - Karmine Corp start=2026-10-24T20:10:00Z OT_ONE 2020 OT_TWO 1700"
+  },
+  {
+   "source": "oddsportal",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+   "fixture_id": "1067684",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["Lyon Gaming", "Karmine Corp"],
+   "decimal": [2.10, 1.71],
+   "verbatim": "22:00 Lyon Gaming - Karmine Corp 2.10 1.71"
+  },
+  {
+   "source": "unibet_kambi",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609640.json?lang=en_GB&market=ZZ",
+   "fixture_id": "1067683",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["Hanwha Life Esports", "Gen.G Esports"],
+   "decimal": [2.20, 1.60],
+   "verbatim": "event 1029609640 Hanwha Life Esports - Gen.G Esports start=2026-10-24T22:00:00Z OT_ONE 2200 OT_TWO 1600"
+  },
+  {
+   "source": "oddsportal",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+   "fixture_id": "1067683",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["Gen.G", "Hanwha Life"],
+   "decimal": [1.62, 2.25],
+   "verbatim": "00:00 Gen.G - Hanwha Life 1.62 2.25"
+  },
+  {
+   "source": "unibet_kambi",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609638.json?lang=en_GB&market=ZZ",
+   "fixture_id": "1067880",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["Dplus KIA", "T1"],
+   "decimal": [2.33, 1.54],
+   "verbatim": "event 1029609638 Dplus KIA - T1 start=2026-10-24T23:00:00Z OT_ONE 2330 OT_TWO 1540"
+  },
+  {
+   "source": "oddsportal",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+   "fixture_id": "1067880",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["T1", "Dplus Kia"],
+   "decimal": [1.62, 2.15],
+   "verbatim": "01:00 T1 - Dplus Kia 1.62 2.15"
+  },
+  {
+   "source": "unibet_kambi",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609649.json?lang=en_GB&market=ZZ",
+   "fixture_id": "1067689",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["Team Liquid", "Bilibili Gaming"],
+   "decimal": [3.35, 1.29],
+   "verbatim": "event 1029609649 Team Liquid - Bilibili Gaming start=2026-10-25T00:00:00Z OT_ONE 3350 OT_TWO 1290"
+  },
+  {
+   "source": "oddsportal",
+   "captured_utc": "2026-10-24T16:16:00Z",
+   "page_url": "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
+   "fixture_id": "1067689",
+   "competition": "Worlds 2026 Main Event",
+   "page_teams": ["Team Liquid", "Bilibili Gaming"],
+   "decimal": [3.25, 1.31],
+   "verbatim": "02:00 Team Liquid - Bilibili Gaming 3.25 1.31"
+  }
+ ]
+}

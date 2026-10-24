@@ -1,246 +1,518 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1020">
-<meta name="description" content="Win probabilities and picks for every League of Legends match on the Hotspawn pick&#39;em lobby, from Pinnacle/Polymarket lines and an own Elo-style model. Updated every 6 hours.">
-<title>LoL Hotspawn Picks — Executive Summary</title>
-<link rel="stylesheet" href="assets/style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Ctext%20y%3D'.9em'%20font-size%3D'90'%3E%F0%9F%8E%AF%3C%2Ftext%3E%3C%2Fsvg%3E">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Executive Summary — LoL Hotspawn Pick'em Companion Audit</title>
+  <meta name="description" content="Mobile-first quantitative LoL pick'em companion dashboard for Hotspawn with multi-venue market consensus and pre-kickoff Elo ratings.">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="top"><div class="top-in">
-  <a class="brand" href="index.html"><span class="logo">🎯</span> LoL Hotspawn Picks</a>
-  <nav class="main"><a href="index.html" class="active">📊 Summary</a><a href="picks.html" class="">✅ Picks</a><a href="unresolved.html" class="">⚠️ Unresolved</a><a href="flagged.html" class="">🚩 Flagged</a><a href="results.html" class="">📈 Results</a><a href="tournaments.html" class="">🏆 Tournaments</a><a href="methodology.html" class="">📖 Method</a></nav>
-</div></header>
-<main class="wrap">
-
-<div class="hero">
-  <h1>League of Legends picks for every Hotspawn match</h1>
-  <p class="sub">Win probabilities for all <b>169 open LoL matches</b> on the Hotspawn pick'em lobby — originated from external betting lines (Pinnacle, Polymarket) and our own Elo-style model. Refreshed every 6 hours.</p>
-  <span class="updated"><span class="dot"></span> Data updated <b>Sat, Oct 24, 15:34 UTC</b> · next ≈ Sat, Oct 24, 21:34 UTC</span>
-</div>
-
-<div class="cta-row">
-  <a class="cta" href="picks.html">✅ View all picks &amp; probabilities <span class="big">→</span></a>
-</div>
-<div class="cta-row">
-  <a class="cta alt" href="unresolved.html">⚠️ Unresolved picks <small>5 without a line — see limitations</small></a>
-  <a class="cta alt" href="flagged.html">🚩 Flagged for review <small>3 items</small></a>
-  <a class="cta alt" href="results.html">📈 Results &amp; accuracy <small>30/44 correct (68.2%)</small></a>
-</div>
-
-<div class="kpis">
-  <div class="kpi acc"><div class="n">169</div><div class="l">Open LoL matches</div></div>
-  <div class="kpi good"><div class="n">9</div><div class="l">Picks from betting lines</div></div>
-  <div class="kpi warn"><div class="n">159</div><div class="l">Picks from own model</div></div>
-  <div class="kpi bad"><div class="n">5</div><div class="l">Unresolved (no pick)</div></div>
-  <div class="kpi"><div class="n">89</div><div class="l">Settled this week</div></div>
-</div>
-
-<section class="card">
-  <h2>Executive summary</h2>
-  <p class="desc">Everything you need, in one place. Full pick list: <a href="picks.html"><b>picks.html</b></a>.</p>
-  <ul style="margin:8px 0 0;padding-left:20px;color:var(--mut);font-size:14.5px">
-    <li><b>Coverage:</b> 168 of 169 open matches (99%) carry a pick with a win probability for each team. 9 priced by external betting lines (Pinnacle / Polymarket), 159 by our own Elo-style model built from the full Hotspawn results archive.</li>
-    <li><b>Picks are external:</b> Hotspawn crowd "% picked" is never used as a probability. Lines come from Pinnacle's guest odds API and Polymarket markets; where no market exists we originate our own line from real match results.</li>
-    <li><b>Unresolved:</b> 5 matches have no pick (1 open, 4 locked before a verifiable line existed) — no bookmaker/prediction market lists them and at least one team has no recorded series history. Details + limitations: <a href="unresolved.html">Unresolved Picks</a>.</li>
-    <li><b>Quality control:</b> 3 item(s) need manual review (name-match ambiguity, line divergences, thin markets) — <a href="flagged.html">Flagged for Review</a>. 2 informational note(s). 65 stale unplayed fixtures excluded from lists (info flag).</li>
-    <li><b>Freshness:</b> GitHub Actions re-collects every 6h (within the 4–8h requirement). Last collect: Sat, Oct 24, 15:34 UTC (took 4s).</li>
-  </ul>
-</section>
-
-<section class="card">
-  <h2>🔥 Closing soon — picks at a glance</h2>
-  <p class="desc">Next 6 open matches by pick-lock time. <a href="picks.html?soon=1">All matches locking within 24h →</a></p>
-  
-  <article class="match" id="m-1080923" data-searchable="jendouba esports enfida esports tunisian super league 2026 " data-tour="36557" data-src="model" data-lock="1792857300000">
-    <div class="meta">
-      <span>🕒 Sat, Oct 24, 16:00 UTC</span><span>· locks in 20m</span>
-        <span class="badge conf-low">LOW CONFIDENCE</span>
-      <span>· 10 pts</span>
-      
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Hotspawn LoL Pick'ems · Audit Suite</span>
+      </a>
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        Menu ▾
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="index.html" class="active" aria-current="page"><span>Overview</span></a><a href="table.html"><span>All 241 Table</span><span class="nav-cnt">241</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">172</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">9</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">222</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">8</span></a><a href="flagged.html"><span>Flagged</span><span class="nav-cnt">17</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html"><span>Methodology</span></a>
+      </nav>
     </div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 <a href="picks.html?tour=36557">Tunisian Super League 2026</a></span></div>
-    <div class="teams">
-    <div class="team-row picked">
-      <div class="team-name"><span class="nm">Jendouba Esports</span><span class="pick-tag">PICK</span></div>
-      <div class="prob">50.0%</div>
-      <div class="bar"><i style="width:50%"></i></div>
-    </div>
-    <div class="team-row ">
-      <div class="team-name"><span class="nm">Enfida Esports</span></div>
-      <div class="prob">50.0%</div>
-      <div class="bar"><i style="width:50%"></i></div>
-    </div></div>
-    <div class="lines"><div><b>Own model</b> (Elo-style): 50.0% / 50.0% · ratings 1477 vs 1476 · 2/2 series played</div></div>
-    <div class="foot">
-      <a href="https://www.hotspawn.com/matches/jendouba-esports-vs-enfida-esports-tunisian-super-league-2026-1080923" rel="noopener" target="_blank">Hotspawn match ↗</a>
-      
-      <span class="badge src-model" title="Own Elo-style model">OWN MODEL</span>
-    </div>
-  </article>
-  <article class="match" id="m-1080924" data-searchable="jsk esports el menzah esports tunisian super league 2026 " data-tour="36557" data-src="model" data-lock="1792857300000">
-    <div class="meta">
-      <span>🕒 Sat, Oct 24, 16:00 UTC</span><span>· locks in 20m</span>
-        <span class="badge conf-low">LOW CONFIDENCE</span>
-      <span>· 10 pts</span>
-      
-    </div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 <a href="picks.html?tour=36557">Tunisian Super League 2026</a></span></div>
-    <div class="teams">
-    <div class="team-row ">
-      <div class="team-name"><span class="nm">JSK Esports</span></div>
-      <div class="prob">49.5%</div>
-      <div class="bar"><i style="width:50%"></i></div>
-    </div>
-    <div class="team-row picked">
-      <div class="team-name"><span class="nm">El Menzah Esports</span><span class="pick-tag">PICK</span></div>
-      <div class="prob">50.5%</div>
-      <div class="bar"><i style="width:51%"></i></div>
-    </div></div>
-    <div class="lines"><div><b>Own model</b> (Elo-style): 49.5% / 50.5% · ratings 1501 vs 1511 · 12/1 series played</div></div>
-    <div class="foot">
-      <a href="https://www.hotspawn.com/matches/jsk-esports-vs-el-menzah-esports-tunisian-super-league-2026-1080924" rel="noopener" target="_blank">Hotspawn match ↗</a>
-      
-      <span class="badge src-model" title="Own Elo-style model">OWN MODEL</span>
-    </div>
-  </article>
-  <article class="match" id="m-1080925" data-searchable="olympique mnihla supreme leaders tunisian super league 2026 " data-tour="36557" data-src="model" data-lock="1792857300000">
-    <div class="meta">
-      <span>🕒 Sat, Oct 24, 16:00 UTC</span><span>· locks in 20m</span>
-        <span class="badge conf-low">LOW CONFIDENCE</span>
-      <span>· 10 pts</span>
-      
-    </div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 <a href="picks.html?tour=36557">Tunisian Super League 2026</a></span></div>
-    <div class="teams">
-    <div class="team-row ">
-      <div class="team-name"><span class="nm">Olympique Mnihla</span></div>
-      <div class="prob">49.5%</div>
-      <div class="bar"><i style="width:50%"></i></div>
-    </div>
-    <div class="team-row picked">
-      <div class="team-name"><span class="nm">Supreme Leaders</span><span class="pick-tag">PICK</span></div>
-      <div class="prob">50.5%</div>
-      <div class="bar"><i style="width:51%"></i></div>
-    </div></div>
-    <div class="lines"><div><b>Own model</b> (Elo-style): 49.5% / 50.5% · ratings 1500 vs 1511 · 2/1 series played</div></div>
-    <div class="foot">
-      <a href="https://www.hotspawn.com/matches/olympique-mnihla-vs-supreme-leaders-tunisian-super-league-2026-1080925" rel="noopener" target="_blank">Hotspawn match ↗</a>
-      
-      <span class="badge src-model" title="Own Elo-style model">OWN MODEL</span>
-    </div>
-  </article>
-  <article class="match" id="m-1080926" data-searchable="simplicity gaming jsk academy tunisian super league 2026 " data-tour="36557" data-src="model" data-lock="1792857300000">
-    <div class="meta">
-      <span>🕒 Sat, Oct 24, 16:00 UTC</span><span>· locks in 20m</span>
-        <span class="badge conf-low">LOW CONFIDENCE</span>
-      <span>· 10 pts</span>
-      
-    </div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 <a href="picks.html?tour=36557">Tunisian Super League 2026</a></span></div>
-    <div class="teams">
-    <div class="team-row picked">
-      <div class="team-name"><span class="nm">Simplicity Gaming</span><span class="pick-tag">PICK</span></div>
-      <div class="prob">52.7%</div>
-      <div class="bar"><i style="width:53%"></i></div>
-    </div>
-    <div class="team-row ">
-      <div class="team-name"><span class="nm">JSK Academy</span></div>
-      <div class="prob">47.3%</div>
-      <div class="bar"><i style="width:47%"></i></div>
-    </div></div>
-    <div class="lines"><div><b>Own model</b> (Elo-style): 52.7% / 47.3% · ratings 1523 vs 1475 · 2/6 series played</div></div>
-    <div class="foot">
-      <a href="https://www.hotspawn.com/matches/simplicity-gaming-vs-jsk-academy-tunisian-super-league-2026-1080926" rel="noopener" target="_blank">Hotspawn match ↗</a>
-      
-      <span class="badge src-model" title="Own Elo-style model">OWN MODEL</span>
-    </div>
-  </article>
-  <article class="match" id="m-1080927" data-searchable="zahrouni esports olympique mnihla academy tunisian super league 2026 " data-tour="36557" data-src="model" data-lock="1792857300000">
-    <div class="meta">
-      <span>🕒 Sat, Oct 24, 16:00 UTC</span><span>· locks in 20m</span>
-        <span class="badge conf-low">LOW CONFIDENCE</span>
-      <span>· 10 pts</span>
-      
-    </div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 <a href="picks.html?tour=36557">Tunisian Super League 2026</a></span></div>
-    <div class="teams">
-    <div class="team-row ">
-      <div class="team-name"><span class="nm">Zahrouni Esports</span></div>
-      <div class="prob">48.7%</div>
-      <div class="bar"><i style="width:49%"></i></div>
-    </div>
-    <div class="team-row picked">
-      <div class="team-name"><span class="nm">Olympique Mnihla Academy</span><span class="pick-tag">PICK</span></div>
-      <div class="prob">51.3%</div>
-      <div class="bar"><i style="width:51%"></i></div>
-    </div></div>
-    <div class="lines"><div><b>Own model</b> (Elo-style): 48.7% / 51.3% · ratings 1476 vs 1499 · 2/2 series played</div></div>
-    <div class="foot">
-      <a href="https://www.hotspawn.com/matches/zahrouni-esports-vs-olympique-mnihla-academy-tunisian-super-league-2026-1080927" rel="noopener" target="_blank">Hotspawn match ↗</a>
-      
-      <span class="badge src-model" title="Own Elo-style model">OWN MODEL</span>
-    </div>
-  </article>
-  <article class="match" id="m-1074655" data-searchable="karolinerna turbo gaming rivals league season 2 " data-tour="36332" data-src="model" data-lock="1792859100000">
-    <div class="meta">
-      <span>🕒 Sat, Oct 24, 16:30 UTC</span><span>· locks in 50m</span>
-        <span class="badge conf-medium">MEDIUM CONFIDENCE</span>
-      <span>· 10 pts</span>
-      
-    </div>
-    <div class="meta" style="margin-bottom:8px"><span>🏆 <a href="picks.html?tour=36332">RIVALS LEAGUE Season 2</a></span></div>
-    <div class="teams">
-    <div class="team-row ">
-      <div class="team-name"><span class="nm">Karolinerna</span></div>
-      <div class="prob">46.6%</div>
-      <div class="bar"><i style="width:47%"></i></div>
-    </div>
-    <div class="team-row picked">
-      <div class="team-name"><span class="nm">Turbo Gaming</span><span class="pick-tag">PICK</span></div>
-      <div class="prob">53.4%</div>
-      <div class="bar"><i style="width:53%"></i></div>
-    </div></div>
-    <div class="lines"><div><b>Own model</b> (Elo-style): 46.6% / 53.4% · ratings 1484 vs 1524 · 7/4 series played</div></div>
-    <div class="foot">
-      <a href="https://www.hotspawn.com/matches/karolinerna-vs-turbo-gaming-rivals-league-season-2-1074655" rel="noopener" target="_blank">Hotspawn match ↗</a>
-      
-      <span class="badge src-model" title="Own Elo-style model">OWN MODEL</span>
-    </div>
-  </article>
-</section>
-
-<section class="card">
-  <h2>⚠️ Unresolved picks &amp; limitations</h2>
-  <p class="desc">Required disclosure: these matches have <b>no pick</b> and why. Full list: <a href="unresolved.html">unresolved.html</a>.</p>
-  <ul style="margin:6px 0;padding-left:20px;color:var(--mut);font-size:14px"><li><b>Ground Zero Gaming vs Frank Esports</b> — LCP 2027 Promotion · Wed, Nov 11, 09:00 UTC <a href="unresolved.html#m-1081423">(why)</a></li><li><b>Keep Yourself Positive vs CRUEL FATE</b> — Logitech G SuperStrike Cup Qualifier · Sat, Oct 24, 11:00 UTC <a href="unresolved.html#m-1083096">(why)</a></li><li><b>paiN Gaming vs Non-toxic Gaming</b> — Logitech G SuperStrike Cup Qualifier · Sat, Oct 24, 11:00 UTC <a href="unresolved.html#m-1083097">(why)</a></li><li><b>TUPKACHI NA KORICI vs FAME</b> — Logitech G SuperStrike Cup Qualifier · Sat, Oct 24, 11:00 UTC <a href="unresolved.html#m-1083098">(why)</a></li><li><b>КАПИБАРА vs Ultim8</b> — Logitech G SuperStrike Cup Qualifier · Sat, Oct 24, 12:00 UTC <a href="unresolved.html#m-1083105">(why)</a></li></ul>
-  <p class="small" style="margin-top:8px">Why some matches stay unresolved: (1) low-tier leagues (e.g. amateur/regional divisions) are not priced by any established esports book or exchange we can verify; (2) Polymarket only lists major events; (3) our own model needs at least one recorded series for both teams — brand-new rosters have zero history, and inventing a number would violate our no-hallucination rule.</p>
-</section>
-
-<section class="card">
-  <h2>📚 Where to find things</h2>
-  <div class="grid2">
-    <div>
-      <p class="mb0"><a href="picks.html"><b>✅ Picks</b></a> — every open match, probability per team, the pick, and the line source with links. Filter by tournament/source; mobile-friendly cards.</p>
-      <p><a href="tournaments.html"><b>🏆 Tournaments</b></a> — picks organized by category/tournament with coverage counts.</p>
-      <p><a href="results.html"><b>📈 Results</b></a> — this week's settled matches and how our tracked picks performed.</p>
-    </div>
-    <div>
-      <p class="mt0"><a href="unresolved.html"><b>⚠️ Unresolved</b></a> — matches without a pick, each with its specific limitation.</p>
-      <p><a href="flagged.html"><b>🚩 Flagged for Review</b></a> — irregularities needing human eyes, with source links.</p>
-      <p><a href="methodology.html"><b>📖 Methodology</b></a> — data sources, formulas, precedence rules, verification policy.</p>
+  </header>
+  <div id="stale-snapshot-alert" class="stale-alert" hidden></div>
+  <div class="fresh-bar" data-generated-at="2026-10-24T16:49:45.446Z">
+    <div class="fresh-inner">
+      <span>Snapshot: <time class="mono" data-utc="2026-10-24T16:49:45.446Z">2026-10-24 16:49 UTC</time> · Auto-refresh every 6h</span>
+      <span>Zero Hotspawn crowd/tier/points inputs · <a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/">Canonical Root Dashboard ↗</a> · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
-</section>
-<footer class="bot">
-  <p><b>LoL Hotspawn Picks</b> — independent analytics for the League of Legends matches listed on the Hotspawn pick'em lobby. Not affiliated with Hotspawn, Riot Games, or any bookmaker. Nothing here is betting advice.</p>
-  <p>Probabilities come from external betting lines (Pinnacle, Polymarket) and our own Elo-style model built from real match results — never from Hotspawn crowd pick percentages. Data refreshes every 6 hours via GitHub Actions.</p>
-  <p>Built Sat, Oct 24, 15:34 UTC · <a href="methodology.html">Methodology &amp; sources</a> · <a href="data/picks.json">Raw data (JSON)</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1" rel="noopener" target="_blank">GitHub repo</a></p>
-</footer>
-</main>
-<script src="assets/app.js" defer></script>
+  <main>
+
+    <section class="page-hero">
+      <h1>Executive Summary — Hotspawn League of Legends Pick'ems</h1>
+      <p>Complete line-by-line coverage of all <strong>241</strong> listed Hotspawn LoL matches across <strong>29</strong> competitions. Probabilities come exclusively from de-vigged real-money bookmaker &amp; CFTC/CLOB prediction markets (9 series across up to 4 independent venues) and strictly pre-kickoff Leaguepedia + Hotspawn Elo/Bradley-Terry ratings (222 series). Hotspawn crowd percentages, tiers, and offered points are never used as probability inputs.</p>
+    </section>
+
+    <section class="kpi-grid" aria-label="Coverage metrics">
+      <div class="kpi">
+        <div class="kpi-val">241</div>
+        <div class="kpi-lbl">Scheduled LoL Inventory</div>
+        <div class="kpi-sub">176 active · 65 stale (&gt;6h)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">9</div>
+        <div class="kpi-lbl">Market-Consensus Picks</div>
+        <div class="kpi-sub">Pinnacle · Unibet · Kalshi · Polymarket</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">222</div>
+        <div class="kpi-lbl">Originated Model Picks</div>
+        <div class="kpi-sub">Pre-kickoff Leaguepedia Elo</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">4</div>
+        <div class="kpi-lbl">Active Unresolved</div>
+        <div class="kpi-sub">+ 4 DQ walkovers · 2 stale debut</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">0.2250</div>
+        <div class="kpi-lbl">Walk-Forward OOS Brier</div>
+        <div class="kpi-sub">22,372 pre-kickoff series (vs 0.2500)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">17</div>
+        <div class="kpi-lbl">Flagged for Review</div>
+        <div class="kpi-sub">Homonyms, DQs &amp; zero-history</div>
+      </div>
+    </section>
+
+    <div class="sec-head">
+      <h2>Where to Find Updated Picks &amp; Audits</h2>
+      <span>Organized by source category &amp; mobile workflow</span>
+    </div>
+    <section class="hub-grid">
+      <a class="hub-card" href="table.html">
+        <div class="hub-title">Compact All-241 Picks Table →</div>
+        <div class="hub-desc">Single-screen sortable/filterable table of every scheduled match with win %, pick badge, CSV export, and source links.</div>
+      </a>
+      <a class="hub-card" href="picks.html">
+        <div class="hub-title">All Active Picks (172) →</div>
+        <div class="hub-desc">Card view for every open/locked match with a verified probability, split bar, and venue/Elo provenance.</div>
+      </a>
+      <a class="hub-card" href="featured.html">
+        <div class="hub-title">Market-Backed Picks (9) →</div>
+        <div class="hub-desc">Worlds 2026 Swiss Round 2 (4 venues) + LGC Rising Playoffs (Kalshi CFTC + Polymarket) side-by-side de-vig matrix.</div>
+      </a>
+      <a class="hub-card" href="originated.html">
+        <div class="hub-title">Self-Originated Model (222) →</div>
+        <div class="hub-desc">ERL 2nd/3rd-division, LCP 2027 Promotion (#1081423), CELOL, Arabian &amp; Nordic matches priced via pre-kickoff Elo.</div>
+      </a>
+      <a class="hub-card" href="tournaments.html">
+        <div class="hub-title">By Tournament (29) →</div>
+        <div class="hub-desc">Per-competition match tables, coverage counts, and direct Leaguepedia tournament links.</div>
+      </a>
+      <a class="hub-card" href="unresolved.html">
+        <div class="hub-title">Unresolved &amp; Limitations (8) →</div>
+        <div class="hub-desc">Zero-history amateur debuts left blank (never guessed), Solid Gaming DQ walkover settlements, and feed limitations.</div>
+      </a>
+      <a class="hub-card" href="flagged.html">
+        <div class="hub-title">Flagged for Review (17) →</div>
+        <div class="hub-desc">Cross-region homonym quarantines (#1083097 PNG vs paiN Gaming; #1079031 PvB), DQs, and multi-roster org pooling.</div>
+      </a>
+      <a class="hub-card" href="results.html">
+        <div class="hub-title">Results &amp; Methodology →</div>
+        <div class="hub-desc">Pre-lock prediction ledger, official Hotspawn scores, and <span class="mono">methodology.html</span> calibration curves.</div>
+      </a>
+    </section>
+
+    <div class="sec-head">
+      <h2>Multi-Venue Market Consensus Picks (9)</h2>
+      <a href="featured.html">Full per-venue odds comparison →</a>
+    </div>
+    <section class="cards-grid">
+      <article class="card" id="idx-m-1067688" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1067688 Worlds 2026 Main Event Top Esports Anyone's Legend Top Esports Anyone's Legend">
+    <div class="card-top">
+      <span class="card-comp">Worlds 2026 Main Event · Bo1</span>
+      <span><span class="badge b-market">Market (5 venues)</span> <span class="badge b-state">open</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T17:00:00.000Z">2026-10-24 17:00 UTC</time>
+      <span class="mono">#1067688</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name-wrap">
+          <span class="team-name">Top Esports</span>
+          
+        </span>
+        <span class="team-prob">35.4%</span>
+      </div>
+      <div class="team-row is-pick">
+        <span class="team-name-wrap">
+          <span class="team-name">Anyone's Legend</span>
+          <span class="badge b-pick">★ PICK</span>
+        </span>
+        <span class="team-prob">64.6%</span>
+      </div>
+    </div>
+    <div class="prob-bar" aria-hidden="true">
+      <div class="prob-seg0" style="width:35%"></div>
+      <div class="prob-seg-win" style="width:65%"></div>
+    </div>
+    <div class="card-meta">De-vigged consensus across Pinnacle (2.51/1.56) + Unibet (Kambi) (2.75/1.40) + Polymarket + Kalshi CFTC + Bovada (2.70/1.44) · spread 5.8 pp.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/top-esports-vs-anyones-legend-worlds-2026-main-event-1067688" target="_blank" rel="noopener">Hotspawn #1067688 ↗</a><a class="src-link" href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight" target="_blank" rel="noopener">Pinnacle ↗</a><a class="src-link" href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609648.json?lang=en_GB&amp;market=ZZ" target="_blank" rel="noopener">Unibet/Kambi ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241900altes" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-tes-al-2026-10-24" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/top-esports-anyone-s-legend-202610241300" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card" id="idx-m-1067881" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1067881 Worlds 2026 Main Event Movistar KOI CTBC Flying Oyster Movistar KOI CTBC Flying Oyster">
+    <div class="card-top">
+      <span class="card-comp">Worlds 2026 Main Event · Bo1</span>
+      <span><span class="badge b-market">Market (5 venues)</span> <span class="badge b-state">open</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T18:00:00.000Z">2026-10-24 18:00 UTC</time>
+      <span class="mono">#1067881</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row is-pick">
+        <span class="team-name-wrap">
+          <span class="team-name">Movistar KOI</span>
+          <span class="badge b-pick">★ PICK</span>
+        </span>
+        <span class="team-prob">69.2%</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name-wrap">
+          <span class="team-name">CTBC Flying Oyster</span>
+          
+        </span>
+        <span class="team-prob">30.8%</span>
+      </div>
+    </div>
+    <div class="prob-bar" aria-hidden="true">
+      <div class="prob-seg-win" style="width:69%"></div>
+      <div class="prob-seg1" style="width:31%"></div>
+    </div>
+    <div class="card-meta">De-vigged consensus across Pinnacle (1.41/3.00) + Unibet (Kambi) (1.36/2.95) + Polymarket + Kalshi CFTC + Bovada (1.40/2.85) · spread 2.1 pp.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/movistar-koi-vs-ctbc-flying-oyster-worlds-2026-main-event-1067881" target="_blank" rel="noopener">Hotspawn #1067881 ↗</a><a class="src-link" href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight" target="_blank" rel="noopener">Pinnacle ↗</a><a class="src-link" href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609639.json?lang=en_GB&amp;market=ZZ" target="_blank" rel="noopener">Unibet/Kambi ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241400mkoicfo" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-cfo-mkoi-2026-10-24" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/ctbc-flying-oyster-movistar-koi-202610241400" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card" id="idx-m-1067686" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1067686 Worlds 2026 Main Event G2 Esports LØS G2 Esports LØS">
+    <div class="card-top">
+      <span class="card-comp">Worlds 2026 Main Event · Bo1</span>
+      <span><span class="badge b-market">Market (5 venues)</span> <span class="badge b-state">open</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T19:00:00.000Z">2026-10-24 19:00 UTC</time>
+      <span class="mono">#1067686</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row is-pick">
+        <span class="team-name-wrap">
+          <span class="team-name">G2 Esports</span>
+          <span class="badge b-pick">★ PICK</span>
+        </span>
+        <span class="team-prob">81.3%</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name-wrap">
+          <span class="team-name">LØS</span>
+          
+        </span>
+        <span class="team-prob">18.7%</span>
+      </div>
+    </div>
+    <div class="prob-bar" aria-hidden="true">
+      <div class="prob-seg-win" style="width:81%"></div>
+      <div class="prob-seg1" style="width:19%"></div>
+    </div>
+    <div class="card-meta">De-vigged consensus across Pinnacle (1.23/4.28) + Unibet (Kambi) (1.18/4.40) + Polymarket + Kalshi CFTC + Bovada (1.18/4.50) · spread 2.6 pp.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/g2-esports-vs-los-worlds-2026-main-event-1067686" target="_blank" rel="noopener">Hotspawn #1067686 ↗</a><a class="src-link" href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight" target="_blank" rel="noopener">Pinnacle ↗</a><a class="src-link" href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609646.json?lang=en_GB&amp;market=ZZ" target="_blank" rel="noopener">Unibet/Kambi ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241700losg2" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-g2-los-2026-10-24" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/g2-esports-los-grandes-202610241500" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card" id="idx-m-1067684" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1067684 Worlds 2026 Main Event LYON Karmine Corp LYON (2024 American Team) Karmine Corp">
+    <div class="card-top">
+      <span class="card-comp">Worlds 2026 Main Event · Bo1</span>
+      <span><span class="badge b-market">Market (5 venues)</span> <span class="badge b-state">open</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T20:00:00.000Z">2026-10-24 20:00 UTC</time>
+      <span class="mono">#1067684</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name-wrap">
+          <span class="team-name">LYON</span>
+          
+        </span>
+        <span class="team-prob">45.1%</span>
+      </div>
+      <div class="team-row is-pick">
+        <span class="team-name-wrap">
+          <span class="team-name">Karmine Corp</span>
+          <span class="badge b-pick">★ PICK</span>
+        </span>
+        <span class="team-prob">54.9%</span>
+      </div>
+    </div>
+    <div class="prob-bar" aria-hidden="true">
+      <div class="prob-seg0" style="width:45%"></div>
+      <div class="prob-seg-win" style="width:55%"></div>
+    </div>
+    <div class="card-meta">De-vigged consensus across Pinnacle (2.15/1.74) + Unibet (Kambi) (2.02/1.70) + Polymarket + Kalshi CFTC + Bovada (2.00/1.77) · spread 2.2 pp.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/lyon-vs-karmine-corp-worlds-2026-main-event-1067684" target="_blank" rel="noopener">Hotspawn #1067684 ↗</a><a class="src-link" href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight" target="_blank" rel="noopener">Pinnacle ↗</a><a class="src-link" href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609641.json?lang=en_GB&amp;market=ZZ" target="_blank" rel="noopener">Unibet/Kambi ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-ly-kc-2026-10-24" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/lyon-gaming-karmine-corp-202610241600" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card" id="idx-m-1067687" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1067687 Worlds 2026 Main Event Invictus Gaming Team Secret Whales Invictus Gaming Team Secret Whales">
+    <div class="card-top">
+      <span class="card-comp">Worlds 2026 Main Event · Bo1</span>
+      <span><span class="badge b-market">Market (5 venues)</span> <span class="badge b-state">open</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T21:00:00.000Z">2026-10-24 21:00 UTC</time>
+      <span class="mono">#1067687</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row is-pick">
+        <span class="team-name-wrap">
+          <span class="team-name">Invictus Gaming</span>
+          <span class="badge b-pick">★ PICK</span>
+        </span>
+        <span class="team-prob">70.3%</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name-wrap">
+          <span class="team-name">Team Secret Whales</span>
+          
+        </span>
+        <span class="team-prob">29.7%</span>
+      </div>
+    </div>
+    <div class="prob-bar" aria-hidden="true">
+      <div class="prob-seg-win" style="width:70%"></div>
+      <div class="prob-seg1" style="width:30%"></div>
+    </div>
+    <div class="card-meta">De-vigged consensus across Pinnacle (1.39/3.07) + Unibet (Kambi) (1.33/3.05) + Polymarket + Kalshi CFTC + Bovada (1.33/3.20) · spread 4.1 pp.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/invictus-gaming-vs-team-secret-whales-worlds-2026-main-event-1067687" target="_blank" rel="noopener">Hotspawn #1067687 ↗</a><a class="src-link" href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight" target="_blank" rel="noopener">Pinnacle ↗</a><a class="src-link" href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609647.json?lang=en_GB&amp;market=ZZ" target="_blank" rel="noopener">Unibet/Kambi ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241800tswig" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-ig1-tsw-2026-10-24" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/invictus-gaming-team-secret-202610241700" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card" id="idx-m-1067683" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1067683 Worlds 2026 Main Event Hanwha Life Esports Gen.G Hanwha Life Esports Gen.G">
+    <div class="card-top">
+      <span class="card-comp">Worlds 2026 Main Event · Bo1</span>
+      <span><span class="badge b-market">Market (5 venues)</span> <span class="badge b-state">open</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T22:00:00.000Z">2026-10-24 22:00 UTC</time>
+      <span class="mono">#1067683</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name-wrap">
+          <span class="team-name">Hanwha Life Esports</span>
+          
+        </span>
+        <span class="team-prob">41.6%</span>
+      </div>
+      <div class="team-row is-pick">
+        <span class="team-name-wrap">
+          <span class="team-name">Gen.G</span>
+          <span class="badge b-pick">★ PICK</span>
+        </span>
+        <span class="team-prob">58.4%</span>
+      </div>
+    </div>
+    <div class="prob-bar" aria-hidden="true">
+      <div class="prob-seg0" style="width:42%"></div>
+      <div class="prob-seg-win" style="width:58%"></div>
+    </div>
+    <div class="card-meta">De-vigged consensus across Pinnacle (2.32/1.64) + Unibet (Kambi) (2.20/1.60) + Polymarket + Kalshi CFTC + Bovada (2.20/1.65) · spread 2.0 pp.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/hanwha-life-esports-vs-gen-g-worlds-2026-main-event-1067683" target="_blank" rel="noopener">Hotspawn #1067683 ↗</a><a class="src-link" href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight" target="_blank" rel="noopener">Pinnacle ↗</a><a class="src-link" href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609640.json?lang=en_GB&amp;market=ZZ" target="_blank" rel="noopener">Unibet/Kambi ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241500genhle" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-hle1-gen-2026-10-24" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-gen-g-202610241800" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card" id="idx-m-1067880" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1067880 Worlds 2026 Main Event Dplus KIA T1 Dplus Kia T1">
+    <div class="card-top">
+      <span class="card-comp">Worlds 2026 Main Event · Bo1</span>
+      <span><span class="badge b-market">Market (5 venues)</span> <span class="badge b-state">open</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T23:00:00.000Z">2026-10-24 23:00 UTC</time>
+      <span class="mono">#1067880</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name-wrap">
+          <span class="team-name">Dplus KIA</span>
+          
+        </span>
+        <span class="team-prob">42.3%</span>
+      </div>
+      <div class="team-row is-pick">
+        <span class="team-name-wrap">
+          <span class="team-name">T1</span>
+          <span class="badge b-pick">★ PICK</span>
+        </span>
+        <span class="team-prob">57.7%</span>
+      </div>
+    </div>
+    <div class="prob-bar" aria-hidden="true">
+      <div class="prob-seg0" style="width:42%"></div>
+      <div class="prob-seg-win" style="width:58%"></div>
+    </div>
+    <div class="card-meta">De-vigged consensus across Pinnacle (2.18/1.72) + Unibet (Kambi) (2.33/1.54) + Polymarket + Kalshi CFTC + Bovada (2.20/1.65) · spread 5.2 pp.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/dplus-kia-vs-t1-worlds-2026-main-event-1067880" target="_blank" rel="noopener">Hotspawn #1067880 ↗</a><a class="src-link" href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127310/markets/related/straight" target="_blank" rel="noopener">Pinnacle ↗</a><a class="src-link" href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609638.json?lang=en_GB&amp;market=ZZ" target="_blank" rel="noopener">Unibet/Kambi ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241300t1dk" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-dk-t1-2026-10-24" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/dplus-kia-t1-202610241900" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card" id="idx-m-1067689" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1067689 Worlds 2026 Main Event Bilibili Gaming Team Liquid Bilibili Gaming Team Liquid">
+    <div class="card-top">
+      <span class="card-comp">Worlds 2026 Main Event · Bo1</span>
+      <span><span class="badge b-market">Market (5 venues)</span> <span class="badge b-state">open</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-25T00:00:00.000Z">2026-10-25 00:00 UTC</time>
+      <span class="mono">#1067689</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row is-pick">
+        <span class="team-name-wrap">
+          <span class="team-name">Bilibili Gaming</span>
+          <span class="badge b-pick">★ PICK</span>
+        </span>
+        <span class="team-prob">74.4%</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name-wrap">
+          <span class="team-name">Team Liquid</span>
+          
+        </span>
+        <span class="team-prob">25.6%</span>
+      </div>
+    </div>
+    <div class="prob-bar" aria-hidden="true">
+      <div class="prob-seg-win" style="width:74%"></div>
+      <div class="prob-seg1" style="width:26%"></div>
+    </div>
+    <div class="card-meta">De-vigged consensus across Pinnacle (1.33/3.41) + Unibet (Kambi) (1.29/3.35) + Polymarket + Kalshi CFTC + Bovada (1.32/3.25) · spread 2.3 pp.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/bilibili-gaming-vs-team-liquid-worlds-2026-main-event-1067689" target="_blank" rel="noopener">Hotspawn #1067689 ↗</a><a class="src-link" href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121259/markets/related/straight" target="_blank" rel="noopener">Pinnacle ↗</a><a class="src-link" href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609649.json?lang=en_GB&amp;market=ZZ" target="_blank" rel="noopener">Unibet/Kambi ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct242000blgtl" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-tl2-blg-2026-10-24" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-bilibili-gaming-202610242000" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card" id="idx-m-1079080" data-item="1" data-method="market" data-comp="LGC Rising 2026 Playoffs" data-stale="0" data-search="1079080 LGC Rising 2026 Playoffs Mental Rush Vitality Rising Bees Mental Rush Vitality Rising Bees">
+    <div class="card-top">
+      <span class="card-comp">LGC Rising 2026 Playoffs · Bo1</span>
+      <span><span class="badge b-market">Market (2 venues)</span> <span class="badge b-state">open</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-27T17:00:00.000Z">2026-10-27 17:00 UTC</time>
+      <span class="mono">#1079080</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name-wrap">
+          <span class="team-name">Mental Rush</span>
+          
+        </span>
+        <span class="team-prob">39.3%</span>
+      </div>
+      <div class="team-row is-pick">
+        <span class="team-name-wrap">
+          <span class="team-name">Vitality Rising Bees</span>
+          <span class="badge b-pick">★ PICK</span>
+        </span>
+        <span class="team-prob">60.7%</span>
+      </div>
+    </div>
+    <div class="prob-bar" aria-hidden="true">
+      <div class="prob-seg0" style="width:39%"></div>
+      <div class="prob-seg-win" style="width:61%"></div>
+    </div>
+    <div class="card-meta">De-vigged consensus across Polymarket + Kalshi CFTC · spread 0.7 pp.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080" target="_blank" rel="noopener">Hotspawn #1079080 ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct271300rbmr" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-rb-mr-2026-10-27" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/LoL_Game_Changers/2026_Season/Playoffs" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+    </section>
+
+    <div class="sec-head" id="unresolved-summary">
+      <h2>Unresolved Picks &amp; Limitations Summary</h2>
+      <a href="unresolved.html">Open full Unresolved &amp; Limitations page →</a>
+    </div>
+    <div class="callout warn">
+      <h3>Strict Non-Fabrication Policy</h3>
+      <p>Whenever at least one team has <strong>0 prior official matches</strong> in both Leaguepedia and Hotspawn prior to kickoff and no external sportsbook or CFTC/CLOB line exists, win probabilities are left blank (<code>—</code>) rather than filled with arbitrary priors. Currently: <strong>4</strong> active amateur qualifier fixtures (<a href="unresolved.html">Logitech G SuperStrike Cup Qualifier</a>, including <code>#1083097</code> where Hotspawn mis-bound Bulgarian amateur <code>PNG</code> to Brazilian CBLOL <code>paiN Gaming</code>), <strong>4</strong> administrative walkover settlements (<a href="unresolved.html#walkover-settlements">Solid Gaming mid-split removal</a> in Komplettligaen 2026 Autumn), and <strong>2</strong> stale past-kickoff debut cards. All irregularities are documented with official receipts on <a href="flagged.html">Flagged for Review</a>.</p>
+    </div>
+    <section class="cards-grid">
+      <article class="card unres-card" id="idx-u-1083096">
+    <div class="card-top">
+      <span class="card-comp">Logitech G SuperStrike Cup Qualifier · Bo1</span>
+      <span><span class="badge b-unres">Unresolved</span> <span class="badge b-state">locked</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T11:00:00.000Z">2026-10-24 11:00 UTC</time>
+      <span class="mono">#1083096</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">Keep Yourself Positive</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">CRUEL FATE</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-unres">No Sporting Pick — Left Blank (Unverified / 0 Prior Matches)</span></div>
+    <div class="card-meta">Unverified / insufficient pre-kickoff evidence: no external betting line and Keep Yourself Positive (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/keep-yourself-positive-vs-cruel-fate-logitech-g-superstrike-cup-qualifier-1083096" target="_blank" rel="noopener">Hotspawn #1083096 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card unres-card" id="idx-u-1083097">
+    <div class="card-top">
+      <span class="card-comp">Logitech G SuperStrike Cup Qualifier · Bo1</span>
+      <span><span class="badge b-unres">Unresolved</span> <span class="badge b-state">locked</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T11:00:00.000Z">2026-10-24 11:00 UTC</time>
+      <span class="mono">#1083097</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">paiN Gaming</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">Non-toxic Gaming</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-unres">No Sporting Pick — Left Blank (Unverified / 0 Prior Matches)</span></div>
+    <div class="card-meta">Unverified / insufficient pre-kickoff evidence: no external betting line and paiN Gaming [resolved: PNG] (0 prior official matches) &amp; Non-toxic Gaming (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097" target="_blank" rel="noopener">Hotspawn #1083097 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card unres-card" id="idx-u-1083098">
+    <div class="card-top">
+      <span class="card-comp">Logitech G SuperStrike Cup Qualifier · Bo1</span>
+      <span><span class="badge b-unres">Unresolved</span> <span class="badge b-state">locked</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T11:00:00.000Z">2026-10-24 11:00 UTC</time>
+      <span class="mono">#1083098</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">TUPKACHI NA KORICI</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">FAME</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-unres">No Sporting Pick — Left Blank (Unverified / 0 Prior Matches)</span></div>
+    <div class="card-meta">Unverified / insufficient pre-kickoff evidence: no external betting line and FAME [resolved: FAME (Bulgarian Team)] (0 prior official matches) prior to 2026-10-24T11:00:00.000Z. Left blank rather than inferred.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/tupkachi-na-korici-vs-fame-logitech-g-superstrike-cup-qualifier-1083098" target="_blank" rel="noopener">Hotspawn #1083098 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+<article class="card unres-card" id="idx-u-1083105">
+    <div class="card-top">
+      <span class="card-comp">Logitech G SuperStrike Cup Qualifier · Bo1</span>
+      <span><span class="badge b-unres">Unresolved</span> <span class="badge b-state">locked</span></span>
+    </div>
+    <div class="card-top">
+      <time class="mono" data-utc="2026-10-24T12:00:00.000Z">2026-10-24 12:00 UTC</time>
+      <span class="mono">#1083105</span>
+    </div>
+    <div class="team-rows">
+      <div class="team-row">
+        <span class="team-name">КАПИБАРА</span>
+        <span class="team-prob">—</span>
+      </div>
+      <div class="team-row">
+        <span class="team-name">Ultim8</span>
+        <span class="team-prob">—</span>
+      </div>
+    </div>
+    <div><span class="badge b-unres">No Sporting Pick — Left Blank (Unverified / 0 Prior Matches)</span></div>
+    <div class="card-meta">Unverified / insufficient pre-kickoff evidence: no external betting line and КАПИБАРА (0 prior official matches) prior to 2026-10-24T12:00:00.000Z. Left blank rather than inferred.</div>
+    <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/vs-ultim8-logitech-g-superstrike-cup-qualifier-1083105" target="_blank" rel="noopener">Hotspawn #1083105 ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
+  </article>
+    </section>
+  
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>Independent quantitative companion for <a href="https://play.hotspawn.com/lol-pickems">Hotspawn LoL Pick'ems</a>.</span>
+      <span><a href="unresolved.html">Unresolved &amp; Limitations</a> · <a href="flagged.html">Flagged for Review</a> · <a href="methodology.html">Methodology &amp; Calibration</a> · <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1">GitHub Source</a></span>
+    </div>
+  </footer>
+  <script src="assets/app.js"></script>
 </body>
 </html>

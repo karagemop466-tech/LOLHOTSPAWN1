@@ -1,132 +1,140 @@
-"""Regression tests for the receipt lifecycle in tools/corroborate.py.
+"""Regression tests for the corroboration receipt ledger (tools/corroborate.py).
 
-Root cause of the 2026-10-23/24 refresh-picks outage: receipts citing the eight
-Worlds 2026 fixtures (1067675-1067680, 1067878, 1067879) were classified
-"rejected" the moment Hotspawn flipped those fixtures to `ended`, and the
-publish gate treats any rejected receipt as fatal — so the pipeline could never
-commit again. A concluded match is an expected lifecycle event, not a data
-error: such receipts must retire (kept as historical evidence), while receipts
-citing fixture ids that never existed, or carrying malformed prices for listed
-fixtures, must stay rejected.
+The ledger must keep four buckets strictly separate, because conflating them once deadlocked
+the six-hourly refresh: every archived receipt aged past the 24 h window, the ledger counted
+them as "rejected", the publish gate failed, and the build that would have refreshed the
+receipts could therefore never run.
+
+  usable    fresh capture, matched fixture, real price            -> counts, corroborates
+  expired   matched fixture, older than the window                -> shown, never counted
+  historic  fixture no longer listed by Hotspawn                  -> shown, never counted
+  rejected  malformed / wrong teams / invalid price               -> fails the gate
 """
+from __future__ import annotations
+
+import importlib.util
 import json
+import os
 import sys
 import tempfile
 import unittest
-from pathlib import Path
+from datetime import datetime, timedelta, timezone
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-import corroborate  # noqa: E402
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "tools"))
+
+_spec = importlib.util.spec_from_file_location(
+    "lol_corroborate", os.path.join(ROOT, "tools", "corroborate.py"))
+corroborate = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(corroborate)
 
 
-def _write(path: Path, obj) -> None:
-    path.write_text(json.dumps(obj), encoding='utf-8')
+def _iso(dt: datetime) -> str:
+    return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-class ReceiptLifecycleTests(unittest.TestCase):
-    def setUp(self):
-        self._tmp = tempfile.TemporaryDirectory()
-        tmp = Path(self._tmp.name)
-        data = tmp / 'data'
-        (data / 'receipts' / 'external_odds').mkdir(parents=True)
-        (data / 'node' / 'raw').mkdir(parents=True)
-        self.data = data
-        self._saved = (corroborate.DATA, corroborate.RECEIPT_DIR, corroborate.ROOT)
-        corroborate.DATA = str(data)
-        corroborate.RECEIPT_DIR = str(data / 'receipts' / 'external_odds')
-        corroborate.ROOT = str(tmp)
+class ReceiptLedgerTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.data = self.tmp.name
+        self.receipts = os.path.join(self.data, "receipts")
+        os.makedirs(self.receipts, exist_ok=True)
 
-        _write(data / 'matches.json', {
-            'generated_utc': '2026-10-24T16:00:00Z',
-            'matches': [{
-                'id': '1', 'competition': 'Test Cup', 'start_utc': '2099-01-01T00:00:00Z',
-                'method': 'model', 'p0': 0.64, 'p1': 0.36,
-                'team0': {'name': 'Alpha'}, 'team1': {'name': 'Beta'},
-                'pick': {'team': 'Alpha', 'probability': 0.64},
-                'hotspawn_url': 'https://www.hotspawn.com/matches/alpha-vs-beta-test-cup-1',
-            }],
-        })
-        _write(data / 'receipts' / 'external_odds' / '2026-10-23.json', {
-            'sources': [{'key': 's1', 'name': 'Test Book', 'url': 'https://example.com',
-                         'kind': 'test', 'runner_reachable': 'n/a', 'note': ''}],
-            'captures': [
-                {'source': 's1', 'captured_utc': '2026-10-23T15:00:00Z',
-                 'page_url': 'https://example.com/m1', 'fixture_id': '1',
-                 'competition': 'Test Cup', 'page_teams': ['Alpha', 'Beta'],
-                 'decimal': [1.5, 2.7], 'verbatim': 'Alpha 1.50 Beta 2.70'},
-                # fixture played and gone from the scheduled feed; all-status feed says ended
-                {'source': 's1', 'captured_utc': '2026-10-23T15:00:00Z',
-                 'page_url': 'https://example.com/m999', 'fixture_id': '999',
-                 'competition': 'Test Cup', 'page_teams': ['Gamma', 'Delta'],
-                 'decimal': [1.9, 1.95], 'verbatim': 'Gamma 1.90 Delta 1.95'},
-                # collector lag: snapshot still scheduled, live dataset no longer lists it
-                {'source': 's1', 'captured_utc': '2026-10-23T15:00:00Z',
-                 'page_url': 'https://example.com/m777', 'fixture_id': '777',
-                 'competition': 'Test Cup', 'page_teams': ['Eps', 'Zeta'],
-                 'decimal': [1.7, 2.2], 'verbatim': 'Eps 1.70 Zeta 2.20'},
-                # unknown fixture id: not in the dataset AND not in the all-status feed
-                {'source': 's1', 'captured_utc': '2026-10-23T15:00:00Z',
-                 'page_url': 'https://example.com/m888', 'fixture_id': '888',
-                 'competition': 'Test Cup', 'page_teams': ['Eta', 'Theta'],
-                 'decimal': [1.6, 2.4], 'verbatim': 'Eta 1.60 Theta 2.40'},
-                # malformed price list for a fixture that IS listed
-                {'source': 's1', 'captured_utc': '2026-10-23T15:00:00Z',
-                 'page_url': 'https://example.com/m1b', 'fixture_id': '1',
-                 'competition': 'Test Cup', 'page_teams': ['Alpha', 'Beta'],
-                 'decimal': [1.5, 2.7, 3.0], 'verbatim': 'Alpha 1.50 Beta 2.70 ?'},
+        # Two fixtures are on the current Hotspawn list; the third receipt is for a delisted one.
+        matches = {
+            "generated_utc": _iso(datetime.now(timezone.utc)),
+            "matches": [
+                {"id": "1001", "competition": "Comp A", "start_utc": "2026-10-25T10:00:00Z",
+                 "team0": {"name": "Alpha"}, "team1": {"name": "Beta"},
+                 "p0": 0.60, "p1": 0.40, "method": "model", "hotspawn_url": "https://www.hotspawn.com/matches/x-1001",
+                 "pick": {"team": "Alpha"}},
+                {"id": "1002", "competition": "Comp A", "start_utc": "2026-10-25T11:00:00Z",
+                 "team0": {"name": "Gamma"}, "team1": {"name": "Delta"},
+                 "p0": 0.55, "p1": 0.45, "method": "model", "hotspawn_url": "https://www.hotspawn.com/matches/y-1002",
+                 "pick": {"team": "Gamma"}},
             ],
-            'coverage_observations': [],
-        })
-        _write(data / 'node' / 'raw' / 'hotspawn_lol_fixtures.json', {
-            'fetched_at': '2026-10-24T15:34:30.580Z',
-            'fixtures': [
-                {'id': '1', 'status': 'scheduled'},
-                {'id': '999', 'status': 'ended'},
-                {'id': '777', 'status': 'scheduled'},
+        }
+        with open(os.path.join(self.data, "matches.json"), "w", encoding="utf-8") as fh:
+            json.dump(matches, fh)
+
+        now = datetime.now(timezone.utc)
+        doc = {
+            "sources": [{"key": "book", "name": "Test Book", "url": "https://example.com/lol"}],
+            "captures": [
+                # fresh + matched -> usable
+                {"fixture_id": "1001", "source": "book", "page_url": "https://example.com/a",
+                 "captured_utc": _iso(now - timedelta(hours=2)),
+                 "page_teams": ["Alpha", "Beta"], "decimal": [1.72, 2.10]},
+                # matched but older than the window -> expired
+                {"fixture_id": "1002", "source": "book", "page_url": "https://example.com/b",
+                 "captured_utc": _iso(now - timedelta(hours=48)),
+                 "page_teams": ["Gamma", "Delta"], "decimal": [1.80, 2.00]},
+                # fixture no longer listed -> historic
+                {"fixture_id": "9999", "source": "book", "page_url": "https://example.com/c",
+                 "captured_utc": _iso(now - timedelta(hours=1)),
+                 "page_teams": ["Old", "Team"], "decimal": [1.50, 2.50]},
+                # wrong teams -> rejected
+                {"fixture_id": "1001", "source": "book", "page_url": "https://example.com/d",
+                 "captured_utc": _iso(now - timedelta(hours=1)),
+                 "page_teams": ["Someone", "Else"], "decimal": [1.90, 1.90]},
             ],
-        })
+        }
+        with open(os.path.join(self.receipts, "2026-10-24.json"), "w", encoding="utf-8") as fh:
+            json.dump(doc, fh)
 
-    def tearDown(self):
-        corroborate.DATA, corroborate.RECEIPT_DIR, corroborate.ROOT = self._saved
-        self._tmp.cleanup()
+        self._old_data = corroborate.DATA
+        self._old_dir = corroborate.RECEIPT_DIR
+        corroborate.DATA = self.data
+        corroborate.RECEIPT_DIR = self.receipts
 
-    def test_concluded_fixture_receipts_retire_and_do_not_reject(self):
+    def tearDown(self) -> None:
+        corroborate.DATA = self._old_data
+        corroborate.RECEIPT_DIR = self._old_dir
+
+    def test_buckets(self) -> None:
         doc = corroborate.build()
-        retired = {r['fixture_id']: r for r in doc['retired']}
-        rejected = {r['fixture_id'] for r in doc['rejected']}
-        self.assertEqual(set(retired), {'999', '777'})
-        self.assertEqual(retired['999']['feed_status'], 'ended')
-        self.assertIn('concluded or was voided', retired['999']['reason'])
-        self.assertEqual(retired['777']['feed_status'], 'scheduled')
-        self.assertIn('collector lag', retired['777']['reason'])
-        # unknown id and malformed prices stay fatal
-        self.assertEqual(rejected, {'888', '1'})
-        self.assertEqual(doc['summary']['retired_receipts'], 2)
-        self.assertEqual(doc['summary']['rejected_receipts'], 2)
-        self.assertEqual(doc['summary']['receipts'], 5)
-        usable = [r for r in doc['rows'] if r['status'] == 'usable']
-        self.assertEqual(len(usable), 1)
-        self.assertEqual(usable[0]['verdict'], 'agrees')
+        s = doc["summary"]
+        self.assertEqual(s["receipts"], 4, s)
+        self.assertEqual(s["usable_receipts"], 1, s)
+        self.assertEqual(s["expired_receipts"], 1, s)
+        self.assertEqual(s["historic_receipts"], 1, s)
+        self.assertEqual(s["rejected_receipts"], 1, s)
+        self.assertEqual(len(doc["rejected"]), 1)
+        self.assertEqual(doc["rejected"][0]["fixture_id"], "1001")
+        self.assertEqual(len(doc["expired"]), 1)
+        self.assertEqual(doc["expired"][0]["fixture_id"], "1002")
+        self.assertEqual(len(doc["historic"]), 1)
+        self.assertEqual(doc["historic"][0]["fixture_id"], "9999")
 
-    def test_missing_all_status_snapshot_is_lenient(self):
-        (self.data / 'node' / 'raw' / 'hotspawn_lol_fixtures.json').unlink()
+    def test_ledger_accounts_for_every_receipt(self) -> None:
         doc = corroborate.build()
-        retired = {r['fixture_id'] for r in doc['retired']}
-        rejected = {r['fixture_id'] for r in doc['rejected']}
-        # Without a cross-check snapshot, delisted fixtures must not block publishing...
-        self.assertEqual(retired, {'999', '777', '888'})
-        # ...but a malformed price on a listed fixture is still a data error.
-        self.assertEqual(rejected, {'1'})
-        for r in doc['retired']:
-            self.assertIn('historical evidence', r['reason'])
+        s = doc["summary"]
+        accounted = (s["usable_receipts"] + s["placeholders"] + s["rejected_receipts"]
+                     + s["expired_receipts"] + s["historic_receipts"])
+        self.assertEqual(accounted, s["receipts"], s)
 
-    def test_render_marks_retired_rows_without_rowbad(self):
+    def test_expired_is_never_counted_as_usable_evidence(self) -> None:
         doc = corroborate.build()
-        html_text = corroborate.render(doc)
-        self.assertIn('retired &mdash; match concluded', html_text)
-        # the retired fixture must not be styled as a hard failure
-        self.assertNotIn('rowbad"><td data-label="Match"><span class="muted">999', html_text)
+        expired = doc["expired"][0]
+        self.assertEqual(expired["status"], "expired")
+        self.assertIn("archival", expired["verdict"])
+        usable_ids = {r["fixture_id"] for r in doc["rows"] if r["status"] == "usable"}
+        self.assertEqual(usable_ids, {"1001"})
+
+    def test_historic_receipt_is_not_a_rejection(self) -> None:
+        doc = corroborate.build()
+        self.assertNotIn("9999", {r["fixture_id"] for r in doc["rejected"]})
+        # ... and it never contributes to the coverage matrix as a priced competition
+        for c in doc["coverage"]:
+            if c["competition"] == "Comp A":
+                self.assertEqual(c["external_priced"], 1)
+
+    def test_age_hours(self) -> None:
+        self.assertIsNone(corroborate.age_hours(None))
+        self.assertIsNone(corroborate.age_hours("not-a-date"))
+        self.assertAlmostEqual(corroborate.age_hours(_iso(datetime.now(timezone.utc))), 0.0, places=1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

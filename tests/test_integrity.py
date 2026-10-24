@@ -105,3 +105,31 @@ class IntegrityTests(unittest.TestCase):
             expired = col_mod._preserve_recent_on_http_error(str(p), 'events', 429, 'kambi', max_age_h=24.0)
             self.assertIsNone(expired)
 
+    def test_kambi_parse_events_reads_match_odds(self):
+        from collect import _kambi_parse_events
+        payload = {
+            "events": [{
+                "event": {"id": 9, "englishName": "A - B", "name": "A - B",
+                          "group": "World Championship", "start": "2026-10-24T17:10:00Z"},
+                "betOffers": [{
+                    "betOfferType": {"id": 2},
+                    "criterion": {"englishLabel": "Match Odds"},
+                    "outcomes": [
+                        {"status": "OPEN", "odds": 1420, "participant": "Anyone's Legend",
+                         "oddsAmerican": "-240", "changedDate": "2026-10-24T01:40:46Z"},
+                        {"status": "OPEN", "odds": 2650, "participant": "TOP Esports",
+                         "oddsAmerican": "165", "changedDate": "2026-10-24T01:40:46Z"},
+                    ],
+                }],
+            }]
+        }
+        rows = _kambi_parse_events(payload, "ubse")
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["event_id"], 9)
+        self.assertEqual(rows[0]["operator"], "ubse")
+        names = {o["name"] for o in rows[0]["outcomes"]}
+        self.assertEqual(names, {"Anyone's Legend", "TOP Esports"})
+        dec = {o["name"]: o["decimal"] for o in rows[0]["outcomes"]}
+        self.assertEqual(dec["Anyone's Legend"], 1.42)
+        self.assertEqual(dec["TOP Esports"], 2.65)
+
