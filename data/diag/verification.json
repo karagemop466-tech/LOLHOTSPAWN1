@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:42:25Z",
+ "generated_utc": "2026-10-24T16:51:44Z",
  "checks": [
   {
    "name": "dataset present",
@@ -149,7 +149,7 @@
   {
    "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "15 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
+   "detail": "18 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -169,17 +169,17 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "14 usable receipts, 0 malformed, 0 stale unmatched (non-blocking), 0 diverging >8.0pp (flagged, non-blocking)"
+   "detail": "32 usable receipts, 0 malformed, 0 stale unmatched (non-blocking), 1 diverging >8.0pp (flagged, non-blocking)"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 58550 bytes"
+   "detail": "coverage.html 75982 bytes"
   },
   {
    "name": "external source research receipts are committed",
    "ok": true,
-   "detail": "44 venues probed on 2026-10-24T16:34:21Z; dossier present"
+   "detail": "44 venues probed on 2026-10-24T16:49:26Z; dossier present"
   },
   {
    "name": "coverage arithmetic reconciles to the inventory",
