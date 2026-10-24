@@ -1,7 +1,28 @@
 {
  "note": "Curated, human-reviewed observations. Derived flags are appended by tools/flags.py on every build. Every item states what was actually checked and, where it could not be re-checked, says so instead of asserting it.",
- "reviewed_utc": "2026-10-24T16:25:00Z",
+ "reviewed_utc": "2026-10-24T16:30:00Z",
  "flags": [
+  {
+   "severity": "high",
+   "item": "The six-hourly refresh failed for 24 hours because receipts for delisted fixtures were counted as rejected",
+   "detail": "Hotspawn's fixtures API only returns cards with status=scheduled and drops a card once it kicks off, so a static external-odds receipt points at a fixture that is no longer listed within a day. tools/corroborate.py classified those as 'unmatched / rejected', and the publish gate 'external receipts validated against the dataset' fails whenever any receipt is rejected. Every scheduled refresh from 2026-10-23T17:13Z to 2026-10-24T16:19Z therefore failed at the gate (40 of 41 checks passing) and the published site stayed frozen at the 2026-10-23T17:13:12Z snapshot. Fixed in PR #62: such a receipt is now classified as historical evidence, kept and dated on the coverage page, excluded from every price and from the gate, which still fails on malformed receipts and on receipts that name the wrong teams for a fixture we do list. The first green run after the fix is 40110996859 (2026-10-24T16:19Z, 241/241 fixtures, 41/41 gates, 16 historical receipts).",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40109474033",
+   "verification": "verified 2026-10-24 against the failing run's own log and the green run after the fix"
+  },
+  {
+   "severity": "low",
+   "item": "Two market rows publish venue weights that do not sum to 1.0 (#1067878, #1079080)",
+   "detail": "The per-venue 'weight' fields are published as collected (Pinnacle 0.36, Polymarket 0.24, Kalshi 0.18, Unibet 0.10 on #1067878, which sums to 0.88 because Bovada returned no price in that build; #1079080 is a single thin Polymarket venue published at 0.24). The published probability is the correctly normalised weighted mean of those quotes, so no probability is wrong: an independent re-derivation reproduces p0 for every market row within 0.01. The display is what is inconsistent, and a reader adding up the weights on the card would not get 100%.",
+   "source": "https://www.hotspawn.com/matches/gen-g-vs-invictus-gaming-worlds-2026-main-event-1067878",
+   "verification": "re-derived 2026-10-24 with audit/session_5ff8e6bf/verify_published.py"
+  },
+  {
+   "severity": "low",
+   "item": "Pinnacle JSON receipts answer HTTP 401 to some datacenter clients and HTTP 200 in a browser",
+   "detail": "Every Pinnacle row links its receipt at guest.api.arcadia.pinnacle.com/0.1/matchups/<id>/markets/related/straight. A GitHub-runner harvest of all 241 source links recorded 401 for 8 of the 10 market-quote URLs, while the same URL fetched normally returns the straight-market JSON (spot-checked 2026-10-24 for matchup 1639121258: moneyline 155 / -184, cutoff 2026-10-24T17:00Z). The links are therefore valid for a human reviewer but not machine-resolvable from every host, so link-resolution counts taken from a cloud runner understate them.",
+   "source": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
+   "verification": "fetched 2026-10-24; 200 with straight-market JSON"
+  },
   {
    "severity": "high",
    "item": "Pinnacle publishes each LoL series twice and the pick engine was using the (Kills) derivative",
@@ -19,7 +40,7 @@
   {
    "severity": "medium",
    "item": "Single-venue prediction market with $5 traded volume (#1079080 Mental Rush vs Vitality Rising Bees)",
-   "detail": "The only external quote for this LGC Rising 2026 Playoffs final is Polymarket's series market lol-rb-mr-2026-10-27 at 68\u00a2 / 32\u00a2 with $5.00 of traded volume (its Game 1-4 sub-markets are parked at 50/50 with a 0.04 bid / 0.96 ask spread). The line is published but downgraded to low confidence and flagged on the card; the earlier curated note that described #1079080 as 'Bushido Wildcats vs Misa Esports' referred to a 264-row snapshot and has been replaced.",
+   "detail": "The only external quote for this LGC Rising 2026 Playoffs final is Polymarket's series market lol-rb-mr-2026-10-27 at 68¢ / 32¢ with $5.00 of traded volume (its Game 1-4 sub-markets are parked at 50/50 with a 0.04 bid / 0.96 ask spread). The line is published but downgraded to low confidence and flagged on the card; the earlier curated note that described #1079080 as 'Bushido Wildcats vs Misa Esports' referred to a 264-row snapshot and has been replaced.",
    "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
    "verification": "verified live 2026-10-23 via gamma-api.polymarket.com (volume=5, outcomePrices 0.68/0.32)"
   },
@@ -77,13 +98,6 @@
    "detail": "In the 2026-10-23 snapshot, 171 of 241 cards return tier=null and the rest return a single letter (c 49, s 11, d 9, a 1). Tier is reproduced verbatim from the API and never inferred from the league name, so it is not used to select a pricing method.",
    "source": "https://play.hotspawn.com/lol-pickems",
    "verification": "verified from data/raw/hotspawn_lol.json (counts recomputed on this build)"
-  },
-  {
-   "severity": "high",
-   "item": "The 6-hourly publisher was down for four scheduled runs (2026-10-23T21:26Z to 2026-10-24T15:59Z); cause found and fixed",
-   "detail": "No pick was refreshed for about 23 hours. The failure was not in collection or modelling: a runner-side replay of the exact publisher sequence (tools/diag_refresh.py, workflow diag-refresh, run 40110929638) showed collect, model, report, flags, site and corroborate all exiting 0, and the publish gate failing only on 'external receipts validated against the dataset' (1 usable, 16 rejected). Cause: the Hotspawn feed drops a card once it kicks off, so a static external-odds receipt points at a delisted fixture within a day; corroborate.py counted that as a rejected receipt and verify.py refused to publish. Fixed in commit 0ab57dc (session 5ff8e6bf) by classifying an off-list receipt as historical evidence that never prices a match, while malformed receipts and real divergences still fail the gate. The first scheduled run after the fix (40110996859) succeeded and published the 2026-10-24T16:19:35Z inventory. The canonical snapshot that was live during the outage is still visible in data/diag/refresh_diag.json. Residual limitation: six-hour scheduling is best effort, and a failed run leaves the previous snapshot live until the next attempt.",
-   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40110929638",
-   "verification": "observed on a GitHub runner 2026-10-24T16:20Z (per-step exit codes in data/diag/refresh_diag.json); recovery run 40110996859 success, commit 42cb155"
   }
  ]
 }
