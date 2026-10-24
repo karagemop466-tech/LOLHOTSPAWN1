@@ -1,15 +1,15 @@
 {
- "generated_utc": "2026-10-24T16:23:36Z",
+ "generated_utc": "2026-10-24T16:27:01Z",
  "verifier": "audit/session_5ff8e6bf/verify_published.py (independent re-derivation; does not import tools/)",
  "inputs": {
   "data/matches.json": {
    "rows": 241,
-   "generated_utc": "2026-10-24T16:21:25Z",
-   "inventory_fetched_utc": "2026-10-24T16:19:35Z"
+   "generated_utc": "2026-10-24T16:26:09Z",
+   "inventory_fetched_utc": "2026-10-24T16:24:05Z"
   },
   "data/raw/hotspawn_lol.json": {
    "fixtures": 241,
-   "fetched_utc": "2026-10-24T16:19:35Z"
+   "fetched_utc": "2026-10-24T16:24:05Z"
   },
   "data/picks.csv": {
    "rows": 241
@@ -18,7 +18,7 @@
    "index.html": {
     "rows": 0,
     "cards": 6,
-    "links": 97
+    "links": 107
    },
    "table.html": {
     "rows": 241,
@@ -73,7 +73,7 @@
    "sources.html": {
     "rows": 0,
     "cards": 0,
-    "links": 53
+    "links": 71
    },
    "methodology.html": {
     "rows": 0,
@@ -220,7 +220,7 @@
   {
    "name": "no broken internal links",
    "ok": true,
-   "detail": "2974 links parsed; problems: []",
+   "detail": "3002 links parsed; problems: []",
    "severity": "fail"
   },
   {
@@ -244,19 +244,19 @@
   {
    "name": "the published snapshot is younger than the 8 h refresh ceiling",
    "ok": true,
-   "detail": "generated_utc=2026-10-24T16:21:25Z age=0.0h",
+   "detail": "generated_utc=2026-10-24T16:26:09Z age=0.0h",
    "severity": "fail"
   },
   {
    "name": "the Hotspawn inventory was fetched recently enough to be current",
    "ok": true,
-   "detail": "inventory_fetched_utc=2026-10-24T16:19:35Z age=0.1h",
+   "detail": "inventory_fetched_utc=2026-10-24T16:24:05Z age=0.0h",
    "severity": "fail"
   },
   {
    "name": "the out-of-sample backtest is internally consistent",
    "ok": true,
-   "detail": "n=3896 hits=2531 acc=0.6496 buckets n=3896 hits=2531 brier=0.2185",
+   "detail": "n=3896 hits=2529 acc=0.6491 buckets n=3896 hits=2529 brier=0.2185",
    "severity": "fail"
   }
  ],
