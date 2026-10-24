@@ -202,7 +202,7 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
   <a href="competitions.html">Tournaments</a></p>
 </footer>
 <nav class="mobnav" aria-label="Quick navigation">{bottom_nav}</nav>
-<a class="mobile-picks" href="table.html">All picks &rarr;</a>
+{"" if active == "table.html" else '<a class="mobile-picks" href="table.html">All picks &rarr;</a>'}
 <script src="assets/app.js"></script>
 </body>
 </html>
@@ -813,8 +813,12 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     matches are not priced by any book reachable from the runner; their lines come from recorded series
     history rather than an aggregator placeholder.</li>
     <li><strong>What we tried for the low-tier tail.</strong> {probe_line} {probe_link}.</li>
-    <li><strong>Thin samples.</strong> {len(provisional)} lines are labelled <em>provisional</em> because at
-    least one side has fewer than five rated series in the 25-month window.</li>
+    <li><strong>Thin &amp; zero-history debut samples.</strong> {len(provisional)} lines are labelled
+    <em>provisional</em> because at least one side has fewer than five rated series in the 25-month window
+    ({sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 or (r.get("team1") or {}).get("rating_matches") == 0)}
+    involve a debut side with 0 pre-kickoff rated series, including
+    {sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 and (r.get("team1") or {}).get("rating_matches") == 0)}
+    where both sides enter at 0/0 rated series and rest solely on equal division priors).</li>
     <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
     limitations are on <a href="unresolved.html">Unresolved &amp; limitations</a>; data irregularities are on
     <a href="flagged.html">Flagged for review</a>.</li>
@@ -898,9 +902,11 @@ def build_results(rows: list[dict]) -> str:
     by_method_rows = []
     for name, m in sorted((track.get("by_method") or {}).items(), key=lambda kv: -kv[1]["graded"]):
         by_method_rows.append(
-            f'<tr><td>{badge(name)}</td><td class="num">{m["graded"]}</td><td class="num">{m["hits"]}</td>'
-            f'<td class="num">{m["graded"] - m["hits"]}</td>'
-            f'<td class="num">{m["accuracy"]*100:.1f}%</td></tr>')
+            f'<tr><td data-label="Method">{badge(name)}</td>'
+            f'<td data-label="Graded" class="num">{m["graded"]}</td>'
+            f'<td data-label="Hits" class="num">{m["hits"]}</td>'
+            f'<td data-label="Misses" class="num">{m["graded"] - m["hits"]}</td>'
+            f'<td data-label="Accuracy" class="num">{m["accuracy"]*100:.1f}%</td></tr>')
 
     acc = track.get("accuracy")
     brier = track.get("brier")
@@ -1132,8 +1138,9 @@ def build_originated(rows: list[dict], counts: Counter) -> str:
             f' / {t1["elo"] if t1["elo"] is not None else "&mdash;"} <span class="muted small">({t1["rating_matches"]})</span>',
             pa_txt + " / " + pb_txt,
             badge(r["method"]),
-            f'<a href="https://lol.fandom.com/wiki/{leaguepedia_slug(r["leaguepedia_page"] or "")}" rel="noopener">results page</a>'
-            if r.get("leaguepedia_page") else f'<a href="{e(r["hotspawn_url"])}" rel="noopener">card</a>',
+            (f'<a href="{e(r["hotspawn_url"])}" rel="noopener">card</a> &middot; '
+             f'<a href="https://lol.fandom.com/wiki/{leaguepedia_slug(r["leaguepedia_page"] or "")}" rel="noopener">results page</a>'
+             if r.get("leaguepedia_page") else f'<a href="{e(r["hotspawn_url"])}" rel="noopener">card</a>'),
         ])
     body = f"""
 <section class="panel">
@@ -1141,7 +1148,8 @@ def build_originated(rows: list[dict], counts: Counter) -> str:
   <p class="lead">Tier-B/C/D national and academy leagues are not offered by major sportsbooks, so we originate
   independent probabilities from chronological series history in Leaguepedia since
   {e((load_json(os.path.join(DATA,'matches.json')) or {}).get('model',{}).get('window_start',''))},
-  with inactivity decay and empirical shrinkage toward 1500.</p>
+  with inactivity decay and empirical Bayes shrinkage toward each team's division prior
+  (1700 / 1575 / 1500 / 1455).</p>
   <div class="stats tight">
     {stat_card("Solid originated lines", counts.get('model',0), "both teams rated & connected", "model")}
     {stat_card("Provisional lines", counts.get('provisional',0), "thin sample - flagged", "provisional")}
@@ -1161,9 +1169,16 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
                         key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
     provisional = sorted([r for r in rows if r["method"] == "provisional"],
                          key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
-    one_sided = [r for r in rows if r["method"] == "provisional"
-                 and any("no rated series" in f for f in r["flags"])]
+    zero_hist = [r for r in rows if r["method"] == "provisional"
+                 and ((r.get("team0") or {}).get("rating_matches") == 0
+                      or (r.get("team1") or {}).get("rating_matches") == 0)]
+    both_zero = [r for r in zero_hist
+                 if (r.get("team0") or {}).get("rating_matches") == 0
+                 and (r.get("team1") or {}).get("rating_matches") == 0]
     disconnected = [r for r in rows if any("no shared-opponent chain" in f for f in r["flags"])]
+    non_exact = [r for r in rows
+                 if (r.get("team0") or {}).get("join", "exact") != "exact"
+                 or (r.get("team1") or {}).get("join", "exact") != "exact"]
     ambiguous = [r for r in rows if any("ambiguous" in f or "could not be matched" in f for f in r["flags"])]
     ceiling = _external_ceiling()
     reason_rows = []
@@ -1196,9 +1211,13 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
         ["Thin match history", f"{counts.get('provisional',0)} provisional",
          "At least one team has fewer than five rated series in the 25-month Leaguepedia window, so the Elo estimate "
          "carries wider variance and is explicitly flagged provisional."],
-        ["One-sided history", f"{len(one_sided)} matches",
-         "One side is newly promoted or newly formed with zero prior Leaguepedia series and receives the 1500 prior."],
-        ["Name disambiguation", f"{len(ambiguous)} matches",
+        ["Zero pre-kickoff history (debut sides)",
+         f"{len(zero_hist)} matches ({len(both_zero)} dual-debut)",
+         "One or both teams enter kick-off with 0 prior Leaguepedia rated series and are anchored strictly to their "
+         "division prior (1700 / 1575 / 1500 / 1455). Where both sides have 0 rated series, the 50.0% / 50.0% split "
+         "reflects identical division priors rather than match evidence (see Flagged for review)."],
+        ["Name disambiguation",
+         f"{len(non_exact)} disambiguated ({len(ambiguous)} unresolved)",
          "Homonymous regional teams (e.g. 'Fenrir (Icelandic Team)' vs Polish 'Fenrir', 'PvB (Swiss Team)' mislabelled "
          "by Hotspawn as Vietnamese 'Phong Vũ Buffalo') are joined only via competition-scoped roster evidence."],
         ["Disconnected opponent graphs", f"{len(disconnected)} matches",
@@ -1372,9 +1391,9 @@ def build_methodology(model: dict) -> str:
   <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K<sub>eff</sub> &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
   <p>Empirical Bayes shrinkage towards tier prior R<sub>0</sub> for sample size n (shrink = {e(model.get('shrink'))}):</p>
   <p class="formula">R<sub>eff</sub> = R<sub>0</sub> + (R - R<sub>0</sub>) &middot; n / (n + {e(model.get('shrink'))})</p>
-  <p>Inactivity decay begins after {e(model.get('decay_start_days'))} days and reaches 1500 at
-  {e(model.get('decay_full_days'))} days; originated probabilities are clamped to
-  {e(model.get('prob_floor'))}&ndash;{e(model.get('prob_ceil'))}.</p>
+  <p>Inactivity decay begins after {e(model.get('decay_start_days'))} days and decays linearly back to each team's
+  tier prior R<sub>0</sub> over the next {e(model.get('decay_full_days'))} days; originated probabilities are
+  clamped to {e(model.get('prob_floor'))}&ndash;{e(model.get('prob_ceil'))}.</p>
 </section>
 
 <section class="panel">
@@ -1413,9 +1432,6 @@ def build_methodology(model: dict) -> str:
     <li><strong>Official walkovers are not forecasts.</strong> Where a league has ruled a forfeit, the settlement
     winner is published in a separate field with no probability and is excluded from the backtest and from the
     market-coverage counts.</li>
-    <li><strong>Explicit quarantine over guesswork.</strong> Disqualified teams (<code>dqteams</code>) and unrated
-    cards are documented transparently on <a href="unresolved.html">Unresolved</a> and
-    <a href="flagged.html">Flagged for review</a>.</li>
     <li><strong>Receipts expire.</strong> A bookmaker quote captured from a match page is a line only while it is
     fresh; archived receipts older than 24 hours are excluded from the consensus, so an affected match falls back
     to the live venues or to the model rather than to a stale price.</li>
@@ -1573,12 +1589,63 @@ def build_verification(rows: list[dict], matching: dict, verification: dict | No
                       "Automated publish assertions and team disambiguation evidence.")
 
 
-def build_flagged(flags: list[dict]) -> str:
-    out = [[e(f.get("severity")), e(f.get("item")),
+def _sev_pill(sev: str | None) -> str:
+    s = (sev or "info").lower()
+    cls = {"high": "bad", "medium": "warn", "low": "no", "info": "no"}.get(s, "no")
+    return f'<span class="pill {cls}">{e(s)}</span>'
+
+
+def _fixture_irregularities(r: dict) -> list[str]:
+    notes: list[str] = []
+    if r.get("method") == "unresolved":
+        notes.append("quarantined (dqteams removal / settlement only)")
+    t0 = r.get("team0") or {}
+    t1 = r.get("team1") or {}
+    z0 = "rating_matches" in t0 and t0.get("rating_matches") == 0
+    z1 = "rating_matches" in t1 and t1.get("rating_matches") == 0
+    if z0 and z1:
+        notes.append("0/0 pre-kickoff rated series (equal division prior only)")
+    elif z0 or z1:
+        who = t0.get("name") if z0 else t1.get("name")
+        notes.append(f"debut side ({who}: 0 pre-kickoff rated series)")
+    if (r.get("market") or {}).get("thin"):
+        notes.append((r.get("market") or {}).get("thin_note") or "thin single-venue market")
+    for fl in (r.get("flags") or []):
+        if any(k in fl for k in ("retired as unverifiable", "market and model disagree",
+                                 "explicit alias", "kick-off time differs")):
+            notes.append(fl)
+    return notes
+
+
+def build_flagged(flags: list[dict], rows: list[dict] | None = None) -> str:
+    out = [[_sev_pill(f.get("severity")), e(f.get("item")),
             e(f.get("detail")) + (f'<br><span class="verify-state">{e(f["verification"])}</span>'
                                   if f.get("verification") else ""),
             f'<a href="{e(f.get("source"))}" rel="noopener">source</a>' if f.get("source") else "&mdash;"]
            for f in flags]
+    flagged_rows_html = []
+    for r in sorted(rows or [], key=lambda x: (x.get("stale", False), x.get("start_utc") or "9999")):
+        reasons = _fixture_irregularities(r)
+        if not reasons:
+            continue
+        pa_txt, pb_txt = pct_pair(r.get("p0"), r.get("p1"))
+        flagged_rows_html.append([
+            local_time(r.get("start_utc")),
+            e(r.get("competition")),
+            (f'<div class="mrow"><strong>{e(r["team0"]["name"])}</strong><span class="pct">{pa_txt}</span></div>'
+             f'<div class="mrow"><strong>{e(r["team1"]["name"])}</strong><span class="pct">{pb_txt}</span></div>'),
+            _pick_cell(r),
+            "; ".join(e(x) for x in reasons),
+            _row_sources(r),
+        ])
+    fixture_panel = (f"""
+<section class="panel" id="flagged-fixtures">
+  <h2>Flagged fixtures ({len(flagged_rows_html)})</h2>
+  <p class="lead">Every currently listed fixture carrying a substantive data irregularity (mid-split team removal,
+  zero pre-kickoff rated series, retired external quote, thin single-venue liquidity, explicit team-name alias, or
+  market-vs-model gap), with both win probabilities, the published pick and official source links.</p>
+  {table(["Kick-off", "Tournament", "Match &amp; Win %", "Pick", "Irregularity", "Sources"], flagged_rows_html)}
+</section>""" if flagged_rows_html else "")
     body = f"""
 <section class="panel">
   <h2>Independent audit trail</h2>
@@ -1595,6 +1662,7 @@ def build_flagged(flags: list[dict]) -> str:
   and thin-sample caveats — published openly with official source links.</p>
   {table(["Severity", "Item", "Detail", "Source"], out)}
 </section>
+{fixture_panel}
 <section class="panel">
   <h2>Independent audits behind this page</h2>
   <p class="lead">Two separate audit passes re-checked the committed snapshot and did not use the same code as
@@ -1640,7 +1708,7 @@ def main() -> None:
         "methodology.html": build_methodology(model),
         "sources.html": build_sources(src),
         "verification.html": build_verification(rows, matching, verification),
-        "flagged.html": build_flagged(flags),
+        "flagged.html": build_flagged(flags, rows),
     }
     for name, content in pages.items():
         with open(os.path.join(DOCS, name), "w", encoding="utf-8") as fh:

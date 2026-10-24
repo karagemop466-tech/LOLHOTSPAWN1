@@ -16,8 +16,7 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 | --- | --- |
 | `index.html` | Executive summary: *Starting soon* (next-48h picks, soonest first) at the top, headline counts, in-site links to every list, featured market picks, and a dedicated *Unresolved picks & limitations* section with the per-competition fallback ledger |
 | `table.html` | **All matches in one responsive table** — kick-off, match, both win probabilities, pick, method and source links (the page to bookmark on a phone) |
-| `results.html` | **The scoreboard** — every pick that has kicked off, graded HIT/MISS against the official series record; nothing is graded by assumption |
-| `results.html` | **Track record** — every started card graded hit/miss against the official series record, accuracy by method, forfeit settlements, and the started-but-ungraded list |
+| `results.html` | **Results & track record** — every started card graded HIT/MISS against the official series record, accuracy by method, forfeit settlements, and the started-but-ungraded list |
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
 | `featured.html` | Matches with a real bookmaker price, the raw odds and the de-vig arithmetic |
 | `originated.html` | Matches with no market price: our own line, the Elo inputs and the team records behind it |
@@ -41,11 +40,11 @@ tools/report.py    per-tournament and per-team summaries
       ↓
 tools/flags.py     derived irregularities + curated notes (data/flags_manual.json)
       ↓
-tools/site.py      14 static pages, mobile-first, no framework
+tools/site.py        13 static pages (+ coverage.html from corroborate.py = 14 root pages), mobile-first
       ↓
-tools/verify.py    publish-integrity gates (the count evolves as checks are added); a failure aborts the commit instead of publishing bad data
-
-tools/verify.py    42 assertions; a failure aborts the commit instead of publishing bad data
+tools/corroborate.py external-book receipt validation & coverage.html ledger
+      ↓
+tools/verify.py      44 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
 ```
 
 A single canonical workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) attempts that
@@ -176,16 +175,17 @@ presentations are one click apart and each row carries its source links.
 
 ## Mobile use
 
-The dashboard is mobile-first. A persistent bottom bar (Summary · All picks · Market · Unresolved ·
-Flags) is fixed to the bottom of every page on phones, the header `Menu` button now actually opens the
-full 11-page navigation, and `picks.html` has a working search box, tournament filter and pick-type
-chips that filter instantly client-side with no page reload.
+The dashboard is mobile-first. A persistent bottom bar (Summary · Picks · Results · Market ·
+Unresolved) is fixed to the bottom of every page on phones, the header `Menu` button opens the full
+14-page navigation, and `table.html` and `picks.html` both provide instant client-side search,
+tournament filtering, and method/upcoming chips with no page reload.
 
 ## Running it locally
 
 ```bash
 python3 tools/collect.py && python3 tools/model.py && python3 tools/report.py \
-  && python3 tools/flags.py && python3 tools/site.py && python3 tools/verify.py
+  && python3 tools/flags.py && python3 tools/site.py && python3 tools/corroborate.py \
+  && python3 tools/verify.py
 # research-only: does any book list the low-tier tail? (runner receipts, never prices a match)
 python3 tools/probe_lowtier.py   # -> data/probe/lowtier_<date>.json; memo: research/low-tier-sources-2026-10-24.md
 ```
@@ -196,33 +196,30 @@ the files in `data/`.
 ### Integrity and freshness review (2026-10-24)
 
 The canonical mobile controls are wired to the current HTML (search, tournament,
-method chips, menu); a permanent mobile **All picks** link is available on every page.
-Inventory collection time is separate from model build time. The browser warns after
-12 hours and marks snapshots hard-stale after 30 hours. Six-hour Actions scheduling
-is best effort, not a live-odds SLA.
+method chips, menu); inventory collection time is tracked separately from model build time.
+The browser warns after 12 hours and marks snapshots hard-stale after 30 hours. Six-hour
+Actions scheduling (`refresh.yml`, cron `17 */6 * * *`) is best effort, not a live-odds SLA.
 
-At this review, the committed canonical inventory was collected at 2026-10-23T17:11:12Z,
-and the four latest scheduled canonical refresh runs had failed. Pages was built, but
-that is not proof the canonical data refreshed. See `COORDINATION.md` for the official
-run links and the unresolved failure cause; no cause is guessed.
+An earlier receipt-lifecycle bug that stalled scheduled `refresh-picks` runs between
+2026-10-23T21:26Z and 2026-10-24T15:59Z (delisted fixtures in `data/receipts/external_odds/`
+counted as rejected rather than `historic`) was fixed on 2026-10-24 and verified green on `main`
+(see `COORDINATION.md` for official run links).
 
-Archived aggregator receipts are **not** current quotes and are excluded from pricing.
+Archived aggregator receipts (>24h old) are **not** current quotes and are excluded from pricing.
 Leaguepedia is a community source; its results are not labelled official league
-verification. Model probabilities are estimates, never confirmed facts. If either team
-has no matched rated history and no collected market, probabilities and picks remain
-blank. Recorded removals remain quarantined pending settlement. Historical manual
-findings are visibly marked as not reverified.
+verification. Model probabilities are estimates, never confirmed facts. Officially removed
+mid-split teams (`dqteams`) are quarantined in `unresolved.html` with settlement-only picks
+and no probability. Debut teams with 0 prior rated series are explicitly flagged on `flagged.html`.
 
-Run `python3 -m unittest discover -s tests -v`, `NODE_PATH=<jsdom> node tests/dashboard.cjs`
-and `python3 tools/verify.py`. The gate reconciles the exact inventory ID multiset, checks
-finite probabilities via `tools/integrity.py`, checks the actual named favourite, checks each
-match card's unique ID, asserts that the dataset is a 1:1 mirror of the Hotspawn feed the build
-fetched (ids, and per-tournament counts), asserts that **no fixture uses a rating from after its
-own kick-off**, and enforces the settlement-pick contract (a settlement pick names a listed
-participant and carries no probability).
+Run `python3 -m unittest discover -s tests -v`, `NODE_PATH=<jsdom> node tests/dashboard.cjs`,
+`python3 audit/mobile_audit.py`, `python3 audit/check_site.py`, and `python3 tools/verify.py`.
+The gate reconciles the exact inventory ID multiset, checks finite probabilities via `tools/integrity.py`,
+verifies the named favourite, checks each match card's unique ID, asserts a 1:1 mirror of the
+Hotspawn feed (IDs and per-tournament counts), asserts that **no fixture uses a rating from after its
+own kick-off**, verifies mobile `data-label` stacking across all 14 pages, and enforces the
+settlement-pick contract (a settlement pick names a listed participant and carries no probability).
 
-The Elo model is margin-weighted (K=48, 2-0 counts more than 2-1) and every fixture is priced
-from the rating state at its own kick-off, so an already-played card cannot see its own result.
-Out-of-sample (3,854 series from 2026-07-01): **65.5% accuracy, 0.2144 Brier, 0.6178 log-loss**.
-Three fixtures whose kick-off ratings are identical are labelled `toss-up` rather than pretending
-an edge exists.
+The canonical Elo model (`tools/model.py`) uses division priors (`1700 / 1575 / 1500 / 1455`),
+series margin-of-victory scaling (`K=26`, `1 + 0.18 * max(0, diff - 1)`), inactivity decay after 90 days,
+and empirical Bayes shrinkage (`shrink=5`), pricing every fixture strictly from its pre-kickoff rating
+state (see `methodology.html` and `data/matches.json` for live out-of-sample backtest metrics).

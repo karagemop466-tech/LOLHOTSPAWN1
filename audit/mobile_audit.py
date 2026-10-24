@@ -22,9 +22,10 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-PAGES = ["index.html", "table.html", "picks.html", "featured.html", "originated.html",
-         "unresolved.html", "competitions.html", "teams.html", "flagged.html",
-         "coverage.html", "verification.html", "sources.html", "methodology.html"]
+PAGES = ["index.html", "table.html", "picks.html", "results.html", "featured.html",
+         "originated.html", "unresolved.html", "competitions.html", "teams.html",
+         "flagged.html", "coverage.html", "verification.html", "sources.html",
+         "methodology.html"]
 
 PICKS_LINKS = ["table.html", "picks.html", "featured.html", "originated.html",
                "unresolved.html", "flagged.html"]
