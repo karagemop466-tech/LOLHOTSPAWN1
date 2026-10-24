@@ -46,6 +46,14 @@ discarding their work:
 `tools/integrity.py` was extended by this session so a settlement pick is a legal third row shape, with
 regression tests for all three shapes. Merge commit `fe7feb6`; nothing from either side was reverted.
 
+## Session `6c7653f1` — README conflict-marker cleanup (2026-10-24)
+
+| # | Task | Status | Owner | File scope | Notes |
+|---|------|--------|-------|-----------|-------|
+| 14 | Remove committed merge-conflict markers in the README manual-review data list and retain all unique entries | done | 6c7653f1 | `README.md`, this session record in `COORDINATION.md` | Preserved verification, flags, audit, and retired-quote references. `grep` confirms no merge markers remain in README. No runtime or data behavior changed. |
+
+Verification: inspected repository sources and current checkout; confirmed the linked data files exist. Ran the local verification gate and tests (results recorded by this session below). No external factual claims changed.
+
 ## Task board
 
 | # | Task | Status | Owner | File scope | Notes |
