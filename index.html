@@ -64,13 +64,9 @@
     <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
     We probed <strong>33 external venues</strong> from the build runner (established books,
     esportsbooks, exchanges, odds aggregators); 15 answered and 8
-    returned JSON, of which five are live match-price feeds. Across every reachable venue the same slice of the
-    calendar is quoted: <strong>Pinnacle 8 series</strong>,
-    <strong>Bovada 0 series</strong>,
-    <strong>Unibet (Kambi) 8 series</strong>,
-    <strong>Kalshi 8 contracts</strong> and
-    <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds
-    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
+    returned JSON. On this build the feeds that actually quoted a listed match were:
+    <strong>Pinnacle 8 series</strong>, <strong>Unibet (Kambi) 8 series</strong>, <strong>Kalshi 8 contracts</strong>, <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds 2026 ties. Feeds that returned no LoL price on this build: Bovada. Everything below that ceiling
+    has no external line to quote, so we originate it ourselves.
     Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Extra sources tried for the low-tier tail.</strong> 17 further esportsbook and odds-aggregator endpoints were called from the build runner on 2026-10-24 16:20 UTC (1xBet / 22Bet / Melbet / Betwinner LineFeed, Rivalry, DraftKings, GG.BET, Thunderpick, Midnite, BetOnline, OddsPortal, BC.GAME, Abios, PandaScore): <strong>0 returned a machine-readable LoL price</strong> (3 blocked or key-gated, 4 browser-only pages, 10 error or empty responses). Those leagues therefore keep the originated line rather than a borrowed or invented quote. <a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; <a href="sources.html">Sources</a>.</li>
     <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;
