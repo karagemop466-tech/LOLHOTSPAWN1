@@ -1,0 +1,276 @@
+{
+ "generated_utc": "2026-10-24T16:17:34Z",
+ "verifier": "audit/session_5ff8e6bf/verify_published.py (independent re-derivation; does not import tools/)",
+ "inputs": {
+  "data/matches.json": {
+   "rows": 241,
+   "generated_utc": "2026-10-23T17:13:12Z",
+   "inventory_fetched_utc": "2026-10-23T17:11:12Z"
+  },
+  "data/raw/hotspawn_lol.json": {
+   "fixtures": 241,
+   "fetched_utc": "2026-10-23T17:11:12Z"
+  },
+  "data/picks.csv": {
+   "rows": 241
+  },
+  "pages": {
+   "index.html": {
+    "rows": 0,
+    "cards": 6,
+    "links": 103
+   },
+   "table.html": {
+    "rows": 241,
+    "cards": 0,
+    "links": 518
+   },
+   "picks.html": {
+    "rows": 0,
+    "cards": 241,
+    "links": 1039
+   },
+   "featured.html": {
+    "rows": 0,
+    "cards": 9,
+    "links": 152
+   },
+   "originated.html": {
+    "rows": 0,
+    "cards": 0,
+    "links": 254
+   },
+   "unresolved.html": {
+    "rows": 0,
+    "cards": 77,
+    "links": 361
+   },
+   "competitions.html": {
+    "rows": 0,
+    "cards": 0,
+    "links": 53
+   },
+   "teams.html": {
+    "rows": 0,
+    "cards": 0,
+    "links": 207
+   },
+   "flagged.html": {
+    "rows": 0,
+    "cards": 0,
+    "links": 60
+   },
+   "coverage.html": {
+    "rows": 0,
+    "cards": 0,
+    "links": 111
+   },
+   "verification.html": {
+    "rows": 0,
+    "cards": 0,
+    "links": 45
+   },
+   "sources.html": {
+    "rows": 0,
+    "cards": 0,
+    "links": 53
+   },
+   "methodology.html": {
+    "rows": 0,
+    "cards": 0,
+    "links": 33
+   }
+  }
+ },
+ "source_hosts": {
+  "eu-offering-api.kambicdn.com": 8,
+  "guest.api.arcadia.pinnacle.com": 8,
+  "kalshi.com": 8,
+  "lol.fandom.com": 4,
+  "polymarket.com": 9,
+  "www.bovada.lv": 7,
+  "www.hotspawn.com": 241
+ },
+ "checks": [
+  {
+   "name": "inventory mirrors the collected Hotspawn feed 1:1",
+   "ok": true,
+   "detail": "feed=241 dataset=241 missing=[] extra=[]",
+   "severity": "fail"
+  },
+  {
+   "name": "match ids are unique",
+   "ok": true,
+   "detail": "241 unique of 241",
+   "severity": "fail"
+  },
+  {
+   "name": "both probabilities present and sum to 100% (+/-0.2pp)",
+   "ok": true,
+   "detail": "problems: []",
+   "severity": "fail"
+  },
+  {
+   "name": "published pick is the higher-probability side, named and quoted correctly",
+   "ok": true,
+   "detail": "side problems: [] name problems: []",
+   "severity": "fail"
+  },
+  {
+   "name": "settlement picks name a listed participant and claim no probability",
+   "ok": true,
+   "detail": "4 settlements; problems: []",
+   "severity": "fail"
+  },
+  {
+   "name": "every listed match carries a pick",
+   "ok": true,
+   "detail": "241/241 rows; missing: []",
+   "severity": "fail"
+  },
+  {
+   "name": "method values are in the documented set",
+   "ok": true,
+   "detail": "methods: {'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9}",
+   "severity": "fail"
+  },
+  {
+   "name": "published method counts reconcile with the rows",
+   "ok": true,
+   "detail": "declared={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} recomputed={'model': 151, 'unresolved': 4, 'provisional': 77, 'market': 9} rows=241",
+   "severity": "fail"
+  },
+  {
+   "name": "market rows re-derive from their own venue quotes (weights x prices)",
+   "ok": true,
+   "detail": "problems: []",
+   "severity": "fail"
+  },
+  {
+   "name": "every venue quote carries a URL and an observation timestamp",
+   "ok": true,
+   "detail": "problems: []",
+   "severity": "fail"
+  },
+  {
+   "name": "published venue weights sum to 1.0 on every market row (informational)",
+   "ok": false,
+   "detail": "rows whose weights do not sum to 1.0: ['1067878(weights=0.880)', '1079080(weights=0.240)']",
+   "severity": "warn"
+  },
+  {
+   "name": "originated rows re-derive from their own published Elo ratings",
+   "ok": true,
+   "detail": "228 rows re-derived; deviations >2pp: []",
+   "severity": "fail"
+  },
+  {
+   "name": "published probabilities are not Hotspawn crowd percentages",
+   "ok": true,
+   "detail": "rows identical to the crowd share: []",
+   "severity": "fail"
+  },
+  {
+   "name": "no row derives its probability from a Hotspawn crowd share",
+   "ok": true,
+   "detail": "rows: []",
+   "severity": "fail"
+  },
+  {
+   "name": "every row links to its own Hotspawn match card (id in the URL)",
+   "ok": true,
+   "detail": "241/241; problems: []",
+   "severity": "fail"
+  },
+  {
+   "name": "every rendered source URL is https on a named host",
+   "ok": true,
+   "detail": "7 hosts: ['eu-offering-api.kambicdn.com', 'guest.api.arcadia.pinnacle.com', 'kalshi.com', 'lol.fandom.com', 'polymarket.com', 'www.bovada.lv', 'www.hotspawn.com']; problems: []",
+   "severity": "fail"
+  },
+  {
+   "name": "picks.csv mirrors the dataset row for row",
+   "ok": true,
+   "detail": "csv=241 json=241 problems: []",
+   "severity": "fail"
+  },
+  {
+   "name": "all published pages exist",
+   "ok": true,
+   "detail": "13/13; missing: []",
+   "severity": "fail"
+  },
+  {
+   "name": "every page declares a mobile viewport",
+   "ok": true,
+   "detail": "missing: []",
+   "severity": "fail"
+  },
+  {
+   "name": "every page carries the desktop nav and the mobile bottom bar",
+   "ok": true,
+   "detail": "nav missing: []; mobnav missing: []",
+   "severity": "fail"
+  },
+  {
+   "name": "no page renders a literal None/nan value",
+   "ok": true,
+   "detail": "problems: []",
+   "severity": "fail"
+  },
+  {
+   "name": "no broken internal links",
+   "ok": true,
+   "detail": "2989 links parsed; problems: []",
+   "severity": "fail"
+  },
+  {
+   "name": "the table page renders exactly one row per match",
+   "ok": true,
+   "detail": "table rows=241 matches=241",
+   "severity": "fail"
+  },
+  {
+   "name": "the card page renders exactly one card per match",
+   "ok": true,
+   "detail": "cards=241 matches=241",
+   "severity": "fail"
+  },
+  {
+   "name": "the executive summary links every picks view, the unresolved section and the flag page",
+   "ok": true,
+   "detail": "missing: []",
+   "severity": "fail"
+  },
+  {
+   "name": "the published snapshot is younger than the 8 h refresh ceiling",
+   "ok": false,
+   "detail": "generated_utc=2026-10-23T17:13:12Z age=23.1h",
+   "severity": "fail"
+  },
+  {
+   "name": "the Hotspawn inventory was fetched recently enough to be current",
+   "ok": false,
+   "detail": "inventory_fetched_utc=2026-10-23T17:11:12Z age=23.1h",
+   "severity": "fail"
+  },
+  {
+   "name": "the out-of-sample backtest is internally consistent",
+   "ok": true,
+   "detail": "n=3854 hits=2506 acc=0.6502 buckets n=3854 hits=2506 brier=0.2183",
+   "severity": "fail"
+  }
+ ],
+ "passed": false,
+ "summary": {
+  "total": 28,
+  "passed": 25,
+  "warnings": [
+   "published venue weights sum to 1.0 on every market row (informational)"
+  ],
+  "failed": [
+   "the published snapshot is younger than the 8 h refresh ceiling",
+   "the Hotspawn inventory was fetched recently enough to be current"
+  ]
+ }
+}
