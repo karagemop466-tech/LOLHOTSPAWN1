@@ -511,8 +511,9 @@ The final integration below refines valid divergence into a disclosed, non-prici
 recreate the same refresh deadlock.
 
 R2/R3 integration evidence: this session locally integrated PR #71 (`80c624cd` results/mobile work),
-then merged successive `origin/main` updates at `73dab0b`, `0288327`, `1e50b87`, `9ac1044` and `462329c`,
-including PRs #71/#74/#75/#76/#78 and both branch-runner evidence commits. Conflicts affected the refresh workflow,
+then merged successive `origin/main` updates at `73dab0b`, `0288327`, `1e50b87`, `9ac1044`, `462329c`
+and `2633f85`, including PRs #71/#74/#75/#76/#78/#79 and both branch-runner evidence commits.
+Conflicts affected the refresh workflow,
 receipt verification,
 landing-page source wording, generated data/HTML and this file. The resolution retains the integrated
 usable/expired/historic/rejected receipt taxonomy and result grading, restores `main`'s latest raw source
@@ -522,16 +523,17 @@ Hotspawn forfeit-void rule, and unions every coordination record. No side's gene
 other: all outputs were rebuilt from the merged source. A blank/missing receipt fixture ID is malformed,
 not historic, with a focused regression test.
 
-The merged snapshot was generated at `2026-10-24T16:51:00Z` from inventory fetched at `16:42:54Z`:
+The merged snapshot was generated at `2026-10-24T16:53:15Z` from inventory fetched at `16:46:02Z`:
 241/241 fixtures across 29 competitions, 9 market + 150 model + 78 provisional + 4 settlement-only picks;
 39 graded results (23 hits, 16 misses), kept separate from forecast probabilities. All 51 external
 captures are accounted for: 32 usable (31 agree, 1 diverges), 1 expired, 16 historic, 2 informational
 placeholders and 0 rejected. The divergent EGamersWorld observation for fixture `1081423` is source-linked
 and flagged; it never enters pricing, so it is non-blocking, while malformed and wrong-fixture receipts
 still fail closed. Verification: **56/56 unit tests**, **43/43 publish gates**, independent
-probability/source audit PASS, site audit **21 pages / 0 failures / 0 warnings**, independent row/venue
-audit **0 failures / 0 warnings** across 41 checked venues, jsdom mobile/search/filter PASS, and the
-cross-pipeline freshness/inventory audit reports **0 missing fixtures / 0 missing picks / OK**. The
+probability/source audit PASS, site audit **24 pages / 0 failures / 0 warnings**, independent row/venue
+audit **0 failures / 0 warnings** across 41 checked venues, jsdom mobile/search/filter PASS, secondary
+Node-pipeline test PASS (241 scheduled / 9 market / 42 joined venue quotes), all 16 documentation audits
+PASS, and the cross-pipeline freshness/inventory audit reports **0 missing fixtures / 0 missing picks / OK**. The
 independent publication audit has one documented low-severity warning: LGC fixture `1079080` has one thin
 Polymarket venue whose published raw weight is 0.24; its probability is correctly normalised and the
 weight irregularity is published on `flagged.html`. Branch-only refresh triggers were not retained;
@@ -2049,3 +2051,37 @@ Re-verified after that merge, 2026-10-24T16:41Z — `python3 -m unittest discove
 **verdict OK** (inventory `2026-10-24T16:32:05Z`, 0 missing, 0 stale, 241/241 rows with a pick).
 Corroboration on the merged tree: **51 receipts, 32 usable, 31 agree, 1 diverges (the contested
 #1081423), 2 placeholders, 16 historic, 1 expired, 0 rejected** — i.e. nothing blocks the refresh.
+
+---
+
+# Session `6669f798` — secondary (`docs/`) 5-venue + full-241 coverage upgrade, live cross-source entity/line audit & closing integration (2026-10-24)
+
+Branch: `arena/6669f798-lolhotspawn1` (fixed Arena session branch). All implementation files are strictly disjoint from canonical root `tools/` / `assets/` / root `*.html` (`scripts/**`, `docs/**`, `data/node/**`, `audit/verify_docs.py`, `audit/session_6669f798/**`, `research/session_6669f798/**`, `.github/workflows/refresh-docs.yml`).
+
+## Task board (`session 6669f798`)
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `N1` | **Secondary (`docs/` Node) collector & 5-venue market consensus upgrade**: reject Pinnacle `(Kills)` derivative markets explicitly, enforce `<24h` TTL preservation across cloud HTTP 429/403s, and integrate Pinnacle (`1.00`), Unibet/Kambi `ubse` (`0.70`), Bovada `Head To Head` (`0.50`), Kalshi CFTC `KXLOLGAME` (`0.40–0.55`), and Polymarket CLOB (`0.25–0.65`) — **42 live venue quotes joined across 9 series** (8/8 Worlds Swiss R2 with **5/5** venues + `#1079080` LGC Rising with **2/2** venues) | done | `6669f798` | `scripts/collect.mjs`, `scripts/analyze.mjs`, `data/node/**`, `.github/workflows/refresh-docs.yml` |
+| `N2` | **Full 241-match Hotspawn coverage + `dqteams` quarantine + competition-scoped no-look-ahead Elo**: replayed `32,879` non-forfeit Leaguepedia + Hotspawn LoL series strictly pre-kickoff (`t < T_fixture`, walk-forward OOS Brier `0.2250` across `22,371` series), added `Solid Gaming` mid-split `dqteams` walkover settlements (`p0=null, p1=null, settlement_pick`), quarantined `#1083097` `paiN Gaming -> PNG` (Bulgarian amateur `n=0`), and left zero-evidence debuts blank (`—`) | done | `6669f798` | `scripts/analyze.mjs`, `data/node/**` |
+| `N3` | **Mobile-first 10-page `docs/` dashboard + compact `table.html` + `verify_docs.py` (17 gates)**: added `docs/table.html` (all 241 scheduled rows with search/tournament/method/stale filters + CSV/JSON exports), `featured.html` (5-venue matrix), `originated.html`, executive summary navigation hub + Unresolved & Limitations section, fixed broken `404` `data/node/model/ratings.json` link & `bo3.gg` domain, and expanded `audit/verify_docs.py` to 17 checks | done | `6669f798` | `scripts/build_site.mjs`, `docs/**`, `audit/verify_docs.py` |
+| `A_6669f798` | **Independent live line-by-line source & entity verification**: audited all `241` scheduled matches & `215` `(competition, team)` Leaguepedia joins; documented Rivalry's permanent operational closure (`rivalry.com/operationally-closed`), eGamersWorld's symmetric `1.80/1.80` placeholder on `#1081423`, and logged two canonical cross-scope requests below | done | `6669f798` | `audit/session_6669f798/**`, `research/session_6669f798/**`, `COORDINATION.md` |
+| `I_6669f798` | **Final integration, PR → `main`, merge & GitHub Pages deployment confirmation** | in progress | `6669f798` | `COORDINATION.md` |
+
+## Cross-scope requests for canonical `tools/` owners (non-blocking, already fixed on `docs/`)
+
+1. **`#1083097` (`Logitech G SuperStrike Cup Qualifier | paiN Gaming vs Non-toxic Gaming`, `2026-10-24T11:00Z`) — cross-region homonym contamination:**  
+   Official Leaguepedia (`https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier` & `Data:Logitech_G_SuperStrike_Cup/Qualifier?action=raw`) confirms `paiN Gaming` in this Bulgarian open qualifier is amateur 5-stack **`PNG`** (`billy`, `Bla6ko`, `metko`, `ifo`, `anditobate`, `n = 0` pre-kickoff matches, lost `0–1` to `Non-toxic Gaming`), **not** Brazilian CBLOL `paiN Gaming` (`n = 62`). Recommend adding competition-scoped override `("Logitech G SuperStrike Cup Qualifier", "paiN Gaming") -> "PNG"` in `data/aliases.json` / `tools/model.py`.
+2. **`#1079080` (`LGC Rising 2026 Playoffs | Mental Rush vs Vitality Rising Bees`, `2026-10-27T17:00Z`) — missed live CFTC Kalshi contract:**  
+   Kalshi event `KXLOLGAME-26OCT271300RBMR` (`https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT271300RBMR?with_nested_markets=true`) quotes active binary contracts (`Rising Bees` `0.58/0.65`, `Mental Rush` `0.36/0.46`, `~$429` book depth), missed by `tools/model.py` (`venue_count: 1`, thin Polymarket only) because Kalshi names them `"Rising Bees"` rather than `"Vitality Rising Bees"`. Recommend adding `"rising bees": "vitality rising bees"` to canonical market aliases.
+3. **Rivalry venue status (`research/`):** `https://www.rivalry.com/esports/league-of-legends-betting` permanently redirects to `https://www.rivalry.com/operationally-closed` (*"Rivalry's operations have now ceased"*); PR #56 (Rivalry scraper) should remain superseded/unmerged.
+
+## Verification gates on merged tree (`session 6669f798`)
+
+- `python3 audit/verify_docs.py` → **ALL DOCS CHECKS PASS** (17/17 checks: `241` scheduled, `176` active = `9` 5-venue market + `163` model + `4` unresolved; `4` DQ walkover settlements; `17` flagged items with receipts; `0` broken links/fragments).
+- `node audit/session_6669f798/test_node_pipeline.mjs` → **PASS** (`241` scheduled, `9` market / `42` venue quotes joined, OOS Brier `0.2250`, zero `picked_percent` / `offered_points` leakage).
+- `python3 audit/check_site.py` → **24 pages, 0 failures, 0 warnings** (all 14 root HTML pages + all 10 `docs/` HTML pages).
+- `python3 tools/verify.py` → **41/41 PASS** (`verification passed`).
+- `python3 -m unittest discover -s tests -p "test_*.py"` → **55/55 OK**.
+- `python3 audit/verify_independent.py` → **0 failures, 0 warnings, 0 kills substitutions**.
+

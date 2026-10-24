@@ -1,0 +1,78 @@
+{
+  "audited_utc": "2026-10-24T16:40:00Z",
+  "session": "6669f798",
+  "hotspawn_inventory": {
+    "lobby_url": "https://play.hotspawn.com/lol-pickems",
+    "fixtures_api": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol",
+    "scheduled_count": 241,
+    "competitions_count": 29
+  },
+  "integrated_live_venues": [
+    {
+      "venue": "pinnacle",
+      "endpoint": "https://guest.api.arcadia.pinnacle.com/0.1/leagues/207978/markets/straight",
+      "status": "active",
+      "matched_series": 8,
+      "weight": 1.0,
+      "notes": "Full-series period=0 moneylines de-vigged via Shin power method; (Kills) derivative matchups strictly rejected."
+    },
+    {
+      "venue": "kambi_unibet",
+      "endpoint": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+      "status": "active",
+      "matched_series": 8,
+      "weight": 0.7,
+      "notes": "All 8 Worlds 2026 Swiss Round 2 series live with per-event JSON receipts (1029609638-1029609649)."
+    },
+    {
+      "venue": "kalshi_cftc",
+      "endpoint": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100",
+      "status": "active",
+      "matched_series": 9,
+      "weight": "0.40-0.55",
+      "notes": "Covers all 8 Worlds 2026 Swiss Round 2 series PLUS LGC Rising 2026 Playoffs #1079080 (KXLOLGAME-26OCT271300RBMR: Rising Bees vs. Mental Rush)."
+    },
+    {
+      "venue": "polymarket_clob",
+      "endpoint": "https://gamma-api.polymarket.com/events?closed=false&tag_slug=league-of-legends",
+      "status": "active",
+      "matched_series": 9,
+      "weight": "0.25-0.65",
+      "notes": "Covers all 8 Worlds 2026 Swiss Round 2 series ($349k-$647k liquidity) plus LGC Rising #1079080 (lol-rb-mr-2026-10-27)."
+    },
+    {
+      "venue": "bovada",
+      "endpoint": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en",
+      "status": "geo_filtered_empty_today",
+      "matched_series": 0,
+      "weight": 0.5,
+      "notes": "Returned {} on 2026-10-24 from US/cloud egress; <12h snapshot preservation enabled when pre-match lines populate."
+    }
+  ],
+  "probed_non_integrated_venues": [
+    {
+      "venue": "rivalry",
+      "url": "https://www.rivalry.com/esports/league-of-legends-betting",
+      "redirected_to": "https://www.rivalry.com/operationally-closed",
+      "status": "permanently_closed",
+      "reason": "Official notice: 'Rivalry's operations have now ceased. Player access is no longer available through this site.'"
+    },
+    {
+      "venue": "midnite",
+      "url": "https://www.midnite.com/sports/lol",
+      "status": "empty",
+      "reason": "Rendered 'No matches available' on 2026-10-24."
+    },
+    {
+      "venue": "egamersworld_aggregator",
+      "url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
+      "status": "rejected_placeholder",
+      "reason": "Displayed symmetric 1.80 / 1.80 unpriced template placeholder on LCP 2027 Promotion (#1081423); symmetric 1.80/1.80 lines are explicitly rejected by powerDevig."
+    }
+  ],
+  "reference_portals": [
+    "https://lol.fandom.com/wiki/League_of_Legends_Esports_Wiki",
+    "https://gol.gg/tournament/list/",
+    "https://bo3.gg/lol"
+  ]
+}
