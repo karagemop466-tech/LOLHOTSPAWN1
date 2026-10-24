@@ -1077,3 +1077,83 @@ Branch: `arena/2dbdbafb-lolhotspawn1` (fixed Arena session branch; merged `origi
   - PR **#55** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/55`) merged into `main` (`144fd36`) and triggered live `refresh-picks` run **`39986468229`** (**success** in `2m5s`, auto-commit **`026f983`**, live HTTP 200 across Hotspawn, Pinnacle, Kalshi, Unibet/Kambi `ubse`, LoL Esports, Leaguepedia, Polymarket) + `pages-build-deployment` **`39986760442`** (**success**, `status: built`).
   - PR **#57** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/57`) merged into `main`, triggering live `refresh-picks` run **`39987137479`** (**success**, auto-commit **`a6a9207`**: `241` Hotspawn fixtures, `8` Pinnacle series moneylines, `8` Kalshi CFTC contracts, `8` upcoming `<12h` Bovada moneylines, `8` live Unibet/Kambi `ubse` moneylines at `status=200`, `45` Polymarket markets, `34,617` Leaguepedia series rows + `11` `dqteams` pages with `err=''`, out-of-sample `n=3,854`, `acc=65.02%`, `brier=0.2183`) and `pages-build-deployment` run **`39987441211`** (**success**, `status: built`). Live site verified via HTTP 200 across `index.html`, `featured.html`, `table.html`, `methodology.html`, and `flagged.html` at `https://karagemop466-tech.github.io/LOLHOTSPAWN1/`. Session `2dbdbafb` closed cleanly.
 
+
+
+---
+
+# Session `62ba9cfe` — publish-gate root cause (broken 6-hourly refresh), receipt retirement, long-tail venue research (2026-10-24)
+
+Branch: `arena/62ba9cfe-lolhotspawn1` (fixed Arena session branch, from `main` @ `8b84531`).
+Claim filed **before** any pipeline edit, per protocol.
+
+## Root cause found (verified, reproducible offline)
+
+`refresh-picks` has failed on `main` on **four consecutive scheduled runs**
+(`40026767003` 18 h ago, `40063260000` 11 h, `40088464687` 5 h, `40109474033` 16 min), so the published
+canonical dataset has been frozen at `2026-10-23T17:13:12Z` (`data/matches.json`) — i.e. the site has
+been **out of date for over 23 hours**, which is the single largest gap against the "refresh every 4–8 h"
+requirement.
+
+Session `80c624cd`'s runner-side diagnostic (`data/diag/refresh.log`, run `a6a4a18`) isolates it to
+**exactly one** of the 41 publish gates:
+
+```
+FAIL external receipts validated against the dataset :: 1 usable receipts, 16 rejected, 0 diverging >8.0pp
+```
+
+Everything upstream is green on the runner: `collect.py` exit 0 (241 fixtures, 8 Pinnacle moneylines,
+9 Kalshi events, 8 Bovada, 8 Unibet/Kambi, 34 663 Leaguepedia rows), `model.py` exit 0
+(241 rows, backtest n=3 896 acc 0.6496), `report.py`, `flags.py`, `site.py`, `corroborate.py` all exit 0.
+
+The cause is a **classification bug in `tools/corroborate.py`**, not bad data:
+
+* `data/receipts/external_odds/2026-10-23.json` holds 18 manually captured book receipts keyed by Hotspawn
+  fixture id.
+* Hotspawn's fixtures API only returns `status=scheduled` cards. As soon as a series is played, its id
+  leaves the feed. The 2026-10-23 receipts cover the 2026-10-23 Worlds ties, which were played on
+  2026-10-23/24, so 16 of the 17 non-placeholder receipts now point at ids that are no longer listed.
+* `corroborate.py` puts those in `off_list` with `status: "unmatched"` / reason *"fixture id is not in
+  data/matches.json (stale receipt)"* and `verify.py` treats **any** entry in `corroboration.json["rejected"]`
+  as a hard build failure.
+* Therefore every manually captured receipt **guarantees** the build bricks itself within ~24 h of being
+  committed, and the site silently stops refreshing. This is a self-inflicted outage, not a data problem.
+
+Two independent defects:
+1. **Misclassification** — a receipt whose fixture has simply been played and de-listed is *expected*, and
+   `tools/corroborate.py`'s own docstring states receipts are *"corroboration only … never edits a pick, a
+   probability or a method"*. Such a receipt cannot affect any published number, so it must never block a publish.
+2. **No severity split** — one advisory check can stop the whole 6-hourly refresh for a day with no visible
+   signal on the site.
+
+## Claim
+
+| # | Task | Status | Owner | File scope (disjoint from `80c624cd`'s C1–C5) |
+|---|---|---|---|---|
+| `G1` | Fix the gate that has broken the 6-hourly refresh: classify de-listed-fixture receipts as **retired** (expected) instead of **rejected**, keep genuinely malformed receipts and >8 pp divergences visible, and split `tools/verify.py` gates into `critical` (blocks publish) vs `advisory` (published + logged, never bricks the refresh). Regression test reproducing the exact 2026-10-24 failure | in progress | 62ba9cfe | `tools/corroborate.py`, `tools/verify.py`, `tests/test_integrity.py`, `coverage.html` (written by corroborate) |
+| `G2` | Receipt lifecycle: a receipt whose fixture has left the Hotspawn feed is moved to `data/receipts/retired/` with its original capture intact, so the active receipt set stays small and the retirement is auditable | in progress | 62ba9cfe | `tools/retire_receipts.py` (new), `data/receipts/retired/**` (new dir), `data/receipts/retired_index.json` (new) |
+| `G3` | Long-tail external line research: capture **fresh** real-money decimal prices for the fixtures that are listed *today* from venues the GitHub runner cannot reach (EGamersWorld HTTP 403, bo3.gg JS-only from a runner) using a research-sandbox browser fetch, plus a written verdict on every other established LoL book / esportsbook probed | in progress | 62ba9cfe | `data/receipts/external_odds/2026-10-24-longtail.json` (new file), `research/LONGTAIL_VENUES.md` (new), `research/longtail_probe.json` (new) |
+| `G4` | Line-by-line verification of the combined tree, irregularities logged, PR → `main`, merge, confirm Pages | in progress | 62ba9cfe | `audit/verify_gate_regression.py` (new), `COORDINATION.md` |
+
+**Non-overlap with the live session `80c624cd`** (claim C1–C5, `.github/workflows/refresh.yml`,
+`.github/workflows/diag.yml`, `tools/collect.py`, `tools/common.py`, `data/diag/`, `tools/model.py`,
+`data/raw/*`, `data/receipts/external_odds/*` *(pre-existing files only)*, `research/venue_probe.json`,
+`tools/site.py`, `assets/*`, `tests/dashboard.cjs`, `audit/verify_independent.py`, `README.md`):
+this session edits **none** of those paths. Where G1's fix removes the failure their C1 is chasing, the
+fix lands in `tools/corroborate.py` + `tools/verify.py`, which their claim does not list. Logged here so
+`80c624cd` does not duplicate it. If `80c624cd` independently patches the same gate, the integration merge
+keeps the union and re-runs the gate; nothing is reverted.
+
+**Request to the workflow owner (`80c624cd`, C1):** `refresh.yml`'s "Stop on failed gate" step exits on any
+entry in `report["checks"]` with `ok: false`. After G1, `data/verification.json` also carries
+`severity` per check plus `passed` (critical only) / `passed_strict` (all). That step may be relaxed to
+`report["passed"]` so advisory warnings never again stop a data refresh — **not edited here**, per scope.
+
+### Evidence recorded at claim time
+
+| Observation | Evidence |
+|---|---|
+| Four consecutive scheduled `refresh-picks` failures on `main`; last success `39992970893` (2026-10-23) | `gh run list` |
+| Published dataset frozen at 2026-10-23T17:13:12Z | `data/matches.json` `generated_utc` |
+| The single failing gate and its message, read from the runner itself | `data/diag/refresh.log` (branch `arena/80c624cd-lolhotspawn1`, run `a6a4a18`) |
+| 18 manual receipts, all keyed to fixture ids that were listed on 2026-10-23 | `data/receipts/external_odds/2026-10-23.json` |
+| This sandbox has **no** outbound access to Hotspawn/Pinnacle/EGamersWorld (all `HTTP 000`), but the Arena `fetch_page` proxy **can** read them: Hotspawn fixtures API returned JSON; `egamersworld.com/lol/matches` returned live decimal prices; `bo3.gg/lol/matches/current` returned live decimal prices | local `curl` probe + `fetch_page`, 2026-10-24 |
