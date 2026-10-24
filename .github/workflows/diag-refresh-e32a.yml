@@ -1,0 +1,114 @@
+name: diag-refresh-e32a
+
+# Diagnostic only (session e32a5c4b, task E1). Runs the publish pipeline
+# stage-by-stage on this branch, records every stage exit code, and commits
+# the log back as evidence. It never publishes picks: the generated pages are
+# NOT committed, only data/diag/ is. Delete once refresh-picks is green again.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/diag-refresh-e32a.yml"
+      - "tools/collect.py"
+      - "tools/model.py"
+      - "tools/flags.py"
+      - "tools/verify.py"
+      - "tools/probe_lowtier.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: diag-refresh-e32a
+  cancel-in-progress: true
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: python3 -m pip install --quiet requests
+
+      - name: Run pipeline stage-by-stage (continue on failure)
+        run: |
+          mkdir -p data/diag
+          {
+            echo "=== diag $(date -u +%FT%TZ) branch=${GITHUB_REF_NAME} sha=${GITHUB_SHA} ==="
+            python3 --version
+            echo "--- STAGE unittest ---"
+            python3 -m unittest discover -s tests -v 2>&1; echo "EXIT unittest=$?"
+            echo "--- STAGE collect ---"
+            python3 tools/collect.py 2>&1; echo "EXIT collect=$?"
+            echo "--- STAGE model ---"
+            python3 tools/model.py 2>&1; echo "EXIT model=$?"
+            echo "--- STAGE report ---"
+            python3 tools/report.py 2>&1; echo "EXIT report=$?"
+            echo "--- STAGE flags ---"
+            python3 tools/flags.py 2>&1; echo "EXIT flags=$?"
+            echo "--- STAGE site ---"
+            python3 tools/site.py 2>&1; echo "EXIT site=$?"
+            echo "--- STAGE corroborate ---"
+            python3 tools/corroborate.py 2>&1; echo "EXIT corroborate=$?"
+            echo "--- STAGE verify ---"
+            python3 tools/verify.py 2>&1; echo "EXIT verify=$?"
+            echo "--- verification.json failed checks ---"
+            python3 - <<'PY'
+          import json, os
+          p = "data/verification.json"
+          if os.path.exists(p):
+              r = json.load(open(p))
+              print("generated:", r.get("generated_utc"), "passed:", r.get("passed"))
+              for c in r.get("checks", []):
+                  if not c.get("ok"):
+                      print("FAIL:", c.get("name"), "::", str(c.get("detail"))[:2000])
+              print("total checks:", len(r.get("checks", [])))
+          else:
+              print("no verification.json produced")
+          for f in ("data/matches.json", "data/raw/hotspawn_lol.json", "data/sources_status.json"):
+              if os.path.exists(f):
+                  d = json.load(open(f))
+                  if isinstance(d, dict):
+                      print(f, "keys:", list(d.keys())[:12],
+                            "generated:", d.get("generated_utc") or d.get("fetched_utc"),
+                            "count/total:", d.get("count", d.get("total")))
+                      if "counts" in d:
+                          print(" counts:", d["counts"])
+                      if f.endswith("sources_status.json"):
+                          print(json.dumps(d, indent=1)[:4000])
+              else:
+                  print(f, "MISSING")
+          PY
+            echo "EXIT summary=$?"
+            echo "=== diag end $(date -u +%FT%TZ) ==="
+          } 2>&1 | tee data/diag/diag.log
+          # never fail this step: the log itself is the deliverable
+          true
+
+      - name: Commit diagnostic evidence
+        if: always()
+        run: |
+          set -e
+          mkdir -p data/diag
+          cp -f data/verification.json data/diag/verification.json 2>/dev/null || echo '{"note":"no verification.json"}' > data/diag/verification.json
+          cp -f data/sources_status.json data/diag/sources_status.json 2>/dev/null || echo '{"note":"no sources_status.json"}' > data/diag/sources_status.json
+          git config user.name "arena-diag-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/diag/
+          if git diff --cached --quiet; then
+            echo "no change"
+            exit 0
+          fi
+          git commit -m "chore(diag): refresh stage-by-stage runner log (e32a5c4b E1) [skip ci]"
+          git fetch origin "${GITHUB_REF_NAME}"
+          git rebase -X theirs "origin/${GITHUB_REF_NAME}" || { git rebase --abort; git reset --soft "origin/${GITHUB_REF_NAME}"; git add data/diag/; git commit -m "chore(diag): refresh stage-by-stage runner log (e32a5c4b E1) [skip ci]"; }
+          git push origin "HEAD:${GITHUB_REF_NAME}"

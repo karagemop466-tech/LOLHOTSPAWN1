@@ -1,0 +1,55 @@
+name: probe-lowtier-lines
+
+# Research-only (session e32a5c4b, task E2). Probes, from a GitHub runner,
+# whether any established book / esportsbook / aggregator / exchange publicly
+# lists the low-tier Hotspawn LoL competitions that the featured market
+# resolution cannot price. It never prices a match and never edits the
+# published pages; it only commits data/probe/lowtier_<date>.json receipts.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tools/probe_lowtier.py"
+      - ".github/workflows/probe-lowtier.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-lowtier-lines
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Probe low-tier line sources
+        run: python3 tools/probe_lowtier.py
+
+      - name: Commit receipts
+        if: always()
+        run: |
+          set -e
+          ls -la data/probe/ || true
+          git config user.name "arena-probe-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/probe/lowtier_*.json
+          if git diff --cached --quiet; then
+            echo "no change"
+            exit 0
+          fi
+          git commit -m "chore(probe): low-tier line-source receipts (e32a5c4b E2) [skip ci]"
+          git fetch origin "${GITHUB_REF_NAME}"
+          git rebase -X theirs "origin/${GITHUB_REF_NAME}" || { git rebase --abort; git reset --soft "origin/${GITHUB_REF_NAME}"; git add data/probe/lowtier_*.json; git commit -m "chore(probe): low-tier line-source receipts (e32a5c4b E2) [skip ci]"; }
+          git push origin "HEAD:${GITHUB_REF_NAME}"
