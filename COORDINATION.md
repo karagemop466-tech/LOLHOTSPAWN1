@@ -1120,3 +1120,51 @@ This session will **not** edit `tools/verify.py`, `tools/collect.py`, `tools/com
 `tools/site.py`, `assets/**` or any workflow file while those claims are live; the fix is confined to the
 unclaimed `tools/corroborate.py` plus one new test file, which is exactly the surface the failing gate
 reads (it consumes `data/corroboration.json:rejected` and `...:rows[].verdict`).
+
+# Session `bcfdfa66` — current repository audit and documentation integrity (2026-10-24)
+
+Branch: `arena/bcfdfa66-lolhotspawn1` (Arena session branch; do not switch branches).
+
+| # | Task | Status | Owner | File scope | Notes |
+|---|---|---|---|---|---|
+| C1 | Audit current dashboard/build evidence and repair documentation-level merge artifacts or stale/unsupported claims | done | bcfdfa66 | `README.md`, `COORDINATION.md` | Removed README conflict markers, reconciled source/gate descriptions, and recorded the live freshness/workflow irregularity below. |
+
+
+## Session `bcfdfa66` — audit close-out (2026-10-24)
+
+### Changes and source boundary
+
+- Removed literal Git conflict markers from `README.md`; retained the full, non-conflicting manual-review list (`verification.json`, `flags.json`, `audit.json`, `retired_quotes.json`).
+- Corrected stale documentation: the canonical live market set includes Pinnacle, Kalshi, Bovada, Unibet/Kambi, and Polymarket; the gate count is dynamic rather than fixed at 25; unresolved counts are linked to the live ledger instead of hard-coded; and the inventory description now distinguishes the scheduled API response from past-start cards that Hotspawn leaves scheduled.
+- Clarified that the six-hour cron is a scheduled attempt, not a guarantee. The generated root pages show inventory collection time, issue a warning after 12 h and a hard-stale warning after 30 h (`assets/app.js`, `tools/site.py`).
+- No match data, probability, source receipt, model, or generated site file was edited. We did not overwrite the repository snapshot with an unverified/partial collection.
+
+### Live state verified against GitHub
+
+| Check | Result |
+|---|---|
+| Latest canonical snapshot in checkout | 241 matches, inventory fetched `2026-10-23T17:11:12Z`; at the local audit (`2026-10-24T16:12Z`) this was about 23 h old. `research/audit.py` independently reports the same age and raises a freshness review note. |
+| Canonical refresh workflow | Four most recent scheduled `refresh-picks` runs failed (run IDs `40109474033`, `40088464687`, `40063260000`, `40026767003`); previous listed run `39992970893` succeeded. Official run pages: [40109474033](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40109474033), [40088464687](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40088464687), [40063260000](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40063260000), [40026767003](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40026767003), [39992970893](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/39992970893). |
+| Canonical failure cause | **Unknown / unverified.** GitHub reports failure in `Run pipeline (captured log)`; `gh run view --log-failed` returned an EOF while downloading the external log archive. No cause is inferred. The refresh issue should remain flagged until a successful canonical refresh and its logs are reviewed. |
+| Secondary docs workflow | Scheduled run `40107583221` succeeded; workflow details at [Actions run 40107583221](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40107583221). |
+| GitHub Pages | API reported `status: built`; latest listed Pages deployment `40107605279` succeeded. Official check: [Pages deployment run](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40107605279). This confirms deployment health, **not** freshness of canonical root data. |
+
+### Local verification
+
+- `python3 -m unittest discover -s tests -v` — **13/13 pass**.
+- `python3 tools/verify.py` — **41/41 pass** on the committed 241-row snapshot.
+- `python3 audit/check_site.py` — **20 pages, 0 failures, 0 warnings**.
+- `python3 audit/verify_independent.py` — **241 rows; 40 venue checks; 0 failures, 0 warnings**.
+- `python3 audit/verify_docs.py` — **all docs checks pass**, including 171 picked rows, 5 unresolved, source links, probability math and internal links.
+- `python3 research/audit.py` — **PASS**, with the non-fatal snapshot-age warning (~23 h vs requested 4–8 h cadence).
+
+### Open irregularity / integration request
+
+- The current data freshness and four consecutive canonical refresh failures are a material operational limitation. The client-side stale banner on the root pages warns after 12 h and marks hard-stale after 30 h, but the `Flagged for Review` ledger does not identify the observed four-run failure streak. Final integration should add a source-linked operational flag after the refresh cause is recoverable; do not claim current probabilities are freshly collected until a new canonical run succeeds.
+- Workflow logs are an external GitHub Actions archive and could not be retrieved from this environment (`gh run view --log-failed` → EOF). Do not guess a fix based only on the failure status.
+
+### PR / deploy addendum — session `bcfdfa66`
+
+- PR **#60** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/60 — merged at **2026-10-24T16:16:59Z**, merge commit `40e249c44e0a5cb6ee56ea61ccc58e1d5f260fe6`.
+- GitHub Pages deployment run **40110836425** succeeded after the merge; `gh api repos/karagemop466-tech/LOLHOTSPAWN1/pages` reported `status: built`. Official check: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40110836425.
+- This deployment published the documentation correction and coordination record only. It did **not** refresh the canonical 241-match root dataset; the age warning and unresolved refresh-failure note above remain applicable.
