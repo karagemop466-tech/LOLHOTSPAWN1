@@ -96,7 +96,12 @@ def pp(value) -> str:
 
 GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", "lol", "e", "v"}
 RECEIPT_ALIASES = {"team secret": "team secret whales", "secret whales": "team secret whales",
-                   "lyon gaming": "lyon", "l s": "los", "l o s": "los"}
+                   "lyon gaming": "lyon", "l s": "los", "l o s": "los",
+                   # EGamersWorld shortens "Anyone's Legend" (LPL) to the org's ticker "AG.AL";
+                   # Hotspawn writes the full name. Verified on the same card across two pages on
+                   # 2026-10-24: bo3.gg/lol/matches/top-esports-lol-vs-anyones-legend-24-10-2026 and
+                   # egamersworld.com/lol/match/q8qUtLA6g/top-esports-vs-agal-p1yWEbksN.
+                   "ag al": "anyones legend"}
 
 
 def same(a: str, b: str) -> bool:
@@ -668,7 +673,7 @@ def render(doc: dict) -> str:
   <p>For the {len(gaps)} competitions with no external price, the pick is our own line
   (<a href="methodology.html">method</a>) and the limitation is published rather than hidden:</p>
   <ul class="tightlist">{gap_list}</ul>
-  {conflict_block}
+{conflict_block}
   <div class="tablewrap">
   <table class="table stack">
     <thead><tr><th>Source</th><th>What it showed</th><th>Capture</th></tr></thead>

@@ -314,11 +314,13 @@ def main() -> None:
     # An archived receipt that has aged out, or that belongs to a fixture Hotspawn has since
     # delisted, is history - not a data error. Failing the gate on either deadlocks the refresh:
     # a stale snapshot makes every receipt stale, which blocks the build that would refresh it.
-    # Only malformed / wrong-team receipts and live divergences fail here.
-    add("external receipts validated against the dataset", not bad_receipts and not diverged,
+    # Malformed / wrong-team receipts still fail. A valid but divergent comparison is disclosed,
+    # not fatal: corroboration receipts never enter pricing, so blocking on disagreement would
+    # recreate the same self-sustaining outage without protecting a published probability.
+    add("external receipts validated against the dataset", not bad_receipts,
         f"{corr.get('summary',{}).get('usable_receipts',0)} usable receipts, "
         f"{len(bad_receipts)} rejected, {len(diverged)} diverging "
-        f">{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp, "
+        f">{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp (non-blocking), "
         f"{corr.get('summary',{}).get('expired_receipts',0)} expired, "
         f"{corr.get('summary',{}).get('historic_receipts',0)} historic (not counted)")
     cs = corr.get("summary") or {}
