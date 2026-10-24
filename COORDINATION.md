@@ -2066,7 +2066,7 @@ Branch: `arena/6669f798-lolhotspawn1` (fixed Arena session branch). All implemen
 | `N2` | **Full 241-match Hotspawn coverage + `dqteams` quarantine + competition-scoped no-look-ahead Elo**: replayed `32,879` non-forfeit Leaguepedia + Hotspawn LoL series strictly pre-kickoff (`t < T_fixture`, walk-forward OOS Brier `0.2250` across `22,371` series), added `Solid Gaming` mid-split `dqteams` walkover settlements (`p0=null, p1=null, settlement_pick`), quarantined `#1083097` `paiN Gaming -> PNG` (Bulgarian amateur `n=0`), and left zero-evidence debuts blank (`—`) | done | `6669f798` | `scripts/analyze.mjs`, `data/node/**` |
 | `N3` | **Mobile-first 10-page `docs/` dashboard + compact `table.html` + `verify_docs.py` (17 gates)**: added `docs/table.html` (all 241 scheduled rows with search/tournament/method/stale filters + CSV/JSON exports), `featured.html` (5-venue matrix), `originated.html`, executive summary navigation hub + Unresolved & Limitations section, fixed broken `404` `data/node/model/ratings.json` link & `bo3.gg` domain, and expanded `audit/verify_docs.py` to 17 checks | done | `6669f798` | `scripts/build_site.mjs`, `docs/**`, `audit/verify_docs.py` |
 | `A_6669f798` | **Independent live line-by-line source & entity verification**: audited all `241` scheduled matches & `215` `(competition, team)` Leaguepedia joins; documented Rivalry's permanent operational closure (`rivalry.com/operationally-closed`), eGamersWorld's symmetric `1.80/1.80` placeholder on `#1081423`, and logged two canonical cross-scope requests below | done | `6669f798` | `audit/session_6669f798/**`, `research/session_6669f798/**`, `COORDINATION.md` |
-| `I_6669f798` | **Final integration, PR → `main`, merge & GitHub Pages deployment confirmation** | in progress | `6669f798` | `COORDINATION.md` |
+| `I_6669f798` | **Final integration, PR → `main`, merge & GitHub Pages deployment confirmation** | done | `6669f798` | `COORDINATION.md` |
 
 ## Cross-scope requests for canonical `tools/` owners (non-blocking, already fixed on `docs/`)
 
@@ -2084,4 +2084,16 @@ Branch: `arena/6669f798-lolhotspawn1` (fixed Arena session branch). All implemen
 - `python3 tools/verify.py` → **41/41 PASS** (`verification passed`).
 - `python3 -m unittest discover -s tests -p "test_*.py"` → **55/55 OK**.
 - `python3 audit/verify_independent.py` → **0 failures, 0 warnings, 0 kills substitutions**.
+
+## Final integration, PR & live GitHub Pages deployment record (`session 6669f798`)
+
+| Item | Result |
+|---|---|
+| Implementation PR | **PR #79** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/79 — merged to `main` at `2026-10-24T16:49:22Z` (`ae2aa5654b8405d2f7d7e4c70bde9dbd1b8bda1d`) |
+| Live cloud `refresh-docs` run | Run **`40113325675`** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40113325675`) → **completed / success** in 28s, pushing commit `2633f85` (`sched=241 active=176 mkt=9 model=222 unres=4 dq=4 flags=17`, rejecting 8 live Pinnacle `(Kills)` props and joining **42 live venue quotes** across 5 venues) |
+| GitHub Pages deployment | `pages-build-deployment` run **`40113355913`** → **completed / success**; `gh api repos/karagemop466-tech/LOLHOTSPAWN1/pages` → `status: "built"`, `html_url: "https://karagemop466-tech.github.io/LOLHOTSPAWN1/"` |
+| Live site spot-verification (`2026-10-24T16:55Z`) | Verified live HTTP 200 & rendered content on `https://karagemop466-tech.github.io/LOLHOTSPAWN1/` (canonical root snapshot `16:53 UTC`, 241 matches) AND `https://karagemop466-tech.github.io/LOLHOTSPAWN1/docs/{index,table,featured,unresolved,flagged,methodology}.html` (companion snapshot `16:49 UTC`, 5/5 venues on Worlds R2, 2/2 venues on `#1079080`, `#1083097` Bulgarian `PNG` homonym quarantine, `Solid Gaming` DQ walkover settlements, 17 flagged items with official receipts, 22,372-series walk-forward SVG calibration) |
+
+**Session `6669f798` closed.** All tasks `N1`–`N3`, `A_6669f798`, and `I_6669f798` are complete, merged, and verified live.
+
 
