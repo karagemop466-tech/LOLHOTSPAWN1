@@ -576,6 +576,23 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
     ceiling = _external_ceiling()
     probe = _esportsbook_probe()
+    # Only quote the feeds that actually carried a price on this build; a book that answered but had
+    # no LoL coupon must not be described as a live price feed.
+    ceiling_parts = []
+    for label, key in (("Pinnacle", "pinnacle_priced"), ("Bovada", "bovada"), ("Unibet (Kambi)", "unibet")):
+        if ceiling[key]:
+            unit = "contracts" if key == "kalshi" else "series"
+            ceiling_parts.append(f'<strong>{label} {ceiling[key]} {unit}</strong>')
+    if ceiling["kalshi"]:
+        ceiling_parts.append(f'<strong>Kalshi {ceiling["kalshi"]} contracts</strong>')
+    if ceiling["polymarket"]:
+        ceiling_parts.append(f'<strong>Polymarket {ceiling["polymarket"]} unsettled markets</strong>')
+    ceiling_txt = ", ".join(ceiling_parts) if ceiling_parts else "no venue quoted a listed match"
+    silent = [label for label, key in (("Bovada", "bovada"), ("Unibet (Kambi)", "unibet"),
+                                       ("Kalshi", "kalshi"), ("Polymarket", "polymarket"))
+              if not ceiling[key]]
+    silent_txt = (" Feeds that returned no LoL price on this build: " + ", ".join(silent) + "."
+                  if silent else "")
     gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
     if probe["have"]:
         other = probe["tested"] - probe["usable"] - probe["http_blocked"] - probe["html_only"]
@@ -646,13 +663,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
     We probed <strong>{ceiling["probed"]} external venues</strong> from the build runner (established books,
     esportsbooks, exchanges, odds aggregators); {ceiling["answered"]} answered and {ceiling["json_feeds"]}
-    returned JSON, of which five are live match-price feeds. Across every reachable venue the same slice of the
-    calendar is quoted: <strong>Pinnacle {ceiling["pinnacle_priced"]} series</strong>,
-    <strong>Bovada {ceiling["bovada"]} series</strong>,
-    <strong>Unibet (Kambi) {ceiling["unibet"]} series</strong>,
-    <strong>Kalshi {ceiling["kalshi"]} contracts</strong> and
-    <strong>Polymarket {ceiling["polymarket"]} unsettled markets</strong> &mdash; overwhelmingly the same Worlds
-    2026 ties. Everything below that ceiling has no external line to quote, so we originate it ourselves.
+    returned JSON. On this build the feeds that actually quoted a listed match were:
+    {ceiling_txt} &mdash; overwhelmingly the same Worlds 2026 ties.{silent_txt} Everything below that ceiling
+    has no external line to quote, so we originate it ourselves.
     Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.</li>
     <li><strong>Evidence limits.</strong> Market quotes are source observations, not official verification;

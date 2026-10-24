@@ -1,15 +1,15 @@
-=== build 2026-10-24T16:19:34Z ===
-[16:19:35] hotspawn: 241 LoL fixtures
-[16:19:37] pinnacle: 136 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
-[16:19:37] kalshi: 9 CFTC match events (status=200)
-[16:19:38] bovada: 0 LoL moneylines (status=200)
-[16:19:38] kambi: 8 Unibet/Kambi LoL match moneylines (status=200)
-[16:20:42] leaguepedia: 34664 series rows, 11 pages with dqteams (err='')
-[16:20:42] lolesports: 80 Worlds events (status=200)
-[16:20:42] polymarket: 45 match-level markets (status=200)
-[16:20:47] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
-[16:21:25] rows=241 methods={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} joins=33
-[16:21:25] backtest n=3896 acc=0.6496 brier=0.2185
+=== build 2026-10-24T16:24:04Z ===
+[16:24:05] hotspawn: 241 LoL fixtures
+[16:24:08] pinnacle: 136 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
+[16:24:08] kalshi: 9 CFTC match events (status=200)
+[16:24:09] bovada: 0 LoL moneylines (status=200)
+[16:24:09] kambi: 8 Unibet/Kambi LoL match moneylines (status=200)
+[16:25:19] leaguepedia: 34663 series rows, 11 pages with dqteams (err='')
+[16:25:19] lolesports: 80 Worlds events (status=200)
+[16:25:20] polymarket: 45 match-level markets (status=200)
+[16:25:29] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[16:26:09] rows=241 methods={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} joins=33
+[16:26:09] backtest n=3896 acc=0.6491 brier=0.2185
 {
  "total": 241,
  "counts": {
@@ -153,11 +153,11 @@ PRICED 9
   Worlds 2026 Main Event | ['Hanwha Life Esports', 'Gen.G'] 0.4183 {'home': 2.32, 'away': 1.641}
   Worlds 2026 Main Event | ['Dplus KIA', 'T1'] 0.4343 {'home': 2.17, 'away': 1.73}
   Worlds 2026 Main Event | ['Bilibili Gaming', 'Team Liquid'] 0.7368 {'home': 1.328, 'away': 3.41}
-  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.39 None
-[16:21:26] flags: 27 items
-[16:21:26] site: wrote 12 pages to the published root
-[16:21:26] corroborate: 1 usable receipts (1 agree / 0 diverge / 1 placeholder / 16 historical off-list / 0 malformed), 1/29 competitions priced externally
-[16:21:26] verification passed
+  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.385 None
+[16:26:09] flags: 30 items
+[16:26:09] site: wrote 12 pages to the published root
+[16:26:09] corroborate: 1 usable receipts (1 agree / 0 diverge / 1 placeholder / 16 historical off-list / 0 malformed), 1/29 competitions priced externally
+[16:26:10] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -186,7 +186,7 @@ PASS executive summary links to every picks view :: present: ['picks.html', 'tab
 PASS executive summary carries coverage, unresolved section and a where-to-find-picks block :: missing: []
 PASS mobile navigation rendered on every page and wired in JS :: missing mobnav: []; menu+filter handlers present: True
 PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,896
-PASS curated flags cite only currently listed fixtures :: 10 curated flags scanned; stale references: []
+PASS curated flags annotate every reference to a fixture that has left the list :: 13 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 29 competition rows; missing links: []
@@ -199,9 +199,9 @@ PASS source availability recorded :: 10/14 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
-[16:21:26] site: wrote 12 pages to the published root
-[16:21:27] corroborate: 1 usable receipts (1 agree / 0 diverge / 1 placeholder / 16 historical off-list / 0 malformed), 1/29 competitions priced externally
-[16:21:27] verification passed
+[16:26:10] site: wrote 12 pages to the published root
+[16:26:10] corroborate: 1 usable receipts (1 agree / 0 diverge / 1 placeholder / 16 historical off-list / 0 malformed), 1/29 competitions priced externally
+[16:26:11] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -230,7 +230,7 @@ PASS executive summary links to every picks view :: present: ['picks.html', 'tab
 PASS executive summary carries coverage, unresolved section and a where-to-find-picks block :: missing: []
 PASS mobile navigation rendered on every page and wired in JS :: missing mobnav: []; menu+filter handlers present: True
 PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,896
-PASS curated flags cite only currently listed fixtures :: 10 curated flags scanned; stale references: []
+PASS curated flags annotate every reference to a fixture that has left the list :: 13 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 29 competition rows; missing links: []
