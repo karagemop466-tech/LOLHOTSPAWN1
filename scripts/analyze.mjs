@@ -1247,7 +1247,7 @@ if (noFormatRows.length) {
       "Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. " +
       "The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). " +
       "That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens " +
-      "{{MatchSchedule/Start|tab=FFA Round 1|bestof=5}} and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. " +
+      "its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. " +
       "Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.",
     hotspawn_url: example.hotspawn_url,
     source_url: "https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw",

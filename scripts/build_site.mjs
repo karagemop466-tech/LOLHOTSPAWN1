@@ -1366,7 +1366,8 @@ function buildMethodologyPage(picks) {
       unknown format as a <b>single-map series</b> (no best-of amplification), which is the neutral assumption. That assumption is
       demonstrably wrong for at least one fixture: Leaguepedia's official
       <a href="https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw" target="_blank" rel="noopener">Data:LCP/2027 Season/Promotion</a>
-      wikitext opens <code>{{MatchSchedule/Start|tab=FFA Round 1|bestof=5}}</code> for the fixture
+      wikitext opens its FFA Round 1 MatchSchedule/Start block with the parameters
+      <code>tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion</code> for the fixture
       <code>team1=${esc(boExample ? boExample.team0.name : "FENNEL")} | team2=${esc(boExample ? boExample.team1.name : "Nothin&#39;Here")}</code>
       on ${esc(boExample ? boExample.start_iso?.slice(0, 16).replace("T", " ") + " UTC" : "2026-11-10 05:00 UTC")} —
       ${boExample ? `Hotspawn card <a href="${esc(boExample.hotspawn_url)}" target="_blank" rel="noopener">#${esc(boExample.id)}</a> (${esc(boExample.competition_name)}), which this snapshot renders as <span class="mono">${boLabel(boExample)}</span>` : "a Hotspawn card that is not in this snapshot"}:

@@ -30,7 +30,7 @@
   <div class="fresh-bar" data-generated-at="2026-10-24T16:49:45.446Z">
     <div class="fresh-inner">
       <span>Snapshot: <time class="mono" data-utc="2026-10-24T16:49:45.446Z">2026-10-24 16:49 UTC</time> · Auto-refresh every 6h</span>
-      <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-24 16:57 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
+      <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-24 17:14 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
   <main>
@@ -47,7 +47,7 @@
     <div class="callout">
       <p>Two publishers run in this repository and both are served from one GitHub Pages domain. The
       <b>canonical</b> dashboard (<code>tools/</code> &rarr; repository root, <a href="../index.html">/LOLHOTSPAWN1/</a>,
-      data in <code>data/matches.json</code>) is the pick list: <b>241</b> cards Hotspawn lists as <code>status=scheduled</code>, priced from Pinnacle, Polymarket, Kalshi, Bovada, Unibet with an Elo model over Leaguepedia series results and a publish gate (<code>tools/verify.py</code>) that aborts the commit on any failed check.
+      data in <code>data/matches.json</code>) is the pick list: <b>241</b> cards Hotspawn lists as <code>status=scheduled</code>, priced from Pinnacle, Polymarket, Kalshi, Unibet, Bovada with an Elo model over Leaguepedia series results and a publish gate (<code>tools/verify.py</code>) that aborts the commit on any failed check.
       <b>This companion audit</b> (<code>scripts/</code> &rarr; <code>/docs/</code>, data in <code>data/node/**</code>) re-collects the same
       feed, fits its own ratings (Leaguepedia <i>and</i> Hotspawn series, tier prior, thin-history shrinkage) and grades
       recorded picks against official scores. Every card and table row here carries a
@@ -55,7 +55,7 @@
       two disagree by 5 pp or more — or name opposite winners — are marked
       <span class="canon-diverge">DIVERGES</span> and listed on the <a href="index.html#reconcile">overview</a>.
       Where they differ, <b>submit the canonical pick</b>; the gap is published as an audit finding, never averaged away.</p>
-      <p class="recon-note">Snapshot parity at this build: 241 of 241 scheduled rows appear in the canonical inventory; 0 rows here are not in it; 0 canonical cards are not in this snapshot; 231 rows have a probability on both sides, 12 of them opposite picks (mean |gap| 2.24 pp, max 18.9 pp).</p>
+      <p class="recon-note">Snapshot parity at this build: 241 of 241 scheduled rows appear in the canonical inventory; 0 rows here are not in it; 0 canonical cards are not in this snapshot; 231 rows have a probability on both sides, 12 of them opposite picks (mean |gap| 2.26 pp, max 18.9 pp).</p>
     </div>
 
     <div class="sec-head">
@@ -68,7 +68,8 @@
       unknown format as a <b>single-map series</b> (no best-of amplification), which is the neutral assumption. That assumption is
       demonstrably wrong for at least one fixture: Leaguepedia's official
       <a href="https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion?action=raw" target="_blank" rel="noopener">Data:LCP/2027 Season/Promotion</a>
-      wikitext opens <code>{{MatchSchedule/Start|tab=FFA Round 1|bestof=5}}</code> for the fixture
+      wikitext opens its FFA Round 1 MatchSchedule/Start block with the parameters
+      <code>tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion</code> for the fixture
       <code>team1=FENNEL | team2=Nothin'Here</code>
       on 2026-11-10 05:00 UTC —
       Hotspawn card <a href="https://www.hotspawn.com/matches/fennel-vs-nothinhere-lcp-2027-promotion-1081421" target="_blank" rel="noopener">#1081421</a> (LCP 2027 Promotion), which this snapshot renders as <span class="mono">Bo —</span>:
