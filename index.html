@@ -106,7 +106,7 @@
     community-maintained Leaguepedia history; any walkover grade instead of Hotspawn's published void
     rule remains conditional &mdash; see <a href="flagged.html">Flagged for review</a>.</li>
     <li><strong>Verification.</strong> 10 of the 18 polled feeds answered on the
-    last build, every row links to its official source, and the 43-check publish gate
+    last build, every row links to its official source, and the 44-check publish gate
     (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
     probabilities fail to sum to 100%, or an internal link breaks.</li>
   </ul>
@@ -128,8 +128,12 @@
     matches are not priced by any book reachable from the runner; their lines come from recorded series
     history rather than an aggregator placeholder.</li>
     <li><strong>What we tried for the low-tier tail.</strong> 17 further esportsbook and odds-aggregator endpoints were called from the build runner on 2026-10-24 16:20 UTC: <strong>0 returned a machine-readable LoL price</strong> (3 blocked or key-gated, 4 browser-only pages, 10 error or empty responses). Those leagues therefore keep the originated line rather than a borrowed or invented quote. <a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; <a href="sources.html">Sources</a>.</li>
-    <li><strong>Thin samples.</strong> 78 lines are labelled <em>provisional</em> because at
-    least one side has fewer than five rated series in the 25-month window.</li>
+    <li><strong>Thin &amp; zero-history debut samples.</strong> 78 lines are labelled
+    <em>provisional</em> because at least one side has fewer than five rated series in the 25-month window
+    (6
+    involve a debut side with 0 pre-kickoff rated series, including
+    1
+    where both sides enter at 0/0 rated series and rest solely on equal division priors).</li>
     <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
     limitations are on <a href="unresolved.html">Unresolved &amp; limitations</a>; data irregularities are on
     <a href="flagged.html">Flagged for review</a>.</li>

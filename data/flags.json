@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-24T17:14:52Z",
- "count": 36,
+ "generated_utc": "2026-10-24T17:28:43Z",
+ "count": 38,
  "flags": [
   {
    "severity": "high",
@@ -184,6 +184,20 @@
    "item": "78 provisional lines (thin data)",
    "detail": "At least one side has fewer than five rated series in the Leaguepedia window, or the two teams share no opponent chain. A probability is still published but is labelled provisional and shows the reason on the card.",
    "source": "https://lol.fandom.com/wiki/Special:CargoExport"
+  },
+  {
+   "severity": "high",
+   "item": "1 fixture(s) have 0 pre-kickoff rated series on BOTH sides (equal debut prior only)",
+   "detail": "Neither team had a completed Leaguepedia series before kick-off and no external bookmaker price exists, so the published 50.0% / 50.0% split reflects identical division priors rather than match evidence: #1083096 Keep Yourself Positive vs CRUEL FATE (Logitech G SuperStrike Cup Qualifier).",
+   "source": "https://www.hotspawn.com/matches/keep-yourself-positive-vs-cruel-fate-logitech-g-superstrike-cup-qualifier-1083096",
+   "verification": "derived from pre-kickoff rating_matches == 0 on both sides"
+  },
+  {
+   "severity": "medium",
+   "item": "5 provisional fixture(s) include a debut side with 0 pre-kickoff rated series",
+   "detail": "One team enters with zero completed Leaguepedia series before kick-off and is anchored strictly to its division prior while the opponent carries rated history: #1074627 Northern Wolves Esports (0) vs Lundqvist Darkside (14) (RIVALS LEAGUE Season 2); #1082002 DELETED (0) vs S7raa (2) (Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine); #1083097 paiN Gaming (62) vs Non-toxic Gaming (0) (Logitech G SuperStrike Cup Qualifier); #1083098 TUPKACHI NA KORICI (2) vs FAME (0) (Logitech G SuperStrike Cup Qualifier); #1083105 КАПИБАРА (0) vs Ultim8 (5) (Logitech G SuperStrike Cup Qualifier).",
+   "source": "https://www.hotspawn.com/matches/northern-wolves-esports-vs-lundqvist-darkside-rivals-league-season-2-1074627",
+   "verification": "derived from pre-kickoff rating_matches == 0 on one side"
   },
   {
    "severity": "low",

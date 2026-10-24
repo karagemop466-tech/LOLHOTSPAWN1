@@ -97,6 +97,42 @@ def main() -> None:
             "source": LEAGUEPEDIA,
         })
 
+    def _has_zero_rated(side: dict | None) -> bool:
+        return isinstance(side, dict) and "rating_matches" in side and side.get("rating_matches") == 0
+
+    zero_both = [r for r in rows if r.get("method") != "market" and r.get("method") != "unresolved"
+                 and _has_zero_rated(r.get("team0")) and _has_zero_rated(r.get("team1"))]
+    zero_one = [r for r in rows if r.get("method") != "market" and r.get("method") != "unresolved"
+                and (_has_zero_rated(r.get("team0")) ^ _has_zero_rated(r.get("team1")))]
+    if zero_both:
+        examples = "; ".join(
+            f"#{r['id']} {r['team0']['name']} vs {r['team1']['name']} ({r['competition']})"
+            for r in zero_both[:6]
+        )
+        flags.append({
+            "severity": "high",
+            "item": f"{len(zero_both)} fixture(s) have 0 pre-kickoff rated series on BOTH sides (equal debut prior only)",
+            "detail": ("Neither team had a completed Leaguepedia series before kick-off and no external bookmaker "
+                       "price exists, so the published 50.0% / 50.0% split reflects identical division priors rather "
+                       "than match evidence: " + examples + "."),
+            "source": zero_both[0].get("hotspawn_url") or HOTSPAWN,
+            "verification": "derived from pre-kickoff rating_matches == 0 on both sides",
+        })
+    if zero_one:
+        examples = "; ".join(
+            f"#{r['id']} {r['team0']['name']} ({r['team0'].get('rating_matches')}) vs "
+            f"{r['team1']['name']} ({r['team1'].get('rating_matches')}) ({r['competition']})"
+            for r in zero_one[:6]
+        )
+        flags.append({
+            "severity": "medium",
+            "item": f"{len(zero_one)} provisional fixture(s) include a debut side with 0 pre-kickoff rated series",
+            "detail": ("One team enters with zero completed Leaguepedia series before kick-off and is anchored strictly "
+                       "to its division prior while the opponent carries rated history: " + examples + "."),
+            "source": zero_one[0].get("hotspawn_url") or LEAGUEPEDIA,
+            "verification": "derived from pre-kickoff rating_matches == 0 on one side",
+        })
+
     non_exact = matching.get("non_exact_team_count", 0)
     if non_exact:
         flags.append({

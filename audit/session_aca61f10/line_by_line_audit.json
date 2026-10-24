@@ -1,0 +1,4201 @@
+{
+  "generated_utc": "2026-10-24T17:29:01Z",
+  "session": "aca61f10",
+  "dataset_generated_utc": "2026-10-24T17:14:52Z",
+  "inventory_count": 241,
+  "raw_hotspawn_count": 241,
+  "method_counts": {
+    "model": 150,
+    "unresolved": 4,
+    "provisional": 78,
+    "market": 9
+  },
+  "passed": true,
+  "problem_count": 0,
+  "problems": [],
+  "live_primary_source_checks": [
+    {
+      "subject": "Team Reds Week 1 overturned forfeits (previously misattributed to 4 Nations)",
+      "url": "https://lol.fandom.com/wiki/Data:Arabian_League_2nd_Division/2026_Season/Summer_Split",
+      "checked": "Primary Leaguepedia Data: wikitext (?action=raw) for both 4 Nations 2026 Halloween Heist and Arabian League 2nd Division 2026 Summer.",
+      "result": "corrected",
+      "detail": "4 Nations 2026 Halloween Heist has no participant named Team Reds. Team Reds competes in Arabian League 2nd Division 2026 Summer, where Week 1 primary wikitext records JSK Academy 2-0 Team Reds (ff=2, 2026-10-02, originally 2-1 JSK Academy) and Team Reds 0-2 New Era Team (ff=1, 2026-10-03, originally 2-0 Team Reds), both overturned due to Team Reds fielding an ineligible roster."
+    },
+    {
+      "subject": "PRM 2nd Division 'Phong Vũ Buffalo' slot -> PvB (Swiss Team)",
+      "url": "https://lol.fandom.com/wiki/Data:Prime_League_2nd_Division/2027_Season/Fall_Split",
+      "checked": "Primary Leaguepedia Data: wikitext (?action=raw) and Riot tournament-realm game records for PRM 2nd Division 26-27 Fall.",
+      "result": "verified",
+      "detail": "Participant roster 'PvB Nation' (Shourdy / 1334mat / Kryzik / ray / Quentin) records Week 1 series against The Bandits Prime (LOLTMNT05_228449) and Locked In (Dutch Team) (LOLTMNT05_228512) under 'PvB (Swiss Team)', confirming Hotspawn's 'Phong Vũ Buffalo' label on #1079053 is a ticker-expansion error."
+    },
+    {
+      "subject": "Logitech G SuperStrike Cup Qualifier debut & homonym rows (#1083096, #1083097)",
+      "url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier",
+      "checked": "Primary Leaguepedia wikitext (?action=raw) participant rosters and bracket results on 2026-10-24.",
+      "result": "verified",
+      "detail": "#1083096 (Keep Yourself Positive vs CRUEL FATE) had 0/0 pre-kickoff rated series and is explicitly flagged on Flagged for review as an equal-prior debut split; #1083097's 'paiN Gaming' slot on Hotspawn corresponds to Bulgarian amateur 5-stack 'PNG' (billy / Bla6ko / metko / ifo / anditobate)."
+    },
+    {
+      "subject": "EGamersWorld live index vs match-page check (#1081421, #1081423)",
+      "url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
+      "checked": "HTTP status recorded in data/sources_status.json plus independent live fetches of /lol/matches, /lol/event/lcp-2027-promotion-eDTgthgYk, and the match page on 2026-10-24T17:18Z.",
+      "result": "verified",
+      "detail": "Runner records HTTP 403 (bot protection). Independent live fetch shows /lol/matches index lists 8 Worlds cards, LGC Rising #1079080 (1.41/2.59), #1081421 (1.8/1.8 placeholder), and #1081423 (1.025/10.50), whereas both the LCP event page and the #1081423 match page itself render symmetric 1.8 / 1.8 placeholders (0% / 0% tips), confirming #1081423 should remain originated rather than market-priced."
+    }
+  ],
+  "rows": [
+    {
+      "id": "1053095",
+      "competition": "Benelux Ascend Series 2026 Summer Split",
+      "start_utc": "2026-08-26T17:00:00Z",
+      "team0": "Mind Blue eSports",
+      "team1": "LAST DANCE",
+      "method": "model",
+      "p0": 0.4994,
+      "p1": 0.5006,
+      "pick": "LAST DANCE",
+      "sources": [
+        "https://www.hotspawn.com/matches/mind-blue-esports-vs-last-dance-benelux-ascend-series-2026-summer-split-1053095",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1053096",
+      "competition": "Benelux Ascend Series 2026 Summer Split",
+      "start_utc": "2026-08-26T18:00:00Z",
+      "team0": "Nameless",
+      "team1": "BiPOLAR",
+      "method": "model",
+      "p0": 0.4165,
+      "p1": 0.5835,
+      "pick": "BiPOLAR",
+      "sources": [
+        "https://www.hotspawn.com/matches/nameless-vs-bipolar-benelux-ascend-series-2026-summer-split-1053096",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1066214",
+      "competition": "FPL 2026 Summer Playoffs",
+      "start_utc": "2026-08-27T15:00:00Z",
+      "team0": "Epic Avalanche",
+      "team1": "Finnish Red Mafia",
+      "method": "model",
+      "p0": 0.7324,
+      "p1": 0.2676,
+      "pick": "Epic Avalanche",
+      "sources": [
+        "https://www.hotspawn.com/matches/epic-avalanche-vs-finnish-red-mafia-fpl-2026-summer-playoffs-1066214",
+        "https://lol.fandom.com/wiki/Finnish_Pro_League/2026_Season/Summer_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1053111",
+      "competition": "Benelux Ascend Series Rising 2026 Summer Playoffs",
+      "start_utc": "2026-09-05T11:00:00Z",
+      "team0": "Team VS Esport",
+      "team1": "GALA Esports",
+      "method": "model",
+      "p0": 0.4627,
+      "p1": 0.5373,
+      "pick": "GALA Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-vs-esport-vs-gala-esports-benelux-ascend-series-rising-2026-summer-playoffs-1053111",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1071584",
+      "competition": "LIT 2027 Winter Promotion",
+      "start_utc": "2026-09-07T17:00:00Z",
+      "team0": "P11 Esports",
+      "team1": "HANGMEN",
+      "method": "model",
+      "p0": 0.3351,
+      "p1": 0.6649,
+      "pick": "HANGMEN",
+      "sources": [
+        "https://www.hotspawn.com/matches/p11-esports-vs-hangmen-lit-2027-winter-promotion-1071584",
+        "https://lol.fandom.com/wiki/LIT/2027_Season/Winter_Promotion"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1070209",
+      "competition": "Benelux Ascend Series Rising 2026 Summer Playoffs",
+      "start_utc": "2026-09-12T11:00:00Z",
+      "team0": "Triforce Esport",
+      "team1": "Venus",
+      "method": "model",
+      "p0": 0.4942,
+      "p1": 0.5058,
+      "pick": "Venus",
+      "sources": [
+        "https://www.hotspawn.com/matches/triforce-esport-vs-venus-benelux-ascend-series-rising-2026-summer-playoffs-1070209",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1070210",
+      "competition": "Benelux Ascend Series Rising 2026 Summer Playoffs",
+      "start_utc": "2026-09-13T11:00:00Z",
+      "team0": "GALA Esports",
+      "team1": "The Bandits Academy",
+      "method": "model",
+      "p0": 0.4116,
+      "p1": 0.5884,
+      "pick": "The Bandits Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/gala-esports-vs-the-bandits-academy-benelux-ascend-series-rising-2026-summer-playoffs-1070210",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1069849",
+      "competition": "LigaGG CELOL B 2026 Split 2",
+      "start_utc": "2026-09-13T15:00:00Z",
+      "team0": "Docta Esports Club",
+      "team1": "Viktus",
+      "method": "model",
+      "p0": 0.5503,
+      "p1": 0.4497,
+      "pick": "Docta Esports Club",
+      "sources": [
+        "https://www.hotspawn.com/matches/docta-esports-club-vs-viktus-ligagg-celol-b-2026-split-2-1069849",
+        "https://lol.fandom.com/wiki/LigaGG/CELOL_Série_B/2026_Season/Split_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1071167",
+      "competition": "Komplettligaen 2026 Autumn",
+      "start_utc": "2026-09-17T15:00:00Z",
+      "team0": "DMG Esports Norway",
+      "team1": "Playwell Rød Q",
+      "method": "model",
+      "p0": 0.4345,
+      "p1": 0.5655,
+      "pick": "Playwell Rød Q",
+      "sources": [
+        "https://www.hotspawn.com/matches/dmg-esports-norway-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071167",
+        "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1071170",
+      "competition": "Komplettligaen 2026 Autumn",
+      "start_utc": "2026-09-17T15:00:00Z",
+      "team0": "Solid Gaming",
+      "team1": "VES Japan",
+      "method": "unresolved",
+      "p0": null,
+      "p1": null,
+      "pick": "VES Japan",
+      "sources": [
+        "https://www.hotspawn.com/matches/solid-gaming-vs-ves-japan-komplettligaen-2026-autumn-1071170",
+        "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split",
+        "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1071168",
+      "competition": "Komplettligaen 2026 Autumn",
+      "start_utc": "2026-09-17T17:00:00Z",
+      "team0": "Mixlag fra Trondheim",
+      "team1": "CNG Royal",
+      "method": "model",
+      "p0": 0.4389,
+      "p1": 0.5611,
+      "pick": "CNG Royal",
+      "sources": [
+        "https://www.hotspawn.com/matches/mixlag-fra-trondheim-vs-cng-royal-komplettligaen-2026-autumn-1071168",
+        "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1061779",
+      "competition": "Benelux Ascend Series 2026 Summer Playoffs",
+      "start_utc": "2026-09-18T17:00:00Z",
+      "team0": "Frost Tails",
+      "team1": "LAST DANCE",
+      "method": "model",
+      "p0": 0.4177,
+      "p1": 0.5823,
+      "pick": "LAST DANCE",
+      "sources": [
+        "https://www.hotspawn.com/matches/frost-tails-vs-last-dance-benelux-ascend-series-2026-summer-playoffs-1061779",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2026_Season/Summer_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1069680",
+      "competition": "Benelux Ascend Series Rising 2026 Summer Playoffs",
+      "start_utc": "2026-09-19T11:00:00Z",
+      "team0": "Team VS Esport",
+      "team1": "Les Ravagés",
+      "method": "model",
+      "p0": 0.3944,
+      "p1": 0.6056,
+      "pick": "Les Ravagés",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-vs-esport-vs-les-ravages-benelux-ascend-series-rising-2026-summer-playoffs-1069680",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1069857",
+      "competition": "LigaGG CELOL B 2026 Split 2",
+      "start_utc": "2026-09-19T15:00:00Z",
+      "team0": "Marere Academy",
+      "team1": "Torin",
+      "method": "provisional",
+      "p0": 0.4773,
+      "p1": 0.5227,
+      "pick": "Torin",
+      "sources": [
+        "https://www.hotspawn.com/matches/marere-academy-vs-torin-ligagg-celol-b-2026-split-2-1069857",
+        "https://lol.fandom.com/wiki/LigaGG/CELOL_Série_B/2026_Season/Split_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1073030",
+      "competition": "LigaGG CELOL A 2026 Split 2",
+      "start_utc": "2026-09-19T20:45:00Z",
+      "team0": "Invictus Team",
+      "team1": "Smoke Tram Ascension",
+      "method": "provisional",
+      "p0": 0.4852,
+      "p1": 0.5148,
+      "pick": "Smoke Tram Ascension",
+      "sources": [
+        "https://www.hotspawn.com/matches/invictus-team-vs-smoke-tram-ascension-ligagg-celol-a-2026-split-2-1073030",
+        "https://lol.fandom.com/wiki/LigaGG/CELOL_Série_A/2026_Season/Split_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1053536",
+      "competition": "POP Esports Masters Season 7",
+      "start_utc": "2026-09-19T21:59:00Z",
+      "team0": "LANdits",
+      "team1": "Frites Esports Club",
+      "method": "provisional",
+      "p0": 0.1962,
+      "p1": 0.8038,
+      "pick": "Frites Esports Club",
+      "sources": [
+        "https://www.hotspawn.com/matches/landits-vs-frites-esports-club-pop-esports-masters-season-7-1053536",
+        "https://lol.fandom.com/wiki/POP_Esports_Masters/Season_7"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1069681",
+      "competition": "Benelux Ascend Series Rising 2026 Summer Playoffs",
+      "start_utc": "2026-09-20T11:00:00Z",
+      "team0": "The Bandits Academy",
+      "team1": "Triforce Esport",
+      "method": "model",
+      "p0": 0.4789,
+      "p1": 0.5211,
+      "pick": "Triforce Esport",
+      "sources": [
+        "https://www.hotspawn.com/matches/the-bandits-academy-vs-triforce-esport-benelux-ascend-series-rising-2026-summer-playoffs-1069681",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1073172",
+      "competition": "Superstrike League 2026",
+      "start_utc": "2026-09-20T16:00:00Z",
+      "team0": "Lund Esports Organization",
+      "team1": "Karolinerna Black",
+      "method": "model",
+      "p0": 0.6663,
+      "p1": 0.3337,
+      "pick": "Lund Esports Organization",
+      "sources": [
+        "https://www.hotspawn.com/matches/lund-esports-organization-vs-karolinerna-black-superstrike-league-2026-1073172",
+        "https://lol.fandom.com/wiki/Superstrike_League_2026"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1070823",
+      "competition": "Legends Academy powered by Żabka Season 3 Playoffs",
+      "start_utc": "2026-09-20T21:59:00Z",
+      "team0": "Dziady cz.67",
+      "team1": "Adam West Corp",
+      "method": "model",
+      "p0": 0.3545,
+      "p1": 0.6455,
+      "pick": "Adam West Corp",
+      "sources": [
+        "https://www.hotspawn.com/matches/dziady-cz-67-vs-adam-west-corp-legends-academy-powered-by-zabka-season-3-playoffs-1070823",
+        "https://lol.fandom.com/wiki/Legends_Academy/2026/Season_3_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1073177",
+      "competition": "Superstrike League 2026",
+      "start_utc": "2026-09-25T16:00:00Z",
+      "team0": "Karolinerna Black",
+      "team1": "Lundqvist Lightside",
+      "method": "model",
+      "p0": 0.4589,
+      "p1": 0.5411,
+      "pick": "Lundqvist Lightside",
+      "sources": [
+        "https://www.hotspawn.com/matches/karolinerna-black-vs-lundqvist-lightside-superstrike-league-2026-1073177",
+        "https://lol.fandom.com/wiki/Superstrike_League_2026"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074627",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-09-27T17:15:00Z",
+      "team0": "Northern Wolves Esports",
+      "team1": "Lundqvist Darkside",
+      "method": "provisional",
+      "p0": 0.4771,
+      "p1": 0.5229,
+      "pick": "Lundqvist Darkside",
+      "sources": [
+        "https://www.hotspawn.com/matches/northern-wolves-esports-vs-lundqvist-darkside-rivals-league-season-2-1074627",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": [
+        "one debut side with 0 pre-kickoff rated series (flagged on flagged.html)"
+      ]
+    },
+    {
+      "id": "1075850",
+      "competition": "Hitpoint 2nd Div Challengers 2026 Summer Playoffs",
+      "start_utc": "2026-09-28T16:00:00Z",
+      "team0": "EXILE esports Academy",
+      "team1": "Mighty Eagles",
+      "method": "model",
+      "p0": 0.527,
+      "p1": 0.473,
+      "pick": "EXILE esports Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/exile-esports-academy-vs-mighty-eagles-hitpoint-2nd-div-challengers-2026-summer-playoffs-1075850",
+        "https://lol.fandom.com/wiki/Hitpoint_2nd_Division_Challengers/2026_Season/Summer_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077722",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-01T19:00:00Z",
+      "team0": "Chuds",
+      "team1": "Smá Nibu",
+      "method": "provisional",
+      "p0": 0.4963,
+      "p1": 0.5037,
+      "pick": "Smá Nibu",
+      "sources": [
+        "https://www.hotspawn.com/matches/chuds-vs-sma-nibu-icelandic-esports-league-2026-autumn-1077722",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077723",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-01T19:00:00Z",
+      "team0": "Fenrir",
+      "team1": "Grísirnir",
+      "method": "model",
+      "p0": 0.7516,
+      "p1": 0.2484,
+      "pick": "Fenrir",
+      "sources": [
+        "https://www.hotspawn.com/matches/fenrir-vs-grisirnir-icelandic-esports-league-2026-autumn-1077723",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077724",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-01T19:00:00Z",
+      "team0": "Rift Runners",
+      "team1": "Whisky",
+      "method": "provisional",
+      "p0": 0.2545,
+      "p1": 0.7455,
+      "pick": "Whisky",
+      "sources": [
+        "https://www.hotspawn.com/matches/rift-runners-vs-whisky-icelandic-esports-league-2026-autumn-1077724",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1076564",
+      "competition": "Benelux Ascend Series 2027 Winter Promotion",
+      "start_utc": "2026-10-02T17:00:00Z",
+      "team0": "Triforce Esport",
+      "team1": "RED OUAT",
+      "method": "model",
+      "p0": 0.6683,
+      "p1": 0.3317,
+      "pick": "Triforce Esport",
+      "sources": [
+        "https://www.hotspawn.com/matches/triforce-esport-vs-red-ouat-benelux-ascend-series-2027-winter-promotion-1076564",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2027_Season/Winter_Promotion"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1076565",
+      "competition": "Benelux Ascend Series 2027 Winter Promotion",
+      "start_utc": "2026-10-02T18:00:00Z",
+      "team0": "Les Ravagés",
+      "team1": "Nameless",
+      "method": "model",
+      "p0": 0.5155,
+      "p1": 0.4845,
+      "pick": "Les Ravagés",
+      "sources": [
+        "https://www.hotspawn.com/matches/les-ravages-vs-nameless-benelux-ascend-series-2027-winter-promotion-1076565",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2027_Season/Winter_Promotion"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1071200",
+      "competition": "Komplettligaen 2026 Autumn",
+      "start_utc": "2026-10-04T15:00:00Z",
+      "team0": "Solid Gaming",
+      "team1": "Playwell Rød Q",
+      "method": "unresolved",
+      "p0": null,
+      "p1": null,
+      "pick": "Playwell Rød Q",
+      "sources": [
+        "https://www.hotspawn.com/matches/solid-gaming-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071200",
+        "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split",
+        "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1073183",
+      "competition": "Superstrike League 2026",
+      "start_utc": "2026-10-05T16:00:00Z",
+      "team0": "Team Lucidity Esports",
+      "team1": "Lund Esports Organization",
+      "method": "model",
+      "p0": 0.3016,
+      "p1": 0.6984,
+      "pick": "Lund Esports Organization",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-lucidity-esports-vs-lund-esports-organization-superstrike-league-2026-1073183",
+        "https://lol.fandom.com/wiki/Superstrike_League_2026"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077726",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-05T19:00:00Z",
+      "team0": "Fenrir",
+      "team1": "Cool Beans Team",
+      "method": "model",
+      "p0": 0.5965,
+      "p1": 0.4035,
+      "pick": "Fenrir",
+      "sources": [
+        "https://www.hotspawn.com/matches/fenrir-vs-cool-beans-team-icelandic-esports-league-2026-autumn-1077726",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077727",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-05T19:00:00Z",
+      "team0": "Rift Runners",
+      "team1": "Grísirnir",
+      "method": "provisional",
+      "p0": 0.5958,
+      "p1": 0.4042,
+      "pick": "Rift Runners",
+      "sources": [
+        "https://www.hotspawn.com/matches/rift-runners-vs-grisirnir-icelandic-esports-league-2026-autumn-1077727",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077728",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-05T19:00:00Z",
+      "team0": "Whisky",
+      "team1": "Smá Nibu",
+      "method": "provisional",
+      "p0": 0.7229,
+      "p1": 0.2771,
+      "pick": "Whisky",
+      "sources": [
+        "https://www.hotspawn.com/matches/whisky-vs-sma-nibu-icelandic-esports-league-2026-autumn-1077728",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1076566",
+      "competition": "Benelux Ascend Series 2027 Winter Promotion",
+      "start_utc": "2026-10-07T17:00:00Z",
+      "team0": "Team VS Esport",
+      "team1": "Meavedron Benelux",
+      "method": "model",
+      "p0": 0.4355,
+      "p1": 0.5645,
+      "pick": "Meavedron Benelux",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-vs-esport-vs-meavedron-benelux-benelux-ascend-series-2027-winter-promotion-1076566",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2027_Season/Winter_Promotion"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077729",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-08T19:00:00Z",
+      "team0": "Chuds",
+      "team1": "Cool Beans Team",
+      "method": "provisional",
+      "p0": 0.4379,
+      "p1": 0.5621,
+      "pick": "Cool Beans Team",
+      "sources": [
+        "https://www.hotspawn.com/matches/chuds-vs-cool-beans-team-icelandic-esports-league-2026-autumn-1077729",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077730",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-08T19:00:00Z",
+      "team0": "Rift Runners",
+      "team1": "Fenrir",
+      "method": "provisional",
+      "p0": 0.2869,
+      "p1": 0.7131,
+      "pick": "Fenrir",
+      "sources": [
+        "https://www.hotspawn.com/matches/rift-runners-vs-fenrir-icelandic-esports-league-2026-autumn-1077730",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077731",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-08T19:00:00Z",
+      "team0": "Smá Nibu",
+      "team1": "Grísirnir",
+      "method": "provisional",
+      "p0": 0.6382,
+      "p1": 0.3618,
+      "pick": "Smá Nibu",
+      "sources": [
+        "https://www.hotspawn.com/matches/sma-nibu-vs-grisirnir-icelandic-esports-league-2026-autumn-1077731",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079556",
+      "competition": "Superstrike League 2026",
+      "start_utc": "2026-10-09T17:00:00Z",
+      "team0": "Team Lucidity Esports",
+      "team1": "Lund Esports Organization",
+      "method": "model",
+      "p0": 0.2911,
+      "p1": 0.7089,
+      "pick": "Lund Esports Organization",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-lucidity-esports-vs-lund-esports-organization-superstrike-league-2026-1079556",
+        "https://lol.fandom.com/wiki/Superstrike_League_2026"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1073186",
+      "competition": "Superstrike League 2026",
+      "start_utc": "2026-10-10T16:00:00Z",
+      "team0": "OnlyWinByFF",
+      "team1": "B2U",
+      "method": "model",
+      "p0": 0.1908,
+      "p1": 0.8092,
+      "pick": "B2U",
+      "sources": [
+        "https://www.hotspawn.com/matches/onlywinbyff-vs-b2u-superstrike-league-2026-1073186",
+        "https://lol.fandom.com/wiki/Superstrike_League_2026"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1073184",
+      "competition": "Superstrike League 2026",
+      "start_utc": "2026-10-10T17:00:00Z",
+      "team0": "Karolinerna",
+      "team1": "Crazy Kittens E-Sport Academy",
+      "method": "provisional",
+      "p0": 0.4776,
+      "p1": 0.5224,
+      "pick": "Crazy Kittens E-Sport Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/karolinerna-vs-crazy-kittens-e-sport-academy-superstrike-league-2026-1073184",
+        "https://lol.fandom.com/wiki/Superstrike_League_2026"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079321",
+      "competition": "Arabian League 2nd Division 2026 Summer",
+      "start_utc": "2026-10-10T18:00:00Z",
+      "team0": "NextGeneration Esports",
+      "team1": "Slam Dunk",
+      "method": "provisional",
+      "p0": 0.4881,
+      "p1": 0.5119,
+      "pick": "Slam Dunk",
+      "sources": [
+        "https://www.hotspawn.com/matches/nextgeneration-esports-vs-slam-dunk-arabian-league-2nd-division-2026-summer-1079321",
+        "https://lol.fandom.com/wiki/Arabian_League_2nd_Division/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1071206",
+      "competition": "Komplettligaen 2026 Autumn",
+      "start_utc": "2026-10-11T15:00:00Z",
+      "team0": "Volda E-Sport",
+      "team1": "Solid Gaming",
+      "method": "unresolved",
+      "p0": null,
+      "p1": null,
+      "pick": "Volda E-Sport",
+      "sources": [
+        "https://www.hotspawn.com/matches/volda-e-sport-vs-solid-gaming-komplettligaen-2026-autumn-1071206",
+        "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split",
+        "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074636",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-11T16:30:00Z",
+      "team0": "2 Massive",
+      "team1": "Team Lucidity Esports",
+      "method": "model",
+      "p0": 0.5587,
+      "p1": 0.4413,
+      "pick": "2 Massive",
+      "sources": [
+        "https://www.hotspawn.com/matches/2-massive-vs-team-lucidity-esports-rivals-league-season-2-1074636",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074642",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-11T16:30:00Z",
+      "team0": "Northern Wolves Esports",
+      "team1": "B2U",
+      "method": "provisional",
+      "p0": 0.2287,
+      "p1": 0.7713,
+      "pick": "B2U",
+      "sources": [
+        "https://www.hotspawn.com/matches/northern-wolves-esports-vs-b2u-rivals-league-season-2-1074642",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074643",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-11T16:30:00Z",
+      "team0": "Team cd",
+      "team1": "Karolinerna",
+      "method": "model",
+      "p0": 0.5472,
+      "p1": 0.4528,
+      "pick": "Team cd",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-cd-vs-karolinerna-rivals-league-season-2-1074643",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074639",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-11T17:00:00Z",
+      "team0": "Lund Esports Organization OGs",
+      "team1": "Turbo Gaming",
+      "method": "provisional",
+      "p0": 0.4733,
+      "p1": 0.5267,
+      "pick": "Turbo Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/lund-esports-organization-ogs-vs-turbo-gaming-rivals-league-season-2-1074639",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074640",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-11T17:30:00Z",
+      "team0": "Lundqvist Darkside",
+      "team1": "DMG Esports Sweden",
+      "method": "model",
+      "p0": 0.5389,
+      "p1": 0.4611,
+      "pick": "Lundqvist Darkside",
+      "sources": [
+        "https://www.hotspawn.com/matches/lundqvist-darkside-vs-dmg-esports-sweden-rivals-league-season-2-1074640",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077744",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-11T19:00:00Z",
+      "team0": "Rift Runners",
+      "team1": "Cool Beans Team",
+      "method": "model",
+      "p0": 0.4138,
+      "p1": 0.5862,
+      "pick": "Cool Beans Team",
+      "sources": [
+        "https://www.hotspawn.com/matches/rift-runners-vs-cool-beans-team-icelandic-esports-league-2026-autumn-1077744",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077745",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-11T19:00:00Z",
+      "team0": "Smá Nibu",
+      "team1": "Fenrir",
+      "method": "model",
+      "p0": 0.3582,
+      "p1": 0.6418,
+      "pick": "Fenrir",
+      "sources": [
+        "https://www.hotspawn.com/matches/sma-nibu-vs-fenrir-icelandic-esports-league-2026-autumn-1077745",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1077746",
+      "competition": "Icelandic Esports League 2026 Autumn",
+      "start_utc": "2026-10-11T19:00:00Z",
+      "team0": "Whisky",
+      "team1": "Chuds",
+      "method": "model",
+      "p0": 0.7088,
+      "p1": 0.2912,
+      "pick": "Whisky",
+      "sources": [
+        "https://www.hotspawn.com/matches/whisky-vs-chuds-icelandic-esports-league-2026-autumn-1077746",
+        "https://lol.fandom.com/wiki/Icelandic_Esports_League/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1071186",
+      "competition": "Komplettligaen 2026 Autumn",
+      "start_utc": "2026-10-13T17:00:00Z",
+      "team0": "Solid Gaming",
+      "team1": "NTNUI Kometkameratene",
+      "method": "unresolved",
+      "p0": null,
+      "p1": null,
+      "pick": "NTNUI Kometkameratene",
+      "sources": [
+        "https://www.hotspawn.com/matches/solid-gaming-vs-ntnui-kometkameratene-komplettligaen-2026-autumn-1071186",
+        "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split",
+        "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1076570",
+      "competition": "Benelux Ascend Series 2027 Winter Promotion",
+      "start_utc": "2026-10-14T17:00:00Z",
+      "team0": "Meavedron Benelux",
+      "team1": "The Bandits Academy",
+      "method": "model",
+      "p0": 0.4475,
+      "p1": 0.5525,
+      "pick": "The Bandits Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/meavedron-benelux-vs-the-bandits-academy-benelux-ascend-series-2027-winter-promotion-1076570",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2027_Season/Winter_Promotion"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1076571",
+      "competition": "Benelux Ascend Series 2027 Winter Promotion",
+      "start_utc": "2026-10-14T18:00:00Z",
+      "team0": "Nameless",
+      "team1": "Triforce Esport",
+      "method": "model",
+      "p0": 0.4236,
+      "p1": 0.5764,
+      "pick": "Triforce Esport",
+      "sources": [
+        "https://www.hotspawn.com/matches/nameless-vs-triforce-esport-benelux-ascend-series-2027-winter-promotion-1076571",
+        "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2027_Season/Winter_Promotion"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081365",
+      "competition": "Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait",
+      "start_utc": "2026-10-15T15:00:00Z",
+      "team0": "Arena",
+      "team1": "TeamBah",
+      "method": "provisional",
+      "p0": 0.5473,
+      "p1": 0.4527,
+      "pick": "Arena",
+      "sources": [
+        "https://www.hotspawn.com/matches/arena-vs-teambah-arabian-regional-championship-2026-qatar-bahrain-kuwait-1081365",
+        "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/QA-BH-KW"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081369",
+      "competition": "Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait",
+      "start_utc": "2026-10-15T15:00:00Z",
+      "team0": "Inquisitors",
+      "team1": "OverPower",
+      "method": "provisional",
+      "p0": 0.5,
+      "p1": 0.5,
+      "pick": "Inquisitors",
+      "sources": [
+        "https://www.hotspawn.com/matches/inquisitors-vs-overpower-arabian-regional-championship-2026-qatar-bahrain-kuwait-1081369",
+        "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/QA-BH-KW"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079132",
+      "competition": "Arabian League 2nd Division 2026 Summer",
+      "start_utc": "2026-10-15T18:00:00Z",
+      "team0": "Void Walkers",
+      "team1": "Pegasus Esports",
+      "method": "provisional",
+      "p0": 0.4918,
+      "p1": 0.5082,
+      "pick": "Pegasus Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/void-walkers-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079132",
+        "https://lol.fandom.com/wiki/Arabian_League_2nd_Division/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079922",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-15T18:00:00Z",
+      "team0": "Fritt Fall",
+      "team1": "Tung Sahur Mid",
+      "method": "provisional",
+      "p0": 0.4708,
+      "p1": 0.5292,
+      "pick": "Tung Sahur Mid",
+      "sources": [
+        "https://www.hotspawn.com/matches/fritt-fall-vs-tung-sahur-mid-rivals-league-season-2-1079922",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082001",
+      "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+      "start_utc": "2026-10-16T15:00:00Z",
+      "team0": "Syrian Rift Masters",
+      "team1": "B7",
+      "method": "provisional",
+      "p0": 0.4987,
+      "p1": 0.5013,
+      "pick": "B7",
+      "sources": [
+        "https://www.hotspawn.com/matches/syrian-rift-masters-vs-b7-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082001",
+        "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082002",
+      "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+      "start_utc": "2026-10-16T15:00:00Z",
+      "team0": "DELETED",
+      "team1": "S7raa",
+      "method": "provisional",
+      "p0": 0.4999,
+      "p1": 0.5001,
+      "pick": "S7raa",
+      "sources": [
+        "https://www.hotspawn.com/matches/deleted-vs-s7raa-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082002",
+        "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS"
+      ],
+      "ok": true,
+      "notes": [
+        "one debut side with 0 pre-kickoff rated series (flagged on flagged.html)"
+      ]
+    },
+    {
+      "id": "1082003",
+      "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+      "start_utc": "2026-10-16T15:00:00Z",
+      "team0": "Levelers",
+      "team1": "Team Fifty Fifty",
+      "method": "provisional",
+      "p0": 0.5,
+      "p1": 0.5,
+      "pick": "Levelers",
+      "sources": [
+        "https://www.hotspawn.com/matches/levelers-vs-team-fifty-fifty-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082003",
+        "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082004",
+      "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+      "start_utc": "2026-10-16T15:00:00Z",
+      "team0": "MTN ESPORTS TEAM",
+      "team1": "RATCLUB",
+      "method": "provisional",
+      "p0": 0.6027,
+      "p1": 0.3973,
+      "pick": "MTN ESPORTS TEAM",
+      "sources": [
+        "https://www.hotspawn.com/matches/mtn-esports-team-vs-ratclub-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082004",
+        "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082005",
+      "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+      "start_utc": "2026-10-16T15:00:00Z",
+      "team0": "SYR T1",
+      "team1": "Ravagers",
+      "method": "provisional",
+      "p0": 0.5,
+      "p1": 0.5,
+      "pick": "SYR T1",
+      "sources": [
+        "https://www.hotspawn.com/matches/syr-t1-vs-ravagers-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082005",
+        "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082006",
+      "competition": "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine",
+      "start_utc": "2026-10-16T15:00:00Z",
+      "team0": "X-Funkass",
+      "team1": "التريس",
+      "method": "provisional",
+      "p0": 0.5,
+      "p1": 0.5,
+      "pick": "X-Funkass",
+      "sources": [
+        "https://www.hotspawn.com/matches/x-funkass-vs--arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082006",
+        "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081079",
+      "competition": "LigaGG CELOL B 2026 Split 2 Playoffs",
+      "start_utc": "2026-10-17T15:00:00Z",
+      "team0": "Docta Esports Club",
+      "team1": "BaronX",
+      "method": "model",
+      "p0": 0.553,
+      "p1": 0.447,
+      "pick": "Docta Esports Club",
+      "sources": [
+        "https://www.hotspawn.com/matches/docta-esports-club-vs-baronx-ligagg-celol-b-2026-split-2-playoffs-1081079",
+        "https://lol.fandom.com/wiki/LigaGG/CELOL_Série_B/2026_Season/Split_2_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082061",
+      "competition": "4 Nations 2026 Halloween Heist",
+      "start_utc": "2026-10-17T16:00:00Z",
+      "team0": "Glorp Cat",
+      "team1": "Impel",
+      "method": "provisional",
+      "p0": 0.4988,
+      "p1": 0.5012,
+      "pick": "Impel",
+      "sources": [
+        "https://www.hotspawn.com/matches/glorp-cat-vs-impel-4-nations-2026-halloween-heist-1082061",
+        "https://lol.fandom.com/wiki/4_Nations/2026_Season/Halloween_Heist"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082105",
+      "competition": "Arabian League 2nd Division 2026 Summer",
+      "start_utc": "2026-10-22T18:00:00Z",
+      "team0": "Team VDS",
+      "team1": "Pegasus Esports",
+      "method": "model",
+      "p0": 0.6009,
+      "p1": 0.3991,
+      "pick": "Team VDS",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-vds-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1082105",
+        "https://lol.fandom.com/wiki/Arabian_League_2nd_Division/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1083096",
+      "competition": "Logitech G SuperStrike Cup Qualifier",
+      "start_utc": "2026-10-24T11:00:00Z",
+      "team0": "Keep Yourself Positive",
+      "team1": "CRUEL FATE",
+      "method": "provisional",
+      "p0": 0.5,
+      "p1": 0.5,
+      "pick": "Keep Yourself Positive",
+      "sources": [
+        "https://www.hotspawn.com/matches/keep-yourself-positive-vs-cruel-fate-logitech-g-superstrike-cup-qualifier-1083096",
+        "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
+      ],
+      "ok": true,
+      "notes": [
+        "0/0 pre-kickoff rated series (flagged on flagged.html)"
+      ]
+    },
+    {
+      "id": "1083097",
+      "competition": "Logitech G SuperStrike Cup Qualifier",
+      "start_utc": "2026-10-24T11:00:00Z",
+      "team0": "paiN Gaming",
+      "team1": "Non-toxic Gaming",
+      "method": "provisional",
+      "p0": 0.6089,
+      "p1": 0.3911,
+      "pick": "paiN Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/pain-gaming-vs-non-toxic-gaming-logitech-g-superstrike-cup-qualifier-1083097",
+        "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
+      ],
+      "ok": true,
+      "notes": [
+        "one debut side with 0 pre-kickoff rated series (flagged on flagged.html)"
+      ]
+    },
+    {
+      "id": "1083098",
+      "competition": "Logitech G SuperStrike Cup Qualifier",
+      "start_utc": "2026-10-24T11:00:00Z",
+      "team0": "TUPKACHI NA KORICI",
+      "team1": "FAME",
+      "method": "provisional",
+      "p0": 0.6063,
+      "p1": 0.3937,
+      "pick": "TUPKACHI NA KORICI",
+      "sources": [
+        "https://www.hotspawn.com/matches/tupkachi-na-korici-vs-fame-logitech-g-superstrike-cup-qualifier-1083098",
+        "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
+      ],
+      "ok": true,
+      "notes": [
+        "one debut side with 0 pre-kickoff rated series (flagged on flagged.html)"
+      ]
+    },
+    {
+      "id": "1083105",
+      "competition": "Logitech G SuperStrike Cup Qualifier",
+      "start_utc": "2026-10-24T12:00:00Z",
+      "team0": "КАПИБАРА",
+      "team1": "Ultim8",
+      "method": "provisional",
+      "p0": 0.4232,
+      "p1": 0.5768,
+      "pick": "Ultim8",
+      "sources": [
+        "https://www.hotspawn.com/matches/-vs-ultim8-logitech-g-superstrike-cup-qualifier-1083105",
+        "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
+      ],
+      "ok": true,
+      "notes": [
+        "one debut side with 0 pre-kickoff rated series (flagged on flagged.html)"
+      ]
+    },
+    {
+      "id": "1075719",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-24T14:00:00Z",
+      "team0": "Berlin 5",
+      "team1": "AceGaming Hearts",
+      "method": "model",
+      "p0": 0.5706,
+      "p1": 0.4294,
+      "pick": "Berlin 5",
+      "sources": [
+        "https://www.hotspawn.com/matches/berlin-5-vs-acegaming-hearts-prm-3rd-division-26-27-fall-1075719",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081085",
+      "competition": "LigaGG CELOL B 2026 Split 2 Playoffs",
+      "start_utc": "2026-10-24T15:00:00Z",
+      "team0": "BaronX",
+      "team1": "Marere Academy",
+      "method": "model",
+      "p0": 0.5253,
+      "p1": 0.4747,
+      "pick": "BaronX",
+      "sources": [
+        "https://www.hotspawn.com/matches/baronx-vs-marere-academy-ligagg-celol-b-2026-split-2-playoffs-1081085",
+        "https://lol.fandom.com/wiki/LigaGG/CELOL_Série_B/2026_Season/Split_2_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081086",
+      "competition": "LigaGG CELOL B 2026 Split 2 Playoffs",
+      "start_utc": "2026-10-24T15:00:00Z",
+      "team0": "Final Level eSports Academy",
+      "team1": "Infinity Gaming",
+      "method": "model",
+      "p0": 0.4477,
+      "p1": 0.5523,
+      "pick": "Infinity Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/final-level-esports-academy-vs-infinity-gaming-ligagg-celol-b-2026-split-2-playoffs-1081086",
+        "https://lol.fandom.com/wiki/LigaGG/CELOL_Série_B/2026_Season/Split_2_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080923",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-24T16:00:00Z",
+      "team0": "Jendouba Esports",
+      "team1": "Enfida Esports",
+      "method": "provisional",
+      "p0": 0.5372,
+      "p1": 0.4628,
+      "pick": "Jendouba Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/jendouba-esports-vs-enfida-esports-tunisian-super-league-2026-1080923",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080924",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-24T16:00:00Z",
+      "team0": "JSK Esports",
+      "team1": "El Menzah Esports",
+      "method": "provisional",
+      "p0": 0.7185,
+      "p1": 0.2815,
+      "pick": "JSK Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/jsk-esports-vs-el-menzah-esports-tunisian-super-league-2026-1080924",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080925",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-24T16:00:00Z",
+      "team0": "Olympique Mnihla",
+      "team1": "Supreme Leaders",
+      "method": "provisional",
+      "p0": 0.5772,
+      "p1": 0.4228,
+      "pick": "Olympique Mnihla",
+      "sources": [
+        "https://www.hotspawn.com/matches/olympique-mnihla-vs-supreme-leaders-tunisian-super-league-2026-1080925",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080926",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-24T16:00:00Z",
+      "team0": "Simplicity Gaming",
+      "team1": "JSK Academy",
+      "method": "model",
+      "p0": 0.6938,
+      "p1": 0.3062,
+      "pick": "Simplicity Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/simplicity-gaming-vs-jsk-academy-tunisian-super-league-2026-1080926",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080927",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-24T16:00:00Z",
+      "team0": "Zahrouni Esports",
+      "team1": "Olympique Mnihla Academy",
+      "method": "provisional",
+      "p0": 0.4723,
+      "p1": 0.5277,
+      "pick": "Olympique Mnihla Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/zahrouni-esports-vs-olympique-mnihla-academy-tunisian-super-league-2026-1080927",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074655",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-24T16:30:00Z",
+      "team0": "Karolinerna",
+      "team1": "Turbo Gaming",
+      "method": "model",
+      "p0": 0.4556,
+      "p1": 0.5444,
+      "pick": "Turbo Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/karolinerna-vs-turbo-gaming-rivals-league-season-2-1074655",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074657",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-24T16:30:00Z",
+      "team0": "OnlyWinByFF",
+      "team1": "Rich Gang Sweden",
+      "method": "model",
+      "p0": 0.4212,
+      "p1": 0.5788,
+      "pick": "Rich Gang Sweden",
+      "sources": [
+        "https://www.hotspawn.com/matches/onlywinbyff-vs-rich-gang-sweden-rivals-league-season-2-1074657",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074658",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-24T16:30:00Z",
+      "team0": "Team cd",
+      "team1": "Tung Sahur Mid",
+      "method": "provisional",
+      "p0": 0.5104,
+      "p1": 0.4896,
+      "pick": "Team cd",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-cd-vs-tung-sahur-mid-rivals-league-season-2-1074658",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074659",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-24T16:30:00Z",
+      "team0": "Team Lucidity Esports",
+      "team1": "Fritt Fall",
+      "method": "model",
+      "p0": 0.4292,
+      "p1": 0.5708,
+      "pick": "Fritt Fall",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-lucidity-esports-vs-fritt-fall-rivals-league-season-2-1074659",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1067688",
+      "competition": "Worlds 2026 Main Event",
+      "start_utc": "2026-10-24T17:00:00Z",
+      "team0": "Top Esports",
+      "team1": "Anyone's Legend",
+      "method": "market",
+      "p0": 0.4014,
+      "p1": 0.5986,
+      "pick": "Anyone's Legend",
+      "sources": [
+        "https://www.hotspawn.com/matches/top-esports-vs-anyone-s-legend-worlds-2026-main-event-1067688",
+        "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
+        "https://polymarket.com/event/lol-tes-al-2026-10-24",
+        "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241900altes",
+        "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609648.json?lang=en_GB&market=ZZ",
+        "https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075731",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-24T17:30:00Z",
+      "team0": "Whalepower Humpbacks",
+      "team1": "1. Esport Club Frankfurt e.V.",
+      "method": "model",
+      "p0": 0.482,
+      "p1": 0.518,
+      "pick": "1. Esport Club Frankfurt e.V.",
+      "sources": [
+        "https://www.hotspawn.com/matches/whalepower-humpbacks-vs-1-esport-club-frankfurt-e-v-prm-3rd-division-26-27-fall-1075731",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079141",
+      "competition": "Arabian League 2nd Division 2026 Summer",
+      "start_utc": "2026-10-24T18:00:00Z",
+      "team0": "JSK Academy",
+      "team1": "New Era Team",
+      "method": "model",
+      "p0": 0.5583,
+      "p1": 0.4417,
+      "pick": "JSK Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/jsk-academy-vs-new-era-team-arabian-league-2nd-division-2026-summer-1079141",
+        "https://lol.fandom.com/wiki/Arabian_League_2nd_Division/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079142",
+      "competition": "Arabian League 2nd Division 2026 Summer",
+      "start_utc": "2026-10-24T18:00:00Z",
+      "team0": "Void Walkers",
+      "team1": "Slam Dunk",
+      "method": "provisional",
+      "p0": 0.5219,
+      "p1": 0.4781,
+      "pick": "Void Walkers",
+      "sources": [
+        "https://www.hotspawn.com/matches/void-walkers-vs-slam-dunk-arabian-league-2nd-division-2026-summer-1079142",
+        "https://lol.fandom.com/wiki/Arabian_League_2nd_Division/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1067881",
+      "competition": "Worlds 2026 Main Event",
+      "start_utc": "2026-10-24T18:00:00Z",
+      "team0": "Movistar KOI",
+      "team1": "CTBC Flying Oyster",
+      "method": "market",
+      "p0": 0.6809,
+      "p1": 0.3191,
+      "pick": "Movistar KOI",
+      "sources": [
+        "https://www.hotspawn.com/matches/movistar-koi-vs-ctbc-flying-oyster-worlds-2026-main-event-1067881",
+        "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight",
+        "https://polymarket.com/event/lol-cfo-mkoi-2026-10-24",
+        "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241400mkoicfo",
+        "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/ctbc-flying-oyster-movistar-koi-202610241400",
+        "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609639.json?lang=en_GB&market=ZZ",
+        "https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1067686",
+      "competition": "Worlds 2026 Main Event",
+      "start_utc": "2026-10-24T19:00:00Z",
+      "team0": "G2 Esports",
+      "team1": "LØS",
+      "method": "market",
+      "p0": 0.7964,
+      "p1": 0.2036,
+      "pick": "G2 Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/g2-esports-vs-l-s-worlds-2026-main-event-1067686",
+        "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight",
+        "https://polymarket.com/event/lol-g2-los-2026-10-24",
+        "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241700losg2",
+        "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/g2-esports-los-grandes-202610241500",
+        "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609646.json?lang=en_GB&market=ZZ",
+        "https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082914",
+      "competition": "LigaGG CELOL A 2026 Split 2 Playoffs",
+      "start_utc": "2026-10-24T20:00:00Z",
+      "team0": "Clã NKZ VÓRAX",
+      "team1": "Neon eSports",
+      "method": "model",
+      "p0": 0.5104,
+      "p1": 0.4896,
+      "pick": "Clã NKZ VÓRAX",
+      "sources": [
+        "https://www.hotspawn.com/matches/cla-nkz-vorax-vs-neon-esports-ligagg-celol-a-2026-split-2-playoffs-1082914",
+        "https://lol.fandom.com/wiki/LigaGG/CELOL_Série_A/2026_Season/Split_2_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082915",
+      "competition": "LigaGG CELOL A 2026 Split 2 Playoffs",
+      "start_utc": "2026-10-24T20:00:00Z",
+      "team0": "LØS Academy",
+      "team1": "Marere E-Sports",
+      "method": "model",
+      "p0": 0.7465,
+      "p1": 0.2535,
+      "pick": "LØS Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/l-s-academy-vs-marere-e-sports-ligagg-celol-a-2026-split-2-playoffs-1082915",
+        "https://lol.fandom.com/wiki/LigaGG/CELOL_Série_A/2026_Season/Split_2_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1067684",
+      "competition": "Worlds 2026 Main Event",
+      "start_utc": "2026-10-24T20:00:00Z",
+      "team0": "LYON",
+      "team1": "Karmine Corp",
+      "method": "market",
+      "p0": 0.4524,
+      "p1": 0.5476,
+      "pick": "Karmine Corp",
+      "sources": [
+        "https://www.hotspawn.com/matches/lyon-vs-karmine-corp-worlds-2026-main-event-1067684",
+        "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight",
+        "https://polymarket.com/event/lol-ly-kc-2026-10-24",
+        "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly",
+        "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/lyon-gaming-karmine-corp-202610241600",
+        "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609641.json?lang=en_GB&market=ZZ",
+        "https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1067687",
+      "competition": "Worlds 2026 Main Event",
+      "start_utc": "2026-10-24T21:00:00Z",
+      "team0": "Invictus Gaming",
+      "team1": "Team Secret Whales",
+      "method": "market",
+      "p0": 0.6897,
+      "p1": 0.3103,
+      "pick": "Invictus Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/invictus-gaming-vs-team-secret-whales-worlds-2026-main-event-1067687",
+        "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight",
+        "https://polymarket.com/event/lol-ig1-tsw-2026-10-24",
+        "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241800tswig",
+        "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/invictus-gaming-team-secret-202610241700",
+        "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609647.json?lang=en_GB&market=ZZ",
+        "https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1067683",
+      "competition": "Worlds 2026 Main Event",
+      "start_utc": "2026-10-24T22:00:00Z",
+      "team0": "Hanwha Life Esports",
+      "team1": "Gen.G",
+      "method": "market",
+      "p0": 0.4195,
+      "p1": 0.5805,
+      "pick": "Gen.G",
+      "sources": [
+        "https://www.hotspawn.com/matches/hanwha-life-esports-vs-gen-g-worlds-2026-main-event-1067683",
+        "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight",
+        "https://polymarket.com/event/lol-hle1-gen-2026-10-24",
+        "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241500genhle",
+        "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-gen-g-202610241800",
+        "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609640.json?lang=en_GB&market=ZZ",
+        "https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1067880",
+      "competition": "Worlds 2026 Main Event",
+      "start_utc": "2026-10-24T23:00:00Z",
+      "team0": "Dplus KIA",
+      "team1": "T1",
+      "method": "market",
+      "p0": 0.4315,
+      "p1": 0.5685,
+      "pick": "T1",
+      "sources": [
+        "https://www.hotspawn.com/matches/dplus-kia-vs-t1-worlds-2026-main-event-1067880",
+        "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127310/markets/related/straight",
+        "https://polymarket.com/event/lol-dk-t1-2026-10-24",
+        "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241300t1dk",
+        "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/dplus-kia-t1-202610241900",
+        "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609638.json?lang=en_GB&market=ZZ",
+        "https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1067689",
+      "competition": "Worlds 2026 Main Event",
+      "start_utc": "2026-10-25T00:00:00Z",
+      "team0": "Bilibili Gaming",
+      "team1": "Team Liquid",
+      "method": "market",
+      "p0": 0.7337,
+      "p1": 0.2663,
+      "pick": "Bilibili Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/bilibili-gaming-vs-team-liquid-worlds-2026-main-event-1067689",
+        "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121259/markets/related/straight",
+        "https://polymarket.com/event/lol-tl2-blg-2026-10-24",
+        "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct242000blgtl",
+        "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-bilibili-gaming-202610242000",
+        "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609649.json?lang=en_GB&market=ZZ",
+        "https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081083",
+      "competition": "LigaGG CELOL B 2026 Split 2 Playoffs",
+      "start_utc": "2026-10-25T15:00:00Z",
+      "team0": "Docta Esports Club",
+      "team1": "Clã NKZ Revengers",
+      "method": "model",
+      "p0": 0.5379,
+      "p1": 0.4621,
+      "pick": "Docta Esports Club",
+      "sources": [
+        "https://www.hotspawn.com/matches/docta-esports-club-vs-cla-nkz-revengers-ligagg-celol-b-2026-split-2-playoffs-1081083",
+        "https://lol.fandom.com/wiki/LigaGG/CELOL_Série_B/2026_Season/Split_2_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081084",
+      "competition": "LigaGG CELOL B 2026 Split 2 Playoffs",
+      "start_utc": "2026-10-25T15:00:00Z",
+      "team0": "Maze GG",
+      "team1": "Viktus",
+      "method": "model",
+      "p0": 0.5542,
+      "p1": 0.4458,
+      "pick": "Maze GG",
+      "sources": [
+        "https://www.hotspawn.com/matches/maze-gg-vs-viktus-ligagg-celol-b-2026-split-2-playoffs-1081084",
+        "https://lol.fandom.com/wiki/LigaGG/CELOL_Série_B/2026_Season/Split_2_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079027",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-25T16:00:00Z",
+      "team0": "Babos Gaming",
+      "team1": "Hannover Esports e.V.",
+      "method": "model",
+      "p0": 0.6463,
+      "p1": 0.3537,
+      "pick": "Babos Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/babos-gaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1079027",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079028",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-25T16:00:00Z",
+      "team0": "Reveal Multigaming",
+      "team1": "AceGaming",
+      "method": "model",
+      "p0": 0.6465,
+      "p1": 0.3535,
+      "pick": "Reveal Multigaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/reveal-multigaming-vs-acegaming-prm-2nd-division-26-27-fall-1079028",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075747",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T16:00:00Z",
+      "team0": "AceGaming Hearts",
+      "team1": "Emperors Bremen",
+      "method": "provisional",
+      "p0": 0.4514,
+      "p1": 0.5486,
+      "pick": "Emperors Bremen",
+      "sources": [
+        "https://www.hotspawn.com/matches/acegaming-hearts-vs-emperors-bremen-prm-3rd-division-26-27-fall-1075747",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075748",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T16:00:00Z",
+      "team0": "AIX eSports",
+      "team1": "MT1 Vision",
+      "method": "model",
+      "p0": 0.556,
+      "p1": 0.444,
+      "pick": "AIX eSports",
+      "sources": [
+        "https://www.hotspawn.com/matches/aix-esports-vs-mt1-vision-prm-3rd-division-26-27-fall-1075748",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075752",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T16:00:00Z",
+      "team0": "Defiance eSports",
+      "team1": "REH Gaming",
+      "method": "provisional",
+      "p0": 0.558,
+      "p1": 0.442,
+      "pick": "Defiance eSports",
+      "sources": [
+        "https://www.hotspawn.com/matches/defiance-esports-vs-reh-gaming-prm-3rd-division-26-27-fall-1075752",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075753",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T16:00:00Z",
+      "team0": "Duplex Silva Pigeons Edition",
+      "team1": "Sissi State Punks",
+      "method": "model",
+      "p0": 0.4541,
+      "p1": 0.5459,
+      "pick": "Sissi State Punks",
+      "sources": [
+        "https://www.hotspawn.com/matches/duplex-silva-pigeons-edition-vs-sissi-state-punks-prm-3rd-division-26-27-fall-1075753",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075754",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T16:00:00Z",
+      "team0": "Eintracht Spandau Zwei",
+      "team1": "Team 300 White",
+      "method": "model",
+      "p0": 0.4359,
+      "p1": 0.5641,
+      "pick": "Team 300 White",
+      "sources": [
+        "https://www.hotspawn.com/matches/eintracht-spandau-zwei-vs-team-300-white-prm-3rd-division-26-27-fall-1075754",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075755",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T16:00:00Z",
+      "team0": "Neko Elite Kittens",
+      "team1": "spongecord prime",
+      "method": "model",
+      "p0": 0.4849,
+      "p1": 0.5151,
+      "pick": "spongecord prime",
+      "sources": [
+        "https://www.hotspawn.com/matches/neko-elite-kittens-vs-spongecord-prime-prm-3rd-division-26-27-fall-1075755",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075758",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T16:00:00Z",
+      "team0": "Rich Gang",
+      "team1": "LOOKSMAXXER",
+      "method": "model",
+      "p0": 0.7031,
+      "p1": 0.2969,
+      "pick": "Rich Gang",
+      "sources": [
+        "https://www.hotspawn.com/matches/rich-gang-vs-looksmaxxer-prm-3rd-division-26-27-fall-1075758",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075761",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T16:00:00Z",
+      "team0": "Whalepower Humpbacks",
+      "team1": "Socken und Sandalen",
+      "method": "provisional",
+      "p0": 0.4858,
+      "p1": 0.5142,
+      "pick": "Socken und Sandalen",
+      "sources": [
+        "https://www.hotspawn.com/matches/whalepower-humpbacks-vs-socken-und-sandalen-prm-3rd-division-26-27-fall-1075761",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075750",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T17:00:00Z",
+      "team0": "Black Lion",
+      "team1": "Glacial Guardians",
+      "method": "model",
+      "p0": 0.4947,
+      "p1": 0.5053,
+      "pick": "Glacial Guardians",
+      "sources": [
+        "https://www.hotspawn.com/matches/black-lion-vs-glacial-guardians-prm-3rd-division-26-27-fall-1075750",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075759",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T17:00:00Z",
+      "team0": "Second Time Alive Revival",
+      "team1": "Berlin 5",
+      "method": "model",
+      "p0": 0.4804,
+      "p1": 0.5196,
+      "pick": "Berlin 5",
+      "sources": [
+        "https://www.hotspawn.com/matches/second-time-alive-revival-vs-berlin-5-prm-3rd-division-26-27-fall-1075759",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080928",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-25T17:00:00Z",
+      "team0": "JSK Esports",
+      "team1": "Enfida Esports",
+      "method": "model",
+      "p0": 0.7504,
+      "p1": 0.2496,
+      "pick": "JSK Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/jsk-esports-vs-enfida-esports-tunisian-super-league-2026-1080928",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080929",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-25T17:00:00Z",
+      "team0": "Olympique Mnihla",
+      "team1": "Jendouba Esports",
+      "method": "provisional",
+      "p0": 0.593,
+      "p1": 0.407,
+      "pick": "Olympique Mnihla",
+      "sources": [
+        "https://www.hotspawn.com/matches/olympique-mnihla-vs-jendouba-esports-tunisian-super-league-2026-1080929",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080930",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-25T17:00:00Z",
+      "team0": "Olympique Mnihla Academy",
+      "team1": "El Menzah Esports",
+      "method": "provisional",
+      "p0": 0.5152,
+      "p1": 0.4848,
+      "pick": "Olympique Mnihla Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-el-menzah-esports-tunisian-super-league-2026-1080930",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080931",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-25T17:00:00Z",
+      "team0": "Simplicity Gaming",
+      "team1": "Supreme Leaders",
+      "method": "provisional",
+      "p0": 0.7373,
+      "p1": 0.2627,
+      "pick": "Simplicity Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/simplicity-gaming-vs-supreme-leaders-tunisian-super-league-2026-1080931",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080932",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-25T17:00:00Z",
+      "team0": "Zahrouni Esports",
+      "team1": "JSK Academy",
+      "method": "provisional",
+      "p0": 0.4219,
+      "p1": 0.5781,
+      "pick": "JSK Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/zahrouni-esports-vs-jsk-academy-tunisian-super-league-2026-1080932",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074660",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-25T17:30:00Z",
+      "team0": "2 Massive",
+      "team1": "Tung Sahur Mid",
+      "method": "provisional",
+      "p0": 0.5276,
+      "p1": 0.4724,
+      "pick": "2 Massive",
+      "sources": [
+        "https://www.hotspawn.com/matches/2-massive-vs-tung-sahur-mid-rivals-league-season-2-1074660",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074664",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-25T17:30:00Z",
+      "team0": "OnlyWinByFF",
+      "team1": "Mazepa",
+      "method": "model",
+      "p0": 0.4437,
+      "p1": 0.5563,
+      "pick": "Mazepa",
+      "sources": [
+        "https://www.hotspawn.com/matches/onlywinbyff-vs-mazepa-rivals-league-season-2-1074664",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074666",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-25T17:30:00Z",
+      "team0": "Team Lucidity Esports",
+      "team1": "Team cd",
+      "method": "model",
+      "p0": 0.3988,
+      "p1": 0.6012,
+      "pick": "Team cd",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-lucidity-esports-vs-team-cd-rivals-league-season-2-1074666",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075751",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-25T18:00:00Z",
+      "team0": "BlackDivision",
+      "team1": "Kanji Esports KIN",
+      "method": "provisional",
+      "p0": 0.4589,
+      "p1": 0.5411,
+      "pick": "Kanji Esports KIN",
+      "sources": [
+        "https://www.hotspawn.com/matches/blackdivision-vs-kanji-esports-kin-prm-3rd-division-26-27-fall-1075751",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079029",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-25T18:30:00Z",
+      "team0": "404 Multigaming e.V.",
+      "team1": "VfB eSports",
+      "method": "model",
+      "p0": 0.5945,
+      "p1": 0.4055,
+      "pick": "404 Multigaming e.V.",
+      "sources": [
+        "https://www.hotspawn.com/matches/404-multigaming-e-v-vs-vfb-esports-prm-2nd-division-26-27-fall-1079029",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079030",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-25T18:30:00Z",
+      "team0": "Locked IN",
+      "team1": "DKB XPERION NXT",
+      "method": "model",
+      "p0": 0.3633,
+      "p1": 0.6367,
+      "pick": "DKB XPERION NXT",
+      "sources": [
+        "https://www.hotspawn.com/matches/locked-in-vs-dkb-xperion-nxt-prm-2nd-division-26-27-fall-1079030",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1074663",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-25T18:30:00Z",
+      "team0": "Lundqvist Darkside",
+      "team1": "B2U",
+      "method": "model",
+      "p0": 0.275,
+      "p1": 0.725,
+      "pick": "B2U",
+      "sources": [
+        "https://www.hotspawn.com/matches/lundqvist-darkside-vs-b2u-rivals-league-season-2-1074663",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082938",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-26T18:00:00Z",
+      "team0": "Mazepa",
+      "team1": "B2U",
+      "method": "model",
+      "p0": 0.2028,
+      "p1": 0.7972,
+      "pick": "B2U",
+      "sources": [
+        "https://www.hotspawn.com/matches/mazepa-vs-b2u-rivals-league-season-2-1082938",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081700",
+      "competition": "4 Nations 2026 Halloween Heist",
+      "start_utc": "2026-10-26T19:00:00Z",
+      "team0": "Inari Esports",
+      "team1": "Bulldog Esports",
+      "method": "model",
+      "p0": 0.5401,
+      "p1": 0.4599,
+      "pick": "Inari Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/inari-esports-vs-bulldog-esports-4-nations-2026-halloween-heist-1081700",
+        "https://lol.fandom.com/wiki/4_Nations/2026_Season/Halloween_Heist"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081831",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-26T19:00:00Z",
+      "team0": "Lund Esports Organization OGs",
+      "team1": "Tung Sahur Mid",
+      "method": "provisional",
+      "p0": 0.504,
+      "p1": 0.496,
+      "pick": "Lund Esports Organization OGs",
+      "sources": [
+        "https://www.hotspawn.com/matches/lund-esports-organization-ogs-vs-tung-sahur-mid-rivals-league-season-2-1081831",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075756",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-27T16:30:00Z",
+      "team0": "Packmiko E-Sports DACH",
+      "team1": "Atruvia Münster Esports",
+      "method": "model",
+      "p0": 0.4542,
+      "p1": 0.5458,
+      "pick": "Atruvia Münster Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/packmiko-e-sports-dach-vs-atruvia-munster-esports-prm-3rd-division-26-27-fall-1075756",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079080",
+      "competition": "LGC Rising 2026 Playoffs",
+      "start_utc": "2026-10-27T17:00:00Z",
+      "team0": "Mental Rush",
+      "team1": "Vitality Rising Bees",
+      "method": "market",
+      "p0": 0.39,
+      "p1": 0.61,
+      "pick": "Vitality Rising Bees",
+      "sources": [
+        "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080",
+        "https://polymarket.com/event/lol-rb-mr-2026-10-27",
+        "https://lol.fandom.com/wiki/LoL_Game_Changers/2026_Season/Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079031",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-27T17:00:00Z",
+      "team0": "DKB XPERION NXT",
+      "team1": "Phong Vũ Buffalo",
+      "method": "model",
+      "p0": 0.5665,
+      "p1": 0.4335,
+      "pick": "DKB XPERION NXT",
+      "sources": [
+        "https://www.hotspawn.com/matches/dkb-xperion-nxt-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079031",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079032",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-27T17:00:00Z",
+      "team0": "No Need Orga",
+      "team1": "AceGaming",
+      "method": "model",
+      "p0": 0.6536,
+      "p1": 0.3464,
+      "pick": "No Need Orga",
+      "sources": [
+        "https://www.hotspawn.com/matches/no-need-orga-vs-acegaming-prm-2nd-division-26-27-fall-1079032",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1083162",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-27T18:00:00Z",
+      "team0": "Karolinerna",
+      "team1": "Turbo Gaming",
+      "method": "model",
+      "p0": 0.4556,
+      "p1": 0.5444,
+      "pick": "Turbo Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/karolinerna-vs-turbo-gaming-rivals-league-season-2-1083162",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079033",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-27T19:30:00Z",
+      "team0": "Hannover Esports e.V.",
+      "team1": "No Need Orga",
+      "method": "model",
+      "p0": 0.4492,
+      "p1": 0.5508,
+      "pick": "No Need Orga",
+      "sources": [
+        "https://www.hotspawn.com/matches/hannover-esports-e-v-vs-no-need-orga-prm-2nd-division-26-27-fall-1079033",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079034",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-27T19:30:00Z",
+      "team0": "VfB eSports",
+      "team1": "regnum4games",
+      "method": "model",
+      "p0": 0.4641,
+      "p1": 0.5359,
+      "pick": "regnum4games",
+      "sources": [
+        "https://www.hotspawn.com/matches/vfb-esports-vs-regnum4games-prm-2nd-division-26-27-fall-1079034",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1083035",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-28T17:00:00Z",
+      "team0": "FlameHard",
+      "team1": "B2U",
+      "method": "model",
+      "p0": 0.4662,
+      "p1": 0.5338,
+      "pick": "B2U",
+      "sources": [
+        "https://www.hotspawn.com/matches/flamehard-vs-b2u-rivals-league-season-2-1083035",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082615",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-28T17:30:00Z",
+      "team0": "DMG Esports Sweden",
+      "team1": "Northern Wolves Esports",
+      "method": "model",
+      "p0": 0.4895,
+      "p1": 0.5105,
+      "pick": "Northern Wolves Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/dmg-esports-sweden-vs-northern-wolves-esports-rivals-league-season-2-1082615",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082616",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-10-28T18:00:00Z",
+      "team0": "Lundqvist Darkside",
+      "team1": "Mazepa",
+      "method": "model",
+      "p0": 0.5986,
+      "p1": 0.4014,
+      "pick": "Lundqvist Darkside",
+      "sources": [
+        "https://www.hotspawn.com/matches/lundqvist-darkside-vs-mazepa-rivals-league-season-2-1082616",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075734",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-28T18:15:00Z",
+      "team0": "Atruvia Münster Esports",
+      "team1": "Defiance eSports",
+      "method": "model",
+      "p0": 0.4348,
+      "p1": 0.5652,
+      "pick": "Defiance eSports",
+      "sources": [
+        "https://www.hotspawn.com/matches/atruvia-munster-esports-vs-defiance-esports-prm-3rd-division-26-27-fall-1075734",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079144",
+      "competition": "Arabian League 2nd Division 2026 Summer",
+      "start_utc": "2026-10-28T19:00:00Z",
+      "team0": "Slam Dunk",
+      "team1": "New Era Team",
+      "method": "provisional",
+      "p0": 0.5246,
+      "p1": 0.4754,
+      "pick": "Slam Dunk",
+      "sources": [
+        "https://www.hotspawn.com/matches/slam-dunk-vs-new-era-team-arabian-league-2nd-division-2026-summer-1079144",
+        "https://lol.fandom.com/wiki/Arabian_League_2nd_Division/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075749",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-29T18:00:00Z",
+      "team0": "Babos Gaming Academy",
+      "team1": "VfB x Engines Stuttgart",
+      "method": "model",
+      "p0": 0.4965,
+      "p1": 0.5035,
+      "pick": "VfB x Engines Stuttgart",
+      "sources": [
+        "https://www.hotspawn.com/matches/babos-gaming-academy-vs-vfb-x-engines-stuttgart-prm-3rd-division-26-27-fall-1075749",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075737",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-10-29T18:15:00Z",
+      "team0": "Purple Emperor Lizards - Atomic",
+      "team1": "Cloud eSport",
+      "method": "model",
+      "p0": 0.4414,
+      "p1": 0.5586,
+      "pick": "Cloud eSport",
+      "sources": [
+        "https://www.hotspawn.com/matches/purple-emperor-lizards-atomic-vs-cloud-esport-prm-3rd-division-26-27-fall-1075737",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081701",
+      "competition": "4 Nations 2026 Halloween Heist",
+      "start_utc": "2026-10-29T19:00:00Z",
+      "team0": "Crownless",
+      "team1": "Absolved",
+      "method": "model",
+      "p0": 0.3035,
+      "p1": 0.6965,
+      "pick": "Absolved",
+      "sources": [
+        "https://www.hotspawn.com/matches/crownless-vs-absolved-4-nations-2026-halloween-heist-1081701",
+        "https://lol.fandom.com/wiki/4_Nations/2026_Season/Halloween_Heist"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079145",
+      "competition": "Arabian League 2nd Division 2026 Summer",
+      "start_utc": "2026-10-29T19:00:00Z",
+      "team0": "Pegasus Esports",
+      "team1": "JSK Academy",
+      "method": "model",
+      "p0": 0.4575,
+      "p1": 0.5425,
+      "pick": "JSK Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/pegasus-esports-vs-jsk-academy-arabian-league-2nd-division-2026-summer-1079145",
+        "https://lol.fandom.com/wiki/Arabian_League_2nd_Division/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1083039",
+      "competition": "Komplettligaen 2026 Autumn Playoffs",
+      "start_utc": "2026-10-30T17:00:00Z",
+      "team0": "Playwell Rød Q",
+      "team1": "Your Saviours",
+      "method": "model",
+      "p0": 0.5803,
+      "p1": 0.4197,
+      "pick": "Playwell Rød Q",
+      "sources": [
+        "https://www.hotspawn.com/matches/playwell-r-d-q-vs-your-saviours-komplettligaen-2026-autumn-playoffs-1083039",
+        "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1083040",
+      "competition": "Komplettligaen 2026 Autumn Playoffs",
+      "start_utc": "2026-10-30T17:00:00Z",
+      "team0": "VES Japan",
+      "team1": "Rich Gang",
+      "method": "model",
+      "p0": 0.5114,
+      "p1": 0.4886,
+      "pick": "VES Japan",
+      "sources": [
+        "https://www.hotspawn.com/matches/ves-japan-vs-rich-gang-komplettligaen-2026-autumn-playoffs-1083040",
+        "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1083041",
+      "competition": "Komplettligaen 2026 Autumn Playoffs",
+      "start_utc": "2026-10-30T17:00:00Z",
+      "team0": "Volda E-Sport",
+      "team1": "Ascent Gaming",
+      "method": "model",
+      "p0": 0.4888,
+      "p1": 0.5112,
+      "pick": "Ascent Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/volda-e-sport-vs-ascent-gaming-komplettligaen-2026-autumn-playoffs-1083041",
+        "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Playoffs"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079036",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-30T17:00:00Z",
+      "team0": "Reveal Multigaming",
+      "team1": "Team 300",
+      "method": "model",
+      "p0": 0.5392,
+      "p1": 0.4608,
+      "pick": "Reveal Multigaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/reveal-multigaming-vs-team-300-prm-2nd-division-26-27-fall-1079036",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079851",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-30T17:00:00Z",
+      "team0": "AceGaming",
+      "team1": "reGOLD eSport",
+      "method": "model",
+      "p0": 0.4221,
+      "p1": 0.5779,
+      "pick": "reGOLD eSport",
+      "sources": [
+        "https://www.hotspawn.com/matches/acegaming-vs-regold-esport-prm-2nd-division-26-27-fall-1079851",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079147",
+      "competition": "Arabian League 2nd Division 2026 Summer",
+      "start_utc": "2026-10-30T19:00:00Z",
+      "team0": "Team Reds",
+      "team1": "NextGeneration Esports",
+      "method": "model",
+      "p0": 0.5292,
+      "p1": 0.4708,
+      "pick": "Team Reds",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-reds-vs-nextgeneration-esports-arabian-league-2nd-division-2026-summer-1079147",
+        "https://lol.fandom.com/wiki/Arabian_League_2nd_Division/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079037",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-30T19:30:00Z",
+      "team0": "DKB XPERION NXT",
+      "team1": "regnum4games",
+      "method": "model",
+      "p0": 0.5771,
+      "p1": 0.4229,
+      "pick": "DKB XPERION NXT",
+      "sources": [
+        "https://www.hotspawn.com/matches/dkb-xperion-nxt-vs-regnum4games-prm-2nd-division-26-27-fall-1079037",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079038",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-10-30T19:30:00Z",
+      "team0": "VfB eSports",
+      "team1": "Phong Vũ Buffalo",
+      "method": "model",
+      "p0": 0.4534,
+      "p1": 0.5466,
+      "pick": "Phong Vũ Buffalo",
+      "sources": [
+        "https://www.hotspawn.com/matches/vfb-esports-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079038",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080933",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-31T17:00:00Z",
+      "team0": "JSK Academy",
+      "team1": "Supreme Leaders",
+      "method": "provisional",
+      "p0": 0.5533,
+      "p1": 0.4467,
+      "pick": "JSK Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/jsk-academy-vs-supreme-leaders-tunisian-super-league-2026-1080933",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080934",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-31T17:00:00Z",
+      "team0": "JSK Esports",
+      "team1": "Olympique Mnihla",
+      "method": "model",
+      "p0": 0.6399,
+      "p1": 0.3601,
+      "pick": "JSK Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/jsk-esports-vs-olympique-mnihla-tunisian-super-league-2026-1080934",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080935",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-31T17:00:00Z",
+      "team0": "Olympique Mnihla Academy",
+      "team1": "Enfida Esports",
+      "method": "provisional",
+      "p0": 0.5559,
+      "p1": 0.4441,
+      "pick": "Olympique Mnihla Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-enfida-esports-tunisian-super-league-2026-1080935",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080936",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-31T17:00:00Z",
+      "team0": "Simplicity Gaming",
+      "team1": "Jendouba Esports",
+      "method": "provisional",
+      "p0": 0.7497,
+      "p1": 0.2503,
+      "pick": "Simplicity Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/simplicity-gaming-vs-jendouba-esports-tunisian-super-league-2026-1080936",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080937",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-10-31T17:00:00Z",
+      "team0": "Zahrouni Esports",
+      "team1": "El Menzah Esports",
+      "method": "provisional",
+      "p0": 0.4875,
+      "p1": 0.5125,
+      "pick": "El Menzah Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/zahrouni-esports-vs-el-menzah-esports-tunisian-super-league-2026-1080937",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082107",
+      "competition": "Arabian League 2nd Division 2026 Summer",
+      "start_utc": "2026-10-31T19:00:00Z",
+      "team0": "Void Walkers",
+      "team1": "Team VDS",
+      "method": "model",
+      "p0": 0.444,
+      "p1": 0.556,
+      "pick": "Team VDS",
+      "sources": [
+        "https://www.hotspawn.com/matches/void-walkers-vs-team-vds-arabian-league-2nd-division-2026-summer-1082107",
+        "https://lol.fandom.com/wiki/Arabian_League_2nd_Division/2026_Season/Summer_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079039",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Babos Gaming",
+      "team1": "No Need Orga",
+      "method": "model",
+      "p0": 0.5984,
+      "p1": 0.4016,
+      "pick": "Babos Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/babos-gaming-vs-no-need-orga-prm-2nd-division-26-27-fall-1079039",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079040",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Team 300",
+      "team1": "Hannover Esports e.V.",
+      "method": "model",
+      "p0": 0.5039,
+      "p1": 0.4961,
+      "pick": "Team 300",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-300-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1079040",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075762",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "1. Esport Club Frankfurt e.V.",
+      "team1": "Rich Gang",
+      "method": "model",
+      "p0": 0.2232,
+      "p1": 0.7768,
+      "pick": "Rich Gang",
+      "sources": [
+        "https://www.hotspawn.com/matches/1-esport-club-frankfurt-e-v-vs-rich-gang-prm-3rd-division-26-27-fall-1075762",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075763",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Berlin 5",
+      "team1": "Sissi State Punks",
+      "method": "model",
+      "p0": 0.5823,
+      "p1": 0.4177,
+      "pick": "Berlin 5",
+      "sources": [
+        "https://www.hotspawn.com/matches/berlin-5-vs-sissi-state-punks-prm-3rd-division-26-27-fall-1075763",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075764",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Black Lion",
+      "team1": "BlackDivision",
+      "method": "provisional",
+      "p0": 0.4991,
+      "p1": 0.5009,
+      "pick": "BlackDivision",
+      "sources": [
+        "https://www.hotspawn.com/matches/black-lion-vs-blackdivision-prm-3rd-division-26-27-fall-1075764",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075765",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Cloud eSport",
+      "team1": "Defiance eSports",
+      "method": "model",
+      "p0": 0.5197,
+      "p1": 0.4803,
+      "pick": "Cloud eSport",
+      "sources": [
+        "https://www.hotspawn.com/matches/cloud-esport-vs-defiance-esports-prm-3rd-division-26-27-fall-1075765",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075766",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Eintracht Spandau Zwei",
+      "team1": "TeamOrangeGaming Academy",
+      "method": "model",
+      "p0": 0.4464,
+      "p1": 0.5536,
+      "pick": "TeamOrangeGaming Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/eintracht-spandau-zwei-vs-teamorangegaming-academy-prm-3rd-division-26-27-fall-1075766",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075767",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Emperors Bremen",
+      "team1": "Neko Elite Kittens",
+      "method": "provisional",
+      "p0": 0.4374,
+      "p1": 0.5626,
+      "pick": "Neko Elite Kittens",
+      "sources": [
+        "https://www.hotspawn.com/matches/emperors-bremen-vs-neko-elite-kittens-prm-3rd-division-26-27-fall-1075767",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075768",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Glacial Guardians",
+      "team1": "MT1 Vision",
+      "method": "model",
+      "p0": 0.5888,
+      "p1": 0.4112,
+      "pick": "Glacial Guardians",
+      "sources": [
+        "https://www.hotspawn.com/matches/glacial-guardians-vs-mt1-vision-prm-3rd-division-26-27-fall-1075768",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075769",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "REH Gaming",
+      "team1": "Kanji Esports AKA",
+      "method": "provisional",
+      "p0": 0.4492,
+      "p1": 0.5508,
+      "pick": "Kanji Esports AKA",
+      "sources": [
+        "https://www.hotspawn.com/matches/reh-gaming-vs-kanji-esports-aka-prm-3rd-division-26-27-fall-1075769",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075770",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Kanji Esports KIN",
+      "team1": "Babos Gaming Academy",
+      "method": "model",
+      "p0": 0.5243,
+      "p1": 0.4757,
+      "pick": "Kanji Esports KIN",
+      "sources": [
+        "https://www.hotspawn.com/matches/kanji-esports-kin-vs-babos-gaming-academy-prm-3rd-division-26-27-fall-1075770",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075771",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "LOOKSMAXXER",
+      "team1": "Whalepower Humpbacks",
+      "method": "model",
+      "p0": 0.6122,
+      "p1": 0.3878,
+      "pick": "LOOKSMAXXER",
+      "sources": [
+        "https://www.hotspawn.com/matches/looksmaxxer-vs-whalepower-humpbacks-prm-3rd-division-26-27-fall-1075771",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075772",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Purple Emperor Lizards - Atomic",
+      "team1": "Packmiko E-Sports DACH",
+      "method": "model",
+      "p0": 0.5719,
+      "p1": 0.4281,
+      "pick": "Purple Emperor Lizards - Atomic",
+      "sources": [
+        "https://www.hotspawn.com/matches/purple-emperor-lizards-atomic-vs-packmiko-e-sports-dach-prm-3rd-division-26-27-fall-1075772",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075773",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Second Time Alive Revival",
+      "team1": "AceGaming Hearts",
+      "method": "model",
+      "p0": 0.5513,
+      "p1": 0.4487,
+      "pick": "Second Time Alive Revival",
+      "sources": [
+        "https://www.hotspawn.com/matches/second-time-alive-revival-vs-acegaming-hearts-prm-3rd-division-26-27-fall-1075773",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075774",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "spongecord prime",
+      "team1": "Duplex Silva Pigeons Edition",
+      "method": "model",
+      "p0": 0.6768,
+      "p1": 0.3232,
+      "pick": "spongecord prime",
+      "sources": [
+        "https://www.hotspawn.com/matches/spongecord-prime-vs-duplex-silva-pigeons-edition-prm-3rd-division-26-27-fall-1075774",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075775",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "Team 300 White",
+      "team1": "Socken und Sandalen",
+      "method": "provisional",
+      "p0": 0.4981,
+      "p1": 0.5019,
+      "pick": "Socken und Sandalen",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-300-white-vs-socken-und-sandalen-prm-3rd-division-26-27-fall-1075775",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075776",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-01T16:00:00Z",
+      "team0": "VfB x Engines Stuttgart",
+      "team1": "AIX eSports",
+      "method": "model",
+      "p0": 0.5492,
+      "p1": 0.4508,
+      "pick": "VfB x Engines Stuttgart",
+      "sources": [
+        "https://www.hotspawn.com/matches/vfb-x-engines-stuttgart-vs-aix-esports-prm-3rd-division-26-27-fall-1075776",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082748",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-11-01T17:00:00Z",
+      "team0": "DMG Esports Sweden",
+      "team1": "FlameHard",
+      "method": "model",
+      "p0": 0.2461,
+      "p1": 0.7539,
+      "pick": "FlameHard",
+      "sources": [
+        "https://www.hotspawn.com/matches/dmg-esports-sweden-vs-flamehard-rivals-league-season-2-1082748",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080938",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-11-01T17:00:00Z",
+      "team0": "El Menzah Esports",
+      "team1": "Enfida Esports",
+      "method": "provisional",
+      "p0": 0.5408,
+      "p1": 0.4592,
+      "pick": "El Menzah Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/el-menzah-esports-vs-enfida-esports-tunisian-super-league-2026-1080938",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080939",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-11-01T17:00:00Z",
+      "team0": "JSK Academy",
+      "team1": "Jendouba Esports",
+      "method": "provisional",
+      "p0": 0.5693,
+      "p1": 0.4307,
+      "pick": "JSK Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/jsk-academy-vs-jendouba-esports-tunisian-super-league-2026-1080939",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080940",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-11-01T17:00:00Z",
+      "team0": "Olympique Mnihla Academy",
+      "team1": "Olympique Mnihla",
+      "method": "provisional",
+      "p0": 0.4253,
+      "p1": 0.5747,
+      "pick": "Olympique Mnihla",
+      "sources": [
+        "https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-olympique-mnihla-tunisian-super-league-2026-1080940",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080941",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-11-01T17:00:00Z",
+      "team0": "Simplicity Gaming",
+      "team1": "JSK Esports",
+      "method": "model",
+      "p0": 0.5363,
+      "p1": 0.4637,
+      "pick": "Simplicity Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/simplicity-gaming-vs-jsk-esports-tunisian-super-league-2026-1080941",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080942",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-11-01T17:00:00Z",
+      "team0": "Zahrouni Esports",
+      "team1": "Supreme Leaders",
+      "method": "provisional",
+      "p0": 0.4748,
+      "p1": 0.5252,
+      "pick": "Supreme Leaders",
+      "sources": [
+        "https://www.hotspawn.com/matches/zahrouni-esports-vs-supreme-leaders-tunisian-super-league-2026-1080942",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1083036",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-11-01T18:00:00Z",
+      "team0": "Karolinerna",
+      "team1": "Lund Esports Organization OGs",
+      "method": "provisional",
+      "p0": 0.4528,
+      "p1": 0.5472,
+      "pick": "Lund Esports Organization OGs",
+      "sources": [
+        "https://www.hotspawn.com/matches/karolinerna-vs-lund-esports-organization-ogs-rivals-league-season-2-1083036",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1083037",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-11-01T18:00:00Z",
+      "team0": "Rich Gang Sweden",
+      "team1": "Northern Wolves Esports",
+      "method": "model",
+      "p0": 0.4839,
+      "p1": 0.5161,
+      "pick": "Northern Wolves Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/rich-gang-sweden-vs-northern-wolves-esports-rivals-league-season-2-1083037",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079041",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-01T18:30:00Z",
+      "team0": "MT1 Esports",
+      "team1": "Locked IN",
+      "method": "model",
+      "p0": 0.576,
+      "p1": 0.424,
+      "pick": "MT1 Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/mt1-esports-vs-locked-in-prm-2nd-division-26-27-fall-1079041",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079042",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-01T18:30:00Z",
+      "team0": "The Bandits Prime",
+      "team1": "404 Multigaming e.V.",
+      "method": "model",
+      "p0": 0.3984,
+      "p1": 0.6016,
+      "pick": "404 Multigaming e.V.",
+      "sources": [
+        "https://www.hotspawn.com/matches/the-bandits-prime-vs-404-multigaming-e-v-prm-2nd-division-26-27-fall-1079042",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081702",
+      "competition": "4 Nations 2026 Halloween Heist",
+      "start_utc": "2026-11-02T19:00:00Z",
+      "team0": "Ruddy Ultras",
+      "team1": "Rich Gang UK",
+      "method": "model",
+      "p0": 0.4338,
+      "p1": 0.5662,
+      "pick": "Rich Gang UK",
+      "sources": [
+        "https://www.hotspawn.com/matches/ruddy-ultras-vs-rich-gang-uk-4-nations-2026-halloween-heist-1081702",
+        "https://lol.fandom.com/wiki/4_Nations/2026_Season/Halloween_Heist"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079043",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-03T17:00:00Z",
+      "team0": "BvP",
+      "team1": "No Need Orga",
+      "method": "provisional",
+      "p0": 0.3863,
+      "p1": 0.6137,
+      "pick": "No Need Orga",
+      "sources": [
+        "https://www.hotspawn.com/matches/bvp-vs-no-need-orga-prm-2nd-division-26-27-fall-1079043",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082746",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-03T17:00:00Z",
+      "team0": "Phong Vũ Buffalo",
+      "team1": "404 Multigaming e.V.",
+      "method": "model",
+      "p0": 0.4512,
+      "p1": 0.5488,
+      "pick": "404 Multigaming e.V.",
+      "sources": [
+        "https://www.hotspawn.com/matches/phong-vu-buffalo-vs-404-multigaming-e-v-prm-2nd-division-26-27-fall-1082746",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1083038",
+      "competition": "RIVALS LEAGUE Season 2",
+      "start_utc": "2026-11-03T18:00:00Z",
+      "team0": "2 Massive",
+      "team1": "Lund Esports Organization OGs",
+      "method": "provisional",
+      "p0": 0.5236,
+      "p1": 0.4764,
+      "pick": "2 Massive",
+      "sources": [
+        "https://www.hotspawn.com/matches/2-massive-vs-lund-esports-organization-ogs-rivals-league-season-2-1083038",
+        "https://lol.fandom.com/wiki/RIVALS_LEAGUE/2026_Season/Season_2"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079045",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-03T19:30:00Z",
+      "team0": "MT1 Esports",
+      "team1": "DKB XPERION NXT",
+      "method": "model",
+      "p0": 0.4366,
+      "p1": 0.5634,
+      "pick": "DKB XPERION NXT",
+      "sources": [
+        "https://www.hotspawn.com/matches/mt1-esports-vs-dkb-xperion-nxt-prm-2nd-division-26-27-fall-1079045",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079046",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-03T19:30:00Z",
+      "team0": "regnum4games",
+      "team1": "The Bandits Prime",
+      "method": "model",
+      "p0": 0.5432,
+      "p1": 0.4568,
+      "pick": "regnum4games",
+      "sources": [
+        "https://www.hotspawn.com/matches/regnum4games-vs-the-bandits-prime-prm-2nd-division-26-27-fall-1079046",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081703",
+      "competition": "4 Nations 2026 Halloween Heist",
+      "start_utc": "2026-11-05T19:00:00Z",
+      "team0": "Brod n Friends",
+      "team1": "PNS",
+      "method": "model",
+      "p0": 0.6472,
+      "p1": 0.3528,
+      "pick": "Brod n Friends",
+      "sources": [
+        "https://www.hotspawn.com/matches/brod-n-friends-vs-pns-4-nations-2026-halloween-heist-1081703",
+        "https://lol.fandom.com/wiki/4_Nations/2026_Season/Halloween_Heist"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079047",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-06T17:00:00Z",
+      "team0": "404 Multigaming e.V.",
+      "team1": "DKB XPERION NXT",
+      "method": "model",
+      "p0": 0.482,
+      "p1": 0.518,
+      "pick": "DKB XPERION NXT",
+      "sources": [
+        "https://www.hotspawn.com/matches/404-multigaming-e-v-vs-dkb-xperion-nxt-prm-2nd-division-26-27-fall-1079047",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079048",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-06T17:00:00Z",
+      "team0": "Locked IN",
+      "team1": "VfB eSports",
+      "method": "model",
+      "p0": 0.4734,
+      "p1": 0.5266,
+      "pick": "VfB eSports",
+      "sources": [
+        "https://www.hotspawn.com/matches/locked-in-vs-vfb-esports-prm-2nd-division-26-27-fall-1079048",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079049",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-06T19:30:00Z",
+      "team0": "BvP",
+      "team1": "Babos Gaming",
+      "method": "provisional",
+      "p0": 0.297,
+      "p1": 0.703,
+      "pick": "Babos Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/bvp-vs-babos-gaming-prm-2nd-division-26-27-fall-1079049",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079050",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-06T19:30:00Z",
+      "team0": "Team 300",
+      "team1": "AceGaming",
+      "method": "model",
+      "p0": 0.6099,
+      "p1": 0.3901,
+      "pick": "Team 300",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-300-vs-acegaming-prm-2nd-division-26-27-fall-1079050",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080943",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-11-07T17:00:00Z",
+      "team0": "El Menzah Esports",
+      "team1": "Olympique Mnihla",
+      "method": "provisional",
+      "p0": 0.4105,
+      "p1": 0.5895,
+      "pick": "Olympique Mnihla",
+      "sources": [
+        "https://www.hotspawn.com/matches/el-menzah-esports-vs-olympique-mnihla-tunisian-super-league-2026-1080943",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080944",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-11-07T17:00:00Z",
+      "team0": "JSK Academy",
+      "team1": "JSK Esports",
+      "method": "model",
+      "p0": 0.338,
+      "p1": 0.662,
+      "pick": "JSK Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/jsk-academy-vs-jsk-esports-tunisian-super-league-2026-1080944",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080945",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-11-07T17:00:00Z",
+      "team0": "Olympique Mnihla Academy",
+      "team1": "Simplicity Gaming",
+      "method": "provisional",
+      "p0": 0.2647,
+      "p1": 0.7353,
+      "pick": "Simplicity Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-simplicity-gaming-tunisian-super-league-2026-1080945",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080946",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-11-07T17:00:00Z",
+      "team0": "Supreme Leaders",
+      "team1": "Jendouba Esports",
+      "method": "provisional",
+      "p0": 0.5163,
+      "p1": 0.4837,
+      "pick": "Supreme Leaders",
+      "sources": [
+        "https://www.hotspawn.com/matches/supreme-leaders-vs-jendouba-esports-tunisian-super-league-2026-1080946",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1080947",
+      "competition": "Tunisian Super League 2026",
+      "start_utc": "2026-11-07T17:00:00Z",
+      "team0": "Zahrouni Esports",
+      "team1": "Enfida Esports",
+      "method": "provisional",
+      "p0": 0.5283,
+      "p1": 0.4717,
+      "pick": "Zahrouni Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/zahrouni-esports-vs-enfida-esports-tunisian-super-league-2026-1080947",
+        "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079051",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "AceGaming",
+      "team1": "BvP",
+      "method": "provisional",
+      "p0": 0.4571,
+      "p1": 0.5429,
+      "pick": "BvP",
+      "sources": [
+        "https://www.hotspawn.com/matches/acegaming-vs-bvp-prm-2nd-division-26-27-fall-1079051",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079852",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "reGOLD eSport",
+      "team1": "Babos Gaming",
+      "method": "model",
+      "p0": 0.3275,
+      "p1": 0.6725,
+      "pick": "Babos Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/regold-esport-vs-babos-gaming-prm-2nd-division-26-27-fall-1079852",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075777",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "AIX eSports",
+      "team1": "BlackDivision",
+      "method": "provisional",
+      "p0": 0.471,
+      "p1": 0.529,
+      "pick": "BlackDivision",
+      "sources": [
+        "https://www.hotspawn.com/matches/aix-esports-vs-blackdivision-prm-3rd-division-26-27-fall-1075777",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075778",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "Babos Gaming Academy",
+      "team1": "Glacial Guardians",
+      "method": "model",
+      "p0": 0.5124,
+      "p1": 0.4876,
+      "pick": "Babos Gaming Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/babos-gaming-academy-vs-glacial-guardians-prm-3rd-division-26-27-fall-1075778",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075779",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "Defiance eSports",
+      "team1": "Kanji Esports AKA",
+      "method": "model",
+      "p0": 0.5073,
+      "p1": 0.4927,
+      "pick": "Defiance eSports",
+      "sources": [
+        "https://www.hotspawn.com/matches/defiance-esports-vs-kanji-esports-aka-prm-3rd-division-26-27-fall-1075779",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075780",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "Duplex Silva Pigeons Edition",
+      "team1": "AceGaming Hearts",
+      "method": "model",
+      "p0": 0.4423,
+      "p1": 0.5577,
+      "pick": "AceGaming Hearts",
+      "sources": [
+        "https://www.hotspawn.com/matches/duplex-silva-pigeons-edition-vs-acegaming-hearts-prm-3rd-division-26-27-fall-1075780",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075781",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "LOOKSMAXXER",
+      "team1": "1. Esport Club Frankfurt e.V.",
+      "method": "model",
+      "p0": 0.595,
+      "p1": 0.405,
+      "pick": "LOOKSMAXXER",
+      "sources": [
+        "https://www.hotspawn.com/matches/looksmaxxer-vs-1-esport-club-frankfurt-e-v-prm-3rd-division-26-27-fall-1075781",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075782",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "MT1 Vision",
+      "team1": "Black Lion",
+      "method": "model",
+      "p0": 0.4163,
+      "p1": 0.5837,
+      "pick": "Black Lion",
+      "sources": [
+        "https://www.hotspawn.com/matches/mt1-vision-vs-black-lion-prm-3rd-division-26-27-fall-1075782",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075783",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "Neko Elite Kittens",
+      "team1": "Berlin 5",
+      "method": "model",
+      "p0": 0.5405,
+      "p1": 0.4595,
+      "pick": "Neko Elite Kittens",
+      "sources": [
+        "https://www.hotspawn.com/matches/neko-elite-kittens-vs-berlin-5-prm-3rd-division-26-27-fall-1075783",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075784",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "Packmiko E-Sports DACH",
+      "team1": "Cloud eSport",
+      "method": "model",
+      "p0": 0.3717,
+      "p1": 0.6283,
+      "pick": "Cloud eSport",
+      "sources": [
+        "https://www.hotspawn.com/matches/packmiko-e-sports-dach-vs-cloud-esport-prm-3rd-division-26-27-fall-1075784",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075785",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "REH Gaming",
+      "team1": "Atruvia Münster Esports",
+      "method": "provisional",
+      "p0": 0.5073,
+      "p1": 0.4927,
+      "pick": "REH Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/reh-gaming-vs-atruvia-munster-esports-prm-3rd-division-26-27-fall-1075785",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075786",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "Rich Gang",
+      "team1": "Team 300 White",
+      "method": "model",
+      "p0": 0.7806,
+      "p1": 0.2194,
+      "pick": "Rich Gang",
+      "sources": [
+        "https://www.hotspawn.com/matches/rich-gang-vs-team-300-white-prm-3rd-division-26-27-fall-1075786",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075787",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "Sissi State Punks",
+      "team1": "Second Time Alive Revival",
+      "method": "model",
+      "p0": 0.4369,
+      "p1": 0.5631,
+      "pick": "Second Time Alive Revival",
+      "sources": [
+        "https://www.hotspawn.com/matches/sissi-state-punks-vs-second-time-alive-revival-prm-3rd-division-26-27-fall-1075787",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075788",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "Socken und Sandalen",
+      "team1": "Eintracht Spandau Zwei",
+      "method": "provisional",
+      "p0": 0.566,
+      "p1": 0.434,
+      "pick": "Socken und Sandalen",
+      "sources": [
+        "https://www.hotspawn.com/matches/socken-und-sandalen-vs-eintracht-spandau-zwei-prm-3rd-division-26-27-fall-1075788",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075789",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "spongecord prime",
+      "team1": "Emperors Bremen",
+      "method": "provisional",
+      "p0": 0.5774,
+      "p1": 0.4226,
+      "pick": "spongecord prime",
+      "sources": [
+        "https://www.hotspawn.com/matches/spongecord-prime-vs-emperors-bremen-prm-3rd-division-26-27-fall-1075789",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075790",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "VfB x Engines Stuttgart",
+      "team1": "Kanji Esports KIN",
+      "method": "model",
+      "p0": 0.4791,
+      "p1": 0.5209,
+      "pick": "Kanji Esports KIN",
+      "sources": [
+        "https://www.hotspawn.com/matches/vfb-x-engines-stuttgart-vs-kanji-esports-kin-prm-3rd-division-26-27-fall-1075790",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075791",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-08T16:00:00Z",
+      "team0": "Whalepower Humpbacks",
+      "team1": "TeamOrangeGaming Academy",
+      "method": "model",
+      "p0": 0.4983,
+      "p1": 0.5017,
+      "pick": "TeamOrangeGaming Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/whalepower-humpbacks-vs-teamorangegaming-academy-prm-3rd-division-26-27-fall-1075791",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079053",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-08T18:30:00Z",
+      "team0": "Phong Vũ Buffalo",
+      "team1": "MT1 Esports",
+      "method": "model",
+      "p0": 0.4968,
+      "p1": 0.5032,
+      "pick": "MT1 Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/phong-vu-buffalo-vs-mt1-esports-prm-2nd-division-26-27-fall-1079053",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079054",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-08T18:30:00Z",
+      "team0": "The Bandits Prime",
+      "team1": "VfB eSports",
+      "method": "model",
+      "p0": 0.4927,
+      "p1": 0.5073,
+      "pick": "VfB eSports",
+      "sources": [
+        "https://www.hotspawn.com/matches/the-bandits-prime-vs-vfb-esports-prm-2nd-division-26-27-fall-1079054",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081421",
+      "competition": "LCP 2027 Promotion",
+      "start_utc": "2026-11-10T05:00:00Z",
+      "team0": "FENNEL",
+      "team1": "Nothin'Here",
+      "method": "model",
+      "p0": 0.4031,
+      "p1": 0.5969,
+      "pick": "Nothin'Here",
+      "sources": [
+        "https://www.hotspawn.com/matches/fennel-vs-nothin-here-lcp-2027-promotion-1081421",
+        "https://lol.fandom.com/wiki/LCP/2027_Season/Promotion"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1082007",
+      "competition": "LCP 2027 Promotion",
+      "start_utc": "2026-11-10T09:00:00Z",
+      "team0": "Saigon Warriors",
+      "team1": "Team Gromp",
+      "method": "provisional",
+      "p0": 0.6624,
+      "p1": 0.3376,
+      "pick": "Saigon Warriors",
+      "sources": [
+        "https://www.hotspawn.com/matches/saigon-warriors-vs-team-gromp-lcp-2027-promotion-1082007",
+        "https://lol.fandom.com/wiki/LCP/2027_Season/Promotion"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1081423",
+      "competition": "LCP 2027 Promotion",
+      "start_utc": "2026-11-11T09:00:00Z",
+      "team0": "Ground Zero Gaming",
+      "team1": "Frank Esports",
+      "method": "model",
+      "p0": 0.2481,
+      "p1": 0.7519,
+      "pick": "Frank Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423",
+        "https://lol.fandom.com/wiki/LCP/2027_Season/Promotion"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079055",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-13T18:30:00Z",
+      "team0": "Locked IN",
+      "team1": "404 Multigaming e.V.",
+      "method": "model",
+      "p0": 0.3801,
+      "p1": 0.6199,
+      "pick": "404 Multigaming e.V.",
+      "sources": [
+        "https://www.hotspawn.com/matches/locked-in-vs-404-multigaming-e-v-prm-2nd-division-26-27-fall-1079055",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079056",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-13T18:30:00Z",
+      "team0": "MT1 Esports",
+      "team1": "The Bandits Prime",
+      "method": "model",
+      "p0": 0.557,
+      "p1": 0.443,
+      "pick": "MT1 Esports",
+      "sources": [
+        "https://www.hotspawn.com/matches/mt1-esports-vs-the-bandits-prime-prm-2nd-division-26-27-fall-1079056",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079057",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-13T18:30:00Z",
+      "team0": "Phong Vũ Buffalo",
+      "team1": "regnum4games",
+      "method": "model",
+      "p0": 0.5108,
+      "p1": 0.4892,
+      "pick": "Phong Vũ Buffalo",
+      "sources": [
+        "https://www.hotspawn.com/matches/phong-vu-buffalo-vs-regnum4games-prm-2nd-division-26-27-fall-1079057",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079058",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-13T18:30:00Z",
+      "team0": "VfB eSports",
+      "team1": "DKB XPERION NXT",
+      "method": "model",
+      "p0": 0.3882,
+      "p1": 0.6118,
+      "pick": "DKB XPERION NXT",
+      "sources": [
+        "https://www.hotspawn.com/matches/vfb-esports-vs-dkb-xperion-nxt-prm-2nd-division-26-27-fall-1079058",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075792",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "AceGaming Hearts",
+      "team1": "Sissi State Punks",
+      "method": "model",
+      "p0": 0.5119,
+      "p1": 0.4881,
+      "pick": "AceGaming Hearts",
+      "sources": [
+        "https://www.hotspawn.com/matches/acegaming-hearts-vs-sissi-state-punks-prm-3rd-division-26-27-fall-1075792",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075793",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Atruvia Münster Esports",
+      "team1": "Kanji Esports AKA",
+      "method": "model",
+      "p0": 0.442,
+      "p1": 0.558,
+      "pick": "Kanji Esports AKA",
+      "sources": [
+        "https://www.hotspawn.com/matches/atruvia-munster-esports-vs-kanji-esports-aka-prm-3rd-division-26-27-fall-1075793",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075794",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Babos Gaming Academy",
+      "team1": "AIX eSports",
+      "method": "model",
+      "p0": 0.5458,
+      "p1": 0.4542,
+      "pick": "Babos Gaming Academy",
+      "sources": [
+        "https://www.hotspawn.com/matches/babos-gaming-academy-vs-aix-esports-prm-3rd-division-26-27-fall-1075794",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075795",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Berlin 5",
+      "team1": "Emperors Bremen",
+      "method": "provisional",
+      "p0": 0.5223,
+      "p1": 0.4777,
+      "pick": "Berlin 5",
+      "sources": [
+        "https://www.hotspawn.com/matches/berlin-5-vs-emperors-bremen-prm-3rd-division-26-27-fall-1075795",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075796",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Black Lion",
+      "team1": "VfB x Engines Stuttgart",
+      "method": "model",
+      "p0": 0.4789,
+      "p1": 0.5211,
+      "pick": "VfB x Engines Stuttgart",
+      "sources": [
+        "https://www.hotspawn.com/matches/black-lion-vs-vfb-x-engines-stuttgart-prm-3rd-division-26-27-fall-1075796",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075797",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "BlackDivision",
+      "team1": "MT1 Vision",
+      "method": "provisional",
+      "p0": 0.5845,
+      "p1": 0.4155,
+      "pick": "BlackDivision",
+      "sources": [
+        "https://www.hotspawn.com/matches/blackdivision-vs-mt1-vision-prm-3rd-division-26-27-fall-1075797",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075798",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Defiance eSports",
+      "team1": "Purple Emperor Lizards - Atomic",
+      "method": "model",
+      "p0": 0.5391,
+      "p1": 0.4609,
+      "pick": "Defiance eSports",
+      "sources": [
+        "https://www.hotspawn.com/matches/defiance-esports-vs-purple-emperor-lizards-atomic-prm-3rd-division-26-27-fall-1075798",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075799",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Eintracht Spandau Zwei",
+      "team1": "LOOKSMAXXER",
+      "method": "model",
+      "p0": 0.3396,
+      "p1": 0.6604,
+      "pick": "LOOKSMAXXER",
+      "sources": [
+        "https://www.hotspawn.com/matches/eintracht-spandau-zwei-vs-looksmaxxer-prm-3rd-division-26-27-fall-1075799",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075800",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Glacial Guardians",
+      "team1": "Kanji Esports KIN",
+      "method": "model",
+      "p0": 0.4634,
+      "p1": 0.5366,
+      "pick": "Kanji Esports KIN",
+      "sources": [
+        "https://www.hotspawn.com/matches/glacial-guardians-vs-kanji-esports-kin-prm-3rd-division-26-27-fall-1075800",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075801",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Duplex Silva Pigeons Edition",
+      "team1": "Neko Elite Kittens",
+      "method": "model",
+      "p0": 0.3366,
+      "p1": 0.6634,
+      "pick": "Neko Elite Kittens",
+      "sources": [
+        "https://www.hotspawn.com/matches/duplex-silva-pigeons-edition-vs-neko-elite-kittens-prm-3rd-division-26-27-fall-1075801",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075802",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "REH Gaming",
+      "team1": "Cloud eSport",
+      "method": "provisional",
+      "p0": 0.4226,
+      "p1": 0.5774,
+      "pick": "Cloud eSport",
+      "sources": [
+        "https://www.hotspawn.com/matches/reh-gaming-vs-cloud-esport-prm-3rd-division-26-27-fall-1075802",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075803",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Rich Gang",
+      "team1": "Whalepower Humpbacks",
+      "method": "model",
+      "p0": 0.789,
+      "p1": 0.211,
+      "pick": "Rich Gang",
+      "sources": [
+        "https://www.hotspawn.com/matches/rich-gang-vs-whalepower-humpbacks-prm-3rd-division-26-27-fall-1075803",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075804",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Second Time Alive Revival",
+      "team1": "spongecord prime",
+      "method": "model",
+      "p0": 0.4253,
+      "p1": 0.5747,
+      "pick": "spongecord prime",
+      "sources": [
+        "https://www.hotspawn.com/matches/second-time-alive-revival-vs-spongecord-prime-prm-3rd-division-26-27-fall-1075804",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075805",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "Team 300 White",
+      "team1": "1. Esport Club Frankfurt e.V.",
+      "method": "model",
+      "p0": 0.4944,
+      "p1": 0.5056,
+      "pick": "1. Esport Club Frankfurt e.V.",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-300-white-vs-1-esport-club-frankfurt-e-v-prm-3rd-division-26-27-fall-1075805",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1075806",
+      "competition": "PRM 3rd Division 26-27 Fall",
+      "start_utc": "2026-11-15T16:00:00Z",
+      "team0": "TeamOrangeGaming Academy",
+      "team1": "Socken und Sandalen",
+      "method": "provisional",
+      "p0": 0.4875,
+      "p1": 0.5125,
+      "pick": "Socken und Sandalen",
+      "sources": [
+        "https://www.hotspawn.com/matches/teamorangegaming-academy-vs-socken-und-sandalen-prm-3rd-division-26-27-fall-1075806",
+        "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079059",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-15T18:30:00Z",
+      "team0": "AceGaming",
+      "team1": "Hannover Esports e.V.",
+      "method": "model",
+      "p0": 0.3938,
+      "p1": 0.6062,
+      "pick": "Hannover Esports e.V.",
+      "sources": [
+        "https://www.hotspawn.com/matches/acegaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1079059",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079060",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-15T18:30:00Z",
+      "team0": "Babos Gaming",
+      "team1": "Reveal Multigaming",
+      "method": "model",
+      "p0": 0.6059,
+      "p1": 0.3941,
+      "pick": "Babos Gaming",
+      "sources": [
+        "https://www.hotspawn.com/matches/babos-gaming-vs-reveal-multigaming-prm-2nd-division-26-27-fall-1079060",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079062",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-15T18:30:00Z",
+      "team0": "Team 300",
+      "team1": "No Need Orga",
+      "method": "model",
+      "p0": 0.4531,
+      "p1": 0.5469,
+      "pick": "No Need Orga",
+      "sources": [
+        "https://www.hotspawn.com/matches/team-300-vs-no-need-orga-prm-2nd-division-26-27-fall-1079062",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    },
+    {
+      "id": "1079853",
+      "competition": "PRM 2nd Division 26-27 Fall",
+      "start_utc": "2026-11-15T18:30:00Z",
+      "team0": "BvP",
+      "team1": "reGOLD eSport",
+      "method": "provisional",
+      "p0": 0.4645,
+      "p1": 0.5355,
+      "pick": "reGOLD eSport",
+      "sources": [
+        "https://www.hotspawn.com/matches/bvp-vs-regold-esport-prm-2nd-division-26-27-fall-1079853",
+        "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
+      ],
+      "ok": true,
+      "notes": []
+    }
+  ]
+}

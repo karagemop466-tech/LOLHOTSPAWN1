@@ -187,7 +187,7 @@ def main() -> None:
     missing_pages = [p for p in pages if not os.path.exists(os.path.join(DOCS, p))]
     add("all site pages exist", not missing_pages, f"{len(pages) - len(missing_pages)}/{len(pages)} pages")
 
-    broken, no_nav, none_literal = [], [], []
+    broken, no_nav, none_literal, unlabelled_td = [], [], [], []
     hrefs: Counter = Counter()
     for page in pages:
         path = os.path.join(DOCS, page)
@@ -196,6 +196,10 @@ def main() -> None:
         text = open(path, encoding="utf-8").read()
         if 'class="nav"' not in text:
             no_nav.append(page)
+        tds = len(re.findall(r"<td\b", text))
+        labelled = len(re.findall(r"<td[^>]*data-label=", text))
+        if tds and labelled < tds:
+            unlabelled_td.append(f"{page}:{tds - labelled}/{tds}")
         for href in re.findall(r'href="([^"#]+)(?:#[^"]*)?"', text):
             if href.startswith(("http://", "https://", "mailto:")):
                 continue
@@ -208,6 +212,8 @@ def main() -> None:
     add("no broken internal links", not broken, f"{len(broken)} problems: {broken[:6]}")
     add("navigation on every page", not no_nav, f"missing: {no_nav[:5]}")
     add("no empty/None values rendered", not none_literal, f"problems: {none_literal[:6]}")
+    add("every table cell carries a mobile data-label", not unlabelled_td,
+        f"checked {len(pages)} pages; missing data-label: {unlabelled_td[:6]}")
 
     picks_html = open(os.path.join(DOCS, "picks.html"), encoding="utf-8").read()
     on_page = sum(1 for r in rows if picks_html.count(f'id="match-{html.escape(str(r["id"]), quote=True)}"') >= 1)
