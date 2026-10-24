@@ -181,7 +181,7 @@ def main() -> None:
         f"csv rows={csv_rows} json rows={len(rows)}")
 
     # --- site ---------------------------------------------------------------
-    pages = ["index.html", "picks.html", "table.html", "featured.html", "originated.html",
+    pages = ["index.html", "picks.html", "table.html", "results.html", "featured.html", "originated.html",
              "unresolved.html", "coverage.html", "competitions.html", "teams.html", "methodology.html",
              "sources.html", "verification.html", "flagged.html"]
     missing_pages = [p for p in pages if not os.path.exists(os.path.join(DOCS, p))]
@@ -220,8 +220,8 @@ def main() -> None:
         f"{table_rows}/{len(rows)} table rows")
 
     index_html = open(os.path.join(DOCS, "index.html"), encoding="utf-8").read()
-    needed = ["picks.html", "table.html", "featured.html", "originated.html", "unresolved.html",
-              "Executive summary", "Unresolved picks"]
+    needed = ["picks.html", "table.html", "results.html", "featured.html", "originated.html",
+              "unresolved.html", "Executive summary", "Unresolved picks", "Where the picks are"]
     add("executive summary links to every picks view", all(n in index_html for n in needed),
         f"present: {[n for n in needed if n in index_html]}")
 
