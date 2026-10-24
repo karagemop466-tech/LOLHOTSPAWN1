@@ -70,7 +70,12 @@ def norm(name: str) -> str:
     s = re.sub(r"\([^)]*\)", " ", s)              # drop parentheticals e.g. "(Kills)"
     s = re.sub(r"\b(esports?|e-?sport(s)?|team|gaming|club|academy|esport)\b", " ", s)
     out = re.sub(r"[^a-z0-9]+", "", s)
-    return {"secret": "secretwhales"}.get(out, out)
+    # Verified book-side shortenings, kept independent of tools/model.py on purpose:
+    #   secret -> Team Secret Whales (Bovada Worlds alias, verified 2026-10-23)
+    #   risingbees -> Vitality Rising Bees (Kalshi event KXLOLGAME-26OCT271300RBMR
+    #       names the LGC Rising side "Rising Bees"; verified against the official
+    #       Kalshi API 2026-10-24, same evidence as data/aliases.json / model.py)
+    return {"secret": "secretwhales", "risingbees": "vitalityrisingbees"}.get(out, out)
 
 
 def devig(d0: float, d1: float):

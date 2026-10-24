@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-24T16:47:57Z",
- "count": 36,
+ "generated_utc": "2026-10-24T17:06:18Z",
+ "count": 37,
  "flags": [
   {
    "severity": "high",
@@ -167,6 +167,20 @@
    "verification": "runner receipts committed 2026-10-24 (data/probe/lowtier_20261024.json)"
   },
   {
+   "severity": "high",
+   "item": "Fixture #1083097 was priced from the wrong team entity: the Bulgarian qualifier slot 'paiN Gaming' is the amateur 5-stack 'PNG', not the Brazilian CBLOL org [Live fetch of the Leaguepedia page 2026-10-24T17:0xZ: Participants section lists 'PNG' with roster billy/Bla6ko/metko/ifo/anditobate; Results section shows 'NON- 1 - PNG 0'; page is in category 'Bulgarian Tournaments'; no 'paiN Gaming' among the participants. Hotspawn feed fixture #1083097 confirms competition 'Logitech G SuperStrike Cup Qualifier', 2026-10-24T11:00Z.]",
+   "detail": "Hotspawn lists 'paiN Gaming vs Non-toxic Gaming' in the Logitech G SuperStrike Cup Qualifier (Bulgarian open qualifier, kick-off 2026-10-24T11:00Z, fixture #1083097). Leaguepedia's page for that qualifier lists the participant as 'PNG' (roster billy / Bla6ko / metko / ifo / anditobate) and records Round 1 Winners' Bracket 'NON- 1 - PNG 0'. The Brazilian CBLOL 'paiN Gaming' is not a participant. The 2026-10-24T16:47Z build resolved the slot by global exact name to the Brazilian org and published 'provisional: paiN Gaming 60.9% / Non-toxic Gaming 39.1% (Elo 1577 vs 1500, 62/0 rated series)' - a cross-region homonym contamination of exactly the class fixed for LAST DANCE / Team Gromp on 2026-10-23. A competition-scoped alias in data/aliases.json now resolves the slot to 'PNG' (competition_aliases: 'Logitech G SuperStrike Cup Qualifier' -> {'paiN Gaming': 'PNG'}); the card is re-priced from PNG's own (debut-thin) Leaguepedia record, never from the Brazilian org's. Cross-scope request 1 of integration session 6669f798, independently re-verified from the official Leaguepedia page by session 7582f227 before editing.",
+   "source": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier",
+   "verification": "Live fetch of the Leaguepedia page 2026-10-24T17:0xZ: Participants section lists 'PNG' with roster billy/Bla6ko/metko/ifo/anditobate; Results section shows 'NON- 1 - PNG 0'; page is in category 'Bulgarian Tournaments'; no 'paiN Gaming' among the participants. Hotspawn feed fixture #1083097 confirms competition 'Logitech G SuperStrike Cup Qualifier', 2026-10-24T11:00Z."
+  },
+  {
+   "severity": "low",
+   "item": "Kalshi's live LGC Rising contract was missed on #1079080 because Kalshi shortens 'Vitality Rising Bees' to 'Rising Bees' [Live fetch of the official Kalshi API 2026-10-24T17:0xZ: rules_primary 'If Rising Bees wins the LGC Rising 2026: Rising Bees vs. Mental Rush League of Legends match originally scheduled for Oct 27, 2026 at 1:00 PM EDT...'; markets -RB/-MR status=active with the quoted bid/ask above; settlement_sources include bo3.gg/lol.]",
+   "detail": "Kalshi (CFTC-regulated) lists event KXLOLGAME-26OCT271300RBMR 'Rising Bees vs. Mental Rush' for the LGC Rising 2026 match of Oct 27, 2026 1:00 PM EDT (= 17:00 UTC, Hotspawn fixture #1079080 'Mental Rush vs Vitality Rising Bees'). Both binary contracts are status=active (-RB yes 0.58/0.65, last 0.64; -MR yes 0.36/0.45, last 0.52). tools/model.py matched Kalshi by team name, and 'Rising Bees' is not 'Vitality Rising Bees' under the generic-token rule ('vitality' is not generic), so the card was priced Polymarket-only (a $5-volume thin book). BOOK_TEAM_ALIASES now maps 'rising bees' -> 'vitality rising bees', so the consensus on that card is built from two independent venues. Cross-scope request 2 of integration session 6669f798, independently re-verified against the official Kalshi API by session 7582f227 before editing. Both venues remain thin; the thin-market badge and low-confidence labelling still apply.",
+   "source": "https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT271300RBMR?with_nested_markets=true",
+   "verification": "Live fetch of the official Kalshi API 2026-10-24T17:0xZ: rules_primary 'If Rising Bees wins the LGC Rising 2026: Rising Bees vs. Mental Rush League of Legends match originally scheduled for Oct 27, 2026 at 1:00 PM EDT...'; markets -RB/-MR status=active with the quoted bid/ask above; settlement_sources include bo3.gg/lol."
+  },
+  {
    "severity": "info",
    "item": "Leaguepedia is community-maintained, not an official league source",
    "detail": "Every originated line is fitted on Leaguepedia's community-recorded series history and its Data: page dqteams directives are used to quarantine removed teams. Leaguepedia is not an official settlement authority; Kalshi's own rules, for example, resolve a pre-play forfeit at the fair market price. Forfeit settlement picks on this site are therefore marked conditional.",
@@ -187,7 +201,7 @@
   },
   {
    "severity": "low",
-   "item": "16 team names needed a non-exact Leaguepedia match",
+   "item": "17 team names needed a non-exact Leaguepedia match",
    "detail": "Leaguepedia appends a region to duplicate team names (e.g. 'Fenrir (Icelandic Team)'). Every non-exact join and its evidence is listed on the Verification page; ambiguous names are left unmatched instead of guessed.",
    "source": "https://lol.fandom.com/wiki/Special:CargoExport"
   },
@@ -199,7 +213,7 @@
   },
   {
    "severity": "medium",
-   "item": "81 fixtures still listed as 'scheduled' although their start time has passed",
+   "item": "82 fixtures still listed as 'scheduled' although their start time has passed",
    "detail": "Hotspawn's fixtures API returns status='scheduled' for these cards even though the published start time has already passed (earliest 2026-08-26T17:00:00Z). They are kept in the list to mirror Hotspawn exactly, marked 'start time passed' on the card, and sorted after upcoming matches. The reason is unverified.",
    "source": "https://play.hotspawn.com/lol-pickems"
   },
@@ -220,12 +234,6 @@
    "item": "1 market-priced match(es) disagree with our own model by 20 pp or more",
    "detail": "Invictus Gaming vs Team Secret Whales (Worlds 2026 Main Event). The market side is what the site publishes and the model value is printed next to it on the Market page, so the gap is visible rather than hidden.",
    "source": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups"
-  },
-  {
-   "severity": "medium",
-   "item": "1 market row(s) rest on a single prediction market with almost no traded volume",
-   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $14 traded volume (thin-market threshold $1,000), priced 39.0%/61.0%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
-   "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
   },
   {
    "severity": "high",

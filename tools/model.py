@@ -70,6 +70,12 @@ BOOK_TEAM_ALIASES = {
     "cfo": "ctbc flying oyster",
     "movistar koi": "movistar koi",
     "koi": "movistar koi",
+    # Kalshi lists LGC Rising 2026's "Vitality Rising Bees" simply as "Rising Bees":
+    # event KXLOLGAME-26OCT271300RBMR ("Rising Bees vs. Mental Rush", Oct 27 1:00 PM EDT
+    # = 17:00 UTC, matching Hotspawn #1079080), contracts -RB/-MR status=active, verified
+    # against the official Kalshi API on 2026-10-24 (cross-scope request 2 of session
+    # 6669f798's live audit).
+    "rising bees": "vitality rising bees",
 }
 
 
@@ -361,17 +367,37 @@ def map_competitions(fixtures: list[dict], page_teams: dict, base: dict) -> dict
 
 
 def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
-                 page: str | None, page_teams: dict) -> tuple[str | None, str, list]:
+                 page: str | None, page_teams: dict,
+                 comp_key: str | None = None, comp_aliases: dict | None = None) -> tuple[str | None, str, list]:
     """Resolve a Hotspawn team name to an exact Leaguepedia team name.
 
     Competition-scoped matching runs BEFORE global exact lookup so a homonymous
     regional team (e.g. 'Last Dance (Benelux Team)' vs Portuguese 'Last Dance', or
     'Team Gromp (Australian Team)' vs European 'Team Gromp') never silently binds to
     the wrong continent's team record.
+
+    Explicit competition-scoped aliases (data/aliases.json "competition_aliases") run
+    before everything else: they exist for verified cross-region homonym collisions
+    whose page text does not match the Hotspawn slot name at all — e.g. 'paiN Gaming'
+    inside the Bulgarian 'Logitech G SuperStrike Cup Qualifier' is the amateur 5-stack
+    'PNG' (roster billy/Bla6ko/metko/ifo/anditobate per Leaguepedia), not the
+    Brazilian CBLOL org 'paiN Gaming'.
     """
     key = norm_name(name)
     if not key:
         return None, "none", []
+    if comp_key and comp_aliases:
+        target = (comp_aliases.get(comp_key) or {}).get(key)
+        if target:
+            note = (f"explicit competition-scoped alias '{name}' -> '{target}' for this "
+                    f"competition, recorded in data/aliases.json with fixture-level "
+                    f"evidence (see Flagged for review)")
+            if norm_name(target) in exact:
+                return exact[norm_name(target)], "alias", [note]
+            if target in page_teams.get(page or "", set()):
+                return target, "alias", [note]
+            # an alias whose target cannot be found in Leaguepedia falls through to
+            # normal resolution rather than inventing a team
     if key in aliases:
         target = aliases[key]
         if norm_name(target) in exact:
@@ -642,8 +668,12 @@ def main() -> None:
         raise SystemExit("no hotspawn fixtures - run collect.py first")
 
     exact, base, page_teams = build_index(lp_matches)
-    aliases_raw = (load_json(os.path.join(DATA, "aliases.json"), default={}) or {}).get("aliases") or {}
+    aliases_doc = load_json(os.path.join(DATA, "aliases.json"), default={}) or {}
+    aliases_raw = aliases_doc.get("aliases") or {}
     aliases = {norm_name(k): v for k, v in aliases_raw.items()}
+    comp_aliases_raw = aliases_doc.get("competition_aliases") or {}
+    comp_aliases = {norm_name(comp): {norm_name(t): target for t, target in (m or {}).items()}
+                    for comp, m in comp_aliases_raw.items()}
     comp_map = map_competitions(fixtures, page_teams, base)
 
     # Kick-off times per (competition page, team pair). A list, because the same pair
@@ -784,8 +814,9 @@ def main() -> None:
     for f in fixtures:
         n0, n1 = f["team0"]["name"], f["team1"]["name"]
         page = (comp_map.get(f["competition"]) or {}).get("page")
-        k0, m0, note0 = resolve_team(n0, exact, base, aliases, page, page_teams)
-        k1, m1, note1 = resolve_team(n1, exact, base, aliases, page, page_teams)
+        comp_key = norm_name(f.get("competition") or "")
+        k0, m0, note0 = resolve_team(n0, exact, base, aliases, page, page_teams, comp_key, comp_aliases)
+        k1, m1, note1 = resolve_team(n1, exact, base, aliases, page, page_teams, comp_key, comp_aliases)
         for name, key, method, notes in ((n0, k0, m0, note0), (n1, k1, m1, note1)):
             if method not in ("exact",):
                 join_log.append({"hotspawn_id": f["id"], "team": name, "resolved": key,

@@ -1,6 +1,14 @@
 {
- "note": "Explicit, evidence-backed aliases only. Every entry must name the evidence. Anything not listed here resolves by exact name or by Leaguepedia's unique base name.",
+ "note": "Explicit, evidence-backed aliases only. Every entry must name the evidence. Anything not listed here resolves by exact name or by Leaguepedia's unique base name. 'competition_aliases' apply only inside the named Hotspawn competition (verified cross-region homonym collisions); their evidence lives in 'competition_aliases_evidence'.",
  "aliases": {
   "Phong Vũ Buffalo": "PvB (Swiss Team)"
+ },
+ "competition_aliases": {
+  "Logitech G SuperStrike Cup Qualifier": {
+   "paiN Gaming": "PNG"
+  }
+ },
+ "competition_aliases_evidence": {
+  "Logitech G SuperStrike Cup Qualifier | paiN Gaming -> PNG": "Leaguepedia 'Logitech G SuperStrike Cup/Qualifier' (category: Bulgarian Tournaments) lists the participant 'PNG' - amateur 5-stack roster billy / Bla6ko / metko / ifo / anditobate - and records Round 1 Winners' Bracket 'NON- 1 - PNG 0' (PNG lost 0-1 to Non-toxic Gaming). The Brazilian CBLOL org 'paiN Gaming' (62 rated series in this repository's Leaguepedia window) is NOT a participant of this qualifier. Hotspawn fixture #1083097 (Logitech G SuperStrike Cup Qualifier, 'paiN Gaming' vs 'Non-toxic Gaming', 2026-10-24T11:00Z) is the PNG vs Non-toxic Gaming match, so the slot must resolve to 'PNG'. Verified by fetching the live Leaguepedia page on 2026-10-24T17:0xZ: https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier . Implements cross-scope request 1 of integration session 6669f798 (audit/session_6669f798/forensic_audit_report.md), which had already quarantined the card on the docs/ dashboard. Without this alias the 2026-10-24T16:47Z build published 'provisional paiN Gaming 60.9%' from the Brazilian org's Elo (1577 over 62 series) - a cross-region homonym contamination."
  }
 }

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:47:57Z",
+ "generated_utc": "2026-10-24T17:05:46Z",
  "inventory_fetched_utc": "2026-10-24T16:46:02Z",
  "receipt_audit": {
   "max_age_hours": 24,
@@ -12,7 +12,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -22,7 +22,7 @@
      4.4
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -32,7 +32,7 @@
      4.05
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -42,7 +42,7 @@
      4.88
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -52,7 +52,7 @@
      2.63
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -62,7 +62,7 @@
      1.61
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -72,7 +72,7 @@
      3.11
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -82,7 +82,7 @@
      1.06
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -92,7 +92,7 @@
      1.51
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -102,7 +102,7 @@
      10.5
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
    },
    {
@@ -112,7 +112,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.2,
+    "age_hours": 68.5,
     "source_url": "https://egamersworld.com/lol/matches"
    }
   ],
@@ -202,7 +202,7 @@
   "accuracy": 0.5897,
   "brier": 0.2445,
   "settled_forfeits": 3,
-  "ungraded_started": 39,
+  "ungraded_started": 40,
   "by_method": {
    "model": {
     "graded": 16,
@@ -4899,15 +4899,17 @@
    "leaguepedia_page": "Logitech G SuperStrike Cup/Qualifier",
    "team0": {
     "name": "paiN Gaming",
-    "leaguepedia": "paiN Gaming",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 62,
+    "leaguepedia": "PNG",
+    "join": "alias",
+    "join_notes": [
+     "explicit competition-scoped alias 'paiN Gaming' -> 'PNG' for this competition, recorded in data/aliases.json with fixture-level evidence (see Flagged for review)"
+    ],
+    "rating_matches": 0,
     "rating_as_of": "2026-10-24T11:00:00Z",
-    "last_played": "2026-09-20",
-    "elo_raw": 1567.0,
-    "elo_now": 1576.9,
-    "elo": 1576.9
+    "last_played": null,
+    "elo_raw": null,
+    "elo_now": 1492.7,
+    "elo": 1500.0
    },
    "team1": {
     "name": "Non-toxic Gaming",
@@ -4921,21 +4923,22 @@
     "elo_now": 1505.4,
     "elo": 1500.0
    },
-   "p0": 0.6089,
-   "p1": 0.3911,
+   "p0": 0.5,
+   "p1": 0.5,
    "method": "provisional",
    "confidence": "low",
-   "basis": "Elo line: paiN Gaming 1577 vs Non-toxic Gaming 1500 (62/0 rated series).",
+   "basis": "Elo line: PNG 1500 vs Non-toxic Gaming 1500 (0/0 rated series).",
    "flags": [
+    "explicit competition-scoped alias 'paiN Gaming' -> 'PNG' for this competition, recorded in data/aliases.json with fixture-level evidence (see Flagged for review)",
     "fewer than 5 rated series for at least one team",
     "no shared-opponent chain between the two teams",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
+    "start time has passed and Leaguepedia records completed series Non-toxic Gaming 1-0 PNG (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
    ],
    "pick": {
     "side": 0,
     "team": "paiN Gaming",
-    "probability": 0.6089,
-    "other_probability": 0.3911
+    "probability": 0.5,
+    "other_probability": 0.5
    },
    "pick_type": null,
    "market": null,
@@ -5885,7 +5888,9 @@
    "method": "market",
    "confidence": "high",
    "basis": "5-Venue Consensus de-vigged line (36.7% / 63.3%): Pinnacle 38.3%/61.7% (2.51/1.56), Polymarket 36.5%/63.5% (36.5¢/63.5¢), Kalshi 36.5%/63.5% (36¢/64¢), Bovada 34.8%/65.1% (2.70/1.44), Unibet 33.7%/66.3% (2.75/1.40).",
-   "flags": [],
+   "flags": [
+    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
+   ],
    "pick": {
     "side": 1,
     "team": "Anyone's Legend",
@@ -5975,7 +5980,7 @@
    },
    "resolution": null,
    "connected": true,
-   "stale": false,
+   "stale": true,
    "result": null,
    "grade": null,
    "community_pick_pct": {
@@ -9136,38 +9141,35 @@
     "elo_now": 1834.3,
     "elo": 1834.3
    },
-   "p0": 0.39,
-   "p1": 0.61,
+   "p0": 0.393,
+   "p1": 0.607,
    "method": "market",
-   "confidence": "low",
-   "basis": "Polymarket de-vigged line (39.0% / 61.0%): Polymarket 39.0%/61.0% (39.0¢/61.0¢).",
-   "flags": [
-    "single thin prediction market: only $14 traded volume on Polymarket - treat as an indicative line",
-    "thin market: one Polymarket venue, $14 total traded volume - indicative only, not a deep bookmaker line"
-   ],
+   "confidence": "high",
+   "basis": "2-Venue Consensus de-vigged line (39.3% / 60.7%): Polymarket 39.0%/61.0% (39.0¢/61.0¢), Kalshi 39.7%/60.3% (40¢/62¢).",
+   "flags": [],
    "pick": {
     "side": 1,
     "team": "Vitality Rising Bees",
-    "probability": 0.61,
-    "other_probability": 0.39
+    "probability": 0.607,
+    "other_probability": 0.393
    },
    "pick_type": null,
    "market": {
-    "thin": true,
-    "thin_note": "single Polymarket venue with $14 traded volume (thin-market threshold $1,000)",
-    "book": "Polymarket",
+    "thin": false,
+    "thin_note": "",
+    "book": "2-Venue Consensus",
     "kind": "prediction market",
     "source_url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "api_url": "https://gamma-api.polymarket.com/events?slug=lol-rb-mr-2026-10-27",
     "market_url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "decimal": null,
     "american": null,
-    "p0": 0.39,
-    "p1": 0.61,
+    "p0": 0.393,
+    "p1": 0.607,
     "overround": 0.0,
     "start_utc": "2026-10-27 16:00:00+00",
     "league": null,
-    "venue_count": 1,
+    "venue_count": 2,
     "total_volume_usd": 13.77,
     "volume_usd": 13.77,
     "venues": [
@@ -9181,6 +9183,16 @@
       "observed_utc": "2026-10-24T16:47:09Z",
       "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
       "volume_usd": 13.77
+     },
+     {
+      "name": "Kalshi",
+      "weight": 0.18,
+      "p0": 0.3971,
+      "p1": 0.6029,
+      "quote": "40¢/62¢",
+      "overround": 0.02,
+      "observed_utc": "2026-10-24T16:46:05Z",
+      "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct271300rbmr"
      }
     ],
     "model_cross_check": 0.3825
