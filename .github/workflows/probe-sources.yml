@@ -10,6 +10,7 @@ name: probe-line-sources
 on:
   workflow_dispatch:
   push:
+    branches: ["arena/**"]
     paths:
       - "tools/probe_sources.py"
 
@@ -17,11 +18,12 @@ permissions:
   contents: write
 
 concurrency:
-  group: probe-line-sources
+  group: probe-line-sources-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
   probe:
+    if: github.ref_name != 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

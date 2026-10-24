@@ -9,6 +9,7 @@ name: probe-lowtier-lines
 on:
   workflow_dispatch:
   push:
+    branches: ["arena/**"]
     paths:
       - "tools/probe_lowtier.py"
       - ".github/workflows/probe-lowtier.yml"
@@ -17,11 +18,12 @@ permissions:
   contents: write
 
 concurrency:
-  group: probe-lowtier-lines
+  group: probe-lowtier-lines-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
   probe:
+    if: github.ref_name != 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
