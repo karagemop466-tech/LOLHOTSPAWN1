@@ -527,6 +527,7 @@ function buildFeaturedPage(picks) {
     .map((m) => {
       const pin = m.market_pinnacle ? `${pct1(m.market_pinnacle.p0)} / ${pct1(m.market_pinnacle.p1)}` : "—";
       const kam = m.market_kambi ? `${pct1(m.market_kambi.p0)} / ${pct1(m.market_kambi.p1)}` : "—";
+      const bov = m.market_bovada ? `${pct1(m.market_bovada.p0)} / ${pct1(m.market_bovada.p1)}` : "—";
       const kal = m.market_kalshi ? `${pct1(m.market_kalshi.p0)} / ${pct1(m.market_kalshi.p1)}` : "—";
       const pol = m.market_polymarket ? `${pct1(m.market_polymarket.p0)} / ${pct1(m.market_polymarket.p1)}` : "—";
       return `<tr>
@@ -534,6 +535,7 @@ function buildFeaturedPage(picks) {
         <td><strong>${esc(m.team0.name)}</strong> vs <strong>${esc(m.team1.name)}</strong><br><span class="mono" style="color:var(--text-dim)">${esc(m.competition_name)} · Bo${m.best_of}</span></td>
         <td class="num">${pin}</td>
         <td class="num">${kam}</td>
+        <td class="num">${bov}</td>
         <td class="num">${kal}</td>
         <td class="num">${pol}</td>
         <td class="num"><strong>${pct1(m.p0)} / ${pct1(1 - m.p0)}</strong></td>
@@ -563,6 +565,7 @@ function buildFeaturedPage(picks) {
             <th>Series</th>
             <th class="num">Pinnacle</th>
             <th class="num">Unibet/Kambi</th>
+            <th class="num">Bovada</th>
             <th class="num">Kalshi CFTC</th>
             <th class="num">Polymarket</th>
             <th class="num">Consensus</th>

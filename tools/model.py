@@ -981,6 +981,7 @@ def main() -> None:
             # never look like an upcoming pick after kick-off. Pre-kickoff ratings above ensure
             # post-start outcomes never leak into p0/p1.
             stale = (now_dt_eval - fix_start_dt).total_seconds() > 0
+        result = None
         if stale:
             lp_done = leaguepedia_row(k0 or n0, k1 or n1, f.get("start_utc"))
             done_note = None
@@ -991,6 +992,40 @@ def main() -> None:
                         s_a, s_b = lp_done.get("team1_score"), lp_done.get("team2_score")
                         done_note = (f"{lp_done.get('team1')} {s_a}-{s_b} {lp_done.get('team2')} "
                                      f"(Leaguepedia Data:{lp_done.get('overview_page')})")
+                        # Structured, gradable result. Only accepted when the recorded pair is
+                        # this fixture's pair and the record is within 12 h of kick-off; the
+                        # winner must also be consistent with the recorded score, so a partial
+                        # or contradictory row is left blank rather than graded on a guess.
+                        lp_a, lp_b = str(lp_done.get("team1") or ""), str(lp_done.get("team2") or "")
+                        same_order = (norm_name(lp_a) == norm_name(row["team0"]["name"])
+                                      and norm_name(lp_b) == norm_name(row["team1"]["name"]))
+                        swap_order = (norm_name(lp_a) == norm_name(row["team1"]["name"])
+                                      and norm_name(lp_b) == norm_name(row["team0"]["name"]))
+                        if same_order or swap_order:
+                            win_raw = str(lp_done.get("winner"))
+                            win_side = 0 if (win_raw == "1") == same_order else 1
+                            sc0 = s_a if same_order else s_b
+                            sc1 = s_b if same_order else s_a
+                            score_ok = None
+                            try:
+                                if sc0 is not None and sc1 is not None:
+                                    i0, i1 = int(sc0), int(sc1)
+                                    score_ok = (i0 > i1) == (win_side == 0) if i0 != i1 else False
+                            except (TypeError, ValueError):
+                                score_ok = None
+                            if score_ok is not False:
+                                result = {
+                                    "winner_side": win_side,
+                                    "score0": sc0, "score1": sc1,
+                                    "leaguepedia_winner": win_raw,
+                                    "leaguepedia_match_id": lp_done.get("match_id") or "",
+                                    "leaguepedia_page": lp_done.get("overview_page") or "",
+                                    "utc": f"{str(lp_done['utc'])[:19].replace(' ', 'T')}Z",
+                                    "forfeit_flag": lp_done.get("ff"),
+                                    "source": ("https://lol.fandom.com/wiki/Data:"
+                                               + str(lp_done.get("overview_page") or "").replace(" ", "_")),
+                                    "note": "league result from community-maintained Leaguepedia",
+                                }
                 except ValueError:
                     done_note = None
             if done_note and method != "unresolved":
@@ -1037,18 +1072,61 @@ def main() -> None:
                     "team": row["team0"]["name"] if active_side == 0 else row["team1"]["name"],
                     "probability": None, "other_probability": None,
                     "settlement": "administrative default (walkover / forfeit)"}
+        # Grade the published pick against the official series record, when one exists. A pick
+        # is graded only where the result is structured and internally consistent (see above);
+        # settlement picks are reported as settled, never as a forecast that "won".
+        grade = None
+        if result and pick:
+            if pick.get("probability") is not None and pick.get("side") is not None:
+                grade = "hit" if pick["side"] == result["winner_side"] else "miss"
+            elif pick_type == "settlement":
+                grade = "settled"
+                result["settlement_matched"] = (pick.get("team") == resolution.get("winner")
+                                                if resolution else None)
         row.update({"p0": round(p0, 4) if p0 is not None else None,
                     "p1": round(p1, 4) if p1 is not None else None,
                     "method": method, "confidence": confidence, "basis": basis,
                     "flags": sorted(set(flags)), "pick": pick, "pick_type": pick_type,
                     "market": market, "resolution": resolution,
                     "connected": connected, "stale": stale,
+                    "result": result, "grade": grade,
                     "community_pick_pct": f["community_pick_pct"]})
         rows.append(row)
 
     counts_by_method: dict[str, int] = {}
     for r in rows:
         counts_by_method[r["method"]] = counts_by_method.get(r["method"], 0) + 1
+
+    # ---- published track record -------------------------------------------------------
+    # Every card that has kicked off and has an official series record is graded, so the site
+    # can show whether the picks it published were right instead of only asserting coverage.
+    graded = [r for r in rows if r.get("grade") in ("hit", "miss")]
+    hits = sum(1 for r in graded if r["grade"] == "hit")
+    briers, by_method = [], {}
+    for r in graded:
+        mname = r.get("method") or "unknown"
+        b = by_method.setdefault(mname, {"graded": 0, "hits": 0})
+        b["graded"] += 1
+        b["hits"] += 1 if r["grade"] == "hit" else 0
+        if r.get("p0") is not None and (r.get("result") or {}).get("winner_side") is not None:
+            p_win = r["p0"] if r["result"]["winner_side"] == 0 else r["p1"]
+            briers.append((float(p_win) - 1.0) ** 2)
+    for b in by_method.values():
+        b["accuracy"] = round(b["hits"] / b["graded"], 4) if b["graded"] else None
+    track_record = {
+        "graded": len(graded),
+        "hits": hits,
+        "misses": len(graded) - hits,
+        "accuracy": round(hits / len(graded), 4) if graded else None,
+        "brier": round(sum(briers) / len(briers), 4) if briers else None,
+        "settled_forfeits": sum(1 for r in rows if r.get("grade") == "settled"),
+        "ungraded_started": sum(1 for r in rows if r.get("stale") and not r.get("grade")),
+        "by_method": by_method,
+        "result_source": "Leaguepedia MatchSchedule (community-maintained), matched on team pair and kick-off within 12 h",
+        "grading_rule": ("hit = the published pick is the recorded series winner; miss = the other side won; "
+                         "settled = an official-forfeit settlement pick, never counted as a forecast win. "
+                         "Rows without a consistent official record stay ungraded."),
+    }
 
     live_ids = {r["id"] for r in rows}
     retired = []
@@ -1135,6 +1213,7 @@ def main() -> None:
             "walkover_settlement_count": sum(1 for r in rows if r.get("pick_type") == "settlement"),
         },
         "backtest": backtest,
+        "track_record": track_record,
         "total": len(rows),
         "matches": rows,
     })
@@ -1152,14 +1231,21 @@ def main() -> None:
         w = csv.writer(fh)
         w.writerow(["hotspawn_id", "start_utc", "competition", "tier", "team0", "p0", "team1", "p1",
                     "pick", "pick_probability", "method", "confidence", "basis", "flags",
-                    "hotspawn_url", "market_source"])
+                    "hotspawn_url", "market_source", "grade", "result_winner", "result_score",
+                    "result_source"])
         for r in rows:
+            res = r.get("result") or {}
             w.writerow([r["id"], r["start_utc"], r["competition"], r["tier"],
                         r["team0"]["name"], r["p0"], r["team1"]["name"], r["p1"],
                         r["pick"]["team"] if r["pick"] else "",
                         r["pick"]["probability"] if r["pick"] else "",
                         r["method"], r["confidence"], r["basis"], "; ".join(r["flags"]),
-                        r["hotspawn_url"], (r["market"] or {}).get("api_url", "")])
+                        r["hotspawn_url"], (r["market"] or {}).get("api_url", ""),
+                        r.get("grade") or "",
+                        (r["team0"]["name"] if res.get("winner_side") == 0 else
+                         (r["team1"]["name"] if res.get("winner_side") == 1 else "")),
+                        (f'{res.get("score0")}-{res.get("score1")}' if res else ""),
+                        res.get("source", "")])
     log(f"rows={len(rows)} methods={counts_by_method} joins={len(join_log)}")
     log(f"backtest n={backtest.get('n')} acc={backtest.get('accuracy')} brier={backtest.get('brier')}")
 

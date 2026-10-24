@@ -1,6 +1,6 @@
 {
   "summary": {
-    "generated_at": "2026-10-24T16:43:59.080Z",
+    "generated_at": "2026-10-24T16:47:17.988Z",
     "raw_hotspawn_fetched_at": "2026-10-24T15:34:30.580Z",
     "counts": {
       "total_rows": 568,
@@ -45,13 +45,13 @@
       "pinnacle": 8,
       "pinnacle_excluded_kills": 0,
       "kambi": 8,
-      "bovada": 0,
+      "bovada": 8,
       "kalshi": 9,
       "polymarket": 9
     },
     "calibration": {
-      "series_replayed": 32536,
-      "oos_evaluated": 22372,
+      "series_replayed": 32535,
+      "oos_evaluated": 22371,
       "brier": 0.225,
       "coinflip_brier": 0.25,
       "log_loss": 0.6414,
@@ -66,32 +66,32 @@
         {
           "bin": "10-20%",
           "n": 383,
-          "mean_pred": 0.1602,
+          "mean_pred": 0.1603,
           "empirical_win_rate": 0.2298
         },
         {
           "bin": "20-30%",
-          "n": 1097,
+          "n": 1096,
           "mean_pred": 0.257,
-          "empirical_win_rate": 0.268
+          "empirical_win_rate": 0.2682
         },
         {
           "bin": "30-40%",
-          "n": 2514,
+          "n": 2515,
           "mean_pred": 0.3556,
-          "empirical_win_rate": 0.3481
+          "empirical_win_rate": 0.3479
         },
         {
           "bin": "40-50%",
-          "n": 6176,
+          "n": 6177,
           "mean_pred": 0.4608,
-          "empirical_win_rate": 0.4665
+          "empirical_win_rate": 0.4666
         },
         {
           "bin": "50-60%",
-          "n": 6996,
+          "n": 6994,
           "mean_pred": 0.5402,
-          "empirical_win_rate": 0.6269
+          "empirical_win_rate": 0.6268
         },
         {
           "bin": "60-70%",
@@ -108,7 +108,7 @@
         {
           "bin": "80-90%",
           "n": 546,
-          "mean_pred": 0.8418,
+          "mean_pred": 0.8417,
           "empirical_win_rate": 0.826
         },
         {
@@ -5234,7 +5234,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 8,
-        "elo": 1513.1
+        "elo": 1513
       },
       "team1": {
         "id": "205805",
@@ -5272,7 +5272,7 @@
       "model": {
         "p0": 0.563,
         "p1": 0.437,
-        "elo0": 1513.1,
+        "elo0": 1513,
         "elo1": 1448.8,
         "eff_elo0": 1507.5,
         "eff_elo1": 1463.5,
@@ -5346,7 +5346,7 @@
         "p1": 0.611,
         "elo0": 1429.5,
         "elo1": 1575.7,
-        "eff_elo0": 1462.1,
+        "eff_elo0": 1462,
         "eff_elo1": 1540.8,
         "n0": 7,
         "n1": 7,
@@ -6039,15 +6039,15 @@
       },
       "score0": 0,
       "score1": 0,
-      "p0": 0.359,
-      "p1": 0.641,
+      "p0": 0.355,
+      "p1": 0.645,
       "pick_side": "B",
       "pick": {
         "team_index": 1,
         "team_name": "Anyone's Legend",
-        "probability": 0.641,
+        "probability": 0.645,
         "source": "market_consensus",
-        "venue_count": 4,
+        "venue_count": 5,
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight"
       },
       "settlement_pick": null,
@@ -6056,9 +6056,9 @@
       "unresolved_reason": null,
       "post_kickoff_audit": null,
       "market_consensus": {
-        "p0": 0.359,
-        "p1": 0.641,
-        "venue_count": 4,
+        "p0": 0.355,
+        "p1": 0.645,
+        "venue_count": 5,
         "spread_pp": 4.31,
         "primary_venue": "Pinnacle",
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
@@ -6150,6 +6150,28 @@
             "fetched_at": "2026-10-24T16:19:37Z",
             "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241900altes",
             "api_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT241900ALTES?with_nested_markets=true"
+          },
+          {
+            "venue": "bovada",
+            "venue_label": "Bovada",
+            "weight": 0.5,
+            "p0": 0.333818,
+            "p1": 0.666182,
+            "dec0": 2.7,
+            "dec1": 1.444444,
+            "am0": null,
+            "am1": null,
+            "bid0": null,
+            "ask0": null,
+            "bid1": null,
+            "ask1": null,
+            "overround": 1.0627,
+            "spread": null,
+            "liquidity": null,
+            "volume": null,
+            "fetched_at": "2026-10-24T16:29:32Z",
+            "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/top-esports-anyone-s-legend-202610241300",
+            "api_url": null
           }
         ]
       },
@@ -6197,7 +6219,28 @@
         "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609648.json?lang=en_GB&market=ZZ",
         "api_url": null
       },
-      "market_bovada": null,
+      "market_bovada": {
+        "venue": "bovada",
+        "venue_label": "Bovada",
+        "weight": 0.5,
+        "p0": 0.333818,
+        "p1": 0.666182,
+        "dec0": 2.7,
+        "dec1": 1.444444,
+        "am0": null,
+        "am1": null,
+        "bid0": null,
+        "ask0": null,
+        "bid1": null,
+        "ask1": null,
+        "overround": 1.0627,
+        "spread": null,
+        "liquidity": null,
+        "volume": null,
+        "fetched_at": "2026-10-24T16:29:32Z",
+        "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/top-esports-anyone-s-legend-202610241300",
+        "api_url": null
+      },
       "market_kalshi": {
         "venue": "kalshi",
         "venue_label": "Kalshi CFTC",
@@ -6516,7 +6559,7 @@
         "team_name": "Movistar KOI",
         "probability": 0.683,
         "source": "market_consensus",
-        "venue_count": 4,
+        "venue_count": 5,
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight"
       },
       "settlement_pick": null,
@@ -6527,8 +6570,8 @@
       "market_consensus": {
         "p0": 0.683,
         "p1": 0.317,
-        "venue_count": 4,
-        "spread_pp": 0.52,
+        "venue_count": 5,
+        "spread_pp": 0.81,
         "primary_venue": "Pinnacle",
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight",
         "venues": [
@@ -6619,6 +6662,28 @@
             "fetched_at": "2026-10-24T16:19:37Z",
             "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241400mkoicfo",
             "api_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT241400MKOICFO?with_nested_markets=true"
+          },
+          {
+            "venue": "bovada",
+            "venue_label": "Bovada",
+            "weight": 0.5,
+            "p0": 0.687906,
+            "p1": 0.312094,
+            "dec0": 1.4,
+            "dec1": 2.85,
+            "am0": null,
+            "am1": null,
+            "bid0": null,
+            "ask0": null,
+            "bid1": null,
+            "ask1": null,
+            "overround": 1.0652,
+            "spread": null,
+            "liquidity": null,
+            "volume": null,
+            "fetched_at": "2026-10-24T16:29:32Z",
+            "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/ctbc-flying-oyster-movistar-koi-202610241400",
+            "api_url": null
           }
         ]
       },
@@ -6666,7 +6731,28 @@
         "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609639.json?lang=en_GB&market=ZZ",
         "api_url": null
       },
-      "market_bovada": null,
+      "market_bovada": {
+        "venue": "bovada",
+        "venue_label": "Bovada",
+        "weight": 0.5,
+        "p0": 0.687906,
+        "p1": 0.312094,
+        "dec0": 1.4,
+        "dec1": 2.85,
+        "am0": null,
+        "am1": null,
+        "bid0": null,
+        "ask0": null,
+        "bid1": null,
+        "ask1": null,
+        "overround": 1.0652,
+        "spread": null,
+        "liquidity": null,
+        "volume": null,
+        "fetched_at": "2026-10-24T16:29:32Z",
+        "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/ctbc-flying-oyster-movistar-koi-202610241400",
+        "api_url": null
+      },
       "market_kalshi": {
         "venue": "kalshi",
         "venue_label": "Kalshi CFTC",
@@ -6757,19 +6843,19 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 68,
-        "elo": 1667.1
+        "elo": 1666.7
       },
       "score0": 0,
       "score1": 0,
-      "p0": 0.814,
-      "p1": 0.186,
+      "p0": 0.815,
+      "p1": 0.185,
       "pick_side": "A",
       "pick": {
         "team_index": 0,
         "team_name": "G2 Esports",
-        "probability": 0.814,
+        "probability": 0.815,
         "source": "market_consensus",
-        "venue_count": 4,
+        "venue_count": 5,
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight"
       },
       "settlement_pick": null,
@@ -6778,10 +6864,10 @@
       "unresolved_reason": null,
       "post_kickoff_audit": null,
       "market_consensus": {
-        "p0": 0.814,
-        "p1": 0.186,
-        "venue_count": 4,
-        "spread_pp": 1.81,
+        "p0": 0.815,
+        "p1": 0.185,
+        "venue_count": 5,
+        "spread_pp": 1.87,
         "primary_venue": "Pinnacle",
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight",
         "venues": [
@@ -6872,6 +6958,28 @@
             "fetched_at": "2026-10-24T16:19:37Z",
             "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241700losg2",
             "api_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT241700LOSG2?with_nested_markets=true"
+          },
+          {
+            "venue": "bovada",
+            "venue_label": "Bovada",
+            "weight": 0.5,
+            "p0": 0.824342,
+            "p1": 0.175658,
+            "dec0": 1.181818,
+            "dec1": 4.5,
+            "am0": null,
+            "am1": null,
+            "bid0": null,
+            "ask0": null,
+            "bid1": null,
+            "ask1": null,
+            "overround": 1.0684,
+            "spread": null,
+            "liquidity": null,
+            "volume": null,
+            "fetched_at": "2026-10-24T16:29:32Z",
+            "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/g2-esports-los-grandes-202610241500",
+            "api_url": null
           }
         ]
       },
@@ -6919,7 +7027,28 @@
         "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609646.json?lang=en_GB&market=ZZ",
         "api_url": null
       },
-      "market_bovada": null,
+      "market_bovada": {
+        "venue": "bovada",
+        "venue_label": "Bovada",
+        "weight": 0.5,
+        "p0": 0.824342,
+        "p1": 0.175658,
+        "dec0": 1.181818,
+        "dec1": 4.5,
+        "am0": null,
+        "am1": null,
+        "bid0": null,
+        "ask0": null,
+        "bid1": null,
+        "ask1": null,
+        "overround": 1.0684,
+        "spread": null,
+        "liquidity": null,
+        "volume": null,
+        "fetched_at": "2026-10-24T16:29:32Z",
+        "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/g2-esports-los-grandes-202610241500",
+        "api_url": null
+      },
       "market_kalshi": {
         "venue": "kalshi",
         "venue_label": "Kalshi CFTC",
@@ -6968,9 +7097,9 @@
         "p0": 0.598,
         "p1": 0.402,
         "elo0": 1734.2,
-        "elo1": 1667.1,
+        "elo1": 1666.7,
         "eff_elo0": 1722.4,
-        "eff_elo1": 1653.6,
+        "eff_elo1": 1653.2,
         "n0": 113,
         "n1": 68,
         "tier": "established",
@@ -7041,7 +7170,7 @@
         "p1": 0.546,
         "elo0": 1484.9,
         "elo1": 1528.2,
-        "eff_elo0": 1488.4,
+        "eff_elo0": 1488.3,
         "eff_elo1": 1520.5,
         "n0": 20,
         "n1": 16,
@@ -7073,7 +7202,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 82,
-        "elo": 1696.9
+        "elo": 1696.8
       },
       "team1": {
         "id": "205798",
@@ -7111,7 +7240,7 @@
       "model": {
         "p0": 0.689,
         "p1": 0.311,
-        "elo0": 1696.9,
+        "elo0": 1696.8,
         "elo1": 1560.3,
         "eff_elo0": 1683.4,
         "eff_elo1": 1545.2,
@@ -7145,7 +7274,7 @@
         "join_method": "competition-disambiguated",
         "join_note": "Resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'.",
         "n_matches": 60,
-        "elo": 1637.7
+        "elo": 1637.6
       },
       "team1": {
         "id": "26929",
@@ -7158,15 +7287,15 @@
       },
       "score0": 0,
       "score1": 0,
-      "p0": 0.449,
-      "p1": 0.551,
+      "p0": 0.452,
+      "p1": 0.548,
       "pick_side": "B",
       "pick": {
         "team_index": 1,
         "team_name": "Karmine Corp",
-        "probability": 0.551,
+        "probability": 0.548,
         "source": "market_consensus",
-        "venue_count": 4,
+        "venue_count": 5,
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight"
       },
       "settlement_pick": null,
@@ -7175,10 +7304,10 @@
       "unresolved_reason": null,
       "post_kickoff_audit": null,
       "market_consensus": {
-        "p0": 0.449,
-        "p1": 0.551,
-        "venue_count": 4,
-        "spread_pp": 1,
+        "p0": 0.452,
+        "p1": 0.548,
+        "venue_count": 5,
+        "spread_pp": 2.13,
         "primary_venue": "Pinnacle",
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight",
         "venues": [
@@ -7269,6 +7398,28 @@
             "fetched_at": "2026-10-24T16:19:37Z",
             "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly",
             "api_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT241600KCLY?with_nested_markets=true"
+          },
+          {
+            "venue": "bovada",
+            "venue_label": "Bovada",
+            "weight": 0.5,
+            "p0": 0.466316,
+            "p1": 0.533684,
+            "dec0": 2,
+            "dec1": 1.76923,
+            "am0": null,
+            "am1": null,
+            "bid0": null,
+            "ask0": null,
+            "bid1": null,
+            "ask1": null,
+            "overround": 1.0652,
+            "spread": null,
+            "liquidity": null,
+            "volume": null,
+            "fetched_at": "2026-10-24T16:29:32Z",
+            "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/lyon-gaming-karmine-corp-202610241600",
+            "api_url": null
           }
         ]
       },
@@ -7316,7 +7467,28 @@
         "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609641.json?lang=en_GB&market=ZZ",
         "api_url": null
       },
-      "market_bovada": null,
+      "market_bovada": {
+        "venue": "bovada",
+        "venue_label": "Bovada",
+        "weight": 0.5,
+        "p0": 0.466316,
+        "p1": 0.533684,
+        "dec0": 2,
+        "dec1": 1.76923,
+        "am0": null,
+        "am1": null,
+        "bid0": null,
+        "ask0": null,
+        "bid1": null,
+        "ask1": null,
+        "overround": 1.0652,
+        "spread": null,
+        "liquidity": null,
+        "volume": null,
+        "fetched_at": "2026-10-24T16:29:32Z",
+        "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/lyon-gaming-karmine-corp-202610241600",
+        "api_url": null
+      },
       "market_kalshi": {
         "venue": "kalshi",
         "venue_label": "Kalshi CFTC",
@@ -7364,7 +7536,7 @@
       "model": {
         "p0": 0.337,
         "p1": 0.663,
-        "elo0": 1637.7,
+        "elo0": 1637.6,
         "elo1": 1756.3,
         "eff_elo0": 1625.1,
         "eff_elo1": 1742.4,
@@ -7411,15 +7583,15 @@
       },
       "score0": 0,
       "score1": 0,
-      "p0": 0.699,
-      "p1": 0.301,
+      "p0": 0.703,
+      "p1": 0.297,
       "pick_side": "A",
       "pick": {
         "team_index": 0,
         "team_name": "Invictus Gaming",
-        "probability": 0.699,
+        "probability": 0.703,
         "source": "market_consensus",
-        "venue_count": 4,
+        "venue_count": 5,
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight"
       },
       "settlement_pick": null,
@@ -7428,10 +7600,10 @@
       "unresolved_reason": null,
       "post_kickoff_audit": null,
       "market_consensus": {
-        "p0": 0.699,
-        "p1": 0.301,
-        "venue_count": 4,
-        "spread_pp": 3.63,
+        "p0": 0.703,
+        "p1": 0.297,
+        "venue_count": 5,
+        "spread_pp": 4.1,
         "primary_venue": "Pinnacle",
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight",
         "venues": [
@@ -7522,6 +7694,28 @@
             "fetched_at": "2026-10-24T16:19:37Z",
             "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241800tswig",
             "api_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT241800TSWIG?with_nested_markets=true"
+          },
+          {
+            "venue": "bovada",
+            "venue_label": "Bovada",
+            "weight": 0.5,
+            "p0": 0.726002,
+            "p1": 0.273998,
+            "dec0": 1.333333,
+            "dec1": 3.2,
+            "am0": null,
+            "am1": null,
+            "bid0": null,
+            "ask0": null,
+            "bid1": null,
+            "ask1": null,
+            "overround": 1.0625,
+            "spread": null,
+            "liquidity": null,
+            "volume": null,
+            "fetched_at": "2026-10-24T16:29:32Z",
+            "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/invictus-gaming-team-secret-202610241700",
+            "api_url": null
           }
         ]
       },
@@ -7569,7 +7763,28 @@
         "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609647.json?lang=en_GB&market=ZZ",
         "api_url": null
       },
-      "market_bovada": null,
+      "market_bovada": {
+        "venue": "bovada",
+        "venue_label": "Bovada",
+        "weight": 0.5,
+        "p0": 0.726002,
+        "p1": 0.273998,
+        "dec0": 1.333333,
+        "dec1": 3.2,
+        "am0": null,
+        "am1": null,
+        "bid0": null,
+        "ask0": null,
+        "bid1": null,
+        "ask1": null,
+        "overround": 1.0625,
+        "spread": null,
+        "liquidity": null,
+        "volume": null,
+        "fetched_at": "2026-10-24T16:29:32Z",
+        "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/invictus-gaming-team-secret-202610241700",
+        "api_url": null
+      },
       "market_kalshi": {
         "venue": "kalshi",
         "venue_label": "Kalshi CFTC",
@@ -7615,8 +7830,8 @@
         "api_url": null
       },
       "model": {
-        "p0": 0.361,
-        "p1": 0.639,
+        "p0": 0.362,
+        "p1": 0.638,
         "elo0": 1587.8,
         "elo1": 1698.8,
         "eff_elo0": 1583.4,
@@ -7664,15 +7879,15 @@
       },
       "score0": 0,
       "score1": 0,
-      "p0": 0.415,
-      "p1": 0.585,
+      "p0": 0.416,
+      "p1": 0.584,
       "pick_side": "B",
       "pick": {
         "team_index": 1,
         "team_name": "Gen.G",
-        "probability": 0.585,
+        "probability": 0.584,
         "source": "market_consensus",
-        "venue_count": 4,
+        "venue_count": 5,
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight"
       },
       "settlement_pick": null,
@@ -7681,9 +7896,9 @@
       "unresolved_reason": null,
       "post_kickoff_audit": null,
       "market_consensus": {
-        "p0": 0.415,
-        "p1": 0.585,
-        "venue_count": 4,
+        "p0": 0.416,
+        "p1": 0.584,
+        "venue_count": 5,
         "spread_pp": 2.02,
         "primary_venue": "Pinnacle",
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight",
@@ -7775,6 +7990,28 @@
             "fetched_at": "2026-10-24T16:19:37Z",
             "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241500genhle",
             "api_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT241500GENHLE?with_nested_markets=true"
+          },
+          {
+            "venue": "bovada",
+            "venue_label": "Bovada",
+            "weight": 0.5,
+            "p0": 0.420936,
+            "p1": 0.579064,
+            "dec0": 2.2,
+            "dec1": 1.645161,
+            "am0": null,
+            "am1": null,
+            "bid0": null,
+            "ask0": null,
+            "bid1": null,
+            "ask1": null,
+            "overround": 1.0624,
+            "spread": null,
+            "liquidity": null,
+            "volume": null,
+            "fetched_at": "2026-10-24T16:29:32Z",
+            "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-gen-g-202610241800",
+            "api_url": null
           }
         ]
       },
@@ -7822,7 +8059,28 @@
         "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609640.json?lang=en_GB&market=ZZ",
         "api_url": null
       },
-      "market_bovada": null,
+      "market_bovada": {
+        "venue": "bovada",
+        "venue_label": "Bovada",
+        "weight": 0.5,
+        "p0": 0.420936,
+        "p1": 0.579064,
+        "dec0": 2.2,
+        "dec1": 1.645161,
+        "am0": null,
+        "am1": null,
+        "bid0": null,
+        "ask0": null,
+        "bid1": null,
+        "ask1": null,
+        "overround": 1.0624,
+        "spread": null,
+        "liquidity": null,
+        "volume": null,
+        "fetched_at": "2026-10-24T16:29:32Z",
+        "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-gen-g-202610241800",
+        "api_url": null
+      },
       "market_kalshi": {
         "venue": "kalshi",
         "venue_label": "Kalshi CFTC",
@@ -7917,15 +8175,15 @@
       },
       "score0": 0,
       "score1": 0,
-      "p0": 0.425,
-      "p1": 0.575,
+      "p0": 0.424,
+      "p1": 0.576,
       "pick_side": "B",
       "pick": {
         "team_index": 1,
         "team_name": "T1",
-        "probability": 0.575,
+        "probability": 0.576,
         "source": "market_consensus",
-        "venue_count": 4,
+        "venue_count": 5,
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127310/markets/related/straight"
       },
       "settlement_pick": null,
@@ -7934,9 +8192,9 @@
       "unresolved_reason": null,
       "post_kickoff_audit": null,
       "market_consensus": {
-        "p0": 0.425,
-        "p1": 0.575,
-        "venue_count": 4,
+        "p0": 0.424,
+        "p1": 0.576,
+        "venue_count": 5,
         "spread_pp": 5.49,
         "primary_venue": "Pinnacle",
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127310/markets/related/straight",
@@ -8028,6 +8286,28 @@
             "fetched_at": "2026-10-24T16:19:37Z",
             "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241300t1dk",
             "api_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT241300T1DK?with_nested_markets=true"
+          },
+          {
+            "venue": "bovada",
+            "venue_label": "Bovada",
+            "weight": 0.5,
+            "p0": 0.420936,
+            "p1": 0.579064,
+            "dec0": 2.2,
+            "dec1": 1.645161,
+            "am0": null,
+            "am1": null,
+            "bid0": null,
+            "ask0": null,
+            "bid1": null,
+            "ask1": null,
+            "overround": 1.0624,
+            "spread": null,
+            "liquidity": null,
+            "volume": null,
+            "fetched_at": "2026-10-24T16:29:32Z",
+            "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/dplus-kia-t1-202610241900",
+            "api_url": null
           }
         ]
       },
@@ -8075,7 +8355,28 @@
         "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609638.json?lang=en_GB&market=ZZ",
         "api_url": null
       },
-      "market_bovada": null,
+      "market_bovada": {
+        "venue": "bovada",
+        "venue_label": "Bovada",
+        "weight": 0.5,
+        "p0": 0.420936,
+        "p1": 0.579064,
+        "dec0": 2.2,
+        "dec1": 1.645161,
+        "am0": null,
+        "am1": null,
+        "bid0": null,
+        "ask0": null,
+        "bid1": null,
+        "ask1": null,
+        "overround": 1.0624,
+        "spread": null,
+        "liquidity": null,
+        "volume": null,
+        "fetched_at": "2026-10-24T16:29:32Z",
+        "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/dplus-kia-t1-202610241900",
+        "api_url": null
+      },
       "market_kalshi": {
         "venue": "kalshi",
         "venue_label": "Kalshi CFTC",
@@ -8170,15 +8471,15 @@
       },
       "score0": 0,
       "score1": 0,
-      "p0": 0.747,
-      "p1": 0.253,
+      "p0": 0.744,
+      "p1": 0.256,
       "pick_side": "A",
       "pick": {
         "team_index": 0,
         "team_name": "Bilibili Gaming",
-        "probability": 0.747,
+        "probability": 0.744,
         "source": "market_consensus",
-        "venue_count": 4,
+        "venue_count": 5,
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121259/markets/related/straight"
       },
       "settlement_pick": null,
@@ -8187,10 +8488,10 @@
       "unresolved_reason": null,
       "post_kickoff_audit": null,
       "market_consensus": {
-        "p0": 0.747,
-        "p1": 0.253,
-        "venue_count": 4,
-        "spread_pp": 1.96,
+        "p0": 0.744,
+        "p1": 0.256,
+        "venue_count": 5,
+        "spread_pp": 2.32,
         "primary_venue": "Pinnacle",
         "primary_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121259/markets/related/straight",
         "venues": [
@@ -8281,6 +8582,28 @@
             "fetched_at": "2026-10-24T16:19:37Z",
             "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct242000blgtl",
             "api_url": "https://api.elections.kalshi.com/trade-api/v2/events/KXLOLGAME-26OCT242000BLGTL?with_nested_markets=true"
+          },
+          {
+            "venue": "bovada",
+            "venue_label": "Bovada",
+            "weight": 0.5,
+            "p0": 0.731835,
+            "p1": 0.268165,
+            "dec0": 1.322581,
+            "dec1": 3.25,
+            "am0": null,
+            "am1": null,
+            "bid0": null,
+            "ask0": null,
+            "bid1": null,
+            "ask1": null,
+            "overround": 1.0638,
+            "spread": null,
+            "liquidity": null,
+            "volume": null,
+            "fetched_at": "2026-10-24T16:29:32Z",
+            "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-bilibili-gaming-202610242000",
+            "api_url": null
           }
         ]
       },
@@ -8328,7 +8651,28 @@
         "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609649.json?lang=en_GB&market=ZZ",
         "api_url": null
       },
-      "market_bovada": null,
+      "market_bovada": {
+        "venue": "bovada",
+        "venue_label": "Bovada",
+        "weight": 0.5,
+        "p0": 0.731835,
+        "p1": 0.268165,
+        "dec0": 1.322581,
+        "dec1": 3.25,
+        "am0": null,
+        "am1": null,
+        "bid0": null,
+        "ask0": null,
+        "bid1": null,
+        "ask1": null,
+        "overround": 1.0638,
+        "spread": null,
+        "liquidity": null,
+        "volume": null,
+        "fetched_at": "2026-10-24T16:29:32Z",
+        "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-bilibili-gaming-202610242000",
+        "api_url": null
+      },
       "market_kalshi": {
         "venue": "kalshi",
         "venue_label": "Kalshi CFTC",
@@ -17217,7 +17561,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 30,
-        "elo": 1671
+        "elo": 1670.9
       },
       "team1": {
         "id": "263325",
@@ -17255,7 +17599,7 @@
       "model": {
         "p0": 0.592,
         "p1": 0.408,
-        "elo0": 1671,
+        "elo0": 1670.9,
         "elo1": 1644.5,
         "eff_elo0": 1642.5,
         "eff_elo1": 1577.8,
@@ -20081,7 +20425,7 @@
         "elo0": 1712.5,
         "elo1": 1623.9,
         "eff_elo0": 1694.6,
-        "eff_elo1": 1612.5,
+        "eff_elo1": 1612.4,
         "n0": 65,
         "n1": 59,
         "tier": "established",
@@ -20112,7 +20456,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 67,
-        "elo": 1676.8
+        "elo": 1676.4
       },
       "team1": {
         "id": "10168",
@@ -20150,9 +20494,9 @@
       "model": {
         "p0": 0.43,
         "p1": 0.57,
-        "elo0": 1676.8,
+        "elo0": 1676.4,
         "elo1": 1719.3,
-        "eff_elo0": 1662.2,
+        "eff_elo0": 1661.9,
         "eff_elo1": 1711.1,
         "n0": 67,
         "n1": 154,
@@ -26072,7 +26416,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 85,
-        "elo": 1702.9
+        "elo": 1702.6
       },
       "team1": {
         "id": "250931",
@@ -26085,13 +26429,13 @@
       },
       "score0": 1,
       "score1": 0,
-      "p0": 0.726,
-      "p1": 0.274,
+      "p0": 0.725,
+      "p1": 0.275,
       "pick_side": "A",
       "pick": {
         "team_index": 0,
         "team_name": "Smoke Tram",
-        "probability": 0.726,
+        "probability": 0.725,
         "source": "model",
         "venue_count": 0,
         "primary_url": "https://lol.fandom.com/wiki/LigaGG/CELOL_S%C3%A9rie_A/2026_Season/Split_2"
@@ -26108,11 +26452,11 @@
       "market_kalshi": null,
       "market_polymarket": null,
       "model": {
-        "p0": 0.726,
-        "p1": 0.274,
-        "elo0": 1702.9,
+        "p0": 0.725,
+        "p1": 0.275,
+        "elo0": 1702.6,
         "elo1": 1528.2,
-        "eff_elo0": 1689.5,
+        "eff_elo0": 1689.3,
         "eff_elo1": 1520.5,
         "n0": 85,
         "n1": 16,
@@ -26225,7 +26569,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 82,
-        "elo": 1696.9
+        "elo": 1696.8
       },
       "score0": 0,
       "score1": 1,
@@ -26255,7 +26599,7 @@
         "p0": 0.321,
         "p1": 0.679,
         "elo0": 1563.2,
-        "elo1": 1696.9,
+        "elo1": 1696.8,
         "eff_elo0": 1553.2,
         "eff_elo1": 1683.4,
         "n0": 32,
@@ -26288,7 +26632,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 32,
-        "elo": 1449.8
+        "elo": 1449.7
       },
       "team1": {
         "id": "263153",
@@ -26326,7 +26670,7 @@
       "model": {
         "p0": 0.517,
         "p1": 0.483,
-        "elo0": 1449.8,
+        "elo0": 1449.7,
         "elo1": 1409.8,
         "eff_elo0": 1457.7,
         "eff_elo1": 1445.9,
@@ -26360,7 +26704,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 17,
-        "elo": 1548.4
+        "elo": 1548.3
       },
       "team1": {
         "id": "263152",
@@ -26398,7 +26742,7 @@
       "model": {
         "p0": 0.555,
         "p1": 0.445,
-        "elo0": 1548.4,
+        "elo0": 1548.3,
         "elo1": 1496.8,
         "eff_elo0": 1535.7,
         "eff_elo1": 1497.6,
@@ -28849,7 +29193,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 18,
-        "elo": 1485.4
+        "elo": 1485.3
       },
       "team1": {
         "id": "263153",
@@ -28858,7 +29202,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 8,
-        "elo": 1421.3
+        "elo": 1421.2
       },
       "score0": 1,
       "score1": 0,
@@ -28887,8 +29231,8 @@
       "model": {
         "p0": 0.549,
         "p1": 0.451,
-        "elo0": 1485.4,
-        "elo1": 1421.3,
+        "elo0": 1485.3,
+        "elo1": 1421.2,
         "eff_elo0": 1489,
         "eff_elo1": 1455,
         "n0": 18,
@@ -28921,7 +29265,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 84,
-        "elo": 1698.5
+        "elo": 1698.3
       },
       "team1": {
         "id": "215576",
@@ -28959,9 +29303,9 @@
       "model": {
         "p0": 0.782,
         "p1": 0.218,
-        "elo0": 1698.5,
+        "elo0": 1698.3,
         "elo1": 1456.1,
-        "eff_elo0": 1685.3,
+        "eff_elo0": 1685.1,
         "eff_elo1": 1463.4,
         "n0": 84,
         "n1": 30,
@@ -29074,7 +29418,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 81,
-        "elo": 1689.9
+        "elo": 1689.8
       },
       "score0": 0,
       "score1": 1,
@@ -29104,9 +29448,9 @@
         "p0": 0.315,
         "p1": 0.685,
         "elo0": 1557.3,
-        "elo1": 1689.9,
+        "elo1": 1689.8,
         "eff_elo0": 1541.6,
-        "eff_elo1": 1676.8,
+        "eff_elo1": 1676.7,
         "n0": 16,
         "n1": 81,
         "tier": "established",
@@ -34586,7 +34930,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 83,
-        "elo": 1692
+        "elo": 1691.8
       },
       "team1": {
         "id": "249460",
@@ -34624,9 +34968,9 @@
       "model": {
         "p0": 0.696,
         "p1": 0.304,
-        "elo0": 1692,
+        "elo0": 1691.8,
         "elo1": 1540.4,
-        "eff_elo0": 1679.1,
+        "eff_elo0": 1678.9,
         "eff_elo1": 1534.8,
         "n0": 83,
         "n1": 37,
@@ -34658,7 +35002,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 10,
-        "elo": 1396.6
+        "elo": 1396.5
       },
       "team1": {
         "id": "215576",
@@ -34696,7 +35040,7 @@
       "model": {
         "p0": 0.471,
         "p1": 0.529,
-        "elo0": 1396.6,
+        "elo0": 1396.5,
         "elo1": 1446.7,
         "eff_elo0": 1435.3,
         "eff_elo1": 1455.8,
@@ -34739,7 +35083,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 8,
-        "elo": 1421.3
+        "elo": 1421.2
       },
       "score0": 0,
       "score1": 1,
@@ -34769,7 +35113,7 @@
         "p0": 0.638,
         "p1": 0.362,
         "elo0": 1563.2,
-        "elo1": 1421.3,
+        "elo1": 1421.2,
         "eff_elo0": 1553.2,
         "eff_elo1": 1455,
         "n0": 32,
@@ -34802,7 +35146,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 17,
-        "elo": 1462.9
+        "elo": 1462.8
       },
       "team1": {
         "id": "247943",
@@ -34840,10 +35184,10 @@
       "model": {
         "p0": 0.219,
         "p1": 0.781,
-        "elo0": 1462.9,
+        "elo0": 1462.8,
         "elo1": 1707.5,
         "eff_elo0": 1472.5,
-        "eff_elo1": 1693.1,
+        "eff_elo1": 1693,
         "n0": 17,
         "n1": 80,
         "tier": "established",
@@ -38532,7 +38876,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 15,
-        "elo": 1589.8
+        "elo": 1589.7
       },
       "score0": 1,
       "score1": 2,
@@ -38562,7 +38906,7 @@
         "p0": 0.346,
         "p1": 0.654,
         "elo0": 1437.5,
-        "elo1": 1589.8,
+        "elo1": 1589.7,
         "eff_elo0": 1453.8,
         "eff_elo1": 1564.1,
         "n0": 17,
@@ -38708,7 +39052,7 @@
         "elo0": 1543.9,
         "elo1": 1535,
         "eff_elo0": 1527.4,
-        "eff_elo1": 1525.9,
+        "eff_elo1": 1525.8,
         "n0": 10,
         "n1": 17,
         "tier": "established",
@@ -38739,7 +39083,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 7,
-        "elo": 1428.5
+        "elo": 1428.4
       },
       "team1": {
         "id": "184110",
@@ -38748,7 +39092,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 81,
-        "elo": 1681
+        "elo": 1680.8
       },
       "score0": 0,
       "score1": 1,
@@ -38777,10 +39121,10 @@
       "model": {
         "p0": 0.233,
         "p1": 0.767,
-        "elo0": 1428.5,
-        "elo1": 1681,
+        "elo0": 1428.4,
+        "elo1": 1680.8,
         "eff_elo0": 1461.5,
-        "eff_elo1": 1668.5,
+        "eff_elo1": 1668.3,
         "n0": 7,
         "n1": 81,
         "tier": "established",
@@ -38955,7 +39299,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 17,
-        "elo": 1607.8
+        "elo": 1607.7
       },
       "team1": {
         "id": "263172",
@@ -38993,9 +39337,9 @@
       "model": {
         "p0": 0.618,
         "p1": 0.382,
-        "elo0": 1607.8,
+        "elo0": 1607.7,
         "elo1": 1490.4,
-        "eff_elo0": 1579.7,
+        "eff_elo0": 1579.6,
         "eff_elo1": 1496.2,
         "n0": 17,
         "n1": 4,
@@ -39067,7 +39411,7 @@
         "p1": 0.434,
         "elo0": 1621.2,
         "elo1": 1556.2,
-        "eff_elo0": 1594.3,
+        "eff_elo0": 1594.2,
         "eff_elo1": 1548,
         "n0": 21,
         "n1": 35,
@@ -39099,7 +39443,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 78,
-        "elo": 1721.6
+        "elo": 1721.5
       },
       "team1": {
         "id": "249453",
@@ -39137,7 +39481,7 @@
       "model": {
         "p0": 0.78,
         "p1": 0.22,
-        "elo0": 1721.6,
+        "elo0": 1721.5,
         "elo1": 1482.5,
         "eff_elo0": 1705.7,
         "eff_elo1": 1485.6,
@@ -39400,13 +39744,13 @@
       },
       "score0": 0,
       "score1": 1,
-      "p0": 0.637,
-      "p1": 0.363,
+      "p0": 0.636,
+      "p1": 0.364,
       "pick_side": "A",
       "pick": {
         "team_index": 0,
         "team_name": "Sphere Esports",
-        "probability": 0.637,
+        "probability": 0.636,
         "source": "model",
         "venue_count": 0,
         "primary_url": "https://lol.fandom.com/wiki/LigaGG/CELOL_S%C3%A9rie_A/2026_Season/Split_2"
@@ -39423,8 +39767,8 @@
       "market_kalshi": null,
       "market_polymarket": null,
       "model": {
-        "p0": 0.637,
-        "p1": 0.363,
+        "p0": 0.636,
+        "p1": 0.364,
         "elo0": 1563.2,
         "elo1": 1439.4,
         "eff_elo0": 1553.2,
@@ -41221,7 +41565,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 80,
-        "elo": 1667.9
+        "elo": 1667.7
       },
       "team1": {
         "id": "247943",
@@ -41230,7 +41574,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 77,
-        "elo": 1734.7
+        "elo": 1734.6
       },
       "score0": 1,
       "score1": 0,
@@ -41259,10 +41603,10 @@
       "model": {
         "p0": 0.412,
         "p1": 0.588,
-        "elo0": 1667.9,
-        "elo1": 1734.7,
-        "eff_elo0": 1656.2,
-        "eff_elo1": 1717.7,
+        "elo0": 1667.7,
+        "elo1": 1734.6,
+        "eff_elo0": 1656,
+        "eff_elo1": 1717.6,
         "n0": 80,
         "n1": 77,
         "tier": "established",
@@ -41518,7 +41862,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 20,
-        "elo": 1611.5
+        "elo": 1611.4
       },
       "score0": 0,
       "score1": 1,
@@ -41548,9 +41892,9 @@
         "p0": 0.381,
         "p1": 0.619,
         "elo0": 1501.7,
-        "elo1": 1611.5,
+        "elo1": 1611.4,
         "eff_elo0": 1501.1,
-        "eff_elo1": 1585.8,
+        "eff_elo1": 1585.7,
         "n0": 12,
         "n1": 20,
         "tier": "established",
@@ -41590,7 +41934,7 @@
         "join_method": "competition-exact",
         "join_note": null,
         "n_matches": 15,
-        "elo": 1422.5
+        "elo": 1422.4
       },
       "score0": 0,
       "score1": 1,
@@ -41620,7 +41964,7 @@
         "p0": 0.574,
         "p1": 0.426,
         "elo0": 1495.8,
-        "elo1": 1422.5,
+        "elo1": 1422.4,
         "eff_elo0": 1496.6,
         "eff_elo1": 1444.6,
         "n0": 27,

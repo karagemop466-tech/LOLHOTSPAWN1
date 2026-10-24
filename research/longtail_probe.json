@@ -1,0 +1,89 @@
+{
+ "checked_utc": "2026-10-24T16:28:00Z",
+ "session": "62ba9cfe",
+ "path": "research sandbox (browser-grade fetch proxy). This sandbox's own shell has no outbound egress: curl to the Hotspawn fixtures API, lol.fandom.com and guest.api.arcadia.pinnacle.com all returned HTTP 000 on 2026-10-24, so the two network paths below are independent.",
+ "companion_dossier": "research/LONGTAIL_VENUES.md",
+ "results": [
+  {
+   "name": "Hotspawn fixtures API",
+   "url": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
+   "status": 200,
+   "path": "research sandbox",
+   "lol_series_priced": null,
+   "note": "JSON, 24 response chunks, 241 scheduled LoL cards across 29 tournaments. Inventory only - never used as a probability."
+  },
+  {
+   "name": "EGamersWorld LoL",
+   "url": "https://egamersworld.com/lol/matches",
+   "status": 200,
+   "path": "research sandbox (the Actions runner gets HTTP 403)",
+   "lol_series_priced": 11,
+   "competitions_priced": [
+    "2026 World Championship (8)",
+    "LGC 2026 Rising (1)",
+    "LCP 2027 Promotion (2)"
+   ],
+   "note": "Widest external LoL coverage found on any path. Decimal prices readable as text. Clock is US Eastern (UTC-4 EDT / UTC-5 EST).",
+   "receipt_file": "data/receipts/external_odds/2026-10-24-longtail.json"
+  },
+  {
+   "name": "bo3.gg LoL match centre",
+   "url": "https://bo3.gg/lol/matches/current",
+   "status": 200,
+   "path": "research sandbox (the Actions runner gets HTTP 200 but no prices - client-rendered)",
+   "lol_series_priced": 8,
+   "competitions_priced": [
+    "Worlds 2026 (8)"
+   ],
+   "note": "Page is filtered to 's-tier'; no tier-2, national or academy league appears. Prices affiliate out to the Thunderpick feed.",
+   "receipt_file": "data/receipts/external_odds/2026-10-24-longtail.json"
+  }
+ ],
+ "inventory_snapshot": {
+  "source": "data/node/raw/hotspawn_lol_fixtures.json (fetched by the secondary Node pipeline)",
+  "fetched_utc": "2026-10-24T15:34:30.580Z",
+  "scheduled": 241,
+  "tournaments": 29,
+  "cards_with_an_external_price": 11,
+  "cards_with_no_external_price_anywhere": 230,
+  "tournaments_with_an_external_price": 3,
+  "tournaments_with_no_external_price": 26,
+  "per_competition": {
+   "PRM 3rd Division 26-27 Fall": 62,
+   "PRM 2nd Division 26-27 Fall": 36,
+   "RIVALS LEAGUE Season 2": 25,
+   "Tunisian Super League 2026": 25,
+   "Icelandic Esports League 2026 Autumn": 12,
+   "Arabian League 2nd Division 2026 Summer": 9,
+   "Worlds 2026 Main Event": 8,
+   "Komplettligaen 2026 Autumn": 6,
+   "Superstrike League 2026": 6,
+   "Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine": 6,
+   "Benelux Ascend Series Rising 2026 Summer Playoffs": 5,
+   "Benelux Ascend Series 2027 Winter Promotion": 5,
+   "LigaGG CELOL B 2026 Split 2 Playoffs": 5,
+   "4 Nations 2026 Halloween Heist": 5,
+   "Logitech G SuperStrike Cup Qualifier": 4,
+   "Komplettligaen 2026 Autumn Playoffs": 3,
+   "LCP 2027 Promotion": 3,
+   "Benelux Ascend Series 2026 Summer Split": 2,
+   "LigaGG CELOL B 2026 Split 2": 2,
+   "Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait": 2,
+   "LigaGG CELOL A 2026 Split 2 Playoffs": 2,
+   "FPL 2026 Summer Playoffs": 1,
+   "LIT 2027 Winter Promotion": 1,
+   "Benelux Ascend Series 2026 Summer Playoffs": 1,
+   "LigaGG CELOL A 2026 Split 2": 1,
+   "POP Esports Masters Season 7": 1,
+   "Legends Academy powered by Żabka Season 3 Playoffs": 1,
+   "Hitpoint 2nd Div Challengers 2026 Summer Playoffs": 1,
+   "LGC Rising 2026 Playoffs": 1
+  },
+  "external_price_by_competition": {
+   "Worlds 2026 Main Event": 8,
+   "LGC Rising 2026 Playoffs": 1,
+   "LCP 2027 Promotion": 2
+  }
+ },
+ "conclusion": "No reachable bookmaker, esportsbook, exchange or aggregator prices national, academy or third-division League of Legends. The measured external ceiling is 11 of 241 scheduled cards on a single aggregator, 8 of which are the same Worlds ties every venue prices. Every other card is originated from recorded series results and labelled model/provisional, or resolved by official settlement and left without a probability."
+}

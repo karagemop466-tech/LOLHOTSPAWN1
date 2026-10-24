@@ -469,10 +469,19 @@ async function collectBovada() {
   } catch (e) {
     for (const fbPath of [target, path.join(CANON_RAW, "bovada_lol.json")]) {
       const prev = await readJSONSafe(fbPath);
-      if (isFresh24h(prev) && Array.isArray(prev.events)) {
+      if (isFresh24h(prev) && Array.isArray(prev.events) && prev.events.length > 0) {
         const preserved = { ...prev, fetched_at: prev.fetched_at || prev.fetched_utc };
         await writeFile(target, JSON.stringify(preserved));
         note("bovada", `API unreachable (${e.message}) — preserved <24h snapshot (${preserved.events.length} events)`, false);
+        return preserved;
+      }
+    }
+    for (const fbPath of [target, path.join(CANON_RAW, "bovada_lol.json")]) {
+      const prev = await readJSONSafe(fbPath);
+      if (isFresh24h(prev) && Array.isArray(prev.events)) {
+        const preserved = { ...prev, fetched_at: prev.fetched_at || prev.fetched_utc };
+        await writeFile(target, JSON.stringify(preserved));
+        note("bovada", `API unreachable (${e.message}) — preserved <24h snapshot (0 events)`, false);
         return preserved;
       }
     }

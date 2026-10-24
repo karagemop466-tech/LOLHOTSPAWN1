@@ -30,7 +30,7 @@ import glob
 import html
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, ROOT, iso, load_json, log, norm_name, now_utc, save_json
@@ -49,6 +49,19 @@ OUT_JSON = os.path.join(DATA, "corroboration.json")
 OUT_HTML = os.path.join(ROOT, "coverage.html")   # GitHub Pages serves the branch root
 DIVERGENCE_PP = 8.0          # external vs our line, percentage points (allows normal pre-kickoff movement)
 PLACEHOLDER_DECIMAL = 1.80   # aggregator "no price yet" default, rejected by tools/model.py too
+RECEIPT_MAX_AGE_HOURS = 24   # a captured quote corroborates a *current* line only while it is fresh
+                             # (must match tools/model.py RECEIPT_MAX_AGE_HOURS)
+
+
+def age_hours(captured_utc: str | None) -> float | None:
+    """Age of a receipt capture in hours, or None when the timestamp is unusable."""
+    if not captured_utc:
+        return None
+    try:
+        dt = datetime.strptime(str(captured_utc)[:19], "%Y-%m-%dT%H:%M:%S")
+    except ValueError:
+        return None
+    return round((datetime.now(timezone.utc).replace(tzinfo=None) - dt).total_seconds() / 3600.0, 2)
 
 NAV = [
     ("index.html", "Summary"),
@@ -83,7 +96,12 @@ def pp(value) -> str:
 
 GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", "lol", "e", "v"}
 RECEIPT_ALIASES = {"team secret": "team secret whales", "secret whales": "team secret whales",
-                   "lyon gaming": "lyon", "l s": "los", "l o s": "los"}
+                   "lyon gaming": "lyon", "l s": "los", "l o s": "los",
+                   # EGamersWorld shortens "Anyone's Legend" (LPL) to the org's ticker "AG.AL";
+                   # Hotspawn writes the full name. Verified on the same card across two pages on
+                   # 2026-10-24: bo3.gg/lol/matches/top-esports-lol-vs-anyones-legend-24-10-2026 and
+                   # egamersworld.com/lol/match/q8qUtLA6g/top-esports-vs-agal-p1yWEbksN.
+                   "ag al": "anyones legend"}
 
 
 def same(a: str, b: str) -> bool:
@@ -163,14 +181,9 @@ def build() -> dict:
     observations = receipts["observations"]
 
     rows: list[dict] = []
-    off_list: list[dict] = []
-    # A receipt whose fixture has left the Hotspawn list is *historical evidence*, not a
-    # broken receipt. The feed drops a card once it kicks off, so every receipt would
-    # otherwise be reclassified as "rejected" within a day and the publish gate would
-    # block every scheduled refresh (this is exactly what stopped the 6-hourly job on
-    # 2026-10-24). They stay on the coverage page, labelled and dated, and never price a
-    # match; the gate keeps failing on malformed receipts and on real divergences.
-    historical: list[dict] = []
+    off_list: list[dict] = []       # genuinely bad receipts: malformed / wrong teams / unparseable
+    historic: list[dict] = []       # archived evidence for a fixture Hotspawn no longer lists
+    expired: list[dict] = []        # a real receipt, but older than the pricing window
     for cap in captures:
         fid = str(cap.get("fixture_id") or "")
         match = by_id.get(fid)
@@ -182,13 +195,14 @@ def build() -> dict:
             "captured_utc": cap.get("captured_utc"),
             "verbatim": cap.get("verbatim", ""),
             "receipt_file": cap.get("_file"),
+            "age_hours": age_hours(cap.get("captured_utc")),
         }
         if match is None:
-            historical.append({**base, "status": "off-list",
-                               "reason": "fixture is no longer on the Hotspawn list (it has kicked off "
-                                         "or been removed since capture); kept as historical evidence and "
-                                         "excluded from every current quote and every probability",
-                               "verdict": "historical evidence"})
+            # Not an error: Hotspawn rotates fixtures off the list, so an archived capture of a
+            # delisted card is history, not a broken receipt. It stays in the ledger, excluded
+            # from pricing, and is never counted as a rejection.
+            historic.append({**base, "status": "historic",
+                             "reason": "fixture is no longer listed by Hotspawn; retained as archived evidence"})
             continue
         t0, t1 = match["team0"]["name"], match["team1"]["name"]
         page_teams = cap.get("page_teams") or []
@@ -256,6 +270,18 @@ def build() -> dict:
                     "verdict": verdict})
         if conflict:
             row["conflict"] = conflict
+        age = row.get("age_hours")
+        if age is None or age > RECEIPT_MAX_AGE_HOURS:
+            # The quote is real but it is no longer a current price: it cannot corroborate a
+            # line quoted today. Kept and shown as expired instead of silently "usable", and
+            # it is never a rejection - an ageing archive is not a data error.
+            row.update({
+                "status": "expired",
+                "verdict": "expired (archival evidence only)",
+                "reason": (f"captured {age if age is not None else 'at an unknown time'} h ago; "
+                           f"the current-line window is {RECEIPT_MAX_AGE_HOURS} h"),
+            })
+            expired.append(row)
         rows.append(row)
 
     # ---- per-competition coverage matrix
@@ -345,11 +371,13 @@ def build() -> dict:
         "priced_by_us": sum(1 for m in matches if m.get("p0") is not None),
         "unresolved_by_us": sum(1 for m in matches if m.get("method") == "unresolved"),
         "method_counts": {},
-        "receipts": len(rows) + len(off_list) + len(historical),
+        "receipts": len(rows) + len(off_list) + len(historic),
         "usable_receipts": len(usable),
         "placeholders": sum(1 for r in rows if r["status"] == "placeholder"),
         "rejected_receipts": len(off_list),
-        "historical_receipts": len(historical),
+        "historic_receipts": len(historic),
+        "expired_receipts": len(expired),
+        "receipt_window_hours": RECEIPT_MAX_AGE_HOURS,
         "agrees": sum(1 for r in usable if r["verdict"] == "agrees"),
         "diverges": sum(1 for r in usable if r["verdict"] == "diverges"),
         "conflicting": sum(1 for r in rows if "conflict" in r),
@@ -370,7 +398,12 @@ def build() -> dict:
             "corroboration_only": True,
             "divergence_threshold_pp": DIVERGENCE_PP,
             "placeholder_decimal": PLACEHOLDER_DECIMAL,
+            "receipt_max_age_hours": RECEIPT_MAX_AGE_HOURS,
             "no_inference": "a price absent from a receipt is never inferred or averaged in",
+            "classification": ("every capture lands in exactly one bucket: usable (fresh, matched, "
+                               "non-placeholder), expired (fresh window passed), historic (fixture no "
+                               "longer listed) or rejected (malformed / wrong teams). Only malformed or "
+                               "mismatched receipts and divergences fail the publish gate."),
         },
         "sources": list(sources.values()),
         "coverage_observations": observations,
@@ -385,7 +418,8 @@ def build() -> dict:
         "coverage": coverage,
         "rows": rows,
         "rejected": off_list,
-        "historical": historical,
+        "historic": historic,
+        "expired": expired,
         "problems": problems,
     }
 
@@ -406,9 +440,13 @@ def render(doc: dict) -> str:
     <div class="sn">{s['competitions_without_external_price']} have none anywhere we can reach</div></div>
   <div class="stat ok"><div class="sv">{s['agrees']}</div><div class="sl">receipts that agree with our line</div>
     <div class="sn">&le; {DIVERGENCE_PP:.0f} pp &middot; max gap {s['max_delta_pp'] if s['max_delta_pp'] is not None else '&mdash;'} pp</div></div>
-  <div class="stat provisional"><div class="sv">{s['historical_receipts']}</div>
-    <div class="sl">historical receipts (no longer on the list)</div>
-    <div class="sn">{s['placeholders']} placeholder &middot; {s['rejected_receipts']} malformed</div></div>
+  <div class="stat provisional"><div class="sv">{s['placeholders'] + s['rejected_receipts']}</div>
+    <div class="sl">receipts unusable</div>
+    <div class="sn">{s['placeholders']} placeholder &middot; {s['rejected_receipts']} malformed/wrong teams</div></div>
+  <div class="stat"><div class="sv">{s['expired_receipts'] + s['historic_receipts']}</div>
+    <div class="sl">archived receipts (not current prices)</div>
+    <div class="sn">{s['expired_receipts']} past the {s['receipt_window_hours']} h window &middot;
+      {s['historic_receipts']} for delisted fixtures</div></div>
 </section>
 """
 
@@ -464,20 +502,6 @@ def render(doc: dict) -> str:
             f'<br><span class="muted small">captured {e((r.get("captured_utc") or "")[:16].replace("T", " "))}Z</span></td>'
             "</tr>"
         )
-    for r in doc.get("historical") or []:
-        rec_rows.append(
-            "<tr class=\"rowhist\">"
-            f'<td data-label="Match"><span class="muted">{e(r.get("fixture_id"))}</span>'
-            f'<br><span class="muted small">{e(r.get("captured_utc") or "")[:16].replace("T", " ")}Z</span></td>'
-            '<td data-label="Our line">&mdash;</td>'
-            f'<td data-label="External line">{e(r.get("source_name"))}'
-            f'<br><span class="muted small">{e(r.get("verbatim") or "")}</span></td>'
-            '<td data-label="Gap" class="num">&mdash;</td>'
-            '<td data-label="Verdict"><span class="pill no">historical evidence</span></td>'
-            f'<td data-label="Receipt"><a href="{e(r.get("page_url"))}">source page</a><br>'
-            f'<span class="muted small">{e(r.get("reason"))}</span></td>'
-            "</tr>"
-        )
     for r in doc["rejected"]:
         rec_rows.append(
             "<tr class=\"rowbad\">"
@@ -488,6 +512,19 @@ def render(doc: dict) -> str:
             f'<td data-label="Verdict"><span class="pill bad">{e(r.get("status"))}</span></td>'
             f'<td data-label="Receipt"><a href="{e(r.get("page_url"))}">source page</a><br>'
             f'<span class="muted small">{e(r.get("reason"))}</span></td>'
+            "</tr>"
+        )
+    for r in doc.get("historic") or []:
+        rec_rows.append(
+            "<tr>"
+            f'<td data-label="Match"><span class="muted">fixture #{e(r.get("fixture_id"))} (delisted)</span></td>'
+            "<td data-label=\"Our line\">&mdash;</td>"
+            f'<td data-label="External line">{e(r.get("source_name"))}</td>'
+            "<td data-label=\"Gap\" class=\"num\">&mdash;</td>"
+            '<td data-label="Verdict"><span class="pill no">historic</span></td>'
+            f'<td data-label="Receipt"><a href="{e(r.get("page_url"))}">source page</a><br>'
+            f'<span class="muted small">{e(r.get("reason"))}'
+            f' &middot; captured {e((r.get("captured_utc") or "")[:16].replace("T", " "))}Z</span></td>'
             "</tr>"
         )
 
@@ -696,8 +733,7 @@ def main() -> None:
         fh.write(html_text)
     s = doc["summary"]
     log(f"corroborate: {s['usable_receipts']} usable receipts "
-        f"({s['agrees']} agree / {s['diverges']} diverge / {s['placeholders']} placeholder / "
-        f"{s['historical_receipts']} historical off-list / {s['rejected_receipts']} malformed), "
+        f"({s['agrees']} agree / {s['diverges']} diverge / {s['placeholders']} placeholder), "
         f"{s['competitions_with_external_price']}/{len(doc['coverage'])} competitions priced externally")
     for p in doc["problems"]:
         log(f"corroborate WARNING: {p}")

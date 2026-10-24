@@ -1,0 +1,78 @@
+{
+ "generated_utc": "2026-10-24T16:25:06Z",
+ "dataset_generated_utc": "2026-10-24T16:21:25Z",
+ "pages_checked": 13,
+ "checks": [
+  {
+   "name": "table.html renders one row per dataset fixture",
+   "ok": true,
+   "detail": "241 rows parsed, 241 in dataset"
+  },
+  {
+   "name": "no duplicate fixture ids on the table",
+   "ok": true,
+   "detail": "241 unique of 241"
+  },
+  {
+   "name": "every table row resolves to a dataset fixture",
+   "ok": true,
+   "detail": "unresolved: []"
+  },
+  {
+   "name": "the percentages printed on the page equal data/matches.json",
+   "ok": true,
+   "detail": "237 rows compared; mismatches: []"
+  },
+  {
+   "name": "probabilities on each table row sum to 100% (+/-0.2pp)",
+   "ok": true,
+   "detail": "241/241 ok; problems: []"
+  },
+  {
+   "name": "the named pick is rendered on its own row",
+   "ok": true,
+   "detail": "problems: []"
+  },
+  {
+   "name": "every table row carries an https source link",
+   "ok": true,
+   "detail": "241/241 ok; missing: []"
+  },
+  {
+   "name": "picks.html renders every dataset fixture exactly once",
+   "ok": true,
+   "detail": "241 cards for 241 fixtures; missing=[] dupes=[]"
+  },
+  {
+   "name": "exec summary links to every picks view",
+   "ok": true,
+   "detail": "missing: []"
+  },
+  {
+   "name": "exec summary carries the unresolved picks & limitations block",
+   "ok": true,
+   "detail": "both words present"
+  },
+  {
+   "name": "every page declares a mobile viewport",
+   "ok": true,
+   "detail": "13 pages; missing: []"
+  },
+  {
+   "name": "no page sets a fixed width wider than a 420px phone",
+   "ok": true,
+   "detail": "offenders: []"
+  },
+  {
+   "name": "no placeholder value is rendered as a match value",
+   "ok": true,
+   "detail": "leaks: []"
+  },
+  {
+   "name": "coverage arithmetic reconciles",
+   "ok": true,
+   "detail": "priced=237 + settlement=4 + unpicked=0 = 241 of 241"
+  }
+ ],
+ "passed": true
+}

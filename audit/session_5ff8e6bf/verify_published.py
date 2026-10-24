@@ -28,7 +28,7 @@ DATA = os.path.join(ROOT, "data")
 RAW = os.path.join(DATA, "raw")
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-PAGES = ["index.html", "table.html", "picks.html", "featured.html", "originated.html",
+PAGES = ["index.html", "table.html", "picks.html", "results.html", "featured.html", "originated.html",
          "unresolved.html", "competitions.html", "teams.html", "flagged.html",
          "coverage.html", "verification.html", "sources.html", "methodology.html"]
 ALLOWED_METHODS = {"market", "model", "provisional", "unresolved"}
@@ -316,8 +316,8 @@ def main() -> int:
         f"cards={counts.get('picks.html',{}).get('cards')} matches={len(rows)}")
 
     index = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
-    needed = ["table.html", "picks.html", "featured.html", "originated.html", "unresolved.html",
-              "flagged.html", "Unresolved picks", "Executive summary"]
+    needed = ["table.html", "picks.html", "results.html", "featured.html", "originated.html",
+              "unresolved.html", "flagged.html", "Unresolved picks", "Executive summary"]
     absent = [n for n in needed if n not in index]
     add("the executive summary links every picks view, the unresolved section and the flag page",
         not absent, f"missing: {absent}")

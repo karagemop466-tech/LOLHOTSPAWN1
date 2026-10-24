@@ -379,7 +379,7 @@ function buildBovadaQuotes(bovRaw, nowMs) {
       pA: dv.p0,
       pB: dv.p1,
       overround: dv.overround,
-      start_ms: parseTimeMs(ev.start_ms),
+      start_ms: parseTimeMs(ev.start_utc || ev.start_ms),
       fetched_at: bovRaw.fetched_at || bovRaw.fetched_utc,
       url: ev.url || "https://www.bovada.lv/sports/esports/league-of-legends",
     });
