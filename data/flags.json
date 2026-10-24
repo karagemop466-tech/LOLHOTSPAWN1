@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-24T16:44:53Z",
- "count": 34,
+ "generated_utc": "2026-10-24T16:45:38Z",
+ "count": 36,
  "flags": [
   {
    "severity": "high",
@@ -151,6 +151,20 @@
    "source": "https://egamersworld.com/lol/event/lcp-2027-promotion-eDTgthgYk",
    "verification": "three independent fixture/page time pairs reconciled against the Hotspawn fixtures API on 2026-10-24; DST end date 2026-11-01 is the US federal rule (first Sunday in November)",
    "delisted_refs": []
+  },
+  {
+   "severity": "info",
+   "item": "Hotspawn voids forfeited-match predictions (official rule) - Solid Gaming settlement picks are expected to score 0 [verified live 2026-10-24 (official Hotspawn help page, forfeited-match FAQ)]",
+   "detail": "Hotspawn's How Pick'ems Works page states: 'If a match is forfeited, all predictions for that match are voided. No points are awarded or deducted...' (checked 2026-10-24). The four Komplettligaen cards involving removed team Solid Gaming (#1071170, #1071200, #1071206, #1071186) therefore show the official forfeit winner with no probability, and the expected Hotspawn outcome is VOID (0 points whichever side is picked). The side shown matters only if Hotspawn grades a walkover instead of voiding. Site copy, model basis text and the Unresolved page were updated to cite this rule (session e32a5c4b); no pick value changed.",
+   "source": "https://play.hotspawn.com/how-it-works",
+   "verification": "verified live 2026-10-24 (official Hotspawn help page, forfeited-match FAQ)"
+  },
+  {
+   "severity": "info",
+   "item": "Low-tier tail: 51-venue probe (2026-10-24) finds no external line for 27 of 29 Hotspawn competitions [runner receipts committed 2026-10-24 (data/probe/lowtier_20261024.json)]",
+   "detail": "tools/probe_lowtier.py probed 51 established books, esportsbooks, exchanges and aggregators from a GitHub runner against the live 241-fixture inventory. Only Worlds 2026 Main Event and LGC Rising 2026 Playoffs appear in any venue payload; PRM 2nd/3rd Division, Tunisian Super League, Arabian, RIVALS, Icelandic, Benelux, LigaGG and the rest appear nowhere. Non-featured picks are therefore originated (Elo) / provisional / settlement only. Keyed APIs (OddsPapi, PandaScore, Betfair API) are flagged as owner-credential options, not used. Receipts: data/probe/lowtier_20261024.json; memo: research/low-tier-sources-2026-10-24.md. TonyBet/BetOnline and in-browser GG.BET/Thunderpick coupons remain unprobed (runner cannot render them) - recorded as a limitation, not silently assumed.",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/low-tier-sources-2026-10-24.md",
+   "verification": "runner receipts committed 2026-10-24 (data/probe/lowtier_20261024.json)"
   },
   {
    "severity": "info",

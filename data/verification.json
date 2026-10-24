@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T16:44:54Z",
+ "generated_utc": "2026-10-24T16:45:39Z",
  "checks": [
   {
    "name": "dataset present",
@@ -132,6 +132,11 @@
    "detail": "missing: []"
   },
   {
+   "name": "starting-soon phone list and fallback ledger rendered",
+   "ok": true,
+   "detail": "missing: []"
+  },
+  {
    "name": "mobile navigation rendered on every page and wired in JS",
    "ok": true,
    "detail": "missing mobnav: []; menu+filter handlers present: True"
@@ -144,7 +149,7 @@
   {
    "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "16 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
+   "detail": "18 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -174,7 +179,7 @@
   {
    "name": "external source research receipts are committed",
    "ok": true,
-   "detail": "44 venues probed on 2026-10-24T16:39:38Z; dossier present"
+   "detail": "44 venues probed on 2026-10-24T16:40:49Z; dossier present"
   },
   {
    "name": "coverage arithmetic reconciles to the inventory",
@@ -218,6 +223,6 @@
   "provisional": 78,
   "market": 9
  },
- "internal_links": 424,
+ "internal_links": 436,
  "lookahead_violations": 0
 }
