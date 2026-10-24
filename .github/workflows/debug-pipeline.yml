@@ -1,0 +1,98 @@
+name: debug-pipeline
+
+# Session 7582f227 (T16): branch-scoped, full-fidelity rehearsal of refresh.yml.
+# The session sandbox has no egress to the data sources, so the fix for the
+# stale-receipt publish outage (tools/corroborate.py lifecycle) is proven here on
+# a real runner against the live feeds before it goes to main.
+#
+# Differences from refresh.yml (production publisher, main-only):
+#   * triggers only on this session branch
+#   * commits data/build.log + regenerated data/site back to THIS branch even
+#     when the gate fails (diagnostics first), and the job then reports red
+#   * shares the refresh-picks concurrency group so it can never push-race the
+#     production bots
+
+on:
+  push:
+    branches: ["arena/7582f227-lolhotspawn1"]
+    paths:
+      - "tools/**"
+      - "tests/**"
+      - ".github/workflows/debug-pipeline.yml"
+      - "debug-trigger"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-picks
+  cancel-in-progress: false
+
+jobs:
+  debug:
+    # do not re-trigger on bot commits
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/7582f227-lolhotspawn1
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python3 -m pip install --quiet requests
+
+      - name: Run pipeline (captured log)
+        id: pipeline
+        continue-on-error: true
+        run: |
+          set -uo pipefail
+          mkdir -p data
+          {
+            echo "=== debug build $(date -u +%FT%TZ) on ${{ github.sha }} ==="
+            python3 -m unittest discover -s tests -v 2>&1
+            echo "unittests exit: $?"
+            python3 tools/collect.py   2>&1; echo "collect exit: $?"
+            python3 tools/model.py     2>&1; echo "model exit: $?"
+            python3 tools/report.py    2>&1; echo "report exit: $?"
+            python3 tools/flags.py     2>&1; echo "flags exit: $?"
+            python3 tools/site.py      2>&1; echo "site exit: $?"
+            python3 tools/corroborate.py 2>&1; echo "corroborate exit: $?"
+            python3 tools/verify.py    2>&1; echo "verify exit: $?"
+            python3 tools/site.py      2>&1; echo "site2 exit: $?"
+            python3 tools/corroborate.py 2>&1; echo "corroborate2 exit: $?"
+            python3 tools/verify.py    2>&1; echo "verify2 exit: $?"
+          } | tee data/build.log
+          # succeed only if every stage reported exit 0 (a crashed model.py must not
+          # sneak through on the previous committed matches.json)
+          for step in unittests collect model report flags site corroborate verify site2 corroborate2 verify2; do
+            grep -q "^${step} exit: 0$" data/build.log || { echo "FAILED stage: ${step}"; exit 1; }
+          done
+
+      - name: Commit diagnostics + regenerated data/site to the branch
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin arena/7582f227-lolhotspawn1 || true
+          git add -A data debug-trigger 2>/dev/null || git add -A data
+          git add *.html
+          if git diff --cached --quiet; then
+            echo "no change to commit"
+          else
+            git commit -m "chore(debug): branch pipeline rehearsal (log + regenerated data/site) [skip ci]"
+            git push origin HEAD:arena/7582f227-lolhotspawn1
+          fi
+
+      - name: Fail loudly if the gate failed
+        if: steps.pipeline.outcome == 'failure'
+        run: |
+          echo "pipeline or publish gate failed - see data/build.log committed on this branch"
+          tail -40 data/build.log
+          exit 1

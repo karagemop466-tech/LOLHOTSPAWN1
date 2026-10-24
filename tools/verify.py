@@ -294,10 +294,13 @@ def main() -> None:
     add("coverage matrix: every competition row links to a source", bool(cov_rows) and not no_link,
         f"{len(cov_rows)} competition rows; missing links: {no_link[:3]}")
     bad_receipts = corr.get("rejected") or []
+    retired_receipts = corr.get("retired") or []
     diverged = [r for r in (corr.get("rows") or []) if r.get("verdict") == "diverges"]
     add("external receipts validated against the dataset", not bad_receipts and not diverged,
         f"{corr.get('summary',{}).get('usable_receipts',0)} usable receipts, "
-        f"{len(bad_receipts)} rejected, {len(diverged)} diverging >{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp")
+        f"{len(bad_receipts)} rejected, {len(retired_receipts)} retired (fixture no longer listed - "
+        f"match concluded, historical evidence), "
+        f"{len(diverged)} diverging >{corr.get('summary',{}).get('divergence_threshold_pp','5')}pp")
     cov_path = os.path.join(DOCS, "coverage.html")
     cov_html = open(cov_path, encoding="utf-8").read() if os.path.exists(cov_path) else ""
     add("coverage page shows every match method and the unresolved ledger",
