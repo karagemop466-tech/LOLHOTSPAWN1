@@ -56,9 +56,9 @@
   <p class="formula">R&prime;<sub>A</sub> = R<sub>A</sub> + K<sub>eff</sub> &middot; (S<sub>A</sub> - E<sub>A</sub>)</p>
   <p>Empirical Bayes shrinkage towards tier prior R<sub>0</sub> for sample size n (shrink = 5.0):</p>
   <p class="formula">R<sub>eff</sub> = R<sub>0</sub> + (R - R<sub>0</sub>) &middot; n / (n + 5.0)</p>
-  <p>Inactivity decay begins after 45 days and reaches 1500 at
-  450 days; originated probabilities are clamped to
-  0.05&ndash;0.95.</p>
+  <p>Inactivity decay begins after 45 days and decays linearly back to each team's
+  tier prior R<sub>0</sub> over the next 450 days; originated probabilities are
+  clamped to 0.05&ndash;0.95.</p>
 </section>
 
 <section class="panel">
@@ -101,9 +101,6 @@
     <li><strong>Official walkovers are not forecasts.</strong> Where a league has ruled a forfeit, the settlement
     winner is published in a separate field with no probability and is excluded from the backtest and from the
     market-coverage counts.</li>
-    <li><strong>Explicit quarantine over guesswork.</strong> Disqualified teams (<code>dqteams</code>) and unrated
-    cards are documented transparently on <a href="unresolved.html">Unresolved</a> and
-    <a href="flagged.html">Flagged for review</a>.</li>
     <li><strong>Receipts expire.</strong> A bookmaker quote captured from a match page is a line only while it is
     fresh; archived receipts older than 24 hours are excluded from the consensus, so an affected match falls back
     to the live venues or to the model rather than to a stale price.</li>

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T17:14:53Z",
+ "generated_utc": "2026-10-24T17:29:30Z",
  "checks": [
   {
    "name": "dataset present",
@@ -110,6 +110,11 @@
    "name": "no empty/None values rendered",
    "ok": true,
    "detail": "problems: []"
+  },
+  {
+   "name": "every table cell carries a mobile data-label",
+   "ok": true,
+   "detail": "checked 14 pages; missing data-label: []"
   },
   {
    "name": "all matches rendered on the picks page",
@@ -228,6 +233,6 @@
   "provisional": 78,
   "market": 9
  },
- "internal_links": 452,
+ "internal_links": 449,
  "lookahead_violations": 0
 }

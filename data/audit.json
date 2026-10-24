@@ -1,6 +1,6 @@
 {
-  "audited_utc": "2026-10-23T15:55:00Z",
-  "auditor": "session 4dfd0e71",
+  "audited_utc": "2026-10-24T17:25:00Z",
+  "auditor": "sessions 4dfd0e71 & aca61f10",
   "note": "Manual, line-by-line spot-checks of the published dataset against the official source URLs, performed with an independent network path from the build runner. Each row states the exact URL opened, what was compared and the outcome. A row marked 'corrected' means the published data was wrong and was changed; 'unverified' means it could not be confirmed and is published as unverified.",
   "checks": [
     {
@@ -81,18 +81,32 @@
       "detail": "#1071216 and #1081205 are no longer in the live list; #1079080 is Mental Rush vs Vitality Rising Bees, not 'Bushido Wildcats vs Misa Esports'. Stale items are relabelled historical or replaced, and new items are recorded on the Flagged for review page."
     },
     {
-      "subject": "4 Nations 2026 Halloween Heist forfeit claim",
-      "url": "https://lol.fandom.com/wiki/4_Nations/2026_Season/Halloween_Heist",
-      "checked": "The claim that two Team Reds Week 1 wins were overturned to forfeits.",
-      "result": "unverified",
-      "detail": "The rendered page did not expose the match table in a form that could be checked in this build, so the item is published as unverified and requires manual review. It does not feed any probability."
+      "subject": "Team Reds Week 1 overturned forfeits (previously misattributed to 4 Nations)",
+      "url": "https://lol.fandom.com/wiki/Data:Arabian_League_2nd_Division/2026_Season/Summer_Split",
+      "checked": "Primary Leaguepedia Data: wikitext (?action=raw) for both 4 Nations 2026 Halloween Heist and Arabian League 2nd Division 2026 Summer.",
+      "result": "corrected",
+      "detail": "4 Nations 2026 Halloween Heist has no participant named Team Reds. Team Reds competes in Arabian League 2nd Division 2026 Summer, where Week 1 primary wikitext records JSK Academy 2-0 Team Reds (ff=2, 2026-10-02, originally 2-1 JSK Academy) and Team Reds 0-2 New Era Team (ff=1, 2026-10-03, originally 2-0 Team Reds), both overturned due to Team Reds fielding an ineligible roster."
     },
     {
-      "subject": "EGamersWorld reachability from the build runner",
-      "url": "https://egamersworld.com/lol/matches",
-      "checked": "HTTP status recorded in data/sources_status.json against an independent fetch.",
+      "subject": "PRM 2nd Division 'Phong Vũ Buffalo' slot -> PvB (Swiss Team)",
+      "url": "https://lol.fandom.com/wiki/Data:Prime_League_2nd_Division/2027_Season/Fall_Split",
+      "checked": "Primary Leaguepedia Data: wikitext (?action=raw) and Riot tournament-realm game records for PRM 2nd Division 26-27 Fall.",
       "result": "verified",
-      "detail": "Runner records 403 (bot protection); an independent fetch succeeded but only returned placeholder odds, so reachability is not the blocking issue - the absence of a real price is."
+      "detail": "Participant roster 'PvB Nation' (Shourdy / 1334mat / Kryzik / ray / Quentin) records Week 1 series against The Bandits Prime (LOLTMNT05_228449) and Locked In (Dutch Team) (LOLTMNT05_228512) under 'PvB (Swiss Team)', confirming Hotspawn's 'Phong Vũ Buffalo' label on #1079053 is a ticker-expansion error."
+    },
+    {
+      "subject": "Logitech G SuperStrike Cup Qualifier debut & homonym rows (#1083096, #1083097)",
+      "url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier",
+      "checked": "Primary Leaguepedia wikitext (?action=raw) participant rosters and bracket results on 2026-10-24.",
+      "result": "verified",
+      "detail": "#1083096 (Keep Yourself Positive vs CRUEL FATE) had 0/0 pre-kickoff rated series and is explicitly flagged on Flagged for review as an equal-prior debut split; #1083097's 'paiN Gaming' slot on Hotspawn corresponds to Bulgarian amateur 5-stack 'PNG' (billy / Bla6ko / metko / ifo / anditobate)."
+    },
+    {
+      "subject": "EGamersWorld live index vs match-page check (#1081421, #1081423)",
+      "url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
+      "checked": "HTTP status recorded in data/sources_status.json plus independent live fetches of /lol/matches, /lol/event/lcp-2027-promotion-eDTgthgYk, and the match page on 2026-10-24T17:18Z.",
+      "result": "verified",
+      "detail": "Runner records HTTP 403 (bot protection). Independent live fetch shows /lol/matches index lists 8 Worlds cards, LGC Rising #1079080 (1.41/2.59), #1081421 (1.8/1.8 placeholder), and #1081423 (1.025/10.50), whereas both the LCP event page and the #1081423 match page itself render symmetric 1.8 / 1.8 placeholders (0% / 0% tips), confirming #1081423 should remain originated rather than market-priced."
     }
   ]
 }
