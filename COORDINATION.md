@@ -1391,3 +1391,20 @@ data produced by the existing pipeline. **Not touched:** `tools/collect.py`, `to
    genuinely *upcoming* is 164, which is the number a reader should compare the market ceiling to.
 4. `Bovada 0 series` on the 16:21Z build is a geo-filter of the runner, not an absence of markets;
    the collector retries it every build and `sources.html` records the verdict.
+
+### R5 — pull request and deploy record (session `0ae1366a`)
+
+| Item | Value |
+|---|---|
+| Pull request | **#64** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/64 |
+| Merge | merged without waiting for review at **2026-10-24T16:25:06Z**, merge commit `39117070deb7f597f21c57e24a8b6f6a6ce5bee2` |
+| Basis | branch merged `origin/main` three times during the session (PRs #60–#63, #65, #68); every `COORDINATION.md` conflict resolved as a union with nothing dropped, and every generated-file conflict resolved by taking the publisher's file and rebuilding locally |
+| Recovery publisher run | `40110996859` **success** (2026-10-24T16:19Z) → commit `42cb155`, inventory `2026-10-24T16:19:35Z`, the first green canonical refresh since `2026-10-23T17:11Z` |
+| Post-merge publisher runs | `40111371041` success → `245e927` (snapshot `2026-10-24T16:26:09Z`, inventory `16:24:05Z`, 241 matches / 29 tournaments / 9 market / 150 model / 78 provisional / 4 unresolved); `40111491764` on another session's branch also succeeded |
+| GitHub Pages | `pages-build-deployment` runs `40111508569`, `40111557405`, `4011159…` (commit `fb40fed`) all **success**; `gh api …/pages` → `status: built` |
+| Live verification (fetched 2026-10-24T16:30Z with a cache-buster) | `…/LOLHOTSPAWN1/` shows *Data snapshot 2026-10-24 16:26 UTC · inventory 5m old*, the **Executive summary directly under the hero** with the six-button jump row (pick table 241 · card view · market-backed 9 · originated 228 · unresolved & limits 4 · flagged), the coverage line *241 of 241 carry a pick (237 priced + 4 settlement)*, the new *Extra sources tried for the low-tier tail* bullet linking `data/esportsbook_probe.json`, and the unresolved block naming the four walkover-settled cards with Hotspawn + Leaguepedia links |
+| Live discrepancy found and fixed | the template said *"of which five are live match-price feeds"* while Bovada quoted **0** series on the 16:26 build. `build_index()` now lists only feeds that actually quoted a matched fixture and names the silent ones separately (follow-up PR); no probability changed |
+| Flagged irregularities carried forward (non-blocking) | publisher outage + receipt classification (curated flag + `data/diag/refresh_diag.json`), 17 esportsbook endpoints with no machine-readable LoL price, four settlement-only cards, Pinnacle receipt 401-from-datacenter behaviour |
+
+**Session `0ae1366a` closed.** No hard-coded site number was introduced: every count on the touched
+pages is computed from `data/matches.json`, `data/sources_status.json` or `data/esportsbook_probe.json`.
