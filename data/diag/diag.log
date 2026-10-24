@@ -1,4 +1,4 @@
-=== diag 2026-10-24T17:03:52Z branch=main sha=197da48e40a69b775ae95529c88d964c0f4514bf ===
+=== diag 2026-10-24T17:13:32Z branch=main sha=63281c03163bf5cdc57909de26d2ca57021b31be ===
 Python 3.12.15
 --- STAGE unittest ---
 test_age_hours (test_corroborate.ReceiptLedgerTests.test_age_hours) ... ok
@@ -40,13 +40,13 @@ test_every_row_records_what_came_back (test_esportsbook_probe.EsportsbookProbeTe
 test_receipt_shape (test_esportsbook_probe.EsportsbookProbeTests.test_receipt_shape) ... ok
 test_summary_list_matches_rows (test_esportsbook_probe.EsportsbookProbeTests.test_summary_list_matches_rows) ... ok
 test_usable_requires_a_named_fixture_with_a_price (test_esportsbook_probe.EsportsbookProbeTests.test_usable_requires_a_named_fixture_with_a_price) ... ok
-test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [17:03:53] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpr8cawnaj/flags.json' mode='r' encoding='utf-8'>
+test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [17:13:33] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1628udqr/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [17:03:53] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp_pqiq0h5/flags.json' mode='r' encoding='utf-8'>
+test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [17:13:33] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpgrgplkhh/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -61,7 +61,7 @@ test_competition_page_disambiguates_homonyms_before_global_exact (test_integrity
 test_invalid_probabilities (test_integrity.IntegrityTests.test_invalid_probabilities) ... ok
 test_kambi_parse_events_reads_match_odds (test_integrity.IntegrityTests.test_kambi_parse_events_reads_match_odds) ... ok
 test_live_venue_name_aliases (test_integrity.IntegrityTests.test_live_venue_name_aliases) ... ok
-test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [17:03:53] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
+test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [17:13:33] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
 ok
 test_published_dataset_and_html_invariants (test_integrity.IntegrityTests.test_published_dataset_and_html_invariants) ... ok
 test_settlement_pick_is_valid_without_probability (test_integrity.IntegrityTests.test_settlement_pick_is_valid_without_probability) ... ok
@@ -74,28 +74,28 @@ test_valid (test_integrity.IntegrityTests.test_valid) ... ok
 test_wrong_team_same_probability (test_integrity.IntegrityTests.test_wrong_team_same_probability) ... ok
 
 ----------------------------------------------------------------------
-Ran 56 tests in 0.303s
+Ran 56 tests in 0.187s
 
 OK
 EXIT unittest=0
 --- STAGE collect ---
-[17:03:54] hotspawn: 241 LoL fixtures
-[17:03:57] pinnacle: 136 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
-[17:03:57] kalshi: 9 CFTC match events (status=200)
-[17:03:58] bovada: 7 LoL moneylines (status=200)
-[17:03:58] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
-[17:03:58] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
-[17:03:59] kambi/nordicbet: status=429 No access
-[17:03:59] kambi/coolbet: 0 events, 0 new moneylines
-[17:03:59] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
-[17:05:06] leaguepedia: 34663 series rows, 11 pages with dqteams (err='')
-[17:05:06] lolesports: 80 Worlds events (status=200)
-[17:05:06] polymarket: 45 match-level markets (status=200)
-[17:05:16] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[17:13:36] hotspawn: 241 LoL fixtures
+[17:13:39] pinnacle: 121 LoL matchups, 8 with open series moneylines (8 '(Kills)' derivatives excluded)
+[17:13:39] kalshi: 9 CFTC match events (status=200)
+[17:13:40] bovada: 7 LoL moneylines (status=200)
+[17:13:40] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
+[17:13:41] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
+[17:13:41] kambi/nordicbet: status=429 No access
+[17:13:41] kambi/coolbet: 0 events, 0 new moneylines
+[17:13:41] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
+[17:14:41] leaguepedia: 34664 series rows, 11 pages with dqteams (err='')
+[17:14:41] lolesports: 80 Worlds events (status=200)
+[17:14:42] polymarket: 45 match-level markets (status=200)
+[17:14:52] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=503, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=503, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 EXIT collect=0
 --- STAGE model ---
-[17:05:44] rows=241 methods={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} joins=33
-[17:05:44] backtest n=3896 acc=0.6491 brier=0.2185
+[17:15:32] rows=241 methods={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} joins=33
+[17:15:32] backtest n=3896 acc=0.6496 brier=0.2185
 EXIT model=0
 --- STAGE report ---
 {
@@ -233,9 +233,9 @@ NON-EXACT JOINS 16
   competition-page | Team Gromp -> Team Gromp (Australian Team) | resolved within 'LCP/2027 Season/Promotion' to 'Team Gromp (Australian Team)' rather than 
 
 PRICED 9
-  Worlds 2026 Main Event | ['Top Esports', "Anyone's Legend"] 0.3639 {'home': 2.55, 'away': 1.54}
+  Worlds 2026 Main Event | ['Top Esports', "Anyone's Legend"] 0.3904 {'home': 2.55, 'away': 1.54}
   Worlds 2026 Main Event | ['Movistar KOI', 'CTBC Flying Oyster'] 0.6809 {'home': 1.411, 'away': 2.98}
-  Worlds 2026 Main Event | ['G2 Esports', 'LØS'] 0.7954 {'home': 1.226, 'away': 4.28}
+  Worlds 2026 Main Event | ['G2 Esports', 'LØS'] 0.7964 {'home': 1.226, 'away': 4.28}
   Worlds 2026 Main Event | ['LYON', 'Karmine Corp'] 0.4524 {'home': 2.15, 'away': 1.741}
   Worlds 2026 Main Event | ['Invictus Gaming', 'Team Secret Whales'] 0.6897 {'home': 1.392, 'away': 3.07}
   Worlds 2026 Main Event | ['Hanwha Life Esports', 'Gen.G'] 0.4195 {'home': 2.32, 'away': 1.641}
@@ -244,16 +244,16 @@ PRICED 9
   LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.39 None
 EXIT report=0
 --- STAGE flags ---
-[17:05:45] flags: 36 items
+[17:15:32] flags: 36 items
 EXIT flags=0
 --- STAGE site ---
-[17:05:45] site: wrote 13 pages to the published root
+[17:15:32] site: wrote 13 pages to the published root
 EXIT site=0
 --- STAGE corroborate ---
-[17:05:45] corroborate: 32 usable receipts (31 agree / 1 diverge / 2 placeholder), 3/29 competitions priced externally
+[17:15:32] corroborate: 32 usable receipts (31 agree / 1 diverge / 2 placeholder), 3/29 competitions priced externally
 EXIT corroborate=0
 --- STAGE verify ---
-[17:05:45] verification passed
+[17:15:33] verification passed
 PASS dataset present :: 241 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -293,20 +293,20 @@ PASS coverage page shows every match method and the unresolved ledger :: coverag
 PASS external source research receipts are committed :: 44 venues probed on 2026-10-24T16:41:31Z; dossier present
 PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
 PASS method counts partition matches.json cleanly :: counts={'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9} sum=241 rows=241
-PASS source availability recorded :: 12/18 sources reachable on this build
+PASS source availability recorded :: 10/18 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
 EXIT verify=0
 --- verification.json failed checks ---
-generated: 2026-10-24T17:05:45Z passed: True
+generated: 2026-10-24T17:15:33Z passed: True
 total checks: 43
-data/matches.json keys: ['generated_utc', 'inventory_fetched_utc', 'receipt_audit', 'model', 'sources', 'counts', 'market_hygiene', 'backtest', 'track_record', 'total', 'matches'] generated: 2026-10-24T17:05:44Z count/total: 241
+data/matches.json keys: ['generated_utc', 'inventory_fetched_utc', 'receipt_audit', 'model', 'sources', 'counts', 'market_hygiene', 'backtest', 'track_record', 'total', 'matches'] generated: 2026-10-24T17:15:32Z count/total: 241
  counts: {'model': 150, 'unresolved': 4, 'provisional': 78, 'market': 9}
-data/raw/hotspawn_lol.json keys: ['fetched_utc', 'source_url', 'count', 'fixtures'] generated: 2026-10-24T17:03:54Z count/total: 241
+data/raw/hotspawn_lol.json keys: ['fetched_utc', 'source_url', 'count', 'fixtures'] generated: 2026-10-24T17:13:36Z count/total: 241
 data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/total: None
 {
- "checked_utc": "2026-10-24T17:05:16Z",
+ "checked_utc": "2026-10-24T17:14:52Z",
  "sources": [
   {
    "name": "Pinnacle",
@@ -314,9 +314,9 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "note": "Sharp esportsbook; guest REST API",
    "status": 200,
    "ok": true,
-   "bytes": 665726,
+   "bytes": 611627,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T17:05:07Z"
+   "checked_utc": "2026-10-24T17:14:42Z"
   },
   {
    "name": "Kalshi (CFTC)",
@@ -324,9 +324,9 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "note": "CFTC-regulated US exchange; KXLOLGAME series contract book",
    "status": 200,
    "ok": true,
-   "bytes": 51799,
+   "bytes": 51798,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T17:05:07Z"
+   "checked_utc": "2026-10-24T17:14:42Z"
   },
   {
    "name": "Bovada",
@@ -336,7 +336,7 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "ok": true,
    "bytes": 10331,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T17:05:09Z"
+   "checked_utc": "2026-10-24T17:14:42Z"
   },
   {
    "name": "Polymarket",
@@ -344,9 +344,9 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "note": "CLOB prediction market (full-series filtered)",
    "status": 200,
    "ok": true,
-   "bytes": 81220,
+   "bytes": 81274,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T17:05:09Z"
+   "checked_utc": "2026-10-24T17:14:42Z"
   },
   {
    "name": "GG.BET",
@@ -356,7 +356,7 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "ok": false,
    "bytes": 126,
    "blocked_note": "region blocked",
-   "checked_utc": "2026-10-24T17:05:09Z"
+   "checked_utc": "2026-10-24T17:14:42Z"
   },
   {
    "name": "BC.GAME",
@@ -366,7 +366,7 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "ok": true,
    "bytes": 10374,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T17:05:09Z"
+   "checked_utc": "2026-10-24T17:14:43Z"
   },
   {
    "name": "EGamersWorld",
@@ -376,7 +376,7 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "ok": false,
    "bytes": 5706,
    "blocked_note": "blocked by bot protection",
-   "checked_utc": "2026-10-24T17:05:09Z"
+   "checked_utc": "2026-10-24T17:14:43Z"
   },
   {
    "name": "Oddspedia",
@@ -384,19 +384,19 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "note": "Odds comparison engine",
    "status": 410,
    "ok": false,
-   "bytes": 341184,
+   "bytes": 341188,
    "blocked_note": "unavailable",
-   "checked_utc": "2026-10-24T17:05:09Z"
+   "checked_utc": "2026-10-24T17:14:43Z"
   },
   {
    "name": "OddsPortal",
    "url": "https://www.oddsportal.com/esports/league-of-legends/",
    "note": "Odds comparison engine",
-   "status": 200,
-   "ok": true,
-   "bytes": 335373,
-   "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T17:05:11Z"
+   "status": 503,
+   "ok": false,
+   "bytes": 0,
+   "blocked_note": "unavailable",
+   "checked_utc": "2026-10-24T17:14:44Z"
   },
   {
    "name": "BetExplorer",
@@ -406,7 +406,7 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "ok": false,
    "bytes": 0,
    "blocked_note": "unavailable",
-   "checked_utc": "2026-10-24T17:05:12Z"
+   "checked_utc": "2026-10-24T17:14:45Z"
   },
   {
    "name": "Unibet/Kambi",
@@ -414,9 +414,9 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "note": "European regulated sportsbook JSON feed (ubse LoL match odds)",
    "status": 200,
    "ok": true,
-   "bytes": 13185,
+   "bytes": 14127,
    "blocked_note": "reachable",
-   "checked_utc": "2026-10-24T17:05:12Z"
+   "checked_utc": "2026-10-24T17:14:45Z"
   },
   {
    "name": "Thunderpick",
@@ -426,7 +426,7 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "ok": false,
    "bytes": 5755,
    "blocked_note": "blocked by bot protection",
-   "checked_utc": "2026-10-24T17:05:13Z"
+   "checked_utc": "2026-10-24T17:14:46Z"
   },
   {
    "name": "Tips.GG",
@@ -436,8 +436,9 @@ data/sources_status.json keys: ['checked_utc', 'sources'] generated: None count/
    "ok": false,
    "bytes": 5836,
    "blocked_note": "blocked by bot protection",
-   "checked_utc": "2026-10-24T17:05:13Z"
+   "checked_utc": "2026-10-24T17:14:46Z"
   },
   {
+ 
 EXIT summary=0
-=== diag end 2026-10-24T17:05:45Z ===
+=== diag end 2026-10-24T17:15:33Z ===
