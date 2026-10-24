@@ -500,7 +500,7 @@ session's own appended board records in `COORDINATION.md`.
 |---|------|--------|-------|------------|
 | R1 | Diagnose and repair the failed canonical 6-hour refresh; preserve source evidence and fail closed on unverified data | done | cc8c7362 | `.github/workflows/refresh.yml`, `tools/collect.py`, `tools/common.py`, `tools/corroborate.py` (stale-claim takeover from `294e62ad`, inactive >60 min), `tests/test_corroboration.py`, new refresh-specific evidence only |
 | R2 | Produce and independently verify a current full-inventory build; confirm every listed LoL fixture has a priced/model/settlement pick or an explicit limitation | done | cc8c7362 | canonical `data/` outputs (excluding `data/node/**`), generated root `*.html`, `assets/**`, `tools/model.py`, `tools/site.py`, `tools/verify.py` only if a verified defect requires it |
-| R3 | Final integration, PR to `main`, merge, and GitHub Pages deployment verification | in progress | cc8c7362 | this session record in `COORDINATION.md`; no `README.md` edits |
+| R3 | Final integration, PR to `main`, merge, and GitHub Pages deployment verification | done | cc8c7362 | this session record in `COORDINATION.md`; no `README.md` edits |
 
 R1 evidence: branch run [40111491764](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40111491764)
 passed at 2026-10-24T16:28Z and committed `2462d32`. The four production failures were caused by 16
@@ -539,6 +539,20 @@ Polymarket venue whose published raw weight is 0.24; its probability is correctl
 weight irregularity is published on `flagged.html`. Branch-only refresh triggers were not retained;
 failure artifacts retain `data/build.log`, `data/verification.json` and `data/sources_status.json` for
 seven days under a run-specific name.
+
+### Final PR / deploy record — session `cc8c7362`
+
+| Item | Verified result |
+|---|---|
+| Integrated PR | [#77](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/77), merged 2026-10-24T16:54:56Z; merge commit `433bcf7` |
+| Canonical post-merge refresh | [run 40113739159](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40113739159), success in 2m31s; refreshed data commit `e923186`; all 43 publish gates pass in `data/build.log` |
+| GitHub Pages | [deployment 40113921704](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40113921704), build/report/deploy all success for `e923186`; Pages API reports `built` from `main` `/` |
+| Live executive summary | [Hotspawn LoL Pick Desk](https://karagemop466-tech.github.io/LOLHOTSPAWN1/) serves snapshot `2026-10-24T16:57:09Z`, inventory `16:55:09Z`, 241/241 picks across 29 competitions: 9 market + 150 model + 78 provisional + 4 settlement-only |
+| Live source/limit checks | [pick table](https://karagemop466-tech.github.io/LOLHOTSPAWN1/table.html), [unresolved/fallback ledger](https://karagemop466-tech.github.io/LOLHOTSPAWN1/unresolved.html), [Flagged for Review](https://karagemop466-tech.github.io/LOLHOTSPAWN1/flagged.html), and [43-gate verification](https://karagemop466-tech.github.io/LOLHOTSPAWN1/verification.html) all serve the same 16:57 snapshot with source links; the live low-tier probe has 52 venues after the final runner receipt update |
+
+Session closed. The known thin-venue raw-weight warning and the non-pricing EGamersWorld divergence remain
+source-linked on `flagged.html`; neither is hidden or represented as an official probability.
+
 ### PR / deploy record — session `1a1a3b1b`
 
 | Item | Value |
