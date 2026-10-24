@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-24T17:32:25Z",
+ "generated_utc": "2026-10-24T20:54:30Z",
  "total": 241,
  "counts": {
-  "model": 150,
+  "model": 153,
   "unresolved": 4,
   "provisional": 78,
-  "market": 9
+  "market": 6
  },
  "per_competition": {
   "Benelux Ascend Series 2026 Summer Split": {
@@ -87,7 +87,8 @@
    "model": 5
   },
   "Worlds 2026 Main Event": {
-   "market": 8
+   "model": 3,
+   "market": 5
   },
   "LigaGG CELOL A 2026 Split 2 Playoffs": {
    "model": 2
@@ -226,7 +227,16 @@
    ]
   },
   {
-   "hotspawn_id": "1083098",
+   "hotspawn_id": "1083593",
+   "team": "Team Spirit",
+   "resolved": "Team Spirit (Bulgarian Team)",
+   "method": "competition-page",
+   "notes": [
+    "resolved within 'Logitech G SuperStrike Cup/Qualifier' to 'Team Spirit (Bulgarian Team)'"
+   ]
+  },
+  {
+   "hotspawn_id": "1083113",
    "team": "FAME",
    "resolved": "FAME (Bulgarian Team)",
    "method": "competition-page",
@@ -500,7 +510,7 @@
     "LANdits",
     "Frites Esports Club"
    ],
-   "p0": 0.1965,
+   "p0": 0.1962,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed and Leaguepedia records completed series LANdits 1-2 Frites Esports Club (Leaguepedia Data:POP Esports Masters/Season 7); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
@@ -632,7 +642,7 @@
     "NextGeneration Esports",
     "Slam Dunk"
    ],
-   "p0": 0.4883,
+   "p0": 0.4881,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -816,60 +826,58 @@
    ]
   },
   {
-   "id": "1083096",
+   "id": "1083593",
    "competition": "Logitech G SuperStrike Cup Qualifier",
    "teams": [
-    "Keep Yourself Positive",
-    "CRUEL FATE"
+    "Team Spirit",
+    "TUPKACHI NA KORICI"
    ],
-   "p0": 0.5,
+   "p0": 0.3884,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "no shared-opponent chain between the two teams",
-    "start time has passed and Leaguepedia records completed series Keep Yourself Positive 0-1 CRUEL FATE (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ]
-  },
-  {
-   "id": "1083097",
-   "competition": "Logitech G SuperStrike Cup Qualifier",
-   "teams": [
-    "paiN Gaming",
-    "Non-toxic Gaming"
-   ],
-   "p0": 0.6089,
-   "flags": [
-    "fewer than 5 rated series for at least one team",
-    "no shared-opponent chain between the two teams",
+    "resolved within 'Logitech G SuperStrike Cup/Qualifier' to 'Team Spirit (Bulgarian Team)'",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ]
   },
   {
-   "id": "1083098",
+   "id": "1083113",
    "competition": "Logitech G SuperStrike Cup Qualifier",
    "teams": [
-    "TUPKACHI NA KORICI",
-    "FAME"
+    "FAME",
+    "CRUEL FATE"
    ],
-   "p0": 0.6063,
+   "p0": 0.4947,
    "flags": [
     "fewer than 5 rated series for at least one team",
-    "no shared-opponent chain between the two teams",
     "resolved within 'Logitech G SuperStrike Cup/Qualifier' to 'FAME (Bulgarian Team)'",
-    "start time has passed and Leaguepedia records completed series TUPKACHI NA KORICI 1-0 FAME (Bulgarian Team) (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
+    "start time has passed and Leaguepedia records completed series CRUEL FATE 1-0 FAME (Bulgarian Team) (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
    ]
   },
   {
-   "id": "1083105",
+   "id": "1084072",
    "competition": "Logitech G SuperStrike Cup Qualifier",
    "teams": [
-    "КАПИБАРА",
+    "Тегава Къща",
     "Ultim8"
    ],
-   "p0": 0.4232,
+   "p0": 0.4226,
    "flags": [
     "fewer than 5 rated series for at least one team",
-    "no shared-opponent chain between the two teams",
-    "start time has passed and Leaguepedia records completed series КАПИБАРА 0-1 Ultim8 (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
+    "start time has passed and Leaguepedia records completed series Тегава Къща 2-0 Ultim8 (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
+   ]
+  },
+  {
+   "id": "1083773",
+   "competition": "Logitech G SuperStrike Cup Qualifier",
+   "teams": [
+    "NE SE CUKA",
+    "Non-toxic Gaming"
+   ],
+   "p0": 0.4849,
+   "flags": [
+    "fewer than 5 rated series for at least one team",
+    "start time has passed and Leaguepedia records completed series NE SE CUKA 1-0 Non-toxic Gaming (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
    ]
   },
   {
@@ -892,7 +900,7 @@
     "JSK Esports",
     "El Menzah Esports"
    ],
-   "p0": 0.7186,
+   "p0": 0.7185,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -946,7 +954,8 @@
    ],
    "p0": 0.5219,
    "flags": [
-    "fewer than 5 rated series for at least one team"
+    "fewer than 5 rated series for at least one team",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ]
   },
   {
@@ -1028,7 +1037,7 @@
     "Zahrouni Esports",
     "JSK Academy"
    ],
-   "p0": 0.4219,
+   "p0": 0.4428,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1076,7 +1085,7 @@
     "Slam Dunk",
     "New Era Team"
    ],
-   "p0": 0.5246,
+   "p0": 0.5114,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1088,7 +1097,7 @@
     "JSK Academy",
     "Supreme Leaders"
    ],
-   "p0": 0.5533,
+   "p0": 0.5322,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1196,7 +1205,7 @@
     "JSK Academy",
     "Jendouba Esports"
    ],
-   "p0": 0.5693,
+   "p0": 0.5483,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1232,7 +1241,7 @@
     "Karolinerna",
     "Lund Esports Organization OGs"
    ],
-   "p0": 0.4529,
+   "p0": 0.4528,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1457,59 +1466,14 @@
  ],
  "priced": [
   {
-   "id": "1067688",
-   "competition": "Worlds 2026 Main Event",
-   "teams": [
-    "Top Esports",
-    "Anyone's Legend"
-   ],
-   "p0": 0.6344,
-   "decimal": {
-    "home": 1.38,
-    "away": 2.85
-   },
-   "start": "2026-10-24T17:00:00Z"
-  },
-  {
-   "id": "1067881",
-   "competition": "Worlds 2026 Main Event",
-   "teams": [
-    "Movistar KOI",
-    "CTBC Flying Oyster"
-   ],
-   "p0": 0.6809,
-   "decimal": {
-    "home": 1.411,
-    "away": 2.98
-   },
-   "start": "2026-10-24T18:00:00Z"
-  },
-  {
-   "id": "1067686",
-   "competition": "Worlds 2026 Main Event",
-   "teams": [
-    "G2 Esports",
-    "LØS"
-   ],
-   "p0": 0.7964,
-   "decimal": {
-    "home": 1.226,
-    "away": 4.28
-   },
-   "start": "2026-10-24T19:00:00Z"
-  },
-  {
    "id": "1067684",
    "competition": "Worlds 2026 Main Event",
    "teams": [
     "LYON",
     "Karmine Corp"
    ],
-   "p0": 0.45,
-   "decimal": {
-    "home": 2.15,
-    "away": 1.741
-   },
+   "p0": 0.99,
+   "decimal": null,
    "start": "2026-10-24T20:00:00Z"
   },
   {
@@ -1519,10 +1483,10 @@
     "Invictus Gaming",
     "Team Secret Whales"
    ],
-   "p0": 0.6897,
+   "p0": 0.6936,
    "decimal": {
-    "home": 1.392,
-    "away": 3.07
+    "home": 1.383,
+    "away": 3.11
    },
    "start": "2026-10-24T21:00:00Z"
   },
@@ -1533,7 +1497,7 @@
     "Hanwha Life Esports",
     "Gen.G"
    ],
-   "p0": 0.4195,
+   "p0": 0.4177,
    "decimal": {
     "home": 2.32,
     "away": 1.641
@@ -1547,10 +1511,10 @@
     "Dplus KIA",
     "T1"
    ],
-   "p0": 0.4315,
+   "p0": 0.4299,
    "decimal": {
-    "home": 2.2,
-    "away": 1.714
+    "home": 2.22,
+    "away": 1.699
    },
    "start": "2026-10-24T23:00:00Z"
   },
@@ -1561,10 +1525,10 @@
     "Bilibili Gaming",
     "Team Liquid"
    ],
-   "p0": 0.7337,
+   "p0": 0.7424,
    "decimal": {
-    "home": 1.328,
-    "away": 3.41
+    "home": 1.286,
+    "away": 3.7
    },
    "start": "2026-10-25T00:00:00Z"
   },
@@ -1575,7 +1539,7 @@
     "Mental Rush",
     "Vitality Rising Bees"
    ],
-   "p0": 0.39,
+   "p0": 0.385,
    "decimal": null,
    "start": "2026-10-27T17:00:00Z"
   }

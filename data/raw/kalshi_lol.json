@@ -1,9 +1,9 @@
 {
- "fetched_utc": "2026-10-24T17:30:43Z",
+ "fetched_utc": "2026-10-24T20:52:38Z",
  "source_url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100",
  "status": 200,
  "error": "",
- "event_count": 9,
+ "event_count": 6,
  "events": [
   {
    "event_ticker": "KXLOLGAME-26OCT241300T1DK",
@@ -31,31 +31,6 @@
    ]
   },
   {
-   "event_ticker": "KXLOLGAME-26OCT241400MKOICFO",
-   "title": "Movistar KOI vs. CTBC Flying Oyster",
-   "sub_title": "Movistar KOI vs. CTBC Flying Oyster (Oct 24)",
-   "markets": [
-    {
-     "ticker": "KXLOLGAME-26OCT241400MKOICFO-MKOI",
-     "yes_sub_title": "Movistar KOI",
-     "yes_bid_dollars": "0.6800",
-     "yes_ask_dollars": "0.6900",
-     "last_price_dollars": "0.6900",
-     "volume": null,
-     "close_time": "2026-10-26T18:00:00Z"
-    },
-    {
-     "ticker": "KXLOLGAME-26OCT241400MKOICFO-CFO",
-     "yes_sub_title": "CTBC Flying Oyster",
-     "yes_bid_dollars": "0.3100",
-     "yes_ask_dollars": "0.3200",
-     "last_price_dollars": "0.3200",
-     "volume": null,
-     "close_time": "2026-10-26T18:00:00Z"
-    }
-   ]
-  },
-  {
    "event_ticker": "KXLOLGAME-26OCT241500GENHLE",
    "title": "Gen.G vs. Hanwha Life Esports",
    "sub_title": "Gen.G vs. Hanwha Life Esports (Oct 24)",
@@ -63,18 +38,18 @@
     {
      "ticker": "KXLOLGAME-26OCT241500GENHLE-GEN",
      "yes_sub_title": "Gen.G",
-     "yes_bid_dollars": "0.5600",
-     "yes_ask_dollars": "0.5700",
-     "last_price_dollars": "0.5700",
+     "yes_bid_dollars": "0.5700",
+     "yes_ask_dollars": "0.5800",
+     "last_price_dollars": "0.5800",
      "volume": null,
      "close_time": "2026-10-26T19:00:00Z"
     },
     {
      "ticker": "KXLOLGAME-26OCT241500GENHLE-HLE",
      "yes_sub_title": "Hanwha Life Esports",
-     "yes_bid_dollars": "0.4200",
-     "yes_ask_dollars": "0.4300",
-     "last_price_dollars": "0.4300",
+     "yes_bid_dollars": "0.4100",
+     "yes_ask_dollars": "0.4200",
+     "last_price_dollars": "0.4200",
      "volume": null,
      "close_time": "2026-10-26T19:00:00Z"
     }
@@ -88,45 +63,20 @@
     {
      "ticker": "KXLOLGAME-26OCT241600KCLY-KC",
      "yes_sub_title": "Karmine Corp",
-     "yes_bid_dollars": "0.5500",
-     "yes_ask_dollars": "0.5600",
-     "last_price_dollars": "0.5500",
+     "yes_bid_dollars": "0.0000",
+     "yes_ask_dollars": "0.0100",
+     "last_price_dollars": "0.0100",
      "volume": null,
      "close_time": "2026-10-26T20:00:00Z"
     },
     {
      "ticker": "KXLOLGAME-26OCT241600KCLY-LY",
      "yes_sub_title": "LYON",
-     "yes_bid_dollars": "0.4400",
-     "yes_ask_dollars": "0.4500",
-     "last_price_dollars": "0.4500",
+     "yes_bid_dollars": "0.9900",
+     "yes_ask_dollars": "1.0000",
+     "last_price_dollars": "0.9900",
      "volume": null,
      "close_time": "2026-10-26T20:00:00Z"
-    }
-   ]
-  },
-  {
-   "event_ticker": "KXLOLGAME-26OCT241700LOSG2",
-   "title": "LOS vs. G2 Esports",
-   "sub_title": "LOS vs. G2 Esports (Oct 24)",
-   "markets": [
-    {
-     "ticker": "KXLOLGAME-26OCT241700LOSG2-LOS",
-     "yes_sub_title": "LOS",
-     "yes_bid_dollars": "0.1800",
-     "yes_ask_dollars": "0.1900",
-     "last_price_dollars": "0.1900",
-     "volume": null,
-     "close_time": "2026-10-26T21:00:00Z"
-    },
-    {
-     "ticker": "KXLOLGAME-26OCT241700LOSG2-G2",
-     "yes_sub_title": "G2 Esports",
-     "yes_bid_dollars": "0.8100",
-     "yes_ask_dollars": "0.8200",
-     "last_price_dollars": "0.8200",
-     "volume": null,
-     "close_time": "2026-10-26T21:00:00Z"
     }
    ]
   },
@@ -152,31 +102,6 @@
      "last_price_dollars": "0.6900",
      "volume": null,
      "close_time": "2026-10-26T22:00:00Z"
-    }
-   ]
-  },
-  {
-   "event_ticker": "KXLOLGAME-26OCT241900ALTES",
-   "title": "Anyone's Legend vs. Top Esports",
-   "sub_title": "Anyone's Legend vs. Top Esports (Oct 24)",
-   "markets": [
-    {
-     "ticker": "KXLOLGAME-26OCT241900ALTES-AL",
-     "yes_sub_title": "Anyone's Legend",
-     "yes_bid_dollars": "0.3700",
-     "yes_ask_dollars": "0.3800",
-     "last_price_dollars": "0.3800",
-     "volume": null,
-     "close_time": "2026-10-26T23:00:00Z"
-    },
-    {
-     "ticker": "KXLOLGAME-26OCT241900ALTES-TES",
-     "yes_sub_title": "Top Esports",
-     "yes_bid_dollars": "0.6200",
-     "yes_ask_dollars": "0.6300",
-     "last_price_dollars": "0.6300",
-     "volume": null,
-     "close_time": "2026-10-26T23:00:00Z"
     }
    ]
   },
@@ -213,7 +138,7 @@
     {
      "ticker": "KXLOLGAME-26OCT271300RBMR-RB",
      "yes_sub_title": "Rising Bees",
-     "yes_bid_dollars": "0.5800",
+     "yes_bid_dollars": "0.5900",
      "yes_ask_dollars": "0.6500",
      "last_price_dollars": "0.6400",
      "volume": null,
@@ -222,8 +147,8 @@
     {
      "ticker": "KXLOLGAME-26OCT271300RBMR-MR",
      "yes_sub_title": "Mental Rush",
-     "yes_bid_dollars": "0.3600",
-     "yes_ask_dollars": "0.4500",
+     "yes_bid_dollars": "0.3700",
+     "yes_ask_dollars": "0.4200",
      "last_price_dollars": "0.5200",
      "volume": null,
      "close_time": "2026-10-29T17:00:00Z"
