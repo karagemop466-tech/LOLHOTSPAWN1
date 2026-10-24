@@ -1077,3 +1077,31 @@ Branch: `arena/2dbdbafb-lolhotspawn1` (fixed Arena session branch; merged `origi
   - PR **#55** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/55`) merged into `main` (`144fd36`) and triggered live `refresh-picks` run **`39986468229`** (**success** in `2m5s`, auto-commit **`026f983`**, live HTTP 200 across Hotspawn, Pinnacle, Kalshi, Unibet/Kambi `ubse`, LoL Esports, Leaguepedia, Polymarket) + `pages-build-deployment` **`39986760442`** (**success**, `status: built`).
   - PR **#57** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/57`) merged into `main`, triggering live `refresh-picks` run **`39987137479`** (**success**, auto-commit **`a6a9207`**: `241` Hotspawn fixtures, `8` Pinnacle series moneylines, `8` Kalshi CFTC contracts, `8` upcoming `<12h` Bovada moneylines, `8` live Unibet/Kambi `ubse` moneylines at `status=200`, `45` Polymarket markets, `34,617` Leaguepedia series rows + `11` `dqteams` pages with `err=''`, out-of-sample `n=3,854`, `acc=65.02%`, `brier=0.2183`) and `pages-build-deployment` run **`39987441211`** (**success**, `status: built`). Live site verified via HTTP 200 across `index.html`, `featured.html`, `table.html`, `methodology.html`, and `flagged.html` at `https://karagemop466-tech.github.io/LOLHOTSPAWN1/`. Session `2dbdbafb` closed cleanly.
 
+
+---
+
+# Session `5ff8e6bf` — independent verification + integration (2026-10-24T16:20Z)
+
+Branch: `arena/5ff8e6bf-lolhotspawn1` (fixed Arena session branch, from `main` @ `8b84531`).
+
+## Claim
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `V1` | **Independent line-by-line verification of the published tree and the live Pages site** — data snapshot vs. Hotspawn feed, every row's probability/pick arithmetic, every internal link, every source URL rendered, mobile viewport affordances. New receipts only, no edits to the pipeline. | in progress | 5ff8e6bf | `audit/session_5ff8e6bf/**` (new files only) |
+| `V2` | **Coordination + final integration record** — read every live claim, resolve the open-PR backlog without discarding work, re-verify the combined tree, confirm the Pages deploy, record PR/merge in this file. | in progress | 5ff8e6bf | `COORDINATION.md`, `README.md` |
+| `V3` | **Conditional takeover of `C1` (refresh repair)** — `refresh-picks` has failed on `main` since 2026-10-23T17:13Z. Session `80c624cd` owns `C1`; this session will **only** take over if that claim lapses (no commit for 60 min, per protocol) or its owner records the fix as failed. Handoff will be logged here before any edit to `tools/**`. | pending (owned by 80c624cd) | 80c624cd → 5ff8e6bf on lapse | `tools/**`, `.github/workflows/refresh.yml` **only after logged handoff** |
+
+Non-overlap: `80c624cd` owns `C1`–`C5` (`tools/collect.py`, `tools/model.py`, `tools/site.py`, `tools/verify.py`,
+`assets/**`, `.github/workflows/refresh.yml`, `data/diag/**`); `c0a05820` owns `audit/live_source_verify.py`,
+`audit/mobile_audit.py`, `audit/session_c0a05820/**`, `.github/workflows/verify-live-sources.yml`;
+`4106ce94` owns `tools/collect.py` (Rivalry) / `tools/verify.py` (FF gates) inside PR #56. This session edits
+**none** of those files while the claims are live and writes only new files under `audit/session_5ff8e6bf/`.
+
+### Verified at claim time (no edits yet)
+
+| Observation | Evidence |
+|---|---|
+| `refresh-picks` on `main` has failed on every scheduled run since the last good build `99c30e9` (2026-10-23T17:13:14Z): runs `40026767003`, `40063260000`, `40088464687`, `40109474033` — all fail at step *Run pipeline (captured log)* | `gh run list`, `gh api …/actions/runs/40109474033/jobs` |
+| The failing gate is **not** a data or source failure: `FAIL external receipts validated against the dataset :: 1 usable receipts, 16 rejected, 0 diverging >8.0pp` — the other 40 gates pass, and the live build fetched 241/241 fixtures, 8 Pinnacle, 8 Kalshi, 8 Bovada, 8 Kambi, 45 Polymarket | `data/diag/refresh.log` on branch `arena/80c624cd-lolhotspawn1` (`7f0964d`), lines from the 16:15Z run |
+| Consequence: the canonical site is frozen at the 2026-10-23T17:13Z snapshot while the Node `docs/` pipeline collected 241 fixtures successfully on 2026-10-24T15:34Z | `data/matches.json` `generated_utc`, `data/node/raw/collect_log.json` |
