@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T17:29:30Z",
+ "generated_utc": "2026-10-24T17:32:26Z",
  "checks": [
   {
    "name": "dataset present",
@@ -69,7 +69,7 @@
   {
    "name": "Pinnacle quote URLs point at collected matchups",
    "ok": true,
-   "detail": "8 matchup ids in feed; problems: []"
+   "detail": "7 matchup ids in feed; problems: []"
   },
   {
    "name": "all fresh Unibet/Kambi moneylines matched into market consensus",
@@ -149,7 +149,7 @@
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
-   "detail": "backtest series rendered: 3,896"
+   "detail": "backtest series rendered: 3,897"
   },
   {
    "name": "curated flags annotate every reference to a fixture that has left the list",
@@ -174,7 +174,7 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "32 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)"
+   "detail": "32 usable receipts, 0 rejected, 5 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)"
   },
   {
    "name": "corroboration ledger accounts for every receipt",
@@ -184,7 +184,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 76302 bytes"
+   "detail": "coverage.html 76322 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -204,7 +204,7 @@
   {
    "name": "source availability recorded",
    "ok": true,
-   "detail": "10/18 sources reachable on this build"
+   "detail": "12/18 sources reachable on this build"
   },
   {
    "name": "every Hotspawn fixture is in the dataset (1:1 ids)",

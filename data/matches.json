@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-24T17:14:52Z",
- "inventory_fetched_utc": "2026-10-24T17:12:56Z",
+ "generated_utc": "2026-10-24T17:32:25Z",
+ "inventory_fetched_utc": "2026-10-24T17:30:40Z",
  "receipt_audit": {
   "max_age_hours": 24,
   "used": [],
@@ -12,7 +12,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -22,7 +22,7 @@
      4.4
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -32,7 +32,7 @@
      4.05
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -42,7 +42,7 @@
      4.88
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -52,7 +52,7 @@
      2.63
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -62,7 +62,7 @@
      1.61
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -72,7 +72,7 @@
      3.11
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -82,7 +82,7 @@
      1.06
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -92,7 +92,7 @@
      1.51
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -102,7 +102,7 @@
      10.5
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
    },
    {
@@ -112,7 +112,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 68.6,
+    "age_hours": 68.9,
     "source_url": "https://egamersworld.com/lol/matches"
    }
   ],
@@ -147,7 +147,7 @@
   "unibet": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
   "leaguepedia": "https://lol.fandom.com/wiki/Special:CargoExport",
   "polymarket": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=league-of-legends",
-  "source_status_utc": "2026-10-24T17:14:13Z"
+  "source_status_utc": "2026-10-24T17:32:02Z"
  },
  "counts": {
   "model": 150,
@@ -163,35 +163,35 @@
  },
  "backtest": {
   "cutoff": "2026-07-01",
-  "n": 3896,
-  "hits": 2531,
+  "n": 3897,
+  "hits": 2532,
   "buckets": {
    "50-60%": {
-    "n": 2077,
-    "hits": 1183,
-    "accuracy": 0.5696,
-    "mean_predicted": 0.5408
+    "n": 2081,
+    "hits": 1185,
+    "accuracy": 0.5694,
+    "mean_predicted": 0.5409
    },
    "60-70%": {
-    "n": 1037,
-    "hits": 709,
-    "accuracy": 0.6837,
-    "mean_predicted": 0.645
+    "n": 1035,
+    "hits": 708,
+    "accuracy": 0.6841,
+    "mean_predicted": 0.6449
    },
    "70-80%": {
-    "n": 561,
-    "hits": 445,
-    "accuracy": 0.7932,
-    "mean_predicted": 0.7457
+    "n": 563,
+    "hits": 447,
+    "accuracy": 0.794,
+    "mean_predicted": 0.7458
    },
    "80%+": {
-    "n": 221,
-    "hits": 194,
-    "accuracy": 0.8778,
-    "mean_predicted": 0.8509
+    "n": 218,
+    "hits": 192,
+    "accuracy": 0.8807,
+    "mean_predicted": 0.8514
    }
   },
-  "accuracy": 0.6496,
+  "accuracy": 0.6497,
   "brier": 0.2185,
   "logloss": 0.6259
  },
@@ -202,7 +202,7 @@
   "accuracy": 0.5897,
   "brier": 0.2445,
   "settled_forfeits": 3,
-  "ungraded_started": 40,
+  "ungraded_started": 41,
   "by_method": {
    "model": {
     "graded": 16,
@@ -236,12 +236,12 @@
     "leaguepedia": "Mind Blue eSports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 94,
+    "rating_matches": 93,
     "rating_as_of": "2026-08-26T17:00:00Z",
     "last_played": "2026-08-21",
-    "elo_raw": 1605.0,
-    "elo_now": 1559.6,
-    "elo": 1599.7
+    "elo_raw": 1603.0,
+    "elo_now": 1558.0,
+    "elo": 1597.8
    },
    "team1": {
     "name": "LAST DANCE",
@@ -253,15 +253,15 @@
     "rating_matches": 34,
     "rating_as_of": "2026-08-26T17:00:00Z",
     "last_played": "2026-08-19",
-    "elo_raw": 1614.8,
-    "elo_now": 1652.2,
-    "elo": 1600.1
+    "elo_raw": 1614.9,
+    "elo_now": 1652.1,
+    "elo": 1600.2
    },
-   "p0": 0.4994,
-   "p1": 0.5006,
+   "p0": 0.4965,
+   "p1": 0.5035,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Mind Blue eSports 1600 vs Last Dance (Benelux Team) 1600 (94/34 rated series).",
+   "basis": "Elo line: Mind Blue eSports 1598 vs Last Dance (Benelux Team) 1600 (93/34 rated series).",
    "flags": [
     "resolved within 'Benelux Ascend Series/2026 Season/Summer Split' to 'Last Dance (Benelux Team)' rather than homonymous 'LAST DANCE'",
     "start time has passed and Leaguepedia records completed series Mind Blue eSports 0-2 Last Dance (Benelux Team) (Leaguepedia Data:Benelux Ascend Series/2026 Season/Summer Split); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
@@ -269,8 +269,8 @@
    "pick": {
     "side": 1,
     "team": "LAST DANCE",
-    "probability": 0.5006,
-    "other_probability": 0.4994
+    "probability": 0.5035,
+    "other_probability": 0.4965
    },
    "pick_type": null,
    "market": null,
@@ -320,12 +320,12 @@
     "rating_matches": 17,
     "rating_as_of": "2026-08-26T18:00:00Z",
     "last_played": "2026-08-21",
-    "elo_raw": 1648.5,
-    "elo_now": 1630.6,
-    "elo": 1614.8
+    "elo_raw": 1648.4,
+    "elo_now": 1630.5,
+    "elo": 1614.7
    },
-   "p0": 0.4165,
-   "p1": 0.5835,
+   "p0": 0.4166,
+   "p1": 0.5834,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Nameless (Benelux Team) 1556 vs BiPOLAR (Benelux Team) 1615 (50/17 rated series).",
@@ -337,8 +337,8 @@
    "pick": {
     "side": 1,
     "team": "BiPOLAR",
-    "probability": 0.5835,
-    "other_probability": 0.4165
+    "probability": 0.5834,
+    "other_probability": 0.4166
    },
    "pick_type": null,
    "market": null,
@@ -373,7 +373,7 @@
     "rating_as_of": "2026-08-27T15:00:00Z",
     "last_played": "2026-08-20",
     "elo_raw": 1695.0,
-    "elo_now": 1661.0,
+    "elo_now": 1660.9,
     "elo": 1683.9
    },
    "team1": {
@@ -518,9 +518,9 @@
     "rating_matches": 49,
     "rating_as_of": "2026-09-07T17:00:00Z",
     "last_played": "2026-08-31",
-    "elo_raw": 1474.8,
-    "elo_now": 1514.8,
-    "elo": 1477.1
+    "elo_raw": 1475.1,
+    "elo_now": 1515.0,
+    "elo": 1477.4
    },
    "team1": {
     "name": "HANGMEN",
@@ -534,8 +534,8 @@
     "elo_now": 1586.4,
     "elo": 1596.1
    },
-   "p0": 0.3351,
-   "p1": 0.6649,
+   "p0": 0.3355,
+   "p1": 0.6645,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: P11 Esports 1477 vs HANGMEN 1596 (49/5 rated series).",
@@ -545,8 +545,8 @@
    "pick": {
     "side": 1,
     "team": "HANGMEN",
-    "probability": 0.6649,
-    "other_probability": 0.3351
+    "probability": 0.6645,
+    "other_probability": 0.3355
    },
    "pick_type": null,
    "market": null,
@@ -593,7 +593,7 @@
     "last_played": "2026-09-11",
     "elo_raw": 1546.8,
     "elo_now": 1562.8,
-    "elo": 1541.6
+    "elo": 1541.5
    },
    "team1": {
     "name": "Venus",
@@ -609,8 +609,8 @@
     "elo_now": 1534.4,
     "elo": 1545.6
    },
-   "p0": 0.4942,
-   "p1": 0.5058,
+   "p0": 0.4941,
+   "p1": 0.5059,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Triforce Esport 1542 vs Venus (Benelux Team) 1546 (82/14 rated series).",
@@ -621,8 +621,8 @@
    "pick": {
     "side": 1,
     "team": "Venus",
-    "probability": 0.5058,
-    "other_probability": 0.4942
+    "probability": 0.5059,
+    "other_probability": 0.4941
    },
    "pick_type": null,
    "market": null,
@@ -656,7 +656,7 @@
     "rating_matches": 37,
     "rating_as_of": "2026-09-13T11:00:00Z",
     "last_played": "2026-09-05",
-    "elo_raw": 1467.0,
+    "elo_raw": 1467.1,
     "elo_now": 1460.6,
     "elo": 1471.0
    },
@@ -742,7 +742,7 @@
     "rating_as_of": "2026-09-13T15:00:00Z",
     "last_played": "2026-09-12",
     "elo_raw": 1491.8,
-    "elo_now": 1548.4,
+    "elo_now": 1562.7,
     "elo": 1494.2
    },
    "p0": 0.5503,
@@ -948,7 +948,7 @@
     "rating_matches": 73,
     "rating_as_of": "2026-09-17T17:00:00Z",
     "last_played": "2026-09-13",
-    "elo_raw": 1544.2,
+    "elo_raw": 1544.1,
     "elo_now": 1522.1,
     "elo": 1541.3
    },
@@ -999,9 +999,9 @@
     "rating_matches": 110,
     "rating_as_of": "2026-09-18T17:00:00Z",
     "last_played": "2026-09-11",
-    "elo_raw": 1582.7,
-    "elo_now": 1579.8,
-    "elo": 1577.2
+    "elo_raw": 1582.4,
+    "elo_now": 1579.5,
+    "elo": 1576.9
    },
    "team1": {
     "name": "LAST DANCE",
@@ -1013,12 +1013,12 @@
     "rating_matches": 37,
     "rating_as_of": "2026-09-18T17:00:00Z",
     "last_played": "2026-09-11",
-    "elo_raw": 1653.1,
-    "elo_now": 1652.2,
-    "elo": 1634.9
+    "elo_raw": 1653.0,
+    "elo_now": 1652.1,
+    "elo": 1634.8
    },
-   "p0": 0.4177,
-   "p1": 0.5823,
+   "p0": 0.4174,
+   "p1": 0.5826,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Frost Tails 1577 vs Last Dance (Benelux Team) 1635 (110/37 rated series).",
@@ -1029,8 +1029,8 @@
    "pick": {
     "side": 1,
     "team": "LAST DANCE",
-    "probability": 0.5823,
-    "other_probability": 0.4177
+    "probability": 0.5826,
+    "other_probability": 0.4174
    },
    "pick_type": null,
    "market": null,
@@ -1078,10 +1078,10 @@
     "last_played": "2026-09-06",
     "elo_raw": 1575.2,
     "elo_now": 1559.9,
-    "elo": 1548.3
+    "elo": 1548.4
    },
-   "p0": 0.3944,
-   "p1": 0.6056,
+   "p0": 0.3943,
+   "p1": 0.6057,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Team VS Esport 1474 vs Les Ravagés 1548 (36/9 rated series).",
@@ -1091,8 +1091,8 @@
    "pick": {
     "side": 1,
     "team": "Les Ravagés",
-    "probability": 0.6056,
-    "other_probability": 0.3944
+    "probability": 0.6057,
+    "other_probability": 0.3943
    },
    "pick_type": null,
    "market": null,
@@ -1276,7 +1276,7 @@
     "rating_as_of": "2026-09-19T21:59:00Z",
     "last_played": "2026-07-04",
     "elo_raw": 1549.4,
-    "elo_now": 1521.4,
+    "elo_now": 1521.3,
     "elo": 1518.5
    },
    "team1": {
@@ -1287,15 +1287,15 @@
     "rating_matches": 42,
     "rating_as_of": "2026-09-19T21:59:00Z",
     "last_played": "2026-09-17",
-    "elo_raw": 1794.9,
-    "elo_now": 1747.9,
-    "elo": 1763.5
+    "elo_raw": 1794.5,
+    "elo_now": 1747.7,
+    "elo": 1763.2
    },
-   "p0": 0.1962,
-   "p1": 0.8038,
+   "p0": 0.1965,
+   "p1": 0.8035,
    "method": "provisional",
    "confidence": "low",
-   "basis": "Elo line: LANdits 1518 vs Frites Esports Club 1764 (3/42 rated series).",
+   "basis": "Elo line: LANdits 1518 vs Frites Esports Club 1763 (3/42 rated series).",
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed and Leaguepedia records completed series LANdits 1-2 Frites Esports Club (Leaguepedia Data:POP Esports Masters/Season 7); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
@@ -1303,8 +1303,8 @@
    "pick": {
     "side": 1,
     "team": "Frites Esports Club",
-    "probability": 0.8038,
-    "other_probability": 0.1962
+    "probability": 0.8035,
+    "other_probability": 0.1965
    },
    "pick_type": null,
    "market": null,
@@ -1422,9 +1422,9 @@
     "rating_matches": 63,
     "rating_as_of": "2026-09-20T16:00:00Z",
     "last_played": "2026-08-17",
-    "elo_raw": 1619.2,
-    "elo_now": 1657.4,
-    "elo": 1610.4
+    "elo_raw": 1619.6,
+    "elo_now": 1657.9,
+    "elo": 1610.8
    },
    "team1": {
     "name": "Karolinerna Black",
@@ -1435,14 +1435,14 @@
     "rating_as_of": "2026-09-20T16:00:00Z",
     "last_played": "2025-12-18",
     "elo_raw": 1480.7,
-    "elo_now": 1444.8,
+    "elo_now": 1444.9,
     "elo": 1490.3
    },
-   "p0": 0.6663,
-   "p1": 0.3337,
+   "p0": 0.6668,
+   "p1": 0.3332,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Lund Esports Organization 1610 vs Karolinerna Black 1490 (63/5 rated series).",
+   "basis": "Elo line: Lund Esports Organization 1611 vs Karolinerna Black 1490 (63/5 rated series).",
    "flags": [
     "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-09-20T16:00:00Z while Data:Superstrike League 2026 records 2026-09-23 17:00Z (73h apart) - confirm before relying on the time",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -1450,8 +1450,8 @@
    "pick": {
     "side": 0,
     "team": "Lund Esports Organization",
-    "probability": 0.6663,
-    "other_probability": 0.3337
+    "probability": 0.6668,
+    "other_probability": 0.3332
    },
    "pick_type": null,
    "market": null,
@@ -1560,7 +1560,7 @@
     "rating_as_of": "2026-09-25T16:00:00Z",
     "last_played": "2026-09-23",
     "elo_raw": 1451.5,
-    "elo_now": 1444.8,
+    "elo_now": 1444.9,
     "elo": 1473.6
    },
    "team1": {
@@ -1568,18 +1568,18 @@
     "leaguepedia": "Lundqvist Lightside",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 53,
+    "rating_matches": 52,
     "rating_as_of": "2026-09-25T16:00:00Z",
     "last_played": "2026-08-17",
-    "elo_raw": 1502.5,
-    "elo_now": 1559.6,
-    "elo": 1502.2
+    "elo_raw": 1506.9,
+    "elo_now": 1562.7,
+    "elo": 1506.3
    },
-   "p0": 0.4589,
-   "p1": 0.5411,
+   "p0": 0.4531,
+   "p1": 0.5469,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Karolinerna Black 1474 vs Lundqvist Lightside 1502 (6/53 rated series).",
+   "basis": "Elo line: Karolinerna Black 1474 vs Lundqvist Lightside 1506 (6/52 rated series).",
    "flags": [
     "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-09-25T16:00:00Z while Data:Superstrike League 2026 records 2026-10-08 17:00Z (313h apart) - confirm before relying on the time",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -1587,8 +1587,8 @@
    "pick": {
     "side": 1,
     "team": "Lundqvist Lightside",
-    "probability": 0.5411,
-    "other_probability": 0.4589
+    "probability": 0.5469,
+    "other_probability": 0.4531
    },
    "pick_type": null,
    "market": null,
@@ -1985,12 +1985,12 @@
     "rating_matches": 81,
     "rating_as_of": "2026-10-02T17:00:00Z",
     "last_played": "2026-09-04",
-    "elo_raw": 1473.3,
-    "elo_now": 1509.9,
-    "elo": 1474.9
+    "elo_raw": 1473.0,
+    "elo_now": 1509.6,
+    "elo": 1474.6
    },
-   "p0": 0.6683,
-   "p1": 0.3317,
+   "p0": 0.6687,
+   "p1": 0.3313,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Triforce Esport 1597 vs RED OUAT 1475 (86/81 rated series).",
@@ -2000,8 +2000,8 @@
    "pick": {
     "side": 0,
     "team": "Triforce Esport",
-    "probability": 0.6683,
-    "other_probability": 0.3317
+    "probability": 0.6687,
+    "other_probability": 0.3313
    },
    "pick_type": null,
    "market": null,
@@ -2193,9 +2193,9 @@
     "rating_matches": 5,
     "rating_as_of": "2026-10-05T16:00:00Z",
     "last_played": "2026-10-01",
-    "elo_raw": 1481.5,
-    "elo_now": 1448.1,
-    "elo": 1490.7
+    "elo_raw": 1481.7,
+    "elo_now": 1448.2,
+    "elo": 1490.8
    },
    "team1": {
     "name": "Lund Esports Organization",
@@ -2205,12 +2205,12 @@
     "rating_matches": 66,
     "rating_as_of": "2026-10-05T16:00:00Z",
     "last_played": "2026-09-30",
-    "elo_raw": 1647.0,
-    "elo_now": 1657.4,
-    "elo": 1636.6
+    "elo_raw": 1647.5,
+    "elo_now": 1657.9,
+    "elo": 1637.1
    },
-   "p0": 0.3016,
-   "p1": 0.6984,
+   "p0": 0.3011,
+   "p1": 0.6989,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Team Lucidity Esports 1491 vs Lund Esports Organization 1637 (5/66 rated series).",
@@ -2221,8 +2221,8 @@
    "pick": {
     "side": 1,
     "team": "Lund Esports Organization",
-    "probability": 0.6984,
-    "other_probability": 0.3016
+    "probability": 0.6989,
+    "other_probability": 0.3011
    },
    "pick_type": null,
    "market": null,
@@ -2481,12 +2481,12 @@
     "rating_matches": 8,
     "rating_as_of": "2026-10-07T17:00:00Z",
     "last_played": "2026-09-11",
-    "elo_raw": 1502.0,
-    "elo_now": 1493.5,
-    "elo": 1501.3
+    "elo_raw": 1501.9,
+    "elo_now": 1493.4,
+    "elo": 1501.2
    },
-   "p0": 0.4355,
-   "p1": 0.5645,
+   "p0": 0.4356,
+   "p1": 0.5644,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Team VS Esport 1456 vs Meavedron Benelux 1501 (38/8 rated series).",
@@ -2496,8 +2496,8 @@
    "pick": {
     "side": 1,
     "team": "Meavedron Benelux",
-    "probability": 0.5645,
-    "other_probability": 0.4355
+    "probability": 0.5644,
+    "other_probability": 0.4356
    },
    "pick_type": null,
    "market": null,
@@ -2756,9 +2756,9 @@
     "rating_matches": 6,
     "rating_as_of": "2026-10-09T17:00:00Z",
     "last_played": "2026-10-05",
-    "elo_raw": 1467.1,
-    "elo_now": 1448.1,
-    "elo": 1482.0
+    "elo_raw": 1467.2,
+    "elo_now": 1448.2,
+    "elo": 1482.1
    },
    "team1": {
     "name": "Lund Esports Organization",
@@ -2768,12 +2768,12 @@
     "rating_matches": 66,
     "rating_as_of": "2026-10-09T17:00:00Z",
     "last_played": "2026-09-30",
-    "elo_raw": 1647.0,
-    "elo_now": 1657.4,
-    "elo": 1636.6
+    "elo_raw": 1647.5,
+    "elo_now": 1657.9,
+    "elo": 1637.1
    },
-   "p0": 0.2911,
-   "p1": 0.7089,
+   "p0": 0.2906,
+   "p1": 0.7094,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Team Lucidity Esports 1482 vs Lund Esports Organization 1637 (6/66 rated series).",
@@ -2784,8 +2784,8 @@
    "pick": {
     "side": 1,
     "team": "Lund Esports Organization",
-    "probability": 0.7089,
-    "other_probability": 0.2911
+    "probability": 0.7094,
+    "other_probability": 0.2906
    },
    "pick_type": null,
    "market": null,
@@ -2820,7 +2820,7 @@
     "rating_as_of": "2026-10-10T16:00:00Z",
     "last_played": "2026-10-04",
     "elo_raw": 1437.9,
-    "elo_now": 1432.6,
+    "elo_now": 1432.7,
     "elo": 1460.1
    },
    "team1": {
@@ -2831,12 +2831,12 @@
     "rating_matches": 54,
     "rating_as_of": "2026-10-10T16:00:00Z",
     "last_played": "2026-10-05",
-    "elo_raw": 1730.7,
-    "elo_now": 1709.7,
-    "elo": 1711.1
+    "elo_raw": 1730.8,
+    "elo_now": 1709.8,
+    "elo": 1711.2
    },
-   "p0": 0.1908,
-   "p1": 0.8092,
+   "p0": 0.1907,
+   "p1": 0.8093,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: OnlyWinByFF 1460 vs B2U 1711 (9/54 rated series).",
@@ -2847,8 +2847,8 @@
    "pick": {
     "side": 1,
     "team": "B2U",
-    "probability": 0.8092,
-    "other_probability": 0.1908
+    "probability": 0.8093,
+    "other_probability": 0.1907
    },
    "pick_type": null,
    "market": null,
@@ -2883,7 +2883,7 @@
     "rating_as_of": "2026-10-10T17:00:00Z",
     "last_played": "2026-09-30",
     "elo_raw": 1473.5,
-    "elo_now": 1482.1,
+    "elo_now": 1482.2,
     "elo": 1477.9
    },
    "team1": {
@@ -2956,9 +2956,9 @@
     "rating_matches": 57,
     "rating_as_of": "2026-10-10T18:00:00Z",
     "last_played": "2026-10-01",
-    "elo_raw": 1448.3,
-    "elo_now": 1426.4,
-    "elo": 1448.8
+    "elo_raw": 1448.5,
+    "elo_now": 1426.5,
+    "elo": 1449.0
    },
    "team1": {
     "name": "Slam Dunk",
@@ -2972,8 +2972,8 @@
     "elo_now": 1470.0,
     "elo": 1457.1
    },
-   "p0": 0.4881,
-   "p1": 0.5119,
+   "p0": 0.4883,
+   "p1": 0.5117,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: NextGeneration Esports 1449 vs Slam Dunk 1457 (57/2 rated series).",
@@ -2984,8 +2984,8 @@
    "pick": {
     "side": 1,
     "team": "Slam Dunk",
-    "probability": 0.5119,
-    "other_probability": 0.4881
+    "probability": 0.5117,
+    "other_probability": 0.4883
    },
    "pick_type": null,
    "market": null,
@@ -3019,9 +3019,9 @@
     "rating_matches": 48,
     "rating_as_of": "2026-10-11T15:00:00Z",
     "last_played": "2026-10-05",
-    "elo_raw": 1490.7,
-    "elo_now": 1549.8,
-    "elo": 1491.6
+    "elo_raw": 1490.9,
+    "elo_now": 1550.0,
+    "elo": 1491.8
    },
    "team1": {
     "name": "Solid Gaming",
@@ -3113,12 +3113,12 @@
     "rating_matches": 6,
     "rating_as_of": "2026-10-11T16:30:00Z",
     "last_played": "2026-10-05",
-    "elo_raw": 1467.1,
-    "elo_now": 1448.1,
-    "elo": 1482.0
+    "elo_raw": 1467.2,
+    "elo_now": 1448.2,
+    "elo": 1482.1
    },
-   "p0": 0.5587,
-   "p1": 0.4413,
+   "p0": 0.5586,
+   "p1": 0.4414,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: 2 Massive 1523 vs Team Lucidity Esports 1482 (15/6 rated series).",
@@ -3128,8 +3128,8 @@
    "pick": {
     "side": 0,
     "team": "2 Massive",
-    "probability": 0.5587,
-    "other_probability": 0.4413
+    "probability": 0.5586,
+    "other_probability": 0.4414
    },
    "pick_type": null,
    "market": null,
@@ -3186,8 +3186,8 @@
     "rating_matches": 55,
     "rating_as_of": "2026-10-11T16:30:00Z",
     "last_played": "2026-10-11",
-    "elo_raw": 1735.5,
-    "elo_now": 1709.7,
+    "elo_raw": 1735.6,
+    "elo_now": 1709.8,
     "elo": 1715.9
    },
    "p0": 0.2287,
@@ -3250,7 +3250,7 @@
     "last_played": "2026-10-04",
     "elo_raw": 1527.6,
     "elo_now": 1519.4,
-    "elo": 1523.7
+    "elo": 1523.6
    },
    "team1": {
     "name": "Karolinerna",
@@ -3261,11 +3261,11 @@
     "rating_as_of": "2026-10-11T16:30:00Z",
     "last_played": "2026-10-10",
     "elo_raw": 1489.0,
-    "elo_now": 1482.1,
+    "elo_now": 1482.2,
     "elo": 1490.8
    },
-   "p0": 0.5472,
-   "p1": 0.4528,
+   "p0": 0.5471,
+   "p1": 0.4529,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Team CD 1524 vs Karolinerna 1491 (30/26 rated series).",
@@ -3275,8 +3275,8 @@
    "pick": {
     "side": 0,
     "team": "Team cd",
-    "probability": 0.5472,
-    "other_probability": 0.4528
+    "probability": 0.5471,
+    "other_probability": 0.4529
    },
    "pick_type": null,
    "market": null,
@@ -3408,7 +3408,7 @@
     "rating_as_of": "2026-10-11T17:30:00Z",
     "last_played": "2026-10-04",
     "elo_raw": 1493.1,
-    "elo_now": 1491.7,
+    "elo_now": 1491.6,
     "elo": 1494.3
    },
    "p0": 0.5389,
@@ -3742,9 +3742,9 @@
     "rating_matches": 9,
     "rating_as_of": "2026-10-14T17:00:00Z",
     "last_played": "2026-10-07",
-    "elo_raw": 1484.7,
-    "elo_now": 1493.5,
-    "elo": 1490.2
+    "elo_raw": 1484.6,
+    "elo_now": 1493.4,
+    "elo": 1490.1
    },
    "team1": {
     "name": "The Bandits Academy",
@@ -3758,8 +3758,8 @@
     "elo_now": 1513.1,
     "elo": 1526.8
    },
-   "p0": 0.4475,
-   "p1": 0.5525,
+   "p0": 0.4474,
+   "p1": 0.5526,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Meavedron Benelux 1490 vs The Bandits Academy 1527 (9/11 rated series).",
@@ -3769,8 +3769,8 @@
    "pick": {
     "side": 1,
     "team": "The Bandits Academy",
-    "probability": 0.5525,
-    "other_probability": 0.4475
+    "probability": 0.5526,
+    "other_probability": 0.4474
    },
    "pick_type": null,
    "market": null,
@@ -3829,12 +3829,12 @@
     "rating_matches": 87,
     "rating_as_of": "2026-10-14T18:00:00Z",
     "last_played": "2026-10-02",
-    "elo_raw": 1584.0,
+    "elo_raw": 1583.9,
     "elo_now": 1562.8,
-    "elo": 1577.0
+    "elo": 1576.9
    },
-   "p0": 0.4236,
-   "p1": 0.5764,
+   "p0": 0.4238,
+   "p1": 0.5762,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Nameless (Benelux Team) 1524 vs Triforce Esport 1577 (53/87 rated series).",
@@ -3845,8 +3845,8 @@
    "pick": {
     "side": 1,
     "team": "Triforce Esport",
-    "probability": 0.5764,
-    "other_probability": 0.4236
+    "probability": 0.5762,
+    "other_probability": 0.4238
    },
    "pick_type": null,
    "market": null,
@@ -4684,7 +4684,7 @@
     "rating_as_of": "2026-10-17T16:00:00Z",
     "last_played": "2026-10-15",
     "elo_raw": 1515.3,
-    "elo_now": 1519.0,
+    "elo_now": 1518.9,
     "elo": 1509.8
    },
    "team1": {
@@ -5364,8 +5364,8 @@
     "rating_as_of": "2026-10-24T16:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.4,
-    "elo": 1610.4
+    "elo_now": 1610.5,
+    "elo": 1610.5
    },
    "team1": {
     "name": "El Menzah Esports",
@@ -5379,8 +5379,8 @@
     "elo_now": 1447.6,
     "elo": 1447.6
    },
-   "p0": 0.7185,
-   "p1": 0.2815,
+   "p0": 0.7186,
+   "p1": 0.2814,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: JSK Esports 1610 vs El Menzah Esports 1448 (68/4 rated series).",
@@ -5391,8 +5391,8 @@
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.7185,
-    "other_probability": 0.2815
+    "probability": 0.7186,
+    "other_probability": 0.2814
    },
    "pick_type": null,
    "market": null,
@@ -5615,8 +5615,8 @@
     "rating_as_of": "2026-10-24T16:30:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1479.3,
-    "elo_now": 1482.1,
-    "elo": 1482.1
+    "elo_now": 1482.2,
+    "elo": 1482.2
    },
    "team1": {
     "name": "Turbo Gaming",
@@ -5630,8 +5630,8 @@
     "elo_now": 1513.0,
     "elo": 1513.0
    },
-   "p0": 0.4556,
-   "p1": 0.5444,
+   "p0": 0.4558,
+   "p1": 0.5442,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Karolinerna 1482 vs Turbo Gaming 1513 (31/6 rated series).",
@@ -5642,8 +5642,8 @@
    "pick": {
     "side": 1,
     "team": "Turbo Gaming",
-    "probability": 0.5444,
-    "other_probability": 0.4556
+    "probability": 0.5442,
+    "other_probability": 0.4558
    },
    "pick_type": null,
    "market": null,
@@ -5677,9 +5677,9 @@
     "rating_matches": 13,
     "rating_as_of": "2026-10-24T16:30:00Z",
     "last_played": "2026-10-18",
-    "elo_raw": 1406.7,
-    "elo_now": 1432.6,
-    "elo": 1432.6
+    "elo_raw": 1406.8,
+    "elo_now": 1432.7,
+    "elo": 1432.7
    },
    "team1": {
     "name": "Rich Gang Sweden",
@@ -5693,8 +5693,8 @@
     "elo_now": 1487.8,
     "elo": 1487.8
    },
-   "p0": 0.4212,
-   "p1": 0.5788,
+   "p0": 0.4214,
+   "p1": 0.5786,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: OnlyWinByFF 1433 vs Rich Gang Sweden 1488 (13/5 rated series).",
@@ -5704,8 +5704,8 @@
    "pick": {
     "side": 1,
     "team": "Rich Gang Sweden",
-    "probability": 0.5788,
-    "other_probability": 0.4212
+    "probability": 0.5786,
+    "other_probability": 0.4214
    },
    "pick_type": null,
    "market": null,
@@ -5739,7 +5739,7 @@
     "rating_matches": 32,
     "rating_as_of": "2026-10-24T16:30:00Z",
     "last_played": "2026-10-21",
-    "elo_raw": 1522.5,
+    "elo_raw": 1522.4,
     "elo_now": 1519.4,
     "elo": 1519.4
    },
@@ -5802,9 +5802,9 @@
     "rating_matches": 10,
     "rating_as_of": "2026-10-24T16:30:00Z",
     "last_played": "2026-10-18",
-    "elo_raw": 1422.1,
-    "elo_now": 1448.1,
-    "elo": 1448.1
+    "elo_raw": 1422.3,
+    "elo_now": 1448.2,
+    "elo": 1448.2
    },
    "team1": {
     "name": "Fritt Fall",
@@ -5818,8 +5818,8 @@
     "elo_now": 1497.6,
     "elo": 1497.6
    },
-   "p0": 0.4292,
-   "p1": 0.5708,
+   "p0": 0.4294,
+   "p1": 0.5706,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Team Lucidity Esports 1448 vs Fritt Fall 1498 (10/9 rated series).",
@@ -5829,8 +5829,8 @@
    "pick": {
     "side": 1,
     "team": "Fritt Fall",
-    "probability": 0.5708,
-    "other_probability": 0.4292
+    "probability": 0.5706,
+    "other_probability": 0.4294
    },
    "pick_type": null,
    "market": null,
@@ -5861,12 +5861,12 @@
     "leaguepedia": "Top Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 137,
+    "rating_matches": 136,
     "rating_as_of": "2026-10-24T17:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1719.6,
-    "elo_now": 1718.9,
-    "elo": 1718.9
+    "elo_raw": 1722.3,
+    "elo_now": 1721.5,
+    "elo": 1721.5
    },
    "team1": {
     "name": "Anyone's Legend",
@@ -5877,93 +5877,80 @@
     "rating_as_of": "2026-10-24T17:00:00Z",
     "last_played": "2026-10-23",
     "elo_raw": 1803.4,
-    "elo_now": 1792.2,
-    "elo": 1792.2
+    "elo_now": 1792.3,
+    "elo": 1792.3
    },
-   "p0": 0.4014,
-   "p1": 0.5986,
+   "p0": 0.6344,
+   "p1": 0.3656,
    "method": "market",
    "confidence": "high",
-   "basis": "4-Venue Consensus de-vigged line (40.1% / 59.9%): Pinnacle 37.7%/62.3% (2.55/1.54), Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 43.5%/56.5% (44¢/56¢), Unibet 39.8%/60.2% (2.33/1.54).",
+   "basis": "3-Venue Consensus de-vigged line (63.4% / 36.6%): Polymarket 62.5%/37.5% (62.5¢/37.5¢), Kalshi 62.5%/37.5% (62¢/38¢), Unibet 67.4%/32.6% (1.38/2.85).",
    "flags": [
+    "market and model disagree by 23 pp (market 63.4% vs our Elo 60.1%) - the market side is published, the gap is disclosed",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
    "pick": {
-    "side": 1,
-    "team": "Anyone's Legend",
-    "probability": 0.5986,
-    "other_probability": 0.4014
+    "side": 0,
+    "team": "Top Esports",
+    "probability": 0.6344,
+    "other_probability": 0.3656
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "4-Venue Consensus",
+    "book": "3-Venue Consensus",
     "kind": "bookmaker",
-    "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
-    "market_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight",
+    "source_url": "https://polymarket.com/event/lol-tes-al-2026-10-24",
+    "api_url": "https://gamma-api.polymarket.com/events?slug=lol-tes-al-2026-10-24",
+    "market_url": "https://polymarket.com/event/lol-tes-al-2026-10-24",
     "decimal": {
-     "home": 2.55,
-     "away": 1.54
+     "home": 1.38,
+     "away": 2.85
     },
-    "american": {
-     "home": 155,
-     "away": -185
-    },
-    "p0": 0.4014,
-    "p1": 0.5986,
-    "overround": 0.0413,
-    "start_utc": "2026-10-24T17:20:14Z",
-    "league": "League of Legends - World Championship",
-    "venue_count": 4,
-    "total_volume_usd": 422326.0,
-    "volume_usd": 422326.0,
+    "american": null,
+    "p0": 0.6344,
+    "p1": 0.3656,
+    "overround": 0.0,
+    "start_utc": "2026-10-24 17:05:00+00",
+    "league": null,
+    "venue_count": 3,
+    "total_volume_usd": 1109703.28,
+    "volume_usd": 1109703.28,
     "venues": [
-     {
-      "name": "Pinnacle",
-      "weight": 0.36,
-      "p0": 0.3766,
-      "p1": 0.6234,
-      "quote": "2.55/1.54",
-      "overround": 0.0413,
-      "observed_utc": "2026-10-24T17:12:58Z",
-      "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121258/markets/related/straight"
-     },
      {
       "name": "Polymarket",
       "weight": 0.24,
-      "p0": 0.415,
-      "p1": 0.585,
-      "quote": "41.5¢/58.5¢",
+      "p0": 0.625,
+      "p1": 0.375,
+      "quote": "62.5¢/37.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:14:08Z",
+      "observed_utc": "2026-10-24T17:31:53Z",
       "url": "https://polymarket.com/event/lol-tes-al-2026-10-24",
-      "volume_usd": 422326.0
+      "volume_usd": 1109703.28
      },
      {
       "name": "Kalshi",
       "weight": 0.18,
-      "p0": 0.435,
-      "p1": 0.565,
-      "quote": "44¢/56¢",
+      "p0": 0.625,
+      "p1": 0.375,
+      "quote": "62¢/38¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:43Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241900altes"
      },
      {
       "name": "Unibet",
       "weight": 0.1,
-      "p0": 0.3979,
-      "p1": 0.6021,
-      "quote": "2.33/1.54",
-      "overround": 0.0785,
-      "observed_utc": "2026-10-24T17:12:26Z",
+      "p0": 0.6738,
+      "p1": 0.3262,
+      "quote": "1.38/2.85",
+      "overround": 0.0755,
+      "observed_utc": "2026-10-24T17:30:04Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609648.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.3961,
-    "start_mismatch_hours": 0.3
+    "model_cross_check": 0.3995
    },
    "resolution": null,
    "connected": true,
@@ -6016,7 +6003,9 @@
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Whalepower Humpbacks 1432 vs 1. Esport Club Frankfurt e.V. 1444 (29/22 rated series).",
-   "flags": [],
+   "flags": [
+    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
+   ],
    "pick": {
     "side": 1,
     "team": "1. Esport Club Frankfurt e.V.",
@@ -6027,7 +6016,7 @@
    "market": null,
    "resolution": null,
    "connected": true,
-   "stale": false,
+   "stale": true,
    "result": null,
    "grade": null,
    "community_pick_pct": {
@@ -6177,9 +6166,9 @@
     "rating_matches": 97,
     "rating_as_of": "2026-10-24T18:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1788.7,
-    "elo_now": 1774.6,
-    "elo": 1774.6
+    "elo_raw": 1788.6,
+    "elo_now": 1774.5,
+    "elo": 1774.5
    },
    "team1": {
     "name": "CTBC Flying Oyster",
@@ -6190,8 +6179,8 @@
     "rating_as_of": "2026-10-24T18:00:00Z",
     "last_played": "2026-10-23",
     "elo_raw": 1756.8,
-    "elo_now": 1753.2,
-    "elo": 1753.2
+    "elo_now": 1753.3,
+    "elo": 1753.3
    },
    "p0": 0.6809,
    "p1": 0.3191,
@@ -6228,8 +6217,8 @@
     "start_utc": "2026-10-24T18:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "total_volume_usd": 165358.5,
-    "volume_usd": 165358.5,
+    "total_volume_usd": 210728.05,
+    "volume_usd": 210728.05,
     "venues": [
      {
       "name": "Pinnacle",
@@ -6238,7 +6227,7 @@
       "p1": 0.3214,
       "quote": "1.41/2.98",
       "overround": 0.044,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:42Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127311/markets/related/straight"
      },
      {
@@ -6248,9 +6237,9 @@
       "p1": 0.315,
       "quote": "68.5¢/31.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:14:08Z",
+      "observed_utc": "2026-10-24T17:31:53Z",
       "url": "https://polymarket.com/event/lol-cfo-mkoi-2026-10-24",
-      "volume_usd": 165358.5
+      "volume_usd": 210728.05
      },
      {
       "name": "Kalshi",
@@ -6259,7 +6248,7 @@
       "p1": 0.315,
       "quote": "68¢/32¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:43Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241400mkoicfo"
      },
      {
@@ -6283,7 +6272,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609639.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.5308,
+    "model_cross_check": 0.5305,
     "start_mismatch_hours": 0.0
    },
    "resolution": null,
@@ -6294,7 +6283,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 9
+    "total_picks": 10
    }
   },
   {
@@ -6316,9 +6305,9 @@
     "rating_matches": 113,
     "rating_as_of": "2026-10-24T19:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1900.4,
-    "elo_now": 1891.9,
-    "elo": 1891.9
+    "elo_raw": 1900.2,
+    "elo_now": 1891.7,
+    "elo": 1891.7
    },
    "team1": {
     "name": "LØS",
@@ -6328,9 +6317,9 @@
     "rating_matches": 68,
     "rating_as_of": "2026-10-24T19:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1816.0,
-    "elo_now": 1794.4,
-    "elo": 1794.4
+    "elo_raw": 1815.9,
+    "elo_now": 1794.2,
+    "elo": 1794.2
    },
    "p0": 0.7964,
    "p1": 0.2036,
@@ -6367,8 +6356,8 @@
     "start_utc": "2026-10-24T19:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "total_volume_usd": 178581.5,
-    "volume_usd": 178581.5,
+    "total_volume_usd": 182163.97,
+    "volume_usd": 182163.97,
     "venues": [
      {
       "name": "Pinnacle",
@@ -6377,7 +6366,7 @@
       "p1": 0.2227,
       "quote": "1.23/4.28",
       "overround": 0.0492,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:42Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639136407/markets/related/straight"
      },
      {
@@ -6387,9 +6376,9 @@
       "p1": 0.185,
       "quote": "81.5¢/18.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:14:08Z",
+      "observed_utc": "2026-10-24T17:31:53Z",
       "url": "https://polymarket.com/event/lol-g2-los-2026-10-24",
-      "volume_usd": 178581.5
+      "volume_usd": 182163.97
      },
      {
       "name": "Kalshi",
@@ -6398,7 +6387,7 @@
       "p1": 0.185,
       "quote": "82¢/18¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:43Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241700losg2"
      },
      {
@@ -6433,7 +6422,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 10
+    "total_picks": 11
    }
   },
   {
@@ -6479,6 +6468,7 @@
    "confidence": "medium",
    "basis": "Elo line: Clã NKZ VÓRAX 1510 vs Neon eSports (Brazilian Team) 1502 (26/22 rated series).",
    "flags": [
+    "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-24T20:00:00Z while Data:LigaGG/CELOL Série A/2026 Season/Split 2 Playoffs records 2026-10-31 20:00Z (168h apart) - confirm before relying on the time",
     "resolved within 'LigaGG/CELOL Série A/2026 Season/Split 2 Playoffs' to 'Neon eSports (Brazilian Team)'"
    ],
    "pick": {
@@ -6581,35 +6571,35 @@
     "rating_matches": 60,
     "rating_as_of": "2026-10-24T20:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1844.5,
-    "elo_now": 1833.4,
-    "elo": 1833.4
+    "elo_raw": 1844.2,
+    "elo_now": 1833.1,
+    "elo": 1833.1
    },
    "team1": {
     "name": "Karmine Corp",
     "leaguepedia": "Karmine Corp",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 105,
+    "rating_matches": 104,
     "rating_as_of": "2026-10-24T20:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1925.6,
-    "elo_now": 1906.3,
-    "elo": 1906.3
+    "elo_raw": 1925.5,
+    "elo_now": 1906.0,
+    "elo": 1906.0
    },
-   "p0": 0.4524,
-   "p1": 0.5476,
+   "p0": 0.45,
+   "p1": 0.55,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (45.2% / 54.8%): Pinnacle 44.7%/55.3% (2.15/1.74), Polymarket 45.5%/54.5% (45.5¢/54.5¢), Kalshi 44.5%/55.5% (44¢/56¢), Bovada 46.9%/53.1% (2.00/1.77), Unibet 45.7%/54.3% (2.02/1.70).",
+   "basis": "5-Venue Consensus de-vigged line (45.0% / 55.0%): Pinnacle 44.7%/55.3% (2.15/1.74), Polymarket 44.5%/55.5% (44.5¢/55.5¢), Kalshi 44.5%/55.5% (44¢/56¢), Bovada 46.9%/53.1% (2.00/1.77), Unibet 45.7%/54.3% (2.02/1.70).",
    "flags": [
     "resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'"
    ],
    "pick": {
     "side": 1,
     "team": "Karmine Corp",
-    "probability": 0.5476,
-    "other_probability": 0.4524
+    "probability": 0.55,
+    "other_probability": 0.45
    },
    "pick_type": null,
    "market": {
@@ -6628,14 +6618,14 @@
      "home": 115,
      "away": -135
     },
-    "p0": 0.4524,
-    "p1": 0.5476,
+    "p0": 0.45,
+    "p1": 0.55,
     "overround": 0.0396,
     "start_utc": "2026-10-24T20:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "total_volume_usd": 163235.46,
-    "volume_usd": 163235.46,
+    "total_volume_usd": 163451.64,
+    "volume_usd": 163451.64,
     "venues": [
      {
       "name": "Pinnacle",
@@ -6644,19 +6634,19 @@
       "p1": 0.5526,
       "quote": "2.15/1.74",
       "overround": 0.0396,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:42Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127313/markets/related/straight"
      },
      {
       "name": "Polymarket",
       "weight": 0.24,
-      "p0": 0.455,
-      "p1": 0.545,
-      "quote": "45.5¢/54.5¢",
+      "p0": 0.445,
+      "p1": 0.555,
+      "quote": "44.5¢/55.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:14:08Z",
+      "observed_utc": "2026-10-24T17:31:53Z",
       "url": "https://polymarket.com/event/lol-ly-kc-2026-10-24",
-      "volume_usd": 163235.46
+      "volume_usd": 163451.64
      },
      {
       "name": "Kalshi",
@@ -6665,7 +6655,7 @@
       "p1": 0.555,
       "quote": "44¢/56¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:43Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly"
      },
      {
@@ -6698,9 +6688,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 10,
-    "team1": 90,
-    "total_picks": 10
+    "team0": 9,
+    "team1": 91,
+    "total_picks": 11
    }
   },
   {
@@ -6719,12 +6709,12 @@
     "leaguepedia": "Invictus Gaming",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 113,
+    "rating_matches": 112,
     "rating_as_of": "2026-10-24T21:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1685.8,
-    "elo_now": 1677.9,
-    "elo": 1677.9
+    "elo_raw": 1688.3,
+    "elo_now": 1680.2,
+    "elo": 1680.2
    },
    "team1": {
     "name": "Team Secret Whales",
@@ -6734,9 +6724,9 @@
     "rating_matches": 66,
     "rating_as_of": "2026-10-24T21:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1869.0,
-    "elo_now": 1857.1,
-    "elo": 1857.1
+    "elo_raw": 1869.2,
+    "elo_now": 1857.2,
+    "elo": 1857.2
    },
    "p0": 0.6897,
    "p1": 0.3103,
@@ -6744,7 +6734,7 @@
    "confidence": "high",
    "basis": "5-Venue Consensus de-vigged line (69.0% / 31.0%): Pinnacle 68.8%/31.2% (1.39/3.07), Polymarket 68.5%/31.5% (68.5¢/31.5¢), Kalshi 68.5%/31.5% (68¢/32¢), Bovada 70.6%/29.4% (1.33/3.20), Unibet 69.6%/30.4% (1.33/3.05).",
    "flags": [
-    "market and model disagree by 43 pp (market 69.0% vs our Elo 73.7%) - the market side is published, the gap is disclosed"
+    "market and model disagree by 42 pp (market 69.0% vs our Elo 73.5%) - the market side is published, the gap is disclosed"
    ],
    "pick": {
     "side": 0,
@@ -6775,8 +6765,8 @@
     "start_utc": "2026-10-24T21:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "total_volume_usd": 60184.77,
-    "volume_usd": 60184.77,
+    "total_volume_usd": 60686.88,
+    "volume_usd": 60686.88,
     "venues": [
      {
       "name": "Pinnacle",
@@ -6785,7 +6775,7 @@
       "p1": 0.312,
       "quote": "1.39/3.07",
       "overround": 0.044,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:42Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127314/markets/related/straight"
      },
      {
@@ -6795,9 +6785,9 @@
       "p1": 0.315,
       "quote": "68.5¢/31.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:14:08Z",
+      "observed_utc": "2026-10-24T17:31:53Z",
       "url": "https://polymarket.com/event/lol-ig1-tsw-2026-10-24",
-      "volume_usd": 60184.77
+      "volume_usd": 60686.88
      },
      {
       "name": "Kalshi",
@@ -6806,7 +6796,7 @@
       "p1": 0.315,
       "quote": "68¢/32¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:43Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241800tswig"
      },
      {
@@ -6830,7 +6820,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609647.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.2628,
+    "model_cross_check": 0.2652,
     "start_mismatch_hours": 0.0
    },
    "resolution": null,
@@ -6841,7 +6831,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 10
+    "total_picks": 11
    }
   },
   {
@@ -6863,9 +6853,9 @@
     "rating_matches": 142,
     "rating_as_of": "2026-10-24T22:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1941.7,
-    "elo_now": 1933.5,
-    "elo": 1933.5
+    "elo_raw": 1940.6,
+    "elo_now": 1932.5,
+    "elo": 1932.5
    },
    "team1": {
     "name": "Gen.G",
@@ -6875,9 +6865,9 @@
     "rating_matches": 134,
     "rating_as_of": "2026-10-24T22:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1962.2,
-    "elo_now": 1952.7,
-    "elo": 1952.7
+    "elo_raw": 1960.8,
+    "elo_now": 1951.4,
+    "elo": 1951.4
    },
    "p0": 0.4195,
    "p1": 0.5805,
@@ -6914,8 +6904,8 @@
     "start_utc": "2026-10-24T22:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "total_volume_usd": 90458.19,
-    "volume_usd": 90458.19,
+    "total_volume_usd": 101696.48,
+    "volume_usd": 101696.48,
     "venues": [
      {
       "name": "Pinnacle",
@@ -6924,7 +6914,7 @@
       "p1": 0.5857,
       "quote": "2.32/1.64",
       "overround": 0.0404,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:42Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127312/markets/related/straight"
      },
      {
@@ -6934,9 +6924,9 @@
       "p1": 0.585,
       "quote": "41.5¢/58.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:14:08Z",
+      "observed_utc": "2026-10-24T17:31:53Z",
       "url": "https://polymarket.com/event/lol-hle1-gen-2026-10-24",
-      "volume_usd": 90458.19
+      "volume_usd": 101696.48
      },
      {
       "name": "Kalshi",
@@ -6945,7 +6935,7 @@
       "p1": 0.5707,
       "quote": "42¢/56¢",
       "overround": -0.01,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:43Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241500genhle"
      },
      {
@@ -6969,7 +6959,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609640.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.4724,
+    "model_cross_check": 0.4728,
     "start_mismatch_hours": 0.0
    },
    "resolution": null,
@@ -6980,7 +6970,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 10
+    "total_picks": 11
    }
   },
   {
@@ -6999,12 +6989,12 @@
     "leaguepedia": "Dplus Kia",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 138,
+    "rating_matches": 137,
     "rating_as_of": "2026-10-24T23:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1870.5,
-    "elo_now": 1864.5,
-    "elo": 1864.5
+    "elo_raw": 1868.2,
+    "elo_now": 1862.2,
+    "elo": 1862.2
    },
    "team1": {
     "name": "T1",
@@ -7014,9 +7004,9 @@
     "rating_matches": 155,
     "rating_as_of": "2026-10-24T23:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1886.4,
-    "elo_now": 1880.6,
-    "elo": 1880.6
+    "elo_raw": 1885.2,
+    "elo_now": 1879.5,
+    "elo": 1879.5
    },
    "p0": 0.4315,
    "p1": 0.5685,
@@ -7053,8 +7043,8 @@
     "start_utc": "2026-10-24T23:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "total_volume_usd": 102125.99,
-    "volume_usd": 102125.99,
+    "total_volume_usd": 103064.58,
+    "volume_usd": 103064.58,
     "venues": [
      {
       "name": "Pinnacle",
@@ -7063,7 +7053,7 @@
       "p1": 0.562,
       "quote": "2.20/1.71",
       "overround": 0.0379,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:42Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639127310/markets/related/straight"
      },
      {
@@ -7073,9 +7063,9 @@
       "p1": 0.565,
       "quote": "43.5¢/56.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:14:08Z",
+      "observed_utc": "2026-10-24T17:31:53Z",
       "url": "https://polymarket.com/event/lol-dk-t1-2026-10-24",
-      "volume_usd": 102125.99
+      "volume_usd": 103064.58
      },
      {
       "name": "Kalshi",
@@ -7084,7 +7074,7 @@
       "p1": 0.565,
       "quote": "44¢/56¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:43Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241300t1dk"
      },
      {
@@ -7108,7 +7098,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609638.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.4768,
+    "model_cross_check": 0.4751,
     "start_mismatch_hours": 0.0
    },
    "resolution": null,
@@ -7119,7 +7109,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 10
+    "total_picks": 11
    }
   },
   {
@@ -7141,9 +7131,9 @@
     "rating_matches": 149,
     "rating_as_of": "2026-10-25T00:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1928.1,
-    "elo_now": 1920.7,
-    "elo": 1920.7
+    "elo_raw": 1927.7,
+    "elo_now": 1920.3,
+    "elo": 1920.3
    },
    "team1": {
     "name": "Team Liquid",
@@ -7153,9 +7143,9 @@
     "rating_matches": 79,
     "rating_as_of": "2026-10-25T00:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1833.3,
-    "elo_now": 1825.4,
-    "elo": 1825.4
+    "elo_raw": 1833.2,
+    "elo_now": 1825.3,
+    "elo": 1825.3
    },
    "p0": 0.7337,
    "p1": 0.2663,
@@ -7192,8 +7182,8 @@
     "start_utc": "2026-10-25T00:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "total_volume_usd": 62950.9,
-    "volume_usd": 62950.9,
+    "total_volume_usd": 63584.35,
+    "volume_usd": 63584.35,
     "venues": [
      {
       "name": "Pinnacle",
@@ -7202,7 +7192,7 @@
       "p1": 0.2803,
       "quote": "1.33/3.41",
       "overround": 0.0463,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:42Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639121259/markets/related/straight"
      },
      {
@@ -7212,9 +7202,9 @@
       "p1": 0.245,
       "quote": "75.5¢/24.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:14:08Z",
+      "observed_utc": "2026-10-24T17:31:53Z",
       "url": "https://polymarket.com/event/lol-tl2-blg-2026-10-24",
-      "volume_usd": 62950.9
+      "volume_usd": 63584.35
      },
      {
       "name": "Kalshi",
@@ -7223,7 +7213,7 @@
       "p1": 0.245,
       "quote": "76¢/24¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:12:58Z",
+      "observed_utc": "2026-10-24T17:30:43Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct242000blgtl"
      },
      {
@@ -7247,7 +7237,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029609649.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.6338,
+    "model_cross_check": 0.6334,
     "start_mismatch_hours": 0.0
    },
    "resolution": null,
@@ -7256,9 +7246,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 90,
-    "team1": 10,
-    "total_picks": 10
+    "team0": 91,
+    "team1": 9,
+    "total_picks": 11
    }
   },
   {
@@ -7337,36 +7327,38 @@
     "leaguepedia": "Maze GG",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 38,
+    "rating_matches": 39,
     "rating_as_of": "2026-10-25T15:00:00Z",
-    "last_played": "2026-10-17",
-    "elo_raw": 1597.6,
-    "elo_now": 1586.2,
-    "elo": 1586.2
+    "last_played": "2026-10-24",
+    "elo_raw": 1580.6,
+    "elo_now": 1571.4,
+    "elo": 1571.4
    },
    "team1": {
     "name": "Viktus",
     "leaguepedia": "Viktus",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 21,
+    "rating_matches": 22,
     "rating_as_of": "2026-10-25T15:00:00Z",
-    "last_played": "2026-10-17",
-    "elo_raw": 1559.9,
-    "elo_now": 1548.4,
-    "elo": 1548.4
+    "last_played": "2026-10-24",
+    "elo_raw": 1576.9,
+    "elo_now": 1562.7,
+    "elo": 1562.7
    },
-   "p0": 0.5542,
-   "p1": 0.4458,
+   "p0": 0.5125,
+   "p1": 0.4875,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Maze GG 1586 vs Viktus 1548 (38/21 rated series).",
-   "flags": [],
+   "basis": "Elo line: Maze GG 1571 vs Viktus 1563 (39/22 rated series).",
+   "flags": [
+    "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-25T15:00:00Z while Data:LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs records 2026-10-24 23:00Z (16h apart) - confirm before relying on the time"
+   ],
    "pick": {
     "side": 0,
     "team": "Maze GG",
-    "probability": 0.5542,
-    "other_probability": 0.4458
+    "probability": 0.5125,
+    "other_probability": 0.4875
    },
    "pick_type": null,
    "market": null,
@@ -7704,7 +7696,7 @@
     "rating_matches": 17,
     "rating_as_of": "2026-10-25T16:00:00Z",
     "last_played": "2026-10-19",
-    "elo_raw": 1364.4,
+    "elo_raw": 1364.3,
     "elo_now": 1385.0,
     "elo": 1385.0
    },
@@ -7860,8 +7852,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 80,
-    "team1": 20,
+    "team0": 76,
+    "team1": 24,
     "total_picks": 25
    }
   },
@@ -7986,8 +7978,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 92,
-    "team1": 8,
+    "team0": 88,
+    "team1": 12,
     "total_picks": 25
    }
   },
@@ -8106,8 +8098,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 80,
-    "team1": 20,
+    "team0": 76,
+    "team1": 24,
     "total_picks": 25
    }
   },
@@ -8131,8 +8123,8 @@
     "rating_as_of": "2026-10-25T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.4,
-    "elo": 1610.4
+    "elo_now": 1610.5,
+    "elo": 1610.5
    },
    "team1": {
     "name": "Enfida Esports",
@@ -8146,8 +8138,8 @@
     "elo_now": 1419.2,
     "elo": 1419.2
    },
-   "p0": 0.7504,
-   "p1": 0.2496,
+   "p0": 0.7505,
+   "p1": 0.2495,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: JSK Esports 1610 vs Enfida Esports 1419 (68/6 rated series).",
@@ -8155,8 +8147,8 @@
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.7504,
-    "other_probability": 0.2496
+    "probability": 0.7505,
+    "other_probability": 0.2495
    },
    "pick_type": null,
    "market": null,
@@ -8500,9 +8492,9 @@
     "rating_matches": 13,
     "rating_as_of": "2026-10-25T17:30:00Z",
     "last_played": "2026-10-18",
-    "elo_raw": 1406.7,
-    "elo_now": 1432.6,
-    "elo": 1432.6
+    "elo_raw": 1406.8,
+    "elo_now": 1432.7,
+    "elo": 1432.7
    },
    "team1": {
     "name": "Mazepa",
@@ -8516,8 +8508,8 @@
     "elo_now": 1471.9,
     "elo": 1471.9
    },
-   "p0": 0.4437,
-   "p1": 0.5563,
+   "p0": 0.4438,
+   "p1": 0.5562,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: OnlyWinByFF 1433 vs Mazepa 1472 (13/10 rated series).",
@@ -8525,8 +8517,8 @@
    "pick": {
     "side": 1,
     "team": "Mazepa",
-    "probability": 0.5563,
-    "other_probability": 0.4437
+    "probability": 0.5562,
+    "other_probability": 0.4438
    },
    "pick_type": null,
    "market": null,
@@ -8560,9 +8552,9 @@
     "rating_matches": 10,
     "rating_as_of": "2026-10-25T17:30:00Z",
     "last_played": "2026-10-18",
-    "elo_raw": 1422.1,
-    "elo_now": 1448.1,
-    "elo": 1448.1
+    "elo_raw": 1422.3,
+    "elo_now": 1448.2,
+    "elo": 1448.2
    },
    "team1": {
     "name": "Team cd",
@@ -8572,12 +8564,12 @@
     "rating_matches": 32,
     "rating_as_of": "2026-10-25T17:30:00Z",
     "last_played": "2026-10-21",
-    "elo_raw": 1522.5,
+    "elo_raw": 1522.4,
     "elo_now": 1519.4,
     "elo": 1519.4
    },
-   "p0": 0.3988,
-   "p1": 0.6012,
+   "p0": 0.3989,
+   "p1": 0.6011,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Team Lucidity Esports 1448 vs Team CD 1519 (10/32 rated series).",
@@ -8585,8 +8577,8 @@
    "pick": {
     "side": 1,
     "team": "Team cd",
-    "probability": 0.6012,
-    "other_probability": 0.3988
+    "probability": 0.6011,
+    "other_probability": 0.3989
    },
    "pick_type": null,
    "market": null,
@@ -8756,12 +8748,12 @@
     "rating_matches": 91,
     "rating_as_of": "2026-10-25T18:30:00Z",
     "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "elo_raw": 1613.2,
+    "elo_now": 1607.3,
+    "elo": 1607.3
    },
-   "p0": 0.3633,
-   "p1": 0.6367,
+   "p0": 0.3631,
+   "p1": 0.6369,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Locked In (Dutch Team) 1510 vs DKB XPERION NXT 1607 (40/91 rated series).",
@@ -8771,8 +8763,8 @@
    "pick": {
     "side": 1,
     "team": "DKB XPERION NXT",
-    "probability": 0.6367,
-    "other_probability": 0.3633
+    "probability": 0.6369,
+    "other_probability": 0.3631
    },
    "pick_type": null,
    "market": null,
@@ -8818,12 +8810,12 @@
     "rating_matches": 58,
     "rating_as_of": "2026-10-25T18:30:00Z",
     "last_played": "2026-10-18",
-    "elo_raw": 1727.8,
-    "elo_now": 1709.7,
-    "elo": 1709.7
+    "elo_raw": 1727.9,
+    "elo_now": 1709.8,
+    "elo": 1709.8
    },
-   "p0": 0.275,
-   "p1": 0.725,
+   "p0": 0.2749,
+   "p1": 0.7251,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Lundqvist Darkside 1541 vs B2U 1710 (18/58 rated series).",
@@ -8831,8 +8823,8 @@
    "pick": {
     "side": 1,
     "team": "B2U",
-    "probability": 0.725,
-    "other_probability": 0.275
+    "probability": 0.7251,
+    "other_probability": 0.2749
    },
    "pick_type": null,
    "market": null,
@@ -8878,12 +8870,12 @@
     "rating_matches": 58,
     "rating_as_of": "2026-10-26T18:00:00Z",
     "last_played": "2026-10-18",
-    "elo_raw": 1727.8,
-    "elo_now": 1709.7,
-    "elo": 1709.7
+    "elo_raw": 1727.9,
+    "elo_now": 1709.8,
+    "elo": 1709.8
    },
-   "p0": 0.2028,
-   "p1": 0.7972,
+   "p0": 0.2027,
+   "p1": 0.7973,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Mazepa 1472 vs B2U 1710 (10/58 rated series).",
@@ -8891,8 +8883,8 @@
    "pick": {
     "side": 1,
     "team": "B2U",
-    "probability": 0.7972,
-    "other_probability": 0.2028
+    "probability": 0.7973,
+    "other_probability": 0.2027
    },
    "pick_type": null,
    "market": null,
@@ -8928,9 +8920,9 @@
     "rating_matches": 22,
     "rating_as_of": "2026-10-26T19:00:00Z",
     "last_played": "2026-10-22",
-    "elo_raw": 1684.8,
-    "elo_now": 1650.6,
-    "elo": 1650.6
+    "elo_raw": 1684.6,
+    "elo_now": 1650.4,
+    "elo": 1650.4
    },
    "team1": {
     "name": "Bulldog Esports",
@@ -8940,23 +8932,23 @@
     "rating_matches": 56,
     "rating_as_of": "2026-10-26T19:00:00Z",
     "last_played": "2026-10-22",
-    "elo_raw": 1627.0,
-    "elo_now": 1622.7,
-    "elo": 1622.7
+    "elo_raw": 1627.3,
+    "elo_now": 1623.0,
+    "elo": 1623.0
    },
-   "p0": 0.5401,
-   "p1": 0.4599,
+   "p0": 0.5394,
+   "p1": 0.4606,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Inari Esports (British Team) 1651 vs Bulldog Esports 1623 (22/56 rated series).",
+   "basis": "Elo line: Inari Esports (British Team) 1650 vs Bulldog Esports 1623 (22/56 rated series).",
    "flags": [
     "resolved within '4 Nations/2026 Season/Halloween Heist' to 'Inari Esports (British Team)'"
    ],
    "pick": {
     "side": 0,
     "team": "Inari Esports",
-    "probability": 0.5401,
-    "other_probability": 0.4599
+    "probability": 0.5394,
+    "other_probability": 0.4606
    },
    "pick_type": null,
    "market": null,
@@ -8966,9 +8958,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 0,
+    "team0": 100,
     "team1": 0,
-    "total_picks": 0
+    "total_picks": 2
    }
   },
   {
@@ -9112,7 +9104,7 @@
     "rating_matches": 65,
     "rating_as_of": "2026-10-27T17:00:00Z",
     "last_played": "2026-10-19",
-    "elo_raw": 1770.5,
+    "elo_raw": 1770.4,
     "elo_now": 1751.1,
     "elo": 1751.1
    },
@@ -9170,7 +9162,7 @@
       "p1": 0.61,
       "quote": "39.0¢/61.0¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-24T17:14:08Z",
+      "observed_utc": "2026-10-24T17:31:53Z",
       "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
       "volume_usd": 13.77
      }
@@ -9207,9 +9199,9 @@
     "rating_matches": 91,
     "rating_as_of": "2026-10-27T17:00:00Z",
     "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "elo_raw": 1613.2,
+    "elo_now": 1607.3,
+    "elo": 1607.3
    },
    "team1": {
     "name": "Phong Vũ Buffalo",
@@ -9225,8 +9217,8 @@
     "elo_now": 1560.7,
     "elo": 1560.7
    },
-   "p0": 0.5665,
-   "p1": 0.4335,
+   "p0": 0.5667,
+   "p1": 0.4333,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: DKB XPERION NXT 1607 vs PvB (Swiss Team) 1561 (91/36 rated series).",
@@ -9236,8 +9228,8 @@
    "pick": {
     "side": 0,
     "team": "DKB XPERION NXT",
-    "probability": 0.5665,
-    "other_probability": 0.4335
+    "probability": 0.5667,
+    "other_probability": 0.4333
    },
    "pick_type": null,
    "market": null,
@@ -9332,8 +9324,8 @@
     "rating_as_of": "2026-10-27T18:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1479.3,
-    "elo_now": 1482.1,
-    "elo": 1482.1
+    "elo_now": 1482.2,
+    "elo": 1482.2
    },
    "team1": {
     "name": "Turbo Gaming",
@@ -9347,8 +9339,8 @@
     "elo_now": 1513.0,
     "elo": 1513.0
    },
-   "p0": 0.4556,
-   "p1": 0.5444,
+   "p0": 0.4558,
+   "p1": 0.5442,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Karolinerna 1482 vs Turbo Gaming 1513 (31/6 rated series).",
@@ -9356,8 +9348,8 @@
    "pick": {
     "side": 1,
     "team": "Turbo Gaming",
-    "probability": 0.5444,
-    "other_probability": 0.4556
+    "probability": 0.5442,
+    "other_probability": 0.4558
    },
    "pick_type": null,
    "market": null,
@@ -9368,8 +9360,8 @@
    "grade": null,
    "community_pick_pct": {
     "team0": 0,
-    "team1": 0,
-    "total_picks": 0
+    "team1": 100,
+    "total_picks": 2
    }
   },
   {
@@ -9463,12 +9455,12 @@
     "rating_matches": 72,
     "rating_as_of": "2026-10-27T19:30:00Z",
     "last_played": "2026-10-20",
-    "elo_raw": 1556.9,
-    "elo_now": 1553.2,
-    "elo": 1553.2
+    "elo_raw": 1556.8,
+    "elo_now": 1553.1,
+    "elo": 1553.1
    },
-   "p0": 0.4641,
-   "p1": 0.5359,
+   "p0": 0.4642,
+   "p1": 0.5358,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: VfB eSports 1528 vs regnum4games 1553 (89/72 rated series).",
@@ -9476,8 +9468,8 @@
    "pick": {
     "side": 1,
     "team": "regnum4games",
-    "probability": 0.5359,
-    "other_probability": 0.4641
+    "probability": 0.5358,
+    "other_probability": 0.4642
    },
    "pick_type": null,
    "market": null,
@@ -9523,12 +9515,12 @@
     "rating_matches": 58,
     "rating_as_of": "2026-10-28T17:00:00Z",
     "last_played": "2026-10-18",
-    "elo_raw": 1727.8,
-    "elo_now": 1709.7,
-    "elo": 1709.7
+    "elo_raw": 1727.9,
+    "elo_now": 1709.8,
+    "elo": 1709.8
    },
-   "p0": 0.4662,
-   "p1": 0.5338,
+   "p0": 0.4661,
+   "p1": 0.5339,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: FlameHard 1686 vs B2U 1710 (42/58 rated series).",
@@ -9536,8 +9528,8 @@
    "pick": {
     "side": 1,
     "team": "B2U",
-    "probability": 0.5338,
-    "other_probability": 0.4662
+    "probability": 0.5339,
+    "other_probability": 0.4661
    },
    "pick_type": null,
    "market": null,
@@ -9572,8 +9564,8 @@
     "rating_as_of": "2026-10-28T17:30:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1490.0,
-    "elo_now": 1491.7,
-    "elo": 1491.7
+    "elo_now": 1491.6,
+    "elo": 1491.6
    },
    "team1": {
     "name": "Northern Wolves Esports",
@@ -9587,8 +9579,8 @@
     "elo_now": 1499.0,
     "elo": 1499.0
    },
-   "p0": 0.4895,
-   "p1": 0.5105,
+   "p0": 0.4894,
+   "p1": 0.5106,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: DMG Esports Sweden 1492 vs Northern Wolves Esports 1499 (25/5 rated series).",
@@ -9596,8 +9588,8 @@
    "pick": {
     "side": 1,
     "team": "Northern Wolves Esports",
-    "probability": 0.5105,
-    "other_probability": 0.4895
+    "probability": 0.5106,
+    "other_probability": 0.4894
    },
    "pick_type": null,
    "market": null,
@@ -9934,8 +9926,8 @@
     "rating_as_of": "2026-10-29T19:00:00Z",
     "last_played": "2026-10-22",
     "elo_raw": 1555.1,
-    "elo_now": 1530.1,
-    "elo": 1530.1
+    "elo_now": 1530.0,
+    "elo": 1530.0
    },
    "team1": {
     "name": "Absolved",
@@ -9945,12 +9937,12 @@
     "rating_matches": 50,
     "rating_as_of": "2026-10-29T19:00:00Z",
     "last_played": "2026-10-22",
-    "elo_raw": 1691.8,
-    "elo_now": 1674.4,
-    "elo": 1674.4
+    "elo_raw": 1691.5,
+    "elo_now": 1674.1,
+    "elo": 1674.1
    },
-   "p0": 0.3035,
-   "p1": 0.6965,
+   "p0": 0.3037,
+   "p1": 0.6963,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Crownless 1530 vs Absolved 1674 (6/50 rated series).",
@@ -9958,8 +9950,8 @@
    "pick": {
     "side": 1,
     "team": "Absolved",
-    "probability": 0.6965,
-    "other_probability": 0.3035
+    "probability": 0.6963,
+    "other_probability": 0.3037
    },
    "pick_type": null,
    "market": null,
@@ -9969,9 +9961,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 100,
-    "team1": 0,
-    "total_picks": 1
+    "team0": 33,
+    "team1": 67,
+    "total_picks": 3
    }
   },
   {
@@ -10089,9 +10081,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 0,
-    "team1": 100,
-    "total_picks": 1
+    "team0": 67,
+    "team1": 33,
+    "total_picks": 3
    }
   },
   {
@@ -10155,7 +10147,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 1
+    "total_picks": 3
    }
   },
   {
@@ -10177,9 +10169,9 @@
     "rating_matches": 53,
     "rating_as_of": "2026-10-30T17:00:00Z",
     "last_played": "2026-10-22",
-    "elo_raw": 1554.5,
-    "elo_now": 1549.8,
-    "elo": 1549.8
+    "elo_raw": 1554.7,
+    "elo_now": 1550.0,
+    "elo": 1550.0
    },
    "team1": {
     "name": "Ascent Gaming",
@@ -10189,12 +10181,12 @@
     "rating_matches": 48,
     "rating_as_of": "2026-10-30T17:00:00Z",
     "last_played": "2026-10-22",
-    "elo_raw": 1563.6,
+    "elo_raw": 1563.7,
     "elo_now": 1557.6,
     "elo": 1557.6
    },
-   "p0": 0.4888,
-   "p1": 0.5112,
+   "p0": 0.4891,
+   "p1": 0.5109,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Volda E-Sport 1550 vs Ascent Gaming 1558 (53/48 rated series).",
@@ -10202,8 +10194,8 @@
    "pick": {
     "side": 1,
     "team": "Ascent Gaming",
-    "probability": 0.5112,
-    "other_probability": 0.4888
+    "probability": 0.5109,
+    "other_probability": 0.4891
    },
    "pick_type": null,
    "market": null,
@@ -10213,9 +10205,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 100,
-    "team1": 0,
-    "total_picks": 1
+    "team0": 33,
+    "team1": 67,
+    "total_picks": 3
    }
   },
   {
@@ -10369,12 +10361,12 @@
     "rating_matches": 61,
     "rating_as_of": "2026-10-30T19:00:00Z",
     "last_played": "2026-10-23",
-    "elo_raw": 1424.0,
-    "elo_now": 1426.4,
-    "elo": 1426.4
+    "elo_raw": 1424.2,
+    "elo_now": 1426.5,
+    "elo": 1426.5
    },
-   "p0": 0.5292,
-   "p1": 0.4708,
+   "p0": 0.529,
+   "p1": 0.471,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Team Reds 1447 vs NextGeneration Esports 1426 (6/61 rated series).",
@@ -10382,8 +10374,8 @@
    "pick": {
     "side": 0,
     "team": "Team Reds",
-    "probability": 0.5292,
-    "other_probability": 0.4708
+    "probability": 0.529,
+    "other_probability": 0.471
    },
    "pick_type": null,
    "market": null,
@@ -10393,8 +10385,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 80,
-    "team1": 20,
+    "team0": 85,
+    "team1": 15,
     "total_picks": 20
    }
   },
@@ -10417,9 +10409,9 @@
     "rating_matches": 91,
     "rating_as_of": "2026-10-30T19:30:00Z",
     "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "elo_raw": 1613.2,
+    "elo_now": 1607.3,
+    "elo": 1607.3
    },
    "team1": {
     "name": "regnum4games",
@@ -10429,12 +10421,12 @@
     "rating_matches": 72,
     "rating_as_of": "2026-10-30T19:30:00Z",
     "last_played": "2026-10-20",
-    "elo_raw": 1556.9,
-    "elo_now": 1553.2,
-    "elo": 1553.2
+    "elo_raw": 1556.8,
+    "elo_now": 1553.1,
+    "elo": 1553.1
    },
-   "p0": 0.5771,
-   "p1": 0.4229,
+   "p0": 0.5774,
+   "p1": 0.4226,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: DKB XPERION NXT 1607 vs regnum4games 1553 (91/72 rated series).",
@@ -10442,8 +10434,8 @@
    "pick": {
     "side": 0,
     "team": "DKB XPERION NXT",
-    "probability": 0.5771,
-    "other_probability": 0.4229
+    "probability": 0.5774,
+    "other_probability": 0.4226
    },
    "pick_type": null,
    "market": null,
@@ -10517,8 +10509,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 95,
-    "team1": 5,
+    "team0": 90,
+    "team1": 10,
     "total_picks": 20
    }
   },
@@ -10604,8 +10596,8 @@
     "rating_as_of": "2026-10-31T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.4,
-    "elo": 1610.4
+    "elo_now": 1610.5,
+    "elo": 1610.5
    },
    "team1": {
     "name": "Olympique Mnihla",
@@ -10619,8 +10611,8 @@
     "elo_now": 1510.5,
     "elo": 1510.5
    },
-   "p0": 0.6399,
-   "p1": 0.3601,
+   "p0": 0.6401,
+   "p1": 0.3599,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: JSK Esports 1610 vs Olympique Mnihla 1510 (68/40 rated series).",
@@ -10628,8 +10620,8 @@
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.6399,
-    "other_probability": 0.3601
+    "probability": 0.6401,
+    "other_probability": 0.3599
    },
    "pick_type": null,
    "market": null,
@@ -11005,8 +10997,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 90,
-    "team1": 10,
+    "team0": 85,
+    "team1": 15,
     "total_picks": 20
    }
   },
@@ -11251,8 +11243,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 85,
-    "team1": 15,
+    "team0": 90,
+    "team1": 10,
     "total_picks": 20
    }
   },
@@ -11311,8 +11303,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 11,
-    "team1": 89,
+    "team0": 5,
+    "team1": 95,
     "total_picks": 19
    }
   },
@@ -11675,8 +11667,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 100,
-    "team1": 0,
+    "team0": 95,
+    "team1": 5,
     "total_picks": 19
    }
   },
@@ -11771,7 +11763,7 @@
     "rating_matches": 17,
     "rating_as_of": "2026-11-01T16:00:00Z",
     "last_played": "2026-10-19",
-    "elo_raw": 1364.4,
+    "elo_raw": 1364.3,
     "elo_now": 1385.0,
     "elo": 1385.0
    },
@@ -11857,8 +11849,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 89,
-    "team1": 11,
+    "team0": 84,
+    "team1": 16,
     "total_picks": 19
    }
   },
@@ -11942,8 +11934,8 @@
     "rating_as_of": "2026-11-01T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1490.0,
-    "elo_now": 1491.7,
-    "elo": 1491.7
+    "elo_now": 1491.6,
+    "elo": 1491.6
    },
    "team1": {
     "name": "FlameHard",
@@ -11957,8 +11949,8 @@
     "elo_now": 1686.2,
     "elo": 1686.2
    },
-   "p0": 0.2461,
-   "p1": 0.7539,
+   "p0": 0.246,
+   "p1": 0.754,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: DMG Esports Sweden 1492 vs FlameHard 1686 (25/42 rated series).",
@@ -11966,8 +11958,8 @@
    "pick": {
     "side": 1,
     "team": "FlameHard",
-    "probability": 0.7539,
-    "other_probability": 0.2461
+    "probability": 0.754,
+    "other_probability": 0.246
    },
    "pick_type": null,
    "market": null,
@@ -12200,11 +12192,11 @@
     "rating_as_of": "2026-11-01T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.4,
-    "elo": 1610.4
+    "elo_now": 1610.5,
+    "elo": 1610.5
    },
-   "p0": 0.5363,
-   "p1": 0.4637,
+   "p0": 0.5362,
+   "p1": 0.4638,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Simplicity Gaming 1636 vs JSK Esports 1610 (38/68 rated series).",
@@ -12212,8 +12204,8 @@
    "pick": {
     "side": 0,
     "team": "Simplicity Gaming",
-    "probability": 0.5363,
-    "other_probability": 0.4637
+    "probability": 0.5362,
+    "other_probability": 0.4638
    },
    "pick_type": null,
    "market": null,
@@ -12310,8 +12302,8 @@
     "rating_as_of": "2026-11-01T18:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1479.3,
-    "elo_now": 1482.1,
-    "elo": 1482.1
+    "elo_now": 1482.2,
+    "elo": 1482.2
    },
    "team1": {
     "name": "Lund Esports Organization OGs",
@@ -12325,8 +12317,8 @@
     "elo_now": 1515.0,
     "elo": 1515.0
    },
-   "p0": 0.4528,
-   "p1": 0.5472,
+   "p0": 0.4529,
+   "p1": 0.5471,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: Karolinerna 1482 vs Lund Esports Organization OGs 1515 (31/4 rated series).",
@@ -12336,8 +12328,8 @@
    "pick": {
     "side": 1,
     "team": "Lund Esports Organization OGs",
-    "probability": 0.5472,
-    "other_probability": 0.4528
+    "probability": 0.5471,
+    "other_probability": 0.4529
    },
    "pick_type": null,
    "market": null,
@@ -12567,12 +12559,12 @@
     "rating_matches": 15,
     "rating_as_of": "2026-11-02T19:00:00Z",
     "last_played": "2026-10-22",
-    "elo_raw": 1597.1,
-    "elo_now": 1572.8,
-    "elo": 1572.8
+    "elo_raw": 1596.9,
+    "elo_now": 1572.7,
+    "elo": 1572.7
    },
-   "p0": 0.4338,
-   "p1": 0.5662,
+   "p0": 0.4339,
+   "p1": 0.5661,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Ruddy Ultras 1526 vs Rich Gang UK 1573 (8/15 rated series).",
@@ -12580,8 +12572,8 @@
    "pick": {
     "side": 1,
     "team": "Rich Gang UK",
-    "probability": 0.5662,
-    "other_probability": 0.4338
+    "probability": 0.5661,
+    "other_probability": 0.4339
    },
    "pick_type": null,
    "market": null,
@@ -12592,8 +12584,8 @@
    "grade": null,
    "community_pick_pct": {
     "team0": 0,
-    "team1": 0,
-    "total_picks": 0
+    "team1": 100,
+    "total_picks": 1
    }
   },
   {
@@ -12815,12 +12807,12 @@
     "rating_matches": 91,
     "rating_as_of": "2026-11-03T19:30:00Z",
     "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "elo_raw": 1613.2,
+    "elo_now": 1607.3,
+    "elo": 1607.3
    },
-   "p0": 0.4366,
-   "p1": 0.5634,
+   "p0": 0.4364,
+   "p1": 0.5636,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: MT1 Esports 1563 vs DKB XPERION NXT 1607 (50/91 rated series).",
@@ -12828,8 +12820,8 @@
    "pick": {
     "side": 1,
     "team": "DKB XPERION NXT",
-    "probability": 0.5634,
-    "other_probability": 0.4366
+    "probability": 0.5636,
+    "other_probability": 0.4364
    },
    "pick_type": null,
    "market": null,
@@ -12863,9 +12855,9 @@
     "rating_matches": 72,
     "rating_as_of": "2026-11-03T19:30:00Z",
     "last_played": "2026-10-20",
-    "elo_raw": 1556.9,
-    "elo_now": 1553.2,
-    "elo": 1553.2
+    "elo_raw": 1556.8,
+    "elo_now": 1553.1,
+    "elo": 1553.1
    },
    "team1": {
     "name": "The Bandits Prime",
@@ -12879,8 +12871,8 @@
     "elo_now": 1523.1,
     "elo": 1523.1
    },
-   "p0": 0.5432,
-   "p1": 0.4568,
+   "p0": 0.5431,
+   "p1": 0.4569,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: regnum4games 1553 vs The Bandits Prime 1523 (72/8 rated series).",
@@ -12888,8 +12880,8 @@
    "pick": {
     "side": 0,
     "team": "regnum4games",
-    "probability": 0.5432,
-    "other_probability": 0.4568
+    "probability": 0.5431,
+    "other_probability": 0.4569
    },
    "pick_type": null,
    "market": null,
@@ -12899,8 +12891,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 13,
-    "team1": 87,
+    "team0": 7,
+    "team1": 93,
     "total_picks": 15
    }
   },
@@ -12920,12 +12912,12 @@
     "leaguepedia": "Brod n Friends",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 97,
+    "rating_matches": 96,
     "rating_as_of": "2026-11-05T19:00:00Z",
     "last_played": "2026-10-22",
-    "elo_raw": 1646.1,
-    "elo_now": 1639.0,
-    "elo": 1639.0
+    "elo_raw": 1645.2,
+    "elo_now": 1638.1,
+    "elo": 1638.1
    },
    "team1": {
     "name": "PNS",
@@ -12936,20 +12928,20 @@
     "rating_as_of": "2026-11-05T19:00:00Z",
     "last_played": "2026-10-22",
     "elo_raw": 1554.5,
-    "elo_now": 1533.6,
-    "elo": 1533.6
+    "elo_now": 1533.5,
+    "elo": 1533.5
    },
-   "p0": 0.6472,
-   "p1": 0.3528,
+   "p0": 0.6461,
+   "p1": 0.3539,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Brod n Friends 1639 vs PNS 1534 (97/8 rated series).",
+   "basis": "Elo line: Brod n Friends 1638 vs PNS 1534 (96/8 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Brod n Friends",
-    "probability": 0.6472,
-    "other_probability": 0.3528
+    "probability": 0.6461,
+    "other_probability": 0.3539
    },
    "pick_type": null,
    "market": null,
@@ -12959,9 +12951,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 0,
+    "team0": 100,
     "team1": 0,
-    "total_picks": 0
+    "total_picks": 1
    }
   },
   {
@@ -12995,12 +12987,12 @@
     "rating_matches": 91,
     "rating_as_of": "2026-11-06T17:00:00Z",
     "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "elo_raw": 1613.2,
+    "elo_now": 1607.3,
+    "elo": 1607.3
    },
-   "p0": 0.482,
-   "p1": 0.518,
+   "p0": 0.4819,
+   "p1": 0.5181,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: 404 Multigaming e.V. 1595 vs DKB XPERION NXT 1607 (48/91 rated series).",
@@ -13008,8 +13000,8 @@
    "pick": {
     "side": 1,
     "team": "DKB XPERION NXT",
-    "probability": 0.518,
-    "other_probability": 0.482
+    "probability": 0.5181,
+    "other_probability": 0.4819
    },
    "pick_type": null,
    "market": null,
@@ -13304,11 +13296,11 @@
     "rating_as_of": "2026-11-07T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.4,
-    "elo": 1610.4
+    "elo_now": 1610.5,
+    "elo": 1610.5
    },
-   "p0": 0.338,
-   "p1": 0.662,
+   "p0": 0.3378,
+   "p1": 0.6622,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: JSK Academy 1494 vs JSK Esports 1610 (29/68 rated series).",
@@ -13316,8 +13308,8 @@
    "pick": {
     "side": 1,
     "team": "JSK Esports",
-    "probability": 0.662,
-    "other_probability": 0.338
+    "probability": 0.6622,
+    "other_probability": 0.3378
    },
    "pick_type": null,
    "market": null,
@@ -13575,8 +13567,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 87,
-    "team1": 13,
+    "team0": 93,
+    "team1": 7,
     "total_picks": 15
    }
   },
@@ -13841,7 +13833,7 @@
     "rating_matches": 17,
     "rating_as_of": "2026-11-08T16:00:00Z",
     "last_played": "2026-10-19",
-    "elo_raw": 1364.4,
+    "elo_raw": 1364.3,
     "elo_now": 1385.0,
     "elo": 1385.0
    },
@@ -14611,8 +14603,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 7,
-    "team1": 93,
+    "team0": 13,
+    "team1": 87,
     "total_picks": 15
    }
   },
@@ -14820,7 +14812,7 @@
     "rating_matches": 48,
     "rating_as_of": "2026-11-11T09:00:00Z",
     "last_played": "2026-08-15",
-    "elo_raw": 1503.8,
+    "elo_raw": 1503.9,
     "elo_now": 1507.8,
     "elo": 1510.6
    },
@@ -14833,7 +14825,7 @@
     "rating_as_of": "2026-11-11T09:00:00Z",
     "last_played": "2026-09-06",
     "elo_raw": 1714.4,
-    "elo_now": 1708.5,
+    "elo_now": 1708.4,
     "elo": 1703.2
    },
    "p0": 0.2481,
@@ -15020,12 +15012,12 @@
     "rating_matches": 72,
     "rating_as_of": "2026-11-13T18:30:00Z",
     "last_played": "2026-10-20",
-    "elo_raw": 1556.9,
-    "elo_now": 1553.2,
-    "elo": 1553.2
+    "elo_raw": 1556.8,
+    "elo_now": 1553.1,
+    "elo": 1553.1
    },
-   "p0": 0.5108,
-   "p1": 0.4892,
+   "p0": 0.5109,
+   "p1": 0.4891,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: PvB (Swiss Team) 1561 vs regnum4games 1553 (36/72 rated series).",
@@ -15035,8 +15027,8 @@
    "pick": {
     "side": 0,
     "team": "Phong Vũ Buffalo",
-    "probability": 0.5108,
-    "other_probability": 0.4892
+    "probability": 0.5109,
+    "other_probability": 0.4891
    },
    "pick_type": null,
    "market": null,
@@ -15046,8 +15038,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 6,
-    "team1": 94,
+    "team0": 13,
+    "team1": 88,
     "total_picks": 16
    }
   },
@@ -15082,12 +15074,12 @@
     "rating_matches": 91,
     "rating_as_of": "2026-11-13T18:30:00Z",
     "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "elo_raw": 1613.2,
+    "elo_now": 1607.3,
+    "elo": 1607.3
    },
-   "p0": 0.3882,
-   "p1": 0.6118,
+   "p0": 0.3881,
+   "p1": 0.6119,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: VfB eSports 1528 vs DKB XPERION NXT 1607 (89/91 rated series).",
@@ -15095,8 +15087,8 @@
    "pick": {
     "side": 1,
     "team": "DKB XPERION NXT",
-    "probability": 0.6118,
-    "other_probability": 0.3882
+    "probability": 0.6119,
+    "other_probability": 0.3881
    },
    "pick_type": null,
    "market": null,
@@ -15674,7 +15666,7 @@
     "rating_matches": 17,
     "rating_as_of": "2026-11-15T16:00:00Z",
     "last_played": "2026-10-19",
-    "elo_raw": 1364.4,
+    "elo_raw": 1364.3,
     "elo_now": 1385.0,
     "elo": 1385.0
    },
@@ -15772,8 +15764,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 7,
-    "team1": 93,
+    "team0": 14,
+    "team1": 86,
     "total_picks": 14
    }
   },
@@ -16018,8 +16010,8 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 85,
-    "team1": 15,
+    "team0": 92,
+    "team1": 8,
     "total_picks": 13
    }
   },
