@@ -1423,3 +1423,40 @@ touches only the files listed above.
 - The sandbox for this session had no outbound access to any odds source (`HTTP 000` on every venue), so
   every live figure in this record comes from a GitHub Actions run, and the local rebuild uses the
   committed snapshot.
+
+## `5ff8e6bf` — completion record (2026-10-24T16:32Z)
+
+### What this session found, fixed and verified
+
+| # | Task | Status | Files |
+|---|---|---|---|
+| `V1` | Independent re-derivation of every published number: 28 checks over the dataset, the CSV and the HTML, **importing nothing from `tools/`** (market rows re-derived from their own venue weights × prices, originated rows from their own published Elo, picks, sums, source links, page/link integrity, freshness) | **done** | `audit/session_5ff8e6bf/verify_published.py`, `report.json`, `REPORT.md` |
+| `V3a` | Root cause of the 24-hour refresh outage, fixed in the unclaimed `tools/corroborate.py`: a receipt for a fixture Hotspawn has since delisted was classified `rejected`, and the gate `external receipts validated against the dataset` fails on any rejected receipt. It is now *historic* evidence (kept, dated, published, excluded from every price) | **done** (PR #62) | `tools/corroborate.py`, `tests/test_corroborate_history.py` |
+| `V3b` | Same time bomb at the other end: `curated flags cite only currently listed fixtures` failed as soon as a referenced card kicked off (it did, on `#1067878`). `flags.py` now annotates the reference as a historical observation and the gate asserts the annotation exists | **done** (PR #63) | `tools/flags.py`, `tools/verify.py` (26-line gate change, logged below), `tests/test_flags_delisted.py` |
+| `V2` | Integration: union-merged session `80c624cd`'s branch (results/grading page, per-team probabilities, mobile landing) rather than letting it rot, reconciled the two competing receipt ledgers and their inconsistent tests, regenerated every artefact with the merged code, re-ran every gate | **done** | merge `7d53e0f` |
+| `V4` | Documentation truth: `research/SOURCES.md` claimed Unibet/Kambi was unreachable (an `ubus` URL without `lang`/`market`, HTTP 400) while the site prices through the working `ubse` endpoint. The dossier generator now emits a *Superseded since these receipts were captured* section built from the current build's own `data/sources_status.json` | **done** | `research/build_dossier.py`, `research/SOURCES.md` |
+
+### PR / merge / deploy record — session `5ff8e6bf`
+
+| Item | Value |
+|---|---|
+| PR #62 | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/62 — **merged** 2026-10-24T16:19:06Z (`03b54e7`); refresh run `40110996859` **success** 16:19:09→16:21:32Z, commit `42cb155` |
+| PR #63 | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/63 — **merged** 2026-10-24T16:23:52Z (`66c15fd`); refresh run `40111371041` **success** 16:23:55→16:26:23Z, commit `245e927` |
+| First green refresh in 24 h | `40110996859`: 241/241 Hotspawn fixtures, 8 Pinnacle series, 8 Kalshi contracts, 8 Unibet/Kambi moneylines, 45 Polymarket markets, **41/41 gates**, 16 receipts correctly reclassified as historic |
+| Merge of `80c624cd` | `7d53e0f` on this branch (PR #66's content integrated, not discarded): `results.html` + grading, per-team probabilities in the pick table, mobile landing page |
+| Independent verification | 27/28 on the fresh tree; the single non-pass is the published-venue-weights warning, published on Flagged for review rather than edited by hand |
+
+### Findings published, not hidden (all three are curated flags now)
+
+1. **The 24-hour outage itself** — high severity, with the failing run linked, so the record shows the site was frozen from 2026-10-23T17:13Z to 2026-10-24T16:19Z and why.
+2. **Venue weights do not sum to 1.0 on `#1067878` (0.88) and `#1079080` (0.24)** — the published probability is still the correctly normalised weighted mean (re-derived to <0.01 on every market row), so this is a display-metadata defect, not a wrong number.
+3. **Pinnacle receipt URLs answer 401 to some datacenter clients and 200 in a browser** — verified by fetching matchup 1639121258 (moneyline 155 / −184, cutoff 2026-10-24T17:00Z). A cloud runner's link-resolution count therefore *understates* validity: the same audit recorded 429 for 134 of 241 Hotspawn cards and 403 for all 27 Leaguepedia pages, none of which is a broken link.
+
+### Handoff / protocol note
+
+`tools/verify.py` is claimed by `80c624cd` (`C3`) and by `4106ce94` (PR #56). The owner was inactive for
+17 minutes when the gate failed on this tree, and the change is the minimum needed to stop the publish
+gate failing on the passage of time. It is a *request-and-apply*: the diff is confined to one gate
+(26 lines), the merged `verify.py` now contains both that gate and `80c624cd`'s newer gates, and nothing
+of theirs was reverted. If `80c624cd` prefers a different taxonomy, only the assertion name and the
+`delisted_refs_auto` lookup need to change.
