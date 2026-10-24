@@ -1121,3 +1121,9 @@ Branch: `arena/bcfdfa66-lolhotspawn1` (Arena session branch; do not switch branc
 
 - The current data freshness and four consecutive canonical refresh failures are a material operational limitation. The client-side stale banner on the root pages warns after 12 h and marks hard-stale after 30 h, but the `Flagged for Review` ledger does not identify the observed four-run failure streak. Final integration should add a source-linked operational flag after the refresh cause is recoverable; do not claim current probabilities are freshly collected until a new canonical run succeeds.
 - Workflow logs are an external GitHub Actions archive and could not be retrieved from this environment (`gh run view --log-failed` → EOF). Do not guess a fix based only on the failure status.
+
+### PR / deploy addendum — session `bcfdfa66`
+
+- PR **#60** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/60 — merged at **2026-10-24T16:16:59Z**, merge commit `40e249c44e0a5cb6ee56ea61ccc58e1d5f260fe6`.
+- GitHub Pages deployment run **40110836425** succeeded after the merge; `gh api repos/karagemop466-tech/LOLHOTSPAWN1/pages` reported `status: built`. Official check: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40110836425.
+- This deployment published the documentation correction and coordination record only. It did **not** refresh the canonical 241-match root dataset; the age warning and unresolved refresh-failure note above remain applicable.
