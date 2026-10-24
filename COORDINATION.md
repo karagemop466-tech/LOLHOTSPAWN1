@@ -2500,3 +2500,60 @@ OOS Brier 0.2251) · `audit/verify_docs.py` → **ALL DOCS CHECKS PASS** (17/17;
 231 rows priced on both sides, 34 divergent, mean 2.35 pp, max 28.04 pp) · `audit/check_site.py` → **24 pages,
 0 failures** · `tools/verify.py` → **PASS** (`data/verification.json` reverted) · simulations S1–S4 re-run
 after the repair: all four gates PASS in every scenario.
+
+## Session `9f16f9ad` — the second `refresh-docs` failure: root cause found from published diagnostics
+
+PR #89 (merged `7df94e0`, 18:40:13Z) repaired the snapshot-pinned assertions, but `refresh-docs` run
+**40121762031** failed again at step 5. PR #90 (merged `d562de1`, 18:45:44Z) therefore made the pipeline
+**self-reporting**: step 5 now writes the freshly generated snapshot summary, `git diff --stat` of its own
+output, and each gate's tail with its exit code to `audit/refresh_diagnostics/latest.md`, and publishes that
+file to `main` on every run (`if: always()`, `[skip ci]`). Run **40122190234** (18:46:07Z) published the
+answer immediately:
+
+```
+verify_docs.py            exit=0   17/17 PASS on live data (578 rows, 241 scheduled, 175 active, 14 flags)
+check_site.py             exit=0   24 pages
+test_node_pipeline.mjs    exit=1   AssertionError: #1067688 market row must join >= 2 independent venues, got 1
+verify_docs_parity.py     exit=0   10/10 PASS on the live-regenerated pages
+```
+
+### Root cause (live betting behaviour, not a code defect)
+
+At `18:45:59Z` the live collect found that every book except Bovada had suspended the two Worlds cards whose
+kick-off had passed (`#1067688` at `17:00Z`, `#1067881` at `18:00Z`). The analyzer correctly fell back to a
+**preserved single quote** — Bovada, captured `16:29:32Z`, i.e. 30 and 90 minutes *before* kick-off — and
+labelled those rows `market_bovada` instead of `market_consensus` (`by_source_scheduled`: `market_consensus 7`,
+`market_bovada 2`). My PR #89 assertion (`every market row joins >= 2 venues`) was still pinned to the
+multi-venue case and could not survive that fallback. This is the same post-kickoff venue attrition documented
+for the canonical side in the addendum above, seen from the secondary pipeline.
+
+Two things are worth keeping: the fallback quote is **pre-lock**, so this view published a pick-time price
+(its "Quotes after kick-off" row reads `0` for this view while the canonical side reads `1`), and the rows are
+rendered `state: locked`, so nobody can mistake them for actionable.
+
+### Fix in this commit
+
+- `audit/session_6669f798/test_node_pipeline.mjs`: assert the **pipeline's own contract** — rows labelled
+  `market_consensus` must join `>= 2` venues; any market row must publish `>= 1` receipt whose `venue_count`
+  equals the receipts, each with a label, a de-vigged `p0`/`p1` pair and no `(Kills)` derivative; a
+  **single-venue fallback must carry a quote captured at or before kick-off** (an in-play price must never be
+  published as the pick — hard failure); rows priced entirely from post-kickoff quotes are printed as a
+  `WARNING` rather than blocking the other 240 rows, because the pages already disclose them. The `>= 4`
+  venue Worlds assertion still applies while any Worlds row is pre-kickoff (6 rows × 5 venues at `18:46Z`).
+  Verified against the live `18:46Z` snapshot: `PASS … 9 market rows (34 venue quotes joined, 2 single-venue
+  fallback)`, with notes for both fallbacks and for `#1083097` having rolled off `scheduled` (its homonym
+  quarantine assertions skipped by the presence guard, as designed).
+- `.github/workflows/refresh-docs.yml`: **a defect this session introduced in PR #90 and fixed here.** The
+  gate loop ended with `echo`, so the step exited `0` and `steps.verify.outcome` was `success` even though
+  `test_node_pipeline.mjs` had exited `1` — run `40122190234` therefore published data with a failed gate,
+  exactly what the reordering was meant to prevent. The step now tracks the worst exit code and ends with
+  `exit "$worst"` (loop semantics proven locally: `1` when a gate fails, `0` when all pass), so the explicit
+  failure step fires and the data/docs commit step is skipped while the diagnostics still publish.
+
+### Live-refreshed state now on `main` (commit `b6c4e3c`, generated `18:46:07Z`)
+
+`578` rows · `241` scheduled (`175` active, `66` stale, `0` active unresolved, `4` DQ walkover settlements) ·
+`9` market rows (`7` multi-venue consensus + `2` single-venue Bovada fallbacks) · `225` model rows · `14`
+flags (four `unverified-zero-history` / `entity-collision` items for `#1083096`–`#1083105` retired as those
+fixtures rolled off or gained history; `unverified-zero-history-1083593` new; `series-format-not-published`
+persists) · OOS Brier `0.2251` over `n = 22,344` · `best_of` null on `241/241` scheduled rows.
