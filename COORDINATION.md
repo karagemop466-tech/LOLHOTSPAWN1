@@ -2229,3 +2229,33 @@ PASS, unit tests OK. Ships as PR **#84** (merged 2026-10-24T17:12:44Z, merge com
 | My verification gate on `main` | run **40114318002**: **PASS 13/13** — 241/241 Hotspawn cards resolve, inventory 241 = 241 with 0 new / 0 gone, 241/241 rows carry a pick, every row has resolving evidence, 13/13 pages HTTP 200, every displayed probability pair = 100.0% |
 | Live site (fetched 2026-10-24T17:2xZ) | snapshot fresh, 241 matches / 241 picks, "Where the picks are" one-tap block, *Unresolved picks & limitations* section with 4 quarantined cards and 7 documented limitation classes, `results.html` grading 39 played picks |
 | Session state | closed; nothing left unclaimed or half-done in my scope |
+
+---
+
+# Session `aca61f10` — workflow race removal, mobile/UI & flag-table hardening, and live primary-source audit (2026-10-24)
+
+- **Branch**: `arena/aca61f10-lolhotspawn1`
+- **Status**: `in_progress` (claimed 2026-10-24T17:24Z; strictly disjoint from active session `7582f227`)
+- **Claimed file scope**:
+  - `.github/workflows/diag-refresh-e32a.yml`, `.github/workflows/probe-lowtier.yml`, `.github/workflows/probe-sources.yml`
+  - `tools/site.py`, `tools/flags.py`, `tools/verify.py`
+  - `assets/style.css`
+  - `audit/mobile_audit.py`, `audit/session_aca61f10/**`
+  - `data/audit.json`
+  - `README.md`
+  - `tests/test_site_and_flags.py`
+  - *(Generated root `*.html`, `data/flags.json`, `data/verification.json` rebuilt after `git pull --rebase origin main`; `refresh.yml` remains authoritative on `main`.)*
+- **Tasks**:
+  - **A1 — Remove unfiltered diagnostic push race on `main`**: `.github/workflows/diag-refresh-e32a.yml` (marked `"Delete once refresh-picks is green again"`) lacks a `branches:` filter and runs on `main` pushes (`40115086174`, commit `d2e5f1b`), executing `git reset --hard origin/main && git push origin HEAD:main` outside the `refresh-picks` concurrency group. Guard/retire unfiltered diagnostic push triggers so only serialized publishers write to `main`.
+  - **A2 — Mobile readability, flag-page source links, and copy accuracy (`tools/site.py`, `tools/flags.py`, `tools/verify.py`, `assets/style.css`, `audit/mobile_audit.py`, `README.md`)**:
+    1. Add missing `data-label` attributes to `results.html` (`build_results` method breakdown table) and add `results.html` to `audit/mobile_audit.py` `PAGES` (14/14 root HTML pages audited).
+    2. Suppress redundant floating `.mobile-picks` (`"All picks ->"`) self-link on `table.html` where it crowds `.mobnav`.
+    3. Deduplicate `"Explicit quarantine over guesswork."` on `methodology.html`, fix `1500` vs tier-prior (`1700/1575/1500/1455`) prose on `methodology.html` and `originated.html`, and reconcile stale/duplicate sections in `README.md`.
+    4. Surface zero-history debut fixtures (`rating_matches == 0`, including `0/0` `#1083096 Keep Yourself Positive vs CRUEL FATE`) explicitly in `tools/flags.py` and in the landing/unresolved limitations summaries with official Hotspawn + Leaguepedia links on every flagged table row.
+  - **A3 — Live official-source line-by-line audit (`data/audit.json`, `audit/session_aca61f10/line_by_line_audit.json`)**:
+    - Resolve the previously `"unverified"` Team Reds Week 1 overturned-forfeits item using primary Leaguepedia wikitext (`Data:Arabian_League_2nd_Division/2026_Season/Summer_Split?action=raw`, 2026-10-02 `ff=2` & 2026-10-03 `ff=1`, previously misattributed to `4 Nations`), re-verify `PvB (Swiss Team)` in `Data:Prime_League_2nd_Division/2027_Season/Fall_Split?action=raw` (`LOLTMNT05_228449`, `LOLTMNT05_228512`), and record live `EGamersWorld` page-vs-index verification on `#1081423`.
+- **Cross-scope requests logged for `7582f227` (owner of `tools/model.py` & `data/flags_manual.json`)**:
+  1. `tools/model.py` `effective_rating()` returns `base_r` even when `counts.get(team, 0) == 0`; when *both* teams have `0` pre-kickoff rated series and no market (`#1083096 Keep Yourself Positive vs CRUEL FATE`, `0/0` rated series), `model.py` currently emits `50.0% / 50.0%` picking `team0` by display order instead of `method="unresolved"` (`p0=None, p1=None, pick=None`).
+  2. `tools/model.py` `tier_prior()` regex `r"^(lck|lpl|lec|lcs|lta|lcp|cblol)(\s|/|$)"` matches `"lcp wildcard/..."` (`LCP Wildcard/2026 Season/Regional Qualifiers/Thailand` and `Playoffs`), assigning Tier-1 `1700.0` prior to open-qualifier teams (`Nothin'Here` reaches `1753.7` Elo in 7 series and is favored `59.7%` over LJL champion `FENNEL` `1685.4` in `#1081421`). Adding `"wildcard"` to the Tier-1 exclusion list (`("cl", "challengers", "academy", "promotion", "stars", "wildcard")`) fixes the tier-prior leak.
+  3. `data/flags_manual.json` item `"4 Nations Week 1 overturned forfeits for Team Reds (unverified in this build)"`: Team Reds actually competed in `Arabian League 2nd Division 2026 Summer` (`https://lol.fandom.com/wiki/Data:Arabian_League_2nd_Division/2026_Season/Summer_Split`), where Week 1 `JSK Academy vs Team Reds` (`2026-10-02`, `ff=2`) and `Team Reds vs New Era Team` (`2026-10-03`, `ff=1`) carry explicit verbatim ineligible-roster footnotes.
+
