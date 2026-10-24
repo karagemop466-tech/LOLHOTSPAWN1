@@ -1077,3 +1077,25 @@ Branch: `arena/2dbdbafb-lolhotspawn1` (fixed Arena session branch; merged `origi
   - PR **#55** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/55`) merged into `main` (`144fd36`) and triggered live `refresh-picks` run **`39986468229`** (**success** in `2m5s`, auto-commit **`026f983`**, live HTTP 200 across Hotspawn, Pinnacle, Kalshi, Unibet/Kambi `ubse`, LoL Esports, Leaguepedia, Polymarket) + `pages-build-deployment` **`39986760442`** (**success**, `status: built`).
   - PR **#57** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/57`) merged into `main`, triggering live `refresh-picks` run **`39987137479`** (**success**, auto-commit **`a6a9207`**: `241` Hotspawn fixtures, `8` Pinnacle series moneylines, `8` Kalshi CFTC contracts, `8` upcoming `<12h` Bovada moneylines, `8` live Unibet/Kambi `ubse` moneylines at `status=200`, `45` Polymarket markets, `34,617` Leaguepedia series rows + `11` `dqteams` pages with `err=''`, out-of-sample `n=3,854`, `acc=65.02%`, `brier=0.2183`) and `pages-build-deployment` run **`39987441211`** (**success**, `status: built`). Live site verified via HTTP 200 across `index.html`, `featured.html`, `table.html`, `methodology.html`, and `flagged.html` at `https://karagemop466-tech.github.io/LOLHOTSPAWN1/`. Session `2dbdbafb` closed cleanly.
 
+
+---
+
+# Session `7582f227` — unblock `refresh-picks` (stale-receipt gate time-bomb) + fresh publish (2026-10-24)
+
+Branch: `arena/7582f227-lolhotspawn1` (from `main` @ `8b84531`, PR #59 merged).
+
+## Claim (opened 2026-10-24T16:4xZ)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|-----------|
+| 15 | Diagnose + fix the `refresh-picks` outage: every scheduled run since 2026-10-23T21:26Z failed at "Run pipeline" — root cause: `data/receipts/external_odds/2026-10-23.json` cites the eight Worlds 2026 fixtures (`1067675`–`1067680`, `1067878`, `1067879`) that Hotspawn flipped to `ended` after Oct 23 play; `tools/corroborate.py` classifies any receipt whose fixture id left the scheduled feed as **rejected**, and the `tools/verify.py` gate "external receipts validated against the dataset" requires 0 rejected → the publisher has been frozen since `99c30e9` (2026-10-23T17:13Z). Fix: lifecycle-aware receipt validation (retired ≠ rejected), cross-checked against the all-status Hotspawn feed snapshot (`data/node/raw/hotspawn_lol_fixtures.json`), regression tests, gate detail reports retired separately. | in progress | 7582f227 | `tools/corroborate.py`, `tools/verify.py`, `tests/test_corroborate.py` (new), `.github/workflows/debug-pipeline.yml` (new, branch-scoped) |
+| 16 | Prove the fix end-to-end on a real runner (sandbox has no egress to the data sources): branch-scoped workflow runs the full live pipeline on this branch and commits `data/build.log` + regenerated data/site, same gates as production | in progress | 7582f227 | generated `data/**`, root `*.html` (via the branch debug run) |
+| 17 | PR → `main`, merge, confirm `refresh-picks` + Pages green, verify the live site (exec summary links, mobile, unresolved section, pick on every match), record PR link + merge result here | in progress | 7582f227 | `COORDINATION.md` |
+
+**Handoff notes (protocol: claims >60 min with no commits may be taken over):** open PRs
+#22/#26/#35/#36/#40/#56 all belong to sessions dormant since 2026-10-23 (~24 h, no commits).
+PR #56 (`4106ce94`) touches `tools/collect.py`/`model.py`/`verify.py` — this session edits
+`tools/corroborate.py` and one gate-detail line in `tools/verify.py` only; if #56 is ever revived it
+must rebase over this fix. No dormant PR is closed or merged by this session; owners keep that right.
+This session does **not** touch: `scripts/**`, `docs/**`, `audit/**`, `research/**`, `data/node/**`,
+`data/receipts/**` (the receipt files stay as-committed evidence; only their validation changes).
