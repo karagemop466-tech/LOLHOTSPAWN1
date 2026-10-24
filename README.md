@@ -8,7 +8,7 @@ probability wherever one can be defended, and an explicit settlement pick with n
 cannot. Probabilities come from real bookmaker lines where they exist, and from a results-based Elo model
 where they do not. Hotspawn's own crowd-pick percentages are never used as an input.
 
-The site rebuilds itself every six hours from GitHub Actions; nothing here needs a laptop to stay current.
+GitHub Actions schedules a refresh every six hours, but a schedule does not guarantee a successful run. Check the visible inventory timestamp and stale warning before treating any pick as current.
 
 ## What it produces
 
@@ -41,22 +41,26 @@ tools/flags.py     derived irregularities + curated notes (data/flags_manual.jso
       ↓
 tools/site.py      13 static pages, mobile-first, no framework
       ↓
-tools/verify.py    25 assertions; a failure aborts the commit instead of publishing bad data
+tools/verify.py    publish-integrity gates (the count evolves as checks are added); a failure aborts the commit instead of publishing bad data
 ```
 
-A single workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) runs that chain on `main`,
-commits `data/` and the generated pages with `[skip ci]`, and lets GitHub Pages redeploy.
-Only `tools/` writes the published pages; `tools/corroborate.py` writes `coverage.html` and
-`data/corroboration.json`.
+A single canonical workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) attempts that
+chain on `main`, commits `data/` and the generated pages with `[skip ci]`, and lets GitHub Pages
+redeploy. A cron schedule is an attempt, not a guarantee: every page shows the inventory timestamp,
+warns after 12 hours, and marks the snapshot stale after 30 hours. Check the timestamp and linked
+sources before relying on a pick. Only `tools/` writes the canonical published pages;
+`tools/corroborate.py` writes `coverage.html` and `data/corroboration.json`.
 
 ### Inputs and rules
 
 - **Inventory** — `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1`
-  returns every LoL card, including the long tail of national and academy leagues.
+  returns the scheduled LoL cards at collection time, including the long tail of national and academy leagues. The API can retain past-start cards as `scheduled`; these remain visible and are labeled stale rather than silently removed.
 - **Market lines** — Pinnacle's public guest API (series moneylines only — the parallel `(Kills)`
-  derivative markets are rejected), Kalshi, Bovada and Polymarket. Odds are converted to decimal, then
-  de-vigged proportionally and precision-weighted. A single prediction market with negligible traded
-  volume is kept but labelled low confidence.
+  derivative markets are rejected), Kalshi, Bovada, Unibet via its public Kambi feed, and Polymarket.
+  Odds are converted to decimal, then de-vigged proportionally and precision-weighted. A single
+  prediction market with negligible traded volume is kept but labelled low confidence. Actual venue
+  availability varies by match; see `coverage.html` and `sources.html` rather than assuming every book
+  prices every competition.
 - **Originated lines** — Elo fitted on Leaguepedia series results, recency-weighted, with a
   connected-opponent graph guard; teams with too little recorded history are labelled *provisional*
   rather than silently given a confident number.
@@ -85,9 +89,9 @@ resolves, no `None`/empty value is rendered, every match appears on `picks.html`
 - `data/picks.csv` — one row per match: competition, teams, pick, probability, method, source URLs.
 - `data/matches.json` — full record per match, including odds, Elo inputs and flags.
 - `data/matching_report.json` — every team join that was not an exact string match, with its evidence.
-- `data/verification.json` — the machine-readable result of the gate.
-- `data/flags.json` — every irregularity published on `flagged.html`, curated + derived on each build.
-- `data/audit.json` — the manual, line-by-line source audit rendered on `verification.html`.
+- `data/verification.json` — machine-readable publish-gate results (the current check count is recorded in the file).
+- `data/flags.json` — irregularities published on `flagged.html`, curated and derived on each build.
+- `data/audit.json` — the manual source audit rendered on `verification.html`.
 - `data/retired_quotes.json` — archived quotes excluded as unverifiable, with the reason.
 - `data/build.log` — the last automated run, verbatim.
 - `COORDINATION.md` — task board, session log and the integration decisions taken across sessions.
@@ -117,8 +121,9 @@ concurrency group, so the two bots serialize and cannot race.
   spread ≤ 6¢, else renormalized last prices; game-level submarkets filtered out), then an own Elo model
   over the Hotspawn results archive (1,102 ended fixtures, 462 teams) for everything else.
 - **Differences by design**: quarantines stale fixtures (>24 h past start, never settled) instead of
-  listing them; 12 matches are left **unresolved** (no market + no history) rather than priced
-  provisionally; flags start-time discrepancies between Hotspawn and Pinnacle/Polymarket per match.
+  listing them; matches with no market and insufficient connected model history are left **unresolved**
+  rather than assigned an unsupported probability; flags start-time discrepancies between Hotspawn and
+  Pinnacle/Polymarket per match. See `docs/unresolved.html` for the live count and per-match reasons.
 - **Entry point**: `docs/index.html` — executive summary, all-picks list, unresolved, flagged,
   methodology, results, models.
 
@@ -143,19 +148,25 @@ python3 tools/collect.py && python3 tools/model.py && python3 tools/report.py \
 The collector needs outbound HTTPS to the sources listed on `sources.html`; the rest runs offline on
 the files in `data/`.
 
-### 2026-10-23 integrity audit
+### Integrity and freshness review (2026-10-24)
 
 The canonical mobile controls are wired to the current HTML (search, tournament,
 method chips, menu); a permanent mobile **All picks** link is available on every page.
-Inventory collection time is separate from model build time, with a browser warning
-after eight hours. Six-hour Actions scheduling is best effort, not a live-odds SLA.
+Inventory collection time is separate from model build time. The browser warns after
+12 hours and marks snapshots hard-stale after 30 hours. Six-hour Actions scheduling
+is best effort, not a live-odds SLA.
 
-Archived 2026-10-21 aggregator receipts are **not** current quotes and are excluded
-from pricing. Leaguepedia is a community source; its results are not labelled official
-league verification. Model probabilities are estimates, never confirmed facts.
-If either team has no matched rated history and no collected market, probabilities
-and picks remain blank. Recorded removals remain quarantined pending settlement.
-Historical manual findings are visibly marked as not reverified.
+At this review, the committed canonical inventory was collected at 2026-10-23T17:11:12Z,
+and the four latest scheduled canonical refresh runs had failed. Pages was built, but
+that is not proof the canonical data refreshed. See `COORDINATION.md` for the official
+run links and the unresolved failure cause; no cause is guessed.
+
+Archived aggregator receipts are **not** current quotes and are excluded from pricing.
+Leaguepedia is a community source; its results are not labelled official league
+verification. Model probabilities are estimates, never confirmed facts. If either team
+has no matched rated history and no collected market, probabilities and picks remain
+blank. Recorded removals remain quarantined pending settlement. Historical manual
+findings are visibly marked as not reverified.
 
 Run `python3 -m unittest discover -s tests -v`, `NODE_PATH=<jsdom> node tests/dashboard.cjs`
 and `python3 tools/verify.py`. The gate reconciles the exact inventory ID multiset, checks
