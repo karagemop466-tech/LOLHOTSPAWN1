@@ -88,9 +88,9 @@ class ReceiptHistoryTests(unittest.TestCase):
         corroborate.OUT_HTML = os.path.join(self.data, "coverage.html")
 
     @staticmethod
-    def _capture(fid: str, teams: list[str], dec: list[float]) -> dict:
+    def _capture(fid: str, teams: list[str], dec: list[float], hours_ago: float = 2.0) -> dict:
         return {"fixture_id": fid, "source": "pinnacle", "page_url": "https://example.test/m",
-                "captured_utc": _recent(2), "verbatim": "1.60 / 2.30",
+                "captured_utc": _recent(hours_ago), "verbatim": "1.60 / 2.30",
                 "page_teams": teams, "decimal": dec}
 
     def test_receipt_for_a_delisted_fixture_is_historical_not_rejected(self) -> None:
@@ -142,7 +142,23 @@ class ReceiptHistoryTests(unittest.TestCase):
         s = doc["summary"]
         self.assertEqual(s["receipts"], 3)
         self.assertEqual(s["usable_receipts"] + s["placeholders"] + s["rejected_receipts"]
-                         + s["historic_receipts"], 3)
+                         + s["historic_receipts"] + s["expired_receipts"], 3)
+
+    def test_stale_receipt_on_a_listed_fixture_expires_not_rejected(self) -> None:
+        # Regression pin for the 2026-10-25 block (session 666de992): a real,
+        # matched receipt that has aged past the 24 h window is `expired`
+        # archival evidence. It must never become `rejected` (which fails the
+        # publish gate) and never count as usable corroboration of today's line.
+        self._write(
+            matches=[_match("1001", "Alpha", "Bravo", 0.62)],
+            captures=[self._capture("1001", ["Alpha", "Bravo"], [1.60, 2.30], hours_ago=72)],
+        )
+        doc = corroborate.build()
+        self.assertEqual(doc["rejected"], [])
+        self.assertEqual(doc["summary"]["usable_receipts"], 0)
+        self.assertEqual(doc["summary"]["expired_receipts"], 1)
+        self.assertEqual(len(doc["expired"]), 1)
+        self.assertEqual(doc["expired"][0]["fixture_id"], "1001")
 
     def test_coverage_page_renders_the_historical_receipts(self) -> None:
         self._write(
