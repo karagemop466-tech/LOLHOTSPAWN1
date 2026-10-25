@@ -113,16 +113,19 @@ def _external_ceiling() -> dict:
             pm_live += 1
     kambi_doc = load_json(os.path.join(DATA, "raw", "kambi_lol.json")) or {}
     bovada_doc = load_json(os.path.join(DATA, "raw", "bovada_lol.json")) or {}
+    smarkets_doc = load_json(os.path.join(DATA, "raw", "smarkets_lol.json")) or {}
     kambi_n = len(kambi_doc.get("events") or [])
     bovada_n = len(bovada_doc.get("events") or [])
+    smarkets_n = len(smarkets_doc.get("events") or [])
     return {
-        "probed": len(results) + (1 if kambi_n else 0),
-        "answered": sum(1 for r in results if r.get("ok")) + (1 if kambi_n else 0),
-        "json_feeds": sum(1 for r in results if r.get("ok") and r.get("kind") == "json") + (1 if kambi_n else 0),
+        "probed": len(results) + (1 if kambi_n else 0) + (1 if smarkets_n else 0),
+        "answered": sum(1 for r in results if r.get("ok")) + (1 if kambi_n else 0) + (1 if smarkets_n else 0),
+        "json_feeds": sum(1 for r in results if r.get("ok") and r.get("kind") == "json") + (1 if kambi_n else 0) + (1 if smarkets_n else 0),
         "pinnacle_leagues": len(leagues),
         "pinnacle_priced": sum(int(lg.get("priced_moneylines") or 0) for lg in leagues),
         "bovada": bovada_n,
         "unibet": kambi_n,
+        "smarkets": smarkets_n,
         "kalshi": int((ceiling.get("kalshi") or {}).get("event_count") or 0),
         "polymarket": pm_live,
         "checked": (probes.get("checked_utc") or "")[:16].replace("T", " "),
@@ -814,7 +817,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     # build; an HTTP 200 with an empty coupon is not a live price feed.
     ceiling_parts = []
     for label, key in (("Pinnacle", "pinnacle_priced"), ("Bovada", "bovada"),
-                       ("Unibet (Kambi)", "unibet")):
+                       ("Unibet (Kambi)", "unibet"), ("Smarkets (UKGC)", "smarkets")):
         if ceiling[key]:
             ceiling_parts.append(f'<strong>{label} {ceiling[key]} series</strong>')
     if ceiling["kalshi"]:
@@ -823,6 +826,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
         ceiling_parts.append(f'<strong>Polymarket {ceiling["polymarket"]} unsettled markets</strong>')
     ceiling_txt = ", ".join(ceiling_parts) if ceiling_parts else "no venue quoted a listed match"
     silent = [label for label, key in (("Bovada", "bovada"), ("Unibet (Kambi)", "unibet"),
+                                       ("Smarkets (UKGC)", "smarkets"),
                                        ("Kalshi", "kalshi"), ("Polymarket", "polymarket"))
               if not ceiling[key]]
     silent_txt = (" Feeds that returned no LoL price on this build: " + ", ".join(silent) + "."
@@ -1015,9 +1019,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
 <section class="panel" id="soon">
   <h2 id="next">Starting soon</h2>
-  <p class="lead">The next sixteen kick-offs. Tap a row for the full card.</p>
+  <p class="lead">The next sixteen kick-offs, soonest first &mdash; a row hides itself once its start time passes so a locked card is never shown as upcoming. Tap a row for the full card.</p>
   <div class="nextlist">{next_strip(upcoming[:16]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
-  <p style="margin:12px 0 0"><a class="btn" href="table.html?upcoming=1">All {len(upcoming)} upcoming matches &rarr;</a></p>
+  <p style="margin:12px 0 0"><a class="btn primary" href="table.html?upcoming=1">All {len(upcoming)} upcoming matches &rarr;</a></p>
 </section>
 
 <section class="panel" id="directory">
@@ -1323,8 +1327,9 @@ def build_featured(rows: list[dict]) -> str:
     body = f"""
 <section class="panel">
   <h2>{len(items)} matches with real-money bookmaker &amp; exchange consensus</h2>
-  <p class="lead">Featured matches combine live quotes across <strong>Pinnacle (weight 0.36), Polymarket
-  full-series CLOB (0.24), Kalshi CFTC regulated contracts (0.18), Bovada (0.12) and Unibet/Kambi (0.10)</strong>.
+  <p class="lead">Featured matches combine live quotes across <strong>Pinnacle (weight 0.34), Polymarket
+  full-series CLOB (0.22), Kalshi CFTC regulated contracts (0.16), Smarkets UKGC Exchange (0.14),
+  Bovada (0.08) and Unibet/Kambi (0.06)</strong>.
   Bookmaker margin is removed proportionally on each venue before precision weighting. Symmetric 1.80 / 1.80
   aggregator placeholders are rejected, Pinnacle's parallel &quot;(Kills)&quot; derivative markets are excluded
   from the series consensus, and a single prediction market with almost no traded volume is downgraded to low
@@ -1638,8 +1643,8 @@ def build_methodology(model: dict) -> str:
     <li><strong>Inventory.</strong> Every League of Legends fixture is pulled from Hotspawn's public fixtures API
     (<a href="https://play.hotspawn.com/lol-pickems" rel="noopener">play.hotspawn.com/lol-pickems</a>).</li>
     <li><strong>Tier 1 — Multi-venue real-money consensus.</strong> Live odds and contract books from
-    <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12) and
-    Unibet/Kambi (0.10)</strong> are de-vigged proportionally and precision-weighted. Only series moneylines are
+    <strong>Pinnacle (0.34), Polymarket full-series CLOB (0.22), Kalshi CFTC (0.16), Smarkets UKGC Exchange (0.14),
+    Bovada (0.08) and Unibet/Kambi (0.06)</strong> are de-vigged proportionally and precision-weighted. Only series moneylines are
     accepted: Pinnacle's parallel &quot;(Kills)&quot; derivative is filtered out in <code>collect.py</code> and
     again in <code>model.py</code>, and archived third-party quotes that cannot be re-verified on the build
     machine are retired rather than reused.</li>
@@ -1806,9 +1811,10 @@ def build_sources(src: list[dict]) -> str:
     <li><a href="https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups" rel="noopener">Pinnacle Arcadia API</a>,
     <a href="https://polymarket.com" rel="noopener">Polymarket CLOB</a>,
     <a href="https://kalshi.com/markets/kxlolgame" rel="noopener">Kalshi (CFTC)</a>,
+    <a href="https://api.smarkets.com/v3/events/?state=new&amp;state=upcoming&amp;type=league_of_legends_match" rel="noopener">Smarkets (UKGC Exchange)</a>,
     <a href="https://www.bovada.lv/sports/esports/league-of-legends" rel="noopener">Bovada</a> &amp;
     <a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet (Kambi)</a> &mdash;
-    live 5-venue real-money match odds &amp; contract books.</li>
+    live 6-venue real-money match odds &amp; exchange contract books.</li>
     <li><a href="https://lol.fandom.com/wiki/Special:CargoExport" rel="noopener">Leaguepedia Cargo &amp; MediaWiki Data: namespace</a> &mdash;
     chronological series history plus official <code>dqteams</code> mid-split disqualification records.</li>
     <li><a href="https://esports-api.lolesports.com" rel="noopener">LoL Esports (Riot Games)</a> &mdash;

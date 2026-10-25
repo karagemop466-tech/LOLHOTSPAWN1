@@ -158,6 +158,33 @@ def main() -> None:
         not missing_unibet,
         f"{len(actual_unibet)}/{len(expected_unibet)} fresh Unibet fixtures matched; missing: {missing_unibet[:5]}")
 
+    smarkets_raw = load_json(os.path.join(DATA, "raw", "smarkets_lol.json")) or {}
+    smarkets_fresh = False
+    try:
+        from datetime import datetime as _dt_s, timezone as _tz_s
+        s_age = (now_utc() - _dt_s.strptime(str(smarkets_raw.get("fetched_utc") or "")[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=_tz_s.utc)).total_seconds() / 3600
+        smarkets_fresh = s_age <= 24.0
+    except ValueError:
+        smarkets_fresh = False
+    expected_smarkets = set()
+    if smarkets_fresh:
+        for sev in smarkets_raw.get("events") or []:
+            souts = sev.get("outcomes") or []
+            if len(souts) != 2:
+                continue
+            for r in rows:
+                if r.get("method") != "market":
+                    continue
+                if ((same_team(r["team0"]["name"], souts[0]["name"]) and same_team(r["team1"]["name"], souts[1]["name"]))
+                        or (same_team(r["team0"]["name"], souts[1]["name"]) and same_team(r["team1"]["name"], souts[0]["name"]))):
+                    expected_smarkets.add(r["id"])
+    actual_smarkets = {r["id"] for r in rows if r.get("method") == "market"
+                       and any(v.get("name") == "Smarkets" for v in (r.get("market") or {}).get("venues") or [])}
+    missing_smarkets = sorted(expected_smarkets - actual_smarkets)
+    add("all fresh Smarkets exchange moneylines matched into market consensus",
+        not missing_smarkets,
+        f"{len(actual_smarkets)}/{len(expected_smarkets)} fresh Smarkets fixtures matched; missing: {missing_smarkets[:5]}")
+
     wo = [r for r in rows if r.get("resolution")]
     bad_wo = [r["id"] for r in wo
               if not (r["resolution"].get("winner") and str(r["resolution"].get("source", "")).startswith("http"))]

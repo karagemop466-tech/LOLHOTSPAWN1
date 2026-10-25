@@ -19,7 +19,9 @@
  *      -> data/node/raw/bovada_lol.json
  *   G. Unibet / Kambi CDN (`ubse` operator) LoL Match Odds
  *      -> data/node/raw/kambi_lol.json
- *   H. Leaguepedia mid-split removal (`dqteams`) + CDN-cached `Data:` schedules
+ *   H. Smarkets v3 UKGC Betting Exchange (`WINNER_2_WAY` pre-match LoL series orderbooks)
+ *      -> data/node/raw/smarkets_lol.json
+ *   I. Leaguepedia mid-split removal (`dqteams`) + CDN-cached `Data:` schedules
  *      -> data/node/raw/leaguepedia_dq.json
  *
  * Cloud-runner HTTP 429/403 hardening: every external venue preserves a verified
@@ -52,6 +54,9 @@ const KAMBI_URLS = [
   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
   "https://eu1.offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
 ];
+const SMARKETS_API_BASE = "https://api.smarkets.com/v3";
+const SMARKETS_EVENTS_URL =
+  `${SMARKETS_API_BASE}/events/?state=new&state=upcoming&type=league_of_legends_match&limit=50`;
 
 const KILLS_RE = /\(kills?\)|\bkills\b/i;
 
@@ -551,6 +556,118 @@ async function collectKambi() {
   return empty;
 }
 
+/* ------------------------------------------- H. Smarkets UKGC Exchange (v3) */
+
+async function collectSmarkets() {
+  const target = path.join(RAW, "smarkets_lol.json");
+  try {
+    const evData = await getJSON(SMARKETS_EVENTS_URL, { timeoutMs: 25000 });
+    const rawEvents = (evData?.events || []).filter(
+      (e) => e && e.type === "league_of_legends_match" && e.bettable !== false && (e.state === "new" || e.state === "upcoming")
+    );
+    const eventsOut = [];
+    if (rawEvents.length > 0) {
+      const eids = rawEvents.map((e) => String(e.id));
+      const marketsAll = [];
+      for (let i = 0; i < eids.length; i += 25) {
+        const chunk = eids.slice(i, i + 25).join(",");
+        const mData = await getJSON(`${SMARKETS_API_BASE}/events/${chunk}/markets/`, { timeoutMs: 25000 });
+        marketsAll.push(...(mData?.markets || []));
+      }
+      const winnerByEvent = new Map();
+      for (const mk of marketsAll) {
+        const eid = String(mk?.event_id || "");
+        if (mk?.market_type?.name === "WINNER_2_WAY" && mk?.state === "open" && !mk?.hidden && eid && !winnerByEvent.has(eid)) {
+          winnerByEvent.set(eid, mk);
+        }
+      }
+      const mids = [...winnerByEvent.values()].map((m) => String(m.id));
+      const contractsAll = [];
+      const quotesAll = {};
+      for (let i = 0; i < mids.length; i += 25) {
+        const chunk = mids.slice(i, i + 25).join(",");
+        const cData = await getJSON(`${SMARKETS_API_BASE}/markets/${chunk}/contracts/`, { timeoutMs: 25000 });
+        contractsAll.push(...(cData?.contracts || []));
+        const qData = await getJSON(`${SMARKETS_API_BASE}/markets/${chunk}/quotes/`, { timeoutMs: 25000 });
+        Object.assign(quotesAll, qData || {});
+      }
+      const contractsByMkt = new Map();
+      for (const ct of contractsAll) {
+        const mid = String(ct?.market_id || "");
+        if (!mid || ct?.hidden || (ct?.state_or_outcome && ct.state_or_outcome !== "open")) continue;
+        if (!contractsByMkt.has(mid)) contractsByMkt.set(mid, []);
+        contractsByMkt.get(mid).push(ct);
+      }
+      for (const ev of rawEvents) {
+        const mk = winnerByEvent.get(String(ev.id));
+        if (!mk) continue;
+        const cts = (contractsByMkt.get(String(mk.id)) || []).sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+        if (cts.length !== 2) continue;
+        const outcomes = [];
+        for (const ct of cts) {
+          const cid = String(ct.id || "");
+          const name = String(ct.name || "").trim();
+          if (!cid || !name || KILLS_RE.test(name)) break;
+          const q = quotesAll[cid] || {};
+          const bids = (q.bids || []).map((b) => Number(b.price)).filter(Number.isFinite);
+          const offers = (q.offers || []).map((o) => Number(o.price)).filter(Number.isFinite);
+          const bidQty = (q.bids || []).reduce((a, b) => a + (Number(b.quantity) || 0), 0);
+          const offerQty = (q.offers || []).reduce((a, o) => a + (Number(o.quantity) || 0), 0);
+          const bestBid = bids.length ? Math.max(...bids) : null;
+          const bestOffer = offers.length ? Math.min(...offers) : null;
+          let midProb = null;
+          let spreadProb = null;
+          if (bestBid != null && bestOffer != null && bestBid > 0 && bestBid <= bestOffer && bestOffer < 10000) {
+            midProb = Number(((bestBid + bestOffer) / 20000).toFixed(6));
+            spreadProb = Number(((bestOffer - bestBid) / 10000).toFixed(6));
+          }
+          outcomes.push({
+            contract_id: cid,
+            name,
+            best_bid_bps: bestBid,
+            best_offer_bps: bestOffer,
+            mid_prob: midProb,
+            spread_prob: spreadProb,
+            bid_qty: bidQty,
+            offer_qty: offerQty,
+          });
+        }
+        if (outcomes.length !== 2) continue;
+        const fullSlug = String(ev.full_slug || "").replace(/\/+$/, "");
+        const webPath = fullSlug.startsWith("/sport/") ? fullSlug.replace(/^\/sport\//, "/") : fullSlug;
+        eventsOut.push({
+          event_id: String(ev.id),
+          market_id: String(mk.id),
+          name: ev.name || `${outcomes[0].name} vs ${outcomes[1].name}`,
+          start_utc: ev.start_datetime || null,
+          state: ev.state,
+          url: webPath.startsWith("/") ? `https://smarkets.com${webPath}/${ev.id}/` : `https://smarkets.com/event/${ev.id}/`,
+          api_quotes_url: `${SMARKETS_API_BASE}/markets/${mk.id}/quotes/`,
+          outcomes,
+        });
+      }
+    }
+    const payload = { fetched_at: new Date().toISOString(), source_url: SMARKETS_EVENTS_URL, event_count: eventsOut.length, events: eventsOut };
+    await writeFile(target, JSON.stringify(payload));
+    note("smarkets", `${eventsOut.length} UKGC exchange WINNER_2_WAY LoL series markets`);
+    return payload;
+  } catch (e) {
+    for (const fbPath of [target, path.join(CANON_RAW, "smarkets_lol.json")]) {
+      const prev = await readJSONSafe(fbPath);
+      if (isFresh24h(prev) && Array.isArray(prev.events)) {
+        const preserved = { ...prev, fetched_at: prev.fetched_at || prev.fetched_utc, preserved_from: path.basename(fbPath) };
+        await writeFile(target, JSON.stringify(preserved));
+        note("smarkets", `API unreachable (${e.message}) — preserved <24h snapshot (${preserved.events.length} events)`, false);
+        return preserved;
+      }
+    }
+    const empty = { fetched_at: new Date().toISOString(), source_url: SMARKETS_EVENTS_URL, event_count: 0, events: [], error: e.message };
+    await writeFile(target, JSON.stringify(empty));
+    note("smarkets", `API FAILED: ${e.message}`, false);
+    return empty;
+  }
+}
+
 /* ------------------------------------------------- H. Leaguepedia dqteams raw */
 
 const DQ_CHECK_PAGES = [
@@ -618,6 +735,7 @@ const polymarket = await collectPolymarket();
 const kalshi = await collectKalshi();
 const bovada = await collectBovada();
 const kambi = await collectKambi();
+const smarkets = await collectSmarkets();
 const lpDq = await collectLeaguepediaDQ();
 
 const summary = {
@@ -632,6 +750,7 @@ const summary = {
   kalshi_events: kalshi.event_count ?? 0,
   bovada_events: bovada.event_count ?? 0,
   kambi_events: kambi.event_count ?? 0,
+  smarkets_events: smarkets.event_count ?? 0,
   dq_competitions: Object.keys(lpDq.dq_by_competition || {}).length,
   log,
 };

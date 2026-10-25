@@ -27,10 +27,10 @@
     </div>
   </header>
   <div id="stale-snapshot-alert" class="stale-alert" hidden></div>
-  <div class="fresh-bar" data-generated-at="2026-10-25T14:15:46.475Z">
+  <div class="fresh-bar" data-generated-at="2026-10-25T14:54:15.649Z">
     <div class="fresh-inner">
-      <span>Snapshot: <time class="mono" data-utc="2026-10-25T14:15:46.475Z">2026-10-25 14:15 UTC</time> · Auto-refresh every 6h</span>
-      <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-25 14:47 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
+      <span>Snapshot: <time class="mono" data-utc="2026-10-25T14:54:15.649Z">2026-10-25 14:54 UTC</time> · Auto-refresh every 6h</span>
+      <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-25 14:54 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
   <main>
@@ -47,7 +47,7 @@
     <div class="callout">
       <p>Two publishers run in this repository and both are served from one GitHub Pages domain. The
       <b>canonical</b> dashboard (<code>tools/</code> &rarr; repository root, <a href="../index.html">/LOLHOTSPAWN1/</a>,
-      data in <code>data/matches.json</code>) is the pick list: <b>234</b> cards Hotspawn lists as <code>status=scheduled</code>, priced from Pinnacle, Polymarket, Kalshi, Bovada, Unibet with an Elo model over Leaguepedia series results and a publish gate (<code>tools/verify.py</code>) that aborts the commit on any failed check.
+      data in <code>data/matches.json</code>) is the pick list: <b>234</b> cards Hotspawn lists as <code>status=scheduled</code>, priced from Pinnacle, Polymarket, Kalshi, Bovada, Unibet, Smarkets with an Elo model over Leaguepedia series results and a publish gate (<code>tools/verify.py</code>) that aborts the commit on any failed check.
       <b>This companion audit</b> (<code>scripts/</code> &rarr; <code>/docs/</code>, data in <code>data/node/**</code>) re-collects the same
       feed, fits its own ratings (Leaguepedia <i>and</i> Hotspawn series, tier prior, thin-history shrinkage) and grades
       recorded picks against official scores. Every card and table row here carries a
@@ -111,6 +111,12 @@
             <td>Shin power de-vig on pre-match <code>Match Odds</code> (criterion type 2); per-event JSON receipts linked.</td>
           </tr>
           <tr>
+            <td><strong>Smarkets (UKGC Exchange)</strong></td>
+            <td class="mono">api.smarkets.com/v3 (WINNER_2_WAY)</td>
+            <td class="num">0.45–0.55</td>
+            <td>UKGC-regulated two-sided betting exchange orderbook (<code>spread &le; 0.25</code>); map/handicap/total sub-markets excluded.</td>
+          </tr>
+          <tr>
             <td><strong>Kalshi CFTC</strong></td>
             <td class="mono">api.elections.kalshi.com (KXLOLGAME)</td>
             <td class="num">0.40–0.55</td>
@@ -138,7 +144,7 @@
     </div>
     <div class="callout">
       <ul>
-        <li><strong>Dataset:</strong> <code>32,559</code> completed non-forfeit Leaguepedia + Hotspawn LoL series replayed in strict chronological order; administrative forfeits (<code>ff</code>) are excluded from skill updates.</li>
+        <li><strong>Dataset:</strong> <code>32,560</code> completed non-forfeit Leaguepedia + Hotspawn LoL series replayed in strict chronological order; administrative forfeits (<code>ff</code>) are excluded from skill updates.</li>
         <li><strong>Zero look-ahead:</strong> Every Hotspawn fixture at timestamp <code>T</code> is scored exclusively from ratings accumulated across matches with <code>t &lt; T</code>.</li>
         <li><strong>Competition-scoped entity disambiguation:</strong> Teams are resolved inside their specific Leaguepedia tournament page before global matching, preventing cross-region homonym contamination (such as Bulgarian amateur <code>PNG</code> vs Brazilian <code>paiN Gaming</code> on <code>#1083097</code>, or Swiss <code>PvB (Swiss Team)</code> vs Vietnamese <code>Phong Vũ Buffalo</code> on <code>#1079031</code>).</li>
         <li><strong>Empirical-Bayes shrinkage &amp; series transform:</strong> Ratings initialize at <code>1500</code> with dynamic <code>K = 38 / 28 / 22</code>, shrink toward <code>1500</code> via <code>n / (n + 6)</code>, and map to Bo3/Bo5 series probabilities with correlated-game damping (<code>&alpha; = 0.72</code>). Full current ratings JSON: <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/node/model/ratings.json" target="_blank" rel="noopener">data/node/model/ratings.json ↗</a>.</li>
@@ -154,8 +160,8 @@
     <line x1="42" y1="238" x2="398" y2="42" stroke="#64748b" stroke-dasharray="4 4" stroke-width="1.5"/>
     <line x1="42" y1="238" x2="398" y2="238" stroke="#364c78" stroke-width="1"/>
     <line x1="42" y1="42" x2="42" y2="238" stroke="#364c78" stroke-width="1"/>
-    <polyline fill="none" stroke="#38bdf8" stroke-width="2" points="68.9,217.9 99.0,193.0 133.5,185.6 168.6,169.8 206.0,146.5 234.3,115.2 271.3,95.9 306.6,87.1 341.7,76.1 370.5,67.0"/>
-    <circle cx="68.9" cy="217.9" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 7.5% vs Realized 10.3% (n=78)</title></circle><circle cx="99.0" cy="193.0" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 16.0% vs Realized 23.0% (n=383)</title></circle><circle cx="133.5" cy="185.6" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 25.7% vs Realized 26.8% (n=1099)</title></circle><circle cx="168.6" cy="169.8" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 35.6% vs Realized 34.8% (n=2520)</title></circle><circle cx="206.0" cy="146.5" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 46.1% vs Realized 46.7% (n=6179)</title></circle><circle cx="234.3" cy="115.2" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 54.0% vs Realized 62.7% (n=7005)</title></circle><circle cx="271.3" cy="95.9" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 64.4% vs Realized 72.5% (n=3062)</title></circle><circle cx="306.6" cy="87.1" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 74.3% vs Realized 77.0% (n=1413)</title></circle><circle cx="341.7" cy="76.1" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 84.2% vs Realized 82.6% (n=546)</title></circle><circle cx="370.5" cy="67.0" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 92.3% vs Realized 87.3% (n=110)</title></circle>
+    <polyline fill="none" stroke="#38bdf8" stroke-width="2" points="68.8,217.6 99.0,193.0 133.5,185.6 168.6,169.8 206.0,146.6 234.3,115.2 271.3,95.9 306.6,87.1 341.7,76.1 370.5,67.0"/>
+    <circle cx="68.8" cy="217.6" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 7.5% vs Realized 10.4% (n=77)</title></circle><circle cx="99.0" cy="193.0" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 16.0% vs Realized 23.0% (n=383)</title></circle><circle cx="133.5" cy="185.6" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 25.7% vs Realized 26.8% (n=1099)</title></circle><circle cx="168.6" cy="169.8" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 35.6% vs Realized 34.8% (n=2519)</title></circle><circle cx="206.0" cy="146.6" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 46.1% vs Realized 46.6% (n=6181)</title></circle><circle cx="234.3" cy="115.2" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 54.0% vs Realized 62.7% (n=7005)</title></circle><circle cx="271.3" cy="95.9" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 64.4% vs Realized 72.5% (n=3063)</title></circle><circle cx="306.6" cy="87.1" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 74.3% vs Realized 77.0% (n=1412)</title></circle><circle cx="341.7" cy="76.1" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 84.2% vs Realized 82.6% (n=546)</title></circle><circle cx="370.5" cy="67.0" r="4.5" fill="#10b981" stroke="#0b101b" stroke-width="1.5"><title>Pred 92.3% vs Realized 87.3% (n=110)</title></circle>
     <text x="220" y="270" fill="#9cb0d1" font-size="11" text-anchor="middle">Predicted Pre-Kickoff Win Probability</text>
     <text x="14" y="140" fill="#9cb0d1" font-size="11" text-anchor="middle" transform="rotate(-90 14 140)">Empirical Win Rate</text>
     <text x="42" y="252" fill="#6f84a8" font-size="10">0%</text>
@@ -174,10 +180,10 @@
           </thead>
           <tbody><tr>
       <td class="mono">0-10%</td>
-      <td class="num">78</td>
+      <td class="num">77</td>
       <td class="num">7.5%</td>
-      <td class="num">10.3%</td>
-      <td class="num">2.71 pp</td>
+      <td class="num">10.4%</td>
+      <td class="num">2.85 pp</td>
     </tr>
 <tr>
       <td class="mono">10-20%</td>
@@ -195,17 +201,17 @@
     </tr>
 <tr>
       <td class="mono">30-40%</td>
-      <td class="num">2,520</td>
+      <td class="num">2,519</td>
       <td class="num">35.6%</td>
       <td class="num">34.8%</td>
-      <td class="num">-0.76 pp</td>
+      <td class="num">-0.74 pp</td>
     </tr>
 <tr>
       <td class="mono">40-50%</td>
-      <td class="num">6,179</td>
+      <td class="num">6,181</td>
       <td class="num">46.1%</td>
-      <td class="num">46.7%</td>
-      <td class="num">0.58 pp</td>
+      <td class="num">46.6%</td>
+      <td class="num">0.56 pp</td>
     </tr>
 <tr>
       <td class="mono">50-60%</td>
@@ -216,17 +222,17 @@
     </tr>
 <tr>
       <td class="mono">60-70%</td>
-      <td class="num">3,062</td>
+      <td class="num">3,063</td>
       <td class="num">64.4%</td>
       <td class="num">72.5%</td>
-      <td class="num">8.08 pp</td>
+      <td class="num">8.09 pp</td>
     </tr>
 <tr>
       <td class="mono">70-80%</td>
-      <td class="num">1,413</td>
+      <td class="num">1,412</td>
       <td class="num">74.3%</td>
       <td class="num">77.0%</td>
-      <td class="num">2.68 pp</td>
+      <td class="num">2.66 pp</td>
     </tr>
 <tr>
       <td class="mono">80-90%</td>

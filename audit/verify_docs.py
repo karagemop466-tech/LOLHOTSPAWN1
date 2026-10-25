@@ -136,7 +136,7 @@ def main():
 
     # 6 — market rows carry every matched market source link
     mkt_missing = []
-    venue_keys = ("market_pinnacle", "market_kambi", "market_kalshi", "market_polymarket", "market_bovada")
+    venue_keys = ("market_pinnacle", "market_kambi", "market_smarkets", "market_kalshi", "market_polymarket", "market_bovada")
     for m in active:
         cid = f'id="m-{m["id"]}"'
         if cid not in picks_html:

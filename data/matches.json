@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-25T14:51:51Z",
+ "generated_utc": "2026-10-25T14:54:02Z",
  "inventory_fetched_utc": "2026-10-25T14:49:59Z",
  "receipt_audit": {
   "max_age_hours": 24,
@@ -145,6 +145,7 @@
   "kalshi": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100",
   "bovada": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en",
   "unibet": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
+  "smarkets": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match&limit=50",
   "leaguepedia": "https://lol.fandom.com/wiki/Special:CargoExport",
   "polymarket": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=league-of-legends",
   "source_status_utc": "2026-10-25T14:51:11Z"
@@ -161,7 +162,8 @@
    "Polymarket": true,
    "Kalshi": true,
    "Bovada": true,
-   "Unibet": true
+   "Unibet": true,
+   "Smarkets": true
   },
   "live_quote_rejections": [],
   "pinnacle_kills_derivatives_excluded": 0,
@@ -172,12 +174,12 @@
  "backtest": {
   "cutoff": "2026-07-01",
   "n": 3920,
-  "hits": 2553,
+  "hits": 2552,
   "buckets": {
    "50-60%": {
-    "n": 2105,
+    "n": 2106,
     "hits": 1201,
-    "accuracy": 0.5705,
+    "accuracy": 0.5703,
     "mean_predicted": 0.5406
    },
    "60-70%": {
@@ -187,9 +189,9 @@
     "mean_predicted": 0.6449
    },
    "70-80%": {
-    "n": 546,
-    "hits": 436,
-    "accuracy": 0.7985,
+    "n": 545,
+    "hits": 435,
+    "accuracy": 0.7982,
     "mean_predicted": 0.7456
    },
    "80%+": {
@@ -199,9 +201,9 @@
     "mean_predicted": 0.8511
    }
   },
-  "accuracy": 0.6513,
+  "accuracy": 0.651,
   "brier": 0.2179,
-  "logloss": 0.6246
+  "logloss": 0.6247
  },
  "track_record": {
   "graded": 48,
@@ -6772,23 +6774,23 @@
     "elo_now": 1921.6,
     "elo": 1921.6
    },
-   "p0": 0.2722,
-   "p1": 0.7278,
+   "p0": 0.2714,
+   "p1": 0.7286,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (27.2% / 72.8%): Pinnacle 28.3%/71.7% (3.38/1.33), Polymarket 26.5%/73.5% (26.5¢/73.5¢), Kalshi 27.5%/72.5% (28¢/72¢), Bovada 24.3%/75.7% (3.85/1.24), Unibet 28.1%/71.9% (3.30/1.29).",
+   "basis": "6-Venue Consensus de-vigged line (27.1% / 72.9%): Pinnacle 28.3%/71.7% (3.38/1.33), Polymarket 26.5%/73.5% (26.5¢/73.5¢), Kalshi 27.5%/72.5% (28¢/72¢), Bovada 24.3%/75.7% (3.85/1.24), Unibet 28.1%/71.9% (3.30/1.29), Smarkets 26.2%/73.8% (26.0%/73.5%).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Hanwha Life Esports",
-    "probability": 0.7278,
-    "other_probability": 0.2722
+    "probability": 0.7286,
+    "other_probability": 0.2714
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "5-Venue Consensus",
+    "book": "6-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight",
@@ -6801,19 +6803,19 @@
      "home": -300,
      "away": 238
     },
-    "p0": 0.2722,
-    "p1": 0.7278,
+    "p0": 0.2714,
+    "p1": 0.7286,
     "overround": 0.0459,
     "start_utc": "2026-10-25T17:15:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 6,
     "rejected_venues": [],
     "total_volume_usd": 313385.58,
     "volume_usd": 313385.58,
     "venues": [
      {
       "name": "Pinnacle",
-      "weight": 0.36,
+      "weight": 0.34,
       "p0": 0.2829,
       "p1": 0.7171,
       "quote": "3.38/1.33",
@@ -6823,7 +6825,7 @@
      },
      {
       "name": "Polymarket",
-      "weight": 0.24,
+      "weight": 0.22,
       "p0": 0.265,
       "p1": 0.735,
       "quote": "26.5¢/73.5¢",
@@ -6834,7 +6836,7 @@
      },
      {
       "name": "Kalshi",
-      "weight": 0.18,
+      "weight": 0.16,
       "p0": 0.275,
       "p1": 0.725,
       "quote": "28¢/72¢",
@@ -6844,7 +6846,7 @@
      },
      {
       "name": "Bovada",
-      "weight": 0.12,
+      "weight": 0.08,
       "p0": 0.2429,
       "p1": 0.7571,
       "quote": "3.85/1.24",
@@ -6854,13 +6856,23 @@
      },
      {
       "name": "Unibet",
-      "weight": 0.1,
+      "weight": 0.06,
       "p0": 0.281,
       "p1": 0.719,
       "quote": "3.30/1.29",
       "overround": 0.0782,
       "observed_utc": "2026-10-25T11:57:49Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621111.json?lang=en_GB&market=ZZ"
+     },
+     {
+      "name": "Smarkets",
+      "weight": 0.14,
+      "p0": 0.2617,
+      "p1": 0.7383,
+      "quote": "26.0%/73.5%",
+      "overround": -0.0048,
+      "observed_utc": "2026-10-25T14:25:00Z",
+      "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/17-00/hanwha-life-esports-vs-invictus-gaming/45400320/"
      }
     ],
     "model_cross_check": 0.2148,
@@ -7154,23 +7166,23 @@
     "elo_now": 1901.2,
     "elo": 1901.2
    },
-   "p0": 0.4575,
-   "p1": 0.5425,
+   "p0": 0.4598,
+   "p1": 0.5402,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (45.8% / 54.2%): Pinnacle 44.9%/55.1% (2.14/1.75), Polymarket 47.5%/52.5% (47.5¢/52.5¢), Kalshi 46.5%/53.5% (46¢/54¢), Bovada 44.6%/55.4% (2.10/1.69), Unibet 44.5%/55.5% (2.08/1.67).",
+   "basis": "6-Venue Consensus de-vigged line (46.0% / 54.0%): Pinnacle 44.9%/55.1% (2.14/1.75), Polymarket 47.5%/52.5% (47.5¢/52.5¢), Kalshi 46.5%/53.5% (46¢/54¢), Bovada 44.6%/55.4% (2.10/1.69), Unibet 44.5%/55.5% (2.08/1.67), Smarkets 47.0%/53.0% (46.9%/52.9%).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "G2 Esports",
-    "probability": 0.5425,
-    "other_probability": 0.4575
+    "probability": 0.5402,
+    "other_probability": 0.4598
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "5-Venue Consensus",
+    "book": "6-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235119/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235119/markets/related/straight",
@@ -7183,19 +7195,19 @@
      "home": 114,
      "away": -134
     },
-    "p0": 0.4575,
-    "p1": 0.5425,
+    "p0": 0.4598,
+    "p1": 0.5402,
     "overround": 0.0399,
     "start_utc": "2026-10-25T18:15:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 6,
     "rejected_venues": [],
     "total_volume_usd": 203515.68,
     "volume_usd": 203515.68,
     "venues": [
      {
       "name": "Pinnacle",
-      "weight": 0.36,
+      "weight": 0.34,
       "p0": 0.4493,
       "p1": 0.5507,
       "quote": "2.14/1.75",
@@ -7205,7 +7217,7 @@
      },
      {
       "name": "Polymarket",
-      "weight": 0.24,
+      "weight": 0.22,
       "p0": 0.475,
       "p1": 0.525,
       "quote": "47.5¢/52.5¢",
@@ -7216,7 +7228,7 @@
      },
      {
       "name": "Kalshi",
-      "weight": 0.18,
+      "weight": 0.16,
       "p0": 0.465,
       "p1": 0.535,
       "quote": "46¢/54¢",
@@ -7226,7 +7238,7 @@
      },
      {
       "name": "Bovada",
-      "weight": 0.12,
+      "weight": 0.08,
       "p0": 0.4459,
       "p1": 0.5541,
       "quote": "2.10/1.69",
@@ -7236,13 +7248,23 @@
      },
      {
       "name": "Unibet",
-      "weight": 0.1,
+      "weight": 0.06,
       "p0": 0.4453,
       "p1": 0.5547,
       "quote": "2.08/1.67",
       "overround": 0.0796,
       "observed_utc": "2026-10-25T11:49:25Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621110.json?lang=en_GB&market=ZZ"
+     },
+     {
+      "name": "Smarkets",
+      "weight": 0.14,
+      "p0": 0.4699,
+      "p1": 0.5301,
+      "quote": "46.9%/52.9%",
+      "overround": -0.0024,
+      "observed_utc": "2026-10-25T14:25:00Z",
+      "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/18-00/top-esports-vs-g2-esports/45400319/"
      }
     ],
     "model_cross_check": 0.2768,
@@ -7478,23 +7500,23 @@
     "elo_now": 1785.4,
     "elo": 1785.4
    },
-   "p0": 0.767,
-   "p1": 0.233,
+   "p0": 0.7681,
+   "p1": 0.2319,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (76.7% / 23.3%): Pinnacle 75.9%/24.1% (1.26/3.96), Polymarket 78.5%/21.5% (78.5¢/21.5¢), Kalshi 78.5%/21.5% (78¢/22¢), Bovada 75.7%/24.3% (1.24/3.85), Unibet 73.1%/26.9% (1.27/3.45).",
+   "basis": "6-Venue Consensus de-vigged line (76.8% / 23.2%): Pinnacle 75.9%/24.1% (1.26/3.96), Polymarket 78.5%/21.5% (78.5¢/21.5¢), Kalshi 78.5%/21.5% (78¢/22¢), Bovada 75.7%/24.3% (1.24/3.85), Unibet 73.1%/26.9% (1.27/3.45), Smarkets 76.6%/23.4% (76.7%/23.4%).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Dplus KIA",
-    "probability": 0.767,
-    "other_probability": 0.233
+    "probability": 0.7681,
+    "other_probability": 0.2319
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "5-Venue Consensus",
+    "book": "6-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229309/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229309/markets/related/straight",
@@ -7507,19 +7529,19 @@
      "home": -391,
      "away": 296
     },
-    "p0": 0.767,
-    "p1": 0.233,
+    "p0": 0.7681,
+    "p1": 0.2319,
     "overround": 0.0488,
     "start_utc": "2026-10-25T19:15:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 6,
     "rejected_venues": [],
     "total_volume_usd": 112498.98,
     "volume_usd": 112498.98,
     "venues": [
      {
       "name": "Pinnacle",
-      "weight": 0.36,
+      "weight": 0.34,
       "p0": 0.7592,
       "p1": 0.2408,
       "quote": "1.26/3.96",
@@ -7529,7 +7551,7 @@
      },
      {
       "name": "Polymarket",
-      "weight": 0.24,
+      "weight": 0.22,
       "p0": 0.785,
       "p1": 0.215,
       "quote": "78.5¢/21.5¢",
@@ -7540,7 +7562,7 @@
      },
      {
       "name": "Kalshi",
-      "weight": 0.18,
+      "weight": 0.16,
       "p0": 0.785,
       "p1": 0.215,
       "quote": "78¢/22¢",
@@ -7550,7 +7572,7 @@
      },
      {
       "name": "Bovada",
-      "weight": 0.12,
+      "weight": 0.08,
       "p0": 0.7571,
       "p1": 0.2429,
       "quote": "1.24/3.85",
@@ -7560,13 +7582,23 @@
      },
      {
       "name": "Unibet",
-      "weight": 0.1,
+      "weight": 0.06,
       "p0": 0.7309,
       "p1": 0.2691,
       "quote": "1.27/3.45",
       "overround": 0.0773,
       "observed_utc": "2026-10-25T13:15:28Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621119.json?lang=en_GB&market=ZZ"
+     },
+     {
+      "name": "Smarkets",
+      "weight": 0.14,
+      "p0": 0.7664,
+      "p1": 0.2336,
+      "quote": "76.7%/23.4%",
+      "overround": 0.0008,
+      "observed_utc": "2026-10-25T14:25:00Z",
+      "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/19-00/dplus-kia-vs-movistar-koi/45400322/"
      }
     ],
     "model_cross_check": 0.6295,
@@ -7620,11 +7652,11 @@
     "elo_now": 1848.1,
     "elo": 1848.1
    },
-   "p0": 0.8975,
-   "p1": 0.1025,
+   "p0": 0.8976,
+   "p1": 0.1024,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (89.8% / 10.2%): Pinnacle 89.6%/10.4% (1.06/9.19), Polymarket 90.5%/9.5% (90.5¢/9.5¢), Kalshi 90.4%/9.6% (90¢/10¢), Bovada 89.5%/10.5% (1.06/9.00), Unibet 87.5%/12.5% (1.07/7.50).",
+   "basis": "6-Venue Consensus de-vigged line (89.8% / 10.2%): Pinnacle 89.6%/10.4% (1.06/9.19), Polymarket 90.5%/9.5% (90.5¢/9.5¢), Kalshi 90.4%/9.6% (90¢/10¢), Bovada 89.5%/10.5% (1.06/9.00), Unibet 87.5%/12.5% (1.07/7.50), Smarkets 89.3%/10.7% (91.8%/11.0%).",
    "flags": [
     "market and model disagree by 24 pp (market 89.8% vs our Elo 66.2%) - the market side is published, the gap is disclosed",
     "resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'"
@@ -7632,14 +7664,14 @@
    "pick": {
     "side": 0,
     "team": "Gen.G",
-    "probability": 0.8975,
-    "other_probability": 0.1025
+    "probability": 0.8976,
+    "other_probability": 0.1024
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "5-Venue Consensus",
+    "book": "6-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight",
@@ -7652,19 +7684,19 @@
      "home": -1558,
      "away": 819
     },
-    "p0": 0.8975,
-    "p1": 0.1025,
+    "p0": 0.8976,
+    "p1": 0.1024,
     "overround": 0.0485,
     "start_utc": "2026-10-25T22:15:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 6,
     "rejected_venues": [],
     "total_volume_usd": 132902.55,
     "volume_usd": 132902.55,
     "venues": [
      {
       "name": "Pinnacle",
-      "weight": 0.36,
+      "weight": 0.34,
       "p0": 0.8962,
       "p1": 0.1038,
       "quote": "1.06/9.19",
@@ -7674,7 +7706,7 @@
      },
      {
       "name": "Polymarket",
-      "weight": 0.24,
+      "weight": 0.22,
       "p0": 0.905,
       "p1": 0.095,
       "quote": "90.5¢/9.5¢",
@@ -7685,7 +7717,7 @@
      },
      {
       "name": "Kalshi",
-      "weight": 0.18,
+      "weight": 0.16,
       "p0": 0.904,
       "p1": 0.096,
       "quote": "90¢/10¢",
@@ -7695,7 +7727,7 @@
      },
      {
       "name": "Bovada",
-      "weight": 0.12,
+      "weight": 0.08,
       "p0": 0.895,
       "p1": 0.105,
       "quote": "1.06/9.00",
@@ -7705,13 +7737,23 @@
      },
      {
       "name": "Unibet",
-      "weight": 0.1,
+      "weight": 0.06,
       "p0": 0.8751,
       "p1": 0.1249,
       "quote": "1.07/7.50",
       "overround": 0.0679,
       "observed_utc": "2026-10-25T12:03:37Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621112.json?lang=en_GB&market=ZZ"
+     },
+     {
+      "name": "Smarkets",
+      "weight": 0.14,
+      "p0": 0.893,
+      "p1": 0.107,
+      "quote": "91.8%/11.0%",
+      "overround": 0.0274,
+      "observed_utc": "2026-10-25T14:25:00Z",
+      "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/22-00/gen-g-vs-lyon/45400321/"
      }
     ],
     "model_cross_check": 0.6615,
@@ -7760,26 +7802,26 @@
     "rating_as_of": "2026-10-26T17:00:00Z",
     "last_played": "2026-10-24",
     "elo_raw": 1744.2,
-    "elo_now": 1741.5,
-    "elo": 1741.5
+    "elo_now": 1741.4,
+    "elo": 1741.4
    },
-   "p0": 0.8565,
-   "p1": 0.1435,
+   "p0": 0.8575,
+   "p1": 0.1425,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (85.7% / 14.3%): Pinnacle 84.3%/15.7% (1.13/6.05), Polymarket 88.5%/11.5% (88.5¢/11.5¢), Kalshi 87.5%/12.5% (88¢/12¢), Bovada 83.6%/16.4% (1.12/5.75), Unibet 82.8%/17.2% (1.12/5.40).",
+   "basis": "6-Venue Consensus de-vigged line (85.8% / 14.2%): Pinnacle 84.3%/15.7% (1.13/6.05), Polymarket 88.5%/11.5% (88.5¢/11.5¢), Kalshi 87.5%/12.5% (88¢/12¢), Bovada 83.6%/16.4% (1.12/5.75), Unibet 82.8%/17.2% (1.12/5.40), Smarkets 85.4%/14.6% (85.6%/14.6%).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "T1",
-    "probability": 0.8565,
-    "other_probability": 0.1435
+    "probability": 0.8575,
+    "other_probability": 0.1425
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "5-Venue Consensus",
+    "book": "6-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235122/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235122/markets/related/straight",
@@ -7792,19 +7834,19 @@
      "home": -777,
      "away": 505
     },
-    "p0": 0.8565,
-    "p1": 0.1435,
+    "p0": 0.8575,
+    "p1": 0.1425,
     "overround": 0.0513,
     "start_utc": "2026-10-26T17:15:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 6,
     "rejected_venues": [],
     "total_volume_usd": 103744.32,
     "volume_usd": 103744.32,
     "venues": [
      {
       "name": "Pinnacle",
-      "weight": 0.36,
+      "weight": 0.34,
       "p0": 0.8428,
       "p1": 0.1572,
       "quote": "1.13/6.05",
@@ -7814,7 +7856,7 @@
      },
      {
       "name": "Polymarket",
-      "weight": 0.24,
+      "weight": 0.22,
       "p0": 0.885,
       "p1": 0.115,
       "quote": "88.5¢/11.5¢",
@@ -7825,7 +7867,7 @@
      },
      {
       "name": "Kalshi",
-      "weight": 0.18,
+      "weight": 0.16,
       "p0": 0.875,
       "p1": 0.125,
       "quote": "88¢/12¢",
@@ -7835,7 +7877,7 @@
      },
      {
       "name": "Bovada",
-      "weight": 0.12,
+      "weight": 0.08,
       "p0": 0.8364,
       "p1": 0.1636,
       "quote": "1.12/5.75",
@@ -7845,16 +7887,26 @@
      },
      {
       "name": "Unibet",
-      "weight": 0.1,
+      "weight": 0.06,
       "p0": 0.8282,
       "p1": 0.1718,
       "quote": "1.12/5.40",
       "overround": 0.078,
       "observed_utc": "2026-10-25T06:38:31Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621121.json?lang=en_GB&market=ZZ"
+     },
+     {
+      "name": "Smarkets",
+      "weight": 0.14,
+      "p0": 0.8544,
+      "p1": 0.1456,
+      "quote": "85.6%/14.6%",
+      "overround": 0.0022,
+      "observed_utc": "2026-10-25T14:25:00Z",
+      "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/17-00/t1-vs-ctbc-flying-oyster/45400324/"
      }
     ],
-    "model_cross_check": 0.6733,
+    "model_cross_check": 0.6734,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -7963,23 +8015,23 @@
     "elo_now": 1930.0,
     "elo": 1930.0
    },
-   "p0": 0.309,
-   "p1": 0.691,
+   "p0": 0.3069,
+   "p1": 0.6931,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (30.9% / 69.1%): Pinnacle 31.3%/68.7% (3.06/1.39), Polymarket 29.5%/70.5% (29.5¢/70.5¢), Kalshi 30.1%/69.9% (30¢/68¢), Bovada 32.3%/67.7% (2.90/1.38), Unibet 32.6%/67.4% (2.85/1.38).",
+   "basis": "6-Venue Consensus de-vigged line (30.7% / 69.3%): Pinnacle 31.3%/68.7% (3.06/1.39), Polymarket 29.5%/70.5% (29.5¢/70.5¢), Kalshi 30.1%/69.9% (30¢/68¢), Bovada 32.3%/67.7% (2.90/1.38), Unibet 32.6%/67.4% (2.85/1.38), Smarkets 30.0%/70.0% (30.0%/69.9%).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Bilibili Gaming",
-    "probability": 0.691,
-    "other_probability": 0.309
+    "probability": 0.6931,
+    "other_probability": 0.3069
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "5-Venue Consensus",
+    "book": "6-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227252/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227252/markets/related/straight",
@@ -7992,19 +8044,19 @@
      "home": 206,
      "away": -254
     },
-    "p0": 0.309,
-    "p1": 0.691,
+    "p0": 0.3069,
+    "p1": 0.6931,
     "overround": 0.0443,
     "start_utc": "2026-10-26T18:15:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 6,
     "rejected_venues": [],
     "total_volume_usd": 13623.7,
     "volume_usd": 13623.7,
     "venues": [
      {
       "name": "Pinnacle",
-      "weight": 0.36,
+      "weight": 0.34,
       "p0": 0.3129,
       "p1": 0.6871,
       "quote": "3.06/1.39",
@@ -8014,7 +8066,7 @@
      },
      {
       "name": "Polymarket",
-      "weight": 0.24,
+      "weight": 0.22,
       "p0": 0.295,
       "p1": 0.705,
       "quote": "29.5¢/70.5¢",
@@ -8025,7 +8077,7 @@
      },
      {
       "name": "Kalshi",
-      "weight": 0.18,
+      "weight": 0.16,
       "p0": 0.301,
       "p1": 0.699,
       "quote": "30¢/68¢",
@@ -8035,7 +8087,7 @@
      },
      {
       "name": "Bovada",
-      "weight": 0.12,
+      "weight": 0.08,
       "p0": 0.3232,
       "p1": 0.6768,
       "quote": "2.90/1.38",
@@ -8045,13 +8097,23 @@
      },
      {
       "name": "Unibet",
-      "weight": 0.1,
+      "weight": 0.06,
       "p0": 0.3262,
       "p1": 0.6738,
       "quote": "2.85/1.38",
       "overround": 0.0755,
       "observed_utc": "2026-10-25T06:38:24Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621120.json?lang=en_GB&market=ZZ"
+     },
+     {
+      "name": "Smarkets",
+      "weight": 0.14,
+      "p0": 0.2999,
+      "p1": 0.7001,
+      "quote": "30.0%/69.9%",
+      "overround": -0.0012,
+      "observed_utc": "2026-10-25T14:25:00Z",
+      "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/18-00/karmine-corp-vs-bilibili-gaming/45400323/"
      }
     ],
     "model_cross_check": 0.4408,
@@ -8226,26 +8288,26 @@
     "rating_as_of": "2026-10-26T19:00:00Z",
     "last_played": "2026-10-24",
     "elo_raw": 1849.0,
-    "elo_now": 1838.7,
-    "elo": 1838.7
+    "elo_now": 1838.6,
+    "elo": 1838.6
    },
-   "p0": 0.3514,
-   "p1": 0.6486,
+   "p0": 0.3536,
+   "p1": 0.6464,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (35.1% / 64.9%): Pinnacle 35.6%/64.3% (2.69/1.49), Polymarket 35.0%/65.0% (35.0¢/65.0¢), Kalshi 35.5%/64.5% (36¢/64¢), Bovada 32.9%/67.1% (2.85/1.40), Unibet 35.6%/64.4% (2.60/1.44).",
+   "basis": "6-Venue Consensus de-vigged line (35.4% / 64.6%): Pinnacle 35.6%/64.3% (2.69/1.49), Polymarket 35.0%/65.0% (35.0¢/65.0¢), Kalshi 35.5%/64.5% (36¢/64¢), Bovada 32.9%/67.1% (2.85/1.40), Unibet 35.6%/64.4% (2.60/1.44), Smarkets 36.4%/63.6% (36.4%/63.7%).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Team Secret Whales",
-    "probability": 0.6486,
-    "other_probability": 0.3514
+    "probability": 0.6464,
+    "other_probability": 0.3536
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "5-Venue Consensus",
+    "book": "6-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229311/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229311/markets/related/straight",
@@ -8258,19 +8320,19 @@
      "home": 169,
      "away": -204
     },
-    "p0": 0.3514,
-    "p1": 0.6486,
+    "p0": 0.3536,
+    "p1": 0.6464,
     "overround": 0.0428,
     "start_utc": "2026-10-26T19:15:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 6,
     "rejected_venues": [],
     "total_volume_usd": 11744.52,
     "volume_usd": 11744.52,
     "venues": [
      {
       "name": "Pinnacle",
-      "weight": 0.36,
+      "weight": 0.34,
       "p0": 0.3565,
       "p1": 0.6435,
       "quote": "2.69/1.49",
@@ -8280,7 +8342,7 @@
      },
      {
       "name": "Polymarket",
-      "weight": 0.24,
+      "weight": 0.22,
       "p0": 0.35,
       "p1": 0.65,
       "quote": "35.0¢/65.0¢",
@@ -8291,7 +8353,7 @@
      },
      {
       "name": "Kalshi",
-      "weight": 0.18,
+      "weight": 0.16,
       "p0": 0.355,
       "p1": 0.645,
       "quote": "36¢/64¢",
@@ -8301,7 +8363,7 @@
      },
      {
       "name": "Bovada",
-      "weight": 0.12,
+      "weight": 0.08,
       "p0": 0.3294,
       "p1": 0.6706,
       "quote": "2.85/1.40",
@@ -8311,16 +8373,26 @@
      },
      {
       "name": "Unibet",
-      "weight": 0.1,
+      "weight": 0.06,
       "p0": 0.3564,
       "p1": 0.6436,
       "quote": "2.60/1.44",
       "overround": 0.0791,
       "observed_utc": "2026-10-25T06:46:03Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621122.json?lang=en_GB&market=ZZ"
+     },
+     {
+      "name": "Smarkets",
+      "weight": 0.14,
+      "p0": 0.3635,
+      "p1": 0.6365,
+      "quote": "36.4%/63.7%",
+      "overround": 0.0015,
+      "observed_utc": "2026-10-25T14:25:00Z",
+      "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/19-00/los-vs-team-secret-whales/45400326/"
      }
     ],
-    "model_cross_check": 0.4239,
+    "model_cross_check": 0.424,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -8369,25 +8441,25 @@
     "elo_now": 1776.7,
     "elo": 1776.7
    },
-   "p0": 0.3132,
-   "p1": 0.6868,
+   "p0": 0.3131,
+   "p1": 0.6869,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (31.3% / 68.7%): Pinnacle 31.4%/68.6% (3.05/1.40), Polymarket 30.5%/69.5% (30.5¢/69.5¢), Kalshi 31.2%/68.8% (31¢/68¢), Bovada 31.2%/68.8% (3.00/1.36), Unibet 33.3%/66.7% (2.80/1.40).",
+   "basis": "6-Venue Consensus de-vigged line (31.3% / 68.7%): Pinnacle 31.4%/68.6% (3.05/1.40), Polymarket 30.5%/69.5% (30.5¢/69.5¢), Kalshi 31.2%/68.8% (31¢/68¢), Bovada 31.2%/68.8% (3.00/1.36), Unibet 33.3%/66.7% (2.80/1.40), Smarkets 31.7%/68.3% (31.6%/68.3%).",
    "flags": [
     "market and model disagree by 24 pp (market 68.7% vs our Elo 55.7%) - the market side is published, the gap is disclosed"
    ],
    "pick": {
     "side": 1,
     "team": "Anyone's Legend",
-    "probability": 0.6868,
-    "other_probability": 0.3132
+    "probability": 0.6869,
+    "other_probability": 0.3131
    },
    "pick_type": null,
    "market": {
     "thin": false,
     "thin_note": "",
-    "book": "5-Venue Consensus",
+    "book": "6-Venue Consensus",
     "kind": "bookmaker",
     "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227251/markets/related/straight",
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227251/markets/related/straight",
@@ -8400,19 +8472,19 @@
      "home": 205,
      "away": -252
     },
-    "p0": 0.3132,
-    "p1": 0.6868,
+    "p0": 0.3131,
+    "p1": 0.6869,
     "overround": 0.0438,
     "start_utc": "2026-10-26T22:15:00Z",
     "league": "League of Legends - World Championship",
-    "venue_count": 5,
+    "venue_count": 6,
     "rejected_venues": [],
     "total_volume_usd": 9324.43,
     "volume_usd": 9324.43,
     "venues": [
      {
       "name": "Pinnacle",
-      "weight": 0.36,
+      "weight": 0.34,
       "p0": 0.3141,
       "p1": 0.6859,
       "quote": "3.05/1.40",
@@ -8422,7 +8494,7 @@
      },
      {
       "name": "Polymarket",
-      "weight": 0.24,
+      "weight": 0.22,
       "p0": 0.305,
       "p1": 0.695,
       "quote": "30.5¢/69.5¢",
@@ -8433,7 +8505,7 @@
      },
      {
       "name": "Kalshi",
-      "weight": 0.18,
+      "weight": 0.16,
       "p0": 0.3116,
       "p1": 0.6884,
       "quote": "31¢/68¢",
@@ -8443,7 +8515,7 @@
      },
      {
       "name": "Bovada",
-      "weight": 0.12,
+      "weight": 0.08,
       "p0": 0.3125,
       "p1": 0.6875,
       "quote": "3.00/1.36",
@@ -8453,13 +8525,23 @@
      },
      {
       "name": "Unibet",
-      "weight": 0.1,
+      "weight": 0.06,
       "p0": 0.3333,
       "p1": 0.6667,
       "quote": "2.80/1.40",
       "overround": 0.0714,
       "observed_utc": "2026-10-25T06:53:47Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621123.json?lang=en_GB&market=ZZ"
+     },
+     {
+      "name": "Smarkets",
+      "weight": 0.14,
+      "p0": 0.3166,
+      "p1": 0.6834,
+      "quote": "31.6%/68.3%",
+      "overround": -0.0008,
+      "observed_utc": "2026-10-25T14:25:00Z",
+      "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/22-00/team-liquid-vs-anyone-s-legend/45400325/"
      }
     ],
     "model_cross_check": 0.5567,
@@ -8546,7 +8628,7 @@
     "venues": [
      {
       "name": "Polymarket",
-      "weight": 0.24,
+      "weight": 0.22,
       "p0": 0.385,
       "p1": 0.615,
       "quote": "38.5¢/61.5¢",
@@ -8557,7 +8639,7 @@
      },
      {
       "name": "Kalshi",
-      "weight": 0.18,
+      "weight": 0.16,
       "p0": 0.3828,
       "p1": 0.6172,
       "quote": "40¢/64¢",

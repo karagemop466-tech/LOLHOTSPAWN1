@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-25T14:51:52Z",
+ "generated_utc": "2026-10-25T14:54:15Z",
  "checks": [
   {
    "name": "dataset present",
@@ -77,6 +77,11 @@
    "detail": "8/8 fresh Unibet fixtures matched; missing: []"
   },
   {
+   "name": "all fresh Smarkets exchange moneylines matched into market consensus",
+   "ok": true,
+   "detail": "8/8 fresh Smarkets fixtures matched; missing: []"
+  },
+  {
    "name": "every official-forfeit resolution names a winner and a source URL",
    "ok": true,
    "detail": "4 resolutions checked; problems: []"
@@ -139,7 +144,7 @@
   {
    "name": "executive summary and its unresolved block precede every list on the landing page",
    "ok": true,
-   "detail": "summary=2549 unresolved=9373 soon=17009 directory=23658"
+   "detail": "summary=2549 unresolved=9529 soon=17165 directory=23935"
   },
   {
    "name": "the unresolved block inside the summary states why each card has no probability",
@@ -164,7 +169,7 @@
   {
    "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "24 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
+   "detail": "26 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -189,7 +194,7 @@
   {
    "name": "market hygiene publishes live-feed freshness and quote rejections",
    "ok": true,
-   "detail": "feeds tracked: ['Bovada', 'Kalshi', 'Pinnacle', 'Polymarket', 'Unibet']; 0 live quote rejection(s) this build"
+   "detail": "feeds tracked: ['Bovada', 'Kalshi', 'Pinnacle', 'Polymarket', 'Smarkets', 'Unibet']; 0 live quote rejection(s) this build"
   },
   {
    "name": "coverage matrix: every competition row links to a source",
@@ -209,7 +214,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 84016 bytes"
+   "detail": "coverage.html 89351 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -219,7 +224,7 @@
   {
    "name": "every external line-search observation is source-linked and complete",
    "ok": true,
-   "detail": "20 observations across 5 receipt files; problems: []"
+   "detail": "25 observations across 6 receipt files; problems: []"
   },
   {
    "name": "limitations page prints every book check with its live link",

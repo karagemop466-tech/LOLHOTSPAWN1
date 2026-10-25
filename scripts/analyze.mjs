@@ -13,9 +13,10 @@
  *   1. Hotspawn crowd fields (`picked_percent`, `offered_points`, `tier`) are NEVER
  *      read by any probability, consensus, or rating calculation.
  *   2. Pinnacle `(Kills)` derivative markets are strictly excluded.
- *   3. Multi-venue real-money consensus combines up to 5 independent venues:
+ *   3. Multi-venue real-money consensus combines up to 6 independent venues:
  *        - Pinnacle guest API (Shin power de-vig, weight 1.00)
  *        - Unibet / Kambi `ubse` Match Odds (Shin power de-vig, weight 0.70)
+ *        - Smarkets UKGC Exchange `WINNER_2_WAY` orderbooks (midpoint normalized, weight 0.45–0.55)
  *        - Bovada Head-To-Head moneyline (Shin power de-vig, weight 0.50)
  *        - Kalshi CFTC `KXLOLGAME` binary contracts (midpoint normalized, weight 0.35–0.55)
  *        - Polymarket CLOB match markets (spread <= 0.12, liquidity-scaled weight 0.20–0.65)
@@ -382,6 +383,54 @@ function buildBovadaQuotes(bovRaw, nowMs) {
       start_ms: parseTimeMs(ev.start_utc || ev.start_ms),
       fetched_at: bovRaw.fetched_at || bovRaw.fetched_utc,
       url: ev.url || "https://www.bovada.lv/sports/esports/league-of-legends",
+    });
+  }
+  return { quotes, expired: false };
+}
+
+function buildSmarketsQuotes(smarketsRaw, nowMs) {
+  const quotes = [];
+  if (!smarketsRaw || !Array.isArray(smarketsRaw.events)) return { quotes, expired: false };
+  const fetchedMs = parseTimeMs(smarketsRaw.fetched_at || smarketsRaw.fetched_utc);
+  if (!fetchedMs || nowMs - fetchedMs > MAX_QUOTE_AGE_MS) return { quotes, expired: true };
+  for (const ev of smarketsRaw.events) {
+    if (KILLS_RE.test(ev.name || "")) continue;
+    const outs = ev.outcomes || [];
+    if (outs.length !== 2) continue;
+    const m0 = Number(outs[0].mid_prob);
+    const m1 = Number(outs[1].mid_prob);
+    const sp0 = Number(outs[0].spread_prob);
+    const sp1 = Number(outs[1].spread_prob);
+    if (!Number.isFinite(m0) || !Number.isFinite(m1) || m0 <= 0.01 || m1 <= 0.01) continue;
+    if (!Number.isFinite(sp0) || !Number.isFinite(sp1) || sp0 <= 0 || sp1 <= 0 || Math.max(sp0, sp1) > 0.25) continue;
+    const sum = m0 + m1;
+    if (sum < 0.85 || sum > 1.18) continue;
+    const pA = m0 / sum;
+    const pB = 1 - pA;
+    const maxSpread = Math.max(sp0, sp1);
+    const weight = maxSpread <= 0.12 ? 0.55 : 0.45;
+    const liq = Math.round(((Number(outs[0].bid_qty) || 0) + (Number(outs[0].offer_qty) || 0) + (Number(outs[1].bid_qty) || 0) + (Number(outs[1].offer_qty) || 0)) / 10000);
+    quotes.push({
+      venue: "smarkets",
+      venue_label: "Smarkets (UKGC)",
+      weight,
+      teamA: outs[0].name,
+      teamB: outs[1].name,
+      bidA: outs[0].best_bid_bps != null ? outs[0].best_bid_bps / 10000 : null,
+      askA: outs[0].best_offer_bps != null ? outs[0].best_offer_bps / 10000 : null,
+      bidB: outs[1].best_bid_bps != null ? outs[1].best_bid_bps / 10000 : null,
+      askB: outs[1].best_offer_bps != null ? outs[1].best_offer_bps / 10000 : null,
+      pA,
+      pB,
+      spread: Number(maxSpread.toFixed(4)),
+      liquidity: liq,
+      overround: Number(sum.toFixed(4)),
+      start_ms: parseTimeMs(ev.start_utc),
+      fetched_at: smarketsRaw.fetched_at || smarketsRaw.fetched_utc,
+      event_id: ev.event_id,
+      market_id: ev.market_id,
+      url: ev.url || `https://smarkets.com/event/${ev.event_id}`,
+      api_url: ev.api_quotes_url || `https://api.smarkets.com/v3/markets/${ev.market_id}/quotes/`,
     });
   }
   return { quotes, expired: false };
@@ -868,6 +917,7 @@ const polyRaw = await readJSONSafe(path.join(RAW, "polymarket_lol.json"));
 const kalshiRaw = (await readJSONSafe(path.join(RAW, "kalshi_lol.json"))) || (await readJSONSafe(path.join(CANON_DATA, "raw", "kalshi_lol.json")));
 const kambiRaw = (await readJSONSafe(path.join(RAW, "kambi_lol.json"))) || (await readJSONSafe(path.join(CANON_DATA, "raw", "kambi_lol.json")));
 const bovRaw = (await readJSONSafe(path.join(RAW, "bovada_lol.json"))) || (await readJSONSafe(path.join(CANON_DATA, "raw", "bovada_lol.json")));
+const smarketsRaw = (await readJSONSafe(path.join(RAW, "smarkets_lol.json"))) || (await readJSONSafe(path.join(CANON_DATA, "raw", "smarkets_lol.json")));
 const dqRaw = (await readJSONSafe(path.join(RAW, "leaguepedia_dq.json"))) || {};
 const lpRaw = (await readJSONSafe(path.join(CANON_DATA, "raw", "leaguepedia.json"))) || { matches: [] };
 const aliasesRaw = (await readJSONSafe(path.join(CANON_DATA, "aliases.json"))) || { aliases: {} };
@@ -875,6 +925,7 @@ const aliasesRaw = (await readJSONSafe(path.join(CANON_DATA, "aliases.json"))) |
 const pinBuilt = buildPinnacleQuotes(pinRaw, nowMs);
 const kambiBuilt = buildKambiQuotes(kambiRaw, nowMs);
 const bovBuilt = buildBovadaQuotes(bovRaw, nowMs);
+const smarketsBuilt = buildSmarketsQuotes(smarketsRaw, nowMs);
 const kalshiBuilt = buildKalshiQuotes(kalshiRaw, nowMs);
 const polyBuilt = buildPolymarketQuotes(polyRaw, nowMs);
 
@@ -882,6 +933,7 @@ const allVenueQuotes = [
   ...pinBuilt.quotes,
   ...kambiBuilt.quotes,
   ...bovBuilt.quotes,
+  ...smarketsBuilt.quotes,
   ...kalshiBuilt.quotes,
   ...polyBuilt.quotes,
 ];
@@ -1205,6 +1257,7 @@ for (const f of selectedFixtures) {
     market_pinnacle: venueByKey.pinnacle ?? null,
     market_kambi: venueByKey.kambi ?? null,
     market_bovada: venueByKey.bovada ?? null,
+    market_smarkets: venueByKey.smarkets ?? null,
     market_kalshi: venueByKey.kalshi ?? null,
     market_polymarket: venueByKey.polymarket ?? null,
     model: modelObj,
@@ -1402,6 +1455,7 @@ const summary = {
     hotspawn: true,
     pinnacle: !pinBuilt.expired && pinBuilt.quotes.length > 0,
     kambi: !kambiBuilt.expired && kambiBuilt.quotes.length > 0,
+    smarkets: !smarketsBuilt.expired && smarketsBuilt.quotes.length > 0,
     kalshi: !kalshiBuilt.expired && kalshiBuilt.quotes.length > 0,
     polymarket: !polyBuilt.expired && polyBuilt.quotes.length > 0,
     bovada_reachable: !bovBuilt.expired,
@@ -1412,6 +1466,7 @@ const summary = {
     pinnacle_excluded_kills: pinBuilt.rejected_kills,
     kambi: kambiBuilt.quotes.length,
     bovada: bovBuilt.quotes.length,
+    smarkets: smarketsBuilt.quotes.length,
     kalshi: kalshiBuilt.quotes.length,
     polymarket: polyBuilt.quotes.length,
   },

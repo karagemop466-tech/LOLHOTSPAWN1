@@ -118,7 +118,7 @@ def classify(url: str, status: int, error: str) -> str:
             # is gone (the event settled), not the credential.
             return "market_closed"
         return "auth_required"
-    if status == 404 and host.endswith("kambicdn.com"):
+    if status == 404 and (host.endswith("kambicdn.com") or host in ("smarkets.com", "api.smarkets.com")):
         return "expired_event"          # the book pulls the event page when the market closes
     if status == 404:
         return "not_found"

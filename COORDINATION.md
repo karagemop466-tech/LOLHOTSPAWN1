@@ -3361,3 +3361,21 @@ merged cleanly with `main` @ `0e36d34` (preserving 100% of `650571cf`, `1773543b
 4. **Completed-series result grading (`51` graded results, up from `42`) & competition-scoped aliases**: Matching `(k0, k1)` resolved keys in `result` grading recovered 9 previously dropped Benelux/SuperStrike/PRM completed series while keeping `#1070209` (`ff=2, winner='1'`) ungraded (`result: null`). Competition-scoped alias `("Logitech G SuperStrike Cup Qualifier", "paiN Gaming") -> "PNG"` quarantines Bulgarian amateur `PNG` without affecting Brazilian CBLOL `paiN Gaming`.
 5. **All verification gates green on merged `0e36d34` base**: `134/134` unit tests OK, `56/56` `tools/verify.py` PASS, `audit/session_be974159/verify_all_rows.py` PASS, `audit/check_site.py` `24` pages `0` failures, `audit/mobile_audit.py` `14/14` PASS, `audit/verify_docs.py` `16/16` PASS, `audit/verify_docs_parity.py` `10/10` PASS.
 
+---
+
+## Session `154d8c26` (`arena/154d8c26-lolhotspawn1`) — Complete Record (D1–D4)
+
+- **Branch:** `arena/154d8c26-lolhotspawn1`
+- **Status:** `done -> merging PR`
+- **Merge-conflict resolution log (`origin/main` @ `123c731`):** Integrated concurrent merges `#117` (`1773543b`), `#119` (`2faec1ff`), `#120` (`aa39a6d5`), `#121` (`650571cf`), `#122` (`be974159`), and `#124` (`9d0a516d`) without discarding any session's work:
+  - Kept `1773543b`'s summary-first `index.html` layout + competition-pair probes (`tools/probe_sources.py`).
+  - Kept `be974159`'s competition-scoped aliases (`PNG` vs `paiN Gaming`), `parse_kalshi_start_utc()`, disambiguated result grading, and 4-book LCP receipts (`data/receipts/external_odds/2026-10-25-be974159.json`).
+  - Added `154d8c26`'s unique contributions on top: **6th regulated market venue (`Smarkets` UKGC Exchange v3 API)** across both Python (`collect.py`, `model.py`, `verify.py`, `verify_independent.py`) and Node (`scripts/collect.mjs`, `scripts/analyze.mjs`), **Cross-Scope Request `R1` fix** (`docs/data/canonical_snapshot.json` persisted in `scripts/build_site.mjs` + synced in `.github/workflows/refresh.yml`), **Midnite HTTP 200 soft-404 probe detection**, and **`#1082002` (`DELETED vs S7raa`) withdrawn GBArena slot disclosure**.
+  - Regenerated all canonical (`data/*.json`, `*.html`) and secondary (`data/node/**`, `docs/**`) artifacts cleanly from the merged code.
+
+| ID | Task | Status | Evidence |
+|---|---|---|---|
+| `D1` | **6th live market venue: Smarkets UKGC Exchange** (`WINNER_2_WAY` series contracts + two-sided orderbook mids, `spread <= 0.25`) + Midnite soft-404 probe guard | `done` | `tools/collect.py`, `tools/model.py`, `data/raw/smarkets_lol.json` (`8/8` Worlds series), `tests/test_smarkets_exchange.py` |
+| `D2` | **Secondary `/docs/` Smarkets integration + Cross-Scope Request `R1` fix** (`docs/data/canonical_snapshot.json` + `.github/workflows/refresh.yml` parity sync) | `done` | `scripts/collect.mjs`, `scripts/analyze.mjs`, `scripts/build_site.mjs`, `audit/verify_docs_parity.py`, `tests/test_docs_parity_snapshot.py` |
+| `D3` | **Line-by-line 234-row source & tail audit** (`#1082002` `DELETED` GBArena slot, Smarkets/GosuGamers/Midnite/Strafe/Bmbets receipts) | `done` | `data/flags_manual.json`, `data/receipts/external_odds/2026-10-25-session-154d8c26.json`, `research/SMARKETS_AND_TAIL_AUDIT_2026-10-25.md`, `audit/session_154d8c26/verify_all_234_rows.py` |
+| `D4` | **Full canonical + secondary integration & 10-suite verification** (`57/57` `verify.py`, `121/121` unit tests, `50` venue quotes re-derived across `9` market rows in both pipelines, `24/24` `check_site.py`, `16/16` `verify_docs.py`, `10/10` `verify_docs_parity.py`, `14/14` `mobile_audit.py`) | `done` | `.github/workflows/refresh.yml`, `audit/verify_independent.py`, `README.md` |

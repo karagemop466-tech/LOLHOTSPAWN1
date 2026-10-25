@@ -50,11 +50,12 @@ THIN_VOLUME_USD = 1000.0      # a prediction market below this traded volume is 
 GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", "lol", "e", "v"}
 
 VENUE_WEIGHTS = {
-    "Pinnacle": 0.36,
-    "Polymarket": 0.24,
-    "Kalshi": 0.18,
-    "Bovada": 0.12,
-    "Unibet": 0.10,
+    "Pinnacle": 0.34,
+    "Polymarket": 0.22,
+    "Kalshi": 0.16,
+    "Smarkets": 0.14,
+    "Bovada": 0.08,
+    "Unibet": 0.06,
 }
 
 BOOK_TEAM_ALIASES = {
@@ -170,7 +171,8 @@ def tier_prior(overview_page: str) -> float:
                             "first stand", "esports world cup")) and "online qualifiers" not in p:
         return 1700.0
     if re.search(r"^(lck|lpl|lec|lcs|lta|lcp|cblol)(\s|/|$)", p) and not any(
-            sub in p for sub in ("cl", "challengers", "academy", "promotion", "stars", "wildcard")):
+            sub in p for sub in ("cl", "challengers", "academy", "promotion", "stars",
+                                 "wildcard", "opq", "qualifier", "showmatch", "all-star")):
         return 1700.0
     if any(k in p for k in ("emea masters", "lck cl", "challengers league", "ldl",
                             "pcs/", "vcs/", "ljl/", "lfl/", "lvp superliga",
@@ -537,7 +539,8 @@ def feed_fresh(fetched_utc, label: str) -> bool:
 # --------------------------------------------------------------------------- multi-venue market consensus
 def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                   pin_index: list, pm_index: list, kalshi_index: list,
-                  bovada_index: list, kambi_index: list, within_hours: int = 36):
+                  bovada_index: list, kambi_index: list,
+                  smarkets_index: list | None = None, within_hours: int = 36):
     """Combine all independent real-money venues covering this fixture."""
     def close_in_time(a: str | None, b: str | None) -> bool:
         da, db = _parse_iso_naive(a), _parse_iso_naive(b)
@@ -720,6 +723,38 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 })
                 break
 
+    # 6. Smarkets UKGC Regulated Betting Exchange (v3 WINNER_2_WAY orderbook mids)
+    for item in (smarkets_index or []):
+        a, b = item["names"]
+        if close_in_time(start, item["start"]) and (
+                (same_team(name0, a) and same_team(name1, b)) or
+                (same_team(name0, b) and same_team(name1, a))):
+            pa = item["p0"] if same_team(name0, a) else item["p1"]
+            pb = item["p1"] if same_team(name0, a) else item["p0"]
+            tot = pa + pb
+            if tot > 0:
+                p0_v, p1_v = pa / tot, pb / tot
+                if venue_quote_rejection(fixture_id, "Smarkets",
+                                           item.get("observed_utc"), start_dt,
+                                           max(p0_v, p1_v)):
+                    rejected_here.append("Smarkets")
+                    break
+                venues.append({
+                    "name": "Smarkets",
+                    "weight": VENUE_WEIGHTS["Smarkets"],
+                    "p0": round(p0_v, 4),
+                    "p1": round(p1_v, 4),
+                    "quote": f"{pa*100:.1f}%/{pb*100:.1f}%",
+                    "overround": round(tot - 1.0, 4),
+                    "observed_utc": item.get("observed_utc"),
+                    "url": item["url"],
+                })
+                if primary_start is None:
+                    primary_start = item.get("start")
+                if primary_api_url == "":
+                    primary_api_url = item.get("api_url") or item["url"]
+                break
+
     # Archives are evidence, not a live line: no archived esportsbook receipt enters a
     # current consensus. The esportsbook venue is therefore left empty here on purpose.
 
@@ -776,6 +811,7 @@ def main() -> None:
     kalshi = load_json(os.path.join(RAW, "kalshi_lol.json")) or {}
     bovada = load_json(os.path.join(RAW, "bovada_lol.json")) or {}
     kambi = load_json(os.path.join(RAW, "kambi_lol.json")) or {}
+    smarkets = load_json(os.path.join(RAW, "smarkets_lol.json")) or {}
     # Historical archive is evidence only, never a live pricing input: it cannot be
     # re-verified on the build machine, so it is excluded and reported instead.
     receipts = {}
@@ -838,6 +874,7 @@ def main() -> None:
     kalshi_obs = kalshi.get("fetched_utc")
     bovada_obs = bovada.get("fetched_utc")
     kambi_obs = kambi.get("fetched_utc")
+    smarkets_obs = smarkets.get("fetched_utc")
 
     feed_freshness = {
         "Pinnacle": feed_fresh(pin_obs, "Pinnacle"),
@@ -845,6 +882,7 @@ def main() -> None:
         "Kalshi": feed_fresh(kalshi_obs, "Kalshi"),
         "Bovada": feed_fresh(bovada_obs, "Bovada"),
         "Unibet": feed_fresh(kambi_obs, "Unibet/Kambi"),
+        "Smarkets": feed_fresh(smarkets_obs, "Smarkets"),
     }
 
     pin_index = []
@@ -941,6 +979,28 @@ def main() -> None:
                     "observed_utc": ev.get("changed_utc") or kambi_obs,
                 })
 
+    smarkets_index = []
+    if feed_freshness["Smarkets"]:
+        for ev in smarkets.get("events") or []:
+            outs = ev.get("outcomes") or []
+            if len(outs) != 2:
+                continue
+            m0, m1 = outs[0].get("mid_prob"), outs[1].get("mid_prob")
+            s0, s1 = outs[0].get("spread_prob"), outs[1].get("spread_prob")
+            if (m0 is None or m1 is None or s0 is None or s1 is None
+                    or not (0.01 < float(m0) < 0.99 and 0.01 < float(m1) < 0.99)
+                    or not (0 < float(s0) <= 0.25 and 0 < float(s1) <= 0.25)):
+                continue
+            smarkets_index.append({
+                "names": [outs[0]["name"], outs[1]["name"]],
+                "p0": float(m0),
+                "p1": float(m1),
+                "start": ev.get("start_utc"),
+                "url": ev.get("url") or smarkets.get("source_url") or "",
+                "api_url": ev.get("api_quotes_url") or "",
+                "observed_utc": smarkets_obs,
+            })
+
     now_dt_eval = now_utc()
     rows, join_log = [], []
     for f in fixtures:
@@ -984,7 +1044,8 @@ def main() -> None:
         dq1 = dq_norms.get(norm_name(k1 or n1))
 
         market = market_lookup(f["id"], n0, n1, f.get("start_utc"),
-                               pin_index, pm_index, kalshi_index, bovada_index, kambi_index)
+                               pin_index, pm_index, kalshi_index, bovada_index,
+                               kambi_index, smarkets_index)
         row = {
             "id": f["id"],
             "competition": f["competition"],
@@ -1376,7 +1437,7 @@ def main() -> None:
                   "window_start": lp.get("query", {}).get("where")},
         "sources": {"hotspawn": hs.get("source_url"), "pinnacle": pin.get("source_url"),
                     "kalshi": kalshi.get("source_url"), "bovada": bovada.get("source_url"),
-                    "unibet": kambi.get("source_url"),
+                    "unibet": kambi.get("source_url"), "smarkets": smarkets.get("source_url"),
                     "leaguepedia": lp.get("source_url"), "polymarket": pmkt.get("source_url"),
                     "source_status_utc": sources.get("checked_utc")},
         "counts": counts_by_method,

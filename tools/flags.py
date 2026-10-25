@@ -177,7 +177,7 @@ def main() -> None:
                       f"receipts were captured on {min((str(e.get('observed_at') or '') for e in expired))[:10]} "
                       f"(up to {age:.0f} h old, limit {audit.get('max_age_hours')} h) and are now excluded from "
                       "the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, "
-                      "Kalshi, Bovada, Unibet) or to our own Elo line. The receipts stay in the audit trail: "
+                      "Kalshi, Smarkets, Bovada, Unibet) or to our own Elo line. The receipts stay in the audit trail: "
                       + "; ".join(f"#{e['fixture_id']} {e.get('decimal')} ({e.get('observed_at')})" for e in expired[:6]),
             "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json",
         })

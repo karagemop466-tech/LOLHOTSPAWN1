@@ -50,7 +50,7 @@ sideways; `audit/mobile_audit.py` fails the build if a page loses that property.
 ## How it works
 
 ```
-tools/collect.py   Hotspawn fixtures API · Pinnacle guest API · Polymarket · Leaguepedia Cargo · LoL Esports
+tools/collect.py   Hotspawn fixtures API · Pinnacle · Polymarket · Kalshi · Smarkets (UKGC) · Bovada · Unibet/Kambi · Leaguepedia · LoL Esports
       ↓
 tools/model.py     Elo over Leaguepedia series results, de-vig of bookmaker moneylines
       ↓
@@ -62,7 +62,7 @@ tools/site.py        13 static pages (+ coverage.html from corroborate.py = 14 r
       ↓
 tools/corroborate.py external-book receipt validation & coverage.html ledger
       ↓
-tools/verify.py      56 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
+tools/verify.py      57 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
 ```
 
 A single canonical workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) attempts that

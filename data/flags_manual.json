@@ -1,6 +1,6 @@
 {
  "note": "Curated, human-reviewed observations. Derived flags are appended by tools/flags.py on every build. Every item states what was actually checked and, where it could not be re-checked, says so instead of asserting it.",
- "reviewed_utc": "2026-10-25T14:38:00Z",
+ "reviewed_utc": "2026-10-25T14:52:00Z",
  "flags": [
   {
    "severity": "high",
@@ -202,6 +202,20 @@
    "delisted_refs": [
     "1083097"
    ]
+  },
+  {
+   "severity": "medium",
+   "item": "Fixture #1082002 (DELETED vs S7raa, Arabian Regional Championship 2026 Qualifiers LB-Li-SY-PS): 'DELETED' is a withdrawn GBArena bracket slot omitted from Leaguepedia Participants",
+   "detail": "Hotspawn lists DELETED vs S7raa (#1082002, 2026-10-31T21:00Z). Inspection of raw MediaWiki wikitext on Leaguepedia's Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS?action=raw shows DELETED is omitted from the official Participants table (which lists 7 active teams including S7raa) and appears only as a withdrawn GBArena bracket placeholder (scored 0:1 against S7raa in prior round data, with zero completed match history across Leaguepedia). Because Leaguepedia does not yet set |dqteams=DELETED in Data: namespace, the canonical pipeline prices S7raa at provisional low confidence rather than an official-forfeit settlement; flagged here for manual settlement review.",
+   "source": "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
+   "verification": "verified live 2026-10-25 against lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS?action=raw"
+  },
+  {
+   "severity": "info",
+   "item": "Smarkets UKGC Exchange v3 API added as 6th live market venue; Midnite LoL URL flagged as HTTP 200 soft-404",
+   "detail": "Direct verification on 2026-10-25 confirmed Smarkets' public v3 Exchange API (api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match) serves two-sided WINNER_2_WAY series-winner orderbooks across all 8 Worlds 2026 Main Event matches without authentication or geo-blocking; wired into both collect.py/model.py (weight 0.14) and scripts/collect.mjs/analyze.mjs for a 6-venue consensus (Pinnacle, Polymarket, Kalshi, Smarkets, Bovada, Unibet). Conversely, midnite.com/esports/league-of-legends returns HTTP 200 with body 'Ooooooops! We can't find the page you're looking for.' and is now detected as a soft-404 in collect_source_status().",
+   "source": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match",
+   "verification": "verified live 2026-10-25 against api.smarkets.com/v3/quotes/ and midnite.com/esports/league-of-legends"
   }
  ]
 }

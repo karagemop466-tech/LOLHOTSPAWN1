@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-25T14:51:51Z",
- "count": 42,
+ "generated_utc": "2026-10-25T14:54:14Z",
+ "count": 44,
  "flags": [
   {
    "severity": "high",
@@ -213,6 +213,20 @@
    "delisted_refs_auto": []
   },
   {
+   "severity": "medium",
+   "item": "Fixture #1082002 (DELETED vs S7raa, Arabian Regional Championship 2026 Qualifiers LB-Li-SY-PS): 'DELETED' is a withdrawn GBArena bracket slot omitted from Leaguepedia Participants [verified live 2026-10-25 against lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS?action=raw]",
+   "detail": "Hotspawn lists DELETED vs S7raa (#1082002, 2026-10-31T21:00Z). Inspection of raw MediaWiki wikitext on Leaguepedia's Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS?action=raw shows DELETED is omitted from the official Participants table (which lists 7 active teams including S7raa) and appears only as a withdrawn GBArena bracket placeholder (scored 0:1 against S7raa in prior round data, with zero completed match history across Leaguepedia). Because Leaguepedia does not yet set |dqteams=DELETED in Data: namespace, the canonical pipeline prices S7raa at provisional low confidence rather than an official-forfeit settlement; flagged here for manual settlement review.",
+   "source": "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
+   "verification": "verified live 2026-10-25 against lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS?action=raw"
+  },
+  {
+   "severity": "info",
+   "item": "Smarkets UKGC Exchange v3 API added as 6th live market venue; Midnite LoL URL flagged as HTTP 200 soft-404 [verified live 2026-10-25 against api.smarkets.com/v3/quotes/ and midnite.com/esports/league-of-legends]",
+   "detail": "Direct verification on 2026-10-25 confirmed Smarkets' public v3 Exchange API (api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match) serves two-sided WINNER_2_WAY series-winner orderbooks across all 8 Worlds 2026 Main Event matches without authentication or geo-blocking; wired into both collect.py/model.py (weight 0.14) and scripts/collect.mjs/analyze.mjs for a 6-venue consensus (Pinnacle, Polymarket, Kalshi, Smarkets, Bovada, Unibet). Conversely, midnite.com/esports/league-of-legends returns HTTP 200 with body 'Ooooooops! We can't find the page you're looking for.' and is now detected as a soft-404 in collect_source_status().",
+   "source": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match",
+   "verification": "verified live 2026-10-25 against api.smarkets.com/v3/quotes/ and midnite.com/esports/league-of-legends"
+  },
+  {
    "severity": "info",
    "item": "Leaguepedia is community-maintained, not an official league source",
    "detail": "Every originated line is fitted on Leaguepedia's community-recorded series history and its Data: page dqteams directives are used to quarantine removed teams. Leaguepedia is not an official settlement authority; Kalshi's own rules, for example, resolve a pre-play forfeit at the fair market price. Forfeit settlement picks on this site are therefore marked conditional.",
@@ -259,7 +273,7 @@
   {
    "severity": "medium",
    "item": "11 archived esportsbook receipts expired and are no longer used as market input",
-   "detail": "A bookmaker quote captured from a match page is a line only while it is fresh. These receipts were captured on 2026-10-21 (up to 90 h old, limit 24 h) and are now excluded from the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, Kalshi, Bovada, Unibet) or to our own Elo line. The receipts stay in the audit trail: #1081205 [1.86, 1.8] (2026-10-21T20:36:00Z); #1067878 [1.2, 4.4] (2026-10-21T20:36:00Z); #1067677 [1.2, 4.05] (2026-10-21T20:36:00Z); #1067680 [1.17, 4.88] (2026-10-21T20:36:00Z); #1067675 [1.38, 2.63] (2026-10-21T20:36:00Z); #1067676 [2.18, 1.61] (2026-10-21T20:36:00Z)",
+   "detail": "A bookmaker quote captured from a match page is a line only while it is fresh. These receipts were captured on 2026-10-21 (up to 90 h old, limit 24 h) and are now excluded from the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, Kalshi, Smarkets, Bovada, Unibet) or to our own Elo line. The receipts stay in the audit trail: #1081205 [1.86, 1.8] (2026-10-21T20:36:00Z); #1067878 [1.2, 4.4] (2026-10-21T20:36:00Z); #1067677 [1.2, 4.05] (2026-10-21T20:36:00Z); #1067680 [1.17, 4.88] (2026-10-21T20:36:00Z); #1067675 [1.38, 2.63] (2026-10-21T20:36:00Z); #1067676 [2.18, 1.61] (2026-10-21T20:36:00Z)",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"
   },
   {
@@ -319,7 +333,7 @@
   {
    "severity": "medium",
    "item": "2 external corroboration receipt(s) diverge from the published line",
-   "detail": "Corroboration only — the published pick is unchanged. #1081423 EGamersWorld 66.36pp; #1081423 BMBETS (60-bookmaker index: bet365, 1xBet, TotoGaming, BetOlimp) 65.08pp",
+   "detail": "Corroboration only — the published pick is unchanged. #1081423 EGamersWorld 66.36pp; #1081423 Bmbets Esports 65.08pp",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/corroboration.json"
   }
  ]

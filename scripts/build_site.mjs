@@ -283,6 +283,9 @@ function renderSourceLinks(m) {
   if (m.market_kambi?.url) {
     links.push(`<a class="src-link" href="${esc(m.market_kambi.url)}" target="_blank" rel="noopener">Unibet/Kambi ↗</a>`);
   }
+  if (m.market_smarkets?.url) {
+    links.push(`<a class="src-link" href="${esc(m.market_smarkets.url)}" target="_blank" rel="noopener">Smarkets (UKGC) ↗</a>`);
+  }
   if (m.market_kalshi?.url) {
     links.push(`<a class="src-link" href="${esc(m.market_kalshi.url)}" target="_blank" rel="noopener">Kalshi CFTC ↗</a>`);
   }
@@ -425,7 +428,7 @@ function buildIndexPage(picks, flags) {
      pick-time probability: Hotspawn locks each card before start, so it cannot be
      acted on. Computed per side from the committed snapshots; nothing is inferred. */
   const canonQuoteTimes = (cm) => (cm?.market?.venues ?? []).map((v) => Date.parse(v.observed_utc)).filter(Number.isFinite);
-  const docsQuoteTimes = (m) => ["market_pinnacle", "market_polymarket", "market_kalshi", "market_bovada", "market_kambi"]
+  const docsQuoteTimes = (m) => ["market_pinnacle", "market_polymarket", "market_kalshi", "market_bovada", "market_kambi", "market_smarkets"]
     .map((k) => Date.parse(m?.[k]?.fetched_at)).filter(Number.isFinite);
   const kickoffMs = (m, cm) => {
     const t = Date.parse(cm?.start_utc ?? m?.start_iso ?? "");
@@ -815,6 +818,7 @@ function buildFeaturedPage(picks) {
     .map((m) => {
       const pin = m.market_pinnacle ? `${pct1(m.market_pinnacle.p0)} / ${pct1(m.market_pinnacle.p1)}` : "—";
       const kam = m.market_kambi ? `${pct1(m.market_kambi.p0)} / ${pct1(m.market_kambi.p1)}` : "—";
+      const smk = m.market_smarkets ? `${pct1(m.market_smarkets.p0)} / ${pct1(m.market_smarkets.p1)}` : "—";
       const bov = m.market_bovada ? `${pct1(m.market_bovada.p0)} / ${pct1(m.market_bovada.p1)}` : "—";
       const kal = m.market_kalshi ? `${pct1(m.market_kalshi.p0)} / ${pct1(m.market_kalshi.p1)}` : "—";
       const pol = m.market_polymarket ? `${pct1(m.market_polymarket.p0)} / ${pct1(m.market_polymarket.p1)}` : "—";
@@ -823,6 +827,7 @@ function buildFeaturedPage(picks) {
         <td><strong>${esc(m.team0.name)}</strong> vs <strong>${esc(m.team1.name)}</strong><br><span class="mono" style="color:var(--text-dim)">${esc(m.competition_name)} · ${boLabel(m)}</span></td>
         <td class="num">${pin}</td>
         <td class="num">${kam}</td>
+        <td class="num">${smk}</td>
         <td class="num">${bov}</td>
         <td class="num">${kal}</td>
         <td class="num">${pol}</td>
@@ -838,12 +843,12 @@ function buildFeaturedPage(picks) {
   const bodyHtml = `
     <section class="page-hero">
       <h1>Multi-Venue Market Consensus Picks (${mktRows.length})</h1>
-      <p>Real-money bookmaker moneylines (Pinnacle &amp; Unibet/Kambi, de-vigged via Shin power method; <code>(Kills)</code> derivatives excluded) combined with regulated CFTC binary event contracts (Kalshi <code>KXLOLGAME</code>) and Polymarket CLOB orderbooks.</p>
+      <p>Real-money bookmaker moneylines (Pinnacle &amp; Unibet/Kambi, de-vigged via Shin power method; <code>(Kills)</code> derivatives excluded) combined with UKGC-regulated betting exchange orderbooks (Smarkets <code>WINNER_2_WAY</code>), regulated CFTC binary event contracts (Kalshi <code>KXLOLGAME</code>), and Polymarket CLOB orderbooks.</p>
     </section>
 
     <div class="sec-head">
       <h2>Side-by-Side De-Vigged Implied Win Probabilities (Team A / Team B)</h2>
-      <span>Weights: Pinnacle 1.00 · Unibet/Kambi 0.70 · Kalshi CFTC 0.40–0.55 · Polymarket 0.25–0.65</span>
+      <span>Weights: Pinnacle 1.00 · Unibet/Kambi 0.70 · Smarkets UKGC 0.45–0.55 · Kalshi CFTC 0.40–0.55 · Polymarket 0.25–0.65</span>
     </div>
     <div class="table-wrap" style="margin-bottom:1.5rem">
       <table class="data-table">
@@ -853,6 +858,7 @@ function buildFeaturedPage(picks) {
             <th>Series</th>
             <th class="num">Pinnacle</th>
             <th class="num">Unibet/Kambi</th>
+            <th class="num">Smarkets (UKGC)</th>
             <th class="num">Bovada</th>
             <th class="num">Kalshi CFTC</th>
             <th class="num">Polymarket</th>
@@ -1456,6 +1462,12 @@ function buildMethodologyPage(picks) {
             <td>Shin power de-vig on pre-match <code>Match Odds</code> (criterion type 2); per-event JSON receipts linked.</td>
           </tr>
           <tr>
+            <td><strong>Smarkets (UKGC Exchange)</strong></td>
+            <td class="mono">api.smarkets.com/v3 (WINNER_2_WAY)</td>
+            <td class="num">0.45–0.55</td>
+            <td>UKGC-regulated two-sided betting exchange orderbook (<code>spread &le; 0.25</code>); map/handicap/total sub-markets excluded.</td>
+          </tr>
+          <tr>
             <td><strong>Kalshi CFTC</strong></td>
             <td class="mono">api.elections.kalshi.com (KXLOLGAME)</td>
             <td class="num">0.40–0.55</td>
@@ -1525,9 +1537,28 @@ function buildMethodologyPage(picks) {
 /* ------------------------------------------------------------------- Write */
 
 await mkdir(DOCS, { recursive: true });
+await mkdir(path.join(DOCS, "data"), { recursive: true });
 const picks = JSON.parse(await readFile(path.join(DATA, "picks.json"), "utf8"));
 const flags = JSON.parse(await readFile(path.join(DATA, "flags.json"), "utf8"));
 const ledger = JSON.parse(await readFile(path.join(DATA, "history", "ledger.json"), "utf8"));
+
+if (CANON_OK) {
+  const canonSnapshot = {
+    recorded_at: new Date().toISOString(),
+    generated_utc: CANON.generated_utc ?? null,
+    inventory_fetched_utc: CANON.inventory_fetched_utc ?? null,
+    counts: CANON.counts ?? {},
+    matches: CANON_ROWS.map((r) => ({
+      id: String(r.id),
+      method: r.method ?? null,
+      confidence: r.confidence ?? null,
+      p0: r.p0 ?? null,
+      p1: r.p1 ?? null,
+      pick: r.pick ?? null,
+    })),
+  };
+  await writeFile(path.join(DOCS, "data", "canonical_snapshot.json"), JSON.stringify(canonSnapshot, null, 2) + "\n");
+}
 
 const pages = [
   ["index.html", buildIndexPage(picks, flags)],
