@@ -1,6 +1,6 @@
 # Line-by-line verification — session `5d4e9477`
 
-Checked **2026-10-25T15:17:22Z** against committed snapshot `2026-10-25T14:58:31Z` (Hotspawn inventory `2026-10-25T14:56:39Z`).
+Checked **2026-10-25T15:19:12Z** against committed snapshot `2026-10-25T14:58:31Z` (Hotspawn inventory `2026-10-25T14:56:39Z`).
 
 - **234 rows** · raw feed **234** fixtures · `234` table rows · `234` cards · `234` CSV rows.
 - Method mix: {"market": 9, "model": 150, "provisional": 71, "unresolved": 4}.
