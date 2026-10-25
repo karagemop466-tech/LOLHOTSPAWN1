@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
 
 class ProbeControlsTests(unittest.TestCase):
-    """The probe must work, and must never depend on a name assigned later in main()."""
+    """The probe informs the verdict; it must never be the verdict itself."""
 
     def setUp(self) -> None:
         self._saved = (lsv._PINNACLE_API_OK, lsv.fetch)
@@ -84,20 +84,22 @@ class ProbeControlsTests(unittest.TestCase):
     def _restore(self) -> None:
         lsv._PINNACLE_API_OK, lsv.fetch = self._saved
 
-    def test_a_resolving_control_arms_the_closed_market_classification(self) -> None:
+    def test_a_resolving_control_arms_the_classification(self) -> None:
         lsv.fetch = lambda url, **kw: {"url": url, "status": 200, "ok": True, "cause": "resolved"}
         controls, checks = lsv.probe_controls({"market_quote": [PINNACLE]})
         self.assertTrue(lsv._PINNACLE_API_OK)
         self.assertIn("pinnacle_guest_api", controls)
-        self.assertEqual(len(checks), 1)
-        self.assertIn("market_closed", checks[0]["detail"])
+        self.assertEqual([c["ok"] for c in checks], [True])
+        self.assertIn("proven by control: True", checks[0]["detail"])
 
-    def test_a_rejected_control_keeps_the_auth_failure(self) -> None:
-        lsv.fetch = lambda url, **kw: {"url": url, "status": 401, "ok": False, "cause": "auth_required"}
+    def test_a_rejected_control_is_only_informational(self) -> None:
+        # 2026-10-25T14:18Z: the leagues control returned 403 while all 10 published
+        # boards resolved. The probe alone must not fail the audit.
+        lsv.fetch = lambda url, **kw: {"url": url, "status": 403, "ok": False, "cause": "auth_required"}
         controls, checks = lsv.probe_controls({"market_quote": [PINNACLE]})
         self.assertFalse(lsv._PINNACLE_API_OK)
-        self.assertEqual([c["ok"] for c in checks], [True, False])
-        self.assertIn("auth_required", checks[0]["detail"])
+        self.assertEqual([c["ok"] for c in checks], [True])
+        self.assertIn("proven by control: False", checks[0]["detail"])
 
     def test_no_pinnacle_urls_means_no_probe(self) -> None:
         lsv._PINNACLE_API_OK = False
@@ -111,7 +113,67 @@ class ProbeControlsTests(unittest.TestCase):
         lsv.fetch = boom
         controls, checks = lsv.probe_controls({"market_quote": [PINNACLE]})
         self.assertFalse(lsv._PINNACLE_API_OK)
-        self.assertEqual([c["ok"] for c in checks], [True, False])
+        self.assertEqual(len(checks), 1)
+        self.assertIn("transport_error", checks[0]["detail"])
+
+
+def _verdicts(**causes):
+    """Build a by_url map: URL -> verdict dict, from cause=url pairs."""
+    return {url: {"url": url, "cause": cause, "ok": cause == "resolved"}
+            for cause, url in causes.items()}
+
+
+class ReclassifyClosedBoardTests(unittest.TestCase):
+    """A closed board is proven by the control *or* by any sibling that resolved."""
+
+    def setUp(self) -> None:
+        self._saved = lsv._PINNACLE_API_OK
+        self.addCleanup(self._restore)
+
+    def _restore(self) -> None:
+        lsv._PINNACLE_API_OK = self._saved
+
+    def test_control_proof_reclassifies_a_401(self) -> None:
+        lsv._PINNACLE_API_OK = True
+        by_url = _verdicts(auth_required=PINNACLE)
+        closed, checks = lsv.reclassify_closed_boards(by_url)
+        self.assertEqual(closed, [PINNACLE])
+        self.assertEqual(by_url[PINNACLE]["cause"], "market_closed")
+        self.assertEqual(by_url[PINNACLE]["closed_board_proof"], "control-endpoint")
+        self.assertEqual([c["ok"] for c in checks], [True])
+
+    def test_a_resolved_sibling_is_enough_when_the_control_is_refused(self) -> None:
+        # the exact 2026-10-25T14:18Z situation, had boards been closed
+        lsv._PINNACLE_API_OK = False
+        other = "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1/markets/related/straight"
+        by_url = _verdicts(auth_required=PINNACLE, resolved=other)
+        closed, checks = lsv.reclassify_closed_boards(by_url)
+        self.assertEqual(closed, [PINNACLE])
+        self.assertEqual(by_url[PINNACLE]["closed_board_proof"], "sibling-resolved")
+        self.assertEqual([c["ok"] for c in checks], [True])
+
+    def test_without_any_proof_a_401_still_fails(self) -> None:
+        lsv._PINNACLE_API_OK = False
+        by_url = _verdicts(auth_required=PINNACLE)
+        closed, checks = lsv.reclassify_closed_boards(by_url)
+        self.assertEqual(closed, [])
+        self.assertEqual(by_url[PINNACLE]["cause"], "auth_required")
+        self.assertIn("cause", by_url[PINNACLE])  # unchanged
+        self.assertEqual([c["ok"] for c in checks], [False])
+        self.assertIn("auth_required", lsv.BROKEN_DEFAULT)
+
+    def test_no_401_means_no_check_at_all(self) -> None:
+        # a refused control must not invent a failure when every board resolved
+        lsv._PINNACLE_API_OK = False
+        by_url = _verdicts(resolved=PINNACLE)
+        self.assertEqual(lsv.reclassify_closed_boards(by_url), ([], []))
+
+    def test_other_hosts_are_never_reclassified(self) -> None:
+        lsv._PINNACLE_API_OK = True
+        bovada = "https://www.bovada.lv/sports/esports/league-of-legends/x"
+        by_url = _verdicts(auth_required=bovada)
+        self.assertEqual(lsv.reclassify_closed_boards(by_url), ([], []))
+        self.assertEqual(by_url[bovada]["cause"], "auth_required")
 
 
 class LivePathSmokeTests(unittest.TestCase):

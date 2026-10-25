@@ -247,22 +247,60 @@ def probe_controls(groups: dict[str, list[str]]) -> tuple[dict, list[dict]]:
         control = {"url": PINNACLE_CONTROL_URL, "status": -1, "ok": False,
                    "cause": "transport_error", "error": str(exc)[:200]}
     _PINNACLE_API_OK = bool(control.get("ok"))
-    verdict = "market_closed" if _PINNACLE_API_OK else "auth_required"
     checks = [{
-        "name": "control: Pinnacle guest key accepted this run "
-                "(separates a closed board from an auth failure)",
-        "ok": True,  # informational; the classification below is what enforces it
+        "name": "control: Pinnacle guest endpoint probed "
+                "(supplements, never replaces, the sibling-success proof)",
+        "ok": True,  # informational: reclassify_closed_boards() enforces the rule
         "detail": f"status={control.get('status')} cause={control.get('cause')} "
-                  f"-> matchup boards answering 401/403 are classified '{verdict}'",
+                  f"-> key proven by control: {_PINNACLE_API_OK}",
     }]
-    if not _PINNACLE_API_OK:
-        checks.append({
-            "name": "control: Pinnacle guest key could not be proven",
-            "ok": False,
-            "detail": f"status={control.get('status')} cause={control.get('cause')}; "
-                      "closed-board classification disabled, 401/403 stays a failure",
-        })
     return {"pinnacle_guest_api": control}, checks
+
+
+def reclassify_closed_boards(by_url: dict[str, dict]) -> tuple[list[str], list[dict]]:
+    """Separate a *closed* Pinnacle board from an *unproven* credential.
+
+    Pinnacle answers 401/403 both when the guest key is rejected and when a board has
+    been pulled after the event settles, so the status alone decides nothing. Two
+    independent proofs are accepted:
+
+    * the explicit control endpoint resolved this run (`_PINNACLE_API_OK`), or
+    * **any** other `guest.api.arcadia.pinnacle.com` request in the same run resolved —
+      the credential and UA demonstrably work, so a sibling 401 is a closed board.
+
+    The sibling rule is what the first version of this fix lacked: on 2026-10-25T14:18Z
+    the leagues control returned 403 while all 10 published boards resolved, so the
+    control-only rule turned a clean run red. Correctness is unchanged: if nothing on the
+    host resolves, an unproven 401 stays `auth_required` and still fails.
+
+    Mutates `by_url` in place and returns (closed urls, checks).
+    """
+    global _PINNACLE_API_OK
+    host = "guest.api.arcadia.pinnacle.com"
+    pinnacle = [u for u in by_url if urllib.parse.urlparse(u).netloc == host]
+    auth = [u for u in pinnacle if by_url[u].get("cause") == "auth_required"]
+    if not auth:
+        return [], []
+    sibling_ok = any(by_url[u].get("cause") == "resolved" for u in pinnacle)
+    proven = _PINNACLE_API_OK or sibling_ok
+    if not proven:
+        return [], [{
+            "name": "control: Pinnacle credential could not be proven this run",
+            "ok": False,
+            "detail": f"{len(auth)} board(s) answered 401/403 and no Pinnacle request "
+                      "resolved, so they cannot be separated from a rejected key",
+        }]
+    for u in auth:
+        by_url[u].update({
+            "cause": "market_closed",
+            "closed_board_proof": "control-endpoint" if _PINNACLE_API_OK else "sibling-resolved",
+        })
+    return auth, [{
+        "name": "closed bookmaker boards are separated from auth failures",
+        "ok": True,
+        "detail": f"{len(auth)} board(s) answered 401/403 while the same key resolved "
+                  f"elsewhere on the host; classified market_closed, disclosed below",
+    }]
 
 
 def verify_wiki_page(url: str) -> dict:
@@ -425,6 +463,12 @@ def main() -> int:
         list(pool.map(lambda h: crawl_host(h, by_host[h]), list(by_host)))
     report["verdicts"]["urls"] = by_url
 
+    # A 401/403 on a Pinnacle board means "closed" only when the same credential is
+    # demonstrably working in this run; otherwise it stays a failure. This has to run
+    # before the per-role accounting below reads `by_url`.
+    closed_urls, closed_checks = reclassify_closed_boards(by_url)
+    report["checks"].extend(closed_checks)
+
     BROKEN = BROKEN_DEFAULT
 
     def cause(url: str | None) -> str:
@@ -458,8 +502,8 @@ def main() -> int:
         report["checks"].append({
             "name": "links to settled bookmaker boards are disclosed (not counted as rot)",
             "ok": True,
-            "detail": f"{len(closed)} URL(s) answered 401/403 on a board the control proves the key "
-                      f"can read: the market is closed, the link is historical",
+            "detail": f"{len(closed)} URL(s) answered 401/403 while the same credential resolved "
+                      f"in this run: the market is closed, the link is historical",
         })
 
     # ---------- per-row evidence ----------
