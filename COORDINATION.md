@@ -2995,4 +2995,15 @@ The branch-only diagnostic run `40200757847` exposed three existing receipt test
 
 | # | Task | Status | Owner | File scope |
 |---|---|---|---|---|
-| `B2` | Remove date-dependent fragility from receipt lifecycle tests by generating fresh capture timestamps; ensure the branch diagnostic reruns when tests change; verify the full suite and publish gate. No odds, data, or production receipt rules change. | in progress | `b1e5557f` | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py`, `.github/workflows/diag.yml`, `COORDINATION.md` |
+| `B2` | Remove date-dependent fragility from receipt lifecycle tests by generating fresh capture timestamps; ensure the branch diagnostic reruns when tests change; verify the full suite and publish gate. No odds, data, or production receipt rules change. | done | `b1e5557f` | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py`, `.github/workflows/diag.yml`, `COORDINATION.md` |
+
+### B2 close-out
+
+- Receipt lifecycle tests now use `datetime.now(timezone.utc)` for captures that must be usable; the expired/off-list fixture remains old to keep the retired-receipt case meaningful. No production policy or data changed.
+- `.github/workflows/diag.yml` now runs on `tests/**` changes, so follow-up test edits exercise the branch pipeline instead of leaving a stale failing check.
+- `python3 -m unittest discover -s tests -v` — **63/63 PASS** locally after the fix. The full branch diagnostic for commit `9b128ee` (run **40200963762**) completed **SUCCESS** in 2m12s; official run page: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40200963762 .
+- The initial diagnostic run `40200757847` failed because of the dated fixtures; its cause is confirmed by its captured `data/diag/refresh.log`. The failure is resolved in the succeeding run; the obsolete failure is retained as history, not hidden.
+
+### PR/integration status addendum
+
+PR **#95** was opened from this fixed Arena branch: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/95 . Its branch diag check initially failed (run `40200757847`), then the corrected run `40200963762` succeeded. Pull request body editing and merge/deployment confirmation are still pending: GitHub REST API returned HTTP 403 rate-limit errors during the attempted description correction (`2026-10-25T14:07:52Z`) and status lookup (`14:12:33Z`); `gh pr edit` also reports the repository's deprecated Projects (classic) GraphQL field. No merge was attempted while the status API was rate-limiting. The main Pages deployment is therefore not claimed for these branch changes.
