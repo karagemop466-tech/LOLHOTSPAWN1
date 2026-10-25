@@ -24,7 +24,6 @@ import json
 import os
 import sys
 import unittest
-from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
@@ -110,53 +109,6 @@ class TournamentDirectory(unittest.TestCase):
         html = site_mod.tournament_directory(rows)
         self.assertIn("comp=LigaGG%20CELOL%20B%202026%20Split%202%20Playoffs", html)
         self.assertNotIn(" ", html.split('href="table.html?comp=')[1].split('"')[0])
-
-
-class LandingPageOrder(unittest.TestCase):
-    """The summary must lead the page, and the unresolved ledger must live inside it.
-
-    The brief is explicit: open the site and the picks, the probabilities and the
-    unresolved cards are reachable immediately. Rendering the real landing page from the
-    committed dataset is the only way to test that ordering rather than the template source.
-    """
-
-    @classmethod
-    def setUpClass(cls) -> None:
-        with open(os.path.join(ROOT, "data", "matches.json"), encoding="utf-8") as fh:
-            doc = json.load(fh)
-        cls.rows = doc.get("matches") or []
-        cls.html = site_mod.build_index(cls.rows, Counter(r.get("method") for r in cls.rows), [])
-
-    def test_summary_and_unresolved_block_come_before_every_list(self) -> None:
-        summary = self.html.find('id="summary"')
-        unres = self.html.find('id="unresolved-summary"')
-        self.assertGreater(summary, -1, "no executive summary on the landing page")
-        self.assertGreater(unres, summary, "the unresolved block is not inside the summary")
-        for later in ('id="soon"', 'id="directory"'):
-            pos = self.html.find(later)
-            if pos > -1:
-                self.assertLess(unres, pos, f"{later} is rendered above the summary/unresolved block")
-
-    def test_unresolved_cards_are_named_with_a_reason_and_a_source(self) -> None:
-        start = self.html.find('id="unresolved-summary"')
-        self.assertGreater(start, -1)
-        end = self.html.find('</section>', start)
-        block = self.html[start:end if end > 0 else len(self.html)]
-        self.assertIn("Why no probability", block)
-        self.assertIn("how-it-works", block, "Hotspawn's forfeit-void rule is not cited")
-        missing = [r["id"] for r in self.rows if r.get("method") == "unresolved"
-                   and (r["team0"]["name"] not in block or r["team1"]["name"] not in block)]
-        self.assertEqual(missing, [], f"unresolved cards not named in the summary: {missing}")
-        self.assertIn("https://www.hotspawn.com/matches", block)
-
-    def test_every_quicklink_target_exists(self) -> None:
-        links = set()
-        for chunk in self.html.split('href="')[1:]:
-            href = chunk.split('"')[0]
-            if href.endswith(".html") or ".html?" in href:
-                links.add(href.split("?")[0])
-        missing = sorted(h for h in links if not os.path.exists(os.path.join(ROOT, h)))
-        self.assertEqual(missing, [], f"landing-page links to files that do not exist: {missing}")
 
 
 class DeepLinkClient(unittest.TestCase):

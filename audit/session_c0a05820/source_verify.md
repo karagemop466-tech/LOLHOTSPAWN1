@@ -1,6 +1,6 @@
 # Live source verification
 
-- generated: `2026-10-25T14:29:22Z`
+- generated: `2026-10-25T14:23:25Z`
 - dataset: `2026-10-25T14:15:13Z`
 - rows: **234**
 - result: **FAIL**

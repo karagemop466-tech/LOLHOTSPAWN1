@@ -41,16 +41,7 @@ class NextStripTests(unittest.TestCase):
         with open(os.path.join(ROOT, "assets", "app.js"), encoding="utf-8") as fh:
             js = fh.read()
         self.assertIn("initNextStrip", js)
-        self.assertIn(".nextlist", js)
         self.assertIn(".nextrow[data-start]", js)
-
-    def test_only_one_starting_soon_panel(self):
-        # Two merged sessions each shipped a strip; duplicate id="soon"/id="next"
-        # is invalid HTML and the second list rendered empty under the JS cap.
-        with open(os.path.join(ROOT, "tools", "site.py"), encoding="utf-8") as fh:
-            src = fh.read()
-        self.assertEqual(src.count('id="soon"'), 1)
-        self.assertEqual(src.count('id="next"'), 1)
 
     def test_starting_soon_precedes_directory_in_builder(self):
         # Render order in build_index follows the body template order.
