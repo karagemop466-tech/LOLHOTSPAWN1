@@ -228,19 +228,22 @@ def odds_signals(text: str) -> dict:
 
 
 def known_names() -> list[str]:
-    """Team names from today's Hotspawn list, split into headline and low-tier."""
+    """Every team name on today's Hotspawn list that can be searched for as a substring.
+
+    Earlier versions of this probe tested a 32-name sample (8 headline + 24 low-tier names),
+    which meant "no venue carries a listed team" was really "no venue carries one of 32 names".
+    The whole list is searched now. Names shorter than five characters (``T1``, ``B5``, ``LYON``
+    is fine but ``T1`` is not) are excluded because a two-character needle matches everything;
+    the competition-name test in the same receipt covers those leagues instead.
+    """
     hs = load_json(os.path.join(RAW, "hotspawn_lol.json")) or {}
-    fixtures = hs.get("fixtures") or []
-    worlds, low = set(), set()
-    for f in fixtures:
-        pair = (f.get("team0", {}).get("name"), f.get("team1", {}).get("name"))
-        if not all(pair):
-            continue
-        bucket = worlds if "Worlds" in (f.get("competition") or "") else low
-        bucket.update(pair)
-    # Prefer compact, distinctive names for substring tests.
-    return (sorted({n for n in worlds if len(n) >= 5})[:8] +
-            sorted({n for n in low if len(n) >= 6})[:24])
+    names = set()
+    for f in hs.get("fixtures") or []:
+        for side in ("team0", "team1"):
+            name = (f.get(side) or {}).get("name")
+            if name and len(str(name)) >= 5:
+                names.add(str(name))
+    return sorted(names)
 
 
 def competition_aliases() -> dict[str, list[str]]:
