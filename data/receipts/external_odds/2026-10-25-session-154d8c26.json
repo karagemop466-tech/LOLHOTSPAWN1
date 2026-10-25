@@ -1,0 +1,84 @@
+{
+  "about": "External line & venue audit for the 2026-10-25 LoL card (session 154d8c26). Documents: (1) discovery and integration of UKGC-regulated Smarkets Exchange REST v3 JSON API (api.smarkets.com/v3/) across all 8 Worlds 2026 series; (2) independent verification of GosuGamers, Liquipedia Matches, Midnite (HTTP 200 soft-404), Strafe (HTTP 404), and Bmbets (reCAPTCHA wall).",
+  "capture_window_utc": "2026-10-25T14:00:00Z/2026-10-25T14:26:00Z",
+  "sources": [
+    {
+      "key": "smarkets",
+      "name": "Smarkets (UKGC Exchange)",
+      "kind": "regulated betting exchange",
+      "url": "https://smarkets.com/sport/esports/league-of-legends",
+      "runner_reachable": "yes - public unauthenticated REST v3 JSON API at https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match&limit=50",
+      "note": "UKGC-licensed peer-to-peer betting exchange. Exposes unauthenticated JSON endpoints for events, WINNER_2_WAY markets, contracts, and basis-point (10000 = 100%) bid/offer orderbook quotes. Integrated into tools/collect.py, tools/model.py, scripts/collect.mjs, and scripts/analyze.mjs."
+    },
+    {
+      "key": "gosugamers",
+      "name": "GosuGamers LoL Matches",
+      "kind": "esports match & odds portal",
+      "url": "https://www.gosugamers.net/lol/matches",
+      "runner_reachable": "HTML match schedule",
+      "note": "Established esports match portal; on 2026-10-25 its upcoming LoL schedule listed only Worlds 2026 Main Event and LGC Rising 2026 Playoffs (Vitality Rising Bees vs Mental Rush)."
+    },
+    {
+      "key": "midnite",
+      "name": "Midnite",
+      "kind": "esportsbook (LoL route retired / soft-404)",
+      "url": "https://www.midnite.com/esports/league-of-legends",
+      "runner_reachable": "HTTP 200 soft-404 SPA error shell (fixed in tools/collect.py _is_soft_404)",
+      "note": "UKGC-licensed bookmaker; /esports/league-of-legends redirects to /sports/league-of-legends and renders a 'can’t find the page' soft-404 error."
+    },
+    {
+      "key": "strafe",
+      "name": "Strafe Esports Betting",
+      "kind": "esports odds portal (404)",
+      "url": "https://www.strafe.com/esports-betting/lol/",
+      "runner_reachable": "no - HTTP 404",
+      "note": "Returns 404 Page Not Found on its League of Legends betting hub."
+    },
+    {
+      "key": "bmbets",
+      "name": "Bmbets Esports",
+      "kind": "odds comparison (blocked)",
+      "url": "https://www.bmbets.com/e-sports/",
+      "runner_reachable": "no - reCAPTCHA Enterprise gate",
+      "note": "Multi-book comparison site; esports index gated behind a failing reCAPTCHA Enterprise challenge."
+    }
+  ],
+  "captures": [],
+  "coverage_observations": [
+    {
+      "source": "smarkets",
+      "captured_utc": "2026-10-25T14:25:00Z",
+      "url": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match&limit=50",
+      "observation": "Smarkets' unauthenticated REST v3 JSON API returned 8 upcoming League of Legends match events (ids 45400319..45400326), all in Worlds 2026 Group/Swiss Stage, each with an open WINNER_2_WAY series market and active two-sided orderbook quotes (e.g. 45400319 Top Esports 4167/5208 bps vs G2 Esports 4762/5814 bps -> de-vigged 46.99% / 53.01%). Zero lower-tier regional, national, or amateur LoL competitions are listed on the exchange.",
+      "verbatim": "{\"events\": [{\"bet_allowed\": true, \"bettable\": true, ... \"id\": \"45400319\", ... \"name\": \"Top Esports vs G2 Esports\", ... \"start_datetime\": \"2026-10-25T18:00:00Z\", \"state\": \"upcoming\", \"type\": \"league_of_legends_match\"}, ... {\"id\": \"45400326\", \"name\": \"LOS vs Team Secret Whales\"}], \"pagination\": {\"next_page\": null}}"
+    },
+    {
+      "source": "gosugamers",
+      "captured_utc": "2026-10-25T14:09:00Z",
+      "url": "https://www.gosugamers.net/lol/matches",
+      "observation": "GosuGamers' upcoming League of Legends match hub listed all 8 Worlds 2026 Swiss series plus LGC Rising 2026 Playoffs (Vitality Rising Bees vs Mental Rush), and zero matches from the other 27 grassroots/ERL 2nd-3rd division/amateur competitions listed on Hotspawn.",
+      "verbatim": "Upcoming LoL Matches ... Hanwha Life Esports vs Invictus Gaming Worlds 2026 ... Top Esports vs G2 Esports Worlds 2026 ... Vitality Rising Bees vs Mental Rush LoL Game Changers Rising 2026"
+    },
+    {
+      "source": "midnite",
+      "captured_utc": "2026-10-25T14:10:00Z",
+      "url": "https://www.midnite.com/esports/league-of-legends",
+      "observation": "Midnite's League of Legends URL returns HTTP 200 after redirecting to /sports/league-of-legends, but the rendered SPA body is a 404 error notice rather than a betting coupon. tools/collect.py now detects this soft-404 body so Midnite is not counted as an active reachable LoL odds source.",
+      "verbatim": "Ooooooops! We can’t find the page you’re looking for."
+    },
+    {
+      "source": "strafe",
+      "captured_utc": "2026-10-25T14:11:00Z",
+      "url": "https://www.strafe.com/esports-betting/lol/",
+      "observation": "Strafe's League of Legends betting comparison URL returned a 404 error page with no LoL match odds.",
+      "verbatim": "404 - Page Not Found"
+    },
+    {
+      "source": "bmbets",
+      "captured_utc": "2026-10-25T14:08:00Z",
+      "url": "https://www.bmbets.com/e-sports/",
+      "observation": "Bmbets' esports odds comparison page served a reCAPTCHA challenge wall with a site-owner configuration/quota error instead of match odds.",
+      "verbatim": "reCAPTCHA ... ERROR for site owner"
+    }
+  ]
+}
