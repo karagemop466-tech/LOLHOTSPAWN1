@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-10-25T14:33:01Z",
+ "generated_utc": "2026-10-25T14:55:50Z",
  "mode": "live",
- "dataset_generated_utc": "2026-10-25T14:25:59Z",
+ "dataset_generated_utc": "2026-10-25T14:54:02Z",
  "rows": 234,
  "checks": [
   {
@@ -35,6 +35,11 @@
    "detail": "status=403 cause=auth_required -> key proven by control: False"
   },
   {
+   "name": "closed bookmaker boards are separated from auth failures",
+   "ok": true,
+   "detail": "1 board(s) answered 401/403 while the same key resolved elsewhere on the host; classified market_closed, disclosed below"
+  },
+  {
    "name": "no broken hotspawn card URL",
    "ok": true,
    "detail": "234/234 resolved this run; causes={'resolved': 234}"
@@ -42,12 +47,12 @@
   {
    "name": "no broken market quote URL",
    "ok": true,
-   "detail": "10/10 resolved this run; causes={'resolved': 10}"
+   "detail": "9/10 resolved this run; causes={'market_closed': 1, 'resolved': 9}"
   },
   {
    "name": "no broken venue receipt URL",
-   "ok": true,
-   "detail": "33/41 resolved this run; causes={'resolved': 33, 'rate_limited': 8}"
+   "ok": false,
+   "detail": "32/50 resolved this run; causes={'market_closed': 1, 'resolved': 32, 'rate_limited': 9, 'auth_required': 8}"
   },
   {
    "name": "no broken leaguepedia page URL",
@@ -58,6 +63,11 @@
    "name": "no broken pickem URL",
    "ok": true,
    "detail": "1/1 resolved this run; causes={'resolved': 1}"
+  },
+  {
+   "name": "links to settled bookmaker boards are disclosed (not counted as rot)",
+   "ok": true,
+   "detail": "1 URL(s) answered 401/403 while the same credential resolved in this run: the market is closed, the link is historical"
   },
   {
    "name": "every row has at least one resolving piece of evidence (no broken links)",
@@ -90,16 +100,55 @@
    "error": ""
   },
   "urls": {
-   "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight": {
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight",
-    "status": 200,
-    "content_type": "application/json",
-    "bytes": 18630,
-    "ok": true,
-    "error": "",
-    "json_ok": true,
+   "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/17-00/hanwha-life-esports-vs-invictus-gaming/45400320/": {
+    "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/17-00/hanwha-life-esports-vs-invictus-gaming/45400320/",
+    "status": 403,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 403",
+    "json_ok": null,
     "attempts": 1,
-    "cause": "resolved",
+    "cause": "auth_required",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/18-00/top-esports-vs-g2-esports/45400319/": {
+    "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/18-00/top-esports-vs-g2-esports/45400319/",
+    "status": 403,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 403",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "auth_required",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/19-00/dplus-kia-vs-movistar-koi/45400322/": {
+    "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/19-00/dplus-kia-vs-movistar-koi/45400322/",
+    "status": 403,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 403",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "auth_required",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/22-00/gen-g-vs-lyon/45400321/": {
+    "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/22-00/gen-g-vs-lyon/45400321/",
+    "status": 403,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 403",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "auth_required",
     "header_variant": "primary",
     "role": "venue_receipt"
    },
@@ -115,16 +164,29 @@
     "error": "",
     "role": "leaguepedia_page"
    },
-   "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235119/markets/related/straight": {
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235119/markets/related/straight",
-    "status": 200,
-    "content_type": "application/json",
-    "bytes": 18615,
-    "ok": true,
-    "error": "",
-    "json_ok": true,
+   "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/17-00/t1-vs-ctbc-flying-oyster/45400324/": {
+    "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/17-00/t1-vs-ctbc-flying-oyster/45400324/",
+    "status": 403,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 403",
+    "json_ok": null,
     "attempts": 1,
-    "cause": "resolved",
+    "cause": "auth_required",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/18-00/karmine-corp-vs-bilibili-gaming/45400323/": {
+    "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/18-00/karmine-corp-vs-bilibili-gaming/45400323/",
+    "status": 403,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 403",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "auth_required",
     "header_variant": "primary",
     "role": "venue_receipt"
    },
@@ -132,7 +194,7 @@
     "url": "https://gamma-api.polymarket.com/events?slug=lol-rb-mr-2026-10-27",
     "status": 200,
     "content_type": "application/json",
-    "bytes": 148443,
+    "bytes": 148475,
     "ok": true,
     "error": "",
     "json_ok": true,
@@ -141,24 +203,51 @@
     "header_variant": "primary",
     "role": "market_quote"
    },
-   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621111.json?lang=en_GB&market=ZZ": {
-    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621111.json?lang=en_GB&market=ZZ",
-    "status": 200,
-    "content_type": "application/json",
-    "bytes": 187927,
-    "ok": true,
-    "error": "",
-    "json_ok": true,
+   "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/19-00/los-vs-team-secret-whales/45400326/": {
+    "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/19-00/los-vs-team-secret-whales/45400326/",
+    "status": 403,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 403",
+    "json_ok": null,
     "attempts": 1,
-    "cause": "resolved",
+    "cause": "auth_required",
     "header_variant": "primary",
     "role": "venue_receipt"
    },
-   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621110.json?lang=en_GB&market=ZZ": {
-    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621110.json?lang=en_GB&market=ZZ",
+   "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/22-00/team-liquid-vs-anyone-s-legend/45400325/": {
+    "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/22-00/team-liquid-vs-anyone-s-legend/45400325/",
+    "status": 403,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 403",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "auth_required",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight": {
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight",
+    "status": 403,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 403",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "market_closed",
+    "header_variant": "primary",
+    "role": "venue_receipt",
+    "closed_board_proof": "sibling-resolved"
+   },
+   "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235119/markets/related/straight": {
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235119/markets/related/straight",
     "status": 200,
     "content_type": "application/json",
-    "bytes": 188043,
+    "bytes": 18616,
     "ok": true,
     "error": "",
     "json_ok": true,
@@ -180,89 +269,11 @@
     "header_variant": "primary",
     "role": "venue_receipt"
    },
-   "https://gamma-api.polymarket.com/events?slug=lol-rb-mr-2026-10-27": {
-    "url": "https://gamma-api.polymarket.com/events?slug=lol-rb-mr-2026-10-27",
-    "status": 200,
-    "content_type": "application/json",
-    "bytes": 148443,
-    "ok": true,
-    "error": "",
-    "json_ok": true,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "market_quote"
-   },
-   "https://polymarket.com/event/lol-gen-ly-2026-10-25": {
-    "url": "https://polymarket.com/event/lol-gen-ly-2026-10-25",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 643315,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://polymarket.com/event/lol-t1-cfo-2026-10-26": {
-    "url": "https://polymarket.com/event/lol-t1-cfo-2026-10-26",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 643391,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621110.json?lang=en_GB&market=ZZ": {
-    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621110.json?lang=en_GB&market=ZZ",
-    "status": 200,
-    "content_type": "application/json",
-    "bytes": 188043,
-    "ok": true,
-    "error": "",
-    "json_ok": true,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight": {
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight",
-    "status": 200,
-    "content_type": "application/json",
-    "bytes": 25908,
-    "ok": true,
-    "error": "",
-    "json_ok": true,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235122/markets/related/straight": {
-    "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235122/markets/related/straight",
-    "status": 200,
-    "content_type": "application/json",
-    "bytes": 951,
-    "ok": true,
-    "error": "",
-    "json_ok": true,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
    "https://polymarket.com/event/lol-rb-mr-2026-10-27": {
     "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 643157,
+    "bytes": 643114,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -288,7 +299,7 @@
     "url": "https://polymarket.com/event/lol-tes-g2-2026-10-25",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 643351,
+    "bytes": 643394,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -301,7 +312,7 @@
     "url": "https://polymarket.com/event/lol-dk-mkoi-2026-10-25",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 643473,
+    "bytes": 643465,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -310,14 +321,40 @@
     "header_variant": "primary",
     "role": "venue_receipt"
    },
-   "https://polymarket.com/event/lol-gen-ly-2026-10-25": {
-    "url": "https://polymarket.com/event/lol-gen-ly-2026-10-25",
+   "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight": {
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight",
     "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 643315,
+    "content_type": "application/json",
+    "bytes": 25907,
     "ok": true,
     "error": "",
-    "json_ok": null,
+    "json_ok": true,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235122/markets/related/straight": {
+    "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235122/markets/related/straight",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 951,
+    "ok": true,
+    "error": "",
+    "json_ok": true,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621111.json?lang=en_GB&market=ZZ": {
+    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621111.json?lang=en_GB&market=ZZ",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 187927,
+    "ok": true,
+    "error": "",
+    "json_ok": true,
     "attempts": 1,
     "cause": "resolved",
     "header_variant": "primary",
@@ -328,6 +365,19 @@
     "status": 200,
     "content_type": "application/json",
     "bytes": 951,
+    "ok": true,
+    "error": "",
+    "json_ok": true,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621110.json?lang=en_GB&market=ZZ": {
+    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621110.json?lang=en_GB&market=ZZ",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 188043,
     "ok": true,
     "error": "",
     "json_ok": true,
@@ -349,18 +399,6 @@
     "header_variant": "primary",
     "role": "venue_receipt"
    },
-   "https://lol.fandom.com/wiki/Finnish_Pro_League/2026_Season/Summer_Playoffs": {
-    "url": "https://lol.fandom.com/wiki/Finnish_Pro_League/2026_Season/Summer_Playoffs",
-    "status": 200,
-    "ok": true,
-    "cause": "resolved",
-    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=Finnish_Pro_League/2026_Season/Summer_Playoffs",
-    "method": "mediawiki-api",
-    "query_title": "Finnish_Pro_League/2026_Season/Summer_Playoffs",
-    "bytes": 260,
-    "error": "",
-    "role": "leaguepedia_page"
-   },
    "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227251/markets/related/straight": {
     "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227251/markets/related/straight",
     "status": 200,
@@ -374,50 +412,36 @@
     "header_variant": "primary",
     "role": "venue_receipt"
    },
-   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621121.json?lang=en_GB&market=ZZ": {
-    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621121.json?lang=en_GB&market=ZZ",
+   "https://polymarket.com/event/lol-gen-ly-2026-10-25": {
+    "url": "https://polymarket.com/event/lol-gen-ly-2026-10-25",
     "status": 200,
-    "content_type": "application/json",
-    "bytes": 141630,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 643358,
     "ok": true,
     "error": "",
-    "json_ok": true,
+    "json_ok": null,
     "attempts": 1,
     "cause": "resolved",
     "header_variant": "primary",
     "role": "venue_receipt"
    },
-   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621112.json?lang=en_GB&market=ZZ": {
-    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621112.json?lang=en_GB&market=ZZ",
+   "https://lol.fandom.com/wiki/Finnish_Pro_League/2026_Season/Summer_Playoffs": {
+    "url": "https://lol.fandom.com/wiki/Finnish_Pro_League/2026_Season/Summer_Playoffs",
     "status": 200,
-    "content_type": "application/json",
-    "bytes": 357507,
     "ok": true,
-    "error": "",
-    "json_ok": true,
-    "attempts": 1,
     "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621121.json?lang=en_GB&market=ZZ": {
-    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621121.json?lang=en_GB&market=ZZ",
-    "status": 200,
-    "content_type": "application/json",
-    "bytes": 141630,
-    "ok": true,
+    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=Finnish_Pro_League/2026_Season/Summer_Playoffs",
+    "method": "mediawiki-api",
+    "query_title": "Finnish_Pro_League/2026_Season/Summer_Playoffs",
+    "bytes": 260,
     "error": "",
-    "json_ok": true,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
+    "role": "leaguepedia_page"
    },
    "https://polymarket.com/event/lol-t1-cfo-2026-10-26": {
     "url": "https://polymarket.com/event/lol-t1-cfo-2026-10-26",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 643383,
+    "bytes": 643391,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -430,7 +454,7 @@
     "url": "https://polymarket.com/event/lol-kc-blg-2026-10-26",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 643412,
+    "bytes": 643369,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -443,7 +467,7 @@
     "url": "https://polymarket.com/event/lol-los-tsw-2026-10-26",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 643465,
+    "bytes": 643473,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -465,6 +489,32 @@
     "header_variant": "primary",
     "role": "venue_receipt"
    },
+   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621119.json?lang=en_GB&market=ZZ": {
+    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621119.json?lang=en_GB&market=ZZ",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 367103,
+    "ok": true,
+    "error": "",
+    "json_ok": true,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621112.json?lang=en_GB&market=ZZ": {
+    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621112.json?lang=en_GB&market=ZZ",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 357507,
+    "ok": true,
+    "error": "",
+    "json_ok": true,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
    "https://lol.fandom.com/wiki/Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs": {
     "url": "https://lol.fandom.com/wiki/Benelux_Ascend_Series_Rising/2026_Season/Summer_Playoffs",
     "status": 200,
@@ -476,6 +526,32 @@
     "bytes": 290,
     "error": "",
     "role": "leaguepedia_page"
+   },
+   "https://www.hotspawn.com/matches/mind-blue-esports-vs-last-dance-benelux-ascend-series-2026-summer-split-1053095": {
+    "url": "https://www.hotspawn.com/matches/mind-blue-esports-vs-last-dance-benelux-ascend-series-2026-summer-split-1053095",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 1131137,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "hotspawn_card"
+   },
+   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621121.json?lang=en_GB&market=ZZ": {
+    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621121.json?lang=en_GB&market=ZZ",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 141630,
+    "ok": true,
+    "error": "",
+    "json_ok": true,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
    },
    "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621120.json?lang=en_GB&market=ZZ": {
     "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621120.json?lang=en_GB&market=ZZ",
@@ -503,37 +579,11 @@
     "header_variant": "primary",
     "role": "pickem"
    },
-   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-invictus-gaming-202610251300": {
-    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-invictus-gaming-202610251300",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 2507757,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
    "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621122.json?lang=en_GB&market=ZZ": {
     "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621122.json?lang=en_GB&market=ZZ",
     "status": 200,
     "content_type": "application/json",
     "bytes": 307321,
-    "ok": true,
-    "error": "",
-    "json_ok": true,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621123.json?lang=en_GB&market=ZZ": {
-    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621123.json?lang=en_GB&market=ZZ",
-    "status": 200,
-    "content_type": "application/json",
-    "bytes": 308690,
     "ok": true,
     "error": "",
     "json_ok": true,
@@ -554,11 +604,86 @@
     "error": "",
     "role": "leaguepedia_page"
    },
+   "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621123.json?lang=en_GB&market=ZZ": {
+    "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621123.json?lang=en_GB&market=ZZ",
+    "status": 200,
+    "content_type": "application/json",
+    "bytes": 308690,
+    "ok": true,
+    "error": "",
+    "json_ok": true,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://lol.fandom.com/wiki/LigaGG/CELOL_S%C3%A9rie_B/2026_Season/Split_2": {
+    "url": "https://lol.fandom.com/wiki/LigaGG/CELOL_S%C3%A9rie_B/2026_Season/Split_2",
+    "status": 200,
+    "ok": true,
+    "cause": "resolved",
+    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=LigaGG/CELOL_S%C3%A9rie_B/2026_Season/Split_2",
+    "method": "mediawiki-api",
+    "query_title": "LigaGG/CELOL_Série_B/2026_Season/Split_2",
+    "bytes": 257,
+    "error": "",
+    "role": "leaguepedia_page"
+   },
+   "https://www.hotspawn.com/matches/nameless-vs-bipolar-benelux-ascend-series-2026-summer-split-1053096": {
+    "url": "https://www.hotspawn.com/matches/nameless-vs-bipolar-benelux-ascend-series-2026-summer-split-1053096",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 1123172,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "hotspawn_card"
+   },
+   "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split": {
+    "url": "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split",
+    "status": 200,
+    "ok": true,
+    "cause": "resolved",
+    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=Komplettligaen/2026_Season/Autumn_Split",
+    "method": "mediawiki-api",
+    "query_title": "Komplettligaen/2026_Season/Autumn_Split",
+    "bytes": 239,
+    "error": "",
+    "role": "leaguepedia_page"
+   },
+   "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2026_Season/Summer_Playoffs": {
+    "url": "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2026_Season/Summer_Playoffs",
+    "status": 200,
+    "ok": true,
+    "cause": "resolved",
+    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=Benelux_Ascend_Series/2026_Season/Summer_Playoffs",
+    "method": "mediawiki-api",
+    "query_title": "Benelux_Ascend_Series/2026_Season/Summer_Playoffs",
+    "bytes": 269,
+    "error": "",
+    "role": "leaguepedia_page"
+   },
+   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-invictus-gaming-202610251300": {
+    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/hanwha-life-esports-invictus-gaming-202610251300",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 2507713,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
    "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/top-esports-g2-esports-202610251400": {
     "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/top-esports-g2-esports-202610251400",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 2507407,
+    "bytes": 2507410,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -593,107 +718,6 @@
     "header_variant": "primary",
     "role": "venue_receipt"
    },
-   "https://lol.fandom.com/wiki/LigaGG/CELOL_S%C3%A9rie_B/2026_Season/Split_2": {
-    "url": "https://lol.fandom.com/wiki/LigaGG/CELOL_S%C3%A9rie_B/2026_Season/Split_2",
-    "status": 200,
-    "ok": true,
-    "cause": "resolved",
-    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=LigaGG/CELOL_S%C3%A9rie_B/2026_Season/Split_2",
-    "method": "mediawiki-api",
-    "query_title": "LigaGG/CELOL_Série_B/2026_Season/Split_2",
-    "bytes": 257,
-    "error": "",
-    "role": "leaguepedia_page"
-   },
-   "https://www.hotspawn.com/matches/nameless-vs-bipolar-benelux-ascend-series-2026-summer-split-1053096": {
-    "url": "https://www.hotspawn.com/matches/nameless-vs-bipolar-benelux-ascend-series-2026-summer-split-1053096",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 1123172,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "hotspawn_card"
-   },
-   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/t1-ctbc-flying-oyster-202610261300": {
-    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/t1-ctbc-flying-oyster-202610261300",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 2507336,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/karmine-corp-bilibili-gaming-202610261400": {
-    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/karmine-corp-bilibili-gaming-202610261400",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 2507585,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/los-grandes-team-secret-202610261500": {
-    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/los-grandes-team-secret-202610261500",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 2507393,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split": {
-    "url": "https://lol.fandom.com/wiki/Komplettligaen/2026_Season/Autumn_Split",
-    "status": 200,
-    "ok": true,
-    "cause": "resolved",
-    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=Komplettligaen/2026_Season/Autumn_Split",
-    "method": "mediawiki-api",
-    "query_title": "Komplettligaen/2026_Season/Autumn_Split",
-    "bytes": 239,
-    "error": "",
-    "role": "leaguepedia_page"
-   },
-   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-anyone-s-legend-202610261800": {
-    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-anyone-s-legend-202610261800",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 2507558,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2026_Season/Summer_Playoffs": {
-    "url": "https://lol.fandom.com/wiki/Benelux_Ascend_Series/2026_Season/Summer_Playoffs",
-    "status": 200,
-    "ok": true,
-    "cause": "resolved",
-    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=Benelux_Ascend_Series/2026_Season/Summer_Playoffs",
-    "method": "mediawiki-api",
-    "query_title": "Benelux_Ascend_Series/2026_Season/Summer_Playoffs",
-    "bytes": 269,
-    "error": "",
-    "role": "leaguepedia_page"
-   },
    "https://lol.fandom.com/wiki/LigaGG/CELOL_S%C3%A9rie_A/2026_Season/Split_2": {
     "url": "https://lol.fandom.com/wiki/LigaGG/CELOL_S%C3%A9rie_A/2026_Season/Split_2",
     "status": 200,
@@ -719,6 +743,19 @@
     "header_variant": "primary",
     "role": "hotspawn_card"
    },
+   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/t1-ctbc-flying-oyster-202610261300": {
+    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/t1-ctbc-flying-oyster-202610261300",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 2507376,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
    "https://lol.fandom.com/wiki/POP_Esports_Masters/Season_7": {
     "url": "https://lol.fandom.com/wiki/POP_Esports_Masters/Season_7",
     "status": 200,
@@ -730,6 +767,19 @@
     "bytes": 206,
     "error": "",
     "role": "leaguepedia_page"
+   },
+   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/karmine-corp-bilibili-gaming-202610261400": {
+    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/karmine-corp-bilibili-gaming-202610261400",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 2507587,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
    },
    "https://lol.fandom.com/wiki/Superstrike_League_2026": {
     "url": "https://lol.fandom.com/wiki/Superstrike_League_2026",
@@ -755,6 +805,32 @@
     "error": "",
     "role": "leaguepedia_page"
    },
+   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/los-grandes-team-secret-202610261500": {
+    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/los-grandes-team-secret-202610261500",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 2507394,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
+   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-anyone-s-legend-202610261800": {
+    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-anyone-s-legend-202610261800",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 2507553,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "venue_receipt"
+   },
    "https://www.hotspawn.com/matches/team-vs-esport-vs-gala-esports-benelux-ascend-series-rising-2026-summer-playoffs-1053111": {
     "url": "https://www.hotspawn.com/matches/team-vs-esport-vs-gala-esports-benelux-ascend-series-rising-2026-summer-playoffs-1053111",
     "status": 200,
@@ -779,19 +855,6 @@
     "bytes": 224,
     "error": "",
     "role": "leaguepedia_page"
-   },
-   "https://www.hotspawn.com/matches/team-vs-esport-vs-gala-esports-benelux-ascend-series-rising-2026-summer-playoffs-1053111": {
-    "url": "https://www.hotspawn.com/matches/team-vs-esport-vs-gala-esports-benelux-ascend-series-rising-2026-summer-playoffs-1053111",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 453839,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "hotspawn_card"
    },
    "https://lol.fandom.com/wiki/Hitpoint_2nd_Division_Challengers/2026_Season/Summer_Playoffs": {
     "url": "https://lol.fandom.com/wiki/Hitpoint_2nd_Division_Challengers/2026_Season/Summer_Playoffs",
@@ -854,32 +917,6 @@
     "error": "",
     "role": "leaguepedia_page"
    },
-   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/los-grandes-team-secret-202610261500": {
-    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/los-grandes-team-secret-202610261500",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 2507393,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
-   "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-anyone-s-legend-202610261800": {
-    "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-anyone-s-legend-202610261800",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 2507558,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
    "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/QA-BH-KW": {
     "url": "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/QA-BH-KW",
     "status": 200,
@@ -891,19 +928,6 @@
     "bytes": 284,
     "error": "",
     "role": "leaguepedia_page"
-   },
-   "https://www.hotspawn.com/matches/triforce-esport-vs-venus-benelux-ascend-series-rising-2026-summer-playoffs-1070209": {
-    "url": "https://www.hotspawn.com/matches/triforce-esport-vs-venus-benelux-ascend-series-rising-2026-summer-playoffs-1070209",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 453919,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "hotspawn_card"
    },
    "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS": {
     "url": "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
@@ -954,6 +978,18 @@
     "error": "",
     "role": "leaguepedia_page"
    },
+   "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier": {
+    "url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier",
+    "status": 200,
+    "ok": true,
+    "cause": "resolved",
+    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=Logitech_G_SuperStrike_Cup/Qualifier",
+    "method": "mediawiki-api",
+    "query_title": "Logitech_G_SuperStrike_Cup/Qualifier",
+    "bytes": 230,
+    "error": "",
+    "role": "leaguepedia_page"
+   },
    "https://www.hotspawn.com/matches/gala-esports-vs-the-bandits-academy-benelux-ascend-series-rising-2026-summer-playoffs-1070210": {
     "url": "https://www.hotspawn.com/matches/gala-esports-vs-the-bandits-academy-benelux-ascend-series-rising-2026-summer-playoffs-1070210",
     "status": 200,
@@ -966,18 +1002,6 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
-   },
-   "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier": {
-    "url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier",
-    "status": 200,
-    "ok": true,
-    "cause": "resolved",
-    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=Logitech_G_SuperStrike_Cup/Qualifier",
-    "method": "mediawiki-api",
-    "query_title": "Logitech_G_SuperStrike_Cup/Qualifier",
-    "bytes": 230,
-    "error": "",
-    "role": "leaguepedia_page"
    },
    "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season": {
     "url": "https://lol.fandom.com/wiki/Tunisian_Super_League/2026_Season",
@@ -1003,19 +1027,6 @@
     "error": "",
     "role": "leaguepedia_page"
    },
-   "https://www.hotspawn.com/matches/docta-esports-club-vs-viktus-ligagg-celol-b-2026-split-2-1069849": {
-    "url": "https://www.hotspawn.com/matches/docta-esports-club-vs-viktus-ligagg-celol-b-2026-split-2-1069849",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 452732,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "hotspawn_card"
-   },
    "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split": {
     "url": "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split",
     "status": 200,
@@ -1040,6 +1051,19 @@
     "error": "",
     "role": "leaguepedia_page"
    },
+   "https://www.hotspawn.com/matches/docta-esports-club-vs-viktus-ligagg-celol-b-2026-split-2-1069849": {
+    "url": "https://www.hotspawn.com/matches/docta-esports-club-vs-viktus-ligagg-celol-b-2026-split-2-1069849",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 452732,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "hotspawn_card"
+   },
    "https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event": {
     "url": "https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event",
     "status": 200,
@@ -1051,19 +1075,6 @@
     "bytes": 245,
     "error": "",
     "role": "leaguepedia_page"
-   },
-   "https://www.hotspawn.com/matches/dmg-esports-norway-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071167": {
-    "url": "https://www.hotspawn.com/matches/dmg-esports-norway-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071167",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 453616,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "hotspawn_card"
    },
    "https://lol.fandom.com/wiki/LoL_Game_Changers/2026_Season/Playoffs": {
     "url": "https://lol.fandom.com/wiki/LoL_Game_Changers/2026_Season/Playoffs",
@@ -1089,6 +1100,31 @@
     "error": "",
     "role": "leaguepedia_page"
    },
+   "https://lol.fandom.com/wiki/LCP/2027_Season/Promotion": {
+    "url": "https://lol.fandom.com/wiki/LCP/2027_Season/Promotion",
+    "status": 200,
+    "ok": true,
+    "cause": "resolved",
+    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=LCP/2027_Season/Promotion",
+    "method": "mediawiki-api",
+    "query_title": "LCP/2027_Season/Promotion",
+    "bytes": 197,
+    "error": "",
+    "role": "leaguepedia_page"
+   },
+   "https://www.hotspawn.com/matches/dmg-esports-norway-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071167": {
+    "url": "https://www.hotspawn.com/matches/dmg-esports-norway-vs-playwell-r-d-q-komplettligaen-2026-autumn-1071167",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 453616,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "hotspawn_card"
+   },
    "https://www.hotspawn.com/matches/solid-gaming-vs-ves-japan-komplettligaen-2026-autumn-1071170": {
     "url": "https://www.hotspawn.com/matches/solid-gaming-vs-ves-japan-komplettligaen-2026-autumn-1071170",
     "status": 200,
@@ -1101,18 +1137,6 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
-   },
-   "https://lol.fandom.com/wiki/LCP/2027_Season/Promotion": {
-    "url": "https://lol.fandom.com/wiki/LCP/2027_Season/Promotion",
-    "status": 200,
-    "ok": true,
-    "cause": "resolved",
-    "verified_via": "https://lol.fandom.com/api.php?action=query&format=json&redirects=1&titles=LCP/2027_Season/Promotion",
-    "method": "mediawiki-api",
-    "query_title": "LCP/2027_Season/Promotion",
-    "bytes": 197,
-    "error": "",
-    "role": "leaguepedia_page"
    },
    "https://www.hotspawn.com/matches/mixlag-fra-trondheim-vs-cng-royal-komplettligaen-2026-autumn-1071168": {
     "url": "https://www.hotspawn.com/matches/mixlag-fra-trondheim-vs-cng-royal-komplettligaen-2026-autumn-1071168",
@@ -1140,19 +1164,6 @@
     "header_variant": "primary",
     "role": "hotspawn_card"
    },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251400ighle": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251400ighle",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
    "https://www.hotspawn.com/matches/team-vs-esport-vs-les-ravages-benelux-ascend-series-rising-2026-summer-playoffs-1069680": {
     "url": "https://www.hotspawn.com/matches/team-vs-esport-vs-les-ravages-benelux-ascend-series-rising-2026-summer-playoffs-1069680",
     "status": 200,
@@ -1165,6 +1176,19 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
+   },
+   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251400ighle": {
+    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251400ighle",
+    "status": 429,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 429",
+    "json_ok": null,
+    "attempts": 4,
+    "cause": "rate_limited",
+    "header_variant": "primary",
+    "role": "venue_receipt"
    },
    "https://www.hotspawn.com/matches/marere-academy-vs-torin-ligagg-celol-b-2026-split-2-1069857": {
     "url": "https://www.hotspawn.com/matches/marere-academy-vs-torin-ligagg-celol-b-2026-split-2-1069857",
@@ -1191,19 +1215,6 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
-   },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251400ighle": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251400ighle",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
    },
    "https://www.hotspawn.com/matches/landits-vs-frites-esports-club-pop-esports-masters-season-7-1053536": {
     "url": "https://www.hotspawn.com/matches/landits-vs-frites-esports-club-pop-esports-masters-season-7-1053536",
@@ -1335,6 +1346,19 @@
     "header_variant": "primary",
     "role": "hotspawn_card"
    },
+   "https://www.hotspawn.com/matches/triforce-esport-vs-red-ouat-benelux-ascend-series-2027-winter-promotion-1076564": {
+    "url": "https://www.hotspawn.com/matches/triforce-esport-vs-red-ouat-benelux-ascend-series-2027-winter-promotion-1076564",
+    "status": 200,
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 453261,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "hotspawn_card"
+   },
    "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251300g2tes": {
     "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251300g2tes",
     "status": 429,
@@ -1347,19 +1371,6 @@
     "cause": "rate_limited",
     "header_variant": "primary",
     "role": "venue_receipt"
-   },
-   "https://www.hotspawn.com/matches/triforce-esport-vs-red-ouat-benelux-ascend-series-2027-winter-promotion-1076564": {
-    "url": "https://www.hotspawn.com/matches/triforce-esport-vs-red-ouat-benelux-ascend-series-2027-winter-promotion-1076564",
-    "status": 200,
-    "content_type": "text/html; charset=UTF-8",
-    "bytes": 460993,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "hotspawn_card"
    },
    "https://www.hotspawn.com/matches/les-ravages-vs-nameless-benelux-ascend-series-2027-winter-promotion-1076565": {
     "url": "https://www.hotspawn.com/matches/les-ravages-vs-nameless-benelux-ascend-series-2027-winter-promotion-1076565",
@@ -1399,19 +1410,6 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
-   },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251300g2tes": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251300g2tes",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
    },
    "https://www.hotspawn.com/matches/fenrir-vs-cool-beans-team-icelandic-esports-league-2026-autumn-1077726": {
     "url": "https://www.hotspawn.com/matches/fenrir-vs-cool-beans-team-icelandic-esports-league-2026-autumn-1077726",
@@ -1530,19 +1528,6 @@
     "header_variant": "primary",
     "role": "hotspawn_card"
    },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251800mkoidk": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251800mkoidk",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
    "https://www.hotspawn.com/matches/karolinerna-vs-crazy-kittens-e-sport-academy-superstrike-league-2026-1073184": {
     "url": "https://www.hotspawn.com/matches/karolinerna-vs-crazy-kittens-e-sport-academy-superstrike-league-2026-1073184",
     "status": 200,
@@ -1581,6 +1566,19 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
+   },
+   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251800mkoidk": {
+    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251800mkoidk",
+    "status": 429,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 429",
+    "json_ok": null,
+    "attempts": 4,
+    "cause": "rate_limited",
+    "header_variant": "primary",
+    "role": "venue_receipt"
    },
    "https://www.hotspawn.com/matches/2-massive-vs-team-lucidity-esports-rivals-league-season-2-1074636": {
     "url": "https://www.hotspawn.com/matches/2-massive-vs-team-lucidity-esports-rivals-league-season-2-1074636",
@@ -1621,19 +1619,6 @@
     "header_variant": "primary",
     "role": "hotspawn_card"
    },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251800mkoidk": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251800mkoidk",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
    "https://www.hotspawn.com/matches/lund-esports-organization-ogs-vs-turbo-gaming-rivals-league-season-2-1074639": {
     "url": "https://www.hotspawn.com/matches/lund-esports-organization-ogs-vs-turbo-gaming-rivals-league-season-2-1074639",
     "status": 200,
@@ -1664,7 +1649,7 @@
     "url": "https://www.hotspawn.com/matches/rift-runners-vs-cool-beans-team-icelandic-esports-league-2026-autumn-1077744",
     "status": 200,
     "content_type": "text/html; charset=UTF-8",
-    "bytes": 462995,
+    "bytes": 456298,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -1725,19 +1710,6 @@
     "header_variant": "primary",
     "role": "hotspawn_card"
    },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251500lygen": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251500lygen",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
    "https://www.hotspawn.com/matches/nameless-vs-triforce-esport-benelux-ascend-series-2027-winter-promotion-1076571": {
     "url": "https://www.hotspawn.com/matches/nameless-vs-triforce-esport-benelux-ascend-series-2027-winter-promotion-1076571",
     "status": 200,
@@ -1776,6 +1748,19 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
+   },
+   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251500lygen": {
+    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251500lygen",
+    "status": 429,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 429",
+    "json_ok": null,
+    "attempts": 4,
+    "cause": "rate_limited",
+    "header_variant": "primary",
+    "role": "venue_receipt"
    },
    "https://www.hotspawn.com/matches/void-walkers-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079132": {
     "url": "https://www.hotspawn.com/matches/void-walkers-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1079132",
@@ -1828,19 +1813,6 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
-   },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251500lygen": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251500lygen",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
    },
    "https://www.hotspawn.com/matches/levelers-vs-team-fifty-fifty-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082003": {
     "url": "https://www.hotspawn.com/matches/levelers-vs-team-fifty-fifty-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082003",
@@ -1920,24 +1892,11 @@
     "header_variant": "primary",
     "role": "hotspawn_card"
    },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261400cfot1": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261400cfot1",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
    "https://www.hotspawn.com/matches/team-vds-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1082105": {
     "url": "https://www.hotspawn.com/matches/team-vds-vs-pegasus-esports-arabian-league-2nd-division-2026-summer-1082105",
     "status": 200,
     "content_type": "text/html; charset=UTF-8",
-    "bytes": 1104331,
+    "bytes": 1100831,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -1971,6 +1930,19 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
+   },
+   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261400cfot1": {
+    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261400cfot1",
+    "status": 429,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 429",
+    "json_ok": null,
+    "attempts": 4,
+    "cause": "rate_limited",
+    "header_variant": "primary",
+    "role": "venue_receipt"
    },
    "https://www.hotspawn.com/matches/tupkachi-na-korici-vs-ne-se-cuka-logitech-g-superstrike-cup-qualifier-1083775": {
     "url": "https://www.hotspawn.com/matches/tupkachi-na-korici-vs-ne-se-cuka-logitech-g-superstrike-cup-qualifier-1083775",
@@ -2010,19 +1982,6 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
-   },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261400cfot1": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261400cfot1",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
    },
    "https://www.hotspawn.com/matches/simplicity-gaming-vs-jsk-academy-tunisian-super-league-2026-1080926": {
     "url": "https://www.hotspawn.com/matches/simplicity-gaming-vs-jsk-academy-tunisian-super-league-2026-1080926",
@@ -2114,19 +2073,6 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
-   },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261300blgkc": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261300blgkc",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
    },
    "https://www.hotspawn.com/matches/neko-elite-kittens-vs-spongecord-prime-prm-3rd-division-26-27-fall-1075755": {
     "url": "https://www.hotspawn.com/matches/neko-elite-kittens-vs-spongecord-prime-prm-3rd-division-26-27-fall-1075755",
@@ -2323,19 +2269,6 @@
     "header_variant": "primary",
     "role": "hotspawn_card"
    },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261500tswlos": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261500tswlos",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
    "https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-el-menzah-esports-tunisian-super-league-2026-1080930": {
     "url": "https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-el-menzah-esports-tunisian-super-league-2026-1080930",
     "status": 200,
@@ -2379,7 +2312,7 @@
     "url": "https://www.hotspawn.com/matches/invictus-gaming-vs-hanwha-life-esports-worlds-2026-main-event-1075817",
     "status": 200,
     "content_type": "text/html; charset=UTF-8",
-    "bytes": 489933,
+    "bytes": 481381,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -2401,19 +2334,6 @@
     "header_variant": "primary",
     "role": "hotspawn_card"
    },
-   "https://www.hotspawn.com/matches/onlywinbyff-vs-mazepa-rivals-league-season-2-1074664": {
-    "url": "https://www.hotspawn.com/matches/onlywinbyff-vs-mazepa-rivals-league-season-2-1074664",
-    "status": 200,
-    "content_type": "text/html; charset=utf-8",
-    "bytes": 452318,
-    "ok": true,
-    "error": "",
-    "json_ok": null,
-    "attempts": 1,
-    "cause": "resolved",
-    "header_variant": "primary",
-    "role": "hotspawn_card"
-   },
    "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261500tswlos": {
     "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261500tswlos",
     "status": 429,
@@ -2426,6 +2346,19 @@
     "cause": "rate_limited",
     "header_variant": "primary",
     "role": "venue_receipt"
+   },
+   "https://www.hotspawn.com/matches/onlywinbyff-vs-mazepa-rivals-league-season-2-1074664": {
+    "url": "https://www.hotspawn.com/matches/onlywinbyff-vs-mazepa-rivals-league-season-2-1074664",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 452318,
+    "ok": true,
+    "error": "",
+    "json_ok": null,
+    "attempts": 1,
+    "cause": "resolved",
+    "header_variant": "primary",
+    "role": "hotspawn_card"
    },
    "https://www.hotspawn.com/matches/team-lucidity-esports-vs-team-cd-rivals-league-season-2-1074666": {
     "url": "https://www.hotspawn.com/matches/team-lucidity-esports-vs-team-cd-rivals-league-season-2-1074666",
@@ -2518,24 +2451,11 @@
     "header_variant": "primary",
     "role": "hotspawn_card"
    },
-   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261800altl": {
-    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261800altl",
-    "status": 429,
-    "content_type": "",
-    "bytes": 0,
-    "ok": false,
-    "error": "HTTP 429",
-    "json_ok": null,
-    "attempts": 4,
-    "cause": "rate_limited",
-    "header_variant": "primary",
-    "role": "venue_receipt"
-   },
    "https://www.hotspawn.com/matches/gen-g-vs-lyon-worlds-2026-main-event-1075818": {
     "url": "https://www.hotspawn.com/matches/gen-g-vs-lyon-worlds-2026-main-event-1075818",
     "status": 200,
     "content_type": "text/html; charset=UTF-8",
-    "bytes": 489509,
+    "bytes": 474610,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -2574,7 +2494,7 @@
     "url": "https://www.hotspawn.com/matches/karmine-corp-vs-bilibili-gaming-worlds-2026-main-event-1075820",
     "status": 200,
     "content_type": "text/html; charset=UTF-8",
-    "bytes": 489046,
+    "bytes": 481527,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -2626,7 +2546,7 @@
     "url": "https://www.hotspawn.com/matches/l-s-vs-team-secret-whales-worlds-2026-main-event-1075822",
     "status": 200,
     "content_type": "text/html; charset=UTF-8",
-    "bytes": 488416,
+    "bytes": 480184,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -2639,7 +2559,7 @@
     "url": "https://www.hotspawn.com/matches/team-liquid-vs-anyone-s-legend-worlds-2026-main-event-1075823",
     "status": 200,
     "content_type": "text/html; charset=UTF-8",
-    "bytes": 488758,
+    "bytes": 480914,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -2764,6 +2684,19 @@
     "cause": "resolved",
     "header_variant": "primary",
     "role": "hotspawn_card"
+   },
+   "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct271300rbmr": {
+    "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct271300rbmr",
+    "status": 429,
+    "content_type": "",
+    "bytes": 0,
+    "ok": false,
+    "error": "HTTP 429",
+    "json_ok": null,
+    "attempts": 4,
+    "cause": "rate_limited",
+    "header_variant": "primary",
+    "role": "venue_receipt"
    },
    "https://www.hotspawn.com/matches/atruvia-munster-esports-vs-defiance-esports-prm-3rd-division-26-27-fall-1075734": {
     "url": "https://www.hotspawn.com/matches/atruvia-munster-esports-vs-defiance-esports-prm-3rd-division-26-27-fall-1075734",
@@ -2912,7 +2845,7 @@
     "url": "https://www.hotspawn.com/matches/team-reds-vs-nextgeneration-esports-arabian-league-2nd-division-2026-summer-1079147",
     "status": 200,
     "content_type": "text/html; charset=UTF-8",
-    "bytes": 464578,
+    "bytes": 455713,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4240,7 +4173,7 @@
     "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/index.html",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 44758,
+    "bytes": 39110,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4252,7 +4185,7 @@
     "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/table.html",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 281287,
+    "bytes": 281284,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4264,7 +4197,7 @@
     "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/picks.html",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 458479,
+    "bytes": 459829,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4276,7 +4209,7 @@
     "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/featured.html",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 38955,
+    "bytes": 41926,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4300,7 +4233,7 @@
     "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/unresolved.html",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 199846,
+    "bytes": 207749,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4336,7 +4269,7 @@
     "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/flagged.html",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 68214,
+    "bytes": 73321,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4348,7 +4281,7 @@
     "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/coverage.html",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 78355,
+    "bytes": 89363,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4360,7 +4293,7 @@
     "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/verification.html",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 34160,
+    "bytes": 35681,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4372,7 +4305,7 @@
     "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/sources.html",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 56549,
+    "bytes": 57221,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4384,7 +4317,7 @@
     "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/methodology.html",
     "status": 200,
     "content_type": "text/html; charset=utf-8",
-    "bytes": 11701,
+    "bytes": 11732,
     "ok": true,
     "error": "",
     "json_ok": null,
@@ -4424,7 +4357,7 @@
  "url_counts": {
   "hotspawn_card": 234,
   "market_quote": 10,
-  "venue_receipt": 41,
+  "venue_receipt": 50,
   "leaguepedia_page": 29,
   "pickem": 1
  },
@@ -4459,20 +4392,32 @@
   },
   "market_quote": {
    "total": 10,
-   "resolved": 10,
+   "resolved": 9,
    "causes": {
-    "resolved": 10
+    "market_closed": 1,
+    "resolved": 9
    },
    "broken": []
   },
   "venue_receipt": {
-   "total": 41,
-   "resolved": 33,
+   "total": 50,
+   "resolved": 32,
    "causes": {
-    "resolved": 33,
-    "rate_limited": 8
+    "market_closed": 1,
+    "resolved": 32,
+    "rate_limited": 9,
+    "auth_required": 8
    },
-   "broken": []
+   "broken": [
+    "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/17-00/hanwha-life-esports-vs-invictus-gaming/45400320/",
+    "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/18-00/top-esports-vs-g2-esports/45400319/",
+    "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/19-00/dplus-kia-vs-movistar-koi/45400322/",
+    "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/22-00/gen-g-vs-lyon/45400321/",
+    "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/17-00/t1-vs-ctbc-flying-oyster/45400324/",
+    "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/18-00/karmine-corp-vs-bilibili-gaming/45400323/",
+    "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/19-00/los-vs-team-secret-whales/45400326/",
+    "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/22-00/team-liquid-vs-anyone-s-legend/45400325/"
+   ]
   },
   "leaguepedia_page": {
    "total": 29,
@@ -4491,6 +4436,9 @@
    "broken": []
   }
  },
+ "market_closed_links": [
+  "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight"
+ ],
  "table_rows_rendered": 234,
- "passed": true
+ "passed": false
 }
