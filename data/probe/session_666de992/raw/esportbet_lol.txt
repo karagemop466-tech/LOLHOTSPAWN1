@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en-US" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, user-scalable=yes" />
+	<title>LoL eSports Betting Sites 2026 | League of Legends Betting Guide</title><link rel="preload" data-smush-preload as="image" href="https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE.jpg" imagesrcset="https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE.jpg 2000w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-300x102.jpg 300w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-1024x348.jpg 1024w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-768x261.jpg 768w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-1536x522.jpg 1536w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-118x40.jpg 118w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-94x32.jpg 94w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-206x70.jpg 206w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-235x80.jpg 235w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-397x135.jpg 397w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-760x258.jpg 760w, https://esportbet.com/wp-content/uploads/2025/05/LOL-BETTING-GUIDE-FEATURE-370x126.jpg 370w" imagesizes="(max-width: 2000px) 100vw, 2000px" fetchpriority="high" />
+<meta name='robots' content='max-image-preview:large' />
+<script type="application/json" id="dcf-keyset">{
+ "version": 1,
+ "issued_at": "2026-08-19T23:30:00Z",
+ "root": {
+  "kid": "root-2026-08",
+  "alg": "Ed25519",
+  "pub": "M83aiCE35I44izZIHJXmeiYNIpBDeOEbwQEpvPJCFRM="
+ },
+ "active_keys": [
+  {
+   "kid": "frag-2026-08",
+   "role": "manifest_signing",
+   "alg": "Ed25519",
+   "pub": "W5SmO6Y2EUMwpoid9h0gVi8vlm9hMqlbDTsBATOMUS0=",
+   "valid_from": "2026-08-19",
+   "valid_to": "2027-08-19"
+  },
+  {
+   "kid": "log-2026-08",
+   "role": "checkpoint_signing",
+   "alg": "Ed25519",
+   "pub": "obm3w/rfjPrCVgAWF6pF5mPn27m4zBTFiUzOJAn8S3A=",
+   "valid_from": "2026-08-19",
+   "valid_to": "2027-08-19"
+  },
+  {
+   "kid": "tok-2026-08",
+   "role": "placement_tokens",
+   "alg": "Ed25519",
+   "pub": "PUU0B7q+tWhxi6QvRBrVGTag4AT5taoWgtU5G+gPDQ0=",
+   "valid_from": "2026-08-19",
+   "valid_to": "2027-08-19"
+  }
+ ],
+ "revoked_keys": []
+}</script><script type="wphb-delay-type" data-velar="beacon">(function(){
+"use strict";
+/* Beacon loader v1.1 — ~1.6KB async, non-blocking, silent fail (D2/E.1).
+ * Adds (addendum §9/§10): page URL + per-session client ordinal (sessionStorage
+ * counted) + consent_state. Consent modes (D10/§10.A):
+ *   granted   → persistent dc_id cookie + localStorage backup; pageview rows
+ *   denied    → NO persistent storage anywhere; server writes zero pageview rows
+ *   ephemeral → sessionStorage-only ID until a CMP upgrade hook flips to granted
+ * Hard 1.5s timeout; beacon is an enhancement, never a render dependency.
+ *
+ * 2026-08-11 token-click-join: if the page carries /go/ links, we send
+ * go_rewrite:1; the beacon mints a single-use 5-min handoff token and we
+ * append ?t={token} to every /go/ href. A8 passes t through to click-intake,
+ * which resolves+DELs it server-side. uid never appears in any URL.
+ */
+var BEACON_URL = "https://esportbet.com/velar-beacon.php";
+var SITE_ID = 114;
+var TENANT_ID = 2;
+var CONSENT = "granted"; // granted | denied | ephemeral
+var COOKIE = "dc_id";
+var LS_KEY = "dc_id";
+var SS_UID = "dc_eid";       // ephemeral session id (sessionStorage only)
+var SS_ORD = "dc_ord";       // per-session pageview ordinal (sessionStorage)
+var TIMEOUT_MS = 1500;
+
+function getCookie(name) {
+  var m = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([.$?*|{}()\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)"));
+  return m ? decodeURIComponent(m[1]) : null;
+}
+function setCookie(name, value, days) {
+  var d = new Date();
+  d.setTime(d.getTime() + (days * 864e5));
+  document.cookie = name + "=" + encodeURIComponent(value) + "; expires=" + d.toUTCString() + "; path=/; SameSite=Lax";
+}
+function getLS() { try { return localStorage.getItem(LS_KEY); } catch(e) { return null; } }
+function setLS(v) { try { localStorage.setItem(LS_KEY, v); } catch(e) {} }
+function getSS(k) { try { return sessionStorage.getItem(k); } catch(e) { return null; } }
+function setSS(k, v) { try { sessionStorage.setItem(k, v); } catch(e) {} }
+
+function newUlid() {
+  // Client-side fallback mint — Crockford base32, 26 chars. Server re-mints
+  // if absent; this just keeps the id stable across the round-trip gap.
+  var C = "0123456789ABCDEFGHJKMNPQRSTVWXYZ", s = "", i;
+  var t = Date.now();
+  for (i = 9; i >= 0; i--) { s = C.charAt(t % 32) + s; t = Math.floor(t / 32); }
+  for (i = 0; i < 16; i++) { s += C.charAt(Math.floor(Math.random() * 32)); }
+  return s;
+}
+
+// --- consent-mode identity resolution (D10) ---
+var uid = null;
+if (CONSENT === "denied") {
+  uid = null; // no persistent storage, no resurrection — server mints per request
+} else if (CONSENT === "ephemeral") {
+  uid = getSS(SS_UID);           // sessionStorage only, never cookie/localStorage
+  if (!uid) { uid = newUlid(); setSS(SS_UID, uid); }
+} else {
+  uid = getCookie(COOKIE) || getLS();
+}
+
+// --- client-side ordinal (sessionStorage-counted per session, §10.D.3) ---
+var ordinal = parseInt(getSS(SS_ORD) || "0", 10) + 1;
+setSS(SS_ORD, String(ordinal));
+
+// Per-fire idempotency nonce (round-8): dedupes double-fires/retries at flush.
+var idem = null;
+try {
+  idem = (crypto && crypto.randomUUID) ? crypto.randomUUID().replace(/-/g, "") : (Date.now().toString(32) + Math.random().toString(36).slice(2, 18));
+} catch(e) { idem = Date.now().toString(32) + Math.random().toString(36).slice(2, 18); }
+
+// --- /go/ link detection (token-click-join): pages with alpha links get a
+// handoff token; the href rewrite happens in onOk once the beacon responds.
+var goLinks = [];
+try {
+  var anchors = document.querySelectorAll('a[href*="/go/"]');
+  for (var gi = 0; gi < anchors.length; gi++) { goLinks.push(anchors[gi]); }
+} catch(e) {}
+
+var payload = {
+  site_id: SITE_ID,
+  tenant_id: TENANT_ID,
+  uid: uid,
+  page_url: location.href,
+  referrer: document.referrer || null,
+  ordinal: ordinal,
+  consent_state: CONSENT,
+  idem: idem,
+  go_rewrite: goLinks.length > 0 ? 1 : 0
+};
+
+var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+var timer = setTimeout(function(){ if (ctrl) ctrl.abort(); }, TIMEOUT_MS);
+
+function onOk(data) {
+  if (data && data.uid && CONSENT === "granted") {
+    setCookie(COOKIE, data.uid, 400);
+    setLS(data.uid);
+  }
+  if (data && data.uid && CONSENT === "ephemeral") {
+    setSS(SS_UID, data.uid); // adopt server-canonical id for the session
+  }
+  // Token-click-join: append ?t={pc_token} to every /go/ href. Opaque,
+  // single-use, 5-min TTL; harmless if the click outlives it (intake
+  // degrades to click-only, uid NULL).
+  if (data && data.pc_token && goLinks.length) {
+    for (var i = 0; i < goLinks.length; i++) {
+      try {
+        var h = goLinks[i].getAttribute("href");
+        if (!h || h.indexOf("t=") !== -1) { continue; }
+        goLinks[i].setAttribute("href", h + (h.indexOf("?") === -1 ? "?" : "&") + "t=" + encodeURIComponent(data.pc_token));
+      } catch(e) {}
+    }
+  }
+}
+function send(body) {
+  if (navigator.sendBeacon) {
+    var blob = new Blob([JSON.stringify(body)], { type: "application/json" });
+    navigator.sendBeacon(BEACON_URL, blob);
+  }
+}
+try {
+  if (window.fetch) {
+    fetch(BEACON_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+      signal: ctrl ? ctrl.signal : undefined,
+      credentials: "include"
+    }).then(function(r){ return r.json(); }).then(function(d){ clearTimeout(timer); onOk(d); })
+      .catch(function(){ clearTimeout(timer); send(payload); });
+  } else {
+    send(payload);
+  }
+} catch(e) {
+  // silent
+}
+})();
+</script>
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//apis.google.com' />
+<link rel='dns-prefetch' href='//google-analytics.com' />
+<link rel='dns-prefetch' href='//www.google-analytics.com' />
+<link rel='dns-prefetch' href='//ssl.google-analytics.com' />
+
+<link href='//fonts.gstatic.com' crossorigin='' rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="Esportbet.com &raquo; Feed" href="https://esportbet.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Esportbet.com &raquo; Comments Feed" href="https://esportbet.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Esportbet.com &raquo; LoL esports betting guide 2026 Comments Feed" href="https://esportbet.com/league-of-legends/feed/" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://esportbet.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fesportbet.com%2Fleague-of-legends%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://esportbet.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fesportbet.com%2Fleague-of-legends%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<link rel='stylesheet' id='pt-cv-public-style-css' href='https://esportbet.com/wp-content/uploads/hummingbird-assets/25b91525c9f8a0b8802673a62011619e.css' media='all' />
+<link rel='stylesheet' id='pt-cv-public-pro-style-css' href='https://esportbet.com/wp-content/plugins/pt-content-views-pro/public/assets/css/cvpro.min.css' media='all' />
+<link rel='stylesheet' id='mercury-parent-style-css' href='https://esportbet.com/wp-content/uploads/hummingbird-assets/883e4021cc72456a887893bc6c59aa1f.css' media='all' />
+<link rel='stylesheet' id='mercury-esportbet-style-css' href='https://esportbet.com/wp-content/uploads/hummingbird-assets/9372ad2099b02293cefc7990baa1d0d6.css' media='all' />
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-break:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style^=border-color],[style*=";border-color"],[style*="; border-color"]){border-style:solid}html :where([style^=border-top-color],[style*=";border-top-color"],[style*="; border-top-color"]){border-top-style:solid}html :where([style^=border-right-color],[style*=";border-right-color"],[style*="; border-right-color"]){border-right-style:solid}html :where([style^=border-bottom-color],[style*=";border-bottom-color"],[style*="; border-bottom-color"]){border-bottom-style:solid}html :where([style^=border-left-color],[style*=";border-left-color"],[style*="; border-left-color"]){border-left-style:solid}html :where([style^=border-width],[style*=";border-width"],[style*="; border-width"]){border-style:solid}html :where([style^=border-top-width],[style*=";border-top-width"],[style*="; border-top-width"]){border-top-style:solid}html :where([style^=border-right-width],[style*=";border-right-width"],[style*="; border-right-width"]){border-right-style:solid}html :where([style^=border-bottom-width],[style*=";border-bottom-width"],[style*="; border-bottom-width"]){border-bottom-style:solid}html :where([style^=border-left-width],[style*=";border-left-width"],[style*="; border-left-width"]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="wp-block-heading-inline-css">
+h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-background,h3:where(.wp-block-heading).has-background,h4:where(.wp-block-heading).has-background,h5:where(.wp-block-heading).has-background,h6:where(.wp-block-heading).has-background{padding:1.25em 2.375em}h1.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h1.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h2.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h2.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h3.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h3.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h4.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h4.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h5.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h5.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h6.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h6.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]){rotate:180deg}
+/*# sourceURL=https://esportbet.com/wp-includes/blocks/heading/style.min.css */
+</style>
+<style id="wp-block-image-inline-css">
+.wp-block-image>a,.wp-block-image>figure>a{display:inline-block}.wp-block-image img{box-sizing:border-box;height:auto;max-width:100%;vertical-align:bottom}@media not (prefers-reduced-motion){.wp-block-image img.hide{visibility:hidden}.wp-block-image img.show{animation:show-content-image .4s}}.wp-block-image[style*=border-radius] img,.wp-block-image[style*=border-radius]>a{border-radius:inherit}.wp-block-image.has-custom-border img{box-sizing:border-box}.wp-block-image.aligncenter{text-align:center}.wp-block-image.alignfull>a,.wp-block-image.alignwide>a{width:100%}.wp-block-image.alignfull img,.wp-block-image.alignwide img{height:auto;width:100%}.wp-block-image .aligncenter,.wp-block-image .alignleft,.wp-block-image .alignright,.wp-block-image.aligncenter,.wp-block-image.alignleft,.wp-block-image.alignright{display:table}.wp-block-image .aligncenter>figcaption,.wp-block-image .alignleft>figcaption,.wp-block-image .alignright>figcaption,.wp-block-image.aligncenter>figcaption,.wp-block-image.alignleft>figcaption,.wp-block-image.alignright>figcaption{caption-side:bottom;display:table-caption}.wp-block-image .alignleft{float:left;margin:.5em 1em .5em 0}.wp-block-image .alignright{float:right;margin:.5em 0 .5em 1em}.wp-block-image .aligncenter{margin-left:auto;margin-right:auto}.wp-block-image :where(figcaption){margin-bottom:1em;margin-top:.5em}.wp-block-image.is-style-circle-mask img{border-radius:9999px}@supports ((-webkit-mask-image:none) or (mask-image:none)) or (-webkit-mask-image:none){.wp-block-image.is-style-circle-mask img{border-radius:0;-webkit-mask-image:url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"/></svg>');mask-image:url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"/></svg>');mask-mode:alpha;-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain}}:root :where(.wp-block-image.is-style-rounded img,.wp-block-image .is-style-rounded img){border-radius:9999px}.wp-block-image figure{margin:0}.wp-lightbox-container{display:flex;flex-direction:column;position:relative}.wp-lightbox-container img{cursor:zoom-in}.wp-lightbox-container img:hover+button{opacity:1}.wp-lightbox-container button{align-items:center;backdrop-filter:blur(16px) saturate(180%);background-color:rgba(90,90,90,.25);border:none;border-radius:4px;cursor:zoom-in;display:flex;height:20px;justify-content:center;opacity:0;padding:0;position:absolute;right:16px;text-align:center;top:16px;width:20px;z-index:100}@media not (prefers-reduced-motion){.wp-lightbox-container button{transition:opacity .2s ease}}.wp-lightbox-container button:focus-visible{outline:3px auto rgba(90,90,90,.25);outline:3px auto -webkit-focus-ring-color;outline-offset:3px}.wp-lightbox-container button:hover{cursor:pointer;opacity:1}.wp-lightbox-container button:focus{opacity:1}.wp-lightbox-container button:focus,.wp-lightbox-container button:hover,.wp-lightbox-container button:not(:hover):not(:active):not(.has-background){background-color:rgba(90,90,90,.25);border:none}.wp-lightbox-overlay{box-sizing:border-box;cursor:zoom-out;height:100vh;left:0;overflow:hidden;position:fixed;top:0;visibility:hidden;width:100%;z-index:100000}.wp-lightbox-overlay .wp-lightbox-close-button{align-items:center;cursor:pointer;display:flex;font-family:inherit;gap:8px;justify-content:center;line-height:1;min-height:40px;min-width:40px;padding:0 4px;position:absolute;right:calc(env(safe-area-inset-right) + 16px);top:calc(env(safe-area-inset-top) + 16px);z-index:5000000}.wp-lightbox-overlay .wp-lightbox-close-button:focus,.wp-lightbox-overlay .wp-lightbox-close-button:hover,.wp-lightbox-overlay .wp-lightbox-close-button:not(:hover):not(:active):not(.has-background){background:none;border:none}.wp-lightbox-overlay .wp-lightbox-close

@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html class="layout-custom" lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>World. LoL - Prime League 2nd Division Beting odds comparison</title>
+    <meta name="keywords" />
+    <meta name="description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link href="/bmbets.ico" rel="shortcut icon" />
+    <!-- bootstrap & fontawesome -->
+    <link href="/Content/css?v=aPxniq8qKYUSpJn7klkDYToVJ61ud4iC5pDMQ2MizcU1" rel="stylesheet"/>
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/assets/css/ace-part2.css" class="ace-main-stylesheet" />
+    <![endif]-->
+    <!--[if lte IE 9]>
+      <link rel="stylesheet" href="/assets/css/ace-ie.css" />
+    <![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    <script src="/bundles/ace?v=hszle02AdWDjH14Q1gm0cjvfemzCf_2s7vWg-QRqJ9c1"></script>
+
+
+
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+    <!--[if lte IE 8]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.js"></script>
+    <![endif]-->
+    
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeSkboUAAAAAIvyWwkyePqaBbHf_FCMNfdY1EKK"></script>
+</head>
+<body class="layout-custom no-skin">
+
+
+    <div id="fb-root"></div>
+
+    <div class="bmbets-container">
+        <!-- #section:basics/navbar.layout -->
+        <div id="navbar" class="navbar navbar-default navbar-collapse">
+            <script type="text/javascript">
+                try { ace.settings.check('navbar', 'fixed') } catch (e) { }
+            </script>
+            <!-- "edit" new header -->
+            <div id="navbar-lg" class="hidden-xs hidden-sm">
+                <div class="navbar-container navbar-top clearfix">
+                    <div class="container px-one">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <a href="/" class="navbar-brand pull-left">
+                                    <img class="img-responsive" src="/images/logo.png" alt="BMBets" />
+                                </a>
+                                <div class="pull-left navbar-lg-menu bm-sub-menu" id="navbar-menu-parent">
+                                    <ul class="clearfix">
+                                        <li>
+                                            <a href="#" class="menuItem" data-child="#menu-1" onclick="return showMenu(this);">
+                                                <span>Odds Comparison</span>
+                                                <i class="fa fa-angle-down icondown bm-nav-icon"></i>
+                                                <i class="fa fa-angle-up iconup bm-nav-icon display-none"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="menuItem" data-child="#menu-2" onclick="return showMenu(this);">
+                                                <span>Surebets</span>
+                                                <i class="fa fa-angle-down icondown bm-nav-icon"></i>
+                                                <i class="fa fa-angle-up iconup bm-nav-icon display-none"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/bookmakers" class="menuItem">
+                                                <span>Bookmakers</span>
+                                            </a>
+                                            
+                                        </li>
+                                        
+                                    </ul>
+
+                                    <div class="display-none bm-sub-item evt-sub l1" id="menu-1">
+                                        <div class="sub-item"><a href="/matches/"> Sporting events</a></div>
+                                        <div class="sub-item"><a href="/blocked-matches">Blocked Matches</a></div>
+                                        <div class="sub-item"><a href="/moving-margins">Moving Margins</a></div>
+                                    </div>
+                                    <div class="display-none bm-sub-item evt-sub l2" id="menu-2">
+                                        <div class="sub-item"><a href="/sure-bets">Surebets</a></div>
+                                        <div class="sub-item"><a href="/back-lay-sure-bets"> Back/Lay</a></div>
+                                        <div class="sub-item"><a href="/middles"> Middles</a></div>
+                                        <div class="sub-item"><a href="/value-bets">Value Bets</a></div>
+                                    </div>
+                                    <!--<div class="display-none bm-sub-item evt-sub l3" id="menu-3">
+                                        <div class="sub-item"><a href="/bookmakers">Bookmakers</a></div>
+                                        <div class="sub-item"><a href="/bookmakers/bonus">Bonus</a></div>
+                                    <!--</div>-->
+                                </div>
+                                <form action="/account/Login?ReturnUrl=%2Fe-sports%2Fworld%2Flol---prime-league-2nd-division%2F" id="logoutForm" method="post"><input name="__RequestVerificationToken" type="hidden" value="J8IGfx9b4p2JoKSiUN9zr8yrJD8esTTjuvXHm3of-4Cv8oJh2PMCRiaW3uj5GsjLVM-YPcatX2-H3V8P7te4ZQHWFdpmRPhK3-T2YLBPVNo1" />        <div class="pull-right clearfix">
+            <div class="pull-left navbar-lg-login-wrap">
+                <div class="navbar-lg-login-wrap-bottom clearfix">
+                    <label><input class="navbar-lg-input" id="email" name="email" placeholder="E-mail" type="text" value="" /></label>
+                    <label>
+                        <input class="navbar-lg-input" id="password" name="password" placeholder="Password" type="password" value="" />
+                        <a href="/account/forgotpassword" class="tooltip-white" data-placement="bottom" data-toggle="tooltip" title="" data-original-title="Forgot&nbsp;your&nbsp;password?"><i class="ace-icon fa fa-question-circle"></i></a>
+                    </label>
+                    <a class="navbar-lg-login" data-type="submit" href="/account/Login" title="Login">Login</a>
+                    <a class="navbar-lg-register" href="/account/Register" id="registerLink" title="Register">Register</a>
+                </div>
+            </div>
+        </div>
+</form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar-container navbar-bottom clearfix" id="navbar-container">
+                    <div class="px-one">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="navbar-brand-block pull-left">
+                                    <ul class="nav ace-nav">
+                                        
+    <li class="transparent" id="timezone">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="js-gmt-update">GMT+00:00</span>
+            <i class="ace-icon fa fa-angle-down bigger-110"></i>
+        </a>
+        <ul class="dropdown-navbar timezone dropdown-menu dropdown-caret">
+            <li class="dropdown-header">
+                <i class="ace-icon fa  fa-clock-o bigger-110 blue"></i>Time zone
+                <div class="dropdown-toolbar"><a href="#" data-call="gmt" class="btn btn-minier btn-success">Set GMT</a></div>
+            </li>
+            <li>
+                <div style="padding: 5px;">
+                    <div class="clearfix">
+                        <div id="gmt-text" class="center"></div>
+                    </div>
+                    <div id="gmt-slider" class="ui-slider-green ui-slider-small"></div>
+                    <div class="space-4"></div>
+                    <ul id="gmt-list"></ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+
+                                    </ul>
+                                </div>
+                                
+                                <div class="pull-right clearfix">
+                                    <div class="navbar-buttons navbar-header pull-left collapse navbar-collapse" role="navigation">
+                                        <ul class="nav ace-nav">
+                                            <li class="transparent">
+                                                
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <span>English</span>
+        <i class="ace-icon fa fa-angle-down bigger-110"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret">
+            <li class="hover">
+                <a href="#" data-call="language" data-lang="en-US">English</a>
+            </li>
+            <li class="hover">
+                <a href="#" data-call="language" data-lang="ru-RU">Руский</a>
+            </li>
+    </ul>
+
+                                            </li>
+                                            <li class="transparent">
+                                                
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        EU Odds (2.5)
+        <i class="ace-icon fa fa-angle-down bigger-110"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret">
+            <li>
+                <a href="#" data-call="oddsFormat" data-num="0">
+                    EU Odds (2.5)
+                </a>
+            </li>           
+            <li>
+                <a href="#" data-call="oddsFormat" data-num="1">
+                    UK Odds (3/2)
+                </a>
+            </li>           
+            <li>
+                <a href="#" data-call="oddsFormat" data-num="2">
+                    US Odds (+150)
+                </a>
+            </li>           
+    </ul>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <nav role="navigation" class="navbar-menu pull-left collapse navbar-collapse">
+                                        <div id="navbar-lg-search-wrap" class="navbar-lg-search">
+                                            <form class="form-search" action="/search/">
+                                                <span class="input-icon">
+                                                    <input type="search" class="nav-search-input search-input" id="search" name="query" autocomplete="off" placeholder="Search" />
+                                                    <i class="ace-icon fa fa-search nav-search-icon"></i>
+                                                </span>
+                                            </form>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.navbar-container -->
+
+            </div>
+            <!-- "edit" new header end -->
+            <!-- "edit" old header (still used for mobile/tablet, may contain ID duplications) -->
+            <div id="navbar-sm" class="hidden-md hidden-lg">
+                <div class="navbar-container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle navbar-toggle-custom menu-toggler pull-left fixed" id="menu-toggler" data-target="#sidebar">
+                            <span class="sr-only">Toggle sidebar</span>
+                            <i class="ace-icon fa fa-book"></i>
+                        </button>
+                        <!-- #section:basics/navbar.layout.brand -->
+                        <a href="/" class="navbar-brand">
+                            <small>
+                                <img class="img-responsive bm-logo" src="/images/logo.png" alt="BMBets">
+                            </small>
+                        </a>
+                        <!-- /section:basics/navbar.layout.brand -->
+                        <!-- #section:basics/navbar.toggle -->
+                        <button class="pull-right navbar-toggle navbar-toggle-custom collapsed" type="button" data-toggle="collapse" data-target="#sidebarTop" aria-expanded="false">
+                            <span class="sr-only">Toggle sidebar</span>
+                            <i class="ace-icon fa fa-bars"></i>
+                        </button>
+                        <!-- /section:basics/navbar.toggle -->
+                    </div>
+                </div><!-- /.navbar-container -->
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        //var navbarMenuParent = $("#navbar-menu-parent");
+                        //var navbarMenuChildren = $("#navbar-menu-children");
+
+                        //navbarMenuParent.find("a").hover(
+                        //    function () {
+                        //        var child = $(this).data("child");
+                        //        navbarMenuParent.find("a").removeClass("selected");
+                        //        $(this).addClass("selected");
+                        //        navbarMenuChildren.find("ul").addClass("hidden");
+                        //        navbarMenuChildren.find($(child)).removeClass("hidden");
+                        //    }, function () {
+
+                        //    }
+                        //);
+                        //navbarMenuParent.find("a.menuItem").click(function (e) {
+                        //    e.preventDefault();
+                        //});
+
+                        var mainContainerInner = $(".main-container-inner");
+                        function resizeMainContainer() {
+                            mainContainerInner.width($(window).width());
+                        }
+                        $(window).resize(function () {
+                            resizeMainContainer()
+                        });
+                        resizeMainContainer();
+                    });
+                </script>
+            </div>
+            <!-- "edit" old header end -->
+        </div>
+        <!-- /section:basics/navbar.layout -->
+        <div class="main-container page-row-custom-expanded" id="main-container">
+            <div class="bg-color-white">
+                <div class="overflow-hidden">
+                    <div data-sidebar-hover="true" data-sidebar-scroll="false" data-auto-hide="true" data-sidebar="true" id="sidebar" class="sidebar responsive">
+                        <!--div style="z-index: 1;" class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+                            <i class="ace-icon fa fa-angle-left" data-icon1="ace-icon fa fa-angle-left" data-icon2="ace-icon fa fa-angle-right"></i>
+                        </div-->
+                        <div class="nav-wrap-up pos-rel">
+                            <div class="nav-wrap">
+                                <div style="position: relative; top: 0px; transition-property: top; transition-duration: 0.15s;">
+                                    
+    <ul class="nav nav-list">
+                    <li class="highlight">
+                <a href="/football/" class="s50 dropdown-toggle text-uppercase">
+                    <i class="menu-icon fa"></i>
+                    <span class="menu-text" data-original-title="2085"><strong>Football</strong></span>
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+                <b class="arrow"></b>
+                <ul style="" class="submenu">
+                    <li class="">
+                        <a href="/football/">
+                            <i class="menu-icon fa fa-map"></i>Map
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="/matches/football/">
+                            <i class="menu-icon fa fa-calendar"></i>
+                            Today&#39;s Matches
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                        <li class="">
+                            <a href="/football/africa/" class="dropdown-toggle">
+                                <i class="flag flag-wld menu-icon fa"></i>
+                                Africa                               
+                                <b class="arrow fa fa-angle-down"></b>
+                            </a>
+                            <b class="arrow"></b>
+                            <ul style="display: none;" class="submenu nav-hide">
+                                    <li class="">
+                                        <a title="CAF Champions League" class="l-item" href="/football/africa/caf-champions-league/" data-call="bk">                                           
+                                            CAF Champions League
+                                            <span class="badge badge-primary">5</span>
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a title="CAF Confederation Cup" class="l-item" href="/football/africa/caf-confederation-cup/" data-call="bk">                                           
+                                            CAF Confederation Cup
+                                            <span class="badge badge-primary">6</span>
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                    <li class="">
+                                        <a title="African Cup of Nations" class="l-item" href="/football/africa/african-cup-of-nations/" data-call="bk">                                           
+                                            African Cup of Nations
+                                            <span class="badge badge-primary">24</span>
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="/football/albania/" class="dropdown-toggle">
+                                <i class="flag flag-al menu-icon fa"></i>
+                                Albania                               
+                                <b class="arrow fa fa-angle-down"></b>
+                            </a>
+                            <b class="arrow"></b>
+                            <ul style="display: none;" class="submenu nav-hide">
+                                    <li class="">
+                                        <a title="Kategoria Superiore" class="l-item" href="/football/albania/kategoria-superiore/" data-call="bk">                                           
+                                            Kategoria Superiore
+                                            <span class="badge badge-primary">1</span>
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+           

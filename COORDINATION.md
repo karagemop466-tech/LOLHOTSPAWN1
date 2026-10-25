@@ -2979,6 +2979,30 @@ expected repair path.
 |---|---|---|
 | R1 | `63c67a23` (or the next integration session) | Make `audit/verify_docs_parity.py` compare docs-rendered canonical probabilities against the canonical snapshot **docs was built from** (persist it in `data/node/picks.json`), so the parity gate is not red for up to 6 h after every canonical refresh. Evidence: check 6 output above and the two snapshot timestamps. |
 
+---
+
+## Session `666de992` — H1–H5 completion + convergence record
+
+| ID | Task | Status | Outcome |
+|---|---|---|---|
+| H1 | Unblock the 6-hourly refresh | **done (convergent)** | Diagnosed independently (fixed-date receipt fixtures crossing the 24 h expiry rule) and fixed on this branch (`d9060d3`); sessions `cb84d7dc`/`3d124b45`/`63c67a23` merged an equivalent fix to `main` first (PRs #93–#101). On integration this session adopted `main`'s tests wholesale and ported only its one missing regression test (`test_stale_receipt_on_a_listed_fixture_expires_not_rejected`) plus the `expired_receipts` term in the reconciliation assertion. |
+| H2 | Fresh line-source research for the low-tier tail | **done** | New method: pair search. 36 venues searched for the 226 exact low-tier team pairs live on Hotspawn 2026-10-25 (Worlds pairs as positive control). No priced tail feed exists; only schedule-only LCP/LGC listings. Memo `research/session_666de992/LOWTIER_RESEARCH.md`; receipts `data/probe/session_666de992/`; probe `tools/probe_lowtier_666de992.py` + `.github/workflows/probe-666de992.yml` (re-runnable). Nothing wired into `collect.py` — no matched quote to wire. Converges with `research/LINE_SEARCH_2026-10-25.md` + `research/external-lines-2026-10-25.md`. |
+| H3 | Pick for every match; unresolved + limitations in exec summary | **done** | Executive summary + unresolved summary + fallback ledger now cite the pair-search result from its receipt; zero-history debut provisional cards are **named** with card links ("the percentage is a prior, not evidence"); `sources.html` gains a 36-venue pair-search table. |
+| H4 | Phone-first findability | **done (partially yielded)** | Hero shows a next-24 h kick-off count; footer labels `docs/` as the **companion audit (secondary view)** with the root as canonical (closes session `9f16f9ad`'s open request). This session's `nextrow` live-labelling duplicated session `b1e5557f`'s PR **#95** (better: hides past rows, empty state, 60 s re-check, dashboard test) — **withdrawn here in favour of #95; please merge #95**. |
+| H5 | Integration verification, PR, merge, Pages | **in progress** | Independent audit `audit/session_666de992/verify_independent.py` (imports nothing from `tools/`); full gate suite re-run on the merged tree; PR link recorded below. |
+
+### Convergence / conflict log (protocol: stop, resolve without discarding, log)
+
+- This session's claim was committed to its Arena branch (`05790db`) before pipeline edits, but `main` integrated
+  five other sessions in parallel (PRs #93, #94, #96–#101), including the same H1 fix three times. The merge of
+  `origin/main` (`84524fd`) into this branch resolved 15 conflicts: generated files + tests + `site.py` taken from
+  `main`, this session's unique rendering re-applied on top, its duplicate outage flag dropped (already on
+  `flagged.html` via `e3e6f07`), its duplicate next-row JS withdrawn for PR #95. Nothing from `main` was reverted.
+- Irregularities flagged by this session: pair-search result (info, on `flagged.html`); the outage itself was
+  already flagged by `63c67a23`. Babos Gaming vs Hannover (PRM2) spot-check: model inputs coherent (exact joins,
+  59/22 rated series, played 2026-10-23); Hotspawn crowd disagrees 16/84 — crowd is never evidence here, no flag.
+- Open PRs from 2026-10-23 (#22, #26, #35, #36, #40, #56) predate this board state and were **not** touched by
+  this session; their owners or a future integration session should close/rebase them.
 
 ## X4 — merge record, the first green refresh since 2026-10-23, and the live deploy
 
