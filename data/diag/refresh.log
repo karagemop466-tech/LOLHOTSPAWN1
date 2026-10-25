@@ -56,6 +56,9 @@ test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagT
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_app_js_reads_the_query_string (test_full_coverage.DeepLinkClient.test_app_js_reads_the_query_string) ... ok
+test_every_quicklink_target_exists (test_full_coverage.LandingPageOrder.test_every_quicklink_target_exists) ... ok
+test_summary_and_unresolved_block_come_before_every_list (test_full_coverage.LandingPageOrder.test_summary_and_unresolved_block_come_before_every_list) ... ok
+test_unresolved_cards_are_named_with_a_reason_and_a_source (test_full_coverage.LandingPageOrder.test_unresolved_cards_are_named_with_a_reason_and_a_source) ... ok
 test_a_match_without_a_probability_names_its_settlement_source (test_full_coverage.PublishedDatasetCoverage.test_a_match_without_a_probability_names_its_settlement_source) ... ok
 test_dataset_is_not_empty (test_full_coverage.PublishedDatasetCoverage.test_dataset_is_not_empty) ... ok
 test_every_match_has_a_pick (test_full_coverage.PublishedDatasetCoverage.test_every_match_has_a_pick) ... ok
@@ -119,6 +122,24 @@ test_starting_soon_precedes_directory_in_builder (test_next_strip.NextStripTests
 test_no_test_pins_a_receipt_capture_to_a_literal_date (test_no_clock_bombs.NoClockBombTests.test_no_test_pins_a_receipt_capture_to_a_literal_date) ... ok
 test_the_ledger_window_is_what_the_tests_believe_it_is (test_no_clock_bombs.NoClockBombTests.test_the_ledger_window_is_what_the_tests_believe_it_is)
 The 24 h window is why the literals broke, so pin its value and both sides. ... ok
+test_every_listed_competition_has_aliases (test_probe_competitions.CompetitionAliases.test_every_listed_competition_has_aliases) ... ok
+test_matching_is_case_insensitive_and_safe_on_empty_input (test_probe_competitions.CompetitionAliases.test_matching_is_case_insensitive_and_safe_on_empty_input) ... ok
+test_prime_league_alias_comes_from_the_join (test_probe_competitions.CompetitionAliases.test_prime_league_alias_comes_from_the_join) ... ok
+test_unrelated_esports_text_matches_nothing (test_probe_competitions.CompetitionAliases.test_unrelated_esports_text_matches_nothing) ... ok
+test_worlds_matches_the_page_leaguepedia_joined_it_to (test_probe_competitions.CompetitionAliases.test_worlds_matches_the_page_leaguepedia_joined_it_to) ... ok
+test_both_sides_of_a_fixture_are_matched (test_probe_competitions.FixturePairMatching.test_both_sides_of_a_fixture_are_matched) ... ok
+test_empty_response_matches_nothing (test_probe_competitions.FixturePairMatching.test_empty_response_matches_nothing) ... ok
+test_generic_name_with_its_opponent_does_match (test_probe_competitions.FixturePairMatching.test_generic_name_with_its_opponent_does_match) ... ok
+test_generic_team_name_alone_is_not_a_match (test_probe_competitions.FixturePairMatching.test_generic_team_name_alone_is_not_a_match) ... ok
+test_one_side_alone_is_not_a_match (test_probe_competitions.FixturePairMatching.test_one_side_alone_is_not_a_match) ... ok
+test_league_list_is_parsed_into_per_league_matchup_counts (test_probe_competitions.PinnacleInventoryShape.test_league_list_is_parsed_into_per_league_matchup_counts) ... ok
+test_unreachable_endpoint_reports_status_and_empty_lists (test_probe_competitions.PinnacleInventoryShape.test_unreachable_endpoint_reports_status_and_empty_lists)
+A blocked or failed fetch must not be readable as "the book opens no LoL league". ... ok
+test_evidence_distinguishes_a_full_name_from_a_short_code (test_probe_competitions.ShortCodeMatching.test_evidence_distinguishes_a_full_name_from_a_short_code) ... ok
+test_evidence_records_the_matched_token_and_context (test_probe_competitions.ShortCodeMatching.test_evidence_records_the_matched_token_and_context) ... ok
+test_javascript_and_css_tokens_are_not_read_as_competition_codes (test_probe_competitions.ShortCodeMatching.test_javascript_and_css_tokens_are_not_read_as_competition_codes) ... ok
+test_short_code_does_not_match_inside_a_word (test_probe_competitions.ShortCodeMatching.test_short_code_does_not_match_inside_a_word) ... ok
+test_short_code_still_matches_as_a_standalone_word (test_probe_competitions.ShortCodeMatching.test_short_code_still_matches_as_a_standalone_word) ... ok
 test_flagged_page_renders_fixture_table_with_probabilities_picks_and_sources (test_site_and_flags.SiteAndFlagsRegressionTests.test_flagged_page_renders_fixture_table_with_probabilities_picks_and_sources) ... ok
 test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key (test_site_and_flags.SiteAndFlagsRegressionTests.test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key) ... [14:44:34] flags: 6 items
 ok
@@ -192,6 +213,8 @@ PASS all matches rendered on the picks page :: 234/234 match cards found
 PASS pick table renders one row per match :: 234/234 table rows
 PASS executive summary links to every picks view :: present: ['picks.html', 'table.html', 'results.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks', 'Where the picks are']
 PASS executive summary carries coverage, unresolved section and a where-to-find-picks block :: missing: []
+PASS executive summary and its unresolved block precede every list on the landing page :: summary=2549 unresolved=9253 soon=16889 directory=23538
+PASS the unresolved block inside the summary states why each card has no probability :: []
 PASS starting-soon phone list and fallback ledger rendered :: missing: []
 PASS mobile navigation rendered on every page and wired in JS :: missing mobnav: []; menu+filter handlers present: True
 PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,920
