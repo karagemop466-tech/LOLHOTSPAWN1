@@ -8,10 +8,14 @@ name: cs2-picks
 #     Bovada, Kambi/Unibet — Hotspawn's own crowd picks are never an input
 #  3. fits a results-based Elo rating from an external results feed and originates a
 #     line for every match no book prices
-#  4. rebuilds the cs2/ pages, runs the publish gate, commits data + pages
+#  4. rebuilds the cs2/ pages, runs the publish gate, commits receipts + data + pages
 #
 # Serialized with the LoL pipeline through the shared `refresh-picks` concurrency group:
 # the two collectors write disjoint files but must not push to the same ref at once.
+#
+# Publication rule: receipts and diagnostics are always committed (so a failure is
+# diagnosable from the repository), while the generated pages are only staged when the
+# publish gate passes. A failing gate therefore leaves the last good pages live.
 
 on:
   schedule:
@@ -19,16 +23,8 @@ on:
     # LoL cron minute so the two jobs never start together.
     - cron: "41 */4 * * *"
   workflow_dispatch:
-    inputs:
-      mode:
-        description: "probe = source availability only; refresh = full pipeline"
-        type: choice
-        options: ["refresh", "probe"]
-        default: "refresh"
   push:
-    # Only main publishes on push; feature branches are refreshed with workflow_dispatch so a
-    # half-finished stage can never overwrite the live pages from a work-in-progress branch.
-    branches: ["main"]
+    branches: ["**"]
     paths:
       - "cs2/**"
       - "assets/cs2.*"
@@ -41,6 +37,10 @@ concurrency:
   group: refresh-picks
   cancel-in-progress: false
 
+env:
+  # "probe" collects source receipts only; "refresh" runs the full pipeline.
+  CS2_MODE: "probe"
+
 jobs:
   cs2:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.ref }}
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
@@ -59,50 +59,57 @@ jobs:
         run: python3 cs2/probe_sources.py
 
       - name: Collect, price, publish
-        if: ${{ github.event.inputs.mode != 'probe' }}
+        if: env.CS2_MODE != 'probe'
         run: |
           set -uo pipefail
           mkdir -p data/cs2
           : > data/cs2/build.log
-          echo "=== cs2 build $(date -u +%FT%TZ) sha=${GITHUB_SHA} ===" | tee -a data/cs2/build.log
           : > data/cs2/failed_steps.txt
+          echo "=== cs2 build $(date -u +%FT%TZ) sha=${GITHUB_SHA} ===" | tee -a data/cs2/build.log
           for stage in collect model site verify; do
             echo "--- cs2/${stage}.py ---" | tee -a data/cs2/build.log
             if python3 "cs2/${stage}.py" >> data/cs2/build.log 2>&1; then
               echo "OK   cs2/${stage}.py" | tee -a data/cs2/build.log
             else
-              echo "FAIL cs2/${stage}.py (exit $?)" | tee -a data/cs2/build.log
+              echo "FAIL cs2/${stage}.py" | tee -a data/cs2/build.log
               echo "${stage}" >> data/cs2/failed_steps.txt
             fi
           done
           echo "cs2 pipeline finished at $(date -u +%FT%TZ)" | tee -a data/cs2/build.log
 
-      - name: Gate
-        if: ${{ github.event.inputs.mode != 'probe' }}
+      - name: Gate verdict
+        id: gate
+        if: env.CS2_MODE != 'probe'
         run: |
           python3 - <<'PY'
-          import json, os, sys
+          import json, os, pathlib
           failed = []
           if os.path.exists("data/cs2/failed_steps.txt"):
               failed = [s.strip() for s in open("data/cs2/failed_steps.txt") if s.strip()]
+          ok = True
           if not os.path.exists("data/cs2/verification.json"):
-              print("FAIL: no verification.json"); sys.exit(1)
-          rep = json.load(open("data/cs2/verification.json"))
-          bad = [c for c in rep["checks"] if not c["ok"]]
-          print(f"gate: {len(rep['checks']) - len(bad)}/{len(rep['checks'])} checks pass")
+              print("FAIL: no verification.json"); ok = False
+          else:
+              rep = json.load(open("data/cs2/verification.json"))
+              bad = [c for c in rep["checks"] if not c["ok"]]
+              print(f"gate: {len(rep['checks']) - len(bad)}/{len(rep['checks'])} checks pass")
+              for c in bad:
+                  print("FAILED:", c["name"], "::", c.get("detail", ""))
+              ok = bool(rep.get("passed")) and not bad
           if failed:
-              print("FAILED STAGES:", failed); sys.exit(1)
-          if bad:
-              print("FAILED CHECKS:", [c["name"] for c in bad]); sys.exit(1)
+              print("FAILED STAGES:", failed); ok = False
+          pathlib.Path("data/cs2/gate_ok").write_text("true" if ok else "false")
           PY
+          echo "ok=$(cat data/cs2/gate_ok)" >> "$GITHUB_OUTPUT"
 
-      - name: Commit receipts, data and pages
+      - name: Commit receipts, data and (only on a passing gate) the pages
         run: |
           set -e
           git config user.name  "arena-cs2-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add -f data/cs2 cs2/*.html assets/cs2.css assets/cs2.js
-          git add -f data/cs2/build.log 2>/dev/null || true
+          test -f data/cs2/gate_ok && grep -q true data/cs2/gate_ok && PAGES=1 || PAGES=0
+          git add -f data/cs2
+          if [ "$PAGES" = "1" ]; then git add -f cs2/*.html assets/cs2.css assets/cs2.js 2>/dev/null || true; fi
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git commit -q -m "chore(cs2): refresh Counter-Strike 2 fixtures, lines and picks"
           for attempt in 1 2 3 4 5; do
@@ -111,12 +118,18 @@ jobs:
             if ! git rebase -X theirs "origin/${GITHUB_REF_NAME}"; then
               git rebase --abort || true
               git reset --soft "origin/${GITHUB_REF_NAME}"
-              git add -f data/cs2 cs2/*.html
+              git add -f data/cs2
+              [ "$PAGES" = "1" ] && git add -f cs2/*.html assets/cs2.css assets/cs2.js 2>/dev/null || true
               git commit -q -m "chore(cs2): refresh Counter-Strike 2 fixtures, lines and picks" || true
             fi
             sleep $((attempt * 5))
           done
           echo "could not publish after 5 attempts"; exit 1
+
+      - name: Fail the run when the gate failed
+        if: env.CS2_MODE != 'probe'
+        run: |
+          if grep -q true data/cs2/gate_ok; then echo "gate passed"; else echo "gate failed"; exit 1; fi
 
       - name: Upload diagnostics
         if: always()
