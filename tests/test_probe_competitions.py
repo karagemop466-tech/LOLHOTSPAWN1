@@ -72,11 +72,40 @@ class PinnacleInventoryShape(unittest.TestCase):
     """A failed fetch must be recorded as a failure, never as 'the book has no LoL leagues'."""
 
     def test_unreachable_endpoint_reports_status_and_empty_lists(self) -> None:
-        doc = probe.pinnacle_league_inventory({}, retries=0)
-        self.assertIn("status", doc)
+        """A blocked or failed fetch must not be readable as "the book opens no LoL league".
+
+        The network is stubbed so the assertion is the same on a laptop with no egress and on
+        the build runner, where the endpoint does answer.
+        """
+        original = probe.get_json
+        probe.get_json = lambda *a, **k: (403, None, "stubbed block")  # type: ignore[assignment]
+        try:
+            doc = probe.pinnacle_league_inventory({}, retries=0)
+        finally:
+            probe.get_json = original  # type: ignore[assignment]
+        self.assertEqual(doc["status"], 403)
         self.assertEqual(doc["lol_leagues"], [])
         self.assertEqual(doc["lol_competitions_listed"], [])
         self.assertIn("url", doc)
+
+    def test_league_list_is_parsed_into_per_league_matchup_counts(self) -> None:
+        payload = [
+            {"name": "League of Legends - World Championship", "matchupCount": 10},
+            {"name": "CS2 - PGL Masters Bucharest", "matchupCount": 11},
+            {"name": "League of Legends - World Championship", "matchupCount": 1},
+        ]
+        original = probe.get_json
+        probe.get_json = lambda *a, **k: (200, payload, "")  # type: ignore[assignment]
+        try:
+            doc = probe.pinnacle_league_inventory(
+                {"Worlds 2026 Main Event": ["World Championship"]}, retries=0)
+        finally:
+            probe.get_json = original  # type: ignore[assignment]
+        self.assertEqual(doc["esports_leagues"], 3)
+        self.assertEqual(doc["lol_leagues"],
+                         [{"league": "League of Legends - World Championship", "matchup_count": 2}])
+        self.assertEqual(doc["lol_competitions_listed"], ["Worlds 2026 Main Event"])
+        self.assertEqual(doc["hotspawn_competitions_not_listed"], [])
 
 
 if __name__ == "__main__":
