@@ -10,6 +10,44 @@ Prior claims (`5ff8e6bf`, `80c624cd`, `c0a05820`, `4106ce94`, `bcfdfa66`) are >6
 | `W3` | Executive summary + unresolved section audit: summary links to every pick view, unresolved picks & limitations section present in summary, mobile-first readability verified | done — summary links to table/picks/results/featured/originated/unresolved; unresolved-&-limitations section embedded in summary (`index.html#unresolved-summary`); full esportsbook probe ledger now rendered on `unresolved.html`; `audit/check_site.py` 24 pages 0 failures, `audit/mobile_audit.py` PASS, `tools/verify.py` 44/44, 64 unit tests OK | 3d124b45 | `tools/site.py` (only if a gap is found), `tests/**` |
 | `W4` | Final integration: verify gates, open PR to `main`, merge, confirm Pages deploy | in progress | 3d124b45 | `COORDINATION.md`, `README.md` |
 
+# Session `5d4e9477` — final integration, independent live-source verification, low-tier line research (2026-10-25T14:1xZ)
+
+Branch: `arena/5d4e9477-lolhotspawn1` (Arena fixed session branch, from `main` @ `b19397f`, now
+rebased onto `origin/main` @ `edf0fd2` (PRs #96–#98 merged). This session's first edit is this claim; it is pushed before
+any other edit. The system-fixed branch name is used instead of a `session-<id>/<task>` branch because
+Arena ties this session to `arena/5d4e9477-lolhotspawn1`.
+
+## Live claims read before filing (2026-10-25T14:08Z)
+
+| Owner | Active scope | Where recorded |
+|---|---|---|
+| `650571cf` | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py`, `tests/test_no_clock_bombs.py` (PR #94), `audit/session_650571cf/**`, `COORDINATION.md`, dispatch/verify `refresh-picks` | its branch's COORDINATION claim T1–T3 |
+| `666de992` | `tests/test_corroborate_*.py`, `research/session_666de992/**`, `tools/probe_*.py` (new), `data/probe/**`, `tools/site.py`, root `*.html`, `assets/**`, `audit/session_666de992/**`, `README.md`, `COORDINATION.md` | its branch's COORDINATION claim H1–H5 |
+| `b1e5557f` | `tools/site.py`, `assets/app.js`, `assets/style.css`, `tests/dashboard.cjs`, `tests/test_site_and_flags.py`, generated `index.html` (PR #95) | its branch's COORDINATION completion record |
+| `cb84d7dc` | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` — **merged as PR #93** | `main` @ `b7d846a` |
+| `3d124b45` | `tools/probe_esportsbook_feeds.py`, `tools/site.py`, `data/esportsbook_probe.json`, `research/LINE_SEARCH_2026-10-25.md`, `COORDINATION.md`, final integration W4 — **merged as PR #98** | `main` @ `edf0fd2` |
+| `63c67a23`, `cb84d7dc` | book-by-book evidence page / research dossier — merged as PR #96/#97 | `main` @ `edf0fd2` |
+
+All older claims in this file are dated 2026-10-23/24 (>19 h ago, no new commits) and are treated as
+**lapsed** under the 60-minute rule. This session will not resurrect them or edit their historical rows.
+
+## Claim (non-overlapping)
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `F1` | **Independent official-source verification of the published/live dataset**: fetch the live Hotspawn LoL fixture feed, the official book/exchange endpoints used by the site, and the published Pages tree; check every row's source link, probability arithmetic, pick side, and mobile affordances. Record receipts; do not change another session's pipeline files. | in progress | 5d4e9477 | `audit/session_5d4e9477/**` (new files only) |
+| `F2` | **Fresh external-line research for matches with no featured/market line**: use the web research tools to check established LoL books, esportsbooks and odds aggregators against the *currently listed* low-tier matches; publish dated, linked receipts and explicit limitations. No probability is invented from a page that does not show a price. | in progress | 5d4e9477 | `research/session_5d4e9477/**`, `data/receipts/line_research_2026-10-25.json` (new files only) |
+| `F3` | **Final integration / verification record (coordinated with `3d124b45` W4)**: rebase onto all merged work, re-verify the combined tree line by line, fix only genuine broken links/build failures, open exactly one PR from this branch to `main` if none is already open for the same final state, merge without waiting for review, confirm GitHub Pages deploys, and record the PR/merge/deploy result here. If another session already merged the identical final state, record and verify rather than duplicate the PR. Shared outputs (root `*.html`, nav, `tools/site.py`, `assets/**`) are touched **only after** the owners above mark done, and only to integrate/verify — never to duplicate their work. | pending (F1/F2 + other claims done) | 5d4e9477 | `COORDINATION.md`, `README.md`, `audit/session_5d4e9477/**`; conditional: root `*.html` / `tools/site.py` / `assets/**` after handoff |
+
+### Coordination rules this session follows
+
+- `git pull --rebase` (or fetch + rebase onto `origin/main`) before every push; small frequent commits.
+- No push to any branch other than `arena/5d4e9477-lolhotspawn1`; no branch switching.
+- If another session owns a required file, log the request here instead of editing it.
+- Every published number is checked against an official/live source; unconfirmed values stay blank and are
+  published on `flagged.html` rather than inferred.
+
+
 
 
 ---
