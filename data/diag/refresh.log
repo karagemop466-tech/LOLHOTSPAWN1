@@ -12,6 +12,7 @@ test_coverage_page_renders_the_historical_receipts (test_corroborate_history.Rec
 test_malformed_receipt_still_fails_the_gate (test_corroborate_history.ReceiptHistoryTests.test_malformed_receipt_still_fails_the_gate) ... ok
 test_receipt_for_a_delisted_fixture_is_historical_not_rejected (test_corroborate_history.ReceiptHistoryTests.test_receipt_for_a_delisted_fixture_is_historical_not_rejected) ... ok
 test_receipt_naming_the_wrong_teams_still_fails_the_gate (test_corroborate_history.ReceiptHistoryTests.test_receipt_naming_the_wrong_teams_still_fails_the_gate) ... ok
+test_stale_receipt_on_a_listed_fixture_expires_not_rejected (test_corroborate_history.ReceiptHistoryTests.test_stale_receipt_on_a_listed_fixture_expires_not_rejected) ... ok
 test_the_stats_still_reconcile (test_corroborate_history.ReceiptHistoryTests.test_the_stats_still_reconcile) ... ok
 test_listed_fixture_with_wrong_teams_is_still_rejected (test_corroborate_offlist.OffListReceiptTests.test_listed_fixture_with_wrong_teams_is_still_rejected) ... ok
 test_malformed_price_is_still_rejected (test_corroborate_offlist.OffListReceiptTests.test_malformed_price_is_still_rejected) ... ok
@@ -203,7 +204,7 @@ PASS market hygiene publishes live-feed freshness and quote rejections :: feeds 
 PASS coverage matrix: every competition row links to a source :: 29 competition rows; missing links: []
 PASS external receipts validated against the dataset :: 3 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 1 expired, 46 historic (not counted)
 PASS corroboration ledger accounts for every receipt :: receipts=52 = usable 3 + placeholder 2 + rejected 0 + expired 1 + historic 46
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 78035 bytes
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 78349 bytes
 PASS external source research receipts are committed :: 44 venues probed on 2026-10-24T16:41:31Z; dossier present
 PASS every external line-search observation is source-linked and complete :: 17 observations across 4 receipt files; problems: []
 PASS limitations page prints every book check with its live link :: unresolved.html carries the observation table; 0 observation link(s) missing
