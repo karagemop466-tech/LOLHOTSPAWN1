@@ -1,3 +1,25 @@
+# Session `81a08bc7` — current full-coverage integration and mobile picks hub (2026-10-25)
+
+Branch: `arena/81a08bc7-lolhotspawn1` (the fixed Arena session branch). The repository brief's
+`session-<id>/<task>` branch convention is superseded by Arena's fixed-branch rule; no additional
+branch will be created. All earlier implementation sessions above are closed or have been inactive
+for more than 60 minutes. The six old open PRs are not claimed, edited, merged, or closed here.
+
+## Claim (filed before implementation edits)
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `H1` | Audit the current canonical refresh failure and stale snapshot; restore a fresh, exact Hotspawn LoL inventory with one published resolution for every listed match. Preserve verified pre-lock market evidence and never use Hotspawn crowd percentages as probabilities. | in progress | `81a08bc7` | `.github/workflows/refresh.yml`, `tools/collect.py`, `tools/common.py`, `tools/corroborate.py`, `tools/model.py`, canonical `data/**` generated outputs |
+| `H2` | Re-check external-book coverage for non-featured matches, retain explicit unresolved/limitation rows where evidence cannot support a competitive percentage, and correct any entity/model/market irregularity found. | in progress | `81a08bc7` | `tools/collect.py`, `tools/model.py`, `tools/flags.py`, `data/aliases.json`, `data/flags_manual.json`, `research/session_81a08bc7/**` (new) |
+| `H3` | Make the executive summary and all-picks table unambiguous and phone-readable, including direct in-site links, both teams' probabilities, the named pick, evidence links, and unresolved limitations. | in progress | `81a08bc7` | `tools/site.py`, `assets/**`, generated root `*.html`, `tests/dashboard.cjs`, `audit/mobile_audit.py` |
+| `H4` | Re-verify the combined dataset row by row, site links and mobile behavior; publish irregularities; create and merge this branch's PR to `main`; confirm the scheduled refresh and GitHub Pages deployment. | in progress | `81a08bc7` | `tools/verify.py`, `tests/**`, `audit/session_81a08bc7/**` (new), `README.md`, this session's records in `COORDINATION.md` |
+
+Initial read-only observations: `data/matches.json` is a 241-row snapshot generated
+2026-10-24T20:54:30Z; `data/node/picks.json` independently collected 236 scheduled fixtures on
+2026-10-25T10:57Z; and `data/build_failure.log` contains a later canonical 236-row pipeline log whose
+final `tools/verify.py` step passed. The actual post-pipeline failure must therefore be identified
+from the complete artifact/workflow rather than guessed. No probability or pick has been changed at
+claim time.
 
 
 ---
