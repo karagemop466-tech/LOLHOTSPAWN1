@@ -1,61 +1,61 @@
 {
-  "fetched_at": "2026-10-24T20:25:27.764Z",
-  "duration_s": 8,
-  "hotspawn_fixtures": 1552,
-  "hotspawn_lobby_ids": 148,
+  "fetched_at": "2026-10-25T03:44:55.854Z",
+  "duration_s": 9,
+  "hotspawn_fixtures": 1558,
+  "hotspawn_lobby_ids": 145,
   "pinnacle_leagues": 1,
-  "pinnacle_matchups": 5,
-  "pinnacle_excluded_kills": 5,
-  "polymarket_events": 19,
-  "kalshi_events": 7,
+  "pinnacle_matchups": 8,
+  "pinnacle_excluded_kills": 0,
+  "polymarket_events": 20,
+  "kalshi_events": 9,
   "bovada_events": 8,
-  "kambi_events": 4,
+  "kambi_events": 8,
   "dq_competitions": 1,
   "log": [
     {
-      "ts": "2026-10-24T20:25:20.822Z",
+      "ts": "2026-10-25T03:44:48.635Z",
       "source": "hotspawn",
-      "msg": "fixtures API: 1552 LoL fixtures ({\"ended\":1168,\"cancelled\":80,\"scheduled\":241,\"forfeited\":63})",
+      "msg": "fixtures API: 1558 LoL fixtures ({\"ended\":1182,\"cancelled\":80,\"scheduled\":232,\"forfeited\":63,\"started\":1})",
       "ok": true
     },
     {
-      "ts": "2026-10-24T20:25:22.327Z",
+      "ts": "2026-10-25T03:44:50.195Z",
       "source": "hotspawn-lobby",
-      "msg": "SSR page fetched (1505723 bytes), 148 match permalinks, tiers counts [241]",
+      "msg": "SSR page fetched (1473297 bytes), 145 match permalinks, tiers counts [232]",
       "ok": true
     },
     {
-      "ts": "2026-10-24T20:25:22.393Z",
+      "ts": "2026-10-25T03:44:50.324Z",
       "source": "pinnacle",
       "msg": "1 LoL leagues: League of Legends - World Championship(9587)",
       "ok": true
     },
     {
-      "ts": "2026-10-24T20:25:22.755Z",
+      "ts": "2026-10-25T03:44:51.003Z",
       "source": "polymarket",
-      "msg": "19 LoL events kept (1 pages fetched)",
+      "msg": "20 LoL events kept (1 pages fetched)",
       "ok": true
     },
     {
-      "ts": "2026-10-24T20:25:22.904Z",
+      "ts": "2026-10-25T03:44:51.134Z",
       "source": "kalshi",
-      "msg": "7 open CFTC KXLOLGAME match events",
+      "msg": "9 open CFTC KXLOLGAME match events",
       "ok": true
     },
     {
-      "ts": "2026-10-24T20:25:23.523Z",
+      "ts": "2026-10-25T03:44:51.736Z",
       "source": "bovada",
       "msg": "runner geo-filtered (0 events) — preserved <12h snapshot (8 events)",
       "ok": false
     },
     {
-      "ts": "2026-10-24T20:25:24.002Z",
+      "ts": "2026-10-25T03:44:52.043Z",
       "source": "kambi",
-      "msg": "4 Unibet/Kambi (ubse) LoL match moneylines",
+      "msg": "8 Unibet/Kambi (ubse) LoL match moneylines",
       "ok": true
     },
     {
-      "ts": "2026-10-24T20:25:27.764Z",
+      "ts": "2026-10-25T03:44:55.854Z",
       "source": "leaguepedia-dq",
       "msg": "wiki unreachable (HTTP 403) — preserved previous dqteams ledger",
       "ok": false
