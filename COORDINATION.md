@@ -3292,3 +3292,17 @@ the publish gate has a guard against the class of clock-dependent test that stop
 published `table.html` is now independently re-derived row by row (234/234) instead of only being
 trusted; and the daily live-source audit distinguishes a closed bookmaker board from broken link rot
 and from a rejected credential, with a receipt that shows **PASS** on the current tree.
+
+### `T4` completion record — `2faec1ff` (2026-10-25)
+
+- PR **#107** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/107 — **merged
+  2026-10-25T14:34:15Z**, merge commit `1307344` (market timing guards, low-tier research,
+  phone strip). Post-merge `refresh-picks` run **40202861778** green; data commit `841d5fe`
+  (234 fixtures, inventory 2026-10-25T14:38:46Z, guards live); GitHub Pages `built` for
+  `841d5fe` (2026-10-25T14:40:53Z); live site spot-checked fresh.
+  Run: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40202861778
+- Follow-up PR **#119** dedupes the double "Starting soon" strip created by concurrent
+  merges: main's restructured single strip (16 rendered) is kept; this session's JS now
+  hides started rows per list with the cap aligned to the rendered sixteen, plus a
+  single-strip regression test. Branch history was reset onto current `main` for this PR
+  so the diff is exactly those deltas (all #107 content is already on `main`).
