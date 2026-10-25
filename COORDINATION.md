@@ -2,6 +2,37 @@
 
 ---
 
+# Session `aa39a6d5` — unfreeze the refresh, full-pick clarity, low-tier line research (2026-10-25)
+
+Branch: `arena/aa39a6d5-lolhotspawn1` (fixed Arena session branch, from `main` @ `b19397f`).
+
+## Handoff note (claims lapsed)
+
+All prior session claims below predate 2026-10-24T21:00Z with no commits since, i.e. >60 min stale
+under this file's own rule. This session therefore takes over the scopes it lists below and does not
+touch the companion Node pipeline (`scripts/**`, `docs/**`, `data/node/**`) except to read it.
+
+## Claim
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `U1` | **Unfreeze the six-hourly refresh.** Root cause of the current outage (site frozen at the `2026-10-24T20:54:30Z` snapshot; `main` HEAD commit is literally `chore(diag): record failing build log`): the 2026-10-25T11:36Z pipeline run passed every publish gate but the **unit-tests step failed** (`data/build_failed_steps.txt` = `unit-tests`). Three tests in `tests/test_corroborate_history.py` / `tests/test_corroborate_offlist.py` pin fixture `captured_utc` to fixed `2026-10-24T00:00:00Z`; `tools/corroborate.py` grades receipt freshness against the wall clock (`RECEIPT_MAX_AGE_HOURS = 24`), so once a day passed the "usable" receipt became "expired" and the tests — and with them every scheduled refresh — fail. Fix: wall-clock-relative fixtures (production freshness logic untouched); reconcile assertion gains the `expired` bucket to match `tools/verify.py`'s ledger. | in progress | aa39a6d5 | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` |
+| `U2` | **Low-tier / non-market line research + integration.** Fresh research pass (web) on esportsbooks and LoL betting lines that price the competitions where `method` is `provisional` (78 of 241 rows at claim time — picks exist, from sparse-history Elo, but no book corroborates them). Probe any newly identified machine-readable venue from a GitHub Actions runner (sandbox egress to those hosts is blocked); integrate only a venue that is reachable without auth and prices otherwise-unpriced matches, under the existing provenance/quarantine rules. Publish the research + limitations either way. | in progress | aa39a6d5 | `audit/session_aa39a6d5/**` (new files only), `tools/collect.py` + `data/line_source_research.json` only if a venue is integrated |
+| `U3` | **Executive-summary & mobile clarity.** User reports the site is confusing and wants picks findable on a phone immediately. Audit the generated `index.html`/`table.html`/`picks.html` first; change `tools/site.py` (and shared CSS if needed) so the home page leads with the upcoming picks list and one-tap links, the unresolved-picks section keeps its dedicated block + limitations, and every match card visibly shows its pick (including settlement picks, which carry no percentage). No data or method changes. | in progress | aa39a6d5 | `tools/site.py`, `assets/**` |
+| `U4` | **Integration.** Full local test suite + offline rebuild + publish gate; PR from this branch to `main`; merge without waiting (per standing instructions); confirm the next `refresh-picks` run goes green and GitHub Pages deploys; record PR/merge/deploy here. | pending | aa39a6d5 | `COORDINATION.md`, `README.md` (if stale), generated pages only via the pipeline itself |
+
+### Verified at claim time (no edits yet)
+
+| Observation | Evidence |
+|---|---|
+| Every one of the 241 rows already carries a `pick` (market 6, model 153, provisional 78, settlement 4); the only probability-less rows are the 4 Solid Gaming forfeit settlements (ids `1071170`, `1071200`, `1071206`, `1071186`), each with an official winner | `data/matches.json` on this branch, Python inspection 2026-10-25T14:04Z |
+| Failing tests: `test_receipt_for_a_delisted_fixture_is_historical_not_rejected`, `test_the_stats_still_reconcile`, `test_rolled_off_fixture_is_historical_not_rejected` — all `usable_receipts 0 != 1` | `python3 -m unittest discover -s tests` 2026-10-25T14:05Z, 62 tests, 3 failures |
+| The 2026-10-25T11:36:49Z runner pipeline passed all 44 publish gates with a 236-fixture inventory and still did not publish, because the workflow aborts on the failed unit-tests step | `data/build_failure.log`, `data/build_failed_steps.txt` |
+| Only 5 of 151 upcoming matches carry a real market price; 42 upcoming are `provisional` (Elo from <threshold> rated series) | `data/matches.json` inspection, 2026-10-25T14:04Z |
+| GitHub Pages: `status: built`, source `main` `/`; REST was rate-limited for run history at 14:03Z (`gh run list` → HTTP 403 rate limit) — will retry | `gh api …/pages`, `gh pr list` |
+
+---
+
 # Session `5ff8e6bf` — independent verification + integration (2026-10-24T16:20Z)
 
 Branch: `arena/5ff8e6bf-lolhotspawn1` (fixed Arena session branch, from `main` @ `8b84531`).
