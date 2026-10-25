@@ -20,6 +20,7 @@ import os
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,13 +29,29 @@ sys.path.insert(0, str(ROOT / "tools"))
 import corroborate  # noqa: E402
 
 
-MATCHES = {
-    "generated_utc": "2026-10-24T00:00:00Z",
+def _stamp(hours_ago: float) -> str:
+    """Wall-clock-relative capture time.
+
+    The receipt fixture below used to hardcode 2026-10-24T00:00Z. `corroborate.age_hours`
+    measures against the real clock, so after 24 h the listed-fixture receipt became
+    `expired` rather than `usable` and this file's assertions failed without any pipeline
+    change - the same time bomb that broke the scheduled refresh on 2026-10-25.
+    """
+    return (datetime.now(timezone.utc) - timedelta(hours=hours_ago)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+FRESH = _stamp(1)            # inside the 24 h pricing window
+ARCHIVED = _stamp(30)        # the rolled-off card's capture, older than the window
+
+
+def _matches() -> dict:
+    return {
+    "generated_utc": FRESH,
     "matches": [
         {
             "id": "1111",
             "competition": "Test Cup",
-            "start_utc": "2026-10-25T12:00:00Z",
+            "start_utc": _stamp(-6),
             "team0": {"name": "Alpha"},
             "team1": {"name": "Bravo"},
             "p0": 0.6,
@@ -47,19 +64,20 @@ MATCHES = {
 }
 
 # one receipt that matches a listed fixture, one for a card that has since rolled off
-RECEIPT = {
-    "sources": [{"key": "book", "name": "Example Book", "url": "https://example.com/lol",
-                 "kind": "esportsbook", "runner_reachable": "yes"}],
-    "captures": [
-        {"fixture_id": "1111", "source": "book", "page_url": "https://example.com/m/1111",
-         "captured_utc": "2026-10-24T00:00:00Z", "page_teams": ["Alpha", "Bravo"],
-         "decimal": [1.65, 2.30], "verbatim": "Alpha 1.65 / Bravo 2.30"},
-        {"fixture_id": "9999", "source": "book", "page_url": "https://example.com/m/9999",
-         "captured_utc": "2026-10-23T00:00:00Z", "page_teams": ["Gone", "Also Gone"],
-         "decimal": [1.90, 1.95], "verbatim": "Gone 1.90 / Also Gone 1.95"},
-    ],
-    "coverage_observations": [],
-}
+def _receipt() -> dict:
+    return {
+        "sources": [{"key": "book", "name": "Example Book", "url": "https://example.com/lol",
+                     "kind": "esportsbook", "runner_reachable": "yes"}],
+        "captures": [
+            {"fixture_id": "1111", "source": "book", "page_url": "https://example.com/m/1111",
+             "captured_utc": FRESH, "page_teams": ["Alpha", "Bravo"],
+             "decimal": [1.65, 2.30], "verbatim": "Alpha 1.65 / Bravo 2.30"},
+            {"fixture_id": "9999", "source": "book", "page_url": "https://example.com/m/9999",
+             "captured_utc": ARCHIVED, "page_teams": ["Gone", "Also Gone"],
+             "decimal": [1.90, 1.95], "verbatim": "Gone 1.90 / Also Gone 1.95"},
+        ],
+        "coverage_observations": [],
+    }
 
 
 class OffListReceiptTests(unittest.TestCase):
@@ -69,9 +87,9 @@ class OffListReceiptTests(unittest.TestCase):
         base = Path(self.tmp.name)
         (base / "data" / "receipts" / "external_odds").mkdir(parents=True)
         self.matches_path = base / "data" / "matches.json"
-        self.matches_path.write_text(json.dumps(MATCHES), encoding="utf-8")
+        self.matches_path.write_text(json.dumps(_matches()), encoding="utf-8")
         (base / "data" / "receipts" / "external_odds" / "2026-10-23.json").write_text(
-            json.dumps(RECEIPT), encoding="utf-8")
+            json.dumps(_receipt()), encoding="utf-8")
         self.base = base
         self._saved = (corroborate.DATA, corroborate.RECEIPT_DIR, corroborate.ROOT)
         corroborate.DATA = str(base / "data")
@@ -96,12 +114,12 @@ class OffListReceiptTests(unittest.TestCase):
         row = doc["historic"][0]
         self.assertEqual(row["status"], "historic")
         self.assertEqual(row["page_url"], "https://example.com/m/9999")
-        self.assertEqual(row["captured_utc"], "2026-10-23T00:00:00Z")
+        self.assertEqual(row["captured_utc"], ARCHIVED)
         self.assertIn("no longer listed by Hotspawn", row["reason"])
         self.assertEqual(row["status"], "historic")
 
     def test_listed_fixture_with_wrong_teams_is_still_rejected(self):
-        rec = json.loads(json.dumps(RECEIPT))
+        rec = json.loads(json.dumps(_receipt()))
         rec["captures"][0]["page_teams"] = ["Charlie", "Delta"]
         (self.base / "data" / "receipts" / "external_odds" / "2026-10-23.json").write_text(
             json.dumps(rec), encoding="utf-8")
@@ -110,7 +128,7 @@ class OffListReceiptTests(unittest.TestCase):
         self.assertEqual(doc["rejected"][0]["status"], "unmatched")
 
     def test_malformed_price_is_still_rejected(self):
-        rec = json.loads(json.dumps(RECEIPT))
+        rec = json.loads(json.dumps(_receipt()))
         rec["captures"][0]["decimal"] = [1.65, 1.0]
         (self.base / "data" / "receipts" / "external_odds" / "2026-10-23.json").write_text(
             json.dumps(rec), encoding="utf-8")

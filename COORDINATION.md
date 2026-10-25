@@ -2577,3 +2577,22 @@ persists) · OOS Brier `0.2251` over `n = 22,344` · `best_of` null on `241/241`
 Session `9f16f9ad` is **done**: S1 (reconciliation) and S3 (independent verification) complete, the refresh
 pipeline green and self-reporting, the site live on Pages, and every finding above published on the pages
 themselves rather than only in this log.
+
+# Session `63c67a23` — refresh repair, full-coverage verification, mobile picks hub (2026-10-25)
+
+Branch: `arena/63c67a23-lolhotspawn1` (Arena session branch; fixed, never switched).
+Claim filed at session start, before any pipeline edit, per protocol.
+
+## Claim
+
+| # | Task | Status | Owner | File scope (disjoint) | Notes |
+|---|---|---|---|---|---|
+| `S1` | **Repair the failing scheduled refresh.** `refresh-picks` failed on 2026-10-25 (run `40189452274`, 11:34Z) with `data/build_failed_steps.txt = unit-tests`, *not* a data gate: three receipt tests hardcode `captured_utc: 2026-10-24T00:00Z`, which crossed `RECEIPT_MAX_AGE_HOURS = 24` on 2026-10-25, so `usable` became `expired` and the assertions inverted. Fix the tests to be wall-clock relative, prove the whole suite green, dispatch the workflow and confirm a green run that commits fresh data. | in progress | 63c67a23 | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py`, `data/**`, `*.html` (generated) | Root cause evidence: `data/build_failure.log` (committed by the failing run) |
+| `S2` | **Independent external-line research for the uncovered low-tier tail** — fresh live captures (not Hotspawn) of what established LOL books and esportsbooks actually quote, with links, timestamps and a venue-by-venue result table; publish as a dated memo plus machine receipts. No invented prices: a venue that returns nothing is recorded as nothing. | in progress | 63c67a23 | `research/**`, `data/raw/**` (new files only) | |
+| `S3` | **Coverage + verification hardening.** Every listed match must ship a pick, a probability or a documented reason; add publish gates/tests that make "silently unpriced" impossible, and verify the unresolved ledger is complete and linked. | in progress | 63c67a23 | `tools/verify.py`, `tests/test_full_coverage.py` (new), `tools/site.py` | |
+| `S4` | **Mobile/executive-summary clarity.** Landing page must answer "where are the picks, what are they, what is unresolved" in one thumb-scroll on a phone; in-site links to every list; unresolved & limitations block in the executive summary. | in progress | 63c67a23 | `tools/site.py`, `assets/style.css`, `assets/app.js` | |
+| `S5` | **Integration + publication.** Re-verify the combined tree line by line, run the publish gate, open a PR to `main`, merge, confirm the Pages deploy, record PR/run/deploy links here. | pending | 63c67a23 | `COORDINATION.md`, `README.md` | Runs after S1–S4 |
+
+No other session has a live claim in this file (every prior claim is closed and recorded as done);
+the board shows no `in progress` item owned by another session. File scopes above do not overlap
+with any prior session's scope because all of those sessions are closed.
