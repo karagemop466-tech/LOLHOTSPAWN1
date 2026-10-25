@@ -2695,7 +2695,7 @@ this session records that it is working in the scopes they named. Nothing of the
 | `X1` | **Unblock `refresh-picks`**: the run recorded in `data/build_failure.log` failed at `unit-tests` (3 failures), which stopped the six-hourly re-publish and froze the site 17 h behind Hotspawn | done (PR #93 merged) | cb84d7dc | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` |
 | `X2` | **External line search for every match the featured resolution cannot price** — established LoL betting sites, then esportsbooks, then esports odds aggregators; every reading recorded with URL, capture time and verbatim text | done | cb84d7dc | `data/receipts/external_odds/2026-10-25.json` (new), `research/LINE_SEARCH_2026-10-25.md` (new) |
 | `X3` | **Publish the search on the site**: the limitations page and the executive summary must carry the book-by-book evidence with live links, and a gate must fail if an observation loses its source | done | cb84d7dc | `tools/site.py`, `tools/verify.py` |
-| `X4` | **Line-by-line verification of the combined tree and the live site**, PR → `main`, merge without approval, confirm the Pages deploy and a green refresh | in progress | cb84d7dc | `COORDINATION.md`, `README.md` |
+| `X4` | **Line-by-line verification of the combined tree and the live site**, PR → `main`, merge without approval, confirm the Pages deploy and a green refresh | **done** | cb84d7dc | `COORDINATION.md`, `README.md` |
 
 ## X1 — root cause, fixed and verified
 
@@ -2865,3 +2865,20 @@ expected repair path.
 | Request | Owner | Detail |
 |---|---|---|
 | R1 | `63c67a23` (or the next integration session) | Make `audit/verify_docs_parity.py` compare docs-rendered canonical probabilities against the canonical snapshot **docs was built from** (persist it in `data/node/picks.json`), so the parity gate is not red for up to 6 h after every canonical refresh. Evidence: check 6 output above and the two snapshot timestamps. |
+
+
+## X4 — merge record, the first green refresh since 2026-10-23, and the live deploy
+
+| item | value |
+|---|---|
+| PR #93 (`arena/cb84d7dc-lolhotspawn1` → `main`) | **merged 2026-10-25T14:0xZ** — the wall-clock-relative test fixtures. This alone unblocked `unit-tests`, which was the stage recorded in `data/build_failed_steps.txt`. |
+| PR #97 (same branch) | **merged 2026-10-25T14:13Z** — the line-search receipts, the `unresolved.html#observed` panel, the executive-summary bullet, the two new publish gates and the dossier |
+| Conflict on the way in | Session `63c67a23` merged PR #96/#101 in parallel and had independently produced the **same** test fix (its `fb57dab`, same docstring, same `_recent()`/`_kickoff()` helpers). Rebasing this branch onto `origin/main` therefore dropped this session's duplicate test commit — nothing was lost, and neither session's fix was reverted. `tools/site.py` and `tools/verify.py` auto-merged; the clash was in the generated `verification.html` / `data/verification.json`, which were **resolved by regenerating them** from the merged pipeline rather than hand-merging, and both `COORDINATION.md` sections were kept side by side. The two research memos now cross-link (see `research/LINE_SEARCH_2026-10-25.md` ↔ `research/external-lines-2026-10-25.md`). |
+| `refresh-picks` after the merge | **green.** Commit `19dc1a9 chore(data): refresh fixtures, lines and site` at **2026-10-25T14:15:16Z** (inventory fetched `14:13:21Z`, dataset generated `14:15:13Z`) — the first successful canonical refresh since `2026-10-23T17:13:14Z`. Only a passing gate can reach that commit step, and the committed `data/verification.json` on `main` records **51/51 checks passed, 0 failures**. (The Actions run id could not be read: the GitHub API returned HTTP 403 *rate limit exceeded* from this sandbox; the commit + gate file are the evidence used instead, and they are the same evidence the workflow writes.) |
+| Fresh snapshot contents (verified on `origin/main`) | 234 scheduled cards · **234/234 carry a pick** (230 priced + 4 official-forfeit settlements) · 9 market rows · 150 model · 71 provisional · 27/29 competitions unpriced externally · 0 rejected receipts |
+| The new capture on the fresh build | Thunderpick on `#1079080`: **usable, verdict `agrees`**, `ext_p0 0.3515` vs our `0.3650`, `−1.35 pp` |
+| GitHub Pages | live render fetched `2026-10-25T14:26Z`: header reads **“Data snapshot: 2026-10-25 14:15 UTC … inventory is 8m old”**, `234` cards, `100%` with a pick, `9` market-backed, and the **“Picks by tournament (29)”** directory is present; `unresolved.html#observed` renders all **17 checks across 9 venues** with verbatim readings, capture times and live links |
+| Still open (not this session's scope) | the GitHub API rate limit blocked reading run ids/deploy run ids from this sandbox; other sessions were merging to `main` concurrently throughout (PRs #94, #96, #99, #101), so any later snapshot may supersede the numbers above |
+
+Session `cb84d7dc` is **done**: X1 fixed and merged, X2 researched with dated receipts, X3 published with
+two new gates, X4 merged and verified against the live site, and the six-hourly refresh is working again.
