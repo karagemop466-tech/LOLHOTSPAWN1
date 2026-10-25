@@ -3218,7 +3218,6 @@ snapshot (raw feeds fetched 2026-10-25T14:13Z) and were then **regenerated with 
 code**; `data/probe/sources_probe.json` kept this session's later probe (14:20:51Z >
 14:13:03Z); this board kept both append blocks (main's sessions first, then `2faec1ff`).
 
-<<<<<<< HEAD
 ---
 
 # Session `1773543b` — fresh inventory, unresolved/limits in the executive summary, competition-level line research (2026-10-25)
@@ -3281,7 +3280,7 @@ landing page, and each unresolved row must state why it has no probability **and
 | `python3 audit/verify_docs.py` | **ALL DOCS CHECKS PASS** |
 | `python3 audit/verify_independent.py` | 234 rows, 41 venues, **0 failures, 0 warnings** |
 | Full local pipeline (`model → report → flags → site → corroborate → verify`) | green; `collect` was not run locally because this sandbox has no outbound network — the canonical runner collects it |
-=======
+
 ## `650571cf` — final live confirmation (2026-10-25T14:41Z)
 
 | Item | Value |
@@ -3306,7 +3305,6 @@ status, when `main` is moving this fast.
 **Current published state at 14:41Z:** dataset `2026-10-25T14:25:59Z` (a newer canonical refresh than
 the one recorded above, still inside the 4–8 h cadence), 234 rows, 9 market-backed, 4 official-forfeit
 settlements, 0 priced-row defects across every gate re-run this session.
->>>>>>> origin/main
 
 ## `650571cf` — closing record (2026-10-25T14:47Z)
 
@@ -3338,3 +3336,28 @@ and from a rejected credential, with a receipt that shows **PASS** on the curren
   hides started rows per list with the cap aligned to the rendered sixteen, plus a
   single-strip regression test. Branch history was reset onto current `main` for this PR
   so the diff is exactly those deltas (all #107 content is already on `main`).
+
+---
+
+# Session `be974159` — model/market/entity-join hardening, live low-tier book research & line-by-line verification (2026-10-25)
+
+Branch: `arena/be974159-lolhotspawn1` · PR: **#122** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/122`),
+merged cleanly with `main` @ `0e36d34` (preserving 100% of `650571cf`, `1773543b`, `2faec1ff`, `cb84d7dc`,
+`666de992`, and `aa39a6d5`, and removing leftover git conflict markers in `COORDINATION.md` from `415e99f`).
+
+## Claim & completed scope
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `M1_be974159` | **Model, market-hygiene, entity-disambiguation & result-grading hardening**: (1) add `"rising bees": "vitality rising bees"` + `parse_kalshi_start_utc()` so CFTC Kalshi `KXLOLGAME-26OCT271300RBMR` joins `#1079080` (`Mental Rush vs Vitality Rising Bees`, upgrading single-venue Polymarket to 2-venue consensus); (2) enforce `close_in_time` on Polymarket/Kalshi candidate joins alongside `2faec1ff`'s `venue_quote_rejection()` / `feed_fresh()` guards; (3) exclude `"wildcard"` and `"online qualifiers"` from Tier-1 `1700` prior in `tier_prior()` (`#1081421` `FENNEL vs Nothin'Here`); (4) add competition-scoped alias support in `resolve_team()` (`("Logitech G SuperStrike Cup Qualifier", "paiN Gaming") -> "PNG"`); (5) match resolved `(k0, k1)` keys in completed-series `result` grading; (6) reconcile verified `Team Reds` (`Data:Arabian_League_2nd_Division/2026_Season/Summer_Split`), `#1081423` 4-bookmaker (`bet365`/`1xBet`/`TotoGaming`/`BetOlimp`) vs Elo divergence, and `series-format-not-published` (`Data:LCP/2027_Season/Promotion` `bestof=5`) in `data/flags_manual.json` | done | `be974159` | `tools/model.py`, `data/aliases.json`, `data/flags_manual.json`, `tests/test_model_be974159.py` |
+| `R1_be974159` | **Live external-line research for non-featured/low-tier LoL matches & line-by-line official-source verification**: verify live Hotspawn scheduled feed, live 5-venue sportsbook/exchange APIs, live Leaguepedia Cargo/wikitext, and probe 60+ sportsbooks (`bmbets`, `esportsinsider`, `egamersworld`, `liquipedia`) with primary-source receipts | done | `be974159` | `research/session_be974159/**`, `audit/session_be974159/**`, `data/receipts/external_odds/2026-10-25-be974159.json` |
+| `I1_be974159` | **Workflow trigger coverage, README accuracy & final integration**: include `tests/**` + `data/aliases.json` + `data/flags_manual.json` + `data/receipts/external_odds/**` in `refresh.yml` push paths, reconcile stale `README.md` secondary-dashboard counts (`10 pages`, 5-venue + 22k-series Elo, `45`-day decay), sync `docs/*.html`, verify all gates, open & merge PR #122 to `main`, verify live GitHub Pages deploy | done | `be974159` | `.github/workflows/refresh.yml`, `README.md`, `COORDINATION.md`, `docs/*.html` |
+
+## What was verified & delivered (`be974159`)
+
+1. **9/9 multi-venue market consensus (`0` single-venue market rows)**: `#1079080` (`Mental Rush vs Vitality Rising Bees`, `LGC Rising 2026 Playoffs` BO5 Grand Final) now joins both Polymarket `lol-rb-mr-2026-10-27` (`$58.47` vol / `$1,496.28` CLOB liquidity) and CFTC Kalshi `KXLOLGAME-26OCT271300RBMR` (`$264` vol) into a 2-venue consensus (`38.10% / 61.90%`, `confidence: high`, pick `Vitality Rising Bees`), corroborated within 2 pp by Thunderpick (`1.42/2.62`) and BMBETS (`1.43/2.78`).
+2. **Tier-1 `1700` prior leakage fixed on `#1081421` (`FENNEL vs Nothin'Here`, `LCP 2027 Promotion`)**: Excluding `"wildcard"` and `"online qualifiers"` from Tier-1 `1700` priors fixes `Nothin'Here`'s starting rating (`1500` instead of `1700` from `"LCP 2026 Wild Card Playoffs"`), moving `#1081421` from inverted `40.3% / 59.7%` to **`FENNEL 67.66% / Nothin'Here 32.34%`** (aligning with EsportsInsider `62% / 38%` and companion `docs/` `59.2% FENNEL`, cutting max canonical-vs-secondary divergence from `18.9 pp` to `11.81 pp`). Walk-forward OOS backtest improved across **3,920 series**: **`acc = 0.6515`**, **`brier = 0.2179`**, **`logloss = 0.6248`**.
+3. **4-bookmaker LCP Promotion discovery (`#1081423` `Ground Zero Gaming vs Frank Esports`)**: Verified live across BMBETS's 60-bookmaker index (`bet365` `1.03/9.10`, `TotoGaming` `1.03/10.50`, `1xBet` `1.02/10.50`, `BetOlimp` `1.02/9.80`) and Liquipedia `LCP/2027/Promotion` (`Ground Zero Gaming` Tier-1 LCP roster `1Jiang / Husha / Uniboy / Betty / Kaiwing`). Documented on `flagged.html` (`high` severity) and `coverage.html` (`diverges`) without overriding automated model pricing.
+4. **Completed-series result grading (`51` graded results, up from `42`) & competition-scoped aliases**: Matching `(k0, k1)` resolved keys in `result` grading recovered 9 previously dropped Benelux/SuperStrike/PRM completed series while keeping `#1070209` (`ff=2, winner='1'`) ungraded (`result: null`). Competition-scoped alias `("Logitech G SuperStrike Cup Qualifier", "paiN Gaming") -> "PNG"` quarantines Bulgarian amateur `PNG` without affecting Brazilian CBLOL `paiN Gaming`.
+5. **All verification gates green on merged `0e36d34` base**: `134/134` unit tests OK, `56/56` `tools/verify.py` PASS, `audit/session_be974159/verify_all_rows.py` PASS, `audit/check_site.py` `24` pages `0` failures, `audit/mobile_audit.py` `14/14` PASS, `audit/verify_docs.py` `16/16` PASS, `audit/verify_docs_parity.py` `10/10` PASS.
+

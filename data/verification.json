@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-25T14:44:41Z",
+ "generated_utc": "2026-10-25T14:47:23Z",
  "checks": [
   {
    "name": "dataset present",
@@ -139,7 +139,7 @@
   {
    "name": "executive summary and its unresolved block precede every list on the landing page",
    "ok": true,
-   "detail": "summary=2549 unresolved=9253 soon=16889 directory=23538"
+   "detail": "summary=2549 unresolved=9373 soon=17009 directory=23658"
   },
   {
    "name": "the unresolved block inside the summary states why each card has no probability",
@@ -164,7 +164,7 @@
   {
    "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "22 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
+   "detail": "24 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -199,17 +199,17 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "3 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 1 expired, 46 historic (not counted)"
+   "detail": "5 usable receipts, 0 rejected, 2 diverging >8.0pp (non-blocking), 1 expired, 46 historic (not counted)"
   },
   {
    "name": "corroboration ledger accounts for every receipt",
    "ok": true,
-   "detail": "receipts=52 = usable 3 + placeholder 2 + rejected 0 + expired 1 + historic 46"
+   "detail": "receipts=54 = usable 5 + placeholder 2 + rejected 0 + expired 1 + historic 46"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 78348 bytes"
+   "detail": "coverage.html 84016 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -219,7 +219,7 @@
   {
    "name": "every external line-search observation is source-linked and complete",
    "ok": true,
-   "detail": "17 observations across 4 receipt files; problems: []"
+   "detail": "20 observations across 5 receipt files; problems: []"
   },
   {
    "name": "limitations page prints every book check with its live link",

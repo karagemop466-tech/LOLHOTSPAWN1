@@ -21,6 +21,10 @@ on:
     branches: ["main"]
     paths:
       - "tools/**"
+      - "tests/**"
+      - "data/aliases.json"
+      - "data/flags_manual.json"
+      - "data/receipts/external_odds/**"
       - ".github/workflows/refresh.yml"
 
 permissions:
