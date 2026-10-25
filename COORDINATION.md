@@ -2970,3 +2970,13 @@ two new gates, X4 merged and verified against the live site, and the six-hourly 
    committed by that workflow to `audit/session_c0a05820/`; the GitHub API rate limit shared by all
    concurrent sessions refused several reads during this session, so its post-merge verdict is left to
    the workflow's own receipt rather than asserted here.
+
+# Session `b1e5557f` — live-clock next-up accuracy (2026-10-25)
+
+## Claim
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `B1` | Keep the landing page's “Starting soon” strip accurate as static snapshots age: client-side hide kick-offs already in the past, show a truthful empty-state limitation when none remain, and exercise it in dashboard tests. No fixtures, odds, or probabilities are fetched or inferred; scheduled collection remains the update source. | in progress | `b1e5557f` | `tools/site.py`, `assets/app.js`, `assets/style.css`, `tests/dashboard.cjs`, `COORDINATION.md` |
+
+**Non-overlap:** the main branch's completed coverage/deep-link work is retained. This claim adds only a browser-clock update to the landing-page strip and its empty state; match data, model, research, and source receipts are untouched. Work remains on Arena's fixed branch `arena/b1e5557f-lolhotspawn1`.
