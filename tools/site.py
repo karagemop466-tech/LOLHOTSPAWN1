@@ -1470,8 +1470,10 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
   what its LoL lobby contained for the leagues below the featured ceiling, the sentence it printed,
   and the capture time &mdash; every row links to the page itself so it can be re-checked by hand.
   This is the direct answer to &ldquo;is there a betting line for these matches anywhere?&rdquo;:
-  on the date shown, the whole tail of the Hotspawn list was priced by <strong>nobody</strong>, which
-  is why those picks are originated instead of quoted.</p>
+  on the date shown <strong>no venue priced the national and academy divisions</strong> below the
+  featured ceiling, which is why those picks are originated instead of quoted. Where a venue did price
+  a lower-tier tie (Thunderpick on LGC Rising) it is named in the row and the quote is filed as a
+  cross-check.</p>
   {table(["Venue", "What it showed for the unpriced leagues", "Verbatim reading &amp; capture"], obs_rows)}
   <p class="small muted">Receipts: <a href="{GITHUB_BLOB}/data/receipts/external_odds/2026-10-25.json" rel="noopener">2026-10-25.json</a>
   &middot; full venue-by-venue ledger on <a href="coverage.html">Coverage</a>
