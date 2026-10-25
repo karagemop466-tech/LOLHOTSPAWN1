@@ -135,6 +135,9 @@ jobs:
           git config user.name  "arena-refresh-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/*.json data/*.csv data/build.log data/raw data/receipts assets *.html
+          # A green run clears the previous failure markers, so a stale "unit-tests" line can
+          # never survive a successful build and mislead the next session (2026-10-25).
+          git add -A -- data/build_failure.log data/build_failed_steps.txt 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "no changes"
             exit 0

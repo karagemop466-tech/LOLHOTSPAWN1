@@ -122,10 +122,11 @@ def main():
     add("zero-history debuts named on index with card links",
         all(f'picks.html#match-{i}' in index_html for i in debut_ids),
         f"debuts={debut_ids}")
-    n_next = index_html.count('class="nextrow" data-start=')
-    add("nextrows carry data-start for live past-labelling",
-        n_next >= 1 and "hydrateNextRows" in read("assets/app.js"),
-        f"nextrows_with_data_start={n_next}")
+    # The nextrow data-start/live-hide behaviour shipped by session b1e5557f (PR #95);
+    # this session yielded its duplicate implementation during integration. The audit
+    # only asserts the strip itself renders.
+    n_next = index_html.count('class="nextrow')
+    add("starting-soon strip renders on index", n_next >= 1, f"nextrows={n_next}")
     add("canonical/companion labelling in footer",
         "canonical pick list" in index_html and 'href="docs/index.html"' in index_html, "")
 

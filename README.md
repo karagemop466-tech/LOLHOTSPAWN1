@@ -20,7 +20,7 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
 | `featured.html` | Matches with a real bookmaker price, the raw odds and the de-vig arithmetic |
 | `originated.html` | Matches with no market price: our own line, the Elo inputs and the team records behind it |
-| `unresolved.html` | Matches we refuse to price, the official forfeit settlement where the league has ruled one, and every limitation that applies to the rest of the list |
+| `unresolved.html` | Matches we refuse to price, the official forfeit settlement where the league has ruled one, every limitation that applies to the rest of the list, and **every book check** behind the claim that no line exists (`#observed`) |
 | `competitions.html` | Coverage, source quality and staleness per tournament |
 | `teams.html` | Every team with its rating, record and competition |
 | `flagged.html` | Irregularities and unverified items, published rather than hidden |
@@ -111,11 +111,36 @@ the failing build was the only thing that could refresh the receipts, the failur
 - `refresh.yml` captures each stage separately, uploads the log as an artifact, and commits
   `data/build_failure.log` when the gate fails, so the next failure is diagnosable from the repository.
 - `tests/test_corroborate.py` locks the classification in.
-- 2026-10-25 (session `666de992`): the 11:34 UTC scheduled run stalled for an unrelated reason — the
-  receipt test fixtures hard-coded `2026-10-24T00:00:00Z` as a *fresh* capture, so the (correct) 24 h
-  expiry rule reclassified them as `expired` once the calendar moved and `refresh.yml` aborted during
-  `unit-tests`. Fixtures are now relative to *now*, the off-list reconciliation includes the `expired`
-  bucket, and a regression test pins stale → `expired` forever (never `rejected`, never usable).
+
+### 2026-10-25: the refresh failed again, for a different reason — a calendar, not a source
+
+`refresh-picks` run `40189452274` (2026-10-25T11:34Z) failed at *Stop on failed gate* with
+`data/build_failed_steps.txt = unit-tests`. The publish gate itself was green: `tools/verify.py` reported
+every check passing. The failing stage was the **unit tests**, and the cause was three fixtures that
+hardcoded `captured_utc: 2026-10-24T00:00Z`. `corroborate.age_hours()` measures a capture against the wall
+clock, so once that literal crossed `RECEIPT_MAX_AGE_HOURS = 24` the receipts were classified `expired`
+instead of `usable` and the assertions inverted — with no pipeline change at all.
+
+- The fixtures are now generated relative to *now* (`tests/test_corroborate_history.py`,
+  `tests/test_corroborate_offlist.py`); the assertions are untouched, so the tests still fail on a real
+  classification bug and can no longer fail because a date passed.
+- A green run clears `data/build_failed_steps.txt` and `data/build_failure.log`; the failing log from
+  2026-10-25 is kept as evidence at `data/diag/failure-2026-10-25T1134Z.log`.
+- The publish gate is now **49 checks**, adding the full-coverage contract: every unpriced match must
+  name a settlement source, must appear on `unresolved.html`, and must be named in the executive summary;
+  every tournament must have a working deep link into a filterable pick table.
+
+### 2026-10-25: finding the picks on a phone
+
+- The landing page now carries **Picks by tournament** — one row per competition with its match count,
+  how many carry a win probability, how many are market-priced, and the earliest kick-off. Every row is a
+  deep link (`table.html?comp=<tournament>`) that lands on the pick table **already filtered** to that
+  league, so nothing has to be typed on a phone.
+- `assets/app.js` honours `?comp=`, `?method=`, `?q=` and `?upcoming=1` on both the table and the card
+  view, and shows a "filtered to … show every tournament" note so a filtered view never looks like a
+  short list by mistake.
+- A second, independent external-line check on 2026-10-25 (Pinnacle's league list, Polymarket, Sofascore,
+  bo3.gg) is published in `research/external-lines-2026-10-25.md` and linked from the executive summary.
 
 ## External line coverage (measured, not assumed)
 
@@ -131,13 +156,33 @@ offering (the `ubse` and `paf` payloads were byte-identical, so `paf` is used on
 never double-count), and every reachable venue quotes the same tier-1 slice of the calendar. Below that
 ceiling there is no external line to quote, which is exactly why the model originates one.
 
-A stricter re-test on 2026-10-25 (`data/probe/session_666de992/`, memo
-`research/session_666de992/LOWTIER_RESEARCH.md`) searched 36 venue responses for the **226 exact low-tier
-team pairs** live on Hotspawn that day, with the Worlds pairs as a positive control. No venue published a
-price for a PRM 2nd/3rd Division, Tunisian Super League, RIVALS, Icelandic, Arabian or Benelux fixture;
-schedule-only listings (LCP Promotion on two aggregators) carried no odds, and the only priced tail fixture
-remains the LGC Rising tie already in the market consensus. The executive summary cites this probe and
-names the zero-history debut cards whose pick rests on division priors alone.
+### The tail, checked by hand and published
+
+Runner probes only show what the *runner* can reach, so the tail is also checked from a second, independent
+network path and published for manual review. On **2026-10-25** ten pages across nine venues (Thunderpick,
+Cloudbet, EGamersWorld, bo3.gg, Betmonitor, OddsPortal, GG.BET, Vave, Rivalry) were opened and read; every
+reading is stored with its URL, capture time and the exact sentence the page printed in
+`data/receipts/external_odds/2026-10-25.json`, and rendered on `unresolved.html#observed` (linked from the
+executive summary). Result: the widest external coverage of the list was 11 series, all Worlds plus one LGC
+Rising tie; the other 26 of 29 competitions had no open price anywhere.
+- Thunderpick priced `#1079080` (`Vitality Rising Bees -238 / Mental Rush +162` → de-vigged 64.8 % /
+  35.2 %), which **agrees** with our published 61.5 % / 38.5 % within 3.4 pp — a cross-check, not a price
+  of record.
+- Cloudbet keeps a **Prime League 2nd Division** market page that was empty on the day: a real lead for a
+  keyed odds feed, not evidence of a price.
+- Rivalry has **ceased operations**, and GG.BET/Vave geo-refuse this reader. Both are recorded as
+  *unreadable*, never as *no market exists*.
+- Dossiers with every quote: `research/LINE_SEARCH_2026-10-25.md` (what a reader sees on the book
+  lobbies) and `research/external-lines-2026-10-25.md` (the runner's 37-venue probe and exchange APIs,
+  same day). Earlier 32-venue dossier: `research/LONGTAIL_VENUES.md`.
+- `tools/verify.py` fails the build if an observation loses its URL, its capture time, its verbatim text,
+  or its rendered link.
+- A third, independent check the same day (session `666de992`) searched 36 venue responses for the **226
+  exact low-tier team pairs** live on Hotspawn, Worlds pairs as positive control
+  (`data/probe/session_666de992/`, memo `research/session_666de992/LOWTIER_RESEARCH.md`): no price for any
+  PRM 2nd/3rd Division, Tunisian SL, RIVALS, Icelandic, Arabian or Benelux fixture; schedule-only LCP
+  Promotion listings carried no odds. The executive summary cites this probe and names the zero-history
+  debut cards whose pick rests on division priors alone.
 
 ## Manual review links
 

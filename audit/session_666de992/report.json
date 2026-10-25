@@ -5,27 +5,27 @@
   {
    "name": "dataset loads with rows",
    "ok": true,
-   "detail": "241 rows, generated 2026-10-24T20:54:30Z"
+   "detail": "234 rows, generated 2026-10-25T14:15:13Z"
   },
   {
    "name": "total field matches row count",
    "ok": true,
-   "detail": "total=241 rows=241"
+   "detail": "total=234 rows=234"
   },
   {
    "name": "ids unique",
    "ok": true,
-   "detail": "241 unique / 241"
+   "detail": "234 unique / 234"
   },
   {
    "name": "method histogram == counts field",
    "ok": true,
-   "detail": "hist={'model': 153, 'unresolved': 4, 'provisional': 78, 'market': 6} counts={'model': 153, 'unresolved': 4, 'provisional': 78, 'market': 6}"
+   "detail": "hist={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9} counts={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9}"
   },
   {
    "name": "methods are known",
    "ok": true,
-   "detail": "{'provisional', 'unresolved', 'model', 'market'}"
+   "detail": "{'model', 'provisional', 'market', 'unresolved'}"
   },
   {
    "name": "every row links to its own Hotspawn card",
@@ -60,7 +60,7 @@
   {
    "name": "track record == graded rows",
    "ok": true,
-   "detail": "graded=44 hits=25 track=44/25"
+   "detail": "graded=39 hits=23 track=39/23"
   },
   {
    "name": "hit/miss agrees with recorded winner",
@@ -70,17 +70,17 @@
   {
    "name": "picks.csv row count == dataset",
    "ok": true,
-   "detail": "csv=241 json=241"
+   "detail": "csv=234 json=234"
   },
   {
    "name": "every match card on picks.html",
    "ok": true,
-   "detail": "241/241"
+   "detail": "234/234"
   },
   {
    "name": "table.html renders one prow per match",
    "ok": true,
-   "detail": "prows=241 rows=241"
+   "detail": "prows=234 rows=234"
   },
   {
    "name": "index marker: Executive summary",
@@ -118,9 +118,9 @@
    "detail": "debuts=['1074627', '1082002', '1083593']"
   },
   {
-   "name": "nextrows carry data-start for live past-labelling",
+   "name": "starting-soon strip renders on index",
    "ok": true,
-   "detail": "nextrows_with_data_start=8"
+   "detail": "nextrows=8"
   },
   {
    "name": "canonical/companion labelling in footer",
@@ -153,6 +153,6 @@
    "detail": "controls=['ctl_pinnacle_matchups', 'ctl_kambi_ubse', 'bmbets_worlds', 'betmonitor_prm2', 'strafe_odds', 'strafe_lol', 'esportbet_lol', 'kambi_paf', 'kambi_ubdk', 'kambi_ubbe', 'kambi_ubuk']"
   }
  ],
- "dataset_generated_utc": "2026-10-24T20:54:30Z",
+ "dataset_generated_utc": "2026-10-25T14:15:13Z",
  "probe_generated_utc": "2026-10-25T14:12:20Z"
 }

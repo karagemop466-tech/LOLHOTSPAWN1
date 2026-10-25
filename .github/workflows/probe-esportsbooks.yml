@@ -1,6 +1,6 @@
 name: probe-esportsbooks
 
-# Session 0ae1366a research job: which esportsbook / aggregator endpoints actually return a
+# Research job (session 3d124b45 refresh): which esportsbook / aggregator endpoints actually return a
 # machine-readable League of Legends coupon with prices, when called from a GitHub runner.
 #
 # Report-only. It writes data/esportsbook_probe.json and bounded raw previews; it never prices a
@@ -8,7 +8,7 @@ name: probe-esportsbooks
 
 on:
   push:
-    branches: ["arena/0ae1366a-lolhotspawn1"]
+    branches: ["arena/3d124b45-lolhotspawn1"]
     paths:
       - ".github/workflows/probe-esportsbooks.yml"
       - "tools/probe_esportsbook_feeds.py"
@@ -18,7 +18,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: probe-esportsbooks-0ae1366a
+  group: probe-esportsbooks
   cancel-in-progress: true
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: arena/0ae1366a-lolhotspawn1
+          ref: ${{ github.ref_name }}
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
@@ -52,8 +52,8 @@ jobs:
           if git diff --cached --quiet; then echo "no evidence"; exit 0; fi
           git commit -q -m "chore(research): esportsbook feed probe evidence [skip ci]"
           for attempt in 1 2 3; do
-            if git push origin "HEAD:arena/0ae1366a-lolhotspawn1"; then exit 0; fi
-            git fetch origin arena/0ae1366a-lolhotspawn1
-            git rebase -X theirs "origin/arena/0ae1366a-lolhotspawn1" || { git rebase --abort || true; git merge -X ours -m "merge after push race" "origin/arena/0ae1366a-lolhotspawn1" || true; }
+            if git push origin "HEAD:${{ github.ref_name }}"; then exit 0; fi
+            git fetch origin "${{ github.ref_name }}"
+            git rebase -X theirs "origin/${{ github.ref_name }}" || { git rebase --abort || true; git merge -X ours -m "merge after push race" "origin/${{ github.ref_name }}" || true; }
             sleep $((attempt * 5))
           done
