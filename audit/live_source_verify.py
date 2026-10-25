@@ -81,6 +81,22 @@ HOST_POLICY = {
 }
 DEFAULT_POLICY = {"concurrency": 4, "delay": 0.1, "retries": 2}
 
+# Pinnacle's guest API answers HTTP 200 to a live board and HTTP 401/403 once the
+# board is pulled (settled event), even with the correct guest key and a browser UA.
+# Without a control probe those closed boards are indistinguishable from a rejected
+# key, so every settled market row looked like a broken link. The control endpoint
+# below is fetched first with the *same* headers: if it resolves, the key and the UA
+# are demonstrably accepted and a 401/403 on a matchup board means "market closed",
+# not "auth failure". If the control fails, nothing is re-classified.
+PINNACLE_CONTROL_URL = "https://guest.api.arcadia.pinnacle.com/0.1/sports/240/leagues"
+_PINNACLE_API_OK = False
+
+# Verdicts that mean "the published link is dead" and therefore fail the audit.
+# `market_closed`, `rate_limited` and `expired_event` are deliberately absent: a board
+# the book has pulled, a crawler throttle, and a settled Kambi event are not link rot.
+BROKEN_DEFAULT = {"broken", "server_error", "not_found", "transport_error",
+                  "auth_required", "blocked_by_wiki"}
+
 
 def policy_for(url: str) -> dict:
     host = urllib.parse.urlparse(url).netloc
@@ -97,6 +113,10 @@ def classify(url: str, status: int, error: str) -> str:
     if status in (401, 403):
         if host == "lol.fandom.com":
             return "blocked_by_wiki"
+        if host == "guest.api.arcadia.pinnacle.com" and _PINNACLE_API_OK:
+            # The same key + UA resolved the control endpoint in this run, so the board
+            # is gone (the event settled), not the credential.
+            return "market_closed"
         return "auth_required"
     if status == 404 and host.endswith("kambicdn.com"):
         return "expired_event"          # the book pulls the event page when the market closes
@@ -205,6 +225,44 @@ def dedupe(urls) -> list[str]:
         seen.add(u)
         out.append(u)
     return out
+
+
+def probe_controls(groups: dict[str, list[str]]) -> tuple[dict, list[dict]]:
+    """Prove the Pinnacle guest key works before re-classifying a 401 on a board.
+
+    Takes `groups` (role -> urls) rather than `role_of`, so the probe can never depend on
+    a name that is assigned later in `main()` — that ordering mistake made the first
+    version of this fix crash the daily run (40200770214) instead of returning a verdict.
+
+    Returns (controls, checks). Never raises: a failed probe just leaves `_PINNACLE_API_OK`
+    False, and then a 401/403 stays `auth_required` and still fails the audit.
+    """
+    global _PINNACLE_API_OK
+    urls = [u for role_urls in groups.values() for u in role_urls]
+    if not any("arcadia.pinnacle.com" in (u or "") for u in urls):
+        return {}, []
+    try:
+        control = fetch(PINNACLE_CONTROL_URL, retries=3)
+    except Exception as exc:  # noqa: BLE001 - a probe must never break the audit
+        control = {"url": PINNACLE_CONTROL_URL, "status": -1, "ok": False,
+                   "cause": "transport_error", "error": str(exc)[:200]}
+    _PINNACLE_API_OK = bool(control.get("ok"))
+    verdict = "market_closed" if _PINNACLE_API_OK else "auth_required"
+    checks = [{
+        "name": "control: Pinnacle guest key accepted this run "
+                "(separates a closed board from an auth failure)",
+        "ok": True,  # informational; the classification below is what enforces it
+        "detail": f"status={control.get('status')} cause={control.get('cause')} "
+                  f"-> matchup boards answering 401/403 are classified '{verdict}'",
+    }]
+    if not _PINNACLE_API_OK:
+        checks.append({
+            "name": "control: Pinnacle guest key could not be proven",
+            "ok": False,
+            "detail": f"status={control.get('status')} cause={control.get('cause')}; "
+                      "closed-board classification disabled, 401/403 stays a failure",
+        })
+    return {"pinnacle_guest_api": control}, checks
 
 
 def verify_wiki_page(url: str) -> dict:
@@ -329,6 +387,11 @@ def main() -> int:
                      " - dataset is stale: the scheduled refresh has not published"),
     })
 
+    # ---------- control probe (decides how a 401 on a closed board is classified) ----------
+    controls, control_checks = probe_controls(groups)
+    report["controls"] = controls
+    report["checks"].extend(control_checks)
+
     # ---------- resolve every published URL, respecting each host's rate policy ----------
     role_of = {u: role for role, urls in groups.items() for u in urls}
     by_host: dict[str, list[str]] = {}
@@ -362,8 +425,7 @@ def main() -> int:
         list(pool.map(lambda h: crawl_host(h, by_host[h]), list(by_host)))
     report["verdicts"]["urls"] = by_url
 
-    BROKEN = {"broken", "server_error", "not_found", "transport_error",
-              "auth_required", "blocked_by_wiki"}
+    BROKEN = BROKEN_DEFAULT
 
     def cause(url: str | None) -> str:
         v = by_url.get(url or "")
@@ -386,6 +448,18 @@ def main() -> int:
             "ok": not stat["broken"],
             "detail": f"{stat['resolved']}/{stat['total']} resolved this run; "
                       f"causes={stat['causes']}",
+        })
+
+    # Closed boards are disclosed, not hidden: the link still does not serve a price
+    # after the event settles, so the count is published for manual review.
+    closed = sorted({u for u, v in by_url.items() if v.get("cause") == "market_closed"})
+    if closed:
+        report["market_closed_links"] = closed
+        report["checks"].append({
+            "name": "links to settled bookmaker boards are disclosed (not counted as rot)",
+            "ok": True,
+            "detail": f"{len(closed)} URL(s) answered 401/403 on a board the control proves the key "
+                      f"can read: the market is closed, the link is historical",
         })
 
     # ---------- per-row evidence ----------

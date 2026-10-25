@@ -1,0 +1,33 @@
+# Gate run — session 650571cf — 2026-10-25T14:07:17Z
+
+## python3 -m unittest discover -s tests
+Ran 72 tests in 0.104s
+
+OK
+
+## python3 tools/verify.py
+PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
+PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
+PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
+
+## python3 audit/check_site.py
+pages=24 failures=0 warnings=0
+
+## python3 audit/mobile_audit.py
+PASS methodology.html
+RESULT: PASS
+
+## python3 audit/verify_independent.py
+rows=241 market_rows=6 venues_checked=22
+failures=0 warnings=0 kills_substitutions=0
+
+## python3 audit/verify_docs.py
+
+ALL DOCS CHECKS PASS
+
+## python3 audit/verify_docs_parity.py
+
+ALL DOCS-PARITY CHECKS PASS
+
+## python3 audit/session_650571cf/verify_rows_vs_table.py
+rows=241 dataset=241 matched=241 missing=0 problems=0 csv_mismatches=0

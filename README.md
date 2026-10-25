@@ -20,7 +20,7 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
 | `featured.html` | Matches with a real bookmaker price, the raw odds and the de-vig arithmetic |
 | `originated.html` | Matches with no market price: our own line, the Elo inputs and the team records behind it |
-| `unresolved.html` | Matches we refuse to price, the official forfeit settlement where the league has ruled one, and every limitation that applies to the rest of the list |
+| `unresolved.html` | Matches we refuse to price, the official forfeit settlement where the league has ruled one, every limitation that applies to the rest of the list, and **every book check** behind the claim that no line exists (`#observed`) |
 | `competitions.html` | Coverage, source quality and staleness per tournament |
 | `teams.html` | Every team with its rating, record and competition |
 | `flagged.html` | Irregularities and unverified items, published rather than hidden |
@@ -155,6 +155,28 @@ Two conclusions are published on the site rather than assumed: Kambi-powered ope
 offering (the `ubse` and `paf` payloads were byte-identical, so `paf` is used only as a fallback and can
 never double-count), and every reachable venue quotes the same tier-1 slice of the calendar. Below that
 ceiling there is no external line to quote, which is exactly why the model originates one.
+
+### The tail, checked by hand and published
+
+Runner probes only show what the *runner* can reach, so the tail is also checked from a second, independent
+network path and published for manual review. On **2026-10-25** ten pages across nine venues (Thunderpick,
+Cloudbet, EGamersWorld, bo3.gg, Betmonitor, OddsPortal, GG.BET, Vave, Rivalry) were opened and read; every
+reading is stored with its URL, capture time and the exact sentence the page printed in
+`data/receipts/external_odds/2026-10-25.json`, and rendered on `unresolved.html#observed` (linked from the
+executive summary). Result: the widest external coverage of the list was 11 series, all Worlds plus one LGC
+Rising tie; the other 26 of 29 competitions had no open price anywhere.
+- Thunderpick priced `#1079080` (`Vitality Rising Bees -238 / Mental Rush +162` → de-vigged 64.8 % /
+  35.2 %), which **agrees** with our published 61.5 % / 38.5 % within 3.4 pp — a cross-check, not a price
+  of record.
+- Cloudbet keeps a **Prime League 2nd Division** market page that was empty on the day: a real lead for a
+  keyed odds feed, not evidence of a price.
+- Rivalry has **ceased operations**, and GG.BET/Vave geo-refuse this reader. Both are recorded as
+  *unreadable*, never as *no market exists*.
+- Dossiers with every quote: `research/LINE_SEARCH_2026-10-25.md` (what a reader sees on the book
+  lobbies) and `research/external-lines-2026-10-25.md` (the runner's 37-venue probe and exchange APIs,
+  same day). Earlier 32-venue dossier: `research/LONGTAIL_VENUES.md`.
+- `tools/verify.py` fails the build if an observation loses its URL, its capture time, its verbatim text,
+  or its rendered link.
 
 ## Manual review links
 
