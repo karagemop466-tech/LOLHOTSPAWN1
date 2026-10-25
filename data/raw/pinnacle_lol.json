@@ -1,36 +1,10 @@
 {
- "fetched_utc": "2026-10-25T14:24:06Z",
+ "fetched_utc": "2026-10-25T14:13:23Z",
  "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
  "source_note": "Pinnacle guest API, sport 12 (E Sports), moneyline period 0, markets/related/straight",
  "lol_matchup_count": 80,
  "priced_count": 8,
  "markets": [
-  {
-   "matchup_id": 1639229311,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-26T19:15:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": 169,
-     "decimal": 2.69
-    },
-    "away": {
-     "american": -204,
-     "decimal": 1.4902
-    }
-   },
-   "participants": [
-    {
-     "name": "LOS",
-     "alignment": "home"
-    },
-    {
-     "name": "Secret Whales",
-     "alignment": "away"
-    }
-   ]
-  },
   {
    "matchup_id": 1639227252,
    "league": "League of Legends - World Championship",
@@ -53,32 +27,6 @@
     },
     {
      "name": "Bilibili",
-     "alignment": "away"
-    }
-   ]
-  },
-  {
-   "matchup_id": 1639235121,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-25T22:15:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": -1558,
-     "decimal": 1.0642
-    },
-    "away": {
-     "american": 819,
-     "decimal": 9.19
-    }
-   },
-   "participants": [
-    {
-     "name": "Gen.G",
-     "alignment": "home"
-    },
-    {
-     "name": "LYON",
      "alignment": "away"
     }
    ]
@@ -136,27 +84,27 @@
    ]
   },
   {
-   "matchup_id": 1639235120,
+   "matchup_id": 1639229311,
    "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-25T17:15:00Z",
+   "start_utc": "2026-10-26T19:15:00Z",
    "market_key": "s;0;m",
    "prices": {
     "home": {
-     "american": -315,
-     "decimal": 1.3175
+     "american": 169,
+     "decimal": 2.69
     },
     "away": {
-     "american": 248,
-     "decimal": 3.48
+     "american": -204,
+     "decimal": 1.4902
     }
    },
    "participants": [
     {
-     "name": "Hanwha Life",
+     "name": "LOS",
      "alignment": "home"
     },
     {
-     "name": "Invictus",
+     "name": "Secret Whales",
      "alignment": "away"
     }
    ]
@@ -168,12 +116,12 @@
    "market_key": "s;0;m",
    "prices": {
     "home": {
-     "american": 114,
-     "decimal": 2.14
+     "american": 111,
+     "decimal": 2.11
     },
     "away": {
-     "american": -134,
-     "decimal": 1.7463
+     "american": -129,
+     "decimal": 1.7752
     }
    },
    "participants": [
@@ -183,6 +131,32 @@
     },
     {
      "name": "G2",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
+   "matchup_id": 1639235121,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-25T22:15:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": -1558,
+     "decimal": 1.0642
+    },
+    "away": {
+     "american": 819,
+     "decimal": 9.19
+    }
+   },
+   "participants": [
+    {
+     "name": "Gen.G",
+     "alignment": "home"
+    },
+    {
+     "name": "LYON",
      "alignment": "away"
     }
    ]
@@ -209,6 +183,32 @@
     },
     {
      "name": "Anyone's Legend",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
+   "matchup_id": 1639235120,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-25T17:15:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": -315,
+     "decimal": 1.3175
+    },
+    "away": {
+     "american": 248,
+     "decimal": 3.48
+    }
+   },
+   "participants": [
+    {
+     "name": "Hanwha Life",
+     "alignment": "home"
+    },
+    {
+     "name": "Invictus",
      "alignment": "away"
     }
    ]

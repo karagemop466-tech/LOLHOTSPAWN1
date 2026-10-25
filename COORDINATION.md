@@ -24,67 +24,17 @@ no claim has been active for >18 h, so the files below are free. Claim filed bef
 
 | # | Task | Status | Owner | File scope (disjoint) |
 |---|---|---|---|---|
-| `H1` | **Unblock the canonical 6-hourly `refresh-picks`** — the 11:34Z run on 2026-10-25 fetched 236 live fixtures and every `tools/verify.py` gate passed, but the `unit-tests` step failed 3 tests (`test_corroborate_history` ×2, `test_corroborate_offlist` ×1), so no fresh data has committed since 2026-10-24T20:54Z and the root site is stale. Root cause: those tests hard-code `captured_utc=2026-10-24`, which crossed the production 24 h receipt TTL (`RECEIPT_MAX_AGE_HOURS` in `tools/corroborate.py`) — a wall-clock time bomb, not a production defect. Fix the tests to use relative timestamps (pattern already used by `tests/test_corroborate.py`); do not weaken the TTL safeguard. | done — session `63c67a23` independently merged equivalent relative-timestamp fixes for the two shared files in PR #100's lineage; this session's rebased PR #99 accepted their versions unchanged and kept the unique `tests/test_corroboration.py` fix (the 15:00Z TTL trap neither session had touched) | 9d0a516d | `tests/test_corroboration.py` (final diff after rebase) |
-| `H2` | **Local gate proof** — full `unittest discover`, `tools/verify.py`, `audit/check_site.py` green on the committed snapshot before any push. | done — 73/73 unit tests, 51/51 publish gates, check_site 24 pages 0 failures, verify_docs all pass, dashboard.cjs pass on the merged tree | 9d0a516d | no new files (terminal evidence into this log) |
-| `H3` | **PR → `main` → merge, then dispatch `refresh-picks`** and confirm a fresh snapshot commits and GitHub Pages redeploys (the sandbox has no egress to Hotspawn/books/Leaguepedia; the Actions runner does). Record run ids and the Pages deployment. | done — PR #99 merged 2026-10-25T14:17:12Z (merge `3f9a414`); the post-merge push on `tools/**` triggered the canonical run which committed `19dc1a9 chore(data): refresh fixtures, lines and site` (234-fixture snapshot, inventory 14:13:21Z); refresh-docs run `40201363277` committed `2afd92a`; Pages API reported a build in progress then must be re-checked for `built` | 9d0a516d | `COORDINATION.md` only, plus the PR |
-| `H4` | **Re-verify "a pick for every listed match" on the refreshed snapshot** — 1:1 fixture coverage, every row has a pick (market / model / provisional / settlement), the unresolved ledger and the executive-summary unresolved section match the data, probabilities sum to 100 %, source links present. | done — 234/234 rows carry a pick (9 market, 150 model, 71 provisional, 4 settlement-only); 0 missing Hotspawn URLs; 0 probability-sum/argmax failures; all 9 market rows carry venue receipt URLs and no `(Kills)` derivative; all 71 provisional rows carry the thin-data flag; the 4 settlement rows cite Leaguepedia + the Hotspawn void rule and claim no probability; crowd-pick data is audit-only (feeds one flag in `tools/flags.py`, never a probability) | 9d0a516d | read-only; findings into this log |
-| `H5` | **Independent low-tier line research (editorial corroboration)** — the runner-side probes (17 + 23 + 52 venues, 0 usable) are already committed; add a source-linked research memo documenting the structural reason the national/academy tail has no book line (e.g. Norway's Norsk Tipping monopoly, tier-C event status, books' tier-1-only coverage) and the Hotspawn forfeit-void rule. No inferred prices. | done — `research/session_9d0a516d/STRUCTURAL_CEILING_2026-10-25.md` + `sources.json` (19 independent sources): GlüStV excludes esports and bans amateur/youth markets (97 German rows), Norway's Norsk Tipping monopoly + 2025 DNS blocking (9 Norwegian rows incl. all 4 unresolved), tier-1-only editorial coverage policy, verified Rivalry closure, official Hotspawn void rule. Zero prices inferred. | 9d0a516d | `research/session_9d0a516d/**` (new) |
-| `H6` | **Mobile / executive-summary audit** — confirm the summary's in-site links, bottom nav, floating picks button and 360 px viewport behaviour; polish only if a concrete defect is found. | done — no defect found, no edit made. `audit/mobile_audit.py` PASS on all 14 root pages (viewport meta, no fixed width >360 px, data-label stacked tables, `.mobnav`); exec summary has six quick-link cards, a 29-tournament one-tap filtered directory, starting-soon strip, embedded unresolved-&-limitations section, 44–48 px tap targets, bottom nav and floating picks pill under 700 px | 9d0a516d | read-only (no files needed editing) |
+| `H1` | **Unblock the canonical 6-hourly `refresh-picks`** — the 11:34Z run on 2026-10-25 fetched 236 live fixtures and every `tools/verify.py` gate passed, but the `unit-tests` step failed 3 tests (`test_corroborate_history` ×2, `test_corroborate_offlist` ×1), so no fresh data has committed since 2026-10-24T20:54Z and the root site is stale. Root cause: those tests hard-code `captured_utc=2026-10-24`, which crossed the production 24 h receipt TTL (`RECEIPT_MAX_AGE_HOURS` in `tools/corroborate.py`) — a wall-clock time bomb, not a production defect. Fix the tests to use relative timestamps (pattern already used by `tests/test_corroborate.py`); do not weaken the TTL safeguard. | in progress | 9d0a516d | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` |
+| `H2` | **Local gate proof** — full `unittest discover`, `tools/verify.py`, `audit/check_site.py` green on the committed snapshot before any push. | in progress | 9d0a516d | no new files (terminal evidence into this log) |
+| `H3` | **PR → `main` → merge, then dispatch `refresh-picks`** and confirm a fresh snapshot commits and GitHub Pages redeploys (the sandbox has no egress to Hotspawn/books/Leaguepedia; the Actions runner does). Record run ids and the Pages deployment. | pending | 9d0a516d | `COORDINATION.md` only, plus the PR |
+| `H4` | **Re-verify "a pick for every listed match" on the refreshed snapshot** — 1:1 fixture coverage, every row has a pick (market / model / provisional / settlement), the unresolved ledger and the executive-summary unresolved section match the data, probabilities sum to 100 %, source links present. | pending | 9d0a516d | read-only; findings into this log and, only if a defect is found, a narrowly-scoped follow-up claim |
+| `H5` | **Independent low-tier line research (editorial corroboration)** — the runner-side probes (17 + 51 venues, 0 usable) are already committed; add a source-linked research memo documenting the structural reason the national/academy tail has no book line (e.g. Norway's Norsk Tipping monopoly, tier-C event status, books' tier-1-only coverage) and the Hotspawn forfeit-void rule. No inferred prices. | pending | 9d0a516d | `research/session_9d0a516d/**` (new) |
+| `H6` | **Mobile / executive-summary audit** — confirm the summary's in-site links, bottom nav, floating picks button and 360 px viewport behaviour; polish only if a concrete defect is found. | pending | 9d0a516d | `assets/**`, `tools/site.py` only if a defect is proven (new claim line before editing) |
 
-Non-overlap: sessions `3d124b45`, `63c67a23`, `cb84d7dc` were active concurrently. All overlaps were resolved
-by rebasing onto their merged work and accepting their versions of shared files; this session's final code
-diff is one test file plus its own new research directory. This session does not edit `tools/collect.py`,
-`tools/model.py`, `tools/verify.py`, `tools/corroborate.py`, `tools/site.py`, `assets/**`, `scripts/**`,
-`data/node/**`, `docs/**` or any workflow file.
-
-## Completion record — session `9d0a516d` (2026-10-25)
-
-### Root cause of the frozen canonical site (evidence, no inference)
-
-- The 11:34Z scheduled `refresh-picks` run collected 236 live fixtures and every `tools/verify.py` gate
-  passed (`data/build_failure.log`: "verification passed", 44 checks at that time), but the earlier
-  `unit-tests` stage failed 3 tests and `refresh.yml`'s "Stop on failed gate" step aborted before the
-  data/site commit; `data/build_failed_steps.txt = unit-tests`.
-- The three tests hard-coded receipt `captured_utc` values of 2026-10-24. Once they aged past
-  `RECEIPT_MAX_AGE_HOURS = 24` (`tools/corroborate.py`), the production TTL correctly reclassified the
-  synthetic receipts from `usable` to `expired`, inverting assertions written for fresh receipts. The TTL
-  is intentional and has dedicated tests; only the test fixtures were defective.
-- A fourth time bomb in `tests/test_corroboration.py` (fixed stamp `2026-10-24T15:00Z`, two
-  `status == "usable"` assertions) would have failed at 15:00Z on 2026-10-25 and bricked the 18:17Z
-  scheduled run; PR #99 fixed it ~43 minutes before the crossover.
-
-### Merge / deploy trail
-
-| Item | Value |
-|---|---|
-| PR #99 | https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/99 — merged 2026-10-25T14:17:12Z, merge commit `3f9a414` |
-| Concurrent work integrated | PR #98 (`3d124b45`, 23-venue probe + unresolved ledger) merged 14:13:30Z; PR #100 (`63c67a23`, docs anchor fix + verify gate fix) merged 14:15:12Z; both kept, nothing discarded |
-| Canonical data commit | `19dc1a9 chore(data): refresh fixtures, lines and site` — 234 fixtures, inventory 2026-10-25T14:13:21Z, 9 market / 150 model / 71 provisional / 4 settlement |
-| Secondary docs run | `40201363277` → commits `58cf054` (diagnostics) and `2afd92a` (docs refresh, sched=234, active=157, 0 active unresolved) |
-| Local gates after merge | `unittest` 73/73 · `tools/verify.py` 51/51 · `audit/check_site.py` 24 pages / 0 failures · `audit/verify_docs.py` ALL PASS · `audit/mobile_audit.py` 14/14 PASS · `tests/dashboard.cjs` PASS |
-| Cross-view link drift observed and resolved | 6 `check_site` failures linked `docs/` pages to root anchors for 3 fixtures (`1075719`, `1074658`, `1075731`) that rolled off the live feed between the 10:57Z Node build and the 14:12Z root collection; PR #100's anchor-emission fix plus the 14:15Z docs refresh healed all 6 (0 failures on re-run) |
-
-### Cross-scope requests (this session does not own the target files)
-
-1. **To the owner of `tools/probe_esportsbook_feeds.py` (`3d124b45` lineage):** remove Rivalry from the
-   candidate venue list. The company paused all player activity on 2026-02-13, its TSXV trading was
-   halted in May 2026 and the last CEO/co-founder resigned in July 2026; the live site shows a closure
-   notice and the runner probes can never return a price. Sources in
-   `research/session_9d0a516d/sources.json` (topic `rivalry-closure`, 4 links).
-2. **No request needed for the pick policy:** the originated/provisional/settlement fallback is the only
-   honest resolution given the documented structural ceiling (memo §7); no additional venue is reachable
-   from the runner per the committed 17/23/52-venue probes.
-
-### Irregularities retained for the Flagged for Review page (not introduced here)
-
-- The 4 Komplettligaen Solid Gaming cards remain settlement-only: Hotspawn's published rule voids
-  forfeited-match predictions, while Leaguepedia records 0-2 walkovers — the pages present both and
-  claim no probability.
-- 71 provisional lines on thin/zero-history samples stay explicitly flagged; the stricter secondary
-  `docs/` view leaves the zero-history subset blank rather than estimating, and the two views cross-link.
-- Scheduled refreshes remain best-effort (cron `17 */6`); every page prints the inventory timestamp and
-  the 12 h/30 h stale warnings. The time-bomb class of outage is now covered by wall-clock-relative
-  fixtures in all three receipt-lifecycle test modules.
+Non-overlap: no other live session. This session will not edit `tools/collect.py`, `tools/model.py`,
+`tools/verify.py`, `tools/corroborate.py`, `scripts/**`, `data/node/**`, `docs/**` or any workflow file.
+Generated `data/*.json`, `*.html` root pages and `picks.csv` are written by the Actions bot on the
+post-merge live run, not hand-edited here.
 
 ---
 
@@ -2745,7 +2695,7 @@ this session records that it is working in the scopes they named. Nothing of the
 | `X1` | **Unblock `refresh-picks`**: the run recorded in `data/build_failure.log` failed at `unit-tests` (3 failures), which stopped the six-hourly re-publish and froze the site 17 h behind Hotspawn | done (PR #93 merged) | cb84d7dc | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` |
 | `X2` | **External line search for every match the featured resolution cannot price** — established LoL betting sites, then esportsbooks, then esports odds aggregators; every reading recorded with URL, capture time and verbatim text | done | cb84d7dc | `data/receipts/external_odds/2026-10-25.json` (new), `research/LINE_SEARCH_2026-10-25.md` (new) |
 | `X3` | **Publish the search on the site**: the limitations page and the executive summary must carry the book-by-book evidence with live links, and a gate must fail if an observation loses its source | done | cb84d7dc | `tools/site.py`, `tools/verify.py` |
-| `X4` | **Line-by-line verification of the combined tree and the live site**, PR → `main`, merge without approval, confirm the Pages deploy and a green refresh | **done** | cb84d7dc | `COORDINATION.md`, `README.md` |
+| `X4` | **Line-by-line verification of the combined tree and the live site**, PR → `main`, merge without approval, confirm the Pages deploy and a green refresh | in progress | cb84d7dc | `COORDINATION.md`, `README.md` |
 
 ## X1 — root cause, fixed and verified
 
@@ -2916,61 +2866,6 @@ expected repair path.
 |---|---|---|
 | R1 | `63c67a23` (or the next integration session) | Make `audit/verify_docs_parity.py` compare docs-rendered canonical probabilities against the canonical snapshot **docs was built from** (persist it in `data/node/picks.json`), so the parity gate is not red for up to 6 h after every canonical refresh. Evidence: check 6 output above and the two snapshot timestamps. |
 
-
-## X4 — merge record, the first green refresh since 2026-10-23, and the live deploy
-
-| item | value |
-|---|---|
-| PR #93 (`arena/cb84d7dc-lolhotspawn1` → `main`) | **merged 2026-10-25T14:0xZ** — the wall-clock-relative test fixtures. This alone unblocked `unit-tests`, which was the stage recorded in `data/build_failed_steps.txt`. |
-| PR #97 (same branch) | **merged 2026-10-25T14:13Z** — the line-search receipts, the `unresolved.html#observed` panel, the executive-summary bullet, the two new publish gates and the dossier |
-| Conflict on the way in | Session `63c67a23` merged PR #96/#101 in parallel and had independently produced the **same** test fix (its `fb57dab`, same docstring, same `_recent()`/`_kickoff()` helpers). Rebasing this branch onto `origin/main` therefore dropped this session's duplicate test commit — nothing was lost, and neither session's fix was reverted. `tools/site.py` and `tools/verify.py` auto-merged; the clash was in the generated `verification.html` / `data/verification.json`, which were **resolved by regenerating them** from the merged pipeline rather than hand-merging, and both `COORDINATION.md` sections were kept side by side. The two research memos now cross-link (see `research/LINE_SEARCH_2026-10-25.md` ↔ `research/external-lines-2026-10-25.md`). |
-| `refresh-picks` after the merge | **green.** Commit `19dc1a9 chore(data): refresh fixtures, lines and site` at **2026-10-25T14:15:16Z** (inventory fetched `14:13:21Z`, dataset generated `14:15:13Z`) — the first successful canonical refresh since `2026-10-23T17:13:14Z`. Only a passing gate can reach that commit step, and the committed `data/verification.json` on `main` records **51/51 checks passed, 0 failures**. (The Actions run id could not be read: the GitHub API returned HTTP 403 *rate limit exceeded* from this sandbox; the commit + gate file are the evidence used instead, and they are the same evidence the workflow writes.) |
-| Fresh snapshot contents (verified on `origin/main`) | 234 scheduled cards · **234/234 carry a pick** (230 priced + 4 official-forfeit settlements) · 9 market rows · 150 model · 71 provisional · 27/29 competitions unpriced externally · 0 rejected receipts |
-| The new capture on the fresh build | Thunderpick on `#1079080`: **usable, verdict `agrees`**, `ext_p0 0.3515` vs our `0.3650`, `−1.35 pp` |
-| GitHub Pages | live render fetched `2026-10-25T14:26Z`: header reads **“Data snapshot: 2026-10-25 14:15 UTC … inventory is 8m old”**, `234` cards, `100%` with a pick, `9` market-backed, and the **“Picks by tournament (29)”** directory is present; `unresolved.html#observed` renders all **17 checks across 9 venues** with verbatim readings, capture times and live links |
-| Still open (not this session's scope) | the GitHub API rate limit blocked reading run ids/deploy run ids from this sandbox; other sessions were merging to `main` concurrently throughout (PRs #94, #96, #99, #101), so any later snapshot may supersede the numbers above |
-
-Session `cb84d7dc` is **done**: X1 fixed and merged, X2 researched with dated receipts, X3 published with
-two new gates, X4 merged and verified against the live site, and the six-hourly refresh is working again.
-## Final record — session `650571cf` (PR, merge, live refresh, deployment)
-
-| Item | Value |
-|---|---|
-| PR | **#94** — `arena/650571cf-lolhotspawn1` → `main` — **MERGED 2026-10-25T14:18:13Z**, merge commit **`cc4e934`** — <https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/94> |
-| Contents merged | `tests/test_no_clock_bombs.py`, `tests/test_live_source_classify.py` (13 assertions incl. the end-to-end `main()` smoke test), `audit/live_source_verify.py` (closed-board classification + control probe), `audit/session_650571cf/*` (row-by-row verifier + gate receipts), `COORDINATION.md` |
-| Canonical refresh | `refresh-picks` run **`40201021751`** — **completed / success** — published data commit `19dc1a9`, dataset `2026-10-25T14:15:13Z`, inventory `2026-10-25T14:13:21Z`, **234 rows** (`market 9 · model 150 · provisional 71 · unresolved 4`), 230 with a probability |
-| Pages deployment | `pages build and deployment` run **`40201414556`** **success** 14:15:53Z for `19dc1a9`; after #94/#101 superseded each other, run **`40201627631`** **success** 14:18:41Z for `main` @ `84524fd`. `gh api …/pages` → `status: built`, `html_url` <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> |
-| Final gate sweep on `main` @ `84524fd` | unit tests **88/88 OK** · `tools/verify.py` **51/51 PASS** · `check_site.py` 24 pages 0 failures · `mobile_audit.py` PASS · `verify_independent.py` 234 rows / 9 market / 41 venue checks 0 failures · `verify_docs.py` ALL PASS · `verify_docs_parity.py` **ALL PASS** · row-vs-table **234/234** rows, 0 problems, 0 CSV mismatches. Receipt: `audit/session_650571cf/gates_main_final.txt` |
-| Docs parity | The skew recorded above **resolved without a code change**: `docs/data/picks.json` was rebuilt at `14:15:46Z` against the `14:15:13Z` canonical snapshot, so check 6 now compares like with like (`scheduled 234, shared 234, both priced 227`). Request **R1** is therefore a hardening item, not a live defect: persist the canonical snapshot the Node pipeline built against, so the gate cannot go amber during the window between a canonical refresh and the next docs rebuild. |
-| Other sessions | `cb84d7dc` (PR #93) and `63c67a23` (PRs #96/#100/#101) worked the same brief concurrently. No file of theirs was overwritten and no commit of theirs was reverted; every conflict was resolved in favour of the already-merged `main` version. Their work covers the fixture repair itself, the 37–52 venue low-tier line research, the coverage gates and the mobile/exec-summary redesign. |
-
-### What is live now (for manual review)
-
-* <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> — executive summary with the *Where the picks
-  are* block, *Starting soon* list, and the *Unresolved picks and the limitations* section; every list
-  is one tap away on a phone via the fixed bottom bar (`Summary · Picks · Results · Limits · Flags`).
-* <https://karagemop466-tech.github.io/LOLHOTSPAWN1/table.html> — one row per match: both win
-  probabilities, the pick with its percentage, method badge, Hotspawn card link, book quote links and the
-  Leaguepedia results link. **234 rows on the current snapshot, 234 verified.**
-* <https://karagemop466-tech.github.io/LOLHOTSPAWN1/unresolved.html> — the 4 official-forfeit
-  settlements (no probability claimed) plus the per-competition fallback ledger.
-* <https://karagemop466-tech.github.io/LOLHOTSPAWN1/flagged.html> — every irregularity, with sources.
-
-### Still open (owned by later sessions, not defects in this session's scope)
-
-1. **71 of 234 rows are provisional** (thin recorded history). 37–52 venue probes found no reachable
-   book quoting those leagues, so a labelled provisional line is the honest ceiling until more series
-   are recorded. Keyed venues are listed in `research/low-tier-sources-2026-10-24.md`.
-2. **R1** — docs-parity snapshot coupling (hardening, described above).
-3. **Row-vs-table verifier is not wired into CI.** It is deliberately kept out of `refresh.yml` so this
-   session does not add a new blocking stage to a workflow other sessions are editing; a future
-   integration session can add `python3 audit/session_650571cf/verify_rows_vs_table.py` between
-   `tools/site.py` and `tools/verify.py` once the tree is quiet.
-4. `verify-live-sources` was re-triggered by the merge (`main` @ `cc4e934`, 14:18:15Z). Its receipts are
-   committed by that workflow to `audit/session_c0a05820/`; the GitHub API rate limit shared by all
-   concurrent sessions refused several reads during this session, so its post-merge verdict is left to
-   the workflow's own receipt rather than asserted here.
-
 # Session `b1e5557f` — live-clock next-up accuracy (2026-10-25)
 
 ## Claim
@@ -3005,15 +2900,14 @@ The branch-only diagnostic run `40200757847` exposed three existing receipt test
 
 ### PR/integration status addendum
 
-PR **#95** is open from this fixed Arena branch: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/95 . The malformed original description has been corrected through the GitHub REST API. Main advanced through PR #104, the scheduled refresh `32a5137`, the live-source receipt commit `971e5b1`, and PR #109 (`5600824`) while integration was underway; this branch has been rebased onto the latest `5600824`. The earlier pushed head's diagnostic (`40201973351`) and docs-parity check (`40201973411`) passed, but its live-source audit result is not used as evidence for the newest snapshot. The latest rebase still needs pushing and new-head verification before merging. No new PR #95 Pages deployment is claimed.
+PR **#95** was opened from this fixed Arena branch: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/95 . Main advanced through PR #101 while it was open, so the local branch was rebased onto `84524fd`; the latest generated tree passes the canonical, mobile, full-site and docs gates locally. The initial branch diagnostic failed (run `40200757847`) because of expired test fixtures; corrected run `40200963762` succeeded. The full Python suite now passes **89/89**. Earlier PR-run parity and source-probe checks passed (`40201576940`, `40201576986`); an earlier branch diagnostic (`40201577006`) remained in progress when the branch was rebased. The original PR description contains malformed test-output text because shell backticks were expanded while creating it; correction attempts hit the deprecated Projects (classic) GraphQL field and REST rate limits. Latest rebased head still needs to be force-updated, then PR merge and Pages deployment confirmed; no live deployment from PR #95 is claimed.
 
 ## Session `b1e5557f` — post-rebase integration verification (2026-10-25)
 
-Main advanced through PR #104, the scheduled refresh, live-source receipts, and PR #109 while this branch's PR was open. Rebased this fixed Arena branch onto `5600824`, preserving all main work including the low-tier structural-ceiling research memo and live-source/mobile audit receipts.
+Main advanced through PR #101 while this branch's PR was open. Rebased this fixed Arena branch onto `84524fd` and preserved the complete main work; the PR conflict was resolved locally without dropping other changes.
 
-- Canonical snapshot: **234/234** Hotspawn fixtures, inventory fetched `2026-10-25T14:24:04Z`, data generated `14:25:59Z`; 29 competitions, 230 priced probabilities plus 4 settlement-only picks. `tools/verify.py`: **51/51 PASS**.
-- Rebuilt canonical root pages and secondary `docs/` pages from this snapshot. `audit/check_site.py`: 24 pages / **0 failures, 0 warnings**; `audit/mobile_audit.py`: **14/14 PASS**; docs audit passes; docs parity **10/10 PASS**.
-- Parity evidence in `audit/9f16f9ad/docs_parity.json`: all 234 scheduled IDs and canonical probabilities align, 33 material divergences are explicitly flagged, and no cross-dashboard links are broken.
-- Full Python suite **89/89 PASS**; jsdom dashboard test passes for all 234 matches, including live-clock next-up; `git diff --check` clean.
-- **Live-source limitation (not hidden):** committed audit `audit/session_c0a05820/source_verify.json` was generated at `14:18:26Z` against the earlier `14:15:13Z` dataset and reports FAIL because the Pinnacle guest API control returned HTTP 403 (`auth_required`), so closed-board classifications were disabled. In that run Hotspawn fixture URLs resolved 234/234, market quote pages 10/10, Leaguepedia 29/29, pick'em 1/1, and 234/234 rows had at least one resolving evidence link; 8/41 venue receipt checks were rate-limited. Do not describe this as a fully green live-source audit or infer that Pinnacle boards were closed. The recent 14:25 dataset was not covered by that run.
-- The latest local rebase and regenerated reports still need to be pushed, then new-head workflows, PR merge, and Pages deployment verified. Do not treat local gates as a live deployment.
+- Canonical collector snapshot on main: **234/234** Hotspawn fixtures, fetched `2026-10-25T14:13:21Z`; 29 competitions, 230 priced probabilities plus 4 settlement-only administrative picks. Publish gate `tools/verify.py`: **51/51 PASS**. Sources, no-lookahead, 1:1 inventory and settlement cases checked by that gate.
+- Rebuilt canonical root pages and the secondary `docs/` pages from their current committed inputs. Secondary pages now have no dead cross-dashboard fragments. `audit/check_site.py`: 24 pages / **0 failures, 0 warnings**; `audit/mobile_audit.py`: **14/14 PASS**; `audit/verify_docs.py`: **16/16 PASS**; `audit/verify_docs_parity.py`: **10/10 PASS**.
+- The secondary pages were rebuilt against the 14:13Z canonical snapshot. Latest parity evidence in `audit/9f16f9ad/docs_parity.json`: 234 scheduled rows on both sides, 234 shared IDs, all 234 canonical probabilities agree, 33 rows flagged as materially divergent (5 pp threshold or opposite pick), 0 broken/dead deep links. The earlier 236-vs-234 snapshot skew was eliminated by regeneration; only disclosed probability divergences remain.
+- Full Python suite **89/89 PASS**; jsdom dashboard test PASS, including live-clock next-up; `git diff --check` clean. The live-source auditor's end-to-end unit smoke test uses stubbed transport; it is not represented as a live external URL crawl.
+- PR #95 still requires the latest rebased head to be pushed and its merge/deploy status rechecked. Do not treat a local successful build as a live Pages deployment.
