@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-24T20:54:30Z",
- "total": 241,
+ "generated_utc": "2026-10-25T14:12:56Z",
+ "total": 234,
  "counts": {
-  "model": 153,
+  "model": 150,
   "unresolved": 4,
-  "provisional": 78,
-  "market": 6
+  "provisional": 71,
+  "market": 9
  },
  "per_competition": {
   "Benelux Ascend Series 2026 Summer Split": {
@@ -45,8 +45,8 @@
    "model": 1
   },
   "RIVALS LEAGUE Season 2": {
-   "provisional": 9,
-   "model": 16
+   "provisional": 7,
+   "model": 17
   },
   "Hitpoint 2nd Div Challengers 2026 Summer Playoffs": {
    "model": 1
@@ -60,7 +60,7 @@
   },
   "Arabian League 2nd Division 2026 Summer": {
    "provisional": 4,
-   "model": 5
+   "model": 4
   },
   "Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait": {
    "provisional": 2
@@ -69,33 +69,32 @@
    "provisional": 6
   },
   "LigaGG CELOL B 2026 Split 2 Playoffs": {
-   "model": 5
+   "model": 3
   },
   "4 Nations 2026 Halloween Heist": {
    "provisional": 1,
    "model": 4
   },
   "Logitech G SuperStrike Cup Qualifier": {
-   "provisional": 4
-  },
-  "PRM 3rd Division 26-27 Fall": {
-   "model": 46,
-   "provisional": 16
+   "provisional": 2
   },
   "Tunisian Super League 2026": {
-   "provisional": 20,
-   "model": 5
-  },
-  "Worlds 2026 Main Event": {
-   "model": 3,
-   "market": 5
+   "provisional": 17,
+   "model": 7
   },
   "LigaGG CELOL A 2026 Split 2 Playoffs": {
-   "model": 2
+   "model": 4
+  },
+  "PRM 3rd Division 26-27 Fall": {
+   "model": 44,
+   "provisional": 16
   },
   "PRM 2nd Division 26-27 Fall": {
    "model": 32,
    "provisional": 4
+  },
+  "Worlds 2026 Main Event": {
+   "market": 8
   },
   "LGC Rising 2026 Playoffs": {
    "market": 1
@@ -236,39 +235,12 @@
    ]
   },
   {
-   "hotspawn_id": "1083113",
-   "team": "FAME",
-   "resolved": "FAME (Bulgarian Team)",
-   "method": "competition-page",
-   "notes": [
-    "resolved within 'Logitech G SuperStrike Cup/Qualifier' to 'FAME (Bulgarian Team)'"
-   ]
-  },
-  {
-   "hotspawn_id": "1081086",
-   "team": "Infinity Gaming",
-   "resolved": "Infinity Gaming (Brazilian Team)",
-   "method": "competition-page",
-   "notes": [
-    "resolved within 'LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs' to 'Infinity Gaming (Brazilian Team)'"
-   ]
-  },
-  {
    "hotspawn_id": "1082914",
    "team": "Neon eSports",
    "resolved": "Neon eSports (Brazilian Team)",
    "method": "competition-page",
    "notes": [
     "resolved within 'LigaGG/CELOL Série A/2026 Season/Split 2 Playoffs' to 'Neon eSports (Brazilian Team)'"
-   ]
-  },
-  {
-   "hotspawn_id": "1067684",
-   "team": "LYON",
-   "resolved": "LYON (2024 American Team)",
-   "method": "competition-page",
-   "notes": [
-    "resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'"
    ]
   },
   {
@@ -287,6 +259,15 @@
    "method": "competition-page",
    "notes": [
     "resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Team)'"
+   ]
+  },
+  {
+   "hotspawn_id": "1075818",
+   "team": "LYON",
+   "resolved": "LYON (2024 American Team)",
+   "method": "competition-page",
+   "notes": [
+    "resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'"
    ]
   },
   {
@@ -323,6 +304,15 @@
    "method": "alias",
    "notes": [
     "explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evidence (see Flagged for review)"
+   ]
+  },
+  {
+   "hotspawn_id": "1083015",
+   "team": "Neon eSports",
+   "resolved": "Neon eSports (Brazilian Team)",
+   "method": "competition-page",
+   "notes": [
+    "resolved within 'LigaGG/CELOL Série A/2026 Season/Split 2 Playoffs' to 'Neon eSports (Brazilian Team)'"
    ]
   },
   {
@@ -841,43 +831,16 @@
    ]
   },
   {
-   "id": "1083113",
+   "id": "1083775",
    "competition": "Logitech G SuperStrike Cup Qualifier",
    "teams": [
-    "FAME",
-    "CRUEL FATE"
+    "TUPKACHI NA KORICI",
+    "NE SE CUKA"
    ],
-   "p0": 0.4947,
+   "p0": 0.6024,
    "flags": [
     "fewer than 5 rated series for at least one team",
-    "resolved within 'Logitech G SuperStrike Cup/Qualifier' to 'FAME (Bulgarian Team)'",
-    "start time has passed and Leaguepedia records completed series CRUEL FATE 1-0 FAME (Bulgarian Team) (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ]
-  },
-  {
-   "id": "1084072",
-   "competition": "Logitech G SuperStrike Cup Qualifier",
-   "teams": [
-    "Тегава Къща",
-    "Ultim8"
-   ],
-   "p0": 0.4226,
-   "flags": [
-    "fewer than 5 rated series for at least one team",
-    "start time has passed and Leaguepedia records completed series Тегава Къща 2-0 Ultim8 (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ]
-  },
-  {
-   "id": "1083773",
-   "competition": "Logitech G SuperStrike Cup Qualifier",
-   "teams": [
-    "NE SE CUKA",
-    "Non-toxic Gaming"
-   ],
-   "p0": 0.4849,
-   "flags": [
-    "fewer than 5 rated series for at least one team",
-    "start time has passed and Leaguepedia records completed series NE SE CUKA 1-0 Non-toxic Gaming (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
+    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ]
   },
   {
@@ -900,20 +863,7 @@
     "JSK Esports",
     "El Menzah Esports"
    ],
-   "p0": 0.7185,
-   "flags": [
-    "fewer than 5 rated series for at least one team",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ]
-  },
-  {
-   "id": "1080925",
-   "competition": "Tunisian Super League 2026",
-   "teams": [
-    "Olympique Mnihla",
-    "Supreme Leaders"
-   ],
-   "p0": 0.5772,
+   "p0": 0.7186,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -927,19 +877,6 @@
     "Olympique Mnihla Academy"
    ],
    "p0": 0.4723,
-   "flags": [
-    "fewer than 5 rated series for at least one team",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ]
-  },
-  {
-   "id": "1074658",
-   "competition": "RIVALS LEAGUE Season 2",
-   "teams": [
-    "Team cd",
-    "Tung Sahur Mid"
-   ],
-   "p0": 0.5104,
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
@@ -965,7 +902,7 @@
     "AceGaming Hearts",
     "Emperors Bremen"
    ],
-   "p0": 0.4514,
+   "p0": 0.4377,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -989,7 +926,7 @@
     "Whalepower Humpbacks",
     "Socken und Sandalen"
    ],
-   "p0": 0.4858,
+   "p0": 0.4702,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1001,7 +938,7 @@
     "Olympique Mnihla",
     "Jendouba Esports"
    ],
-   "p0": 0.593,
+   "p0": 0.6066,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1019,37 +956,13 @@
    ]
   },
   {
-   "id": "1080931",
-   "competition": "Tunisian Super League 2026",
-   "teams": [
-    "Simplicity Gaming",
-    "Supreme Leaders"
-   ],
-   "p0": 0.7373,
-   "flags": [
-    "fewer than 5 rated series for at least one team"
-   ]
-  },
-  {
    "id": "1080932",
    "competition": "Tunisian Super League 2026",
    "teams": [
     "Zahrouni Esports",
     "JSK Academy"
    ],
-   "p0": 0.4428,
-   "flags": [
-    "fewer than 5 rated series for at least one team"
-   ]
-  },
-  {
-   "id": "1074660",
-   "competition": "RIVALS LEAGUE Season 2",
-   "teams": [
-    "2 Massive",
-    "Tung Sahur Mid"
-   ],
-   "p0": 0.5276,
+   "p0": 0.4514,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1073,7 +986,7 @@
     "Lund Esports Organization OGs",
     "Tung Sahur Mid"
    ],
-   "p0": 0.504,
+   "p0": 0.4909,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1085,19 +998,7 @@
     "Slam Dunk",
     "New Era Team"
    ],
-   "p0": 0.5114,
-   "flags": [
-    "fewer than 5 rated series for at least one team"
-   ]
-  },
-  {
-   "id": "1080933",
-   "competition": "Tunisian Super League 2026",
-   "teams": [
-    "JSK Academy",
-    "Supreme Leaders"
-   ],
-   "p0": 0.5322,
+   "p0": 0.5117,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1121,7 +1022,7 @@
     "Simplicity Gaming",
     "Jendouba Esports"
    ],
-   "p0": 0.7497,
+   "p0": 0.7571,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1205,7 +1106,7 @@
     "JSK Academy",
     "Jendouba Esports"
    ],
-   "p0": 0.5483,
+   "p0": 0.5398,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1217,7 +1118,7 @@
     "Olympique Mnihla Academy",
     "Olympique Mnihla"
    ],
-   "p0": 0.4253,
+   "p0": 0.4116,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1229,7 +1130,7 @@
     "Zahrouni Esports",
     "Supreme Leaders"
    ],
-   "p0": 0.4748,
+   "p0": 0.4823,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1289,7 +1190,7 @@
     "El Menzah Esports",
     "Olympique Mnihla"
    ],
-   "p0": 0.4105,
+   "p0": 0.3969,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1301,7 +1202,7 @@
     "Olympique Mnihla Academy",
     "Simplicity Gaming"
    ],
-   "p0": 0.2647,
+   "p0": 0.257,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1313,7 +1214,7 @@
     "Supreme Leaders",
     "Jendouba Esports"
    ],
-   "p0": 0.5163,
+   "p0": 0.5088,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1410,7 +1311,7 @@
     "Berlin 5",
     "Emperors Bremen"
    ],
-   "p0": 0.5223,
+   "p0": 0.5343,
    "flags": [
     "fewer than 5 rated series for at least one team"
    ]
@@ -1466,71 +1367,116 @@
  ],
  "priced": [
   {
-   "id": "1067684",
-   "competition": "Worlds 2026 Main Event",
-   "teams": [
-    "LYON",
-    "Karmine Corp"
-   ],
-   "p0": 0.99,
-   "decimal": null,
-   "start": "2026-10-24T20:00:00Z"
-  },
-  {
-   "id": "1067687",
+   "id": "1075817",
    "competition": "Worlds 2026 Main Event",
    "teams": [
     "Invictus Gaming",
-    "Team Secret Whales"
+    "Hanwha Life Esports"
    ],
-   "p0": 0.6936,
+   "p0": 0.2692,
    "decimal": {
-    "home": 1.383,
-    "away": 3.11
+    "home": 3.48,
+    "away": 1.317
    },
-   "start": "2026-10-24T21:00:00Z"
+   "start": "2026-10-25T17:00:00Z"
   },
   {
-   "id": "1067683",
+   "id": "1075816",
    "competition": "Worlds 2026 Main Event",
    "teams": [
-    "Hanwha Life Esports",
-    "Gen.G"
+    "Top Esports",
+    "G2 Esports"
    ],
-   "p0": 0.4177,
+   "p0": 0.4602,
    "decimal": {
-    "home": 2.32,
-    "away": 1.641
+    "home": 2.11,
+    "away": 1.775
    },
-   "start": "2026-10-24T22:00:00Z"
+   "start": "2026-10-25T18:00:00Z"
   },
   {
-   "id": "1067880",
+   "id": "1075819",
    "competition": "Worlds 2026 Main Event",
    "teams": [
     "Dplus KIA",
-    "T1"
+    "Movistar KOI"
    ],
-   "p0": 0.4299,
+   "p0": 0.7644,
    "decimal": {
-    "home": 2.22,
-    "away": 1.699
+    "home": 1.268,
+    "away": 3.85
    },
-   "start": "2026-10-24T23:00:00Z"
+   "start": "2026-10-25T19:00:00Z"
   },
   {
-   "id": "1067689",
+   "id": "1075818",
    "competition": "Worlds 2026 Main Event",
    "teams": [
-    "Bilibili Gaming",
-    "Team Liquid"
+    "Gen.G",
+    "LYON"
    ],
-   "p0": 0.7424,
+   "p0": 0.8975,
    "decimal": {
-    "home": 1.286,
-    "away": 3.7
+    "home": 1.064,
+    "away": 9.19
    },
-   "start": "2026-10-25T00:00:00Z"
+   "start": "2026-10-25T22:00:00Z"
+  },
+  {
+   "id": "1075821",
+   "competition": "Worlds 2026 Main Event",
+   "teams": [
+    "T1",
+    "CTBC Flying Oyster"
+   ],
+   "p0": 0.8565,
+   "decimal": {
+    "home": 1.129,
+    "away": 6.05
+   },
+   "start": "2026-10-26T17:00:00Z"
+  },
+  {
+   "id": "1075820",
+   "competition": "Worlds 2026 Main Event",
+   "teams": [
+    "Karmine Corp",
+    "Bilibili Gaming"
+   ],
+   "p0": 0.309,
+   "decimal": {
+    "home": 3.06,
+    "away": 1.394
+   },
+   "start": "2026-10-26T18:00:00Z"
+  },
+  {
+   "id": "1075822",
+   "competition": "Worlds 2026 Main Event",
+   "teams": [
+    "LØS",
+    "Team Secret Whales"
+   ],
+   "p0": 0.3526,
+   "decimal": {
+    "home": 2.69,
+    "away": 1.49
+   },
+   "start": "2026-10-26T19:00:00Z"
+  },
+  {
+   "id": "1075823",
+   "competition": "Worlds 2026 Main Event",
+   "teams": [
+    "Team Liquid",
+    "Anyone's Legend"
+   ],
+   "p0": 0.3132,
+   "decimal": {
+    "home": 3.05,
+    "away": 1.397
+   },
+   "start": "2026-10-26T22:00:00Z"
   },
   {
    "id": "1079080",
@@ -1539,7 +1485,7 @@
     "Mental Rush",
     "Vitality Rising Bees"
    ],
-   "p0": 0.385,
+   "p0": 0.365,
    "decimal": null,
    "start": "2026-10-27T17:00:00Z"
   }
