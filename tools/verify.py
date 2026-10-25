@@ -253,6 +253,13 @@ def main() -> None:
     e3_missing = []
     if "Starting soon" not in index_html or 'id="soon"' not in index_html:
         e3_missing.append("index starting-soon list")
+    # Phone order + freshness (2faec1ff): the next kick-offs come before the
+    # 29-row tournament directory, and every strip row carries data-start so
+    # the client can hide matches that start between refreshes.
+    if -1 < index_html.find('id="directory"') < index_html.find('id="soon"'):
+        e3_missing.append("starting-soon before tournament directory")
+    if "nextrow" in index_html and 'nextrow" data-start=' not in index_html:
+        e3_missing.append("nextrow data-start")
     if "Fallback by competition" not in unres_html:
         e3_missing.append("unresolved fallback ledger")
     if "how-it-works" not in unres_html or "how-it-works" not in index_html:
@@ -327,6 +334,34 @@ def main() -> None:
         not extreme,
         f"{len(rejected)} quote(s) rejected this build (placeholders / extremes); "
         f"{len(extreme)} extreme")
+
+    # --- live-quote timing guards (LYON vs Karmine Corp, 2026-10-24) ----------
+    # A Kalshi print captured 52 min after kick-off (100c/1c, match settling) was
+    # published as a 99% pre-match pick. These gates make that class of error
+    # unpublishable regardless of which venue produces it.
+    post_kickoff, single_extreme = [], []
+    for r in rows:
+        mk = r.get("market") or {}
+        for v in mk.get("venues") or []:
+            obs, start = str(v.get("observed_utc") or ""), str(r.get("start_utc") or "")
+            if obs and start and obs >= start:
+                post_kickoff.append(f"{r.get('id')}:{v.get('name')}")
+        if r.get("method") == "market" and (mk.get("venue_count") or 0) == 1:
+            p0, p1 = r.get("p0") or 0, r.get("p1") or 0
+            if max(p0, p1) >= 0.97:
+                single_extreme.append(r.get("id"))
+    add("no published venue quote was observed at or after kick-off",
+        not post_kickoff,
+        f"{len(post_kickoff)} post-kickoff venue quote(s): {post_kickoff[:5]}")
+    add("no single-venue market probability at or above 97%",
+        not single_extreme,
+        f"{len(single_extreme)} single-venue extreme row(s): {single_extreme[:5]}")
+    hygiene = data.get("market_hygiene") or {}
+    add("market hygiene publishes live-feed freshness and quote rejections",
+        isinstance(hygiene.get("live_feed_freshness"), dict)
+        and isinstance(hygiene.get("live_quote_rejections"), list),
+        f"feeds tracked: {sorted((hygiene.get('live_feed_freshness') or {}).keys())}; "
+        f"{len(hygiene.get('live_quote_rejections') or [])} live quote rejection(s) this build")
 
     # --- external corroboration (tools/corroborate.py) -----------------------
     corr = load_json(os.path.join(DATA, "corroboration.json")) or {}

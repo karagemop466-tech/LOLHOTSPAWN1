@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Re-probe requested 2026-10-25 (session 2faec1ff, T1): fresh runner receipts.
 """Low-tier line-source probe (session e32a5c4b, task E2).
 
 Question this answers: for the Hotspawn LoL matches that the featured

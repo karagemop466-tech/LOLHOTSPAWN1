@@ -689,7 +689,12 @@ def short_time(iso_utc: str | None) -> str:
 
 
 def next_strip(rows: list[dict]) -> str:
-    """Soonest kick-offs as one-tap rows: match, pick, probability, method. Aimed at a phone."""
+    """Soonest kick-offs as one-tap rows: match, pick, probability, method. Aimed at a phone.
+
+    Each row carries `data-start` so the client can hide matches whose start
+    time passes between refreshes - a locked, already-started card must never
+    be presented as "starting soon" (session 2faec1ff).
+    """
     out = []
     for r in rows:
         pick = r.get("pick") or {}
@@ -707,7 +712,7 @@ def next_strip(rows: list[dict]) -> str:
         if prob is None and team:
             note += " (forfeit - expected void, no price)"
         out.append(
-            f'<a class="nextrow" href="picks.html#match-{e(r["id"])}">'
+            f'<a class="nextrow" data-start="{e(r["start_utc"] or "")}" href="picks.html#match-{e(r["id"])}">'
             f'<span class="nw">{short_time(r["start_utc"])}</span>'
             f'<span class="nt"><strong>{e(r["team0"]["name"])} vs {e(r["team1"]["name"])}</strong>'
             f'<span class="nm">{e(note)} &middot; {e(r["competition"])}</span></span>'
@@ -931,6 +936,15 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <a href="unresolved.html"><span class="ql-t">Unresolved &amp; limits &mdash; {len(unresolved)}</span>
       <span class="ql-d">Every card that cannot carry a probability, why, and every limitation that applies to the rest.</span></a>
   </div>
+</section>
+
+<section class="panel" id="soon">
+  <h2 id="next">Starting soon</h2>
+  <p class="lead">The next kick-offs, in order. A row hides itself once its start time passes, so this
+  list never presents a locked pick as upcoming. Tap a row for the full card.</p>
+  <div class="nextlist">{next_strip(upcoming[:16]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
+  <p style="margin:12px 0 0"><a class="btn primary" href="table.html?upcoming=1">Upcoming only ({len(upcoming)}) &rarr;</a>
+  <a class="btn" href="table.html">All {total} matches &rarr;</a></p>
 </section>
 
 <section class="panel" id="directory">

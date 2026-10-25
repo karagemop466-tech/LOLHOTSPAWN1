@@ -3108,3 +3108,56 @@ five branches, including the exact 14:18Z shape (control refused, siblings resol
 **Session `cb84d7dc` status: done.** Picks for every listed match are published and current, the six-hourly
 refresh is green again, the book-by-book evidence for the unpriced tail is on the site with a gate behind it,
 and the executive summary links every list a phone user needs.
+
+---
+
+---
+
+---
+
+# Session `2faec1ff` — low-tier pick resolution, fresh external-line research, mobile executive summary (2026-10-25)
+
+Branch: `arena/2faec1ff-lolhotspawn1` (fixed Arena session branch, from `main` @ `cbe297b`, merge of PR #96).
+Prior session `63c67a23` claims S1–S5 are **closed** (PR #96 merged; S5's "still to do" note predates that
+merge). No other live `in progress` claim exists on this board; any older open wording is >60 minutes
+without commits and is taken over where noted below, per protocol.
+
+## Claim (filed at session start, before any pipeline edit)
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `T1` | **Fresh low-tier source research** — re-probe established LoL books, esportsbooks, exchanges, aggregators and community guides from the runner + dated web research for matches without a market line; publish dated memo + receipts. No invented prices; blocked/empty recorded as empty. | in progress | 2faec1ff | `research/session_2faec1ff/**` (new), `data/probe/**` (new probe outputs only) |
+| `T2` | **Every-match pick audit** — line-by-line check that all 241 listed matches carry a pick/probability or documented settlement; investigate anomalies (e.g. extreme single-venue lines); ensure unresolved ledger + limitations are complete. Fixes only via pipeline code + regenerate, never hand-edited numbers. | in progress | 2faec1ff | `tools/model.py`, `tools/collect.py`, `tools/verify.py`, `tests/**` (only if a real defect is proven) |
+| `T3` | **Mobile executive summary polish** — landing page answers "where are the picks / what is unresolved" in one thumb-scroll on phone; in-site links to every pick list; unresolved + limitations block. Verify at phone widths. | in progress | 2faec1ff | `tools/site.py`, `assets/style.css`, `assets/app.js`, generated `*.html` |
+| `T4` | **Freshness + integration** — confirm/trigger green 6-hourly refresh, re-run full gate + tests, PR to `main`, merge, confirm Pages deploy, record links here. | pending | 2faec1ff | `COORDINATION.md`, `README.md` |
+
+Takeover note: scopes above previously listed under closed session `63c67a23` (S2–S5) are now owned by
+`2faec1ff`. Shared outputs (`data/*.json`, `*.html`) are regenerated only by `tools/` in this
+integration session, never hand-edited.
+
+## Session `2faec1ff` — progress log & close-out (2026-10-25)
+
+| Task | Result | Evidence |
+|---|---|---|
+| `T1` low-tier source research | **done** — 52-venue + 37-source runner probes (2026-10-25T14:20Z) + browser captures (bo3.gg, EGamersWorld: Worlds only) + B2B review (Oddin.gg contract-only; OddsPapi coverage stops at Prime League Pro Division; keyed APIs 401). Only Worlds (5 venues) and LGC Rising (Polymarket, thin) are listed anywhere; 27/29 competitions have no external line. | `data/probe/lowtier_20261025.json` (`9811ff7`), `data/probe/sources_probe.json` (`de9ed13`), `research/session_2faec1ff/low-tier-resolution-2026-10-25.md` |
+| `T2` every-match pick audit | **done** — 241/241 picks (237 priced + 4 settlements). Found & fixed critical defect: post-kickoff Kalshi settling print published as LYON 99% (id 1067684). Guards: reject observed≥kickoff, reject prediction sides ≥97%, all live feeds ≤24 h; only that row's pick changed (→ Karmine Corp 60.3% originated). | `tools/model.py` (`6ee259a`), `tests/test_market_guards.py`, high-severity flag on `flagged.html` |
+| `T3` mobile summary | **done** — Starting-soon now precedes tournament directory; strip renders 16 rows with `data-start`, client hides started/locked rows (shows 8); Upcoming-only deep link; anchor `scroll-margin`; safe-area padding. Mobile audit PASS (14 pages). | `tools/site.py`, `assets/app.js`, `assets/style.css` (`35d5e4f`), `tests/test_next_strip.py` |
+| `T4` freshness/integration | **in progress → PR** — branch diagnostic ran full live pipeline green: 234 fixtures (inventory moved 241→234), `{market 9, model 150, provisional 71, unresolved 4}`, 52/52 gates. Published snapshot refreshes via `refresh.yml` on merge to `main` (tools/** trigger) + 6 h cron. | `data/diag/refresh.log` (`b45d88d`) |
+
+Verification (local, 2026-10-25): `tools/verify.py` **52/52 PASS**; unit tests **80/80 OK**;
+`audit/check_site.py` 24 pages 0 failures; `audit/verify_independent.py` 241 rows 0 failures
+(6 divergence warnings, disclosed, non-blocking); `audit/mobile_audit.py` PASS.
+Irregularities published (non-blocking, per brief): LYON post-kickoff incident (fixed),
+4 Solid Gaming settlements, 78 provisional thin-data lines, snapshot-age banner until first
+post-merge refresh. All on Flagged for Review / Unresolved pages with source links.
+
+### Merge-conflict log — `2faec1ff` integrating `origin/main` (2026-10-25)
+
+PR #107 was initially unmergeable: `main` had advanced through PRs #94–#104 (sessions
+`650571cf`, `cb84d7dc`, `9d0a516d`, `63c67a23`) plus scheduled refresh commits while this
+session worked. Resolution, discarding nothing: code files auto-merged and were verified
+marker-by-marker (main's venue-observation rendering + this session's market guards,
+starting-soon strip and gates all present); generated pages/data took `main`'s fresher
+snapshot (raw feeds fetched 2026-10-25T14:13Z) and were then **regenerated with the merged
+code**; `data/probe/sources_probe.json` kept this session's later probe (14:20:51Z >
+14:13:03Z); this board kept both append blocks (main's sessions first, then `2faec1ff`).
