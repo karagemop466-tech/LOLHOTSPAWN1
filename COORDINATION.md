@@ -2994,3 +2994,34 @@ two new gates, X4 merged and verified against the live site, and the six-hourly 
    committed by that workflow to `audit/session_c0a05820/`; the GitHub API rate limit shared by all
    concurrent sessions refused several reads during this session, so its post-merge verdict is left to
    the workflow's own receipt rather than asserted here.
+
+## Correction — session `650571cf` — the control probe must not fail a clean run (2026-10-25T14:30Z)
+
+The merge of PR #94 triggered `verify-live-sources` on `main` @ `cc4e934` (run **`40201598861`**,
+14:18:15Z). Its committed receipt (`971e5b1`, `audit/session_c0a05820/source_verify.md`) shows the
+fresh snapshot verifying **cleanly on every published link** — inventory `234 = 234`, Hotspawn cards
+`234/234`, market quotes **`10/10 resolved`**, venue receipts `33/41 resolved` (8 `rate_limited`),
+Leaguepedia `29/29`, pickem `1/1` — and yet the run **failed**, on one check that this session added:
+
+```
+control: Pinnacle guest key could not be proven | FAIL | status=403 cause=auth_required
+```
+
+**That was a defect in the check, not in the site.** The control endpoint
+(`…/0.1/sports/240/leagues`) returns 403 to the runner while the actual matchup boards resolve fine,
+so the probe declared the credential unproven even though nothing needed re-classifying — exactly the
+kind of self-inflicted red that made the previous audit ignorable.
+
+### Fix
+
+The credential proof is now any of two independent facts, and the probe itself never fails a run:
+
+* the control endpoint resolved (`control-endpoint`), **or**
+* **any other request to `guest.api.arcadia.pinnacle.com` in the same run resolved**
+  (`sibling-resolved`) — the key and UA demonstrably work, so a sibling 401 is a closed board.
+
+A 401/403 stays `auth_required` (and still fails) when nothing on the host resolves, and a refused
+control with **no** 401 boards produces **no check at all**. New `ReclassifyClosedBoardTests` covers all
+five branches, including the exact 14:18Z shape (control refused, siblings resolved) and the
+"no proof → still fails" case. Suite: **93/93 OK**; `tools/verify.py` 51/51; `check_site.py` 24 pages
+0 failures.
