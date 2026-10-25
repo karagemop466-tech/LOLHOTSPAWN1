@@ -129,7 +129,7 @@ touch the companion Node pipeline (`scripts/**`, `docs/**`, `data/node/**`) exce
 | `U1` | **Unfreeze the six-hourly refresh.** Root cause of the current outage (site frozen at the `2026-10-24T20:54:30Z` snapshot; `main` HEAD commit is literally `chore(diag): record failing build log`): the 2026-10-25T11:36Z pipeline run passed every publish gate but the **unit-tests step failed** (`data/build_failed_steps.txt` = `unit-tests`). Three tests in `tests/test_corroborate_history.py` / `tests/test_corroborate_offlist.py` pin fixture `captured_utc` to fixed `2026-10-24T00:00:00Z`; `tools/corroborate.py` grades receipt freshness against the wall clock (`RECEIPT_MAX_AGE_HOURS = 24`), so once a day passed the "usable" receipt became "expired" and the tests — and with them every scheduled refresh — fail. Fix: wall-clock-relative fixtures (production freshness logic untouched); reconcile assertion gains the `expired` bucket to match `tools/verify.py`'s ledger. | **done** (`eabbf23`) | aa39a6d5 | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` + scope extension logged below |
 | `U2` | **Low-tier / non-market line research + integration.** Fresh research pass (web) on esportsbooks and LoL betting lines that price the competitions where `method` is `provisional` (78 of 241 rows at claim time — picks exist, from sparse-history Elo, but no book corroborates them). Probe any newly identified machine-readable venue from a GitHub Actions runner (sandbox egress to those hosts is blocked); integrate only a venue that is reachable without auth and prices otherwise-unpriced matches, under the existing provenance/quarantine rules. Publish the research + limitations either way. | **done — nothing integrable** (`019eb37`, receipts `469cd41`, write-up `58625f5`) | aa39a6d5 | `audit/session_aa39a6d5/**`, `data/line_source_research.json` (row appended); `tools/collect.py` untouched (no venue qualified) |
 | `U3` | **Executive-summary & mobile clarity.** User reports the site is confusing and wants picks findable on a phone immediately. Audit the generated `index.html`/`table.html`/`picks.html` first; change `tools/site.py` (and shared CSS if needed) so the home page leads with the upcoming picks list and one-tap links, the unresolved-picks section keeps its dedicated block + limitations, and every match card visibly shows its pick (including settlement picks, which carry no percentage). No data or method changes. | **done** (`426d9ae`) | aa39a6d5 | `tools/site.py` (+ regenerated `index.html`/`verification.html`); CSS unchanged (already phone-aware) |
-| `U4` | **Integration.** Full local test suite + offline rebuild + publish gate; PR from this branch to `main`; merge without waiting (per standing instructions); confirm the next `refresh-picks` run goes green and GitHub Pages deploys; record PR/merge/deploy here. | in progress — PR phase | aa39a6d5 | `COORDINATION.md`, `README.md` (2 factual corrections), generated pages only via the pipeline itself |
+| `U4` | **Integration.** Full local test suite + offline rebuild + publish gate; PR from this branch to `main`; merge without waiting (per standing instructions); confirm the next `refresh-picks` run goes green and GitHub Pages deploys; record PR/merge/deploy here. | **done** — PR [#106](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/106) merged `2026-10-25T14:31:03Z` (`410098e`); final record below | aa39a6d5 | `COORDINATION.md`, `README.md` (2 factual corrections), generated pages only via the pipeline itself |
 
 ### Session `aa39a6d5` — completion notes (2026-10-25)
 
@@ -162,6 +162,38 @@ touch the companion Node pipeline (`scripts/**`, `docs/**`, `data/node/**`) exce
 - The one-shot probe workflow was deleted after use (`58625f5`); its YAML survives in this branch's history.
 - Parallel-edit caution for future sessions: several `edit_file` calls batched against the *same file* in
   one message silently raced (only the last write stuck) — apply same-file edits sequentially.
+
+### Session `aa39a6d5` — final integration record (2026-10-25, post-merge)
+
+- **Concurrency:** while this session worked, `650571cf` independently shipped its own wall-clock
+  fixture fix + a *Picks by tournament* directory (PRs #94/#104/#110), `666de992` added a stale-receipt
+  pin (#108), `9d0a516d` merged audit work (#109/#115), and `2faec1ff` shipped a self-hiding starting-soon
+  strip. Main therefore moved under this branch four times; each conflict was resolved by **union, never
+  discard** (merge commits `9a809f7`, `d608528`, `57c3348`): main's test files + this session's
+  five-bucket reconcile, `test_clock_shift.py` guard (which then caught one leftover pinned
+  `start_utc "2026-10-30T18:00:00Z"` in main's `test_corroboration.py` — fixed), and hero → Starting soon →
+  Where the picks are → Picks by tournament ordering. A rebase was attempted once on this
+  merge-containing branch, aborted cleanly, and replaced with merges.
+- **PR #106 merged** `2026-10-25T14:31:03Z` → `410098e`. `refresh-picks` runs on `410098e` (14:31:06Z) and
+  on `1307344` (14:34:18Z) both **completed/success**; bot data commit `841d5fe` set
+  `data/matches.json` to `generated_utc 2026-10-25T14:40:42Z` with **234/234 rows carrying a pick**
+  (market 9, model 150, provisional 71, settlement 4). GitHub Pages: `status: built`. Live render
+  verified by fetching <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> (snapshot 14:40 UTC,
+  inventory collected 14:38:46Z, hero freshness line and 12-row Starting soon with method tags present).
+- **Post-merge defect found and fixed:** the later 2faec1ff merge left **two** `id="soon"`/`id="next"`
+  sections on the landing page (invalid duplicate ids; `assets/app.js` caps visible `.nextrow` at 8
+  page-wide, so the lower panel rendered empty). Follow-up commit `46de249` keeps one section carrying
+  the union (method tags, self-hiding note, 16-row buffer, *Upcoming only* button); verified exactly
+  one `id="soon"`/`id="next"`/`Starting soon` in `index.html`, **54/54 publish gates PASS,
+  106/106 unit tests OK**. Shipped as the second PR from this session branch (number in the PR itself).
+- **Sources used (manual review):** Hotspawn fixtures API + <https://play.hotspawn.com/lol-pickems> +
+  <https://play.hotspawn.com/how-it-works>; Pinnacle/Kalshi/Bovada/Unibet-Kambi/Polymarket (existing
+  pipeline); Leaguepedia Cargo; U2 candidate checks against Rivalry, GG.BET, Thunderpick, Midnite,
+  bo3.gg, Esports Insider, tips.gg, Shuffle, Vave, Rainbet, gol.gg — verdicts + raw captures in
+  `audit/session_aa39a6d5/`. Nothing was priced from a source that could not be read verbatim.
+- Session `aa39a6d5` is **done**: U1–U4 complete, site refreshing on schedule, every listed match
+  carrying a visible pick, unresolved cards and limitations published on the home page and
+  `unresolved.html`, irregularities on `flagged.html` (nothing new hidden, PR #56 decision documented).
 
 ### Verified at claim time (no edits yet)
 
@@ -3291,12 +3323,26 @@ published `table.html` is now independently re-derived row by row (234/234) inst
 trusted; and the daily live-source audit distinguishes a closed bookmaker board from broken link rot
 and from a rejected credential, with a receipt that shows **PASS** on the current tree.
 
+### `T4` completion record — `2faec1ff` (2026-10-25)
+
+- PR **#107** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/107 — **merged
+  2026-10-25T14:34:15Z**, merge commit `1307344` (market timing guards, low-tier research,
+  phone strip). Post-merge `refresh-picks` run **40202861778** green; data commit `841d5fe`
+  (234 fixtures, inventory 2026-10-25T14:38:46Z, guards live); GitHub Pages `built` for
+  `841d5fe` (2026-10-25T14:40:53Z); live site spot-checked fresh.
+  Run: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40202861778
+- Follow-up PR **#119** dedupes the double "Starting soon" strip created by concurrent
+  merges: main's restructured single strip (16 rendered) is kept; this session's JS now
+  hides started rows per list with the cap aligned to the rendered sixteen, plus a
+  single-strip regression test. Branch history was reset onto current `main` for this PR
+  so the diff is exactly those deltas (all #107 content is already on `main`).
+
 ---
 
 # Session `be974159` — model/market/entity-join hardening, live low-tier book research & line-by-line verification (2026-10-25)
 
 Branch: `arena/be974159-lolhotspawn1` · PR: **#122** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/122`),
-rebased cleanly onto `main` @ `bb7b59f` (preserving 100% of `650571cf`, `1773543b`, `2faec1ff`, `cb84d7dc`,
+merged cleanly with `main` @ `0e36d34` (preserving 100% of `650571cf`, `1773543b`, `2faec1ff`, `cb84d7dc`,
 `666de992`, and `aa39a6d5`, and removing leftover git conflict markers in `COORDINATION.md` from `415e99f`).
 
 ## Claim & completed scope
@@ -3309,9 +3355,9 @@ rebased cleanly onto `main` @ `bb7b59f` (preserving 100% of `650571cf`, `1773543
 
 ## What was verified & delivered (`be974159`)
 
-1. **9/9 multi-venue market consensus (`0` single-venue market rows)**: `#1079080` (`Mental Rush vs Vitality Rising Bees`, `LGC Rising 2026 Playoffs` BO5 Grand Final) now joins both Polymarket `lol-rb-mr-2026-10-27` (`$58.47` vol / `$1,496.28` CLOB liquidity) and CFTC Kalshi `KXLOLGAME-26OCT271300RBMR` (`$264` vol) into a 2-venue consensus (`36.33% / 63.67%`, `confidence: high`, pick `Vitality Rising Bees`), corroborated within 2 pp by Thunderpick (`1.42/2.62`) and BMBETS (`1.43/2.78`).
-2. **Tier-1 `1700` prior leakage fixed on `#1081421` (`FENNEL vs Nothin'Here`, `LCP 2027 Promotion`)**: Excluding `"wildcard"` and `"online qualifiers"` from Tier-1 `1700` priors fixes `Nothin'Here`'s starting rating (`1500` instead of `1700` from `"LCP 2026 Wild Card Playoffs"`), moving `#1081421` from inverted `40.3% / 59.7%` to **`FENNEL 67.66% / Nothin'Here 32.34%`** (aligning with EsportsInsider `62% / 38%` and companion `docs/` `59.2% FENNEL`, cutting max canonical-vs-secondary divergence from `18.9 pp` to `11.81 pp`). Walk-forward OOS backtest improved across **3,920 series**: **`acc = 0.6513`**, **`brier = 0.2179`**, **`logloss = 0.6248`**.
+1. **9/9 multi-venue market consensus (`0` single-venue market rows)**: `#1079080` (`Mental Rush vs Vitality Rising Bees`, `LGC Rising 2026 Playoffs` BO5 Grand Final) now joins both Polymarket `lol-rb-mr-2026-10-27` (`$58.47` vol / `$1,496.28` CLOB liquidity) and CFTC Kalshi `KXLOLGAME-26OCT271300RBMR` (`$264` vol) into a 2-venue consensus (`38.10% / 61.90%`, `confidence: high`, pick `Vitality Rising Bees`), corroborated within 2 pp by Thunderpick (`1.42/2.62`) and BMBETS (`1.43/2.78`).
+2. **Tier-1 `1700` prior leakage fixed on `#1081421` (`FENNEL vs Nothin'Here`, `LCP 2027 Promotion`)**: Excluding `"wildcard"` and `"online qualifiers"` from Tier-1 `1700` priors fixes `Nothin'Here`'s starting rating (`1500` instead of `1700` from `"LCP 2026 Wild Card Playoffs"`), moving `#1081421` from inverted `40.3% / 59.7%` to **`FENNEL 67.66% / Nothin'Here 32.34%`** (aligning with EsportsInsider `62% / 38%` and companion `docs/` `59.2% FENNEL`, cutting max canonical-vs-secondary divergence from `18.9 pp` to `11.81 pp`). Walk-forward OOS backtest improved across **3,920 series**: **`acc = 0.6515`**, **`brier = 0.2179`**, **`logloss = 0.6248`**.
 3. **4-bookmaker LCP Promotion discovery (`#1081423` `Ground Zero Gaming vs Frank Esports`)**: Verified live across BMBETS's 60-bookmaker index (`bet365` `1.03/9.10`, `TotoGaming` `1.03/10.50`, `1xBet` `1.02/10.50`, `BetOlimp` `1.02/9.80`) and Liquipedia `LCP/2027/Promotion` (`Ground Zero Gaming` Tier-1 LCP roster `1Jiang / Husha / Uniboy / Betty / Kaiwing`). Documented on `flagged.html` (`high` severity) and `coverage.html` (`diverges`) without overriding automated model pricing.
 4. **Completed-series result grading (`51` graded results, up from `42`) & competition-scoped aliases**: Matching `(k0, k1)` resolved keys in `result` grading recovered 9 previously dropped Benelux/SuperStrike/PRM completed series while keeping `#1070209` (`ff=2, winner='1'`) ungraded (`result: null`). Competition-scoped alias `("Logitech G SuperStrike Cup Qualifier", "paiN Gaming") -> "PNG"` quarantines Bulgarian amateur `PNG` without affecting Brazilian CBLOL `paiN Gaming`.
-5. **All verification gates green on merged `bb7b59f` base**: `133/133` unit tests OK, `56/56` `tools/verify.py` PASS, `audit/session_be974159/verify_all_rows.py` PASS, `audit/check_site.py` `24` pages `0` failures, `audit/mobile_audit.py` `14/14` PASS, `audit/verify_docs.py` `16/16` PASS, `audit/verify_docs_parity.py` `10/10` PASS.
+5. **All verification gates green on merged `0e36d34` base**: `134/134` unit tests OK, `56/56` `tools/verify.py` PASS, `audit/session_be974159/verify_all_rows.py` PASS, `audit/check_site.py` `24` pages `0` failures, `audit/mobile_audit.py` `14/14` PASS, `audit/verify_docs.py` `16/16` PASS, `audit/verify_docs_parity.py` `10/10` PASS.
 
