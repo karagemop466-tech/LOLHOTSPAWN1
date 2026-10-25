@@ -14,7 +14,7 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 
 | Page | Contents |
 | --- | --- |
-| `index.html` | Executive summary: *Starting soon* (next-48h picks, soonest first) at the top, headline counts, in-site links to every list, featured market picks, and a dedicated *Unresolved picks & limitations* section with the per-competition fallback ledger |
+| `index.html` | **Executive summary first**, with four tap-target counts (matches, with a probability, market-backed, unresolved) and in-site links to every picks list; then the *Unresolved picks & limitations* block inside the same summary; then starting-soon, the per-tournament directory, stats and the track record |
 | `table.html` | **All matches in one responsive table** — kick-off, match, both win probabilities, pick, method and source links (the page to bookmark on a phone) |
 | `results.html` | **Results & track record** — every started card graded HIT/MISS against the official series record, accuracy by method, forfeit settlements, and the started-but-ungraded list |
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
@@ -28,6 +28,24 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 | `verification.html` | The publish gate, its results, the manual source audit, and the evidence behind every non-exact team join |
 | `sources.html` | Every source, what it provides, and whether the build runner could reach it |
 | `methodology.html` | Sources, Elo specification, de-vig method, exclusions |
+
+## Reading it on a phone
+
+The landing page answers "where are the picks?" before anything else on the page:
+
+1. **Executive summary** — four large counts (matches listed, with a win probability, market-backed,
+   unresolved) that are themselves links, plus one tap target per picks destination:
+   the pick table, the next kick-offs, *Picks by tournament*, the card view, results, market-backed,
+   model lines and the unresolved ledger.
+2. **Unresolved picks and the limitations** — inside the same summary. One row per card that cannot carry
+   a probability: the match, the tournament, the settlement pick, *why there is no probability* (taken
+   verbatim from the row's recorded reason) and the source links.
+3. **Starting soon** — the next eight kick-offs as full-width rows with the pick and its percentage.
+4. **Picks by tournament** — one row per competition, deep-linking into `table.html?comp=…`.
+
+A bar pinned to the bottom of every page repeats the five things a phone user needs: *Summary · Picks ·
+Results · Limits · Flags*. Every table cell carries its own label, so the tables stack instead of
+scrolling sideways; `audit/mobile_audit.py` fails the build if a page loses that property.
 
 ## How it works
 
@@ -44,7 +62,7 @@ tools/site.py        13 static pages (+ coverage.html from corroborate.py = 14 r
       ↓
 tools/corroborate.py external-book receipt validation & coverage.html ledger
       ↓
-tools/verify.py      44 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
+tools/verify.py      53 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
 ```
 
 A single canonical workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) attempts that
@@ -143,6 +161,9 @@ instead of `usable` and the assertions inverted — with no pipeline change at a
   bo3.gg) is published in `research/external-lines-2026-10-25.md` and linked from the executive summary.
 
 ## External line coverage (measured, not assumed)
+
+The dated memo for the 2026-10-25 runner capture (48 endpoints, the Pinnacle league-level test and every false-positive class found while producing it) is
+[`research/session_1773543b/external-lines-probe-2026-10-25.md`](research/session_1773543b/external-lines-probe-2026-10-25.md).
 
 `data/source_probes.json` is a runner-executed probe of every candidate venue (44 on 2026-10-24T16:22Z),
 kept as evidence. The last run answered **HTTP 200** for Pinnacle, Kalshi, Bovada, Polymarket, Unibet
