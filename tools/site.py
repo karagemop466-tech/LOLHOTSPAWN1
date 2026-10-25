@@ -653,7 +653,7 @@ def next_strip(rows: list[dict]) -> str:
         if prob is None and team:
             note += " (forfeit - expected void, no price)"
         out.append(
-            f'<a class="nextrow" href="picks.html#match-{e(r["id"])}">'
+            f'<a class="nextrow" data-start="{e(r["start_utc"])}" href="picks.html#match-{e(r["id"])}">'
             f'<span class="nw">{short_time(r["start_utc"])}</span>'
             f'<span class="nt"><strong>{e(r["team0"]["name"])} vs {e(r["team1"]["name"])}</strong>'
             f'<span class="nm">{e(note)} &middot; {e(r["competition"])}</span></span>'
@@ -848,8 +848,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
 <section class="panel" id="soon">
   <h2 id="next">Starting soon</h2>
-  <p class="lead">The next eight kick-offs. Tap a row for the full card.</p>
-  <div class="nextlist">{next_strip(upcoming[:8]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
+  <p class="lead">The next eight kick-offs in this snapshot. Tap a row for the full card.</p>
+  <div class="nextlist" id="nextlist">{next_strip(upcoming[:8])}</div>
+  <p id="next-empty" class="next-empty" role="status"{" hidden" if upcoming else ""}>No future kick-off remains in this snapshot. Check the inventory timestamp above and open <a href="table.html">all {total} picks</a> for the full list.</p>
   <p style="margin:12px 0 0"><a class="btn" href="table.html">All {total} matches &rarr;</a></p>
 </section>
 

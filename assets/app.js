@@ -177,6 +177,28 @@
     apply();
   }
 
+  function initNextUp() {
+    var list = document.getElementById("nextlist");
+    var empty = document.getElementById("next-empty");
+    if (!list || !empty) return;
+    var rows = Array.prototype.slice.call(list.querySelectorAll(".nextrow[data-start]"));
+    function refresh() {
+      var remaining = 0;
+      rows.forEach(function (row) {
+        var start = Date.parse(row.dataset.start || "");
+        var isUpcoming = !isNaN(start) && start > Date.now();
+        row.hidden = !isUpcoming;
+        if (isUpcoming) remaining++;
+      });
+      empty.hidden = remaining !== 0;
+    }
+    refresh();
+    if (!list.dataset.clockBound) {
+      list.dataset.clockBound = "1";
+      window.setInterval(refresh, 60000);
+    }
+  }
+
   function initTop() {
     var top = document.getElementById("totop");
     bindOnce(top, "click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
@@ -232,6 +254,7 @@
   function init() {
     hydrateLivePastBadges();
     renderSnapshotAge();
+    initNextUp();
     initMenu();
     initCards();
     initTable();

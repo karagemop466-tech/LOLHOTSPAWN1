@@ -46,4 +46,29 @@ assert.ok(tvis().length > 0 && tvis().length < all);
 tdoc.querySelector('#tupcoming').click();
 assert.equal(tvis().length, all);
 
-console.log('PASS dashboard menu, search, empty state, upcoming toggle, method & tournament filters on picks.html + table.html (' + all + ' matches)');
+// The landing-page strip uses the browser clock so a snapshot cannot keep calling past
+// kick-offs "Starting soon". Keep the check deterministic with one past and one future row.
+const nextMarkup = `<!doctype html><main>
+  <div id="nextlist">
+    <a class="nextrow" data-start="2026-10-25T10:00:00Z" href="picks.html#match-1">Past</a>
+    <a class="nextrow" data-start="2026-10-25T12:00:00Z" href="picks.html#match-2">Future</a>
+  </div>
+  <p id="next-empty" hidden>No future kick-off remains in this snapshot. <a href="table.html">All picks</a></p>
+</main>`;
+const futureDom = new JSDOM(nextMarkup, {url:'https://example.test/LOLHOTSPAWN1/', runScripts:'outside-only'});
+futureDom.window.Date.now = () => Date.parse('2026-10-25T11:00:00Z');
+futureDom.window.eval(fs.readFileSync('assets/app.js','utf8'));
+const futureDoc = futureDom.window.document;
+assert.equal(futureDoc.querySelectorAll('#nextlist .nextrow:not([hidden])').length, 1);
+assert.equal(futureDoc.querySelector('#nextlist .nextrow:not([hidden])').textContent, 'Future');
+assert.equal(futureDoc.querySelector('#next-empty').hidden, true);
+futureDom.window.close();
+const expiredDom = new JSDOM(nextMarkup, {url:'https://example.test/LOLHOTSPAWN1/', runScripts:'outside-only'});
+expiredDom.window.Date.now = () => Date.parse('2026-10-25T13:00:00Z');
+expiredDom.window.eval(fs.readFileSync('assets/app.js','utf8'));
+assert.equal(expiredDom.window.document.querySelectorAll('#nextlist .nextrow:not([hidden])').length, 0);
+assert.equal(expiredDom.window.document.querySelector('#next-empty').hidden, false);
+assert.ok(expiredDom.window.document.querySelector('#next-empty a[href="table.html"]'));
+expiredDom.window.close();
+
+console.log('PASS dashboard menu, search, empty state, upcoming toggle, method & tournament filters + live-clock next-up state (' + all + ' matches)');

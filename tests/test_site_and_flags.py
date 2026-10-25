@@ -48,6 +48,17 @@ class SiteAndFlagsRegressionTests(unittest.TestCase):
         self.assertNotIn('class="mobile-picks"', on_table)
         self.assertIn('class="mobile-picks"', on_index)
 
+    def test_next_up_rows_include_machine_readable_kickoff_for_live_filtering(self) -> None:
+        row = {
+            "id": "9001", "start_utc": "2026-10-25T12:00:00Z",
+            "team0": {"name": "Alpha"}, "team1": {"name": "Bravo"},
+            "pick": {"team": "Alpha", "probability": 0.6},
+            "competition": "Cup A",
+        }
+        html_out = site_mod.next_strip([row])
+        self.assertIn('class="nextrow" data-start="2026-10-25T12:00:00Z"', html_out)
+        self.assertIn('href="picks.html#match-9001"', html_out)
+
     def test_results_page_every_td_has_data_label(self) -> None:
         with open(os.path.join(ROOT, "data", "matches.json"), encoding="utf-8") as fh:
             rows = (json.load(fh) or {}).get("matches") or []
