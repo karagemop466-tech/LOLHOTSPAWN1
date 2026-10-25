@@ -378,6 +378,40 @@ def pinnacle_league_inventory(aliases: dict[str, list[str]], retries: int = 2) -
     listed = sorted({comp for name in lol for comp in match_competitions(name, aliases)})
     doc["lol_competitions_listed"] = listed
     doc["hotspawn_competitions_not_listed"] = sorted(set(aliases) - set(listed))
+
+    # The league list above is the authoritative "what is open", but the matchups payload is
+    # what the collector actually prices from. Enumerate the leagues *there* too, with the
+    # participants, so a league that exists in the matchups but not in the league list is
+    # visible instead of silently missing.
+    st2, matchups, err2 = get_json(PINNACLE_MATCHUPS_URL, headers=PINNACLE_KEY, retries=retries)
+    doc["matchups_status"] = st2
+    doc["matchups_error"] = err2
+    doc["matchup_leagues"] = []
+    if st2 == 200 and isinstance(matchups, list):
+        per_league: Counter = Counter()
+        people: dict[str, set] = {}
+        for m in matchups:
+            league = str(((m.get("league") or {}).get("name")) or "").strip()
+            sport = str((((m.get("league") or {}).get("sport")) or {}).get("name") or "")
+            if not league:
+                continue
+            is_lol = "league of legends" in (league + " " + sport).lower()
+            if not is_lol and not match_competitions(league, aliases):
+                continue
+            per_league[league] += 1
+            bucket = people.setdefault(league, set())
+            for part in m.get("participants") or []:
+                name = part.get("name")
+                if name:
+                    bucket.add(str(name))
+        for league, n in per_league.most_common():
+            doc["matchup_leagues"].append({
+                "league": league,
+                "matchups": n,
+                "hotspawn_competitions": match_competitions(league, aliases),
+                "sample_participants": sorted(people.get(league) or [])[:8],
+            })
+        doc["lol_matchups_total"] = sum(per_league.values())
     return doc
 
 
