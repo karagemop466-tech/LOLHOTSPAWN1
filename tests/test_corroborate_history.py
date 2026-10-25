@@ -88,9 +88,9 @@ class ReceiptHistoryTests(unittest.TestCase):
         corroborate.OUT_HTML = os.path.join(self.data, "coverage.html")
 
     @staticmethod
-    def _capture(fid: str, teams: list[str], dec: list[float], hours_ago: float = 2.0) -> dict:
+    def _capture(fid: str, teams: list[str], dec: list[float]) -> dict:
         return {"fixture_id": fid, "source": "pinnacle", "page_url": "https://example.test/m",
-                "captured_utc": _recent(hours_ago), "verbatim": "1.60 / 2.30",
+                "captured_utc": _recent(2), "verbatim": "1.60 / 2.30",
                 "page_teams": teams, "decimal": dec}
 
     def test_receipt_for_a_delisted_fixture_is_historical_not_rejected(self) -> None:

@@ -204,12 +204,6 @@ Rising tie; the other 26 of 29 competitions had no open price anywhere.
   same day). Earlier 32-venue dossier: `research/LONGTAIL_VENUES.md`.
 - `tools/verify.py` fails the build if an observation loses its URL, its capture time, its verbatim text,
   or its rendered link.
-- A third, independent check the same day (session `666de992`) searched 36 venue responses for the **226
-  exact low-tier team pairs** live on Hotspawn, Worlds pairs as positive control
-  (`data/probe/session_666de992/`, memo `research/session_666de992/LOWTIER_RESEARCH.md`): no price for any
-  PRM 2nd/3rd Division, Tunisian SL, RIVALS, Icelandic, Arabian or Benelux fixture; schedule-only LCP
-  Promotion listings carried no odds. The executive summary cites this probe and names the zero-history
-  debut cards whose pick rests on division priors alone.
 
 ## Manual review links
 
