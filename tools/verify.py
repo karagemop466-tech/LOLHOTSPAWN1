@@ -496,7 +496,11 @@ def main() -> None:
             continue
         if r.get("id") not in unresolved_html:
             unlinked.append(r["id"])
-        if r["team0"]["name"] not in index_html or r["team1"]["name"] not in index_html:
+        # Compare both the raw and the HTML-escaped team name: a card whose team name
+        # contains & < > would otherwise fail this gate on escaping alone and block a
+        # perfectly good build.
+        names = [r["team0"]["name"], r["team1"]["name"]]
+        if any(n not in index_html and html.escape(n) not in index_html for n in names):
             undocumented.append(r["id"])
     add("every unpriced match carries a documented settlement source",
         not exposed, f"{len(exposed)} problems: {exposed[:5]}")
