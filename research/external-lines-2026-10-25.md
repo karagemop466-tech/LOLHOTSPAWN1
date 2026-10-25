@@ -6,6 +6,12 @@ as Polymarket do not list it), is there an outside source that can resolve the p
 the brief: (1) established LoL betting sites, (2) esportsbooks and esports betting lines, (3)
 exchanges and odds aggregators, (4) community/results sources that can guide but never price a pick.
 
+**Companion memo:** [`LINE_SEARCH_2026-10-25.md`](LINE_SEARCH_2026-10-25.md) (session `cb84d7dc`, same day)
+records what the consumer book **lobbies** showed — Thunderpick's whole LoL category, Cloudbet's per-league
+Prime League 2nd Division page (present, empty), Betmonitor, OddsPortal, GG.BET/Vave (geo-refused) and
+Rivalry (ceased trading) — and one tier-2 line that does exist (Thunderpick on `#1079080`). Receipts:
+`data/receipts/external_odds/2026-10-25.json`, rendered on `unresolved.html#observed`.
+
 This memo does not replace [`low-tier-sources-2026-10-24.md`](low-tier-sources-2026-10-24.md) (the
 51-venue runner probe). It adds a **second vantage point on 2026-10-25**, because a single egress
 can be blocked by a bot wall that another egress is not, and it records what changed since.

@@ -373,6 +373,45 @@ def main() -> None:
         f"{len(probe_rows)} venues probed on {probes.get('checked_utc', 'unknown')}; "
         f"dossier {'present' if os.path.exists(dossier) else 'MISSING'}")
 
+    # --- manual line-search evidence: every claim about an external book must be checkable ---
+    # The limitations and executive-summary pages tell the reader that no book prices the tail of
+    # the list. That statement is only publishable while each check it rests on carries a URL, a
+    # capture time and a verbatim reading; a squashed/no-op entry must fail the build, not ship.
+    import glob as _glob
+    obs_problems, obs_n, obs_files = [], 0, 0
+    for path in sorted(_glob.glob(os.path.join(DATA, "receipts", "external_odds", "*.json"))):
+        doc = load_json(path) or {}
+        obs_files += 1
+        keys = {s.get("key") for s in doc.get("sources") or []}
+        for o in doc.get("coverage_observations") or []:
+            obs_n += 1
+            where = f"{os.path.basename(path)}:{o.get('source')}"
+            if not str(o.get("url") or "").startswith("http"):
+                obs_problems.append(f"{where} has no source URL")
+            if len(str(o.get("captured_utc") or "")) < 19:
+                obs_problems.append(f"{where} has no capture time")
+            if not str(o.get("observation") or "").strip():
+                obs_problems.append(f"{where} has empty text")
+            if not str(o.get("verbatim") or "").strip():
+                obs_problems.append(f"{where} has no verbatim reading")
+            if o.get("source") not in keys:
+                obs_problems.append(f"{where} names a source that is not declared in the same file")
+    add("every external line-search observation is source-linked and complete",
+        obs_n > 0 and not obs_problems,
+        f"{obs_n} observations across {obs_files} receipt files; problems: {obs_problems[:5]}")
+
+    # unres_html was read once above; read it again only if that read was empty (a missing page
+    # is a real failure and is reported by its own gate, not silently skipped here).
+    missing_obs = []
+    for path in sorted(_glob.glob(os.path.join(DATA, "receipts", "external_odds", "*.json"))):
+        doc = load_json(path) or {}
+        for o in doc.get("coverage_observations") or []:
+            if html.escape(str(o.get("url") or ""), quote=True) not in unres_html:
+                missing_obs.append(o.get("url"))
+    add("limitations page prints every book check with its live link",
+        'id="observed"' in unres_html and not missing_obs,
+        f"unresolved.html carries the observation table; {len(missing_obs)} observation link(s) missing")
+
     # Coverage arithmetic must never exceed the inventory (a 245-of-241 regression shipped once).
     priced_n = sum(1 for r in rows if r.get("p0") is not None)
     settled_n = sum(1 for r in rows if r.get("resolution"))

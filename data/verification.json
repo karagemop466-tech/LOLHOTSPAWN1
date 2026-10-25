@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-25T14:10:34Z",
+ "generated_utc": "2026-10-25T14:12:10Z",
  "checks": [
   {
    "name": "dataset present",
@@ -174,22 +174,32 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "32 usable receipts, 0 rejected, 13 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)"
+   "detail": "33 usable receipts, 0 rejected, 13 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)"
   },
   {
    "name": "corroboration ledger accounts for every receipt",
    "ok": true,
-   "detail": "receipts=51 = usable 32 + placeholder 2 + rejected 0 + expired 1 + historic 16"
+   "detail": "receipts=52 = usable 33 + placeholder 2 + rejected 0 + expired 1 + historic 16"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 76356 bytes"
+   "detail": "coverage.html 86097 bytes"
   },
   {
    "name": "external source research receipts are committed",
    "ok": true,
    "detail": "44 venues probed on 2026-10-24T16:41:31Z; dossier present"
+  },
+  {
+   "name": "every external line-search observation is source-linked and complete",
+   "ok": true,
+   "detail": "17 observations across 4 receipt files; problems: []"
+  },
+  {
+   "name": "limitations page prints every book check with its live link",
+   "ok": true,
+   "detail": "unresolved.html carries the observation table; 0 observation link(s) missing"
   },
   {
    "name": "coverage arithmetic reconciles to the inventory",
@@ -258,6 +268,6 @@
   "provisional": 78,
   "market": 6
  },
- "internal_links": 478,
+ "internal_links": 480,
  "lookahead_violations": 0
 }
