@@ -364,6 +364,11 @@ def main() -> None:
     inventory = pinnacle_league_inventory(aliases)
     payload = {
         "probed_utc": iso(now_utc()),
+        # Provenance of the receipt itself: which runner, which commit, which branch. Without
+        # this a reader cannot tell a scheduled runner capture from a laptop capture.
+        "runner_env": {k: os.environ.get(k, "") for k in
+                       ("GITHUB_RUN_ID", "GITHUB_RUN_ATTEMPT", "GITHUB_SHA", "GITHUB_REF_NAME",
+                        "RUNNER_OS", "RUNNER_NAME")},
         "runner_note": ("Executed from a GitHub Actions runner (Linux, US egress). "
                         "Status/bytes are what the build runner actually received; a 403 from the "
                         "runner is recorded as blocked even if a browser can open the page."),
