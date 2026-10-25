@@ -1,12 +1,10 @@
 {
-  "generated_utc": "2026-10-25T14:17:22Z",
+  "generated_utc": "2026-10-25T14:20:27Z",
   "gate": "audit/verify_docs_parity.py",
   "passed": true,
   "divergence_threshold_pp": 5.0,
   "failures": [],
-  "warnings": [
-    "canonical cards missing from the secondary snapshot :: 1"
-  ],
+  "warnings": [],
   "docs_pages": [
     "featured.html",
     "flagged.html",
@@ -20,12 +18,12 @@
     "unresolved.html"
   ],
   "canonical_rows": 234,
-  "secondary_rows": 575,
-  "scheduled_rows": 236,
-  "shared_ids": 233,
-  "both_probability": 226,
-  "divergent": 36,
-  "mean_abs_gap_pp": 2.282,
+  "secondary_rows": 576,
+  "scheduled_rows": 234,
+  "shared_ids": 234,
+  "both_probability": 227,
+  "divergent": 33,
+  "mean_abs_gap_pp": 2.255,
   "max_abs_gap_pp": 18.89,
-  "canonical_ids_not_in_secondary": 1
+  "canonical_ids_not_in_secondary": 0
 }
