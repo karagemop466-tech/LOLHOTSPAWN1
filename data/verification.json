@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-25T14:10:34Z",
+ "generated_utc": "2026-10-25T14:19:58Z",
  "checks": [
   {
    "name": "dataset present",
@@ -167,6 +167,21 @@
    "detail": "1 quote(s) rejected this build (placeholders / extremes); 0 extreme"
   },
   {
+   "name": "no published venue quote was observed at or after kick-off",
+   "ok": true,
+   "detail": "0 post-kickoff venue quote(s): []"
+  },
+  {
+   "name": "no single-venue market probability at or above 97%",
+   "ok": true,
+   "detail": "0 single-venue extreme row(s): []"
+  },
+  {
+   "name": "market hygiene publishes live-feed freshness and quote rejections",
+   "ok": true,
+   "detail": "feeds tracked: ['Bovada', 'Kalshi', 'Pinnacle', 'Polymarket', 'Unibet']; 1 live quote rejection(s) this build"
+  },
+  {
    "name": "coverage matrix: every competition row links to a source",
    "ok": true,
    "detail": "29 competition rows; missing links: []"
@@ -174,7 +189,7 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "32 usable receipts, 0 rejected, 13 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)"
+   "detail": "32 usable receipts, 0 rejected, 9 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)"
   },
   {
    "name": "corroboration ledger accounts for every receipt",
@@ -184,7 +199,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 76356 bytes"
+   "detail": "coverage.html 76332 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -199,7 +214,7 @@
   {
    "name": "method counts partition matches.json cleanly",
    "ok": true,
-   "detail": "counts={'model': 153, 'unresolved': 4, 'provisional': 78, 'market': 6} sum=241 rows=241"
+   "detail": "counts={'model': 154, 'unresolved': 4, 'provisional': 78, 'market': 5} sum=241 rows=241"
   },
   {
    "name": "source availability recorded",
@@ -253,10 +268,10 @@
  "rows_prob_ok": 241,
  "unverified": 82,
  "counts": {
-  "model": 153,
+  "model": 154,
   "unresolved": 4,
   "provisional": 78,
-  "market": 6
+  "market": 5
  },
  "internal_links": 478,
  "lookahead_violations": 0

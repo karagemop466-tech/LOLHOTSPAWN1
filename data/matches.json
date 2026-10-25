@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T20:54:30Z",
+ "generated_utc": "2026-10-25T14:19:56Z",
  "inventory_fetched_utc": "2026-10-24T20:52:36Z",
  "receipt_audit": {
   "max_age_hours": 24,
@@ -12,7 +12,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -22,7 +22,7 @@
      4.4
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -32,7 +32,7 @@
      4.05
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -42,7 +42,7 @@
      4.88
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -52,7 +52,7 @@
      2.63
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -62,7 +62,7 @@
      1.61
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -72,7 +72,7 @@
      3.11
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -82,7 +82,7 @@
      1.06
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -92,7 +92,7 @@
      1.51
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -102,7 +102,7 @@
      10.5
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
    },
    {
@@ -112,7 +112,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 72.3,
+    "age_hours": 89.7,
     "source_url": "https://egamersworld.com/lol/matches"
    }
   ],
@@ -150,12 +150,27 @@
   "source_status_utc": "2026-10-24T20:53:51Z"
  },
  "counts": {
-  "model": 153,
+  "model": 154,
   "unresolved": 4,
   "provisional": 78,
-  "market": 6
+  "market": 5
  },
  "market_hygiene": {
+  "live_feed_freshness": {
+   "Pinnacle": true,
+   "Polymarket": true,
+   "Kalshi": true,
+   "Bovada": true,
+   "Unibet": true
+  },
+  "live_quote_rejections": [
+   {
+    "fixture_id": "1067684",
+    "venue": "Kalshi",
+    "reject": "Kalshi quote observed 2026-10-24T20:52:38Z at/after kick-off 2026-10-24T20:00:00Z (in-play/settling price, not a pre-match line)",
+    "observed_utc": "2026-10-24T20:52:38Z"
+   }
+  ],
   "pinnacle_kills_derivatives_excluded": 0,
   "archived_receipts_retired": 2,
   "esportsbook_venue_active": false,
@@ -202,7 +217,7 @@
   "accuracy": 0.5682,
   "brier": 0.2491,
   "settled_forfeits": 3,
-  "ungraded_started": 43,
+  "ungraded_started": 47,
   "by_method": {
    "model": {
     "graded": 21,
@@ -373,7 +388,7 @@
     "rating_as_of": "2026-08-27T15:00:00Z",
     "last_played": "2026-08-20",
     "elo_raw": 1695.0,
-    "elo_now": 1660.9,
+    "elo_now": 1660.7,
     "elo": 1683.9
    },
    "team1": {
@@ -531,7 +546,7 @@
     "rating_as_of": "2026-09-07T17:00:00Z",
     "last_played": "2026-09-06",
     "elo_raw": 1617.2,
-    "elo_now": 1586.4,
+    "elo_now": 1586.3,
     "elo": 1596.1
    },
    "p0": 0.3351,
@@ -6438,56 +6453,24 @@
     "elo_now": 1906.3,
     "elo": 1906.3
    },
-   "p0": 0.99,
-   "p1": 0.01,
-   "method": "market",
-   "confidence": "low",
-   "basis": "Kalshi de-vigged line (99.0% / 1.0%): Kalshi 99.0%/1.0% (100¢/1¢).",
+   "p0": 0.3966,
+   "p1": 0.6034,
+   "method": "model",
+   "confidence": "medium",
+   "basis": "Elo line: LYON (2024 American Team) 1833 vs Karmine Corp 1906 (60/105 rated series).",
    "flags": [
-    "market and model disagree by 59 pp (market 99.0% vs our Elo 60.3%) - the market side is published, the gap is disclosed",
+    "rejected live quote(s), originated line used instead: Kalshi quote observed 2026-10-24T20:52:38Z at/after kick-off 2026-10-24T20:00:00Z (in-play/settling price, not a pre-match line)",
     "resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'",
-    "single thin prediction market: only $0 traded volume on Kalshi - treat as an indicative line",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
    "pick": {
-    "side": 0,
-    "team": "LYON",
-    "probability": 0.99,
-    "other_probability": 0.01
+    "side": 1,
+    "team": "Karmine Corp",
+    "probability": 0.6034,
+    "other_probability": 0.3966
    },
    "pick_type": null,
-   "market": {
-    "thin": false,
-    "thin_note": "",
-    "book": "Kalshi",
-    "kind": "prediction market",
-    "source_url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly",
-    "api_url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly",
-    "market_url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly",
-    "decimal": null,
-    "american": null,
-    "p0": 0.99,
-    "p1": 0.01,
-    "overround": 0.005,
-    "start_utc": null,
-    "league": null,
-    "venue_count": 1,
-    "total_volume_usd": null,
-    "volume_usd": null,
-    "venues": [
-     {
-      "name": "Kalshi",
-      "weight": 0.18,
-      "p0": 0.99,
-      "p1": 0.01,
-      "quote": "100¢/1¢",
-      "overround": 0.005,
-      "observed_utc": "2026-10-24T20:52:38Z",
-      "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct241600kcly"
-     }
-    ],
-    "model_cross_check": 0.3966
-   },
+   "market": null,
    "resolution": null,
    "connected": true,
    "stale": true,
@@ -6540,7 +6523,8 @@
    "confidence": "high",
    "basis": "5-Venue Consensus de-vigged line (69.4% / 30.6%): Pinnacle 69.2%/30.8% (1.38/3.11), Polymarket 69.5%/30.5% (69.5¢/30.5¢), Kalshi 68.5%/31.5% (68¢/32¢), Bovada 70.6%/29.4% (1.33/3.20), Unibet 69.6%/30.4% (1.33/3.05).",
    "flags": [
-    "market and model disagree by 43 pp (market 69.4% vs our Elo 73.7%) - the market side is published, the gap is disclosed"
+    "market and model disagree by 43 pp (market 69.4% vs our Elo 73.7%) - the market side is published, the gap is disclosed",
+    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
    ],
    "pick": {
     "side": 0,
@@ -6571,6 +6555,7 @@
     "start_utc": "2026-10-24T21:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
+    "rejected_venues": [],
     "total_volume_usd": 145709.13,
     "volume_usd": 145709.13,
     "venues": [
@@ -6631,7 +6616,7 @@
    },
    "resolution": null,
    "connected": true,
-   "stale": false,
+   "stale": true,
    "result": null,
    "grade": null,
    "community_pick_pct": {
@@ -6680,7 +6665,9 @@
    "method": "market",
    "confidence": "high",
    "basis": "5-Venue Consensus de-vigged line (41.8% / 58.2%): Pinnacle 41.4%/58.6% (2.32/1.64), Polymarket 41.5%/58.5% (41.5¢/58.5¢), Kalshi 41.9%/58.1% (42¢/57¢), Bovada 42.8%/57.2% (2.20/1.65), Unibet 42.1%/57.9% (2.20/1.60).",
-   "flags": [],
+   "flags": [
+    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
+   ],
    "pick": {
     "side": 1,
     "team": "Gen.G",
@@ -6710,6 +6697,7 @@
     "start_utc": "2026-10-24T22:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
+    "rejected_venues": [],
     "total_volume_usd": 131029.81,
     "volume_usd": 131029.81,
     "venues": [
@@ -6770,7 +6758,7 @@
    },
    "resolution": null,
    "connected": true,
-   "stale": false,
+   "stale": true,
    "result": null,
    "grade": null,
    "community_pick_pct": {
@@ -6819,7 +6807,9 @@
    "method": "market",
    "confidence": "high",
    "basis": "5-Venue Consensus de-vigged line (43.0% / 57.0%): Pinnacle 43.4%/56.6% (2.22/1.70), Polymarket 43.5%/56.5% (43.5¢/56.5¢), Kalshi 43.5%/56.5% (44¢/56¢), Bovada 42.8%/57.2% (2.20/1.65), Unibet 39.8%/60.2% (2.33/1.54).",
-   "flags": [],
+   "flags": [
+    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
+   ],
    "pick": {
     "side": 1,
     "team": "T1",
@@ -6849,6 +6839,7 @@
     "start_utc": "2026-10-24T23:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
+    "rejected_venues": [],
     "total_volume_usd": 131041.9,
     "volume_usd": 131041.9,
     "venues": [
@@ -6909,7 +6900,7 @@
    },
    "resolution": null,
    "connected": true,
-   "stale": false,
+   "stale": true,
    "result": null,
    "grade": null,
    "community_pick_pct": {
@@ -6958,7 +6949,9 @@
    "method": "market",
    "confidence": "high",
    "basis": "5-Venue Consensus de-vigged line (74.2% / 25.8%): Pinnacle 74.2%/25.8% (1.29/3.70), Polymarket 75.5%/24.5% (75.5¢/24.5¢), Kalshi 75.5%/24.5% (76¢/24¢), Bovada 71.6%/28.4% (1.31/3.30), Unibet 72.2%/27.8% (1.29/3.35).",
-   "flags": [],
+   "flags": [
+    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
+   ],
    "pick": {
     "side": 0,
     "team": "Bilibili Gaming",
@@ -6988,6 +6981,7 @@
     "start_utc": "2026-10-25T00:00:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
+    "rejected_venues": [],
     "total_volume_usd": 83280.31,
     "volume_usd": 83280.31,
     "venues": [
@@ -7048,7 +7042,7 @@
    },
    "resolution": null,
    "connected": true,
-   "stale": false,
+   "stale": true,
    "result": null,
    "grade": null,
    "community_pick_pct": {
@@ -8960,6 +8954,7 @@
     "start_utc": "2026-10-27 16:00:00+00",
     "league": null,
     "venue_count": 1,
+    "rejected_venues": [],
     "total_volume_usd": 27.95,
     "volume_usd": 27.95,
     "venues": [
@@ -14621,7 +14616,7 @@
     "rating_as_of": "2026-11-11T09:00:00Z",
     "last_played": "2026-08-15",
     "elo_raw": 1503.8,
-    "elo_now": 1507.8,
+    "elo_now": 1507.9,
     "elo": 1510.6
    },
    "team1": {
@@ -14633,7 +14628,7 @@
     "rating_as_of": "2026-11-11T09:00:00Z",
     "last_played": "2026-09-06",
     "elo_raw": 1714.4,
-    "elo_now": 1708.4,
+    "elo_now": 1708.2,
     "elo": 1703.2
    },
    "p0": 0.2481,
