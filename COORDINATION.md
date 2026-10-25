@@ -86,6 +86,30 @@ diff is one test file plus its own new research directory. This session does not
   the 12 h/30 h stale warnings. The time-bomb class of outage is now covered by wall-clock-relative
   fixtures in all three receipt-lifecycle test modules.
 
+### Final deploy confirmation (2026-10-25 ~14:40Z)
+
+- PR #109 (this session's research + close-out) merged at 14:28:20Z, merge commit `5600824`; its GitHub
+  Pages build reached `status: built` with no error.
+- The `errored` Pages builds interleaved between 14:23Z and 14:34Z were **build-queue contention**:
+  eight sessions merged PRs #106–#113 inside ten minutes, and the legacy Pages builder serializes one
+  build at a time, so queued commits errored while the same tree content built successfully minutes
+  later. Evidence: errored and `built` commits alternate on `pages/builds`, every errored build's tree
+  later built green, and the live site never went down (legacy Pages keeps serving the last successful
+  build). Current `main` HEAD `1307344` (PR #107) reports `built`; `gh api …/pages` → `status: built`.
+- Live render verified by direct fetch of the published URL:
+  <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> shows the 14:33Z snapshot (234 cards, 9 market /
+  221 originated / 4 rule-resolved), the six quick-link cards, the 29-tournament filtered directory and
+  the mobile bottom nav; `table.html` renders one sourced row per match with both win probabilities and
+  an explicit pick; `unresolved.html` lists the 4 settlement-only cards with Hotspawn + Leaguepedia
+  source links and quotes the official void rule.
+- Final local gates on merged `main`: `unittest` **106/106** · `tools/verify.py` all publish gates pass ·
+  `audit/check_site.py` **24 pages / 0 failures** · `audit/verify_docs.py` ALL PASS ·
+  `audit/mobile_audit.py` 14/14 PASS.
+- Data coverage re-verified row by row on the 14:33:23Z snapshot: 234/234 rows carry a pick, every row
+  has a Hotspawn match-card URL and a Leaguepedia page, every priced pair sums to 100 % with
+  pick = argmax, all 9 market rows carry venue receipt URLs with no `(Kills)` derivative, and all 71
+  provisional rows carry the thin-data flag. No value was inferred or hand-filled by this session.
+
 ---
 
 # Session `aa39a6d5` — unfreeze the refresh, full-pick clarity, low-tier line research (2026-10-25)
