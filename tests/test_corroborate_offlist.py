@@ -20,6 +20,7 @@ import os
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -70,8 +71,14 @@ class OffListReceiptTests(unittest.TestCase):
         (base / "data" / "receipts" / "external_odds").mkdir(parents=True)
         self.matches_path = base / "data" / "matches.json"
         self.matches_path.write_text(json.dumps(MATCHES), encoding="utf-8")
-        (base / "data" / "receipts" / "external_odds" / "2026-10-23.json").write_text(
-            json.dumps(RECEIPT), encoding="utf-8")
+        self.receipt = json.loads(json.dumps(RECEIPT))
+        # Keep the listed receipt inside the real 24-hour corroboration window. Fixed
+        # 2026-10-24 captures made this test time-bomb the six-hour publisher.
+        for hours, capture in enumerate(self.receipt["captures"], start=1):
+            capture["captured_utc"] = (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime(
+                "%Y-%m-%dT%H:%M:%SZ")
+        self.receipt_path = base / "data" / "receipts" / "external_odds" / "2026-10-23.json"
+        self.receipt_path.write_text(json.dumps(self.receipt), encoding="utf-8")
         self.base = base
         self._saved = (corroborate.DATA, corroborate.RECEIPT_DIR, corroborate.ROOT)
         corroborate.DATA = str(base / "data")
@@ -96,24 +103,22 @@ class OffListReceiptTests(unittest.TestCase):
         row = doc["historic"][0]
         self.assertEqual(row["status"], "historic")
         self.assertEqual(row["page_url"], "https://example.com/m/9999")
-        self.assertEqual(row["captured_utc"], "2026-10-23T00:00:00Z")
+        self.assertEqual(row["captured_utc"], self.receipt["captures"][1]["captured_utc"])
         self.assertIn("no longer listed by Hotspawn", row["reason"])
         self.assertEqual(row["status"], "historic")
 
     def test_listed_fixture_with_wrong_teams_is_still_rejected(self):
-        rec = json.loads(json.dumps(RECEIPT))
+        rec = json.loads(json.dumps(self.receipt))
         rec["captures"][0]["page_teams"] = ["Charlie", "Delta"]
-        (self.base / "data" / "receipts" / "external_odds" / "2026-10-23.json").write_text(
-            json.dumps(rec), encoding="utf-8")
+        self.receipt_path.write_text(json.dumps(rec), encoding="utf-8")
         doc = corroborate.build()
         self.assertEqual([r["fixture_id"] for r in doc["rejected"]], ["1111"])
         self.assertEqual(doc["rejected"][0]["status"], "unmatched")
 
     def test_malformed_price_is_still_rejected(self):
-        rec = json.loads(json.dumps(RECEIPT))
+        rec = json.loads(json.dumps(self.receipt))
         rec["captures"][0]["decimal"] = [1.65, 1.0]
-        (self.base / "data" / "receipts" / "external_odds" / "2026-10-23.json").write_text(
-            json.dumps(rec), encoding="utf-8")
+        self.receipt_path.write_text(json.dumps(rec), encoding="utf-8")
         doc = corroborate.build()
         self.assertEqual([r["fixture_id"] for r in doc["rejected"]], ["1111"])
         self.assertEqual(doc["rejected"][0]["status"], "malformed")

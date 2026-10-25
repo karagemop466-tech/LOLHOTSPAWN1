@@ -20,6 +20,7 @@ import os
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
@@ -72,8 +73,12 @@ class ReceiptHistoryTests(unittest.TestCase):
 
     @staticmethod
     def _capture(fid: str, teams: list[str], dec: list[float]) -> dict:
+        # The receipt lifecycle intentionally expires current-listed captures after 24 h.
+        # Generate a fresh observation instead of letting a fixed test date age into a
+        # different bucket and make the scheduled build fail merely because time passed.
+        captured = (datetime.now(timezone.utc) - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
         return {"fixture_id": fid, "source": "pinnacle", "page_url": "https://example.test/m",
-                "captured_utc": "2026-10-24T00:00:00Z", "verbatim": "1.60 / 2.30",
+                "captured_utc": captured, "verbatim": "1.60 / 2.30",
                 "page_teams": teams, "decimal": dec}
 
     def test_receipt_for_a_delisted_fixture_is_historical_not_rejected(self) -> None:
@@ -125,7 +130,7 @@ class ReceiptHistoryTests(unittest.TestCase):
         s = doc["summary"]
         self.assertEqual(s["receipts"], 3)
         self.assertEqual(s["usable_receipts"] + s["placeholders"] + s["rejected_receipts"]
-                         + s["historic_receipts"], 3)
+                         + s["expired_receipts"] + s["historic_receipts"], 3)
 
     def test_coverage_page_renders_the_historical_receipts(self) -> None:
         self._write(
