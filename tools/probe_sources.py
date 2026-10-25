@@ -344,6 +344,7 @@ def competition_evidence(text: str, aliases: dict[str, list[str]],
     for comp, tok, at in competition_hits(flat, aliases)[:limit]:
         lo = max(0, at - width // 2)
         out.append({"competition": comp, "token": tok,
+                    "token_kind": "code" if _is_short_code(tok) else "name",
                     "context": flat[lo:at + width].strip()})
     return out
 
@@ -390,6 +391,7 @@ def main() -> None:
         text = item.pop("text", "") or ""
         found = [n for n in names if n.lower() in text.lower()]
         comps = match_competitions(text, aliases)
+        evidence = competition_evidence(text, aliases)
         row = {
             "name": name,
             "url": url,
@@ -402,7 +404,11 @@ def main() -> None:
             "found_team_count": len(found),
             "found_competitions": comps,
             "found_competition_count": len(comps),
-            "found_competition_evidence": competition_evidence(text, aliases),
+            "found_competitions_by_name": sorted(
+                {e["competition"] for e in evidence if e["token_kind"] == "name"}),
+            "found_competitions_by_code": sorted(
+                {e["competition"] for e in evidence if e["token_kind"] == "code"}),
+            "found_competition_evidence": evidence,
             "signals": odds_signals(text) if text else {},
             "snippet": re.sub(r"\s+", " ", text[:400]).strip() if text else "",
         }
@@ -424,9 +430,16 @@ def main() -> None:
         "team_names_used": names,
         "competition_aliases": aliases,
         "pinnacle_league_inventory": inventory,
+        # Split by evidence strength: a competition's full published name (or the Leaguepedia
+        # page it was joined to) is strong evidence; a 3-6 letter code can also be a team name
+        # ("LCP" is a Pinnacle participant) or a region label ("LCP (Asia-Pacific)" on
+        # Polymarket), so code-only hits are reported separately and never counted as coverage.
         "venues_mentioning_a_hotspawn_competition": [
-            {"name": r["name"], "found_competitions": r["found_competitions"]}
-            for r in results if r.get("found_competition_count")],
+            {"name": r["name"],
+             "found_competitions": r["found_competitions_by_name"],
+             "code_only_competitions": r["found_competitions_by_code"]}
+            for r in results
+            if r.get("found_competitions_by_name") or r.get("found_competitions_by_code")],
         "sources": results,
     }
     save_json(os.path.join(PROBE_DIR, "sources_probe.json"), payload)
@@ -434,7 +447,7 @@ def main() -> None:
     usable = [r for r in ok if r["found_team_count"] >= 2 and
               (r.get("signals") or {}).get("has_decimal_pair")]
     log(f"probe summary: {len(ok)}/{len(results)} HTTP 200, {len(usable)} show team names + decimal pairs")
-    matched = [r["name"] for r in results if r.get("found_competition_count")]
+    matched = [r["name"] for r in results if r.get("found_competitions_by_name")]
     log(f"league-level: Pinnacle lists {len(inventory.get('lol_leagues') or [])} LoL league(s); "
         f"{len(matched)} venue(s) mention a Hotspawn competition by name")
     print(json.dumps({"http_200": [r["name"] for r in ok],

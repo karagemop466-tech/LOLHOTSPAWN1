@@ -97,6 +97,17 @@ class ShortCodeMatching(unittest.TestCase):
         text = "s.push(this._callbacks.pop()),this._fulfill(s); lcp:{get value(){return 1}}"
         self.assertEqual(probe.match_competitions(text, self.aliases), [])
 
+    def test_evidence_distinguishes_a_full_name_from_a_short_code(self) -> None:
+        by_name = probe.competition_evidence("League of Legends - World Championship",
+                                             self.aliases)
+        self.assertEqual(by_name[0]["token_kind"], "name")
+        by_code = probe.competition_evidence("LCP 2027 Promotion starts today",
+                                             self.aliases)
+        self.assertEqual(by_code, [])  # LCP is not in this fixture's alias set
+        code_aliases = {"LCP 2027 Promotion": ["LCP"]}
+        self.assertEqual(probe.competition_evidence("LCP fixtures", code_aliases)[0]["token_kind"],
+                         "code")
+
     def test_evidence_records_the_matched_token_and_context(self) -> None:
         ev = probe.competition_evidence("Watch the RIVALS LEAGUE Season 2 match today",
                                         self.aliases)
