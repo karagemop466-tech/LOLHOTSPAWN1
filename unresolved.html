@@ -20,8 +20,8 @@
   <div class="pagehead">
     <h1>Unresolved &amp; limitations</h1>
     <p class="sub">Matches where competitive pricing is impossible, plus every documented limitation.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-25 16:27 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-25T16:25:40Z">Hotspawn inventory collected: 2026-10-25T16:25:40Z. Check source timestamps before use.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-25 20:55 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-25T20:53:58Z">Hotspawn inventory collected: 2026-10-25T20:53:58Z. Check source timestamps before use.</p>
   </div>
   
 <section class="panel">
@@ -40,7 +40,7 @@
 
 <section class="panel">
   <h2>Documented limitations across the list</h2>
-  <div class="tablewrap"><table class=""><thead><tr><th>Limitation</th><th>Scope</th><th>Impact &amp; handling</th></tr></thead><tbody><tr><td data-label="Limitation">Mid-split league removals (dqteams)</td><td data-label="Scope">4 matches</td><td data-label="Impact &amp; handling">Leaguepedia's Data: page for the competition records the removal (for Komplettligaen, Round 10 carries the footnote '[[Solid Gaming]] is removed from the league.' and every remaining series is scored 0-2 with an ff flag). Hotspawn's published rule voids all predictions on a forfeited match, so the expected outcome is 0 points either way; an Elo probability built from pre-removal results would be invalid, so the row is quarantined and only the administrative winner is shown, with no percentage.</td></tr><tr><td data-label="Limitation">No sportsbook market on national divisions</td><td data-label="Scope">225 matches</td><td data-label="Impact &amp; handling">Only the competitions listed on the Market page have a reachable price in this snapshot. The remaining national, academy and third-division leagues are not offered by any book the build runner can reach, so their lines are originated from recorded series history rather than borrowed from a placeholder.</td></tr><tr><td data-label="Limitation">Thin match history</td><td data-label="Scope">71 provisional</td><td data-label="Impact &amp; handling">At least one team has fewer than five rated series in the 25-month Leaguepedia window, so the Elo estimate carries wider variance and is explicitly flagged provisional.</td></tr><tr><td data-label="Limitation">Zero pre-kickoff history (debut sides)</td><td data-label="Scope">3 matches (0 dual-debut)</td><td data-label="Impact &amp; handling">One or both teams enter kick-off with 0 prior Leaguepedia rated series and are anchored strictly to their division prior (1700 / 1575 / 1500 / 1455). Where both sides have 0 rated series, the 50.0% / 50.0% split reflects identical division priors rather than match evidence (see Flagged for review).</td></tr><tr><td data-label="Limitation">Name disambiguation</td><td data-label="Scope">32 disambiguated (0 unresolved)</td><td data-label="Impact &amp; handling">Homonymous regional teams (e.g. 'Fenrir (Icelandic Team)' vs Polish 'Fenrir', 'PvB (Swiss Team)' mislabelled by Hotspawn as Vietnamese 'Phong Vũ Buffalo') are joined only via competition-scoped roster evidence.</td></tr><tr><td data-label="Limitation">Disconnected opponent graphs</td><td data-label="Scope">8 matches</td><td data-label="Impact &amp; handling">Cross-pool teams without a shared opponent chain are flagged rather than treated as high-confidence lines.</td></tr><tr><td data-label="Limitation">Geo-fenced / bot-protected books</td><td data-label="Scope">see Sources</td><td data-label="Impact &amp; handling">Every book probed on this build, its HTTP status and the reason it could not be used are listed on Sources. A book that returns a page but only renders symmetric 1.8/1.8 placeholders (EGamersWorld) is never treated as a price.</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Limitation</th><th>Scope</th><th>Impact &amp; handling</th></tr></thead><tbody><tr><td data-label="Limitation">Mid-split league removals (dqteams)</td><td data-label="Scope">4 matches</td><td data-label="Impact &amp; handling">Leaguepedia's Data: page for the competition records the removal (for Komplettligaen, Round 10 carries the footnote '[[Solid Gaming]] is removed from the league.' and every remaining series is scored 0-2 with an ff flag). Hotspawn's published rule voids all predictions on a forfeited match, so the expected outcome is 0 points either way; an Elo probability built from pre-removal results would be invalid, so the row is quarantined and only the administrative winner is shown, with no percentage.</td></tr><tr><td data-label="Limitation">No sportsbook market on national divisions</td><td data-label="Scope">227 matches</td><td data-label="Impact &amp; handling">Only the competitions listed on the Market page have a reachable price in this snapshot. The remaining national, academy and third-division leagues are not offered by any book the build runner can reach, so their lines are originated from recorded series history rather than borrowed from a placeholder.</td></tr><tr><td data-label="Limitation">Thin match history</td><td data-label="Scope">58 provisional</td><td data-label="Impact &amp; handling">At least one team has fewer than five rated series in the 25-month Leaguepedia window, so the Elo estimate carries wider variance and is explicitly flagged provisional.</td></tr><tr><td data-label="Limitation">Zero pre-kickoff history (debut sides)</td><td data-label="Scope">3 matches (0 dual-debut)</td><td data-label="Impact &amp; handling">One or both teams enter kick-off with 0 prior Leaguepedia rated series and are anchored strictly to their division prior (1700 / 1575 / 1500 / 1455). Where both sides have 0 rated series, the 50.0% / 50.0% split reflects identical division priors rather than match evidence (see Flagged for review).</td></tr><tr><td data-label="Limitation">Name disambiguation</td><td data-label="Scope">32 disambiguated (0 unresolved)</td><td data-label="Impact &amp; handling">Homonymous regional teams (e.g. 'Fenrir (Icelandic Team)' vs Polish 'Fenrir', 'PvB (Swiss Team)' mislabelled by Hotspawn as Vietnamese 'Phong Vũ Buffalo') are joined only via competition-scoped roster evidence.</td></tr><tr><td data-label="Limitation">Disconnected opponent graphs</td><td data-label="Scope">8 matches</td><td data-label="Impact &amp; handling">Cross-pool teams without a shared opponent chain are flagged rather than treated as high-confidence lines.</td></tr><tr><td data-label="Limitation">Geo-fenced / bot-protected books</td><td data-label="Scope">see Sources</td><td data-label="Impact &amp; handling">Every book probed on this build, its HTTP status and the reason it could not be used are listed on Sources. A book that returns a page but only renders symmetric 1.8/1.8 placeholders (EGamersWorld) is never treated as a price.</td></tr></tbody></table></div>
 </section>
 
 <section class="panel" id="fallback">
@@ -54,7 +54,7 @@
   build runner on 2026-10-25 &mdash; <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/low-tier-sources-2026-10-24.md" rel="noopener">research memo</a> and
   machine-readable receipts in <code>data/probe/lowtier_20261024.json</code>. A keyed odds API might widen
   coverage but needs an owner-provided credential; none is used and none is circumvented. On <strong>2026-10-25 14:12 UTC</strong> a stricter re-test searched <strong>36 venues</strong> (established books, esportsbooks, comparison engines, aggregators, prediction markets and nine Kambi operators) for the <strong>226 low-tier team pairs</strong> Hotspawn listed that day: <strong>none published a price for them</strong> beyond the LGC Rising tie already in the market consensus, while 11 venues returned the Worlds control pairs, proving the test itself. Cloudbet's Prime League 2nd Division page, for example, states "No Prime League 2nd Division events available" on a PRM2 matchday. <a href="data/probe/session_666de992/probe.json"><strong>pair-search receipt</strong></a> &middot; <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/session_666de992/LOWTIER_RESEARCH.md" rel="noopener">research memo</a>.</p>
-  <div class="tablewrap"><table class=""><thead><tr><th>Competition</th><th>Matches</th><th>Pick basis</th><th>External line found?</th><th>Limitation</th></tr></thead><tbody><tr><td data-label="Competition">PRM 3rd Division 26-27 Fall</td><td data-label="Matches">60</td><td data-label="Pick basis">44 originated · 16 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">PRM 2nd Division 26-27 Fall</td><td data-label="Matches">36</td><td data-label="Pick basis">32 originated · 4 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">RIVALS LEAGUE Season 2</td><td data-label="Matches">24</td><td data-label="Pick basis">17 originated · 7 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">Tunisian Super League 2026</td><td data-label="Matches">24</td><td data-label="Pick basis">7 originated · 17 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Icelandic Esports League 2026 Autumn</td><td data-label="Matches">12</td><td data-label="Pick basis">5 originated · 7 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Arabian League 2nd Division 2026 Summer</td><td data-label="Matches">8</td><td data-label="Pick basis">4 originated · 4 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Worlds 2026 Main Event</td><td data-label="Matches">8</td><td data-label="Pick basis">8 market</td><td data-label="External line found?">Yes &mdash; Pinnacle guest API (matchups), Unibet/Kambi ubse LoL feed, Polymarket Gamma (LoL tag)&hellip;</td><td data-label="Limitation">Featured resolution: de-vigged book consensus.</td></tr><tr><td data-label="Competition">Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine</td><td data-label="Matches">6</td><td data-label="Pick basis">6 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Komplettligaen 2026 Autumn</td><td data-label="Matches">6</td><td data-label="Pick basis">2 originated · 4 settlement</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Includes official-forfeit settlements (no %; Hotspawn voids forfeited-match predictions, so expect 0 points either way).</td></tr><tr><td data-label="Competition">Superstrike League 2026</td><td data-label="Matches">6</td><td data-label="Pick basis">5 originated · 1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">4 Nations 2026 Halloween Heist</td><td data-label="Matches">5</td><td data-label="Pick basis">4 originated · 1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">Benelux Ascend Series 2027 Winter Promotion</td><td data-label="Matches">5</td><td data-label="Pick basis">5 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Benelux Ascend Series Rising 2026 Summer Playoffs</td><td data-label="Matches">5</td><td data-label="Pick basis">5 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">LigaGG CELOL A 2026 Split 2 Playoffs</td><td data-label="Matches">4</td><td data-label="Pick basis">4 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Komplettligaen 2026 Autumn Playoffs</td><td data-label="Matches">3</td><td data-label="Pick basis">3 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">LCP 2027 Promotion</td><td data-label="Matches">3</td><td data-label="Pick basis">2 originated · 1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">LigaGG CELOL B 2026 Split 2 Playoffs</td><td data-label="Matches">3</td><td data-label="Pick basis">3 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait</td><td data-label="Matches">2</td><td data-label="Pick basis">2 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Benelux Ascend Series 2026 Summer Split</td><td data-label="Matches">2</td><td data-label="Pick basis">2 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">LigaGG CELOL B 2026 Split 2</td><td data-label="Matches">2</td><td data-label="Pick basis">1 originated · 1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Logitech G SuperStrike Cup Qualifier</td><td data-label="Matches">2</td><td data-label="Pick basis">2 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Benelux Ascend Series 2026 Summer Playoffs</td><td data-label="Matches">1</td><td data-label="Pick basis">1 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">FPL 2026 Summer Playoffs</td><td data-label="Matches">1</td><td data-label="Pick basis">1 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Hitpoint 2nd Div Challengers 2026 Summer Playoffs</td><td data-label="Matches">1</td><td data-label="Pick basis">1 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">LGC Rising 2026 Playoffs</td><td data-label="Matches">1</td><td data-label="Pick basis">1 market</td><td data-label="External line found?">Yes &mdash; Polymarket Gamma (LoL tag)</td><td data-label="Limitation">Featured resolution: de-vigged book consensus.</td></tr><tr><td data-label="Competition">LIT 2027 Winter Promotion</td><td data-label="Matches">1</td><td data-label="Pick basis">1 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Legends Academy powered by Żabka Season 3 Playoffs</td><td data-label="Matches">1</td><td data-label="Pick basis">1 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">LigaGG CELOL A 2026 Split 2</td><td data-label="Matches">1</td><td data-label="Pick basis">1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">POP Esports Masters Season 7</td><td data-label="Matches">1</td><td data-label="Pick basis">1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Competition</th><th>Matches</th><th>Pick basis</th><th>External line found?</th><th>Limitation</th></tr></thead><tbody><tr><td data-label="Competition">PRM 3rd Division 26-27 Fall</td><td data-label="Matches">60</td><td data-label="Pick basis">44 originated · 16 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">PRM 2nd Division 26-27 Fall</td><td data-label="Matches">36</td><td data-label="Pick basis">32 originated · 4 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">RIVALS LEAGUE Season 2</td><td data-label="Matches">24</td><td data-label="Pick basis">17 originated · 7 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">Tunisian Super League 2026</td><td data-label="Matches">23</td><td data-label="Pick basis">19 originated · 4 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">Icelandic Esports League 2026 Autumn</td><td data-label="Matches">12</td><td data-label="Pick basis">5 originated · 7 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Arabian League 2nd Division 2026 Summer</td><td data-label="Matches">8</td><td data-label="Pick basis">4 originated · 4 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Worlds 2026 Main Event</td><td data-label="Matches">8</td><td data-label="Pick basis">5 market · 3 originated</td><td data-label="External line found?">Yes &mdash; Pinnacle guest API (matchups), Unibet/Kambi ubse LoL feed, Polymarket Gamma (LoL tag)&hellip;</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine</td><td data-label="Matches">6</td><td data-label="Pick basis">6 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Komplettligaen 2026 Autumn</td><td data-label="Matches">6</td><td data-label="Pick basis">2 originated · 4 settlement</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Includes official-forfeit settlements (no %; Hotspawn voids forfeited-match predictions, so expect 0 points either way).</td></tr><tr><td data-label="Competition">Superstrike League 2026</td><td data-label="Matches">6</td><td data-label="Pick basis">5 originated · 1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">4 Nations 2026 Halloween Heist</td><td data-label="Matches">5</td><td data-label="Pick basis">4 originated · 1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">Benelux Ascend Series 2027 Winter Promotion</td><td data-label="Matches">5</td><td data-label="Pick basis">5 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Benelux Ascend Series Rising 2026 Summer Playoffs</td><td data-label="Matches">5</td><td data-label="Pick basis">5 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">LigaGG CELOL A 2026 Split 2 Playoffs</td><td data-label="Matches">4</td><td data-label="Pick basis">4 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Komplettligaen 2026 Autumn Playoffs</td><td data-label="Matches">3</td><td data-label="Pick basis">3 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">LCP 2027 Promotion</td><td data-label="Matches">3</td><td data-label="Pick basis">2 originated · 1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo, some thin-history cards flagged.</td></tr><tr><td data-label="Competition">LigaGG CELOL B 2026 Split 2 Playoffs</td><td data-label="Matches">3</td><td data-label="Pick basis">3 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait</td><td data-label="Matches">2</td><td data-label="Pick basis">2 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Benelux Ascend Series 2026 Summer Split</td><td data-label="Matches">2</td><td data-label="Pick basis">2 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">LigaGG CELOL B 2026 Split 2</td><td data-label="Matches">2</td><td data-label="Pick basis">1 originated · 1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Logitech G SuperStrike Cup Qualifier</td><td data-label="Matches">2</td><td data-label="Pick basis">2 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">Benelux Ascend Series 2026 Summer Playoffs</td><td data-label="Matches">1</td><td data-label="Pick basis">1 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">FPL 2026 Summer Playoffs</td><td data-label="Matches">1</td><td data-label="Pick basis">1 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Hitpoint 2nd Div Challengers 2026 Summer Playoffs</td><td data-label="Matches">1</td><td data-label="Pick basis">1 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">LGC Rising 2026 Playoffs</td><td data-label="Matches">1</td><td data-label="Pick basis">1 market</td><td data-label="External line found?">Yes &mdash; Polymarket Gamma (LoL tag)</td><td data-label="Limitation">Featured resolution: de-vigged book consensus.</td></tr><tr><td data-label="Competition">LIT 2027 Winter Promotion</td><td data-label="Matches">1</td><td data-label="Pick basis">1 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">Legends Academy powered by Żabka Season 3 Playoffs</td><td data-label="Matches">1</td><td data-label="Pick basis">1 originated</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">No book prices this league; originated Elo from recorded series history.</td></tr><tr><td data-label="Competition">LigaGG CELOL A 2026 Split 2</td><td data-label="Matches">1</td><td data-label="Pick basis">1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr><tr><td data-label="Competition">POP Esports Masters Season 7</td><td data-label="Matches">1</td><td data-label="Pick basis">1 provisional</td><td data-label="External line found?">No line found (0 of 52 venues, probed 2026-10-25)</td><td data-label="Limitation">Thin recorded history on most cards - treat % as directional only.</td></tr></tbody></table></div>
 </section>
 
 <section class="panel" id="line-hunt">
@@ -65,7 +65,7 @@
   where it might show a price in a browser. Additional sources that were researched and ruled out, with the
   exact response each returned, are logged in
   <a href="data/line_source_research.json" rel="noopener">line_source_research.json</a>.</p>
-  <div class="tablewrap"><table class=""><thead><tr><th>Source</th><th>What it is</th><th>Runner verdict</th><th>Checked (UTC)</th></tr></thead><tbody><tr><td data-label="Source"><a href="https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups" rel="noopener">Pinnacle</a></td><td data-label="What it is">Sharp esportsbook; guest REST API</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&amp;status=open&amp;with_nested_markets=true&amp;limit=100" rel="noopener">Kalshi (CFTC)</a></td><td data-label="What it is">CFTC-regulated US exchange; KXLOLGAME series contract book</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&amp;preMatchOnly=true&amp;lang=en" rel="noopener">Bovada</a></td><td data-label="What it is">Esportsbook pre-match decimal moneyline coupon JSON</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://gamma-api.polymarket.com/events?closed=false&amp;limit=5&amp;tag_slug=league-of-legends" rel="noopener">Polymarket</a></td><td data-label="What it is">CLOB prediction market (full-series filtered)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://gg.bet/en/esports/league-of-legends" rel="noopener">GG.BET</a></td><td data-label="What it is">Established LoL betting site</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://bc.game/sports" rel="noopener">BC.GAME</a></td><td data-label="What it is">Crypto esportsbook</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://egamersworld.com/lol/matches" rel="noopener">EGamersWorld</a></td><td data-label="What it is">Esports odds aggregator (verified fallback receipt for LCP Promotion)</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://oddspedia.com/esports/league-of-legends" rel="noopener">Oddspedia</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill bad">410</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://www.oddsportal.com/esports/league-of-legends/" rel="noopener">OddsPortal</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://www.betexplorer.com/esports/league-of-legends/" rel="noopener">BetExplorer</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill bad">404</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet/Kambi</a></td><td data-label="What it is">European regulated sportsbook JSON feed (ubse LoL match odds)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://api.smarkets.com/v3/events/?state=new&amp;state=upcoming&amp;type=league_of_legends_match&amp;limit=50" rel="noopener">Smarkets (UKGC)</a></td><td data-label="What it is">UKGC-regulated betting exchange v3 JSON feed (WINNER_2_WAY series markets)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://thunderpick.io/en/esports/league-of-legends" rel="noopener">Thunderpick</a></td><td data-label="What it is">Esportsbook LoL coupon (HTML; prices are client-rendered)</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://tips.gg/esports/league-of-legends/" rel="noopener">Tips.GG</a></td><td data-label="What it is">Esports odds + tips page used as coverage evidence, never as a price</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://www.midnite.com/esports/league-of-legends" rel="noopener">Midnite</a></td><td data-label="What it is">UK esportsbook LoL coupon (redirects to retired/soft-404 page)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/" rel="noopener">OddsPortal Worlds</a></td><td data-label="What it is">Odds comparison: World Championship coupon (coverage ceiling check)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&amp;status=scheduled&amp;tenantId=1" rel="noopener">Hotspawn fixtures API</a></td><td data-label="What it is">Match inventory (crowd % stored for audit only, NEVER used as probability)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:26</td></tr><tr><td data-label="Source"><a href="https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&amp;fields=MatchSchedule.MatchId&amp;limit=1&amp;format=json" rel="noopener">Leaguepedia</a></td><td data-label="What it is">Series results + Data: dqteams directives</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:27</td></tr><tr><td data-label="Source"><a href="https://esports-api.lolesports.com/persisted/gw/getLeagues?hl=en-US" rel="noopener">LoL Esports (Riot)</a></td><td data-label="What it is">Official Riot esports API</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 16:27</td></tr></tbody></table></div>
+  <div class="tablewrap"><table class=""><thead><tr><th>Source</th><th>What it is</th><th>Runner verdict</th><th>Checked (UTC)</th></tr></thead><tbody><tr><td data-label="Source"><a href="https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups" rel="noopener">Pinnacle</a></td><td data-label="What it is">Sharp esportsbook; guest REST API</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&amp;status=open&amp;with_nested_markets=true&amp;limit=100" rel="noopener">Kalshi (CFTC)</a></td><td data-label="What it is">CFTC-regulated US exchange; KXLOLGAME series contract book</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&amp;preMatchOnly=true&amp;lang=en" rel="noopener">Bovada</a></td><td data-label="What it is">Esportsbook pre-match decimal moneyline coupon JSON</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://gamma-api.polymarket.com/events?closed=false&amp;limit=5&amp;tag_slug=league-of-legends" rel="noopener">Polymarket</a></td><td data-label="What it is">CLOB prediction market (full-series filtered)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://gg.bet/en/esports/league-of-legends" rel="noopener">GG.BET</a></td><td data-label="What it is">Established LoL betting site</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://bc.game/sports" rel="noopener">BC.GAME</a></td><td data-label="What it is">Crypto esportsbook</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://egamersworld.com/lol/matches" rel="noopener">EGamersWorld</a></td><td data-label="What it is">Esports odds aggregator (verified fallback receipt for LCP Promotion)</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://oddspedia.com/esports/league-of-legends" rel="noopener">Oddspedia</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill bad">410</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://www.oddsportal.com/esports/league-of-legends/" rel="noopener">OddsPortal</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://www.betexplorer.com/esports/league-of-legends/" rel="noopener">BetExplorer</a></td><td data-label="What it is">Odds comparison engine</td><td data-label="Runner verdict"><span class="pill bad">404</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&amp;market=ZZ" rel="noopener">Unibet/Kambi</a></td><td data-label="What it is">European regulated sportsbook JSON feed (ubse LoL match odds)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://api.smarkets.com/v3/events/?state=new&amp;state=upcoming&amp;type=league_of_legends_match&amp;limit=50" rel="noopener">Smarkets (UKGC)</a></td><td data-label="What it is">UKGC-regulated betting exchange v3 JSON feed (WINNER_2_WAY series markets)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://thunderpick.io/en/esports/league-of-legends" rel="noopener">Thunderpick</a></td><td data-label="What it is">Esportsbook LoL coupon (HTML; prices are client-rendered)</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://tips.gg/esports/league-of-legends/" rel="noopener">Tips.GG</a></td><td data-label="What it is">Esports odds + tips page used as coverage evidence, never as a price</td><td data-label="Runner verdict"><span class="pill bad">403</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://www.midnite.com/esports/league-of-legends" rel="noopener">Midnite</a></td><td data-label="What it is">UK esportsbook LoL coupon (redirects to retired/soft-404 page)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/" rel="noopener">OddsPortal Worlds</a></td><td data-label="What it is">Odds comparison: World Championship coupon (coverage ceiling check)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&amp;status=scheduled&amp;tenantId=1" rel="noopener">Hotspawn fixtures API</a></td><td data-label="What it is">Match inventory (crowd % stored for audit only, NEVER used as probability)</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&amp;fields=MatchSchedule.MatchId&amp;limit=1&amp;format=json" rel="noopener">Leaguepedia</a></td><td data-label="What it is">Series results + Data: dqteams directives</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr><tr><td data-label="Source"><a href="https://esports-api.lolesports.com/persisted/gw/getLeagues?hl=en-US" rel="noopener">LoL Esports (Riot)</a></td><td data-label="What it is">Official Riot esports API</td><td data-label="Runner verdict"><span class="pill ok">200</span></td><td data-label="Checked (UTC)">2026-10-25 20:55</td></tr></tbody></table></div>
   <h3>Esportsbooks &amp; aggregators tried for the unpriced tail</h3>
   <p>23 endpoints probed from the build runner on 2026-10-25 14:07 UTC: <strong>0 returned a machine-readable LoL price</strong> (5 blocked or key-gated, 8 browser-only HTML). Receipt: <a href="data/esportsbook_probe.json" rel="noopener">esportsbook_probe.json</a>. Blocked or browser-only venues are recorded, never worked around, and never
   back a pick &mdash; the unpriced tail keeps its originated (Elo) line instead of a borrowed quote.</p>
@@ -90,101 +90,9 @@
 </section>
 
 <section class="panel">
-  <h2>Provisional lines (71)</h2>
+  <h2>Provisional lines (58)</h2>
   <p class="lead">Low-confidence originated picks with thin match samples. Every card lists its exact caveat.</p>
-  <div class="cards"><article id="match-1080929" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-10-25T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 olympique mnihla jendouba esports">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-25T17:00:00Z" class="utc" data-utc="2026-10-25T17:00:00Z">2026-10-25 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">Olympique Mnihla</span><span class="tpct">60.7%</span>
-    </div>
-    <div class="split" role="img" aria-label="Olympique Mnihla 61 percent, Jendouba Esports 39 percent"><span class="s0" style="width:60.7%"></span></div>
-    <div class="team ">
-      <span class="tname">Jendouba Esports</span><span class="tpct">39.3%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Olympique Mnihla</strong> <span class="pickpct">60.7%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Olympique Mnihla 1520 vs Jendouba Esports 1445 (41/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/olympique-mnihla-vs-jendouba-esports-tunisian-super-league-2026-1080929" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla" rel="noopener">Olympique Mnihla</a><a href="https://lol.fandom.com/wiki/Jendouba_Esports" rel="noopener">Jendouba Esports</a></div>
-</article><article id="match-1080930" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-10-25T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 olympique mnihla academy el menzah esports">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-25T17:00:00Z" class="utc" data-utc="2026-10-25T17:00:00Z">2026-10-25 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">Olympique Mnihla Academy</span><span class="tpct">51.5%</span>
-    </div>
-    <div class="split" role="img" aria-label="Olympique Mnihla Academy 52 percent, El Menzah Esports 48 percent"><span class="s0" style="width:51.5%"></span></div>
-    <div class="team ">
-      <span class="tname">El Menzah Esports</span><span class="tpct">48.5%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Olympique Mnihla Academy</strong> <span class="pickpct">51.5%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Olympique Mnihla Academy 1458 vs El Menzah Esports 1448 (4/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-el-menzah-esports-tunisian-super-league-2026-1080930" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla_Academy" rel="noopener">Olympique Mnihla Academy</a><a href="https://lol.fandom.com/wiki/El_Menzah_Esports" rel="noopener">El Menzah Esports</a></div>
-</article><article id="match-1080932" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-10-25T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 zahrouni esports jsk academy">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-25T17:00:00Z" class="utc" data-utc="2026-10-25T17:00:00Z">2026-10-25 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">Zahrouni Esports</span><span class="tpct">45.1%</span>
-    </div>
-    <div class="split" role="img" aria-label="Zahrouni Esports 45 percent, JSK Academy 55 percent"><span class="s0" style="width:45.1%"></span></div>
-    <div class="team fav">
-      <span class="tname">JSK Academy</span><span class="tpct">54.9%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>JSK Academy</strong> <span class="pickpct">54.9%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Zahrouni Esports 1439 vs JSK Academy 1473 (4/31 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/zahrouni-esports-vs-jsk-academy-tunisian-super-league-2026-1080932" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Zahrouni_Esports" rel="noopener">Zahrouni Esports</a><a href="https://lol.fandom.com/wiki/JSK_Academy" rel="noopener">JSK Academy</a></div>
-</article><article id="match-1075751" class="card m-provisional" data-method="provisional" data-comp="PRM 3rd Division 26-27 Fall"
-  data-start="2026-10-25T18:00:00Z" data-stale="0"
-  data-text="prm 3rd division 26-27 fall blackdivision kanji esports kin">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-25T18:00:00Z" class="utc" data-utc="2026-10-25T18:00:00Z">2026-10-25 18:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">PRM 3rd Division 26-27 Fall</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">BlackDivision</span><span class="tpct">45.9%</span>
-    </div>
-    <div class="split" role="img" aria-label="BlackDivision 46 percent, Kanji Esports KIN 54 percent"><span class="s0" style="width:45.9%"></span></div>
-    <div class="team fav">
-      <span class="tname">Kanji Esports KIN</span><span class="tpct">54.1%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Kanji Esports KIN</strong> <span class="pickpct">54.1%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: BlackDivision 1472 vs Kanji Esports KIN 1500 (3/18 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/blackdivision-vs-kanji-esports-kin-prm-3rd-division-26-27-fall-1075751" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_3rd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/BlackDivision" rel="noopener">BlackDivision</a><a href="https://lol.fandom.com/wiki/Kanji_Esports_KIN" rel="noopener">Kanji Esports KIN</a></div>
-</article><article id="match-1081831" class="card m-provisional" data-method="provisional" data-comp="RIVALS LEAGUE Season 2"
+  <div class="cards"><article id="match-1081831" class="card m-provisional" data-method="provisional" data-comp="RIVALS LEAGUE Season 2"
   data-start="2026-10-26T19:00:00Z" data-stale="0"
   data-text="rivals league season 2 lund esports organization ogs tung sahur mid">
   <div class="card-top">
@@ -230,75 +138,6 @@
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/slam-dunk-vs-new-era-team-arabian-league-2nd-division-2026-summer-1079144" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Arabian_League_2nd_Division%2F2026_Season%2FSummer_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Slam_Dunk" rel="noopener">Slam Dunk</a><a href="https://lol.fandom.com/wiki/New_Era_Team" rel="noopener">New Era Team</a></div>
-</article><article id="match-1080935" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-10-31T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 olympique mnihla academy enfida esports">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-31T17:00:00Z" class="utc" data-utc="2026-10-31T17:00:00Z">2026-10-31 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">Olympique Mnihla Academy</span><span class="tpct">55.6%</span>
-    </div>
-    <div class="split" role="img" aria-label="Olympique Mnihla Academy 56 percent, Enfida Esports 44 percent"><span class="s0" style="width:55.6%"></span></div>
-    <div class="team ">
-      <span class="tname">Enfida Esports</span><span class="tpct">44.4%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Olympique Mnihla Academy</strong> <span class="pickpct">55.6%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Olympique Mnihla Academy 1458 vs Enfida Esports 1419 (4/6 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-enfida-esports-tunisian-super-league-2026-1080935" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla_Academy" rel="noopener">Olympique Mnihla Academy</a><a href="https://lol.fandom.com/wiki/Enfida_Esports" rel="noopener">Enfida Esports</a></div>
-</article><article id="match-1080936" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-10-31T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 simplicity gaming jendouba esports">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-31T17:00:00Z" class="utc" data-utc="2026-10-31T17:00:00Z">2026-10-31 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">Simplicity Gaming</span><span class="tpct">75.7%</span>
-    </div>
-    <div class="split" role="img" aria-label="Simplicity Gaming 76 percent, Jendouba Esports 24 percent"><span class="s0" style="width:75.7%"></span></div>
-    <div class="team ">
-      <span class="tname">Jendouba Esports</span><span class="tpct">24.3%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Simplicity Gaming</strong> <span class="pickpct">75.7%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Simplicity Gaming 1643 vs Jendouba Esports 1445 (39/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/simplicity-gaming-vs-jendouba-esports-tunisian-super-league-2026-1080936" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Simplicity_Gaming" rel="noopener">Simplicity Gaming</a><a href="https://lol.fandom.com/wiki/Jendouba_Esports" rel="noopener">Jendouba Esports</a></div>
-</article><article id="match-1080937" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-10-31T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 zahrouni esports el menzah esports">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-10-31T17:00:00Z" class="utc" data-utc="2026-10-31T17:00:00Z">2026-10-31 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">Zahrouni Esports</span><span class="tpct">48.8%</span>
-    </div>
-    <div class="split" role="img" aria-label="Zahrouni Esports 49 percent, El Menzah Esports 51 percent"><span class="s0" style="width:48.8%"></span></div>
-    <div class="team fav">
-      <span class="tname">El Menzah Esports</span><span class="tpct">51.2%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>El Menzah Esports</strong> <span class="pickpct">51.2%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Zahrouni Esports 1439 vs El Menzah Esports 1448 (4/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/zahrouni-esports-vs-el-menzah-esports-tunisian-super-league-2026-1080937" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Zahrouni_Esports" rel="noopener">Zahrouni Esports</a><a href="https://lol.fandom.com/wiki/El_Menzah_Esports" rel="noopener">El Menzah Esports</a></div>
 </article><article id="match-1075764" class="card m-provisional" data-method="provisional" data-comp="PRM 3rd Division 26-27 Fall"
   data-start="2026-11-01T16:00:00Z" data-stale="0"
   data-text="prm 3rd division 26-27 fall black lion blackdivision">
@@ -391,98 +230,6 @@
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/team-300-white-vs-socken-und-sandalen-prm-3rd-division-26-27-fall-1075775" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_3rd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Team_300_White" rel="noopener">Team 300 White</a><a href="https://lol.fandom.com/wiki/Socken_und_Sandalen" rel="noopener">Socken und Sandalen</a></div>
-</article><article id="match-1080938" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-11-01T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 el menzah esports enfida esports">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-11-01T17:00:00Z" class="utc" data-utc="2026-11-01T17:00:00Z">2026-11-01 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">El Menzah Esports</span><span class="tpct">54.1%</span>
-    </div>
-    <div class="split" role="img" aria-label="El Menzah Esports 54 percent, Enfida Esports 46 percent"><span class="s0" style="width:54.1%"></span></div>
-    <div class="team ">
-      <span class="tname">Enfida Esports</span><span class="tpct">45.9%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>El Menzah Esports</strong> <span class="pickpct">54.1%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: El Menzah Esports 1448 vs Enfida Esports 1419 (4/6 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/el-menzah-esports-vs-enfida-esports-tunisian-super-league-2026-1080938" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/El_Menzah_Esports" rel="noopener">El Menzah Esports</a><a href="https://lol.fandom.com/wiki/Enfida_Esports" rel="noopener">Enfida Esports</a></div>
-</article><article id="match-1080939" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-11-01T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 jsk academy jendouba esports">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-11-01T17:00:00Z" class="utc" data-utc="2026-11-01T17:00:00Z">2026-11-01 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">JSK Academy</span><span class="tpct">54.0%</span>
-    </div>
-    <div class="split" role="img" aria-label="JSK Academy 54 percent, Jendouba Esports 46 percent"><span class="s0" style="width:54.0%"></span></div>
-    <div class="team ">
-      <span class="tname">Jendouba Esports</span><span class="tpct">46.0%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>JSK Academy</strong> <span class="pickpct">54.0%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: JSK Academy 1473 vs Jendouba Esports 1445 (31/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/jsk-academy-vs-jendouba-esports-tunisian-super-league-2026-1080939" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/JSK_Academy" rel="noopener">JSK Academy</a><a href="https://lol.fandom.com/wiki/Jendouba_Esports" rel="noopener">Jendouba Esports</a></div>
-</article><article id="match-1080940" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-11-01T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 olympique mnihla academy olympique mnihla">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-11-01T17:00:00Z" class="utc" data-utc="2026-11-01T17:00:00Z">2026-11-01 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">Olympique Mnihla Academy</span><span class="tpct">41.2%</span>
-    </div>
-    <div class="split" role="img" aria-label="Olympique Mnihla Academy 41 percent, Olympique Mnihla 59 percent"><span class="s0" style="width:41.2%"></span></div>
-    <div class="team fav">
-      <span class="tname">Olympique Mnihla</span><span class="tpct">58.8%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Olympique Mnihla</strong> <span class="pickpct">58.8%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Olympique Mnihla Academy 1458 vs Olympique Mnihla 1520 (4/41 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-olympique-mnihla-tunisian-super-league-2026-1080940" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla_Academy" rel="noopener">Olympique Mnihla Academy</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla" rel="noopener">Olympique Mnihla</a></div>
-</article><article id="match-1080942" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-11-01T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 zahrouni esports supreme leaders">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-11-01T17:00:00Z" class="utc" data-utc="2026-11-01T17:00:00Z">2026-11-01 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">Zahrouni Esports</span><span class="tpct">48.2%</span>
-    </div>
-    <div class="split" role="img" aria-label="Zahrouni Esports 48 percent, Supreme Leaders 52 percent"><span class="s0" style="width:48.2%"></span></div>
-    <div class="team fav">
-      <span class="tname">Supreme Leaders</span><span class="tpct">51.8%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Supreme Leaders</strong> <span class="pickpct">51.8%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Zahrouni Esports 1439 vs Supreme Leaders 1451 (4/5 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/zahrouni-esports-vs-supreme-leaders-tunisian-super-league-2026-1080942" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Zahrouni_Esports" rel="noopener">Zahrouni Esports</a><a href="https://lol.fandom.com/wiki/Supreme_Leaders" rel="noopener">Supreme Leaders</a></div>
 </article><article id="match-1083036" class="card m-provisional" data-method="provisional" data-comp="RIVALS LEAGUE Season 2"
   data-start="2026-11-01T18:00:00Z" data-stale="0"
   data-text="rivals league season 2 karolinerna lund esports organization ogs">
@@ -562,111 +309,19 @@
   <div class="comp">PRM 2nd Division 26-27 Fall</div>
   <div class="teams">
     <div class="team ">
-      <span class="tname">BvP</span><span class="tpct">29.7%</span>
+      <span class="tname">BvP</span><span class="tpct">28.7%</span>
     </div>
-    <div class="split" role="img" aria-label="BvP 30 percent, Babos Gaming 70 percent"><span class="s0" style="width:29.7%"></span></div>
+    <div class="split" role="img" aria-label="BvP 29 percent, Babos Gaming 71 percent"><span class="s0" style="width:28.7%"></span></div>
     <div class="team fav">
-      <span class="tname">Babos Gaming</span><span class="tpct">70.3%</span>
+      <span class="tname">Babos Gaming</span><span class="tpct">71.3%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Babos Gaming</strong> <span class="pickpct">70.3%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Babos Gaming</strong> <span class="pickpct">71.3%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: BvP 1486 vs Babos Gaming 1635 (3/59 rated series).</p>
+    <p>Elo line: BvP 1486 vs Babos Gaming 1644 (3/60 rated series).</p>
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/bvp-vs-babos-gaming-prm-2nd-division-26-27-fall-1079049" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_2nd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/BvP" rel="noopener">BvP</a><a href="https://lol.fandom.com/wiki/Babos_Gaming" rel="noopener">Babos Gaming</a></div>
-</article><article id="match-1080943" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-11-07T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 el menzah esports olympique mnihla">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-11-07T17:00:00Z" class="utc" data-utc="2026-11-07T17:00:00Z">2026-11-07 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">El Menzah Esports</span><span class="tpct">39.7%</span>
-    </div>
-    <div class="split" role="img" aria-label="El Menzah Esports 40 percent, Olympique Mnihla 60 percent"><span class="s0" style="width:39.7%"></span></div>
-    <div class="team fav">
-      <span class="tname">Olympique Mnihla</span><span class="tpct">60.3%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Olympique Mnihla</strong> <span class="pickpct">60.3%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: El Menzah Esports 1448 vs Olympique Mnihla 1520 (4/41 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/el-menzah-esports-vs-olympique-mnihla-tunisian-super-league-2026-1080943" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/El_Menzah_Esports" rel="noopener">El Menzah Esports</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla" rel="noopener">Olympique Mnihla</a></div>
-</article><article id="match-1080945" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-11-07T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 olympique mnihla academy simplicity gaming">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-11-07T17:00:00Z" class="utc" data-utc="2026-11-07T17:00:00Z">2026-11-07 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team ">
-      <span class="tname">Olympique Mnihla Academy</span><span class="tpct">25.7%</span>
-    </div>
-    <div class="split" role="img" aria-label="Olympique Mnihla Academy 26 percent, Simplicity Gaming 74 percent"><span class="s0" style="width:25.7%"></span></div>
-    <div class="team fav">
-      <span class="tname">Simplicity Gaming</span><span class="tpct">74.3%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Simplicity Gaming</strong> <span class="pickpct">74.3%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Olympique Mnihla Academy 1458 vs Simplicity Gaming 1643 (4/39 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-simplicity-gaming-tunisian-super-league-2026-1080945" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla_Academy" rel="noopener">Olympique Mnihla Academy</a><a href="https://lol.fandom.com/wiki/Simplicity_Gaming" rel="noopener">Simplicity Gaming</a></div>
-</article><article id="match-1080946" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-11-07T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 supreme leaders jendouba esports">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-11-07T17:00:00Z" class="utc" data-utc="2026-11-07T17:00:00Z">2026-11-07 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">Supreme Leaders</span><span class="tpct">50.9%</span>
-    </div>
-    <div class="split" role="img" aria-label="Supreme Leaders 51 percent, Jendouba Esports 49 percent"><span class="s0" style="width:50.9%"></span></div>
-    <div class="team ">
-      <span class="tname">Jendouba Esports</span><span class="tpct">49.1%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Supreme Leaders</strong> <span class="pickpct">50.9%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Supreme Leaders 1451 vs Jendouba Esports 1445 (5/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/supreme-leaders-vs-jendouba-esports-tunisian-super-league-2026-1080946" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Supreme_Leaders" rel="noopener">Supreme Leaders</a><a href="https://lol.fandom.com/wiki/Jendouba_Esports" rel="noopener">Jendouba Esports</a></div>
-</article><article id="match-1080947" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
-  data-start="2026-11-07T17:00:00Z" data-stale="0"
-  data-text="tunisian super league 2026 zahrouni esports enfida esports">
-  <div class="card-top">
-    <span class="when"><time datetime="2026-11-07T17:00:00Z" class="utc" data-utc="2026-11-07T17:00:00Z">2026-11-07 17:00 UTC</time></span>
-    <span class="badges"><span class="badge b-provisional">Provisional</span></span>
-  </div>
-  <div class="comp">Tunisian Super League 2026</div>
-  <div class="teams">
-    <div class="team fav">
-      <span class="tname">Zahrouni Esports</span><span class="tpct">52.8%</span>
-    </div>
-    <div class="split" role="img" aria-label="Zahrouni Esports 53 percent, Enfida Esports 47 percent"><span class="s0" style="width:52.8%"></span></div>
-    <div class="team ">
-      <span class="tname">Enfida Esports</span><span class="tpct">47.2%</span>
-    </div>
-  </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>Zahrouni Esports</strong> <span class="pickpct">52.8%</span></div>
-  <details class="why"><summary>Why this line</summary>
-    <p>Elo line: Zahrouni Esports 1439 vs Enfida Esports 1419 (4/6 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
-  </details>
-  <div class="src"><a href="https://www.hotspawn.com/matches/zahrouni-esports-vs-enfida-esports-tunisian-super-league-2026-1080947" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Zahrouni_Esports" rel="noopener">Zahrouni Esports</a><a href="https://lol.fandom.com/wiki/Enfida_Esports" rel="noopener">Enfida Esports</a></div>
 </article><article id="match-1079051" class="card m-provisional" data-method="provisional" data-comp="PRM 2nd Division 26-27 Fall"
   data-start="2026-11-08T16:00:00Z" data-stale="0"
   data-text="prm 2nd division 26-27 fall acegaming bvp">
@@ -677,16 +332,16 @@
   <div class="comp">PRM 2nd Division 26-27 Fall</div>
   <div class="teams">
     <div class="team ">
-      <span class="tname">AceGaming</span><span class="tpct">45.7%</span>
+      <span class="tname">AceGaming</span><span class="tpct">44.7%</span>
     </div>
-    <div class="split" role="img" aria-label="AceGaming 46 percent, BvP 54 percent"><span class="s0" style="width:45.7%"></span></div>
+    <div class="split" role="img" aria-label="AceGaming 45 percent, BvP 55 percent"><span class="s0" style="width:44.7%"></span></div>
     <div class="team fav">
-      <span class="tname">BvP</span><span class="tpct">54.3%</span>
+      <span class="tname">BvP</span><span class="tpct">55.3%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>BvP</strong> <span class="pickpct">54.3%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>BvP</strong> <span class="pickpct">55.3%</span></div>
   <details class="why"><summary>Why this line</summary>
-    <p>Elo line: AceGaming 1456 vs BvP 1486 (17/3 rated series).</p>
+    <p>Elo line: AceGaming 1449 vs BvP 1486 (18/3 rated series).</p>
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/acegaming-vs-bvp-prm-2nd-division-26-27-fall-1079051" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_2nd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/AceGaming" rel="noopener">AceGaming</a><a href="https://lol.fandom.com/wiki/BvP" rel="noopener">BvP</a></div>
@@ -1551,17 +1206,17 @@
   <div class="comp">Logitech G SuperStrike Cup Qualifier</div>
   <div class="teams">
     <div class="team fav">
-      <span class="tname">TUPKACHI NA KORICI</span><span class="tpct">60.2%</span>
+      <span class="tname">TUPKACHI NA KORICI</span><span class="tpct">60.3%</span>
     </div>
-    <div class="split" role="img" aria-label="TUPKACHI NA KORICI 60 percent, NE SE CUKA 40 percent"><span class="s0" style="width:60.2%"></span></div>
+    <div class="split" role="img" aria-label="TUPKACHI NA KORICI 60 percent, NE SE CUKA 40 percent"><span class="s0" style="width:60.3%"></span></div>
     <div class="team ">
-      <span class="tname">NE SE CUKA</span><span class="tpct">39.8%</span>
+      <span class="tname">NE SE CUKA</span><span class="tpct">39.7%</span>
     </div>
   </div>
-  <div class="pickline"><span class="picklabel">Pick</span> <strong>TUPKACHI NA KORICI</strong> <span class="pickpct">60.2%</span></div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>TUPKACHI NA KORICI</strong> <span class="pickpct">60.3%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: TUPKACHI NA KORICI 1578 vs NE SE CUKA 1506 (5/3 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed and Leaguepedia records completed series TUPKACHI NA KORICI 1-0 NE SE CUKA (Leaguepedia Data:Logitech G SuperStrike Cup/Qualifier); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/tupkachi-na-korici-vs-ne-se-cuka-logitech-g-superstrike-cup-qualifier-1083775" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup%2FQualifier" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/TUPKACHI_NA_KORICI" rel="noopener">TUPKACHI NA KORICI</a><a href="https://lol.fandom.com/wiki/NE_SE_CUKA" rel="noopener">NE SE CUKA</a></div>
 </article><article id="match-1080923" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
@@ -1584,7 +1239,7 @@
   <div class="pickline"><span class="picklabel">Pick</span> <strong>Jendouba Esports</strong> <span class="pickpct">53.7%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: Jendouba Esports 1445 vs Enfida Esports 1419 (4/6 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed and Leaguepedia records completed series Jendouba Esports 1-0 Enfida Esports (Leaguepedia Data:Tunisian Super League/2026 Season); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/jendouba-esports-vs-enfida-esports-tunisian-super-league-2026-1080923" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Jendouba_Esports" rel="noopener">Jendouba Esports</a><a href="https://lol.fandom.com/wiki/Enfida_Esports" rel="noopener">Enfida Esports</a></div>
 </article><article id="match-1080924" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
@@ -1607,7 +1262,7 @@
   <div class="pickline"><span class="picklabel">Pick</span> <strong>JSK Esports</strong> <span class="pickpct">71.9%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: JSK Esports 1610 vs El Menzah Esports 1448 (68/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-24T16:00:00Z while Data:Tunisian Super League/2026 Season records 2026-10-25 18:00Z (26h apart) - confirm before relying on the time</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/jsk-esports-vs-el-menzah-esports-tunisian-super-league-2026-1080924" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/JSK_Esports" rel="noopener">JSK Esports</a><a href="https://lol.fandom.com/wiki/El_Menzah_Esports" rel="noopener">El Menzah Esports</a></div>
 </article><article id="match-1080927" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
@@ -1630,7 +1285,7 @@
   <div class="pickline"><span class="picklabel">Pick</span> <strong>Olympique Mnihla Academy</strong> <span class="pickpct">52.8%</span></div>
   <details class="why"><summary>Why this line</summary>
     <p>Elo line: Zahrouni Esports 1439 vs Olympique Mnihla Academy 1458 (4/4 rated series).</p>
-    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed and Leaguepedia records completed series Zahrouni Esports 0-1 Olympique Mnihla Academy (Leaguepedia Data:Tunisian Super League/2026 Season); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/zahrouni-esports-vs-olympique-mnihla-academy-tunisian-super-league-2026-1080927" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Zahrouni_Esports" rel="noopener">Zahrouni Esports</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla_Academy" rel="noopener">Olympique Mnihla Academy</a></div>
 </article><article id="match-1079142" class="card m-provisional" data-method="provisional" data-comp="Arabian League 2nd Division 2026 Summer"
@@ -1725,6 +1380,52 @@
     <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
   </details>
   <div class="src"><a href="https://www.hotspawn.com/matches/whalepower-humpbacks-vs-socken-und-sandalen-prm-3rd-division-26-27-fall-1075761" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_3rd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Whalepower_Humpbacks" rel="noopener">Whalepower Humpbacks</a><a href="https://lol.fandom.com/wiki/Socken_und_Sandalen" rel="noopener">Socken und Sandalen</a></div>
+</article><article id="match-1080930" class="card m-provisional" data-method="provisional" data-comp="Tunisian Super League 2026"
+  data-start="2026-10-25T17:00:00Z" data-stale="1"
+  data-text="tunisian super league 2026 olympique mnihla academy el menzah esports">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-25T17:00:00Z" class="utc" data-utc="2026-10-25T17:00:00Z">2026-10-25 17:00 UTC</time></span>
+    <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-provisional">Provisional</span></span>
+  </div>
+  <div class="comp">Tunisian Super League 2026</div>
+  <div class="teams">
+    <div class="team fav">
+      <span class="tname">Olympique Mnihla Academy</span><span class="tpct">52.4%</span>
+    </div>
+    <div class="split" role="img" aria-label="Olympique Mnihla Academy 52 percent, El Menzah Esports 48 percent"><span class="s0" style="width:52.4%"></span></div>
+    <div class="team ">
+      <span class="tname">El Menzah Esports</span><span class="tpct">47.6%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Olympique Mnihla Academy</strong> <span class="pickpct">52.4%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: Olympique Mnihla Academy 1464 vs El Menzah Esports 1448 (5/4 rated series).</p>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed and Leaguepedia records completed series Olympique Mnihla Academy 0-1 El Menzah Esports (Leaguepedia Data:Tunisian Super League/2026 Season); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-el-menzah-esports-tunisian-super-league-2026-1080930" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Tunisian_Super_League%2F2026_Season" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/Olympique_Mnihla_Academy" rel="noopener">Olympique Mnihla Academy</a><a href="https://lol.fandom.com/wiki/El_Menzah_Esports" rel="noopener">El Menzah Esports</a></div>
+</article><article id="match-1075751" class="card m-provisional" data-method="provisional" data-comp="PRM 3rd Division 26-27 Fall"
+  data-start="2026-10-25T18:00:00Z" data-stale="1"
+  data-text="prm 3rd division 26-27 fall blackdivision kanji esports kin">
+  <div class="card-top">
+    <span class="when"><time datetime="2026-10-25T18:00:00Z" class="utc" data-utc="2026-10-25T18:00:00Z">2026-10-25 18:00 UTC</time></span>
+    <span class="badges"><span class="badge b-past">start time passed</span><span class="badge b-provisional">Provisional</span></span>
+  </div>
+  <div class="comp">PRM 3rd Division 26-27 Fall</div>
+  <div class="teams">
+    <div class="team ">
+      <span class="tname">BlackDivision</span><span class="tpct">45.9%</span>
+    </div>
+    <div class="split" role="img" aria-label="BlackDivision 46 percent, Kanji Esports KIN 54 percent"><span class="s0" style="width:45.9%"></span></div>
+    <div class="team fav">
+      <span class="tname">Kanji Esports KIN</span><span class="tpct">54.1%</span>
+    </div>
+  </div>
+  <div class="pickline"><span class="picklabel">Pick</span> <strong>Kanji Esports KIN</strong> <span class="pickpct">54.1%</span></div>
+  <details class="why"><summary>Why this line</summary>
+    <p>Elo line: BlackDivision 1472 vs Kanji Esports KIN 1500 (3/18 rated series).</p>
+    <ul class="flags"><li>fewer than 5 rated series for at least one team</li><li>start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)</li></ul>
+  </details>
+  <div class="src"><a href="https://www.hotspawn.com/matches/blackdivision-vs-kanji-esports-kin-prm-3rd-division-26-27-fall-1075751" rel="noopener">Hotspawn card</a><a href="https://lol.fandom.com/wiki/Prime_League_3rd_Division%2F2027_Season%2FFall_Split" rel="noopener">Tournament</a><a href="https://lol.fandom.com/wiki/BlackDivision" rel="noopener">BlackDivision</a><a href="https://lol.fandom.com/wiki/Kanji_Esports_KIN" rel="noopener">Kanji Esports KIN</a></div>
 </article></div>
 </section>
 
