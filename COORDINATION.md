@@ -14,6 +14,30 @@ Prior claims (`5ff8e6bf`, `80c624cd`, `c0a05820`, `4106ce94`, `bcfdfa66`) are >6
 
 ---
 
+# Session `9d0a516d` — unblock the canonical refresh, re-verify full pick coverage, mobile/exec-summary audit (2026-10-25)
+
+Branch: `arena/9d0a516d-lolhotspawn1` (fixed Arena session branch, from `main` @ `b19397f`).
+Board read first: every prior session (`9f16f9ad` latest, closed 2026-10-24T18:53Z) is **done**;
+no claim has been active for >18 h, so the files below are free. Claim filed before any code edit.
+
+## Claim
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `H1` | **Unblock the canonical 6-hourly `refresh-picks`** — the 11:34Z run on 2026-10-25 fetched 236 live fixtures and every `tools/verify.py` gate passed, but the `unit-tests` step failed 3 tests (`test_corroborate_history` ×2, `test_corroborate_offlist` ×1), so no fresh data has committed since 2026-10-24T20:54Z and the root site is stale. Root cause: those tests hard-code `captured_utc=2026-10-24`, which crossed the production 24 h receipt TTL (`RECEIPT_MAX_AGE_HOURS` in `tools/corroborate.py`) — a wall-clock time bomb, not a production defect. Fix the tests to use relative timestamps (pattern already used by `tests/test_corroborate.py`); do not weaken the TTL safeguard. | in progress | 9d0a516d | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` |
+| `H2` | **Local gate proof** — full `unittest discover`, `tools/verify.py`, `audit/check_site.py` green on the committed snapshot before any push. | in progress | 9d0a516d | no new files (terminal evidence into this log) |
+| `H3` | **PR → `main` → merge, then dispatch `refresh-picks`** and confirm a fresh snapshot commits and GitHub Pages redeploys (the sandbox has no egress to Hotspawn/books/Leaguepedia; the Actions runner does). Record run ids and the Pages deployment. | pending | 9d0a516d | `COORDINATION.md` only, plus the PR |
+| `H4` | **Re-verify "a pick for every listed match" on the refreshed snapshot** — 1:1 fixture coverage, every row has a pick (market / model / provisional / settlement), the unresolved ledger and the executive-summary unresolved section match the data, probabilities sum to 100 %, source links present. | pending | 9d0a516d | read-only; findings into this log and, only if a defect is found, a narrowly-scoped follow-up claim |
+| `H5` | **Independent low-tier line research (editorial corroboration)** — the runner-side probes (17 + 51 venues, 0 usable) are already committed; add a source-linked research memo documenting the structural reason the national/academy tail has no book line (e.g. Norway's Norsk Tipping monopoly, tier-C event status, books' tier-1-only coverage) and the Hotspawn forfeit-void rule. No inferred prices. | pending | 9d0a516d | `research/session_9d0a516d/**` (new) |
+| `H6` | **Mobile / executive-summary audit** — confirm the summary's in-site links, bottom nav, floating picks button and 360 px viewport behaviour; polish only if a concrete defect is found. | pending | 9d0a516d | `assets/**`, `tools/site.py` only if a defect is proven (new claim line before editing) |
+
+Non-overlap: no other live session. This session will not edit `tools/collect.py`, `tools/model.py`,
+`tools/verify.py`, `tools/corroborate.py`, `scripts/**`, `data/node/**`, `docs/**` or any workflow file.
+Generated `data/*.json`, `*.html` root pages and `picks.csv` are written by the Actions bot on the
+post-merge live run, not hand-edited here.
+
+---
+
 # Session `5ff8e6bf` — independent verification + integration (2026-10-24T16:20Z)
 
 Branch: `arena/5ff8e6bf-lolhotspawn1` (fixed Arena session branch, from `main` @ `8b84531`).
