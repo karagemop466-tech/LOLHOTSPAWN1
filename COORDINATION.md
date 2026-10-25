@@ -10,7 +10,54 @@ Prior claims (`5ff8e6bf`, `80c624cd`, `c0a05820`, `4106ce94`, `bcfdfa66`) are >6
 | `W3` | Executive summary + unresolved section audit: summary links to every pick view, unresolved picks & limitations section present in summary, mobile-first readability verified | done — summary links to table/picks/results/featured/originated/unresolved; unresolved-&-limitations section embedded in summary (`index.html#unresolved-summary`); full esportsbook probe ledger now rendered on `unresolved.html`; `audit/check_site.py` 24 pages 0 failures, `audit/mobile_audit.py` PASS, `tools/verify.py` 44/44, 64 unit tests OK | 3d124b45 | `tools/site.py` (only if a gap is found), `tests/**` |
 | `W4` | Final integration: verify gates, open PR to `main`, merge, confirm Pages deploy | in progress | 3d124b45 | `COORDINATION.md`, `README.md` |
 
+# Session `5d4e9477` — final integration, independent live-source verification, low-tier line research (2026-10-25T14:1xZ)
 
+Branch: `arena/5d4e9477-lolhotspawn1` (Arena fixed session branch, originally from `main` @ `b19397f`, now
+rebased onto `origin/main` @ `554faca` (PRs #122/#126 and the 14:58Z refresh are integrated). This session's
+first edit was this claim, pushed before any other edit. The system-fixed branch name is used instead
+of a `session-<id>/<task>` branch because Arena ties this session to `arena/5d4e9477-lolhotspawn1`.
+
+## Live claims read before filing (2026-10-25T14:08Z)
+
+| Owner | Active scope | Where recorded |
+|---|---|---|
+| `650571cf` | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py`, `tests/test_no_clock_bombs.py` (PR #94), `audit/session_650571cf/**`, `COORDINATION.md`, dispatch/verify `refresh-picks` | its branch's COORDINATION claim T1–T3 |
+| `666de992` | `tests/test_corroborate_*.py`, `research/session_666de992/**`, `tools/probe_*.py` (new), `data/probe/**`, `tools/site.py`, root `*.html`, `assets/**`, `audit/session_666de992/**`, `README.md`, `COORDINATION.md` | its branch's COORDINATION claim H1–H5 |
+| `b1e5557f` | `tools/site.py`, `assets/app.js`, `assets/style.css`, `tests/dashboard.cjs`, `tests/test_site_and_flags.py`, generated `index.html` (PR #95) | its branch's COORDINATION completion record |
+| `cb84d7dc` | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` — **merged as PR #93** | `main` @ `b7d846a` |
+| `3d124b45` | `tools/probe_esportsbook_feeds.py`, `tools/site.py`, `data/esportsbook_probe.json`, `research/LINE_SEARCH_2026-10-25.md`, `COORDINATION.md`, final integration W4 — **merged as PR #98** | `main` @ `edf0fd2` |
+| `63c67a23`, `cb84d7dc` | book-by-book evidence page / research dossier — merged as PR #96/#97 | `main` @ `edf0fd2` |
+
+All older claims in this file are dated 2026-10-23/24 (>19 h ago, no new commits) and are treated as
+**lapsed** under the 60-minute rule. This session will not resurrect them or edit their historical rows.
+
+## Claim (non-overlapping)
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `F1` | **Independent official-source verification of the published/live dataset**: reconcile the runner's Hotspawn inventory, all published rows/source links, probabilities/picks, and the live Pages root/table/unresolved pages; verify mobile controls. | done — `audit/session_5d4e9477/ROWS.md` + `rows.json`: 234/234 IDs, table rows, picks cards, CSV rows and exact Hotspawn source links; 0 row/source/arithmetic failures. Live summary/table/unresolved/market pages were fetched at 15:04Z (234 rows, 14:58 snapshot, Pages built). `audit/mobile_audit.py` PASS on 14 pages. Six displayed 50/50 selections and liquidity/source caveats are separately listed; no model/site file edited. | 5d4e9477 | `audit/session_5d4e9477/**` (new files only) |
+| `F2` | **Fresh external-line research for matches without a robust featured line**: check sportsbook, esportsbook and aggregator pages; publish dated receipts and limitations without converting placeholders/manual observations into production probabilities. | done — `research/session_5d4e9477/LOW_TIER_LINE_CHECK_2026-10-25.md` + JSON: direct Thunderpick line for #1079080 de-vigs to 35.15/64.85; merged PR #122 added Kalshi to the production LGC consensus and captured BMBETS/EsportsInsider comparison evidence for LCP Promotion; merged PR #126 added Smarkets (Worlds). EGW's #1081421/#1081423 pages were checked for placeholders. Manual/aggregator quotes were not silently substituted for first-party production quotes. | 5d4e9477 | `research/session_5d4e9477/**` (new files only) |
+| `F3` | **Final integration / verification record (coordinated with current integration PRs)**: rebase onto merged work, re-run gates, record deployment status, and merge this session's distinct audit artifacts without duplicating PR #105 or changing files owned by other active sessions. The final PR must wait until active code owners finish their claimed changes and Pages is built. | in progress — PR #122 (Kalshi consensus, BMBETS/EsportsInsider research) and PR #126 (Smarkets + docs-parity snapshot repair) are merged. Main @ `554faca` has a fresh 14:58Z 234-row snapshot; Pages run `40205095579` built at 15:03Z. Latest offline gate sweep: tests 139/139, tools/verify 57/57, site-check 24/0, mobile PASS, independent audit 50 venues/0 failures, docs integrity/parity PASS. `verify-live-sources` run `40204533849` separately failed on 8 Smarkets event-page URLs blocked to the runner (the raw market API returns quote data; every row still had alternate resolving evidence); this is logged below, not hidden. PR #102 (tie/no-pick + integrity), #105 (final audit record) and #123 (placeholder-card cleanup) remain open/active; PR #95 continues next-up mobile work. Final PR from this branch is still pending; do not duplicate these scopes. | 5d4e9477 | `COORDINATION.md`, `README.md`, `audit/session_5d4e9477/**`; conditional integration only after owner handoff |
+| `F4` | **Independent venue-provenance audit follow-up for Kalshi's shortened team name**: confirm whether the independent raw-payload audit reproduces the new LGC venue after PR #122. | done — the first post-merge run had shown `Kalshi quote 40¢/64¢ not found` for #1079080; after fetching the merged tree, `audit/verify_independent.py` now normalizes the source-specific `Rising Bees` alias and reproduces the `0.40 / 0.645` midpoints from raw Kalshi bid/asks (`0.36/0.44` for Mental Rush, `0.63/0.66` for Rising Bees), normalizing to `0.3828 / 0.6172`. Re-run result: 234 rows, 9 market rows, 50 venue checks, 0 failures/0 warnings. No source code or test file changed in this session; PR #122 resolved the independent-audit mismatch. | 5d4e9477 | read-only; evidence in `audit/session_5d4e9477/REPORT.md` |
+
+### Coordination rules this session follows
+
+- `git pull --rebase` (or fetch + rebase onto `origin/main`) before every push; small frequent commits.
+- No push to any branch other than `arena/5d4e9477-lolhotspawn1`; no branch switching.
+- If another session owns a required file, log the request here instead of editing it.
+- Every published number is checked against an official/live source; unconfirmed values stay blank and are
+  published on `flagged.html` rather than inferred.
+
+### Cross-scope requests / findings (updated 2026-10-25T15:05Z; PRs #122 and #126 merged)
+
+| To | Finding | Request / status |
+|---|---|---|
+| `81a08bc7` / PR #102 (owns `tools/model.py`, `tools/site.py`, flags) | The 14:58Z canonical refresh still rendered **six** rows as 50.0% / 50.0% while naming one side: `1053095` (49.96/50.04 before rounding), `1082002` (49.99/50.01), and exact ties `1081369`, `1082003`, `1082005`, `1082006`. | PR #102 already proposes explicit no-pick rows for displayed ties. Please ensure the post-refresh classifier includes #1053095 and #1082002 as well as the exact ties; this session has not edited model, site, flags, or data. |
+| `be974159` / merged PR #122 | The merged BMBETS LCP row for #1081423 contains bet365 `1.03/9.10`, TotoGaming `1.03/10.50`, 1xBet `1.02/10.50`, and BetOlimp `1.02/9.80` in one comparison-portal capture. | In `research/session_be974159/LOWTIER_AND_LCP_VERIFICATION_2026-10-25.md`, the prose range `~90.6%–91.2%` omits bet365's de-vigged 89.83% (the other three are 90.57%–91.15%). Please correct the range or identify a different calculation basis. This session has not edited the merged research/flags. |
+| `81a08bc7` / PR #102; `be974159` / merged PR #122 | #1079080 is now labelled high-confidence 2-Venue Consensus; the market row's `total_volume_usd` still records only Polymarket `$58.47`, while Kalshi volume is null in the raw CFTC payload. PR #122's research note separately mentions Kalshi volume and Polymarket CLOB liquidity. | Ensure the user-facing market card/source notes distinguish recorded per-venue volume from unpersisted manual liquidity observations; do not imply that `total_volume_usd` is the aggregate of both venues. This is a disclosure request, not a price/model edit. |
+| `154d8c26` / merged PR #126 (Smarkets venue owner) | `verify-live-sources` run `40204533849` on this session branch could not resolve 8 Smarkets event-page URLs from the runner (401/403); manual fetches of two page URLs showed “No data available for the selected contracts” alongside header percentages, while their raw `/v3/markets/{id}/quotes/` API endpoints returned bid/offer JSON. The independent raw-payload market audit passes; all rows retain alternate sources. | Please include each Smarkets `api_quotes_url` as a source link/receipt (or otherwise document the page/API distinction) and have the live-source verifier classify the event-page restriction separately from a broken quote. This session did not edit PR #126's scope. |
+| `81a08bc7` / PR #102 (owns `tools/flags.py`, source flags) | The Smarkets event pages in the current market table do not display the selected order book in a browser fetch (“No data available”), and 8/8 URLs were `401/403` in the live-source verifier, although the raw Smarkets quote API resolves. | Please expose/flag the page-vs-API review limitation on the site's Flagged/Sources page or link the quote API per venue; this audit does not edit that scope. |
+| `9b271aa4` / PR #105 (final audit record) | This session has produced the complementary per-row audit `audit/session_5d4e9477/ROWS.md` + JSON and low-tier source memo; PR #105 has its own one-page closeout report. | Files are disjoint; final integration should include both receipts or link to the 5d4e9477 audit directory. |
 
 ---
 
