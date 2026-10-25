@@ -2994,3 +2994,22 @@ two new gates, X4 merged and verified against the live site, and the six-hourly 
    committed by that workflow to `audit/session_c0a05820/`; the GitHub API rate limit shared by all
    concurrent sessions refused several reads during this session, so its post-merge verdict is left to
    the workflow's own receipt rather than asserted here.
+
+
+## Final record — session `cb84d7dc` (PRs, merges, refresh runs, live deployment)
+
+| item | value |
+|---|---|
+| PR #93 | merged `2026-10-25T14:0xZ` — the wall-clock-relative receipt fixtures that were failing `unit-tests` and blocking every scheduled refresh |
+| PR #97 | merged **`2026-10-25T14:13Z`**, merge commit `8492d35` — line-search receipts (`data/receipts/external_odds/2026-10-25.json`), `unresolved.html#observed`, the executive-summary evidence bullet, two new publish gates, the dossier, README + board record |
+| PR #103 | merged **`2026-10-25T14:23Z`** — merge record, corrected panel wording, Pages regenerated from the **fresh** 234-row snapshot, live-deploy verification |
+| `refresh-picks` after PR #97 | **SUCCESS** — commit `19dc1a9` `2026-10-25T14:15:16Z`, inventory `14:13:21Z`; first green canonical refresh since `2026-10-23T17:13:14Z` |
+| `refresh-picks` after PR #103 | **SUCCESS** — commit `32a5137` `2026-10-25T14:26:18Z`, inventory `14:24:04Z`; two consecutive green runs |
+| Snapshot now published | 234 cards · **234/234 with a pick** (230 priced + 4 official-forfeit settlements) · 9 market · 150 model · 71 provisional · **51/51 publish gates passed** · 0 rejected receipts |
+| GitHub Pages | live render fetched `14:26Z` and `14:35Z`: header `Data snapshot: 2026-10-25 …`, `234` cards, `100%` with a pick, **Picks by tournament (29)**, **Bookmaker evidence** bullet, `unresolved.html#observed` with **17 checks / 9 venues** (verbatim + capture time + link per row), 51-check gate named on the page. Receipt: `audit/cb84d7dc/live_verification.json` |
+| Not verifiable here | Actions run ids / Pages deployment run id (REST API `403 rate limit exceeded` from this sandbox all session). The bot's data commits plus the committed `data/verification.json` are used instead, because the workflow writes them only when the gate passes. |
+| Flagged for review (live) | `flagged.html` plus the four irregularities in section X4 above; nothing is hidden in this log only |
+
+**Session `cb84d7dc` status: done.** Picks for every listed match are published and current, the six-hourly
+refresh is green again, the book-by-book evidence for the unpriced tail is on the site with a gate behind it,
+and the executive summary links every list a phone user needs.
