@@ -1,16 +1,16 @@
 # Independent verification and source audit — session `5d4e9477`
 
-**Audit time:** 2026-10-25 15:03 UTC
+**Final check:** 2026-10-25 15:20 UTC (post-merge live fetch)
 **Canonical snapshot audited:** generated `2026-10-25T14:58:31Z`; Hotspawn inventory fetched `2026-10-25T14:56:39Z`; 234 fixtures.
-**Main tree:** `554faca` (after PR #126 / Smarkets and the latest refresh).
+**Main tree:** `43bd1d2` (PR #127 merged on top of PR #126 / Smarkets and the 14:58 refresh).
 **Live dashboard:** <https://karagemop466-tech.github.io/LOLHOTSPAWN1/>
-**Latest Pages build:** run `40205095579`, built successfully at 15:03:07Z for `main` @ `554faca`.
+**Latest Pages build:** run `40206460856`, built successfully at 15:20:23Z for `main` @ `43bd1d2`.
 
 ## Executive result
 
 The canonical root dashboard covers the current Hotspawn LoL inventory **234/234**. The row-level audit compares every published ID with the runner's raw Hotspawn response; finds **234 table rows, 234 pick cards, and 234 CSV rows**; and confirms that every table row links to its exact Hotspawn match card. CSV picks, method, start time, source URL and probabilities match the dataset. There are **230 probability lines** (9 market, 150 model, 71 provisional) and **4 administrative settlements without probabilities**. Those four are forfeits, not forecast probabilities; Hotspawn's published rule says forfeited Pick'ems are void.
 
-The six-hour refresh pipeline has published fresh rows: the current inventory was fetched at `14:56:39Z` and regenerated at `14:58:31Z`. A cache-busted fetch of the live landing page at about 15:04Z showed a 14:58 snapshot, 234 cards, next-kickoff shortcuts, source-linked pick-table links, a separate unresolved section and the phone quick-nav. Pages is currently built. PR #126 added Smarkets as a sixth market venue; the current 9 match-market rows cover 8 Worlds fixtures plus LGC #1079080. Smarkets' captured quotes are on Worlds, not the low-tier tail.
+The six-hour refresh pipeline has published fresh rows: the current inventory was fetched at `14:56:39Z` and regenerated at `14:58:31Z`. A cache-busted fetch immediately after PR #127's merge (about 15:20Z) showed that 14:58 snapshot, 234 cards, next-kickoff shortcuts, sourced pick-table links, the separate unresolved section, and the phone quick-nav. The post-merge Pages build is green. PR #126 added Smarkets as a sixth market venue; the current 9 match-market rows cover 8 Worlds fixtures plus LGC #1079080. Smarkets' captured quotes are on Worlds, not the low-tier tail.
 
 ## Line-by-line row verification
 
@@ -66,4 +66,10 @@ Most national/academy fixtures remain without a runner-readable book line; their
 4. **BMBETS probability wording:** the merged PR #122 memo says the four named sportsbook prices are all around `90.6%–91.2%`. Proportional de-vig of the recorded bet365 `1.03/9.10` pair gives **89.83%**, while the other three pairs give approximately 90.57%–91.15%. The summary range should include the bet365 result (about 89.8%–91.2%). The underlying calculation in this audit is linked and reproducible.
 5. **Smarkets manual review links:** PR #126 added Smarkets as a sixth market venue. The raw Smarkets API payload reproduces the stored probabilities and the independent market audit passes, but the published Smarkets event-page URLs were not resolved by the live-source runner (8/50 venue URLs received 401/403). Two manually opened event pages displayed “No data available for the selected contracts” alongside percentages, while their public `/v3/markets/{id}/quotes/` endpoints returned order-book JSON. Request to the PR #126 owner: expose a first-party quote API URL alongside the event page or document the page-vs-API limitation, and teach the live-source check not to call a temporarily inaccessible event page a valid human-review link without qualification.
 
-This session edited only new files under `audit/session_5d4e9477/` and `research/session_5d4e9477/`, plus its own coordination record. It did not change another session's model, site generator, raw payload, shared source receipt or generated production page. It did not change another session's model, site generator, raw payload, shared source receipt or generated production page.
+This session edited only new files under `audit/session_5d4e9477/` and `research/session_5d4e9477/`, plus its own coordination record. It did not change another session's model, site generator, raw payload, shared source receipt or generated production page.
+
+## PR and merge record
+
+- [PR #127](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/127) — merged 2026-10-25T15:20:22Z as commit `43bd1d2`.
+- [Pages deployment run 40206460856](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40206460856) — succeeded at 15:20:23Z; Pages API reported `built`; live summary, table, flagged and unresolved pages were fetched after the merge.
+- Follow-up code/audit work in PRs #102, #105, #123 and #95 remains owned by their active sessions; this PR did not override or close those branches. The unresolved tie, LCP price divergence, and Smarkets source-page limitation remain disclosed above for those owners to address. It did not change another session's model, site generator, raw payload, shared source receipt or generated production page.
