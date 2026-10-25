@@ -2663,3 +2663,19 @@ without commits and is taken over where noted below, per protocol.
 Takeover note: scopes above previously listed under closed session `63c67a23` (S2–S5) are now owned by
 `2faec1ff`. Shared outputs (`data/*.json`, `*.html`) are regenerated only by `tools/` in this
 integration session, never hand-edited.
+
+## Session `2faec1ff` — progress log & close-out (2026-10-25)
+
+| Task | Result | Evidence |
+|---|---|---|
+| `T1` low-tier source research | **done** — 52-venue + 37-source runner probes (2026-10-25T14:20Z) + browser captures (bo3.gg, EGamersWorld: Worlds only) + B2B review (Oddin.gg contract-only; OddsPapi coverage stops at Prime League Pro Division; keyed APIs 401). Only Worlds (5 venues) and LGC Rising (Polymarket, thin) are listed anywhere; 27/29 competitions have no external line. | `data/probe/lowtier_20261025.json` (`9811ff7`), `data/probe/sources_probe.json` (`de9ed13`), `research/session_2faec1ff/low-tier-resolution-2026-10-25.md` |
+| `T2` every-match pick audit | **done** — 241/241 picks (237 priced + 4 settlements). Found & fixed critical defect: post-kickoff Kalshi settling print published as LYON 99% (id 1067684). Guards: reject observed≥kickoff, reject prediction sides ≥97%, all live feeds ≤24 h; only that row's pick changed (→ Karmine Corp 60.3% originated). | `tools/model.py` (`6ee259a`), `tests/test_market_guards.py`, high-severity flag on `flagged.html` |
+| `T3` mobile summary | **done** — Starting-soon now precedes tournament directory; strip renders 16 rows with `data-start`, client hides started/locked rows (shows 8); Upcoming-only deep link; anchor `scroll-margin`; safe-area padding. Mobile audit PASS (14 pages). | `tools/site.py`, `assets/app.js`, `assets/style.css` (`35d5e4f`), `tests/test_next_strip.py` |
+| `T4` freshness/integration | **in progress → PR** — branch diagnostic ran full live pipeline green: 234 fixtures (inventory moved 241→234), `{market 9, model 150, provisional 71, unresolved 4}`, 52/52 gates. Published snapshot refreshes via `refresh.yml` on merge to `main` (tools/** trigger) + 6 h cron. | `data/diag/refresh.log` (`b45d88d`) |
+
+Verification (local, 2026-10-25): `tools/verify.py` **52/52 PASS**; unit tests **80/80 OK**;
+`audit/check_site.py` 24 pages 0 failures; `audit/verify_independent.py` 241 rows 0 failures
+(6 divergence warnings, disclosed, non-blocking); `audit/mobile_audit.py` PASS.
+Irregularities published (non-blocking, per brief): LYON post-kickoff incident (fixed),
+4 Solid Gaming settlements, 78 provisional thin-data lines, snapshot-age banner until first
+post-merge refresh. All on Flagged for Review / Unresolved pages with source links.
