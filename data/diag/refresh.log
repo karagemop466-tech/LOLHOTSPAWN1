@@ -1,4 +1,4 @@
-=== diag 2026-10-25T14:19:15Z ref=arena/81a08bc7-lolhotspawn1 sha=4d4ac9c2b2fbc11866e24367a2b96a97da9f25c9 ===
+=== diag 2026-10-25T14:21:47Z ref=arena/81a08bc7-lolhotspawn1 sha=d5faee0b7bbff9b8c5bced303b69fdc541c93c0e ===
 --- unittest ---
 test_age_hours (test_corroborate.ReceiptLedgerTests.test_age_hours) ... ok
 test_buckets (test_corroborate.ReceiptLedgerTests.test_buckets) ... ok
@@ -39,13 +39,13 @@ test_every_row_records_what_came_back (test_esportsbook_probe.EsportsbookProbeTe
 test_receipt_shape (test_esportsbook_probe.EsportsbookProbeTests.test_receipt_shape) ... ok
 test_summary_list_matches_rows (test_esportsbook_probe.EsportsbookProbeTests.test_summary_list_matches_rows) ... ok
 test_usable_requires_a_named_fixture_with_a_price (test_esportsbook_probe.EsportsbookProbeTests.test_usable_requires_a_named_fixture_with_a_price) ... ok
-test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [14:19:16] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp0ncst_42/flags.json' mode='r' encoding='utf-8'>
+test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [14:21:49] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpw8d1t5yr/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [14:19:16] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmppk17r8mg/flags.json' mode='r' encoding='utf-8'>
+test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [14:21:49] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpikel49s7/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -60,7 +60,7 @@ test_competition_page_disambiguates_homonyms_before_global_exact (test_integrity
 test_invalid_probabilities (test_integrity.IntegrityTests.test_invalid_probabilities) ... ok
 test_kambi_parse_events_reads_match_odds (test_integrity.IntegrityTests.test_kambi_parse_events_reads_match_odds) ... ok
 test_live_venue_name_aliases (test_integrity.IntegrityTests.test_live_venue_name_aliases) ... ok
-test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [14:19:16] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
+test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [14:21:49] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
 ok
 test_published_dataset_and_html_invariants (test_integrity.IntegrityTests.test_published_dataset_and_html_invariants) ... ok
 test_settlement_pick_is_valid_without_probability (test_integrity.IntegrityTests.test_settlement_pick_is_valid_without_probability) ... ok
@@ -80,7 +80,7 @@ test_prelock_quote_still_produces_a_devigged_line (test_market_integrity.MarketI
 test_same_teams_on_a_different_week_cannot_join (test_market_integrity.MarketIntegrityTests.test_same_teams_on_a_different_week_cannot_join) ... ok
 test_second_division_prior_does_not_inherit_challenger_promotion_prior (test_market_integrity.MarketIntegrityTests.test_second_division_prior_does_not_inherit_challenger_promotion_prior) ... ok
 test_flagged_page_renders_fixture_table_with_probabilities_picks_and_sources (test_site_and_flags.SiteAndFlagsRegressionTests.test_flagged_page_renders_fixture_table_with_probabilities_picks_and_sources) ... ok
-test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key (test_site_and_flags.SiteAndFlagsRegressionTests.test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key) ... [14:19:16] flags: 6 items
+test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key (test_site_and_flags.SiteAndFlagsRegressionTests.test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key) ... [14:21:49] flags: 6 items
 ok
 test_methodology_has_no_duplicate_guardrail_and_uses_tier_priors (test_site_and_flags.SiteAndFlagsRegressionTests.test_methodology_has_no_duplicate_guardrail_and_uses_tier_priors) ... ok
 test_mobile_audit_covers_all_14_root_pages_including_results (test_site_and_flags.SiteAndFlagsRegressionTests.test_mobile_audit_covers_all_14_root_pages_including_results) ... ok
@@ -88,28 +88,28 @@ test_page_shell_omits_redundant_floating_picks_pill_on_table_page (test_site_and
 test_results_page_every_td_has_data_label (test_site_and_flags.SiteAndFlagsRegressionTests.test_results_page_every_td_has_data_label) ... ok
 
 ----------------------------------------------------------------------
-Ran 70 tests in 0.199s
+Ran 70 tests in 0.637s
 
 OK
 unittest exit: 0
 --- tools/collect.py ---
-[14:19:17] hotspawn: 234 LoL fixtures
-[14:19:20] pinnacle: 80 LoL matchups, 8 with open series moneylines (4 '(Kills)' derivatives excluded)
-[14:19:20] kalshi: 9 CFTC match events (status=200)
-[14:19:20] bovada: 8 LoL moneylines (status=200)
-[14:19:21] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
-[14:19:21] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
-[14:19:21] kambi/nordicbet: status=429 No access
-[14:19:21] kambi/coolbet: 0 events, 0 new moneylines
-[14:19:21] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
-[14:20:29] leaguepedia: 34677 series rows, 11 pages with dqteams (err='')
-[14:20:29] lolesports: 80 Worlds events (status=200)
-[14:20:29] polymarket: 55 match-level markets (status=200)
-[14:20:38] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[14:21:50] hotspawn: 234 LoL fixtures
+[14:21:53] pinnacle: 80 LoL matchups, 8 with open series moneylines (4 '(Kills)' derivatives excluded)
+[14:21:53] kalshi: 9 CFTC match events (status=200)
+[14:21:54] bovada: 8 LoL moneylines (status=200)
+[14:21:55] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
+[14:21:55] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
+[14:21:55] kambi/nordicbet: status=429 No access
+[14:21:55] kambi/coolbet: 0 events, 0 new moneylines
+[14:21:55] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
+[14:23:02] leaguepedia: 34678 series rows, 11 pages with dqteams (err='')
+[14:23:02] lolesports: 80 Worlds events (status=200)
+[14:23:02] polymarket: 55 match-level markets (status=200)
+[14:23:13] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 tools/collect.py exit: 0
 --- tools/model.py ---
-[14:21:25] rows=234 methods={'model': 150, 'unresolved': 9, 'provisional': 66, 'market': 9} joins=33
-[14:21:25] backtest n=3920 acc=0.65 brier=0.2185
+[14:24:08] rows=234 methods={'model': 150, 'unresolved': 9, 'provisional': 66, 'market': 9} joins=33
+[14:24:08] backtest n=3920 acc=0.6497 brier=0.2185
 tools/model.py exit: 0
 --- tools/report.py ---
 {
@@ -254,26 +254,26 @@ NON-EXACT JOINS 15
 
 PRICED 9
   Worlds 2026 Main Event | ['Invictus Gaming', 'Hanwha Life Esports'] 0.2692 {'home': 3.48, 'away': 1.317}
-  Worlds 2026 Main Event | ['Top Esports', 'G2 Esports'] 0.4602 {'home': 2.11, 'away': 1.775}
+  Worlds 2026 Main Event | ['Top Esports', 'G2 Esports'] 0.4575 {'home': 2.14, 'away': 1.746}
   Worlds 2026 Main Event | ['Dplus KIA', 'Movistar KOI'] 0.7644 {'home': 1.268, 'away': 3.85}
   Worlds 2026 Main Event | ['Gen.G', 'LYON'] 0.8975 {'home': 1.064, 'away': 9.19}
   Worlds 2026 Main Event | ['T1', 'CTBC Flying Oyster'] 0.8565 {'home': 1.129, 'away': 6.05}
   Worlds 2026 Main Event | ['Karmine Corp', 'Bilibili Gaming'] 0.309 {'home': 3.06, 'away': 1.394}
   Worlds 2026 Main Event | ['LØS', 'Team Secret Whales'] 0.3526 {'home': 2.69, 'away': 1.49}
   Worlds 2026 Main Event | ['Team Liquid', "Anyone's Legend"] 0.3132 {'home': 3.05, 'away': 1.397}
-  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.375 None
+  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.37 None
 tools/report.py exit: 0
 --- tools/flags.py ---
-[14:21:25] flags: 38 items
+[14:24:08] flags: 38 items
 tools/flags.py exit: 0
 --- tools/site.py ---
-[14:21:25] site: wrote 13 pages to the published root
+[14:24:08] site: wrote 13 pages to the published root
 tools/site.py exit: 0
 --- tools/corroborate.py ---
-[14:21:25] corroborate: 2 usable receipts (1 agree / 1 diverge / 2 placeholder), 2/29 competitions priced externally
+[14:24:08] corroborate: 2 usable receipts (1 agree / 1 diverge / 2 placeholder), 2/29 competitions priced externally
 tools/corroborate.py exit: 0
 --- tools/verify.py ---
-[14:21:25] verification passed
+[14:24:09] verification passed
 PASS dataset present :: 234 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=234, published rows=234; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -320,14 +320,18 @@ PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=234 dataset=234 
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
 tools/verify.py exit: 0
---- environment probe ---
-200  https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1
-200  https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups
-200  https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=5
-200  https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en
-200  https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ
-200  https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends
-200  https://lol.fandom.com/wiki/Special:CargoExport
+--- audit/verify_independent.py ---
+rows=234 market_rows=9 venues_checked=41
+failures=0 warnings=0 kills_substitutions=0
+audit/verify_independent.py exit: 0
+--- audit/check_site.py ---
+pages=24 failures=6 warnings=0
+FAIL L1 docs/originated.html: link ../picks.html#match-1075719 -> picks.html has no id #match-1075719
+FAIL L1 docs/originated.html: link ../picks.html#match-1074658 -> picks.html has no id #match-1074658
+FAIL L1 docs/originated.html: link ../picks.html#match-1075731 -> picks.html has no id #match-1075731
+FAIL L1 docs/table.html: link ../picks.html#match-1075719 -> picks.html has no id #match-1075719
+FAIL L1 docs/table.html: link ../picks.html#match-1074658 -> picks.html has no id #match-1074658
+FAIL L1 docs/table.html: link ../picks.html#match-1075731 -> picks.html has no id #match-1075731
 passed: True checks: 45
 PASS dataset present :: 234 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=234, published rows=234; exact ID multiset comparison
