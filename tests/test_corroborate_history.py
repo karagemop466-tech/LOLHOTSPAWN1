@@ -142,7 +142,7 @@ class ReceiptHistoryTests(unittest.TestCase):
         s = doc["summary"]
         self.assertEqual(s["receipts"], 3)
         self.assertEqual(s["usable_receipts"] + s["placeholders"] + s["rejected_receipts"]
-                         + s["historic_receipts"], 3)
+                         + s["expired_receipts"] + s["historic_receipts"], 3)
 
     def test_coverage_page_renders_the_historical_receipts(self) -> None:
         self._write(
