@@ -1,4 +1,4 @@
-=== diag 2026-10-25T14:07:17Z ref=arena/3d124b45-lolhotspawn1 sha=e2681c8cec1c5331663b28962fb03e2f555aa882 ===
+=== diag 2026-10-25T14:08:54Z ref=arena/63c67a23-lolhotspawn1 sha=df09747204ce98d3e59c7e605ab39068e9376206 ===
 --- unittest ---
 test_age_hours (test_corroborate.ReceiptLedgerTests.test_age_hours) ... ok
 test_buckets (test_corroborate.ReceiptLedgerTests.test_buckets) ... ok
@@ -33,24 +33,31 @@ test_published_verification_report_is_consistent (test_corroboration.PublishGate
 test_the_blocking_condition_only_looks_at_rejected_receipts (test_corroboration.PublishGateRegressionTests.test_the_blocking_condition_only_looks_at_rejected_receipts) ... ok
 test_missing_fixture_id_is_malformed_not_historic (test_corroboration.ReceiptIdentityTests.test_missing_fixture_id_is_malformed_not_historic)
 A blank ID is not evidence for a fixture that legitimately left the feed. ... ok
-test_new_candidates_present_on_official_domains (test_esportsbook_candidates.TestCandidates.test_new_candidates_present_on_official_domains) ... ok
-test_unique_slugs_and_https (test_esportsbook_candidates.TestCandidates.test_unique_slugs_and_https) ... ok
 test_classifier_accepts_an_observed_1xbet_style_quote (test_esportsbook_probe.EsportsbookProbeTests.test_classifier_accepts_an_observed_1xbet_style_quote) ... ok
 test_classifier_refuses_prices_it_cannot_see (test_esportsbook_probe.EsportsbookProbeTests.test_classifier_refuses_prices_it_cannot_see) ... ok
 test_every_row_records_what_came_back (test_esportsbook_probe.EsportsbookProbeTests.test_every_row_records_what_came_back) ... ok
 test_receipt_shape (test_esportsbook_probe.EsportsbookProbeTests.test_receipt_shape) ... ok
 test_summary_list_matches_rows (test_esportsbook_probe.EsportsbookProbeTests.test_summary_list_matches_rows) ... ok
 test_usable_requires_a_named_fixture_with_a_price (test_esportsbook_probe.EsportsbookProbeTests.test_usable_requires_a_named_fixture_with_a_price) ... ok
-test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [14:07:18] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpztj0zy2n/flags.json' mode='r' encoding='utf-8'>
+test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [14:08:54] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpiif7_3mq/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [14:07:18] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp5tr9fyhi/flags.json' mode='r' encoding='utf-8'>
+test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [14:08:54] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpthktibih/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
+test_app_js_reads_the_query_string (test_full_coverage.DeepLinkClient.test_app_js_reads_the_query_string) ... ok
+test_a_match_without_a_probability_names_its_settlement_source (test_full_coverage.PublishedDatasetCoverage.test_a_match_without_a_probability_names_its_settlement_source) ... ok
+test_dataset_is_not_empty (test_full_coverage.PublishedDatasetCoverage.test_dataset_is_not_empty) ... ok
+test_every_match_has_a_pick (test_full_coverage.PublishedDatasetCoverage.test_every_match_has_a_pick) ... ok
+test_every_row_carries_its_hotspawn_card (test_full_coverage.PublishedDatasetCoverage.test_every_row_carries_its_hotspawn_card) ... ok
+test_methods_are_known (test_full_coverage.PublishedDatasetCoverage.test_methods_are_known) ... ok
+test_settlement_picks_do_not_claim_a_probability (test_full_coverage.PublishedDatasetCoverage.test_settlement_picks_do_not_claim_a_probability) ... ok
+test_every_competition_gets_one_linked_row (test_full_coverage.TournamentDirectory.test_every_competition_gets_one_linked_row) ... ok
+test_query_strings_are_url_encoded (test_full_coverage.TournamentDirectory.test_query_strings_are_url_encoded) ... ok
 test_every_graded_row_cites_its_source (test_grading.GradingTests.test_every_graded_row_cites_its_source) ... ok
 test_grade_only_with_result (test_grading.GradingTests.test_grade_only_with_result) ... ok
 test_grade_values (test_grading.GradingTests.test_grade_values) ... ok
@@ -62,7 +69,7 @@ test_competition_page_disambiguates_homonyms_before_global_exact (test_integrity
 test_invalid_probabilities (test_integrity.IntegrityTests.test_invalid_probabilities) ... ok
 test_kambi_parse_events_reads_match_odds (test_integrity.IntegrityTests.test_kambi_parse_events_reads_match_odds) ... ok
 test_live_venue_name_aliases (test_integrity.IntegrityTests.test_live_venue_name_aliases) ... ok
-test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [14:07:18] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
+test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [14:08:54] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
 ok
 test_published_dataset_and_html_invariants (test_integrity.IntegrityTests.test_published_dataset_and_html_invariants) ... ok
 test_settlement_pick_is_valid_without_probability (test_integrity.IntegrityTests.test_settlement_pick_is_valid_without_probability) ... ok
@@ -74,7 +81,7 @@ test_unresolved_both_sides_blank (test_integrity.IntegrityTests.test_unresolved_
 test_valid (test_integrity.IntegrityTests.test_valid) ... ok
 test_wrong_team_same_probability (test_integrity.IntegrityTests.test_wrong_team_same_probability) ... ok
 test_flagged_page_renders_fixture_table_with_probabilities_picks_and_sources (test_site_and_flags.SiteAndFlagsRegressionTests.test_flagged_page_renders_fixture_table_with_probabilities_picks_and_sources) ... ok
-test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key (test_site_and_flags.SiteAndFlagsRegressionTests.test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key) ... [14:07:18] flags: 6 items
+test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key (test_site_and_flags.SiteAndFlagsRegressionTests.test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key) ... [14:08:54] flags: 6 items
 ok
 test_methodology_has_no_duplicate_guardrail_and_uses_tier_priors (test_site_and_flags.SiteAndFlagsRegressionTests.test_methodology_has_no_duplicate_guardrail_and_uses_tier_priors) ... ok
 test_mobile_audit_covers_all_14_root_pages_including_results (test_site_and_flags.SiteAndFlagsRegressionTests.test_mobile_audit_covers_all_14_root_pages_including_results) ... ok
@@ -82,28 +89,28 @@ test_page_shell_omits_redundant_floating_picks_pill_on_table_page (test_site_and
 test_results_page_every_td_has_data_label (test_site_and_flags.SiteAndFlagsRegressionTests.test_results_page_every_td_has_data_label) ... ok
 
 ----------------------------------------------------------------------
-Ran 64 tests in 0.096s
+Ran 71 tests in 0.267s
 
 OK
 unittest exit: 0
 --- tools/collect.py ---
-[14:07:19] hotspawn: 234 LoL fixtures
-[14:07:22] pinnacle: 80 LoL matchups, 8 with open series moneylines (4 '(Kills)' derivatives excluded)
-[14:07:22] kalshi: 9 CFTC match events (status=200)
-[14:07:22] bovada: 8 LoL moneylines (status=200)
-[14:07:23] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
-[14:07:23] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
-[14:07:23] kambi/nordicbet: status=429 No access
-[14:07:24] kambi/coolbet: 0 events, 0 new moneylines
-[14:07:24] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
-[14:08:33] leaguepedia: 34678 series rows, 11 pages with dqteams (err='')
-[14:08:33] lolesports: 80 Worlds events (status=200)
-[14:08:34] polymarket: 55 match-level markets (status=200)
-[14:08:43] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[14:08:55] hotspawn: 234 LoL fixtures
+[14:08:58] pinnacle: 80 LoL matchups, 8 with open series moneylines (4 '(Kills)' derivatives excluded)
+[14:08:58] kalshi: 9 CFTC match events (status=200)
+[14:08:58] bovada: 8 LoL moneylines (status=200)
+[14:08:59] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
+[14:08:59] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
+[14:08:59] kambi/nordicbet: status=429 No access
+[14:08:59] kambi/coolbet: 0 events, 0 new moneylines
+[14:08:59] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
+[14:10:02] leaguepedia: 34677 series rows, 11 pages with dqteams (err='')
+[14:10:02] lolesports: 80 Worlds events (status=200)
+[14:10:04] polymarket: 55 match-level markets (status=200)
+[14:10:11] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 tools/collect.py exit: 0
 --- tools/model.py ---
-[14:09:05] rows=234 methods={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9} joins=33
-[14:09:05] backtest n=3920 acc=0.6495 brier=0.2185
+[14:10:51] rows=234 methods={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9} joins=33
+[14:10:51] backtest n=3920 acc=0.6497 brier=0.2185
 tools/model.py exit: 0
 --- tools/report.py ---
 {
@@ -240,27 +247,27 @@ NON-EXACT JOINS 15
   competition-page | Team Gromp -> Team Gromp (Australian Team) | resolved within 'LCP/2027 Season/Promotion' to 'Team Gromp (Australian Team)' rather than 
 
 PRICED 9
-  Worlds 2026 Main Event | ['Invictus Gaming', 'Hanwha Life Esports'] 0.2762 {'home': 3.43, 'away': 1.325}
-  Worlds 2026 Main Event | ['Top Esports', 'G2 Esports'] 0.4643 {'home': 2.11, 'away': 1.775}
-  Worlds 2026 Main Event | ['Dplus KIA', 'Movistar KOI'] 0.7618 {'home': 1.268, 'away': 3.85}
+  Worlds 2026 Main Event | ['Invictus Gaming', 'Hanwha Life Esports'] 0.2706 {'home': 3.43, 'away': 1.325}
+  Worlds 2026 Main Event | ['Top Esports', 'G2 Esports'] 0.4602 {'home': 2.11, 'away': 1.775}
+  Worlds 2026 Main Event | ['Dplus KIA', 'Movistar KOI'] 0.7644 {'home': 1.268, 'away': 3.85}
   Worlds 2026 Main Event | ['Gen.G', 'LYON'] 0.8975 {'home': 1.064, 'away': 9.19}
-  Worlds 2026 Main Event | ['T1', 'CTBC Flying Oyster'] 0.8556 {'home': 1.129, 'away': 6.05}
+  Worlds 2026 Main Event | ['T1', 'CTBC Flying Oyster'] 0.8565 {'home': 1.129, 'away': 6.05}
   Worlds 2026 Main Event | ['Karmine Corp', 'Bilibili Gaming'] 0.309 {'home': 3.06, 'away': 1.394}
-  Worlds 2026 Main Event | ['LØS', 'Team Secret Whales'] 0.3556 {'home': 2.69, 'away': 1.49}
-  Worlds 2026 Main Event | ['Team Liquid', "Anyone's Legend"] 0.3145 {'home': 3.05, 'away': 1.397}
+  Worlds 2026 Main Event | ['LØS', 'Team Secret Whales'] 0.3526 {'home': 2.69, 'away': 1.49}
+  Worlds 2026 Main Event | ['Team Liquid', "Anyone's Legend"] 0.3132 {'home': 3.05, 'away': 1.397}
   LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.365 None
 tools/report.py exit: 0
 --- tools/flags.py ---
-[14:09:05] flags: 37 items
+[14:10:51] flags: 37 items
 tools/flags.py exit: 0
 --- tools/site.py ---
-[14:09:05] site: wrote 13 pages to the published root
+[14:10:51] site: wrote 13 pages to the published root
 tools/site.py exit: 0
 --- tools/corroborate.py ---
-[14:09:05] corroborate: 2 usable receipts (1 agree / 1 diverge / 2 placeholder), 2/29 competitions priced externally
+[14:10:51] corroborate: 2 usable receipts (1 agree / 1 diverge / 2 placeholder), 2/29 competitions priced externally
 tools/corroborate.py exit: 0
 --- tools/verify.py ---
-[14:09:05] verification passed
+[14:10:52] verification passed
 PASS dataset present :: 234 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=234, published rows=234; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -305,6 +312,11 @@ PASS source availability recorded :: 12/18 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=234 dataset=234 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
+PASS every unpriced match carries a documented settlement source :: 0 problems: []
+PASS every unpriced match appears on the unresolved ledger page :: 0 missing from unresolved.html: []
+PASS executive summary names every unresolved match :: 0 unresolved cards missing from index.html: []
+PASS landing-page tournament directory links every tournament to a filterable pick table :: 29 tournaments; missing links: []; missing table rows: []
+PASS tournament deep links are honoured by the client filter :: assets/app.js reads ?comp=, ?method=, ?q= and ?upcoming= into the table/card filters
 tools/verify.py exit: 0
 --- environment probe ---
 200  https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1
@@ -314,7 +326,7 @@ tools/verify.py exit: 0
 200  https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ
 200  https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends
 200  https://lol.fandom.com/wiki/Special:CargoExport
-passed: True checks: 44
+passed: True checks: 49
 PASS dataset present :: 234 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=234, published rows=234; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -359,3 +371,8 @@ PASS source availability recorded :: 12/18 sources reachable on this build
 PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=234 dataset=234 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
+PASS every unpriced match carries a documented settlement source :: 0 problems: []
+PASS every unpriced match appears on the unresolved ledger page :: 0 missing from unresolved.html: []
+PASS executive summary names every unresolved match :: 0 unresolved cards missing from index.html: []
+PASS landing-page tournament directory links every tournament to a filterable pick table :: 29 tournaments; missing links: []; missing table rows: []
+PASS tournament deep links are honoured by the client filter :: assets/app.js reads ?comp=, ?method=, ?q= and ?upcoming= into the table/card filters
