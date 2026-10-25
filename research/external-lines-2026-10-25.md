@@ -40,6 +40,38 @@ Polymarket, Kalshi) and LGC Rising 2026 Playoffs (Polymarket only). The remainin
 (232 of 241 matches at that snapshot) are mentioned by no reachable book, esportsbook, exchange or
 aggregator** ([memo](low-tier-sources-2026-10-24.md), [receipts](../data/probe/lowtier_20261024.json)).
 
+## Runner probe re-run on 2026-10-25 (the authoritative egress)
+
+The same day, `tools/probe_sources.py` was re-run from a GitHub Actions runner — the only egress allowed
+to price a row — against **37 venues**, including six new candidates added by this session (DraftKings and
+FanDuel public content APIs, BetOnline lines, Betano's JSON coupon, and the two keyed aggregators).
+Receipts: [`data/probe/sources_probe.json`](../data/probe/sources_probe.json), `probed_utc`
+**2026-10-25T14:09:09Z**.
+
+| Venue | Status | Current Hotspawn team names found | Reading |
+|---|---|---|---|
+| Pinnacle guest API | 200 `application/json` | **4** | Worlds ties only |
+| Polymarket gamma | 200 `application/json` | **8** | Worlds ties only |
+| Kalshi `KXLOLGAME` | 200 `application/json` | **8** | Worlds contracts only |
+| Bovada LoL coupon | 200 `application/json` | **8** | Worlds ties only |
+| BetOnline esports lines | 200 `text/html` | 0 | page shell, no current fixtures |
+| Betano LoL / Betano JSON API | 200 `text/html` | 0 | HTML shell served on the API path too |
+| Thunderpick, Rivalry, BC.GAME, OddsPortal, Flashscore, bo3.gg | 200 `text/html` | 0 | JS-rendered coupons; zero current fixtures in the payload |
+| DraftKings content API | 403 | 0 | blocked from the runner |
+| FanDuel page API | 400 | 0 | parameter/key contract rejected |
+| GG.BET, Stake, Sofascore, EGamersWorld, Escorenews, Liquipedia, Riot schedule | 403 | 0 | bot/geo wall or key required |
+| The Odds API, OddsPapi | 401 | 0 | key required — recorded as key-gated, never as a price |
+
+**Only four sources named a single team that is on the current Hotspawn list, and the names are exactly
+the Worlds 2026 bracket** — Pinnacle found `Anyone's Legend`, `CTBC Flying Oyster`, `Dplus KIA`, `Gen.G`;
+Polymarket, Kalshi and Bovada each found those plus `Bilibili Gaming`, `G2 Esports`,
+`Hanwha Life Esports`, `Invictus Gaming`. Not one esportsbook, exchange or aggregator returned a price for a national, academy or
+benelux division. Combined with the 51-venue low-tier matrix from the day before (2 of 29 competitions
+mentioned), the conclusion is stable across two independent probes and two egresses:
+
+> Below the Worlds ceiling there is **no external line in existence that this pipeline can reach**, so a
+> pick for those matches can only be originated from recorded results, or withheld with a stated reason.
+
 ## Conclusion — how a pick is resolved when no venue prices the match
 
 The answer to "resolve a pick for matches we don't have one for" is **not** another book: below the

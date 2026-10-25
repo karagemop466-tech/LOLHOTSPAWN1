@@ -2596,3 +2596,48 @@ Claim filed at session start, before any pipeline edit, per protocol.
 No other session has a live claim in this file (every prior claim is closed and recorded as done);
 the board shows no `in progress` item owned by another session. File scopes above do not overlap
 with any prior session's scope because all of those sessions are closed.
+
+## Session `63c67a23` — progress log
+
+### `S1` refresh repair — cause confirmed, and note on duplicated work
+
+| Time (UTC) | Event |
+|---|---|
+| 2026-10-25T14:02Z | Failing run `40189452274` (11:34Z) inspected with `gh api …/runs/40189452274/jobs`: step *Stop on failed gate* failed, *Commit data and site* skipped; `data/build_failed_steps.txt` = `unit-tests`. `tools/verify.py` had passed **all 48** checks in the same run, so this was never a data or source failure. |
+| 14:03Z | Reproduced locally: `python3 -m unittest discover -s tests` → `FAILED (failures=3)` on `test_corroborate_history` / `test_corroborate_offlist`, `usable_receipts 0 != 1`. Cause: fixtures hardcoded `captured_utc 2026-10-24T00:00Z`, which crossed `RECEIPT_MAX_AGE_HOURS = 24` at ~2026-10-25T00:00Z. |
+| 14:04Z | Fixtures made wall-clock relative (`_stamp(hours_ago)`), assertions untouched → 62/62 OK. Claim `S1` filed and pushed as `fb57dab`. |
+| 14:09Z | `origin/main` meanwhile moved to `b7d846a` (PR #93, session `cb84d7dc`), which contains an **equivalent fix** (`1be41b6`), and session `650571cf` opened PR #94 covering the same defect with a `tests/test_no_clock_bombs.py` guard. **Duplicate work, no harm:** my `S1` commit and `1be41b6` are the same repair; on merge (`7cea3c5`) I resolved the two conflicting test files in favour of `main`'s already-merged version and kept nothing of mine there. No other session's work was discarded, and no second test-fix PR needs merging. |
+
+Root cause is now published as a curated flag on `flagged.html` (severity high, with the failing run link).
+
+### `S2` external-line research — fresh receipts, one conclusion
+
+`tools/probe_sources.py` was extended with six candidates (DraftKings, FanDuel, BetOnline lines, Betano
+JSON, The Odds API, OddsPapi) and re-run **from the runner** at `2026-10-25T14:09:09Z` against 37 venues
+(`data/probe/sources_probe.json`, committed by the probe bot). Result: **only Pinnacle (4 names),
+Polymarket (8), Kalshi (8) and Bovada (8) mention any team on the current Hotspawn list, and every name
+is Worlds 2026.** DraftKings 403, FanDuel 400, Sofascore 403, GG.BET/Stake/EGamersWorld 403, BetOnline
+and Betano 200 but HTML-only, The Odds API and OddsPapi 401 (key-gated). A second, independent
+session-egress check the same day reached the same ceiling. Written up with links and timestamps in
+`research/external-lines-2026-10-25.md` and linked from the executive summary.
+
+### `S3`/`S4` coverage + mobile clarity — implemented
+
+- `tools/site.py`: new **Picks by tournament** directory on the landing page — one row per competition
+  (matches, how many carry a win probability, market-priced, earliest kick-off) deep-linking to
+  `table.html?comp=<tournament>`.
+- `assets/app.js`: honours `?comp=`, `?method=`, `?q=`, `?upcoming=1` on both the table and the card view,
+  with a "filtered to …" note so a filtered list never passes for the full one. `node --check` clean.
+- `tools/verify.py`: **49 gates** (was 48). New: every unpriced match must name a settlement source, must
+  appear on `unresolved.html`, and must be named in the executive summary; every tournament must have a
+  working deep link and a matching table row; the client must implement the deep-link contract. The
+  internal-link checker now strips query strings before testing that the target file exists.
+- `tests/test_full_coverage.py` (new, 9 tests): dataset coverage contract + tournament directory rendering
+  + deep-link client. Suite is **71 tests, all passing**; `audit/mobile_audit.py` PASS on every page;
+  `audit/check_site.py` 24 pages, 0 failures, 0 warnings.
+
+### Still to do in this session
+
+`S5`: PR from `arena/63c67a23-lolhotspawn1` → `main`, merge, confirm the Pages deploy and a green
+`refresh-picks` run (the merge itself triggers `refresh.yml` through the `tools/**` path filter), then
+record the run id, snapshot timestamp and deploy result here.
