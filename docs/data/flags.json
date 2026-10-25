@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T15:44:51.608Z",
+  "generated_at": "2026-10-25T20:32:15.407Z",
   "count": 15,
   "flags": [
     {
@@ -87,16 +87,16 @@
       "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
     },
     {
-      "id": "venue-divergence-1075817",
-      "match_id": "1075817",
+      "id": "venue-divergence-1075819",
+      "match_id": "1075819",
       "severity": "low",
       "kind": "cross-venue-divergence",
       "competition": "Worlds 2026 Main Event",
-      "matchup": "Invictus Gaming vs Hanwha Life Esports",
-      "state": "open",
-      "detail": "Cross-venue implied probability spread is 6.1 pp across 6 independent venues.",
-      "hotspawn_url": "https://www.hotspawn.com/matches/invictus-gaming-vs-hanwha-life-esports-worlds-2026-main-event-1075817",
-      "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight"
+      "matchup": "Dplus KIA vs Movistar KOI",
+      "state": "locked",
+      "detail": "Cross-venue implied probability spread is 17.5 pp across 2 independent venues.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/dplus-kia-vs-movistar-koi-worlds-2026-main-event-1075819",
+      "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639250508/markets/related/straight"
     },
     {
       "id": "entity-collision-1079031",
@@ -176,7 +176,7 @@
       "severity": "medium",
       "kind": "unverified-field-left-blank",
       "competition": "LCP 2027 Promotion",
-      "matchup": "234 scheduled fixtures with best_of = null in the Hotspawn feed",
+      "matchup": "233 scheduled fixtures with best_of = null in the Hotspawn feed",
       "state": "open",
       "detail": "Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.",
       "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothinhere-lcp-2027-promotion-1081421",
