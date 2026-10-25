@@ -46,10 +46,10 @@
   },
   {
    "severity": "medium",
-   "item": "Single-venue prediction market with $5 traded volume (#1079080 Mental Rush vs Vitality Rising Bees)",
-   "detail": "The only external quote for this LGC Rising 2026 Playoffs final is Polymarket's series market lol-rb-mr-2026-10-27 at 68¢ / 32¢ with $5.00 of traded volume (its Game 1-4 sub-markets are parked at 50/50 with a 0.04 bid / 0.96 ask spread). The line is published but downgraded to low confidence and flagged on the card; the earlier curated note that described #1079080 as 'Bushido Wildcats vs Misa Esports' referred to a 264-row snapshot and has been replaced.",
+   "item": "Thin Polymarket liquidity ($5–$28 volume) corroborated by Kalshi CFTC contract (#1079080 Mental Rush vs Vitality Rising Bees)",
+   "detail": "Polymarket's series market lol-rb-mr-2026-10-27 for this LGC Rising 2026 Playoffs final carries thin traded volume ($5–$28; its Game 1-4 sub-markets sit at 50/50 wide spreads). Kalshi's CFTC-regulated contract KXLOLGAME-26OCT271300RBMR also quotes the series under shortened team label 'Rising Bees' (verified = Vitality Rising Bees on Polymarket/Leaguepedia); adding the explicit BOOK_TEAM_ALIASES entry ('rising bees': 'vitality rising bees') joins both live exchange books into a 2-venue consensus (~63.6% Mental Rush / 36.4% Vitality Rising Bees, corroborated by Thunderpick 1.49/2.75 = 35.15% Rising Bees).",
    "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
-   "verification": "verified live 2026-10-23 via gamma-api.polymarket.com (volume=5, outcomePrices 0.68/0.32)"
+   "verification": "verified live 2026-10-25 via gamma-api.polymarket.com and api.elections.kalshi.com (KXLOLGAME-26OCT271300RBMR)"
   },
   {
    "severity": "high",
@@ -185,6 +185,27 @@
    "detail": "Fresh runner probes at 2026-10-25T14:20Z against the live 234-fixture inventory (29 competitions): only Worlds 2026 Main Event (Pinnacle, Unibet/Kambi, Bovada, Polymarket, Kalshi) and LGC Rising 2026 Playoffs (Polymarket only, $28 thin market at last pricing) appear in any venue payload. PRM 2nd/3rd Division (87 fixtures in the 2026-10-24 snapshot), RIVALS, Tunisian, Arabian, Icelandic, Benelux, Komplettligaen, LigaGG and the rest appear nowhere. Same-day browser captures of bo3.gg and EGamersWorld LoL match centres also list Worlds fixtures only. B2B odds feeds (e.g. Oddin.gg, which powers operator books under contract) and keyed APIs (The Odds API / OddsPapi returned 401) exist but cannot be cited per row without credentials; OddsPapi's published LoL coverage stops at Prime League Pro Division. Non-featured picks therefore remain originated/provisional/settlement only. Memo: research/session_2faec1ff/low-tier-resolution-2026-10-25.md.",
    "source": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
    "verification": "verified 2026-10-25 against data/probe/lowtier_20261025.json (52 venues, generated 2026-10-25T14:20:27Z), data/probe/sources_probe.json (37 sources, probed 2026-10-25T14:20:51Z), and dated captures of https://bo3.gg/lol/matches/current and https://egamersworld.com/lol/matches"
+  },
+  {
+   "severity": "medium",
+   "item": "Fixture #1082002 (DELETED vs S7raa, Arabian Regional Championship 2026 Qualifiers LB-Li-SY-PS): 'DELETED' is a withdrawn GBArena bracket slot omitted from Leaguepedia Participants",
+   "detail": "Hotspawn lists DELETED vs S7raa (#1082002, 2026-10-31T21:00Z). Inspection of raw MediaWiki wikitext on Leaguepedia's Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS?action=raw shows DELETED is omitted from the official Participants table (which lists 7 active teams including S7raa) and appears only as a withdrawn GBArena bracket placeholder (scored 0:1 against S7raa in prior round data, with zero completed match history across Leaguepedia). Because Leaguepedia does not yet set |dqteams=DELETED in Data: namespace, the canonical pipeline prices S7raa at provisional low confidence rather than an official-forfeit settlement; flagged here for manual settlement review.",
+   "source": "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
+   "verification": "verified live 2026-10-25 against lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS?action=raw"
+  },
+  {
+   "severity": "info",
+   "item": "Hotspawn LoL fixtures API returns best_of: null on scheduled cards — series format is left blank rather than inferred",
+   "detail": "Across all 234 scheduled LoL fixtures returned by phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1, the best_of field is null (even on multi-game playoff/promotion series such as #1081421 FENNEL vs Nothin'Here, which Leaguepedia lists as Bo5). Both the canonical root site and the secondary /docs/ audit render series format as blank / 'Bo —' and never assume Bo1.",
+   "source": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
+   "verification": "verified 2026-10-25 against data/raw/hotspawn_lol.json and audit/verify_docs_parity.py check 8"
+  },
+  {
+   "severity": "info",
+   "item": "Smarkets UKGC Exchange v3 API added as 6th live market venue; Midnite LoL URL flagged as HTTP 200 soft-404",
+   "detail": "Direct verification on 2026-10-25 confirmed Smarkets' public v3 Exchange API (api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match) serves two-sided WINNER_2_WAY series-winner orderbooks across all 8 Worlds 2026 Main Event matches without authentication or geo-blocking; wired into both collect.py/model.py (weight 0.14) and scripts/collect.mjs/analyze.mjs for a 6-venue consensus (Pinnacle, Polymarket, Kalshi, Smarkets, Bovada, Unibet). Conversely, midnite.com/esports/league-of-legends returns HTTP 200 with body 'Ooooooops! We can't find the page you're looking for.' and is now detected as a soft-404 in collect_source_status().",
+   "source": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match",
+   "verification": "verified live 2026-10-25 against api.smarkets.com/v3/quotes/ and midnite.com/esports/league-of-legends"
   }
  ]
 }

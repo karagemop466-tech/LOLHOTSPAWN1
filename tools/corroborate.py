@@ -725,7 +725,7 @@ def render(doc: dict) -> str:
 
 def explain_method(method: str) -> str:
     return {
-        "market": "De-vigged real-money market line (Pinnacle, Polymarket, Kalshi, Bovada, Unibet).",
+        "market": "De-vigged real-money market line (Pinnacle, Polymarket, Kalshi, Smarkets, Bovada, Unibet).",
         "model": "Our own Elo line from recorded series results; both teams rated and connected.",
         "provisional": "Our Elo line with thin data - shown with a low-confidence flag.",
         "unresolved": "No defensible line: participant removed mid-split (official dqteams) or no rating path.",

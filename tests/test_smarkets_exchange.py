@@ -61,7 +61,7 @@ class TestSmarketsExchangeCollector(unittest.TestCase):
         self.assertEqual(ev["market_id"], "2004")
         self.assertEqual(
             ev["url"],
-            "https://smarkets.com/sport/esports/league-of-legends/worlds/2026/10/25/18-00/top-esports-vs-g2-esports",
+            "https://smarkets.com/esports/league-of-legends/worlds/2026/10/25/18-00/top-esports-vs-g2-esports/1001/",
         )
         o0, o1 = ev["outcomes"]
         self.assertAlmostEqual(o0["mid_prob"], (4167 + 5208) / 20000.0, places=6)
@@ -83,6 +83,28 @@ class TestSmarketsExchangeCollector(unittest.TestCase):
         real_coupon = b"<html><body><h1>League of Legends Betting Odds</h1><div>Top Esports vs G2 Esports</div></body></html>"
         self.assertTrue(collect._is_soft_404(midnite_404))
         self.assertFalse(collect._is_soft_404(real_coupon))
+
+    def test_canonical_model_aliases_tier_prior_and_smarkets_join(self):
+        import model
+        self.assertTrue(model.same_team("Vitality Rising Bees", "Rising Bees"))
+        self.assertEqual(model.tier_prior("LCP/2026 Season/Split 2"), 1700.0)
+        self.assertNotEqual(model.tier_prior("LCP Wildcard/2026 Season/Playoffs"), 1700.0)
+        sm_idx = [{
+            "names": ["Top Esports", "G2 Esports"],
+            "p0": 0.46875,
+            "p1": 0.5288,
+            "start": "2026-10-25T18:00:00Z",
+            "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/25/18-00/top-esports-vs-g2-esports/45400319/",
+            "api_url": "https://api.smarkets.com/v3/markets/173458049/quotes/",
+            "observed_utc": "2026-10-25T14:25:00Z",
+        }]
+        mk = model.market_lookup(
+            "1067683", "Top Esports", "G2 Esports", "2026-10-25T18:00:00Z",
+            [], [], [], [], [], sm_idx,
+        )
+        self.assertIsNotNone(mk)
+        self.assertEqual(mk["venues"][0]["name"], "Smarkets")
+        self.assertAlmostEqual(mk["p0"] + mk["p1"], 1.0, places=4)
 
 
 if __name__ == "__main__":

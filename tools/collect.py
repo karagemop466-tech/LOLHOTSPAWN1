@@ -490,10 +490,14 @@ def _smarkets_assemble_events(events: list, markets: list, contracts: list, quot
             })
         if len(outcomes) != 2:
             continue
-        full_slug = ev.get("full_slug") or ""
-        web_url = (f"https://smarkets.com{full_slug}"
-                   if full_slug.startswith("/")
-                   else f"https://smarkets.com/event/{ev.get('id')}")
+        full_slug = (ev.get("full_slug") or "").rstrip("/")
+        if full_slug.startswith("/sport/"):
+            web_path = full_slug.replace("/sport/", "/", 1)
+            web_url = f"https://smarkets.com{web_path}/{ev.get('id')}/"
+        elif full_slug.startswith("/"):
+            web_url = f"https://smarkets.com{full_slug}/{ev.get('id')}/"
+        else:
+            web_url = f"https://smarkets.com/event/{ev.get('id')}/"
         out.append({
             "event_id": str(ev.get("id")),
             "market_id": mid,

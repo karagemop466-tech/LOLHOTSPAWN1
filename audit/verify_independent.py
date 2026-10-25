@@ -70,7 +70,7 @@ def norm(name: str) -> str:
     s = re.sub(r"\([^)]*\)", " ", s)              # drop parentheticals e.g. "(Kills)"
     s = re.sub(r"\b(esports?|e-?sport(s)?|team|gaming|club|academy|esport)\b", " ", s)
     out = re.sub(r"[^a-z0-9]+", "", s)
-    return {"secret": "secretwhales"}.get(out, out)
+    return {"secret": "secretwhales", "risingbees": "vitalityrisingbees"}.get(out, out)
 
 
 def devig(d0: float, d1: float):
@@ -93,6 +93,7 @@ def main() -> int:
     kal = load(os.path.join(RAW, "kalshi_lol.json"))
     pol = load(os.path.join(RAW, "polymarket.json"))
     kam = load(os.path.join(RAW, "kambi_lol.json")) if os.path.exists(os.path.join(RAW, "kambi_lol.json")) else {}
+    smk = load(os.path.join(RAW, "smarkets_lol.json")) if os.path.exists(os.path.join(RAW, "smarkets_lol.json")) else {}
     hs = load(os.path.join(RAW, "hotspawn_lol.json"))
 
     build_ts = parse_ts(matches_doc.get("generated_utc"))
@@ -143,6 +144,11 @@ def main() -> int:
         outs = ev.get("outcomes") or []
         if len(outs) == 2:
             kam_index.append({"names": [o["name"] for o in outs], "raw": ev})
+    smk_index = []
+    for ev in smk.get("events") or []:
+        outs = ev.get("outcomes") or []
+        if len(outs) == 2:
+            smk_index.append({"names": [o["name"] for o in outs], "raw": ev})
 
     def find_all(index, n0, n1, symmetric=True):
         k0, k1 = norm(n0), norm(n1)
@@ -280,6 +286,23 @@ def main() -> int:
                     mid = 0.5
                     if not close(p0 + p1, 1.0, 0.002):
                         fail("D arithmetic", f"{row['id']}: Kalshi probabilities do not sum to 1")
+            elif vname == "Smarkets":
+                hits = find_all(smk_index, n0, n1)
+                if not hits:
+                    fail("B provenance", f"{row['id']}: Smarkets quote {quote} not found for {n0} vs {n1}")
+                    continue
+                matched_sm = False
+                for item, swapped in hits:
+                    outs = item["raw"]["outcomes"]
+                    m0 = outs[0].get("mid_prob") if not swapped else outs[1].get("mid_prob")
+                    m1 = outs[1].get("mid_prob") if not swapped else outs[0].get("mid_prob")
+                    if m0 is not None and m1 is not None and (m0 + m1) > 0:
+                        rp0, rp1 = m0 / (m0 + m1), m1 / (m0 + m1)
+                        if close(rp0, p0, 0.003) and close(rp1, p1, 0.003):
+                            matched_sm = True
+                            break
+                if not matched_sm:
+                    fail("B provenance", f"{row['id']}: Smarkets quote {quote} matches no raw mid_prob")
             else:
                 warn("B provenance", f"{row['id']}: venue {vname} is not covered by this independent "
                                      f"check (no raw payload mapping)")
@@ -363,7 +386,7 @@ def main() -> int:
 
     # ------------------------------------------------------------- F freshness
     for name, doc in (("pinnacle", pin), ("bovada", bov), ("kalshi", kal),
-                      ("polymarket", pol), ("unibet", kam), ("hotspawn", hs)):
+                      ("polymarket", pol), ("unibet", kam), ("smarkets", smk), ("hotspawn", hs)):
         ts = parse_ts(doc.get("fetched_utc"))
         if ts is None or build_ts is None:
             warn("F freshness", f"{name}: missing fetch or build timestamp")

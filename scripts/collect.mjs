@@ -633,14 +633,15 @@ async function collectSmarkets() {
           });
         }
         if (outcomes.length !== 2) continue;
-        const fullSlug = String(ev.full_slug || "");
+        const fullSlug = String(ev.full_slug || "").replace(/\/+$/, "");
+        const webPath = fullSlug.startsWith("/sport/") ? fullSlug.replace(/^\/sport\//, "/") : fullSlug;
         eventsOut.push({
           event_id: String(ev.id),
           market_id: String(mk.id),
           name: ev.name || `${outcomes[0].name} vs ${outcomes[1].name}`,
           start_utc: ev.start_datetime || null,
           state: ev.state,
-          url: fullSlug.startsWith("/") ? `https://smarkets.com${fullSlug}` : `https://smarkets.com/event/${ev.id}`,
+          url: webPath.startsWith("/") ? `https://smarkets.com${webPath}/${ev.id}/` : `https://smarkets.com/event/${ev.id}/`,
           api_quotes_url: `${SMARKETS_API_BASE}/markets/${mk.id}/quotes/`,
           outcomes,
         });

@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-25T14:40:42Z",
- "count": 41,
+ "generated_utc": "2026-10-25T14:49:27Z",
+ "count": 43,
  "flags": [
   {
    "severity": "high",
@@ -52,10 +52,10 @@
   },
   {
    "severity": "medium",
-   "item": "Single-venue prediction market with $5 traded volume (#1079080 Mental Rush vs Vitality Rising Bees) [verified live 2026-10-23 via gamma-api.polymarket.com (volume=5, outcomePrices 0.68/0.32)]",
-   "detail": "The only external quote for this LGC Rising 2026 Playoffs final is Polymarket's series market lol-rb-mr-2026-10-27 at 68¢ / 32¢ with $5.00 of traded volume (its Game 1-4 sub-markets are parked at 50/50 with a 0.04 bid / 0.96 ask spread). The line is published but downgraded to low confidence and flagged on the card; the earlier curated note that described #1079080 as 'Bushido Wildcats vs Misa Esports' referred to a 264-row snapshot and has been replaced.",
+   "item": "Thin Polymarket liquidity ($5–$28 volume) corroborated by Kalshi CFTC contract (#1079080 Mental Rush vs Vitality Rising Bees) [verified live 2026-10-25 via gamma-api.polymarket.com and api.elections.kalshi.com (KXLOLGAME-26OCT271300RBMR)]",
+   "detail": "Polymarket's series market lol-rb-mr-2026-10-27 for this LGC Rising 2026 Playoffs final carries thin traded volume ($5–$28; its Game 1-4 sub-markets sit at 50/50 wide spreads). Kalshi's CFTC-regulated contract KXLOLGAME-26OCT271300RBMR also quotes the series under shortened team label 'Rising Bees' (verified = Vitality Rising Bees on Polymarket/Leaguepedia); adding the explicit BOOK_TEAM_ALIASES entry ('rising bees': 'vitality rising bees') joins both live exchange books into a 2-venue consensus (~63.6% Mental Rush / 36.4% Vitality Rising Bees, corroborated by Thunderpick 1.49/2.75 = 35.15% Rising Bees).",
    "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
-   "verification": "verified live 2026-10-23 via gamma-api.polymarket.com (volume=5, outcomePrices 0.68/0.32)"
+   "verification": "verified live 2026-10-25 via gamma-api.polymarket.com and api.elections.kalshi.com (KXLOLGAME-26OCT271300RBMR)"
   },
   {
    "severity": "high",
@@ -195,6 +195,27 @@
    "verification": "verified 2026-10-25 against data/probe/lowtier_20261025.json (52 venues, generated 2026-10-25T14:20:27Z), data/probe/sources_probe.json (37 sources, probed 2026-10-25T14:20:51Z), and dated captures of https://bo3.gg/lol/matches/current and https://egamersworld.com/lol/matches"
   },
   {
+   "severity": "medium",
+   "item": "Fixture #1082002 (DELETED vs S7raa, Arabian Regional Championship 2026 Qualifiers LB-Li-SY-PS): 'DELETED' is a withdrawn GBArena bracket slot omitted from Leaguepedia Participants [verified live 2026-10-25 against lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS?action=raw]",
+   "detail": "Hotspawn lists DELETED vs S7raa (#1082002, 2026-10-31T21:00Z). Inspection of raw MediaWiki wikitext on Leaguepedia's Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS?action=raw shows DELETED is omitted from the official Participants table (which lists 7 active teams including S7raa) and appears only as a withdrawn GBArena bracket placeholder (scored 0:1 against S7raa in prior round data, with zero completed match history across Leaguepedia). Because Leaguepedia does not yet set |dqteams=DELETED in Data: namespace, the canonical pipeline prices S7raa at provisional low confidence rather than an official-forfeit settlement; flagged here for manual settlement review.",
+   "source": "https://lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS",
+   "verification": "verified live 2026-10-25 against lol.fandom.com/wiki/Arabian_Regional_Championship_2026/Qualifiers/LB-Li-SY-PS?action=raw"
+  },
+  {
+   "severity": "info",
+   "item": "Hotspawn LoL fixtures API returns best_of: null on scheduled cards — series format is left blank rather than inferred [verified 2026-10-25 against data/raw/hotspawn_lol.json and audit/verify_docs_parity.py check 8]",
+   "detail": "Across all 234 scheduled LoL fixtures returned by phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1, the best_of field is null (even on multi-game playoff/promotion series such as #1081421 FENNEL vs Nothin'Here, which Leaguepedia lists as Bo5). Both the canonical root site and the secondary /docs/ audit render series format as blank / 'Bo —' and never assume Bo1.",
+   "source": "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1",
+   "verification": "verified 2026-10-25 against data/raw/hotspawn_lol.json and audit/verify_docs_parity.py check 8"
+  },
+  {
+   "severity": "info",
+   "item": "Smarkets UKGC Exchange v3 API added as 6th live market venue; Midnite LoL URL flagged as HTTP 200 soft-404 [verified live 2026-10-25 against api.smarkets.com/v3/quotes/ and midnite.com/esports/league-of-legends]",
+   "detail": "Direct verification on 2026-10-25 confirmed Smarkets' public v3 Exchange API (api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match) serves two-sided WINNER_2_WAY series-winner orderbooks across all 8 Worlds 2026 Main Event matches without authentication or geo-blocking; wired into both collect.py/model.py (weight 0.14) and scripts/collect.mjs/analyze.mjs for a 6-venue consensus (Pinnacle, Polymarket, Kalshi, Smarkets, Bovada, Unibet). Conversely, midnite.com/esports/league-of-legends returns HTTP 200 with body 'Ooooooops! We can't find the page you're looking for.' and is now detected as a soft-404 in collect_source_status().",
+   "source": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match",
+   "verification": "verified live 2026-10-25 against api.smarkets.com/v3/quotes/ and midnite.com/esports/league-of-legends"
+  },
+  {
    "severity": "info",
    "item": "Leaguepedia is community-maintained, not an official league source",
    "detail": "Every originated line is fitted on Leaguepedia's community-recorded series history and its Data: page dqteams directives are used to quarantine removed teams. Leaguepedia is not an official settlement authority; Kalshi's own rules, for example, resolve a pre-play forfeit at the fair market price. Forfeit settlement picks on this site are therefore marked conditional.",
@@ -241,7 +262,7 @@
   {
    "severity": "medium",
    "item": "11 archived esportsbook receipts expired and are no longer used as market input",
-   "detail": "A bookmaker quote captured from a match page is a line only while it is fresh. These receipts were captured on 2026-10-21 (up to 90 h old, limit 24 h) and are now excluded from the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, Kalshi, Bovada, Unibet) or to our own Elo line. The receipts stay in the audit trail: #1081205 [1.86, 1.8] (2026-10-21T20:36:00Z); #1067878 [1.2, 4.4] (2026-10-21T20:36:00Z); #1067677 [1.2, 4.05] (2026-10-21T20:36:00Z); #1067680 [1.17, 4.88] (2026-10-21T20:36:00Z); #1067675 [1.38, 2.63] (2026-10-21T20:36:00Z); #1067676 [2.18, 1.61] (2026-10-21T20:36:00Z)",
+   "detail": "A bookmaker quote captured from a match page is a line only while it is fresh. These receipts were captured on 2026-10-21 (up to 90 h old, limit 24 h) and are now excluded from the consensus; the affected fixtures fall back to the live venues (Pinnacle, Polymarket, Kalshi, Smarkets, Bovada, Unibet) or to our own Elo line. The receipts stay in the audit trail: #1081205 [1.86, 1.8] (2026-10-21T20:36:00Z); #1067878 [1.2, 4.4] (2026-10-21T20:36:00Z); #1067677 [1.2, 4.05] (2026-10-21T20:36:00Z); #1067680 [1.17, 4.88] (2026-10-21T20:36:00Z); #1067675 [1.38, 2.63] (2026-10-21T20:36:00Z); #1067676 [2.18, 1.61] (2026-10-21T20:36:00Z)",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/archive/session-8336fb7e/data/book_receipts.json"
   },
   {
@@ -255,12 +276,6 @@
    "item": "2 market-priced match(es) disagree with our own model by 20 pp or more",
    "detail": "Gen.G vs LYON (Worlds 2026 Main Event); Team Liquid vs Anyone's Legend (Worlds 2026 Main Event). The market side is what the site publishes and the model value is printed next to it on the Market page, so the gap is visible rather than hidden.",
    "source": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups"
-  },
-  {
-   "severity": "medium",
-   "item": "1 market row(s) rest on a single prediction market with almost no traded volume",
-   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $58 traded volume (thin-market threshold $1,000), priced 36.0%/64.0%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
-   "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
   },
   {
    "severity": "high",

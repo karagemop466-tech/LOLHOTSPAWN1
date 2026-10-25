@@ -32,9 +32,9 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 ## How it works
 
 ```
-tools/collect.py   Hotspawn fixtures API · Pinnacle guest API · Polymarket · Leaguepedia Cargo · LoL Esports
+tools/collect.py   Hotspawn fixtures API · Pinnacle · Polymarket · Kalshi · Smarkets (UKGC) · Bovada · Unibet/Kambi · Leaguepedia · LoL Esports
       ↓
-tools/model.py     Elo over Leaguepedia series results, de-vig of bookmaker moneylines
+tools/model.py     Elo over Leaguepedia series results, 6-venue de-vig consensus
       ↓
 tools/report.py    per-tournament and per-team summaries
       ↓
@@ -44,7 +44,7 @@ tools/site.py        13 static pages (+ coverage.html from corroborate.py = 14 r
       ↓
 tools/corroborate.py external-book receipt validation & coverage.html ledger
       ↓
-tools/verify.py      44 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
+tools/verify.py      55 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
 ```
 
 A single canonical workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) attempts that
@@ -59,7 +59,8 @@ sources before relying on a pick. Only `tools/` writes the canonical published p
 - **Inventory** — `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1`
   returns the scheduled LoL cards at collection time, including the long tail of national and academy leagues. The API can retain past-start cards as `scheduled`; these remain visible and are labeled stale rather than silently removed.
 - **Market lines** — Pinnacle's public guest API (series moneylines only — the parallel `(Kills)`
-  derivative markets are rejected), Kalshi, Bovada, Unibet via its public Kambi feed, and Polymarket.
+  derivative markets are rejected), Polymarket full-series CLOB, Kalshi (CFTC), Smarkets (UKGC
+  Betting Exchange `WINNER_2_WAY` orderbooks), Bovada, and Unibet via its public Kambi feed.
   Odds are converted to decimal, then de-vigged proportionally and precision-weighted. A single
   prediction market with negligible traded volume is kept but labelled low confidence. Actual venue
   availability varies by match; see `coverage.html` and `sources.html` rather than assuming every book

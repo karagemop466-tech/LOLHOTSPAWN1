@@ -1,12 +1,12 @@
 {
-  "generated_utc": "2026-10-25T14:27:30Z",
+  "generated_utc": "2026-10-25T14:50:49Z",
   "gate": "audit/verify_docs_parity.py",
-  "passed": false,
+  "passed": true,
   "divergence_threshold_pp": 5.0,
-  "failures": [
-    "6 canonical probabilities rendered in docs/ equal data/matches.json :: mismatched: [('1075816', 0.5425, [0.452, 0.5479999999999999, 0.5479999999999999, 0.54]), ('1075823', 0.6862, [0.305, 0.695, 0.695, 0.687]), ('1079080', 0.64, [0.368, 0.632, 0.632, 0.635])]"
-  ],
+  "failures": [],
   "warnings": [],
+  "docs_canonical_snapshot_utc": "2026-10-25T14:49:27Z",
+  "live_canonical_snapshot_utc": "2026-10-25T14:49:27Z",
   "docs_pages": [
     "featured.html",
     "flagged.html",
@@ -25,7 +25,7 @@
   "shared_ids": 234,
   "both_probability": 227,
   "divergent": 33,
-  "mean_abs_gap_pp": 2.257,
-  "max_abs_gap_pp": 18.89,
+  "mean_abs_gap_pp": 2.203,
+  "max_abs_gap_pp": 11.81,
   "canonical_ids_not_in_secondary": 0
 }

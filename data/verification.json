@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-25T14:40:43Z",
+ "generated_utc": "2026-10-25T14:50:36Z",
  "checks": [
   {
    "name": "dataset present",
@@ -75,6 +75,11 @@
    "name": "all fresh Unibet/Kambi moneylines matched into market consensus",
    "ok": true,
    "detail": "8/8 fresh Unibet fixtures matched; missing: []"
+  },
+  {
+   "name": "all fresh Smarkets exchange moneylines matched into market consensus",
+   "ok": true,
+   "detail": "8/8 fresh Smarkets fixtures matched; missing: []"
   },
   {
    "name": "every official-forfeit resolution names a winner and a source URL",
@@ -154,7 +159,7 @@
   {
    "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "22 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
+   "detail": "25 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -179,7 +184,7 @@
   {
    "name": "market hygiene publishes live-feed freshness and quote rejections",
    "ok": true,
-   "detail": "feeds tracked: ['Bovada', 'Kalshi', 'Pinnacle', 'Polymarket', 'Unibet']; 0 live quote rejection(s) this build"
+   "detail": "feeds tracked: ['Bovada', 'Kalshi', 'Pinnacle', 'Polymarket', 'Smarkets', 'Unibet']; 0 live quote rejection(s) this build"
   },
   {
    "name": "coverage matrix: every competition row links to a source",
@@ -199,7 +204,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 78349 bytes"
+   "detail": "coverage.html 84578 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -209,7 +214,7 @@
   {
    "name": "every external line-search observation is source-linked and complete",
    "ok": true,
-   "detail": "17 observations across 4 receipt files; problems: []"
+   "detail": "22 observations across 5 receipt files; problems: []"
   },
   {
    "name": "limitations page prints every book check with its live link",
@@ -283,6 +288,6 @@
   "provisional": 71,
   "market": 9
  },
- "internal_links": 526,
+ "internal_links": 512,
  "lookahead_violations": 0
 }

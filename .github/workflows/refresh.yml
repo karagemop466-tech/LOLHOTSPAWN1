@@ -21,6 +21,7 @@ on:
     branches: ["main"]
     paths:
       - "tools/**"
+      - "tests/**"
       - ".github/workflows/refresh.yml"
 
 permissions:
@@ -43,6 +44,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
       - name: Install dependencies
         run: python3 -m pip install --quiet requests
@@ -75,6 +80,14 @@ jobs:
               echo "${stage}" >> data/build_failed_steps.txt
             fi
           done
+          echo "--- node scripts/build_site.mjs (sync secondary /docs/ parity snapshot) ---" | tee -a data/build.log
+          if node scripts/build_site.mjs >> data/build.log 2>&1 && python3 audit/verify_docs_parity.py >> data/build.log 2>&1; then
+            echo "OK   secondary /docs/ parity sync" | tee -a data/build.log
+          else
+            rc=$?
+            echo "FAIL secondary /docs/ parity sync (exit ${rc})" | tee -a data/build.log
+            echo "docs-parity" >> data/build_failed_steps.txt
+          fi
           echo "pipeline finished at $(date -u +%FT%TZ)" | tee -a data/build.log
 
       - name: Stop on failed gate
@@ -134,7 +147,7 @@ jobs:
           set -e
           git config user.name  "arena-refresh-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/*.json data/*.csv data/build.log data/raw data/receipts assets *.html
+          git add data/*.json data/*.csv data/build.log data/raw data/receipts assets *.html docs audit/9f16f9ad/docs_parity.json
           # A green run clears the previous failure markers, so a stale "unit-tests" line can
           # never survive a successful build and mislead the next session (2026-10-25).
           git add -A -- data/build_failure.log data/build_failed_steps.txt 2>/dev/null || true
