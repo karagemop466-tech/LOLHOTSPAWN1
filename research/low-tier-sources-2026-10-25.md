@@ -45,10 +45,19 @@ to be timestamped no later than that lock. Later or untimed observations are exc
 listed in `data/market_exclusions.json`. Administrative forfeit outcomes remain separate
 from competitive win probabilities.
 
+## Runner confirmation
+
+The updated `tools/probe_lowtier.py` ran on GitHub Actions and wrote
+`data/probe/lowtier_20261025.json` at **2026-10-25T14:19:11Z**. It checked **53 venues**
+against **234 live Hotspawn fixtures**. Both the Esports Insider board and EGamersWorld
+returned **HTTP 403** to that runner. Consequently, the browser observations above remain
+manual corroboration and source research; they are not represented as runner-reachable,
+self-updating price feeds. No credential, proxy or bot-wall bypass was used.
+
 ## Changes resulting from this review
 
-1. Added the Esports Insider board to `tools/probe_lowtier.py` so the scheduled research
-   probe checks it alongside established books, esportsbooks, exchanges and aggregators.
+1. Added the Esports Insider board to `tools/probe_lowtier.py` so the research probe
+   checks it alongside established books, esportsbooks, exchanges and aggregators.
 2. Kept ESI model-only percentages and EGamersWorld 1.80/1.80 placeholders out of pricing.
 3. Kept the real LGC book quotes as corroboration only until an automated, receipted,
    pre-lock parser exists; no manual number was mixed into the live consensus.
