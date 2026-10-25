@@ -241,6 +241,8 @@ tr:last-child td{border-bottom:0}
 
 /* next-up strip: the fastest path from the landing page to a pick on a phone */
 .nextlist{display:grid;gap:8px}
+.next-empty{margin:0;padding:14px;border:1px solid var(--warn);border-radius:12px;background:var(--warn-weak);line-height:1.5}
+.next-empty a{font-weight:700}
 .nextrow{display:grid;grid-template-columns:1fr auto;grid-template-areas:"when prob" "teams prob";
   gap:2px 10px;align-items:center;background:var(--bg);border:1px solid var(--line);
   border-radius:12px;padding:11px 13px;color:inherit;min-height:56px}

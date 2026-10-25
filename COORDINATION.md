@@ -2970,3 +2970,50 @@ two new gates, X4 merged and verified against the live site, and the six-hourly 
    committed by that workflow to `audit/session_c0a05820/`; the GitHub API rate limit shared by all
    concurrent sessions refused several reads during this session, so its post-merge verdict is left to
    the workflow's own receipt rather than asserted here.
+
+# Session `b1e5557f` — live-clock next-up accuracy (2026-10-25)
+
+## Claim
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `B1` | Keep the landing page's “Starting soon” strip accurate as static snapshots age: client-side hide kick-offs already in the past, show a truthful empty/up-to-date limitation state when none remain, and exercise it in the dashboard test. This does not fetch or invent fixtures, odds, or probabilities; the scheduled pipeline remains the source of updates. | done | `b1e5557f` | `tools/site.py`, `assets/app.js`, `assets/style.css`, `tests/dashboard.cjs`, `tests/test_site_and_flags.py`, generated `index.html` |
+
+**Non-overlap:** prior mobile/summary work is recorded as completed and merged in this board; this claim is limited to client-clock handling for the next-up strip. It does not modify match data, probability generation, sources, workflows, or navigation. Work remains on Arena's fixed branch `arena/b1e5557f-lolhotspawn1`.
+
+## Session `b1e5557f` — completion record (2026-10-25)
+
+- Generated next-up anchors now carry their UTC kickoff in `data-start`; `assets/app.js` filters them against the visitor's clock on load and once per minute. Kickoffs that have passed disappear, and a status message links to the full picks table if no future kickoff remains in the committed snapshot. The landing copy explicitly says these are kickoffs “in this snapshot”; no new fixture, line, or probability was inferred.
+- The empty state is styled for the existing mobile layout and announces via `role=status`. The next-up strip and summary continue to link into the in-site all-picks views.
+- Source/data boundary: no provider source was fetched for this UI-only change. Following integration with the main-branch refresh, the canonical inventory is `2026-10-25T14:13:21Z`, with 234 Hotspawn fixtures; the visible timestamp and existing 12h/30h warnings remain authoritative. The client-clock feature prevents elapsed kickoffs from being presented as upcoming; it does not refresh data or claim new odds.
+- Verification on the integrated tree: `python3 tools/verify.py` **51/51 pass** (234-row inventory/source/pick checks); `python3 audit/check_site.py` **24 pages, 0 failures, 0 warnings** after rebuilding the secondary pages; `python3 audit/mobile_audit.py` **14/14 root pages pass**; `python3 -m unittest discover -s tests -v` **89/89 pass**; `audit/verify_docs.py` **16/16 pass**; `audit/verify_docs_parity.py` **10/10 pass** with all 234 IDs in parity and 33 disclosed probability divergences; `NODE_PATH=/tmp/lolhotspawn-jsdom/node_modules node tests/dashboard.cjs` pass, including live-clock future/expired fixtures; `git diff --check` clean.
+- A prior branch diagnostic exposed time-dependent test fixtures; the main branch had already merged the equivalent time-relative test repair in PR #93. This session retained the distinct workflow improvement to run `diag.yml` on `tests/**`; the full suite now passes. No duplicate fixture-repair edits remain in this branch.
+
+## Session `b1e5557f` — CI follow-up claim after branch diagnostic failure (2026-10-25)
+
+The branch-only diagnostic run `40200757847` exposed three existing receipt tests that depended on captures dated 2026-10-23/24 remaining fresh forever. They now exceed the production 24-hour quote-age window, causing the full test suite (and the branch diagnostic) to fail even though the production verifier passes. The prior board entries for these test files record completed/merged fixes; this is a new, test-only reliability repair.
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `B2` | Remove date-dependent fragility from receipt lifecycle tests by generating fresh capture timestamps; ensure the branch diagnostic reruns when tests change; verify the full suite and publish gate. No odds, data, or production receipt rules change. | done | `b1e5557f` | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py`, `.github/workflows/diag.yml`, `COORDINATION.md` |
+
+### B2 close-out
+
+- During integration, main had already merged the equivalent time-relative receipt test repair in PR #93; those upstream fixes were preserved rather than duplicated. This session's unique B2 code change is the `.github/workflows/diag.yml` path filter for `tests/**`, ensuring test-only edits trigger diagnostics.
+- `python3 -m unittest discover -s tests -v` — **89/89 PASS** on the latest integrated tree. The branch diagnostic for the pre-integration commit `9b128ee` (run **40200963762**) completed **SUCCESS** in 2m12s; official run page: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40200963762 .
+- The initial diagnostic run `40200757847` failed because of dated fixtures; its cause is confirmed by the captured log. The defect was fixed on main in PR #93 and the passing diagnostic is retained as the subsequent run.
+
+### PR/integration status addendum
+
+PR **#95** is open from this fixed Arena branch: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/95 . The malformed original description has been corrected through the GitHub REST API. Main advanced through PR #104, the scheduled refresh `32a5137`, the live-source receipt commit `971e5b1`, and PR #109 (`5600824`) while integration was underway; this branch has been rebased onto the latest `5600824`. The earlier pushed head's diagnostic (`40201973351`) and docs-parity check (`40201973411`) passed, but its live-source audit result is not used as evidence for the newest snapshot. The latest rebase still needs pushing and new-head verification before merging. No new PR #95 Pages deployment is claimed.
+
+## Session `b1e5557f` — post-rebase integration verification (2026-10-25)
+
+Main advanced through PR #104, the scheduled refresh, live-source receipts, and PR #109 while this branch's PR was open. Rebased this fixed Arena branch onto `5600824`, preserving all main work including the low-tier structural-ceiling research memo and live-source/mobile audit receipts.
+
+- Canonical snapshot: **234/234** Hotspawn fixtures, inventory fetched `2026-10-25T14:24:04Z`, data generated `14:25:59Z`; 29 competitions, 230 priced probabilities plus 4 settlement-only picks. `tools/verify.py`: **51/51 PASS**.
+- Rebuilt canonical root pages and secondary `docs/` pages from this snapshot. `audit/check_site.py`: 24 pages / **0 failures, 0 warnings**; `audit/mobile_audit.py`: **14/14 PASS**; docs audit passes; docs parity **10/10 PASS**.
+- Parity evidence in `audit/9f16f9ad/docs_parity.json`: all 234 scheduled IDs and canonical probabilities align, 33 material divergences are explicitly flagged, and no cross-dashboard links are broken.
+- Full Python suite **89/89 PASS**; jsdom dashboard test passes for all 234 matches, including live-clock next-up; `git diff --check` clean.
+- **Live-source limitation (not hidden):** committed audit `audit/session_c0a05820/source_verify.json` was generated at `14:18:26Z` against the earlier `14:15:13Z` dataset and reports FAIL because the Pinnacle guest API control returned HTTP 403 (`auth_required`), so closed-board classifications were disabled. In that run Hotspawn fixture URLs resolved 234/234, market quote pages 10/10, Leaguepedia 29/29, pick'em 1/1, and 234/234 rows had at least one resolving evidence link; 8/41 venue receipt checks were rate-limited. Do not describe this as a fully green live-source audit or infer that Pinnacle boards were closed. The recent 14:25 dataset was not covered by that run.
+- The latest local rebase and regenerated reports still need to be pushed, then new-head workflows, PR merge, and Pages deployment verified. Do not treat local gates as a live deployment.
