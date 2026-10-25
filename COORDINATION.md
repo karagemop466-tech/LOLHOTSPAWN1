@@ -2641,3 +2641,38 @@ session-egress check the same day reached the same ceiling. Written up with link
 `S5`: PR from `arena/63c67a23-lolhotspawn1` → `main`, merge, confirm the Pages deploy and a green
 `refresh-picks` run (the merge itself triggers `refresh.yml` through the `tools/**` path filter), then
 record the run id, snapshot timestamp and deploy result here.
+
+---
+
+# Session `1773543b` — fresh inventory, unresolved/limits in the executive summary, new external-line research (2026-10-25)
+
+Branch: `arena/1773543b-lolhotspawn1` (Arena session branch; fixed, never switched).
+Branched from `main` @ `cbe297b` (merge of PR #96, session `63c67a23`).
+
+## Claim — filed before any edit
+
+| # | Task | Status | Owner | File scope (disjoint from every earlier session) | Notes |
+|---|---|---|---|---|---|
+| `N1` | **Fresh Hotspawn inventory + full-coverage proof.** Re-collect the complete LoL fixture list from the public fixtures API on 2026-10-25, publish a new canonical snapshot, and prove every listed card carries a pick (probability or documented settlement) with a source link. | in progress | 1773543b | `data/**` (regenerated), `*.html` (generated root pages), `COORDINATION.md` | The committed snapshot at claim time is `2026-10-24T20:52:36Z`; today's list is what the client sees. |
+| `N2` | **New external-line research for cards that cannot be priced the featured way.** Extend the runner-side venue probe with additional established LOL books, esportsbooks, exchanges and odds aggregators, dispatch it from the runner, and publish a dated memo + machine receipt with a per-venue HTTP result. A venue that returns no machine-readable price is recorded as returning none — never inferred. | in progress | 1773543b | `tools/probe_sources.py`, `research/session_1773543b/**`, `data/probe/**` (new receipts only) | Independent of the Hotspawn feed; Hotspawn's `picked_percent` is never a probability input. |
+| `N3` | **Executive summary that answers "where are the picks" without scrolling, plus an unresolved-picks & limitations block inside it.** Move the summary to the top of the landing page, list every in-site picks destination as a large tap target, and put the unresolved cards + their limitations in the summary itself (deep-linking to `unresolved.html`). Keep it readable at 360 px with no horizontal scroll. | in progress | 1773543b | `tools/site.py`, `assets/style.css`, `assets/app.js`, `tests/test_full_coverage.py`, `tools/verify.py` | Replaces the current order hero → *Where the picks are* → 29-row tournament table → next-up → stats → summary, which buries the summary below the fold. |
+| `N4` | **Verification + publication.** Line-by-line re-verification of the combined tree (dataset ↔ Hotspawn API ↔ rendered pages), unit suite, publish gate, link check, mobile audit; PR to `main`, merge, confirm the Pages deploy and a green scheduled refresh; record PR/run/deploy links here. | pending | 1773543b | `COORDINATION.md`, `README.md` | Runs after `N1`–`N3`. |
+
+**Non-overlap.** Every earlier claim in this file belongs to a session whose pull request is already merged
+(`63c67a23` → PR #96 at `cbe297b`, `9f16f9ad`, `bcfdfa66`, `80c624cd`, `5ff8e6bf`), so their scopes are
+closed, not live. This session edits only the files listed above. It does **not** touch
+`tools/collect.py`, `tools/model.py`, `tools/corroborate.py`, `tools/flags.py`, `tools/integrity.py`,
+`tools/report.py`, `data/flags_manual.json`, `docs/**` or `scripts/**`. If it needs a change there it will
+log a cross-scope request in this file instead of editing.
+
+**Takeover rule.** If this session's claim shows no commit for 60 continuous minutes, any other session may
+take these tasks over; it must log the handoff here first.
+
+## Notes carried forward from earlier sessions (verified before starting)
+
+- The 4 cards with no probability are Komplettligaen fixtures involving `Solid Gaming`, a participant
+  Leaguepedia records as removed mid-split (`dqteams`). They already carry an administrative settlement
+  winner and no invented percentage. `N1`/`N3` preserve that behaviour; they do not convert a voidable
+  series into a forecast.
+- The published snapshot at claim time (`2026-10-24T20:52:36Z`) is older than the requested 4–8 h cadence.
+  `N1` exists to replace it with a same-day collection rather than to describe it as current.
