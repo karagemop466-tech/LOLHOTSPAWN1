@@ -14,6 +14,30 @@ Prior claims (`5ff8e6bf`, `80c624cd`, `c0a05820`, `4106ce94`, `bcfdfa66`) are >6
 
 ---
 
+# Session `9d0a516d` — unblock the canonical refresh, re-verify full pick coverage, mobile/exec-summary audit (2026-10-25)
+
+Branch: `arena/9d0a516d-lolhotspawn1` (fixed Arena session branch, from `main` @ `b19397f`).
+Board read first: every prior session (`9f16f9ad` latest, closed 2026-10-24T18:53Z) is **done**;
+no claim has been active for >18 h, so the files below are free. Claim filed before any code edit.
+
+## Claim
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `H1` | **Unblock the canonical 6-hourly `refresh-picks`** — the 11:34Z run on 2026-10-25 fetched 236 live fixtures and every `tools/verify.py` gate passed, but the `unit-tests` step failed 3 tests (`test_corroborate_history` ×2, `test_corroborate_offlist` ×1), so no fresh data has committed since 2026-10-24T20:54Z and the root site is stale. Root cause: those tests hard-code `captured_utc=2026-10-24`, which crossed the production 24 h receipt TTL (`RECEIPT_MAX_AGE_HOURS` in `tools/corroborate.py`) — a wall-clock time bomb, not a production defect. Fix the tests to use relative timestamps (pattern already used by `tests/test_corroborate.py`); do not weaken the TTL safeguard. | in progress | 9d0a516d | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` |
+| `H2` | **Local gate proof** — full `unittest discover`, `tools/verify.py`, `audit/check_site.py` green on the committed snapshot before any push. | in progress | 9d0a516d | no new files (terminal evidence into this log) |
+| `H3` | **PR → `main` → merge, then dispatch `refresh-picks`** and confirm a fresh snapshot commits and GitHub Pages redeploys (the sandbox has no egress to Hotspawn/books/Leaguepedia; the Actions runner does). Record run ids and the Pages deployment. | pending | 9d0a516d | `COORDINATION.md` only, plus the PR |
+| `H4` | **Re-verify "a pick for every listed match" on the refreshed snapshot** — 1:1 fixture coverage, every row has a pick (market / model / provisional / settlement), the unresolved ledger and the executive-summary unresolved section match the data, probabilities sum to 100 %, source links present. | pending | 9d0a516d | read-only; findings into this log and, only if a defect is found, a narrowly-scoped follow-up claim |
+| `H5` | **Independent low-tier line research (editorial corroboration)** — the runner-side probes (17 + 51 venues, 0 usable) are already committed; add a source-linked research memo documenting the structural reason the national/academy tail has no book line (e.g. Norway's Norsk Tipping monopoly, tier-C event status, books' tier-1-only coverage) and the Hotspawn forfeit-void rule. No inferred prices. | pending | 9d0a516d | `research/session_9d0a516d/**` (new) |
+| `H6` | **Mobile / executive-summary audit** — confirm the summary's in-site links, bottom nav, floating picks button and 360 px viewport behaviour; polish only if a concrete defect is found. | pending | 9d0a516d | `assets/**`, `tools/site.py` only if a defect is proven (new claim line before editing) |
+
+Non-overlap: no other live session. This session will not edit `tools/collect.py`, `tools/model.py`,
+`tools/verify.py`, `tools/corroborate.py`, `scripts/**`, `data/node/**`, `docs/**` or any workflow file.
+Generated `data/*.json`, `*.html` root pages and `picks.csv` are written by the Actions bot on the
+post-merge live run, not hand-edited here.
+
+---
+
 # Session `5ff8e6bf` — independent verification + integration (2026-10-24T16:20Z)
 
 Branch: `arena/5ff8e6bf-lolhotspawn1` (fixed Arena session branch, from `main` @ `8b84531`).
@@ -2795,3 +2819,49 @@ not the price of record: a hand-transcribed page is not a live feed.
 `S1`–`S5` are **done**. The site is live, the snapshot is current, and every pick on it is either
 market-backed with a quote URL, originated with published Elo inputs, or an official settlement with a
 source and no probability.
+## `650571cf` — T2 live result: the canonical refresh published again at 14:15Z
+
+| Item | Value |
+|---|---|
+| `refresh-picks` run | **`40201021751`** on `main`, dispatched by the merge of PR #96 at 2026-10-25T14:10:52Z — first successful canonical run since `40131727862` (2026-10-24T20:52Z) |
+| Data commit | `19dc1a9` *chore(data): refresh fixtures, lines and site*, author `arena-refresh-bot`, 2026-10-25T14:15:15Z |
+| Fresh snapshot | `data/matches.json` `generated_utc = 2026-10-25T14:15:13Z`, `inventory_fetched_utc = 2026-10-25T14:13:21Z`, **234 rows** = `market 9 · model 150 · provisional 71 · unresolved 4`; 230 rows carry a probability, 4 are official-forfeit settlements with none |
+| Pages | `pages build and deployment` run **`40201414556`** — **success**, 2026-10-25T14:15:53Z, publishing `19dc1a9` |
+| Why this matters | The 6-hourly publish had been dead for ~17 h. It is now publishing again, with 9 market-backed rows (up from 6) because the refreshed collectors matched more Worlds boards |
+
+### Gates re-run on the live-refreshed tree (2026-10-25T14:16Z, `audit/session_650571cf/gates_after_refresh.txt`)
+
+| Gate | Result |
+|---|---|
+| `python3 -m unittest discover -s tests` | **88/88 OK** |
+| `python3 tools/verify.py` | **51/51 PASS** |
+| `python3 audit/check_site.py` | 24 pages, 0 failures, 0 warnings |
+| `python3 audit/mobile_audit.py` | PASS |
+| `python3 audit/verify_independent.py` | 234 rows, 9 market rows, 41 venue checks, 0 failures |
+| `python3 audit/verify_docs.py` | ALL DOCS CHECKS PASS |
+| `python3 audit/session_650571cf/verify_rows_vs_table.py` | **234/234 rendered rows re-derived, 0 problems, 0 CSV mismatches** |
+| `python3 audit/verify_docs_parity.py` | **1 FAIL — snapshot skew, see below** |
+
+### Irregularity 5 (new) — the docs-parity gate is snapshot-coupled
+
+`verify_docs_parity.py` check 6 (`canonical probabilities rendered in docs/ equal
+data/matches.json`) fails on exactly one fixture (`1053095`, canonical `0.5004` vs docs-rendered
+`0.496`) because `docs/` was last built at **10:57Z against the 20:54Z canonical snapshot**, while
+canonical has since moved to **14:15Z**. The secondary pipeline copies canonical probabilities into
+its pages at build time and keeps no record of the canonical snapshot it used, so any canonical
+refresh that lands between two docs builds makes this check compare across two different snapshots.
+It is not a defect in either published number; it is the gate being tied to one snapshot pair.
+
+Not fixed here on purpose: `scripts/**`, `docs/**` and `audit/verify_docs_parity.py` are session
+`63c67a23`'s live scope (it merged PR #96 and #100 during this session). The correct repair is to
+have the Node pipeline record the canonical snapshot it built against and compare against that,
+which is that session's file to own. Request logged below. `refresh-docs.yml` runs on cron
+`5 */6 * * *` (next 18:05Z) and a dispatch was attempted; the GitHub API rate limit shared by all
+concurrent sessions refused the `workflow_dispatch` call at 14:16Z, so the scheduled run is the
+expected repair path.
+
+### Cross-scope request (protocol: log, do not edit another session's file)
+
+| Request | Owner | Detail |
+|---|---|---|
+| R1 | `63c67a23` (or the next integration session) | Make `audit/verify_docs_parity.py` compare docs-rendered canonical probabilities against the canonical snapshot **docs was built from** (persist it in `data/node/picks.json`), so the parity gate is not red for up to 6 h after every canonical refresh. Evidence: check 6 output above and the two snapshot timestamps. |
