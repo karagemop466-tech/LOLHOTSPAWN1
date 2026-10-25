@@ -7,10 +7,12 @@ Sources
 2. Pinnacle guest API (bookmaker moneylines, sharp book)     -> data/raw/pinnacle_lol.json
 3. Kalshi v2 Exchange API (CFTC-regulated match contracts)   -> data/raw/kalshi_lol.json
 4. Bovada coupon API (decimal pre-match moneylines)          -> data/raw/bovada_lol.json
-5. Leaguepedia CargoExport + Data: DQ directives             -> data/raw/leaguepedia.json, leaguepedia_dq.json
-6. LoL Esports official API (Worlds schedule cross-check)    -> data/raw/lolesports.json
-7. Polymarket Gamma API (prediction-market LoL markets)      -> data/raw/polymarket.json
-8. Book source availability probe                            -> data/sources_status.json
+5. Unibet/Kambi JSON CDN (European regulated sportsbook)     -> data/raw/kambi_lol.json
+6. Smarkets v3 Exchange API (UKGC-regulated orderbook)       -> data/raw/smarkets_lol.json
+7. Leaguepedia CargoExport + Data: DQ directives             -> data/raw/leaguepedia.json, leaguepedia_dq.json
+8. LoL Esports official API (Worlds schedule cross-check)    -> data/raw/lolesports.json
+9. Polymarket Gamma API (prediction-market LoL markets)      -> data/raw/polymarket.json
+10. Book source availability probe                           -> data/sources_status.json
 """
 from __future__ import annotations
 
@@ -49,6 +51,9 @@ KAMBI_URLS = [
 # covers Worlds; others are probed in case a brand lists LGC / LCP / national LoL.
 KAMBI_EXTRA_OPERATORS = ["leovegas", "888sport", "nordicbet", "coolbet"]
 KAMBI_URL = KAMBI_URLS[0]
+SMARKETS_API_BASE = "https://api.smarkets.com/v3"
+SMARKETS_EVENTS_URL = (f"{SMARKETS_API_BASE}/events/"
+                       "?state=new&state=upcoming&type=league_of_legends_match&limit=50")
 LEAGUEPEDIA_WINDOW_START = "2024-09-01 00:00:00"  # ~25 months of series results
 
 
@@ -402,6 +407,156 @@ def collect_kambi() -> dict:
     return {"count": len(events_out), "status": st}
 
 
+# --------------------------------------------------------------------------- smarkets (UKGC exchange)
+def _smarkets_assemble_events(events: list, markets: list, contracts: list, quotes: dict) -> list[dict]:
+    """Assemble pre-match WINNER_2_WAY series markets from Smarkets v3 payloads.
+
+    Excludes WINNER_MAP, HANDICAP, OVER_UNDER, hidden markets, and any live/settled
+    events so only pre-match full-series winner orderbooks enter the feed.
+    Prices on Smarkets v3 are basis points of implied probability (10000 == 100%).
+    """
+    ev_by_id: dict[str, dict] = {}
+    for ev in events or []:
+        if not isinstance(ev, dict):
+            continue
+        if ev.get("type") != "league_of_legends_match" or not ev.get("bettable", True):
+            continue
+        if ev.get("state") not in ("new", "upcoming"):
+            continue
+        eid = str(ev.get("id") or "")
+        if eid:
+            ev_by_id[eid] = ev
+
+    mkt_by_id: dict[str, dict] = {}
+    for mk in markets or []:
+        if not isinstance(mk, dict):
+            continue
+        eid = str(mk.get("event_id") or "")
+        if eid not in ev_by_id:
+            continue
+        mtype = (mk.get("market_type") or {}).get("name")
+        if mtype != "WINNER_2_WAY" or mk.get("state") != "open" or mk.get("hidden"):
+            continue
+        mid = str(mk.get("id") or "")
+        if mid and all(str(v.get("event_id")) != eid for v in mkt_by_id.values()):
+            mkt_by_id[mid] = mk
+
+    contracts_by_mkt: dict[str, list[dict]] = {}
+    for ct in contracts or []:
+        if not isinstance(ct, dict):
+            continue
+        mid = str(ct.get("market_id") or "")
+        if mid not in mkt_by_id or ct.get("hidden"):
+            continue
+        if ct.get("state_or_outcome") not in ("open", None):
+            continue
+        contracts_by_mkt.setdefault(mid, []).append(ct)
+
+    out: list[dict] = []
+    quotes_map = quotes if isinstance(quotes, dict) else {}
+    for mid, mk in mkt_by_id.items():
+        cts = sorted(contracts_by_mkt.get(mid) or [], key=lambda c: c.get("display_order") or 0)
+        if len(cts) != 2:
+            continue
+        ev = ev_by_id[str(mk.get("event_id"))]
+        outcomes: list[dict] = []
+        for ct in cts:
+            cid = str(ct.get("id") or "")
+            name = (ct.get("name") or "").strip()
+            if not cid or not name or "(kills)" in name.lower():
+                break
+            q = quotes_map.get(cid) or {}
+            bids = [int(b["price"]) for b in (q.get("bids") or []) if isinstance(b, dict) and b.get("price") is not None]
+            offers = [int(o["price"]) for o in (q.get("offers") or []) if isinstance(o, dict) and o.get("price") is not None]
+            bid_qty = sum(int(b.get("quantity") or 0) for b in (q.get("bids") or []) if isinstance(b, dict))
+            offer_qty = sum(int(o.get("quantity") or 0) for o in (q.get("offers") or []) if isinstance(o, dict))
+            best_bid = max(bids) if bids else None
+            best_offer = min(offers) if offers else None
+            mid_prob = None
+            spread_prob = None
+            if (best_bid is not None and best_offer is not None
+                    and 0 < best_bid <= best_offer < 10000):
+                mid_prob = round((best_bid + best_offer) / 20000.0, 6)
+                spread_prob = round((best_offer - best_bid) / 10000.0, 6)
+            outcomes.append({
+                "contract_id": cid,
+                "name": name,
+                "best_bid_bps": best_bid,
+                "best_offer_bps": best_offer,
+                "mid_prob": mid_prob,
+                "spread_prob": spread_prob,
+                "bid_qty": bid_qty,
+                "offer_qty": offer_qty,
+            })
+        if len(outcomes) != 2:
+            continue
+        full_slug = ev.get("full_slug") or ""
+        web_url = (f"https://smarkets.com{full_slug}"
+                   if full_slug.startswith("/")
+                   else f"https://smarkets.com/event/{ev.get('id')}")
+        out.append({
+            "event_id": str(ev.get("id")),
+            "market_id": mid,
+            "name": ev.get("name") or f"{outcomes[0]['name']} vs {outcomes[1]['name']}",
+            "start_utc": ev.get("start_datetime"),
+            "state": ev.get("state"),
+            "url": web_url,
+            "api_quotes_url": f"{SMARKETS_API_BASE}/markets/{mid}/quotes/",
+            "outcomes": outcomes,
+        })
+    return out
+
+
+def collect_smarkets() -> dict:
+    hdrs = {"Accept": "application/json"}
+    st, data, err = get_json(SMARKETS_EVENTS_URL, headers=hdrs, retries=2)
+    events = (data.get("events") if isinstance(data, dict) else None) or []
+    markets_all: list[dict] = []
+    contracts_all: list[dict] = []
+    quotes_all: dict = {}
+    if st == 200 and events:
+        eids = [str(e.get("id")) for e in events if e.get("id") and e.get("state") in ("new", "upcoming")]
+        for i in range(0, len(eids), 25):
+            chunk = ",".join(eids[i:i + 25])
+            mst, mdata, merr = get_json(f"{SMARKETS_API_BASE}/events/{chunk}/markets/", headers=hdrs, retries=1)
+            if mst == 200 and isinstance(mdata, dict):
+                markets_all.extend(mdata.get("markets") or [])
+            elif not err:
+                err = merr
+        winner_mids = [
+            str(m.get("id")) for m in markets_all
+            if (m.get("market_type") or {}).get("name") == "WINNER_2_WAY"
+            and m.get("state") == "open" and not m.get("hidden") and m.get("id")
+        ]
+        for i in range(0, len(winner_mids), 25):
+            chunk = ",".join(winner_mids[i:i + 25])
+            cst, cdata, cerr = get_json(f"{SMARKETS_API_BASE}/markets/{chunk}/contracts/", headers=hdrs, retries=1)
+            if cst == 200 and isinstance(cdata, dict):
+                contracts_all.extend(cdata.get("contracts") or [])
+            elif not err:
+                err = cerr
+            qst, qdata, qerr = get_json(f"{SMARKETS_API_BASE}/markets/{chunk}/quotes/", headers=hdrs, retries=1)
+            if qst == 200 and isinstance(qdata, dict):
+                quotes_all.update(qdata)
+            elif not err:
+                err = qerr
+    events_out = _smarkets_assemble_events(events, markets_all, contracts_all, quotes_all)
+    if not events_out and st != 200:
+        kept = _preserve_recent_on_http_error(os.path.join(RAW, "smarkets_lol.json"), "events", st, "smarkets")
+        if kept is not None:
+            return kept
+    save_json(os.path.join(RAW, "smarkets_lol.json"), {
+        "fetched_utc": iso(now_utc()),
+        "source_url": SMARKETS_EVENTS_URL,
+        "status": st,
+        "error": err,
+        "event_count": len(events_out),
+        "events": events_out,
+    })
+    log(f"smarkets: {len(events_out)} UKGC exchange WINNER_2_WAY LoL series markets (status={st})")
+    return {"count": len(events_out), "status": st}
+
+
 # --------------------------------------------------------------------------- leaguepedia
 def cargo_export(fields: str, where: str | None, limit: int = 500, offset: int = 0,
                  order_by: str | None = None, tables: str = "MatchSchedule") -> tuple[list, str]:
@@ -652,12 +807,14 @@ BOOK_PROBES = [
     ("BetExplorer", "https://www.betexplorer.com/esports/league-of-legends/", "Odds comparison engine", None),
     ("Unibet/Kambi", KAMBI_URL,
      "European regulated sportsbook JSON feed (ubse LoL match odds)", None),
+    ("Smarkets (UKGC)", SMARKETS_EVENTS_URL,
+     "UKGC-regulated betting exchange v3 JSON feed (WINNER_2_WAY series markets)", {"Accept": "application/json"}),
     ("Thunderpick", "https://thunderpick.io/en/esports/league-of-legends",
      "Esportsbook LoL coupon (HTML; prices are client-rendered)", None),
     ("Tips.GG", "https://tips.gg/esports/league-of-legends/",
      "Esports odds + tips page used as coverage evidence, never as a price", None),
     ("Midnite", "https://www.midnite.com/esports/league-of-legends",
-     "UK esportsbook LoL coupon (HTML SPA)", None),
+     "UK esportsbook LoL coupon (redirects to retired/soft-404 page)", None),
     ("OddsPortal Worlds", "https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/",
      "Odds comparison: World Championship coupon (coverage ceiling check)", None),
     ("Hotspawn fixtures API", HOTSPAWN_FIXTURES,
@@ -669,16 +826,28 @@ BOOK_PROBES = [
 ]
 
 
+def _is_soft_404(body: bytes) -> bool:
+    """Detect SPA error shells returning HTTP 200 for retired routes (e.g. Midnite)."""
+    if not body:
+        return False
+    low = body[:65536].lower()
+    return (b"ooooooops!" in low
+            or b"find the page you\xe2\x80\x99re looking for" in low
+            or b"find the page you're looking for" in low)
+
+
 def collect_source_status() -> dict:
     rows = []
     for name, url, note, headers in BOOK_PROBES:
         st, body = http_get(url, headers=headers, timeout=20, retries=0)
+        soft_404 = (st == 200 and _is_soft_404(body))
         rows.append({
             "name": name, "url": url, "note": note, "status": st,
-            "ok": st == 200, "bytes": len(body),
-            "blocked_note": ("reachable" if st == 200 else
-                             ("blocked by bot protection" if b"Just a moment" in body else
-                              ("region blocked" if b"not accepting visitors" in body else "unavailable"))),
+            "ok": st == 200 and not soft_404, "bytes": len(body),
+            "blocked_note": ("soft-404 (page retired)" if soft_404 else
+                             ("reachable" if st == 200 else
+                              ("blocked by bot protection" if b"Just a moment" in body else
+                               ("region blocked" if b"not accepting visitors" in body else "unavailable")))),
             "checked_utc": iso(now_utc()),
         })
     save_json(os.path.join(DATA, "sources_status.json"), {
@@ -698,6 +867,7 @@ def main() -> None:
         "kalshi": collect_kalshi,
         "bovada": collect_bovada,
         "kambi": collect_kambi,
+        "smarkets": collect_smarkets,
         "leaguepedia": collect_leaguepedia,
         "lolesports": collect_lolesports,
         "polymarket": collect_polymarket,
