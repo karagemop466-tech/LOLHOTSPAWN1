@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-25T14:51:51Z",
- "count": 42,
+ "generated_utc": "2026-10-25T14:53:20Z",
+ "count": 44,
  "flags": [
   {
    "severity": "high",
@@ -309,6 +309,20 @@
    "item": "Retired external quote on Ground Zero Gaming vs Frank Esports",
    "detail": "The only external capture for this fixture (Specialist Esportsbook Moneyline (via EGamersWorld), 1.025/10.5 on 2026-10-21) could not be re-verified and is retired; the published line is originated from recorded results. Live page today shows symmetric 1.80 / 1.80 placeholder prices, which are rejected by policy.",
    "source": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
+  },
+  {
+   "severity": "medium",
+   "item": "1 card(s) list a placeholder instead of a team name",
+   "detail": "The Hotspawn participant field holds a literal placeholder, not an organisation name, so the opponent cannot be identified from the card and no bookmaker or Leaguepedia record can be matched to it. The card keeps the pick required for full coverage, but that number rests on a near-equal prior rather than on identified teams. Cards: #1082002 'DELETED' vs 'S7raa' (Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine, kick-off 2026-10-16T15:00 UTC).",
+   "source": "https://www.hotspawn.com/matches/deleted-vs-s7raa-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082002",
+   "verification": "derived from the participant names in data/matches.json"
+  },
+  {
+   "severity": "medium",
+   "item": "51 card(s) are already decided in the official series record while Hotspawn still lists them as scheduled",
+   "detail": "These cards' published start time has passed and Leaguepedia records a completed series, so the pick is graded against that record; Hotspawn has not closed the card. If Hotspawn later voids or re-grades the card the published grade follows Hotspawn, not this page. #1053095 Mind Blue eSports 0-2 LAST DANCE (2026-08-26); #1053096 Nameless 0-2 BiPOLAR (2026-08-26); #1066214 Epic Avalanche 2-3 Finnish Red Mafia (2026-08-27); #1053111 Team VS Esport 3-1 GALA Esports (2026-09-05); #1071584 P11 Esports 2-0 HANGMEN (2026-09-07); #1070210 GALA Esports 1-3 The Bandits Academy (2026-09-13); #1069849 Docta Esports Club 2-0 Viktus (2026-09-13); #1069680 Team VS Esport 1-3 Les Ravagés (2026-09-19).",
+   "source": "https://lol.fandom.com/wiki/Special:CargoExport",
+   "verification": "derived from data/matches.json (stale = true and a recorded series result)"
   },
   {
    "severity": "info",

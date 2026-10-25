@@ -340,6 +340,48 @@ def main() -> None:
             "source": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
         })
 
+    # Placeholder participants: Hotspawn sometimes keeps a card listed with a literal
+    # placeholder in the participant field ("DELETED", "TBD"...). The card still gets a pick,
+    # but the name is not a team, so it is stated here rather than silently priced.
+    PLACEHOLDER = re.compile(r"^(deleted|tbd|tba|unknown|none|null|team ?tbd|team ?tba)$", re.I)
+
+    def _placeholder(side) -> bool:
+        name = str(((side or {}).get("name") or "")).strip()
+        return bool(name) and bool(PLACEHOLDER.match(name))
+
+    placeholders = [r for r in rows if _placeholder(r.get("team0")) or _placeholder(r.get("team1"))]
+    if placeholders:
+        flags.append({
+            "severity": "medium",
+            "item": f"{len(placeholders)} card(s) list a placeholder instead of a team name",
+            "detail": ("The Hotspawn participant field holds a literal placeholder, not an organisation name, so "
+                       "the opponent cannot be identified from the card and no bookmaker or Leaguepedia record "
+                       "can be matched to it. The card keeps the pick required for full coverage, but that "
+                       "number rests on a near-equal prior rather than on identified teams. Cards: "
+                       + "; ".join(f"#{r['id']} '{r['team0']['name']}' vs '{r['team1']['name']}' "
+                                   f"({r['competition']}, kick-off {str(r.get('start_utc'))[:16]} UTC)"
+                                   for r in placeholders[:6]) + "."),
+            "source": placeholders[0].get("hotspawn_url") or HOTSPAWN,
+            "verification": "derived from the participant names in data/matches.json",
+        })
+
+    # Cards whose result is already recorded while Hotspawn still lists them as scheduled.
+    decided_open = [r for r in rows if r.get("stale") and r.get("result")]
+    if decided_open:
+        flags.append({
+            "severity": "medium",
+            "item": (f"{len(decided_open)} card(s) are already decided in the official series record while "
+                     "Hotspawn still lists them as scheduled"),
+            "detail": ("These cards' published start time has passed and Leaguepedia records a completed series, "
+                       "so the pick is graded against that record; Hotspawn has not closed the card. If Hotspawn "
+                       "later voids or re-grades the card the published grade follows Hotspawn, not this page. "
+                       + "; ".join(f"#{r['id']} {r['team0']['name']} {r['result'].get('score0')}-"
+                                   f"{r['result'].get('score1')} {r['team1']['name']} "
+                                   f"({str(r.get('start_utc'))[:10]})" for r in decided_open[:8]) + "."),
+            "source": "https://lol.fandom.com/wiki/Special:CargoExport",
+            "verification": "derived from data/matches.json (stale = true and a recorded series result)",
+        })
+
     walkover = [r for r in rows if r.get("resolution")]
     if walkover:
         flags.append({
