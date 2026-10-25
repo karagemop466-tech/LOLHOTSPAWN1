@@ -545,6 +545,40 @@ def _lowtier_matrix() -> tuple[dict, str, int]:
             int(doc.get("venues_probed") or 0))
 
 
+def _venue_observations() -> list[dict]:
+    """Every external line-search observation committed in data/receipts/external_odds/.
+
+    Read straight from the receipt files rather than from data/corroboration.json, because
+    site.py runs before corroborate.py in the pipeline: reading the receipts keeps the page
+    one build ahead instead of one build behind. Each entry is a page that was actually
+    opened, with its URL, its verbatim reading and the capture time - nothing is typed in
+    here, so the sentence on the page cannot drift away from the evidence file.
+    """
+    out: list[dict] = []
+    for path in sorted(glob.glob(os.path.join(DATA, "receipts", "external_odds", "*.json"))):
+        doc = load_json(path) or {}
+        sources = {s.get("key"): s for s in doc.get("sources") or []}
+        for obs in doc.get("coverage_observations") or []:
+            src = sources.get(obs.get("source")) or {}
+            out.append({
+                "key": obs.get("source"),
+                "source": obs.get("source"),
+                "source_name": src.get("name") or obs.get("source"),
+                "kind": src.get("kind") or "",
+                "runner": src.get("runner_reachable") or "",
+                "url": obs.get("url"),
+                "captured_utc": obs.get("captured_utc") or "",
+                "observation": obs.get("observation") or "",
+                "verbatim": obs.get("verbatim") or "",
+                "file": os.path.basename(path),
+            })
+    return sorted(out, key=lambda o: o["captured_utc"], reverse=True)
+
+
+def _latest_observation_day(obs: list[dict]) -> str:
+    return (obs[0]["captured_utc"][:10] if obs else "")
+
+
 def _fallback_rows(rows: list[dict]) -> list[list[str]]:
     """Per-competition fallback ledger derived only from matches and probe receipts."""
     matrix, probe_date, n_venues = _lowtier_matrix()
@@ -731,6 +765,26 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
         if lowtier_n else ""
     )
     gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
+    observations = _venue_observations()
+    obs_day = _latest_observation_day(observations)
+    if observations:
+        # one label per venue key: several receipt files name the same venue differently, so take
+        # the most recent label rather than counting one book twice.
+        labels: dict[str, str] = {}
+        for o in observations:            # sorted newest first
+            labels.setdefault(o.get("key") or o["source_name"], o["source_name"])
+        obs_venues = sorted(labels.values())
+        obs_line = (
+            f'<strong>{len(observations)} checks across {len(obs_venues)} venues</strong> '
+            f'({e(", ".join(obs_venues))}) were read by hand on <strong>{e(obs_day)}</strong> and logged '
+            'with the exact sentence each page printed. They are on '
+            '<a href="unresolved.html#observed"><strong>Unresolved &amp; limits &rarr; what the books showed</strong></a>: '
+            'the leagues below the featured ceiling carried no open price at any of them on the dates shown, which is why those '
+            'cards are originated rather than quoted.'
+        )
+    else:
+        obs_line = ("No manual venue check is committed for this build; the runner probe table above is the "
+                    "only external evidence. See <a href=\"sources.html\">Sources</a>.")
 
     unres_rows = []
     for r in unresolved:
@@ -833,6 +887,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     has no external line to quote, so we originate it ourselves.
     Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.{lowtier_note}</li>
+    <li><strong>Bookmaker evidence for the matches nobody prices.</strong> {obs_line}</li>
     <li><strong>Unresolved picks &amp; limitations.</strong> {len(unresolved)} cards cannot carry a playable
     probability today; they are listed with their reason and source in the section below and in full on
     <a href="unresolved.html">Unresolved &amp; limitations</a>. Nothing is padded with a guessed number.</li>
@@ -1315,6 +1370,34 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
         'Receipt: <a href="data/esportsbook_probe.json" rel="noopener">esportsbook_probe.json</a>.'
         if probe["have"] else "No esportsbook probe receipt is committed for this build.")
     _, lowtier_date, lowtier_n = _lowtier_matrix()
+    obs = _venue_observations()
+    obs_rows = []
+    for o in obs:
+        obs_rows.append([
+            f'<a href="{e(o["url"])}" rel="noopener">{e(o["source_name"])}</a>'
+            f'<br><span class="small muted">{e(o["kind"])}</span>',
+            e(o["observation"]),
+            f'<span class="small">&ldquo;{e(o["verbatim"])}&rdquo;</span>'
+            f'<br><span class="small muted">captured {e(o["captured_utc"][:16].replace("T", " "))}Z'
+            f' &middot; {e(o["url"])}</span>',
+        ])
+    obs_block = ""
+    if obs_rows:
+        obs_block = f"""
+<section class="panel" id="observed">
+  <h2>What the established books and esportsbooks actually showed ({len(obs)} checks)</h2>
+  <p class="lead">Beyond the runner probes above, a person opened these pages on
+  <strong>{e(_latest_observation_day(obs))}</strong> and read them. Each row is one check: the venue,
+  what its LoL lobby contained for the leagues below the featured ceiling, the sentence it printed,
+  and the capture time &mdash; every row links to the page itself so it can be re-checked by hand.
+  This is the direct answer to &ldquo;is there a betting line for these matches anywhere?&rdquo;:
+  on the date shown, the whole tail of the Hotspawn list was priced by <strong>nobody</strong>, which
+  is why those picks are originated instead of quoted.</p>
+  {table(["Venue", "What it showed for the unpriced leagues", "Verbatim reading &amp; capture"], obs_rows)}
+  <p class="small muted">Receipts: <a href="{GITHUB_BLOB}/data/receipts/external_odds/2026-10-25.json" rel="noopener">2026-10-25.json</a>
+  &middot; full venue-by-venue ledger on <a href="coverage.html">Coverage</a>
+  &middot; dossier <a href="{GITHUB_BLOB}/research/LINE_SEARCH_2026-10-25.md" rel="noopener">research/LINE_SEARCH_2026-10-25.md</a>.</p>
+</section>"""
 
     body = f"""
 <section class="panel">
@@ -1364,6 +1447,7 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
   back a pick &mdash; the unpriced tail keeps its originated (Elo) line instead of a borrowed quote.</p>
   {probe_table}
 </section>
+{obs_block}
 
 <section class="panel">
   <h2>Provisional lines ({len(provisional)})</h2>

@@ -1,0 +1,162 @@
+{
+  "about": "External line search for the 2026-10-25 card. Session cb84d7dc. Question: can any established LoL betting site, esportsbook or esports odds aggregator price the matches that the featured (market) resolution cannot? Every entry below is one page read during this session's 14:04-14:08Z window; captured_utc is inside that window and is accurate to the minute only as the session fetch time, not to the second.",
+  "capture_window_utc": "2026-10-25T14:04:00Z/2026-10-25T14:08:00Z",
+  "sources": [
+    {
+      "key": "thunderpick",
+      "name": "Thunderpick",
+      "kind": "esportsbook",
+      "url": "https://thunderpick.io/esports/league-of-legends",
+      "runner_reachable": "no - HTTP 403 from the Actions runner probe (data/source_probes.json); readable only from the research sandbox",
+      "note": "Crypto esportsbook with a LoL lobby. On 2026-10-25 its whole LoL category was 11 markets: Worlds 2026 (10) and LGC Rising 2026 Playoffs (1)."
+    },
+    {
+      "key": "cloudbet",
+      "name": "Cloudbet",
+      "kind": "esportsbook",
+      "url": "https://www.cloudbet.com/en/esports/league-of-legends",
+      "runner_reachable": "not probed on the runner",
+      "note": "Crypto esportsbook with dedicated per-league LoL pages, including one for the Prime League 2nd Division."
+    },
+    {
+      "key": "egamersworld",
+      "name": "EGamersWorld",
+      "kind": "odds aggregator",
+      "url": "https://egamersworld.com/lol/bets",
+      "runner_reachable": "no - HTTP 403 from the Actions runner probe",
+      "note": "Aggregates Vave, Thunderpick, Rainbet, Underdog and CocoBet prices per LoL match."
+    },
+    {
+      "key": "bo3gg",
+      "name": "bo3.gg LoL match centre",
+      "kind": "odds aggregator",
+      "url": "https://bo3.gg/lol/matches/current",
+      "runner_reachable": "page reachable but JavaScript-only from the runner",
+      "note": "Serves a Thunderpick price pair per listed match."
+    },
+    {
+      "key": "oddsportal",
+      "name": "OddsPortal",
+      "kind": "odds comparison",
+      "url": "https://www.oddsportal.com/esports/league-of-legends/",
+      "runner_reachable": "no - bot-protected from the runner",
+      "note": "Multi-book comparison engine; its LoL index lists the competitions it prices."
+    },
+    {
+      "key": "betmonitor",
+      "name": "Betmonitor",
+      "kind": "odds comparison",
+      "url": "https://www.betmonitor.com/odds-comparison/esport/today",
+      "runner_reachable": "not probed on the runner",
+      "note": "Compares 20+ bookmakers per esports event."
+    },
+    {
+      "key": "ggbet",
+      "name": "GG.BET",
+      "kind": "esportsbook",
+      "url": "https://gg.bet/en/esports/league-of-legends",
+      "runner_reachable": "no - HTTP 403 from the Actions runner probe",
+      "note": "Established LoL betting site."
+    },
+    {
+      "key": "vave",
+      "name": "Vave",
+      "kind": "esportsbook",
+      "url": "https://vave.com/esports/league-of-legends",
+      "runner_reachable": "not probed on the runner",
+      "note": "Esportsbook quoted by EGamersWorld for every Worlds match."
+    },
+    {
+      "key": "rivalry",
+      "name": "Rivalry",
+      "kind": "esportsbook (closed)",
+      "url": "https://rivalry.com/esports/league-of-legends",
+      "runner_reachable": "no - the site now redirects to an operational-closure notice",
+      "note": "Formerly a major esportsbook; it has ceased operations, so no line can ever be taken from it again."
+    }
+  ],
+  "captures": [
+    {
+      "fixture_id": "1079080",
+      "source": "thunderpick",
+      "page_url": "https://thunderpick.io/esports/league-of-legends/lgc-rising-2026-playoffs/11363/vitality-rising-bees-vs-mental-rush/2876675",
+      "captured_utc": "2026-10-25T14:06:00Z",
+      "page_teams": ["Vitality Rising Bees", "Mental Rush"],
+      "decimal": [1.42, 2.62],
+      "verbatim": "Tuesday, October 27th BO5 Oct 27, 13:00 LGC Rising 2026 Playoffs Vitality Rising Bees -238 vs +162 Mental Rush",
+      "note": "American moneyline read off the tournament page: -238 -> 1.42 decimal, +162 -> 2.62 decimal. The book labels the board in its own clock (13:00); Hotspawn lists the same BO5 series at 2026-10-27T17:00Z. Corroboration only - the published line for this row comes from the pipeline's own live Polymarket/Pinnacle reads, not from this manual capture."
+    }
+  ],
+  "coverage_observations": [
+    {
+      "source": "cloudbet",
+      "captured_utc": "2026-10-25T14:05:00Z",
+      "url": "https://www.cloudbet.com/en/esports/league-of-legends/germany-t8205-prime-league-2nd-division",
+      "observation": "Cloudbet maintains a dedicated Prime League 2nd Division market page, so it is a venue that CAN price this league at times - but on 2026-10-25 the page carried no event at all. The league that supplies 36 of the 241 Hotspawn cards had no open price on the one established book that advertises it.",
+      "verbatim": "No Prime League 2nd Division events availableCheck back later for the latest updates on upcoming matches."
+    },
+    {
+      "source": "cloudbet",
+      "captured_utc": "2026-10-25T14:05:00Z",
+      "url": "https://www.cloudbet.com/en/esports/league-of-legends?tab=today",
+      "observation": "The LoL lobby of the same book listed exactly one competition with events on 2026-10-25: the LoL World Championship. No national division, academy league or regional split appeared in the competition list.",
+      "verbatim": "## International - [LoL World Championship](https://www.cloudbet.com/en/esports/league-of-legends/international-league-of-legends-world-championship)"
+    },
+    {
+      "source": "bo3gg",
+      "captured_utc": "2026-10-25T14:05:00Z",
+      "url": "https://bo3.gg/lol/matches/current",
+      "observation": "The match centre's 'today' schedule for 2026-10-25 contained four LoL cards, all under 'Worlds 2026', each with a two-sided decimal pair (Hanwha Life 1.25 / Invictus Gaming 3.50; Top Esports 2.05 / G2 1.68; Dplus KIA 1.22 / KOI 3.80; Gen.G 1.04 / LYON 8.00). Not one of the 147 upcoming national and academy cards that Hotspawn lists appeared on it.",
+      "verbatim": "today, October 25 ... 13:00 Hanwha Life Esports Bo1 Invictus Gaming 1.25 3.50 ... Worlds 2026 ... 18:00 Gen.G Esports Bo3 LYON 1.04 8.00"
+    },
+    {
+      "source": "egamersworld",
+      "captured_utc": "2026-10-25T14:06:00Z",
+      "url": "https://egamersworld.com/lol/bets",
+      "observation": "The odds page's today's-upcoming block carried only 2026 World Championship cards, each compared across five books (Vave, Thunderpick, Rainbet, Underdog, CocoBet). Example: Hanwha Life 1.20 (Vave) / 1.30 (Thunderpick) / 1.24 (Rainbet) / 1.23 (Underdog) / 1.26 (CocoBet) against Invictus Gaming at 4.40 / 3.20 / 3.54 / 3.53 / 3.49.",
+      "verbatim": "today`s Upcoming Matches 2026 World Championship ... Vave 1.2 4.4 ... Thunderpick 1.3 3.2 ... Rainbet 1.24 3.54 ... Underdog 1.23 3.53 ... CocoBet 1.26 3.49"
+    },
+    {
+      "source": "betmonitor",
+      "captured_utc": "2026-10-25T14:05:00Z",
+      "url": "https://www.betmonitor.com/odds-comparison/esport/today",
+      "observation": "The cross-book comparison listed four LoL events for 2026-10-25, all in the World Championship, each quoted by 24-27 bookmakers. No tier-2, national or academy LoL competition appeared anywhere in its esports schedule for the day.",
+      "verbatim": "World Championship Today 25 Oct 13:00 eSports - LoL - World Championship Hanwha Life - Invictus Gaming 26 Bookmakers, 164 odds"
+    },
+    {
+      "source": "oddsportal",
+      "captured_utc": "2026-10-25T14:06:00Z",
+      "url": "https://www.oddsportal.com/esports/league-of-legends/",
+      "observation": "The comparison engine's entire League of Legends index contains one competition, and the count in brackets is the number of priced events: the World Championship with 10. Every one of the other 28 competitions on the Hotspawn list is absent from the index.",
+      "verbatim": "- [League of Legends World Championship (10)](https://www.oddsportal.com/esports/league-of-legends/league-of-legends-world-championship/)"
+    },
+    {
+      "source": "ggbet",
+      "captured_utc": "2026-10-25T14:07:00Z",
+      "url": "https://gg.bet/en/esports/league-of-legends",
+      "observation": "GG.BET served a geo-restriction notice instead of a LoL lobby, so no price could be read from it from this location on this date. This is a different verdict from the Actions runner's HTTP 403 on the same host and is recorded separately rather than resolved either way.",
+      "verbatim": "This internet site is not accepting visitors from your region. If you have any questions please address them to support@gg.bet"
+    },
+    {
+      "source": "vave",
+      "captured_utc": "2026-10-25T14:07:00Z",
+      "url": "https://vave.com/esports/league-of-legends",
+      "observation": "Vave, which EGamersWorld quotes as a book on every Worlds match, refused this location outright. Its prices are therefore only visible through the aggregator that mirrors them, not from the book itself.",
+      "verbatim": "Vave is currently not available in your region"
+    },
+    {
+      "source": "rivalry",
+      "captured_utc": "2026-10-25T14:07:00Z",
+      "url": "https://rivalry.com/esports/league-of-legends",
+      "observation": "Rivalry, previously one of the larger esportsbooks quoted in this project's own source probes, has ceased trading: the LoL URL now redirects to an operational-closure notice. It should be removed from any list of candidate venues rather than retried.",
+      "verbatim": "Rivalry's operations have now ceased. Player access is no longer available through this site."
+    },
+    {
+      "source": "thunderpick",
+      "captured_utc": "2026-10-25T14:07:00Z",
+      "url": "https://thunderpick.io/esports/league-of-legends",
+      "observation": "Thunderpick's entire League of Legends category was 11 markets on two competitions: Worlds 2026 (10) and LGC Rising 2026 Playoffs (1). It does price one lower-tier competition that Hotspawn also lists, which is why the LGC Rising card below carries a fresh second-venue capture, but it does not list the PRM divisions, RIVALS LEAGUE, the Tunisian Super League or any other Hotspawn tail competition.",
+      "verbatim": "[League of Legends 11](https://thunderpick.io/esports) [Worlds 2026 10](...) [LGC Rising 2026 Playoffs 1](https://thunderpick.io/esports/league-of-legends/lgc-rising-2026-playoffs/11363)"
+    }
+  ]
+}

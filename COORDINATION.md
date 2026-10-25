@@ -2653,3 +2653,101 @@ session-egress check the same day reached the same ceiling. Written up with link
 `S5`: PR from `arena/63c67a23-lolhotspawn1` → `main`, merge, confirm the Pages deploy and a green
 `refresh-picks` run (the merge itself triggers `refresh.yml` through the `tools/**` path filter), then
 record the run id, snapshot timestamp and deploy result here.
+
+---
+
+# Session `cb84d7dc` — refresh unblock, external line search for the unpriced tail, integration (2026-10-25)
+
+Branch: `arena/cb84d7dc-lolhotspawn1` (fixed Arena session branch, from `main` @ `b19397f`).
+Claim filed at session start, before any edit, per protocol. No other session had a live claim on the
+files below: every row on this board that is still marked `in progress` belongs to a session whose last
+commit is more than 60 minutes old (2026-10-24), so per the takeover rule those claims are lapsed and
+this session records that it is working in the scopes they named. Nothing of theirs was reverted.
+
+## Claim
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `X1` | **Unblock `refresh-picks`**: the run recorded in `data/build_failure.log` failed at `unit-tests` (3 failures), which stopped the six-hourly re-publish and froze the site 17 h behind Hotspawn | done (PR #93 merged) | cb84d7dc | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` |
+| `X2` | **External line search for every match the featured resolution cannot price** — established LoL betting sites, then esportsbooks, then esports odds aggregators; every reading recorded with URL, capture time and verbatim text | done | cb84d7dc | `data/receipts/external_odds/2026-10-25.json` (new), `research/LINE_SEARCH_2026-10-25.md` (new) |
+| `X3` | **Publish the search on the site**: the limitations page and the executive summary must carry the book-by-book evidence with live links, and a gate must fail if an observation loses its source | done | cb84d7dc | `tools/site.py`, `tools/verify.py` |
+| `X4` | **Line-by-line verification of the combined tree and the live site**, PR → `main`, merge without approval, confirm the Pages deploy and a green refresh | in progress | cb84d7dc | `COORDINATION.md`, `README.md` |
+
+## X1 — root cause, fixed and verified
+
+`data/build_failed_steps.txt` = `unit-tests`; `data/build_failure.log` = `FAILED (failures=3)` on
+`test_corroborate_history.{test_receipt_for_a_delisted_fixture_is_historical_not_rejected,test_the_stats_still_reconcile}`
+and `test_corroborate_offlist.test_rolled_off_fixture_is_historical_not_rejected`.
+
+The cause is **time, not code**: both files hard-coded `captured_utc = 2026-10-24T00:00:00Z`, and
+`tools/corroborate.py` classifies a receipt by age (`RECEIPT_MAX_AGE_HOURS = 24`). One day after they were
+written every fixture receipt was `expired`, `usable_receipts` fell to 0, and the suite failed — which
+failed the refresh stage gate and blocked every scheduled re-publish. Fix: fixture timestamps now move with
+the wall clock (`_recent()` / `_kickoff()` helpers); **no assertion was weakened** (delisted-fixture,
+wrong-team and malformed-receipt contracts are identical; one literal-timestamp assertion became
+"the published age is positive", same intent, no clock dependency). `python3 -m unittest discover -s tests`
+→ **62/62 OK**. Merged in **PR #93** (`1be41b6`).
+
+## X2 — the external search (sources, per venue)
+
+Full dossier with the verbatim readings: [`research/LINE_SEARCH_2026-10-25.md`](research/LINE_SEARCH_2026-10-25.md).
+Machine-readable receipts: `data/receipts/external_odds/2026-10-25.json` (9 sources, 10 observations,
+1 capture). Research window **2026-10-25T14:04Z–14:08Z**; the sandbox shell has no HTTPS egress to these
+hosts (`curl` → HTTP `000` to Hotspawn/Pinnacle/Leaguepedia, re-verified this session), so each reading came
+through the separate fetch path, independent of the Actions runner.
+
+| Venue | Verdict for the unpriced leagues | Source |
+|---|---|---|
+| Thunderpick (esportsbook) | whole LoL category = 11 markets: Worlds 2026 (10) + LGC Rising 2026 Playoffs (1); no PRM/RIVALS/Tunisian/Komplettligaen/LigaGG/Arabian/4 Nations market | <https://thunderpick.io/esports/league-of-legends> |
+| Cloudbet (esportsbook) | LoL lobby listed one competition with events: LoL World Championship | <https://www.cloudbet.com/en/esports/league-of-legends?tab=today> |
+| Cloudbet — PRM 2nd Division page | the page exists, the market list was **empty** ("No Prime League 2nd Division events available") | <https://www.cloudbet.com/en/esports/league-of-legends/germany-t8205-prime-league-2nd-division> |
+| EGamersWorld (5-book aggregator) | today's-upcoming block = 2026 World Championship only | <https://egamersworld.com/lol/bets> |
+| bo3.gg | 4 cards for the day, all `Worlds 2026`, each with a decimal pair | <https://bo3.gg/lol/matches/current> |
+| Betmonitor (24–27 books) | 4 LoL events, all World Championship; no tier-2/national LoL event in the day's schedule | <https://www.betmonitor.com/odds-comparison/esport/today> |
+| OddsPortal | the entire LoL index = one competition, `League of Legends World Championship (10)` | <https://www.oddsportal.com/esports/league-of-legends/> |
+| GG.BET | geo-refused this location (`not accepting visitors from your region`) — recorded as unreadable, not as "no market" | <https://gg.bet/en/esports/league-of-legends> |
+| Vave | geo-refused this location | <https://vave.com/esports/league-of-legends> |
+| Rivalry | **ceased operations**; the LoL URL redirects to an operational-closure notice — drop it from the candidate-venue list | <https://rivalry.com/esports/league-of-legends> |
+
+**One tier-2 line does exist.** Thunderpick priced `#1079080` (`Mental Rush vs Vitality Rising Bees`, BO5,
+2026-10-27T17:00Z) at `Vitality Rising Bees -238 / Mental Rush +162` → 1.42 / 2.62 decimal → de-vigged
+**35.2 % / 64.8 %**, against our published **38.5 % / 61.5 %** (a live Polymarket/Pinnacle read). Gap
+**−3.4 pp**, inside the 8 pp threshold → filed `agrees` in the corroboration ledger. It is a cross-check,
+not the price of record: a hand-transcribed page is not a live feed.
+
+## X3 — what changed on the site
+
+- `tools/site.py`: new `_venue_observations()` reads the committed receipts directly (site.py runs before
+  corroborate.py, so reading the receipts keeps the page a build ahead instead of behind). A new
+  **"What the established books and esportsbooks actually showed"** panel on `unresolved.html#observed`
+  prints every check with its venue, its verbatim reading, its capture time and a live link; the
+  **executive summary** on `index.html` now carries a *"Bookmaker evidence for the matches nobody prices"*
+  bullet that counts the checks and deep-links to it.
+- `tools/verify.py`: two new publish gates —
+  *every external line-search observation is source-linked and complete* (URL, capture time, non-empty
+  observation and verbatim, source declared in the same receipt file) and *limitations page prints every
+  book check with its live link* (the rendered page must contain each observation URL and the anchor).
+  A squashed or link-less entry now fails the build instead of shipping.
+
+## X4 — verification performed on the combined tree (local, before merge)
+
+| Gate | Result |
+|---|---|
+| `python3 -m unittest discover -s tests` | **62/62 OK** |
+| `tools/model.py` → `report` → `flags` → `site` → `corroborate` → `verify` | every stage `exit=0`; publish gate **46/46 PASS**, 0 FAIL |
+| `tools/corroborate.py` | `33 usable receipts (19 agree / 13 diverge / 2 placeholder)`, **0 rejected**, 16 historic, 1 expired |
+| `audit/check_site.py` | **24 pages, 0 failures, 0 warnings** |
+| `audit/verify_docs.py` | **ALL DOCS CHECKS PASS** |
+| `audit/mobile_audit.py` | **PASS** |
+
+## Irregularities recorded this session (also published on the site)
+
+1. **A test suite that expires with the clock** was the only thing standing between the repository and a
+   fresh six-hourly refresh for a full day. Fixed in X1; the underlying pattern (fixtures keyed to a fixed
+   date in a time-windowed rule) is worth watching in any future test that touches receipt ages.
+2. **Two venues return different verdicts from different networks.** GG.BET answers HTTP 403 to the
+   Actions runner (`data/source_probes.json`) and a geo-restriction notice to this sandbox. Both are
+   recorded; neither is resolved into "no market exists".
+3. **Rivalry has ceased trading.** Any future plan that lists it as a candidate book is stale.
+4. **Cloudbet advertises a Prime League 2nd Division market that was empty on 2026-10-25.** The league is
+   therefore *sometimes* bettable, which is a lead for a paid odds feed — not evidence of a price today.
