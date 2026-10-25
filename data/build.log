@@ -1,4 +1,4 @@
-=== build 2026-10-25T14:11:01Z sha=cbe297b93b3f016e35e7af1368596d6279e83d29 ===
+=== build 2026-10-25T14:13:19Z sha=878506202513d19df5ac41ebd69b74b539f1d439 ===
 test_age_hours (test_corroborate.ReceiptLedgerTests.test_age_hours) ... ok
 test_buckets (test_corroborate.ReceiptLedgerTests.test_buckets) ... ok
 test_expired_is_never_counted_as_usable_evidence (test_corroborate.ReceiptLedgerTests.test_expired_is_never_counted_as_usable_evidence) ... ok
@@ -38,13 +38,13 @@ test_every_row_records_what_came_back (test_esportsbook_probe.EsportsbookProbeTe
 test_receipt_shape (test_esportsbook_probe.EsportsbookProbeTests.test_receipt_shape) ... ok
 test_summary_list_matches_rows (test_esportsbook_probe.EsportsbookProbeTests.test_summary_list_matches_rows) ... ok
 test_usable_requires_a_named_fixture_with_a_price (test_esportsbook_probe.EsportsbookProbeTests.test_usable_requires_a_named_fixture_with_a_price) ... ok
-test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [14:11:02] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpgs_ug2t5/flags.json' mode='r' encoding='utf-8'>
+test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [14:13:20] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp9tglqu5r/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [14:11:02] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpkx11m8xn/flags.json' mode='r' encoding='utf-8'>
+test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [14:13:20] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpkuccan8m/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -68,7 +68,7 @@ test_competition_page_disambiguates_homonyms_before_global_exact (test_integrity
 test_invalid_probabilities (test_integrity.IntegrityTests.test_invalid_probabilities) ... ok
 test_kambi_parse_events_reads_match_odds (test_integrity.IntegrityTests.test_kambi_parse_events_reads_match_odds) ... ok
 test_live_venue_name_aliases (test_integrity.IntegrityTests.test_live_venue_name_aliases) ... ok
-test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [14:11:02] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
+test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [14:13:20] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
 ok
 test_published_dataset_and_html_invariants (test_integrity.IntegrityTests.test_published_dataset_and_html_invariants) ... ok
 test_settlement_pick_is_valid_without_probability (test_integrity.IntegrityTests.test_settlement_pick_is_valid_without_probability) ... ok
@@ -80,7 +80,7 @@ test_unresolved_both_sides_blank (test_integrity.IntegrityTests.test_unresolved_
 test_valid (test_integrity.IntegrityTests.test_valid) ... ok
 test_wrong_team_same_probability (test_integrity.IntegrityTests.test_wrong_team_same_probability) ... ok
 test_flagged_page_renders_fixture_table_with_probabilities_picks_and_sources (test_site_and_flags.SiteAndFlagsRegressionTests.test_flagged_page_renders_fixture_table_with_probabilities_picks_and_sources) ... ok
-test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key (test_site_and_flags.SiteAndFlagsRegressionTests.test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key) ... [14:11:02] flags: 6 items
+test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key (test_site_and_flags.SiteAndFlagsRegressionTests.test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key) ... [14:13:20] flags: 6 items
 ok
 test_methodology_has_no_duplicate_guardrail_and_uses_tier_priors (test_site_and_flags.SiteAndFlagsRegressionTests.test_methodology_has_no_duplicate_guardrail_and_uses_tier_priors) ... ok
 test_mobile_audit_covers_all_14_root_pages_including_results (test_site_and_flags.SiteAndFlagsRegressionTests.test_mobile_audit_covers_all_14_root_pages_including_results) ... ok
@@ -88,28 +88,28 @@ test_page_shell_omits_redundant_floating_picks_pill_on_table_page (test_site_and
 test_results_page_every_td_has_data_label (test_site_and_flags.SiteAndFlagsRegressionTests.test_results_page_every_td_has_data_label) ... ok
 
 ----------------------------------------------------------------------
-Ran 71 tests in 0.168s
+Ran 71 tests in 0.316s
 
 OK
 OK   unit tests
 --- tools/collect.py ---
-[14:11:03] hotspawn: 234 LoL fixtures
-[14:11:06] pinnacle: 80 LoL matchups, 8 with open series moneylines (4 '(Kills)' derivatives excluded)
-[14:11:06] kalshi: 9 CFTC match events (status=200)
-[14:11:07] bovada: 8 LoL moneylines (status=200)
-[14:11:07] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
-[14:11:08] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
-[14:11:08] kambi/nordicbet: status=429 No access
-[14:11:08] kambi/coolbet: 0 events, 0 new moneylines
-[14:11:08] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
-[14:12:22] leaguepedia: 34678 series rows, 11 pages with dqteams (err='')
-[14:12:22] lolesports: 80 Worlds events (status=200)
-[14:12:23] polymarket: 55 match-level markets (status=200)
-[14:12:32] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[14:13:21] hotspawn: 234 LoL fixtures
+[14:13:23] pinnacle: 80 LoL matchups, 8 with open series moneylines (4 '(Kills)' derivatives excluded)
+[14:13:24] kalshi: 9 CFTC match events (status=200)
+[14:13:24] bovada: 8 LoL moneylines (status=200)
+[14:13:25] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
+[14:13:25] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
+[14:13:25] kambi/nordicbet: status=429 No access
+[14:13:25] kambi/coolbet: 0 events, 0 new moneylines
+[14:13:25] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
+[14:14:26] leaguepedia: 34677 series rows, 11 pages with dqteams (err='')
+[14:14:26] lolesports: 80 Worlds events (status=200)
+[14:14:26] polymarket: 55 match-level markets (status=200)
+[14:14:34] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 OK   tools/collect.py
 --- tools/model.py ---
-[14:12:56] rows=234 methods={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9} joins=33
-[14:12:56] backtest n=3920 acc=0.6495 brier=0.2185
+[14:15:13] rows=234 methods={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9} joins=33
+[14:15:13] backtest n=3920 acc=0.6497 brier=0.2185
 OK   tools/model.py
 --- tools/report.py ---
 {
@@ -257,16 +257,16 @@ PRICED 9
   LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.365 None
 OK   tools/report.py
 --- tools/flags.py ---
-[14:12:56] flags: 38 items
+[14:15:13] flags: 38 items
 OK   tools/flags.py
 --- tools/site.py ---
-[14:12:56] site: wrote 13 pages to the published root
+[14:15:13] site: wrote 13 pages to the published root
 OK   tools/site.py
 --- tools/corroborate.py ---
-[14:12:56] corroborate: 2 usable receipts (1 agree / 1 diverge / 2 placeholder), 2/29 competitions priced externally
+[14:15:13] corroborate: 3 usable receipts (2 agree / 1 diverge / 2 placeholder), 2/29 competitions priced externally
 OK   tools/corroborate.py
 --- tools/verify.py ---
-[14:12:56] verification passed
+[14:15:14] verification passed
 PASS dataset present :: 234 matches loaded
 PASS complete inventory reconciliation :: raw fixtures=234, published rows=234; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
@@ -301,10 +301,12 @@ PASS curated flags annotate every reference to a fixture that has left the list 
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 29 competition rows; missing links: []
-PASS external receipts validated against the dataset :: 2 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 1 expired, 46 historic (not counted)
-PASS corroboration ledger accounts for every receipt :: receipts=51 = usable 2 + placeholder 2 + rejected 0 + expired 1 + historic 46
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 68244 bytes
+PASS external receipts validated against the dataset :: 3 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 1 expired, 46 historic (not counted)
+PASS corroboration ledger accounts for every receipt :: receipts=52 = usable 3 + placeholder 2 + rejected 0 + expired 1 + historic 46
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 78035 bytes
 PASS external source research receipts are committed :: 44 venues probed on 2026-10-24T16:41:31Z; dossier present
+PASS every external line-search observation is source-linked and complete :: 17 observations across 4 receipt files; problems: []
+PASS limitations page prints every book check with its live link :: unresolved.html carries the observation table; 0 observation link(s) missing
 PASS coverage arithmetic reconciles to the inventory :: priced=230 + settlements=4 = 234; rows with a pick=234; inventory=234
 PASS method counts partition matches.json cleanly :: counts={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9} sum=234 rows=234
 PASS source availability recorded :: 12/18 sources reachable on this build
@@ -317,4 +319,4 @@ PASS executive summary names every unresolved match :: 0 unresolved cards missin
 PASS landing-page tournament directory links every tournament to a filterable pick table :: 29 tournaments; missing links: []; missing table rows: []
 PASS tournament deep links are honoured by the client filter :: assets/app.js reads ?comp=, ?method=, ?q= and ?upcoming= into the table/card filters
 OK   tools/verify.py
-pipeline finished at 2026-10-25T14:12:56Z
+pipeline finished at 2026-10-25T14:15:14Z
