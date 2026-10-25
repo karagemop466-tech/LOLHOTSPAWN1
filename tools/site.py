@@ -908,14 +908,14 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
 <section class="panel" id="soon">
   <h2 id="next">Starting soon</h2>
-  <p class="lead">The next twelve kick-offs, soonest first - and every one of them already has a pick.
-  The big number is the picked team's win probability; <strong>market</strong> means a real bookmaker
-  priced it, <strong>model</strong> is our originated line from series history, and
-  <strong>provisional</strong> flags thin history (treat those as low confidence). Tap a row for the
-  full card and its sources. For the complete list use the <a href="table.html"><strong>Pick
-  table</strong></a>.</p>
-  <div class="nextlist">{next_strip(upcoming[:12]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
-  <p style="margin:12px 0 0"><a class="btn" href="table.html">All {total} matches &rarr;</a></p>
+  <p class="lead">The next kick-offs, in order, and every one already has a pick. The percentage is the
+  picked team's win probability; <strong>market</strong> means a real bookmaker priced it,
+  <strong>model</strong> is our originated line and <strong>provisional</strong> flags thin history.
+  A row hides itself once its start time passes, so this list never presents a locked pick as upcoming.
+  Tap a row for the full card and its sources.</p>
+  <div class="nextlist">{next_strip(upcoming[:16]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
+  <p style="margin:12px 0 0"><a class="btn primary" href="table.html?upcoming=1">Upcoming only ({len(upcoming)}) &rarr;</a>
+  <a class="btn" href="table.html">All {total} matches &rarr;</a></p>
 </section>
 
 <section class="panel" id="where">
@@ -936,15 +936,6 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <a href="unresolved.html"><span class="ql-t">Unresolved &amp; limits &mdash; {len(unresolved)}</span>
       <span class="ql-d">Every card that cannot carry a probability, why, and every limitation that applies to the rest.</span></a>
   </div>
-</section>
-
-<section class="panel" id="soon">
-  <h2 id="next">Starting soon</h2>
-  <p class="lead">The next kick-offs, in order. A row hides itself once its start time passes, so this
-  list never presents a locked pick as upcoming. Tap a row for the full card.</p>
-  <div class="nextlist">{next_strip(upcoming[:16]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
-  <p style="margin:12px 0 0"><a class="btn primary" href="table.html?upcoming=1">Upcoming only ({len(upcoming)}) &rarr;</a>
-  <a class="btn" href="table.html">All {total} matches &rarr;</a></p>
 </section>
 
 <section class="panel" id="directory">
