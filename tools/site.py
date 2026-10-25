@@ -601,7 +601,7 @@ def short_time(iso_utc: str | None) -> str:
 
 
 def next_strip(rows: list[dict]) -> str:
-    """Eight one-tap kick-off rows: match, pick, probability. Aimed at a phone."""
+    """Soonest kick-offs as one-tap rows: match, pick, probability, method. Aimed at a phone."""
     out = []
     for r in rows:
         pick = r.get("pick") or {}
@@ -613,7 +613,9 @@ def next_strip(rows: list[dict]) -> str:
             value, cls = "forfeit", "np settle"
         else:
             value, cls = "&mdash;", "np settle"
-        note = f"Pick: {team}" if team else "No pick - see Unresolved"
+        method = r.get("method") or ""
+        method_tag = f" · {method}" if method in ("market", "model", "provisional") else ""
+        note = f"Pick: {team}{method_tag}" if team else "No pick - see Unresolved"
         if prob is None and team:
             note += " (forfeit - expected void, no price)"
         out.append(
@@ -711,15 +713,32 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     body = f"""
 <section class="hero" id="start">
   <h2>Every League of Legends match on Hotspawn, with a pick you can reach in one tap.</h2>
-  <p>All <strong>{total}</strong> scheduled LoL cards, refreshed automatically every six hours. Every card
-  carries a pick: <strong>{len(featured)}</strong> priced from real-money bookmaker lines,
+  <p>All <strong>{total}</strong> scheduled LoL cards, refreshed automatically every six hours
+  (Hotspawn inventory last collected <strong>{e(fetched) or "time unknown"}</strong> — always check the
+  timestamp above before relying on a pick). Every card carries a pick:
+  <strong>{len(featured)}</strong> priced from real-money bookmaker lines,
   <strong>{originated_n}</strong> originated from recorded series results, and
   <strong>{len(walkover)}</strong> resolved by league rule. Hotspawn's own crowd vote is never an input.</p>
+  <p><strong>New here, on a phone?</strong> Tap <strong>Pick table</strong> below (or <strong>Picks</strong>
+  in the bar at the bottom of every page) — that is the whole list: one row per match, pick and both win
+  probabilities, soonest first. The next kick-offs are right under this panel.</p>
   <div class="cta">
     <a class="btn primary" href="table.html">Pick table &mdash; all {total} matches &rarr;</a>
     <a class="btn" href="picks.html">Card view</a>
     <a class="btn" href="results.html">Results ({track.get("graded", 0)} graded)</a>
   </div>
+</section>
+
+<section class="panel" id="soon">
+  <h2 id="next">Starting soon</h2>
+  <p class="lead">The next twelve kick-offs, soonest first - and every one of them already has a pick.
+  The big number is the picked team's win probability; <strong>market</strong> means a real bookmaker
+  priced it, <strong>model</strong> is our originated line from series history, and
+  <strong>provisional</strong> flags thin history (treat those as low confidence). Tap a row for the
+  full card and its sources. For the complete list use the <a href="table.html"><strong>Pick
+  table</strong></a>.</p>
+  <div class="nextlist">{next_strip(upcoming[:12]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
+  <p style="margin:12px 0 0"><a class="btn" href="table.html">All {total} matches &rarr;</a></p>
 </section>
 
 <section class="panel" id="where">
@@ -740,13 +759,6 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <a href="unresolved.html"><span class="ql-t">Unresolved &amp; limits &mdash; {len(unresolved)}</span>
       <span class="ql-d">Every card that cannot carry a probability, why, and every limitation that applies to the rest.</span></a>
   </div>
-</section>
-
-<section class="panel" id="soon">
-  <h2 id="next">Starting soon</h2>
-  <p class="lead">The next eight kick-offs. Tap a row for the full card.</p>
-  <div class="nextlist">{next_strip(upcoming[:8]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
-  <p style="margin:12px 0 0"><a class="btn" href="table.html">All {total} matches &rarr;</a></p>
 </section>
 
 <section class="stats">
