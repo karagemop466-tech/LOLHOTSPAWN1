@@ -3003,16 +3003,23 @@ Branch: `arena/9b271aa4-lolhotspawn1` (fixed Arena branch).
 
 | # | Task | Status | Owner | File scope |
 |---|---|---|---|---|
-| `V1` | **Post-merge publication audit.** Independently verify the already merged full-coverage/mobile update, PR #96 and follow-up merges, current GitHub Pages deployment status, all offline publish gates, and current canonical vs. secondary snapshot timestamps. Record current discrepancies and any inability to verify live state; do not alter model, source data, pipeline, workflow, or generated pages. | in progress — audit complete; PR/merge close-out pending | 9b271aa4 | `COORDINATION.md`, `audit/session_9b271aa4/**` (new evidence only) |
+| `V1` | **Post-merge publication audit.** Independently verify the already merged full-coverage/mobile update, PR #96 and follow-up merges, current GitHub Pages deployment status, all offline publish gates, and current canonical vs. secondary snapshot timestamps. Record current discrepancies and any inability to verify live state; do not alter model, source data, pipeline, workflow, or generated pages. | audit complete; PR/merge close-out pending | 9b271aa4 | `COORDINATION.md`, `audit/session_9b271aa4/**` (new evidence only) |
+| `V2` | **Take over R1: fix the secondary parity gate's cross-refresh snapshot mismatch.** Persist the exact canonical snapshot used to build `docs/` and compare rendered canonical values against that snapshot, so a later canonical refresh cannot make the gate red until the next secondary refresh. Add a regression test. No docs HTML is in scope. | in progress | 9b271aa4 | `scripts/build_site.mjs`, `audit/verify_docs_parity.py`, `tests/test_docs_snapshot_parity.py` (new), `data/node/picks.json`, `docs/data/picks.json` |
 
-This is an audit-only claim, disjoint from production files. PR #96 was merged before this session began.
-The required rebase first advanced the base from `cbe297b` to `edf0fd2` (PRs #97/#98) and later from
-`3f9a414` to `cc4e934` (PR #94); both conflicted at the end of this shared board because concurrent
-sessions appended their records. Each resolution retained the complete `origin/main` board, including the
-other sessions' work, and reapplied only this claim. No changes were discarded. The check against the
-intermediate `19dc1a9` snapshot showed a temporary docs-parity mismatch; PR #99 refreshed the secondary
-snapshot and cleared that skew. Cross-scope request R1 in session `650571cf` is recorded in the main board;
-this audit will not edit `scripts/**`, `data/node/**`, or `audit/verify_docs_parity.py`.
+PR #96 was merged before this session began. The required rebases advanced the base from `cbe297b` to
+`edf0fd2` (PRs #97/#98), then to `cc4e934` (PR #94), and later through `8492d35`/`0b0f559` (PRs #103/#104).
+The conflicts were at the end of this shared board because concurrent sessions appended their records;
+each resolution retained the complete `origin/main` board and reapplied only this session's claim. No
+other session's work was discarded. PR #99 refreshed the secondary snapshot after the first parity skew.
+
+V1 is audit-only and changed no production data or pages. V2 takes over cross-scope request R1 from the
+completed `63c67a23` session. New evidence: after root refresh commit `32a5137` (canonical snapshot
+`14:25:59Z`) while the companion remained at `14:15:46Z`, `audit/verify_docs_parity.py` check 6 failed on
+market fixtures `#1075816`, `#1075823`, and `#1079080`. The open PRs #106–#108 were checked: none edits
+`scripts/build_site.mjs`, `audit/verify_docs_parity.py`, `data/node/picks.json`, or `docs/data/picks.json`.
+V2 is limited to those files plus one new regression test; it does not edit `docs/*.html` or any active
+session's claimed scope. The goal is for the gate to verify each published companion against its own
+recorded canonical snapshot, while still reporting when the live canonical snapshot has moved on.
 
 ## V1 — independent verification results (2026-10-25T14:22Z)
 
