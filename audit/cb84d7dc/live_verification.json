@@ -1,0 +1,55 @@
+{
+  "session": "cb84d7dc",
+  "verified_utc": "2026-10-25T14:35:00Z",
+  "method": "Pages site fetched over HTTP from the research path (the sandbox shell has no HTTPS egress to github.io or to any data source), plus the same tree read directly from origin/main via git",
+  "pages_checked": [
+    {
+      "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/index.html",
+      "observed": {
+        "data_snapshot_header": "2026-10-25 14:15 UTC (later render: inventory 2026-10-25T14:24:04Z)",
+        "matches_on_hotspawn": 234,
+        "with_a_win_probability": 230,
+        "with_a_pick": 234,
+        "market_backed": 9,
+        "model_lines": 150,
+        "provisional": 71,
+        "rule_settlements": 4,
+        "tournament_directory_links": 29,
+        "executive_summary_has_where_the_picks_are": true,
+        "executive_summary_has_unresolved_section": true,
+        "executive_summary_has_bookmaker_evidence_bullet": true,
+        "publish_gate_count_rendered": 51
+      }
+    },
+    {
+      "url": "https://karagemop466-tech.github.io/LOLHOTSPAWN1/unresolved.html",
+      "observed": {
+        "unresolved_cards": 4,
+        "anchors_present": ["#observed", "#fallback", "#line-hunt"],
+        "book_checks_rendered": 17,
+        "venues_rendered": 9,
+        "each_check_carries_verbatim_and_capture_time": true,
+        "each_check_links_to_its_page": true
+      }
+    }
+  ],
+  "main_branch_snapshot": {
+    "generated_utc": "2026-10-25T14:25:59Z",
+    "inventory_fetched_utc": "2026-10-25T14:24:04Z",
+    "rows": 234,
+    "rows_with_a_pick": 234,
+    "method_counts": {"model": 150, "provisional": 71, "market": 9, "unresolved": 4},
+    "publish_gates": 51,
+    "publish_gates_passed": true,
+    "publish_gate_failures": [],
+    "corroboration": {"receipts": 52, "usable": 3, "rejected": 0, "historic": 46}
+  },
+  "refresh_runs_observed": [
+    {"commit": "19dc1a9", "committed_utc": "2026-10-25T14:15:16Z", "inventory_fetched_utc": "2026-10-25T14:13:21Z", "note": "first successful canonical refresh since 2026-10-23T17:13:14Z, triggered by the PR #97 merge"},
+    {"commit": "32a5137", "committed_utc": "2026-10-25T14:26:18Z", "inventory_fetched_utc": "2026-10-25T14:24:04Z", "note": "second consecutive refresh, triggered by the PR #103 merge"}
+  ],
+  "not_verifiable_from_this_environment": [
+    "GitHub Actions run ids and the Pages deployment run id: the REST API returned HTTP 403 'rate limit exceeded' for this token throughout the session. The bot's data commits and the committed data/verification.json are used as evidence instead, because the workflow writes them only on a passing gate.",
+    "Pinnacle/Kalshi/Bovada/Polymarket/Leaguepedia were not re-read by this session: the sandbox shell cannot reach them (curl HTTP 000). Their content is taken from the runner's own receipts in data/raw and data/sources_status.json."
+  ]
+}

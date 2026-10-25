@@ -14,7 +14,7 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 
 | Page | Contents |
 | --- | --- |
-| `index.html` | **Executive summary first**, with four tap-target counts (matches, with a probability, market-backed, unresolved) and in-site links to every picks list; then the *Unresolved picks & limitations* block inside the same summary; then starting-soon, the per-tournament directory, stats and the track record |
+| `index.html` | **Executive summary first**, with four tap-target counts (matches, with a probability, market-backed, unresolved) and in-site links to every picks list; then the *Unresolved picks & limitations* block inside the same summary; then starting soon, the per-tournament directory, stats and the track record |
 | `table.html` | **All matches in one responsive table** — kick-off, match, both win probabilities, pick, method and source links (the page to bookmark on a phone) |
 | `results.html` | **Results & track record** — every started card graded HIT/MISS against the official series record, accuracy by method, forfeit settlements, and the started-but-ungraded list |
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
@@ -34,18 +34,18 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 The landing page answers "where are the picks?" before anything else on the page:
 
 1. **Executive summary** — four large counts (matches listed, with a win probability, market-backed,
-   unresolved) that are themselves links, plus one tap target per picks destination:
-   the pick table, the next kick-offs, *Picks by tournament*, the card view, results, market-backed,
-   model lines and the unresolved ledger.
+   unresolved) that are themselves links, plus one tap target per picks destination: the pick table, the
+   next kick-offs, *Picks by tournament*, the card view, results, market-backed, model lines and the
+   unresolved ledger.
 2. **Unresolved picks and the limitations** — inside the same summary. One row per card that cannot carry
    a probability: the match, the tournament, the settlement pick, *why there is no probability* (taken
    verbatim from the row's recorded reason) and the source links.
-3. **Starting soon** — the next eight kick-offs as full-width rows with the pick and its percentage.
+3. **Starting soon** — the next kick-offs as full-width rows with the pick and its percentage.
 4. **Picks by tournament** — one row per competition, deep-linking into `table.html?comp=…`.
 
 A bar pinned to the bottom of every page repeats the five things a phone user needs: *Summary · Picks ·
-Results · Limits · Flags*. Every table cell carries its own label, so the tables stack instead of
-scrolling sideways; `audit/mobile_audit.py` fails the build if a page loses that property.
+Results · Limits · Flags*. Every table cell carries its own label, so the tables stack instead of scrolling
+sideways; `audit/mobile_audit.py` fails the build if a page loses that property.
 
 ## How it works
 
@@ -62,7 +62,7 @@ tools/site.py        13 static pages (+ coverage.html from corroborate.py = 14 r
       ↓
 tools/corroborate.py external-book receipt validation & coverage.html ledger
       ↓
-tools/verify.py      53 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
+tools/verify.py      56 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
 ```
 
 A single canonical workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) attempts that
@@ -129,6 +129,12 @@ the failing build was the only thing that could refresh the receipts, the failur
 - `refresh.yml` captures each stage separately, uploads the log as an artifact, and commits
   `data/build_failure.log` when the gate fails, so the next failure is diagnosable from the repository.
 - `tests/test_corroborate.py` locks the classification in.
+- **2026-10-25 recurrence, different mechanism**: the 11:36Z run passed all 44 publish gates but the
+  *unit-tests* step failed (`data/build_failed_steps.txt`), freezing the site at the 2026-10-24T20:54Z
+  snapshot. Three receipt test modules pinned fixture `captured_utc` to fixed 2026-10-24 dates, so once
+  the receipts' 24 h freshness window passed, "usable" fixtures graded "expired" and the tests failed.
+  Fixtures are now wall-clock-relative, and `tests/test_clock_shift.py` replays the mechanism under a
+  +30-day clock plus a literal-scan, so the pattern cannot be reintroduced silently (session `aa39a6d5`).
 
 ### 2026-10-25: the refresh failed again, for a different reason — a calendar, not a source
 
@@ -198,6 +204,12 @@ Rising tie; the other 26 of 29 competitions had no open price anywhere.
   same day). Earlier 32-venue dossier: `research/LONGTAIL_VENUES.md`.
 - `tools/verify.py` fails the build if an observation loses its URL, its capture time, its verbatim text,
   or its rendered link.
+- A third, independent check the same day (session `666de992`) searched 36 venue responses for the **226
+  exact low-tier team pairs** live on Hotspawn, Worlds pairs as positive control
+  (`data/probe/session_666de992/`, memo `research/session_666de992/LOWTIER_RESEARCH.md`): no price for any
+  PRM 2nd/3rd Division, Tunisian SL, RIVALS, Icelandic, Arabian or Benelux fixture; schedule-only LCP
+  Promotion listings carried no odds. The executive summary cites this probe and names the zero-history
+  debut cards whose pick rests on division priors alone.
 
 ## Manual review links
 

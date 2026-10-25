@@ -40,6 +40,7 @@ DECAY_START_DAYS = 45
 DECAY_FULL_DAYS = 450
 RECEIPT_MAX_AGE_HOURS = 24    # an archived bookmaker receipt is a line only while it is fresh
 EXTREME_DECIMAL_MIN = 1.03    # implied >= ~97.1% on one side is not an actionable line
+EXTREME_PREDICTION_MAX = 0.97  # same ~97% ceiling for exchange/CLOB (Kalshi/Polymarket) prices
 MARKET_MODEL_GAP = 0.20       # flag when our Elo line and the market disagree by >= 20 pp
 THIN_VOLUME_USD = 1000.0      # a prediction market below this traded volume is labelled thin
 GENERIC_TOKENS = {"team", "teams", "esports", "esport", "gaming", "club", "gg", "lol", "e", "v"}
@@ -411,6 +412,70 @@ def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
     return None, "none", []
 
 
+def _parse_ts(raw) -> datetime | None:
+    try:
+        return datetime.strptime(str(raw)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+    except (TypeError, ValueError):
+        return None
+
+
+def venue_quote_rejection(fixture_id: str, venue_name: str, observed_utc,
+                          start_dt: datetime | None, p_max: float | None = None) -> str | None:
+    """Return a rejection reason for a live venue quote, or None if it is usable.
+
+    Two independent guards, each recorded in ``QUOTE_REJECTIONS``:
+
+    * **Post-kickoff capture.** A quote observed at or after the fixture's
+      scheduled kick-off is an in-play or settling price, not a pre-match line,
+      and Hotspawn picks are already locked by then. Regression case
+      2026-10-24: LYON vs Karmine Corp (Worlds) kicked off 20:00Z; the Kalshi
+      feed captured at 20:52Z showed 100c/1c while LYON was closing out an
+      upset, and the build published it as a 99% pre-match pick - the opposite
+      side from every pre-match book (LYON ~44-46%). Falling back to the
+      originated line is the safe direction whenever Hotspawn's listed start
+      is itself wrong: we lose a real line, we never publish a live one.
+    * **Extreme prediction-market price.** Decimal books already reject any
+      side implying >= ~97% (`devig_decimal`); Kalshi/Polymarket prices bypass
+      that function, so the same ceiling is applied here on the normalised
+      probability. A >=97% exchange print outside a multi-venue book
+      consensus has only ever been a settled/settling contract in this feed.
+    """
+    obs_dt = _parse_ts(observed_utc)
+    if start_dt is not None and obs_dt is not None and obs_dt >= start_dt:
+        note = (f"{venue_name} quote observed {iso(obs_dt)} at/after kick-off "
+                f"{iso(start_dt)} (in-play/settling price, not a pre-match line)")
+        QUOTE_REJECTIONS.append({"fixture_id": fixture_id, "venue": venue_name,
+                                   "reject": note, "observed_utc": observed_utc})
+        return note
+    if p_max is not None and p_max >= EXTREME_PREDICTION_MAX:
+        note = (f"{venue_name} extreme prediction-market quote: one side at "
+                f"{p_max*100:.1f}% (threshold {EXTREME_PREDICTION_MAX*100:.0f}%)")
+        QUOTE_REJECTIONS.append({"fixture_id": fixture_id, "venue": venue_name,
+                                   "reject": note, "observed_utc": observed_utc})
+        return note
+    return None
+
+
+def feed_fresh(fetched_utc, label: str) -> bool:
+    """A live venue feed older than the receipt window must not price anything.
+
+    `tools/collect.py` preserves the previous file when a fetch fails, so
+    without this check a dead feed would keep pricing fixtures with day-old
+    numbers. Only the Kambi feed had this guard before 2026-10-25; it now
+    applies to every live venue uniformly.
+    """
+    obs = _parse_ts(fetched_utc)
+    if obs is None:
+        log(f"model: {label} feed has no usable fetched_utc - excluded from consensus")
+        return False
+    age_h = (now_utc() - obs).total_seconds() / 3600
+    if age_h > RECEIPT_MAX_AGE_HOURS:
+        log(f"model: {label} feed is {age_h:.1f} h old (> {RECEIPT_MAX_AGE_HOURS} h) "
+            f"- excluded from consensus")
+        return False
+    return True
+
+
 # --------------------------------------------------------------------------- multi-venue market consensus
 def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                   pin_index: list, pm_index: list, kalshi_index: list,
@@ -427,6 +492,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         return abs((da - db).total_seconds()) <= within_hours * 3600
 
     venues = []
+    rejected_here: list[str] = []
+    start_dt = _parse_ts(start)
     primary_decimal = None
     primary_american = None
     primary_start = None
@@ -455,6 +522,10 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 d1_v = away_dec if aligned else home_dec
                 primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
                 primary_american = {k: v.get("american") for k, v in row["prices"].items()}
+                if venue_quote_rejection(fixture_id, "Pinnacle",
+                                           item.get("observed_utc"), start_dt):
+                    rejected_here.append("Pinnacle")
+                    break
                 primary_start = item["start"]
                 primary_league = row.get("league")
                 pin_receipt_url = f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{row['matchup_id']}/markets/related/straight"
@@ -482,6 +553,11 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
             tot = pa + pb
             if tot > 0:
                 p0_v, p1_v = pa / tot, pb / tot
+                if venue_quote_rejection(fixture_id, "Polymarket",
+                                           item.get("observed_utc"), start_dt,
+                                           max(p0_v, p1_v)):
+                    rejected_here.append("Polymarket")
+                    break
                 venues.append({
                     "name": "Polymarket",
                     "weight": VENUE_WEIGHTS["Polymarket"],
@@ -508,6 +584,11 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
             tot = pa + pb
             if tot > 0:
                 p0_v, p1_v = pa / tot, pb / tot
+                if venue_quote_rejection(fixture_id, "Kalshi",
+                                           item.get("observed_utc"), start_dt,
+                                           max(p0_v, p1_v)):
+                    rejected_here.append("Kalshi")
+                    break
                 venues.append({
                     "name": "Kalshi",
                     "weight": VENUE_WEIGHTS["Kalshi"],
@@ -531,6 +612,10 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
             dv = devig_decimal(d0_v, d1_v, {"fixture_id": fixture_id, "venue": "Bovada"})
             if dv:
                 p0_v, p1_v, overround = dv
+                if venue_quote_rejection(fixture_id, "Bovada",
+                                           item.get("observed_utc"), start_dt):
+                    rejected_here.append("Bovada")
+                    break
                 if primary_decimal is None:
                     primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
                 bov_url = item["url"]
@@ -560,6 +645,10 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
             dv = devig_decimal(d0_v, d1_v, {"fixture_id": fixture_id, "venue": "Unibet"})
             if dv:
                 p0_v, p1_v, overround = dv
+                if venue_quote_rejection(fixture_id, "Unibet",
+                                           item.get("observed_utc"), start_dt):
+                    rejected_here.append("Unibet")
+                    break
                 if primary_decimal is None:
                     primary_decimal = {"home": round(d0_v, 3), "away": round(d1_v, 3)}
                 venues.append({
@@ -613,6 +702,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         "start_utc": primary_start,
         "league": primary_league,
         "venue_count": len(venues),
+        "rejected_venues": rejected_here,
         "total_volume_usd": total_volume,
         "volume_usd": (max((v.get("volume_usd") or 0.0) for v in venues) if total_volume else None),
         "venues": venues,
@@ -686,9 +776,17 @@ def main() -> None:
     bovada_obs = bovada.get("fetched_utc")
     kambi_obs = kambi.get("fetched_utc")
 
+    feed_freshness = {
+        "Pinnacle": feed_fresh(pin_obs, "Pinnacle"),
+        "Polymarket": feed_fresh(pm_obs, "Polymarket"),
+        "Kalshi": feed_fresh(kalshi_obs, "Kalshi"),
+        "Bovada": feed_fresh(bovada_obs, "Bovada"),
+        "Unibet": feed_fresh(kambi_obs, "Unibet/Kambi"),
+    }
+
     pin_index = []
     pin_kills_excluded = 0
-    for mk in pin.get("markets") or []:
+    for mk in (pin.get("markets") or []) if feed_freshness["Pinnacle"] else []:
         names = [p["name"] for p in mk.get("participants", [])]
         # A "(Kills)" participant market is a derivative on total kills in the series,
         # not the series winner: it must never be treated as the match moneyline.
@@ -700,7 +798,7 @@ def main() -> None:
                               "observed_utc": pin_obs})
 
     pm_candidates = []
-    for mk in pmkt.get("match_markets") or []:
+    for mk in (pmkt.get("match_markets") or []) if feed_freshness["Polymarket"] else []:
         outcomes = mk.get("outcomes") or []
         prices = mk.get("prices") or []
         if len(outcomes) != 2 or len(prices) != 2:
@@ -722,7 +820,7 @@ def main() -> None:
     pm_index = sorted(pm_candidates, key=lambda x: -x["volume"])
 
     kalshi_index = []
-    for ev in kalshi.get("events") or []:
+    for ev in (kalshi.get("events") or []) if feed_freshness["Kalshi"] else []:
         mkts = ev.get("markets") or []
         if len(mkts) != 2:
             continue
@@ -746,7 +844,7 @@ def main() -> None:
             })
 
     bovada_index = []
-    for ev in bovada.get("events") or []:
+    for ev in (bovada.get("events") or []) if feed_freshness["Bovada"] else []:
         outs = ev.get("outcomes") or []
         if len(outs) == 2:
             bovada_index.append({
@@ -759,14 +857,7 @@ def main() -> None:
             })
 
     kambi_index = []
-    kambi_fresh = False
-    if kambi_obs:
-        try:
-            kambi_age_h = (now_utc() - datetime.strptime(str(kambi_obs)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)).total_seconds() / 3600
-            kambi_fresh = kambi_age_h <= RECEIPT_MAX_AGE_HOURS
-        except ValueError:
-            kambi_fresh = False
-    if kambi_fresh:
+    if feed_freshness["Unibet"]:
         for ev in kambi.get("events") or []:
             outs = ev.get("outcomes") or []
             if len(outs) == 2:
@@ -965,6 +1056,14 @@ def main() -> None:
                 flags.append("participants not announced")
             else:
                 flags.append("no match history for either team in Leaguepedia")
+
+        fid_rejections = [q for q in QUOTE_REJECTIONS if q.get("fixture_id") == f["id"]]
+        if fid_rejections:
+            reasons = "; ".join(dict.fromkeys(q.get("reject", "") for q in fid_rejections))
+            if method == "market":
+                flags.append(f"rejected live quote(s) excluded from the consensus: {reasons}")
+            elif method in ("model", "provisional"):
+                flags.append(f"rejected live quote(s), originated line used instead: {reasons}")
 
         if market and p0 is not None:
             venues = market.get("venues") or []
@@ -1209,6 +1308,8 @@ def main() -> None:
                     "source_status_utc": sources.get("checked_utc")},
         "counts": counts_by_method,
         "market_hygiene": {
+            "live_feed_freshness": feed_freshness,
+            "live_quote_rejections": QUOTE_REJECTIONS,
             "pinnacle_kills_derivatives_excluded": pin_kills_excluded,
             "archived_receipts_retired": len(retired),
             "esportsbook_venue_active": bool(receipts),

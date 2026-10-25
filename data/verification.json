@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-25T14:39:16Z",
+ "generated_utc": "2026-10-25T14:41:29Z",
  "checks": [
   {
    "name": "dataset present",
@@ -139,7 +139,7 @@
   {
    "name": "executive summary and its unresolved block precede every list on the landing page",
    "ok": true,
-   "detail": "summary=2549 unresolved=9253 soon=16889 directory=19994"
+   "detail": "summary=2549 unresolved=9253 soon=16889 directory=23538"
   },
   {
    "name": "the unresolved block inside the summary states why each card has no probability",
@@ -164,7 +164,7 @@
   {
    "name": "curated flags annotate every reference to a fixture that has left the list",
    "ok": true,
-   "detail": "19 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
+   "detail": "22 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []"
   },
   {
    "name": "stale bookmaker receipts are excluded from the consensus",
@@ -175,6 +175,21 @@
    "name": "no published market row is built from a rejected quote",
    "ok": true,
    "detail": "1 quote(s) rejected this build (placeholders / extremes); 0 extreme"
+  },
+  {
+   "name": "no published venue quote was observed at or after kick-off",
+   "ok": true,
+   "detail": "0 post-kickoff venue quote(s): []"
+  },
+  {
+   "name": "no single-venue market probability at or above 97%",
+   "ok": true,
+   "detail": "0 single-venue extreme row(s): []"
+  },
+  {
+   "name": "market hygiene publishes live-feed freshness and quote rejections",
+   "ok": true,
+   "detail": "feeds tracked: ['Bovada', 'Kalshi', 'Pinnacle', 'Polymarket', 'Unibet']; 0 live quote rejection(s) this build"
   },
   {
    "name": "coverage matrix: every competition row links to a source",
@@ -194,7 +209,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 78035 bytes"
+   "detail": "coverage.html 78349 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -278,6 +293,6 @@
   "provisional": 71,
   "market": 9
  },
- "internal_links": 482,
+ "internal_links": 506,
  "lookahead_violations": 0
 }

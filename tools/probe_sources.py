@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Re-probe requested 2026-10-25 (session 2faec1ff, T1): fresh runner receipts.
 """Probe external League of Legends line sources from the build runner.
 
 The published picks must never invent a bookmaker quote. This script only records
