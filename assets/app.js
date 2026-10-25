@@ -36,6 +36,21 @@
     });
   }
 
+  function hydrateNextRows() {
+    // The landing-page "Starting soon" strip is rendered at build time. If a
+    // refresh stalls, those kick-offs pass while the heading still implies
+    // they are upcoming. Mark passed rows honestly in the browser instead of
+    // leaving yesterday's slate presented as today's (session 666de992).
+    document.querySelectorAll(".nextrow[data-start]").forEach(function (row) {
+      if (!isPastNow(row)) return;
+      row.classList.add("is-past");
+      var when = row.querySelector(".nw");
+      if (when && when.textContent.indexOf("started") === -1) {
+        when.textContent = when.textContent + " · started";
+      }
+    });
+  }
+
   function renderSnapshotAge() {
     var el = document.getElementById("snapshot-age");
     if (!el) return;
@@ -184,6 +199,7 @@
 
   function init() {
     hydrateLivePastBadges();
+    hydrateNextRows();
     renderSnapshotAge();
     initMenu();
     initCards();

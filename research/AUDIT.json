@@ -1,20 +1,26 @@
 {
- "generated_utc": "2026-10-24T17:01:56Z",
+ "generated_utc": "2026-10-25T14:19:46Z",
  "rows": 241,
  "counts": {
-  "model": 150,
+  "model": 153,
   "unresolved": 4,
   "provisional": 78,
-  "market": 9
+  "market": 6
  },
  "notes": [
   "inventory: 241 rows vs 241 scheduled Hotspawn fixtures",
-  "elo: 228 rows reproduced from committed ratings",
-  "market: 9 rows re-weighted from their venue quotes",
+  "elo: 231 rows reproduced from committed ratings",
+  "market: 6 rows re-weighted from their venue quotes",
   "quarantine: 4 rows checked against 11 Data: pages",
-  "snapshot age: 0.08 h",
-  "stale fixtures (kick-off passed, still listed scheduled): 81"
+  "snapshot age: 17.42 h",
+  "stale fixtures (kick-off passed, still listed scheduled): 90"
  ],
- "problems": [],
+ "problems": [
+  {
+   "check": "freshness",
+   "detail": "snapshot is 17.4 h old (refresh window is 4-8 h)",
+   "severity": "review"
+  }
+ ],
  "passed": true
 }

@@ -252,6 +252,8 @@ tr:last-child td{border-bottom:0}
 .nextrow .np{grid-area:prob;font-size:22px;font-weight:800;letter-spacing:-.4px;color:var(--ok);
   font-variant-numeric:tabular-nums;white-space:nowrap}
 .nextrow .np.settle{font-size:13px;font-weight:600;color:var(--warn)}
+.nextrow.is-past{opacity:.62}
+.nextrow.is-past .np{color:var(--muted)}
 @media (max-width:420px){
   .nextrow .nt strong{font-size:15px}
   .nextrow .np{font-size:19px}

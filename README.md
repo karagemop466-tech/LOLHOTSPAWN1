@@ -111,6 +111,11 @@ the failing build was the only thing that could refresh the receipts, the failur
 - `refresh.yml` captures each stage separately, uploads the log as an artifact, and commits
   `data/build_failure.log` when the gate fails, so the next failure is diagnosable from the repository.
 - `tests/test_corroborate.py` locks the classification in.
+- 2026-10-25 (session `666de992`): the 11:34 UTC scheduled run stalled for an unrelated reason — the
+  receipt test fixtures hard-coded `2026-10-24T00:00:00Z` as a *fresh* capture, so the (correct) 24 h
+  expiry rule reclassified them as `expired` once the calendar moved and `refresh.yml` aborted during
+  `unit-tests`. Fixtures are now relative to *now*, the off-list reconciliation includes the `expired`
+  bucket, and a regression test pins stale → `expired` forever (never `rejected`, never usable).
 
 ## External line coverage (measured, not assumed)
 
@@ -125,6 +130,14 @@ Two conclusions are published on the site rather than assumed: Kambi-powered ope
 offering (the `ubse` and `paf` payloads were byte-identical, so `paf` is used only as a fallback and can
 never double-count), and every reachable venue quotes the same tier-1 slice of the calendar. Below that
 ceiling there is no external line to quote, which is exactly why the model originates one.
+
+A stricter re-test on 2026-10-25 (`data/probe/session_666de992/`, memo
+`research/session_666de992/LOWTIER_RESEARCH.md`) searched 36 venue responses for the **226 exact low-tier
+team pairs** live on Hotspawn that day, with the Worlds pairs as a positive control. No venue published a
+price for a PRM 2nd/3rd Division, Tunisian Super League, RIVALS, Icelandic, Arabian or Benelux fixture;
+schedule-only listings (LCP Promotion on two aggregators) carried no odds, and the only priced tail fixture
+remains the LGC Rising tie already in the market consensus. The executive summary cites this probe and
+names the zero-history debut cards whose pick rests on division priors alone.
 
 ## Manual review links
 
