@@ -112,6 +112,36 @@ the failing build was the only thing that could refresh the receipts, the failur
   `data/build_failure.log` when the gate fails, so the next failure is diagnosable from the repository.
 - `tests/test_corroborate.py` locks the classification in.
 
+### 2026-10-25: the refresh failed again, for a different reason — a calendar, not a source
+
+`refresh-picks` run `40189452274` (2026-10-25T11:34Z) failed at *Stop on failed gate* with
+`data/build_failed_steps.txt = unit-tests`. The publish gate itself was green: `tools/verify.py` reported
+every check passing. The failing stage was the **unit tests**, and the cause was three fixtures that
+hardcoded `captured_utc: 2026-10-24T00:00Z`. `corroborate.age_hours()` measures a capture against the wall
+clock, so once that literal crossed `RECEIPT_MAX_AGE_HOURS = 24` the receipts were classified `expired`
+instead of `usable` and the assertions inverted — with no pipeline change at all.
+
+- The fixtures are now generated relative to *now* (`tests/test_corroborate_history.py`,
+  `tests/test_corroborate_offlist.py`); the assertions are untouched, so the tests still fail on a real
+  classification bug and can no longer fail because a date passed.
+- A green run clears `data/build_failed_steps.txt` and `data/build_failure.log`; the failing log from
+  2026-10-25 is kept as evidence at `data/diag/failure-2026-10-25T1134Z.log`.
+- The publish gate is now **49 checks**, adding the full-coverage contract: every unpriced match must
+  name a settlement source, must appear on `unresolved.html`, and must be named in the executive summary;
+  every tournament must have a working deep link into a filterable pick table.
+
+### 2026-10-25: finding the picks on a phone
+
+- The landing page now carries **Picks by tournament** — one row per competition with its match count,
+  how many carry a win probability, how many are market-priced, and the earliest kick-off. Every row is a
+  deep link (`table.html?comp=<tournament>`) that lands on the pick table **already filtered** to that
+  league, so nothing has to be typed on a phone.
+- `assets/app.js` honours `?comp=`, `?method=`, `?q=` and `?upcoming=1` on both the table and the card
+  view, and shows a "filtered to … show every tournament" note so a filtered view never looks like a
+  short list by mistake.
+- A second, independent external-line check on 2026-10-25 (Pinnacle's league list, Polymarket, Sofascore,
+  bo3.gg) is published in `research/external-lines-2026-10-25.md` and linked from the executive summary.
+
 ## External line coverage (measured, not assumed)
 
 `data/source_probes.json` is a runner-executed probe of every candidate venue (44 on 2026-10-24T16:22Z),

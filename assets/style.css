@@ -271,3 +271,14 @@ tr:last-child td{border-bottom:0}
   .mrow{gap:6px}
   .mrow strong{overflow-wrap:anywhere}
 }
+
+/* tournament directory on the landing page: one tap from "where are the picks" to a
+   filtered pick table, sized for a thumb (rows are full-width tap targets on phones) */
+.dir td[data-label="Tournament"]{width:42%}
+.dir tbody tr:hover{background:var(--accent-weak)}
+@media(max-width:680px){
+  .dir tbody tr{padding:10px 0}
+  .dir td{font-size:14.5px;padding:6px 12px}
+  .dir td[data-label="Tournament"]{width:auto;font-size:15.5px}
+  #filtered-notice{padding:8px 2px}
+}
