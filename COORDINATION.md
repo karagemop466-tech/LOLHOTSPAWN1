@@ -2882,3 +2882,41 @@ expected repair path.
 
 Session `cb84d7dc` is **done**: X1 fixed and merged, X2 researched with dated receipts, X3 published with
 two new gates, X4 merged and verified against the live site, and the six-hourly refresh is working again.
+## Final record — session `650571cf` (PR, merge, live refresh, deployment)
+
+| Item | Value |
+|---|---|
+| PR | **#94** — `arena/650571cf-lolhotspawn1` → `main` — **MERGED 2026-10-25T14:18:13Z**, merge commit **`cc4e934`** — <https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/94> |
+| Contents merged | `tests/test_no_clock_bombs.py`, `tests/test_live_source_classify.py` (13 assertions incl. the end-to-end `main()` smoke test), `audit/live_source_verify.py` (closed-board classification + control probe), `audit/session_650571cf/*` (row-by-row verifier + gate receipts), `COORDINATION.md` |
+| Canonical refresh | `refresh-picks` run **`40201021751`** — **completed / success** — published data commit `19dc1a9`, dataset `2026-10-25T14:15:13Z`, inventory `2026-10-25T14:13:21Z`, **234 rows** (`market 9 · model 150 · provisional 71 · unresolved 4`), 230 with a probability |
+| Pages deployment | `pages build and deployment` run **`40201414556`** **success** 14:15:53Z for `19dc1a9`; after #94/#101 superseded each other, run **`40201627631`** **success** 14:18:41Z for `main` @ `84524fd`. `gh api …/pages` → `status: built`, `html_url` <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> |
+| Final gate sweep on `main` @ `84524fd` | unit tests **88/88 OK** · `tools/verify.py` **51/51 PASS** · `check_site.py` 24 pages 0 failures · `mobile_audit.py` PASS · `verify_independent.py` 234 rows / 9 market / 41 venue checks 0 failures · `verify_docs.py` ALL PASS · `verify_docs_parity.py` **ALL PASS** · row-vs-table **234/234** rows, 0 problems, 0 CSV mismatches. Receipt: `audit/session_650571cf/gates_main_final.txt` |
+| Docs parity | The skew recorded above **resolved without a code change**: `docs/data/picks.json` was rebuilt at `14:15:46Z` against the `14:15:13Z` canonical snapshot, so check 6 now compares like with like (`scheduled 234, shared 234, both priced 227`). Request **R1** is therefore a hardening item, not a live defect: persist the canonical snapshot the Node pipeline built against, so the gate cannot go amber during the window between a canonical refresh and the next docs rebuild. |
+| Other sessions | `cb84d7dc` (PR #93) and `63c67a23` (PRs #96/#100/#101) worked the same brief concurrently. No file of theirs was overwritten and no commit of theirs was reverted; every conflict was resolved in favour of the already-merged `main` version. Their work covers the fixture repair itself, the 37–52 venue low-tier line research, the coverage gates and the mobile/exec-summary redesign. |
+
+### What is live now (for manual review)
+
+* <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> — executive summary with the *Where the picks
+  are* block, *Starting soon* list, and the *Unresolved picks and the limitations* section; every list
+  is one tap away on a phone via the fixed bottom bar (`Summary · Picks · Results · Limits · Flags`).
+* <https://karagemop466-tech.github.io/LOLHOTSPAWN1/table.html> — one row per match: both win
+  probabilities, the pick with its percentage, method badge, Hotspawn card link, book quote links and the
+  Leaguepedia results link. **234 rows on the current snapshot, 234 verified.**
+* <https://karagemop466-tech.github.io/LOLHOTSPAWN1/unresolved.html> — the 4 official-forfeit
+  settlements (no probability claimed) plus the per-competition fallback ledger.
+* <https://karagemop466-tech.github.io/LOLHOTSPAWN1/flagged.html> — every irregularity, with sources.
+
+### Still open (owned by later sessions, not defects in this session's scope)
+
+1. **71 of 234 rows are provisional** (thin recorded history). 37–52 venue probes found no reachable
+   book quoting those leagues, so a labelled provisional line is the honest ceiling until more series
+   are recorded. Keyed venues are listed in `research/low-tier-sources-2026-10-24.md`.
+2. **R1** — docs-parity snapshot coupling (hardening, described above).
+3. **Row-vs-table verifier is not wired into CI.** It is deliberately kept out of `refresh.yml` so this
+   session does not add a new blocking stage to a workflow other sessions are editing; a future
+   integration session can add `python3 audit/session_650571cf/verify_rows_vs_table.py` between
+   `tools/site.py` and `tools/verify.py` once the tree is quiet.
+4. `verify-live-sources` was re-triggered by the merge (`main` @ `cc4e934`, 14:18:15Z). Its receipts are
+   committed by that workflow to `audit/session_c0a05820/`; the GitHub API rate limit shared by all
+   concurrent sessions refused several reads during this session, so its post-merge verdict is left to
+   the workflow's own receipt rather than asserted here.

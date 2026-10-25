@@ -1,0 +1,33 @@
+# Gate run on origin/main 84524fd (dataset 2026-10-25T14:15:13Z) — 2026-10-25T14:21:33Z
+
+## python3 -m unittest discover -s tests
+Ran 88 tests in 11.718s
+OK
+
+## python3 tools/verify.py
+51
+PASS landing-page tournament directory links every tournament to a filterable pick table :: 29 tournaments; missing links: []; missing table rows: []
+PASS tournament deep links are honoured by the client filter :: assets/app.js reads ?comp=, ?method=, ?q= and ?upcoming= into the table/card filters
+
+## python3 audit/check_site.py
+pages=24 failures=0 warnings=0
+
+## python3 audit/mobile_audit.py
+PASS methodology.html
+RESULT: PASS
+
+## python3 audit/verify_independent.py
+rows=234 market_rows=9 venues_checked=41
+failures=0 warnings=0 kills_substitutions=0
+
+## python3 audit/verify_docs.py
+
+ALL DOCS CHECKS PASS
+
+## python3 audit/verify_docs_parity.py
+scheduled rows: 234 | shared with canonical: 234 | both priced: 227 | divergent: 33 | mean gap 2.255 pp | max gap 18.89 pp
+
+ALL DOCS-PARITY CHECKS PASS
+
+## python3 audit/session_650571cf/verify_rows_vs_table.py
+rows=234 dataset=234 matched=234 missing=0 problems=0 csv_mismatches=0
