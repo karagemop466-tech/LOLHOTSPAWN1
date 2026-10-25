@@ -3385,3 +3385,15 @@ merged cleanly with `main` @ `0e36d34` (preserving 100% of `650571cf`, `1773543b
 | `D2` | **Secondary `/docs/` Smarkets integration + Cross-Scope Request `R1` fix** (`docs/data/canonical_snapshot.json` + `.github/workflows/refresh.yml` parity sync) | `done` | `scripts/collect.mjs`, `scripts/analyze.mjs`, `scripts/build_site.mjs`, `audit/verify_docs_parity.py`, `tests/test_docs_parity_snapshot.py` |
 | `D3` | **Line-by-line 234-row source & tail audit** (`#1082002` `DELETED` GBArena slot, Smarkets/GosuGamers/Midnite/Strafe/Bmbets receipts) | `done` | `data/flags_manual.json`, `data/receipts/external_odds/2026-10-25-session-154d8c26.json`, `research/SMARKETS_AND_TAIL_AUDIT_2026-10-25.md`, `audit/session_154d8c26/verify_all_234_rows.py` |
 | `D4` | **Full canonical + secondary integration, PR #125 merge & live Pages confirmation** (`57/57` `verify.py`, `139/139` unit tests, `50` venue quotes re-derived across `9` market rows in both pipelines, `24/24` `check_site.py`, `16/16` `verify_docs.py`, `10/10` `verify_docs_parity.py`, `14/14` `mobile_audit.py`) | `done` | `.github/workflows/refresh.yml`, `audit/verify_independent.py`, `README.md`, PR `#125` (`699a4ba`), live refresh `f60eb0a` |
+
+# Session `9b271aa4` — post-merge verification and freshness audit (2026-10-25)
+
+Branch: `arena/9b271aa4-lolhotspawn1` (fixed Arena branch).
+
+## Claim
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `V1` | **Post-merge publication audit.** Independently verify the already merged full-coverage/mobile update, PR #96 and follow-up merges, current GitHub Pages deployment status, all offline publish gates, and current canonical vs. secondary snapshot timestamps. Record current discrepancies and any inability to verify live state; do not alter model, source data, pipeline, workflow, or generated pages. | in progress | 9b271aa4 | `COORDINATION.md`, `audit/session_9b271aa4/**` (new evidence only) |
+
+This is an audit-only claim, disjoint from production files. PR #96 was merged before this session began.
