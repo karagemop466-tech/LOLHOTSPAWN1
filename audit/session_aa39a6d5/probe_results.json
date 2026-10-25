@@ -1,0 +1,468 @@
+{
+ "probe": "session aa39a6d5 U2 - additional low-tier LoL line venues",
+ "started_utc": "2026-10-25T14:17:35Z",
+ "inventory_pairs": 231,
+ "inventory_pairs_currently_without_market_price": 226,
+ "methods_snapshot_from": "data/matches.json committed on this branch",
+ "question": "would_newly_price > 0 from one unauthenticated GET = integrate; anything else is documented, not used",
+ "rows": [
+  {
+   "venue": "Rivalry REST events",
+   "url": "https://api.rivalry.com/api/v1/sports/league-of-legends/events?limit=200",
+   "note": "PR #56 built a Rivalry venue on this host; the 2026-10-24 probe hit Cloudflare 530 (tunnel down, retryable). Retest decides if the endpoint is real.",
+   "checked_utc": "2026-10-25T14:17:35Z",
+   "http_status": 502,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 884,
+   "json": true,
+   "decimal_like_numbers": 0,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [
+    "Error 502: Bad gateway",
+    "origin_bad_gateway"
+   ],
+   "seconds": 0.28
+  },
+  {
+   "venue": "Rivalry GraphQL",
+   "url": "https://api.rivalry.com/graphql",
+   "note": "Rivalry's web client is GraphQL-driven; a minimal introspection-free query (sports list) tests whether the API is publicly readable at all.",
+   "checked_utc": "2026-10-25T14:17:38Z",
+   "http_status": 502,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 884,
+   "json": true,
+   "decimal_like_numbers": 0,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [
+    "Error 502: Bad gateway",
+    "origin_bad_gateway"
+   ],
+   "seconds": 0.5
+  },
+  {
+   "venue": "GG.BET API matches",
+   "url": "https://gg.bet/api/v1/sports/esports/league-of-legends/matches?limit=200",
+   "note": "Review consensus (Oct 2026) calls GG.BET the deepest low-tier LoL book (academy / Challengers coverage). The guessed JSON path was probed once.",
+   "checked_utc": "2026-10-25T14:17:40Z",
+   "http_status": 403,
+   "content_type": "text/plain",
+   "bytes": 126,
+   "json": false,
+   "decimal_like_numbers": 0,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [],
+   "seconds": 0.17
+  },
+  {
+   "venue": "GG.BET LoL page",
+   "url": "https://gg.bet/en/esports/league-of-legends",
+   "note": "Server-rendered? If prices are in the HTML the team-name join will find them.",
+   "checked_utc": "2026-10-25T14:17:42Z",
+   "http_status": 403,
+   "content_type": "text/plain",
+   "bytes": 126,
+   "json": false,
+   "decimal_like_numbers": 0,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [],
+   "seconds": 0.07
+  },
+  {
+   "venue": "Thunderpick API sports",
+   "url": "https://thunderpick.io/api/v1/sports",
+   "note": "Thunderpick lists PRM (Prime League) coverage; our 2nd/3rd-division PRM cards are the single biggest unpriced block (98 cards).",
+   "checked_utc": "2026-10-25T14:17:44Z",
+   "http_status": 404,
+   "content_type": "",
+   "bytes": 0,
+   "json": false,
+   "decimal_like_numbers": 0,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [],
+   "seconds": 0.24
+  },
+  {
+   "venue": "Thunderpick API LoL matches",
+   "url": "https://api.thunderpick.io/v1/sports/league-of-legends/matches",
+   "note": "Direct LoL match list on their api host - the shape their front-end consumed in 2024.",
+   "checked_utc": "2026-10-25T14:17:47Z",
+   "error": "ConnectionError: HTTPSConnectionPool(host='api.thunderpick.io', port=443): Max retries exceeded with url: /v1/sports/league-of-legends/matches (Caused by NameResolutionError(\"HTTPSConnection(host='api.thunderpick.io', port=443): Failed to r",
+   "seconds": 0.02
+  },
+  {
+   "venue": "Midnite LoL page",
+   "url": "https://www.midnite.com/esports/league-of-legends",
+   "note": "UK esports-first book, prices NLC-level British/Nordic LoL - adjacent to our Komplettligaen / Icelandic tail.",
+   "checked_utc": "2026-10-25T14:17:49Z",
+   "http_status": 200,
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 33881,
+   "json": false,
+   "decimal_like_numbers": 3,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [],
+   "seconds": 0.43
+  },
+  {
+   "venue": "bo3.gg API matches (discipline=lol)",
+   "url": "https://api.bo3.gg/api/v1/matches?page=1&discipline=lol",
+   "note": "The 2026-10-23 research found every filter shape ignored. One dated retest with the documented discipline parameter.",
+   "checked_utc": "2026-10-25T14:17:51Z",
+   "http_status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 8978,
+   "json": true,
+   "decimal_like_numbers": 0,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [],
+   "seconds": 0.41
+  },
+  {
+   "venue": "bo3.gg API matches (game=lol)",
+   "url": "https://api.bo3.gg/api/v1/matches?page=1&game=lol",
+   "note": "Alternate filter spelling, same question.",
+   "checked_utc": "2026-10-25T14:17:54Z",
+   "http_status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 8978,
+   "json": true,
+   "decimal_like_numbers": 0,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [],
+   "seconds": 0.21
+  },
+  {
+   "venue": "Esports Insider LoL odds index",
+   "url": "https://esportsinsider.com/betting-odds/lol",
+   "note": "Server-rendered odds comparison (Bet365/Betway/GG.bet/Stake prices in HTML); coverage depth into ERLs is the open question.",
+   "checked_utc": "2026-10-25T14:17:56Z",
+   "http_status": 200,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 264006,
+   "json": false,
+   "decimal_like_numbers": 42,
+   "inventory_pairs_found": 8,
+   "would_newly_price": 7,
+   "hits": [
+    {
+     "fixture_id": "1075817",
+     "teams": [
+      "Invictus Gaming",
+      "Hanwha Life Esports"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075816",
+     "teams": [
+      "Top Esports",
+      "G2 Esports"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075819",
+     "teams": [
+      "Dplus KIA",
+      "Movistar KOI"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075818",
+     "teams": [
+      "Gen.G",
+      "LYON"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075821",
+     "teams": [
+      "T1",
+      "CTBC Flying Oyster"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075820",
+     "teams": [
+      "Karmine Corp",
+      "Bilibili Gaming"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075822",
+     "teams": [
+      "LØS",
+      "Team Secret Whales"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1079080",
+     "teams": [
+      "Mental Rush",
+      "Vitality Rising Bees"
+     ],
+     "competition": "LGC Rising 2026 Playoffs",
+     "current_method": "market"
+    }
+   ],
+   "sample_team_strings": [],
+   "seconds": 6.76
+  },
+  {
+   "venue": "tips.gg LoL matches",
+   "url": "https://tips.gg/lol/matches/",
+   "note": "Community prediction site with unusually deep low-tier coverage - recorded as corroboration evidence only; its model percentages are NOT a bookmaker line and would never be priced from.",
+   "checked_utc": "2026-10-25T14:18:04Z",
+   "http_status": 403,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 5615,
+   "json": false,
+   "decimal_like_numbers": 1,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [],
+   "seconds": 0.14
+  },
+  {
+   "venue": "Shuffle esports",
+   "url": "https://shuffle.com/sports/esports",
+   "note": "Crypto esportsbook listed with LoL coverage; one GET for the record.",
+   "checked_utc": "2026-10-25T14:18:07Z",
+   "http_status": 200,
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 303888,
+   "json": false,
+   "decimal_like_numbers": 361,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [],
+   "seconds": 7.37
+  },
+  {
+   "venue": "Vave LoL",
+   "url": "https://vave.com/sports/esports/league-of-legends",
+   "note": "Appears in EGamersWorld's Worlds odds comparison (Oct 2026); one GET for the record.",
+   "checked_utc": "2026-10-25T14:18:16Z",
+   "http_status": 200,
+   "content_type": "text/html",
+   "bytes": 41471,
+   "json": false,
+   "decimal_like_numbers": 13,
+   "inventory_pairs_found": 1,
+   "would_newly_price": 1,
+   "hits": [
+    {
+     "fixture_id": "1075802",
+     "teams": [
+      "REH Gaming",
+      "Cloud eSport"
+     ],
+     "competition": "PRM 3rd Division 26-27 Fall",
+     "current_method": "provisional"
+    }
+   ],
+   "sample_team_strings": [],
+   "seconds": 1.5
+  },
+  {
+   "venue": "Rainbet esports",
+   "url": "https://rainbet.com/sports/esports",
+   "note": "Same - appears in the EGamersWorld comparison with live LoL prices.",
+   "checked_utc": "2026-10-25T14:18:20Z",
+   "http_status": 404,
+   "content_type": "text/html; charset=utf-8",
+   "bytes": 158241,
+   "json": false,
+   "decimal_like_numbers": 225,
+   "inventory_pairs_found": 0,
+   "would_newly_price": 0,
+   "hits": [],
+   "sample_team_strings": [],
+   "seconds": 0.71
+  },
+  {
+   "venue": "gol.gg league stats index",
+   "url": "https://gol.gg/esports/esports-stats/",
+   "note": "Not a book: community results/stat depth per league. Checks whether our biggest unpriced competitions exist there at all (future model-enrichment evidence).",
+   "checked_utc": "2026-10-25T14:18:22Z",
+   "http_status": 404,
+   "content_type": "text/html; charset=UTF-8",
+   "bytes": 556169,
+   "json": false,
+   "decimal_like_numbers": 0,
+   "inventory_pairs_found": 15,
+   "would_newly_price": 14,
+   "hits": [
+    {
+     "fixture_id": "1071206",
+     "teams": [
+      "Volda E-Sport",
+      "Solid Gaming"
+     ],
+     "competition": "Komplettligaen 2026 Autumn",
+     "current_method": "unresolved"
+    },
+    {
+     "fixture_id": "1075817",
+     "teams": [
+      "Invictus Gaming",
+      "Hanwha Life Esports"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075816",
+     "teams": [
+      "Top Esports",
+      "G2 Esports"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075819",
+     "teams": [
+      "Dplus KIA",
+      "Movistar KOI"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075818",
+     "teams": [
+      "Gen.G",
+      "LYON"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075821",
+     "teams": [
+      "T1",
+      "CTBC Flying Oyster"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075820",
+     "teams": [
+      "Karmine Corp",
+      "Bilibili Gaming"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075822",
+     "teams": [
+      "LØS",
+      "Team Secret Whales"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1075823",
+     "teams": [
+      "Team Liquid",
+      "Anyone's Legend"
+     ],
+     "competition": "Worlds 2026 Main Event",
+     "current_method": null
+    },
+    {
+     "fixture_id": "1083035",
+     "teams": [
+      "FlameHard",
+      "B2U"
+     ],
+     "competition": "RIVALS LEAGUE Season 2",
+     "current_method": "model"
+    },
+    {
+     "fixture_id": "1079851",
+     "teams": [
+      "AceGaming",
+      "reGOLD eSport"
+     ],
+     "competition": "PRM 2nd Division 26-27 Fall",
+     "current_method": "model"
+    },
+    {
+     "fixture_id": "1079038",
+     "teams": [
+      "VfB eSports",
+      "Phong Vũ Buffalo"
+     ],
+     "competition": "PRM 2nd Division 26-27 Fall",
+     "current_method": "model"
+    },
+    {
+     "fixture_id": "1079053",
+     "teams": [
+      "Phong Vũ Buffalo",
+      "MT1 Esports"
+     ],
+     "competition": "PRM 2nd Division 26-27 Fall",
+     "current_method": "model"
+    },
+    {
+     "fixture_id": "1081423",
+     "teams": [
+      "Ground Zero Gaming",
+      "Frank Esports"
+     ],
+     "competition": "LCP 2027 Promotion",
+     "current_method": "model"
+    },
+    {
+     "fixture_id": "1075802",
+     "teams": [
+      "REH Gaming",
+      "Cloud eSport"
+     ],
+     "competition": "PRM 3rd Division 26-27 Fall",
+     "current_method": "provisional"
+    }
+   ],
+   "sample_team_strings": [],
+   "seconds": 22.62
+  }
+ ],
+ "finished_utc": "2026-10-25T14:18:47Z"
+}

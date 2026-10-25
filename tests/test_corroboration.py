@@ -44,7 +44,9 @@ def _match(fid, t0="Alpha Esports", t1="Bravo Gaming", p0=0.62):
     return {
         "id": fid,
         "competition": "Test League 2026 Split 1",
-        "start_utc": "2026-10-30T18:00:00Z",
+        # Wall-clock-relative like _capture below: a pinned 2026-10-30 kick-off would
+        # silently turn this "upcoming" fixture into a past one (aa39a6d5 clock guard).
+        "start_utc": (datetime.now(timezone.utc) + timedelta(days=5)).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "hotspawn_url": f"https://www.hotspawn.com/matches/alpha-vs-bravo-test-league-{fid}",
         "team0": {"name": t0},
         "team1": {"name": t1},
