@@ -76,9 +76,22 @@ def seg_after(html: str, marker: str, end: str = "</article>") -> str | None:
 
 
 def main() -> int:
-    canon_doc = json.loads((ROOT / "data" / "matches.json").read_text())
+    live_canon_doc = json.loads((ROOT / "data" / "matches.json").read_text())
+    snap_path = DOCS / "data" / "canonical_snapshot.json"
+    if snap_path.exists():
+        canon_doc = json.loads(snap_path.read_text())
+        if canon_doc.get("generated_utc") != live_canon_doc.get("generated_utc"):
+            warn("canonical snapshot advanced since docs build",
+                 f"docs built against {canon_doc.get('generated_utc')}, "
+                 f"live data/matches.json is {live_canon_doc.get('generated_utc')}")
+    else:
+        canon_doc = live_canon_doc
     canon_rows = canon_doc.get("matches") or []
     canon_by_id = {str(r.get("id")): r for r in canon_rows}
+    details.update(
+        docs_canonical_snapshot_utc=canon_doc.get("generated_utc"),
+        live_canonical_snapshot_utc=live_canon_doc.get("generated_utc"),
+    )
 
     node_doc = json.loads((NODE / "picks.json").read_text())
     node_rows = node_doc.get("matches") or []

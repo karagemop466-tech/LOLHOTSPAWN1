@@ -27,9 +27,9 @@
     </div>
   </header>
   <div id="stale-snapshot-alert" class="stale-alert" hidden></div>
-  <div class="fresh-bar" data-generated-at="2026-10-25T14:15:46.475Z">
+  <div class="fresh-bar" data-generated-at="2026-10-25T14:34:36.982Z">
     <div class="fresh-inner">
-      <span>Snapshot: <time class="mono" data-utc="2026-10-25T14:15:46.475Z">2026-10-25 14:15 UTC</time> · Auto-refresh every 6h</span>
+      <span>Snapshot: <time class="mono" data-utc="2026-10-25T14:34:36.982Z">2026-10-25 14:34 UTC</time> · Auto-refresh every 6h</span>
       <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-25 14:15 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
@@ -55,7 +55,7 @@
       two disagree by 5 pp or more — or name opposite winners — are marked
       <span class="canon-diverge">DIVERGES</span> and listed on the <a href="index.html#reconcile">overview</a>.
       Where they differ, <b>submit the canonical pick</b>; the gap is published as an audit finding, never averaged away.</p>
-      <p class="recon-note">Snapshot parity at this build: 234 of 234 scheduled rows appear in the canonical inventory; 0 rows here are not in it; 0 canonical cards are not in this snapshot; 227 rows have a probability on both sides, 13 of them opposite picks (mean |gap| 2.26 pp, max 18.9 pp).</p>
+      <p class="recon-note">Snapshot parity at this build: 234 of 234 scheduled rows appear in the canonical inventory; 0 rows here are not in it; 0 canonical cards are not in this snapshot; 227 rows have a probability on both sides, 13 of them opposite picks (mean |gap| 2.25 pp, max 18.9 pp).</p>
     </div>
 
     <div class="sec-head">
@@ -109,6 +109,12 @@
             <td class="mono">eu-offering-api.kambicdn.com (ubse)</td>
             <td class="num">0.70</td>
             <td>Shin power de-vig on pre-match <code>Match Odds</code> (criterion type 2); per-event JSON receipts linked.</td>
+          </tr>
+          <tr>
+            <td><strong>Smarkets (UKGC Exchange)</strong></td>
+            <td class="mono">api.smarkets.com/v3 (WINNER_2_WAY)</td>
+            <td class="num">0.45–0.55</td>
+            <td>UKGC-regulated two-sided betting exchange orderbook (<code>spread &le; 0.25</code>); map/handicap/total sub-markets excluded.</td>
           </tr>
           <tr>
             <td><strong>Kalshi CFTC</strong></td>
