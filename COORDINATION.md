@@ -3210,3 +3210,18 @@ status, when `main` is moving this fast.
 **Current published state at 14:41Z:** dataset `2026-10-25T14:25:59Z` (a newer canonical refresh than
 the one recorded above, still inside the 4–8 h cadence), 234 rows, 9 market-backed, 4 official-forfeit
 settlements, 0 priced-row defects across every gate re-run this session.
+
+---
+
+## Session `154d8c26` (`arena/154d8c26-lolhotspawn1`) — Active Claim & Progress (2026-10-25T14:24Z)
+
+- **Branch:** `arena/154d8c26-lolhotspawn1`
+- **Status:** `in progress` (`D1`, `D2`, `D3` built & verified locally; `D4` final canonical+secondary integration in progress)
+- **Rebase conflict log:** Append-at-EOF conflicts on `COORDINATION.md` across `origin/main` (`1c308ea`, integrating PRs `#103`–`#116`) resolved by preserving `origin/main`'s full board verbatim and appending this section at EOF. Zero code conflicts across `D1`–`D3`.
+
+| ID | Task | Status | Owner | Claimed files |
+|---|---|---|---|---|
+| `D1` | Add 6th regulated real-money market venue — **Smarkets UKGC Exchange** (`https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match`, `WINNER_2_WAY` series-winner contracts + orderbook mid-quotes) + soft-404 probe detection in `collect_source_status()` (`Midnite` HTTP 200 404 body) | `done` | `154d8c26` | `tools/collect.py`, `data/raw/smarkets_lol.json`, `tests/test_smarkets_exchange.py` |
+| `D2` | Resolve Cross-Scope Request `R1` (`650571cf`) + add Smarkets Exchange to secondary `/docs/` pipeline: persist canonical build snapshot metadata in `docs/data/canonical_snapshot.json` during `scripts/build_site.mjs` and teach `audit/verify_docs_parity.py` to verify against that recorded snapshot (eliminating inter-cron check-6 parity skew) | `done` | `154d8c26` | `scripts/collect.mjs`, `scripts/analyze.mjs`, `scripts/build_site.mjs`, `audit/verify_docs.py`, `audit/verify_docs_parity.py`, `data/node/**`, `docs/**`, `tests/test_docs_parity_snapshot.py` |
+| `D3` | Line-by-line official-source audit receipts & dossier (`#1082002` `DELETED vs S7raa` withdrawn GBArena slot on Leaguepedia, Smarkets/GosuGamers/Midnite/Strafe/Bmbets live receipts, independent 234-row verifier) | `done` | `154d8c26` | `data/receipts/external_odds/2026-10-25-session-154d8c26.json`, `research/SMARKETS_AND_TAIL_AUDIT_2026-10-25.md`, `audit/session_154d8c26/**` |
+| `D4` | Canonical integration: wire `smarkets_lol.json` (`load_smarkets_quotes`), `"rising bees": "vitality rising bees"` Kalshi alias (`#1079080`), and `LCP Wildcard`/`OPQ`/`Qualifier`/`Showmatch` `tier_prior()` fix into `tools/model.py`; curate `#1082002` `DELETED` & unpublished `best_of` disclosures in `data/flags_manual.json`; rebuild `docs/` inside `.github/workflows/refresh.yml` so canonical & `/docs/` never drift; re-verify all 24 pages, merge PR to `main`, and confirm live GitHub Pages deploy | `in progress` | `154d8c26` | `tools/model.py`, `data/flags_manual.json`, `.github/workflows/refresh.yml`, `audit/verify_independent.py`, `README.md`, regenerated `data/**` + `*.html` + `docs/**` |
