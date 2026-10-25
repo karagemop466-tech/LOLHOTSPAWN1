@@ -530,6 +530,8 @@ def _stat_totals(rows: list[dict]) -> dict:
 HOTSPAWN_RULES_URL = "https://play.hotspawn.com/how-it-works"
 LOWTIER_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/"
                     "research/low-tier-sources-2026-10-24.md")
+EXTERNAL_LINES_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/"
+                           "research/external-lines-2026-10-25.md")
 
 
 def _lowtier_matrix() -> tuple[dict, str, int]:
@@ -623,6 +625,44 @@ def next_strip(rows: list[dict]) -> str:
             f'<span class="nm">{e(note)} &middot; {e(r["competition"])}</span></span>'
             f'<span class="{cls}">{value}</span></a>'
         )
+    return "".join(out)
+
+
+def tournament_directory(rows: list[dict]) -> str:
+    """Phone-first index of every tournament, linking straight into a filtered pick table.
+
+    The landing page used to answer "where are the picks" with six page links, which still
+    leaves a phone user hunting through 200+ rows for their league. Every row here is an
+    in-site deep link (`table.html?comp=<tournament>`) that lands on the pick table already
+    filtered to that competition, with the pick, both win probabilities and the sources.
+    """
+    by_comp: dict[str, dict] = {}
+    for r in rows:
+        name = r.get("competition") or "(unnamed)"
+        c = by_comp.setdefault(name, {"matches": 0, "priced": 0, "market": 0,
+                                      "settle": 0, "next": None, "span": 0})
+        c["matches"] += 1
+        c["span"] += int(r.get("points") or 0)
+        if r.get("p0") is not None:
+            c["priced"] += 1
+        elif (r.get("pick") or {}).get("probability") is None:
+            c["settle"] += 1
+        if r.get("method") == "market":
+            c["market"] += 1
+        start = r.get("start_utc") or ""
+        if start and (c["next"] is None or start < c["next"]):
+            c["next"] = start
+    out = []
+    for name, c in sorted(by_comp.items(), key=lambda kv: (-kv[1]["matches"], kv[0])):
+        q = quote(name, safe="")
+        out.append(
+            '<tr><td data-label="Tournament"><a href="table.html?comp=' + q + '"><strong>'
+            + e(name) + '</strong></a></td>'
+            '<td data-label="Matches">' + str(c["matches"]) + '</td>'
+            '<td data-label="With a win %">' + str(c["priced"]) + '</td>'
+            '<td data-label="Market-priced">' + str(c["market"]) + '</td>'
+            '<td data-label="Earliest kick-off">' + (local_time(c["next"]) if c["next"] else "&mdash;")
+            + '</td></tr>')
     return "".join(out)
 
 
@@ -742,6 +782,16 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   </div>
 </section>
 
+<section class="panel" id="directory">
+  <h2>Picks by tournament ({t['comps']})</h2>
+  <p class="lead">Tap a tournament to open the pick table filtered to it &mdash; one row per match with
+  both win probabilities, the pick and the source links. Nothing to type on a phone.</p>
+  <div class="tablewrap"><table class="picktable dir">
+    <thead><tr><th>Tournament</th><th>Matches</th><th>With a win %</th><th>Market-priced</th><th>Earliest kick-off</th></tr></thead>
+    <tbody>{tournament_directory(rows)}</tbody>
+  </table></div>
+</section>
+
 <section class="panel" id="soon">
   <h2 id="next">Starting soon</h2>
   <p class="lead">The next eight kick-offs. Tap a row for the full card.</p>
@@ -767,7 +817,8 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     method and source links. <a href="picks.html">Card view</a> shows the same {total} matches with the
     reasoning behind each line, and <a href="results.html">Results</a> grades the picks that have already
     played. Every list is searchable and filterable by tournament and by method. Next kick-offs are under
-    <a href="#next">Next up</a>.</li>
+    <a href="#next">Next up</a>, and <a href="#directory"><strong>Picks by tournament</strong></a> jumps
+    straight into a filtered pick table for one league.</li>
     <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
     ({resolved_total/total*100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
     official forfeit winner with no probability claimed. Priced:
@@ -812,7 +863,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><strong>No market on national and academy divisions.</strong> {total - len(featured)} of {total}
     matches are not priced by any book reachable from the runner; their lines come from recorded series
     history rather than an aggregator placeholder.</li>
-    <li><strong>What we tried for the low-tier tail.</strong> {probe_line} {probe_link}.</li>
+    <li><strong>What we tried for the low-tier tail.</strong> {probe_line} {probe_link}. A second,
+    independent check on 2026-10-25 (Pinnacle's league list, Polymarket, Sofascore, bo3.gg) reached the
+    same ceiling: <a href="{EXTERNAL_LINES_MEMO_URL}" rel="noopener">external-line memo</a>.</li>
     <li><strong>Thin &amp; zero-history debut samples.</strong> {len(provisional)} lines are labelled
     <em>provisional</em> because at least one side has fewer than five rated series in the 25-month window
     ({sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 or (r.get("team1") or {}).get("rating_matches") == 0)}

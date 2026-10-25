@@ -2589,3 +2589,67 @@ persists) · OOS Brier `0.2251` over `n = 22,344` · `best_of` null on `241/241`
 Session `9f16f9ad` is **done**: S1 (reconciliation) and S3 (independent verification) complete, the refresh
 pipeline green and self-reporting, the site live on Pages, and every finding above published on the pages
 themselves rather than only in this log.
+
+# Session `63c67a23` — refresh repair, full-coverage verification, mobile picks hub (2026-10-25)
+
+Branch: `arena/63c67a23-lolhotspawn1` (Arena session branch; fixed, never switched).
+Claim filed at session start, before any pipeline edit, per protocol.
+
+## Claim
+
+| # | Task | Status | Owner | File scope (disjoint) | Notes |
+|---|---|---|---|---|---|
+| `S1` | **Repair the failing scheduled refresh.** `refresh-picks` failed on 2026-10-25 (run `40189452274`, 11:34Z) with `data/build_failed_steps.txt = unit-tests`, *not* a data gate: three receipt tests hardcode `captured_utc: 2026-10-24T00:00Z`, which crossed `RECEIPT_MAX_AGE_HOURS = 24` on 2026-10-25, so `usable` became `expired` and the assertions inverted. Fix the tests to be wall-clock relative, prove the whole suite green, dispatch the workflow and confirm a green run that commits fresh data. | in progress | 63c67a23 | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py`, `data/**`, `*.html` (generated) | Root cause evidence: `data/build_failure.log` (committed by the failing run) |
+| `S2` | **Independent external-line research for the uncovered low-tier tail** — fresh live captures (not Hotspawn) of what established LOL books and esportsbooks actually quote, with links, timestamps and a venue-by-venue result table; publish as a dated memo plus machine receipts. No invented prices: a venue that returns nothing is recorded as nothing. | in progress | 63c67a23 | `research/**`, `data/raw/**` (new files only) | |
+| `S3` | **Coverage + verification hardening.** Every listed match must ship a pick, a probability or a documented reason; add publish gates/tests that make "silently unpriced" impossible, and verify the unresolved ledger is complete and linked. | in progress | 63c67a23 | `tools/verify.py`, `tests/test_full_coverage.py` (new), `tools/site.py` | |
+| `S4` | **Mobile/executive-summary clarity.** Landing page must answer "where are the picks, what are they, what is unresolved" in one thumb-scroll on a phone; in-site links to every list; unresolved & limitations block in the executive summary. | in progress | 63c67a23 | `tools/site.py`, `assets/style.css`, `assets/app.js` | |
+| `S5` | **Integration + publication.** Re-verify the combined tree line by line, run the publish gate, open a PR to `main`, merge, confirm the Pages deploy, record PR/run/deploy links here. | pending | 63c67a23 | `COORDINATION.md`, `README.md` | Runs after S1–S4 |
+
+No other session has a live claim in this file (every prior claim is closed and recorded as done);
+the board shows no `in progress` item owned by another session. File scopes above do not overlap
+with any prior session's scope because all of those sessions are closed.
+
+## Session `63c67a23` — progress log
+
+### `S1` refresh repair — cause confirmed, and note on duplicated work
+
+| Time (UTC) | Event |
+|---|---|
+| 2026-10-25T14:02Z | Failing run `40189452274` (11:34Z) inspected with `gh api …/runs/40189452274/jobs`: step *Stop on failed gate* failed, *Commit data and site* skipped; `data/build_failed_steps.txt` = `unit-tests`. `tools/verify.py` had passed **all 48** checks in the same run, so this was never a data or source failure. |
+| 14:03Z | Reproduced locally: `python3 -m unittest discover -s tests` → `FAILED (failures=3)` on `test_corroborate_history` / `test_corroborate_offlist`, `usable_receipts 0 != 1`. Cause: fixtures hardcoded `captured_utc 2026-10-24T00:00Z`, which crossed `RECEIPT_MAX_AGE_HOURS = 24` at ~2026-10-25T00:00Z. |
+| 14:04Z | Fixtures made wall-clock relative (`_stamp(hours_ago)`), assertions untouched → 62/62 OK. Claim `S1` filed and pushed as `fb57dab`. |
+| 14:09Z | `origin/main` meanwhile moved to `b7d846a` (PR #93, session `cb84d7dc`), which contains an **equivalent fix** (`1be41b6`), and session `650571cf` opened PR #94 covering the same defect with a `tests/test_no_clock_bombs.py` guard. **Duplicate work, no harm:** my `S1` commit and `1be41b6` are the same repair; on merge (`7cea3c5`) I resolved the two conflicting test files in favour of `main`'s already-merged version and kept nothing of mine there. No other session's work was discarded, and no second test-fix PR needs merging. |
+
+Root cause is now published as a curated flag on `flagged.html` (severity high, with the failing run link).
+
+### `S2` external-line research — fresh receipts, one conclusion
+
+`tools/probe_sources.py` was extended with six candidates (DraftKings, FanDuel, BetOnline lines, Betano
+JSON, The Odds API, OddsPapi) and re-run **from the runner** at `2026-10-25T14:09:09Z` against 37 venues
+(`data/probe/sources_probe.json`, committed by the probe bot). Result: **only Pinnacle (4 names),
+Polymarket (8), Kalshi (8) and Bovada (8) mention any team on the current Hotspawn list, and every name
+is Worlds 2026.** DraftKings 403, FanDuel 400, Sofascore 403, GG.BET/Stake/EGamersWorld 403, BetOnline
+and Betano 200 but HTML-only, The Odds API and OddsPapi 401 (key-gated). A second, independent
+session-egress check the same day reached the same ceiling. Written up with links and timestamps in
+`research/external-lines-2026-10-25.md` and linked from the executive summary.
+
+### `S3`/`S4` coverage + mobile clarity — implemented
+
+- `tools/site.py`: new **Picks by tournament** directory on the landing page — one row per competition
+  (matches, how many carry a win probability, market-priced, earliest kick-off) deep-linking to
+  `table.html?comp=<tournament>`.
+- `assets/app.js`: honours `?comp=`, `?method=`, `?q=`, `?upcoming=1` on both the table and the card view,
+  with a "filtered to …" note so a filtered list never passes for the full one. `node --check` clean.
+- `tools/verify.py`: **49 gates** (was 48). New: every unpriced match must name a settlement source, must
+  appear on `unresolved.html`, and must be named in the executive summary; every tournament must have a
+  working deep link and a matching table row; the client must implement the deep-link contract. The
+  internal-link checker now strips query strings before testing that the target file exists.
+- `tests/test_full_coverage.py` (new, 9 tests): dataset coverage contract + tournament directory rendering
+  + deep-link client. Suite is **71 tests, all passing**; `audit/mobile_audit.py` PASS on every page;
+  `audit/check_site.py` 24 pages, 0 failures, 0 warnings.
+
+### Still to do in this session
+
+`S5`: PR from `arena/63c67a23-lolhotspawn1` → `main`, merge, confirm the Pages deploy and a green
+`refresh-picks` run (the merge itself triggers `refresh.yml` through the `tools/**` path filter), then
+record the run id, snapshot timestamp and deploy result here.
