@@ -3101,6 +3101,7 @@ five branches, including the exact 14:18Z shape (control refused, siblings resol
 | `refresh-picks` after PR #103 | **SUCCESS** — commit `32a5137` `2026-10-25T14:26:18Z`, inventory `14:24:04Z`; two consecutive green runs |
 | Snapshot now published | 234 cards · **234/234 with a pick** (230 priced + 4 official-forfeit settlements) · 9 market · 150 model · 71 provisional · **51/51 publish gates passed** · 0 rejected receipts |
 | GitHub Pages | live render fetched `14:26Z` and `14:35Z`: header `Data snapshot: 2026-10-25 …`, `234` cards, `100%` with a pick, **Picks by tournament (29)**, **Bookmaker evidence** bullet, `unresolved.html#observed` with **17 checks / 9 venues** (verbatim + capture time + link per row), 51-check gate named on the page. Receipt: `audit/cb84d7dc/live_verification.json` |
+| PR #111 | merged `2026-10-25T14:4xZ` — this final record, the machine-readable live-verification receipt (`audit/cb84d7dc/live_verification.json`) and the corrected panel wording; documentation only, so it does not re-trigger the collector |
 | Not verifiable here | Actions run ids / Pages deployment run id (REST API `403 rate limit exceeded` from this sandbox all session). The bot's data commits plus the committed `data/verification.json` are used instead, because the workflow writes them only when the gate passes. |
 | Flagged for review (live) | `flagged.html` plus the four irregularities in section X4 above; nothing is hidden in this log only |
 
