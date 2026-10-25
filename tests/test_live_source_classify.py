@@ -15,7 +15,9 @@ be explained away as "market closed".
 from __future__ import annotations
 
 import importlib.util
+import json
 import pathlib
+import sys
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -70,3 +72,138 @@ class ClassifyTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ProbeControlsTests(unittest.TestCase):
+    """The probe must work, and must never depend on a name assigned later in main()."""
+
+    def setUp(self) -> None:
+        self._saved = (lsv._PINNACLE_API_OK, lsv.fetch)
+        self.addCleanup(self._restore)
+
+    def _restore(self) -> None:
+        lsv._PINNACLE_API_OK, lsv.fetch = self._saved
+
+    def test_a_resolving_control_arms_the_closed_market_classification(self) -> None:
+        lsv.fetch = lambda url, **kw: {"url": url, "status": 200, "ok": True, "cause": "resolved"}
+        controls, checks = lsv.probe_controls({"market_quote": [PINNACLE]})
+        self.assertTrue(lsv._PINNACLE_API_OK)
+        self.assertIn("pinnacle_guest_api", controls)
+        self.assertEqual(len(checks), 1)
+        self.assertIn("market_closed", checks[0]["detail"])
+
+    def test_a_rejected_control_keeps_the_auth_failure(self) -> None:
+        lsv.fetch = lambda url, **kw: {"url": url, "status": 401, "ok": False, "cause": "auth_required"}
+        controls, checks = lsv.probe_controls({"market_quote": [PINNACLE]})
+        self.assertFalse(lsv._PINNACLE_API_OK)
+        self.assertEqual([c["ok"] for c in checks], [True, False])
+        self.assertIn("auth_required", checks[0]["detail"])
+
+    def test_no_pinnacle_urls_means_no_probe(self) -> None:
+        lsv._PINNACLE_API_OK = False
+        controls, checks = lsv.probe_controls({"market_quote": ["https://www.bovada.lv/x"]})
+        self.assertEqual((controls, checks), ({}, []))
+        self.assertFalse(lsv._PINNACLE_API_OK)
+
+    def test_a_crashing_probe_is_reported_not_raised(self) -> None:
+        def boom(url, **kw):
+            raise RuntimeError("network down")
+        lsv.fetch = boom
+        controls, checks = lsv.probe_controls({"market_quote": [PINNACLE]})
+        self.assertFalse(lsv._PINNACLE_API_OK)
+        self.assertEqual([c["ok"] for c in checks], [True, False])
+
+
+class LivePathSmokeTests(unittest.TestCase):
+    """Run main() end to end with the network stubbed out.
+
+    The first version of the closed-board fix referenced `role_of` before `main()` assigned
+    it, so the daily run died with NameError (run 40200770214) instead of producing a
+    verdict, and no unit test noticed because they only exercised `classify()`. This smoke
+    test walks the real live path — inventory fetch, control probe, per-URL crawl, page
+    checks, table parse, report writing — against canned responses.
+    """
+
+    def setUp(self) -> None:
+        import shutil
+        import tempfile
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.out = pathlib.Path(self.tmp.name)
+        self._saved = (lsv.fetch, lsv.fetch_json, lsv.OUT_DIR, lsv.SITE,
+                       lsv.urllib.request.urlopen, lsv._PINNACLE_API_OK,
+                       dict(lsv.HOST_POLICY), dict(lsv.DEFAULT_POLICY))
+        self.addCleanup(self._restore)
+
+        data = json.loads((ROOT / "data" / "matches.json").read_text(encoding="utf-8"))
+        self.matches = data["matches"]
+        fixtures = [{"id": m["id"], "sport_alias": "lol"} for m in self.matches]
+
+        def fake_fetch(url, **kw):
+            if url == lsv.PINNACLE_CONTROL_URL:
+                return {"url": url, "status": 200, "ok": True, "cause": "resolved"}
+            if "arcadia.pinnacle.com/0.1/matchups/" in url:
+                return {"url": url, "status": 401, "ok": False,
+                        "cause": lsv.classify(url, 401, "HTTP 401")}
+            return {"url": url, "status": 200, "ok": True, "cause": "resolved", "bytes": 10}
+
+        def fake_fetch_json(url):
+            if url == lsv.LIVE_FEED:
+                return ({"url": url, "status": 200, "ok": True, "cause": "resolved"}, fixtures)
+            return ({"url": url, "status": 200, "ok": True, "cause": "resolved"},
+                    {"query": {"pages": {"1": {"title": "Some Page"}}}})
+
+        table_html = (ROOT / "table.html").read_text(encoding="utf-8")
+
+        class Resp:
+            def __init__(self, body: str) -> None:
+                self._body = body.encode("utf-8")
+                self.status = 200
+                self.headers = {"Content-Type": "text/html"}
+
+            def read(self) -> bytes:
+                return self._body
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *a):
+                return False
+
+        lsv.fetch = fake_fetch
+        lsv.fetch_json = fake_fetch_json
+        lsv.OUT_DIR = self.out
+        lsv.SITE = "https://example.test/"
+        lsv.urllib.request.urlopen = lambda req, timeout=60: Resp(table_html)
+        lsv._PINNACLE_API_OK = False
+        # the crawl sleeps per host by design (politeness). The transport is stubbed here,
+        # so zero the delays: 241 Hotspawn cards at 1.1 s each would just make the test slow.
+        lsv.DEFAULT_POLICY = {**lsv.DEFAULT_POLICY, "delay": 0.0, "retries": 0}
+        lsv.HOST_POLICY = {host: {**pol, "delay": 0.0, "retries": 0}
+                           for host, pol in lsv.HOST_POLICY.items()}
+
+    def _restore(self) -> None:
+        (lsv.fetch, lsv.fetch_json, lsv.OUT_DIR, lsv.SITE,
+         lsv.urllib.request.urlopen, lsv._PINNACLE_API_OK,
+         lsv.HOST_POLICY, lsv.DEFAULT_POLICY) = self._saved
+
+    def test_live_path_completes_and_files_a_report(self) -> None:
+        sys_argv = sys.argv
+        sys.argv = ["live_source_verify.py"]
+        try:
+            rc = lsv.main()
+        finally:
+            sys.argv = sys_argv
+        report = json.loads((self.out / "source_verify.json").read_text(encoding="utf-8"))
+        self.assertEqual(rc, 0, [c for c in report["checks"] if not c["ok"]])
+        self.assertTrue(report["passed"])
+        self.assertEqual(report["rows"], len(self.matches))
+        self.assertEqual(report["table_rows_rendered"], len(self.matches))
+        # the closed Pinnacle boards are classified, disclosed, and not counted as rot
+        closed = report.get("market_closed_links", [])
+        self.assertTrue(closed, "expected the Pinnacle 401s to be classified as market_closed")
+        self.assertTrue(all("arcadia.pinnacle.com" in u for u in closed))
+        names = [c["name"] for c in report["checks"]]
+        self.assertIn("links to settled bookmaker boards are disclosed (not counted as rot)", names)
+        self.assertTrue(all(c["ok"] for c in report["checks"] if c["name"].startswith("no broken")))
+        self.assertTrue((self.out / "source_verify.md").exists())

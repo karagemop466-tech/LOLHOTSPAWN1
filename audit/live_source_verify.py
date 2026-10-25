@@ -227,6 +227,44 @@ def dedupe(urls) -> list[str]:
     return out
 
 
+def probe_controls(groups: dict[str, list[str]]) -> tuple[dict, list[dict]]:
+    """Prove the Pinnacle guest key works before re-classifying a 401 on a board.
+
+    Takes `groups` (role -> urls) rather than `role_of`, so the probe can never depend on
+    a name that is assigned later in `main()` — that ordering mistake made the first
+    version of this fix crash the daily run (40200770214) instead of returning a verdict.
+
+    Returns (controls, checks). Never raises: a failed probe just leaves `_PINNACLE_API_OK`
+    False, and then a 401/403 stays `auth_required` and still fails the audit.
+    """
+    global _PINNACLE_API_OK
+    urls = [u for role_urls in groups.values() for u in role_urls]
+    if not any("arcadia.pinnacle.com" in (u or "") for u in urls):
+        return {}, []
+    try:
+        control = fetch(PINNACLE_CONTROL_URL, retries=3)
+    except Exception as exc:  # noqa: BLE001 - a probe must never break the audit
+        control = {"url": PINNACLE_CONTROL_URL, "status": -1, "ok": False,
+                   "cause": "transport_error", "error": str(exc)[:200]}
+    _PINNACLE_API_OK = bool(control.get("ok"))
+    verdict = "market_closed" if _PINNACLE_API_OK else "auth_required"
+    checks = [{
+        "name": "control: Pinnacle guest key accepted this run "
+                "(separates a closed board from an auth failure)",
+        "ok": True,  # informational; the classification below is what enforces it
+        "detail": f"status={control.get('status')} cause={control.get('cause')} "
+                  f"-> matchup boards answering 401/403 are classified '{verdict}'",
+    }]
+    if not _PINNACLE_API_OK:
+        checks.append({
+            "name": "control: Pinnacle guest key could not be proven",
+            "ok": False,
+            "detail": f"status={control.get('status')} cause={control.get('cause')}; "
+                      "closed-board classification disabled, 401/403 stays a failure",
+        })
+    return {"pinnacle_guest_api": control}, checks
+
+
 def verify_wiki_page(url: str) -> dict:
     """Confirm a Leaguepedia page exists via the wiki's MediaWiki API.
 
@@ -349,27 +387,10 @@ def main() -> int:
                      " - dataset is stale: the scheduled refresh has not published"),
     })
 
-    # ---------- control probes (decide how a 401 on a closed board is classified) ----------
-    global _PINNACLE_API_OK
-    if any("arcadia.pinnacle.com" in u for u in role_of):
-        control = fetch(PINNACLE_CONTROL_URL, retries=3)
-        _PINNACLE_API_OK = bool(control.get("ok"))
-        report["controls"] = {"pinnacle_guest_api": control}
-        report["checks"].append({
-            "name": "control: Pinnacle guest key accepted this run "
-                    "(separates a closed board from an auth failure)",
-            "ok": True,  # informational: the classification above is what enforces it
-            "detail": f"status={control.get('status')} cause={control.get('cause')} "
-                      f"-> matchup boards answering 401/403 are classified "
-                      f"'{'market_closed' if _PINNACLE_API_OK else 'auth_required'}'",
-        })
-        if not _PINNACLE_API_OK:
-            report["checks"].append({
-                "name": "control: Pinnacle guest key could not be proven",
-                "ok": False,
-                "detail": f"status={control.get('status')} cause={control.get('cause')}; "
-                          "closed-board classification disabled, 401/403 stays a failure",
-            })
+    # ---------- control probe (decides how a 401 on a closed board is classified) ----------
+    controls, control_checks = probe_controls(groups)
+    report["controls"] = controls
+    report["checks"].extend(control_checks)
 
     # ---------- resolve every published URL, respecting each host's rate policy ----------
     role_of = {u: role for role, urls in groups.items() for u in urls}
