@@ -3186,6 +3186,70 @@ snapshot (raw feeds fetched 2026-10-25T14:13Z) and were then **regenerated with 
 code**; `data/probe/sources_probe.json` kept this session's later probe (14:20:51Z >
 14:13:03Z); this board kept both append blocks (main's sessions first, then `2faec1ff`).
 
+<<<<<<< HEAD
+---
+
+# Session `1773543b` — fresh inventory, unresolved/limits in the executive summary, competition-level line research (2026-10-25)
+
+Branch: `arena/1773543b-lolhotspawn1` (Arena session branch; fixed, never switched). Started from
+`main` @ `cbe297b`; merged `main` twice during the session (`cc4e934`, then `c04dca3`) so the branch
+carries the freshest canonical snapshot before publication.
+
+## Claim
+
+| # | Task | Status | Owner | File scope (disjoint from every earlier session) | Result |
+|---|---|---|---|---|---|
+| `N1` | **Fresh Hotspawn inventory + full-coverage proof.** Re-collect the complete LoL fixture list from the public fixtures API on 2026-10-25 and prove every listed card carries a pick with a source link. | done | 1773543b | `data/**` (regenerated), `*.html` (generated), `COORDINATION.md` | Snapshot `2026-10-25T14:36:13Z` inventory, built `14:38:09Z`: **234 cards, 234 picks, 230 with a win probability, 4 rule settlements**, 9 market rows, 29 competitions. |
+| `N2` | **External-line research for cards that cannot be priced the featured way**, from the runner, with a per-venue HTTP result and a dated memo. | done | 1773543b | `tools/probe_sources.py`, `research/session_1773543b/**`, `data/probe/**` | 48 endpoints from run `40203073209` at `14:38:07Z`; **20 answered 200; 4 printed both sides of a listed fixture, all Worlds 2026**; Pinnacle: 11 open esports leagues, **1** LoL league, all **80** LoL matchups in that one league, **28 of 29** Hotspawn competitions not opened. |
+| `N3` | **Executive summary first, with the unresolved picks + limitations inside it**, readable on a 360 px phone. | done | 1773543b | `tools/site.py`, `assets/style.css`, `assets/app.js`, `tools/verify.py`, `tests/**` | Landing order hero → summary (4 tap-target counts + every in-site picks link) → unresolved block inside the summary (6 columns incl. *why no probability* + sources) → starting soon → tournament directory. Two new publish gates, 12 new tests. |
+| `N4` | **Verification + publication**: PR to `main`, merge, confirm the Pages deploy and a green refresh. | in progress | 1773543b | `COORDINATION.md`, `README.md` | — |
+
+No other live claim is touched: `tools/collect.py`, `tools/model.py`, `tools/corroborate.py`,
+`tools/flags.py`, `tools/integrity.py`, `tools/report.py`, `data/flags_manual.json`, `docs/**` and
+`scripts/**` were not edited by this session. Takeover rule: after 60 minutes without a commit another
+session may take the task over, logging the handoff here first.
+
+## `N2` progress — four runner captures, three of them wrong first
+
+| Time (UTC) | Capture | What it changed |
+|---|---|---|
+| 14:19Z | run `40201630893` | Proved the new probe code runs, but the receipt was **lost**: a concurrent `diag-branch` push beat the single `git push`. `probe-sources.yml` now rebases and retries (5 attempts) and fails loudly instead of dropping evidence. |
+| 14:22Z | run `40201907459` | 48 venues, 20×200. My own matching was wrong twice: a substring test made the code `LIT` match every "spl**it**" and `POP` every "**pop**ular" (20 false positives); a case-insensitive word test still matched JavaScript `s.pop()` and `lcp:{...}`. |
+| 14:26Z | run `40202168469` | Word-bounded matching; code-only hits still leaked through JS/CSS. |
+| 14:27Z | run `40202258657` | Codes matched only in their published upper case; every hit labelled `name` vs `code`. |
+| 14:34Z | run `40202606810` | All **184** names searched (was a 32-name sample) — which exposed the opposite error: `DELETED`, `Arena` and `Venus` are ordinary words in page CSS/JS bundles. |
+| 14:35Z | run `40202900598` | A fixture counts only when **both opponents** appear. Clean result: Pinnacle, Polymarket, Kalshi and Kambi print both sides of Worlds fixtures; nobody prints both sides of a tier-2 fixture. |
+| 14:38Z | run `40203073209` | Added the structural league enumeration of Pinnacle's matchups payload: all 80 LoL matchups belong to `League of Legends - World Championship`, confirming the earlier participant-name hits were futures/derivative artefacts, not a tier-2 league. **This is the receipt the memo cites.** |
+
+Every receipt is committed with its runner id, commit and timestamp
+(`data/probe/sources_probe.json` → `runner_env`), and each false-positive class is pinned by a test in
+`tests/test_probe_competitions.py`.
+
+## `N3` — landing page restructured
+
+Before: hero → *Where the picks are* → 29-row tournament table → next-up → stats → **executive summary**
+(i.e. the summary was below the fold on a phone and the unresolved block was a separate trailing section).
+After: hero → **executive summary** (four tap-target counts, then *Where the picks are* with every in-site
+list) → **unresolved picks & limitations inside that summary** (one row per card: match, tournament,
+settlement pick, *why no probability* quoted from the row's own recorded reason, sources) → starting soon →
+tournament directory → stats → track record.
+
+New publish gates (56 total now): the summary and its unresolved block must precede every list on the
+landing page, and each unresolved row must state why it has no probability **and** carry a source link.
+`tests/test_full_coverage.py::LandingPageOrder` renders the real page from the committed dataset.
+
+## Verification performed on this branch (2026-10-25 ~14:40Z)
+
+| Check | Result |
+|---|---|
+| `python3 -m unittest discover -s tests` | **108 tests, OK** |
+| `python3 tools/verify.py` | **56/56 gates PASS** on the 234-row snapshot |
+| `python3 audit/check_site.py` | 24 pages, **0 failures, 0 warnings** |
+| `python3 audit/mobile_audit.py` | **PASS** on every page |
+| `python3 audit/verify_docs.py` | **ALL DOCS CHECKS PASS** |
+| `python3 audit/verify_independent.py` | 234 rows, 41 venues, **0 failures, 0 warnings** |
+| Full local pipeline (`model → report → flags → site → corroborate → verify`) | green; `collect` was not run locally because this sandbox has no outbound network — the canonical runner collects it |
+=======
 ## `650571cf` — final live confirmation (2026-10-25T14:41Z)
 
 | Item | Value |
@@ -3210,3 +3274,4 @@ status, when `main` is moving this fast.
 **Current published state at 14:41Z:** dataset `2026-10-25T14:25:59Z` (a newer canonical refresh than
 the one recorded above, still inside the 4–8 h cadence), 234 rows, 9 market-backed, 4 official-forfeit
 settlements, 0 priced-row defects across every gate re-run this session.
+>>>>>>> origin/main
