@@ -42,14 +42,17 @@ class ReceiptLedgerTests(unittest.TestCase):
         os.makedirs(self.receipts, exist_ok=True)
 
         # Two fixtures are on the current Hotspawn list; the third receipt is for a delisted one.
+        # All timestamps are wall-clock-relative: corroborate grades freshness against now,
+        # and pinned calendar dates are time bombs (see tests/test_clock_shift.py).
+        now = datetime.now(timezone.utc)
         matches = {
-            "generated_utc": _iso(datetime.now(timezone.utc)),
+            "generated_utc": _iso(now),
             "matches": [
-                {"id": "1001", "competition": "Comp A", "start_utc": "2026-10-25T10:00:00Z",
+                {"id": "1001", "competition": "Comp A", "start_utc": _iso(now + timedelta(days=1)),
                  "team0": {"name": "Alpha"}, "team1": {"name": "Beta"},
                  "p0": 0.60, "p1": 0.40, "method": "model", "hotspawn_url": "https://www.hotspawn.com/matches/x-1001",
                  "pick": {"team": "Alpha"}},
-                {"id": "1002", "competition": "Comp A", "start_utc": "2026-10-25T11:00:00Z",
+                {"id": "1002", "competition": "Comp A", "start_utc": _iso(now + timedelta(days=1, hours=1)),
                  "team0": {"name": "Gamma"}, "team1": {"name": "Delta"},
                  "p0": 0.55, "p1": 0.45, "method": "model", "hotspawn_url": "https://www.hotspawn.com/matches/y-1002",
                  "pick": {"team": "Gamma"}},
@@ -57,8 +60,6 @@ class ReceiptLedgerTests(unittest.TestCase):
         }
         with open(os.path.join(self.data, "matches.json"), "w", encoding="utf-8") as fh:
             json.dump(matches, fh)
-
-        now = datetime.now(timezone.utc)
         doc = {
             "sources": [{"key": "book", "name": "Test Book", "url": "https://example.com/lol"}],
             "captures": [

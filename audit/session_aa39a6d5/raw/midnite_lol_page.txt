@@ -1,0 +1,407 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+<base href="/" />
+<title>Sports Betting, Casino Games, &amp; Live Dealer - Midnite</title>
+<link rel="preconnect" href="https://api.midnite.com" />
+<link rel="preconnect" href="https://relay.midnite.com" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" media="print" onload="this.media='all'; this.onload=null;" fetchpriority="high" />
+<style>
+html, body {padding:0;margin:0;background:#161718;}
+
+.site-loader {
+  display: flex;
+  position: fixed;
+  height: 100vh;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  width: 100%;
+  pointer-events: none;
+  color: #46FF33
+}
+
+.site-loader svg {
+  margin-bottom: 48px;
+}
+
+.site-loader--midnite svg {
+  width: 96px;
+  height: 48px;
+  margin-bottom: 48px;  
+}
+
+/* Rounded arc, fading out towards the tail. The shape is an SVG mask so the colour comes from currentColor */
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.loading-spinner:before {
+  content: " ";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  --_m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3ClinearGradient id='g' gradientUnits='userSpaceOnUse' x1='0' y1='3.4' x2='0' y2='22.75'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23fff'/%3E%3C/linearGradient%3E%3Cpath d='M12 1.5A10.5 10.5 0 1 1 5.25 20.04' fill='none' stroke='url(%23g)' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  -webkit-mask: var(--_m);
+          mask: var(--_m);
+  animation: loaderrotate 1.5s infinite linear;
+}
+
+@keyframes loaderrotate {to{transform: rotate(1turn)}}
+
+@media screen and (min-width: 1024px) {
+  .site-loader svg {
+    margin-bottom: 60px;
+  }
+
+  .site-loader--midnite svg {
+    width: 120px;
+    height: 60px;
+  }
+
+  .loading-spinner {
+    height: 32px;
+    width: 32px;
+  }
+}
+</style>
+<link rel="stylesheet" href="/_nuxt/entry.nEzSIOvh.css" crossorigin media="print" onload="this.media='all'; this.onload=null;" fetchpriority="high" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" />
+<link rel="modulepreload" as="script" crossorigin href="/_nuxt/HYuVoFHH.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/SidebarLink.CZaZGmyw.css" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/GameSearch.CdLeIu11.css" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/DotSpacer.D3uB0UxT.css" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/MatchState.DMGLYa51.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CU9rCJPN.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B2uzCC5e.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DW4YBWHO.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/zzO8Qst3.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BFqfMJKC.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BimHMJLH.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Vy2OBODv.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BpQpj5i_.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Bn3UI4o7.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B1ckJGDq.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D4OavUSh.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/SNN1O0qc.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DOJDzakb.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/ChNBJ-d_.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CCp92DW9.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BmR51_w6.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BrpAhqLq.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BsFjAX7z.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CTCPtO7Y.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BlOsRZSA.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DWYar5oo.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BfkB6ceC.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CqELBr5k.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DAI4rPvm.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/C_QFga1r.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B1kSfeHh.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BSpbYfCt.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/q9XeLtfw.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/C6ekTUhr.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/FLdw1X2_.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BxE8DMd0.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DLCHbDvc.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/Navbar.g708ZuF8.css" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/ProgressDialRounded.BINefFmv.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/YmZRwdOq.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BnZxXDQJ.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D_8i0n1a.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CuaRm4aP.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DH9yFq9R.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/C0Zbb-sh.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/q2yoJ2sY.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CGg7hh8h.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DG8Fs2pV.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CdnmjX3j.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/5mFwMN95.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CLVfeHjW.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/default.BLoYVEc-.css" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/Betslip.D0iQljhu.css" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/CarouselSlider.D3M0SUwa.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BgPIw4ZK.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BBJTzl-v.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Dj6KlxjN.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/1A_SmuAt.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/mbmMhS19.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BZwL287N.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BIHBLWsx.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D-vB3GYM.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DQqUYzmp.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Csz5pyt0.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/WGq7YrnD.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DqoEVI09.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DZjgHmk9.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BBphA6Nv.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BrezH7zE.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/yOuG5qzu.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/C7d-eIHz.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BCWxcmK5.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D-O6NdjC.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Np-VShF0.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/welcome.BEqW059G.css" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/Footer.CgTAMcaN.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B3bCAdWo.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CPp--FHZ.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DhlAfmUq.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DC_uLgZm.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DBxaYDW0.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DTPgu9WP.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Bj5YMKtW.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DDwsAmzV.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/Acceptance.BIyfgEWJ.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CVmorzOA.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Dk_k1phi.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DhmRoT_v.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/LFREBK8q.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BPsxberm.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D0voNO_g.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/V0RMDBiZ.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BKyn6e5A.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/w8eZiOj7.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BQQSPR-z.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BIie12Iy.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/ZreCfOWq.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Cq2FmO_x.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B-FHxJgC.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CM9q7N7Y.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DbgdU67z.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BjsYPNPP.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BIc-Pl-D.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DPRMrpQa.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BttGLz8t.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BWsZviBu.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D9EctFpv.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D4Myx7xS.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/Wallet.DThT7bvE.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CGuvwCGA.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D-yhKnUk.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/C_HjGHVV.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/8stWoUNg.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DhHcLcV3.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/aOp34XtU.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BnPs0vrf.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DkXB856g.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/xlrlc62g.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/9wip5x8D.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DKLX-BsN.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/ClubSteps.BmCr3DfC.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B7LLOsAI.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DxRVD7I-.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Bziw1DZR.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CF90cECP.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BfJlgA1h.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DKfJ2hRV.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DL0X3ghZ.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/ZJzQKRo4.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DEjHODIl.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CUwyiYmZ.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BIre56Ef.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/pEVRsZRC.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Cn7cP72A.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/DailyGame.CzBZQwSE.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/2OdAvgML.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CtrTn6M2.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BsIcq-MA.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/sxC-vbA0.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BhdmrwTz.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Bez67d4R.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/ulqr5oul.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BAK7qOyI.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/58I7lvkx.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BQ2pb95_.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/ClvOjqrr.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Cgq6HAlf.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/6By2I7YX.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/TP38DmjE.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Bya2Ldlt.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D1RqIzh3.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DXh47_NJ.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/LimitReached.CWKSEE3p.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CGWzPUxo.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CM6VoOj6.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BeqLOBEi.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/MarketingPreferences.BfJQDfVv.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/C02dQHY-.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BPqHymn1.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Ch6wZqbs.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/MissionSetClaimMilestone.DdBGd2Na.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DBxkh6JD.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/midnite-animations.Dvg7cIus.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/MissionSetTimer.DK-_LzZW.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CefJ28QT.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D827aX7a.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/MissionSetMissionDetails._E-m9m0B.css" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/MissionSetMissionExpiry.CoJJqPcq.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Cl5lJ2fE.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DYUnLUeC.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BfS89C5-.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DuULeeSS.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DiQu-F3b.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Cm9yGPut.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/3i-3-9Au.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BwtZjg4a.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/CarouselFader.C5fy61B4.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/8tdqD0cX.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/wnP6coTb.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CHEllMDu.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D0bfCvFA.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BzmduA7Z.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B_F6UbPJ.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CMbVJadz.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DQVe7-OR.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/v21CkKL4.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CYv2gOsi.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/yY3LUKm6.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CvgUD_b_.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DNjoafVA.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CgNxOQyl.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/hjcwfWvN.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/qxfbD-wu.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DajSs-VV.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B_Lvq5VG.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/jRKdswZs.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B1FPXcLP.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CNrm7k6g.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/MeetingsList.F7DvLkwV.css" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/FeatureHorizontalBoostedContracts.CwhTmNVD.css" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/CarouselSkeleton.wQY3hMM1.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BfF7BtI2.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DLCgRZSm.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B-mHieKi.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CzGbBoBE.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CDEDPha2.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Bgfy16Ur.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/0xg1KNmR.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/9OBF826x.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DHS-H2S4.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BuLAqtlz.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/D9I1975V.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Dyp6Evcf.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Cdh6kG_r.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CePcZpF1.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CpIvgAom.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CYKxTOV9.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CVy0ocHe.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/8FPAq1ye.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CcFTEhp1.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Cr8C8K_d.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DOCrZDNz.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/B_zeZWN2.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/S6bXZ_5h.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Cz6kHNx1.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/nudf8mxm.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/-xoKz-Zu.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/MissionSetMissionCard.DTlOXhhp.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BnNYj6_m.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/C77_WPqn.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BlfjjmS4.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/DNsHyRI-.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/C1tDEipS.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CnnFl2Pf.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Nf7tEntK.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/BPwDPOo-.js" />
+<link rel="prefetch" as="style" crossorigin href="/_nuxt/TwoUpInfo.DhDM46Xq.css" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/CHv6H_-q.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/YPqnpx7O.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Bpl_RHHs.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/Bed33C0-.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/gjA7qbo8.js" />
+<link rel="prefetch" as="script" crossorigin href="/_nuxt/t_1Scoaq.js" />
+<meta name="theme-color" content="#252728" />
+<meta name="description" content="Bet on Football, Horse Racing, Slot games, Live Dealer, and much more. Play your way and get rewards like no other. Unlock huge promos, boosts, and free spins. Easily deposit and instantly withdraw your winnings. Join today and claim your welcome offer." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://www.midnite.com" />
+<meta property="og:title" content="Sports Betting, Casino Games, & Live Dealer - Midnite" />
+<meta property="og:description" content="Bet on Football, Horse Racing, Slot games, Live Dealer, and much more. Play your way and get rewards like no other. Unlock huge promos, boosts, and free spins. Easily deposit and instantly withdraw your winnings. Join today and claim your welcome offer." />
+<meta property="og:image" content="https://www.midnite.com/images/social-media-1920.jpg" />
+<meta property="og:locale" content="en_GB" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@midnite" />
+<meta name="twitter:title" content="Sports Betting, Casino Games, & Live Dealer - Midnite" />
+<meta name="twitter:description" content="Bet on Football, Horse Racing, Slot games, Live Dealer, and much more. Play your way and get rewards like no other. Unlock huge promos, boosts, and free spins. Easily deposit and instantly withdraw your winnings. Join today and claim your welcome offer." />
+<meta name="twitter:image" content="https://www.midnite.com/images/social-media-1920.jpg" />
+<meta name="twitter:image:alt" content="Midnite Logo" />
+<meta name="apple-itunes-app" content="app-id=1432667899, app-argument=https://link.midnite.com/app?$ios_nativelink=true&btag=a_12b_0c_Direct" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<script>window.midnite = window.midnite || {}</script>
+<script>
+  (function() {
+    try {
+        const brand = 'midnite'
+        window.midnite = window.midnite || {}
+        window.midnite.gtm_consent_default = 'denied'
+        window.dataLayer = (window.dataLayer || [])
+        window.gtag = window.gtag || function () {
+          window.dataLayer.push(arguments)
+        }
+        window.dataLayer.push({
+          brand: brand,
+          gtm_consent_default: 'denied'
+        })
+        window.gtag('consent', 'default', {
+          ad_personalization: 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted', // Always granted as is necessary
+          wait_for_update: 500,
+        })
+        window.gtag("set", "ads_data_redaction", true)
+        window.gtag("set", "url_passthrough", false)
+        window.gtag('set', { transport_url: 'https://relay.midnite.com/brave-fox' })
+    } catch (e) {
+    console.log('error', e)
+    }
+  })()
+  </script>
+<script>
+  (function() {
+    try {
+      if (window.location.href.includes('auth/passthrough')) {
+        localStorage.clear()
+      }
+    } catch (_e) {
+      console.warn(e)
+    }
+  })()
+  </script>
+<script>
+  (function() {
+    try {
+      if (!navigator.userAgent.includes('Prerender') || window.innerWidth > 820) {
+        return
+      }
+
+      for (var j = 0; j < 10; j++) {
+        Array.from(document.styleSheets).forEach(function(style) {
+          [].forEach.call(style.cssRules || [], function(rule, i) {
+            if (rule.media && rule.media.mediaText.includes('min-width')) {
+              style.deleteRule(i)
+            }
+          });
+        })
+      }
+    } catch (_e) {
+
+    }
+  })()
+  </script>
+<script type="module" src="/_nuxt/HYuVoFHH.js" crossorigin></script>
+<script id="unhead:payload" type="application/json">{"title":"Sports Betting, Casino Games, & Live Dealer - Midnite"}</script></head><body class="antialiased lg:overflow-hidden" style="background:#161718"><div id="__nuxt"></div><div id="__nuxt-loader"><div class="site-loader site-loader--midnite">
+  <svg viewBox="0 0 97 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M55.0179 15.1144V1.14C55.0179 0.788 54.7299 0.5 54.3779 0.5H35.9363C35.7347 0.5 35.5427 0.596 35.4243 0.7592L0.627487 47.4792C0.313887 47.9016 0.614687 48.5 1.13949 48.5H27.2195C27.4243 48.5 27.6163 48.4008 27.7379 48.2344L38.8227 32.9416C39.1875 32.4392 39.9811 32.6984 39.9811 33.316V47.8504C39.9811 48.2024 40.2659 48.4904 40.6179 48.4904H56.5411C56.7491 48.4904 56.9411 48.3912 57.0627 48.2216L67.9395 32.9704C68.3011 32.4648 69.1011 32.7176 69.1011 33.3416V47.8472C69.1011 48.1992 69.3859 48.4872 69.7379 48.4872H95.7027C96.0547 48.4872 96.3427 48.1992 96.3427 47.8472V1.14C96.3427 0.788 96.0547 0.5 95.7027 0.5H70.3843C70.2051 0.5 70.0355 0.5736 69.9139 0.7048L56.1251 15.5496C55.7283 15.9752 55.0147 15.6968 55.0147 15.1144H55.0179Z" fill="white"/>
+  </svg>
+
+  <div class="loading-spinner"></div>
+</div></div><div id="teleports"></div><script>window.__NUXT__=(function(a,b,c,d,e,f,g,h,i,j,k,l,m){return {prerenderedAt:1792749557708,serverRendered:b,config:{public:{brand:"midnite",brandName:"Midnite",url:"http:\u002F\u002Fwww.midnite.com",buildLocale:d,environment:e,cookieDomain:".midnite.com",sportsbookUrl:"https:\u002F\u002Fwww.midnite.com\u002F",wafChallengeUrl:"https:\u002F\u002F78d98b4d971d.edge.sdk.awswaf.com\u002F78d98b4d971d\u002Fbeb775a614d4\u002Fchallenge.js",wafSDKUrl:"https:\u002F\u002F78d98b4d971d.edge.captcha-sdk.awswaf.com\u002F78d98b4d971d\u002Fjsapi.js",strapiUrl:"https:\u002F\u002Fcms.ops.midnite.com\u002Fapi",openGraphImage:"https:\u002F\u002Fwww.midnite.com\u002Fimages\u002Fsocial-media-1920.jpg",casinoUrl:"\u002Fcasino",authMethod:"cookie",apiUrl:"https:\u002F\u002Fapi.midnite.com",wsUrl:"https:\u002F\u002Flive.midnite.com",wsPath:"\u002Fws",statsigClientKey:"client-IS423ediBokNelwfZF7IFIIEvpDzPPoJnV4okBniLLA",statsigTier:e,statsigApi:"https:\u002F\u002Frelay.midnite.com\u002Fhappy-panda\u002Fv1",statsigLogEventUrl:"https:\u002F\u002Frelay.midnite.com\u002Fhappy-panda\u002Fv1\u002Fsink",relayUrl:"https:\u002F\u002Frelay.midnite.com",loqateKey:"JY24-MC76-HJ14-MC62",safechargeEnv:"prod",checkoutRiskLibrary:"https:\u002F\u002Frisk.checkout.com\u002Fcdn\u002Frisk\u002F2.3\u002Frisk.js",incomeAccessId:"wlmidnite",gtmId:"BRAVE-FOX-5TTW9C6",gtmScriptSrc:"https:\u002F\u002Frelay.midnite.com\u002Fbrave-fox\u002Fbrave-fox.js",gtmConsentDefault:"denied",mixPanelId:"7e12248fcd91be9d7a305f5df9e458c3",brazeApiKey:"key_live_jgZhnH5aIojuHhXBAkhOKlhjswnjo62z",brazeBaseUrl:"sdk.fra-02.braze.eu",intercomClientKey:"yi180u4f",cookieBotId:"ca39f092-21b8-48c6-952c-e33ce52a78cc",sentryDSN:"https:\u002F\u002F6cd97596abf34cc2a25dc03dfb97938a@o321416.ingest.sentry.io\u002F6195316",twitterHandle:"@midnite",appStoreId:"1432667899",googlePayEnvironment:"PRODUCTION",checkoutEnvironment:e,detectBrowserLanguage:"##DETECT_BROWSER_LANGUAGE##",geoFolder:f,routerBasePath:f,defaultRouteName:"sport",localisedSites:[{locale:"x-default",subfolder:c},{locale:"en-gb",subfolder:c},{locale:"en-ie",subfolder:c}],siteLocale:d,features:{KYC_INFO:b,SIGNUP_LICENSE_INFO:a,HAS_PAGE_ABOUT:a,HAS_PAGE_JOBS:a,HAS_RUNDOWN:a,PRODUCT_SPORTS:a,PRODUCT_ESPORTS:a,PRODUCT_CASINO:a,CROSS_SELL_MOBILE_APP:a,PRODUCT_VIRTUALS:a,DAILY_GAME:a,FULL_LOGO_IN_HEADER:b,PHONE_NUMBER_ON_USER:a,APPLE_PAY_DEPOSIT:a,APPLE_PAY_NON_SAFARI:a,GOOGLE_PAY_DEPOSIT:a,HAS_CLOSED_LOOP:a,SHOW_PAYMENT_METHOD_HELP:b,SAFECHARGE_IFRAME:b,INPLAY_BET_BUILDER:a,USER_REVIEWS:a,EXTRA_PLACES:b,COOKIEBOT:a,MARKETING_PREFERENCES_AS_CHANNELS_UI:a,CASINO_QUICK_ACCESS:a,ADDRESS_LOOKUP:a,BETGENIUS_STREAMING:a,CALL_APM_ENDPOINT:b,DEVICE_SESSION_TO_CHECKOUT:a,GAME_INFO_PAGE_REMOVAL:a,ENHANCED_BINGE:a,REWARDS_ON_BANNER:a,TWO_UP:a,SUB_HERO:a,EMAIL_VERIFICATION_SIGNUP:a,INTERCOM_IN_CODEBASE:a,SRI_ENABLE:b,GTM_SANDBOX:b,BET_TRACKING:a,BET_TRACKING_PROGRESS:a,BET_TRACKING_MATCH_DETAILS:a,UAT_HELPER:b,TEST_ACCOUNT_FACTORY:b},_private:c,app:"sportsbook",site:"uk",sha:"d442406f941df5912e518ded41e2a39526ea245b",socials:{global:[{name:"X",icon:"x",url:"https:\u002F\u002Fx.com\u002FMidnite"}]},payments:{global:[{name:"VISA",image:"https:\u002F\u002Fassets.midnite.com\u002Fstatic\u002Flogos\u002Fpayments\u002Fvisa.svg"},{name:"Mastercard",image:"https:\u002F\u002Fassets.midnite.com\u002Fstatic\u002Flogos\u002Fpayments\u002Fmastercard.svg"},{name:"Apple Pay",image:"\u002Fimages\u002Ffooter\u002Fpayments\u002Fapple-pay.svg"},{name:"Google Pay",image:"\u002Fimages\u002Ffooter\u002Fpayments\u002Fgoogle-pay.svg"},{name:"Trustly",image:"https:\u002F\u002Fassets.midnite.com\u002Fstatic\u002Flogos\u002Fpayments\u002Ftrustly.svg"}]},paymentQuickAmounts:{deposit:{global:[g,h,i],brazil:[i,"100","200"]},withdraw:{global:[g],brazil:[h]}},links:{help:{main:"https:\u002F\u002Fhelp.midnite.com\u002F",documentverification:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Farticles\u002F2686553-verifying-my-documents",privacy:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Farticles\u002F2686563-privacy-policy",contact:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Farticles\u002F2687045-contact-us",despositing:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Fcollections\u002F1561131-deposit-withdraw",verification:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Fcollections\u002F1561134-verification",rules:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Fcollections\u002F1561135-rules",responsibleplay:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Fcollections\u002F1561137-responsible-play",promotions:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Fcollections\u002F1865400-promotions",terms:"https:\u002F\u002Fhelp.midnite.com\u002Fprivacy-and-terms\u002Fterms-of-service",virtual_game_rules:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Farticles\u002F8374683-virtual-sports",know_your_customer:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Farticles\u002F2686889-know-your-customer-kyc",horse_racing:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Farticles\u002F8420948-horse-racing-greyhound-rules",payment_method_help:c,change_payment_method:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Farticles\u002F2686792-how-do-i-change-my-payment-method",modern_slavery:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Farticles\u002F11208122-modern-slavery-statement",loss_limit_operator:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Farticles\u002F11744988-loss-limits-set-by-us",deposit_limit_operator:"https:\u002F\u002Fhelp.midnite.com\u002Fen\u002Farticles\u002F11745054-deposit-limits-set-by-us"},reviews:{trustpilot:"https:\u002F\u002Fuk.trustpilot.com\u002Freview\u002Fmidnite.com",trustpilot_evaluate:"https:\u002F\u002Fuk.trustpilot.com\u002Fevaluate\u002Fmidnite.com"}},seo_defaults:{title:"Sports Betting, Casino Games, & Live Dealer",titleIncludingTemplate:"Sports Betting, Casino Games, & Live Dealer - Midnite",description:"Bet on Football, Horse Racing, Slot games, Live Dealer, and much more. Play your way and get rewards like no other. Unlock huge promos, boosts, and free spins. Easily deposit and instantly withdraw your winnings. Join today and claim your welcome offer."},i18n:{baseUrl:c,defaultLocale:d,defaultDirection:"ltr",strategy:"no_prefix",lazy:a,rootRedirect:c,routesNameSeparator:"___",defaultLocaleRouteNameSuffix:"default",skipSettingLocaleOnNavigate:b,differentDomains:b,trailingSlash:b,locales:[{code:d,language:d,name:"English (United Kingdom)",files:[{path:"\u002Fhome\u002Frunner\u002Fwork\u002Fmidnite\u002Fmidnite\u002Fpackages\u002Fsportsbook\u002Fsrc\u002Flocales\u002Fen.json",cache:c}]},{code:j,language:j,name:"Português",files:[{path:"\u002Fhome\u002Frunner\u002Fwork\u002Fmidnite\u002Fmidnite\u002Fpackages\u002Fsportsbook\u002Fsrc\u002Flocales\u002Fpt.json",cache:c}]},{code:k,language:k,name:"Português (Brazil)",files:[{path:"\u002Fhome\u002Frunner\u002Fwork\u002Fmidnite\u002Fmidnite\u002Fpackages\u002Fsportsbook\u002Fsrc\u002Flocales\u002Fpt-br.json",cache:c}]},{code:l,language:l,name:"Español",files:[{path:"\u002Fhome\u002Frunner\u002Fwork\u002Fmidnite\u002Fmidnite\u002Fpackages\u002Fsportsbook\u002Fsrc\u002Flocales\u002Fes.json",cache:c}]},{code:m,language:m,name:"Español (Mexicano)",files:[{path:"\u002Fhome\u002Frunner\u002Fwork\u002Fmidnite\u002Fmidnite\u002Fpackages\u002Fsportsbook\u002Fsrc\u002Flocales\u002Fes-mx.json",cache:c}]}],detectBrowserLanguage:b,experimental:{localeDetector:c,switchLocalePathLinkSSR:b,autoImportTranslationFunctions:b,typedPages:a,typedOptionsAndMessages:b,generatedLocaleFilePathFormat:"absolute",alternateLinkCanonicalQueries:b,hmr:a},multiDomainLocales:b}},app:{baseURL:f,buildId:"18caaf96-2b2c-4279-8245-1e1b3dbe1a32",buildAssetsDir:"\u002F_nuxt\u002F",cdnURL:c}}}}(true,false,"","en-GB","production","\u002F","10","25","50","pt","pt-BR","es","es-MX"))</script></body></html>

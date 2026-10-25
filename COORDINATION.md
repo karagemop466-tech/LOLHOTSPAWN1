@@ -88,6 +88,69 @@ diff is one test file plus its own new research directory. This session does not
 
 ---
 
+# Session `aa39a6d5` — unfreeze the refresh, full-pick clarity, low-tier line research (2026-10-25)
+
+Branch: `arena/aa39a6d5-lolhotspawn1` (fixed Arena session branch, from `main` @ `b19397f`).
+
+## Handoff note (claims lapsed)
+
+All prior session claims below predate 2026-10-24T21:00Z with no commits since, i.e. >60 min stale
+under this file's own rule. This session therefore takes over the scopes it lists below and does not
+touch the companion Node pipeline (`scripts/**`, `docs/**`, `data/node/**`) except to read it.
+
+## Claim
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `U1` | **Unfreeze the six-hourly refresh.** Root cause of the current outage (site frozen at the `2026-10-24T20:54:30Z` snapshot; `main` HEAD commit is literally `chore(diag): record failing build log`): the 2026-10-25T11:36Z pipeline run passed every publish gate but the **unit-tests step failed** (`data/build_failed_steps.txt` = `unit-tests`). Three tests in `tests/test_corroborate_history.py` / `tests/test_corroborate_offlist.py` pin fixture `captured_utc` to fixed `2026-10-24T00:00:00Z`; `tools/corroborate.py` grades receipt freshness against the wall clock (`RECEIPT_MAX_AGE_HOURS = 24`), so once a day passed the "usable" receipt became "expired" and the tests — and with them every scheduled refresh — fail. Fix: wall-clock-relative fixtures (production freshness logic untouched); reconcile assertion gains the `expired` bucket to match `tools/verify.py`'s ledger. | **done** (`eabbf23`) | aa39a6d5 | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` + scope extension logged below |
+| `U2` | **Low-tier / non-market line research + integration.** Fresh research pass (web) on esportsbooks and LoL betting lines that price the competitions where `method` is `provisional` (78 of 241 rows at claim time — picks exist, from sparse-history Elo, but no book corroborates them). Probe any newly identified machine-readable venue from a GitHub Actions runner (sandbox egress to those hosts is blocked); integrate only a venue that is reachable without auth and prices otherwise-unpriced matches, under the existing provenance/quarantine rules. Publish the research + limitations either way. | **done — nothing integrable** (`019eb37`, receipts `469cd41`, write-up `58625f5`) | aa39a6d5 | `audit/session_aa39a6d5/**`, `data/line_source_research.json` (row appended); `tools/collect.py` untouched (no venue qualified) |
+| `U3` | **Executive-summary & mobile clarity.** User reports the site is confusing and wants picks findable on a phone immediately. Audit the generated `index.html`/`table.html`/`picks.html` first; change `tools/site.py` (and shared CSS if needed) so the home page leads with the upcoming picks list and one-tap links, the unresolved-picks section keeps its dedicated block + limitations, and every match card visibly shows its pick (including settlement picks, which carry no percentage). No data or method changes. | **done** (`426d9ae`) | aa39a6d5 | `tools/site.py` (+ regenerated `index.html`/`verification.html`); CSS unchanged (already phone-aware) |
+| `U4` | **Integration.** Full local test suite + offline rebuild + publish gate; PR from this branch to `main`; merge without waiting (per standing instructions); confirm the next `refresh-picks` run goes green and GitHub Pages deploys; record PR/merge/deploy here. | in progress — PR phase | aa39a6d5 | `COORDINATION.md`, `README.md` (2 factual corrections), generated pages only via the pipeline itself |
+
+### Session `aa39a6d5` — completion notes (2026-10-25)
+
+- **U1 scope extension (logged per protocol):** the same wall-clock bomb was found armed in two more
+  files while fixing the claimed pair — `tests/test_corroboration.py` (default
+  `captured="2026-10-24T15:00:00Z"` would have started failing at 2026-10-25T15:00Z, <1 h after this
+  session started) and the two fixed `start_utc` literals in `tests/test_corroborate.py`. Both are now
+  relative. New guard `tests/test_clock_shift.py` replays the mechanism under a +30-day clock and
+  literal-scans the four receipt test modules. `tests/test_flags_delisted.py` / `test_integrity.py`
+  audit: fixed dates present but not clock-compared (both passed after their dates went past) — left alone.
+- **Runner validation before merge:** the branch diag run at `2026-10-25T14:21:39Z` (`9bee9b5`,
+  `data/diag/refresh.log`) executed the real pipeline against the live feed with this branch's code:
+  `Ran 65 tests … OK`, inventory 234, counts `market 9 / model 150 / provisional 71 / unresolved 4`,
+  **all 44 publish gates PASS** including the reordered index markers. Local: 65/65 tests, 44/44 gates
+  on an offline rebuild.
+- **U2 verdict:** 15 candidates probed 2026-10-25T14:17Z and *joined to the live 231-pair inventory*:
+  **0 newly priced cards.** Rivalry 502, GG.BET 403, Thunderpick 404/DNS, bo3.gg filters ignored,
+  Midnite/Shuffle/Vave shells, tips.gg 403, Rainbet 404, gol.gg 404. Esports Insider is a genuine
+  per-match odds aggregator but tier-1 only (7 new Worlds cards, 1 already-market card) → logged as a
+  future manual-receipt source, not scraped. Two substring-join "hits" (Vave, gol.gg) disproved
+  literally. Full record: `audit/session_aa39a6d5/RESEARCH.md`; appended row in
+  `data/line_source_research.json`. **PR #56 (Rivalry venue) deliberately not merged**: `api.rivalry.com`
+  is down from the runner (502 today, Cloudflare 530 on 2026-10-24); merging would ship a dead venue.
+- **U3 result:** index order is now hero → **Starting soon** (12 one-tap rows, each showing pick, win %,
+  and method — market/model/provisional) → Where the picks are → stats → Executive summary →
+  *Unresolved picks and the limitations* → Track record. Hero renders the inventory collection time
+  (`fetched` was loaded but never displayed). All verify-gate markers preserved verbatim.
+- **Open-PR backlog left as-is:** #22, #26, #35, #36, #40, #56 (2026-10-23) — other sessions' stale
+  branches; not merged (risk of reintroducing the fixed-date fixtures / dead venue), not closed (not mine).
+- The one-shot probe workflow was deleted after use (`58625f5`); its YAML survives in this branch's history.
+- Parallel-edit caution for future sessions: several `edit_file` calls batched against the *same file* in
+  one message silently raced (only the last write stuck) — apply same-file edits sequentially.
+
+### Verified at claim time (no edits yet)
+
+| Observation | Evidence |
+|---|---|
+| Every one of the 241 rows already carries a `pick` (market 6, model 153, provisional 78, settlement 4); the only probability-less rows are the 4 Solid Gaming forfeit settlements (ids `1071170`, `1071200`, `1071206`, `1071186`), each with an official winner | `data/matches.json` on this branch, Python inspection 2026-10-25T14:04Z |
+| Failing tests: `test_receipt_for_a_delisted_fixture_is_historical_not_rejected`, `test_the_stats_still_reconcile`, `test_rolled_off_fixture_is_historical_not_rejected` — all `usable_receipts 0 != 1` | `python3 -m unittest discover -s tests` 2026-10-25T14:05Z, 62 tests, 3 failures |
+| The 2026-10-25T11:36:49Z runner pipeline passed all 44 publish gates with a 236-fixture inventory and still did not publish, because the workflow aborts on the failed unit-tests step | `data/build_failure.log`, `data/build_failed_steps.txt` |
+| Only 5 of 151 upcoming matches carry a real market price; 42 upcoming are `provisional` (Elo from <threshold> rated series) | `data/matches.json` inspection, 2026-10-25T14:04Z |
+| GitHub Pages: `status: built`, source `main` `/`; REST was rate-limited for run history at 14:03Z (`gh run list` → HTTP 403 rate limit) — will retry | `gh api …/pages`, `gh pr list` |
+
+---
+
 # Session `5ff8e6bf` — independent verification + integration (2026-10-24T16:20Z)
 
 Branch: `arena/5ff8e6bf-lolhotspawn1` (fixed Arena session branch, from `main` @ `8b84531`).
@@ -2994,6 +3057,37 @@ two new gates, X4 merged and verified against the live site, and the six-hourly 
    committed by that workflow to `audit/session_c0a05820/`; the GitHub API rate limit shared by all
    concurrent sessions refused several reads during this session, so its post-merge verdict is left to
    the workflow's own receipt rather than asserted here.
+
+## Correction — session `650571cf` — the control probe must not fail a clean run (2026-10-25T14:30Z)
+
+The merge of PR #94 triggered `verify-live-sources` on `main` @ `cc4e934` (run **`40201598861`**,
+14:18:15Z). Its committed receipt (`971e5b1`, `audit/session_c0a05820/source_verify.md`) shows the
+fresh snapshot verifying **cleanly on every published link** — inventory `234 = 234`, Hotspawn cards
+`234/234`, market quotes **`10/10 resolved`**, venue receipts `33/41 resolved` (8 `rate_limited`),
+Leaguepedia `29/29`, pickem `1/1` — and yet the run **failed**, on one check that this session added:
+
+```
+control: Pinnacle guest key could not be proven | FAIL | status=403 cause=auth_required
+```
+
+**That was a defect in the check, not in the site.** The control endpoint
+(`…/0.1/sports/240/leagues`) returns 403 to the runner while the actual matchup boards resolve fine,
+so the probe declared the credential unproven even though nothing needed re-classifying — exactly the
+kind of self-inflicted red that made the previous audit ignorable.
+
+### Fix
+
+The credential proof is now any of two independent facts, and the probe itself never fails a run:
+
+* the control endpoint resolved (`control-endpoint`), **or**
+* **any other request to `guest.api.arcadia.pinnacle.com` in the same run resolved**
+  (`sibling-resolved`) — the key and UA demonstrably work, so a sibling 401 is a closed board.
+
+A 401/403 stays `auth_required` (and still fails) when nothing on the host resolves, and a refused
+control with **no** 401 boards produces **no check at all**. New `ReclassifyClosedBoardTests` covers all
+five branches, including the exact 14:18Z shape (control refused, siblings resolved) and the
+"no proof → still fails" case. Suite: **93/93 OK**; `tools/verify.py` 51/51; `check_site.py` 24 pages
+0 failures.
 
 
 ## Final record — session `cb84d7dc` (PRs, merges, refresh runs, live deployment)

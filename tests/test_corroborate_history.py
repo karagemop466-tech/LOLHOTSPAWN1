@@ -141,8 +141,12 @@ class ReceiptHistoryTests(unittest.TestCase):
         doc = corroborate.build()
         s = doc["summary"]
         self.assertEqual(s["receipts"], 3)
+        # Full five-bucket partition, matching the ledger tools/verify.py reconciles:
+        # receipts = usable + placeholders + rejected + expired + historic. (Session
+        # aa39a6d5, merged with 650571cf's wall-clock-relative fixtures.)
         self.assertEqual(s["usable_receipts"] + s["placeholders"] + s["rejected_receipts"]
                          + s["historic_receipts"] + s["expired_receipts"], 3)
+        self.assertEqual(s["expired_receipts"], 0, "fresh captures must not expire")
 
     def test_stale_receipt_on_a_listed_fixture_expires_not_rejected(self) -> None:
         # Regression pin for the 2026-10-25 block (session 666de992): a real,

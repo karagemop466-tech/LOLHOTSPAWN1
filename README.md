@@ -14,7 +14,7 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 
 | Page | Contents |
 | --- | --- |
-| `index.html` | Executive summary: *Starting soon* (next-48h picks, soonest first) at the top, headline counts, in-site links to every list, featured market picks, and a dedicated *Unresolved picks & limitations* section with the per-competition fallback ledger |
+| `index.html` | Executive summary: *Starting soon* (next 12 kick-offs, soonest first, each with its pick, win probability and method) at the top, the *Where the picks are* in-site link directory, headline counts, and a dedicated *Unresolved picks & limitations* section with the per-competition fallback ledger |
 | `table.html` | **All matches in one responsive table** — kick-off, match, both win probabilities, pick, method and source links (the page to bookmark on a phone) |
 | `results.html` | **Results & track record** — every started card graded HIT/MISS against the official series record, accuracy by method, forfeit settlements, and the started-but-ungraded list |
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
@@ -111,6 +111,12 @@ the failing build was the only thing that could refresh the receipts, the failur
 - `refresh.yml` captures each stage separately, uploads the log as an artifact, and commits
   `data/build_failure.log` when the gate fails, so the next failure is diagnosable from the repository.
 - `tests/test_corroborate.py` locks the classification in.
+- **2026-10-25 recurrence, different mechanism**: the 11:36Z run passed all 44 publish gates but the
+  *unit-tests* step failed (`data/build_failed_steps.txt`), freezing the site at the 2026-10-24T20:54Z
+  snapshot. Three receipt test modules pinned fixture `captured_utc` to fixed 2026-10-24 dates, so once
+  the receipts' 24 h freshness window passed, "usable" fixtures graded "expired" and the tests failed.
+  Fixtures are now wall-clock-relative, and `tests/test_clock_shift.py` replays the mechanism under a
+  +30-day clock plus a literal-scan, so the pattern cannot be reintroduced silently (session `aa39a6d5`).
 
 ### 2026-10-25: the refresh failed again, for a different reason — a calendar, not a source
 
