@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-25T14:10:34Z",
+ "generated_utc": "2026-10-25T14:18:27Z",
  "checks": [
   {
    "name": "dataset present",
@@ -137,6 +137,16 @@
    "detail": "missing: []"
   },
   {
+   "name": "executive summary and its unresolved block precede every list on the landing page",
+   "ok": true,
+   "detail": "summary=2549 unresolved=8639 soon=16275 directory=19396"
+  },
+  {
+   "name": "the unresolved block inside the summary states why each card has no probability",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
    "name": "starting-soon phone list and fallback ledger rendered",
    "ok": true,
    "detail": "missing: []"
@@ -258,6 +268,6 @@
   "provisional": 78,
   "market": 6
  },
- "internal_links": 478,
+ "internal_links": 479,
  "lookahead_violations": 0
 }
