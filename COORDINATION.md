@@ -2994,3 +2994,22 @@ two new gates, X4 merged and verified against the live site, and the six-hourly 
    committed by that workflow to `audit/session_c0a05820/`; the GitHub API rate limit shared by all
    concurrent sessions refused several reads during this session, so its post-merge verdict is left to
    the workflow's own receipt rather than asserted here.
+
+# Session `9b271aa4` — post-merge verification and freshness audit (2026-10-25)
+
+Branch: `arena/9b271aa4-lolhotspawn1` (fixed Arena branch).
+
+## Claim
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `V1` | **Post-merge publication audit.** Independently verify the already merged full-coverage/mobile update, PR #96 and follow-up merges, current GitHub Pages deployment status, all offline publish gates, and current canonical vs. secondary snapshot timestamps. Record current discrepancies and any inability to verify live state; do not alter model, source data, pipeline, workflow, or generated pages. | in progress — audit complete; PR/merge close-out pending | 9b271aa4 | `COORDINATION.md`, `audit/session_9b271aa4/**` (new evidence only) |
+
+This is an audit-only claim, disjoint from production files. PR #96 was merged before this session began.
+The required rebase first advanced the base from `cbe297b` to `edf0fd2` (PRs #97/#98) and later from
+`3f9a414` to `cc4e934` (PR #94); both conflicted at the end of this shared board because concurrent
+sessions appended their records. Each resolution retained the complete `origin/main` board, including the
+other sessions' work, and reapplied only this claim. No changes were discarded. The check against the
+intermediate `19dc1a9` snapshot showed a temporary docs-parity mismatch; PR #99 refreshed the secondary
+snapshot and cleared that skew. Cross-scope request R1 in session `650571cf` is recorded in the main board;
+this audit will not edit `scripts/**`, `data/node/**`, or `audit/verify_docs_parity.py`.
