@@ -584,6 +584,8 @@ LOWTIER_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main
                     "research/low-tier-sources-2026-10-24.md")
 EXTERNAL_LINES_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/"
                            "research/external-lines-2026-10-25.md")
+SESSION_LINES_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/"
+                          "research/session_1773543b/external-lines-probe-2026-10-25.md")
 
 
 def _lowtier_matrix() -> tuple[dict, str, int]:
@@ -872,11 +874,19 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
     unres_rows = []
     for r in unresolved:
+        # "Why no probability" is taken verbatim from the row's own recorded reason (the
+        # Leaguepedia removal note), never re-worded into something the sources do not say.
+        reason = next((f for f in r.get("flags") or [] if "removal" in f.lower()), "")
+        if not reason:
+            reason = (r.get("resolution") or {}).get("note") or (r.get("basis") or "")
+        if len(reason) > 240:
+            reason = reason[:237].rstrip() + "\u2026"
         unres_rows.append([
             local_time(r["start_utc"]),
-            '<a href="unresolved.html#m' + e(r["id"]) + '">' + e(r["competition"]) + "</a>",
             "<strong>" + e(r["team0"]["name"]) + "</strong> vs <strong>" + e(r["team1"]["name"]) + "</strong>",
+            '<a href="unresolved.html#m' + e(r["id"]) + '">' + e(r["competition"]) + "</a>",
             _pick_cell(r) if r.get("resolution") else '<span class="muted">no pick</span>',
+            '<span class="small">' + e(reason) + "</span>",
             _row_sources(r),
         ])
 
@@ -889,55 +899,125 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     body = f"""
 <section class="hero" id="start">
   <h2>Every League of Legends match on Hotspawn, with a pick you can reach in one tap.</h2>
-  <p>All <strong>{total}</strong> scheduled LoL cards, refreshed automatically every six hours
-  (Hotspawn inventory last collected <strong>{e(fetched) or "time unknown"}</strong> — always check the
-  timestamp above before relying on a pick). Every card carries a pick:
-  <strong>{len(featured)}</strong> priced from real-money bookmaker lines,
+  <p>All <strong>{total}</strong> cards on the Hotspawn LoL pick'em list, rebuilt automatically every six hours.
+  Every card carries a pick: <strong>{len(featured)}</strong> priced from real-money bookmaker lines,
   <strong>{originated_n}</strong> originated from recorded series results, and
   <strong>{len(walkover)}</strong> resolved by league rule. Hotspawn's own crowd vote is never an input.</p>
-  <p><strong>New here, on a phone?</strong> Tap <strong>Pick table</strong> below (or <strong>Picks</strong>
-  in the bar at the bottom of every page) — that is the whole list: one row per match, pick and both win
-  probabilities, soonest first. The next kick-offs are right under this panel.</p>
   <div class="cta">
     <a class="btn primary" href="table.html">Pick table &mdash; all {total} matches &rarr;</a>
-    <a class="btn" href="picks.html">Card view</a>
-    <a class="btn" href="results.html">Results ({track.get("graded", 0)} graded)</a>
+    <a class="btn" href="table.html?upcoming=1">Next kick-offs ({len(upcoming)})</a>
+    <a class="btn" href="#unresolved-summary">Unresolved ({len(unresolved)})</a>
   </div>
-  {next24_line}
 </section>
 
-<section class="panel" id="soon">
-  <h2 id="next">Starting soon</h2>
-  <p class="lead">The next kick-offs, soonest first - and every one of them already has a pick.
-  The big number is the picked team's win probability; <strong>market</strong> means a real bookmaker
-  priced it, <strong>model</strong> is our originated line from series history, and
-  <strong>provisional</strong> flags thin history (treat those as low confidence). A row hides itself
-  once its start time passes, so this list never presents a locked pick as upcoming. Tap a row for
-  the full card and its sources. For the complete list use the <a href="table.html"><strong>Pick
-  table</strong></a>.</p>
-  <div class="nextlist">{next_strip(upcoming[:16]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
-  <p style="margin:12px 0 0"><a class="btn primary" href="table.html?upcoming=1">Upcoming only ({len(upcoming)}) &rarr;</a>
-  <a class="btn" href="table.html">All {total} matches &rarr;</a></p>
-</section>
+<section class="panel" id="summary">
+  <h2>Executive summary</h2>
+  <p class="lead">This page answers three questions, in this order: <strong>where</strong> every pick is,
+  <strong>what</strong> the picks say, and <strong>what is not resolved</strong>. Every figure below is
+  regenerated from the published dataset on each build &mdash; the snapshot time sits at the top of every page.</p>
 
-<section class="panel" id="where">
-  <h2>Where the picks are</h2>
-  <p class="lead">Six ways in. Every link stays inside this site and every row links out to the source it came
-  from.</p>
+  <div class="atglance">
+    <a class="ag" href="table.html"><span class="agv">{total}</span><span class="agl">matches listed</span>
+      <span class="agd">{resolved_total} with a pick &middot; {t['comps']} tournaments</span></a>
+    <a class="ag ok" href="table.html?upcoming=1"><span class="agv">{priced_n}</span><span class="agl">with a win probability</span>
+      <span class="agd">{priced_n / total * 100:.0f}% of the list, both sides published</span></a>
+    <a class="ag market" href="featured.html"><span class="agv">{len(featured)}</span><span class="agl">priced from real bookmaker lines</span>
+      <span class="agd">{e(venues_txt)}</span></a>
+    <a class="ag bad" href="#unresolved-summary"><span class="agv">{len(unresolved)}</span><span class="agl">unresolved</span>
+      <span class="agd">settlement only, no invented percentage</span></a>
+  </div>
+
+  <h3>Where the picks are</h3>
+  <p class="lead">Every destination below is a page on this site. On a phone, the bar pinned to the bottom of
+  every page has the same shortcuts: <em>Summary &middot; Picks &middot; Results &middot; Limits &middot; Flags</em>.</p>
   <div class="quicklinks">
     <a href="table.html"><span class="ql-t">Pick table &mdash; {total} matches</span>
       <span class="ql-d">One row per match: both win probabilities, the pick, the method and source links. The fastest page on a phone.</span></a>
+    <a href="table.html?upcoming=1"><span class="ql-t">Next kick-offs &mdash; {len(upcoming)}</span>
+      <span class="ql-d">The same table filtered to matches that have not started yet, soonest first.</span></a>
+    <a href="#directory"><span class="ql-t">Picks by tournament &mdash; {t['comps']}</span>
+      <span class="ql-d">Tap a league for its own filtered pick table. Nothing to type on a phone.</span></a>
     <a href="picks.html"><span class="ql-t">Card view &mdash; {total} matches</span>
       <span class="ql-d">The same list as cards, each with the reasoning behind the number and every source.</span></a>
-    <a href="results.html"><span class="ql-t">Results &mdash; {track.get("graded", 0)} graded</span>
+    <a href="results.html"><span class="ql-t">Results &mdash; {track.get('graded', 0)} graded</span>
       <span class="ql-d">Whether the published picks actually won, graded against the official series record.</span></a>
     <a href="featured.html"><span class="ql-t">Market-backed &mdash; {len(featured)}</span>
       <span class="ql-d">De-vigged consensus of real-money books and exchanges ({e(venues_txt)}), with the raw quotes.</span></a>
     <a href="originated.html"><span class="ql-t">Model lines &mdash; {originated_n}</span>
       <span class="ql-d">Our own Elo line where no sportsbook prices the league, with the inputs and records behind it.</span></a>
-    <a href="unresolved.html"><span class="ql-t">Unresolved &amp; limits &mdash; {len(unresolved)}</span>
+    <a href="unresolved.html"><span class="ql-t">Unresolved &amp; limitations &mdash; {len(unresolved)}</span>
       <span class="ql-d">Every card that cannot carry a probability, why, and every limitation that applies to the rest.</span></a>
   </div>
+
+  <ul class="bullets">
+    <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
+    ({resolved_total / total * 100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
+    official forfeit winner with no probability claimed. Priced:
+    <a href="featured.html">{len(featured)} market-backed</a> ({e(venues_txt)}),
+    <a href="originated.html">{counts.get('model', 0)} model</a> and
+    <a href="originated.html">{len(provisional)} provisional</a>.</li>
+    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
+    We probed <strong>{ceiling["probed"]} external venues</strong> from the build runner (established books,
+    esportsbooks, exchanges, odds aggregators); {ceiling["answered"]} answered and {ceiling["json_feeds"]}
+    returned JSON. On this build the feeds that actually quoted a listed match were:
+    {ceiling_txt} &mdash; overwhelmingly the same Worlds 2026 ties.{silent_txt} Everything below that ceiling
+    has no external line to quote, so we originate it ourselves.
+    Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
+    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.{lowtier_note}</li>
+    <li><strong>Bookmaker evidence for the matches nobody prices.</strong> {obs_line}</li>
+    <li><strong>Independence and limits.</strong> Hotspawn's public pick percentages are captured for audit
+    only and carry zero weight in any probability (see <a href="methodology.html">Method</a>). Market quotes
+    are source observations, not official verification; originated lines are model estimates from
+    community-maintained Leaguepedia history; any walkover grade instead of Hotspawn's published void
+    rule remains conditional &mdash; see <a href="flagged.html">Flagged for review</a>.</li>
+    <li><strong>Verification.</strong> {live_sources} of the {len(src_status)} polled feeds answered on the
+    last build, every row links to its official source, and the {gate_count}-check publish gate
+    (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
+    probabilities fail to sum to 100%, or an internal link breaks.</li>
+  </ul>
+
+  <div class="subpanel" id="unresolved-summary">
+    <h3>Unresolved picks and the limitations ({len(unresolved)})</h3>
+    <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror
+    Hotspawn exactly, they are reported separately here in the summary, and they are never padded with a
+    guessed number. Where the league itself has ruled a forfeit, the official settlement winner is shown &mdash;
+    it is <em>not</em> a forecast. <a href="{HOTSPAWN_RULES_URL}" rel="noopener">Hotspawn's published rule</a>
+    voids forfeited-match predictions, with no points awarded or deducted.
+    Full ledger, per-card detail and every limitation:
+    <a href="unresolved.html"><strong>Unresolved &amp; limitations</strong></a>.</p>
+    {table(['Kick-off', 'Match', 'Tournament', 'Settlement pick', 'Why no probability', 'Sources'], unres_rows) if unres_rows else '<p class="muted">No unresolved matches in this snapshot.</p>'}
+    <ul class="bullets">
+      <li><strong>Why a card can have no line.</strong> A team officially removed mid-split
+      (<code>dqteams</code>) may have its remaining fixtures voided or graded as walkovers, so a probability
+      built from its earlier results would be fiction. An official forfeit record settles the pick; a
+      competitive percentage would be invented, so none is published.</li>
+      <li><strong>No market on national and academy divisions.</strong> {total - len(featured)} of {total}
+      matches are not priced by any book reachable from the runner; their lines come from recorded series
+      history rather than an aggregator placeholder. The competition-by-competition ledger is on
+      <a href="unresolved.html#fallback">Unresolved &amp; limitations</a>.</li>
+      <li><strong>What we tried for the low-tier tail.</strong> {probe_line} {probe_link}. A second,
+      independent check (Pinnacle's league list, Polymarket, Sofascore, bo3.gg) is recorded in the
+      <a href="{EXTERNAL_LINES_MEMO_URL}" rel="noopener">external-line memo</a>; the dated venue-by-venue
+      ledger for this session is in the <a href="{SESSION_LINES_MEMO_URL}" rel="noopener">2026-10-25 probe memo</a>.</li>
+      <li><strong>Thin &amp; zero-history debut samples.</strong> {len(provisional)} lines are labelled
+      <em>provisional</em> because at least one side has fewer than five rated series in the 25-month window
+      ({sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 or (r.get("team1") or {}).get("rating_matches") == 0)}
+      involve a debut side with 0 pre-kickoff rated series, including
+      {sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 and (r.get("team1") or {}).get("rating_matches") == 0)}
+      where both sides enter at 0/0 rated series and rest solely on equal division priors). They still carry
+      a pick, with the confidence stated; they are not treated as equal to a market line.</li>
+      <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
+      limitations are on <a href="unresolved.html">Unresolved &amp; limitations</a>; data irregularities are on
+      <a href="flagged.html">Flagged for review</a>.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="panel" id="soon">
+  <h2 id="next">Starting soon</h2>
+  <p class="lead">The next sixteen kick-offs. Tap a row for the full card.</p>
+  <div class="nextlist">{next_strip(upcoming[:16]) or '<p class="muted">No upcoming matches in this snapshot.</p>'}</div>
+  <p style="margin:12px 0 0"><a class="btn" href="table.html?upcoming=1">All {len(upcoming)} upcoming matches &rarr;</a></p>
 </section>
 
 <section class="panel" id="directory">
@@ -958,77 +1038,6 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   {stat_card("Model lines", counts.get('model',0), "medium confidence", "model")}
   {stat_card("Provisional", len(provisional), "thin data, flagged", "provisional")}
   {stat_card("Graded picks", track.get("graded", 0), f"{acc*100:.0f}% correct" if acc is not None else "none yet", "ok")}
-</section>
-
-<section class="panel" id="summary">
-  <h2>Executive summary</h2>
-  <ul class="bullets">
-    <li><strong>Where the picks are.</strong> On a phone, tap <a href="table.html"><strong>Picks</strong></a>
-    in the bar at the bottom of every page: one row per match with the pick, both win probabilities, the
-    method and source links. <a href="picks.html">Card view</a> shows the same {total} matches with the
-    reasoning behind each line, and <a href="results.html">Results</a> grades the picks that have already
-    played. Every list is searchable and filterable by tournament and by method. Next kick-offs are under
-    <a href="#next">Next up</a>, and <a href="#directory"><strong>Picks by tournament</strong></a> jumps
-    straight into a filtered pick table for one league.</li>
-    <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
-    ({resolved_total/total*100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
-    official forfeit winner with no probability claimed. Priced:
-    <a href="featured.html">{len(featured)} market-backed</a> ({e(venues_txt)}),
-    <a href="originated.html">{counts.get('model',0)} model</a> and
-    <a href="originated.html">{len(provisional)} provisional</a>.</li>
-    <li><strong>Where the lines come from &mdash; and where they do not exist.</strong>
-    We probed <strong>{ceiling["probed"]} external venues</strong> from the build runner (established books,
-    esportsbooks, exchanges, odds aggregators); {ceiling["answered"]} answered and {ceiling["json_feeds"]}
-    returned JSON. On this build the feeds that actually quoted a listed match were:
-    {ceiling_txt} &mdash; overwhelmingly the same Worlds 2026 ties.{silent_txt} Everything below that ceiling
-    has no external line to quote, so we originate it ourselves.
-    Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
-    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.{lowtier_note}{pair_sentence}</li>
-    <li><strong>Bookmaker evidence for the matches nobody prices.</strong> {obs_line}</li>
-    <li><strong>Unresolved picks &amp; limitations.</strong> {len(unresolved)} cards cannot carry a playable
-    probability today; they are listed with their reason and source in the section below and in full on
-    <a href="unresolved.html">Unresolved &amp; limitations</a>. Nothing is padded with a guessed number.</li>
-    <li><strong>Independence and limits.</strong> Hotspawn's public pick percentages are captured for audit
-    only and carry zero weight in any probability (see <a href="methodology.html">Method</a>). Market quotes
-    are source observations, not official verification; originated lines are model estimates from
-    community-maintained Leaguepedia history; any walkover grade instead of Hotspawn's published void
-    rule remains conditional &mdash; see <a href="flagged.html">Flagged for review</a>.</li>
-    <li><strong>Verification.</strong> {live_sources} of the {len(src_status)} polled feeds answered on the
-    last build, every row links to its official source, and the {gate_count}-check publish gate
-    (<a href="verification.html">Verification</a>) blocks publication if a row lacks a source, the two
-    probabilities fail to sum to 100%, or an internal link breaks.</li>
-  </ul>
-</section>
-
-<section class="panel" id="unresolved-summary">
-  <h2>Unresolved picks and the limitations ({len(unresolved)})</h2>
-  <p class="lead">These cards cannot carry a playable win probability. They stay in the list to mirror
-  Hotspawn exactly, are reported separately, and are never padded with a guessed number. Where the league
-  itself has ruled a forfeit, the official settlement winner is shown - it is <em>not</em> a forecast.
-  <a href="{HOTSPAWN_RULES_URL}" rel="noopener">Hotspawn's published rule</a> voids forfeited-match
-  predictions, with no points awarded or deducted.</p>
-  {table(["Kick-off", "Tournament", "Match", "Settlement pick", "Sources"], unres_rows) if unres_rows else '<p class="muted">No unresolved matches in this snapshot.</p>'}
-  <ul class="bullets">
-    <li><strong>Why a card can have no line.</strong> A team officially removed mid-split
-    (<code>dqteams</code>) may have its remaining fixtures voided or graded as walkovers, so a probability
-    built from its earlier results would be fiction.</li>
-    <li><strong>No market on national and academy divisions.</strong> {total - len(featured)} of {total}
-    matches are not priced by any book reachable from the runner; their lines come from recorded series
-    history rather than an aggregator placeholder.</li>
-    <li><strong>What we tried for the low-tier tail.</strong> {probe_line} {probe_link}. A second,
-    independent check on 2026-10-25 (Pinnacle's league list, Polymarket, Sofascore, bo3.gg) reached the
-    same ceiling: <a href="{EXTERNAL_LINES_MEMO_URL}" rel="noopener">external-line memo</a>.{pair_sentence}</li>
-    <li><strong>Thin &amp; zero-history debut samples.</strong> {len(provisional)} lines are labelled
-    <em>provisional</em> because at least one side has fewer than five rated series in the 25-month window
-    ({sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 or (r.get("team1") or {}).get("rating_matches") == 0)}
-    involve a debut side with 0 pre-kickoff rated series, including
-    {sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 and (r.get("team1") or {}).get("rating_matches") == 0)}
-    where both sides enter at 0/0 rated series and rest solely on equal division priors).{debut_names}
-    Treat those named cards as the weakest picks on the site: the percentage is a prior, not evidence.</li>
-    <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
-    limitations are on <a href="unresolved.html">Unresolved &amp; limitations</a>; data irregularities are on
-    <a href="flagged.html">Flagged for review</a>.</li>
-  </ul>
 </section>
 
 <section class="panel" id="track">

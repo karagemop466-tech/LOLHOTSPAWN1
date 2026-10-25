@@ -41,17 +41,28 @@ jobs:
         run: python3 tools/probe_sources.py
 
       - name: Commit receipts
+        # The receipt is the evidence, so a receipt that is generated but never committed is a
+        # wasted probe (this happened on 2026-10-25 when a branch-bits diag run pushed first).
+        # Rebase-and-retry keeps the receipt on the branch whatever else is committing.
         run: |
-          set -e
           git config user.name "arena-probe-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/probe/sources_probe.json
           if git diff --cached --quiet; then
             echo "no change"
-          else
-            git commit -m "chore(probe): line-source availability receipts [skip ci]"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            exit 0
           fi
+          git commit -m "chore(probe): line-source availability receipts [skip ci]"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || { git rebase --abort || true; }
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "receipt pushed on attempt ${attempt}"
+              exit 0
+            fi
+            sleep $((attempt * 5))
+          done
+          echo "receipt NOT pushed after 5 attempts" >&2
+          exit 1
 
       - name: Upload artifact
         if: always()
