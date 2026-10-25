@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-10-25T03:44:55.889Z",
-  "total_entries": 262,
-  "settled_entries": 50,
-  "correct_entries": 33,
-  "mean_brier": 0.2328,
+  "updated_at": "2026-10-25T10:57:11.482Z",
+  "total_entries": 270,
+  "settled_entries": 54,
+  "correct_entries": 36,
+  "mean_brier": 0.2301,
   "entries": [
     {
       "id": "1074662",
@@ -47,6 +47,94 @@
         "winner_index": null,
         "correct": null,
         "brier": null
+      }
+    },
+    {
+      "id": "1081084",
+      "recorded_at": "2026-10-21T20:53:19.985Z",
+      "competition_name": "LigaGG CELOL B 2026 Split 2 Playoffs",
+      "start_iso": "2026-10-25T15:00:00.000Z",
+      "team0": "Maze GG",
+      "team1": "Viktus",
+      "p0": 0.468,
+      "p1": 0.532,
+      "pick_index": 1,
+      "pick_team": "Viktus",
+      "source_category": "model",
+      "hotspawn_url": "https://www.hotspawn.com/matches/maze-gg-vs-viktus-ligagg-celol-b-2026-split-2-playoffs-1081084",
+      "outcome": {
+        "status": "ended",
+        "score0": 0,
+        "score1": 2,
+        "winner_index": 1,
+        "correct": true,
+        "brier": 0.219
+      }
+    },
+    {
+      "id": "1067689",
+      "recorded_at": "2026-10-24T10:30:43.074Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-25T00:00:00.000Z",
+      "team0": "Bilibili Gaming",
+      "team1": "Team Liquid",
+      "p0": 0.752,
+      "p1": 0.248,
+      "pick_index": 0,
+      "pick_team": "Bilibili Gaming",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/bilibili-gaming-vs-team-liquid-worlds-2026-main-event-1067689",
+      "outcome": {
+        "status": "ended",
+        "score0": 1,
+        "score1": 0,
+        "winner_index": 0,
+        "correct": true,
+        "brier": 0.0615
+      }
+    },
+    {
+      "id": "1067880",
+      "recorded_at": "2026-10-24T10:30:43.074Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-24T23:00:00.000Z",
+      "team0": "Dplus KIA",
+      "team1": "T1",
+      "p0": 0.421,
+      "p1": 0.579,
+      "pick_index": 1,
+      "pick_team": "T1",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/dplus-kia-vs-t1-worlds-2026-main-event-1067880",
+      "outcome": {
+        "status": "ended",
+        "score0": 1,
+        "score1": 0,
+        "winner_index": 0,
+        "correct": false,
+        "brier": 0.3352
+      }
+    },
+    {
+      "id": "1067683",
+      "recorded_at": "2026-10-24T10:30:43.074Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-24T22:00:00.000Z",
+      "team0": "Hanwha Life Esports",
+      "team1": "Gen.G",
+      "p0": 0.414,
+      "p1": 0.586,
+      "pick_index": 1,
+      "pick_team": "Gen.G",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/hanwha-life-esports-vs-gen-g-worlds-2026-main-event-1067683",
+      "outcome": {
+        "status": "ended",
+        "score0": 0,
+        "score1": 1,
+        "winner_index": 1,
+        "correct": true,
+        "brier": 0.1714
       }
     },
     {
@@ -238,6 +326,28 @@
       "pick_team": "FlameHard",
       "source_category": "model-elo",
       "hotspawn_url": "https://www.hotspawn.com/matches/flamehard-vs-b2u-rivals-league-season-2-1074654",
+      "outcome": {
+        "status": "cancelled",
+        "score0": 0,
+        "score1": 0,
+        "winner_index": null,
+        "correct": null,
+        "brier": null
+      }
+    },
+    {
+      "id": "1074655",
+      "recorded_at": "2026-10-21T20:53:19.985Z",
+      "competition_name": "RIVALS LEAGUE Season 2",
+      "start_iso": "2026-10-24T16:30:00.000Z",
+      "team0": "Karolinerna",
+      "team1": "Turbo Gaming",
+      "p0": 0.466,
+      "p1": 0.534,
+      "pick_index": 1,
+      "pick_team": "Turbo Gaming",
+      "source_category": "model-elo",
+      "hotspawn_url": "https://www.hotspawn.com/matches/karolinerna-vs-turbo-gaming-rivals-league-season-2-1074655",
       "outcome": {
         "status": "cancelled",
         "score0": 0,
@@ -3073,8 +3183,8 @@
       "start_iso": "2026-10-27T17:00:00.000Z",
       "team0": "Mental Rush",
       "team1": "Vitality Rising Bees",
-      "p0": 0.365,
-      "p1": 0.635,
+      "p0": 0.368,
+      "p1": 0.632,
       "pick_index": 1,
       "pick_team": "Vitality Rising Bees",
       "source_category": "market_consensus",
@@ -3094,6 +3204,36 @@
       "pick_team": "Atruvia Münster Esports",
       "source_category": "model",
       "hotspawn_url": "https://www.hotspawn.com/matches/packmiko-e-sports-dach-vs-atruvia-munster-esports-prm-3rd-division-26-27-fall-1075756",
+      "outcome": null
+    },
+    {
+      "id": "1075823",
+      "recorded_at": "2026-10-25T10:57:11.482Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-26T22:00:00.000Z",
+      "team0": "Team Liquid",
+      "team1": "Anyone's Legend",
+      "p0": 0.307,
+      "p1": 0.693,
+      "pick_index": 1,
+      "pick_team": "Anyone's Legend",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/team-liquid-vs-anyones-legend-worlds-2026-main-event-1075823",
+      "outcome": null
+    },
+    {
+      "id": "1075822",
+      "recorded_at": "2026-10-25T10:57:11.482Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-26T19:00:00.000Z",
+      "team0": "LØS",
+      "team1": "Team Secret Whales",
+      "p0": 0.346,
+      "p1": 0.654,
+      "pick_index": 1,
+      "pick_team": "Team Secret Whales",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/los-vs-team-secret-whales-worlds-2026-main-event-1075822",
       "outcome": null
     },
     {
@@ -3127,6 +3267,21 @@
       "outcome": null
     },
     {
+      "id": "1075821",
+      "recorded_at": "2026-10-25T10:57:11.482Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-26T18:00:00.000Z",
+      "team0": "T1",
+      "team1": "CTBC Flying Oyster",
+      "p0": 0.876,
+      "p1": 0.124,
+      "pick_index": 0,
+      "pick_team": "T1",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/t1-vs-ctbc-flying-oyster-worlds-2026-main-event-1075821",
+      "outcome": null
+    },
+    {
       "id": "1082938",
       "recorded_at": "2026-10-22T16:49:35.239Z",
       "competition_name": "RIVALS LEAGUE Season 2",
@@ -3139,6 +3294,51 @@
       "pick_team": "B2U",
       "source_category": "model",
       "hotspawn_url": "https://www.hotspawn.com/matches/mazepa-vs-b2u-rivals-league-season-2-1082938",
+      "outcome": null
+    },
+    {
+      "id": "1075820",
+      "recorded_at": "2026-10-25T10:57:11.482Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-26T17:00:00.000Z",
+      "team0": "Karmine Corp",
+      "team1": "Bilibili Gaming",
+      "p0": 0.301,
+      "p1": 0.699,
+      "pick_index": 1,
+      "pick_team": "Bilibili Gaming",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/karmine-corp-vs-bilibili-gaming-worlds-2026-main-event-1075820",
+      "outcome": null
+    },
+    {
+      "id": "1075819",
+      "recorded_at": "2026-10-25T10:57:11.482Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-25T22:00:00.000Z",
+      "team0": "Dplus KIA",
+      "team1": "Movistar KOI",
+      "p0": 0.764,
+      "p1": 0.236,
+      "pick_index": 0,
+      "pick_team": "Dplus KIA",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/dplus-kia-vs-movistar-koi-worlds-2026-main-event-1075819",
+      "outcome": null
+    },
+    {
+      "id": "1075818",
+      "recorded_at": "2026-10-25T10:57:11.482Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-25T19:00:00.000Z",
+      "team0": "Gen.G",
+      "team1": "LYON",
+      "p0": 0.91,
+      "p1": 0.09,
+      "pick_index": 0,
+      "pick_team": "Gen.G",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/gen-g-vs-lyon-worlds-2026-main-event-1075818",
       "outcome": null
     },
     {
@@ -3199,6 +3399,21 @@
       "pick_team": "Kanji Esports KIN",
       "source_category": "model_provisional",
       "hotspawn_url": "https://www.hotspawn.com/matches/blackdivision-vs-kanji-esports-kin-prm-3rd-division-26-27-fall-1075751",
+      "outcome": null
+    },
+    {
+      "id": "1075817",
+      "recorded_at": "2026-10-25T10:57:11.482Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-25T18:00:00.000Z",
+      "team0": "Invictus Gaming",
+      "team1": "Hanwha Life Esports",
+      "p0": 0.27,
+      "p1": 0.73,
+      "pick_index": 1,
+      "pick_team": "Hanwha Life Esports",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/invictus-gaming-vs-hanwha-life-esports-worlds-2026-main-event-1075817",
       "outcome": null
     },
     {
@@ -3274,6 +3489,21 @@
       "pick_team": "Berlin 5",
       "source_category": "model",
       "hotspawn_url": "https://www.hotspawn.com/matches/second-time-alive-revival-vs-berlin-5-prm-3rd-division-26-27-fall-1075759",
+      "outcome": null
+    },
+    {
+      "id": "1075816",
+      "recorded_at": "2026-10-25T10:57:11.482Z",
+      "competition_name": "Worlds 2026 Main Event",
+      "start_iso": "2026-10-25T17:00:00.000Z",
+      "team0": "Top Esports",
+      "team1": "G2 Esports",
+      "p0": 0.455,
+      "p1": 0.545,
+      "pick_index": 1,
+      "pick_team": "G2 Esports",
+      "source_category": "market_consensus",
+      "hotspawn_url": "https://www.hotspawn.com/matches/top-esports-vs-g2-esports-worlds-2026-main-event-1075816",
       "outcome": null
     },
     {
@@ -3517,66 +3747,6 @@
       "outcome": null
     },
     {
-      "id": "1081084",
-      "recorded_at": "2026-10-21T20:53:19.985Z",
-      "competition_name": "LigaGG CELOL B 2026 Split 2 Playoffs",
-      "start_iso": "2026-10-25T15:00:00.000Z",
-      "team0": "Maze GG",
-      "team1": "Viktus",
-      "p0": 0.468,
-      "p1": 0.532,
-      "pick_index": 1,
-      "pick_team": "Viktus",
-      "source_category": "model",
-      "hotspawn_url": "https://www.hotspawn.com/matches/maze-gg-vs-viktus-ligagg-celol-b-2026-split-2-playoffs-1081084",
-      "outcome": null
-    },
-    {
-      "id": "1067689",
-      "recorded_at": "2026-10-24T10:30:43.074Z",
-      "competition_name": "Worlds 2026 Main Event",
-      "start_iso": "2026-10-25T00:00:00.000Z",
-      "team0": "Bilibili Gaming",
-      "team1": "Team Liquid",
-      "p0": 0.752,
-      "p1": 0.248,
-      "pick_index": 0,
-      "pick_team": "Bilibili Gaming",
-      "source_category": "market_consensus",
-      "hotspawn_url": "https://www.hotspawn.com/matches/bilibili-gaming-vs-team-liquid-worlds-2026-main-event-1067689",
-      "outcome": null
-    },
-    {
-      "id": "1067880",
-      "recorded_at": "2026-10-24T10:30:43.074Z",
-      "competition_name": "Worlds 2026 Main Event",
-      "start_iso": "2026-10-24T23:00:00.000Z",
-      "team0": "Dplus KIA",
-      "team1": "T1",
-      "p0": 0.421,
-      "p1": 0.579,
-      "pick_index": 1,
-      "pick_team": "T1",
-      "source_category": "market_consensus",
-      "hotspawn_url": "https://www.hotspawn.com/matches/dplus-kia-vs-t1-worlds-2026-main-event-1067880",
-      "outcome": null
-    },
-    {
-      "id": "1067683",
-      "recorded_at": "2026-10-24T10:30:43.074Z",
-      "competition_name": "Worlds 2026 Main Event",
-      "start_iso": "2026-10-24T22:00:00.000Z",
-      "team0": "Hanwha Life Esports",
-      "team1": "Gen.G",
-      "p0": 0.414,
-      "p1": 0.586,
-      "pick_index": 1,
-      "pick_team": "Gen.G",
-      "source_category": "market_consensus",
-      "hotspawn_url": "https://www.hotspawn.com/matches/hanwha-life-esports-vs-gen-g-worlds-2026-main-event-1067683",
-      "outcome": null
-    },
-    {
       "id": "1082914",
       "recorded_at": "2026-10-22T11:22:07.155Z",
       "competition_name": "LigaGG CELOL A 2026 Split 2 Playoffs",
@@ -3634,21 +3804,6 @@
       "pick_team": "1. Esport Club Frankfurt e.V.",
       "source_category": "model",
       "hotspawn_url": "https://www.hotspawn.com/matches/whalepower-humpbacks-vs-1-esport-club-frankfurt-e-v-prm-3rd-division-26-27-fall-1075731",
-      "outcome": null
-    },
-    {
-      "id": "1074655",
-      "recorded_at": "2026-10-21T20:53:19.985Z",
-      "competition_name": "RIVALS LEAGUE Season 2",
-      "start_iso": "2026-10-24T16:30:00.000Z",
-      "team0": "Karolinerna",
-      "team1": "Turbo Gaming",
-      "p0": 0.466,
-      "p1": 0.534,
-      "pick_index": 1,
-      "pick_team": "Turbo Gaming",
-      "source_category": "model-elo",
-      "hotspawn_url": "https://www.hotspawn.com/matches/karolinerna-vs-turbo-gaming-rivals-league-season-2-1074655",
       "outcome": null
     },
     {

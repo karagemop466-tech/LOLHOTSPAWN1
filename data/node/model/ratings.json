@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-25T03:44:55.889Z",
+  "generated_at": "2026-10-25T10:57:11.482Z",
   "methodology": "Chronological pre-kickoff Elo/Bradley-Terry (initial 1500, dynamic K=38/28/22 with map-margin multiplier, empirical-Bayes tau=6 shrinkage, correlated-series damping alpha=0.72). Zero Hotspawn crowd/tier/points inputs; zero post-kickoff look-ahead.",
   "teams_rated": 4208,
   "calibration": {
-    "series_replayed": 32547,
-    "oos_evaluated": 22383,
-    "brier": 0.2251,
+    "series_replayed": 32550,
+    "oos_evaluated": 22386,
+    "brier": 0.225,
     "coinflip_brier": 0.25,
     "log_loss": 0.6415,
     "accuracy": 0.6409,
@@ -36,7 +36,7 @@
       },
       {
         "bin": "40-50%",
-        "n": 6178,
+        "n": 6180,
         "mean_pred": 0.4608,
         "empirical_win_rate": 0.4667
       },
@@ -54,9 +54,9 @@
       },
       {
         "bin": "70-80%",
-        "n": 1412,
-        "mean_pred": 0.7432,
-        "empirical_win_rate": 0.7705
+        "n": 1413,
+        "mean_pred": 0.7431,
+        "empirical_win_rate": 0.7707
       },
       {
         "bin": "80-90%",
@@ -137,6 +137,24 @@
       "last_played": "2026-09-13"
     },
     {
+      "team": "Bilibili Gaming",
+      "elo": 1812.2,
+      "series": 150,
+      "wins": 107,
+      "losses": 43,
+      "maps": "264-142",
+      "last_played": "2026-10-25"
+    },
+    {
+      "team": "Gen.G",
+      "elo": 1809.4,
+      "series": 135,
+      "wins": 103,
+      "losses": 32,
+      "maps": "235-105",
+      "last_played": "2026-10-24"
+    },
+    {
       "team": "Berlin International Gaming",
       "elo": 1808.5,
       "series": 127,
@@ -162,24 +180,6 @@
       "losses": 23,
       "maps": "125-50",
       "last_played": "2026-06-13"
-    },
-    {
-      "team": "Bilibili Gaming",
-      "elo": 1806.3,
-      "series": 149,
-      "wins": 106,
-      "losses": 43,
-      "maps": "263-142",
-      "last_played": "2026-10-23"
-    },
-    {
-      "team": "Gen.G",
-      "elo": 1799,
-      "series": 134,
-      "wins": 102,
-      "losses": 32,
-      "maps": "234-105",
-      "last_played": "2026-10-23"
     },
     {
       "team": "Maryville University",
@@ -216,15 +216,6 @@
       "losses": 9,
       "maps": "82-20",
       "last_played": "2026-10-06"
-    },
-    {
-      "team": "Hanwha Life Esports",
-      "elo": 1781,
-      "series": 142,
-      "wins": 99,
-      "losses": 43,
-      "maps": "222-132",
-      "last_played": "2026-10-23"
     },
     {
       "team": "Caldya Lab",
@@ -269,6 +260,15 @@
       "wins": 76,
       "losses": 31,
       "maps": "176-100",
+      "last_played": "2026-10-24"
+    },
+    {
+      "team": "Hanwha Life Esports",
+      "elo": 1770.6,
+      "series": 143,
+      "wins": 99,
+      "losses": 44,
+      "maps": "222-133",
       "last_played": "2026-10-24"
     },
     {
@@ -434,15 +434,6 @@
       "last_played": "2025-12-18"
     },
     {
-      "team": "T1",
-      "elo": 1729,
-      "series": 155,
-      "wins": 99,
-      "losses": 56,
-      "maps": "247-157",
-      "last_played": "2026-10-23"
-    },
-    {
       "team": "Dplus Kia Challengers",
       "elo": 1727.1,
       "series": 107,
@@ -524,6 +515,15 @@
       "last_played": "2026-10-10"
     },
     {
+      "team": "T1",
+      "elo": 1717.1,
+      "series": 156,
+      "wins": 99,
+      "losses": 57,
+      "maps": "247-158",
+      "last_played": "2026-10-24"
+    },
+    {
       "team": "Kawaii Kiwis",
       "elo": 1716.5,
       "series": 74,
@@ -558,6 +558,15 @@
       "losses": 3,
       "maps": "18-5",
       "last_played": "2026-03-08"
+    },
+    {
+      "team": "Dplus Kia",
+      "elo": 1712.6,
+      "series": 139,
+      "wins": 85,
+      "losses": 54,
+      "maps": "195-158",
+      "last_played": "2026-10-24"
     },
     {
       "team": "Bitfix Gaming",
@@ -630,15 +639,6 @@
       "losses": 4,
       "maps": "34-11",
       "last_played": "2026-10-22"
-    },
-    {
-      "team": "Dplus Kia",
-      "elo": 1700.7,
-      "series": 138,
-      "wins": 84,
-      "losses": 54,
-      "maps": "194-158",
-      "last_played": "2026-10-23"
     },
     {
       "team": "Exalty",
@@ -2198,15 +2198,6 @@
       "last_played": "2026-10-22"
     },
     {
-      "team": "Team Liquid",
-      "elo": 1631.6,
-      "series": 81,
-      "wins": 45,
-      "losses": 36,
-      "maps": "109-86",
-      "last_played": "2026-10-23"
-    },
-    {
       "team": "Team Lewus",
       "elo": 1631.6,
       "series": 10,
@@ -2430,6 +2421,15 @@
       "losses": 4,
       "maps": "25-13",
       "last_played": "2025-08-02"
+    },
+    {
+      "team": "Team Liquid",
+      "elo": 1625.7,
+      "series": 82,
+      "wins": 45,
+      "losses": 37,
+      "maps": "109-87",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Indiana Institute of Technology",
