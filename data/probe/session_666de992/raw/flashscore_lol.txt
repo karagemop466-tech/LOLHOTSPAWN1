@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>eSports League of Legends results and standings</title>
+        <script defer src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+            type="text/javascript"
+            charset="UTF-8"
+            data-domain-script="23d76a88-8ebd-439c-a0dd-6da91b895891"
+            onerror="window.oneTrustFailed=true;document.dispatchEvent(new Event('oneTrustFailed'))" data-document-language="true"
+        >
+        </script>
+<link rel="preconnect" href="https://2.ds.lsapp.eu/pq_graphql" crossorigin>
+<link rel="preconnect" href="https://2.flashscore.ninja" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="preload" href="https://static.flashscore.com/res/font/LivesportFinderLatin-Regular_Static.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://static.flashscore.com/res/font/LivesportFinderLatin-Bold_Static.woff2" as="font" type="font/woff2" crossorigin>
+        <noscript>
+            <meta http-equiv="refresh" content="0;url=https://www.flashscore.mobi/" />
+        </noscript>
+        <meta name="description" content="eSports results, standings and scores on Flashscore.com: League of Legends.">
+        <meta name="copyright" content="Copyright (c) 2006-2026 Livesport s.r.o.">
+        <meta name="robots" content="index,follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta property="og:title" content="eSports League of Legends results and standings">
+	    <meta property="og:description" content="eSports results, standings and scores on Flashscore.com: League of Legends.">
+	    <meta property="og:type" content="website">
+	    <meta property="og:url" content="https://www.flashscore.com/esports/league-of-legends/">
+	    <meta property="og:image" content="https://www.flashscore.com/res/_fs/image/og/flashscore.png">
+	    <meta name="fb:app_id" content="555890894461938">
+            <link crossorigin rel="shortcut icon" href="https://static.flashscore.com/res/_fs/image/4_favicons/_fs/favicon.ico?v=8">
+            <link crossorigin rel="apple-touch-icon" sizes="180x180" href="https://static.flashscore.com/res/_fs/image/4_favicons/_fs/touch-icon-180x180.png?v=8">
+            <link crossorigin rel="icon" type="image/png" sizes="32x32" href="https://static.flashscore.com/res/_fs/image/4_favicons/_fs/favicon-32x32.png?v=8">
+            <link crossorigin rel="icon" type="image/png" sizes="16x16" href="https://static.flashscore.com/res/_fs/image/4_favicons/_fs/favicon-16x16.png?v=8">
+        <link crossorigin rel="manifest" href="/manifest/36/?v=7">
+        <meta name="theme-color" content="#001e28">
+            <meta name="google-site-verification" content="EW0kTHpWq9vtmZ2kox5aVFBTKObL7F1iMje1zAiWPkw" />
+<meta name="facebook-domain-verification" content="hqnhyeyu7q8c4nl5mouakrs3gnpqcy" />
+
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/LivesportFinderLatin.BIDXMeY.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/survey.4Amxmj3.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/core.tDDtA3j.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/variables.D-54Elf.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/dark.DrMBkOB.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/themes.CHe4rUF.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/common.jeTL_3V.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/components_shared.CIjEEux.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/cookie.C69wxnJ.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/multiLang.B81ZZ7K.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/single_page_app_temp.ComW32-.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/core_common.CKL-p97.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/lsid.C_DPapn.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/componentLibraryTheme2021.BY7XKY0.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/live_header.2by3mDF.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/live_sidemenu.kR4bPuc.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/extra.MoVF0XA.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/section.Cxlmp3e.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/live_sections.DBRYlU5.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/league_onboarding.B1v_0v7.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/live_footer.DrBHWsR.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/tabs_filters.o4b0OHY.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/live_tabs.CBWQRBO.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/headline.CkaHIUh.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/bonusesSection.D1_s6F9.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/heading.CuYPHpy.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/fsnews_scores.CG7S_Rv.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/rssnews.GR396W9.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/teamNewsSkeleton.BncfZCl.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/rssnews_scores.BXxW9P7.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/liveTableSkeleton.DTHjxfC.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/player_table_spa.CoXklA_.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/rest_player_tables.CQXBXl2.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/dist.CFbjOJ3.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/ranking.Bv7ouUV.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/seasonCalendar.BNZF1sE.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/common_category.DGmbfgn.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/topScorersSkeleton.BoGZo5J.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/standings_draw.UcIL2Lb.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/legalAgeConfirmationBox.7eiyjlv.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/boxOverContent.CrXdn7A.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/banner.Bg36ZAK.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/storeBadge.DFevA1H.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/esport_template_spa.CYmNEgm.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/watch_tab_spa.CttYOFl.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/all_sport_templates_spa.B__wORk.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/calendar.Bub9RWL.css"
+>
+<link
+    crossorigin
+    rel="stylesheet"
+    href="https://static.flashscore.com/res/_fs/build/sport_templates_layouts.BtHa_qd.css"
+>
+            
+    <link rel="canonical" href="https://www.flashscore.com/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en" href="https://www.flashscore.com/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-gb" href="https://www.flashscore.co.uk/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-au" href="https://www.flashscore.com.au/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-ae" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-sa" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-lb" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-sy" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-jo" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-ir" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-iq" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-qa" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-kw" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-ye" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-om" href="https://www.flashscore.info/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-in" href="https://www.flashscore.in/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-ca" href="https://www.flashscore.ca/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-ke" href="https://www.flashscore.co.ke/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-ng" href="https://www.flashscore.com.ng/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-za" href="https://www.flashscore.co.za/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-ph" href="https://www.flashscore.ph/en/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-gh" href="https://www.flashscore.com.gh/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-us" href="https://www.flashscoreusa.com/esports/league-of-legends/">
+            <link rel="alternate" hreflang="en-th" href="https://www.flashscore.com/esports/league-of-legends/">
+            <link rel="alternate" hreflang="th" href="https://www.flashscorethai.com/esports/league-of-legends/">
+
+        <script type="text/javascript">var e,t,s,i,a,o,r,l;e=class{_callbacks=[];_loaded=!1;_handler=()=>{};call(...e){return this._loaded?this._call(...e):this._callbacks.push(e),!1}callPriority(...e){return this._loaded?this._call(...e):this._callbacks.unshift(e),!1}callAfter(...e){return!!this._loaded&&(this._call(...e),!1)}fulfill(e,t="all"){this._handler=e;const s=[];switch(t){case"all":this._fulfill(this._callbacks);break;case"onceFirst":s.push(this._callbacks.shift()),this._fulfill(s);break;case"onceLast":s.push(this._callbacks.pop()),this._fulfill(s)}this._loaded=!0}_fulfill(e){let t;for(;t=e.shift();)this._call(...t)}reset(){this._handler=()=>{},this._loaded=!1,this._callbacks=[]}_call(...e){this._handler(...e)}},t="data_ttl",s=class e{static get(t){if(e.isValidKey(t)){const s=window.localStorage.getItem(t);if(s){const i=e.getValidToForLocalStorage(t);return e.isValid(i)||0===i?s:null}}return null}static store(t,s,i=0){e.isValidKey(t)&&(e.storeValidToForLocalStorage(t,i),window.localStorage.setItem(t,s))}static drop(t){e.isValidKey(t)&&(e.deleteValidToForLocalStorage(t),window.localStorage.removeItem(t))}static getSession(t){if(e.isValidKey(t)){const s=e.getValidToForSession(t);return e.isValid(s)||0===s?window.sessionStorage.getItem(t):null}return null}static storeSession(t,s,i=0){e.isValidKey(t)&&(e.storeValidToForSession(t,i),window.sessionStorage.setItem(t,s))}static deleteSession(t){e.isValidKey(t)&&(e.deleteValidToForSession(t),window.sessionStorage.removeItem(t))}static isValidKey(e){return e!==t}static storeValidToForLocalStorage(t,s){e.storeValidTo(t,s,window.localStorage)}static storeValidToForSession(t,s){e.storeValidTo(t,s,window.sessionStorage)}static storeValidTo(s,i,a){if(i){const r=a.getItem("data_ttl")||"{}",l=e.getTimestampNow();try{const e=JSON.parse(r);e[s]=l+i,a.setItem(t,JSON.stringify(e))}catch(o){a.setItem(t,JSON.stringify({[s]:l+i}))}}}static deleteValidToForLocalStorage(t){e.deleteValidTo(t,window.localStorage)}static deleteValidToForSession(t){e.deleteValidTo(t,window.sessionStorage)}static deleteValidTo(e,s){const i=s.getItem(t);if(i)try{const a=JSON.parse(i);delete a[e],s.setItem(t,JSON.stringify(a))}catch(a){s.setItem(t,"{}")}}static getValidToForLocalStorage(t){return e.getValidTo(t,window.localStorage)}static getValidToForSession(t){return e.getValidTo(t,window.sessionStorage)}static getValidTo(e,s){const i=s.getItem(t);if(i)try{const t=JSON.parse(i);return t[e]?t[e]:0}catch(a){return 0}return 0}static isValid(t){return t>=e.getTimestampNow()}static getTimestampNow(){return Math.round(Date.now()/1e3)}static getExpiresDate(e){if(e){const t=new Date;return t.setTime(t.getTime()+1e3*e),`expires=${t.toUTCString()};`}return""}static getPath(e){return e?`path=${e}`:""}},i="theme",a="default",o="dark",r="theme--dark",l=Object.freeze({KEY_INNER_DATA:"lsid_innerData",KEY_ID:"lsid_id",KEY_HASH:"lsid_hash",KEY_NAME:"lsid_name",KEY_EMAIL:"lsid_email",KEY_EMAIL_IS_VERIFIED:"lsid_emailIsVerified",KEY_PP_CONFIRMED:"lsid_ppConfirmed",KEY_TOU_CONFIRMED:"lsid_touConfirmed",KEY_PRIVATE_DATA:"lsid_privateData"}),window.cjs=window.cjs||{},window.cjs.Api=window.cjs.Api||{},window.cjs.Api.loader=new class{_loaders={};get(t){return t in this._loaders||(this._loaders[t]=new e),this._loaders[t]}},window.cjs.Api.darkModeLocal=new class{document;preferredDarkModeBasedOnBrowser=!1;isDefaultTheme=!0;userDefinedTheme=null;constructor(e){if(this.document=e,this.preferredDarkModeBasedOnBrowser=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,this.userDefinedTheme=s.get(i),window.matchMedia&&(window.matchMedia("(prefers-color-scheme: dark)").onchange=e=>{this.userDefinedTheme||this.document.body.classList.toggle(r,e.matches)}),window.location.hash.startsWith("#theme-")){const e=window.location.hash.substring(7);switch(e){case a:case o:this.userDefinedTheme=e}}this.userDefinedTheme?this.isDefaultTheme=this.userDefinedTheme===a:this.isDefaultTheme=!this.preferredDarkModeBasedOnBrowser}setDarkThemeAsDefault(){this.isDefaultTheme=!1,this.userDefinedTheme=o,s.store(i,this.userDefinedTheme)}getPreferredDarkModeBasedOnBrowser(){return this.preferredDarkModeBasedOnBrowser}isDarkModeEnabled(){return!this.isDefaultTheme}isUserDefinedTheme(){return!!this.userDefinedTheme}setThemeClass(){this.isDarkModeEnabled()&&this.document.body.classList.toggle(r,this.isDarkModeEnabled())}toggleDarkTheme(){this.isDefaultTheme=!this.isDefaultTheme,this.userDefinedTheme=this.isDefaultTheme?a:o,this.document.body.classList.toggle(r,this.isDarkModeEnabled()),s.store(i,this.userDefinedTheme),this.triggerToggleDarkThemeChange()}triggerToggleDarkThemeChange(){const e=new CustomEvent("userThemeChanged",{detail:{isDarkModeEnabled:this.isDarkModeEnabled()}});document.dispatchEvent(e)}}(document),window.cjs.Api.localLsid=new class{beforeLoad(e){e(this.isUserLogged(),this.getUserName())}getIdent(){return window.localStorage.getItem(l.KEY_ID)??void 0}isUserLogged(){const e=window.localStorage.getItem(l.KEY_ID),t=window.localStorage.getItem(l.KEY_HASH),s=window.localStorage.getItem(l.KEY_TOU_CONFIRMED),i=window.localStorage.getItem(l.KEY_PP_CONFIRMED);return Boolean(e&&t&&s&&i)}getUserName(){const e=window.localStorage.getItem(l.KEY_NAME),t=window.localStorage.getItem(l.KEY_EMAIL);let s="";return t&&(s=t),e&&"_____"!==e&&(s=e),s}};</script>
+<script type="text/plain" class="optanon-category-C0004">
+!function(t,e,n,s,a,c,i,o,p){t.AppsFlyerSdkObject=a,t.AF=t.AF||function(){(t.AF.q=t.AF.q||[]).push([Date.now()].concat(Array.prototype.slice.call(arguments)))},t.AF.id=t.AF.id||i,t.AF.plugins={},o=e.createElement(n),p=e.getElementsByTagName(n)[0],o.async=1,o.src="https://websdk.appsflyersdk.com?"+(c.length>0?"st="+c.split(",").sort().join(",")+"&":"")+(i.length>0?"af_id="+i:""),p.parentNode.insertBefore(o,p)}(window,document,"script",0,"AF","banners",{banners: {key: "0363afe5-072a-4c85-98b6-1393a97b2dc3"}});
+AF('banners', 'showBanner')
+</script>
+        <script crossorigin type="text/javascript" defer src="https://static.flashscore.com/x/js/browsercompatibility_5.js"></script>
+<script
+    crossorigin type="text/javascript" defer
+    src="https://static.flashscore.com/x/js/translations-livetable.2.54e8abbe.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="text/javascript" defer
+    src="https://static.flashscore.com/x/js/translations-myteamsmenu.2.c3c8a579.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="text/javascript" defer
+    src="https://static.flashscore.com/x/js/translations-headermenu.2.33be4ea0.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="text/javascript" defer
+    src="https://static.flashscore.com/x/js/translations-headerpromobar.2.179cb15e.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="module"
+    src="https://static.flashscore.com/res/_fs/build/runtime.BvRk9ki.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="module"
+    src="https://static.flashscore.com/res/_fs/build/constants.Bv-_sd9.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="module"
+    src="https://static.flashscore.com/res/_fs/build/loader.qwdmRYq.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="module"
+    src="https://static.flashscore.com/res/_fs/build/myTeamsMenu.DOiu2hX.js"
+    fetchpriority="auto"></script>
+<script
+    crossorigin type="module"
+    src="https://static.flashscore.com/res/_fs/build/framework.BJ4N_dI.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="module"
+    src="https://static.flashscore.com/res/_fs/build/core-js.DAK7pAv.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="text/javascript" defer
+    src="https://static.flashscore.com/x/js/core_2_2320000000.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="text/javascript" defer
+    src="https://static.flashscore.com/x/js/core_legacy_2_2320000000.js"
+    fetchpriority="high"></script>
+<script
+    crossorigin type="module"
+    src="https://static.flashscore.com/res/_fs/build/adBlockPlus.CAfyglk.js"
+    fetchpriority="auto"></script>
+<script
+    crossorigin type="module"
+    src="https://static.flashscore.com/res/_fs/build

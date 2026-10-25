@@ -1,0 +1,55 @@
+name: probe-666de992-lowtier
+
+# Session 666de992 research job: does any reachable venue list today's low-tier
+# Hotspawn LoL pairs (PRM 2/3, Tunisian SL, RIVALS, LigaGG, ...)? Report-only:
+# writes data/probe/session_666de992/** and never prices a match or touches the
+# published pages. Branch-scoped so it can never run on main by accident.
+
+on:
+  push:
+    branches: ["arena/666de992-lolhotspawn1"]
+    paths:
+      - ".github/workflows/probe-666de992.yml"
+      - "tools/probe_lowtier_666de992.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-666de992
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/666de992-lolhotspawn1
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Probe candidate venues for low-tier pairs
+        continue-on-error: true
+        run: python3 tools/probe_lowtier_666de992.py
+
+      - name: Commit evidence
+        if: always()
+        run: |
+          set -e
+          git config user.name  "arena-research-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/probe/session_666de992
+          if git diff --cached --quiet; then echo "no evidence"; exit 0; fi
+          git commit -q -m "chore(research): low-tier pair probe evidence (666de992) [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:arena/666de992-lolhotspawn1"; then exit 0; fi
+            git fetch origin arena/666de992-lolhotspawn1
+            git rebase -X theirs "origin/arena/666de992-lolhotspawn1" || { git rebase --abort || true; git merge -X ours -m "merge after push race" "origin/arena/666de992-lolhotspawn1" || true; }
+            sleep $((attempt * 5))
+          done

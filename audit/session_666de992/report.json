@@ -1,0 +1,158 @@
+{
+ "session": "666de992",
+ "passed": true,
+ "checks": [
+  {
+   "name": "dataset loads with rows",
+   "ok": true,
+   "detail": "234 rows, generated 2026-10-25T14:25:59Z"
+  },
+  {
+   "name": "total field matches row count",
+   "ok": true,
+   "detail": "total=234 rows=234"
+  },
+  {
+   "name": "ids unique",
+   "ok": true,
+   "detail": "234 unique / 234"
+  },
+  {
+   "name": "method histogram == counts field",
+   "ok": true,
+   "detail": "hist={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9} counts={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9}"
+  },
+  {
+   "name": "methods are known",
+   "ok": true,
+   "detail": "{'provisional', 'model', 'unresolved', 'market'}"
+  },
+  {
+   "name": "every row links to its own Hotspawn card",
+   "ok": true,
+   "detail": "bad=[]"
+  },
+  {
+   "name": "every row has a pick (incl. settlements)",
+   "ok": true,
+   "detail": "missing=[]"
+  },
+  {
+   "name": "probabilities finite and sum to 1 (±0.002)",
+   "ok": true,
+   "detail": "bad=[]"
+  },
+  {
+   "name": "pick == higher-probability participant",
+   "ok": true,
+   "detail": "bad=[]"
+  },
+  {
+   "name": "settlement rows: winner+source, no probability",
+   "ok": true,
+   "detail": "bad=[]"
+  },
+  {
+   "name": "market rows carry https venue URLs, no (Kills)",
+   "ok": true,
+   "detail": "bad=[]"
+  },
+  {
+   "name": "track record == graded rows",
+   "ok": true,
+   "detail": "graded=39 hits=23 track=39/23"
+  },
+  {
+   "name": "hit/miss agrees with recorded winner",
+   "ok": true,
+   "detail": "bad=[]"
+  },
+  {
+   "name": "picks.csv row count == dataset",
+   "ok": true,
+   "detail": "csv=234 json=234"
+  },
+  {
+   "name": "every match card on picks.html",
+   "ok": true,
+   "detail": "234/234"
+  },
+  {
+   "name": "table.html renders one prow per match",
+   "ok": true,
+   "detail": "prows=234 rows=234"
+  },
+  {
+   "name": "index marker: Executive summary",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "index marker: Where the picks are",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "index marker: Unresolved picks and the limitations",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "index marker: Starting soon",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "index marker: pair-search receipt",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "index marker: Treat those named cards as the weakest",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "zero-history debuts named on index with card links",
+   "ok": true,
+   "detail": "debuts=['1074627', '1082002', '1083593']"
+  },
+  {
+   "name": "starting-soon strip renders on index",
+   "ok": true,
+   "detail": "nextrows=8"
+  },
+  {
+   "name": "canonical/companion labelling in footer",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "no broken internal links (14 root pages)",
+   "ok": true,
+   "detail": "broken=[]"
+  },
+  {
+   "name": "pair probe: inventory partitions (control+tail == searched+control)",
+   "ok": true,
+   "detail": "tail=226 searched=226 control=8"
+  },
+  {
+   "name": "pair probe: summary tail venues == rows",
+   "ok": true,
+   "detail": "rows=['strafe_lol', 'esportbet_lol'] summary=['strafe_lol', 'esportbet_lol']"
+  },
+  {
+   "name": "pair probe: tail hits confined to LGC/LCP listings",
+   "ok": true,
+   "detail": "hits=[('strafe_lol', 'LGC Rising 2026 Playoffs'), ('strafe_lol', 'LCP 2027 Promotion'), ('strafe_lol', 'LCP 2027 Promotion'), ('esportbet_lol', 'LGC Rising 2026 Playoffs'), ('esportbet_lol', 'LCP 2027 Promotion'), ('esportbet_lol', 'LCP 2027 Promotion')]"
+  },
+  {
+   "name": "pair probe: positive controls found Worlds pairs",
+   "ok": true,
+   "detail": "controls=['ctl_pinnacle_matchups', 'ctl_kambi_ubse', 'bmbets_worlds', 'betmonitor_prm2', 'strafe_odds', 'strafe_lol', 'esportbet_lol', 'kambi_paf', 'kambi_ubdk', 'kambi_ubbe', 'kambi_ubuk']"
+  }
+ ],
+ "dataset_generated_utc": "2026-10-25T14:25:59Z",
+ "probe_generated_utc": "2026-10-25T14:12:20Z"
+}

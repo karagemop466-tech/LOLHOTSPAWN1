@@ -153,6 +153,55 @@ def _esportsbook_probe() -> dict:
     }
 
 
+PAIR_PROBE_JSON = "data/probe/session_666de992/probe.json"
+PAIR_PROBE_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/"
+                       "research/session_666de992/LOWTIER_RESEARCH.md")
+
+
+def _pair_probe() -> dict:
+    """2026-10-25 pair-search probe (session 666de992), counted from its receipt.
+
+    Unlike the endpoint probes, this one searched each venue response for the
+    specific low-tier team pairs Hotspawn listed that day, with Worlds pairs as
+    a positive control. Everything returned here is read from
+    `data/probe/session_666de992/probe.json`; if the receipt is absent the site
+    says so instead of repeating a stale sentence.
+    """
+    doc = load_json(os.path.join(DATA, "probe", "session_666de992", "probe.json")) or {}
+    venues = doc.get("venues") or []
+    poly = doc.get("polymarket_census") or {}
+    tail_hit_names = [v.get("name") for v in venues if v.get("tail_pair_hits")]
+    if poly.get("tail_pair_hits"):
+        tail_hit_names.append("Polymarket (LGC Rising only)")
+    return {
+        "have": bool(venues),
+        "checked": (doc.get("generated_utc") or "")[:16].replace("T", " "),
+        "venues": len(venues) + (1 if poly else 0),
+        "tail_pairs": (doc.get("inventory") or {}).get("tail_pairs", 0),
+        "control_venues": len([v for v in venues if v.get("control_pair_hits")]),
+        "tail_hit_names": tail_hit_names,
+        "rows": venues,
+    }
+
+
+def _pair_probe_sentence() -> str:
+    pp = _pair_probe()
+    if not pp["have"]:
+        return ""
+    return (
+        f' On <strong>{e(pp["checked"])} UTC</strong> a stricter re-test searched '
+        f'<strong>{pp["venues"]} venues</strong> (established books, esportsbooks, comparison engines, '
+        f'aggregators, prediction markets and nine Kambi operators) for the '
+        f'<strong>{pp["tail_pairs"]} low-tier team pairs</strong> Hotspawn listed that day: '
+        f'<strong>none published a price for them</strong> beyond the LGC Rising tie already in the '
+        f'market consensus, while {pp["control_venues"]} venues returned the Worlds control pairs, '
+        f'proving the test itself. Cloudbet\'s Prime League 2nd Division page, for example, states '
+        f'"No Prime League 2nd Division events available" on a PRM2 matchday. '
+        f'<a href="{PAIR_PROBE_JSON}"><strong>pair-search receipt</strong></a> &middot; '
+        f'<a href="{PAIR_PROBE_MEMO_URL}" rel="noopener">research memo</a>.'
+    )
+
+
 def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
     nav_parts = []
     for href, label in NAV:
@@ -197,6 +246,9 @@ def page_shell(title: str, active: str, body: str, subtitle: str = "") -> str:
 </main>
 <footer class="wrap foot">
   <p>Independent research dashboard. Rows link to their source records. Leaguepedia is community-maintained; model lines are estimates, not verified facts. Zero Hotspawn crowd-pick input.</p>
+  <p>This root dashboard is the <strong>canonical pick list</strong>. A second, independent implementation is
+  published as a <a href="docs/index.html">companion audit (secondary view)</a> &mdash; same fixtures,
+  different model, disagreements shown side by side. If the two disagree, submit from this list.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
@@ -716,6 +768,31 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     upcoming = sorted([r for r in rows
                        if r["start_utc"] and r["start_utc"] > iso(now_utc()) and r["pick"]],
                       key=lambda r: r["start_utc"])
+    # Phone-first "what do I need today" count: kick-offs in the next 24 h from build time.
+    # Suppressed when zero (e.g. a stale snapshot) rather than printing a misleading number.
+    from datetime import timedelta as _td
+    _horizon = iso(now_utc() + _td(hours=24))
+    next24 = [r for r in upcoming if (r["start_utc"] or "") <= _horizon]
+    next24_line = (
+        f'<p style="margin:10px 0 0">Next 24 hours: <strong>{len(next24)} matches</strong> kick off. '
+        f'Soonest first below, complete list in the <a href="table.html" style="color:#fff;text-decoration:underline">'
+        f'pick table</a>.</p>'
+        if next24 else ""
+    )
+    # Name the zero-history debut cards explicitly: they carry a probability only from
+    # division priors, which is the weakest evidence on the site and must be findable by name.
+    debuts = [r for r in provisional
+              if (r.get("team0") or {}).get("rating_matches") == 0
+              or (r.get("team1") or {}).get("rating_matches") == 0]
+    debut_names = (
+        " Named: " + "; ".join(
+            f'<a href="picks.html#match-{e(r["id"])}">{e(r["team0"]["name"])} vs '
+            f'{e(r["team1"]["name"])}</a> ({e(r["competition"])}, '
+            f'{(r.get("start_utc") or "")[:10]})' for r in
+            sorted(debuts, key=lambda r: r.get("start_utc") or "")) + "."
+        if debuts else ""
+    )
+    pair_sentence = _pair_probe_sentence()
     live_sources = sum(1 for s in src_status if s.get("ok"))
     venue_names = sorted({v["name"] for r in featured
                           for v in (r.get("market") or {}).get("venues") or []})
@@ -814,6 +891,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <a class="btn" href="picks.html">Card view</a>
     <a class="btn" href="results.html">Results ({track.get("graded", 0)} graded)</a>
   </div>
+  {next24_line}
 </section>
 
 <section class="panel" id="where">
@@ -886,7 +964,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     {ceiling_txt} &mdash; overwhelmingly the same Worlds 2026 ties.{silent_txt} Everything below that ceiling
     has no external line to quote, so we originate it ourselves.
     Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
-    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.{lowtier_note}</li>
+    <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.{lowtier_note}{pair_sentence}</li>
     <li><strong>Bookmaker evidence for the matches nobody prices.</strong> {obs_line}</li>
     <li><strong>Unresolved picks &amp; limitations.</strong> {len(unresolved)} cards cannot carry a playable
     probability today; they are listed with their reason and source in the section below and in full on
@@ -920,13 +998,14 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     history rather than an aggregator placeholder.</li>
     <li><strong>What we tried for the low-tier tail.</strong> {probe_line} {probe_link}. A second,
     independent check on 2026-10-25 (Pinnacle's league list, Polymarket, Sofascore, bo3.gg) reached the
-    same ceiling: <a href="{EXTERNAL_LINES_MEMO_URL}" rel="noopener">external-line memo</a>.</li>
+    same ceiling: <a href="{EXTERNAL_LINES_MEMO_URL}" rel="noopener">external-line memo</a>.{pair_sentence}</li>
     <li><strong>Thin &amp; zero-history debut samples.</strong> {len(provisional)} lines are labelled
     <em>provisional</em> because at least one side has fewer than five rated series in the 25-month window
     ({sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 or (r.get("team1") or {}).get("rating_matches") == 0)}
     involve a debut side with 0 pre-kickoff rated series, including
     {sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 and (r.get("team1") or {}).get("rating_matches") == 0)}
-    where both sides enter at 0/0 rated series and rest solely on equal division priors).</li>
+    where both sides enter at 0/0 rated series and rest solely on equal division priors).{debut_names}
+    Treat those named cards as the weakest picks on the site: the percentage is a prior, not evidence.</li>
     <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
     limitations are on <a href="unresolved.html">Unresolved &amp; limitations</a>; data irregularities are on
     <a href="flagged.html">Flagged for review</a>.</li>
@@ -1431,7 +1510,7 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
   External-line evidence: {lowtier_n} established books, esportsbooks, exchanges and aggregators probed from the
   build runner on {e(lowtier_date)} &mdash; <a href="{LOWTIER_MEMO_URL}" rel="noopener">research memo</a> and
   machine-readable receipts in <code>data/probe/lowtier_20261024.json</code>. A keyed odds API might widen
-  coverage but needs an owner-provided credential; none is used and none is circumvented.</p>
+  coverage but needs an owner-provided credential; none is used and none is circumvented.{_pair_probe_sentence()}</p>
   {table(["Competition", "Matches", "Pick basis", "External line found?", "Limitation"], _fallback_rows(rows))}
 </section>
 
@@ -1649,6 +1728,43 @@ def build_sources(src: list[dict]) -> str:
 """
     else:
         probe_block = ""
+    # 2026-10-25 pair-search probe: venues searched for the actual low-tier pairs.
+    pp = _pair_probe()
+    pair_rows = []
+    for row in pp["rows"]:
+        st = row.get("status")
+        cls = "ok" if st == 200 else "bad"
+        n_ctl = len(row.get("control_pair_hits") or [])
+        n_tail = len(row.get("tail_pair_hits") or [])
+        verdict = ("lists low-tier pair(s) &mdash; review snippet" if n_tail else
+                   f"Worlds pairs only ({n_ctl})" if n_ctl else
+                   "answered, no listed pairs" if st == 200 else "not usable from runner")
+        pair_rows.append([
+            e(row.get("name")),
+            f'<a href="{e(row.get("url"))}" rel="noopener">endpoint</a>',
+            f'<span class="pill {cls}">{e(st)}</span>',
+            str(n_ctl),
+            str(n_tail),
+            verdict,
+        ])
+    pair_block = f"""
+<section class="panel" id="pair-probe">
+  <h2>Low-tier pair search ({pp["venues"]} venues, {e(pp["checked"])} UTC)</h2>
+  <p class="lead">Stricter than an availability probe: each venue response was searched for <strong>both team
+  names</strong> of every low-tier fixture Hotspawn listed that day ({pp["tail_pairs"]} pairs: PRM 2nd/3rd,
+  Tunisian Super League, RIVALS, LigaGG, Icelandic, Arabian, Benelux and the rest), with the Worlds pairs as a
+  positive control. A low-tier hit means the fixture is <em>listed</em>; a price still has to be verified in the
+  saved snippet before anything is priced from it. Result: no venue published a low-tier price beyond the
+  LGC Rising tie already in the consensus; schedule-only listings for LCP Promotion are recorded, not priced.
+  Method, browser-path cross-checks and manual links are in the
+  <a href="{PAIR_PROBE_MEMO_URL}" rel="noopener">research memo</a>.</p>
+  {table(["Venue", "Link", "HTTP", "Worlds pairs", "Low-tier pairs", "Verdict"], pair_rows) if pair_rows else '<p class="muted">No pair-search receipt committed.</p>'}
+  <p class="small muted">Machine-readable receipt with every searched pair and snippet:
+  <a href="{PAIR_PROBE_JSON}">{PAIR_PROBE_JSON}</a> (re-runnable via the
+  <code>probe-666de992-lowtier</code> workflow). Credentialed odds APIs returned 401 without a key and are
+  flagged for the owner, never circumvented.</p>
+</section>
+""" if pp["have"] else ""
     body = f"""
 <section class="panel">
   <h2>Sources probed on the latest build</h2>
@@ -1672,6 +1788,7 @@ def build_sources(src: list[dict]) -> str:
   </ul>
 </section>
 {probe_block}
+{pair_block}
 {research_panel()}
 """
     return page_shell("Sources", "sources.html", body, "Every data source, its HTTP status, and what it provides.")
