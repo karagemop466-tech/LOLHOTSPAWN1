@@ -129,7 +129,7 @@ touch the companion Node pipeline (`scripts/**`, `docs/**`, `data/node/**`) exce
 | `U1` | **Unfreeze the six-hourly refresh.** Root cause of the current outage (site frozen at the `2026-10-24T20:54:30Z` snapshot; `main` HEAD commit is literally `chore(diag): record failing build log`): the 2026-10-25T11:36Z pipeline run passed every publish gate but the **unit-tests step failed** (`data/build_failed_steps.txt` = `unit-tests`). Three tests in `tests/test_corroborate_history.py` / `tests/test_corroborate_offlist.py` pin fixture `captured_utc` to fixed `2026-10-24T00:00:00Z`; `tools/corroborate.py` grades receipt freshness against the wall clock (`RECEIPT_MAX_AGE_HOURS = 24`), so once a day passed the "usable" receipt became "expired" and the tests — and with them every scheduled refresh — fail. Fix: wall-clock-relative fixtures (production freshness logic untouched); reconcile assertion gains the `expired` bucket to match `tools/verify.py`'s ledger. | **done** (`eabbf23`) | aa39a6d5 | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` + scope extension logged below |
 | `U2` | **Low-tier / non-market line research + integration.** Fresh research pass (web) on esportsbooks and LoL betting lines that price the competitions where `method` is `provisional` (78 of 241 rows at claim time — picks exist, from sparse-history Elo, but no book corroborates them). Probe any newly identified machine-readable venue from a GitHub Actions runner (sandbox egress to those hosts is blocked); integrate only a venue that is reachable without auth and prices otherwise-unpriced matches, under the existing provenance/quarantine rules. Publish the research + limitations either way. | **done — nothing integrable** (`019eb37`, receipts `469cd41`, write-up `58625f5`) | aa39a6d5 | `audit/session_aa39a6d5/**`, `data/line_source_research.json` (row appended); `tools/collect.py` untouched (no venue qualified) |
 | `U3` | **Executive-summary & mobile clarity.** User reports the site is confusing and wants picks findable on a phone immediately. Audit the generated `index.html`/`table.html`/`picks.html` first; change `tools/site.py` (and shared CSS if needed) so the home page leads with the upcoming picks list and one-tap links, the unresolved-picks section keeps its dedicated block + limitations, and every match card visibly shows its pick (including settlement picks, which carry no percentage). No data or method changes. | **done** (`426d9ae`) | aa39a6d5 | `tools/site.py` (+ regenerated `index.html`/`verification.html`); CSS unchanged (already phone-aware) |
-| `U4` | **Integration.** Full local test suite + offline rebuild + publish gate; PR from this branch to `main`; merge without waiting (per standing instructions); confirm the next `refresh-picks` run goes green and GitHub Pages deploys; record PR/merge/deploy here. | in progress — PR phase | aa39a6d5 | `COORDINATION.md`, `README.md` (2 factual corrections), generated pages only via the pipeline itself |
+| `U4` | **Integration.** Full local test suite + offline rebuild + publish gate; PR from this branch to `main`; merge without waiting (per standing instructions); confirm the next `refresh-picks` run goes green and GitHub Pages deploys; record PR/merge/deploy here. | **done** — PR [#106](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/106) merged `2026-10-25T14:31:03Z` (`410098e`); final record below | aa39a6d5 | `COORDINATION.md`, `README.md` (2 factual corrections), generated pages only via the pipeline itself |
 
 ### Session `aa39a6d5` — completion notes (2026-10-25)
 
@@ -162,6 +162,38 @@ touch the companion Node pipeline (`scripts/**`, `docs/**`, `data/node/**`) exce
 - The one-shot probe workflow was deleted after use (`58625f5`); its YAML survives in this branch's history.
 - Parallel-edit caution for future sessions: several `edit_file` calls batched against the *same file* in
   one message silently raced (only the last write stuck) — apply same-file edits sequentially.
+
+### Session `aa39a6d5` — final integration record (2026-10-25, post-merge)
+
+- **Concurrency:** while this session worked, `650571cf` independently shipped its own wall-clock
+  fixture fix + a *Picks by tournament* directory (PRs #94/#104/#110), `666de992` added a stale-receipt
+  pin (#108), `9d0a516d` merged audit work (#109/#115), and `2faec1ff` shipped a self-hiding starting-soon
+  strip. Main therefore moved under this branch four times; each conflict was resolved by **union, never
+  discard** (merge commits `9a809f7`, `d608528`, `57c3348`): main's test files + this session's
+  five-bucket reconcile, `test_clock_shift.py` guard (which then caught one leftover pinned
+  `start_utc "2026-10-30T18:00:00Z"` in main's `test_corroboration.py` — fixed), and hero → Starting soon →
+  Where the picks are → Picks by tournament ordering. A rebase was attempted once on this
+  merge-containing branch, aborted cleanly, and replaced with merges.
+- **PR #106 merged** `2026-10-25T14:31:03Z` → `410098e`. `refresh-picks` runs on `410098e` (14:31:06Z) and
+  on `1307344` (14:34:18Z) both **completed/success**; bot data commit `841d5fe` set
+  `data/matches.json` to `generated_utc 2026-10-25T14:40:42Z` with **234/234 rows carrying a pick**
+  (market 9, model 150, provisional 71, settlement 4). GitHub Pages: `status: built`. Live render
+  verified by fetching <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> (snapshot 14:40 UTC,
+  inventory collected 14:38:46Z, hero freshness line and 12-row Starting soon with method tags present).
+- **Post-merge defect found and fixed:** the later 2faec1ff merge left **two** `id="soon"`/`id="next"`
+  sections on the landing page (invalid duplicate ids; `assets/app.js` caps visible `.nextrow` at 8
+  page-wide, so the lower panel rendered empty). Follow-up commit `46de249` keeps one section carrying
+  the union (method tags, self-hiding note, 16-row buffer, *Upcoming only* button); verified exactly
+  one `id="soon"`/`id="next"`/`Starting soon` in `index.html`, **54/54 publish gates PASS,
+  106/106 unit tests OK**. Shipped as the second PR from this session branch (number in the PR itself).
+- **Sources used (manual review):** Hotspawn fixtures API + <https://play.hotspawn.com/lol-pickems> +
+  <https://play.hotspawn.com/how-it-works>; Pinnacle/Kalshi/Bovada/Unibet-Kambi/Polymarket (existing
+  pipeline); Leaguepedia Cargo; U2 candidate checks against Rivalry, GG.BET, Thunderpick, Midnite,
+  bo3.gg, Esports Insider, tips.gg, Shuffle, Vave, Rainbet, gol.gg — verdicts + raw captures in
+  `audit/session_aa39a6d5/`. Nothing was priced from a source that could not be read verbatim.
+- Session `aa39a6d5` is **done**: U1–U4 complete, site refreshing on schedule, every listed match
+  carrying a visible pick, unresolved cards and limitations published on the home page and
+  `unresolved.html`, irregularities on `flagged.html` (nothing new hidden, PR #56 decision documented).
 
 ### Verified at claim time (no edits yet)
 
