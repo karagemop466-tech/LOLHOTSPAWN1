@@ -35,6 +35,21 @@ Non-overlap: no other live session. This session will not edit `tools/collect.py
 `tools/verify.py`, `tools/corroborate.py`, `scripts/**`, `data/node/**`, `docs/**` or any workflow file.
 Generated `data/*.json`, `*.html` root pages and `picks.csv` are written by the Actions bot on the
 post-merge live run, not hand-edited here.
+# Session `5a4d5779` — canonical refresh regression repair (opened 2026-10-25)
+
+Branch: `arena/5a4d5779-lolhotspawn1` (fixed Arena session branch; work remains on this branch).
+
+## Claim
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `R1` | Diagnose and fix the newly observed canonical six-hour refresh regression. The 2026-10-25T11:34Z build log records three failing receipt-history/off-list unit tests; fix the behavior or assertions from the recorded evidence, preserve the fail-closed checks for malformed or mismatched receipts, and prove the full suite and publisher integrity gate pass. | in progress | `5a4d5779` | `tools/corroborate.py`, `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py`, `COORDINATION.md` |
+
+### Handoff / non-overlap check
+
+- The repeated `C1` / `V3a` entries below refer to earlier refresh/history work whose completion records say done (PRs #62 and #71). The latest remote commits on those owners' branches (`80c624cd`: 2026-10-24T16:36:08Z; `5ff8e6bf`: 2026-10-24T16:37:26Z) are over 60 minutes old. This claim is a narrowly scoped regression repair prompted by a later main-branch build failure, not a restart of those completed tasks.
+- Source evidence at claim time: committed `data/build_failure.log` starts with build `2026-10-25T11:34:52Z`, SHA `564ee5d`; it records 62 tests with three failures in `test_corroborate_history` / `test_corroborate_offlist`, while later pipeline stages ran. The checked-in dashboard snapshot is older (`data/matches.json` inventory fetched `2026-10-24T20:52:36Z`), so it is not represented as current while the refresh gate is red.
+- No edits have been made to the collector, model, generated match dataset, published HTML, workflow, or any other session's files. The scope excludes generated `coverage.html` / `data/corroboration.json`; those remain integration outputs.
 
 ---
 
