@@ -21,6 +21,27 @@ final `tools/verify.py` step passed. The actual post-pipeline failure must there
 from the complete artifact/workflow rather than guessed. No probability or pick has been changed at
 claim time.
 
+## Integration checkpoint — 2026-10-25T14:22Z
+
+- The aged fixed receipt timestamps and receipt reconciliation tests were repaired in `e757094`;
+  the production 24-hour receipt-expiry rule was not weakened.
+- Market integrity, source-research, UI, and generated-evidence changes were committed in small
+  commits through `7fe734e`. A concurrent existing probe workflow's `49a9dbc` receipt commit was
+  preserved by rebase; no other session's files were reset or discarded.
+- The runner probe now covers **53 venues against 234 live fixtures**. Esports Insider and
+  EGamersWorld return 403 to that runner; manually inspected ESI model-only values, EGamersWorld
+  symmetric placeholders, and non-receipted prices are not integrated into the live consensus.
+- Offline rebuilt snapshot: **241 rows = 232 priced + 4 administrative settlements + 5 displayed
+  50/50 no-pick rows**; 5 market / 154 model / 73 provisional / 9 unresolved. Checks: 70/70 tests,
+  45/45 publish gates, independent audit 0 failures, 24-page link audit 0 failures/warnings, and
+  14/14 mobile pages pass. This is deliberately not described as the final live inventory.
+- PR **#102** is open: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/102.
+  Branch diagnostic run **40201650881** was triggered at `4d4ac9c`; its final result and the
+  expanded-audit diagnostic must be checked before merge. The Actions API is throttled in this
+  sandbox, while pull-request operations and official Actions HTML remain available.
+- H1–H4 remain claimed/in progress until the current live Hotspawn fetch is published by the
+  canonical refresh and the resulting GitHub Pages deployment is independently confirmed.
+
 
 ---
 
