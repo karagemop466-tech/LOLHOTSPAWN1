@@ -2577,3 +2577,37 @@ persists) · OOS Brier `0.2251` over `n = 22,344` · `best_of` null on `241/241`
 Session `9f16f9ad` is **done**: S1 (reconciliation) and S3 (independent verification) complete, the refresh
 pipeline green and self-reporting, the site live on Pages, and every finding above published on the pages
 themselves rather than only in this log.
+
+---
+
+# Session `666de992` — unblock stalled refresh, fresh low-tier line research, phone-first picks hub (2026-10-25)
+
+Branch: `arena/666de992-lolhotspawn1` (fixed Arena session branch, from `main` @ `b19397f`). Arena tracks
+this session by that branch, so no `session-<id>/` branch is created; scope below is the coordination
+record. Claim filed before any pipeline edit. All earlier `in progress` rows are >24 h old with their PRs
+merged/closed (latest: #92 merged 2026-10-24T18:55Z); per the 60-minute rule this session takes over the
+canonical pipeline files and notes the handoff here.
+
+## Claim
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `H1` | **Unblock the canonical 6-hourly refresh**: the 2026-10-25T11:34Z run collected 236 fixtures and passed `verify.py`, but `refresh.yml` aborted on `FAIL unit tests` (`data/build_failed_steps.txt` = `unit-tests`), so root data stayed at 2026-10-24T20:54Z (241 rows) while `docs/` reached 2026-10-25T10:57Z (236 scheduled). Root-cause locally reproduced: `tests/test_corroborate_history.py` + `tests/test_corroborate_offlist.py` hard-code `captured_utc=2026-10-24T00:00:00Z`; `corroborate.age_hours()` compares to wall-clock now, so on 2026-10-25 the "fresh" receipts are >24 h old and classify `expired`, not `usable` (3 failures, 62 tests). Fix the tests to be time-independent without weakening the production 24 h rule | in progress | 666de992 | `tests/test_corroborate_history.py`, `tests/test_corroborate_offlist.py` |
+| `H2` | **Fresh line-source research for matches with no featured/market line**: established LoL books first, then esportsbooks/aggregators/feeds not yet proven for the national/academy tail (incl. national regulated books for Prime League/LigaGG-type divisions, bo3.gg, Strafe, LOOT.BET-type esportsbooks). Runner-verified receipts only; a venue prices a match only with a real matched quote. Wire a new feed into `collect.py` only if it returns a matched low-tier price | in progress | 666de992 | `research/session_666de992/**` (new), `tools/probe_*.py` (new file only), `data/probe/**` (new receipts), `.github/workflows/probe-666de992.yml` (new, branch-guarded); `tools/collect.py` **only if** a new matched feed is proven |
+| `H3` | **A pick for every Hotspawn match + unresolved & limitations in the executive summary**: audit canonical (241/241 picks: 6 market / 153 model / 78 provisional / 4 settlement) vs secondary (3 stale debut cards left blank: #1074627, #1082002, #1083593), keep the separate unresolved section with per-card reasons, settlement caveat and limitation classes, and make the 3 zero-history debuts explicitly visible as lowest-evidence picks rather than ordinary model lines | in progress | 666de992 | `tools/site.py`, generated root `*.html`, `data/flags_manual.json` (only if a new verified flag is needed) |
+| `H4` | **Phone-first findability**: audit the landing page on a phone viewport; the updated picks list must be reachable and readable in one tap from the executive summary (freshness, starting-soon, direct in-site links to `table.html`/`picks.html`/`featured.html`/`originated.html`/`unresolved.html`), no horizontal scroll at 360 px | in progress | 666de992 | `tools/site.py`, `assets/style.css`, `assets/app.js` |
+| `H5` | **Line-by-line verification, integration, PR → merge, Pages proof** | in progress | 666de992 | `audit/session_666de992/**` (new), `COORDINATION.md`, `README.md` |
+
+**Not touched unless logged above:** `scripts/**`, `docs/**` (secondary pipeline owns its refresh),
+`archive/**`, `tools/model.py` (no probability change without a proven new input), `data/matches.json`
+(never hand-edited; regenerated only by the pipeline on a runner).
+
+### Verified at claim time (2026-10-25T14:05Z, no edits yet)
+
+| Observation | Evidence |
+|---|---|
+| Canonical snapshot stale: `generated_utc 2026-10-24T20:54:30Z`, 241 rows; secondary fresher: `2026-10-25T10:57:11Z`, 236 scheduled / 9 market. 12 newer scheduled ids in secondary are absent canonically (e.g. Worlds `#1075816`–`#1075823`, 2026-10-25/26) | `data/matches.json`, `data/node/picks.json` |
+| Latest canonical build (`2026-10-25T11:34:52Z`, sha `564ee5d`) failed **only** on unit tests; collect/model/verify succeeded on 236 fixtures | `data/build_failure.log`, `data/build_failed_steps.txt` |
+| Local reproduction: 62 tests, 3 FAIL — all the fixed-date receipt tests above; `tests/test_corroborate.py` (relative `now`) passes | `python3 -m unittest discover -s tests -v` this session |
+| Canonical unresolved = 4 Komplettligaen `dqteams` settlements (no probability); secondary additionally leaves 3 zero-history debuts blank that canonical prices as provisional priors | `data/matches.json` `method=unresolved`; `docs/unresolved.html` §3 |
+| Pages itself is healthy (`status: built`, `source main:/`) — the defect is refresh freshness, not hosting | `gh api repos/karagemop466-tech/LOLHOTSPAWN1/pages` |
