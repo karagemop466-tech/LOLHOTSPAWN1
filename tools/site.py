@@ -539,6 +539,10 @@ def _stat_totals(rows: list[dict]) -> dict:
 HOTSPAWN_RULES_URL = "https://play.hotspawn.com/how-it-works"
 LOWTIER_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/"
                     "research/low-tier-sources-2026-10-25.md")
+LOWTIER_ARCHIVE_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/"
+                            "research/low-tier-sources-2026-10-24.md")
+EXTERNAL_LINES_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/"
+                           "research/external-lines-2026-10-25.md")
 
 
 def _lowtier_matrix() -> tuple[dict, str, int]:
@@ -550,6 +554,46 @@ def _lowtier_matrix() -> tuple[dict, str, int]:
     return (doc.get("coverage_matrix") or {},
             (doc.get("generated_utc") or "")[:10],
             int(doc.get("venues_probed") or 0))
+
+
+def _lowtier_receipt_href() -> str:
+    """Link the same latest probe receipt that supplies the coverage matrix."""
+    files = sorted(glob.glob(os.path.join(DATA, "probe", "lowtier_*.json")))
+    return ("data/probe/" + os.path.basename(files[-1])) if files else "data/probe/"
+
+
+def _venue_observations() -> list[dict]:
+    """Every external line-search observation committed in data/receipts/external_odds/.
+
+    Read straight from the receipt files rather than from data/corroboration.json, because
+    site.py runs before corroborate.py in the pipeline: reading the receipts keeps the page
+    one build ahead instead of one build behind. Each entry is a page that was actually
+    opened, with its URL, its verbatim reading and the capture time - nothing is typed in
+    here, so the sentence on the page cannot drift away from the evidence file.
+    """
+    out: list[dict] = []
+    for path in sorted(glob.glob(os.path.join(DATA, "receipts", "external_odds", "*.json"))):
+        doc = load_json(path) or {}
+        sources = {s.get("key"): s for s in doc.get("sources") or []}
+        for obs in doc.get("coverage_observations") or []:
+            src = sources.get(obs.get("source")) or {}
+            out.append({
+                "key": obs.get("source"),
+                "source": obs.get("source"),
+                "source_name": src.get("name") or obs.get("source"),
+                "kind": src.get("kind") or "",
+                "runner": src.get("runner_reachable") or "",
+                "url": obs.get("url"),
+                "captured_utc": obs.get("captured_utc") or "",
+                "observation": obs.get("observation") or "",
+                "verbatim": obs.get("verbatim") or "",
+                "file": os.path.basename(path),
+            })
+    return sorted(out, key=lambda o: o["captured_utc"], reverse=True)
+
+
+def _latest_observation_day(obs: list[dict]) -> str:
+    return (obs[0]["captured_utc"][:10] if obs else "")
 
 
 def _fallback_rows(rows: list[dict]) -> list[list[str]]:
@@ -643,6 +687,44 @@ def next_strip(rows: list[dict]) -> str:
     return "".join(out)
 
 
+def tournament_directory(rows: list[dict]) -> str:
+    """Phone-first index of every tournament, linking straight into a filtered pick table.
+
+    The landing page used to answer "where are the picks" with six page links, which still
+    leaves a phone user hunting through 200+ rows for their league. Every row here is an
+    in-site deep link (`table.html?comp=<tournament>`) that lands on the pick table already
+    filtered to that competition, with the pick, both win probabilities and the sources.
+    """
+    by_comp: dict[str, dict] = {}
+    for r in rows:
+        name = r.get("competition") or "(unnamed)"
+        c = by_comp.setdefault(name, {"matches": 0, "priced": 0, "market": 0,
+                                      "settle": 0, "next": None, "span": 0})
+        c["matches"] += 1
+        c["span"] += int(r.get("points") or 0)
+        if r.get("p0") is not None:
+            c["priced"] += 1
+        elif (r.get("pick") or {}).get("probability") is None:
+            c["settle"] += 1
+        if r.get("method") == "market":
+            c["market"] += 1
+        start = r.get("start_utc") or ""
+        if start and (c["next"] is None or start < c["next"]):
+            c["next"] = start
+    out = []
+    for name, c in sorted(by_comp.items(), key=lambda kv: (-kv[1]["matches"], kv[0])):
+        q = quote(name, safe="")
+        out.append(
+            '<tr><td data-label="Tournament"><a href="table.html?comp=' + q + '"><strong>'
+            + e(name) + '</strong></a></td>'
+            '<td data-label="Matches">' + str(c["matches"]) + '</td>'
+            '<td data-label="With a win %">' + str(c["priced"]) + '</td>'
+            '<td data-label="Market-priced">' + str(c["market"]) + '</td>'
+            '<td data-label="Earliest kick-off">' + (local_time(c["next"]) if c["next"] else "&mdash;")
+            + '</td></tr>')
+    return "".join(out)
+
+
 def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> str:
     """Landing page: the phone-first answer to "where are the picks, and what are they?"."""
     t = _stat_totals(rows)
@@ -709,6 +791,26 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
         if lowtier_n else ""
     )
     gate_count = len((load_json(os.path.join(DATA, "verification.json")) or {}).get("checks") or [])
+    observations = _venue_observations()
+    obs_day = _latest_observation_day(observations)
+    if observations:
+        # one label per venue key: several receipt files name the same venue differently, so take
+        # the most recent label rather than counting one book twice.
+        labels: dict[str, str] = {}
+        for o in observations:            # sorted newest first
+            labels.setdefault(o.get("key") or o["source_name"], o["source_name"])
+        obs_venues = sorted(labels.values())
+        obs_line = (
+            f'<strong>{len(observations)} checks across {len(obs_venues)} venues</strong> '
+            f'({e(", ".join(obs_venues))}) were read by hand on <strong>{e(obs_day)}</strong> and logged '
+            'with the exact sentence each page printed. They are on '
+            '<a href="unresolved.html#observed"><strong>Unresolved &amp; limits &rarr; what the books showed</strong></a>: '
+            'the leagues below the featured ceiling carried no open price at any of them on the dates shown, which is why those '
+            'cards are originated rather than quoted.'
+        )
+    else:
+        obs_line = ("No manual venue check is committed for this build; the runner probe table above is the "
+                    "only external evidence. See <a href=\"sources.html\">Sources</a>.")
 
     unres_rows = []
     for r in unresolved:
@@ -760,6 +862,16 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
   </div>
 </section>
 
+<section class="panel" id="directory">
+  <h2>Picks by tournament ({t['comps']})</h2>
+  <p class="lead">Tap a tournament to open the pick table filtered to it &mdash; one row per match with
+  both win probabilities, the pick and the source links. Nothing to type on a phone.</p>
+  <div class="tablewrap"><table class="picktable dir">
+    <thead><tr><th>Tournament</th><th>Matches</th><th>With a win %</th><th>Market-priced</th><th>Earliest kick-off</th></tr></thead>
+    <tbody>{tournament_directory(rows)}</tbody>
+  </table></div>
+</section>
+
 <section class="panel" id="soon">
   <h2 id="next">Starting soon</h2>
   <p class="lead">The next eight kick-offs. Tap a row for the full card.</p>
@@ -785,7 +897,8 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     method and source links. <a href="picks.html">Card view</a> shows the same {total} matches with the
     reasoning behind each line, and <a href="results.html">Results</a> grades the picks that have already
     played. Every list is searchable and filterable by tournament and by method. Next kick-offs are under
-    <a href="#next">Next up</a>.</li>
+    <a href="#next">Next up</a>, and <a href="#directory"><strong>Picks by tournament</strong></a> jumps
+    straight into a filtered pick table for one league.</li>
     <li><strong>Coverage.</strong> {resolved_total} of {total} matches carry a pick
     ({resolved_total/total*100:.0f}%): {priced_n} with a win probability and {len(walkover)} resolved to the
     official forfeit winner with no probability claimed. Priced:
@@ -800,6 +913,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     has no external line to quote, so we originate it ourselves.
     Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
     <li><strong>Extra sources tried for the low-tier tail.</strong> {probe_line} {probe_link}.{lowtier_note}</li>
+    <li><strong>Bookmaker evidence for the matches nobody prices.</strong> {obs_line}</li>
     <li><strong>Unresolved picks &amp; limitations.</strong> {len(unresolved)} cards cannot carry a playable
     probability today; they are listed with their reason and source in the section below and in full on
     <a href="unresolved.html">Unresolved &amp; limitations</a>. Nothing is padded with a guessed number.</li>
@@ -830,7 +944,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     <li><strong>No market on national and academy divisions.</strong> {total - len(featured)} of {total}
     matches are not priced by any book reachable from the runner; their lines come from recorded series
     history rather than an aggregator placeholder.</li>
-    <li><strong>What we tried for the low-tier tail.</strong> {probe_line} {probe_link}.</li>
+    <li><strong>What we tried for the low-tier tail.</strong> {probe_line} {probe_link}. A second,
+    independent check on 2026-10-25 (Pinnacle's league list, Polymarket, Sofascore, bo3.gg) reached the
+    same ceiling: <a href="{EXTERNAL_LINES_MEMO_URL}" rel="noopener">external-line memo</a>.</li>
     <li><strong>Thin &amp; zero-history debut samples.</strong> {len(provisional)} lines are labelled
     <em>provisional</em> because at least one side has fewer than five rated series in the 25-month window
     ({sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 or (r.get("team1") or {}).get("rating_matches") == 0)}
@@ -1263,7 +1379,59 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
         ])
     hunt_table = (table(["Source", "What it is", "Runner verdict", "Checked (UTC)"], hunt_rows)
                   if hunt_rows else '<p class="muted">No source probe recorded on this build.</p>')
+    # Dedicated esportsbook/aggregator probe (data/esportsbook_probe.json): every established book,
+    # esportsbook and aggregator tried specifically for the matches the primary feeds do not price.
+    # Rendered from the receipt, never typed by hand; a venue is only ever shown as usable when the
+    # runner actually received a named fixture with a decimal price.
+    probe = _esportsbook_probe()
+    probe_doc = load_json(os.path.join(DATA, "esportsbook_probe.json")) or {}
+    probe_rows = []
+    for r in probe_doc.get("rows") or []:
+        verdict = "usable \u2014 named fixtures with prices" if r.get("usable") else e(r.get("reason") or r.get("verdict") or "not usable")
+        probe_rows.append([
+            f'<a href="{e(r.get("url"))}" rel="noopener">{e(r.get("name"))}</a>',
+            e(r.get("category") or ""),
+            verdict if r.get("usable") else f'<span class="pill bad">{e(r.get("status"))}</span> {verdict}',
+            e((r.get("checked_utc") or "")[:16].replace("T", " ")),
+        ])
+    probe_table = (table(["Esportsbook / aggregator", "Type", "Runner verdict", "Checked (UTC)"], probe_rows)
+                   if probe_rows else '<p class="muted">No esportsbook probe receipt committed yet.</p>')
+    probe_summary = (
+        f'{probe["tested"]} endpoints probed from the build runner on {e(probe["checked"])} UTC: '
+        f'<strong>{probe["usable"]} returned a machine-readable LoL price</strong> '
+        f'({probe["http_blocked"]} blocked or key-gated, {probe["html_only"]} browser-only HTML). '
+        'Receipt: <a href="data/esportsbook_probe.json" rel="noopener">esportsbook_probe.json</a>.'
+        if probe["have"] else "No esportsbook probe receipt is committed for this build.")
     _, lowtier_date, lowtier_n = _lowtier_matrix()
+    lowtier_receipt = _lowtier_receipt_href()
+    obs = _venue_observations()
+    obs_rows = []
+    for o in obs:
+        obs_rows.append([
+            f'<a href="{e(o["url"])}" rel="noopener">{e(o["source_name"])}</a>'
+            f'<br><span class="small muted">{e(o["kind"])}</span>',
+            e(o["observation"]),
+            f'<span class="small">&ldquo;{e(o["verbatim"])}&rdquo;</span>'
+            f'<br><span class="small muted">captured {e(o["captured_utc"][:16].replace("T", " "))}Z'
+            f' &middot; {e(o["url"])}</span>',
+        ])
+    obs_block = ""
+    if obs_rows:
+        obs_block = f"""
+<section class="panel" id="observed">
+  <h2>What the established books and esportsbooks actually showed ({len(obs)} checks)</h2>
+  <p class="lead">Beyond the runner probes above, these pages were opened in a browser on
+  <strong>{e(_latest_observation_day(obs))}</strong> and read. Each row is one check: the venue,
+  what its LoL lobby contained for the leagues below the featured ceiling, the sentence it printed,
+  and the capture time &mdash; every row links to the page itself so it can be re-checked by hand.
+  This is the direct answer to &ldquo;is there a betting line for these matches anywhere?&rdquo;:
+  on the date shown, the whole tail of the Hotspawn list was priced by <strong>nobody</strong>, which
+  is why those picks are originated instead of quoted.</p>
+  {table(["Venue", "What it showed for the unpriced leagues", "Verbatim reading &amp; capture"], obs_rows)}
+  <p class="small muted">Receipts: <a href="{GITHUB_BLOB}/data/receipts/external_odds/2026-10-25.json" rel="noopener">2026-10-25.json</a>
+  &middot; full venue-by-venue ledger on <a href="coverage.html">Coverage</a>
+  &middot; dossier <a href="{GITHUB_BLOB}/research/LINE_SEARCH_2026-10-25.md" rel="noopener">research/LINE_SEARCH_2026-10-25.md</a>.</p>
+</section>"""
 
     body = f"""
 <section class="panel">
@@ -1294,8 +1462,9 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
   <strong>settlement</strong> (administrative forfeit winner, no %) &rarr; <strong>no pick</strong> (unrated or exact
   50/50 evidence, with the limitation stated). Hotspawn voids forfeited-match predictions.
   External-line evidence: {lowtier_n} established books, esportsbooks, exchanges and aggregators probed from the
-  build runner on {e(lowtier_date)} &mdash; <a href="{LOWTIER_MEMO_URL}" rel="noopener">research memo</a> and
-  machine-readable receipts in <code>data/probe/lowtier_20261024.json</code>. A keyed odds API might widen
+  build runner on {e(lowtier_date)} &mdash; <a href="{LOWTIER_MEMO_URL}" rel="noopener">latest research memo</a>,
+  <a href="{LOWTIER_ARCHIVE_MEMO_URL}" rel="noopener">earlier memo</a>, and
+  <a href="{lowtier_receipt}" rel="noopener">machine-readable receipt</a>. A keyed odds API might widen
   coverage but needs an owner-provided credential; none is used and none is circumvented.</p>
   {table(["Competition", "Matches", "Pick basis", "External line found?", "Limitation"], _fallback_rows(rows))}
 </section>
@@ -1309,7 +1478,12 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
   exact response each returned, are logged in
   <a href="data/line_source_research.json" rel="noopener">line_source_research.json</a>.</p>
   {hunt_table}
+  <h3>Esportsbooks &amp; aggregators tried for the unpriced tail</h3>
+  <p>{probe_summary} Blocked or browser-only venues are recorded, never worked around, and never
+  back a pick &mdash; the unpriced tail keeps its originated (Elo) line instead of a borrowed quote.</p>
+  {probe_table}
 </section>
+{obs_block}
 
 <section class="panel">
   <h2>Provisional lines ({len(provisional)})</h2>

@@ -28,9 +28,25 @@ sys.path.insert(0, os.path.join(ROOT, "tools"))
 import corroborate  # noqa: E402
 
 
+def _recent(hours: float) -> str:
+    """A capture timestamp inside the freshness window, relative to the wall clock.
+
+    The receipt classes under test are time-based (`RECEIPT_MAX_AGE_HOURS` = 24 h), so a
+    hard-coded date makes the suite start failing one day after it was written - which is
+    what halted `refresh-picks` on 2026-10-25: the three failures were this fixture data
+    expiring, not a regression in the pipeline. Keep the contract identical and only move
+    the capture time with the clock.
+    """
+    return (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _kickoff(hours: float = 12.0) -> str:
+    return (datetime.now(timezone.utc) + timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 def _match(fid: str, t0: str, t1: str, p0: float) -> dict:
     return {
-        "id": fid, "competition": "Test League", "start_utc": "2026-10-25T12:00:00Z",
+        "id": fid, "competition": "Test League", "start_utc": _kickoff(),
         "team0": {"name": t0}, "team1": {"name": t1},
         "p0": p0, "p1": round(1 - p0, 4), "method": "market", "confidence": "high",
         "pick": {"side": 0, "team": t0, "probability": p0, "other_probability": round(1 - p0, 4)},
@@ -39,7 +55,7 @@ def _match(fid: str, t0: str, t1: str, p0: float) -> dict:
         "market": {"book": "Pinnacle", "venues": [{"name": "Pinnacle", "weight": 1.0,
                                                    "p0": p0, "p1": round(1 - p0, 4),
                                                    "url": "https://example.test/m",
-                                                   "observed_utc": "2026-10-24T00:00:00Z"}]},
+                                                   "observed_utc": _recent(2)}]},
         "resolution": None, "flags": [],
     }
 
@@ -58,7 +74,7 @@ class ReceiptHistoryTests(unittest.TestCase):
 
     def _write(self, matches: list[dict], captures: list[dict]) -> None:
         with open(os.path.join(self.data, "matches.json"), "w", encoding="utf-8") as fh:
-            json.dump({"generated_utc": "2026-10-24T00:00:00Z", "matches": matches}, fh)
+            json.dump({"generated_utc": _recent(1), "matches": matches}, fh)
         doc = {
             "sources": [{"key": "pinnacle", "name": "Pinnacle", "kind": "bookmaker", "url": "https://example.test"}],
             "captures": captures,
@@ -73,12 +89,8 @@ class ReceiptHistoryTests(unittest.TestCase):
 
     @staticmethod
     def _capture(fid: str, teams: list[str], dec: list[float]) -> dict:
-        # The receipt lifecycle intentionally expires current-listed captures after 24 h.
-        # Generate a fresh observation instead of letting a fixed test date age into a
-        # different bucket and make the scheduled build fail merely because time passed.
-        captured = (datetime.now(timezone.utc) - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
         return {"fixture_id": fid, "source": "pinnacle", "page_url": "https://example.test/m",
-                "captured_utc": captured, "verbatim": "1.60 / 2.30",
+                "captured_utc": _recent(2), "verbatim": "1.60 / 2.30",
                 "page_teams": teams, "decimal": dec}
 
     def test_receipt_for_a_delisted_fixture_is_historical_not_rejected(self) -> None:
@@ -130,7 +142,7 @@ class ReceiptHistoryTests(unittest.TestCase):
         s = doc["summary"]
         self.assertEqual(s["receipts"], 3)
         self.assertEqual(s["usable_receipts"] + s["placeholders"] + s["rejected_receipts"]
-                         + s["expired_receipts"] + s["historic_receipts"], 3)
+                         + s["historic_receipts"], 3)
 
     def test_coverage_page_renders_the_historical_receipts(self) -> None:
         self._write(

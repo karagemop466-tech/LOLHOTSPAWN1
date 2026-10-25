@@ -152,11 +152,11 @@ jobs:
           set -e
           git config user.name  "arena-refresh-bot"
           git config user.email "actions@users.noreply.github.com"
-          # A successful run must also stage removal of the previous failed-stage marker;
-          # otherwise the repository keeps falsely saying "unit-tests" failed forever.
-          git add -A data/build_failed_steps.txt
           git add data/*.json data/*.csv data/build.log data/raw data/receipts assets *.html
           git add audit/report.json audit/report.md audit/site_check.json audit/mobile_check.json
+          # A green run clears the previous failure markers, so a stale "unit-tests" line can
+          # never survive a successful build and mislead the next session (2026-10-25).
+          git add -A -- data/build_failure.log data/build_failed_steps.txt 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "no changes"
             exit 0

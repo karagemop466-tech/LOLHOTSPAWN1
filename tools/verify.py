@@ -10,6 +10,7 @@ import os
 import re
 import sys
 from collections import Counter
+from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from integrity import row_errors
@@ -223,7 +224,11 @@ def main() -> None:
             if href.startswith(("http://", "https://", "mailto:")):
                 continue
             hrefs[href] += 1
-            if href not in pages and not os.path.exists(os.path.join(DOCS, href)):
+            # A query string addresses the same document; `table.html?comp=...` is a valid
+            # in-site deep link (the tournament directory uses it). Strip the query before
+            # checking that the target file exists, but keep it in the report if it does not.
+            target = href.split("?", 1)[0]
+            if target not in pages and not os.path.exists(os.path.join(DOCS, target)):
                 broken.append(f"{page} -> {href}")
         for bad in ("&gt;None&lt;", ">None<", ">nan<", "&mdash;%"):
             if bad in text:
@@ -387,6 +392,45 @@ def main() -> None:
         f"{len(probe_rows)} venues probed on {probes.get('checked_utc', 'unknown')}; "
         f"dossier {'present' if os.path.exists(dossier) else 'MISSING'}")
 
+    # --- manual line-search evidence: every claim about an external book must be checkable ---
+    # The limitations and executive-summary pages tell the reader that no book prices the tail of
+    # the list. That statement is only publishable while each check it rests on carries a URL, a
+    # capture time and a verbatim reading; a squashed/no-op entry must fail the build, not ship.
+    import glob as _glob
+    obs_problems, obs_n, obs_files = [], 0, 0
+    for path in sorted(_glob.glob(os.path.join(DATA, "receipts", "external_odds", "*.json"))):
+        doc = load_json(path) or {}
+        obs_files += 1
+        keys = {s.get("key") for s in doc.get("sources") or []}
+        for o in doc.get("coverage_observations") or []:
+            obs_n += 1
+            where = f"{os.path.basename(path)}:{o.get('source')}"
+            if not str(o.get("url") or "").startswith("http"):
+                obs_problems.append(f"{where} has no source URL")
+            if len(str(o.get("captured_utc") or "")) < 19:
+                obs_problems.append(f"{where} has no capture time")
+            if not str(o.get("observation") or "").strip():
+                obs_problems.append(f"{where} has empty text")
+            if not str(o.get("verbatim") or "").strip():
+                obs_problems.append(f"{where} has no verbatim reading")
+            if o.get("source") not in keys:
+                obs_problems.append(f"{where} names a source that is not declared in the same file")
+    add("every external line-search observation is source-linked and complete",
+        obs_n > 0 and not obs_problems,
+        f"{obs_n} observations across {obs_files} receipt files; problems: {obs_problems[:5]}")
+
+    # unres_html was read once above; read it again only if that read was empty (a missing page
+    # is a real failure and is reported by its own gate, not silently skipped here).
+    missing_obs = []
+    for path in sorted(_glob.glob(os.path.join(DATA, "receipts", "external_odds", "*.json"))):
+        doc = load_json(path) or {}
+        for o in doc.get("coverage_observations") or []:
+            if html.escape(str(o.get("url") or ""), quote=True) not in unres_html:
+                missing_obs.append(o.get("url"))
+    add("limitations page prints every book check with its live link",
+        'id="observed"' in unres_html and not missing_obs,
+        f"unresolved.html carries the observation table; {len(missing_obs)} observation link(s) missing")
+
     # Coverage arithmetic must never exceed the inventory (a 245-of-241 regression shipped once).
     priced_n = sum(1 for r in rows if r.get("p0") is not None)
     settled_n = sum(1 for r in rows if r.get("resolution"))
@@ -452,6 +496,61 @@ def main() -> None:
                 lookahead.append(f"{r['id']}:{key} rating_as_of != kick-off")
     add("no look-ahead: ratings use only results before kick-off", not lookahead,
         f"{len(lookahead)} violations; examples: {lookahead[:3]}")
+
+    # --- full-coverage contract (session 63c67a23) --------------------------
+    # The brief is "a pick wherever defensible, and never a number we cannot defend".
+    # These gates make a silently unpriced or unreachable match impossible to publish.
+    # index_html / table_html / unres_html are read earlier in this file.
+    unresolved_html = unres_html
+
+    exposed, undocumented, unlinked = [], [], []
+    for r in rows:
+        pick = r.get("pick") or {}
+        prob = pick.get("probability")
+        res = r.get("resolution") or {}
+        if prob is not None:
+            continue
+        # No probability: allow an official settlement or an explicitly quarantined no-pick.
+        # The latter must carry its own evidence limitation and inventory link; a silent blank
+        # or an arbitrary coin-flip favourite still fails closed.
+        settled = (res.get("source") or "").startswith("http")
+        documented_no_pick = (
+            r.get("method") == "unresolved" and r.get("pick_type") == "no-pick"
+            and not pick.get("team") and r.get("p0") is None and r.get("p1") is None
+            and (r.get("hotspawn_url") or "").startswith("http")
+            and bool(str(r.get("basis") or "").strip())
+        )
+        if not settled and not documented_no_pick:
+            exposed.append(f"{r['id']}: no probability, settlement source, or documented no-pick")
+            continue
+        if r.get("id") not in unresolved_html:
+            unlinked.append(r["id"])
+        # Compare both the raw and the HTML-escaped team name: a card whose team name
+        # contains & < > would otherwise fail this gate on escaping alone and block a
+        # perfectly good build.
+        names = [r["team0"]["name"], r["team1"]["name"]]
+        if any(n not in index_html and html.escape(n) not in index_html for n in names):
+            undocumented.append(r["id"])
+    add("every unpriced match carries a settlement or documented no-pick source",
+        not exposed, f"{len(exposed)} problems: {exposed[:5]}")
+    add("every unpriced match appears on the unresolved ledger page",
+        not unlinked, f"{len(unlinked)} missing from unresolved.html: {unlinked[:5]}")
+    add("executive summary names every unresolved match",
+        not undocumented, f"{len(undocumented)} unresolved cards missing from index.html: {undocumented[:5]}")
+
+    # Tournament directory: each competition on the landing page must deep-link into a
+    # filtered pick table that actually contains that competition's rows.
+    dir_comps = sorted({r["competition"] for r in rows})
+    dir_missing = [c for c in dir_comps
+                   if f'table.html?comp={quote(c, safe="")}' not in index_html]
+    dir_unfiltered = [c for c in dir_comps if f'data-comp="{html.escape(c)}"' not in table_html]
+    add("landing-page tournament directory links every tournament to a filterable pick table",
+        not dir_missing and not dir_unfiltered,
+        f"{len(dir_comps)} tournaments; missing links: {dir_missing[:4]}; missing table rows: {dir_unfiltered[:4]}")
+    deep_ok = ("initDeepLinks" in app_js and 'params.get("comp")' in app_js
+               and 'params.get("method")' in app_js)
+    add("tournament deep links are honoured by the client filter", deep_ok,
+        "assets/app.js reads ?comp=, ?method=, ?q= and ?upcoming= into the table/card filters")
 
     counts = Counter(r["method"] for r in rows)
     unverified = [r["id"] for r in rows if r["method"] in ("provisional", "unresolved")]

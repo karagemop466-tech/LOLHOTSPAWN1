@@ -179,7 +179,50 @@ CANDIDATES = [
         "url": "https://api.pandascore.co/lol/matches?per_page=100",
         "expect": "JSON (token required on modern plans)",
     },
+    {
+        "slug": "cloudbet_esports",
+        "name": "Cloudbet esports (official LoL hub)",
+        "category": "crypto esportsbook",
+        "url": "https://www.cloudbet.com/en/esports",
+        "expect": "server-rendered HTML/JSON naming LoL fixtures with prices (official hub verified 2026-10-25)",
+    },
+    {
+        "slug": "stake_lol",
+        "name": "Stake LoL coupon (official page)",
+        "category": "crypto esportsbook",
+        "url": "https://stake.com/sports/league-of-legends",
+        "expect": "server-rendered HTML/JSON naming LoL fixtures with prices (official page verified 2026-10-25)",
+    },
+    {
+        "slug": "rainbet_lol",
+        "name": "Rainbet LoL coupon (official page)",
+        "category": "crypto esportsbook",
+        "url": "https://rainbet.com/sportsbook/league-of-legends-110",
+        "expect": "server-rendered HTML/JSON naming LoL fixtures with prices (official page verified 2026-10-25)",
+    },
+    {
+        "slug": "duelbits_esports",
+        "name": "Duelbits esports coupon",
+        "category": "crypto esportsbook",
+        "url": "https://duelbits.com/en/sports/esports",
+        "expect": "server-rendered HTML/JSON naming LoL fixtures with prices (esports offering verified via official blog 2026-10-25; coupon route probed as-is)",
+    },
+    {
+        "slug": "roobet_sports",
+        "name": "Roobet sportsbook (LoL offered per official newsroom)",
+        "category": "crypto esportsbook",
+        "url": "https://roobet.com/sports",
+        "expect": "server-rendered HTML/JSON naming LoL fixtures with prices (LoL offering verified via Roobet newsroom 2026-10-25; sportsbook entry probed as-is)",
+    },
+    {
+        "slug": "egamersworld_lol_bets",
+        "name": "EGamersWorld LoL bets aggregator",
+        "category": "odds aggregator",
+        "url": "https://egamersworld.com/lol/bets",
+        "expect": "server-rendered HTML with per-book decimal quotes next to named LoL fixtures (aggregator page verified 2026-10-25)",
+    },
 ]
+
 
 PREVIEW_BYTES = 400
 TEAM_KEYS = ("n", "name", "opp1", "opp2", "team1", "team2", "home", "away")

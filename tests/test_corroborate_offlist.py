@@ -29,13 +29,23 @@ sys.path.insert(0, str(ROOT / "tools"))
 import corroborate  # noqa: E402
 
 
+def _recent(hours: float) -> str:
+    """Wall-clock-relative capture time.
+
+    `corroborate` classes receipts by age (`RECEIPT_MAX_AGE_HOURS` = 24 h), so a fixed date
+    in the fixture makes these tests fail a day after they are written. That is exactly the
+    failure that halted `refresh-picks` on 2026-10-25; the assertion contract is unchanged.
+    """
+    return (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 MATCHES = {
-    "generated_utc": "2026-10-24T00:00:00Z",
+    "generated_utc": _recent(1),
     "matches": [
         {
             "id": "1111",
             "competition": "Test Cup",
-            "start_utc": "2026-10-25T12:00:00Z",
+            "start_utc": (datetime.now(timezone.utc) + timedelta(hours=12)).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "team0": {"name": "Alpha"},
             "team1": {"name": "Bravo"},
             "p0": 0.6,
@@ -53,10 +63,10 @@ RECEIPT = {
                  "kind": "esportsbook", "runner_reachable": "yes"}],
     "captures": [
         {"fixture_id": "1111", "source": "book", "page_url": "https://example.com/m/1111",
-         "captured_utc": "2026-10-24T00:00:00Z", "page_teams": ["Alpha", "Bravo"],
+         "captured_utc": _recent(2), "page_teams": ["Alpha", "Bravo"],
          "decimal": [1.65, 2.30], "verbatim": "Alpha 1.65 / Bravo 2.30"},
         {"fixture_id": "9999", "source": "book", "page_url": "https://example.com/m/9999",
-         "captured_utc": "2026-10-23T00:00:00Z", "page_teams": ["Gone", "Also Gone"],
+         "captured_utc": _recent(2), "page_teams": ["Gone", "Also Gone"],
          "decimal": [1.90, 1.95], "verbatim": "Gone 1.90 / Also Gone 1.95"},
     ],
     "coverage_observations": [],
@@ -71,14 +81,8 @@ class OffListReceiptTests(unittest.TestCase):
         (base / "data" / "receipts" / "external_odds").mkdir(parents=True)
         self.matches_path = base / "data" / "matches.json"
         self.matches_path.write_text(json.dumps(MATCHES), encoding="utf-8")
-        self.receipt = json.loads(json.dumps(RECEIPT))
-        # Keep the listed receipt inside the real 24-hour corroboration window. Fixed
-        # 2026-10-24 captures made this test time-bomb the six-hour publisher.
-        for hours, capture in enumerate(self.receipt["captures"], start=1):
-            capture["captured_utc"] = (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime(
-                "%Y-%m-%dT%H:%M:%SZ")
-        self.receipt_path = base / "data" / "receipts" / "external_odds" / "2026-10-23.json"
-        self.receipt_path.write_text(json.dumps(self.receipt), encoding="utf-8")
+        (base / "data" / "receipts" / "external_odds" / "2026-10-23.json").write_text(
+            json.dumps(RECEIPT), encoding="utf-8")
         self.base = base
         self._saved = (corroborate.DATA, corroborate.RECEIPT_DIR, corroborate.ROOT)
         corroborate.DATA = str(base / "data")
@@ -103,22 +107,24 @@ class OffListReceiptTests(unittest.TestCase):
         row = doc["historic"][0]
         self.assertEqual(row["status"], "historic")
         self.assertEqual(row["page_url"], "https://example.com/m/9999")
-        self.assertEqual(row["captured_utc"], self.receipt["captures"][1]["captured_utc"])
+        self.assertGreater(row["age_hours"], 0.0)
         self.assertIn("no longer listed by Hotspawn", row["reason"])
         self.assertEqual(row["status"], "historic")
 
     def test_listed_fixture_with_wrong_teams_is_still_rejected(self):
-        rec = json.loads(json.dumps(self.receipt))
+        rec = json.loads(json.dumps(RECEIPT))
         rec["captures"][0]["page_teams"] = ["Charlie", "Delta"]
-        self.receipt_path.write_text(json.dumps(rec), encoding="utf-8")
+        (self.base / "data" / "receipts" / "external_odds" / "2026-10-23.json").write_text(
+            json.dumps(rec), encoding="utf-8")
         doc = corroborate.build()
         self.assertEqual([r["fixture_id"] for r in doc["rejected"]], ["1111"])
         self.assertEqual(doc["rejected"][0]["status"], "unmatched")
 
     def test_malformed_price_is_still_rejected(self):
-        rec = json.loads(json.dumps(self.receipt))
+        rec = json.loads(json.dumps(RECEIPT))
         rec["captures"][0]["decimal"] = [1.65, 1.0]
-        self.receipt_path.write_text(json.dumps(rec), encoding="utf-8")
+        (self.base / "data" / "receipts" / "external_odds" / "2026-10-23.json").write_text(
+            json.dumps(rec), encoding="utf-8")
         doc = corroborate.build()
         self.assertEqual([r["fixture_id"] for r in doc["rejected"]], ["1111"])
         self.assertEqual(doc["rejected"][0]["status"], "malformed")

@@ -1198,6 +1198,10 @@ def main() -> None:
                     "team": row["team0"]["name"] if active_side == 0 else row["team1"]["name"],
                     "probability": None, "other_probability": None,
                     "settlement": "administrative default (walkover / forfeit)"}
+        if p0 is None and not resolution and method == "unresolved":
+            # Machine-readable quarantine: no favourite and no invented competitive percentage.
+            # `basis` carries the specific no-history or displayed-tie limitation for review.
+            pick_type = "no-pick"
         # Grade the published pick against the official series record, when one exists. A pick
         # is graded only where the result is structured and internally consistent (see above);
         # settlement picks are reported as settled, never as a forecast that "won".
