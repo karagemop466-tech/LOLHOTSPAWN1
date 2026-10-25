@@ -20,11 +20,25 @@ import os
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 
 import corroborate  # noqa: E402
+
+
+def _hours_ago(hours: float) -> str:
+    """Capture timestamp relative to *now*.
+
+    The production rule (`corroborate.RECEIPT_MAX_AGE_HOURS = 24`) compares
+    `captured_utc` to wall-clock now, so a hard-coded "fresh" date in a test
+    fixture is a calendar time-bomb: these tests passed on 2026-10-24 and
+    failed every build from 2026-10-25T11:34Z on, which blocked
+    `refresh-picks` at the unit-test stage and froze the published picks.
+    Relative timestamps keep the test about classification, not the date.
+    """
+    return (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _match(fid: str, t0: str, t1: str, p0: float) -> dict:
@@ -57,7 +71,7 @@ class ReceiptHistoryTests(unittest.TestCase):
 
     def _write(self, matches: list[dict], captures: list[dict]) -> None:
         with open(os.path.join(self.data, "matches.json"), "w", encoding="utf-8") as fh:
-            json.dump({"generated_utc": "2026-10-24T00:00:00Z", "matches": matches}, fh)
+            json.dump({"generated_utc": _hours_ago(0), "matches": matches}, fh)
         doc = {
             "sources": [{"key": "pinnacle", "name": "Pinnacle", "kind": "bookmaker", "url": "https://example.test"}],
             "captures": captures,
@@ -71,9 +85,11 @@ class ReceiptHistoryTests(unittest.TestCase):
         corroborate.OUT_HTML = os.path.join(self.data, "coverage.html")
 
     @staticmethod
-    def _capture(fid: str, teams: list[str], dec: list[float]) -> dict:
+    def _capture(fid: str, teams: list[str], dec: list[float], hours_ago: float = 1.0) -> dict:
+        # Default: captured 1 h ago, i.e. inside the 24 h "current line" window
+        # on whatever day the test runs. Pass hours_ago > 24 to pin `expired`.
         return {"fixture_id": fid, "source": "pinnacle", "page_url": "https://example.test/m",
-                "captured_utc": "2026-10-24T00:00:00Z", "verbatim": "1.60 / 2.30",
+                "captured_utc": _hours_ago(hours_ago), "verbatim": "1.60 / 2.30",
                 "page_teams": teams, "decimal": dec}
 
     def test_receipt_for_a_delisted_fixture_is_historical_not_rejected(self) -> None:
@@ -124,8 +140,27 @@ class ReceiptHistoryTests(unittest.TestCase):
         doc = corroborate.build()
         s = doc["summary"]
         self.assertEqual(s["receipts"], 3)
+        # Every capture is accounted for exactly once, including the `expired`
+        # bucket (omitting it here is what turned ageing fixtures into a
+        # phantom shortfall once the calendar moved past the fixture dates).
         self.assertEqual(s["usable_receipts"] + s["placeholders"] + s["rejected_receipts"]
-                         + s["historic_receipts"], 3)
+                         + s["expired_receipts"] + s["historic_receipts"], 3)
+
+    def test_stale_receipt_on_a_listed_fixture_expires_not_rejected(self) -> None:
+        # Regression pin for the 2026-10-25 block: a real, matched receipt that
+        # has aged past the 24 h window is `expired` archival evidence. It must
+        # never become `rejected` (which fails the publish gate) and never
+        # count as usable corroboration of today's line.
+        self._write(
+            matches=[_match("1001", "Alpha", "Bravo", 0.62)],
+            captures=[self._capture("1001", ["Alpha", "Bravo"], [1.60, 2.30], hours_ago=72)],
+        )
+        doc = corroborate.build()
+        self.assertEqual(doc["rejected"], [])
+        self.assertEqual(doc["summary"]["usable_receipts"], 0)
+        self.assertEqual(doc["summary"]["expired_receipts"], 1)
+        self.assertEqual(len(doc["expired"]), 1)
+        self.assertEqual(doc["expired"][0]["fixture_id"], "1001")
 
     def test_coverage_page_renders_the_historical_receipts(self) -> None:
         self._write(

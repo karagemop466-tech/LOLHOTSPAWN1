@@ -20,6 +20,7 @@ import os
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,8 +29,20 @@ sys.path.insert(0, str(ROOT / "tools"))
 import corroborate  # noqa: E402
 
 
+def _hours_ago(hours: float) -> str:
+    """Relative capture time. `corroborate` classifies a matched receipt as
+    `usable` only inside a 24 h window measured from wall-clock now, so the
+    previous hard-coded 2026-10-24 captures silently became `expired` the
+    next day and blocked `refresh-picks` at the unit-test stage
+    (2026-10-25T11:34Z build). Never hard-code a "fresh" date again."""
+    return (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+FRESH_CAPTURE = _hours_ago(1)
+HISTORIC_CAPTURE = _hours_ago(2)
+
 MATCHES = {
-    "generated_utc": "2026-10-24T00:00:00Z",
+    "generated_utc": FRESH_CAPTURE,
     "matches": [
         {
             "id": "1111",
@@ -52,10 +65,10 @@ RECEIPT = {
                  "kind": "esportsbook", "runner_reachable": "yes"}],
     "captures": [
         {"fixture_id": "1111", "source": "book", "page_url": "https://example.com/m/1111",
-         "captured_utc": "2026-10-24T00:00:00Z", "page_teams": ["Alpha", "Bravo"],
+         "captured_utc": FRESH_CAPTURE, "page_teams": ["Alpha", "Bravo"],
          "decimal": [1.65, 2.30], "verbatim": "Alpha 1.65 / Bravo 2.30"},
         {"fixture_id": "9999", "source": "book", "page_url": "https://example.com/m/9999",
-         "captured_utc": "2026-10-23T00:00:00Z", "page_teams": ["Gone", "Also Gone"],
+         "captured_utc": HISTORIC_CAPTURE, "page_teams": ["Gone", "Also Gone"],
          "decimal": [1.90, 1.95], "verbatim": "Gone 1.90 / Also Gone 1.95"},
     ],
     "coverage_observations": [],
@@ -96,7 +109,7 @@ class OffListReceiptTests(unittest.TestCase):
         row = doc["historic"][0]
         self.assertEqual(row["status"], "historic")
         self.assertEqual(row["page_url"], "https://example.com/m/9999")
-        self.assertEqual(row["captured_utc"], "2026-10-23T00:00:00Z")
+        self.assertEqual(row["captured_utc"], HISTORIC_CAPTURE)
         self.assertIn("no longer listed by Hotspawn", row["reason"])
         self.assertEqual(row["status"], "historic")
 
