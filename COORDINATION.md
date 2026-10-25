@@ -3185,3 +3185,28 @@ starting-soon strip and gates all present); generated pages/data took `main`'s f
 snapshot (raw feeds fetched 2026-10-25T14:13Z) and were then **regenerated with the merged
 code**; `data/probe/sources_probe.json` kept this session's later probe (14:20:51Z >
 14:13:03Z); this board kept both append blocks (main's sessions first, then `2faec1ff`).
+
+## `650571cf` — final live confirmation (2026-10-25T14:41Z)
+
+| Item | Value |
+|---|---|
+| PR #110 | **merged 2026-10-25T14:30:44Z**, merge commit **`0508eba`** — control probe no longer fails a clean run; credential proven by control **or** by any resolving sibling on `guest.api.arcadia.pinnacle.com` |
+| Live verification | `verify-live-sources` receipt **`generated 2026-10-25T14:33:01Z`, `result: PASS`**, dataset `2026-10-25T14:25:59Z`, **234 rows** — committed to `main` as `audit/session_c0a05820/source_verify.md` |
+| Receipt detail | control `status=403 … key proven by control: False` (correctly informational) · Hotspawn cards `234/234` · market quotes **`10/10`** · venue receipts `33/41` (8 `rate_limited`, none broken) · Leaguepedia `29/29` · pickem `1/1` · rows with resolving evidence `234/234` · dashboard pages `13/13` |
+| Pages | last completed deployment build **success** (`c04dca3`, 14:38:21Z); `gh api …/pages` was `building` at 14:40Z because other sessions kept pushing to `main`. The published tree is the merged one. |
+
+**Why the earlier run failed and this one passes.** Run `40201598861` (14:18Z) verified every published
+link and then failed on the control check alone, because the leagues control endpoint 403s while the
+matchup boards resolve. The corrected rule proves the credential from either signal and only fails when
+a 401/403 has *no* proof anywhere on the host — which is exactly the conservative behaviour intended.
+
+**New irregularity observed (not a defect):** `verify-live-sources` uses
+`concurrency: cancel-in-progress: true` per branch, and `main` advanced 8 times between 14:18Z and
+14:40Z (concurrent sessions merging), so several verification runs were cancelled mid-flight
+(`40202606853`, `40202783829`, `40203105738`, `40203331438`). Only a **completed** receipt is
+authoritative — the 14:33:01Z one is. Future reviewers should read the committed receipt, not the run
+status, when `main` is moving this fast.
+
+**Current published state at 14:41Z:** dataset `2026-10-25T14:25:59Z` (a newer canonical refresh than
+the one recorded above, still inside the 4–8 h cadence), 234 rows, 9 market-backed, 4 official-forfeit
+settlements, 0 priced-row defects across every gate re-run this session.
