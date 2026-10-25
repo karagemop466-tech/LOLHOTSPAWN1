@@ -106,6 +106,65 @@ def same_team(a: str, b: str) -> bool:
     return (set(long_) - set(short)) <= GENERIC_TOKENS and long_enough
 
 
+def _parse_utc(value) -> datetime | None:
+    """Parse the ISO timestamps used by fixture and venue receipts, fail closed."""
+    if not value:
+        return None
+    try:
+        return datetime.strptime(str(value)[:19].replace(" ", "T"),
+                                 "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+    except (TypeError, ValueError):
+        return None
+
+
+def prelock_observation(item: dict, cutoff_utc: str | None) -> bool:
+    """Whether a matched quote is demonstrably from the pre-lock information set.
+
+    A fetch after Hotspawn's lock can contain an in-play price, so it must not be
+    presented as a pre-match pick. If no cutoff exists there is nothing to compare;
+    if a cutoff exists but the observation time is absent/invalid, reject rather
+    than assume. Kambi supplies its own last-changed time, which can validly predate
+    the lock even when the capture itself was fetched later.
+    """
+    if not cutoff_utc:
+        return True
+    observed = _parse_utc(item.get("observed_utc"))
+    cutoff = _parse_utc(cutoff_utc)
+    return observed is not None and cutoff is not None and observed <= cutoff
+
+
+def exact_tie(p0, p1) -> bool:
+    """A displayed 50/50 has no favourite; team/display order is not evidence.
+
+    The site prints one decimal percentage point. Treat anything inside that display
+    bucket as a tie too, so 49.99% / 50.01% cannot appear as an arbitrary 50.0% pick.
+    """
+    return (type(p0) in (int, float) and type(p1) in (int, float)
+            and math.isfinite(p0) and math.isfinite(p1)
+            and abs(p0 - 0.5) < 0.0005 and abs(p1 - 0.5) < 0.0005)
+
+
+def kalshi_event_start(event_ticker: str) -> str | None:
+    """Decode Kalshi's event date/hour for a coarse same-series cross-check.
+
+    Example: ``KXLOLGAME-26OCT241600KCLY`` -> 2026-10-24T16:00Z. The API's
+    ``close_time`` is a settlement deadline and can be days later, so it is not a
+    suitable proxy for kick-off.
+    """
+    match = re.search(r"-(\d{2})([A-Z]{3})(\d{2})(\d{4})", event_ticker or "")
+    if not match:
+        return None
+    months = {name: i for i, name in enumerate(
+        ("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"), 1)}
+    year, month, day, hour = match.groups()
+    try:
+        dt = datetime(2000 + int(year), months[month], int(day), int(hour[:2]), int(hour[2:]),
+                      tzinfo=timezone.utc)
+    except (KeyError, ValueError):
+        return None
+    return iso(dt)
+
+
 QUOTE_REJECTIONS: list[dict] = []
 
 
@@ -158,8 +217,16 @@ BACKTEST_CUTOFF = datetime(2026, 7, 1, tzinfo=timezone.utc)
 
 
 def tier_prior(overview_page: str) -> float:
-    """Division-calibrated starting rating when a team first enters the chronology."""
+    """Division-calibrated starting rating when a team first enters the chronology.
+
+    Second divisions stay on the regional 1500 prior even when their page name also
+    contains ``promotion``; otherwise that single word would incorrectly promote them
+    to the 1575 challenger-tier prior. This covers English, Norwegian and suffix forms.
+    """
     p = (overview_page or "").lower()
+    if (re.search(r"\b2nd\s+divis(?:ion|jon)\b", p)
+            or re.search(r"\bdivision\s+2\b", p)):
+        return ELO_START
     if any(k in p for k in ("world championship", "worlds", "mid-season invitational",
                             "first stand", "esports world cup")):
         return 1700.0
@@ -414,8 +481,9 @@ def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
 # --------------------------------------------------------------------------- multi-venue market consensus
 def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                   pin_index: list, pm_index: list, kalshi_index: list,
-                  bovada_index: list, kambi_index: list, within_hours: int = 36):
-    """Combine all independent real-money venues covering this fixture."""
+                  bovada_index: list, kambi_index: list, within_hours: int = 36,
+                  lock: str | None = None, exclusions: list | None = None):
+    """Combine eligible pre-lock, full-series quotes covering this exact fixture."""
     def close_in_time(a: str | None, b: str | None) -> bool:
         if not a or not b:
             return True
@@ -425,6 +493,21 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         except ValueError:
             return True
         return abs((da - db).total_seconds()) <= within_hours * 3600
+
+    def usable_quote(item: dict, venue: str, source_url: str = "") -> bool:
+        if prelock_observation(item, lock):
+            return True
+        if exclusions is not None:
+            observed = item.get("observed_utc")
+            exclusions.append({
+                "fixture_id": str(fixture_id), "venue": venue,
+                "observed_utc": observed, "lock_utc": lock,
+                "reason": ("observation or lock timestamp missing/invalid; pre-lock status unverified"
+                           if not _parse_utc(observed) or not _parse_utc(lock)
+                           else "observed after Hotspawn lock"),
+                "source_url": source_url,
+            })
+        return False
 
     venues = []
     primary_decimal = None
@@ -439,6 +522,10 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         if close_in_time(start, item["start"]) and (
                 (same_team(name0, a) and same_team(name1, b)) or
                 (same_team(name0, b) and same_team(name1, a))):
+            pin_receipt_url = (f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/"
+                               f"{item['row']['matchup_id']}/markets/related/straight")
+            if not usable_quote(item, "Pinnacle", pin_receipt_url):
+                continue
             row = item["row"]
             home_dec = row["prices"]["home"]["decimal"]
             away_dec = row["prices"]["away"]["decimal"]
@@ -457,7 +544,6 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                 primary_american = {k: v.get("american") for k, v in row["prices"].items()}
                 primary_start = item["start"]
                 primary_league = row.get("league")
-                pin_receipt_url = f"https://guest.api.arcadia.pinnacle.com/0.1/matchups/{row['matchup_id']}/markets/related/straight"
                 primary_api_url = pin_receipt_url
                 venues.append({
                     "name": "Pinnacle",
@@ -475,7 +561,12 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     pm_start = None
     for item in pm_index:
         a, b = item["names"]
-        if (same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a)):
+        if close_in_time(start, item.get("start")) and (
+                (same_team(name0, a) and same_team(name1, b))
+                or (same_team(name0, b) and same_team(name1, a))):
+            pm_url = f"https://polymarket.com/event/{item['slug']}"
+            if not usable_quote(item, "Polymarket", pm_url):
+                continue
             pa = item["p0"] if same_team(name0, a) else item["p1"]
             pb = item["p1"] if same_team(name0, a) else item["p0"]
             pm_start = item.get("start") or pm_start
@@ -490,7 +581,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "quote": f"{p0_v*100:.1f}¢/{p1_v*100:.1f}¢",
                     "overround": round(tot - 1.0, 4),
                     "observed_utc": item.get("observed_utc"),
-                    "url": f"https://polymarket.com/event/{item['slug']}",
+                    "url": pm_url,
                     "volume_usd": round(float(item.get("volume") or 0.0), 2),
                 })
                 if primary_start is None:
@@ -502,7 +593,12 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     # 3. Kalshi CFTC Regulated Exchange
     for item in kalshi_index:
         a, b = item["names"]
-        if (same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a)):
+        if close_in_time(start, item.get("start")) and (
+                (same_team(name0, a) and same_team(name1, b))
+                or (same_team(name0, b) and same_team(name1, a))):
+            kalshi_url = f"https://kalshi.com/markets/kxlolgame/{item['event_ticker'].lower()}"
+            if not usable_quote(item, "Kalshi", kalshi_url):
+                continue
             pa = item["p0"] if same_team(name0, a) else item["p1"]
             pb = item["p1"] if same_team(name0, a) else item["p0"]
             tot = pa + pb
@@ -516,7 +612,7 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                     "quote": f"{pa*100:.0f}¢/{pb*100:.0f}¢",
                     "overround": round(tot - 1.0, 4),
                     "observed_utc": item.get("observed_utc"),
-                    "url": f"https://kalshi.com/markets/kxlolgame/{item['event_ticker'].lower()}",
+                    "url": kalshi_url,
                 })
                 break
 
@@ -526,6 +622,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         if close_in_time(start, item["start"]) and (
                 (same_team(name0, a) and same_team(name1, b)) or
                 (same_team(name0, b) and same_team(name1, a))):
+            if not usable_quote(item, "Bovada", item.get("url") or ""):
+                continue
             d0_v = item["d0"] if same_team(name0, a) else item["d1"]
             d1_v = item["d1"] if same_team(name0, a) else item["d0"]
             dv = devig_decimal(d0_v, d1_v, {"fixture_id": fixture_id, "venue": "Bovada"})
@@ -555,6 +653,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
         if close_in_time(start, item["start"]) and (
                 (same_team(name0, a) and same_team(name1, b)) or
                 (same_team(name0, b) and same_team(name1, a))):
+            if not usable_quote(item, "Unibet", item.get("url") or ""):
+                continue
             d0_v = item["d0"] if same_team(name0, a) else item["d1"]
             d1_v = item["d1"] if same_team(name0, a) else item["d0"]
             dv = devig_decimal(d0_v, d1_v, {"fixture_id": fixture_id, "venue": "Unibet"})
@@ -742,6 +842,9 @@ def main() -> None:
                 "p0": mids[0][1],
                 "p1": mids[1][1],
                 "event_ticker": ev.get("event_ticker") or "",
+                # Event ticker date/hour prevents recurrent pairings joining across
+                # weeks; settlement close_time can validly be days after kick-off.
+                "start": kalshi_event_start(ev.get("event_ticker") or ""),
                 "observed_utc": kalshi_obs,
             })
 
@@ -819,12 +922,16 @@ def main() -> None:
         dq0 = dq_norms.get(norm_name(k0 or n0))
         dq1 = dq_norms.get(norm_name(k1 or n1))
 
+        market_exclusions: list[dict] = []
+        lock_utc = f.get("lock_utc") or f.get("start_utc")
         market = market_lookup(f["id"], n0, n1, f.get("start_utc"),
-                               pin_index, pm_index, kalshi_index, bovada_index, kambi_index)
+                               pin_index, pm_index, kalshi_index, bovada_index, kambi_index,
+                               lock=lock_utc, exclusions=market_exclusions)
         row = {
             "id": f["id"],
             "competition": f["competition"],
             "start_utc": f["start_utc"],
+            "lock_utc": f.get("lock_utc"),
             "tier": f["tier"],
             "stage": f["stage"],
             "best_of": f["best_of"],
@@ -848,7 +955,14 @@ def main() -> None:
                       "elo": er1},
         }
 
+        if market_exclusions:
+            row["excluded_market_observations"] = market_exclusions
+
         flags: list[str] = []
+        if market_exclusions:
+            flags.append(
+                f"{len(market_exclusions)} matched market observation(s) excluded because their "
+                "pre-lock timing was not verified; no in-play or untimed quote entered this pick")
         resolution = None
         if dq0 or dq1:
             removed = dq0 or dq1
@@ -965,6 +1079,16 @@ def main() -> None:
                 flags.append("participants not announced")
             else:
                 flags.append("no match history for either team in Leaguepedia")
+
+        if exact_tie(p0, p1):
+            # Never turn display order into a pick. This is especially important for
+            # dual-debut teams where 50/50 is only two identical priors, not match evidence.
+            basis += (" No pick is published: the eligible evidence displays as 50.0% / 50.0%, "
+                      "so choosing either side would be an arbitrary display-order tiebreak. "
+                      "The underlying source links remain available for review.")
+            flags.append("exact 50/50 evidence has no favourite; arbitrary tiebreak pick suppressed")
+            p0 = p1 = None
+            method, confidence = "unresolved", "none"
 
         if market and p0 is not None:
             venues = market.get("venues") or []
@@ -1192,6 +1316,23 @@ def main() -> None:
                    "empty and every affected fixture falls back to an originated line."),
     }
 
+    market_exclusions = []
+    for r in rows:
+        for x in r.get("excluded_market_observations") or []:
+            market_exclusions.append({
+                **x, "competition": r["competition"], "start_utc": r["start_utc"],
+                "team0": r["team0"]["name"], "team1": r["team1"]["name"],
+                "hotspawn_url": r["hotspawn_url"],
+            })
+    save_json(os.path.join(DATA, "market_exclusions.json"), {
+        "generated_utc": iso(now_utc()),
+        "policy": ("Only matched series-winner observations timestamped no later than Hotspawn's "
+                   "lock may enter a market consensus. Later or untimed observations remain linked "
+                   "here for audit but never set a pre-match probability."),
+        "count": len(market_exclusions),
+        "exclusions": market_exclusions,
+    })
+
     save_json(os.path.join(DATA, "matches.json"), {
         "generated_utc": iso(now_utc()),
         "inventory_fetched_utc": hs.get("fetched_utc"),
@@ -1211,6 +1352,9 @@ def main() -> None:
         "market_hygiene": {
             "pinnacle_kills_derivatives_excluded": pin_kills_excluded,
             "archived_receipts_retired": len(retired),
+            "post_lock_or_untimed_observations_excluded": len(market_exclusions),
+            "exact_ties_quarantined": sum(1 for r in rows if r.get("method") == "unresolved"
+                                           and any("exact 50/50" in fl for fl in r.get("flags") or [])),
             "esportsbook_venue_active": bool(receipts),
             "walkover_settlement_count": sum(1 for r in rows if r.get("pick_type") == "settlement"),
         },

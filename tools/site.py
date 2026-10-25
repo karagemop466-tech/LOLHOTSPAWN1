@@ -247,6 +247,10 @@ def match_card(r: dict, show_sources: bool = True) -> str:
                 links.append(f'<a href="{e(v["url"])}" rel="noopener">{e(v["name"])}</a>')
         elif mk.get("market_url"):
             links.append(f'<a href="{e(mk["market_url"])}" rel="noopener">{e(mk["book"])}</a>')
+        for excluded in r.get("excluded_market_observations") or []:
+            if excluded.get("source_url"):
+                links.append(f'<a href="{e(excluded["source_url"])}" rel="noopener">'
+                             f'{e(excluded.get("venue") or "Market")} (excluded post-lock)</a>')
         if (r.get("resolution") or {}).get("source"):
             links.append(f'<a href="{e(r["resolution"]["source"])}" rel="noopener">Forfeit record</a>')
         if r.get("leaguepedia_page"):
@@ -507,6 +511,10 @@ def _row_sources(r: dict) -> str:
     elif r.get("leaguepedia_page"):
         links.append('<a href="https://lol.fandom.com/wiki/' + leaguepedia_slug(r["leaguepedia_page"])
                      + '" rel="noopener">results</a>')
+    for excluded in r.get("excluded_market_observations") or []:
+        if excluded.get("source_url"):
+            links.append('<a href="' + e(excluded["source_url"]) + '" rel="noopener">'
+                         + e(excluded.get("venue") or "market") + ' (excluded)</a>')
     return " &middot; ".join(links)
 
 
@@ -518,7 +526,8 @@ def _stat_totals(rows: list[dict]) -> dict:
         # a settlement pick is a pick, but it carries no probability, so the two counts are
         # reported separately and never added on top of a total that already contains them.
         "priced": priced,
-        "with_pick": priced + len(walkover),
+        "with_pick": sum(1 for r in rows if (r.get("pick") or {}).get("team")),
+        "without_pick": sum(1 for r in rows if not (r.get("pick") or {}).get("team")),
         "walkover": walkover,
         "featured": [r for r in rows if r["method"] == "market"],
         "unresolved": [r for r in rows if r["method"] == "unresolved"],
@@ -529,7 +538,7 @@ def _stat_totals(rows: list[dict]) -> dict:
 
 HOTSPAWN_RULES_URL = "https://play.hotspawn.com/how-it-works"
 LOWTIER_MEMO_URL = ("https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/"
-                    "research/low-tier-sources-2026-10-24.md")
+                    "research/low-tier-sources-2026-10-25.md")
 
 
 def _lowtier_matrix() -> tuple[dict, str, int]:
@@ -559,8 +568,12 @@ def _fallback_rows(rows: list[dict]) -> list[list[str]]:
             parts.append(f"{c['model']} originated")
         if c.get("provisional"):
             parts.append(f"{c['provisional']} provisional")
-        if c.get("unresolved"):
-            parts.append(f"{c['unresolved']} settlement")
+        settlements = sum(1 for r in crs if r.get("resolution"))
+        no_pick = c.get("unresolved", 0) - settlements
+        if settlements:
+            parts.append(f"{settlements} settlement")
+        if no_pick:
+            parts.append(f"{no_pick} no-pick")
         venues = matrix.get(comp) or []
         if venues:
             ext = "Yes &mdash; " + e(", ".join(venues[:3])) + ("&hellip;" if len(venues) > 3 else "")
@@ -574,8 +587,12 @@ def _fallback_rows(rows: list[dict]) -> list[list[str]]:
         if c.get("market") == n:
             limit = "Featured resolution: de-vigged book consensus."
         elif c.get("unresolved"):
-            limit = ("Includes official-forfeit settlements (no %; Hotspawn voids "
-                     "forfeited-match predictions, so expect 0 points either way).")
+            caveats = []
+            if settlements:
+                caveats.append("official-forfeit settlements (no %; Hotspawn voids forfeited-match predictions)")
+            if no_pick:
+                caveats.append("exact 50/50 or unrated cards with no defensible favourite")
+            limit = "Includes " + " and ".join(caveats) + "."
         elif c.get("provisional", 0) * 2 >= n:
             limit = "Thin recorded history on most cards - treat % as directional only."
         elif c.get("provisional"):
@@ -636,6 +653,7 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     provisional = t["provisional"]
     priced_n = t["priced"]
     resolved_total = t["with_pick"]
+    no_pick_n = t["without_pick"]
     meta = load_json(os.path.join(DATA, "matches.json")) or {}
     track = meta.get("track_record") or {}
     fetched = meta.get("inventory_fetched_utc") or ""
@@ -710,11 +728,11 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 
     body = f"""
 <section class="hero" id="start">
-  <h2>Every League of Legends match on Hotspawn, with a pick you can reach in one tap.</h2>
-  <p>All <strong>{total}</strong> scheduled LoL cards, refreshed automatically every six hours. Every card
-  carries a pick: <strong>{len(featured)}</strong> priced from real-money bookmaker lines,
-  <strong>{originated_n}</strong> originated from recorded series results, and
-  <strong>{len(walkover)}</strong> resolved by league rule. Hotspawn's own crowd vote is never an input.</p>
+  <h2>Every League of Legends match on Hotspawn, with defensible picks one tap away.</h2>
+  <p>All <strong>{total}</strong> scheduled LoL cards, refreshed automatically every six hours and accounted for:
+  <strong>{len(featured)}</strong> priced from real-money bookmaker lines, <strong>{originated_n}</strong>
+  originated from recorded series results, <strong>{len(walkover)}</strong> resolved by league rule, and
+  <strong>{no_pick_n}</strong> explicitly unresolved without an arbitrary pick. Hotspawn's own crowd vote is never an input.</p>
   <div class="cta">
     <a class="btn primary" href="table.html">Pick table &mdash; all {total} matches &rarr;</a>
     <a class="btn" href="picks.html">Card view</a>
@@ -818,8 +836,9 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
     ({sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 or (r.get("team1") or {}).get("rating_matches") == 0)}
     involve a debut side with 0 pre-kickoff rated series, including
     {sum(1 for r in provisional if (r.get("team0") or {}).get("rating_matches") == 0 and (r.get("team1") or {}).get("rating_matches") == 0)}
-    where both sides enter at 0/0 rated series and rest solely on equal division priors).</li>
-    <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
+    where both sides enter at 0/0 rated series). Any exact equal-prior 50/50 is quarantined rather than
+    converted into a pick by display order.</li>
+    <li><strong>Full ledger.</strong> Every unresolved card, its settlement or no-pick caveat and all remaining
     limitations are on <a href="unresolved.html">Unresolved &amp; limitations</a>; data irregularities are on
     <a href="flagged.html">Flagged for review</a>.</li>
   </ul>
@@ -832,8 +851,8 @@ def build_index(rows: list[dict], counts: Counter, src_status: list[dict]) -> st
 </section>
 """
     return page_shell("Hotspawn LoL Pick Desk", "index.html", body,
-                      "Independent win probabilities and a pick for every League of Legends match in the "
-                      "Hotspawn pick'em.")
+                      "Independent win probabilities and defensible picks for every League of Legends match "
+                      "in the Hotspawn pick'em, with explicit unresolved limitations.")
 
 
 def build_results(rows: list[dict]) -> str:
@@ -1108,7 +1127,7 @@ def build_featured(rows: list[dict]) -> str:
     body = f"""
 <section class="panel">
   <h2>{len(items)} matches with real-money bookmaker &amp; exchange consensus</h2>
-  <p class="lead">Featured matches combine live quotes across <strong>Pinnacle (weight 0.36), Polymarket
+  <p class="lead">Featured matches combine verified pre-lock quotes across <strong>Pinnacle (weight 0.36), Polymarket
   full-series CLOB (0.24), Kalshi CFTC regulated contracts (0.18), Bovada (0.12) and Unibet/Kambi (0.10)</strong>.
   Bookmaker margin is removed proportionally on each venue before precision weighting. Symmetric 1.80 / 1.80
   aggregator placeholders are rejected, Pinnacle's parallel &quot;(Kills)&quot; derivative markets are excluded
@@ -1167,6 +1186,8 @@ def build_originated(rows: list[dict], counts: Counter) -> str:
 def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] | None = None) -> str:
     unresolved = sorted([r for r in rows if r["method"] == "unresolved"],
                         key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
+    settlements = [r for r in unresolved if r.get("resolution")]
+    no_pick = [r for r in unresolved if not r.get("resolution")]
     provisional = sorted([r for r in rows if r["method"] == "provisional"],
                          key=lambda r: (r.get("stale", False), r["start_utc"] or "9999"))
     zero_hist = [r for r in rows if r["method"] == "provisional"
@@ -1198,12 +1219,16 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
             + (f' &middot; <a href="{e(res["source"])}" rel="noopener">forfeit record</a>' if res else ""),
         ])
     lim_rows = [
-        ["Mid-split league removals (dqteams)", f"{len(unresolved)} matches",
+        ["Mid-split league removals (dqteams)", f"{len(settlements)} matches",
          "Leaguepedia's Data: page for the competition records the removal (for Komplettligaen, Round 10 carries the "
          "footnote '[[Solid Gaming]] is removed from the league.' and every remaining series is scored 0-2 with an ff "
          "flag). Hotspawn's published rule voids all predictions on a forfeited match, so the expected outcome "
          "is 0 points either way; an Elo probability built from pre-removal results would be invalid, so the row "
          "is quarantined and only the administrative winner is shown, with no percentage."],
+        ["No defensible favourite", f"{len(no_pick)} matches",
+         "The eligible market/model evidence is exactly 50/50, or neither side has a usable rating. A team-name or "
+         "display-order tiebreak would invent confidence, so probabilities and the pick stay blank while the raw "
+         "source links and the precise reason remain visible."],
         ["No sportsbook market on national divisions", f"{len([r for r in rows if r['method']!='market'])} matches",
          "Only the competitions listed on the Market page have a reachable price in this snapshot. The remaining "
          "national, academy and third-division leagues are not offered by any book the build runner can reach, so "
@@ -1214,8 +1239,8 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
         ["Zero pre-kickoff history (debut sides)",
          f"{len(zero_hist)} matches ({len(both_zero)} dual-debut)",
          "One or both teams enter kick-off with 0 prior Leaguepedia rated series and are anchored strictly to their "
-         "division prior (1700 / 1575 / 1500 / 1455). Where both sides have 0 rated series, the 50.0% / 50.0% split "
-         "reflects identical division priors rather than match evidence (see Flagged for review)."],
+         "division prior (1700 / 1575 / 1500 / 1455). If those inputs produce an exact 50/50, the row is moved to "
+         "Unresolved instead of publishing an arbitrary team-order pick; unequal prior-only lines remain provisional."],
         ["Name disambiguation",
          f"{len(non_exact)} disambiguated ({len(ambiguous)} unresolved)",
          "Homonymous regional teams (e.g. 'Fenrir (Icelandic Team)' vs Polish 'Fenrir', 'PvB (Swiss Team)' mislabelled "
@@ -1242,17 +1267,17 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
 
     body = f"""
 <section class="panel">
-  <h2>Unresolved picks ({len(unresolved)})</h2>
-  <p class="lead">A fixture is quarantined here when no defensible win probability exists — specifically
-  mid-split league disqualifications/removals (<code>dqteams</code>) where matches are never played on the Rift,
-  or cards with no match history on either side. Where the competition record already awards a forfeit, the
-  official settlement winner is listed in its own column. Leaguepedia is a community source, not a settlement
+  <h2>Unresolved picks ({len(unresolved)}: {len(no_pick)} no-pick, {len(settlements)} settlement-only)</h2>
+  <p class="lead">A fixture is quarantined here when no defensible win probability or favourite exists — specifically
+  mid-split league disqualifications/removals (<code>dqteams</code>), unrated cards, or exact 50/50 evidence where
+  choosing a side would be arbitrary. Where the competition record already awards a forfeit, the administrative
+  settlement winner is listed separately from no-pick rows. Leaguepedia is a community source, not a settlement
   authority. Hotspawn's published rule is explicit &mdash; <em>&ldquo;If a match is forfeited, all predictions
   for that match are voided. No points are awarded or deducted&rdquo;</em>
   (<a href="{HOTSPAWN_RULES_URL}" rel="noopener">Hotspawn &mdash; How Pick'ems Works</a>, checked 2026-10-24)
   &mdash; so expect a forfeit card to score zero whichever side you tap; the winner shown is the
   administratively correct side only if Hotspawn grades a walkover instead of voiding.</p>
-  {'<p class="muted">No unresolved matches in this snapshot.</p>' if not unresolved else table(["Start (UTC)", "Tournament", "Match", "Official settlement pick", "Why competitive pricing is impossible", "Verified Sources"], reason_rows)}
+  {'<p class="muted">No unresolved matches in this snapshot.</p>' if not unresolved else table(["Start (UTC)", "Tournament", "Match", "Pick / settlement", "Why no competitive pick is defensible", "Sources for manual review"], reason_rows)}
 </section>
 
 <section class="panel">
@@ -1266,7 +1291,8 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
   pick instead, and the limitation to keep in mind. Order of trust: <strong>market</strong> (de-vigged book
   consensus) &rarr; <strong>originated</strong> (our Elo from recorded series history) &rarr;
   <strong>provisional</strong> (same Elo on thin data, % shrunk toward 50%) &rarr;
-  <strong>settlement</strong> (administrative forfeit winner, no %; Hotspawn voids forfeited-match predictions).
+  <strong>settlement</strong> (administrative forfeit winner, no %) &rarr; <strong>no pick</strong> (unrated or exact
+  50/50 evidence, with the limitation stated). Hotspawn voids forfeited-match predictions.
   External-line evidence: {lowtier_n} established books, esportsbooks, exchanges and aggregators probed from the
   build runner on {e(lowtier_date)} &mdash; <a href="{LOWTIER_MEMO_URL}" rel="noopener">research memo</a> and
   machine-readable receipts in <code>data/probe/lowtier_20261024.json</code>. A keyed odds API might widen
@@ -1276,8 +1302,8 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
 
 <section class="panel" id="line-hunt">
   <h2>Where we looked for a line</h2>
-  <p class="lead">No percentage is published for the matches above because no reachable source quotes them.
-  These are the books, exchanges and odds aggregators probed on the current build, with the runner's own HTTP
+  <p class="lead">For cards without a usable external line, these are the books, exchanges and odds aggregators
+  probed on the current build, with the runner's own HTTP
   verdict: a source marked <em>blocked</em> was tried and refused the connection, so it cannot back a pick even
   where it might show a price in a browser. Additional sources that were researched and ruled out, with the
   exact response each returned, are logged in
@@ -1368,15 +1394,16 @@ def build_methodology(model: dict) -> str:
     <strong>Pinnacle (0.36), Polymarket full-series CLOB (0.24), Kalshi CFTC (0.18), Bovada (0.12) and
     Unibet/Kambi (0.10)</strong> are de-vigged proportionally and precision-weighted. Only series moneylines are
     accepted: Pinnacle's parallel &quot;(Kills)&quot; derivative is filtered out in <code>collect.py</code> and
-    again in <code>model.py</code>, and archived third-party quotes that cannot be re-verified on the build
-    machine are retired rather than reused.</li>
+    again in <code>model.py</code>; only observations timestamped no later than Hotspawn's pick lock are eligible,
+    so an in-play or untimed quote cannot become a pre-match pick; archived third-party quotes that cannot be
+    re-verified on the build machine are retired rather than reused.</li>
     <li><strong>Tier 2 — Originated regional Elo lines.</strong> All recorded Leaguepedia series since
     {e(model.get('window_start',''))} are processed strictly chronologically with division priors
     (1700 major / 1575 challenger-tier-2 / 1500 regional / 1455 open-div-3), series margin-of-victory scaling,
     inactivity decay and empirical Bayes shrinkage toward each team's tier prior.</li>
     <li><strong>Tier 3 — Provisional &amp; Unresolved quarantine.</strong> Thin-sample teams (&lt;5 series) are marked
-    <em>provisional</em>; officially removed mid-split teams (<code>dqteams</code>) are quarantined in
-    <a href="unresolved.html">Unresolved</a> rather than mispriced.</li>
+    <em>provisional</em>; officially removed mid-split teams (<code>dqteams</code>), unrated cards and exact 50/50
+    evidence are quarantined in <a href="unresolved.html">Unresolved</a> rather than mispriced or tie-broken by display order.</li>
     <li><strong>Automated publish gate.</strong> Every 6 hours GitHub Actions re-runs the full pipeline and
     executes the publish gate (<a href="verification.html">Verification</a>) before publishing to GitHub Pages;
     a failing assertion aborts the commit instead of shipping bad data.</li>
@@ -1432,9 +1459,12 @@ def build_methodology(model: dict) -> str:
     <li><strong>Official walkovers are not forecasts.</strong> Where a league has ruled a forfeit, the settlement
     winner is published in a separate field with no probability and is excluded from the backtest and from the
     market-coverage counts.</li>
-    <li><strong>Receipts expire.</strong> A bookmaker quote captured from a match page is a line only while it is
-    fresh; archived receipts older than 24 hours are excluded from the consensus, so an affected match falls back
-    to the live venues or to the model rather than to a stale price.</li>
+    <li><strong>Receipts expire and in-play prices are not pre-match evidence.</strong> A bookmaker quote captured
+    from a match page is a line only while it is fresh; archived receipts older than 24 hours are excluded. Every
+    live venue observation must also be timestamped no later than Hotspawn's pick lock. Later or untimed observations
+    are linked in <a href="data/market_exclusions.json">the exclusion ledger</a> and never enter the consensus.</li>
+    <li><strong>No arbitrary coin-flip pick.</strong> Exact or displayed 50/50 evidence has no favourite. Those rows
+    move to Unresolved with both probabilities and the pick blank rather than silently choosing the first-listed team.</li>
     <li><strong>Market vs model is disclosed.</strong> Every market-priced row also publishes our own Elo
     probability and flags a gap of 20 percentage points or more, instead of quietly blending the two.</li>
     <li><strong>Explicit quarantine over guesswork.</strong> Disqualified teams (<code>dqteams</code>) get a
@@ -1582,6 +1612,7 @@ def build_verification(rows: list[dict], matching: dict, verification: dict | No
     <li><a href="data/verification.json">data/verification.json</a> &mdash; machine-readable output of all verification checks.</li>
     <li><a href="data/audit.json">data/audit.json</a> &mdash; the manual source audit reproduced above.</li>
     <li><a href="data/retired_quotes.json">data/retired_quotes.json</a> &mdash; archived quotes that were excluded as unverifiable.</li>
+    <li><a href="data/market_exclusions.json">data/market_exclusions.json</a> &mdash; post-lock or untimed venue observations excluded from pre-match pricing.</li>
   </ul>
 </section>
 """
@@ -1598,7 +1629,8 @@ def _sev_pill(sev: str | None) -> str:
 def _fixture_irregularities(r: dict) -> list[str]:
     notes: list[str] = []
     if r.get("method") == "unresolved":
-        notes.append("quarantined (dqteams removal / settlement only)")
+        notes.append("settlement-only (dqteams removal)" if r.get("resolution")
+                     else "no defensible pick (unrated or exact 50/50 evidence)")
     t0 = r.get("team0") or {}
     t1 = r.get("team1") or {}
     z0 = "rating_matches" in t0 and t0.get("rating_matches") == 0
@@ -1612,7 +1644,8 @@ def _fixture_irregularities(r: dict) -> list[str]:
         notes.append((r.get("market") or {}).get("thin_note") or "thin single-venue market")
     for fl in (r.get("flags") or []):
         if any(k in fl for k in ("retired as unverifiable", "market and model disagree",
-                                 "explicit alias", "kick-off time differs")):
+                                 "explicit alias", "kick-off time differs", "pre-lock timing",
+                                 "exact 50/50")):
             notes.append(fl)
     return notes
 
@@ -1649,11 +1682,11 @@ def build_flagged(flags: list[dict], rows: list[dict] | None = None) -> str:
     body = f"""
 <section class="panel">
   <h2>Independent audit trail</h2>
-  <p class="lead">A second, independent line-by-line audit of this dataset (session <code>0d48f265</code>) is
-  published as a standalone document with a source link and an explicit verdict on every row:
+  <p class="lead">Independent line-by-line audits are published with their snapshot date and scope stated:
   <a href="audit/AUDIT.md"><strong>audit/AUDIT.md</strong></a> (machine-readable companion:
-  <a href="audit/audit.csv">audit/audit.csv</a>). The manual spot-checks performed by the publishing session
-  are on <a href="verification.html">Verification</a>.</p>
+  <a href="audit/audit.csv">audit/audit.csv</a>) and <a href="audit/README.md">the recomputation audit</a>.
+  Historical reports are not represented as live verification of a newer snapshot. Current machine gates and
+  manual spot-checks are on <a href="verification.html">Verification</a>.</p>
 </section>
 
 <section class="panel">
@@ -1665,10 +1698,10 @@ def build_flagged(flags: list[dict], rows: list[dict] | None = None) -> str:
 {fixture_panel}
 <section class="panel">
   <h2>Independent audits behind this page</h2>
-  <p class="lead">Two separate audit passes re-checked the committed snapshot and did not use the same code as
-  the publish gate. Both are published in full, including what they could not verify.</p>
+  <p class="lead">Separate audit passes re-check committed snapshots without using the same code as the publish
+  gate. Reports remain available in full, including their dates, scope and what they could not verify.</p>
   <ul class="linklist">
-    <li><a href="audit/AUDIT.md">Source audit (row by row) &rarr;</a><span>241-row table, live receipts, findings F1&ndash;F8.</span></li>
+    <li><a href="audit/AUDIT.md">Source audit (row by row) &rarr;</a><span>Dated snapshot table, live receipts and findings; see report scope.</span></li>
     <li><a href="audit/audit.csv">Row audit CSV &rarr;</a><span>Per-match verdict and Hotspawn card link.</span></li>
     <li><a href="audit/README.md">Recomputation audit &rarr;</a><span>Every published number re-derived from the raw provider payloads.</span></li>
     <li><a href="audit/report.md">Latest recomputation result &rarr;</a><span>Failures and warnings for the current build.</span></li>

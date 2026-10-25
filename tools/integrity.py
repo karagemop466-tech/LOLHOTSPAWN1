@@ -41,6 +41,10 @@ def row_errors(row):
         return ['probabilities must be finite numbers in [0,1]']
     if abs(p0 + p1 - 1) > .002:
         errors.append('probabilities do not sum to one')
+    if abs(p0 - .5) < .0005 and abs(p1 - .5) < .0005:
+        # A displayed 50.0% tie has no favourite. Choosing team0 here would make
+        # display order a hidden model input; quarantine it as unresolved instead.
+        errors.append('displayed 50/50 has no defensible favourite')
     side = 0 if p0 >= p1 else 1
     if not isinstance(pick, dict):
         return errors + ['missing pick']

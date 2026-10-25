@@ -187,13 +187,13 @@ python3 tools/collect.py && python3 tools/model.py && python3 tools/report.py \
   && python3 tools/flags.py && python3 tools/site.py && python3 tools/corroborate.py \
   && python3 tools/verify.py
 # research-only: does any book list the low-tier tail? (runner receipts, never prices a match)
-python3 tools/probe_lowtier.py   # -> data/probe/lowtier_<date>.json; memo: research/low-tier-sources-2026-10-24.md
+python3 tools/probe_lowtier.py   # -> data/probe/lowtier_<date>.json; latest memo: research/low-tier-sources-2026-10-25.md
 ```
 
 The collector needs outbound HTTPS to the sources listed on `sources.html`; the rest runs offline on
 the files in `data/`.
 
-### Integrity and freshness review (2026-10-24)
+### Integrity and freshness review (2026-10-25)
 
 The canonical mobile controls are wired to the current HTML (search, tournament,
 method chips, menu); inventory collection time is tracked separately from model build time.
@@ -210,6 +210,9 @@ Leaguepedia is a community source; its results are not labelled official league
 verification. Model probabilities are estimates, never confirmed facts. Officially removed
 mid-split teams (`dqteams`) are quarantined in `unresolved.html` with settlement-only picks
 and no probability. Debut teams with 0 prior rated series are explicitly flagged on `flagged.html`.
+Exact or displayed 50/50 evidence has no defensible favourite and is quarantined rather than tie-broken by
+team/display order. Every market observation must be timestamped no later than Hotspawn's pick
+lock; post-lock and untimed quotes are excluded and receipted in `data/market_exclusions.json`.
 
 Run `python3 -m unittest discover -s tests -v`, `NODE_PATH=<jsdom> node tests/dashboard.cjs`,
 `python3 audit/mobile_audit.py`, `python3 audit/check_site.py`, and `python3 tools/verify.py`.
@@ -217,9 +220,11 @@ The gate reconciles the exact inventory ID multiset, checks finite probabilities
 verifies the named favourite, checks each match card's unique ID, asserts a 1:1 mirror of the
 Hotspawn feed (IDs and per-tournament counts), asserts that **no fixture uses a rating from after its
 own kick-off**, verifies mobile `data-label` stacking across all 14 pages, and enforces the
-settlement-pick contract (a settlement pick names a listed participant and carries no probability).
+settlement-pick contract (a settlement pick names a listed participant and carries no probability),
+pre-lock market timestamps, and the prohibition on arbitrary exact-tie picks.
 
 The canonical Elo model (`tools/model.py`) uses division priors (`1700 / 1575 / 1500 / 1455`),
-series margin-of-victory scaling (`K=26`, `1 + 0.18 * max(0, diff - 1)`), inactivity decay after 90 days,
-and empirical Bayes shrinkage (`shrink=5`), pricing every fixture strictly from its pre-kickoff rating
+series margin-of-victory scaling (`K=26`, `1 + 0.18 * max(0, diff - 1)`), inactivity decay after 45 days
+(back to the division prior over the next 450 days), and empirical Bayes shrinkage (`shrink=5`),
+pricing every fixture strictly from its pre-kickoff rating
 state (see `methodology.html` and `data/matches.json` for live out-of-sample backtest metrics).

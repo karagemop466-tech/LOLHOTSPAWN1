@@ -78,12 +78,40 @@ def main() -> None:
 
     unresolved = [r for r in rows if r["method"] == "unresolved"]
     if unresolved:
+        settlement_n = sum(1 for r in unresolved if r.get("resolution"))
+        no_pick_n = len(unresolved) - settlement_n
         flags.append({
             "severity": "medium",
-            "item": f"{len(unresolved)} match(es) have no win probability (settlement pick only)",
+            "item": (f"{len(unresolved)} match(es) have no win probability "
+                     f"({no_pick_n} no-pick, {settlement_n} settlement-only)"),
             "detail": "; ".join(f"{r['team0']['name']} vs {r['team1']['name']} ({r['competition']}): {r['basis']}"
                                 for r in unresolved[:6]),
             "source": HOTSPAWN,
+        })
+
+    exact_ties = [r for r in unresolved if any("exact 50/50" in fl for fl in r.get("flags") or [])]
+    if exact_ties:
+        flags.append({
+            "severity": "medium",
+            "item": f"{len(exact_ties)} exact 50/50 fixture(s) quarantined instead of picking by display order",
+            "detail": ("Equal market/model evidence has no favourite. Both probabilities and the pick are blank "
+                       "on these rows; the source and the pre-tie calculation remain in the basis for review: "
+                       + "; ".join(f"#{r['id']} {r['team0']['name']} vs {r['team1']['name']}"
+                                   for r in exact_ties[:8])),
+            "source": exact_ties[0].get("hotspawn_url") or HOTSPAWN,
+            "verification": "derived from exact p0 == p1 == 0.5 before quarantine",
+        })
+
+    excluded = [x for r in rows for x in r.get("excluded_market_observations") or []]
+    if excluded:
+        flags.append({
+            "severity": "high",
+            "item": f"{len(excluded)} post-lock or untimed market observation(s) excluded from pre-match pricing",
+            "detail": ("Only observations timestamped no later than Hotspawn's pick lock are eligible. Excluded: "
+                       + "; ".join(f"#{x['fixture_id']} {x.get('venue')} observed {x.get('observed_utc')} "
+                                   f"vs lock {x.get('lock_utc')}" for x in excluded[:8])),
+            "source": next((x.get("source_url") for x in excluded if x.get("source_url")), HOTSPAWN),
+            "verification": "per-fixture observation and lock timestamps compared on every build",
         })
 
     provisional = counts.get("provisional", 0)
@@ -111,10 +139,10 @@ def main() -> None:
         )
         flags.append({
             "severity": "high",
-            "item": f"{len(zero_both)} fixture(s) have 0 pre-kickoff rated series on BOTH sides (equal debut prior only)",
+            "item": f"{len(zero_both)} fixture(s) have 0 pre-kickoff rated series on BOTH sides (unequal prior-only)",
             "detail": ("Neither team had a completed Leaguepedia series before kick-off and no external bookmaker "
-                       "price exists, so the published 50.0% / 50.0% split reflects identical division priors rather "
-                       "than match evidence: " + examples + "."),
+                       "price exists, so these unequal lines rest only on division priors rather than team match "
+                       "evidence: " + examples + ". Exact equal-prior 50/50 rows are quarantined separately."),
             "source": zero_both[0].get("hotspawn_url") or HOTSPAWN,
             "verification": "derived from pre-kickoff rating_matches == 0 on both sides",
         })

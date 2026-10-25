@@ -126,6 +126,8 @@ VENUES = [
     # --- odds aggregators / comparison engines -----------------------------
     ("EGamersWorld LoL matches", "https://egamersworld.com/lol/matches",
      "odds aggregator", "widest published LoL coupon incl. national divisions"),
+    ("Esports Insider LoL odds board", "https://esportsinsider.com/betting-odds/lol",
+     "odds aggregator + model", "1xBet/GG.bet comparison; distinguish real book prices from ESI-only model percentages"),
     ("OddsPortal LoL", "https://www.oddsportal.com/esports/league-of-legends/",
      "odds aggregator", "multi-book comparison index"),
     ("Oddspedia LoL", "https://oddspedia.com/esports/league-of-legends",

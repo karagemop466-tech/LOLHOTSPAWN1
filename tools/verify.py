@@ -85,7 +85,8 @@ def main() -> None:
     add("every row links to its Hotspawn match card", not missing_source,
         f"{len(rows) - len(missing_source)}/{len(rows)} rows carry a Hotspawn URL")
     add("probabilities sum to 100% (tolerance 0.2pp)", not bad_prob,
-        f"{len(rows) - len(bad_prob)} priced rows verified; problems: {bad_prob[:5]}")
+        f"{sum(1 for r in rows if r.get('method') != 'unresolved')} priced rows checked; "
+        f"problems: {bad_prob[:5]}")
     add("pick matches the higher probability", not bad_pick,
         f"{len(rows) - len(set(bad_pick))} rows consistent; problems: {sorted(set(bad_pick))[:5]}")
     settlement = sum(1 for r in rows if r.get("pick_type") == "settlement")
@@ -113,6 +114,17 @@ def main() -> None:
     add("every market pick carries an official quote URL", not bad_market_src,
         f"problems: {bad_market_src[:5]}")
 
+    from model import prelock_observation
+    bad_quote_times = []
+    for r in rows:
+        cutoff = r.get("lock_utc") or r.get("start_utc")
+        for venue in (r.get("market") or {}).get("venues") or []:
+            if not prelock_observation(venue, cutoff):
+                bad_quote_times.append(f"{r['id']}:{venue.get('name')}:{venue.get('observed_utc')}")
+    exclusion_n = sum(len(r.get("excluded_market_observations") or []) for r in rows)
+    add("every published market quote is verified pre-lock", not bad_quote_times,
+        f"{exclusion_n} later/untimed observations excluded; published violations: {bad_quote_times[:5]}")
+
     # Regression for the wrong-matchup bug: every Pinnacle quote URL must point at a
     # matchup id that exists in the collected Pinnacle feed.
     pin_raw = load_json(os.path.join(DATA, "raw", "pinnacle_lol.json")) or {}
@@ -129,7 +141,7 @@ def main() -> None:
     add("Pinnacle quote URLs point at collected matchups", not bad_pin_ids,
         f"{len(pin_ids)} matchup ids in feed; problems: {bad_pin_ids[:5]}")
 
-    from model import same_team
+    from model import same_team, _parse_utc
     kambi_raw = load_json(os.path.join(DATA, "raw", "kambi_lol.json")) or {}
     kambi_fresh = False
     try:
@@ -144,8 +156,15 @@ def main() -> None:
             kouts = kev.get("outcomes") or []
             if len(kouts) != 2:
                 continue
+            kobs = kev.get("changed_utc") or kambi_raw.get("fetched_utc")
+            kstart = _parse_utc(kev.get("start_utc"))
             for r in rows:
                 if r.get("method") != "market":
+                    continue
+                if not prelock_observation({"observed_utc": kobs}, r.get("lock_utc") or r.get("start_utc")):
+                    continue
+                rstart = _parse_utc(r.get("start_utc"))
+                if kstart and rstart and abs((kstart - rstart).total_seconds()) > 36 * 3600:
                     continue
                 if ((same_team(r["team0"]["name"], kouts[0]["name"]) and same_team(r["team1"]["name"], kouts[1]["name"]))
                         or (same_team(r["team0"]["name"], kouts[1]["name"]) and same_team(r["team1"]["name"], kouts[0]["name"]))):
@@ -371,11 +390,13 @@ def main() -> None:
     # Coverage arithmetic must never exceed the inventory (a 245-of-241 regression shipped once).
     priced_n = sum(1 for r in rows if r.get("p0") is not None)
     settled_n = sum(1 for r in rows if r.get("resolution"))
-    with_pick_n = sum(1 for r in rows if r.get("pick"))
+    with_pick_n = sum(1 for r in rows if (r.get("pick") or {}).get("team"))
+    without_pick_n = sum(1 for r in rows if not (r.get("pick") or {}).get("team"))
     add("coverage arithmetic reconciles to the inventory",
-        priced_n + settled_n == with_pick_n == len(rows),
-        f"priced={priced_n} + settlements={settled_n} = {priced_n + settled_n}; "
-        f"rows with a pick={with_pick_n}; inventory={len(rows)}")
+        priced_n + settled_n + without_pick_n == len(rows)
+        and with_pick_n + without_pick_n == len(rows),
+        f"priced={priced_n} + settlements={settled_n} + documented no-pick={without_pick_n} "
+        f"= {priced_n + settled_n + without_pick_n}; rows with a pick={with_pick_n}; inventory={len(rows)}")
     method_counts = data.get("counts") or {}
     add("method counts partition matches.json cleanly",
         sum(int(v) for v in method_counts.values()) == len(rows)
@@ -440,7 +461,7 @@ def main() -> None:
         "passed": all(c["ok"] for c in checks),
         "rows_checked": len(rows),
         "rows_with_source": len(rows) - len(missing_source),
-        "rows_prob_ok": len(rows) - len(set(bad_prob)),
+        "rows_prob_ok": sum(1 for r in rows if r.get("method") != "unresolved") - len(set(bad_prob)),
         "unverified": len(unverified),
         "counts": dict(counts),
         "internal_links": sum(hrefs.values()),
