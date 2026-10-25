@@ -117,6 +117,41 @@ class ShortCodeMatching(unittest.TestCase):
         self.assertLessEqual(len(ev[0]["context"]), 200)
 
 
+class FixturePairMatching(unittest.TestCase):
+    """A venue only counts as pricing a match when both opponents appear.
+
+    The 2026-10-25 receipts matched single team names that are ordinary English words - "DELETED"
+    inside page CSS, "Arena" inside Rivalry's page chrome, "Venus" inside a BetOnline bundle - so a
+    single-name hit is not evidence of a market. Both sides of one fixture is.
+    """
+
+    FIXTURES = [{"id": "1", "competition": "Worlds 2026 Main Event",
+                 "team0": "Top Esports", "team1": "G2 Esports"},
+                {"id": "2", "competition": "PRM 3rd Division 26-27 Fall",
+                 "team0": "AceGaming Hearts", "team1": "Emperors Bremen"},
+                {"id": "3", "competition": "Arabian League 2nd Division 2026 Summer",
+                 "team0": "DELETED", "team1": "S7raa"}]
+
+    def test_both_sides_of_a_fixture_are_matched(self) -> None:
+        hit = probe.matched_fixtures("Top Esports 2.05 - G2 Esports 1.68", self.FIXTURES)
+        self.assertEqual([f["id"] for f in hit], ["1"])
+
+    def test_one_side_alone_is_not_a_match(self) -> None:
+        self.assertEqual(probe.matched_fixtures("Top Esports preview", self.FIXTURES), [])
+
+    def test_generic_team_name_alone_is_not_a_match(self) -> None:
+        # verbatim shapes from the receipts: CSS, page chrome, a JS bundle
+        text = "font-family:DELETED; nav Arena | Venus and Serena; bundle.json"
+        self.assertEqual(probe.matched_fixtures(text, self.FIXTURES), [])
+
+    def test_generic_name_with_its_opponent_does_match(self) -> None:
+        hit = probe.matched_fixtures("DELETED vs S7raa - 16 Oct", self.FIXTURES)
+        self.assertEqual([f["id"] for f in hit], ["3"])
+
+    def test_empty_response_matches_nothing(self) -> None:
+        self.assertEqual(probe.matched_fixtures("", self.FIXTURES), [])
+
+
 class PinnacleInventoryShape(unittest.TestCase):
     """A failed fetch must be recorded as a failure, never as 'the book has no LoL leagues'."""
 

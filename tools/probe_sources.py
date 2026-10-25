@@ -381,10 +381,51 @@ def pinnacle_league_inventory(aliases: dict[str, list[str]], retries: int = 2) -
     return doc
 
 
+def fixtures_from_inventory() -> list[dict]:
+    """Every fixture on today's Hotspawn list, as the pair of names a venue would print."""
+    hs = load_json(os.path.join(RAW, "hotspawn_lol.json")) or {}
+    out = []
+    for f in hs.get("fixtures") or []:
+        t0 = (f.get("team0") or {}).get("name")
+        t1 = (f.get("team1") or {}).get("name")
+        if t0 and t1:
+            out.append({"id": str(f.get("id") or ""),
+                        "competition": (f.get("competition") or "").strip(),
+                        "team0": str(t0), "team1": str(t1)})
+    return out
+
+
+def _name_match(text: str, name: str):
+    if len(name) < 5:
+        # Two- and three-letter org names are unusable as substrings; require a whole word.
+        return re.search(r"(?<![A-Za-z0-9])" + re.escape(name) + r"(?![A-Za-z0-9])", text, re.I)
+    return re.search(re.escape(name), text, re.I)
+
+
+def matched_fixtures(text: str, fixtures: list[dict], limit: int = 10) -> list[dict]:
+    """Fixtures for which a response names **both** sides.
+
+    A single team name is weak evidence: the 2026-10-25 receipts matched "DELETED" inside page
+    CSS, "Arena" inside Rivalry's chrome and "Venus" inside BetOnline's bundle. A real coupon
+    prints both opponents, so requiring both sides of the same fixture removes that class of
+    false positive without adding any judgement about prices.
+    """
+    if not text:
+        return []
+    out = []
+    for f in fixtures:
+        if _name_match(text, f["team0"]) and _name_match(text, f["team1"]):
+            out.append(f)
+            if len(out) >= limit:
+                break
+    return out
+
+
 def main() -> None:
     os.makedirs(PROBE_DIR, exist_ok=True)
     names = known_names()
     aliases = competition_aliases()
+    fixtures = fixtures_from_inventory()
     results = []
     for name, url, kind, why in SOURCES:
         headers_note = ""
@@ -395,6 +436,7 @@ def main() -> None:
         found = [n for n in names if n.lower() in text.lower()]
         comps = match_competitions(text, aliases)
         evidence = competition_evidence(text, aliases)
+        pairs = matched_fixtures(text, fixtures)
         row = {
             "name": name,
             "url": url,
@@ -412,6 +454,9 @@ def main() -> None:
             "found_competitions_by_code": sorted(
                 {e["competition"] for e in evidence if e["token_kind"] == "code"}),
             "found_competition_evidence": evidence,
+            "found_fixtures": [{"id": f["id"], "competition": f["competition"],
+                                "match": f"{f['team0']} vs {f['team1']}"} for f in pairs],
+            "found_fixture_count": len(pairs),
             "signals": odds_signals(text) if text else {},
             "snippet": re.sub(r"\s+", " ", text[:400]).strip() if text else "",
         }
@@ -431,6 +476,12 @@ def main() -> None:
                         "Status/bytes are what the build runner actually received; a 403 from the "
                         "runner is recorded as blocked even if a browser can open the page."),
         "team_names_used": names,
+        "fixtures_tested": len(fixtures),
+        # The decisive row-level test: a venue that prints both sides of a fixture has a market
+        # on that fixture. Single-name hits are reported but never described as coverage.
+        "venues_quoting_both_sides_of_a_listed_fixture": [
+            {"name": r["name"], "fixtures": r["found_fixtures"]}
+            for r in results if r.get("found_fixture_count")],
         "competition_aliases": aliases,
         "pinnacle_league_inventory": inventory,
         # Split by evidence strength: a competition's full published name (or the Leaguepedia
@@ -451,8 +502,11 @@ def main() -> None:
               (r.get("signals") or {}).get("has_decimal_pair")]
     log(f"probe summary: {len(ok)}/{len(results)} HTTP 200, {len(usable)} show team names + decimal pairs")
     matched = [r["name"] for r in results if r.get("found_competitions_by_name")]
+    quoting = [r["name"] for r in results if r.get("found_fixture_count")]
     log(f"league-level: Pinnacle lists {len(inventory.get('lol_leagues') or [])} LoL league(s); "
-        f"{len(matched)} venue(s) mention a Hotspawn competition by name")
+        f"{len(matched)} venue(s) mention a Hotspawn competition by name; "
+        f"{len(quoting)} venue(s) print both sides of a listed fixture")
+    print(json.dumps({"venues_quoting_both_sides": quoting}, indent=2))
     print(json.dumps({"http_200": [r["name"] for r in ok],
                       "line_candidates": [r["name"] for r in usable],
                       "venues_naming_a_hotspawn_competition": matched,
