@@ -3366,7 +3366,13 @@ merged cleanly with `main` @ `0e36d34` (preserving 100% of `650571cf`, `1773543b
 ## Session `154d8c26` (`arena/154d8c26-lolhotspawn1`) — Complete Record (D1–D4)
 
 - **Branch:** `arena/154d8c26-lolhotspawn1`
-- **Status:** `done -> merging PR`
+- **Status:** `done`
+- **PR & merge:** [**#125**](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/125) (`arena/154d8c26-lolhotspawn1` → `main`) — **MERGED 2026-10-25T14:55:41Z**, merge commit **`699a4ba`** (`699a4ba793a9e7da4b48f364400e8d8f9ff52ad9`).
+- **Post-merge live runner & GitHub Pages verification:**
+  - `refresh-docs` run **`40204523291`** → **SUCCESS**, published `dd91012` (`sched=234 active=157 mkt=9 model=218 unres=0 dq=4 flags=15`).
+  - `refresh-picks` run **`40204523315`** → **SUCCESS**, published `f60eb0a` (`data/raw/smarkets_lol.json` fetched live at `2026-10-25T14:56:44Z`, HTTP 200, 8/8 Worlds series; `data/verification.json` `57/57` checks PASS; `node scripts/build_site.mjs` + `audit/verify_docs_parity.py` green in-band).
+  - `Secondary dashboard parity gate` run **`40204523284`** → **SUCCESS**.
+  - `pages build and deployment` run **`40204522504`** → **SUCCESS** (`build` + `deploy` green); live renders verified at <https://karagemop466-tech.github.io/LOLHOTSPAWN1/> (`9 priced from real bookmaker lines: Bovada, Kalshi, Pinnacle, Polymarket, Smarkets, Unibet`, `57-check publish gate`), <https://karagemop466-tech.github.io/LOLHOTSPAWN1/featured.html> (`6-Venue Consensus` with clickable `smarkets.com` match links on all 8 Worlds series), and <https://karagemop466-tech.github.io/LOLHOTSPAWN1/docs/index.html> (`External venues: 6 — 50 quotes joined`).
 - **Merge-conflict resolution log (`origin/main` @ `123c731`):** Integrated concurrent merges `#117` (`1773543b`), `#119` (`2faec1ff`), `#120` (`aa39a6d5`), `#121` (`650571cf`), `#122` (`be974159`), and `#124` (`9d0a516d`) without discarding any session's work:
   - Kept `1773543b`'s summary-first `index.html` layout + competition-pair probes (`tools/probe_sources.py`).
   - Kept `be974159`'s competition-scoped aliases (`PNG` vs `paiN Gaming`), `parse_kalshi_start_utc()`, disambiguated result grading, and 4-book LCP receipts (`data/receipts/external_odds/2026-10-25-be974159.json`).
@@ -3378,4 +3384,4 @@ merged cleanly with `main` @ `0e36d34` (preserving 100% of `650571cf`, `1773543b
 | `D1` | **6th live market venue: Smarkets UKGC Exchange** (`WINNER_2_WAY` series contracts + two-sided orderbook mids, `spread <= 0.25`) + Midnite soft-404 probe guard | `done` | `tools/collect.py`, `tools/model.py`, `data/raw/smarkets_lol.json` (`8/8` Worlds series), `tests/test_smarkets_exchange.py` |
 | `D2` | **Secondary `/docs/` Smarkets integration + Cross-Scope Request `R1` fix** (`docs/data/canonical_snapshot.json` + `.github/workflows/refresh.yml` parity sync) | `done` | `scripts/collect.mjs`, `scripts/analyze.mjs`, `scripts/build_site.mjs`, `audit/verify_docs_parity.py`, `tests/test_docs_parity_snapshot.py` |
 | `D3` | **Line-by-line 234-row source & tail audit** (`#1082002` `DELETED` GBArena slot, Smarkets/GosuGamers/Midnite/Strafe/Bmbets receipts) | `done` | `data/flags_manual.json`, `data/receipts/external_odds/2026-10-25-session-154d8c26.json`, `research/SMARKETS_AND_TAIL_AUDIT_2026-10-25.md`, `audit/session_154d8c26/verify_all_234_rows.py` |
-| `D4` | **Full canonical + secondary integration & 10-suite verification** (`57/57` `verify.py`, `121/121` unit tests, `50` venue quotes re-derived across `9` market rows in both pipelines, `24/24` `check_site.py`, `16/16` `verify_docs.py`, `10/10` `verify_docs_parity.py`, `14/14` `mobile_audit.py`) | `done` | `.github/workflows/refresh.yml`, `audit/verify_independent.py`, `README.md` |
+| `D4` | **Full canonical + secondary integration, PR #125 merge & live Pages confirmation** (`57/57` `verify.py`, `139/139` unit tests, `50` venue quotes re-derived across `9` market rows in both pipelines, `24/24` `check_site.py`, `16/16` `verify_docs.py`, `10/10` `verify_docs_parity.py`, `14/14` `mobile_audit.py`) | `done` | `.github/workflows/refresh.yml`, `audit/verify_independent.py`, `README.md`, PR `#125` (`699a4ba`), live refresh `f60eb0a` |
