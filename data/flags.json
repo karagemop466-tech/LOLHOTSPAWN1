@@ -1,7 +1,14 @@
 {
- "generated_utc": "2026-10-24T20:54:30Z",
- "count": 37,
+ "generated_utc": "2026-10-25T14:09:21Z",
+ "count": 39,
  "flags": [
+  {
+   "severity": "high",
+   "item": "The scheduled refresh stopped on 2026-10-25 because three test fixtures hardcoded a date that crossed the 24 h receipt window [verified 2026-10-25 against the failing job's step list, data/build_failed_steps.txt and data/diag/failure-2026-10-25T1134Z.log]",
+   "detail": "Run 40189452274 (2026-10-25T11:34Z) failed at 'Stop on failed gate' with data/build_failed_steps.txt = unit-tests. The publish gate itself was green: tools/verify.py passed all 48 checks in that same run. The failing stage was the unit tests: tests/test_corroborate_history.py and tests/test_corroborate_offlist.py build receipt fixtures with a hardcoded captured_utc of 2026-10-24T00:00Z, and tools/corroborate.py measures a capture against the wall clock (RECEIPT_MAX_AGE_HOURS = 24). Once that literal aged past 24 h the receipts were classified 'expired' instead of 'usable' and three assertions inverted, so every scheduled run after ~2026-10-25T00:00Z would fail until the calendar moved. Fixed by generating the fixtures relative to now; the assertions are unchanged, so a real classification bug still fails the suite. The failing log is archived at data/diag/failure-2026-10-25T1134Z.log, and a green run now clears data/build_failed_steps.txt. Consequence to note for review: the published snapshot is 2026-10-24T20:54Z, i.e. older than one 6 h cycle, until the next green refresh publishes.",
+   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40189452274",
+   "verification": "verified 2026-10-25 against the failing job's step list, data/build_failed_steps.txt and data/diag/failure-2026-10-25T1134Z.log"
+  },
   {
    "severity": "high",
    "item": "The six-hourly refresh failed for 24 hours because receipts for delisted fixtures were counted as rejected [verified 2026-10-24 against the failing run's own log and the green run after the fix]",
@@ -277,9 +284,15 @@
    "source": "https://lol.fandom.com/wiki/Data:Komplettligaen/2026_Season/Autumn_Split"
   },
   {
+   "severity": "high",
+   "item": "Hotspawn inventory snapshot is 17h old (refresh window is 4–8h)",
+   "detail": "Collected 2026-10-24T20:52:36Z. Scheduled refresh-picks runs after this timestamp did not publish a new snapshot. Treat kick-off times and market lines as unverified until the next successful collect. Live lobby: https://play.hotspawn.com/lol-pickems",
+   "source": "https://play.hotspawn.com/lol-pickems"
+  },
+  {
    "severity": "medium",
-   "item": "5 external corroboration receipt(s) diverge from the published line",
-   "detail": "Corroboration only — the published pick is unchanged. #1067688 bo3.gg LoL match centre -27.64pp; #1067688 EGamersWorld LoL -26.82pp; #1081423 EGamersWorld LoL 66.3pp; #1067688 Unibet (Kambi ubse European Sportsbook JSON) -28.55pp; #1067688 OddsPortal eSports / League of Legends World Championship -25.32pp",
+   "item": "13 external corroboration receipt(s) diverge from the published line",
+   "detail": "Corroboration only — the published pick is unchanged. #1067881 bo3.gg LoL match centre 15.16pp; #1067686 bo3.gg LoL match centre 13.25pp; #1067684 bo3.gg LoL match centre -55.0pp; #1067881 EGamersWorld LoL 15.07pp; #1067686 EGamersWorld LoL 17.36pp; #1067684 EGamersWorld LoL -55.03pp; #1081423 EGamersWorld LoL 66.3pp; #1067881 Unibet (Kambi ubse European Sportsbook JSON) 13.19pp",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/corroboration.json"
   }
  ]
