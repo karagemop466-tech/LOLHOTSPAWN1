@@ -1,6 +1,6 @@
 {
  "note": "Curated, human-reviewed observations. Derived flags are appended by tools/flags.py on every build. Every item states what was actually checked and, where it could not be re-checked, says so instead of asserting it.",
- "reviewed_utc": "2026-10-25T14:25:00Z",
+ "reviewed_utc": "2026-10-25T14:38:00Z",
  "flags": [
   {
    "severity": "high",
@@ -46,10 +46,10 @@
   },
   {
    "severity": "medium",
-   "item": "Single-venue prediction market with $5 traded volume (#1079080 Mental Rush vs Vitality Rising Bees)",
-   "detail": "The only external quote for this LGC Rising 2026 Playoffs final is Polymarket's series market lol-rb-mr-2026-10-27 at 68¢ / 32¢ with $5.00 of traded volume (its Game 1-4 sub-markets are parked at 50/50 with a 0.04 bid / 0.96 ask spread). The line is published but downgraded to low confidence and flagged on the card; the earlier curated note that described #1079080 as 'Bushido Wildcats vs Misa Esports' referred to a 264-row snapshot and has been replaced.",
-   "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
-   "verification": "verified live 2026-10-23 via gamma-api.polymarket.com (volume=5, outcomePrices 0.68/0.32)"
+   "item": "LGC Rising 2026 Playoffs Grand Final (#1079080 Mental Rush vs Vitality Rising Bees): 2-venue CFTC + CLOB consensus with 1.0 h start-time offset",
+   "detail": "Hotspawn #1079080 (2026-10-27T17:00:00Z, BO5 Grand Final) previously matched only Polymarket lol-rb-mr-2026-10-27 because Kalshi's CFTC-regulated contract KXLOLGAME-26OCT271300RBMR abbreviates 'Vitality Rising Bees' to 'Rising Bees'. Adding 'rising bees -> vitality rising bees' in tools/model.py joins both real-money venues into a 2-venue consensus (Polymarket $58.47 traded volume / $1,496.28 CLOB liquidity + Kalshi CFTC $264 volume; independently corroborated within 2 pp by Thunderpick 1.42/2.62 and BMBETS 1.43/2.78). Start-time irregularity remains flagged: Hotspawn and Kalshi list 2026-10-27T17:00:00Z (13:00 EDT), whereas Polymarket gameStartTime lists 2026-10-27T16:00:00Z.",
+   "source": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=100",
+   "verification": "verified live 2026-10-25 via Kalshi KXLOLGAME API (KXLOLGAME-26OCT271300RBMR, $264 vol) and gamma-api.polymarket.com (lol-rb-mr-2026-10-27, $58.47 vol)"
   },
   {
    "severity": "high",
@@ -88,16 +88,16 @@
   {
    "severity": "low",
    "item": "Hotspawn displays the wrong name for the PvB slot in PRM 2nd Division",
-   "detail": "Hotspawn labels this team 'Phong Vu Buffalo', but the five fixtures attributed to it match Leaguepedia's five 'PvB (Swiss Team)' fixtures in Prime League 2nd Division/2027 Season/Fall Split on date, kick-off time and opponent. The alias is recorded explicitly in data/aliases.json with that evidence. Recorded by session b166e06b on 2026-10-21; not re-checked in this build.",
-   "source": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split",
-   "verification": "carried forward from session b166e06b - not re-verified 2026-10-23"
+   "detail": "Hotspawn labels this team 'Phong Vu Buffalo', but the five fixtures attributed to it match Leaguepedia's five 'PvB (Swiss Team)' ('PvB Nation') fixtures in Data:Prime_League_2nd_Division/2027_Season/Fall_Split on date, kick-off time and opponent, rather than the defunct Vietnamese VCS organization Phong Vu Buffalo. The alias is recorded explicitly in data/aliases.json with that evidence.",
+   "source": "https://lol.fandom.com/wiki/Data:Prime_League_2nd_Division/2027_Season/Fall_Split",
+   "verification": "re-verified live 2026-10-25 from Data:Prime_League_2nd_Division/2027_Season/Fall_Split?action=raw (Division 2.1 schedule)"
   },
   {
    "severity": "low",
-   "item": "4 Nations Week 1 overturned forfeits for Team Reds (unverified in this build)",
-   "detail": "A previous session recorded that Team Reds won two Week 1 series in 4 Nations 2026 Halloween Heist which were later overturned to administrative forfeits. The claim could not be re-confirmed from the rendered page during this build, so it is published as unverified and does not change any probability (the model consumes only post-ruling series scores from Leaguepedia's MatchSchedule rows).",
-   "source": "https://lol.fandom.com/wiki/4_Nations/2026_Season/Halloween_Heist",
-   "verification": "unverified - needs manual review"
+   "item": "Arabian League 2nd Division Week 1 overturned forfeits for Team Reds (ineligible roster)",
+   "detail": "Leaguepedia's primary schedule Data:Arabian_League_2nd_Division/2026_Season/Summer_Split records two Week 1 series involving Team Reds with administrative forfeit rulings for fielding an ineligible roster: 2026-10-02 JSK Academy vs Team Reds (played 2-1, recorded 2-0 with ff=2) and 2026-10-03 Team Reds vs New Era Team (won 2-0 on the Rift by Team Reds, overturned to 0-2 with ff=1). An earlier version of this note mistakenly pointed at 4 Nations 2026 Halloween Heist; the model consumes Leaguepedia's post-ruling MatchSchedule scores as recorded, and this note documents why Team Reds's Elo reflects the official 0-2 Week 1 forfeits.",
+   "source": "https://lol.fandom.com/wiki/Data:Arabian_League_2nd_Division/2026_Season/Summer_Split",
+   "verification": "verified live 2026-10-25 from Data:Arabian_League_2nd_Division/2026_Season/Summer_Split?action=raw (Week 1 MatchSchedule footnotes)"
   },
   {
    "severity": "info",
@@ -108,10 +108,10 @@
   },
   {
    "severity": "high",
-   "item": "Fixture 1081423: a live external moneyline contradicts the published pick by 66.3 percentage points",
-   "detail": "Ground Zero Gaming vs Frank Esports (LCP 2027 Promotion, 2026-11-11 09:00Z) is published as Frank Esports 75.2% / Ground Zero Gaming 24.8% from our Elo line (Ground Zero Gaming 1511 vs Frank Esports 1703). Read on 2026-10-24T16:28Z, EGamersWorld publishes 1.025 / 10.50 for the same card, which de-vigs to Ground Zero Gaming 91.1% / Frank Esports 8.9% - a 66.3 pp gap and the opposite side. Two things make the external line credible: (1) this repository archived the identical 1.025/10.50 price on 2026-10-21 and then retired it as unverifiable because the page was showing symmetric 1.80/1.80 placeholders on 2026-10-23 - today's read shows the placeholder was a transient page state, so the retirement reason no longer holds; (2) an existing curated flag already records that Leaguepedia's Frank Esports rating may aggregate a cross-division PCS/LDL roster rather than the LCP promotion team, which is exactly the error that would inflate Frank Esports to 1703. The pick is left as published - a corroboration receipt is not an input to the model - but it should be treated as contested until the roster question is settled. The gap is reported by tools/corroborate.py on coverage.html as a divergence.",
-   "source": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
-   "verification": "captured verbatim 2026-10-24T16:28Z into data/receipts/external_odds/2026-10-24-longtail.json; Hotspawn kick-off 2026-11-11T09:00:00Z for fixture 1081423 confirmed against the live fixtures API snapshot in data/node/raw/hotspawn_lol_fixtures.json (fetched 2026-10-24T15:34:30Z); page clock is US Eastern, 04:00 on 11.11.2026 == 09:00Z (EST, UTC-5)",
+   "item": "Fixture 1081423: four external sportsbooks contradict the published Elo pick by ~67 percentage points",
+   "detail": "Ground Zero Gaming vs Frank Esports (LCP 2027 Promotion Regional Merit BO5, 2026-11-11 09:00Z) is priced by our Elo line at Ground Zero Gaming 24.8% / Frank Esports 75.2% (Ground Zero Gaming effective 1508 across 48 series vs Frank Esports 1708 across 57 series). Independent live verification on 2026-10-25 across BMBETS's 60-bookmaker index confirms four real-money sportsbooks quote Ground Zero Gaming as an overwhelming favourite: bet365 1.03 / 9.10 (de-vigged 90.8% / 9.2%), TotoGaming 1.03 / 10.50 (91.1% / 8.9%), 1xBet 1.02 / 10.50 (91.2% / 8.8%) and BetOlimp 1.02 / 9.80 (90.6% / 9.4%), alongside EGamersWorld's index (1.025 / 10.50). Root cause verified against Liquipedia's LCP/2027/Promotion roster and Leaguepedia chronology: Ground Zero Gaming is the Tier-1 LCP 2026 incumbent (fielding Worlds veterans 1Jiang, Husha, Uniboy, Betty and Kaiwing), but entered the 25-month chronology in 2025 Tier-2 PCS (1575 prior) and then went 4-14 inside Tier-1 LCP 2026 against Worlds contenders CFO, Team Secret Whales and PSG Talon, whereas challenger Frank Esports accumulated a 24-9 record inside isolated Tier-2 PCS 2026 without facing Tier-1 LCP opposition. Because BMBETS/bet365 cannot be polled automatically from the GitHub Actions runner, the automated model pick is kept as-is per repository policy (archived/manual receipts never overwrite live pricing) and this structural Tier-1-incumbent vs Tier-2-challenger limitation is flagged prominently here and in data/corroboration.json.",
+   "source": "https://www.bmbets.com/e-sports/world/lol---lcp/ground-zero-gaming-(lol)-v-frank-esports-(lol)-9910334/",
+   "verification": "verified live 2026-10-25 against BMBETS (bet365 1.03/9.10, TotoGaming 1.03/10.50, 1xBet 1.02/10.50, BetOlimp 1.02/9.80) and Liquipedia LCP/2027/Promotion Regional Merit roster",
    "delisted_refs": []
   },
   {
@@ -185,6 +185,23 @@
    "detail": "Fresh runner probes at 2026-10-25T14:20Z against the live 234-fixture inventory (29 competitions): only Worlds 2026 Main Event (Pinnacle, Unibet/Kambi, Bovada, Polymarket, Kalshi) and LGC Rising 2026 Playoffs (Polymarket only, $28 thin market at last pricing) appear in any venue payload. PRM 2nd/3rd Division (87 fixtures in the 2026-10-24 snapshot), RIVALS, Tunisian, Arabian, Icelandic, Benelux, Komplettligaen, LigaGG and the rest appear nowhere. Same-day browser captures of bo3.gg and EGamersWorld LoL match centres also list Worlds fixtures only. B2B odds feeds (e.g. Oddin.gg, which powers operator books under contract) and keyed APIs (The Odds API / OddsPapi returned 401) exist but cannot be cited per row without credentials; OddsPapi's published LoL coverage stops at Prime League Pro Division. Non-featured picks therefore remain originated/provisional/settlement only. Memo: research/session_2faec1ff/low-tier-resolution-2026-10-25.md.",
    "source": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
    "verification": "verified 2026-10-25 against data/probe/lowtier_20261025.json (52 venues, generated 2026-10-25T14:20:27Z), data/probe/sources_probe.json (37 sources, probed 2026-10-25T14:20:51Z), and dated captures of https://bo3.gg/lol/matches/current and https://egamersworld.com/lol/matches"
+  },
+  {
+   "severity": "medium",
+   "item": "Hotspawn omits series_format and best_of on 100% of scheduled LoL fixtures (series-format-not-published)",
+   "detail": "Every scheduled fixture returned by Hotspawn's API carries best_of=null and series_format=null, even where primary tournament sources explicitly publish the series length - e.g. Data:LCP/2027_Season/Promotion records bestof=5 for Free-for-All Round 1 (#1081421 FENNEL vs Nothin'Here) and the Regional Merit Match (#1081423 Ground Zero Gaming vs Frank Esports), and Polymarket/Kalshi label LGC Rising 2026 Playoffs (#1079080) as BO5. Neither dashboard invents a series format when Hotspawn leaves best_of null, and Elo series probabilities are fitted directly at the series-outcome level rather than assuming a Bo1/Bo3/Bo5 Binomial map transform.",
+   "source": "https://lol.fandom.com/wiki/Data:LCP/2027_Season/Promotion",
+   "verification": "verified live 2026-10-25 against Data:LCP/2027_Season/Promotion?action=raw (bestof=5) and data/raw/hotspawn_lol.json (best_of=null on all scheduled rows)"
+  },
+  {
+   "severity": "medium",
+   "item": "Cross-region acronym collision quarantined in Logitech G SuperStrike Cup Qualifier (#1083097 'paiN Gaming' -> Bulgarian amateur 'PNG')",
+   "detail": "Hotspawn fixture #1083097 (2026-10-24T11:00:00Z, vs Non-toxic Gaming, since completed 0-1 and rotated off scheduled) displayed the Bulgarian amateur 5-stack 'PNG' as Brazilian Tier-1 CBLOL organization 'paiN Gaming'. Because Leaguepedia records the Bulgarian roster literally as 'PNG' on Data:Logitech_G_SuperStrike_Cup/Qualifier rather than 'paiN Gaming (Bulgarian Team)', competition-scoped aliases in data/aliases.json now bind ('Logitech G SuperStrike Cup Qualifier', 'paiN Gaming') -> 'PNG' without affecting real CBLOL/international paiN Gaming fixtures.",
+   "source": "https://lol.fandom.com/wiki/Data:Logitech_G_SuperStrike_Cup/Qualifier",
+   "verification": "verified live 2026-10-25 against Data:Logitech_G_SuperStrike_Cup/Qualifier?action=raw (PNG 0-1 Non-toxic Gaming, PNG 0-1 Cruel Fate)",
+   "delisted_refs": [
+    "1083097"
+   ]
   }
  ]
 }

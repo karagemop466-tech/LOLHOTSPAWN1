@@ -73,6 +73,18 @@ def norm(name: str) -> str:
     return {"secret": "secretwhales"}.get(out, out)
 
 
+def is_documented_short_form(short: str, full: str) -> bool:
+    """True when ``short`` is a whole-token suffix of ``full``.
+
+    Books routinely print the short form of an organisation: Kalshi lists
+    "Rising Bees" for Hotspawn's "Vitality Rising Bees". Both names are already
+    normalised (lowercase, no spaces or punctuation), so a suffix test is a
+    token-boundary test. A short form under six characters ("t1", "mr") is never
+    accepted, so "T1" cannot be stretched to "T1 Academy".
+    """
+    return bool(short) and len(short) >= 6 and len(full) > len(short) and full.endswith(short)
+
+
 def devig(d0: float, d1: float):
     if not (d0 > 1.0001 and d1 > 1.0001):
         return None
@@ -144,7 +156,7 @@ def main() -> int:
         if len(outs) == 2:
             kam_index.append({"names": [o["name"] for o in outs], "raw": ev})
 
-    def find_all(index, n0, n1, symmetric=True):
+    def find_all(index, n0, n1, symmetric=True, ctx=""):
         k0, k1 = norm(n0), norm(n1)
         hits = []
         for item in index:
@@ -153,7 +165,33 @@ def main() -> int:
                 hits.append((item, False))
             elif symmetric and a == k1 and b == k0:
                 hits.append((item, True))
-        return hits
+        if hits:
+            return hits
+
+        # Second pass: a book may print the short form of an organisation. Accept it
+        # only when a whole-token short form matches on BOTH sides of exactly ONE raw
+        # record; anything ambiguous stays a failure. Every accepted pairing is warned
+        # about so the mapping is visible in the run, never silently trusted.
+        def _ok(name_norm: str, want_norm: str) -> bool:
+            return name_norm == want_norm or is_documented_short_form(name_norm, want_norm)
+
+        loose = []
+        for item in index:
+            a, b = norm(item["names"][0]), norm(item["names"][1])
+            if _ok(a, k0) and _ok(b, k1):
+                loose.append((item, False))
+            elif symmetric and _ok(b, k0) and _ok(a, k1):
+                loose.append((item, True))
+        if len(loose) == 1:
+            item, _ = loose[0]
+            warn("B provenance",
+                 f"{ctx}: raw record {item['names'][0]!r} / {item['names'][1]!r} matched "
+                 f"{n0!r} / {n1!r} through a whole-token short form (accepted; unique in the feed)")
+            return loose
+        if len(loose) > 1:
+            warn("B provenance", f"{ctx}: {len(loose)} raw records match {n0!r} / {n1!r} "
+                                 f"only through a short form - left unverified")
+        return []
 
     # ------------------------------------------------------------- per-row checks
     market_rows = [r for r in rows if r.get("method") == "market"]
@@ -234,7 +272,7 @@ def main() -> int:
 
             elif vname in ("Bovada", "Unibet"):
                 src_idx = bov_index if vname == "Bovada" else kam_index
-                hits = find_all(src_idx, n0, n1)
+                hits = find_all(src_idx, n0, n1, ctx=row["id"])
                 if not hits:
                     fail("B provenance", f"{row['id']}: {vname} quote {quote} not found for {n0} vs {n1}")
                     continue
@@ -255,7 +293,7 @@ def main() -> int:
 
             elif vname in ("Polymarket", "Kalshi"):
                 index = pol_index if vname == "Polymarket" else kal_index
-                hits = find_all(index, n0, n1)
+                hits = find_all(index, n0, n1, ctx=row["id"])
                 if not hits:
                     fail("B provenance", f"{row['id']}: {vname} quote {quote} not found for {n0} vs {n1}")
                     continue

@@ -29,7 +29,7 @@ no claim has been active for >18 h, so the files below are free. Claim filed bef
 | `H3` | **PR → `main` → merge, then dispatch `refresh-picks`** and confirm a fresh snapshot commits and GitHub Pages redeploys (the sandbox has no egress to Hotspawn/books/Leaguepedia; the Actions runner does). Record run ids and the Pages deployment. | done — PR #99 merged 2026-10-25T14:17:12Z (merge `3f9a414`); the post-merge push on `tools/**` triggered the canonical run which committed `19dc1a9 chore(data): refresh fixtures, lines and site` (234-fixture snapshot, inventory 14:13:21Z); refresh-docs run `40201363277` committed `2afd92a`; Pages API reported a build in progress then must be re-checked for `built` | 9d0a516d | `COORDINATION.md` only, plus the PR |
 | `H4` | **Re-verify "a pick for every listed match" on the refreshed snapshot** — 1:1 fixture coverage, every row has a pick (market / model / provisional / settlement), the unresolved ledger and the executive-summary unresolved section match the data, probabilities sum to 100 %, source links present. | done — 234/234 rows carry a pick (9 market, 150 model, 71 provisional, 4 settlement-only); 0 missing Hotspawn URLs; 0 probability-sum/argmax failures; all 9 market rows carry venue receipt URLs and no `(Kills)` derivative; all 71 provisional rows carry the thin-data flag; the 4 settlement rows cite Leaguepedia + the Hotspawn void rule and claim no probability; crowd-pick data is audit-only (feeds one flag in `tools/flags.py`, never a probability) | 9d0a516d | read-only; findings into this log |
 | `H5` | **Independent low-tier line research (editorial corroboration)** — the runner-side probes (17 + 23 + 52 venues, 0 usable) are already committed; add a source-linked research memo documenting the structural reason the national/academy tail has no book line (e.g. Norway's Norsk Tipping monopoly, tier-C event status, books' tier-1-only coverage) and the Hotspawn forfeit-void rule. No inferred prices. | done — `research/session_9d0a516d/STRUCTURAL_CEILING_2026-10-25.md` + `sources.json` (19 independent sources): GlüStV excludes esports and bans amateur/youth markets (97 German rows), Norway's Norsk Tipping monopoly + 2025 DNS blocking (9 Norwegian rows incl. all 4 unresolved), tier-1-only editorial coverage policy, verified Rivalry closure, official Hotspawn void rule. Zero prices inferred. | 9d0a516d | `research/session_9d0a516d/**` (new) |
-| `H6` | **Mobile / executive-summary audit** — confirm the summary's in-site links, bottom nav, floating picks button and 360 px viewport behaviour; polish only if a concrete defect is found. | done — no defect found, no edit made. `audit/mobile_audit.py` PASS on all 14 root pages (viewport meta, no fixed width >360 px, data-label stacked tables, `.mobnav`); exec summary has six quick-link cards, a 29-tournament one-tap filtered directory, starting-soon strip, embedded unresolved-&-limitations section, 44–48 px tap targets, bottom nav and floating picks pill under 700 px | 9d0a516d | read-only (no files needed editing) |
+| `H6` | **Mobile / executive-summary audit** — confirm the summary's in-site links, bottom nav, floating picks button and 360 px viewport behaviour; polish only if a concrete defect is found. | done — no edit needed from this session. `audit/mobile_audit.py` PASS on all 14 root pages (viewport meta, no fixed width >360 px, data-label stacked tables, `.mobnav`); exec summary has quick-link cards, a 29-tournament one-tap filtered directory, starting-soon strip, embedded unresolved-&-limitations section, 44–48 px tap targets, bottom nav and floating picks pill under 700 px. A transient duplicate `id="soon"`/`id="next"` (two Starting-soon panels from a merge) was observed via `check_site.py` at ~14:42Z; before this session could patch it, the concurrent merge stream removed the duplicate (`2a0935c`), and the current tree has exactly one panel with `check_site.py` at 0 failures — verified, no conflicting edit made | 9d0a516d | read-only (no files needed editing) |
 
 Non-overlap: sessions `3d124b45`, `63c67a23`, `cb84d7dc` were active concurrently. All overlaps were resolved
 by rebasing onto their merged work and accepting their versions of shared files; this session's final code
@@ -3299,6 +3299,25 @@ landing page, and each unresolved row must state why it has no probability **and
 2. **Six** Arabian-league cards are already complete on Leaguepedia while Hotspawn still shows the card open. They stay listed with a model/provisional line; if Hotspawn voids them, the picks will be graded void.
 3. Bovada answered the 14:38Z probe with an empty coupon (`{}`) while `data/raw/bovada_lol.json` (14:13:21Z) holds **8** Worlds fixtures. Empty coupon is a probe artefact, not proof of no coverage; do not read “0 coverage” into it.
 
+### Independent verifier: one false provenance failure found and fixed
+
+`audit/verify_independent.py` reported `FAIL B provenance - 1079080: Kalshi quote 40¢/64¢ not found
+for Mental Rush vs Vitality Rising Bees` on the 14:51:51Z snapshot. Investigated rather than waived:
+
+* The raw payload **does** contain the event — `data/raw/kalshi_lol.json` (fetched `14:50:02Z`),
+  `KXLOLGAME-26OCT271300RBMR`, markets `rising bees` bid 0.63 / ask 0.66 (mid 0.645) and
+  `mental rush` bid 0.36 / ask 0.44 (mid 0.40). The published 40¢/64¢ is exactly those mids, so the
+  **data is correct**.
+* The verifier's `find_all()` compared names after `norm()` only, so Kalshi's printed short form
+  `Rising Bees` never equalled Hotspawn's `Vitality Rising Bees`. The model had matched them through
+  the documented `BOOK_TEAM_ALIASES` entry `"rising bees": "vitality rising bees"`.
+* Fix (audit side, not the data): `is_documented_short_form()` accepts a short form only when it is a
+  **whole-token suffix** of the full normalised name, at least six characters, matching on **both**
+  sides of exactly **one** raw record; ambiguous pairings stay failures, and every accepted pairing is
+  emitted as a visible warning. Re-run: `rows=234 market_rows=9 venues_checked=42 failures=0
+  warnings=1`. `tests/test_audit_name_match.py` (6 tests) pins the boundaries — `T1` cannot be stretched
+  onto `T1 Academy`, and a prefix is not a short form.
+
 ### Board hygiene
 
 `COORDINATION.md` on `main` (as merged through PR #119) still contained raw `<<<<<<< HEAD` / `=======` / `>>>>>>> origin/main` conflict markers at ~line 3189, i.e. two legitimate append blocks had been committed unresolved. This session's branch resolves them by keeping **both** blocks (this session's N1–N4 record, then `650571cf`'s 14:41Z confirmation) and inserting a `---` separator. No session's text was deleted.
@@ -3361,3 +3380,28 @@ and from a rejected credential, with a receipt that shows **PASS** on the curren
   hides started rows per list with the cap aligned to the rendered sixteen, plus a
   single-strip regression test. Branch history was reset onto current `main` for this PR
   so the diff is exactly those deltas (all #107 content is already on `main`).
+
+---
+
+# Session `be974159` — model/market/entity-join hardening, live low-tier book research & line-by-line verification (2026-10-25)
+
+Branch: `arena/be974159-lolhotspawn1` · PR: **#122** (`https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/122`),
+merged cleanly with `main` @ `0e36d34` (preserving 100% of `650571cf`, `1773543b`, `2faec1ff`, `cb84d7dc`,
+`666de992`, and `aa39a6d5`, and removing leftover git conflict markers in `COORDINATION.md` from `415e99f`).
+
+## Claim & completed scope
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `M1_be974159` | **Model, market-hygiene, entity-disambiguation & result-grading hardening**: (1) add `"rising bees": "vitality rising bees"` + `parse_kalshi_start_utc()` so CFTC Kalshi `KXLOLGAME-26OCT271300RBMR` joins `#1079080` (`Mental Rush vs Vitality Rising Bees`, upgrading single-venue Polymarket to 2-venue consensus); (2) enforce `close_in_time` on Polymarket/Kalshi candidate joins alongside `2faec1ff`'s `venue_quote_rejection()` / `feed_fresh()` guards; (3) exclude `"wildcard"` and `"online qualifiers"` from Tier-1 `1700` prior in `tier_prior()` (`#1081421` `FENNEL vs Nothin'Here`); (4) add competition-scoped alias support in `resolve_team()` (`("Logitech G SuperStrike Cup Qualifier", "paiN Gaming") -> "PNG"`); (5) match resolved `(k0, k1)` keys in completed-series `result` grading; (6) reconcile verified `Team Reds` (`Data:Arabian_League_2nd_Division/2026_Season/Summer_Split`), `#1081423` 4-bookmaker (`bet365`/`1xBet`/`TotoGaming`/`BetOlimp`) vs Elo divergence, and `series-format-not-published` (`Data:LCP/2027_Season/Promotion` `bestof=5`) in `data/flags_manual.json` | done | `be974159` | `tools/model.py`, `data/aliases.json`, `data/flags_manual.json`, `tests/test_model_be974159.py` |
+| `R1_be974159` | **Live external-line research for non-featured/low-tier LoL matches & line-by-line official-source verification**: verify live Hotspawn scheduled feed, live 5-venue sportsbook/exchange APIs, live Leaguepedia Cargo/wikitext, and probe 60+ sportsbooks (`bmbets`, `esportsinsider`, `egamersworld`, `liquipedia`) with primary-source receipts | done | `be974159` | `research/session_be974159/**`, `audit/session_be974159/**`, `data/receipts/external_odds/2026-10-25-be974159.json` |
+| `I1_be974159` | **Workflow trigger coverage, README accuracy & final integration**: include `tests/**` + `data/aliases.json` + `data/flags_manual.json` + `data/receipts/external_odds/**` in `refresh.yml` push paths, reconcile stale `README.md` secondary-dashboard counts (`10 pages`, 5-venue + 22k-series Elo, `45`-day decay), sync `docs/*.html`, verify all gates, open & merge PR #122 to `main`, verify live GitHub Pages deploy | done | `be974159` | `.github/workflows/refresh.yml`, `README.md`, `COORDINATION.md`, `docs/*.html` |
+
+## What was verified & delivered (`be974159`)
+
+1. **9/9 multi-venue market consensus (`0` single-venue market rows)**: `#1079080` (`Mental Rush vs Vitality Rising Bees`, `LGC Rising 2026 Playoffs` BO5 Grand Final) now joins both Polymarket `lol-rb-mr-2026-10-27` (`$58.47` vol / `$1,496.28` CLOB liquidity) and CFTC Kalshi `KXLOLGAME-26OCT271300RBMR` (`$264` vol) into a 2-venue consensus (`38.10% / 61.90%`, `confidence: high`, pick `Vitality Rising Bees`), corroborated within 2 pp by Thunderpick (`1.42/2.62`) and BMBETS (`1.43/2.78`).
+2. **Tier-1 `1700` prior leakage fixed on `#1081421` (`FENNEL vs Nothin'Here`, `LCP 2027 Promotion`)**: Excluding `"wildcard"` and `"online qualifiers"` from Tier-1 `1700` priors fixes `Nothin'Here`'s starting rating (`1500` instead of `1700` from `"LCP 2026 Wild Card Playoffs"`), moving `#1081421` from inverted `40.3% / 59.7%` to **`FENNEL 67.66% / Nothin'Here 32.34%`** (aligning with EsportsInsider `62% / 38%` and companion `docs/` `59.2% FENNEL`, cutting max canonical-vs-secondary divergence from `18.9 pp` to `11.81 pp`). Walk-forward OOS backtest improved across **3,920 series**: **`acc = 0.6515`**, **`brier = 0.2179`**, **`logloss = 0.6248`**.
+3. **4-bookmaker LCP Promotion discovery (`#1081423` `Ground Zero Gaming vs Frank Esports`)**: Verified live across BMBETS's 60-bookmaker index (`bet365` `1.03/9.10`, `TotoGaming` `1.03/10.50`, `1xBet` `1.02/10.50`, `BetOlimp` `1.02/9.80`) and Liquipedia `LCP/2027/Promotion` (`Ground Zero Gaming` Tier-1 LCP roster `1Jiang / Husha / Uniboy / Betty / Kaiwing`). Documented on `flagged.html` (`high` severity) and `coverage.html` (`diverges`) without overriding automated model pricing.
+4. **Completed-series result grading (`51` graded results, up from `42`) & competition-scoped aliases**: Matching `(k0, k1)` resolved keys in `result` grading recovered 9 previously dropped Benelux/SuperStrike/PRM completed series while keeping `#1070209` (`ff=2, winner='1'`) ungraded (`result: null`). Competition-scoped alias `("Logitech G SuperStrike Cup Qualifier", "paiN Gaming") -> "PNG"` quarantines Bulgarian amateur `PNG` without affecting Brazilian CBLOL `paiN Gaming`.
+5. **All verification gates green on merged `0e36d34` base**: `134/134` unit tests OK, `56/56` `tools/verify.py` PASS, `audit/session_be974159/verify_all_rows.py` PASS, `audit/check_site.py` `24` pages `0` failures, `audit/mobile_audit.py` `14/14` PASS, `audit/verify_docs.py` `16/16` PASS, `audit/verify_docs_parity.py` `10/10` PASS.
+

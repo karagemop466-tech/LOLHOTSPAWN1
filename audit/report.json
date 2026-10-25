@@ -1,9 +1,9 @@
 {
-  "generated_utc": "2026-10-25T14:41:30Z",
-  "dataset_generated_utc": "2026-10-25T14:38:09Z",
+  "generated_utc": "2026-10-25T14:54:31Z",
+  "dataset_generated_utc": "2026-10-25T14:51:51Z",
   "rows": 234,
   "market_rows": 9,
-  "venues_checked": 41,
+  "venues_checked": 42,
   "counts": {
     "model": 150,
     "unresolved": 4,
@@ -11,7 +11,12 @@
     "market": 9
   },
   "failures": [],
-  "warnings": [],
+  "warnings": [
+    {
+      "check": "B provenance",
+      "detail": "1079080: raw record 'Rising Bees' / 'Mental Rush' matched 'Mental Rush' / 'Vitality Rising Bees' through a whole-token short form (accepted; unique in the feed)"
+    }
+  ],
   "pinnacle_kills_substitutions": [],
   "passed": true
 }

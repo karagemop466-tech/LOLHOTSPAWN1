@@ -242,17 +242,19 @@ workflow (`.github/workflows/refresh-docs.yml`, cron `5 */6 * * *`) inside the s
 concurrency group, so the two bots serialize and cannot race.
 
 - **Pipeline**: `scripts/collect.mjs` → `scripts/analyze.mjs` → `scripts/build_site.mjs` (Node ≥ 18, no
-  dependencies). Data scope: `data/node/**`; published pages: `docs/**` (7 pages, mobile-first).
-- **Lines**: Pinnacle guest API moneylines (devigged; with retry + persistent listing cache + odds-line
-  reconstruction against the intermittent `/matchups` 401), Polymarket series markets (mid-price when
-  spread ≤ 6¢, else renormalized last prices; game-level submarkets filtered out), then an own Elo model
-  over the Hotspawn results archive (1,102 ended fixtures, 462 teams) for everything else.
-- **Differences by design**: quarantines stale fixtures (>24 h past start, never settled) instead of
-  listing them; matches with no market and insufficient connected model history are left **unresolved**
-  rather than assigned an unsupported probability; flags start-time discrepancies between Hotspawn and
-  Pinnacle/Polymarket per match. See `docs/unresolved.html` for the live count and per-match reasons.
-- **Entry point**: `docs/index.html` — executive summary, all-picks list, unresolved, flagged,
-  methodology, results, models.
+  dependencies). Data scope: `data/node/**`; published pages: `docs/**` (10 mobile-first pages:
+  `index.html`, `picks.html`, `table.html`, `featured.html`, `originated.html`, `tournaments.html`,
+  `unresolved.html`, `flagged.html`, `results.html`, `methodology.html`).
+- **Lines**: 5-venue precision-weighted market consensus (Pinnacle Arcadia moneylines with `(Kills)`
+  derivative rejection, Unibet/Kambi JSON, CFTC Kalshi `KXLOLGAME`, Polymarket full-series CLOB, and
+  Bovada), plus a strictly pre-kickoff Elo/Bradley-Terry model fitted over Leaguepedia Cargo and Hotspawn
+  series history (walk-forward out-of-sample evaluation over 22,000+ series) for unquoted competitions.
+- **Differences by design**: identifies itself prominently as a secondary companion view with row-level
+  deep links back to the canonical dashboard and a live reconciliation & divergence ledger on
+  `docs/index.html`; quarantines zero-history debuts (`0` prior series) on `docs/unresolved.html` rather
+  than emitting equal-prior `50% / 50%` splits; flags start-time and series-format discrepancies per match.
+- **Entry point**: `docs/index.html` — executive summary & canonical reconciliation table, linked from
+  the canonical pages (`companion audit (secondary view)`).
 
 Where the two dashboards agree (9 Pinnacle-priced matches, same pick sides, same irregularity classes
 found independently) is the strongest verification this repo offers; where they differ, both
@@ -304,7 +306,8 @@ Hotspawn feed (IDs and per-tournament counts), asserts that **no fixture uses a 
 own kick-off**, verifies mobile `data-label` stacking across all 14 pages, and enforces the
 settlement-pick contract (a settlement pick names a listed participant and carries no probability).
 
-The canonical Elo model (`tools/model.py`) uses division priors (`1700 / 1575 / 1500 / 1455`),
-series margin-of-victory scaling (`K=26`, `1 + 0.18 * max(0, diff - 1)`), inactivity decay after 90 days,
+The canonical Elo model (`tools/model.py`) uses division priors (`1700 / 1575 / 1500 / 1455`, with
+regional/open `wildcard` and online qualifiers excluded from Tier-1 `1700`),
+series margin-of-victory scaling (`K=26`, `1 + 0.18 * max(0, diff - 1)`), inactivity decay after 45 days,
 and empirical Bayes shrinkage (`shrink=5`), pricing every fixture strictly from its pre-kickoff rating
 state (see `methodology.html` and `data/matches.json` for live out-of-sample backtest metrics).
