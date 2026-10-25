@@ -2641,3 +2641,25 @@ session-egress check the same day reached the same ceiling. Written up with link
 `S5`: PR from `arena/63c67a23-lolhotspawn1` → `main`, merge, confirm the Pages deploy and a green
 `refresh-picks` run (the merge itself triggers `refresh.yml` through the `tools/**` path filter), then
 record the run id, snapshot timestamp and deploy result here.
+
+---
+
+# Session `2faec1ff` — low-tier pick resolution, fresh external-line research, mobile executive summary (2026-10-25)
+
+Branch: `arena/2faec1ff-lolhotspawn1` (fixed Arena session branch, from `main` @ `cbe297b`, merge of PR #96).
+Prior session `63c67a23` claims S1–S5 are **closed** (PR #96 merged; S5's "still to do" note predates that
+merge). No other live `in progress` claim exists on this board; any older open wording is >60 minutes
+without commits and is taken over where noted below, per protocol.
+
+## Claim (filed at session start, before any pipeline edit)
+
+| # | Task | Status | Owner | File scope (disjoint) |
+|---|---|---|---|---|
+| `T1` | **Fresh low-tier source research** — re-probe established LoL books, esportsbooks, exchanges, aggregators and community guides from the runner + dated web research for matches without a market line; publish dated memo + receipts. No invented prices; blocked/empty recorded as empty. | in progress | 2faec1ff | `research/session_2faec1ff/**` (new), `data/probe/**` (new probe outputs only) |
+| `T2` | **Every-match pick audit** — line-by-line check that all 241 listed matches carry a pick/probability or documented settlement; investigate anomalies (e.g. extreme single-venue lines); ensure unresolved ledger + limitations are complete. Fixes only via pipeline code + regenerate, never hand-edited numbers. | in progress | 2faec1ff | `tools/model.py`, `tools/collect.py`, `tools/verify.py`, `tests/**` (only if a real defect is proven) |
+| `T3` | **Mobile executive summary polish** — landing page answers "where are the picks / what is unresolved" in one thumb-scroll on phone; in-site links to every pick list; unresolved + limitations block. Verify at phone widths. | in progress | 2faec1ff | `tools/site.py`, `assets/style.css`, `assets/app.js`, generated `*.html` |
+| `T4` | **Freshness + integration** — confirm/trigger green 6-hourly refresh, re-run full gate + tests, PR to `main`, merge, confirm Pages deploy, record links here. | pending | 2faec1ff | `COORDINATION.md`, `README.md` |
+
+Takeover note: scopes above previously listed under closed session `63c67a23` (S2–S5) are now owned by
+`2faec1ff`. Shared outputs (`data/*.json`, `*.html`) are regenerated only by `tools/` in this
+integration session, never hand-edited.
