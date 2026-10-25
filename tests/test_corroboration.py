@@ -30,7 +30,7 @@ import shutil
 import sys
 import tempfile
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
@@ -56,7 +56,12 @@ def _match(fid, t0="Alpha Esports", t1="Bravo Gaming", p0=0.62):
 
 
 def _capture(fixture_id, decimal=(1.80, 2.00), page_teams=("Alpha Esports", "Bravo Gaming"),
-             source="bo3gg", captured="2026-10-24T15:00:00Z"):
+             source="bo3gg", captured=None):
+    # Default to a wall-clock-relative stamp: a listed-fixture receipt is "usable" only
+    # inside corroborate.RECEIPT_MAX_AGE_HOURS (24 h). A hard-coded 2026-10-24 date crossed
+    # that window on 2026-10-25 and would turn this test into the next refresh outage.
+    if captured is None:
+        captured = (datetime.now(timezone.utc) - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
     return {
         "fixture_id": fixture_id,
         "source": source,
