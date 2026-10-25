@@ -30,7 +30,7 @@ import shutil
 import sys
 import tempfile
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
@@ -40,11 +40,25 @@ sys.path.insert(0, str(ROOT / "tools"))
 import corroborate  # noqa: E402
 
 
+def _iso(dt):
+    return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _now():
+    return datetime.now(timezone.utc)
+
+
+# Fixture timestamps are wall-clock-relative: corroborate grades receipt freshness
+# against now (RECEIPT_MAX_AGE_HOURS = 24). The original fixtures pinned captures to
+# 2026-10-24T15:00:00Z, so `test_receipt_for_a_listed_fixture_is_usable` was on a timer -
+# it would have started failing at 2026-10-25T15:00Z and frozen the refresh again (U1).
+
+
 def _match(fid, t0="Alpha Esports", t1="Bravo Gaming", p0=0.62):
     return {
         "id": fid,
         "competition": "Test League 2026 Split 1",
-        "start_utc": "2026-10-30T18:00:00Z",
+        "start_utc": _iso(_now() + timedelta(days=5)),
         "hotspawn_url": f"https://www.hotspawn.com/matches/alpha-vs-bravo-test-league-{fid}",
         "team0": {"name": t0},
         "team1": {"name": t1},
@@ -56,12 +70,12 @@ def _match(fid, t0="Alpha Esports", t1="Bravo Gaming", p0=0.62):
 
 
 def _capture(fixture_id, decimal=(1.80, 2.00), page_teams=("Alpha Esports", "Bravo Gaming"),
-             source="bo3gg", captured="2026-10-24T15:00:00Z"):
+             source="bo3gg", captured=None):
     return {
         "fixture_id": fixture_id,
         "source": source,
         "page_url": "https://bo3.gg/lol/matches/current",
-        "captured_utc": captured,
+        "captured_utc": captured if captured is not None else _iso(_now() - timedelta(hours=1)),
         "page_teams": list(page_teams),
         "decimal": list(decimal),
         "verbatim": "{} {} {}".format(page_teams[0], " / ".join(str(d) for d in decimal), page_teams[1]),
@@ -84,7 +98,7 @@ class CorroborationReceiptLifecycleTests(unittest.TestCase):
 
     def write_dataset(self, matches):
         with open(os.path.join(self.data, "matches.json"), "w", encoding="utf-8") as fh:
-            json.dump({"generated_utc": "2026-10-24T16:00:00Z", "matches": matches}, fh)
+            json.dump({"generated_utc": _iso(_now()), "matches": matches}, fh)
 
     def write_receipts(self, captures, name="2026-10-24-test.json"):
         doc = {
@@ -234,7 +248,7 @@ class ReceiptIdentityTests(unittest.TestCase):
             receipts = data / "receipts" / "external_odds"
             receipts.mkdir(parents=True)
             (data / "matches.json").write_text(json.dumps({
-                "generated_utc": "2026-10-24T00:00:00Z",
+                "generated_utc": _iso(_now()),
                 "matches": [{
                     "id": "current-1",
                     "competition": "Synthetic test league",
