@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T20:54:31Z",
+ "generated_utc": "2026-10-25T14:08:36Z",
  "checks": [
   {
    "name": "dataset present",
@@ -220,6 +220,31 @@
    "name": "no look-ahead: ratings use only results before kick-off",
    "ok": true,
    "detail": "0 violations; examples: []"
+  },
+  {
+   "name": "every unpriced match carries a documented settlement source",
+   "ok": true,
+   "detail": "0 problems: []"
+  },
+  {
+   "name": "every unpriced match appears on the unresolved ledger page",
+   "ok": true,
+   "detail": "0 missing from unresolved.html: []"
+  },
+  {
+   "name": "executive summary names every unresolved match",
+   "ok": true,
+   "detail": "0 unresolved cards missing from index.html: []"
+  },
+  {
+   "name": "landing-page tournament directory links every tournament to a filterable pick table",
+   "ok": true,
+   "detail": "29 tournaments; missing links: []; missing table rows: []"
+  },
+  {
+   "name": "tournament deep links are honoured by the client filter",
+   "ok": true,
+   "detail": "assets/app.js reads ?comp=, ?method=, ?q= and ?upcoming= into the table/card filters"
   }
  ],
  "passed": true,
@@ -233,6 +258,6 @@
   "provisional": 78,
   "market": 6
  },
- "internal_links": 449,
+ "internal_links": 478,
  "lookahead_violations": 0
 }

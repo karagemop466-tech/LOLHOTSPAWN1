@@ -92,6 +92,29 @@ SOURCES = [
     ("Escorenews LoL", "https://escorenews.com/en/lol", "esports news + odds", "match pages carry book prices"),
     ("BetExplorer LoL", "https://www.betexplorer.com/esports/league-of-legends/", "odds aggregator", "multi-book comparison"),
 
+    # --- added 2026-10-25 (session 63c67a23): US books with public JSON
+    # sportscontent endpoints plus two keyed odds APIs, so the runner records
+    # whether *any* of them exposes a tier-2 LoL price. A 200 HTML shell is
+    # still not a line; only a parsed JSON price can ever become a number.
+    ("DraftKings LoL (public content API)",
+     "https://sportsbook-nash.draftkings.com/api/sportscontent/dkusoh/v1/leagues/19873",
+     "US sportsbook", "does DK expose an esports LoL JSON coupon?"),
+    ("FanDuel LoL (page API)",
+     "https://sbapi.nj.sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=lol",
+     "US sportsbook", "does FanDuel expose an esports LoL JSON coupon?"),
+    ("BetOnline esports lines",
+     "https://www.betonline.ag/sportsbook/api/lines/esports",
+     "US sportsbook", "JSON lines feed"),
+    ("Betano LoL JSON API",
+     "https://www.betano.com/api/sport/esports/league-of-legends/",
+     "established book", "JSON coupon behind the HTML page"),
+    ("The Odds API LoL (key required)",
+     "https://api.the-odds-api.com/v4/sports/esports_league_of_legends/odds?regions=eu&markets=h2h",
+     "odds API", "keyed aggregator - 401 expected, recorded for the audit trail"),
+    ("OddsPapi LoL (key required)",
+     "https://api.oddspapi.io/v4/fixtures?sportId=18",
+     "odds API", "keyed aggregator - 401 expected, recorded for the audit trail"),
+
     # --- official / results sources (no odds, used for fixtures/results) -----
     ("Riot LoL Esports schedule", "https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=en-US",
      "official", "official schedule cross-check (needs api key header)"),

@@ -10,6 +10,7 @@ import os
 import re
 import sys
 from collections import Counter
+from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from integrity import row_errors
@@ -204,7 +205,11 @@ def main() -> None:
             if href.startswith(("http://", "https://", "mailto:")):
                 continue
             hrefs[href] += 1
-            if href not in pages and not os.path.exists(os.path.join(DOCS, href)):
+            # A query string addresses the same document; `table.html?comp=...` is a valid
+            # in-site deep link (the tournament directory uses it). Strip the query before
+            # checking that the target file exists, but keep it in the report if it does not.
+            target = href.split("?", 1)[0]
+            if target not in pages and not os.path.exists(os.path.join(DOCS, target)):
                 broken.append(f"{page} -> {href}")
         for bad in ("&gt;None&lt;", ">None<", ">nan<", "&mdash;%"):
             if bad in text:
@@ -431,6 +436,49 @@ def main() -> None:
                 lookahead.append(f"{r['id']}:{key} rating_as_of != kick-off")
     add("no look-ahead: ratings use only results before kick-off", not lookahead,
         f"{len(lookahead)} violations; examples: {lookahead[:3]}")
+
+    # --- full-coverage contract (session 63c67a23) --------------------------
+    # The brief is "a pick for every match, and never a number we cannot defend".
+    # These three gates make a silently unpriced or unreachable match impossible to publish.
+    # index_html / table_html / unres_html are read earlier in this file.
+    unresolved_html = unres_html
+
+    exposed, undocumented, unlinked = [], [], []
+    for r in rows:
+        pick = r.get("pick") or {}
+        prob = pick.get("probability")
+        res = r.get("resolution") or {}
+        if prob is not None:
+            continue
+        # No probability: only an officially settled card may ship without one, and it must
+        # name the settlement source and appear in the unresolved ledger with that source.
+        if not (res.get("source") or "").startswith("http"):
+            exposed.append(f"{r['id']}: no probability and no settlement source")
+            continue
+        if r.get("id") not in unresolved_html:
+            unlinked.append(r["id"])
+        if r["team0"]["name"] not in index_html or r["team1"]["name"] not in index_html:
+            undocumented.append(r["id"])
+    add("every unpriced match carries a documented settlement source",
+        not exposed, f"{len(exposed)} problems: {exposed[:5]}")
+    add("every unpriced match appears on the unresolved ledger page",
+        not unlinked, f"{len(unlinked)} missing from unresolved.html: {unlinked[:5]}")
+    add("executive summary names every unresolved match",
+        not undocumented, f"{len(undocumented)} unresolved cards missing from index.html: {undocumented[:5]}")
+
+    # Tournament directory: each competition on the landing page must deep-link into a
+    # filtered pick table that actually contains that competition's rows.
+    dir_comps = sorted({r["competition"] for r in rows})
+    dir_missing = [c for c in dir_comps
+                   if f'table.html?comp={quote(c, safe="")}' not in index_html]
+    dir_unfiltered = [c for c in dir_comps if f'data-comp="{html.escape(c)}"' not in table_html]
+    add("landing-page tournament directory links every tournament to a filterable pick table",
+        not dir_missing and not dir_unfiltered,
+        f"{len(dir_comps)} tournaments; missing links: {dir_missing[:4]}; missing table rows: {dir_unfiltered[:4]}")
+    deep_ok = ("initDeepLinks" in app_js and 'params.get("comp")' in app_js
+               and 'params.get("method")' in app_js)
+    add("tournament deep links are honoured by the client filter", deep_ok,
+        "assets/app.js reads ?comp=, ?method=, ?q= and ?upcoming= into the table/card filters")
 
     counts = Counter(r["method"] for r in rows)
     unverified = [r["id"] for r in rows if r["method"] in ("provisional", "unresolved")]
