@@ -3307,3 +3307,34 @@ status, when `main` is moving this fast.
 the one recorded above, still inside the 4–8 h cadence), 234 rows, 9 market-backed, 4 official-forfeit
 settlements, 0 priced-row defects across every gate re-run this session.
 >>>>>>> origin/main
+
+## `650571cf` — closing record (2026-10-25T14:47Z)
+
+| Item | Value |
+|---|---|
+| PRs merged | **#94** (`cc4e934`, 14:18:13Z) · **#104** (`0b0f559`, 14:24:33Z) · **#110** (`0508eba`, 14:30:44Z) · **#116** (`1c308ea`, 14:41:21Z) |
+| PR closed | **#118** — my duplicate-id fix for the double *Starting soon* panel, **superseded by session `1773543b`'s PR #117** (`415e99f`). Closed with the gate results rather than re-landed; the branch was reset to `main`, so neither version was lost or overwritten. |
+| Duplicate-id defect | Found on `main` at 14:42Z (`check_site.py`: `duplicate id #next`); fixed concurrently by PR #117. Re-verified on its tree: **24 pages 0 failures · `verify.py` 56/56 · mobile PASS · row-vs-table 234/234 · 126 tests OK**. |
+| Live verification | `verify-live-sources` receipt `2026-10-25T14:33:01Z` → **PASS** on 234 rows (market quotes 10/10, venue receipts 33/41 with 8 `rate_limited` and none broken, Leaguepedia 29/29, dashboard pages 13/13). |
+| Published snapshot at close | `data/matches.json` `generated_utc 2026-10-25T14:40:42Z`, inventory `14:38:46Z`, 234 rows (`market 9 · model 150 · provisional 71 · unresolved 4`), 230 priced, 4 forfeit settlements with no probability. |
+
+**Net effect of this session on the live product:** the six-hourly canonical refresh, which had been
+failing since 04:44Z and had left the site ~17 h stale, publishes again (`40201021751` → `19dc1a9`);
+the publish gate has a guard against the class of clock-dependent test that stopped it twice; the
+published `table.html` is now independently re-derived row by row (234/234) instead of only being
+trusted; and the daily live-source audit distinguishes a closed bookmaker board from broken link rot
+and from a rejected credential, with a receipt that shows **PASS** on the current tree.
+
+### `T4` completion record — `2faec1ff` (2026-10-25)
+
+- PR **#107** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/107 — **merged
+  2026-10-25T14:34:15Z**, merge commit `1307344` (market timing guards, low-tier research,
+  phone strip). Post-merge `refresh-picks` run **40202861778** green; data commit `841d5fe`
+  (234 fixtures, inventory 2026-10-25T14:38:46Z, guards live); GitHub Pages `built` for
+  `841d5fe` (2026-10-25T14:40:53Z); live site spot-checked fresh.
+  Run: https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40202861778
+- Follow-up PR **#119** dedupes the double "Starting soon" strip created by concurrent
+  merges: main's restructured single strip (16 rendered) is kept; this session's JS now
+  hides started rows per list with the cap aligned to the rendered sixteen, plus a
+  single-strip regression test. Branch history was reset onto current `main` for this PR
+  so the diff is exactly those deltas (all #107 content is already on `main`).
