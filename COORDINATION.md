@@ -2775,3 +2775,50 @@ not the price of record: a hand-transcribed page is not a live feed.
 3. **Rivalry has ceased trading.** Any future plan that lists it as a candidate book is stale.
 4. **Cloudbet advertises a Prime League 2nd Division market that was empty on 2026-10-25.** The league is
    therefore *sometimes* bettable, which is a lead for a paid odds feed — not evidence of a price today.
+
+## `650571cf` — T2 live result: the canonical refresh published again at 14:15Z
+
+| Item | Value |
+|---|---|
+| `refresh-picks` run | **`40201021751`** on `main`, dispatched by the merge of PR #96 at 2026-10-25T14:10:52Z — first successful canonical run since `40131727862` (2026-10-24T20:52Z) |
+| Data commit | `19dc1a9` *chore(data): refresh fixtures, lines and site*, author `arena-refresh-bot`, 2026-10-25T14:15:15Z |
+| Fresh snapshot | `data/matches.json` `generated_utc = 2026-10-25T14:15:13Z`, `inventory_fetched_utc = 2026-10-25T14:13:21Z`, **234 rows** = `market 9 · model 150 · provisional 71 · unresolved 4`; 230 rows carry a probability, 4 are official-forfeit settlements with none |
+| Pages | `pages build and deployment` run **`40201414556`** — **success**, 2026-10-25T14:15:53Z, publishing `19dc1a9` |
+| Why this matters | The 6-hourly publish had been dead for ~17 h. It is now publishing again, with 9 market-backed rows (up from 6) because the refreshed collectors matched more Worlds boards |
+
+### Gates re-run on the live-refreshed tree (2026-10-25T14:16Z, `audit/session_650571cf/gates_after_refresh.txt`)
+
+| Gate | Result |
+|---|---|
+| `python3 -m unittest discover -s tests` | **88/88 OK** |
+| `python3 tools/verify.py` | **51/51 PASS** |
+| `python3 audit/check_site.py` | 24 pages, 0 failures, 0 warnings |
+| `python3 audit/mobile_audit.py` | PASS |
+| `python3 audit/verify_independent.py` | 234 rows, 9 market rows, 41 venue checks, 0 failures |
+| `python3 audit/verify_docs.py` | ALL DOCS CHECKS PASS |
+| `python3 audit/session_650571cf/verify_rows_vs_table.py` | **234/234 rendered rows re-derived, 0 problems, 0 CSV mismatches** |
+| `python3 audit/verify_docs_parity.py` | **1 FAIL — snapshot skew, see below** |
+
+### Irregularity 5 (new) — the docs-parity gate is snapshot-coupled
+
+`verify_docs_parity.py` check 6 (`canonical probabilities rendered in docs/ equal
+data/matches.json`) fails on exactly one fixture (`1053095`, canonical `0.5004` vs docs-rendered
+`0.496`) because `docs/` was last built at **10:57Z against the 20:54Z canonical snapshot**, while
+canonical has since moved to **14:15Z**. The secondary pipeline copies canonical probabilities into
+its pages at build time and keeps no record of the canonical snapshot it used, so any canonical
+refresh that lands between two docs builds makes this check compare across two different snapshots.
+It is not a defect in either published number; it is the gate being tied to one snapshot pair.
+
+Not fixed here on purpose: `scripts/**`, `docs/**` and `audit/verify_docs_parity.py` are session
+`63c67a23`'s live scope (it merged PR #96 and #100 during this session). The correct repair is to
+have the Node pipeline record the canonical snapshot it built against and compare against that,
+which is that session's file to own. Request logged below. `refresh-docs.yml` runs on cron
+`5 */6 * * *` (next 18:05Z) and a dispatch was attempted; the GitHub API rate limit shared by all
+concurrent sessions refused the `workflow_dispatch` call at 14:16Z, so the scheduled run is the
+expected repair path.
+
+### Cross-scope request (protocol: log, do not edit another session's file)
+
+| Request | Owner | Detail |
+|---|---|---|
+| R1 | `63c67a23` (or the next integration session) | Make `audit/verify_docs_parity.py` compare docs-rendered canonical probabilities against the canonical snapshot **docs was built from** (persist it in `data/node/picks.json`), so the parity gate is not red for up to 6 h after every canonical refresh. Evidence: check 6 output above and the two snapshot timestamps. |
