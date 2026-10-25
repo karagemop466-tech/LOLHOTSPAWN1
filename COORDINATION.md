@@ -35,6 +35,9 @@ Non-overlap: no other live session. This session will not edit `tools/collect.py
 `tools/verify.py`, `tools/corroborate.py`, `scripts/**`, `data/node/**`, `docs/**` or any workflow file.
 Generated `data/*.json`, `*.html` root pages and `picks.csv` are written by the Actions bot on the
 post-merge live run, not hand-edited here.
+
+---
+
 # Session `5a4d5779` — canonical refresh regression repair (opened 2026-10-25)
 
 Branch: `arena/5a4d5779-lolhotspawn1` (fixed Arena session branch; work remains on this branch).
@@ -53,6 +56,15 @@ Branch: `arena/5a4d5779-lolhotspawn1` (fixed Arena session branch; work remains 
 - **Diagnosis / parallel resolution:** the logged failing captures were hard-coded to `2026-10-24T00:00Z`, older than the 24-hour receipt window at the 2026-10-25 run. The production classifier correctly marked them expired; stale test data incorrectly expected them to be usable, and the reconciliation test also omitted the `expired_receipts` bucket. While this claim was active, session `cb84d7dc` merged PR [#93](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/93) at `2026-10-25T14:04:43Z`, making the same fixture timestamps wall-clock-relative. During `git pull --rebase origin main`, that merge introduced conflicts in both claimed test files. To preserve the other session's work, the duplicate timestamp-fix commit was skipped; the merged #93 implementation remains intact. This session adds only the missing `expired_receipts` term to the bucket-reconciliation assertion.
 - **R2 handoff:** the repeated older `C1` rows list `.github/workflows/refresh.yml`, but their completion records say the refresh repair is done and their owning branch's last commit is `2026-10-24T16:36:08Z` (>60 minutes before this handoff). This new, narrower R2 claim owns only adding `tests/**` to the main-only refresh workflow's path trigger; it does not change collection/model logic or the six-hour cron.
 - No edits have been made to the collector, model, generated match dataset, published HTML, or any other session's files. The scope excludes generated `coverage.html` / `data/corroboration.json`; those remain integration outputs.
+
+### Latest-main rebase and combined-tree verification (2026-10-25T14:21Z)
+
+- Rebased this branch onto [`origin/main` at `84524fd`](https://github.com/karagemop466-tech/LOLHOTSPAWN1/commit/84524fd8c028d4aadad75393c1c86f2a99855dd1), which includes PRs #94, #98, #99, #100 and #101. Preserved the newer `9d0a516d` session section during the `COORDINATION.md` conflict; the two session records are both present.
+- The rebase also conflicted in `data/probe/sources_probe.json` while replaying bot commit `04ed4a3` (`probed_utc=2026-10-25T14:11:17Z`) against main's newer `2026-10-25T14:13:03Z` probe. Both snapshots contain the same 37 source entries; kept the newer main probe and skipped only the superseded bot snapshot. The branch's `b25c102` diagnostic log (latest `14:12:55Z`) was likewise superseded by main's `data/diag/refresh.log` through `14:17:13Z`; no unique source or test changes were lost.
+- R2 remains scoped to the workflow trigger: `tests/**` is included under `push.branches: [main]`; the six-hour cron remains `17 */6 * * *`. YAML parsing and assertions passed.
+- Current canonical snapshot: 234 fixtures, generated `2026-10-25T14:15:13Z` from inventory fetched `14:13:21Z`; counts are 9 market, 150 model, 71 provisional, 4 settlement-only. See [`data/matches.json`](https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/matches.json) and [`data/verification.json`](https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/verification.json). GitHub Pages reports build **1313386237** `built` for commit `84524fd` at `14:18:40Z` ([build API](https://api.github.com/repos/karagemop466-tech/LOLHOTSPAWN1/pages/builds/1313386237), [published site](https://karagemop466-tech.github.io/LOLHOTSPAWN1/)).
+- Combined-tree checks: `python3 -m unittest discover -s tests -v` **88/88**; `python3 tools/verify.py` **51/51**; `python3 audit/check_site.py` **24 pages, 0 failures/warnings**; mobile audit **14 pages + CSS PASS**; independent audit **234 rows / 9 market rows / 41 venues, 0 failures/warnings/kills substitutions**; docs audit **16/16**; docs parity **10/10**; Node pipeline **234 scheduled / 9 market rows / 42 venue quotes joined / 0 single-venue fallbacks**; `tests/dashboard.cjs` PASS on picks/table with 234 matches (temporary `jsdom` dependency installed outside the repository).
+- Live Pages spot-check with cache-busted URLs (`index.html`, `verification.html`, `table.html`, `docs/index.html`, `docs/table.html`) returned the 2026-10-25 14:15 UTC snapshot consistently: 234 canonical rows, 234 verification rows, 234 secondary rows, and source-linked match records. The initial `fetch_page` request without a cache-busting query returned an older cached copy; cache-busting returned the current published content. Post-R2-merge refresh confirmation remains pending; R2 stays in progress until its PR is merged and that refresh is confirmed.
 
 ---
 
