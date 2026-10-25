@@ -1,17 +1,42 @@
 {
-  "generated_utc": "2026-10-24T17:01:51Z",
-  "dataset_generated_utc": "2026-10-24T16:57:09Z",
+  "generated_utc": "2026-10-25T14:18:39Z",
+  "dataset_generated_utc": "2026-10-25T14:18:14Z",
   "rows": 241,
-  "market_rows": 9,
-  "venues_checked": 41,
+  "market_rows": 5,
+  "venues_checked": 21,
   "counts": {
-    "model": 150,
-    "unresolved": 4,
-    "provisional": 78,
-    "market": 9
+    "model": 154,
+    "unresolved": 9,
+    "provisional": 73,
+    "market": 5
   },
   "failures": [],
-  "warnings": [],
+  "warnings": [
+    {
+      "check": "F freshness",
+      "detail": "pinnacle: payload was 17.4h old at build time"
+    },
+    {
+      "check": "F freshness",
+      "detail": "bovada: payload was 17.4h old at build time"
+    },
+    {
+      "check": "F freshness",
+      "detail": "kalshi: payload was 17.4h old at build time"
+    },
+    {
+      "check": "F freshness",
+      "detail": "polymarket: payload was 17.4h old at build time"
+    },
+    {
+      "check": "F freshness",
+      "detail": "unibet: payload was 17.4h old at build time"
+    },
+    {
+      "check": "F freshness",
+      "detail": "hotspawn: payload was 17.4h old at build time"
+    }
+  ],
   "pinnacle_kills_substitutions": [],
   "passed": true
 }

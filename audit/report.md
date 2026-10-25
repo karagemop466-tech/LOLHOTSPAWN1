@@ -1,9 +1,9 @@
 # Independent verification report
 
-Generated: `2026-10-24T17:01:51Z` · dataset: `2026-10-24T16:57:09Z`
+Generated: `2026-10-25T14:18:39Z` · dataset: `2026-10-25T14:18:14Z`
 
-- rows: **241** · market rows: **9** · venue quotes re-derived: **41**
-- failures: **0** · warnings: **0**
+- rows: **241** · market rows: **5** · venue quotes re-derived: **21**
+- failures: **0** · warnings: **6**
 
 ## Failures
 
@@ -11,4 +11,9 @@ None.
 
 ## Warnings
 
-None.
+- **F freshness** — pinnacle: payload was 17.4h old at build time
+- **F freshness** — bovada: payload was 17.4h old at build time
+- **F freshness** — kalshi: payload was 17.4h old at build time
+- **F freshness** — polymarket: payload was 17.4h old at build time
+- **F freshness** — unibet: payload was 17.4h old at build time
+- **F freshness** — hotspawn: payload was 17.4h old at build time

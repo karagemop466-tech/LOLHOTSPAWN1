@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-24T20:54:31Z",
+ "generated_utc": "2026-10-25T14:18:41Z",
  "checks": [
   {
    "name": "dataset present",
@@ -24,7 +24,7 @@
   {
    "name": "probabilities sum to 100% (tolerance 0.2pp)",
    "ok": true,
-   "detail": "241 priced rows verified; problems: []"
+   "detail": "232 priced rows checked; problems: []"
   },
   {
    "name": "pick matches the higher probability",
@@ -34,7 +34,7 @@
   {
    "name": "every match has a pick or is documented as unpickable",
    "ok": true,
-   "detail": "241 rows: 241 with a pick (4 settlement-only), 0 documented unpickable"
+   "detail": "241 rows: 236 with a pick (4 settlement-only), 5 documented unpickable"
   },
   {
    "name": "settlement picks name a participant and claim no probability",
@@ -65,6 +65,11 @@
    "name": "every market pick carries an official quote URL",
    "ok": true,
    "detail": "problems: []"
+  },
+  {
+   "name": "every published market quote is verified pre-lock",
+   "ok": true,
+   "detail": "1 later/untimed observations excluded; published violations: []"
   },
   {
    "name": "Pinnacle quote URLs point at collected matchups",
@@ -174,7 +179,7 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "32 usable receipts, 0 rejected, 13 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)"
+   "detail": "32 usable receipts, 0 rejected, 9 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)"
   },
   {
    "name": "corroboration ledger accounts for every receipt",
@@ -184,7 +189,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 76356 bytes"
+   "detail": "coverage.html 81131 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -194,12 +199,12 @@
   {
    "name": "coverage arithmetic reconciles to the inventory",
    "ok": true,
-   "detail": "priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241"
+   "detail": "priced=232 + settlements=4 + documented no-pick=5 = 241; rows with a pick=236; inventory=241"
   },
   {
    "name": "method counts partition matches.json cleanly",
    "ok": true,
-   "detail": "counts={'model': 153, 'unresolved': 4, 'provisional': 78, 'market': 6} sum=241 rows=241"
+   "detail": "counts={'model': 154, 'unresolved': 9, 'provisional': 73, 'market': 5} sum=241 rows=241"
   },
   {
    "name": "source availability recorded",
@@ -225,14 +230,14 @@
  "passed": true,
  "rows_checked": 241,
  "rows_with_source": 241,
- "rows_prob_ok": 241,
+ "rows_prob_ok": 232,
  "unverified": 82,
  "counts": {
-  "model": 153,
-  "unresolved": 4,
-  "provisional": 78,
-  "market": 6
+  "model": 154,
+  "unresolved": 9,
+  "provisional": 73,
+  "market": 5
  },
- "internal_links": 449,
+ "internal_links": 457,
  "lookahead_violations": 0
 }
