@@ -3186,7 +3186,6 @@ snapshot (raw feeds fetched 2026-10-25T14:13Z) and were then **regenerated with 
 code**; `data/probe/sources_probe.json` kept this session's later probe (14:20:51Z >
 14:13:03Z); this board kept both append blocks (main's sessions first, then `2faec1ff`).
 
-<<<<<<< HEAD
 ---
 
 # Session `1773543b` — fresh inventory, unresolved/limits in the executive summary, competition-level line research (2026-10-25)
@@ -3202,7 +3201,7 @@ carries the freshest canonical snapshot before publication.
 | `N1` | **Fresh Hotspawn inventory + full-coverage proof.** Re-collect the complete LoL fixture list from the public fixtures API on 2026-10-25 and prove every listed card carries a pick with a source link. | done | 1773543b | `data/**` (regenerated), `*.html` (generated), `COORDINATION.md` | Snapshot `2026-10-25T14:36:13Z` inventory, built `14:38:09Z`: **234 cards, 234 picks, 230 with a win probability, 4 rule settlements**, 9 market rows, 29 competitions. |
 | `N2` | **External-line research for cards that cannot be priced the featured way**, from the runner, with a per-venue HTTP result and a dated memo. | done | 1773543b | `tools/probe_sources.py`, `research/session_1773543b/**`, `data/probe/**` | 48 endpoints from run `40203073209` at `14:38:07Z`; **20 answered 200; 4 printed both sides of a listed fixture, all Worlds 2026**; Pinnacle: 11 open esports leagues, **1** LoL league, all **80** LoL matchups in that one league, **28 of 29** Hotspawn competitions not opened. |
 | `N3` | **Executive summary first, with the unresolved picks + limitations inside it**, readable on a 360 px phone. | done | 1773543b | `tools/site.py`, `assets/style.css`, `assets/app.js`, `tools/verify.py`, `tests/**` | Landing order hero → summary (4 tap-target counts + every in-site picks link) → unresolved block inside the summary (6 columns incl. *why no probability* + sources) → starting soon → tournament directory. Two new publish gates, 12 new tests. |
-| `N4` | **Verification + publication**: PR to `main`, merge, confirm the Pages deploy and a green refresh. | in progress | 1773543b | `COORDINATION.md`, `README.md` | — |
+| `N4` | **Verification + publication**: PR to `main`, merge, confirm the Pages deploy and a green refresh. | done — PR **#117** merged 2026-10-25T14:42:27Z (merge commit `415e99f`); post-merge `refresh-picks` run **`40203499383`** completed **success** and committed `bb7b59f` (snapshot `14:44:40Z`, inventory `14:42:55Z`, 234 cards); Pages deployment for `bb7b59f` reached **`built`** at 14:45:35Z and the live page was re-fetched to confirm it | 1773543b | `COORDINATION.md`, `README.md` | PR #117 · merge `415e99f` · data `bb7b59f` · Pages build `built` |
 
 No other live claim is touched: `tools/collect.py`, `tools/model.py`, `tools/corroborate.py`,
 `tools/flags.py`, `tools/integrity.py`, `tools/report.py`, `data/flags_manual.json`, `docs/**` and
@@ -3249,7 +3248,32 @@ landing page, and each unresolved row must state why it has no probability **and
 | `python3 audit/verify_docs.py` | **ALL DOCS CHECKS PASS** |
 | `python3 audit/verify_independent.py` | 234 rows, 41 venues, **0 failures, 0 warnings** |
 | Full local pipeline (`model → report → flags → site → corroborate → verify`) | green; `collect` was not run locally because this sandbox has no outbound network — the canonical runner collects it |
-=======
+
+## Publication record — session `1773543b` (2026-10-25 ~14:45Z)
+
+| Item | Value |
+|---|---|
+| PR | **#117** — https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/117 — base `main`, head `arena/1773543b-lolhotspawn1`, 35 commits, opened `MERGEABLE`/`CLEAN` |
+| Merge | **merged 2026-10-25T14:42:27Z**, merge commit **`415e99f`** |
+| Post-merge refresh | `refresh-picks` run **`40203499383`** — completed **success**, all steps including *Commit data and site* and *Upload build diagnostics*; result commit **`bb7b59f`** "chore(data): refresh fixtures, lines and site" |
+| Snapshot published | `data/matches.json` `generated_utc 2026-10-25T14:44:40Z`, inventory `14:42:55Z`, **234 cards** (`market 9 · model 150 · provisional 71 · unresolved 4`), 230 priced |
+| Pages | `gh api …/pages/builds/latest` — commit `bb7b59f`, status **`building` → `built` 14:45:35Z**, `error: null`. Note: the repository-level `…/pages` object reported `status: errored` *while* builds were succeeding and the site was serving; the build record, not that field, is authoritative. |
+| Live confirmation | `index.html` re-fetched at ~14:46Z on the `bb7b59f` deployment: **executive summary first** (234 listed · 230 with a win probability · 9 market-backed · 4 unresolved), *Where the picks are* linking all eight in-site lists, coverage/independence/verification bullets, **unresolved picks & limitations inside the summary** with the per-row *why no probability* + Hotspawn/Leaguepedia source links, then a **single** *Starting soon* strip of **16** kick-offs, then *Picks by tournament (29)* |
+| Superseded layout note | An earlier fetch ~14:44Z showed two *Starting soon* panels and “next twelve kick-offs”; that was the pre-`415e99f` page still in cache — the duplicate-id form was the defect another session fixed concurrently (PR #118 closed as superseded, PR #119 aligned every list's strip to 16). Nothing was re-added here; the live page now renders one strip. |
+
+### Data-quality items carried forward (logged, not silently fixed)
+
+1. A participant named `DELETED` appears in the Hotspawn inventory for card `#1082002`. It is mirrored verbatim (the card keeps its pick) but the name is a placeholder, not a team — needs a rules decision on whether such a card should move to the unresolved ledger.
+2. **Six** Arabian-league cards are already complete on Leaguepedia while Hotspawn still shows the card open. They stay listed with a model/provisional line; if Hotspawn voids them, the picks will be graded void.
+3. Bovada answered the 14:38Z probe with an empty coupon (`{}`) while `data/raw/bovada_lol.json` (14:13:21Z) holds **8** Worlds fixtures. Empty coupon is a probe artefact, not proof of no coverage; do not read “0 coverage” into it.
+
+### Board hygiene
+
+`COORDINATION.md` on `main` (as merged through PR #119) still contained raw `<<<<<<< HEAD` / `=======` / `>>>>>>> origin/main` conflict markers at ~line 3189, i.e. two legitimate append blocks had been committed unresolved. This session's branch resolves them by keeping **both** blocks (this session's N1–N4 record, then `650571cf`'s 14:41Z confirmation) and inserting a `---` separator. No session's text was deleted.
+
+
+---
+
 ## `650571cf` — final live confirmation (2026-10-25T14:41Z)
 
 | Item | Value |
@@ -3274,7 +3298,6 @@ status, when `main` is moving this fast.
 **Current published state at 14:41Z:** dataset `2026-10-25T14:25:59Z` (a newer canonical refresh than
 the one recorded above, still inside the 4–8 h cadence), 234 rows, 9 market-backed, 4 official-forfeit
 settlements, 0 priced-row defects across every gate re-run this session.
->>>>>>> origin/main
 
 ## `650571cf` — closing record (2026-10-25T14:47Z)
 
