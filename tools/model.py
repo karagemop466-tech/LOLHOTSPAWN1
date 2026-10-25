@@ -25,7 +25,11 @@ import math
 import os
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+try:
+    from zoneinfo import ZoneInfo
+except ImportError:  # pragma: no cover
+    ZoneInfo = None
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import DATA, RAW, ROOT, iso, load_json, log, norm_name, now_utc, save_json
@@ -164,7 +168,7 @@ def tier_prior(overview_page: str) -> float:
     """Division-calibrated starting rating when a team first enters the chronology."""
     p = (overview_page or "").lower()
     if any(k in p for k in ("world championship", "worlds", "mid-season invitational",
-                            "first stand", "esports world cup")):
+                            "first stand", "esports world cup")) and "online qualifiers" not in p:
         return 1700.0
     if re.search(r"^(lck|lpl|lec|lcs|lta|lcp|cblol)(\s|/|$)", p) and not any(
             sub in p for sub in ("cl", "challengers", "academy", "promotion", "stars",
@@ -365,7 +369,9 @@ def map_competitions(fixtures: list[dict], page_teams: dict, base: dict) -> dict
 
 
 def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
-                 page: str | None, page_teams: dict) -> tuple[str | None, str, list]:
+                 page: str | None, page_teams: dict,
+                 comp_aliases: dict | None = None,
+                 competition: str | None = None) -> tuple[str | None, str, list]:
     """Resolve a Hotspawn team name to an exact Leaguepedia team name.
 
     Competition-scoped matching runs BEFORE global exact lookup so a homonymous
@@ -376,6 +382,13 @@ def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
     key = norm_name(name)
     if not key:
         return None, "none", []
+    comp_scoped = (comp_aliases or {}).get(norm_name(competition or ""), {})
+    if key in comp_scoped:
+        target = comp_scoped[key]
+        resolved_target = exact.get(norm_name(target)) or target
+        return resolved_target, "alias", [
+            f"competition-scoped alias in '{competition}' to '{target}' recorded in "
+            f"data/aliases.json with fixture-level evidence (see Flagged for review)"]
     if key in aliases:
         target = aliases[key]
         if norm_name(target) in exact:
@@ -415,9 +428,53 @@ def resolve_team(name: str, exact: dict, base: dict, aliases: dict,
     return None, "none", []
 
 
-def _parse_ts(raw) -> datetime | None:
+def _parse_iso_naive(raw: str | None) -> datetime | None:
+    """Parse ISO-8601 or Polymarket 'YYYY-MM-DD HH:MM:SS+00' UTC timestamp into naive UTC."""
+    if not raw:
+        return None
+    s = str(raw).strip()[:19].replace(" ", "T")
     try:
-        return datetime.strptime(str(raw)[:19], "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+        return datetime.strptime(s, "%Y-%m-%dT%H:%M:%S")
+    except ValueError:
+        return None
+
+
+def parse_kalshi_start_utc(event_ticker: str | None) -> str | None:
+    """Extract scheduled kick-off UTC from Kalshi KXLOLGAME event ticker.
+
+    Kalshi's `close_time` is +48h after scheduled kick-off, whereas the ticker itself
+    encodes the US-Eastern start time (e.g. `KXLOLGAME-26OCT271300RBMR` -> 2026-10-27
+    13:00 America/New_York == `2026-10-27T17:00:00Z`).
+    """
+    if not event_ticker:
+        return None
+    m = re.search(r"-(\d{2}[A-Z]{3}\d{2}\d{4})", str(event_ticker).upper())
+    if not m:
+        return None
+    try:
+        local_dt = datetime.strptime(m.group(1), "%y%b%d%H%M")
+    except ValueError:
+        return None
+    if ZoneInfo is not None:
+        try:
+            utc_dt = local_dt.replace(tzinfo=ZoneInfo("America/New_York")).astimezone(timezone.utc)
+            return utc_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+        except Exception:  # pragma: no cover
+            pass
+    yr = local_dt.year
+    mar1 = datetime(yr, 3, 1)
+    dst_start = datetime(yr, 3, 8 + (6 - mar1.weekday()) % 7, 2, 0)
+    nov1 = datetime(yr, 11, 1)
+    dst_end = datetime(yr, 11, 1 + (6 - nov1.weekday()) % 7, 2, 0)
+    offset_h = 4 if dst_start <= local_dt < dst_end else 5
+    return (local_dt + timedelta(hours=offset_h)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _parse_ts(raw) -> datetime | None:
+    if not raw:
+        return None
+    try:
+        return datetime.strptime(str(raw).strip()[:19].replace(" ", "T"), "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
     except (TypeError, ValueError):
         return None
 
@@ -486,12 +543,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
                   smarkets_index: list | None = None, within_hours: int = 36):
     """Combine all independent real-money venues covering this fixture."""
     def close_in_time(a: str | None, b: str | None) -> bool:
-        if not a or not b:
-            return True
-        try:
-            da = datetime.strptime(a[:19], "%Y-%m-%dT%H:%M:%S")
-            db = datetime.strptime(b[:19], "%Y-%m-%dT%H:%M:%S")
-        except ValueError:
+        da, db = _parse_iso_naive(a), _parse_iso_naive(b)
+        if da is None or db is None:
             return True
         return abs((da - db).total_seconds()) <= within_hours * 3600
 
@@ -550,7 +603,8 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     pm_start = None
     for item in pm_index:
         a, b = item["names"]
-        if (same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a)):
+        if ((same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a))) \
+                and close_in_time(start, item.get("start")):
             pa = item["p0"] if same_team(name0, a) else item["p1"]
             pb = item["p1"] if same_team(name0, a) else item["p0"]
             pm_start = item.get("start") or pm_start
@@ -582,7 +636,9 @@ def market_lookup(fixture_id: str, name0: str, name1: str, start: str | None,
     # 3. Kalshi CFTC Regulated Exchange
     for item in kalshi_index:
         a, b = item["names"]
-        if (same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a)):
+        k_start = item.get("start") or parse_kalshi_start_utc(item.get("event_ticker"))
+        if ((same_team(name0, a) and same_team(name1, b)) or (same_team(name0, b) and same_team(name1, a))) \
+                and close_in_time(start, k_start):
             pa = item["p0"] if same_team(name0, a) else item["p1"]
             pb = item["p1"] if same_team(name0, a) else item["p0"]
             tot = pa + pb
@@ -769,8 +825,14 @@ def main() -> None:
         raise SystemExit("no hotspawn fixtures - run collect.py first")
 
     exact, base, page_teams = build_index(lp_matches)
-    aliases_raw = (load_json(os.path.join(DATA, "aliases.json"), default={}) or {}).get("aliases") or {}
+    aliases_doc = load_json(os.path.join(DATA, "aliases.json"), default={}) or {}
+    aliases_raw = aliases_doc.get("aliases") or {}
     aliases = {norm_name(k): v for k, v in aliases_raw.items()}
+    comp_aliases_raw = aliases_doc.get("competition_aliases") or {}
+    comp_aliases = {
+        norm_name(comp): {norm_name(k): v for k, v in (cmap or {}).items()}
+        for comp, cmap in comp_aliases_raw.items()
+    }
     comp_map = map_competitions(fixtures, page_teams, base)
 
     # Kick-off times per (competition page, team pair). A list, because the same pair
@@ -852,9 +914,15 @@ def main() -> None:
         q = mk.get("question", "")
         if re.search(r"\b(game|map)\s*\d\b|\bhandicap\b|\btotal\b", q, re.I):
             continue
+        pm_slug = mk.get("slug") or ""
+        pm_game_start = mk.get("game_start")
+        if not pm_game_start:
+            m_slug_dt = re.search(r"(\d{4}-\d{2}-\d{2})(?:$|-)", pm_slug)
+            if m_slug_dt:
+                pm_game_start = f"{m_slug_dt.group(1)}T12:00:00Z"
         pm_candidates.append({"names": outcomes, "p0": pa, "p1": pb, "volume": vol,
-                              "slug": mk.get("slug"),
-                              "start": mk.get("game_start"),
+                              "slug": pm_slug,
+                              "start": pm_game_start,
                               "observed_utc": pm_obs})
     pm_index = sorted(pm_candidates, key=lambda x: -x["volume"])
 
@@ -874,11 +942,13 @@ def main() -> None:
                 mid = 0.0
             mids.append((m.get("yes_sub_title") or "", mid))
         if mids[0][0] and mids[1][0] and mids[0][1] > 0 and mids[1][1] > 0:
+            et = ev.get("event_ticker") or ""
             kalshi_index.append({
                 "names": [mids[0][0], mids[1][0]],
                 "p0": mids[0][1],
                 "p1": mids[1][1],
-                "event_ticker": ev.get("event_ticker") or "",
+                "event_ticker": et,
+                "start": parse_kalshi_start_utc(et),
                 "observed_utc": kalshi_obs,
             })
 
@@ -936,8 +1006,10 @@ def main() -> None:
     for f in fixtures:
         n0, n1 = f["team0"]["name"], f["team1"]["name"]
         page = (comp_map.get(f["competition"]) or {}).get("page")
-        k0, m0, note0 = resolve_team(n0, exact, base, aliases, page, page_teams)
-        k1, m1, note1 = resolve_team(n1, exact, base, aliases, page, page_teams)
+        k0, m0, note0 = resolve_team(n0, exact, base, aliases, page, page_teams,
+                                     comp_aliases=comp_aliases, competition=f["competition"])
+        k1, m1, note1 = resolve_team(n1, exact, base, aliases, page, page_teams,
+                                     comp_aliases=comp_aliases, competition=f["competition"])
         for name, key, method, notes in ((n0, k0, m0, note0), (n1, k1, m1, note1)):
             if method not in ("exact",):
                 join_log.append({"hotspawn_id": f["id"], "team": name, "resolved": key,
@@ -1160,10 +1232,10 @@ def main() -> None:
                         # winner must also be consistent with the recorded score, so a partial
                         # or contradictory row is left blank rather than graded on a guess.
                         lp_a, lp_b = str(lp_done.get("team1") or ""), str(lp_done.get("team2") or "")
-                        same_order = (norm_name(lp_a) == norm_name(row["team0"]["name"])
-                                      and norm_name(lp_b) == norm_name(row["team1"]["name"]))
-                        swap_order = (norm_name(lp_a) == norm_name(row["team1"]["name"])
-                                      and norm_name(lp_b) == norm_name(row["team0"]["name"]))
+                        cand0 = {norm_name(row["team0"]["name"]), norm_name(k0 or "")} - {""}
+                        cand1 = {norm_name(row["team1"]["name"]), norm_name(k1 or "")} - {""}
+                        same_order = norm_name(lp_a) in cand0 and norm_name(lp_b) in cand1
+                        swap_order = norm_name(lp_a) in cand1 and norm_name(lp_b) in cand0
                         if same_order or swap_order:
                             win_raw = str(lp_done.get("winner"))
                             win_side = 0 if (win_raw == "1") == same_order else 1

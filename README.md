@@ -14,7 +14,7 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 
 | Page | Contents |
 | --- | --- |
-| `index.html` | Executive summary: *Starting soon* (next 12 kick-offs, soonest first, each with its pick, win probability and method) at the top, the *Where the picks are* in-site link directory, headline counts, and a dedicated *Unresolved picks & limitations* section with the per-competition fallback ledger |
+| `index.html` | **Executive summary first**, with four tap-target counts (matches, with a probability, market-backed, unresolved) and in-site links to every picks list; then the *Unresolved picks & limitations* block inside the same summary; then starting soon, the per-tournament directory, stats and the track record |
 | `table.html` | **All matches in one responsive table** — kick-off, match, both win probabilities, pick, method and source links (the page to bookmark on a phone) |
 | `results.html` | **Results & track record** — every started card graded HIT/MISS against the official series record, accuracy by method, forfeit settlements, and the started-but-ungraded list |
 | `picks.html` | The same matches as cards, next kick-off first, with the reasoning behind each line |
@@ -29,12 +29,30 @@ GitHub Actions schedules a refresh every six hours, but a schedule does not guar
 | `sources.html` | Every source, what it provides, and whether the build runner could reach it |
 | `methodology.html` | Sources, Elo specification, de-vig method, exclusions |
 
+## Reading it on a phone
+
+The landing page answers "where are the picks?" before anything else on the page:
+
+1. **Executive summary** — four large counts (matches listed, with a win probability, market-backed,
+   unresolved) that are themselves links, plus one tap target per picks destination: the pick table, the
+   next kick-offs, *Picks by tournament*, the card view, results, market-backed, model lines and the
+   unresolved ledger.
+2. **Unresolved picks and the limitations** — inside the same summary. One row per card that cannot carry
+   a probability: the match, the tournament, the settlement pick, *why there is no probability* (taken
+   verbatim from the row's recorded reason) and the source links.
+3. **Starting soon** — the next kick-offs as full-width rows with the pick and its percentage.
+4. **Picks by tournament** — one row per competition, deep-linking into `table.html?comp=…`.
+
+A bar pinned to the bottom of every page repeats the five things a phone user needs: *Summary · Picks ·
+Results · Limits · Flags*. Every table cell carries its own label, so the tables stack instead of scrolling
+sideways; `audit/mobile_audit.py` fails the build if a page loses that property.
+
 ## How it works
 
 ```
 tools/collect.py   Hotspawn fixtures API · Pinnacle · Polymarket · Kalshi · Smarkets (UKGC) · Bovada · Unibet/Kambi · Leaguepedia · LoL Esports
       ↓
-tools/model.py     Elo over Leaguepedia series results, 6-venue de-vig consensus
+tools/model.py     Elo over Leaguepedia series results, de-vig of bookmaker moneylines
       ↓
 tools/report.py    per-tournament and per-team summaries
       ↓
@@ -44,7 +62,7 @@ tools/site.py        13 static pages (+ coverage.html from corroborate.py = 14 r
       ↓
 tools/corroborate.py external-book receipt validation & coverage.html ledger
       ↓
-tools/verify.py      55 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
+tools/verify.py      57 publish-integrity assertions; any failure aborts the commit instead of publishing bad data
 ```
 
 A single canonical workflow (`.github/workflows/refresh.yml`, cron `17 */6 * * *`) attempts that
@@ -59,8 +77,7 @@ sources before relying on a pick. Only `tools/` writes the canonical published p
 - **Inventory** — `https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1`
   returns the scheduled LoL cards at collection time, including the long tail of national and academy leagues. The API can retain past-start cards as `scheduled`; these remain visible and are labeled stale rather than silently removed.
 - **Market lines** — Pinnacle's public guest API (series moneylines only — the parallel `(Kills)`
-  derivative markets are rejected), Polymarket full-series CLOB, Kalshi (CFTC), Smarkets (UKGC
-  Betting Exchange `WINNER_2_WAY` orderbooks), Bovada, and Unibet via its public Kambi feed.
+  derivative markets are rejected), Kalshi, Bovada, Unibet via its public Kambi feed, and Polymarket.
   Odds are converted to decimal, then de-vigged proportionally and precision-weighted. A single
   prediction market with negligible traded volume is kept but labelled low confidence. Actual venue
   availability varies by match; see `coverage.html` and `sources.html` rather than assuming every book
@@ -151,6 +168,9 @@ instead of `usable` and the assertions inverted — with no pipeline change at a
 
 ## External line coverage (measured, not assumed)
 
+The dated memo for the 2026-10-25 runner capture (48 endpoints, the Pinnacle league-level test and every false-positive class found while producing it) is
+[`research/session_1773543b/external-lines-probe-2026-10-25.md`](research/session_1773543b/external-lines-probe-2026-10-25.md).
+
 `data/source_probes.json` is a runner-executed probe of every candidate venue (44 on 2026-10-24T16:22Z),
 kept as evidence. The last run answered **HTTP 200** for Pinnacle, Kalshi, Bovada, Polymarket, Unibet
 (Kambi `ubse`), Pinnacle's LoL league list, Leaguepedia and Odds-API.io's sports index; **blocked**:
@@ -222,17 +242,19 @@ workflow (`.github/workflows/refresh-docs.yml`, cron `5 */6 * * *`) inside the s
 concurrency group, so the two bots serialize and cannot race.
 
 - **Pipeline**: `scripts/collect.mjs` → `scripts/analyze.mjs` → `scripts/build_site.mjs` (Node ≥ 18, no
-  dependencies). Data scope: `data/node/**`; published pages: `docs/**` (7 pages, mobile-first).
-- **Lines**: Pinnacle guest API moneylines (devigged; with retry + persistent listing cache + odds-line
-  reconstruction against the intermittent `/matchups` 401), Polymarket series markets (mid-price when
-  spread ≤ 6¢, else renormalized last prices; game-level submarkets filtered out), then an own Elo model
-  over the Hotspawn results archive (1,102 ended fixtures, 462 teams) for everything else.
-- **Differences by design**: quarantines stale fixtures (>24 h past start, never settled) instead of
-  listing them; matches with no market and insufficient connected model history are left **unresolved**
-  rather than assigned an unsupported probability; flags start-time discrepancies between Hotspawn and
-  Pinnacle/Polymarket per match. See `docs/unresolved.html` for the live count and per-match reasons.
-- **Entry point**: `docs/index.html` — executive summary, all-picks list, unresolved, flagged,
-  methodology, results, models.
+  dependencies). Data scope: `data/node/**`; published pages: `docs/**` (10 mobile-first pages:
+  `index.html`, `picks.html`, `table.html`, `featured.html`, `originated.html`, `tournaments.html`,
+  `unresolved.html`, `flagged.html`, `results.html`, `methodology.html`).
+- **Lines**: 5-venue precision-weighted market consensus (Pinnacle Arcadia moneylines with `(Kills)`
+  derivative rejection, Unibet/Kambi JSON, CFTC Kalshi `KXLOLGAME`, Polymarket full-series CLOB, and
+  Bovada), plus a strictly pre-kickoff Elo/Bradley-Terry model fitted over Leaguepedia Cargo and Hotspawn
+  series history (walk-forward out-of-sample evaluation over 22,000+ series) for unquoted competitions.
+- **Differences by design**: identifies itself prominently as a secondary companion view with row-level
+  deep links back to the canonical dashboard and a live reconciliation & divergence ledger on
+  `docs/index.html`; quarantines zero-history debuts (`0` prior series) on `docs/unresolved.html` rather
+  than emitting equal-prior `50% / 50%` splits; flags start-time and series-format discrepancies per match.
+- **Entry point**: `docs/index.html` — executive summary & canonical reconciliation table, linked from
+  the canonical pages (`companion audit (secondary view)`).
 
 Where the two dashboards agree (9 Pinnacle-priced matches, same pick sides, same irregularity classes
 found independently) is the strongest verification this repo offers; where they differ, both
@@ -284,7 +306,8 @@ Hotspawn feed (IDs and per-tournament counts), asserts that **no fixture uses a 
 own kick-off**, verifies mobile `data-label` stacking across all 14 pages, and enforces the
 settlement-pick contract (a settlement pick names a listed participant and carries no probability).
 
-The canonical Elo model (`tools/model.py`) uses division priors (`1700 / 1575 / 1500 / 1455`),
-series margin-of-victory scaling (`K=26`, `1 + 0.18 * max(0, diff - 1)`), inactivity decay after 90 days,
+The canonical Elo model (`tools/model.py`) uses division priors (`1700 / 1575 / 1500 / 1455`, with
+regional/open `wildcard` and online qualifiers excluded from Tier-1 `1700`),
+series margin-of-victory scaling (`K=26`, `1 + 0.18 * max(0, diff - 1)`), inactivity decay after 45 days,
 and empirical Bayes shrinkage (`shrink=5`), pricing every fixture strictly from its pre-kickoff rating
 state (see `methodology.html` and `data/matches.json` for live out-of-sample backtest metrics).

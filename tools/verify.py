@@ -273,6 +273,38 @@ def main() -> None:
     add("executive summary carries coverage, unresolved section and a where-to-find-picks block",
         not missing_markers, f"missing: {missing_markers}")
 
+    # Landing-page order (session 1773543b): the brief is "open the site and see where the
+    # picks are". A summary that sits under a 29-row tournament table does not meet that, so
+    # the summary - and the unresolved ledger inside it - must come before every list.
+    summary_at = index_html.find('id="summary"')
+    unres_at = index_html.find('id="unresolved-summary"')
+    soon_at = index_html.find('id="soon"')
+    directory_at = index_html.find('id="directory"')
+    order_ok = (summary_at >= 0 and unres_at >= 0 and summary_at < unres_at
+                and all(unres_at < pos for pos in (soon_at, directory_at) if pos >= 0))
+    add("executive summary and its unresolved block precede every list on the landing page",
+        order_ok,
+        f"summary={summary_at} unresolved={unres_at} soon={soon_at} directory={directory_at}")
+
+    # The unresolved block inside the summary must say, for each card, why no probability is
+    # claimed - not just repeat the settlement pick. It must also carry a source link per row.
+    unres_summary = ""
+    if unres_at >= 0:
+        end = index_html.find('</section>', unres_at)
+        unres_summary = index_html[unres_at:end if end > 0 else len(index_html)]
+    summary_gaps = []
+    if unres_summary and "Why no probability" not in unres_summary:
+        summary_gaps.append("no 'why no probability' column")
+    for r in (load_json(os.path.join(DATA, "matches.json")) or {}).get("matches") or []:
+        if r.get("method") != "unresolved":
+            continue
+        if r["team0"]["name"] not in unres_summary or r["team1"]["name"] not in unres_summary:
+            summary_gaps.append(f"card {r['id']} missing from the summary ledger")
+        elif "hotspawn.com/matches" not in unres_summary:
+            summary_gaps.append(f"card {r['id']} has no source link in the summary ledger")
+    add("the unresolved block inside the summary states why each card has no probability",
+        not summary_gaps, f"{summary_gaps[:5]}")
+
     # Phone-first entry points (e32a5c4b E3): a starting-soon list on the landing
     # page and a per-competition fallback ledger incl. Hotspawn's forfeit-void rule.
     unres_html = open(os.path.join(DOCS, "unresolved.html"), encoding="utf-8").read() \

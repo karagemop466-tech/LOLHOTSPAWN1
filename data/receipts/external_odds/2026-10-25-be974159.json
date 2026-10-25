@@ -1,0 +1,67 @@
+{
+  "about": "Independent external-odds & aggregator verification for non-featured / low-tier Hotspawn LoL competitions (session be974159, 2026-10-25T14:14Z-14:18Z). Probed BMBETS's 60-bookmaker global odds comparison index and EsportsInsider's US-licensed PandaScore feed alongside Kalshi CFTC and Unibet/Kambi APIs.",
+  "capture_window_utc": "2026-10-25T14:14:00Z/2026-10-25T14:18:00Z",
+  "sources": [
+    {
+      "key": "bmbets",
+      "name": "BMBETS (60-bookmaker index: bet365, 1xBet, TotoGaming, BetOlimp)",
+      "kind": "odds comparison",
+      "url": "https://www.bmbets.com/e-sports/world/lol---lcp/",
+      "runner_reachable": "reCAPTCHA-gated on datacenter IPs; verified directly in session be974159 research sandbox",
+      "note": "Compares 60+ global sportsbooks across esports competitions, including dedicated league indices for LoL World Championship, LoL - LCP, League of Legends - Game Changers Rising, and LoL - Prime League 2nd Division."
+    },
+    {
+      "key": "esportsinsider",
+      "name": "EsportsInsider (PandaScore US sportsbook odds feed)",
+      "kind": "odds aggregator",
+      "url": "https://esportsinsider.com/betting-odds/lol",
+      "runner_reachable": "HTML/SSR page; verified directly in session be974159 research sandbox",
+      "note": "Publishes implied win-probability splits across PandaScore-fed regulated sportsbooks for active LoL tournaments."
+    }
+  ],
+  "captures": [
+    {
+      "fixture_id": "1079080",
+      "source": "bmbets",
+      "page_url": "https://www.bmbets.com/e-sports/world/league-of-legends---game-changers-rising/",
+      "captured_utc": "2026-10-25T14:15:00Z",
+      "page_teams": ["Vitality Rising Bees (LOL)", "Mental Rush (LOL)"],
+      "decimal": [1.43, 2.78],
+      "verbatim": "27.10.2026 17:00 Vitality Rising Bees (LOL) - Mental Rush (LOL) 1.43 2.78 94.32%",
+      "note": "Multi-book average across BMBETS for LGC Rising 2026 Playoffs Grand Final (2026-10-27T17:00Z); de-vigs to 66.0% Vitality Rising Bees / 34.0% Mental Rush, corroborating our 2-venue Polymarket + Kalshi CFTC consensus."
+    },
+    {
+      "fixture_id": "1081423",
+      "source": "bmbets",
+      "page_url": "https://www.bmbets.com/e-sports/world/lol---lcp/ground-zero-gaming-(lol)-v-frank-esports-(lol)-9910334/",
+      "captured_utc": "2026-10-25T14:16:00Z",
+      "page_teams": ["Ground Zero Gaming (LOL)", "Frank Esports (LOL)"],
+      "decimal": [1.03, 9.10],
+      "verbatim": "Betting odds on 'Ground Zero Gaming (LOL) vs. Frank Esports (LOL)' scheduled on 11-Nov, 2026 ... bet365, TotoGaming, 1xBet, BetOlimp ... 1.03 | 9.10 | 92.53% ... 1.03 | 10.50 | 93.80%",
+      "note": "bet365 quote row (1.03 / 9.10, 92.53% payout; TotoGaming 1.03/10.50, 1xBet 1.02/10.50, BetOlimp 1.02/9.80 on the same match page). Confirms four independent real-money sportsbooks price Tier-1 LCP incumbent Ground Zero Gaming (~90.8%) ahead of Tier-2 PCS challenger Frank Esports (~9.2%), diverging from isolated-pool Elo."
+    }
+  ],
+  "coverage_observations": [
+    {
+      "source": "bmbets",
+      "captured_utc": "2026-10-25T14:15:00Z",
+      "url": "https://www.bmbets.com/e-sports/world/lol---prime-league-2nd-division/",
+      "observation": "Across BMBETS's 60-bookmaker index, the dedicated Prime League 2nd Division category page returned zero open or upcoming events on 2026-10-25, confirming that none of the 60 tracked sportsbooks offered moneylines on PRM 2nd Division 26-27 Fall.",
+      "verbatim": "LoL - Prime League 2nd Division ... Data not available"
+    },
+    {
+      "source": "bmbets",
+      "captured_utc": "2026-10-25T14:16:00Z",
+      "url": "https://www.bmbets.com/e-sports/world/lol---lcp/ground-zero-gaming-(lol)-v-frank-esports-(lol)-9910334/",
+      "observation": "Across BMBETS's entire World esports directory on 2026-10-25, only three LoL competitions carried active markets: LoL World Championship (9), League of Legends - Game Changers Rising (1), and LoL - LCP (1: Ground Zero Gaming vs Frank Esports quoted by bet365, TotoGaming, 1xBet, and BetOlimp at 1.02-1.03 / 9.10-10.50). All 26 national/academy/amateur LoL competitions on Hotspawn had zero markets.",
+      "verbatim": "League of Legends - Game Changers Rising (1) ... LoL World Championship (9) ... LoL - LCP (1) ... bet365, TotoGaming, 1xBet, BetOlimp"
+    },
+    {
+      "source": "esportsinsider",
+      "captured_utc": "2026-10-25T14:14:00Z",
+      "url": "https://esportsinsider.com/betting-odds/lol",
+      "observation": "EsportsInsider's PandaScore-backed LoL odds board listed only Worlds 2026 Main Event plus LCP 2027 Promotion (#1081421 FENNEL vs Nothin'Here on Nov 10, 2026 05:00 UTC at 62% FENNEL / 38% Nothin'Here, matching our FENNEL pick after excluding 'wildcard' from Tier-1 priors). Zero European regional, MENA, Nordic, or Brazilian CELOL tier-2/3 matches appeared.",
+      "verbatim": "Nov 10, 2026, 5:00 AM LCP 2027 Promotion FENNEL vs Nothin'Here 62% 38%"
+    }
+  ]
+}
