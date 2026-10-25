@@ -1346,6 +1346,29 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
         ])
     hunt_table = (table(["Source", "What it is", "Runner verdict", "Checked (UTC)"], hunt_rows)
                   if hunt_rows else '<p class="muted">No source probe recorded on this build.</p>')
+    # Dedicated esportsbook/aggregator probe (data/esportsbook_probe.json): every established book,
+    # esportsbook and aggregator tried specifically for the matches the primary feeds do not price.
+    # Rendered from the receipt, never typed by hand; a venue is only ever shown as usable when the
+    # runner actually received a named fixture with a decimal price.
+    probe = _esportsbook_probe()
+    probe_doc = load_json(os.path.join(DATA, "esportsbook_probe.json")) or {}
+    probe_rows = []
+    for r in probe_doc.get("rows") or []:
+        verdict = "usable \u2014 named fixtures with prices" if r.get("usable") else e(r.get("reason") or r.get("verdict") or "not usable")
+        probe_rows.append([
+            f'<a href="{e(r.get("url"))}" rel="noopener">{e(r.get("name"))}</a>',
+            e(r.get("category") or ""),
+            verdict if r.get("usable") else f'<span class="pill bad">{e(r.get("status"))}</span> {verdict}',
+            e((r.get("checked_utc") or "")[:16].replace("T", " ")),
+        ])
+    probe_table = (table(["Esportsbook / aggregator", "Type", "Runner verdict", "Checked (UTC)"], probe_rows)
+                   if probe_rows else '<p class="muted">No esportsbook probe receipt committed yet.</p>')
+    probe_summary = (
+        f'{probe["tested"]} endpoints probed from the build runner on {e(probe["checked"])} UTC: '
+        f'<strong>{probe["usable"]} returned a machine-readable LoL price</strong> '
+        f'({probe["http_blocked"]} blocked or key-gated, {probe["html_only"]} browser-only HTML). '
+        'Receipt: <a href="data/esportsbook_probe.json" rel="noopener">esportsbook_probe.json</a>.'
+        if probe["have"] else "No esportsbook probe receipt is committed for this build.")
     _, lowtier_date, lowtier_n = _lowtier_matrix()
     obs = _venue_observations()
     obs_rows = []
@@ -1419,6 +1442,10 @@ def build_unresolved(rows: list[dict], counts: Counter, src_status: list[dict] |
   exact response each returned, are logged in
   <a href="data/line_source_research.json" rel="noopener">line_source_research.json</a>.</p>
   {hunt_table}
+  <h3>Esportsbooks &amp; aggregators tried for the unpriced tail</h3>
+  <p>{probe_summary} Blocked or browser-only venues are recorded, never worked around, and never
+  back a pick &mdash; the unpriced tail keeps its originated (Elo) line instead of a borrowed quote.</p>
+  {probe_table}
 </section>
 {obs_block}
 

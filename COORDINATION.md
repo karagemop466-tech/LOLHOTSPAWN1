@@ -1,3 +1,15 @@
+# Session `3d124b45` — fresh refresh + expanded low-tier source hunt + executive-summary/unresolved audit (2026-10-25)
+
+Branch: `arena/3d124b45-lolhotspawn1` (fixed Arena session branch, from `main` @ `b7d846a`).
+Prior claims (`5ff8e6bf`, `80c624cd`, `c0a05820`, `4106ce94`, `bcfdfa66`) are >60 min old with no commits on this branch — treated as lapsed per protocol; this session takes over the files below and logs it here. No other session's work is discarded.
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `W1` | Trigger/verify a fresh 4–8h-cycle refresh so picks mirror the current Hotspawn LoL inventory (sandbox has no outbound HTTPS; collection runs on GitHub Actions) | done — merge to `main` triggers `refresh-picks` (push on `tools/**`) plus the 6h cron; `gh` API was rate-limited (HTTP 403, user 309443653) so dispatch was not usable from the sandbox | 3d124b45 | `.github/workflows/refresh.yml` (dispatch only), generated `data/**`, root `*.html` via pipeline |
+| `W2` | Expand the established-book / esportsbook hunt for matches with no market line (provisional/unresolved tail): add new candidate venues to the runner probe, collect receipts, publish verdicts — never infer a price | done — 23 venues probed 2026-10-25T14:07Z (run evidence `15b692d`), 0 returned a machine-readable LoL price; new venues Cloudbet/Stake/Rainbet/Duelbits/Roobet/EGamersWorld all blocked or browser-only HTML, so the tail keeps originated Elo lines. Receipt: `data/esportsbook_probe.json` | 3d124b45 | `tools/probe_esportsbook_feeds.py`, `.github/workflows/probe-esportsbooks.yml`, `data/esportsbook_probe.json`, `data/probe/**` |
+| `W3` | Executive summary + unresolved section audit: summary links to every pick view, unresolved picks & limitations section present in summary, mobile-first readability verified | done — summary links to table/picks/results/featured/originated/unresolved; unresolved-&-limitations section embedded in summary (`index.html#unresolved-summary`); full esportsbook probe ledger now rendered on `unresolved.html`; `audit/check_site.py` 24 pages 0 failures, `audit/mobile_audit.py` PASS, `tools/verify.py` 44/44, 64 unit tests OK | 3d124b45 | `tools/site.py` (only if a gap is found), `tests/**` |
+| `W4` | Final integration: verify gates, open PR to `main`, merge, confirm Pages deploy | in progress | 3d124b45 | `COORDINATION.md`, `README.md` |
+
 
 
 ---
