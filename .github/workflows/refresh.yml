@@ -7,7 +7,7 @@ name: refresh-picks
 #     derivatives are filtered out - plus Kalshi, Bovada and Polymarket)
 #  3. fits the Elo model on Leaguepedia series results and originates a line for
 #     every match that has no bookmaker price
-#  4. rebuilds the 12 static pages, runs the publish gate, and commits data + site
+#  4. rebuilds the 14 static pages, runs publish + independent/mobile audits, and commits data + site
 #
 # Only `tools/` writes the published pages. A failing gate aborts the commit, so a
 # broken build can never reach GitHub Pages.
@@ -75,6 +75,24 @@ jobs:
               echo "${stage}" >> data/build_failed_steps.txt
             fi
           done
+          for audit_script in audit/verify_independent.py audit/check_site.py; do
+            echo "--- ${audit_script} ---" | tee -a data/build.log
+            if python3 "${audit_script}" >> data/build.log 2>&1; then
+              echo "OK   ${audit_script}" | tee -a data/build.log
+            else
+              rc=$?
+              echo "FAIL ${audit_script} (exit ${rc})" | tee -a data/build.log
+              echo "${audit_script}" >> data/build_failed_steps.txt
+            fi
+          done
+          echo "--- audit/mobile_audit.py ---" | tee -a data/build.log
+          if python3 audit/mobile_audit.py --json audit/mobile_check.json >> data/build.log 2>&1; then
+            echo "OK   audit/mobile_audit.py" | tee -a data/build.log
+          else
+            rc=$?
+            echo "FAIL audit/mobile_audit.py (exit ${rc})" | tee -a data/build.log
+            echo "audit/mobile_audit.py" >> data/build_failed_steps.txt
+          fi
           echo "pipeline finished at $(date -u +%FT%TZ)" | tee -a data/build.log
 
       - name: Stop on failed gate
@@ -134,7 +152,11 @@ jobs:
           set -e
           git config user.name  "arena-refresh-bot"
           git config user.email "actions@users.noreply.github.com"
+          # A successful run must also stage removal of the previous failed-stage marker;
+          # otherwise the repository keeps falsely saying "unit-tests" failed forever.
+          git add -A data/build_failed_steps.txt
           git add data/*.json data/*.csv data/build.log data/raw data/receipts assets *.html
+          git add audit/report.json audit/report.md audit/site_check.json audit/mobile_check.json
           if git diff --cached --quiet; then
             echo "no changes"
             exit 0

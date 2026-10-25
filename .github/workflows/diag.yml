@@ -54,6 +54,11 @@ jobs:
               python3 "tools/${step}.py" 2>&1
               echo "tools/${step}.py exit: $?"
             done
+            for audit_script in audit/verify_independent.py audit/check_site.py audit/mobile_audit.py; do
+              echo "--- ${audit_script} ---"
+              python3 "${audit_script}" 2>&1
+              echo "${audit_script} exit: $?"
+            done
             echo "--- environment probe ---"
             for u in \
               "https://phpstack-1372681-6459848.cloudwaysapps.com/api/v1/fixtures?sport_alias=lol&status=scheduled&tenantId=1" \
