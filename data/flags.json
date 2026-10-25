@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-25T14:33:02Z",
- "count": 41,
+ "generated_utc": "2026-10-25T14:33:23Z",
+ "count": 39,
  "flags": [
   {
    "severity": "high",
@@ -181,20 +181,6 @@
    "verification": "runner receipts committed 2026-10-25 (data/probe/session_666de992/probe.json); browser-path cross-checks for EGamersWorld/Cloudbet/BMBets in the same memo"
   },
   {
-   "severity": "high",
-   "item": "A post-kickoff Kalshi settling price was published as a 99% pre-match pick (LYON vs Karmine Corp, Worlds 2026, id 1067684) [verified 2026-10-25 against data/raw/kalshi_lol.json, data/raw/hotspawn_lol.json and data/corroboration.json] [verified 2026-10-25 against data/raw/kalshi_lol.json (fetched_utc 2026-10-24T20:52:38Z, bid/ask 0.99/1.00 vs 0.00/0.01), data/raw/hotspawn_lol.json (lock_utc 2026-10-24T19:55:00Z), data/corroboration.json pre-match receipts, and https://liquipedia.net/leagueoflegends/World_Championship/2026 (LYON 1:0 Karmine Corp)]",
-   "detail": "Hotspawn locked picks at 2026-10-24T19:55Z for a 20:00Z kick-off, but the Kalshi feed captured at 20:52:38Z showed LYON bid/ask 0.99/1.00 vs Karmine Corp 0.00/0.01 while LYON closed out an upset win, and the build published LYON 99% / Karmine Corp 1% as a single-venue market pick. Every pre-match source had LYON as underdog: bo3.gg 44.0%, Unibet/Kambi 45.7%, OddsPortal 44.9% (receipts in data/corroboration.json) and our Elo 39.7%; EGamersWorld records pre-match odds LYON 2.04 / Karmine Corp 1.71 and the 1-0 LYON result. The named winner coincided with the result, but the probability was false and unusable (captured 57 min after lock). Fixed 2026-10-25 (session 2faec1ff): any venue quote observed at/after kick-off is rejected, prediction-market sides >=97% are rejected like decimal extremes, every live feed must be <=24 h old, rejections are disclosed per row and in market_hygiene, and three publish gates plus six regression tests (tests/test_market_guards.py) block recurrence. The corrected row carries the originated line: Karmine Corp 60.3%.",
-   "source": "https://kalshi.com/markets/kxlolgame/karmine-corp-vs-lyon/kxlolgame-26oct241600kcly",
-   "verification": "verified 2026-10-25 against data/raw/kalshi_lol.json (fetched_utc 2026-10-24T20:52:38Z, bid/ask 0.99/1.00 vs 0.00/0.01), data/raw/hotspawn_lol.json (lock_utc 2026-10-24T19:55:00Z), data/corroboration.json pre-match receipts, and https://liquipedia.net/leagueoflegends/World_Championship/2026 (LYON 1:0 Karmine Corp)"
-  },
-  {
-   "severity": "info",
-   "item": "Low-tier re-probe 2026-10-25: 52 venues, same ceiling - no external line for 27 of 29 Hotspawn competitions [verified 2026-10-25 against data/probe/lowtier_20261025.json and data/probe/sources_probe.json] [verified 2026-10-25 against data/probe/lowtier_20261025.json (52 venues, generated 2026-10-25T14:20:27Z), data/probe/sources_probe.json (37 sources, probed 2026-10-25T14:20:51Z), and dated captures of https://bo3.gg/lol/matches/current and https://egamersworld.com/lol/matches]",
-   "detail": "Fresh runner probes at 2026-10-25T14:20Z against the live 234-fixture inventory (29 competitions): only Worlds 2026 Main Event (Pinnacle, Unibet/Kambi, Bovada, Polymarket, Kalshi) and LGC Rising 2026 Playoffs (Polymarket only, $28 thin market at last pricing) appear in any venue payload. PRM 2nd/3rd Division (87 fixtures in the 2026-10-24 snapshot), RIVALS, Tunisian, Arabian, Icelandic, Benelux, Komplettligaen, LigaGG and the rest appear nowhere. Same-day browser captures of bo3.gg and EGamersWorld LoL match centres also list Worlds fixtures only. B2B odds feeds (e.g. Oddin.gg, which powers operator books under contract) and keyed APIs (The Odds API / OddsPapi returned 401) exist but cannot be cited per row without credentials; OddsPapi's published LoL coverage stops at Prime League Pro Division. Non-featured picks therefore remain originated/provisional/settlement only. Memo: research/session_2faec1ff/low-tier-resolution-2026-10-25.md.",
-   "source": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
-   "verification": "verified 2026-10-25 against data/probe/lowtier_20261025.json (52 venues, generated 2026-10-25T14:20:27Z), data/probe/sources_probe.json (37 sources, probed 2026-10-25T14:20:51Z), and dated captures of https://bo3.gg/lol/matches/current and https://egamersworld.com/lol/matches"
-  },
-  {
    "severity": "info",
    "item": "Leaguepedia is community-maintained, not an official league source",
    "detail": "Every originated line is fitted on Leaguepedia's community-recorded series history and its Data: page dqteams directives are used to quarantine removed teams. Leaguepedia is not an official settlement authority; Kalshi's own rules, for example, resolve a pre-play forfeit at the fair market price. Forfeit settlement picks on this site are therefore marked conditional.",
@@ -228,8 +214,8 @@
   },
   {
    "severity": "low",
-   "item": "6 betting/odds sources were unreachable from the build runner",
-   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); BetExplorer HTTP 404 (unavailable); Thunderpick HTTP 403 (blocked by bot protection); Tips.GG HTTP 403 (blocked by bot protection)",
+   "item": "7 betting/odds sources were unreachable from the build runner",
+   "detail": "GG.BET HTTP 403 (region blocked); EGamersWorld HTTP 403 (blocked by bot protection); Oddspedia HTTP 410 (unavailable); OddsPortal HTTP 429 (unavailable); BetExplorer HTTP 404 (unavailable); Thunderpick HTTP 403 (blocked by bot protection); Tips.GG HTTP 403 (blocked by bot protection)",
    "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/sources_status.json"
   },
   {

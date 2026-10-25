@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-25T14:33:02Z",
- "inventory_fetched_utc": "2026-10-25T14:24:04Z",
+ "generated_utc": "2026-10-25T14:33:23Z",
+ "inventory_fetched_utc": "2026-10-25T14:31:38Z",
  "receipt_audit": {
   "max_age_hours": 24,
   "used": [],
@@ -147,7 +147,7 @@
   "unibet": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
   "leaguepedia": "https://lol.fandom.com/wiki/Special:CargoExport",
   "polymarket": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=league-of-legends",
-  "source_status_utc": "2026-10-25T14:25:20Z"
+  "source_status_utc": "2026-10-25T14:32:58Z"
  },
  "counts": {
   "model": 150,
@@ -156,14 +156,6 @@
   "market": 9
  },
  "market_hygiene": {
-  "live_feed_freshness": {
-   "Pinnacle": true,
-   "Polymarket": true,
-   "Kalshi": true,
-   "Bovada": true,
-   "Unibet": true
-  },
-  "live_quote_rejections": [],
   "pinnacle_kills_derivatives_excluded": 0,
   "archived_receipts_retired": 2,
   "esportsbook_venue_active": false,
@@ -172,12 +164,12 @@
  "backtest": {
   "cutoff": "2026-07-01",
   "n": 3920,
-  "hits": 2547,
+  "hits": 2546,
   "buckets": {
    "50-60%": {
     "n": 2090,
-    "hits": 1192,
-    "accuracy": 0.5703,
+    "hits": 1191,
+    "accuracy": 0.5699,
     "mean_predicted": 0.5409
    },
    "60-70%": {
@@ -199,7 +191,7 @@
     "mean_predicted": 0.8517
    }
   },
-  "accuracy": 0.6497,
+  "accuracy": 0.6495,
   "brier": 0.2185,
   "logloss": 0.626
  },
@@ -248,7 +240,7 @@
     "rating_as_of": "2026-08-26T17:00:00Z",
     "last_played": "2026-08-21",
     "elo_raw": 1605.0,
-    "elo_now": 1559.5,
+    "elo_now": 1559.6,
     "elo": 1599.7
    },
    "team1": {
@@ -263,10 +255,10 @@
     "last_played": "2026-08-19",
     "elo_raw": 1614.8,
     "elo_now": 1652.2,
-    "elo": 1600.0
+    "elo": 1600.1
    },
-   "p0": 0.4996,
-   "p1": 0.5004,
+   "p0": 0.4994,
+   "p1": 0.5006,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Mind Blue eSports 1600 vs Last Dance (Benelux Team) 1600 (94/34 rated series).",
@@ -277,8 +269,8 @@
    "pick": {
     "side": 1,
     "team": "LAST DANCE",
-    "probability": 0.5004,
-    "other_probability": 0.4996
+    "probability": 0.5006,
+    "other_probability": 0.4994
    },
    "pick_type": null,
    "market": null,
@@ -314,9 +306,9 @@
     "rating_matches": 50,
     "rating_as_of": "2026-08-26T18:00:00Z",
     "last_played": "2026-08-21",
-    "elo_raw": 1566.2,
+    "elo_raw": 1566.3,
     "elo_now": 1548.4,
-    "elo": 1556.1
+    "elo": 1556.2
    },
    "team1": {
     "name": "BiPOLAR",
@@ -332,8 +324,8 @@
     "elo_now": 1630.6,
     "elo": 1614.8
    },
-   "p0": 0.4163,
-   "p1": 0.5837,
+   "p0": 0.4165,
+   "p1": 0.5835,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Nameless (Benelux Team) 1556 vs BiPOLAR (Benelux Team) 1615 (50/17 rated series).",
@@ -345,8 +337,8 @@
    "pick": {
     "side": 1,
     "team": "BiPOLAR",
-    "probability": 0.5837,
-    "other_probability": 0.4163
+    "probability": 0.5835,
+    "other_probability": 0.4165
    },
    "pick_type": null,
    "market": null,
@@ -2068,7 +2060,7 @@
     "rating_matches": 52,
     "rating_as_of": "2026-10-02T18:00:00Z",
     "last_played": "2026-09-04",
-    "elo_raw": 1544.2,
+    "elo_raw": 1544.3,
     "elo_now": 1548.4,
     "elo": 1536.4
    },
@@ -5094,8 +5086,8 @@
     "rating_as_of": "2026-10-24T16:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.4,
-    "elo": 1610.4
+    "elo_now": 1610.5,
+    "elo": 1610.5
    },
    "team1": {
     "name": "El Menzah Esports",
@@ -5109,8 +5101,8 @@
     "elo_now": 1447.6,
     "elo": 1447.6
    },
-   "p0": 0.7185,
-   "p1": 0.2815,
+   "p0": 0.7186,
+   "p1": 0.2814,
    "method": "provisional",
    "confidence": "low",
    "basis": "Elo line: JSK Esports 1610 vs El Menzah Esports 1448 (68/4 rated series).",
@@ -5121,8 +5113,8 @@
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.7185,
-    "other_probability": 0.2815
+    "probability": 0.7186,
+    "other_probability": 0.2814
    },
    "pick_type": null,
    "market": null,
@@ -6352,8 +6344,8 @@
     "rating_as_of": "2026-10-25T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.4,
-    "elo": 1610.4
+    "elo_now": 1610.5,
+    "elo": 1610.5
    },
    "team1": {
     "name": "Enfida Esports",
@@ -6367,8 +6359,8 @@
     "elo_now": 1419.2,
     "elo": 1419.2
    },
-   "p0": 0.7504,
-   "p1": 0.2496,
+   "p0": 0.7505,
+   "p1": 0.2495,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: JSK Esports 1610 vs Enfida Esports 1419 (68/6 rated series).",
@@ -6376,8 +6368,8 @@
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.7504,
-    "other_probability": 0.2496
+    "probability": 0.7505,
+    "other_probability": 0.2495
    },
    "pick_type": null,
    "market": null,
@@ -6673,17 +6665,17 @@
     "elo_now": 1921.7,
     "elo": 1921.7
    },
-   "p0": 0.2692,
-   "p1": 0.7308,
+   "p0": 0.2722,
+   "p1": 0.7278,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (26.9% / 73.1%): Pinnacle 27.5%/72.5% (3.48/1.32), Polymarket 26.5%/73.5% (26.5¢/73.5¢), Kalshi 27.5%/72.5% (28¢/72¢), Bovada 24.3%/75.7% (3.85/1.24), Unibet 28.1%/71.9% (3.30/1.29).",
+   "basis": "5-Venue Consensus de-vigged line (27.2% / 72.8%): Pinnacle 28.3%/71.7% (3.38/1.33), Polymarket 26.5%/73.5% (26.5¢/73.5¢), Kalshi 27.5%/72.5% (28¢/72¢), Bovada 24.3%/75.7% (3.85/1.24), Unibet 28.1%/71.9% (3.30/1.29).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Hanwha Life Esports",
-    "probability": 0.7308,
-    "other_probability": 0.2692
+    "probability": 0.7278,
+    "other_probability": 0.2722
    },
    "pick_type": null,
    "market": {
@@ -6695,31 +6687,30 @@
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight",
     "market_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight",
     "decimal": {
-     "home": 3.48,
-     "away": 1.317
+     "home": 3.38,
+     "away": 1.333
     },
     "american": {
-     "home": -315,
-     "away": 248
+     "home": -300,
+     "away": 238
     },
-    "p0": 0.2692,
-    "p1": 0.7308,
-    "overround": 0.0464,
+    "p0": 0.2722,
+    "p1": 0.7278,
+    "overround": 0.0459,
     "start_utc": "2026-10-25T17:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "rejected_venues": [],
     "total_volume_usd": 309774.11,
     "volume_usd": 309774.11,
     "venues": [
      {
       "name": "Pinnacle",
       "weight": 0.36,
-      "p0": 0.2746,
-      "p1": 0.7254,
-      "quote": "3.48/1.32",
-      "overround": 0.0464,
-      "observed_utc": "2026-10-25T14:24:06Z",
+      "p0": 0.2829,
+      "p1": 0.7171,
+      "quote": "3.38/1.33",
+      "overround": 0.0459,
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235120/markets/related/straight"
      },
      {
@@ -6729,7 +6720,7 @@
       "p1": 0.735,
       "quote": "26.5¢/73.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:25:13Z",
+      "observed_utc": "2026-10-25T14:32:51Z",
       "url": "https://polymarket.com/event/lol-hle1-ig1-2026-10-25",
       "volume_usd": 309774.11
      },
@@ -6740,7 +6731,7 @@
       "p1": 0.725,
       "quote": "28¢/72¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:24:07Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251400ighle"
      },
      {
@@ -7090,7 +7081,6 @@
     "start_utc": "2026-10-25T18:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "rejected_venues": [],
     "total_volume_usd": 181319.79,
     "volume_usd": 181319.79,
     "venues": [
@@ -7101,7 +7091,7 @@
       "p1": 0.5507,
       "quote": "2.14/1.75",
       "overround": 0.0399,
-      "observed_utc": "2026-10-25T14:24:06Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235119/markets/related/straight"
      },
      {
@@ -7111,7 +7101,7 @@
       "p1": 0.525,
       "quote": "47.5¢/52.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:25:13Z",
+      "observed_utc": "2026-10-25T14:32:51Z",
       "url": "https://polymarket.com/event/lol-tes-g2-2026-10-25",
       "volume_usd": 181319.79
      },
@@ -7122,7 +7112,7 @@
       "p1": 0.535,
       "quote": "46¢/54¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:24:07Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251300g2tes"
      },
      {
@@ -7379,17 +7369,17 @@
     "elo_now": 1785.9,
     "elo": 1785.9
    },
-   "p0": 0.7644,
-   "p1": 0.2356,
+   "p0": 0.767,
+   "p1": 0.233,
    "method": "market",
    "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (76.4% / 23.6%): Pinnacle 75.2%/24.8% (1.27/3.85), Polymarket 78.5%/21.5% (78.5¢/21.5¢), Kalshi 78.5%/21.5% (78¢/22¢), Bovada 75.7%/24.3% (1.24/3.85), Unibet 73.1%/26.9% (1.27/3.45).",
+   "basis": "5-Venue Consensus de-vigged line (76.7% / 23.3%): Pinnacle 75.9%/24.1% (1.26/3.96), Polymarket 78.5%/21.5% (78.5¢/21.5¢), Kalshi 78.5%/21.5% (78¢/22¢), Bovada 75.7%/24.3% (1.24/3.85), Unibet 73.1%/26.9% (1.27/3.45).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Dplus KIA",
-    "probability": 0.7644,
-    "other_probability": 0.2356
+    "probability": 0.767,
+    "other_probability": 0.233
    },
    "pick_type": null,
    "market": {
@@ -7401,31 +7391,30 @@
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229309/markets/related/straight",
     "market_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229309/markets/related/straight",
     "decimal": {
-     "home": 1.268,
-     "away": 3.85
+     "home": 1.256,
+     "away": 3.96
     },
     "american": {
-     "home": -373,
-     "away": 285
+     "home": -391,
+     "away": 296
     },
-    "p0": 0.7644,
-    "p1": 0.2356,
-    "overround": 0.0483,
+    "p0": 0.767,
+    "p1": 0.233,
+    "overround": 0.0488,
     "start_utc": "2026-10-25T19:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "rejected_venues": [],
     "total_volume_usd": 111827.8,
     "volume_usd": 111827.8,
     "venues": [
      {
       "name": "Pinnacle",
       "weight": 0.36,
-      "p0": 0.7522,
-      "p1": 0.2478,
-      "quote": "1.27/3.85",
-      "overround": 0.0483,
-      "observed_utc": "2026-10-25T14:24:06Z",
+      "p0": 0.7592,
+      "p1": 0.2408,
+      "quote": "1.26/3.96",
+      "overround": 0.0488,
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229309/markets/related/straight"
      },
      {
@@ -7435,7 +7424,7 @@
       "p1": 0.215,
       "quote": "78.5¢/21.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:25:13Z",
+      "observed_utc": "2026-10-25T14:32:51Z",
       "url": "https://polymarket.com/event/lol-dk-mkoi-2026-10-25",
       "volume_usd": 111827.8
      },
@@ -7446,7 +7435,7 @@
       "p1": 0.215,
       "quote": "78¢/22¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:24:07Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251800mkoidk"
      },
      {
@@ -7559,7 +7548,6 @@
     "start_utc": "2026-10-25T22:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "rejected_venues": [],
     "total_volume_usd": 132555.19,
     "volume_usd": 132555.19,
     "venues": [
@@ -7570,7 +7558,7 @@
       "p1": 0.1038,
       "quote": "1.06/9.19",
       "overround": 0.0485,
-      "observed_utc": "2026-10-25T14:24:06Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight"
      },
      {
@@ -7580,7 +7568,7 @@
       "p1": 0.095,
       "quote": "90.5¢/9.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:25:13Z",
+      "observed_utc": "2026-10-25T14:32:51Z",
       "url": "https://polymarket.com/event/lol-gen-ly-2026-10-25",
       "volume_usd": 132555.19
      },
@@ -7591,7 +7579,7 @@
       "p1": 0.096,
       "quote": "90¢/10¢",
       "overround": -0.01,
-      "observed_utc": "2026-10-25T14:24:07Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251500lygen"
      },
      {
@@ -7699,7 +7687,6 @@
     "start_utc": "2026-10-26T17:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "rejected_venues": [],
     "total_volume_usd": 103308.34,
     "volume_usd": 103308.34,
     "venues": [
@@ -7710,7 +7697,7 @@
       "p1": 0.1572,
       "quote": "1.13/6.05",
       "overround": 0.0513,
-      "observed_utc": "2026-10-25T14:24:06Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235122/markets/related/straight"
      },
      {
@@ -7720,7 +7707,7 @@
       "p1": 0.115,
       "quote": "88.5¢/11.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:25:13Z",
+      "observed_utc": "2026-10-25T14:32:51Z",
       "url": "https://polymarket.com/event/lol-t1-cfo-2026-10-26",
       "volume_usd": 103308.34
      },
@@ -7731,7 +7718,7 @@
       "p1": 0.125,
       "quote": "88¢/12¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:24:07Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261400cfot1"
      },
      {
@@ -7899,7 +7886,6 @@
     "start_utc": "2026-10-26T18:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "rejected_venues": [],
     "total_volume_usd": 13601.03,
     "volume_usd": 13601.03,
     "venues": [
@@ -7910,7 +7896,7 @@
       "p1": 0.6871,
       "quote": "3.06/1.39",
       "overround": 0.0443,
-      "observed_utc": "2026-10-25T14:24:06Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227252/markets/related/straight"
      },
      {
@@ -7920,7 +7906,7 @@
       "p1": 0.705,
       "quote": "29.5¢/70.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:25:13Z",
+      "observed_utc": "2026-10-25T14:32:51Z",
       "url": "https://polymarket.com/event/lol-kc-blg-2026-10-26",
       "volume_usd": 13601.03
      },
@@ -7931,7 +7917,7 @@
       "p1": 0.699,
       "quote": "30¢/68¢",
       "overround": -0.02,
-      "observed_utc": "2026-10-25T14:24:07Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261300blgkc"
      },
      {
@@ -8165,7 +8151,6 @@
     "start_utc": "2026-10-26T19:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "rejected_venues": [],
     "total_volume_usd": 11744.52,
     "volume_usd": 11744.52,
     "venues": [
@@ -8176,7 +8161,7 @@
       "p1": 0.6435,
       "quote": "2.69/1.49",
       "overround": 0.0428,
-      "observed_utc": "2026-10-25T14:24:06Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229311/markets/related/straight"
      },
      {
@@ -8186,7 +8171,7 @@
       "p1": 0.645,
       "quote": "35.5¢/64.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:25:13Z",
+      "observed_utc": "2026-10-25T14:32:51Z",
       "url": "https://polymarket.com/event/lol-los-tsw-2026-10-26",
       "volume_usd": 11744.52
      },
@@ -8197,7 +8182,7 @@
       "p1": 0.645,
       "quote": "36¢/64¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:24:07Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261500tswlos"
      },
      {
@@ -8307,7 +8292,6 @@
     "start_utc": "2026-10-26T22:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 5,
-    "rejected_venues": [],
     "total_volume_usd": 9313.56,
     "volume_usd": 9313.56,
     "venues": [
@@ -8318,7 +8302,7 @@
       "p1": 0.6859,
       "quote": "3.05/1.40",
       "overround": 0.0438,
-      "observed_utc": "2026-10-25T14:24:06Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227251/markets/related/straight"
      },
      {
@@ -8328,7 +8312,7 @@
       "p1": 0.695,
       "quote": "30.5¢/69.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:25:13Z",
+      "observed_utc": "2026-10-25T14:32:51Z",
       "url": "https://polymarket.com/event/lol-tl2-al-2026-10-26",
       "volume_usd": 9313.56
      },
@@ -8339,7 +8323,7 @@
       "p1": 0.685,
       "quote": "32¢/68¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:24:07Z",
+      "observed_utc": "2026-10-25T14:31:41Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261800altl"
      },
      {
@@ -8444,7 +8428,6 @@
     "start_utc": "2026-10-27 16:00:00+00",
     "league": null,
     "venue_count": 1,
-    "rejected_venues": [],
     "total_volume_usd": 58.47,
     "volume_usd": 58.47,
     "venues": [
@@ -8455,7 +8438,7 @@
       "p1": 0.64,
       "quote": "36.0¢/64.0¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T14:25:13Z",
+      "observed_utc": "2026-10-25T14:32:51Z",
       "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
       "volume_usd": 58.47
      }
@@ -9947,8 +9930,8 @@
     "rating_as_of": "2026-10-31T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.4,
-    "elo": 1610.4
+    "elo_now": 1610.5,
+    "elo": 1610.5
    },
    "team1": {
     "name": "Olympique Mnihla",
@@ -9962,8 +9945,8 @@
     "elo_now": 1520.3,
     "elo": 1520.3
    },
-   "p0": 0.6268,
-   "p1": 0.3732,
+   "p0": 0.627,
+   "p1": 0.373,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: JSK Esports 1610 vs Olympique Mnihla 1520 (68/41 rated series).",
@@ -9971,8 +9954,8 @@
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.6268,
-    "other_probability": 0.3732
+    "probability": 0.627,
+    "other_probability": 0.373
    },
    "pick_type": null,
    "market": null,
@@ -11607,11 +11590,11 @@
     "rating_as_of": "2026-11-01T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.4,
-    "elo": 1610.4
+    "elo_now": 1610.5,
+    "elo": 1610.5
    },
-   "p0": 0.5462,
-   "p1": 0.4538,
+   "p0": 0.5461,
+   "p1": 0.4539,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: Simplicity Gaming 1643 vs JSK Esports 1610 (39/68 rated series).",
@@ -11619,8 +11602,8 @@
    "pick": {
     "side": 0,
     "team": "Simplicity Gaming",
-    "probability": 0.5462,
-    "other_probability": 0.4538
+    "probability": 0.5461,
+    "other_probability": 0.4539
    },
    "pick_type": null,
    "market": null,
@@ -12831,11 +12814,11 @@
     "rating_as_of": "2026-11-07T17:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1621.9,
-    "elo_now": 1610.4,
-    "elo": 1610.4
+    "elo_now": 1610.5,
+    "elo": 1610.5
    },
-   "p0": 0.3117,
-   "p1": 0.6883,
+   "p0": 0.3116,
+   "p1": 0.6884,
    "method": "model",
    "confidence": "medium",
    "basis": "Elo line: JSK Academy 1473 vs JSK Esports 1610 (31/68 rated series).",
@@ -12843,8 +12826,8 @@
    "pick": {
     "side": 1,
     "team": "JSK Esports",
-    "probability": 0.6883,
-    "other_probability": 0.3117
+    "probability": 0.6884,
+    "other_probability": 0.3116
    },
    "pick_type": null,
    "market": null,
