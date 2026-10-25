@@ -3013,3 +3013,23 @@ other sessions' work, and reapplied only this claim. No changes were discarded. 
 intermediate `19dc1a9` snapshot showed a temporary docs-parity mismatch; PR #99 refreshed the secondary
 snapshot and cleared that skew. Cross-scope request R1 in session `650571cf` is recorded in the main board;
 this audit will not edit `scripts/**`, `data/node/**`, or `audit/verify_docs_parity.py`.
+
+## V1 — independent verification results (2026-10-25T14:22Z)
+
+Evidence: [`audit/session_9b271aa4/verification.md`](audit/session_9b271aa4/verification.md).
+
+| Item | Result |
+|---|---|
+| Main baseline | `84524fd8c028d4aadad75393c1c86f2a99855dd1` (PR #101 merged); this audit did not edit production or generated site files |
+| Canonical snapshot | `2026-10-25T14:15:13Z`, inventory `14:13:21Z`, 234 Hotspawn fixtures / 29 competitions; method counts 9 market, 150 model, 71 provisional, 4 settlement-only |
+| Secondary snapshot | `2026-10-25T14:15:46.475Z`, feed `14:15:39.076Z`; 234 scheduled, 157 active, 77 stale; not authoritative for submitted picks |
+| Refresh runs | `refresh-picks` [`40201021751`](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40201021751) and `refresh-docs` [`40201363277`](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40201363277) both produced fresh 14:15Z snapshots; both workflows are scheduled every 6 hours |
+| GitHub Pages | Latest Pages build [`1313386237`](https://api.github.com/repos/karagemop466-tech/LOLHOTSPAWN1/pages/builds/1313386237) status **built**, commit `84524fd`, updated 14:19:20Z; `/pages` API status **built**; live summary/table/unresolved pages fetched and current |
+| Gates | 88/88 unit tests · 51/51 canonical publish gates · mobile audit PASS (14 pages) · site links 24 pages/0 failures/0 warnings · docs integrity PASS · docs parity 10/10 · Node contract PASS (234 scheduled, 9 market rows, 42 quotes) · independent row audit 234 rows/0 failures · rendered table 234/234/0 mismatches |
+| Current irregularities | Only 9/234 rows have a market quote; 71 estimates are provisional due thin history; 4 disqualification/forfeit rows have no probability and are conditional settlement picks; 33 differences between the canonical and companion estimate views are explicitly marked. 12/18 probed sources were reachable on the canonical build. Eight old bookmaker URLs return closed-market 401/403 and are disclosed as historical, not live quotes. |
+
+The parity check briefly failed on the intermediate `19dc1a9` tree because an older secondary page embedded the prior canonical percentage for `#1053095`; PR #99 refreshed the companion snapshot at 14:15:46Z. Re-running all gates on the final `84524fd` tree gives **10/10 parity checks pass**. A Pages `building`/`errored` status during the concurrent refresh resolved; current API status is `built` and the live pages serve the 14:15Z snapshot.
+
+Research reviewed for the non-featured matches is published in `research/LINE_SEARCH_2026-10-25.md`, `research/low-tier-sources-2026-10-24.md`, `research/external-lines-2026-10-25.md`, `data/esportsbook_probe.json`, and the source directory page. No market probability was inferred from Hotspawn crowd votes or filled from inaccessible / empty books. Leaguepedia match history is community-maintained and is labeled as such; it is not represented as an official league result source.
+
+V1 verification is complete. Final integration PR link and merge result will be recorded below after the requested PR is merged.
