@@ -40,25 +40,13 @@ sys.path.insert(0, str(ROOT / "tools"))
 import corroborate  # noqa: E402
 
 
-def _iso(dt):
-    return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-
-def _now():
-    return datetime.now(timezone.utc)
-
-
-# Fixture timestamps are wall-clock-relative: corroborate grades receipt freshness
-# against now (RECEIPT_MAX_AGE_HOURS = 24). The original fixtures pinned captures to
-# 2026-10-24T15:00:00Z, so `test_receipt_for_a_listed_fixture_is_usable` was on a timer -
-# it would have started failing at 2026-10-25T15:00Z and frozen the refresh again (U1).
-
-
 def _match(fid, t0="Alpha Esports", t1="Bravo Gaming", p0=0.62):
     return {
         "id": fid,
         "competition": "Test League 2026 Split 1",
-        "start_utc": _iso(_now() + timedelta(days=5)),
+        # Wall-clock-relative like _capture below: a pinned 2026-10-30 kick-off would
+        # silently turn this "upcoming" fixture into a past one (aa39a6d5 clock guard).
+        "start_utc": (datetime.now(timezone.utc) + timedelta(days=5)).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "hotspawn_url": f"https://www.hotspawn.com/matches/alpha-vs-bravo-test-league-{fid}",
         "team0": {"name": t0},
         "team1": {"name": t1},
@@ -71,11 +59,16 @@ def _match(fid, t0="Alpha Esports", t1="Bravo Gaming", p0=0.62):
 
 def _capture(fixture_id, decimal=(1.80, 2.00), page_teams=("Alpha Esports", "Bravo Gaming"),
              source="bo3gg", captured=None):
+    # Default to a wall-clock-relative stamp: a listed-fixture receipt is "usable" only
+    # inside corroborate.RECEIPT_MAX_AGE_HOURS (24 h). A hard-coded 2026-10-24 date crossed
+    # that window on 2026-10-25 and would turn this test into the next refresh outage.
+    if captured is None:
+        captured = (datetime.now(timezone.utc) - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
     return {
         "fixture_id": fixture_id,
         "source": source,
         "page_url": "https://bo3.gg/lol/matches/current",
-        "captured_utc": captured if captured is not None else _iso(_now() - timedelta(hours=1)),
+        "captured_utc": captured,
         "page_teams": list(page_teams),
         "decimal": list(decimal),
         "verbatim": "{} {} {}".format(page_teams[0], " / ".join(str(d) for d in decimal), page_teams[1]),
@@ -98,7 +91,7 @@ class CorroborationReceiptLifecycleTests(unittest.TestCase):
 
     def write_dataset(self, matches):
         with open(os.path.join(self.data, "matches.json"), "w", encoding="utf-8") as fh:
-            json.dump({"generated_utc": _iso(_now()), "matches": matches}, fh)
+            json.dump({"generated_utc": "2026-10-24T16:00:00Z", "matches": matches}, fh)
 
     def write_receipts(self, captures, name="2026-10-24-test.json"):
         doc = {
@@ -248,7 +241,7 @@ class ReceiptIdentityTests(unittest.TestCase):
             receipts = data / "receipts" / "external_odds"
             receipts.mkdir(parents=True)
             (data / "matches.json").write_text(json.dumps({
-                "generated_utc": _iso(_now()),
+                "generated_utc": "2026-10-24T00:00:00Z",
                 "matches": [{
                     "id": "current-1",
                     "competition": "Synthetic test league",

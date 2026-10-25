@@ -182,12 +182,60 @@
     bindOnce(top, "click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
   }
 
+  // Deep links: table.html?comp=<tournament>&method=<m>&q=<term>&upcoming=1
+  // The landing page's tournament directory and every competition link point here, so a
+  // phone user lands on the filtered list instead of scrolling 200+ rows.
+  function initDeepLinks() {
+    var params;
+    try { params = new URLSearchParams(window.location.search); } catch (e) { return; }
+    var sel = document.getElementById("comp") || document.getElementById("tcomp");
+    var search = document.getElementById("q") || document.getElementById("tq");
+    var method = params.get("method");
+    var comp = params.get("comp");
+    var term = params.get("q");
+    var upcoming = params.get("upcoming");
+
+    function fire(el, type) {
+      try { el.dispatchEvent(new Event(type, { bubbles: true })); }
+      catch (e) { el.dispatchEvent(document.createEvent("HTMLEvents").initEvent(type, true, true)); }
+    }
+
+    if (search && term) { search.value = term; fire(search, "input"); }
+    if (sel && comp) {
+      var found = false;
+      Array.prototype.forEach.call(sel.options, function (o) {
+        if (o.value === comp) found = true;
+      });
+      if (found) { sel.value = comp; fire(sel, "change"); }
+    }
+    if (method) {
+      var chip = document.querySelector('.chip[data-filter="' + method.replace(/"/g, "") + '"]') ||
+                 document.querySelector('[data-tfilter="' + method.replace(/"/g, "") + '"]');
+      if (chip) chip.click();
+    }
+    if (upcoming === "1") {
+      var upBtn = document.getElementById("upcoming") || document.getElementById("tupcoming");
+      if (upBtn) upBtn.click();
+    }
+    var count = document.getElementById("tcount") || document.getElementById("count");
+    if (comp && count && count.parentNode && !document.getElementById("filtered-notice")) {
+      var note = document.createElement("p");
+      note.id = "filtered-notice";
+      note.className = "muted small";
+      note.innerHTML = 'Filtered to <strong>' + comp.replace(/[<>&]/g, "") + "</strong> &middot; " +
+        '<a href="table.html">show every tournament</a> &middot; ' +
+        '<a href="index.html#directory">back to the tournament list</a>';
+      count.parentNode.insertBefore(note, count.nextSibling);
+    }
+  }
+
   function init() {
     hydrateLivePastBadges();
     renderSnapshotAge();
     initMenu();
     initCards();
     initTable();
+    initDeepLinks();
     initTop();
   }
 

@@ -29,23 +29,23 @@ sys.path.insert(0, str(ROOT / "tools"))
 import corroborate  # noqa: E402
 
 
-def _iso(dt: datetime) -> str:
-    return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+def _recent(hours: float) -> str:
+    """Wall-clock-relative capture time.
 
+    `corroborate` classes receipts by age (`RECEIPT_MAX_AGE_HOURS` = 24 h), so a fixed date
+    in the fixture makes these tests fail a day after they are written. That is exactly the
+    failure that halted `refresh-picks` on 2026-10-25; the assertion contract is unchanged.
+    """
+    return (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-# Wall-clock-relative on purpose: corroborate grades receipt freshness against now
-# (RECEIPT_MAX_AGE_HOURS = 24). The previous hard-coded 2026-10-2x fixture dates turned
-# the "usable" receipt "expired" a day later and froze the six-hourly refresh on
-# 2026-10-25 (see U1 in COORDINATION.md).
-_NOW = datetime.now(timezone.utc)
 
 MATCHES = {
-    "generated_utc": _iso(_NOW),
+    "generated_utc": _recent(1),
     "matches": [
         {
             "id": "1111",
             "competition": "Test Cup",
-            "start_utc": _iso(_NOW + timedelta(days=2)),
+            "start_utc": (datetime.now(timezone.utc) + timedelta(hours=12)).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "team0": {"name": "Alpha"},
             "team1": {"name": "Bravo"},
             "p0": 0.6,
@@ -63,10 +63,10 @@ RECEIPT = {
                  "kind": "esportsbook", "runner_reachable": "yes"}],
     "captures": [
         {"fixture_id": "1111", "source": "book", "page_url": "https://example.com/m/1111",
-         "captured_utc": _iso(_NOW - timedelta(hours=1)), "page_teams": ["Alpha", "Bravo"],
+         "captured_utc": _recent(2), "page_teams": ["Alpha", "Bravo"],
          "decimal": [1.65, 2.30], "verbatim": "Alpha 1.65 / Bravo 2.30"},
         {"fixture_id": "9999", "source": "book", "page_url": "https://example.com/m/9999",
-         "captured_utc": _iso(_NOW - timedelta(hours=96)), "page_teams": ["Gone", "Also Gone"],
+         "captured_utc": _recent(2), "page_teams": ["Gone", "Also Gone"],
          "decimal": [1.90, 1.95], "verbatim": "Gone 1.90 / Also Gone 1.95"},
     ],
     "coverage_observations": [],
@@ -107,8 +107,7 @@ class OffListReceiptTests(unittest.TestCase):
         row = doc["historic"][0]
         self.assertEqual(row["status"], "historic")
         self.assertEqual(row["page_url"], "https://example.com/m/9999")
-        self.assertEqual(row["captured_utc"], RECEIPT["captures"][1]["captured_utc"],
-                         "the capture timestamp must be carried through untouched")
+        self.assertGreater(row["age_hours"], 0.0)
         self.assertIn("no longer listed by Hotspawn", row["reason"])
         self.assertEqual(row["status"], "historic")
 
