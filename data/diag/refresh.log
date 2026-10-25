@@ -1,5 +1,8 @@
-=== diag 2026-10-24T18:04:40Z ref=arena/9f16f9ad-lolhotspawn1 sha=d589959dcbc83fd0ee1ee27f7f9234760d1a676f ===
+=== diag 2026-10-25T14:19:53Z ref=arena/aa39a6d5-lolhotspawn1 sha=426d9ae455f4e3595b40aff64a7d4550ea0f040e ===
 --- unittest ---
+test_aged_receipt_never_blocks_publication_under_a_future_clock (test_clock_shift.ClockShiftTests.test_aged_receipt_never_blocks_publication_under_a_future_clock) ... ok
+test_fresh_receipt_stays_usable_under_a_future_clock (test_clock_shift.ClockShiftTests.test_fresh_receipt_stays_usable_under_a_future_clock) ... ok
+test_no_hard_coded_fixture_timestamps_in_receipt_test_modules (test_clock_shift.ClockShiftTests.test_no_hard_coded_fixture_timestamps_in_receipt_test_modules) ... ok
 test_age_hours (test_corroborate.ReceiptLedgerTests.test_age_hours) ... ok
 test_buckets (test_corroborate.ReceiptLedgerTests.test_buckets) ... ok
 test_expired_is_never_counted_as_usable_evidence (test_corroborate.ReceiptLedgerTests.test_expired_is_never_counted_as_usable_evidence) ... ok
@@ -39,13 +42,13 @@ test_every_row_records_what_came_back (test_esportsbook_probe.EsportsbookProbeTe
 test_receipt_shape (test_esportsbook_probe.EsportsbookProbeTests.test_receipt_shape) ... ok
 test_summary_list_matches_rows (test_esportsbook_probe.EsportsbookProbeTests.test_summary_list_matches_rows) ... ok
 test_usable_requires_a_named_fixture_with_a_price (test_esportsbook_probe.EsportsbookProbeTests.test_usable_requires_a_named_fixture_with_a_price) ... ok
-test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [18:04:40] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpbg0kprft/flags.json' mode='r' encoding='utf-8'>
+test_delisted_reference_is_annotated_not_dropped (test_flags_delisted.DelistedCuratedFlagTests.test_delisted_reference_is_annotated_not_dropped) ... [14:19:53] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:64: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp6jt862qy/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [18:04:40] flags: 5 items
-/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp0y9ygrd_/flags.json' mode='r' encoding='utf-8'>
+test_listed_reference_is_not_annotated (test_flags_delisted.DelistedCuratedFlagTests.test_listed_reference_is_not_annotated) ... [14:19:53] flags: 5 items
+/home/runner/work/LOLHOTSPAWN1/LOLHOTSPAWN1/tests/test_flags_delisted.py:74: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpw_caduvt/flags.json' mode='r' encoding='utf-8'>
   out = json.load(open(os.path.join(self.data, "flags.json"), encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -60,7 +63,7 @@ test_competition_page_disambiguates_homonyms_before_global_exact (test_integrity
 test_invalid_probabilities (test_integrity.IntegrityTests.test_invalid_probabilities) ... ok
 test_kambi_parse_events_reads_match_odds (test_integrity.IntegrityTests.test_kambi_parse_events_reads_match_odds) ... ok
 test_live_venue_name_aliases (test_integrity.IntegrityTests.test_live_venue_name_aliases) ... ok
-test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [18:04:40] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
+test_preserve_recent_on_http_error_respects_ttl (test_integrity.IntegrityTests.test_preserve_recent_on_http_error_respects_ttl) ... [14:19:53] kambi: runner got status=429; preserved verified <24h snapshot (1 items, age=0.0h)
 ok
 test_published_dataset_and_html_invariants (test_integrity.IntegrityTests.test_published_dataset_and_html_invariants) ... ok
 test_settlement_pick_is_valid_without_probability (test_integrity.IntegrityTests.test_settlement_pick_is_valid_without_probability) ... ok
@@ -72,7 +75,7 @@ test_unresolved_both_sides_blank (test_integrity.IntegrityTests.test_unresolved_
 test_valid (test_integrity.IntegrityTests.test_valid) ... ok
 test_wrong_team_same_probability (test_integrity.IntegrityTests.test_wrong_team_same_probability) ... ok
 test_flagged_page_renders_fixture_table_with_probabilities_picks_and_sources (test_site_and_flags.SiteAndFlagsRegressionTests.test_flagged_page_renders_fixture_table_with_probabilities_picks_and_sources) ... ok
-test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key (test_site_and_flags.SiteAndFlagsRegressionTests.test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key) ... [18:04:40] flags: 5 items
+test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key (test_site_and_flags.SiteAndFlagsRegressionTests.test_flags_detects_zero_history_debuts_without_false_positive_on_missing_key) ... [14:19:53] flags: 6 items
 ok
 test_methodology_has_no_duplicate_guardrail_and_uses_tier_priors (test_site_and_flags.SiteAndFlagsRegressionTests.test_methodology_has_no_duplicate_guardrail_and_uses_tier_priors) ... ok
 test_mobile_audit_covers_all_14_root_pages_including_results (test_site_and_flags.SiteAndFlagsRegressionTests.test_mobile_audit_covers_all_14_root_pages_including_results) ... ok
@@ -80,37 +83,37 @@ test_page_shell_omits_redundant_floating_picks_pill_on_table_page (test_site_and
 test_results_page_every_td_has_data_label (test_site_and_flags.SiteAndFlagsRegressionTests.test_results_page_every_td_has_data_label) ... ok
 
 ----------------------------------------------------------------------
-Ran 62 tests in 0.218s
+Ran 65 tests in 0.182s
 
 OK
 unittest exit: 0
 --- tools/collect.py ---
-[18:04:41] hotspawn: 241 LoL fixtures
-[18:04:44] pinnacle: 119 LoL matchups, 7 with open series moneylines (7 '(Kills)' derivatives excluded)
-[18:04:44] kalshi: 8 CFTC match events (status=200)
-[18:04:45] bovada: 6 LoL moneylines (status=200)
-[18:04:45] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
-[18:04:45] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
-[18:04:46] kambi/nordicbet: status=429 No access
-[18:04:46] kambi/coolbet: 0 events, 0 new moneylines
-[18:04:46] kambi: 7 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
-[18:05:50] leaguepedia: 34665 series rows, 11 pages with dqteams (err='')
-[18:05:50] lolesports: 80 Worlds events (status=200)
-[18:05:51] polymarket: 45 match-level markets (status=200)
-[18:05:59] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=404, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=503, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=503, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
+[14:19:54] hotspawn: 234 LoL fixtures
+[14:19:55] pinnacle: runner got status=403; preserved verified <24h snapshot (4 items, age=17.5h)
+[14:19:55] kalshi: 9 CFTC match events (status=200)
+[14:19:55] bovada: 8 LoL moneylines (status=200)
+[14:19:56] kambi/leovegas: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint leovegas","status":400}}
+[14:19:56] kambi/888sport: status=400 {"error":{"message":"Unable to resolve customer for extApiEndpoint 888sport","status":400}}
+[14:19:56] kambi/nordicbet: status=429 No access
+[14:19:56] kambi/coolbet: 0 events, 0 new moneylines
+[14:19:56] kambi: 8 Unibet/Kambi LoL match moneylines (status=200, ops=['ubse', 'coolbet+0'])
+[14:21:02] leaguepedia: 34677 series rows, 11 pages with dqteams (err='')
+[14:21:02] lolesports: 80 Worlds events (status=200)
+[14:21:03] polymarket: 55 match-level markets (status=200)
+[14:21:12] sources: Pinnacle=200, Kalshi (CFTC)=200, Bovada=200, Polymarket=200, GG.BET=403, BC.GAME=200, EGamersWorld=403, Oddspedia=410, OddsPortal=200, BetExplorer=404, Unibet/Kambi=200, Thunderpick=403, Tips.GG=403, Midnite=200, OddsPortal Worlds=200, Hotspawn fixtures API=200, Leaguepedia=200, LoL Esports (Riot)=200
 tools/collect.py exit: 0
 --- tools/model.py ---
-[18:06:39] rows=241 methods={'model': 151, 'unresolved': 4, 'provisional': 78, 'market': 8} joins=33
-[18:06:39] backtest n=3900 acc=0.6495 brier=0.2185
+[14:21:36] rows=234 methods={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9} joins=33
+[14:21:36] backtest n=3920 acc=0.6497 brier=0.2185
 tools/model.py exit: 0
 --- tools/report.py ---
 {
- "total": 241,
+ "total": 234,
  "counts": {
-  "model": 151,
+  "model": 150,
   "unresolved": 4,
-  "provisional": 78,
-  "market": 8
+  "provisional": 71,
+  "market": 9
  },
  "per_competition": {
   "Benelux Ascend Series 2026 Summer Split": {
@@ -150,8 +153,8 @@ tools/model.py exit: 0
    "model": 1
   },
   "RIVALS LEAGUE Season 2": {
-   "provisional": 9,
-   "model": 16
+   "provisional": 7,
+   "model": 17
   },
   "Hitpoint 2nd Div Challengers 2026 Summer Playoffs": {
    "model": 1
@@ -165,7 +168,7 @@ tools/model.py exit: 0
   },
   "Arabian League 2nd Division 2026 Summer": {
    "provisional": 4,
-   "model": 5
+   "model": 4
   },
   "Arabian Regional Championship 2026: Qatar-Bahrain-Kuwait": {
    "provisional": 2
@@ -174,33 +177,32 @@ tools/model.py exit: 0
    "provisional": 6
   },
   "LigaGG CELOL B 2026 Split 2 Playoffs": {
-   "model": 5
+   "model": 3
   },
   "4 Nations 2026 Halloween Heist": {
    "provisional": 1,
    "model": 4
   },
   "Logitech G SuperStrike Cup Qualifier": {
-   "provisional": 4
-  },
-  "PRM 3rd Division 26-27 Fall": {
-   "model": 46,
-   "provisional": 16
+   "provisional": 2
   },
   "Tunisian Super League 2026": {
-   "provisional": 20,
-   "model": 5
-  },
-  "Worlds 2026 Main Event": {
-   "model": 1,
-   "market": 7
+   "provisional": 17,
+   "model": 7
   },
   "LigaGG CELOL A 2026 Split 2 Playoffs": {
-   "model": 2
+   "model": 4
+  },
+  "PRM 3rd Division 26-27 Fall": {
+   "model": 44,
+   "provisional": 16
   },
   "PRM 2nd Division 26-27 Fall": {
    "model": 32,
    "provisional": 4
+  },
+  "Worlds 2026 Main Event": {
+   "market": 8
   },
   "LGC Rising 2026 Playoffs": {
    "market": 1
@@ -221,7 +223,7 @@ UNRESOLVED 4
   Komplettligaen 2026 Autumn | Volda E-Sport vs Solid Gaming | Participant removed mid-split: community-maintained Leaguepedia Data:Komplettlig
   Komplettligaen 2026 Autumn | Solid Gaming vs NTNUI Kometkameratene | Participant removed mid-split: community-maintained Leaguepedia Data:Komplettlig
 
-NON-EXACT JOINS 16
+NON-EXACT JOINS 15
   competition-page | LAST DANCE -> Last Dance (Benelux Team) | resolved within 'Benelux Ascend Series/2026 Season/Summer Split' to 'Last Dance (Benelux T
   competition-page | Nameless -> Nameless (Benelux Team) | resolved within 'Benelux Ascend Series/2026 Season/Summer Split' to 'Nameless (Benelux Tea
   competition-page | BiPOLAR -> BiPOLAR (Benelux Team) | resolved within 'Benelux Ascend Series/2026 Season/Summer Split' to 'BiPOLAR (Benelux Team
@@ -229,79 +231,79 @@ NON-EXACT JOINS 16
   competition-page | Fenrir -> Fenrir (Icelandic Team) | resolved within 'Icelandic Esports League/2026 Season/Autumn Split' to 'Fenrir (Icelandic 
   competition-page | Arena -> Arena (Kuwaiti Team) | resolved within 'Arabian Regional Championship 2026/Qualifiers/QA-BH-KW' to 'Arena (Kuwait
   competition-page | OverPower -> Overpower (Kuwaiti Team) | resolved within 'Arabian Regional Championship 2026/Qualifiers/QA-BH-KW' to 'Overpower (Ku
-  competition-page | FAME -> FAME (Bulgarian Team) | resolved within 'Logitech G SuperStrike Cup/Qualifier' to 'FAME (Bulgarian Team)'
-  competition-page | Infinity Gaming -> Infinity Gaming (Brazilian Team) | resolved within 'LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs' to 'Infinity Gaming (B
+  competition-page | Team Spirit -> Team Spirit (Bulgarian Team) | resolved within 'Logitech G SuperStrike Cup/Qualifier' to 'Team Spirit (Bulgarian Team)'
   competition-page | Neon eSports -> Neon eSports (Brazilian Team) | resolved within 'LigaGG/CELOL Série A/2026 Season/Split 2 Playoffs' to 'Neon eSports (Braz
-  competition-page | LYON -> LYON (2024 American Team) | resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'
   competition-page | Rich Gang -> Rich Gang (Norwegian Team) | resolved within 'Prime League 3rd Division/2027 Season/Fall Split' to 'Rich Gang (Norwegia
   competition-page | Locked IN -> Locked In (Dutch Team) | resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Te
+  competition-page | LYON -> LYON (2024 American Team) | resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'
   competition-page | Inari Esports -> Inari Esports (British Team) | resolved within '4 Nations/2026 Season/Halloween Heist' to 'Inari Esports (British Team)'
   alias | Phong Vũ Buffalo -> PvB (Swiss Team) | explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evid
   competition-page | Team Gromp -> Team Gromp (Australian Team) | resolved within 'LCP/2027 Season/Promotion' to 'Team Gromp (Australian Team)' rather than 
 
-PRICED 8
-  Worlds 2026 Main Event | ['Movistar KOI', 'CTBC Flying Oyster'] 0.6786 {'home': 1.402, 'away': 2.93}
-  Worlds 2026 Main Event | ['G2 Esports', 'LØS'] 0.7972 {'home': 1.222, 'away': 4.32}
-  Worlds 2026 Main Event | ['LYON', 'Karmine Corp'] 0.45 {'home': 2.15, 'away': 1.741}
-  Worlds 2026 Main Event | ['Invictus Gaming', 'Team Secret Whales'] 0.6897 {'home': 1.392, 'away': 3.07}
-  Worlds 2026 Main Event | ['Hanwha Life Esports', 'Gen.G'] 0.4195 {'home': 2.32, 'away': 1.641}
-  Worlds 2026 Main Event | ['Dplus KIA', 'T1'] 0.4315 {'home': 2.2, 'away': 1.714}
-  Worlds 2026 Main Event | ['Bilibili Gaming', 'Team Liquid'] 0.7424 {'home': 1.286, 'away': 3.7}
-  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.39 None
+PRICED 9
+  Worlds 2026 Main Event | ['Invictus Gaming', 'Hanwha Life Esports'] 0.2662 {'home': 3.85, 'away': 1.235}
+  Worlds 2026 Main Event | ['Top Esports', 'G2 Esports'] 0.4621 {'home': 2.1, 'away': 1.69}
+  Worlds 2026 Main Event | ['Dplus KIA', 'Movistar KOI'] 0.7713 {'home': 1.235, 'away': 3.85}
+  Worlds 2026 Main Event | ['Gen.G', 'LYON'] 0.8982 {'home': 1.056, 'away': 9.0}
+  Worlds 2026 Main Event | ['T1', 'CTBC Flying Oyster'] 0.8642 {'home': 1.125, 'away': 5.75}
+  Worlds 2026 Main Event | ['Karmine Corp', 'Bilibili Gaming'] 0.3069 {'home': 2.9, 'away': 1.385}
+  Worlds 2026 Main Event | ['LØS', 'Team Secret Whales'] 0.3504 {'home': 2.85, 'away': 1.4}
+  Worlds 2026 Main Event | ['Team Liquid', "Anyone's Legend"] 0.3127 {'home': 3.0, 'away': 1.364}
+  LGC Rising 2026 Playoffs | ['Mental Rush', 'Vitality Rising Bees'] 0.375 None
 tools/report.py exit: 0
 --- tools/flags.py ---
-[18:06:39] flags: 38 items
+[14:21:36] flags: 37 items
 tools/flags.py exit: 0
 --- tools/site.py ---
-[18:06:39] site: wrote 13 pages to the published root
+[14:21:36] site: wrote 13 pages to the published root
 tools/site.py exit: 0
 --- tools/corroborate.py ---
-[18:06:39] corroborate: 32 usable receipts (31 agree / 1 diverge / 2 placeholder), 3/29 competitions priced externally
+[14:21:36] corroborate: 2 usable receipts (1 agree / 1 diverge / 2 placeholder), 2/29 competitions priced externally
 tools/corroborate.py exit: 0
 --- tools/verify.py ---
-[18:06:40] verification passed
-PASS dataset present :: 241 matches loaded
-PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
+[14:21:36] verification passed
+PASS dataset present :: 234 matches loaded
+PASS complete inventory reconciliation :: raw fixtures=234, published rows=234; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
-PASS every row links to its Hotspawn match card :: 241/241 rows carry a Hotspawn URL
-PASS probabilities sum to 100% (tolerance 0.2pp) :: 241 priced rows verified; problems: []
-PASS pick matches the higher probability :: 241 rows consistent; problems: []
-PASS every match has a pick or is documented as unpickable :: 241 rows: 241 with a pick (4 settlement-only), 0 documented unpickable
+PASS every row links to its Hotspawn match card :: 234/234 rows carry a Hotspawn URL
+PASS probabilities sum to 100% (tolerance 0.2pp) :: 234 priced rows verified; problems: []
+PASS pick matches the higher probability :: 234 rows consistent; problems: []
+PASS every match has a pick or is documented as unpickable :: 234 rows: 234 with a pick (4 settlement-only), 0 documented unpickable
 PASS settlement picks name a participant and claim no probability :: 0 problems: []
 PASS every market row has at least one venue with a source URL :: 0 problems: []
 PASS method values are known :: methods used: ['market', 'model', 'provisional', 'unresolved']
-PASS no duplicate match ids :: 241 unique ids; duplicates: []
+PASS no duplicate match ids :: 234 unique ids; duplicates: []
 PASS no '(Kills)' derivative market is used as a match line :: violations: []
 PASS every market pick carries an official quote URL :: problems: []
-PASS Pinnacle quote URLs point at collected matchups :: 7 matchup ids in feed; problems: []
-PASS all fresh Unibet/Kambi moneylines matched into market consensus :: 7/7 fresh Unibet fixtures matched; missing: []
+PASS Pinnacle quote URLs point at collected matchups :: 4 matchup ids in feed; problems: []
+PASS all fresh Unibet/Kambi moneylines matched into market consensus :: 8/8 fresh Unibet fixtures matched; missing: []
 PASS every official-forfeit resolution names a winner and a source URL :: 4 resolutions checked; problems: []
 PASS official-forfeit resolutions carry no invented probability :: problems: []
-PASS picks.csv mirrors the dataset :: csv rows=241 json rows=241
+PASS picks.csv mirrors the dataset :: csv rows=234 json rows=234
 PASS all site pages exist :: 14/14 pages
 PASS no broken internal links :: 0 problems: []
 PASS navigation on every page :: missing: []
 PASS no empty/None values rendered :: problems: []
 PASS every table cell carries a mobile data-label :: checked 14 pages; missing data-label: []
-PASS all matches rendered on the picks page :: 241/241 match cards found
-PASS pick table renders one row per match :: 241/241 table rows
+PASS all matches rendered on the picks page :: 234/234 match cards found
+PASS pick table renders one row per match :: 234/234 table rows
 PASS executive summary links to every picks view :: present: ['picks.html', 'table.html', 'results.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks', 'Where the picks are']
 PASS executive summary carries coverage, unresolved section and a where-to-find-picks block :: missing: []
 PASS starting-soon phone list and fallback ledger rendered :: missing: []
 PASS mobile navigation rendered on every page and wired in JS :: missing mobnav: []; menu+filter handlers present: True
-PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,900
+PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,920
 PASS curated flags annotate every reference to a fixture that has left the list :: 18 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 29 competition rows; missing links: []
-PASS external receipts validated against the dataset :: 32 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)
-PASS corroboration ledger accounts for every receipt :: receipts=51 = usable 32 + placeholder 2 + rejected 0 + expired 1 + historic 16
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 76307 bytes
+PASS external receipts validated against the dataset :: 2 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 1 expired, 46 historic (not counted)
+PASS corroboration ledger accounts for every receipt :: receipts=51 = usable 2 + placeholder 2 + rejected 0 + expired 1 + historic 46
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 68244 bytes
 PASS external source research receipts are committed :: 44 venues probed on 2026-10-24T16:41:31Z; dossier present
-PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
-PASS method counts partition matches.json cleanly :: counts={'model': 151, 'unresolved': 4, 'provisional': 78, 'market': 8} sum=241 rows=241
-PASS source availability recorded :: 10/18 sources reachable on this build
-PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
+PASS coverage arithmetic reconciles to the inventory :: priced=230 + settlements=4 = 234; rows with a pick=234; inventory=234
+PASS method counts partition matches.json cleanly :: counts={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9} sum=234 rows=234
+PASS source availability recorded :: 12/18 sources reachable on this build
+PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=234 dataset=234 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
 tools/verify.py exit: 0
@@ -314,47 +316,47 @@ tools/verify.py exit: 0
 200  https://gamma-api.polymarket.com/events?closed=false&limit=5&tag_slug=league-of-legends
 200  https://lol.fandom.com/wiki/Special:CargoExport
 passed: True checks: 44
-PASS dataset present :: 241 matches loaded
-PASS complete inventory reconciliation :: raw fixtures=241, published rows=241; exact ID multiset comparison
+PASS dataset present :: 234 matches loaded
+PASS complete inventory reconciliation :: raw fixtures=234, published rows=234; exact ID multiset comparison
 PASS finite probabilities and correctly named picks :: []
-PASS every row links to its Hotspawn match card :: 241/241 rows carry a Hotspawn URL
-PASS probabilities sum to 100% (tolerance 0.2pp) :: 241 priced rows verified; problems: []
-PASS pick matches the higher probability :: 241 rows consistent; problems: []
-PASS every match has a pick or is documented as unpickable :: 241 rows: 241 with a pick (4 settlement-only), 0 documented unpickable
+PASS every row links to its Hotspawn match card :: 234/234 rows carry a Hotspawn URL
+PASS probabilities sum to 100% (tolerance 0.2pp) :: 234 priced rows verified; problems: []
+PASS pick matches the higher probability :: 234 rows consistent; problems: []
+PASS every match has a pick or is documented as unpickable :: 234 rows: 234 with a pick (4 settlement-only), 0 documented unpickable
 PASS settlement picks name a participant and claim no probability :: 0 problems: []
 PASS every market row has at least one venue with a source URL :: 0 problems: []
 PASS method values are known :: methods used: ['market', 'model', 'provisional', 'unresolved']
-PASS no duplicate match ids :: 241 unique ids; duplicates: []
+PASS no duplicate match ids :: 234 unique ids; duplicates: []
 PASS no '(Kills)' derivative market is used as a match line :: violations: []
 PASS every market pick carries an official quote URL :: problems: []
-PASS Pinnacle quote URLs point at collected matchups :: 7 matchup ids in feed; problems: []
-PASS all fresh Unibet/Kambi moneylines matched into market consensus :: 7/7 fresh Unibet fixtures matched; missing: []
+PASS Pinnacle quote URLs point at collected matchups :: 4 matchup ids in feed; problems: []
+PASS all fresh Unibet/Kambi moneylines matched into market consensus :: 8/8 fresh Unibet fixtures matched; missing: []
 PASS every official-forfeit resolution names a winner and a source URL :: 4 resolutions checked; problems: []
 PASS official-forfeit resolutions carry no invented probability :: problems: []
-PASS picks.csv mirrors the dataset :: csv rows=241 json rows=241
+PASS picks.csv mirrors the dataset :: csv rows=234 json rows=234
 PASS all site pages exist :: 14/14 pages
 PASS no broken internal links :: 0 problems: []
 PASS navigation on every page :: missing: []
 PASS no empty/None values rendered :: problems: []
 PASS every table cell carries a mobile data-label :: checked 14 pages; missing data-label: []
-PASS all matches rendered on the picks page :: 241/241 match cards found
-PASS pick table renders one row per match :: 241/241 table rows
+PASS all matches rendered on the picks page :: 234/234 match cards found
+PASS pick table renders one row per match :: 234/234 table rows
 PASS executive summary links to every picks view :: present: ['picks.html', 'table.html', 'results.html', 'featured.html', 'originated.html', 'unresolved.html', 'Executive summary', 'Unresolved picks', 'Where the picks are']
 PASS executive summary carries coverage, unresolved section and a where-to-find-picks block :: missing: []
 PASS starting-soon phone list and fallback ledger rendered :: missing: []
 PASS mobile navigation rendered on every page and wired in JS :: missing mobnav: []; menu+filter handlers present: True
-PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,900
+PASS out-of-sample backtest & SVG calibration rendered on methodology page :: backtest series rendered: 3,920
 PASS curated flags annotate every reference to a fixture that has left the list :: 18 curated flags scanned; delisted-and-annotated: ['1067878']; unannotated: []
 PASS stale bookmaker receipts are excluded from the consensus :: 11 expired receipts, 0 live receipts, limit 24 h; inconsistencies: []
 PASS no published market row is built from a rejected quote :: 1 quote(s) rejected this build (placeholders / extremes); 0 extreme
 PASS coverage matrix: every competition row links to a source :: 29 competition rows; missing links: []
-PASS external receipts validated against the dataset :: 32 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 1 expired, 16 historic (not counted)
-PASS corroboration ledger accounts for every receipt :: receipts=51 = usable 32 + placeholder 2 + rejected 0 + expired 1 + historic 16
-PASS coverage page shows every match method and the unresolved ledger :: coverage.html 76307 bytes
+PASS external receipts validated against the dataset :: 2 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 1 expired, 46 historic (not counted)
+PASS corroboration ledger accounts for every receipt :: receipts=51 = usable 2 + placeholder 2 + rejected 0 + expired 1 + historic 46
+PASS coverage page shows every match method and the unresolved ledger :: coverage.html 68244 bytes
 PASS external source research receipts are committed :: 44 venues probed on 2026-10-24T16:41:31Z; dossier present
-PASS coverage arithmetic reconciles to the inventory :: priced=237 + settlements=4 = 241; rows with a pick=241; inventory=241
-PASS method counts partition matches.json cleanly :: counts={'model': 151, 'unresolved': 4, 'provisional': 78, 'market': 8} sum=241 rows=241
-PASS source availability recorded :: 10/18 sources reachable on this build
-PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=241 dataset=241 missing=[] extra=[]
+PASS coverage arithmetic reconciles to the inventory :: priced=230 + settlements=4 = 234; rows with a pick=234; inventory=234
+PASS method counts partition matches.json cleanly :: counts={'model': 150, 'unresolved': 4, 'provisional': 71, 'market': 9} sum=234 rows=234
+PASS source availability recorded :: 12/18 sources reachable on this build
+PASS every Hotspawn fixture is in the dataset (1:1 ids) :: feed=234 dataset=234 missing=[] extra=[]
 PASS per-tournament counts match the Hotspawn feed :: 29 tournaments; differences: []
 PASS no look-ahead: ratings use only results before kick-off :: 0 violations; examples: []
