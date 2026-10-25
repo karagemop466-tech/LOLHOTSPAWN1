@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-25T14:27:06Z",
- "count": 39,
+ "generated_utc": "2026-10-25T14:15:13Z",
+ "count": 38,
  "flags": [
   {
    "severity": "high",
@@ -175,13 +175,6 @@
   },
   {
    "severity": "info",
-   "item": "Low-tier pair search (2026-10-25): 36 venues searched for 226 live tail pairs, no new price found [runner receipts committed 2026-10-25 (data/probe/session_666de992/probe.json); browser-path cross-checks for EGamersWorld/Cloudbet/BMBets in the same memo]",
-   "detail": "Session 666de992 searched each venue response for both team names of every low-tier fixture Hotspawn listed on 2026-10-25 (PRM 2nd/3rd Division, Tunisian Super League, RIVALS, LigaGG CELOL, Icelandic, Arabian, Benelux Ascend, Komplettligaen and others), with Worlds pairs as a positive control. New venues included Cloudbet (Prime League 2nd Division page states no events available on a PRM2 matchday), BMBets and Betmonitor comparison shells, Strafe and EsportBet (schedule-only LCP/LGC listings without odds), LOOT.BET (TLS failure from the runner), Flashscore, and five additional Kambi operators (ubdk/ubbe/ubuk byte-identical to ubse; ubfi/ubes unresolved; coolbet/ubit empty). Odds-API.io and OddsPapi answered 401 without an owner API key. The only priced tail fixture remains the LGC Rising tie already in the market consensus. Non-featured picks therefore remain originated, provisional or settlement-only. Receipts: data/probe/session_666de992/probe.json; memo: research/session_666de992/LOWTIER_RESEARCH.md.",
-   "source": "https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/session_666de992/LOWTIER_RESEARCH.md",
-   "verification": "runner receipts committed 2026-10-25 (data/probe/session_666de992/probe.json); browser-path cross-checks for EGamersWorld/Cloudbet/BMBets in the same memo"
-  },
-  {
-   "severity": "info",
    "item": "Leaguepedia is community-maintained, not an official league source",
    "detail": "Every originated line is fitted on Leaguepedia's community-recorded series history and its Data: page dqteams directives are used to quarantine removed teams. Leaguepedia is not an official settlement authority; Kalshi's own rules, for example, resolve a pre-play forfeit at the fair market price. Forfeit settlement picks on this site are therefore marked conditional.",
    "source": "https://lol.fandom.com/wiki/Leaguepedia:Community",
@@ -245,7 +238,7 @@
   {
    "severity": "medium",
    "item": "1 market row(s) rest on a single prediction market with almost no traded volume",
-   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $58 traded volume (thin-market threshold $1,000), priced 36.0%/64.0%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
+   "detail": "Mental Rush vs Vitality Rising Bees (LGC Rising 2026 Playoffs): single Polymarket venue with $58 traded volume (thin-market threshold $1,000), priced 36.5%/63.5%. The price is kept because it is the only external evidence for that match, but the row is labelled low confidence and must not be read as a deep-market line.",
    "source": "https://polymarket.com/event/lol-rb-mr-2026-10-27"
   },
   {

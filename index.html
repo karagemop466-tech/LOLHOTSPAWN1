@@ -20,8 +20,8 @@
   <div class="pagehead">
     <h1>Hotspawn LoL Pick Desk</h1>
     <p class="sub">Independent win probabilities and a pick for every League of Legends match in the Hotspawn pick'em.</p>
-    <p class="stamp">Data snapshot: <strong>2026-10-25 14:25 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
-    <p id="snapshot-age" class="stamp" data-fetched="2026-10-25T14:24:04Z">Hotspawn inventory collected: 2026-10-25T14:24:04Z. Check source timestamps before use.</p>
+    <p class="stamp">Data snapshot: <strong>2026-10-25 14:15 UTC</strong> &middot; refresh scheduled every 6 hours (not guaranteed)</p>
+    <p id="snapshot-age" class="stamp" data-fetched="2026-10-25T14:13:21Z">Hotspawn inventory collected: 2026-10-25T14:13:21Z. Check source timestamps before use.</p>
   </div>
   
 <section class="hero" id="start">
@@ -35,7 +35,6 @@
     <a class="btn" href="picks.html">Card view</a>
     <a class="btn" href="results.html">Results (39 graded)</a>
   </div>
-  <p style="margin:10px 0 0">Next 24 hours: <strong>27 matches</strong> kick off. Soonest first below, complete list in the <a href="table.html" style="color:#fff;text-decoration:underline">pick table</a>.</p>
 </section>
 
 <section class="panel" id="where">
@@ -108,7 +107,7 @@
     <strong>Pinnacle 8 series</strong>, <strong>Bovada 8 series</strong>, <strong>Unibet (Kambi) 8 series</strong>, <strong>Kalshi 8 contracts</strong>, <strong>Polymarket 12 unsettled markets</strong> &mdash; overwhelmingly the same Worlds 2026 ties. Everything below that ceiling
     has no external line to quote, so we originate it ourselves.
     Probe table and receipts: <a href="sources.html"><strong>Sources</strong></a>.</li>
-    <li><strong>Extra sources tried for the low-tier tail.</strong> 23 further esportsbook and odds-aggregator endpoints were called from the build runner on 2026-10-25 14:07 UTC: <strong>0 returned a machine-readable LoL price</strong> (5 blocked or key-gated, 8 browser-only pages, 10 error or empty responses). Those leagues therefore keep the originated line rather than a borrowed or invented quote. <a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; <a href="sources.html">Sources</a>. A separate 52-venue low-tier probe (2026-10-24) is documented in the <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/low-tier-sources-2026-10-24.md" rel="noopener">research memo and receipts</a>; see the <a href="unresolved.html#fallback">competition-by-competition fallback ledger</a>. On <strong>2026-10-25 14:12 UTC</strong> a stricter re-test searched <strong>36 venues</strong> (established books, esportsbooks, comparison engines, aggregators, prediction markets and nine Kambi operators) for the <strong>226 low-tier team pairs</strong> Hotspawn listed that day: <strong>none published a price for them</strong> beyond the LGC Rising tie already in the market consensus, while 11 venues returned the Worlds control pairs, proving the test itself. Cloudbet's Prime League 2nd Division page, for example, states "No Prime League 2nd Division events available" on a PRM2 matchday. <a href="data/probe/session_666de992/probe.json"><strong>pair-search receipt</strong></a> &middot; <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/session_666de992/LOWTIER_RESEARCH.md" rel="noopener">research memo</a>.</li>
+    <li><strong>Extra sources tried for the low-tier tail.</strong> 23 further esportsbook and odds-aggregator endpoints were called from the build runner on 2026-10-25 14:07 UTC: <strong>0 returned a machine-readable LoL price</strong> (5 blocked or key-gated, 8 browser-only pages, 10 error or empty responses). Those leagues therefore keep the originated line rather than a borrowed or invented quote. <a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; <a href="sources.html">Sources</a>. A separate 52-venue low-tier probe (2026-10-24) is documented in the <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/low-tier-sources-2026-10-24.md" rel="noopener">research memo and receipts</a>; see the <a href="unresolved.html#fallback">competition-by-competition fallback ledger</a>.</li>
     <li><strong>Bookmaker evidence for the matches nobody prices.</strong> <strong>17 checks across 9 venues</strong> (Betmonitor, Cloudbet, EGamersWorld, GG.BET, OddsPortal, Rivalry, Thunderpick, Vave, bo3.gg LoL match centre) were read by hand on <strong>2026-10-25</strong> and logged with the exact sentence each page printed. They are on <a href="unresolved.html#observed"><strong>Unresolved &amp; limits &rarr; what the books showed</strong></a>: the leagues below the featured ceiling carried no open price at any of them on the dates shown, which is why those cards are originated rather than quoted.</li>
     <li><strong>Unresolved picks &amp; limitations.</strong> 4 cards cannot carry a playable
     probability today; they are listed with their reason and source in the section below and in full on
@@ -142,14 +141,13 @@
     history rather than an aggregator placeholder.</li>
     <li><strong>What we tried for the low-tier tail.</strong> 23 further esportsbook and odds-aggregator endpoints were called from the build runner on 2026-10-25 14:07 UTC: <strong>0 returned a machine-readable LoL price</strong> (5 blocked or key-gated, 8 browser-only pages, 10 error or empty responses). Those leagues therefore keep the originated line rather than a borrowed or invented quote. <a href="data/esportsbook_probe.json"><strong>probe receipt</strong></a> &middot; <a href="sources.html">Sources</a>. A second,
     independent check on 2026-10-25 (Pinnacle's league list, Polymarket, Sofascore, bo3.gg) reached the
-    same ceiling: <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/external-lines-2026-10-25.md" rel="noopener">external-line memo</a>. On <strong>2026-10-25 14:12 UTC</strong> a stricter re-test searched <strong>36 venues</strong> (established books, esportsbooks, comparison engines, aggregators, prediction markets and nine Kambi operators) for the <strong>226 low-tier team pairs</strong> Hotspawn listed that day: <strong>none published a price for them</strong> beyond the LGC Rising tie already in the market consensus, while 11 venues returned the Worlds control pairs, proving the test itself. Cloudbet's Prime League 2nd Division page, for example, states "No Prime League 2nd Division events available" on a PRM2 matchday. <a href="data/probe/session_666de992/probe.json"><strong>pair-search receipt</strong></a> &middot; <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/session_666de992/LOWTIER_RESEARCH.md" rel="noopener">research memo</a>.</li>
+    same ceiling: <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/research/external-lines-2026-10-25.md" rel="noopener">external-line memo</a>.</li>
     <li><strong>Thin &amp; zero-history debut samples.</strong> 71 lines are labelled
     <em>provisional</em> because at least one side has fewer than five rated series in the 25-month window
     (3
     involve a debut side with 0 pre-kickoff rated series, including
     0
-    where both sides enter at 0/0 rated series and rest solely on equal division priors). Named: <a href="picks.html#match-1074627">Northern Wolves Esports vs Lundqvist Darkside</a> (RIVALS LEAGUE Season 2, 2026-09-27); <a href="picks.html#match-1082002">DELETED vs S7raa</a> (Arabian Regional Championship 2026: Lebanon-Libya-Syria-Palestine, 2026-10-16); <a href="picks.html#match-1083593">Team Spirit vs TUPKACHI NA KORICI</a> (Logitech G SuperStrike Cup Qualifier, 2026-10-24).
-    Treat those named cards as the weakest picks on the site: the percentage is a prior, not evidence.</li>
+    where both sides enter at 0/0 rated series and rest solely on equal division priors).</li>
     <li><strong>Full ledger.</strong> Every unresolved card, its settlement caveat and all remaining
     limitations are on <a href="unresolved.html">Unresolved &amp; limitations</a>; data irregularities are on
     <a href="flagged.html">Flagged for review</a>.</li>
@@ -165,9 +163,6 @@
 </main>
 <footer class="wrap foot">
   <p>Independent research dashboard. Rows link to their source records. Leaguepedia is community-maintained; model lines are estimates, not verified facts. Zero Hotspawn crowd-pick input.</p>
-  <p>This root dashboard is the <strong>canonical pick list</strong>. A second, independent implementation is
-  published as a <a href="docs/index.html">companion audit (secondary view)</a> &mdash; same fixtures,
-  different model, disagreements shown side by side. If the two disagree, submit from this list.</p>
   <p><a href="methodology.html">Method</a> &middot; <a href="verification.html">Verification</a> &middot;
   <a href="flagged.html">Flagged for review</a> &middot; <a href="sources.html">Sources</a> &middot;
   <a href="competitions.html">Tournaments</a></p>
