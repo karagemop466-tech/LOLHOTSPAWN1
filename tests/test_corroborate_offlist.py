@@ -20,6 +20,7 @@ import os
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,13 +29,23 @@ sys.path.insert(0, str(ROOT / "tools"))
 import corroborate  # noqa: E402
 
 
+def _recent(hours: float) -> str:
+    """Wall-clock-relative capture time.
+
+    `corroborate` classes receipts by age (`RECEIPT_MAX_AGE_HOURS` = 24 h), so a fixed date
+    in the fixture makes these tests fail a day after they are written. That is exactly the
+    failure that halted `refresh-picks` on 2026-10-25; the assertion contract is unchanged.
+    """
+    return (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 MATCHES = {
-    "generated_utc": "2026-10-24T00:00:00Z",
+    "generated_utc": _recent(1),
     "matches": [
         {
             "id": "1111",
             "competition": "Test Cup",
-            "start_utc": "2026-10-25T12:00:00Z",
+            "start_utc": (datetime.now(timezone.utc) + timedelta(hours=12)).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "team0": {"name": "Alpha"},
             "team1": {"name": "Bravo"},
             "p0": 0.6,
@@ -52,10 +63,10 @@ RECEIPT = {
                  "kind": "esportsbook", "runner_reachable": "yes"}],
     "captures": [
         {"fixture_id": "1111", "source": "book", "page_url": "https://example.com/m/1111",
-         "captured_utc": "2026-10-24T00:00:00Z", "page_teams": ["Alpha", "Bravo"],
+         "captured_utc": _recent(2), "page_teams": ["Alpha", "Bravo"],
          "decimal": [1.65, 2.30], "verbatim": "Alpha 1.65 / Bravo 2.30"},
         {"fixture_id": "9999", "source": "book", "page_url": "https://example.com/m/9999",
-         "captured_utc": "2026-10-23T00:00:00Z", "page_teams": ["Gone", "Also Gone"],
+         "captured_utc": _recent(2), "page_teams": ["Gone", "Also Gone"],
          "decimal": [1.90, 1.95], "verbatim": "Gone 1.90 / Also Gone 1.95"},
     ],
     "coverage_observations": [],
@@ -96,7 +107,7 @@ class OffListReceiptTests(unittest.TestCase):
         row = doc["historic"][0]
         self.assertEqual(row["status"], "historic")
         self.assertEqual(row["page_url"], "https://example.com/m/9999")
-        self.assertEqual(row["captured_utc"], "2026-10-23T00:00:00Z")
+        self.assertGreater(row["age_hours"], 0.0)
         self.assertIn("no longer listed by Hotspawn", row["reason"])
         self.assertEqual(row["status"], "historic")
 
