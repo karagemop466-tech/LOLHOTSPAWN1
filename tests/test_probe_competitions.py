@@ -68,6 +68,38 @@ class CompetitionAliases(unittest.TestCase):
         self.assertEqual(probe.match_competitions("", self.aliases), [])
 
 
+class ShortCodeMatching(unittest.TestCase):
+    """Short competition codes must match as words, not inside unrelated English words.
+
+    The first runner receipt produced "LIT 2027 Winter Promotion" on 20 of 46 venues because
+    a bare substring test matched the letters l-i-t inside "split". The receipt has to be
+    believable, so the token match is word-bounded and the evidence is recorded.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.aliases = {"LIT 2027 Winter Promotion": ["LIT", "LIT Winter Promotion"],
+                       "RIVALS LEAGUE Season 2": ["RIVALS LEAGUE Season 2", "RIVALS"],
+                       "Worlds 2026 Main Event": ["World Championship"]}
+
+    def test_short_code_does_not_match_inside_a_word(self) -> None:
+        text = "Best of 3 split quality elite popular"
+        self.assertEqual(probe.match_competitions(text, self.aliases), [])
+
+    def test_short_code_still_matches_as_a_standalone_word(self) -> None:
+        text = "Upcoming: LIT 2027 Winter Promotion playoff fixture"
+        self.assertEqual(probe.match_competitions(text, self.aliases),
+                         ["LIT 2027 Winter Promotion"])
+
+    def test_evidence_records_the_matched_token_and_context(self) -> None:
+        ev = probe.competition_evidence("Watch the RIVALS LEAGUE Season 2 match today",
+                                        self.aliases)
+        self.assertEqual(len(ev), 1)
+        self.assertEqual(ev[0]["competition"], "RIVALS LEAGUE Season 2")
+        self.assertIn("RIVALS", ev[0]["context"])
+        self.assertLessEqual(len(ev[0]["context"]), 200)
+
+
 class PinnacleInventoryShape(unittest.TestCase):
     """A failed fetch must be recorded as a failure, never as 'the book has no LoL leagues'."""
 

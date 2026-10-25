@@ -291,13 +291,51 @@ def competition_aliases() -> dict[str, list[str]]:
     return out
 
 
-def match_competitions(text: str, aliases: dict[str, list[str]]) -> list[str]:
-    """Competitions from the Hotspawn list whose name (or recorded alias) appears in text."""
+def _token_pattern(token: str) -> str:
+    """Whole-token pattern.
+
+    Short codes are the whole point of this probe ("PRM", "LCP", "POP"), but a plain
+    substring test makes "LIT" match every "split" and "POP" match every "popular" - which is
+    how a first run produced 20 false positives. Requiring non-alphanumeric characters on both
+    sides keeps the code usable and the result honest.
+    """
+    return r"(?<![a-z0-9])" + re.escape(token.lower()) + r"(?![a-z0-9])"
+
+
+def competition_hits(text: str, aliases: dict[str, list[str]]) -> list[tuple[str, str, int]]:
+    """(competition, matched token, index) for every competition mentioned in text."""
     low = (text or "").lower()
     if not low:
         return []
-    return sorted(comp for comp, toks in aliases.items()
-                  if any(tok.lower() in low for tok in toks))
+    hits = []
+    for comp, toks in aliases.items():
+        for tok in toks:
+            m = re.search(_token_pattern(tok), low)
+            if m:
+                hits.append((comp, tok, m.start()))
+                break
+    return sorted(hits)
+
+
+def match_competitions(text: str, aliases: dict[str, list[str]]) -> list[str]:
+    """Competitions from the Hotspawn list that a venue response actually mentions."""
+    return sorted({comp for comp, _tok, _at in competition_hits(text, aliases)})
+
+
+def competition_evidence(text: str, aliases: dict[str, list[str]],
+                         limit: int = 4, width: int = 120) -> list[dict]:
+    """The matched token plus the surrounding text, so a reader can judge the match.
+
+    This is what makes "Flashscore mentions RIVALS LEAGUE" reviewable instead of a claim: the
+    receipt carries the words the venue actually printed.
+    """
+    out = []
+    flat = re.sub(r"\s+", " ", text or "")
+    for comp, tok, at in competition_hits(flat, aliases)[:limit]:
+        lo = max(0, at - width // 2)
+        out.append({"competition": comp, "token": tok,
+                    "context": flat[lo:at + width].strip()})
+    return out
 
 
 def pinnacle_league_inventory(aliases: dict[str, list[str]], retries: int = 2) -> dict:
@@ -354,6 +392,7 @@ def main() -> None:
             "found_team_count": len(found),
             "found_competitions": comps,
             "found_competition_count": len(comps),
+            "found_competition_evidence": competition_evidence(text, aliases),
             "signals": odds_signals(text) if text else {},
             "snippet": re.sub(r"\s+", " ", text[:400]).strip() if text else "",
         }
