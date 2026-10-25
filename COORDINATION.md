@@ -1,3 +1,15 @@
+# Session `3d124b45` — fresh refresh + expanded low-tier source hunt + executive-summary/unresolved audit (2026-10-25)
+
+Branch: `arena/3d124b45-lolhotspawn1` (fixed Arena session branch, from `main` @ `b7d846a`).
+Prior claims (`5ff8e6bf`, `80c624cd`, `c0a05820`, `4106ce94`, `bcfdfa66`) are >60 min old with no commits on this branch — treated as lapsed per protocol; this session takes over the files below and logs it here. No other session's work is discarded.
+
+| # | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| `W1` | Trigger/verify a fresh 4–8h-cycle refresh so picks mirror the current Hotspawn LoL inventory (sandbox has no outbound HTTPS; collection runs on GitHub Actions) | in progress | 3d124b45 | `.github/workflows/refresh.yml` (dispatch only), generated `data/**`, root `*.html` via pipeline |
+| `W2` | Expand the established-book / esportsbook hunt for matches with no market line (provisional/unresolved tail): add new candidate venues to the runner probe, collect receipts, publish verdicts — never infer a price | in progress | 3d124b45 | `tools/probe_esportsbook_feeds.py`, `.github/workflows/probe-esportsbooks.yml`, `data/esportsbook_probe.json`, `data/probe/**` |
+| `W3` | Executive summary + unresolved section audit: summary links to every pick view, unresolved picks & limitations section present in summary, mobile-first readability verified | in progress | 3d124b45 | `tools/site.py` (only if a gap is found), `tests/**` |
+| `W4` | Final integration: verify gates, open PR to `main`, merge, confirm Pages deploy | pending | 3d124b45 | `COORDINATION.md`, `README.md` |
+
 
 
 ---
