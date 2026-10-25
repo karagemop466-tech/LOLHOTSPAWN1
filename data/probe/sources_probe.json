@@ -1,12 +1,12 @@
 {
- "probed_utc": "2026-10-25T14:22:52Z",
+ "probed_utc": "2026-10-25T14:24:54Z",
  "runner_env": {
-  "GITHUB_RUN_ID": "40201907459",
+  "GITHUB_RUN_ID": "40202027651",
   "GITHUB_RUN_ATTEMPT": "1",
-  "GITHUB_SHA": "6b4729bc95ea64099bc939cf69f4cd1470a3a5ef",
+  "GITHUB_SHA": "8cf9a9db395cb05deb535f901346c60b56b708f2",
   "GITHUB_REF_NAME": "arena/1773543b-lolhotspawn1",
   "RUNNER_OS": "Linux",
-  "RUNNER_NAME": "GitHub Actions 1000004489"
+  "RUNNER_NAME": "GitHub Actions 1000004504"
  },
  "runner_note": "Executed from a GitHub Actions runner (Linux, US egress). Status/bytes are what the build runner actually received; a 403 from the runner is recorded as blocked even if a browser can open the page.",
  "team_names_used": [
@@ -196,7 +196,7 @@
  },
  "pinnacle_league_inventory": {
   "url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
-  "checked_utc": "2026-10-25T14:22:52Z",
+  "checked_utc": "2026-10-25T14:24:54Z",
   "status": 200,
   "error": "",
   "esports_leagues": 11,
@@ -258,7 +258,6 @@
    "name": "Polymarket gamma",
    "found_competitions": [
     "LCP 2027 Promotion",
-    "LIT 2027 Winter Promotion",
     "POP Esports Masters Season 7",
     "Worlds 2026 Main Event"
    ]
@@ -270,116 +269,41 @@
    ]
   },
   {
-   "name": "Bovada LoL coupon",
-   "found_competitions": [
-    "Worlds 2026 Main Event"
-   ]
-  },
-  {
-   "name": "BC.GAME sports",
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ]
-  },
-  {
-   "name": "Thunderpick LoL",
-   "found_competitions": [
-    "FPL 2026 Summer Playoffs",
-    "LIT 2027 Winter Promotion"
-   ]
-  },
-  {
    "name": "Rivalry esports",
    "found_competitions": [
-    "LIT 2027 Winter Promotion",
     "POP Esports Masters Season 7"
-   ]
-  },
-  {
-   "name": "Stake esports",
-   "found_competitions": [
-    "FPL 2026 Summer Playoffs"
-   ]
-  },
-  {
-   "name": "1xBet line feed",
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ]
-  },
-  {
-   "name": "Marathonbet LoL",
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ]
-  },
-  {
-   "name": "Betano LoL",
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
    ]
   },
   {
    "name": "Oddspedia LoL",
    "found_competitions": [
-    "LIT 2027 Winter Promotion",
-    "POP Esports Masters Season 7",
-    "RIVALS LEAGUE Season 2"
+    "POP Esports Masters Season 7"
    ]
   },
   {
    "name": "OddsPortal LoL",
    "found_competitions": [
-    "LIT 2027 Winter Promotion",
-    "POP Esports Masters Season 7",
     "Worlds 2026 Main Event"
    ]
   },
   {
    "name": "Flashscore LoL",
    "found_competitions": [
-    "LIT 2027 Winter Promotion",
     "POP Esports Masters Season 7",
-    "RIVALS LEAGUE Season 2",
     "Worlds 2026 Main Event"
-   ]
-  },
-  {
-   "name": "bo3.gg LoL",
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
    ]
   },
   {
    "name": "BetOnline esports lines",
    "found_competitions": [
     "LCP 2027 Promotion",
-    "LIT 2027 Winter Promotion",
     "POP Esports Masters Season 7"
-   ]
-  },
-  {
-   "name": "Betano LoL JSON API",
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
    ]
   },
   {
    "name": "Kambi paf LoL",
    "found_competitions": [
     "Worlds 2026 Main Event"
-   ]
-  },
-  {
-   "name": "bo3.gg LoL today",
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ]
-  },
-  {
-   "name": "bo3.gg Worlds 2026 tournament",
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
    ]
   }
  ],
@@ -390,12 +314,12 @@
    "kind": "established book",
    "why": "control: sharp LoL moneylines",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:37Z",
+   "checked_utc": "2026-10-25T14:24:29Z",
    "status": 200,
    "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
    "content_type": "application/json",
    "bytes": 723541,
-   "elapsed_ms": 122,
+   "elapsed_ms": 101,
    "server": "cloudflare",
    "found_team_names": [
     "Anyone's Legend",
@@ -409,6 +333,18 @@
     "Worlds 2026 Main Event"
    ],
    "found_competition_count": 2,
+   "found_competition_evidence": [
+    {
+     "competition": "LCP 2027 Promotion",
+     "token": "LCP",
+     "context": "366 }, { \"alignment\": \"neutral\", \"id\": 1637769693, \"name\": \"LCP\", \"order\": 0, \"rotation\": 2367 } ], \"periods\": [ { \"cutoffAt\": \"2026-10-25T16:00:00Z\", \"period\": 0, \"status\": \"open\""
+    },
+    {
+     "competition": "Worlds 2026 Main Event",
+     "token": "World Championship",
+     "context": "nt\": 10, \"matchupCountSE\": 10, \"name\": \"League of Legends - World Championship\", \"sequence\": 301, \"sport\": { \"featureOrder\": 1, \"id\": 12, \"isFeatured\": true, \"isHidden\": false, \"is"
+    }
+   ],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -423,12 +359,12 @@
    "kind": "established book",
    "why": "does Pinnacle list tier-2 leagues at all?",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:37Z",
+   "checked_utc": "2026-10-25T14:24:29Z",
    "status": 200,
    "final_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/leagues",
    "content_type": "application/json",
    "bytes": 6141,
-   "elapsed_ms": 81,
+   "elapsed_ms": 107,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
@@ -436,6 +372,13 @@
     "Worlds 2026 Main Event"
    ],
    "found_competition_count": 1,
+   "found_competition_evidence": [
+    {
+     "competition": "Worlds 2026 Main Event",
+     "token": "World Championship",
+     "context": "nt\": 10, \"matchupCountSE\": 10, \"name\": \"League of Legends - World Championship\", \"sequence\": 301, \"sport\": { \"featureOrder\": 1, \"id\": 12, \"isFeatured\": true, \"isHidden\": false, \"is"
+    }
+   ],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -450,12 +393,12 @@
    "kind": "prediction market",
    "why": "control: full-series CLOB",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:38Z",
+   "checked_utc": "2026-10-25T14:24:31Z",
    "status": 200,
    "final_url": "https://gamma-api.polymarket.com/events?closed=false&limit=20&tag_slug=league-of-legends",
    "content_type": "application/json",
-   "bytes": 1439766,
-   "elapsed_ms": 44,
+   "bytes": 1439712,
+   "elapsed_ms": 380,
    "server": "istio-envoy",
    "found_team_names": [
     "Anyone's Legend",
@@ -470,11 +413,27 @@
    "found_team_count": 8,
    "found_competitions": [
     "LCP 2027 Promotion",
-    "LIT 2027 Winter Promotion",
     "POP Esports Masters Season 7",
     "Worlds 2026 Main Event"
    ],
-   "found_competition_count": 4,
+   "found_competition_count": 3,
+   "found_competition_evidence": [
+    {
+     "competition": "LCP 2027 Promotion",
+     "token": "LCP",
+     "context": "LCK (South Korea)\\n- LPL (China)\\n- LEC (Europe / EMEA)\\n- LCP (Asia-Pacific)\\n- LCS (North America)\\n- CBLOL (Brazil)\",\"resolutionSource\":\"\",\"startDate\":\"2025-12-30T15:15:49.335Z"
+    },
+    {
+     "competition": "POP Esports Masters Season 7",
+     "token": "POP",
+     "context": "17T17:17:48.190087Z\"},{\"id\":\"596\",\"label\":\"Culture\",\"slug\":\"pop-culture\",\"forceShow\":false,\"publishedAt\":\"2023-11-29 18:40:13.013+00\",\"createdAt\":\"2023-11-29T18:40:14.63Z\",\"updated"
+    },
+    {
+     "competition": "Worlds 2026 Main Event",
+     "token": "2026 Season World Championship",
+     "context": "the esports team winning 1st place in the League of Legends 2026 Season World Championship (Worlds 2026).\\n\\nIf the winner of Worlds 2026 is not determined by December 31, 2026 ET,"
+    }
+   ],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -489,12 +448,12 @@
    "kind": "regulated exchange",
    "why": "control: CFTC contract book",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:38Z",
+   "checked_utc": "2026-10-25T14:24:33Z",
    "status": 200,
    "final_url": "https://api.elections.kalshi.com/trade-api/v2/events?series_ticker=KXLOLGAME&status=open&with_nested_markets=true&limit=50",
    "content_type": "application/json",
-   "bytes": 51781,
-   "elapsed_ms": 148,
+   "bytes": 51782,
+   "elapsed_ms": 112,
    "server": "",
    "found_team_names": [
     "Anyone's Legend",
@@ -511,6 +470,13 @@
     "LGC Rising 2026 Playoffs"
    ],
    "found_competition_count": 1,
+   "found_competition_evidence": [
+    {
+     "competition": "LGC Rising 2026 Playoffs",
+     "token": "LGC",
+     "context": "100\"}],\"result\":\"\",\"rules_primary\":\"If Rising Bees wins the LGC Rising 2026: Rising Bees vs. Mental Rush League of Legends match originally scheduled for Oct 27, 2026 at 1:00 PM ED"
+    }
+   ],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -525,35 +491,25 @@
    "kind": "established book",
    "why": "control: US esportsbook moneylines",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:39Z",
+   "checked_utc": "2026-10-25T14:24:34Z",
    "status": 200,
    "final_url": "https://www.bovada.lv/services/sports/event/coupon/events/A/description/esports/league-of-legends?marketFilterId=def&preMatchOnly=true&lang=en",
-   "content_type": "application/json",
-   "bytes": 17139,
-   "elapsed_ms": 729,
+   "content_type": "application/json; charset=utf-8",
+   "bytes": 2,
+   "elapsed_ms": 851,
    "server": "",
-   "found_team_names": [
-    "Anyone's Legend",
-    "Bilibili Gaming",
-    "CTBC Flying Oyster",
-    "Dplus KIA",
-    "G2 Esports",
-    "Gen.G",
-    "Hanwha Life Esports",
-    "Invictus Gaming"
-   ],
-   "found_team_count": 8,
-   "found_competitions": [
-    "Worlds 2026 Main Event"
-   ],
-   "found_competition_count": 1,
+   "found_team_names": [],
+   "found_team_count": 0,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
-    "mentions_odds": true,
-    "mentions_league_of_legends": true
+    "mentions_odds": false,
+    "mentions_league_of_legends": false
    },
-   "snippet": "[{\"path\":[{\"id\":\"9417391\",\"link\":\"/esports/league-of-legends/world-championship-26\",\"description\":\"World Championship '26\",\"type\":\"LEAGUE\",\"sportCode\":\"ESPT\",\"order\":9223372036854775807,\"leaf\":true,\"current\":false},{\"id\":\"117310\",\"link\":\"/esports/league-of-legends\",\"description\":\"League Of Legends\",\"type\":\"COMPETITION\",\"sportCode\":\"ESPT\",\"order\":1,\"leaf\":false,\"current\":true},{\"id\":\"6000\",\"link\":\""
+   "snippet": "{}"
   },
   {
    "name": "GG.BET LoL",
@@ -561,17 +517,18 @@
    "kind": "esportsbook",
    "why": "broad LoL coverage incl. tier-2",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:39Z",
+   "checked_utc": "2026-10-25T14:24:34Z",
    "status": 403,
    "final_url": "https://gg.bet/en/esports/league-of-legends",
    "content_type": "text/plain",
    "bytes": 126,
-   "elapsed_ms": 203,
+   "elapsed_ms": 257,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": true,
@@ -586,19 +543,18 @@
    "kind": "crypto esportsbook",
    "why": "low-tier LoL markets",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:39Z",
+   "checked_utc": "2026-10-25T14:24:35Z",
    "status": 200,
    "final_url": "https://bc.game/sports/esports/league-of-legends",
    "content_type": "text/html; charset=utf-8",
    "bytes": 11871,
-   "elapsed_ms": 68,
+   "elapsed_ms": 150,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ],
-   "found_competition_count": 1,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -613,20 +569,18 @@
    "kind": "esportsbook",
    "why": "low-tier LoL markets",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:39Z",
+   "checked_utc": "2026-10-25T14:24:35Z",
    "status": 200,
    "final_url": "https://thunderpick.io/esports/league-of-legends",
    "content_type": "text/html",
    "bytes": 14971,
-   "elapsed_ms": 222,
+   "elapsed_ms": 387,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
-   "found_competitions": [
-    "FPL 2026 Summer Playoffs",
-    "LIT 2027 Winter Promotion"
-   ],
-   "found_competition_count": 2,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": true,
@@ -641,15 +595,16 @@
    "kind": "esportsbook API",
    "why": "JSON odds feed",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:39Z",
+   "checked_utc": "2026-10-25T14:24:35Z",
    "status": null,
    "error": "ConnectionError: HTTPSConnectionPool(host='api.thunderpick.io', port=443): Max retries exceeded with url: /api/v1/sports (Caused by NameResolutionError(\"HTTPSConnection(host='api.thunderpick.io', port=443): Failed to resolve 'api.thunderpick.io' ([Errno -2] Name or service not known)\"))",
    "bytes": 0,
-   "elapsed_ms": 36,
+   "elapsed_ms": 199,
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {},
    "snippet": ""
   },
@@ -659,20 +614,26 @@
    "kind": "esportsbook",
    "why": "low-tier LoL markets",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:39Z",
+   "checked_utc": "2026-10-25T14:24:35Z",
    "status": 200,
    "final_url": "https://www.rivalry.com/",
    "content_type": "text/html;charset=utf-8",
    "bytes": 61219,
-   "elapsed_ms": 152,
+   "elapsed_ms": 171,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [
-    "LIT 2027 Winter Promotion",
     "POP Esports Masters Season 7"
    ],
-   "found_competition_count": 2,
+   "found_competition_count": 1,
+   "found_competition_evidence": [
+    {
+     "competition": "POP Esports Masters Season 7",
+     "token": "POP",
+     "context": "document.cookie).split(\"; \"+t+\"=\");if(c.length===2)return c.pop()?.split(\";\").shift()}</script></head><body><div id=\"__nuxt\"></div><div id=\"__nuxt-loader\"><style> body { background"
+    }
+   ],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": true,
@@ -687,24 +648,25 @@
    "kind": "esportsbook API",
    "why": "JSON odds feed",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:40Z",
-   "status": 502,
+   "checked_utc": "2026-10-25T14:24:36Z",
+   "status": 530,
    "final_url": "https://api.rivalry.com/api/v1/sport/league-of-legends",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 6481,
-   "elapsed_ms": 219,
+   "bytes": 7680,
+   "elapsed_ms": 93,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": true,
     "mentions_odds": false,
     "mentions_league_of_legends": false
    },
-   "snippet": "<!DOCTYPE html> <!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 7]> <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 8]> <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]--> <!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]--> <head> <title>rivalry.com | 502: Bad gateway</title> <meta charset=\"UTF-8\" /> <meta"
+   "snippet": "<!doctype html> <!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 7]> <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]--> <!--[if IE 8]> <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]--> <!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]--> <head> <title>Cloudflare Tunnel error | production-im1-app.rivalry.co"
   },
   {
    "name": "Stake esports",
@@ -712,19 +674,18 @@
    "kind": "crypto esportsbook",
    "why": "low-tier LoL markets",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:40Z",
+   "checked_utc": "2026-10-25T14:24:36Z",
    "status": 403,
    "final_url": "https://stake.com/sports/esports/league-of-legends",
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5933,
-   "elapsed_ms": 82,
+   "elapsed_ms": 78,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
-   "found_competitions": [
-    "FPL 2026 Summer Playoffs"
-   ],
-   "found_competition_count": 1,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -739,19 +700,18 @@
    "kind": "high-street book API",
    "why": "the widest low-tier LoL coupon in the market",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:40Z",
+   "checked_utc": "2026-10-25T14:24:36Z",
    "status": 203,
    "final_url": "https://1xbet.com/en/block?sports=249&count=50&mode=4&country=1&getEmpty=true",
    "content_type": "text/html;charset=utf-8",
    "bytes": 2633,
-   "elapsed_ms": 407,
+   "elapsed_ms": 364,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ],
-   "found_competition_count": 1,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": true,
@@ -766,17 +726,18 @@
    "kind": "esportsbook",
    "why": "CIS book with tier-2 LoL",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:40Z",
+   "checked_utc": "2026-10-25T14:24:36Z",
    "status": 401,
    "final_url": "https://betboom.ru/sport/lol",
    "content_type": "text/html",
    "bytes": 1799,
-   "elapsed_ms": 212,
+   "elapsed_ms": 222,
    "server": "QRATOR",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -791,19 +752,18 @@
    "kind": "established book",
    "why": "EU book",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:40Z",
+   "checked_utc": "2026-10-25T14:24:36Z",
    "status": 403,
    "final_url": "https://www.marathonbet.com/en/betting/Esports/League+of+Legends",
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5848,
-   "elapsed_ms": 86,
+   "elapsed_ms": 74,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ],
-   "found_competition_count": 1,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -818,19 +778,18 @@
    "kind": "established book",
    "why": "EU book",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:41Z",
+   "checked_utc": "2026-10-25T14:24:37Z",
    "status": 200,
    "final_url": "https://www.betano.com/sport/esports/league-of-legends/",
    "content_type": "text/html; charset=utf-8",
    "bytes": 29842,
-   "elapsed_ms": 224,
+   "elapsed_ms": 247,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ],
-   "found_competition_count": 1,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": true,
@@ -845,17 +804,18 @@
    "kind": "established book",
    "why": "UK book",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:41Z",
+   "checked_utc": "2026-10-25T14:24:37Z",
    "status": 404,
    "final_url": "https://betway.com/g/en/sports/grp/sport/esports",
    "content_type": "text/html; charset=utf-8",
    "bytes": 6687,
-   "elapsed_ms": 275,
+   "elapsed_ms": 321,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -870,17 +830,18 @@
    "kind": "established book",
    "why": "EU book",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:42Z",
+   "checked_utc": "2026-10-25T14:24:38Z",
    "status": 503,
    "final_url": "https://www.unibet.com/betting/sports/filter/esports/league_of_legends",
    "content_type": "text/html",
    "bytes": 592,
-   "elapsed_ms": 648,
+   "elapsed_ms": 472,
    "server": "kindred-loadbalancer",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -895,17 +856,18 @@
    "kind": "established book",
    "why": "Nordic book",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:42Z",
+   "checked_utc": "2026-10-25T14:24:38Z",
    "status": 202,
    "final_url": "https://www.betsson.com/en/sportsbook/esports",
    "content_type": "text/html; charset=UTF-8",
    "bytes": 2597,
-   "elapsed_ms": 51,
+   "elapsed_ms": 126,
    "server": "CloudFront",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -920,17 +882,18 @@
    "kind": "odds aggregator",
    "why": "the widest published LoL coupon, incl. national divisions",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:42Z",
+   "checked_utc": "2026-10-25T14:24:38Z",
    "status": 403,
    "final_url": "https://egamersworld.com/lol/matches",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 5923,
-   "elapsed_ms": 131,
+   "bytes": 5944,
+   "elapsed_ms": 86,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -945,17 +908,18 @@
    "kind": "odds aggregator",
    "why": "per-match bookmaker prices",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:42Z",
+   "checked_utc": "2026-10-25T14:24:38Z",
    "status": 403,
    "final_url": "https://egamersworld.com/lol/match/q8qUtLA6g/geng-vs-invictus-gaming-x7EbSp5BR",
    "content_type": "text/html; charset=UTF-8",
    "bytes": 6134,
-   "elapsed_ms": 44,
+   "elapsed_ms": 45,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -970,21 +934,26 @@
    "kind": "odds aggregator",
    "why": "multi-book comparison",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:43Z",
+   "checked_utc": "2026-10-25T14:24:39Z",
    "status": 410,
    "final_url": "https://oddspedia.com/esports/league-of-legends",
    "content_type": "text/html; charset=utf-8",
-   "bytes": 341189,
-   "elapsed_ms": 669,
+   "bytes": 341185,
+   "elapsed_ms": 331,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [
-    "LIT 2027 Winter Promotion",
-    "POP Esports Masters Season 7",
-    "RIVALS LEAGUE Season 2"
+    "POP Esports Masters Season 7"
    ],
-   "found_competition_count": 3,
+   "found_competition_count": 1,
+   "found_competition_evidence": [
+    {
+     "competition": "POP Esports Masters Season 7",
+     "token": "POP",
+     "context": "text-transform:capitalize}.t-pre-line{white-space:pre-line}.pop-out-quick-enter-active,.pop-out-quick-leave-active{transition:all .4s}.pop-out-quick-enter,.pop-out-quick-leave-acti"
+    }
+   ],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -999,21 +968,26 @@
    "kind": "odds aggregator",
    "why": "multi-book comparison",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:44Z",
+   "checked_utc": "2026-10-25T14:24:41Z",
    "status": 200,
    "final_url": "https://www.oddsportal.com/esports/league-of-legends/",
    "content_type": "text/html; charset=utf-8",
    "bytes": 335280,
-   "elapsed_ms": 1758,
+   "elapsed_ms": 1243,
    "server": "nginx",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [
-    "LIT 2027 Winter Promotion",
-    "POP Esports Masters Season 7",
     "Worlds 2026 Main Event"
    ],
-   "found_competition_count": 3,
+   "found_competition_count": 1,
+   "found_competition_evidence": [
+    {
+     "competition": "Worlds 2026 Main Event",
+     "token": "World Championship",
+     "context": "template><a href=\"/football/world/world-championship-2026/\">World Championship 2026</a><!--/$--></li><li class=\"mb-3\"><!--$?--><template id=\"B:67\"></template><a href=\"/basketball/e"
+    }
+   ],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": true,
@@ -1028,22 +1002,32 @@
    "kind": "odds aggregator",
    "why": "multi-book comparison",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:45Z",
+   "checked_utc": "2026-10-25T14:24:44Z",
    "status": 200,
    "final_url": "https://www.flashscore.com/esports/league-of-legends/",
    "content_type": "text/html; charset=UTF-8",
-   "bytes": 765241,
-   "elapsed_ms": 580,
+   "bytes": 765224,
+   "elapsed_ms": 1717,
    "server": "nginx",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [
-    "LIT 2027 Winter Promotion",
     "POP Esports Masters Season 7",
-    "RIVALS LEAGUE Season 2",
     "Worlds 2026 Main Event"
    ],
-   "found_competition_count": 4,
+   "found_competition_count": 2,
+   "found_competition_evidence": [
+    {
+     "competition": "POP Esports Masters Season 7",
+     "token": "POP",
+     "context": "his._fulfill(s);break;case\"onceLast\":s.push(this._callbacks.pop()),this._fulfill(s)}this._loaded=!0}_fulfill(e){let t;for(;t=e.shift();)this._call(...t)}reset(){this._handler=()=>{"
+    },
+    {
+     "competition": "Worlds 2026 Main Event",
+     "token": "World Championship",
+     "context": "\"menuOrder\":152,\"flagId\":\"7404\",\"title\":\"LEAGUE OF LEGENDS: World Championship\",\"name\":\"World Championship\",\"url\":\"\\/esports\\/league-of-legends\\/world-championship\\/\",\"from\":179293"
+    }
+   ],
    "signals": {
     "has_decimal_pair": true,
     "mentions_bookmaker": true,
@@ -1058,17 +1042,18 @@
    "kind": "odds aggregator",
    "why": "multi-book comparison",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:45Z",
+   "checked_utc": "2026-10-25T14:24:45Z",
    "status": 403,
    "final_url": "https://www.sofascore.com/api/v1/sport/esports/scheduled-events/2026-10-23",
    "content_type": "application/json",
    "bytes": 48,
-   "elapsed_ms": 37,
+   "elapsed_ms": 106,
    "server": "Varnish",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1083,19 +1068,18 @@
    "kind": "odds aggregator",
    "why": "match list with odds",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:45Z",
+   "checked_utc": "2026-10-25T14:24:45Z",
    "status": 200,
    "final_url": "https://bo3.gg/lol/matches",
    "content_type": "text/html;charset=utf-8",
    "bytes": 13188,
-   "elapsed_ms": 264,
+   "elapsed_ms": 318,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ],
-   "found_competition_count": 1,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1110,17 +1094,18 @@
    "kind": "esports news + odds",
    "why": "match pages carry book prices",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:45Z",
+   "checked_utc": "2026-10-25T14:24:45Z",
    "status": 403,
    "final_url": "https://escorenews.com/en/lol",
    "content_type": "text/html; charset=UTF-8",
    "bytes": 5804,
-   "elapsed_ms": 113,
+   "elapsed_ms": 84,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1135,17 +1120,18 @@
    "kind": "odds aggregator",
    "why": "multi-book comparison",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:47Z",
+   "checked_utc": "2026-10-25T14:24:47Z",
    "status": 404,
    "final_url": "https://www.betexplorer.com/esports/league-of-legends/",
    "content_type": "",
    "bytes": 0,
-   "elapsed_ms": 1048,
+   "elapsed_ms": 1776,
    "server": "nginx",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {},
    "snippet": ""
   },
@@ -1155,24 +1141,25 @@
    "kind": "US sportsbook",
    "why": "does DK expose an esports LoL JSON coupon?",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:47Z",
+   "checked_utc": "2026-10-25T14:24:47Z",
    "status": 403,
    "final_url": "https://sportsbook-nash.draftkings.com/api/sportscontent/dkusoh/v1/leagues/19873",
    "content_type": "text/html",
-   "bytes": 449,
-   "elapsed_ms": 162,
+   "bytes": 447,
+   "elapsed_ms": 154,
    "server": "AkamaiGHost",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
     "mentions_odds": false,
     "mentions_league_of_legends": false
    },
-   "snippet": "<HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access \"http&#58;&#47;&#47;sportsbook&#45;nash&#46;draftkings&#46;com&#47;api&#47;sportscontent&#47;dkusoh&#47;v1&#47;leagues&#47;19873\" on this server.<P> Reference&#32;&#35;18&#46;b32d3e17&#46;1792938167&#46;ace00448 <P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;b32d3e17"
+   "snippet": "<HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access \"http&#58;&#47;&#47;sportsbook&#45;nash&#46;draftkings&#46;com&#47;api&#47;sportscontent&#47;dkusoh&#47;v1&#47;leagues&#47;19873\" on this server.<P> Reference&#32;&#35;18&#46;b1aa3717&#46;1792938287&#46;83cfb32 <P>https&#58;&#47;&#47;errors&#46;edgesuite&#46;net&#47;18&#46;b1aa3717&"
   },
   {
    "name": "FanDuel LoL (page API)",
@@ -1180,17 +1167,18 @@
    "kind": "US sportsbook",
    "why": "does FanDuel expose an esports LoL JSON coupon?",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:47Z",
+   "checked_utc": "2026-10-25T14:24:48Z",
    "status": 400,
    "final_url": "https://sbapi.nj.sportsbook.fanduel.com/api/content-managed-page?page=CUSTOM&customPageId=lol",
    "content_type": "application/json; charset=utf-8",
    "bytes": 14,
-   "elapsed_ms": 144,
+   "elapsed_ms": 190,
    "server": "CloudFront",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1205,28 +1193,39 @@
    "kind": "US sportsbook",
    "why": "JSON lines feed",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:47Z",
+   "checked_utc": "2026-10-25T14:24:48Z",
    "status": 200,
    "final_url": "https://www.betonline.ag/sportsbook/api/lines/esports",
    "content_type": "text/html",
-   "bytes": 366108,
-   "elapsed_ms": 348,
+   "bytes": 366109,
+   "elapsed_ms": 345,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [
     "LCP 2027 Promotion",
-    "LIT 2027 Winter Promotion",
     "POP Esports Masters Season 7"
    ],
-   "found_competition_count": 3,
+   "found_competition_count": 2,
+   "found_competition_evidence": [
+    {
+     "competition": "LCP 2027 Promotion",
+     "token": "LCP",
+     "context": "const e=s(r);return e>1e4?void 0:e},set value(e){i||(r=e)}},lcp:{get value(){if(void 0!==a.fcp.value)return s(n)},set value(e){i||(n=e)}},cls:{value:void 0},inp:{value:void 0},disc"
+    },
+    {
+     "competition": "POP Esports Masters Season 7",
+     "token": "POP",
+     "context": "er/Seen\"],void 0,t.K7.metrics,r),e.params.cat=s.split(\", \").pop())}e.loadCaptureCalled=!0}r.on(\"new-xhr\",a),r.on(\"open-xhr-start\",o),r.on(\"open-xhr-end\",d),r.on(\"send-xhr-start\",l)"
+    }
+   ],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
     "mentions_odds": true,
     "mentions_league_of_legends": false
    },
-   "snippet": "<!DOCTYPE html><script>(function(){const webAppConfig = {\"FEATURE_STRAPI_PROMO_BANNERS\":\"true\",\"FEATURE_UBS_LIVE_PARLAY\":\"true\",\"FEATURE_HUB_OUTRIGHTS_ALL_TAB\":\"true\",\"CHASHOUT_API_URL\":\"https://cashoutapi.betonline.ag/api/v1.0/CashoutExternal\",\"SAS_ROLLOUT_COOKIE_PRE_SAS_ID\":\"NBOL\",\"FEATURE_AUTH_REDIRECTION\":\"true\",\"HAS_DEBUG\":\"false\",\"FEATURE_SGP_MP_GRID\":\"true\",\"BETSLIP_API_URL\":\"https://api-be"
+   "snippet": "<!DOCTYPE html><script>(function(){const webAppConfig = {\"FEATURE_UBS_LIVE_PARLAY\":\"true\",\"CHASHOUT_API_URL\":\"https://cashoutapi.betonline.ag/api/v1.0/CashoutExternal\",\"FEATURE_STRAPI_PROMO_BANNERS\":\"true\",\"FEATURE_HUB_OUTRIGHTS_ALL_TAB\":\"true\",\"FEATURE_AUTH_REDIRECTION\":\"true\",\"HAS_DEBUG\":\"false\",\"SAS_ROLLOUT_COOKIE_PRE_SAS_ID\":\"NBOL\",\"BETSLIP_API_URL\":\"https://api-betslip.betonline.ag\",\"FEATURE_"
   },
   {
    "name": "Betano LoL JSON API",
@@ -1234,19 +1233,18 @@
    "kind": "established book",
    "why": "JSON coupon behind the HTML page",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:47Z",
+   "checked_utc": "2026-10-25T14:24:49Z",
    "status": 200,
    "final_url": "https://www.betano.com/api/sport/esports/league-of-legends/",
    "content_type": "text/html; charset=utf-8",
    "bytes": 29842,
-   "elapsed_ms": 194,
+   "elapsed_ms": 183,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ],
-   "found_competition_count": 1,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": true,
@@ -1261,17 +1259,18 @@
    "kind": "odds API",
    "why": "keyed aggregator - 401 expected, recorded for the audit trail",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:48Z",
+   "checked_utc": "2026-10-25T14:24:49Z",
    "status": 401,
    "final_url": "https://api.the-odds-api.com/v4/sports/esports_league_of_legends/odds?regions=eu&markets=h2h",
    "content_type": "application/json; charset=utf-8",
    "bytes": 152,
-   "elapsed_ms": 146,
+   "elapsed_ms": 121,
    "server": "",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1286,17 +1285,18 @@
    "kind": "odds API",
    "why": "keyed aggregator - 401 expected, recorded for the audit trail",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:48Z",
+   "checked_utc": "2026-10-25T14:24:50Z",
    "status": 401,
    "final_url": "https://api.oddspapi.io/v4/fixtures?sportId=18",
    "content_type": "application/json; charset=utf-8",
    "bytes": 158,
-   "elapsed_ms": 278,
+   "elapsed_ms": 460,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1311,17 +1311,18 @@
    "kind": "established book (Kambi)",
    "why": "brand-level LoL coupon, incl. tier-2?",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:48Z",
+   "checked_utc": "2026-10-25T14:24:50Z",
    "status": 400,
    "final_url": "https://eu-offering-api.kambicdn.com/offering/v2018/leovegas/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
    "content_type": "application/json",
    "bytes": 91,
-   "elapsed_ms": 250,
+   "elapsed_ms": 306,
    "server": "",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1336,17 +1337,18 @@
    "kind": "established book (Kambi)",
    "why": "brand-level LoL coupon, incl. tier-2?",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:48Z",
+   "checked_utc": "2026-10-25T14:24:50Z",
    "status": 429,
    "final_url": "https://eu-offering-api.kambicdn.com/offering/v2018/nordicbet/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
    "content_type": "text/plain; charset=utf-8",
    "bytes": 9,
-   "elapsed_ms": 195,
+   "elapsed_ms": 219,
    "server": "awselb/2.0",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1361,17 +1363,18 @@
    "kind": "established book (Kambi)",
    "why": "brand-level LoL coupon, incl. tier-2?",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:49Z",
+   "checked_utc": "2026-10-25T14:24:50Z",
    "status": 200,
    "final_url": "https://eu-offering-api.kambicdn.com/offering/v2018/coolbet/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
    "content_type": "application/json",
    "bytes": 633,
-   "elapsed_ms": 206,
+   "elapsed_ms": 215,
    "server": "",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1386,17 +1389,18 @@
    "kind": "established book (Kambi)",
    "why": "brand-level LoL coupon, incl. tier-2?",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:49Z",
+   "checked_utc": "2026-10-25T14:24:51Z",
    "status": 400,
    "final_url": "https://eu-offering-api.kambicdn.com/offering/v2018/888sport/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
    "content_type": "application/json",
    "bytes": 91,
-   "elapsed_ms": 192,
+   "elapsed_ms": 211,
    "server": "",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1411,12 +1415,12 @@
    "kind": "established book (Kambi)",
    "why": "control: second operator on the same CDN",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:49Z",
+   "checked_utc": "2026-10-25T14:24:51Z",
    "status": 200,
    "final_url": "https://eu-offering-api.kambicdn.com/offering/v2018/paf/listView/esports/league_of_legends/all/all/matches.json?lang=en_GB&market=ZZ",
    "content_type": "application/json",
    "bytes": 14115,
-   "elapsed_ms": 199,
+   "elapsed_ms": 223,
    "server": "",
    "found_team_names": [
     "Anyone's Legend",
@@ -1433,6 +1437,13 @@
     "Worlds 2026 Main Event"
    ],
    "found_competition_count": 1,
+   "found_competition_evidence": [
+    {
+     "competition": "Worlds 2026 Main Event",
+     "token": "World Championship",
+     "context": "yName\":\"G2 Esports\",\"start\":\"2026-10-25T17:00:00Z\",\"group\":\"World Championship\",\"groupId\":2000117179,\"path\":[{\"id\":2000077768,\"name\":\"Esports\",\"englishName\":\"Esports\",\"termKey\":\"es"
+    }
+   ],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1447,19 +1458,18 @@
    "kind": "odds aggregator",
    "why": "which tiers carry a price on today's board",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:49Z",
+   "checked_utc": "2026-10-25T14:24:51Z",
    "status": 200,
    "final_url": "https://bo3.gg/lol/matches/current",
    "content_type": "text/html;charset=utf-8",
    "bytes": 13188,
-   "elapsed_ms": 330,
+   "elapsed_ms": 281,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ],
-   "found_competition_count": 1,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1474,19 +1484,18 @@
    "kind": "odds aggregator",
    "why": "does the tournament page price the same ties",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:49Z",
+   "checked_utc": "2026-10-25T14:24:51Z",
    "status": 200,
    "final_url": "https://bo3.gg/lol/tournaments/worlds-2026",
    "content_type": "text/html;charset=utf-8",
    "bytes": 13188,
-   "elapsed_ms": 180,
+   "elapsed_ms": 168,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
-   "found_competitions": [
-    "LIT 2027 Winter Promotion"
-   ],
-   "found_competition_count": 1,
+   "found_competitions": [],
+   "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1501,17 +1510,18 @@
    "kind": "odds API",
    "why": "public sports list - does it carry esports at all?",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:50Z",
+   "checked_utc": "2026-10-25T14:24:52Z",
    "status": 200,
    "final_url": "https://api.odds-api.io/v3/sports",
    "content_type": "application/json; charset=utf-8",
    "bytes": 1351,
-   "elapsed_ms": 207,
+   "elapsed_ms": 301,
    "server": "railway-hikari",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1526,17 +1536,18 @@
    "kind": "odds API",
    "why": "documented key-gated aggregate feed",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:50Z",
+   "checked_utc": "2026-10-25T14:24:52Z",
    "status": 401,
    "final_url": "https://api.odds-api.io/v3/events?sport=esports",
    "content_type": "application/json; charset=utf-8",
    "bytes": 46,
-   "elapsed_ms": 195,
+   "elapsed_ms": 232,
    "server": "railway-hikari",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1551,17 +1562,18 @@
    "kind": "esports data API",
    "why": "documented token-gated API",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:50Z",
+   "checked_utc": "2026-10-25T14:24:52Z",
    "status": 403,
    "final_url": "https://api.pandascore.co/lol/matches?per_page=1",
    "content_type": "application/json; charset=utf-8",
    "bytes": 28,
-   "elapsed_ms": 475,
+   "elapsed_ms": 422,
    "server": "Cowboy",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1576,15 +1588,16 @@
    "kind": "esports data API",
    "why": "documented key-gated API",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:50Z",
+   "checked_utc": "2026-10-25T14:24:52Z",
    "status": null,
    "error": "ConnectionError: HTTPSConnectionPool(host='api.abiosgaming.com', port=443): Max retries exceeded with url: /v2/series (Caused by NameResolutionError(\"HTTPSConnection(host='api.abiosgaming.com', port=443): Failed to resolve 'api.abiosgaming.com' ([Errno -5] No address associated with hostname)\"))",
    "bytes": 0,
-   "elapsed_ms": 21,
+   "elapsed_ms": 43,
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {},
    "snippet": ""
   },
@@ -1594,17 +1607,18 @@
    "kind": "official",
    "why": "official schedule cross-check (needs api key header)",
    "note": "no api key header on purpose: records the unauthenticated response",
-   "checked_utc": "2026-10-25T14:22:51Z",
+   "checked_utc": "2026-10-25T14:24:53Z",
    "status": 403,
    "final_url": "https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=en-US",
    "content_type": "application/json",
    "bytes": 23,
-   "elapsed_ms": 177,
+   "elapsed_ms": 295,
    "server": "",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1619,17 +1633,18 @@
    "kind": "results database",
    "why": "control: series results used by the model",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:51Z",
+   "checked_utc": "2026-10-25T14:24:53Z",
    "status": 200,
    "final_url": "https://lol.fandom.com/wiki/Special:CargoExport?tables=MatchSchedule&fields=OverviewPage%2CTeam1%2CTeam2%2CWinner%2CDateTime_UTC&limit=5&format=json",
    "content_type": "application/json",
    "bytes": 1213,
-   "elapsed_ms": 690,
+   "elapsed_ms": 646,
    "server": "cloudflare",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
@@ -1644,17 +1659,18 @@
    "kind": "results database",
    "why": "cross-check for low-tier fixtures",
    "note": "",
-   "checked_utc": "2026-10-25T14:22:52Z",
+   "checked_utc": "2026-10-25T14:24:54Z",
    "status": 403,
    "final_url": "https://liquipedia.net/leagueoflegends/Portal:Matches",
    "content_type": "text/html",
    "bytes": 2059,
-   "elapsed_ms": 479,
+   "elapsed_ms": 386,
    "server": "nginx",
    "found_team_names": [],
    "found_team_count": 0,
    "found_competitions": [],
    "found_competition_count": 0,
+   "found_competition_evidence": [],
    "signals": {
     "has_decimal_pair": false,
     "mentions_bookmaker": false,
