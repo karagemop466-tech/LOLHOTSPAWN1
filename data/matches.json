@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-25T14:44:40Z",
+ "generated_utc": "2026-10-25T14:47:10Z",
  "inventory_fetched_utc": "2026-10-25T14:42:55Z",
  "receipt_audit": {
   "max_age_hours": 24,
@@ -12,7 +12,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -22,7 +22,7 @@
      4.4
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -32,7 +32,7 @@
      4.05
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -42,7 +42,7 @@
      4.88
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -52,7 +52,7 @@
      2.63
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -62,7 +62,7 @@
      1.61
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -72,7 +72,7 @@
      3.11
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -82,7 +82,7 @@
      1.06
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -92,7 +92,7 @@
      1.51
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -102,7 +102,7 @@
      10.5
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
    },
    {
@@ -112,7 +112,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 90.1,
+    "age_hours": 90.2,
     "source_url": "https://egamersworld.com/lol/matches"
    }
   ],
@@ -172,55 +172,55 @@
  "backtest": {
   "cutoff": "2026-07-01",
   "n": 3920,
-  "hits": 2547,
+  "hits": 2554,
   "buckets": {
    "50-60%": {
-    "n": 2090,
-    "hits": 1192,
-    "accuracy": 0.5703,
-    "mean_predicted": 0.5409
+    "n": 2105,
+    "hits": 1202,
+    "accuracy": 0.571,
+    "mean_predicted": 0.5406
    },
    "60-70%": {
-    "n": 1042,
-    "hits": 712,
-    "accuracy": 0.6833,
+    "n": 1043,
+    "hits": 717,
+    "accuracy": 0.6874,
     "mean_predicted": 0.6449
    },
    "70-80%": {
-    "n": 565,
-    "hits": 447,
-    "accuracy": 0.7912,
-    "mean_predicted": 0.7457
+    "n": 546,
+    "hits": 436,
+    "accuracy": 0.7985,
+    "mean_predicted": 0.7456
    },
    "80%+": {
-    "n": 223,
-    "hits": 196,
-    "accuracy": 0.8789,
-    "mean_predicted": 0.8517
+    "n": 226,
+    "hits": 199,
+    "accuracy": 0.8805,
+    "mean_predicted": 0.8511
    }
   },
-  "accuracy": 0.6497,
-  "brier": 0.2185,
-  "logloss": 0.626
+  "accuracy": 0.6515,
+  "brier": 0.2179,
+  "logloss": 0.6246
  },
  "track_record": {
-  "graded": 39,
-  "hits": 23,
-  "misses": 16,
-  "accuracy": 0.5897,
-  "brier": 0.2502,
+  "graded": 48,
+  "hits": 30,
+  "misses": 18,
+  "accuracy": 0.625,
+  "brier": 0.2398,
   "settled_forfeits": 3,
-  "ungraded_started": 36,
+  "ungraded_started": 27,
   "by_method": {
    "model": {
-    "graded": 18,
-    "hits": 11,
-    "accuracy": 0.6111
+    "graded": 24,
+    "hits": 16,
+    "accuracy": 0.6667
    },
    "provisional": {
-    "graded": 21,
-    "hits": 12,
-    "accuracy": 0.5714
+    "graded": 24,
+    "hits": 14,
+    "accuracy": 0.5833
    }
   },
   "result_source": "Leaguepedia MatchSchedule (community-maintained), matched on team pair and kick-off within 12 h",
@@ -285,8 +285,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
-   "result": null,
-   "grade": null,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Benelux Ascend Series/2026 Season/Summer Split_Week 6_1",
+    "leaguepedia_page": "Benelux Ascend Series/2026 Season/Summer Split",
+    "utc": "2026-08-26T17:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series/2026_Season/Summer_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -353,8 +364,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
-   "result": null,
-   "grade": null,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Benelux Ascend Series/2026 Season/Summer Split_Week 6_2",
+    "leaguepedia_page": "Benelux Ascend Series/2026 Season/Summer Split",
+    "utc": "2026-08-26T18:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series/2026_Season/Summer_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -1880,8 +1902,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
-   "result": null,
-   "grade": null,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Icelandic Esports League/2026 Season/Autumn Split_Week 2_4",
+    "leaguepedia_page": "Icelandic Esports League/2026 Season/Autumn Split",
+    "utc": "2026-10-01T19:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Icelandic_Esports_League/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -2092,8 +2125,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
-   "result": null,
-   "grade": null,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Benelux Ascend Series/2027 Season/Winter Promotion_Round 1_2",
+    "leaguepedia_page": "Benelux Ascend Series/2027 Season/Winter Promotion",
+    "utc": "2026-10-02T18:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series/2027_Season/Winter_Promotion",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -2302,8 +2346,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
-   "result": null,
-   "grade": null,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Icelandic Esports League/2026 Season/Autumn Split_Week 3_1",
+    "leaguepedia_page": "Icelandic Esports League/2026 Season/Autumn Split",
+    "utc": "2026-10-05T19:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Icelandic_Esports_League/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 0,
     "team1": 0,
@@ -2663,8 +2718,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
-   "result": null,
-   "grade": null,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 2,
+    "leaguepedia_winner": "2",
+    "leaguepedia_match_id": "Icelandic Esports League/2026 Season/Autumn Split_Week 3_5",
+    "leaguepedia_page": "Icelandic Esports League/2026 Season/Autumn Split",
+    "utc": "2026-10-08T19:00:00Z",
+    "forfeit_flag": 1,
+    "source": "https://lol.fandom.com/wiki/Data:Icelandic_Esports_League/2026_Season/Autumn_Split",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3861,8 +3927,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
-   "result": null,
-   "grade": null,
+   "result": {
+    "winner_side": 0,
+    "score0": 3,
+    "score1": 2,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Benelux Ascend Series/2027 Season/Winter Promotion_Round 2_4",
+    "leaguepedia_page": "Benelux Ascend Series/2027 Season/Winter Promotion",
+    "utc": "2026-10-14T18:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Benelux_Ascend_Series/2027_Season/Winter_Promotion",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
@@ -3927,8 +4004,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
-   "result": null,
-   "grade": null,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Arabian Regional Championship 2026/Qualifiers/QA-BH-KW_Semifinals_1",
+    "leaguepedia_page": "Arabian Regional Championship 2026/Qualifiers/QA-BH-KW",
+    "utc": "2026-10-15T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Arabian_Regional_Championship_2026/Qualifiers/QA-BH-KW",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 75,
     "team1": 25,
@@ -3993,8 +4081,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
-   "result": null,
-   "grade": null,
+   "result": {
+    "winner_side": 1,
+    "score0": 0,
+    "score1": 1,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "Arabian Regional Championship 2026/Qualifiers/QA-BH-KW_Round 3_1",
+    "leaguepedia_page": "Arabian Regional Championship 2026/Qualifiers/QA-BH-KW",
+    "utc": "2026-10-15T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:Arabian_Regional_Championship_2026/Qualifiers/QA-BH-KW",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "miss",
    "community_pick_pct": {
     "team0": 25,
     "team1": 75,
@@ -6669,9 +6768,9 @@
     "rating_matches": 143,
     "rating_as_of": "2026-10-25T17:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1929.5,
-    "elo_now": 1921.7,
-    "elo": 1921.7
+    "elo_raw": 1929.3,
+    "elo_now": 1921.6,
+    "elo": 1921.6
    },
    "p0": 0.2722,
    "p1": 0.7278,
@@ -6764,7 +6863,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621111.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.2147,
+    "model_cross_check": 0.2148,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -7051,9 +7150,9 @@
     "rating_matches": 114,
     "rating_as_of": "2026-10-25T18:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1910.3,
-    "elo_now": 1901.5,
-    "elo": 1901.5
+    "elo_raw": 1910.0,
+    "elo_now": 1901.2,
+    "elo": 1901.2
    },
    "p0": 0.4575,
    "p1": 0.5425,
@@ -7146,7 +7245,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621110.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.2765,
+    "model_cross_check": 0.2768,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -7363,9 +7462,9 @@
     "rating_matches": 139,
     "rating_as_of": "2026-10-25T19:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1884.1,
-    "elo_now": 1877.7,
-    "elo": 1877.7
+    "elo_raw": 1883.9,
+    "elo_now": 1877.5,
+    "elo": 1877.5
    },
    "team1": {
     "name": "Movistar KOI",
@@ -7375,9 +7474,9 @@
     "rating_matches": 98,
     "rating_as_of": "2026-10-25T19:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1800.5,
-    "elo_now": 1785.9,
-    "elo": 1785.9
+    "elo_raw": 1800.0,
+    "elo_now": 1785.4,
+    "elo": 1785.4
    },
    "p0": 0.767,
    "p1": 0.233,
@@ -7470,7 +7569,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621119.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.6291,
+    "model_cross_check": 0.6295,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -7503,9 +7602,9 @@
     "rating_matches": 135,
     "rating_as_of": "2026-10-25T22:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1974.4,
-    "elo_now": 1964.6,
-    "elo": 1964.6
+    "elo_raw": 1974.3,
+    "elo_now": 1964.5,
+    "elo": 1964.5
    },
    "team1": {
     "name": "LYON",
@@ -7517,9 +7616,9 @@
     "rating_matches": 61,
     "rating_as_of": "2026-10-25T22:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1860.5,
-    "elo_now": 1848.3,
-    "elo": 1848.3
+    "elo_raw": 1860.2,
+    "elo_now": 1848.1,
+    "elo": 1848.1
    },
    "p0": 0.8975,
    "p1": 0.1025,
@@ -7527,7 +7626,7 @@
    "confidence": "high",
    "basis": "5-Venue Consensus de-vigged line (89.8% / 10.2%): Pinnacle 89.6%/10.4% (1.06/9.19), Polymarket 90.5%/9.5% (90.5¢/9.5¢), Kalshi 90.4%/9.6% (90¢/10¢), Bovada 89.5%/10.5% (1.06/9.00), Unibet 87.5%/12.5% (1.07/7.50).",
    "flags": [
-    "market and model disagree by 24 pp (market 89.8% vs our Elo 66.1%) - the market side is published, the gap is disclosed",
+    "market and model disagree by 24 pp (market 89.8% vs our Elo 66.2%) - the market side is published, the gap is disclosed",
     "resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'"
    ],
    "pick": {
@@ -7615,7 +7714,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621112.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.6614,
+    "model_cross_check": 0.6615,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -7648,9 +7747,9 @@
     "rating_matches": 156,
     "rating_as_of": "2026-10-26T17:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1872.8,
-    "elo_now": 1867.5,
-    "elo": 1867.5
+    "elo_raw": 1872.5,
+    "elo_now": 1867.1,
+    "elo": 1867.1
    },
    "team1": {
     "name": "CTBC Flying Oyster",
@@ -7660,9 +7759,9 @@
     "rating_matches": 76,
     "rating_as_of": "2026-10-26T17:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1745.0,
-    "elo_now": 1742.2,
-    "elo": 1742.2
+    "elo_raw": 1744.2,
+    "elo_now": 1741.5,
+    "elo": 1741.5
    },
    "p0": 0.8565,
    "p1": 0.1435,
@@ -7755,7 +7854,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621121.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.6729,
+    "model_cross_check": 0.6733,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -7848,9 +7947,9 @@
     "rating_matches": 106,
     "rating_as_of": "2026-10-26T18:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1909.6,
-    "elo_now": 1891.2,
-    "elo": 1891.2
+    "elo_raw": 1907.0,
+    "elo_now": 1888.7,
+    "elo": 1888.7
    },
    "team1": {
     "name": "Bilibili Gaming",
@@ -7955,7 +8054,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621120.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.4444,
+    "model_cross_check": 0.4408,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -8126,9 +8225,9 @@
     "rating_matches": 67,
     "rating_as_of": "2026-10-26T19:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1849.7,
-    "elo_now": 1839.3,
-    "elo": 1839.3
+    "elo_raw": 1849.0,
+    "elo_now": 1838.7,
+    "elo": 1838.7
    },
    "p0": 0.3526,
    "p1": 0.6474,
@@ -8221,7 +8320,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621122.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.423,
+    "model_cross_check": 0.4239,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -8254,9 +8353,9 @@
     "rating_matches": 80,
     "rating_as_of": "2026-10-26T22:00:00Z",
     "last_played": "2026-10-25",
-    "elo_raw": 1823.8,
-    "elo_now": 1816.5,
-    "elo": 1816.5
+    "elo_raw": 1823.5,
+    "elo_now": 1816.3,
+    "elo": 1816.3
    },
    "team1": {
     "name": "Anyone's Legend",
@@ -8266,9 +8365,9 @@
     "rating_matches": 132,
     "rating_as_of": "2026-10-26T22:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1787.3,
-    "elo_now": 1776.8,
-    "elo": 1776.8
+    "elo_raw": 1787.2,
+    "elo_now": 1776.7,
+    "elo": 1776.7
    },
    "p0": 0.3132,
    "p1": 0.6868,
@@ -8363,7 +8462,7 @@
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621123.json?lang=en_GB&market=ZZ"
      }
     ],
-    "model_cross_check": 0.5569,
+    "model_cross_check": 0.5567,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -8412,38 +8511,35 @@
     "elo_now": 1834.3,
     "elo": 1834.3
    },
-   "p0": 0.385,
-   "p1": 0.615,
+   "p0": 0.381,
+   "p1": 0.619,
    "method": "market",
-   "confidence": "low",
-   "basis": "Polymarket de-vigged line (38.5% / 61.5%): Polymarket 38.5%/61.5% (38.5¢/61.5¢).",
-   "flags": [
-    "single thin prediction market: only $58 traded volume on Polymarket - treat as an indicative line",
-    "thin market: one Polymarket venue, $58 total traded volume - indicative only, not a deep bookmaker line"
-   ],
+   "confidence": "high",
+   "basis": "2-Venue Consensus de-vigged line (38.1% / 61.9%): Polymarket 38.5%/61.5% (38.5¢/61.5¢), Kalshi 37.6%/62.4% (38¢/64¢).",
+   "flags": [],
    "pick": {
     "side": 1,
     "team": "Vitality Rising Bees",
-    "probability": 0.615,
-    "other_probability": 0.385
+    "probability": 0.619,
+    "other_probability": 0.381
    },
    "pick_type": null,
    "market": {
-    "thin": true,
-    "thin_note": "single Polymarket venue with $58 traded volume (thin-market threshold $1,000)",
-    "book": "Polymarket",
+    "thin": false,
+    "thin_note": "",
+    "book": "2-Venue Consensus",
     "kind": "prediction market",
     "source_url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "api_url": "https://gamma-api.polymarket.com/events?slug=lol-rb-mr-2026-10-27",
     "market_url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "decimal": null,
     "american": null,
-    "p0": 0.385,
-    "p1": 0.615,
+    "p0": 0.381,
+    "p1": 0.619,
     "overround": 0.0,
     "start_utc": "2026-10-27 16:00:00+00",
     "league": null,
-    "venue_count": 1,
+    "venue_count": 2,
     "rejected_venues": [],
     "total_volume_usd": 58.47,
     "volume_usd": 58.47,
@@ -8458,6 +8554,16 @@
       "observed_utc": "2026-10-25T14:44:08Z",
       "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
       "volume_usd": 58.47
+     },
+     {
+      "name": "Kalshi",
+      "weight": 0.18,
+      "p0": 0.3756,
+      "p1": 0.6244,
+      "quote": "38¢/64¢",
+      "overround": 0.025,
+      "observed_utc": "2026-10-25T14:42:58Z",
+      "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct271300rbmr"
      }
     ],
     "model_cross_check": 0.3825
@@ -14234,21 +14340,21 @@
     "rating_matches": 7,
     "rating_as_of": "2026-11-10T05:00:00Z",
     "last_played": "2026-10-13",
-    "elo_raw": 1792.1,
-    "elo_now": 1753.7,
-    "elo": 1753.7
+    "elo_raw": 1598.2,
+    "elo_now": 1557.3,
+    "elo": 1557.3
    },
-   "p0": 0.4031,
-   "p1": 0.5969,
+   "p0": 0.6766,
+   "p1": 0.3234,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: FENNEL 1686 vs Nothin'Here 1754 (30/7 rated series).",
+   "basis": "Elo line: FENNEL 1686 vs Nothin'Here 1557 (30/7 rated series).",
    "flags": [],
    "pick": {
-    "side": 1,
-    "team": "Nothin'Here",
-    "probability": 0.5969,
-    "other_probability": 0.4031
+    "side": 0,
+    "team": "FENNEL",
+    "probability": 0.6766,
+    "other_probability": 0.3234
    },
    "pick_type": null,
    "market": null,
@@ -14347,9 +14453,9 @@
     "rating_matches": 48,
     "rating_as_of": "2026-11-11T09:00:00Z",
     "last_played": "2026-08-15",
-    "elo_raw": 1503.8,
-    "elo_now": 1507.9,
-    "elo": 1510.6
+    "elo_raw": 1503.2,
+    "elo_now": 1507.3,
+    "elo": 1510.0
    },
    "team1": {
     "name": "Frank Esports",
@@ -14363,19 +14469,19 @@
     "elo_now": 1708.2,
     "elo": 1703.2
    },
-   "p0": 0.2481,
-   "p1": 0.7519,
+   "p0": 0.2475,
+   "p1": 0.7525,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Ground Zero Gaming 1511 vs Frank Esports 1703 (48/57 rated series).",
+   "basis": "Elo line: Ground Zero Gaming 1510 vs Frank Esports 1703 (48/57 rated series).",
    "flags": [
     "archived external quote retired as unverifiable: Specialist Esportsbook Moneyline (via EGamersWorld) 1.025/10.50 captured 2026-10-21; that page now shows symmetric 1.80 / 1.80 placeholder prices, so this line is originated instead"
    ],
    "pick": {
     "side": 1,
     "team": "Frank Esports",
-    "probability": 0.7519,
-    "other_probability": 0.2481
+    "probability": 0.7525,
+    "other_probability": 0.2475
    },
    "pick_type": null,
    "market": null,
