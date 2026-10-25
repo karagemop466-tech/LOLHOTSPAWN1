@@ -1,0 +1,246 @@
+{
+  "session": "5d4e9477",
+  "observed_utc_minute": "2026-10-25T14:28Z",
+  "precision_note": "Fetch content tool does not expose server response timestamps. The local clock was sampled at 2026-10-25T14:28:46Z during the parallel fetch; use this as an approximate session observation minute, not a server-signed timestamp.",
+  "purpose": "Independent source check for low-tier fixtures; these manual observations are corroboration only and do not write production probabilities.",
+  "canonical_snapshot": {
+    "generated_utc": "2026-10-25T14:58:31Z",
+    "inventory_fetched_utc": "2026-10-25T14:56:39Z",
+    "fixture_count": 234
+  },
+  "captures": [
+    {
+      "fixture_id": "1079080",
+      "teams_hotspawn_order": [
+        "Mental Rush",
+        "Vitality Rising Bees"
+      ],
+      "competition": "LGC Rising 2026 Playoffs",
+      "hotspawn_start_utc": "2026-10-27T17:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080",
+      "source": "Thunderpick",
+      "source_kind": "direct esports sportsbook",
+      "source_url": "https://thunderpick.io/esports/league-of-legends/lgc-rising-2026-playoffs/11363/vitality-rising-bees-vs-mental-rush/2876675",
+      "verbatim": "LGC Rising 2026 Playoffs; BO5; October 27, 13:00 (timezone not stated); Match Winner: Vitality Rising Bees -238; Mental Rush +162.",
+      "american_odds": {
+        "Mental Rush": "+162",
+        "Vitality Rising Bees": "-238"
+      },
+      "decimal_odds": {
+        "Mental Rush": 2.62,
+        "Vitality Rising Bees": 1.4201680672
+      },
+      "devigged_probability": {
+        "Mental Rush": 0.3515121261,
+        "Vitality Rising Bees": 0.6484878739
+      },
+      "canonical_market_probability_at_snapshot": {
+        "Mental Rush": 0.3745,
+        "Vitality Rising Bees": 0.6255
+      },
+      "canonical_quote_observed_utc": "2026-10-25T14:57:50Z (Polymarket); 2026-10-25T14:56:42Z (Kalshi)",
+      "market_probability_gap_pp": {
+        "Mental Rush": -2.2988,
+        "Vitality Rising Bees": 2.2988
+      },
+      "polymarket_volume_usd_at_snapshot": 58.47,
+      "treatment": "The latest production row is a 2-venue Polymarket + Kalshi consensus. The direct Thunderpick page was reopened at approximately 14:28Z and supports the same Vitality Rising Bees pick; against the later 14:58Z consensus, the manual quote is about 2.30 pp lower on Mental Rush. This observation is not in the production consensus and is not synchronized to the later market quotes.",
+      "existing_receipt": "data/receipts/external_odds/2026-10-25.json (captured_utc 2026-10-25T14:06:00Z; same quote and page).",
+      "earlier_same_day_comparison": {
+        "canonical_snapshot_generated_utc": "2026-10-25T14:25:59Z",
+        "polymarket_quote_observed_utc": "2026-10-25T14:25:13Z",
+        "probability": {
+          "Mental Rush": 0.36,
+          "Vitality Rising Bees": 0.64
+        },
+        "gap_pp_vs_thunderpick": {
+          "Mental Rush": -0.8488,
+          "Vitality Rising Bees": 0.8488
+        },
+        "note": "At 14:25 the root market row was single-venue Polymarket; PR #122 later added Kalshi."
+      }
+    },
+    {
+      "fixture_id": "1079080",
+      "source": "EGamersWorld",
+      "source_kind": "odds aggregator",
+      "source_url": "https://egamersworld.com/lol/match/CVSRRqh2Q/vitality-rising-bees-vs-mental-rush-rildGvqP0",
+      "verbatim": "Current team panels displayed Vitality Rising Bees 1.4 and Mental Rush 2.73; betting-tips text stated average bookmaker odds of 1.413 and 2.64.",
+      "treatment": "Aggregator evidence only; these displayed values are not attributed to a named individual book or merged with the production quote.",
+      "canonical_market_probability_at_snapshot": {
+        "Mental Rush": 0.36,
+        "Vitality Rising Bees": 0.64
+      }
+    },
+    {
+      "fixture_id": "1081423",
+      "teams": [
+        "Ground Zero Gaming",
+        "Frank Esports"
+      ],
+      "competition": "LCP 2027 Promotion",
+      "hotspawn_start_utc": "2026-11-11T09:00:00Z",
+      "hotspawn_url": "https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423",
+      "source": "EGamersWorld",
+      "source_kind": "odds aggregator",
+      "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF",
+      "verbatim": "Ground Zero Gaming 1.8; Frank Esports 1.8; odds links 1.8 / 1.8.",
+      "treatment": "Symmetric 1.80 / 1.80 is a placeholder under repository policy, not a line. No probability is derived from it.",
+      "prior_capture": {
+        "captured_utc": "2026-10-24T16:28:00Z",
+        "decimal": [
+          1.025,
+          10.5
+        ],
+        "receipt_file": "data/receipts/external_odds/2026-10-24-longtail.json",
+        "status": "historical/manual capture; not a current quote"
+      },
+      "published_model_probability": {
+        "Ground Zero Gaming": 0.2481,
+        "Frank Esports": 0.7519
+      },
+      "review_issue": "data/flags.json and flagged.html contain both a high-severity item phrased as a live 66.3 pp conflict from the older 1.025 / 10.50 observation and a high-severity retired-quote note saying the current page shows a placeholder. The 14:28Z page read supports the latter current-state wording; retain the former only as a dated historical conflict pending repeated source confirmation."
+    },
+    {
+      "fixture_id": "1081421",
+      "teams": [
+        "FENNEL",
+        "Nothin'Here"
+      ],
+      "competition": "LCP 2027 Promotion",
+      "source": "EGamersWorld",
+      "source_kind": "odds aggregator",
+      "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/fennel-vs-nothinhere-Ud8jrB4zR",
+      "verbatim": "FENNEL 1.8; Nothin'Here 1.8; odds links 1.8 / 1.8.",
+      "treatment": "Symmetric placeholder; not a line. No probability is derived from it."
+    },
+    {
+      "fixture_id": "1079080",
+      "teams_display_order": [
+        "Vitality Rising Bees",
+        "Mental Rush"
+      ],
+      "competition": "LGC Rising 2026 Playoffs",
+      "source": "BMBETS (multi-book odds comparison)",
+      "source_kind": "third-party odds aggregator",
+      "source_url": "https://www.bmbets.com/e-sports/world/league-of-legends---game-changers-rising/",
+      "captured_utc": "2026-10-25T14:15:00Z",
+      "verbatim": "27.10.2026 17:00 Vitality Rising Bees (LOL) - Mental Rush (LOL) 1.43 2.78 94.32%",
+      "decimal_display_order": [
+        1.43,
+        2.78
+      ],
+      "decimal_hotspawn_order": [
+        2.78,
+        1.43
+      ],
+      "devigged_hotspawn_order": {
+        "Mental Rush": 0.3397,
+        "Vitality Rising Bees": 0.6603
+      },
+      "canonical_two_venue_probability_at_14_47": {
+        "Mental Rush": 0.381,
+        "Vitality Rising Bees": 0.619
+      },
+      "gap_pp_vs_canonical_at_14_47": {
+        "Mental Rush": -4.13,
+        "Vitality Rising Bees": 4.13
+      },
+      "treatment": "Aggregator-only comparison capture. It corroborates the direction of the canonical consensus. It is not a first-party book feed and is not an input to the production row.",
+      "canonical_two_venue_probability_at_14_58": {
+        "Mental Rush": 0.3745,
+        "Vitality Rising Bees": 0.6255
+      },
+      "gap_pp_vs_canonical_at_14_58": {
+        "Mental Rush": -3.4833,
+        "Vitality Rising Bees": 3.4833
+      }
+    },
+    {
+      "fixture_id": "1081423",
+      "teams_display_order": [
+        "Ground Zero Gaming",
+        "Frank Esports"
+      ],
+      "competition": "LCP 2027 Promotion",
+      "source": "BMBETS (multi-book odds comparison)",
+      "source_kind": "third-party odds aggregator",
+      "source_url": "https://www.bmbets.com/e-sports/world/lol---lcp/ground-zero-gaming-(lol)-v-frank-esports-(lol)-9910334/",
+      "captured_utc": "2026-10-25T14:16:00Z",
+      "verbatim": "BMBETS lists bet365 1.03/9.10, TotoGaming 1.03/10.50, 1xBet 1.02/10.50, BetOlimp 1.02/9.80 for Ground Zero Gaming vs Frank Esports.",
+      "reported_book_prices": [
+        {
+          "book": "bet365",
+          "decimal": [
+            1.03,
+            9.1
+          ],
+          "devigged_home_ground_zero": 0.8983
+        },
+        {
+          "book": "TotoGaming",
+          "decimal": [
+            1.03,
+            10.5
+          ],
+          "devigged_home_ground_zero": 0.9107
+        },
+        {
+          "book": "1xBet",
+          "decimal": [
+            1.02,
+            10.5
+          ],
+          "devigged_home_ground_zero": 0.9115
+        },
+        {
+          "book": "BetOlimp",
+          "decimal": [
+            1.02,
+            9.8
+          ],
+          "devigged_home_ground_zero": 0.9057
+        }
+      ],
+      "treatment": "Manual comparison-portal evidence only; the individual bookmaker pages were not independently opened in this session and the BMBETS page read later did not expose the odds (reCAPTCHA/partial render). The current published row remains model and the large discrepancy is flagged, not silently converted into a market line.",
+      "production_model_at_14_58": {
+        "Ground Zero Gaming": 0.2475,
+        "Frank Esports": 0.7525
+      },
+      "review_issue": "The merged main snapshot flags the BMBETS comparison capture as a large divergence. It is still a third-party aggregator capture, not four first-party bookmaker reads. A separate EGamersWorld page fetch at approximately 14:28Z showed 1.80/1.80 placeholders; the two portal readings differ in source/time and must not be silently treated as a live direct-book quote."
+    },
+    {
+      "fixture_id": "1081421",
+      "teams_display_order": [
+        "FENNEL",
+        "Nothin'Here"
+      ],
+      "competition": "LCP 2027 Promotion",
+      "source": "EsportsInsider (PandaScore-fed odds comparison)",
+      "source_kind": "third-party odds feed/aggregator",
+      "source_url": "https://esportsinsider.com/betting-odds/lol",
+      "captured_utc": "2026-10-25T14:50:00Z",
+      "verbatim": "FENNEL 62% / Nothin'Here 38% on the LCP Promotion 2027 match board.",
+      "reported_probabilities": {
+        "FENNEL": 0.62,
+        "Nothin'Here": 0.38
+      },
+      "production_model_at_14_47": {
+        "FENNEL": 0.6766,
+        "Nothin'Here": 0.3234
+      },
+      "treatment": "Third-party odds comparison, not a named first-party quote. Same directional pick; displayed probabilities are not added to the production consensus.",
+      "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothin-here-lcp-2027-promotion-1081421",
+      "hotspawn_start_utc": "2026-11-10T05:00:00Z",
+      "hotspawn_page_verbatim": "FENNEL vs Nothin'Here; Nov 10; 05:00.",
+      "note": "The Hotspawn card was directly opened in this session and confirms the fixture identity/time. EsportsInsider is an odds-comparison/feed page, not a first-party bookmaker. The page reports FENNEL 62% / Nothin'Here 38%; it is not used as a production price."
+    }
+  ],
+  "limitations": [
+    "Thunderpick's displayed 13:00 did not state a timezone; Hotspawn's card lists 17:00 UTC. The match was matched by teams and competition; the clock offset is not assumed or resolved by this research.",
+    "A manual page observation is not a machine-refreshed price and cannot independently set a row's production probability.",
+    "EGamersWorld is an aggregator. Its output can change between real odds and symmetric placeholders; it must not be treated as an individual book or as a continuously available line.",
+    "The Polymarket board reports $58.47 volume, below the site's $1,000 thin-market threshold, and the page states U.S. trading is blocked; the dashboard uses it as an observation, not betting advice.",
+    "PR #122 is now merged: it adds Kalshi to the LGC Rising consensus and publishes BMBETS/EsportsInsider comparison evidence for LCP Promotion. The BMBETS record is an aggregator capture, not a first-party bookmaker receipt; its named-book LCP values are therefore shown as a flagged external divergence, not used to overwrite the originated line."
+  ]
+}
