@@ -7,7 +7,7 @@
   "Nothing here is an inferred price. A source is only usable if it returns a real decimal quote for a",
   "specific fixture that can be matched to a Hotspawn match id."
  ],
- "generated_utc": "2026-10-23T15:54:01Z",
+ "generated_utc": "2026-10-25T14:25:00Z",
  "runner": "GitHub Actions ubuntu-latest, python urllib, honest User-Agent",
  "rows": [
   {
@@ -123,6 +123,14 @@
    "result": "Picks lock 5 minutes before scheduled start. Forfeited match: all predictions voided, no points awarded or deducted. Cancelled match: predictions cancelled, no points.",
    "verdict": "official settlement authority for the 4 Solid Gaming cards: expected VOID; settlement pick shown is conditional on walkover grading",
    "evidence": "fetched live 2026-10-24; cited on index.html + unresolved.html"
+  },
+  {
+   "name": "15-candidate low-tier retest joined to the live inventory (2026-10-25, session aa39a6d5)",
+   "url": "audit/session_aa39a6d5/probe_results.json",
+   "purpose": "The earlier probes proved the tier-1 ceiling venue by venue; this one joins every candidate response to the live Hotspawn inventory so the verdict is 'would price N of our 226 unpriced cards', not 'HTTP 200'.",
+   "result": "Runner-side, one unauthenticated GET each, 2026-10-25T14:17Z against 231 live fixture pairs (226 without a market price). Rivalry REST+GraphQL: HTTP 502. GG.BET API+page: 403. Thunderpick: 404 and api-host DNS failure. Midnite: 200 HTML, 0 listed pairs. bo3.gg API: 200 JSON but byte-identical for discipline=lol and game=lol and led by a 2020 CS:GO match - filters ignored, 0 pairs. tips.gg: 403. Shuffle/Vave/Rainbet: JS shells / 404, no pair priced (the one apparent Vave hit was a normalisation artifact - 'cloud' matched cloudfront.net; neither team name appears). Esports Insider: 200, 10 per-match odds-page links, literal team names for 7 new Worlds 2026 cards and the already-market-priced LGC Rising card - a real tier-1 aggregator that mirrors the existing books and adds no low-tier coverage. gol.gg index path 404d (JS framework body); no literal low-tier team names - inconclusive as results depth, not an odds source.",
+   "verdict": "no newly priced fixture anywhere reachable - ceiling replicated on a fresh date; Esports Insider recorded as a future manual-receipt corroboration source for market rows only; originated/provisional lines remain the price of the long tail",
+   "evidence": "audit/session_aa39a6d5/probe_results.json + audit/session_aa39a6d5/raw/* + RESEARCH.md"
   }
  ]
 }
