@@ -1,9 +1,9 @@
 # Live source verification
 
-- generated: `2026-10-24T18:04:38Z`
-- dataset: `2026-10-24T17:32:25Z`
+- generated: `2026-10-25T08:42:32Z`
+- dataset: `2026-10-24T20:54:30Z`
 - rows: **241**
-- result: **PASS**
+- result: **FAIL**
 
 | Check | Result | Detail |
 |---|---|---|
@@ -11,10 +11,10 @@
 | priced rows sum to 100% (0.2pp) | PASS | [] |
 | pick is the higher-probability side (ties may take either side) | PASS | [] |
 | every row names a pick (priced or settlement/void) | PASS | 241/241 |
-| published inventory == live Hotspawn feed (1:1 ids, freshness) | PASS | live=241 dataset=241 new on feed since publish=0 gone from feed=0 |
+| published inventory == live Hotspawn feed (1:1 ids, freshness) | FAIL | live=236 dataset=241 new on feed since publish=12 gone from feed=17 - dataset is stale: the scheduled refresh has not published |
 | no broken hotspawn card URL | PASS | 241/241 resolved this run; causes={'resolved': 241} |
-| no broken market quote URL | PASS | 11/11 resolved this run; causes={'resolved': 11} |
-| no broken venue receipt URL | PASS | 30/39 resolved this run; causes={'resolved': 30, 'rate_limited': 8, 'expired_event': 1} |
+| no broken market quote URL | FAIL | 2/7 resolved this run; causes={'rate_limited': 1, 'auth_required': 4, 'resolved': 2} |
+| no broken venue receipt URL | FAIL | 9/22 resolved this run; causes={'rate_limited': 5, 'auth_required': 4, 'resolved': 9, 'expired_event': 4} |
 | no broken leaguepedia page URL | PASS | 29/29 resolved this run; causes={'resolved': 29} |
 | no broken pickem URL | PASS | 1/1 resolved this run; causes={'resolved': 1} |
 | every row has at least one resolving piece of evidence (no broken links) | PASS | 241/241 rows; 0 unverified this run (throttle/expiry) |
@@ -27,7 +27,7 @@
 | Role | URLs | Resolved | Causes |
 |---|---|---|---|
 | hotspawn_card | 241 | 241 | `{'resolved': 241}` |
-| market_quote | 11 | 11 | `{'resolved': 11}` |
-| venue_receipt | 39 | 30 | `{'resolved': 30, 'rate_limited': 8, 'expired_event': 1}` |
+| market_quote | 7 | 2 | `{'rate_limited': 1, 'auth_required': 4, 'resolved': 2}` |
+| venue_receipt | 22 | 9 | `{'rate_limited': 5, 'auth_required': 4, 'resolved': 9, 'expired_event': 4}` |
 | leaguepedia_page | 29 | 29 | `{'resolved': 29}` |
 | pickem | 1 | 1 | `{'resolved': 1}` |
