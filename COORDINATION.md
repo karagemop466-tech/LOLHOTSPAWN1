@@ -3386,14 +3386,50 @@ merged cleanly with `main` @ `0e36d34` (preserving 100% of `650571cf`, `1773543b
 | `D3` | **Line-by-line 234-row source & tail audit** (`#1082002` `DELETED` GBArena slot, Smarkets/GosuGamers/Midnite/Strafe/Bmbets receipts) | `done` | `data/flags_manual.json`, `data/receipts/external_odds/2026-10-25-session-154d8c26.json`, `research/SMARKETS_AND_TAIL_AUDIT_2026-10-25.md`, `audit/session_154d8c26/verify_all_234_rows.py` |
 | `D4` | **Full canonical + secondary integration, PR #125 merge & live Pages confirmation** (`57/57` `verify.py`, `139/139` unit tests, `50` venue quotes re-derived across `9` market rows in both pipelines, `24/24` `check_site.py`, `16/16` `verify_docs.py`, `10/10` `verify_docs_parity.py`, `14/14` `mobile_audit.py`) | `done` | `.github/workflows/refresh.yml`, `audit/verify_independent.py`, `README.md`, PR `#125` (`699a4ba`), live refresh `f60eb0a` |
 
-# Session `9b271aa4` — post-merge verification and freshness audit (2026-10-25)
+# Session `9b271aa4` — final independent audit and integration close-out (2026-10-25)
 
 Branch: `arena/9b271aa4-lolhotspawn1` (fixed Arena branch).
 
-## Claim
+## Claim / disposition
 
-| # | Task | Status | Owner | File scope |
+| # | Task | Status | Owner | Scope |
 |---|---|---|---|---|
-| `V1` | **Post-merge publication audit.** Independently verify the already merged full-coverage/mobile update, PR #96 and follow-up merges, current GitHub Pages deployment status, all offline publish gates, and current canonical vs. secondary snapshot timestamps. Record current discrepancies and any inability to verify live state; do not alter model, source data, pipeline, workflow, or generated pages. | in progress | 9b271aa4 | `COORDINATION.md`, `audit/session_9b271aa4/**` (new evidence only) |
+| `V1` | Independently audit the merged live dashboard, freshness, row-level sources, mobile usability and Pages deployment; record findings. | done | 9b271aa4 | `COORDINATION.md`, `audit/session_9b271aa4/**` |
+| `V2` | Take over the cross-refresh docs-parity issue (R1). | **resolved by PR #125; this session's duplicate prototype was withdrawn** | 9b271aa4 | no final V2 code retained |
+| `V3` | Close the independent Kalshi alias/midpoint provenance gap. | **resolved by PR #125; current independent audit passes** | 9b271aa4 | no final V3 code retained |
+| `I1` | Merge this final audit/coordination close-out after checks pass and confirm Pages. | in progress | 9b271aa4 | `COORDINATION.md`, `audit/session_9b271aa4/**` |
 
-This is an audit-only claim, disjoint from production files. PR #96 was merged before this session began.
+## Current published state
+
+- Main baseline `554faca` has canonical snapshot `2026-10-25T14:58:31Z`, Hotspawn inventory `14:56:39Z`, **234** matches across 29 competitions. Methods: 9 market, 150 model, 71 provisional, 4 settlement-only (no competitive probability). The companion data snapshot is generated `14:56:04.739Z`; its canonical cross-reference is stored in `docs/data/canonical_snapshot.json`.
+- Successful recent refreshes: [`refresh-picks` run 40204523315](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40204523315) and [`refresh-docs` run 40204523291](https://github.com/karagemop466-tech/LOLHOTSPAWN1/actions/runs/40204523291). Both are six-hourly best-effort schedules, not a live-odds SLA.
+- GitHub Pages build [`1313475860`](https://api.github.com/repos/karagemop466-tech/LOLHOTSPAWN1/pages/builds/1313475860) is **built** for `554faca`; the live site was fetched after deployment.
+- Manual-review pages: [summary](https://karagemop466-tech.github.io/LOLHOTSPAWN1/), [all-picks table](https://karagemop466-tech.github.io/LOLHOTSPAWN1/table.html), [unresolved](https://karagemop466-tech.github.io/LOLHOTSPAWN1/unresolved.html), [flagged review](https://karagemop466-tech.github.io/LOLHOTSPAWN1/flagged.html), [sources](https://karagemop466-tech.github.io/LOLHOTSPAWN1/sources.html).
+
+## Verification on the merged tree
+
+An isolated test run on `main` at `554faca` reported:
+
+| Check | Result |
+|---|---|
+| Unit tests | **139/139 pass** |
+| Canonical `tools/verify.py` | **57/57 pass** |
+| Mobile audit | **14/14 pages pass** |
+| `audit/check_site.py` | **24 pages, 0 failures, 0 warnings** |
+| `audit/verify_docs.py` | **All checks pass**, 234 scheduled rows rendered 1:1 |
+| `audit/verify_docs_parity.py` | **10/10 pass**, canonical snapshot receipt matches rendered docs |
+| `audit/verify_independent.py` | **234 rows, 9 market rows, 50 venue checks, 0 failures / warnings** |
+| Independent row audits | **234/234 rows**, 0 problems and 0 CSV mismatches |
+| Secondary model contract | **Pass**; 234 scheduled, 9 market rows, 50 venue quotes, OOS Brier 0.225 |
+
+## Sources and limitations
+
+Only 9/234 rows have market prices; lower-tier picks use documented Elo estimates, with 71 thin-history estimates labeled provisional. Four disqualification/forfeit rows show an administrative side and no percentage; Hotspawn may void those predictions. The site carries 25 manual source checks across 15 venues and runner probes, including 23 long-tail endpoints with no machine-readable quote. No price is invented from a blocked page or placeholder. Leaguepedia is community-maintained and labeled as such.
+
+## Integration decisions and conflict log
+
+- R1 is now handled by [PR #125](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/125), which syncs the exact root build receipt to `docs/data/canonical_snapshot.json` and uses it in the parity gate. V3's Kalshi alias/midpoint issue is also fixed there. This session's alternate snapshot-manifest / verifier prototypes were withdrawn before final merge to avoid duplicating #125.
+- R2 duplicate `#soon`/`#next` anchors were resolved in [PR #119](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/119) and [PR #120](https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/120).
+- Multiple rebases encountered appended-board conflicts while PRs #103–#126 merged; each resolution kept the complete newer `origin/main` board. The remote verify-bot commits `91d6bb5`/`e214e7e` and the local V2 prototype generated against older snapshots were not replayed: current main has later canonical/source receipts (14:58Z) and PR #125's completed parity/provenance implementation. The final tree therefore does not overwrite current data or duplicate that implementation.
+
+**I1 remains in progress:** PR #105 is the audit-only close-out. Its final branch update, checks, merge result and post-merge Pages status will be recorded here when complete.
