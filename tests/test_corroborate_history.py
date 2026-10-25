@@ -28,26 +28,25 @@ sys.path.insert(0, os.path.join(ROOT, "tools"))
 import corroborate  # noqa: E402
 
 
-def _stamp(hours_ago: float) -> str:
-    """UTC timestamp `hours_ago` hours before the moment the test runs.
+def _recent(hours: float) -> str:
+    """A capture timestamp inside the freshness window, relative to the wall clock.
 
-    These fixtures used to hardcode 2026-10-24T00:00Z. `corroborate.age_hours` compares a
-    capture against the *wall clock*, so once that literal aged past RECEIPT_MAX_AGE_HOURS
-    (24 h) every receipt dropped from `usable` to `expired` and three assertions in this
-    file failed - which is exactly how the scheduled refresh broke on 2026-10-25 without a
-    single line of pipeline code changing. The rule under test is about *freshness*, not
-    about any particular calendar date, so the timestamps are now relative to now.
+    The receipt classes under test are time-based (`RECEIPT_MAX_AGE_HOURS` = 24 h), so a
+    hard-coded date makes the suite start failing one day after it was written - which is
+    what halted `refresh-picks` on 2026-10-25: the three failures were this fixture data
+    expiring, not a regression in the pipeline. Keep the contract identical and only move
+    the capture time with the clock.
     """
-    return (datetime.now(timezone.utc) - timedelta(hours=hours_ago)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-FRESH = _stamp(2)            # inside the 24 h current-line window
-KICKOFF = _stamp(-6)         # a card that has not started yet
+def _kickoff(hours: float = 12.0) -> str:
+    return (datetime.now(timezone.utc) + timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _match(fid: str, t0: str, t1: str, p0: float) -> dict:
     return {
-        "id": fid, "competition": "Test League", "start_utc": KICKOFF,
+        "id": fid, "competition": "Test League", "start_utc": _kickoff(),
         "team0": {"name": t0}, "team1": {"name": t1},
         "p0": p0, "p1": round(1 - p0, 4), "method": "market", "confidence": "high",
         "pick": {"side": 0, "team": t0, "probability": p0, "other_probability": round(1 - p0, 4)},
@@ -56,7 +55,7 @@ def _match(fid: str, t0: str, t1: str, p0: float) -> dict:
         "market": {"book": "Pinnacle", "venues": [{"name": "Pinnacle", "weight": 1.0,
                                                    "p0": p0, "p1": round(1 - p0, 4),
                                                    "url": "https://example.test/m",
-                                                   "observed_utc": FRESH}]},
+                                                   "observed_utc": _recent(2)}]},
         "resolution": None, "flags": [],
     }
 
@@ -75,7 +74,7 @@ class ReceiptHistoryTests(unittest.TestCase):
 
     def _write(self, matches: list[dict], captures: list[dict]) -> None:
         with open(os.path.join(self.data, "matches.json"), "w", encoding="utf-8") as fh:
-            json.dump({"generated_utc": FRESH, "matches": matches}, fh)
+            json.dump({"generated_utc": _recent(1), "matches": matches}, fh)
         doc = {
             "sources": [{"key": "pinnacle", "name": "Pinnacle", "kind": "bookmaker", "url": "https://example.test"}],
             "captures": captures,
@@ -91,7 +90,7 @@ class ReceiptHistoryTests(unittest.TestCase):
     @staticmethod
     def _capture(fid: str, teams: list[str], dec: list[float]) -> dict:
         return {"fixture_id": fid, "source": "pinnacle", "page_url": "https://example.test/m",
-                "captured_utc": FRESH, "verbatim": "1.60 / 2.30",
+                "captured_utc": _recent(2), "verbatim": "1.60 / 2.30",
                 "page_teams": teams, "decimal": dec}
 
     def test_receipt_for_a_delisted_fixture_is_historical_not_rejected(self) -> None:
