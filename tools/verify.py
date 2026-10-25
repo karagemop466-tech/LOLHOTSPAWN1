@@ -253,6 +253,13 @@ def main() -> None:
     e3_missing = []
     if "Starting soon" not in index_html or 'id="soon"' not in index_html:
         e3_missing.append("index starting-soon list")
+    # Phone order + freshness (2faec1ff): the next kick-offs come before the
+    # 29-row tournament directory, and every strip row carries data-start so
+    # the client can hide matches that start between refreshes.
+    if -1 < index_html.find('id="directory"') < index_html.find('id="soon"'):
+        e3_missing.append("starting-soon before tournament directory")
+    if "nextrow" in index_html and 'nextrow" data-start=' not in index_html:
+        e3_missing.append("nextrow data-start")
     if "Fallback by competition" not in unres_html:
         e3_missing.append("unresolved fallback ledger")
     if "how-it-works" not in unres_html or "how-it-works" not in index_html:

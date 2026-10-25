@@ -229,8 +229,23 @@
     }
   }
 
+  // Starting-soon strip (landing page): the server renders the next 16 kick-offs;
+  // hide any whose start time has passed since the build and show at most 8, so a
+  // locked pick is never presented as upcoming on a phone (session 2faec1ff).
+  function initNextStrip() {
+    var rows = Array.prototype.slice.call(document.querySelectorAll(".nextrow[data-start]"));
+    if (!rows.length) return;
+    var shown = 0;
+    rows.forEach(function (r) {
+      var hide = isPastNow(r) || shown >= 8;
+      r.hidden = hide;
+      if (!hide) shown++;
+    });
+  }
+
   function init() {
     hydrateLivePastBadges();
+    initNextStrip();
     renderSnapshotAge();
     initMenu();
     initCards();
