@@ -3005,14 +3005,14 @@ The branch-only diagnostic run `40200757847` exposed three existing receipt test
 
 ### PR/integration status addendum
 
-PR **#95** is open from this fixed Arena branch: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/95 . The malformed original description has now been corrected through the GitHub REST API. Main advanced again through PR #104; this local branch is rebased onto `0b0f559`, retaining the newer main coordination, corroboration ledger, verification, and unresolved-source panel. The previous pushed head's diagnostic (`40201973351`) and docs-parity check (`40201973411`) passed; its live-source check was still in progress at last observation. This newest rebase still needs pushing and verification before merging. No new PR #95 Pages deployment is claimed.
+PR **#95** is open from this fixed Arena branch: https://github.com/karagemop466-tech/LOLHOTSPAWN1/pull/95 . The malformed original description has now been corrected through the GitHub REST API. Main advanced to `32a5137` in the scheduled refresh while integration was underway; this local branch has now been rebased onto that latest main commit. The earlier pushed head's diagnostic (`40201973351`) and docs-parity check (`40201973411`) passed. Its live-source check's final result is not relied on here. This newest rebase and refreshed docs still need pushing and new-head verification before merging. No new PR #95 Pages deployment is claimed.
 
 ## Session `b1e5557f` — post-rebase integration verification (2026-10-25)
 
-Main advanced through PR #104 while this branch's PR was open. Rebased this fixed Arena branch onto `0b0f559`, preserving the newer main work.
+Main advanced through PR #104 and then the scheduled refresh commit `32a5137` while this branch's PR was open. Rebased this fixed Arena branch onto `32a5137`, preserving main's refresh and source updates.
 
-- Canonical snapshot: **234/234** Hotspawn fixtures, inventory fetched `2026-10-25T14:13:21Z`; 29 competitions, 230 priced probabilities plus 4 settlement-only picks. Publish gate `tools/verify.py`: **51/51 PASS**.
-- Rebuilt canonical root pages and secondary `docs/` pages. `audit/check_site.py`: 24 pages / **0 failures, 0 warnings**; `audit/mobile_audit.py`: **14/14 PASS**; `audit/verify_docs.py`: all checks pass; `audit/verify_docs_parity.py`: **10/10 PASS**.
+- Canonical snapshot: **234/234** Hotspawn fixtures, inventory fetched `2026-10-25T14:24:04Z`, data generated `14:25:59Z`; 29 competitions, 230 priced probabilities plus 4 settlement-only picks. `tools/verify.py`: **51/51 PASS**.
+- Rebuilt canonical root pages and secondary `docs/` pages from this snapshot. `audit/check_site.py`: 24 pages / **0 failures, 0 warnings**; `audit/mobile_audit.py`: **14/14 PASS**; docs audit passes; docs parity **10/10 PASS**.
 - Parity evidence in `audit/9f16f9ad/docs_parity.json`: all 234 scheduled IDs and canonical probabilities align, 33 material divergences are explicitly flagged, and no cross-dashboard links are broken.
 - Full Python suite **89/89 PASS**; jsdom dashboard test passes for all 234 matches, including live-clock next-up; `git diff --check` clean. The auditor's end-to-end unit smoke test uses stubbed transport, so it is not represented as a live external URL crawl.
 - The latest local rebase and regenerated reports still need to be pushed, then new-head workflows, PR merge, and Pages deployment verified. Do not treat local gates as a live deployment.
