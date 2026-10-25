@@ -291,26 +291,36 @@ def competition_aliases() -> dict[str, list[str]]:
     return out
 
 
-def _token_pattern(token: str) -> str:
-    """Whole-token pattern.
+def _is_short_code(token: str) -> bool:
+    """A competition's own abbreviation, e.g. PRM / LCP / POP / LIT."""
+    return len(token) <= 6 and token.isalnum() and token.upper() == token
 
-    Short codes are the whole point of this probe ("PRM", "LCP", "POP"), but a plain
-    substring test makes "LIT" match every "split" and "POP" match every "popular" - which is
-    how a first run produced 20 false positives. Requiring non-alphanumeric characters on both
-    sides keeps the code usable and the result honest.
+
+def _token_match(text: str, token: str):
+    """Whole-token match, case-sensitive for short codes.
+
+    Two failure modes were observed on the 2026-10-25 runner receipts and both are fixed here:
+
+    * a substring test made "LIT" match every "split" and "POP" every "popular" (20 false
+      positives on the first receipt) - so matching is word-bounded;
+    * a case-insensitive word test still matched JavaScript and CSS (`s.pop()`, `lcp:{...}`)
+      - so a 3-6 character competition code is matched only in its published upper case,
+      which is how Hotspawn and the venues actually write it ("PRM", "LCP", "POP").
     """
-    return r"(?<![a-z0-9])" + re.escape(token.lower()) + r"(?![a-z0-9])"
+    if _is_short_code(token):
+        return re.search(r"(?<![A-Za-z0-9])" + re.escape(token) + r"(?![A-Za-z0-9])", text)
+    return re.search(r"(?<![A-Za-z0-9])" + re.escape(token) + r"(?![A-Za-z0-9])", text, re.I)
 
 
 def competition_hits(text: str, aliases: dict[str, list[str]]) -> list[tuple[str, str, int]]:
     """(competition, matched token, index) for every competition mentioned in text."""
-    low = (text or "").lower()
-    if not low:
+    if not text:
         return []
     hits = []
     for comp, toks in aliases.items():
-        for tok in toks:
-            m = re.search(_token_pattern(tok), low)
+        # Longest token first: a full league name is stronger evidence than a 3-letter code.
+        for tok in sorted(toks, key=len, reverse=True):
+            m = _token_match(text, tok)
             if m:
                 hits.append((comp, tok, m.start()))
                 break

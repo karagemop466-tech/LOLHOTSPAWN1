@@ -91,6 +91,12 @@ class ShortCodeMatching(unittest.TestCase):
         self.assertEqual(probe.match_competitions(text, self.aliases),
                          ["LIT 2027 Winter Promotion"])
 
+    def test_javascript_and_css_tokens_are_not_read_as_competition_codes(self) -> None:
+        # Observed verbatim in the 2026-10-25 receipts: Bubblewrap's `_callbacks.pop()` inside
+        # Rivalry's HTML and a `lcp:{...}` property inside BetOnline's bundle.
+        text = "s.push(this._callbacks.pop()),this._fulfill(s); lcp:{get value(){return 1}}"
+        self.assertEqual(probe.match_competitions(text, self.aliases), [])
+
     def test_evidence_records_the_matched_token_and_context(self) -> None:
         ev = probe.competition_evidence("Watch the RIVALS LEAGUE Season 2 match today",
                                         self.aliases)
