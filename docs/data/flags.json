@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T03:48:28.992Z",
+  "generated_at": "2026-10-26T12:29:11.874Z",
   "count": 14,
   "flags": [
     {
@@ -148,14 +148,14 @@
     },
     {
       "id": "org-pooling-rich-gang-prm3",
-      "match_id": "1075758",
+      "match_id": "1075762",
       "severity": "low",
       "kind": "multi-roster-org-pooling",
       "competition": "PRM 3rd Division 26-27 Fall",
-      "matchup": "Rich Gang (4 scheduled series: #1075758, #1075762, #1075786, #1075803)",
+      "matchup": "Rich Gang (3 scheduled series: #1075762, #1075786, #1075803)",
       "state": "open",
       "detail": "Leaguepedia uses a single page 'Rich Gang (Norwegian Team)' across Komplettligaen 2026 Autumn and Prime League 3rd Division 26-27 Fall; model rating pools both rosters' pre-kickoff matches.",
-      "hotspawn_url": "https://www.hotspawn.com/matches/rich-gang-vs-looksmaxxer-prm-3rd-division-26-27-fall-1075758",
+      "hotspawn_url": "https://www.hotspawn.com/matches/1-esport-club-frankfurt-e-v-vs-rich-gang-prm-3rd-division-26-27-fall-1075762",
       "source_url": "https://lol.fandom.com/wiki/Prime_League_3rd_Division/2027_Season/Fall_Split"
     },
     {
@@ -164,7 +164,7 @@
       "severity": "medium",
       "kind": "unverified-field-left-blank",
       "competition": "LCP 2027 Promotion",
-      "matchup": "222 scheduled fixtures with best_of = null in the Hotspawn feed",
+      "matchup": "212 scheduled fixtures with best_of = null in the Hotspawn feed",
       "state": "open",
       "detail": "Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.",
       "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothinhere-lcp-2027-promotion-1081421",

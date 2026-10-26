@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-10-26T03:48:28.992Z",
+  "generated_at": "2026-10-26T12:29:11.874Z",
   "methodology": "Chronological pre-kickoff Elo/Bradley-Terry (initial 1500, dynamic K=38/28/22 with map-margin multiplier, empirical-Bayes tau=6 shrinkage, correlated-series damping alpha=0.72). Zero Hotspawn crowd/tier/points inputs; zero post-kickoff look-ahead.",
   "teams_rated": 4208,
   "calibration": {
-    "series_replayed": 32582,
-    "oos_evaluated": 22418,
+    "series_replayed": 32593,
+    "oos_evaluated": 22429,
     "brier": 0.225,
     "coinflip_brier": 0.25,
-    "log_loss": 0.6415,
+    "log_loss": 0.6414,
     "accuracy": 0.641,
     "reliability_bins": [
       {
         "bin": "0-10%",
         "n": 78,
-        "mean_pred": 0.0755,
+        "mean_pred": 0.0756,
         "empirical_win_rate": 0.1026
       },
       {
         "bin": "10-20%",
-        "n": 383,
-        "mean_pred": 0.1602,
-        "empirical_win_rate": 0.2298
+        "n": 382,
+        "mean_pred": 0.1601,
+        "empirical_win_rate": 0.2304
       },
       {
         "bin": "20-30%",
-        "n": 1099,
+        "n": 1101,
         "mean_pred": 0.257,
-        "empirical_win_rate": 0.2675
+        "empirical_win_rate": 0.267
       },
       {
         "bin": "30-40%",
@@ -36,33 +36,33 @@
       },
       {
         "bin": "40-50%",
-        "n": 6185,
+        "n": 6190,
         "mean_pred": 0.4607,
-        "empirical_win_rate": 0.4661
+        "empirical_win_rate": 0.4662
       },
       {
         "bin": "50-60%",
-        "n": 7013,
+        "n": 7016,
         "mean_pred": 0.5403,
-        "empirical_win_rate": 0.6267
+        "empirical_win_rate": 0.6269
       },
       {
         "bin": "60-70%",
-        "n": 3065,
-        "mean_pred": 0.6442,
-        "empirical_win_rate": 0.725
+        "n": 3064,
+        "mean_pred": 0.6441,
+        "empirical_win_rate": 0.7252
       },
       {
         "bin": "70-80%",
-        "n": 1418,
-        "mean_pred": 0.7431,
-        "empirical_win_rate": 0.7701
+        "n": 1420,
+        "mean_pred": 0.743,
+        "empirical_win_rate": 0.769
       },
       {
         "bin": "80-90%",
-        "n": 546,
-        "mean_pred": 0.8418,
-        "empirical_win_rate": 0.826
+        "n": 547,
+        "mean_pred": 0.8417,
+        "empirical_win_rate": 0.8263
       },
       {
         "bin": "90-100%",
@@ -137,6 +137,15 @@
       "last_played": "2026-09-13"
     },
     {
+      "team": "Gen.G",
+      "elo": 1815.7,
+      "series": 136,
+      "wins": 104,
+      "losses": 32,
+      "maps": "237-106",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "Bilibili Gaming",
       "elo": 1812.2,
       "series": 150,
@@ -144,15 +153,6 @@
       "losses": 43,
       "maps": "264-142",
       "last_played": "2026-10-25"
-    },
-    {
-      "team": "Gen.G",
-      "elo": 1809.4,
-      "series": 135,
-      "wins": 103,
-      "losses": 32,
-      "maps": "235-105",
-      "last_played": "2026-10-24"
     },
     {
       "team": "Berlin International Gaming",
@@ -345,7 +345,7 @@
     },
     {
       "team": "Estral Esports",
-      "elo": 1745.9,
+      "elo": 1746,
       "series": 48,
       "wins": 37,
       "losses": 11,
@@ -372,7 +372,7 @@
     },
     {
       "team": "Karmine Corp",
-      "elo": 1741.7,
+      "elo": 1741.6,
       "series": 106,
       "wins": 73,
       "losses": 33,
@@ -390,7 +390,7 @@
     },
     {
       "team": "Luminosity Gaming",
-      "elo": 1735.7,
+      "elo": 1735.9,
       "series": 29,
       "wins": 24,
       "losses": 5,
@@ -587,6 +587,15 @@
       "last_played": "2025-11-15"
     },
     {
+      "team": "B2U",
+      "elo": 1709,
+      "series": 59,
+      "wins": 44,
+      "losses": 15,
+      "maps": "92-36",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "CITA Kaizen",
       "elo": 1706.6,
       "series": 89,
@@ -612,15 +621,6 @@
       "losses": 30,
       "maps": "82-52",
       "last_played": "2026-10-17"
-    },
-    {
-      "team": "B2U",
-      "elo": 1702,
-      "series": 58,
-      "wins": 43,
-      "losses": 15,
-      "maps": "90-36",
-      "last_played": "2026-10-18"
     },
     {
       "team": "Bad Lions (TEC Season 3 Team)",
@@ -1182,7 +1182,7 @@
     },
     {
       "team": "Vasco E-Sports",
-      "elo": 1669.3,
+      "elo": 1669.4,
       "series": 66,
       "wins": 43,
       "losses": 23,
@@ -1550,15 +1550,6 @@
       "last_played": "2024-12-21"
     },
     {
-      "team": "LYON (2024 American Team)",
-      "elo": 1652.3,
-      "series": 61,
-      "wins": 34,
-      "losses": 27,
-      "maps": "89-68",
-      "last_played": "2026-10-24"
-    },
-    {
       "team": "Fortress Esports",
       "elo": 1652,
       "series": 60,
@@ -1766,6 +1757,15 @@
       "last_played": "2026-10-11"
     },
     {
+      "team": "LYON (2024 American Team)",
+      "elo": 1645.6,
+      "series": 62,
+      "wins": 34,
+      "losses": 28,
+      "maps": "90-70",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "Otter Side",
       "elo": 1644.6,
       "series": 52,
@@ -1776,7 +1776,7 @@
     },
     {
       "team": "Fuego",
-      "elo": 1644.5,
+      "elo": 1644.6,
       "series": 56,
       "wins": 38,
       "losses": 18,
@@ -1926,6 +1926,15 @@
       "losses": 1,
       "maps": "13-2",
       "last_played": "2025-06-07"
+    },
+    {
+      "team": "Rich Gang (Norwegian Team)",
+      "elo": 1641.1,
+      "series": 55,
+      "wins": 35,
+      "losses": 20,
+      "maps": "64-54",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Colors Esport",
@@ -2180,15 +2189,6 @@
       "last_played": "2025-10-26"
     },
     {
-      "team": "Rich Gang (Norwegian Team)",
-      "elo": 1632,
-      "series": 54,
-      "wins": 34,
-      "losses": 20,
-      "maps": "62-53",
-      "last_played": "2026-10-22"
-    },
-    {
       "team": "Team Lewus",
       "elo": 1631.6,
       "series": 10,
@@ -2432,15 +2432,6 @@
       "last_played": "2025-08-02"
     },
     {
-      "team": "Team Liquid",
-      "elo": 1625.7,
-      "series": 82,
-      "wins": 45,
-      "losses": 37,
-      "maps": "109-87",
-      "last_played": "2026-10-25"
-    },
-    {
       "team": "Indiana Institute of Technology",
       "elo": 1625.7,
       "series": 18,
@@ -2466,6 +2457,15 @@
       "losses": 0,
       "maps": "12-1",
       "last_played": "2025-10-12"
+    },
+    {
+      "team": "Team Liquid",
+      "elo": 1625.4,
+      "series": 82,
+      "wins": 45,
+      "losses": 37,
+      "maps": "109-87",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Night Penguins",
@@ -2874,7 +2874,7 @@
     },
     {
       "team": "INTZ",
-      "elo": 1614.4,
+      "elo": 1614.5,
       "series": 25,
       "wins": 15,
       "losses": 10,
@@ -3141,6 +3141,15 @@
       "losses": 2,
       "maps": "17-8",
       "last_played": "2025-04-19"
+    },
+    {
+      "team": "Docta Esports Club",
+      "elo": 1607,
+      "series": 19,
+      "wins": 13,
+      "losses": 6,
+      "maps": "27-15",
+      "last_played": "2026-10-24"
     },
     {
       "team": "evil genius (RTV Team)",
@@ -3773,15 +3782,6 @@
       "last_played": "2026-05-07"
     },
     {
-      "team": "KT Rolster",
-      "elo": 1595.2,
-      "series": 114,
-      "wins": 58,
-      "losses": 56,
-      "maps": "135-140",
-      "last_played": "2026-10-14"
-    },
-    {
       "team": "eyya",
       "elo": 1595.2,
       "series": 9,
@@ -3789,6 +3789,15 @@
       "losses": 2,
       "maps": "10-4",
       "last_played": "2025-07-27"
+    },
+    {
+      "team": "KT Rolster",
+      "elo": 1595.1,
+      "series": 114,
+      "wins": 58,
+      "losses": 56,
+      "maps": "135-140",
+      "last_played": "2026-10-14"
     },
     {
       "team": "GOAL",
@@ -3969,15 +3978,6 @@
       "losses": 1,
       "maps": "14-3",
       "last_played": "2025-04-07"
-    },
-    {
-      "team": "Docta Esports Club",
-      "elo": 1592.7,
-      "series": 18,
-      "wins": 12,
-      "losses": 6,
-      "maps": "25-15",
-      "last_played": "2026-10-17"
     },
     {
       "team": "StormMedia Fajnie Mieć Skład",
@@ -4170,7 +4170,7 @@
     },
     {
       "team": "BNK FEARX",
-      "elo": 1588.7,
+      "elo": 1588.6,
       "series": 114,
       "wins": 54,
       "losses": 60,
@@ -4440,7 +4440,7 @@
     },
     {
       "team": "JD Gaming",
-      "elo": 1585.8,
+      "elo": 1585.7,
       "series": 136,
       "wins": 73,
       "losses": 63,
@@ -4835,15 +4835,6 @@
       "last_played": "2025-07-12"
     },
     {
-      "team": "FURIA",
-      "elo": 1582,
-      "series": 72,
-      "wins": 42,
-      "losses": 30,
-      "maps": "103-77",
-      "last_played": "2026-10-17"
-    },
-    {
       "team": "Essences",
       "elo": 1582,
       "series": 9,
@@ -4860,6 +4851,15 @@
       "losses": 4,
       "maps": "9-6",
       "last_played": "2026-02-14"
+    },
+    {
+      "team": "FURIA",
+      "elo": 1582,
+      "series": 72,
+      "wins": 42,
+      "losses": 30,
+      "maps": "103-77",
+      "last_played": "2026-10-17"
     },
     {
       "team": "Daquavious Pork",
@@ -4896,6 +4896,15 @@
       "losses": 2,
       "maps": "12-6",
       "last_played": "2026-04-26"
+    },
+    {
+      "team": "BlackDivision",
+      "elo": 1581.5,
+      "series": 4,
+      "wins": 4,
+      "losses": 0,
+      "maps": "8-2",
+      "last_played": "2026-10-25"
     },
     {
       "team": "RIP MAMBERROI",
@@ -5411,6 +5420,15 @@
       "last_played": "2026-07-26"
     },
     {
+      "team": "2 Massive",
+      "elo": 1575,
+      "series": 16,
+      "wins": 10,
+      "losses": 6,
+      "maps": "25-16",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "Caracal Powerhouse",
       "elo": 1575,
       "series": 8,
@@ -5661,15 +5679,6 @@
       "losses": 11,
       "maps": "32-23",
       "last_played": "2025-06-20"
-    },
-    {
-      "team": "LOOKSMAXXER",
-      "elo": 1571.3,
-      "series": 29,
-      "wins": 18,
-      "losses": 11,
-      "maps": "40-35",
-      "last_played": "2026-10-18"
     },
     {
       "team": "Cool Beans Team",
@@ -5952,7 +5961,7 @@
     },
     {
       "team": "Cloud9",
-      "elo": 1569.1,
+      "elo": 1568.7,
       "series": 79,
       "wins": 49,
       "losses": 30,
@@ -6185,15 +6194,6 @@
       "last_played": "2025-08-06"
     },
     {
-      "team": "LYON",
-      "elo": 1566.2,
-      "series": 7,
-      "wins": 5,
-      "losses": 2,
-      "maps": "14-8",
-      "last_played": "2026-10-04"
-    },
-    {
       "team": "Team Zen",
       "elo": 1566,
       "series": 10,
@@ -6210,6 +6210,15 @@
       "losses": 3,
       "maps": "14-11",
       "last_played": "2025-09-20"
+    },
+    {
+      "team": "LYON",
+      "elo": 1565.9,
+      "series": 7,
+      "wins": 5,
+      "losses": 2,
+      "maps": "14-8",
+      "last_played": "2026-10-04"
     },
     {
       "team": "Reżim",
@@ -6437,6 +6446,15 @@
       "last_played": "2026-10-11"
     },
     {
+      "team": "Spongecord prime",
+      "elo": 1564.3,
+      "series": 52,
+      "wins": 29,
+      "losses": 23,
+      "maps": "68-60",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "Cats lovers",
       "elo": 1564.2,
       "series": 3,
@@ -6653,6 +6671,15 @@
       "last_played": "2026-03-23"
     },
     {
+      "team": "LOOKSMAXXER",
+      "elo": 1562.2,
+      "series": 30,
+      "wins": 18,
+      "losses": 12,
+      "maps": "41-37",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "NOIR ET BLANC",
       "elo": 1562,
       "series": 17,
@@ -6842,15 +6869,6 @@
       "last_played": "2026-02-13"
     },
     {
-      "team": "BlackDivision",
-      "elo": 1560.2,
-      "series": 3,
-      "wins": 3,
-      "losses": 0,
-      "maps": "6-2",
-      "last_played": "2026-10-22"
-    },
-    {
       "team": "Bojówka Elbląska",
       "elo": 1560.1,
       "series": 11,
@@ -6986,15 +7004,6 @@
       "last_played": "2026-08-19"
     },
     {
-      "team": "Tung Sahur Mid",
-      "elo": 1559.4,
-      "series": 5,
-      "wins": 4,
-      "losses": 1,
-      "maps": "9-3",
-      "last_played": "2026-10-24"
-    },
-    {
       "team": "VES Elite",
       "elo": 1559.4,
       "series": 3,
@@ -7047,15 +7056,6 @@
       "losses": 2,
       "maps": "10-5",
       "last_played": "2025-10-03"
-    },
-    {
-      "team": "2 Massive",
-      "elo": 1558.9,
-      "series": 15,
-      "wins": 9,
-      "losses": 6,
-      "maps": "23-16",
-      "last_played": "2026-10-11"
     },
     {
       "team": "WildManiacs",
@@ -7697,13 +7697,13 @@
       "last_played": "2026-10-23"
     },
     {
-      "team": "Clã NKZ Revengers",
-      "elo": 1553.8,
-      "series": 7,
-      "wins": 5,
+      "team": "STAINED",
+      "elo": 1553.7,
+      "series": 6,
+      "wins": 4,
       "losses": 2,
-      "maps": "10-8",
-      "last_played": "2026-10-18"
+      "maps": "9-5",
+      "last_played": "2026-02-28"
     },
     {
       "team": "Pechupak",
@@ -7713,15 +7713,6 @@
       "losses": 2,
       "maps": "5-2",
       "last_played": "2026-02-12"
-    },
-    {
-      "team": "STAINED",
-      "elo": 1553.7,
-      "series": 6,
-      "wins": 4,
-      "losses": 2,
-      "maps": "9-5",
-      "last_played": "2026-02-28"
     },
     {
       "team": "xdlolxd",
@@ -7758,15 +7749,6 @@
       "losses": 1,
       "maps": "6-4",
       "last_played": "2024-09-16"
-    },
-    {
-      "team": "Spongecord prime",
-      "elo": 1553.2,
-      "series": 51,
-      "wins": 28,
-      "losses": 23,
-      "maps": "66-60",
-      "last_played": "2026-10-18"
     },
     {
       "team": "JvV Golem",
@@ -7985,15 +7967,6 @@
       "last_played": "2025-08-10"
     },
     {
-      "team": "Kanji Esports KIN",
-      "elo": 1551.1,
-      "series": 18,
-      "wins": 11,
-      "losses": 7,
-      "maps": "26-19",
-      "last_played": "2026-10-18"
-    },
-    {
       "team": "Team Baron (MSI 2026)",
       "elo": 1551.1,
       "series": 3,
@@ -8058,7 +8031,7 @@
     },
     {
       "team": "RMD Gaming",
-      "elo": 1550.5,
+      "elo": 1550.6,
       "series": 57,
       "wins": 31,
       "losses": 26,
@@ -9362,15 +9335,6 @@
       "last_played": "2026-07-26"
     },
     {
-      "team": "100 Thieves",
-      "elo": 1540.7,
-      "series": 39,
-      "wins": 21,
-      "losses": 18,
-      "maps": "47-42",
-      "last_played": "2025-10-24"
-    },
-    {
       "team": "United Arab Emirates (National Team)",
       "elo": 1540.6,
       "series": 13,
@@ -9432,6 +9396,15 @@
       "losses": 17,
       "maps": "53-46",
       "last_played": "2026-09-01"
+    },
+    {
+      "team": "100 Thieves",
+      "elo": 1540.2,
+      "series": 39,
+      "wins": 21,
+      "losses": 18,
+      "maps": "47-42",
+      "last_played": "2025-10-24"
     },
     {
       "team": "POG Team",
@@ -10028,6 +10001,15 @@
       "last_played": "2025-08-30"
     },
     {
+      "team": "Tung Sahur Mid",
+      "elo": 1537.5,
+      "series": 6,
+      "wins": 4,
+      "losses": 2,
+      "maps": "9-5",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "GnG Amazigh",
       "elo": 1537.5,
       "series": 103,
@@ -10199,15 +10181,6 @@
       "last_played": "2025-09-21"
     },
     {
-      "team": "FlyQuest",
-      "elo": 1536.8,
-      "series": 88,
-      "wins": 54,
-      "losses": 34,
-      "maps": "129-89",
-      "last_played": "2026-10-13"
-    },
-    {
       "team": "魯以屎真的好強",
       "elo": 1536.8,
       "series": 4,
@@ -10287,6 +10260,15 @@
       "losses": 3,
       "maps": "5-3",
       "last_played": "2024-09-21"
+    },
+    {
+      "team": "FlyQuest",
+      "elo": 1536.4,
+      "series": 88,
+      "wins": 54,
+      "losses": 34,
+      "maps": "129-89",
+      "last_played": "2026-10-13"
     },
     {
       "team": "Good Chi (MYSGID team)",
@@ -10451,15 +10433,6 @@
       "last_played": "2025-11-06"
     },
     {
-      "team": "Lundqvist Darkside",
-      "elo": 1535.5,
-      "series": 17,
-      "wins": 9,
-      "losses": 8,
-      "maps": "22-21",
-      "last_played": "2026-10-18"
-    },
-    {
       "team": "Glorp Cat",
       "elo": 1535.4,
       "series": 15,
@@ -10467,6 +10440,15 @@
       "losses": 6,
       "maps": "9-6",
       "last_played": "2026-10-22"
+    },
+    {
+      "team": "Kanji Esports KIN",
+      "elo": 1535.4,
+      "series": 19,
+      "wins": 11,
+      "losses": 8,
+      "maps": "26-21",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Ex Machina 2",
@@ -10719,6 +10701,15 @@
       "losses": 1,
       "maps": "7-3",
       "last_played": "2026-05-21"
+    },
+    {
+      "team": "Clã NKZ Revengers",
+      "elo": 1534.4,
+      "series": 8,
+      "wins": 5,
+      "losses": 3,
+      "maps": "10-10",
+      "last_played": "2026-10-24"
     },
     {
       "team": "Zakon Żabek",
@@ -11504,6 +11495,15 @@
       "last_played": "2026-10-20"
     },
     {
+      "team": "RED Academy",
+      "elo": 1529,
+      "series": 45,
+      "wins": 25,
+      "losses": 20,
+      "maps": "41-31",
+      "last_played": "2026-08-11"
+    },
+    {
       "team": "PSG Talon Academy",
       "elo": 1528.9,
       "series": 5,
@@ -11511,15 +11511,6 @@
       "losses": 2,
       "maps": "10-8",
       "last_played": "2025-08-30"
-    },
-    {
-      "team": "RED Academy",
-      "elo": 1528.9,
-      "series": 45,
-      "wins": 25,
-      "losses": 20,
-      "maps": "41-31",
-      "last_played": "2026-08-11"
     },
     {
       "team": "送進ICU",
@@ -11853,6 +11844,15 @@
       "losses": 4,
       "maps": "6-5",
       "last_played": "2025-07-05"
+    },
+    {
+      "team": "Lundqvist Darkside",
+      "elo": 1526.5,
+      "series": 18,
+      "wins": 9,
+      "losses": 9,
+      "maps": "22-23",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Prime Gods",
@@ -12566,15 +12566,6 @@
       "last_played": "2025-11-30"
     },
     {
-      "team": "LOUD",
-      "elo": 1522.7,
-      "series": 60,
-      "wins": 31,
-      "losses": 29,
-      "maps": "80-68",
-      "last_played": "2026-10-03"
-    },
-    {
       "team": "RIONYX",
       "elo": 1522.7,
       "series": 5,
@@ -12582,6 +12573,15 @@
       "losses": 2,
       "maps": "3-2",
       "last_played": "2026-02-13"
+    },
+    {
+      "team": "LOUD",
+      "elo": 1522.7,
+      "series": 60,
+      "wins": 31,
+      "losses": 29,
+      "maps": "80-68",
+      "last_played": "2026-10-03"
     },
     {
       "team": "Black Lion Unleashed",
@@ -12764,15 +12764,6 @@
       "last_played": "2025-03-17"
     },
     {
-      "team": "LGD Gaming",
-      "elo": 1521.7,
-      "series": 83,
-      "wins": 41,
-      "losses": 42,
-      "maps": "99-109",
-      "last_played": "2026-10-13"
-    },
-    {
       "team": "Izanami",
       "elo": 1521.7,
       "series": 3,
@@ -12780,6 +12771,15 @@
       "losses": 1,
       "maps": "4-3",
       "last_played": "2025-05-31"
+    },
+    {
+      "team": "LGD Gaming",
+      "elo": 1521.7,
+      "series": 83,
+      "wins": 41,
+      "losses": 42,
+      "maps": "99-109",
+      "last_played": "2026-10-13"
     },
     {
       "team": "Diamante Gaming",
@@ -13095,6 +13095,15 @@
       "losses": 3,
       "maps": "4-3",
       "last_played": "2025-11-29"
+    },
+    {
+      "team": "Team CD",
+      "elo": 1520.6,
+      "series": 34,
+      "wins": 18,
+      "losses": 16,
+      "maps": "44-41",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Team Void (Polish Team)",
@@ -15806,15 +15815,6 @@
       "last_played": "2025-08-31"
     },
     {
-      "team": "Team CD",
-      "elo": 1511.4,
-      "series": 33,
-      "wins": 17,
-      "losses": 16,
-      "maps": "42-41",
-      "last_played": "2026-10-24"
-    },
-    {
       "team": "Project Ð",
       "elo": 1511.3,
       "series": 6,
@@ -16047,15 +16047,6 @@
       "losses": 11,
       "maps": "13-11",
       "last_played": "2026-08-15"
-    },
-    {
-      "team": "Neko Elite Kittens",
-      "elo": 1510.1,
-      "series": 26,
-      "wins": 13,
-      "losses": 13,
-      "maps": "32-29",
-      "last_played": "2026-10-20"
     },
     {
       "team": "Lundqvist Lightside",
@@ -17570,15 +17561,6 @@
       "last_played": "2026-05-21"
     },
     {
-      "team": "Sentinels",
-      "elo": 1502.8,
-      "series": 33,
-      "wins": 16,
-      "losses": 17,
-      "maps": "42-48",
-      "last_played": "2026-09-18"
-    },
-    {
       "team": "Papichulo",
       "elo": 1502.8,
       "series": 4,
@@ -17622,6 +17604,15 @@
       "losses": 2,
       "maps": "5-5",
       "last_played": "2026-07-22"
+    },
+    {
+      "team": "Sentinels",
+      "elo": 1502.7,
+      "series": 33,
+      "wins": 16,
+      "losses": 17,
+      "maps": "42-48",
+      "last_played": "2026-09-18"
     },
     {
       "team": "Ouroboros (Filipino Team)",
@@ -18974,6 +18965,15 @@
       "last_played": "2026-08-06"
     },
     {
+      "team": "Neko Elite Kittens",
+      "elo": 1499,
+      "series": 27,
+      "wins": 13,
+      "losses": 14,
+      "maps": "32-31",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "Invade Level One",
       "elo": 1499,
       "series": 4,
@@ -19125,15 +19125,6 @@
       "losses": 2,
       "maps": "2-2",
       "last_played": "2026-10-02"
-    },
-    {
-      "team": "Black Lion",
-      "elo": 1498.6,
-      "series": 46,
-      "wins": 24,
-      "losses": 22,
-      "maps": "58-55",
-      "last_played": "2026-10-19"
     },
     {
       "team": "Единороги Номанза",
@@ -20675,6 +20666,15 @@
       "last_played": "2026-04-29"
     },
     {
+      "team": "Glacial Guardians",
+      "elo": 1490.7,
+      "series": 18,
+      "wins": 8,
+      "losses": 10,
+      "maps": "22-20",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "Georgia Institute of Technology",
       "elo": 1490.6,
       "series": 13,
@@ -20828,15 +20828,6 @@
       "last_played": "2025-11-06"
     },
     {
-      "team": "GAM Esports",
-      "elo": 1489.5,
-      "series": 83,
-      "wins": 39,
-      "losses": 44,
-      "maps": "106-109",
-      "last_played": "2026-10-07"
-    },
-    {
       "team": "jajkownia",
       "elo": 1489.4,
       "series": 30,
@@ -20844,6 +20835,15 @@
       "losses": 17,
       "maps": "13-17",
       "last_played": "2026-01-30"
+    },
+    {
+      "team": "GAM Esports",
+      "elo": 1489.4,
+      "series": 83,
+      "wins": 39,
+      "losses": 44,
+      "maps": "106-109",
+      "last_played": "2026-10-07"
     },
     {
       "team": "LV uz Kartes",
@@ -20945,15 +20945,6 @@
       "last_played": "2026-03-27"
     },
     {
-      "team": "RED Canids",
-      "elo": 1488.8,
-      "series": 67,
-      "wins": 35,
-      "losses": 32,
-      "maps": "82-81",
-      "last_played": "2026-10-08"
-    },
-    {
       "team": "Onyx Ravens",
       "elo": 1488.7,
       "series": 11,
@@ -20970,6 +20961,15 @@
       "losses": 2,
       "maps": "2-4",
       "last_played": "2024-10-01"
+    },
+    {
+      "team": "RED Canids",
+      "elo": 1488.7,
+      "series": 67,
+      "wins": 35,
+      "losses": 32,
+      "maps": "82-81",
+      "last_played": "2026-10-08"
     },
     {
       "team": "CNG Royal",
@@ -21744,6 +21744,15 @@
       "losses": 2,
       "maps": "6-7",
       "last_played": "2026-06-20"
+    },
+    {
+      "team": "Black Lion",
+      "elo": 1485,
+      "series": 47,
+      "wins": 24,
+      "losses": 23,
+      "maps": "58-57",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Bahahahhaha",
@@ -26588,15 +26597,6 @@
       "last_played": "2025-11-04"
     },
     {
-      "team": "Glacial Guardians",
-      "elo": 1473.5,
-      "series": 17,
-      "wins": 7,
-      "losses": 10,
-      "maps": "20-20",
-      "last_played": "2026-10-18"
-    },
-    {
       "team": "IMProve Team",
       "elo": 1473.2,
       "series": 50,
@@ -26903,15 +26903,6 @@
       "last_played": "2025-09-20"
     },
     {
-      "team": "Berlin 5",
-      "elo": 1470.9,
-      "series": 12,
-      "wins": 6,
-      "losses": 6,
-      "maps": "12-12",
-      "last_played": "2026-10-24"
-    },
-    {
       "team": "Golden Soul",
       "elo": 1470.9,
       "series": 16,
@@ -26937,6 +26928,15 @@
       "losses": 39,
       "maps": "41-51",
       "last_played": "2026-10-22"
+    },
+    {
+      "team": "Second Time Alive Revival",
+      "elo": 1470.8,
+      "series": 24,
+      "wins": 10,
+      "losses": 14,
+      "maps": "26-32",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Good Chi SOL",
@@ -29819,6 +29819,15 @@
       "last_played": "2025-02-22"
     },
     {
+      "team": "Berlin 5",
+      "elo": 1454.1,
+      "series": 13,
+      "wins": 6,
+      "losses": 7,
+      "maps": "12-14",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "koi dneuf docteur",
       "elo": 1453.9,
       "series": 9,
@@ -29826,15 +29835,6 @@
       "losses": 6,
       "maps": "3-6",
       "last_played": "2024-11-16"
-    },
-    {
-      "team": "Second Time Alive Revival",
-      "elo": 1453.9,
-      "series": 23,
-      "wins": 9,
-      "losses": 14,
-      "maps": "24-32",
-      "last_played": "2026-10-19"
     },
     {
       "team": "Инсайдеры",
@@ -30024,6 +30024,15 @@
       "losses": 8,
       "maps": "5-8",
       "last_played": "2026-06-27"
+    },
+    {
+      "team": "Sissi State Punks",
+      "elo": 1452.6,
+      "series": 16,
+      "wins": 7,
+      "losses": 9,
+      "maps": "16-20",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Young Stars Oxygen",
@@ -30798,15 +30807,6 @@
       "losses": 3,
       "maps": "1-5",
       "last_played": "2025-07-07"
-    },
-    {
-      "team": "Mazepa",
-      "elo": 1447.3,
-      "series": 10,
-      "wins": 3,
-      "losses": 7,
-      "maps": "8-16",
-      "last_played": "2026-10-14"
     },
     {
       "team": "Louisiana State University",
@@ -32627,15 +32627,6 @@
       "last_played": "2026-02-21"
     },
     {
-      "team": "Sissi State Punks",
-      "elo": 1438.8,
-      "series": 15,
-      "wins": 6,
-      "losses": 9,
-      "maps": "14-20",
-      "last_played": "2026-10-11"
-    },
-    {
       "team": "HL Tauri Academy",
       "elo": 1438.8,
       "series": 11,
@@ -32679,6 +32670,15 @@
       "losses": 3,
       "maps": "0-6",
       "last_played": "2024-12-10"
+    },
+    {
+      "team": "Disguised",
+      "elo": 1438.5,
+      "series": 47,
+      "wins": 15,
+      "losses": 32,
+      "maps": "44-69",
+      "last_played": "2026-10-12"
     },
     {
       "team": "Milwaukee School of Engineering",
@@ -32832,15 +32832,6 @@
       "losses": 3,
       "maps": "1-6",
       "last_played": "2024-11-24"
-    },
-    {
-      "team": "Disguised",
-      "elo": 1437.5,
-      "series": 48,
-      "wins": 15,
-      "losses": 33,
-      "maps": "45-71",
-      "last_played": "2026-10-12"
     },
     {
       "team": "Team Zorka",
@@ -33885,6 +33876,15 @@
       "losses": 4,
       "maps": "1-7",
       "last_played": "2026-10-04"
+    },
+    {
+      "team": "Mazepa",
+      "elo": 1428.2,
+      "series": 11,
+      "wins": 3,
+      "losses": 8,
+      "maps": "8-18",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Almeno Esport",
@@ -35282,15 +35282,6 @@
       "last_played": "2026-09-12"
     },
     {
-      "team": "Team Lucidity Esports",
-      "elo": 1413.9,
-      "series": 11,
-      "wins": 3,
-      "losses": 8,
-      "maps": "8-17",
-      "last_played": "2026-10-18"
-    },
-    {
       "team": "Jörmungang Academy",
       "elo": 1413.8,
       "series": 62,
@@ -35894,15 +35885,6 @@
       "last_played": "2025-11-08"
     },
     {
-      "team": "Shopify Rebellion",
-      "elo": 1404.3,
-      "series": 54,
-      "wins": 18,
-      "losses": 36,
-      "maps": "50-88",
-      "last_played": "2026-10-07"
-    },
-    {
       "team": "OG E-SPORT",
       "elo": 1404.3,
       "series": 7,
@@ -36038,6 +36020,15 @@
       "last_played": "2025-01-21"
     },
     {
+      "team": "Team Lucidity Esports",
+      "elo": 1402.2,
+      "series": 12,
+      "wins": 3,
+      "losses": 9,
+      "maps": "8-19",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "paiN Gaming",
       "elo": 1402.1,
       "series": 62,
@@ -36128,6 +36119,15 @@
       "last_played": "2025-04-05"
     },
     {
+      "team": "Shopify Rebellion",
+      "elo": 1400.7,
+      "series": 53,
+      "wins": 17,
+      "losses": 36,
+      "maps": "48-87",
+      "last_played": "2026-10-07"
+    },
+    {
       "team": "Randoms Deluxe",
       "elo": 1400.6,
       "series": 10,
@@ -36135,6 +36135,15 @@
       "losses": 9,
       "maps": "1-9",
       "last_played": "2026-03-15"
+    },
+    {
+      "team": "OnlyWinByFF",
+      "elo": 1400.6,
+      "series": 14,
+      "wins": 3,
+      "losses": 11,
+      "maps": "9-23",
+      "last_played": "2026-10-25"
     },
     {
       "team": "Cuba (National Team)",
@@ -36632,15 +36641,6 @@
       "last_played": "2024-11-29"
     },
     {
-      "team": "Duplex Silva Pigeons Edition",
-      "elo": 1387.8,
-      "series": 17,
-      "wins": 5,
-      "losses": 12,
-      "maps": "9-22",
-      "last_played": "2026-10-19"
-    },
-    {
       "team": "Kula Fight Club",
       "elo": 1387.6,
       "series": 7,
@@ -36855,15 +36855,6 @@
       "losses": 19,
       "maps": "27-42",
       "last_played": "2026-10-22"
-    },
-    {
-      "team": "OnlyWinByFF",
-      "elo": 1381.5,
-      "series": 13,
-      "wins": 2,
-      "losses": 11,
-      "maps": "7-23",
-      "last_played": "2026-10-18"
     },
     {
       "team": "Delta 1 Esports",
@@ -37089,6 +37080,15 @@
       "losses": 9,
       "maps": "1-9",
       "last_played": "2026-06-06"
+    },
+    {
+      "team": "Duplex Silva Pigeons Edition",
+      "elo": 1374.1,
+      "series": 18,
+      "wins": 5,
+      "losses": 13,
+      "maps": "9-24",
+      "last_played": "2026-10-25"
     },
     {
       "team": "ZETA",
@@ -37695,7 +37695,7 @@
     },
     {
       "team": "Leviatan",
-      "elo": 1337.7,
+      "elo": 1337.6,
       "series": 48,
       "wins": 15,
       "losses": 33,
