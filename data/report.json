@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-25T20:55:55Z",
- "total": 233,
+ "generated_utc": "2026-10-26T04:53:15Z",
+ "total": 222,
  "counts": {
-  "model": 165,
+  "model": 157,
   "unresolved": 4,
-  "provisional": 58,
-  "market": 6
+  "provisional": 56,
+  "market": 5
  },
  "per_competition": {
   "Benelux Ascend Series 2026 Summer Split": {
@@ -69,7 +69,7 @@
    "provisional": 6
   },
   "LigaGG CELOL B 2026 Split 2 Playoffs": {
-   "model": 3
+   "model": 5
   },
   "4 Nations 2026 Halloween Heist": {
    "provisional": 1,
@@ -79,8 +79,8 @@
    "provisional": 2
   },
   "Tunisian Super League 2026": {
-   "provisional": 4,
-   "model": 19
+   "provisional": 2,
+   "model": 15
   },
   "LigaGG CELOL A 2026 Split 2 Playoffs": {
    "model": 4
@@ -89,16 +89,16 @@
    "model": 44,
    "provisional": 16
   },
-  "PRM 2nd Division 26-27 Fall": {
-   "model": 32,
-   "provisional": 4
-  },
   "Worlds 2026 Main Event": {
-   "model": 3,
-   "market": 5
+   "model": 1,
+   "market": 4
   },
   "LGC Rising 2026 Playoffs": {
    "market": 1
+  },
+  "PRM 2nd Division 26-27 Fall": {
+   "model": 28,
+   "provisional": 4
   },
   "Komplettligaen 2026 Autumn Playoffs": {
    "model": 3
@@ -254,24 +254,6 @@
    ]
   },
   {
-   "hotspawn_id": "1079030",
-   "team": "Locked IN",
-   "resolved": "Locked In (Dutch Team)",
-   "method": "competition-page",
-   "notes": [
-    "resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Team)'"
-   ]
-  },
-  {
-   "hotspawn_id": "1075818",
-   "team": "LYON",
-   "resolved": "LYON (2024 American Team)",
-   "method": "competition-page",
-   "notes": [
-    "resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'"
-   ]
-  },
-  {
    "hotspawn_id": "1081700",
    "team": "Inari Esports",
    "resolved": "Inari Esports (British Team)",
@@ -305,6 +287,15 @@
    "method": "alias",
    "notes": [
     "explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evidence (see Flagged for review)"
+   ]
+  },
+  {
+   "hotspawn_id": "1081088",
+   "team": "Infinity Gaming",
+   "resolved": "Infinity Gaming (Brazilian Team)",
+   "method": "competition-page",
+   "notes": [
+    "resolved within 'LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs' to 'Infinity Gaming (Brazilian Team)'"
    ]
   },
   {
@@ -858,20 +849,6 @@
    ]
   },
   {
-   "id": "1080924",
-   "competition": "Tunisian Super League 2026",
-   "teams": [
-    "JSK Esports",
-    "El Menzah Esports"
-   ],
-   "p0": 0.7186,
-   "flags": [
-    "fewer than 5 rated series for at least one team",
-    "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-24T16:00:00Z while Data:Tunisian Super League/2026 Season records 2026-10-25 18:00Z (26h apart) - confirm before relying on the time",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ]
-  },
-  {
    "id": "1080927",
    "competition": "Tunisian Super League 2026",
    "teams": [
@@ -934,19 +911,6 @@
    "flags": [
     "fewer than 5 rated series for at least one team",
     "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ]
-  },
-  {
-   "id": "1080930",
-   "competition": "Tunisian Super League 2026",
-   "teams": [
-    "Olympique Mnihla Academy",
-    "El Menzah Esports"
-   ],
-   "p0": 0.524,
-   "flags": [
-    "fewer than 5 rated series for at least one team",
-    "start time has passed and Leaguepedia records completed series Olympique Mnihla Academy 0-1 El Menzah Esports (Leaguepedia Data:Tunisian Super League/2026 Season); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
    ]
   },
   {
@@ -1218,30 +1182,16 @@
  ],
  "priced": [
   {
-   "id": "1075818",
-   "competition": "Worlds 2026 Main Event",
-   "teams": [
-    "Gen.G",
-    "LYON"
-   ],
-   "p0": 0.9032,
-   "decimal": {
-    "home": 1.063,
-    "away": 9.25
-   },
-   "start": "2026-10-25T22:00:00Z"
-  },
-  {
    "id": "1075821",
    "competition": "Worlds 2026 Main Event",
    "teams": [
     "T1",
     "CTBC Flying Oyster"
    ],
-   "p0": 0.8588,
+   "p0": 0.8626,
    "decimal": {
-    "home": 1.129,
-    "away": 6.05
+    "home": 1.121,
+    "away": 6.28
    },
    "start": "2026-10-26T17:00:00Z"
   },
@@ -1252,10 +1202,10 @@
     "Karmine Corp",
     "Bilibili Gaming"
    ],
-   "p0": 0.2958,
+   "p0": 0.296,
    "decimal": {
-    "home": 3.38,
-    "away": 1.333
+    "home": 3.29,
+    "away": 1.347
    },
    "start": "2026-10-26T18:00:00Z"
   },
@@ -1266,10 +1216,10 @@
     "LØS",
     "Team Secret Whales"
    ],
-   "p0": 0.3496,
+   "p0": 0.345,
    "decimal": {
-    "home": 2.69,
-    "away": 1.49
+    "home": 2.79,
+    "away": 1.461
    },
    "start": "2026-10-26T19:00:00Z"
   },
@@ -1280,10 +1230,10 @@
     "Team Liquid",
     "Anyone's Legend"
    ],
-   "p0": 0.3087,
+   "p0": 0.2985,
    "decimal": {
-    "home": 3.05,
-    "away": 1.397
+    "home": 3.18,
+    "away": 1.368
    },
    "start": "2026-10-26T22:00:00Z"
   },
@@ -1294,7 +1244,7 @@
     "Mental Rush",
     "Vitality Rising Bees"
    ],
-   "p0": 0.3739,
+   "p0": 0.3682,
    "decimal": null,
    "start": "2026-10-27T17:00:00Z"
   }

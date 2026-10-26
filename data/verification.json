@@ -1,15 +1,15 @@
 {
- "generated_utc": "2026-10-25T20:55:56Z",
+ "generated_utc": "2026-10-26T04:53:16Z",
  "checks": [
   {
    "name": "dataset present",
    "ok": true,
-   "detail": "233 matches loaded"
+   "detail": "222 matches loaded"
   },
   {
    "name": "complete inventory reconciliation",
    "ok": true,
-   "detail": "raw fixtures=233, published rows=233; exact ID multiset comparison"
+   "detail": "raw fixtures=222, published rows=222; exact ID multiset comparison"
   },
   {
    "name": "finite probabilities and correctly named picks",
@@ -19,22 +19,22 @@
   {
    "name": "every row links to its Hotspawn match card",
    "ok": true,
-   "detail": "233/233 rows carry a Hotspawn URL"
+   "detail": "222/222 rows carry a Hotspawn URL"
   },
   {
    "name": "probabilities sum to 100% (tolerance 0.2pp)",
    "ok": true,
-   "detail": "233 priced rows verified; problems: []"
+   "detail": "222 priced rows verified; problems: []"
   },
   {
    "name": "pick matches the higher probability",
    "ok": true,
-   "detail": "233 rows consistent; problems: []"
+   "detail": "222 rows consistent; problems: []"
   },
   {
    "name": "every match has a pick or is documented as unpickable",
    "ok": true,
-   "detail": "233 rows: 233 with a pick (4 settlement-only), 0 documented unpickable"
+   "detail": "222 rows: 222 with a pick (4 settlement-only), 0 documented unpickable"
   },
   {
    "name": "settlement picks name a participant and claim no probability",
@@ -54,7 +54,7 @@
   {
    "name": "no duplicate match ids",
    "ok": true,
-   "detail": "233 unique ids; duplicates: []"
+   "detail": "222 unique ids; duplicates: []"
   },
   {
    "name": "no '(Kills)' derivative market is used as a match line",
@@ -69,12 +69,12 @@
   {
    "name": "Pinnacle quote URLs point at collected matchups",
    "ok": true,
-   "detail": "5 matchup ids in feed; problems: []"
+   "detail": "4 matchup ids in feed; problems: []"
   },
   {
    "name": "all fresh Unibet/Kambi moneylines matched into market consensus",
    "ok": true,
-   "detail": "5/5 fresh Unibet fixtures matched; missing: []"
+   "detail": "4/4 fresh Unibet fixtures matched; missing: []"
   },
   {
    "name": "all fresh Smarkets exchange moneylines matched into market consensus",
@@ -94,7 +94,7 @@
   {
    "name": "picks.csv mirrors the dataset",
    "ok": true,
-   "detail": "csv rows=233 json rows=233"
+   "detail": "csv rows=222 json rows=222"
   },
   {
    "name": "all site pages exist",
@@ -124,12 +124,12 @@
   {
    "name": "all matches rendered on the picks page",
    "ok": true,
-   "detail": "233/233 match cards found"
+   "detail": "222/222 match cards found"
   },
   {
    "name": "pick table renders one row per match",
    "ok": true,
-   "detail": "233/233 table rows"
+   "detail": "222/222 table rows"
   },
   {
    "name": "executive summary links to every picks view",
@@ -144,7 +144,7 @@
   {
    "name": "executive summary and its unresolved block precede every list on the landing page",
    "ok": true,
-   "detail": "summary=2549 unresolved=9529 soon=17165 directory=23738"
+   "detail": "summary=2549 unresolved=9529 soon=17165 directory=23765"
   },
   {
    "name": "the unresolved block inside the summary states why each card has no probability",
@@ -164,7 +164,7 @@
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
-   "detail": "backtest series rendered: 3,940"
+   "detail": "backtest series rendered: 3,945"
   },
   {
    "name": "curated flags annotate every reference to a fixture that has left the list",
@@ -214,7 +214,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 89387 bytes"
+   "detail": "coverage.html 89372 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -234,12 +234,12 @@
   {
    "name": "coverage arithmetic reconciles to the inventory",
    "ok": true,
-   "detail": "priced=229 + settlements=4 = 233; rows with a pick=233; inventory=233"
+   "detail": "priced=218 + settlements=4 = 222; rows with a pick=222; inventory=222"
   },
   {
    "name": "method counts partition matches.json cleanly",
    "ok": true,
-   "detail": "counts={'model': 165, 'unresolved': 4, 'provisional': 58, 'market': 6} sum=233 rows=233"
+   "detail": "counts={'model': 157, 'unresolved': 4, 'provisional': 56, 'market': 5} sum=222 rows=222"
   },
   {
    "name": "source availability recorded",
@@ -249,7 +249,7 @@
   {
    "name": "every Hotspawn fixture is in the dataset (1:1 ids)",
    "ok": true,
-   "detail": "feed=233 dataset=233 missing=[] extra=[]"
+   "detail": "feed=222 dataset=222 missing=[] extra=[]"
   },
   {
    "name": "per-tournament counts match the Hotspawn feed",
@@ -288,15 +288,15 @@
   }
  ],
  "passed": true,
- "rows_checked": 233,
- "rows_with_source": 233,
- "rows_prob_ok": 233,
- "unverified": 62,
+ "rows_checked": 222,
+ "rows_with_source": 222,
+ "rows_prob_ok": 222,
+ "unverified": 60,
  "counts": {
-  "model": 165,
+  "model": 157,
   "unresolved": 4,
-  "provisional": 58,
-  "market": 6
+  "provisional": 56,
+  "market": 5
  },
  "internal_links": 506,
  "lookahead_violations": 0

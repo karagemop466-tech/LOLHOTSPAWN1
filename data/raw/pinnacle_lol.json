@@ -1,36 +1,10 @@
 {
- "fetched_utc": "2026-10-25T20:54:00Z",
+ "fetched_utc": "2026-10-26T04:51:22Z",
  "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/sports/12/matchups",
  "source_note": "Pinnacle guest API, sport 12 (E Sports), moneyline period 0, markets/related/straight",
- "lol_matchup_count": 13,
- "priced_count": 5,
+ "lol_matchup_count": 102,
+ "priced_count": 4,
  "markets": [
-  {
-   "matchup_id": 1639227251,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-26T22:15:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": 205,
-     "decimal": 3.05
-    },
-    "away": {
-     "american": -252,
-     "decimal": 1.3968
-    }
-   },
-   "participants": [
-    {
-     "name": "Liquid",
-     "alignment": "home"
-    },
-    {
-     "name": "Anyone's Legend",
-     "alignment": "away"
-    }
-   ]
-  },
   {
    "matchup_id": 1639229311,
    "league": "League of Legends - World Championship",
@@ -38,12 +12,12 @@
    "market_key": "s;0;m",
    "prices": {
     "home": {
-     "american": 169,
-     "decimal": 2.69
+     "american": 179,
+     "decimal": 2.79
     },
     "away": {
-     "american": -204,
-     "decimal": 1.4902
+     "american": -217,
+     "decimal": 1.4608
     }
    },
    "participants": [
@@ -58,18 +32,44 @@
    ]
   },
   {
+   "matchup_id": 1639227251,
+   "league": "League of Legends - World Championship",
+   "start_utc": "2026-10-26T22:15:00Z",
+   "market_key": "s;0;m",
+   "prices": {
+    "home": {
+     "american": 218,
+     "decimal": 3.18
+    },
+    "away": {
+     "american": -272,
+     "decimal": 1.3676
+    }
+   },
+   "participants": [
+    {
+     "name": "Liquid",
+     "alignment": "home"
+    },
+    {
+     "name": "Anyone's Legend",
+     "alignment": "away"
+    }
+   ]
+  },
+  {
    "matchup_id": 1639235122,
    "league": "League of Legends - World Championship",
    "start_utc": "2026-10-26T17:15:00Z",
    "market_key": "s;0;m",
    "prices": {
     "home": {
-     "american": -777,
-     "decimal": 1.1287
+     "american": -826,
+     "decimal": 1.1211
     },
     "away": {
-     "american": 505,
-     "decimal": 6.05
+     "american": 528,
+     "decimal": 6.28
     }
    },
    "participants": [
@@ -90,12 +90,12 @@
    "market_key": "s;0;m",
    "prices": {
     "home": {
-     "american": 238,
-     "decimal": 3.38
+     "american": 229,
+     "decimal": 3.29
     },
     "away": {
-     "american": -300,
-     "decimal": 1.3333
+     "american": -288,
+     "decimal": 1.3472
     }
    },
    "participants": [
@@ -105,32 +105,6 @@
     },
     {
      "name": "Bilibili",
-     "alignment": "away"
-    }
-   ]
-  },
-  {
-   "matchup_id": 1639235121,
-   "league": "League of Legends - World Championship",
-   "start_utc": "2026-10-25T22:15:00Z",
-   "market_key": "s;0;m",
-   "prices": {
-    "home": {
-     "american": -1575,
-     "decimal": 1.0635
-    },
-    "away": {
-     "american": 825,
-     "decimal": 9.25
-    }
-   },
-   "participants": [
-    {
-     "name": "Gen.G",
-     "alignment": "home"
-    },
-    {
-     "name": "LYON",
      "alignment": "away"
     }
    ]

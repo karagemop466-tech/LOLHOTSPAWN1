@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-25T20:55:55Z",
- "inventory_fetched_utc": "2026-10-25T20:53:58Z",
+ "generated_utc": "2026-10-26T04:53:15Z",
+ "inventory_fetched_utc": "2026-10-26T04:51:20Z",
  "receipt_audit": {
   "max_age_hours": 24,
   "used": [],
@@ -12,7 +12,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -22,7 +22,7 @@
      4.4
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -32,7 +32,7 @@
      4.05
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -42,7 +42,7 @@
      4.88
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -52,7 +52,7 @@
      2.63
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -62,7 +62,7 @@
      1.61
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -72,7 +72,7 @@
      3.11
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -82,7 +82,7 @@
      1.06
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -92,7 +92,7 @@
      1.51
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/matches"
    },
    {
@@ -102,7 +102,7 @@
      10.5
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/match/eDTgthgYk/ground-zero-gaming-vs-frank-esports-wvOLKhrveF"
    },
    {
@@ -112,7 +112,7 @@
      1.8
     ],
     "observed_at": "2026-10-21T20:36:00Z",
-    "age_hours": 96.3,
+    "age_hours": 104.3,
     "source_url": "https://egamersworld.com/lol/matches"
    }
   ],
@@ -148,13 +148,13 @@
   "smarkets": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&type=league_of_legends_match&limit=50",
   "leaguepedia": "https://lol.fandom.com/wiki/Special:CargoExport",
   "polymarket": "https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=league-of-legends",
-  "source_status_utc": "2026-10-25T20:55:15Z"
+  "source_status_utc": "2026-10-26T04:52:45Z"
  },
  "counts": {
-  "model": 165,
+  "model": 157,
   "unresolved": 4,
-  "provisional": 58,
-  "market": 6
+  "provisional": 56,
+  "market": 5
  },
  "market_hygiene": {
   "live_feed_freshness": {
@@ -173,62 +173,62 @@
  },
  "backtest": {
   "cutoff": "2026-07-01",
-  "n": 3940,
-  "hits": 2565,
+  "n": 3945,
+  "hits": 2568,
   "buckets": {
    "50-60%": {
-    "n": 2116,
-    "hits": 1207,
-    "accuracy": 0.5704,
+    "n": 2117,
+    "hits": 1208,
+    "accuracy": 0.5706,
     "mean_predicted": 0.5407
    },
    "60-70%": {
-    "n": 1049,
-    "hits": 722,
-    "accuracy": 0.6883,
+    "n": 1052,
+    "hits": 724,
+    "accuracy": 0.6882,
     "mean_predicted": 0.6448
    },
    "70-80%": {
-    "n": 548,
+    "n": 549,
     "hits": 436,
-    "accuracy": 0.7956,
-    "mean_predicted": 0.7458
+    "accuracy": 0.7942,
+    "mean_predicted": 0.7457
    },
    "80%+": {
     "n": 227,
     "hits": 200,
     "accuracy": 0.8811,
-    "mean_predicted": 0.8509
+    "mean_predicted": 0.8508
    }
   },
   "accuracy": 0.651,
-  "brier": 0.218,
-  "logloss": 0.6249
+  "brier": 0.2181,
+  "logloss": 0.625
  },
  "track_record": {
-  "graded": 60,
-  "hits": 39,
-  "misses": 21,
-  "accuracy": 0.65,
-  "brier": 0.2381,
+  "graded": 52,
+  "hits": 34,
+  "misses": 18,
+  "accuracy": 0.6538,
+  "brier": 0.2377,
   "settled_forfeits": 3,
-  "ungraded_started": 40,
+  "ungraded_started": 36,
   "by_method": {
    "model": {
-    "graded": 32,
-    "hits": 22,
-    "accuracy": 0.6875
+    "graded": 25,
+    "hits": 17,
+    "accuracy": 0.68
    },
    "provisional": {
-    "graded": 28,
+    "graded": 27,
     "hits": 17,
-    "accuracy": 0.6071
+    "accuracy": 0.6296
    }
   },
   "result_source": "Leaguepedia MatchSchedule (community-maintained), matched on team pair and kick-off within 12 h",
   "grading_rule": "hit = the published pick is the recorded series winner; miss = the other side won; settled = an official-forfeit settlement pick, never counted as a forecast win. Rows without a consistent official record stay ungraded."
  },
- "total": 233,
+ "total": 222,
  "matches": [
   {
    "id": "1053095",
@@ -405,7 +405,7 @@
     "rating_as_of": "2026-08-27T15:00:00Z",
     "last_played": "2026-08-20",
     "elo_raw": 1695.0,
-    "elo_now": 1660.6,
+    "elo_now": 1660.5,
     "elo": 1683.9
    },
    "team1": {
@@ -762,7 +762,7 @@
     "rating_as_of": "2026-09-13T15:00:00Z",
     "last_played": "2026-09-12",
     "elo_raw": 1541.4,
-    "elo_now": 1578.6,
+    "elo_now": 1591.1,
     "elo": 1529.3
    },
    "team1": {
@@ -4720,7 +4720,7 @@
     "rating_as_of": "2026-10-17T15:00:00Z",
     "last_played": "2026-10-10",
     "elo_raw": 1585.7,
-    "elo_now": 1578.6,
+    "elo_now": 1591.1,
     "elo": 1568.5
    },
    "team1": {
@@ -5007,7 +5007,7 @@
     "rating_as_of": "2026-10-24T15:00:00Z",
     "last_played": "2026-10-17",
     "elo_raw": 1597.3,
-    "elo_now": 1578.6,
+    "elo_now": 1591.1,
     "elo": 1578.6
    },
    "team1": {
@@ -5019,7 +5019,7 @@
     "rating_as_of": "2026-10-24T15:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1578.3,
-    "elo_now": 1552.2,
+    "elo_now": 1543.9,
     "elo": 1552.2
    },
    "p0": 0.5379,
@@ -5028,7 +5028,7 @@
    "confidence": "medium",
    "basis": "Elo line: Docta Esports Club 1579 vs Clã NKZ Revengers 1552 (21/10 rated series).",
    "flags": [
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
+    "start time has passed and Leaguepedia records completed series Docta Esports Club 2-0 Clã NKZ Revengers (Leaguepedia Data:LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
    ],
    "pick": {
     "side": 0,
@@ -5041,8 +5041,19 @@
    "resolution": null,
    "connected": true,
    "stale": true,
-   "result": null,
-   "grade": null,
+   "result": {
+    "winner_side": 0,
+    "score0": 2,
+    "score1": 0,
+    "leaguepedia_winner": "1",
+    "leaguepedia_match_id": "LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs_Round 2_2",
+    "leaguepedia_page": "LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs",
+    "utc": "2026-10-24T15:00:00Z",
+    "forfeit_flag": null,
+    "source": "https://lol.fandom.com/wiki/Data:LigaGG/CELOL_Série_B/2026_Season/Split_2_Playoffs",
+    "note": "league result from community-maintained Leaguepedia"
+   },
+   "grade": "hit",
    "community_pick_pct": {
     "team0": 32,
     "team1": 68,
@@ -5194,70 +5205,6 @@
    "community_pick_pct": {
     "team0": 89,
     "team1": 11,
-    "total_picks": 28
-   }
-  },
-  {
-   "id": "1080924",
-   "competition": "Tunisian Super League 2026",
-   "start_utc": "2026-10-24T16:00:00Z",
-   "tier": null,
-   "stage": null,
-   "best_of": null,
-   "points": 10,
-   "hotspawn_url": "https://www.hotspawn.com/matches/jsk-esports-vs-el-menzah-esports-tunisian-super-league-2026-1080924",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "Tunisian Super League/2026 Season",
-   "team0": {
-    "name": "JSK Esports",
-    "leaguepedia": "JSK Esports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 68,
-    "rating_as_of": "2026-10-24T16:00:00Z",
-    "last_played": "2026-10-18",
-    "elo_raw": 1621.9,
-    "elo_now": 1615.4,
-    "elo": 1610.5
-   },
-   "team1": {
-    "name": "El Menzah Esports",
-    "leaguepedia": "El Menzah Esports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 4,
-    "rating_as_of": "2026-10-24T16:00:00Z",
-    "last_played": "2026-10-18",
-    "elo_raw": 1438.5,
-    "elo_now": 1453.9,
-    "elo": 1447.6
-   },
-   "p0": 0.7186,
-   "p1": 0.2814,
-   "method": "provisional",
-   "confidence": "low",
-   "basis": "Elo line: JSK Esports 1610 vs El Menzah Esports 1448 (68/4 rated series).",
-   "flags": [
-    "fewer than 5 rated series for at least one team",
-    "kick-off differs from the official Leaguepedia record: Hotspawn lists 2026-10-24T16:00:00Z while Data:Tunisian Super League/2026 Season records 2026-10-25 18:00Z (26h apart) - confirm before relying on the time",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "pick": {
-    "side": 0,
-    "team": "JSK Esports",
-    "probability": 0.7186,
-    "other_probability": 0.2814
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": null,
-   "grade": null,
-   "community_pick_pct": {
-    "team0": 93,
-    "team1": 7,
     "total_picks": 28
    }
   },
@@ -5609,7 +5556,7 @@
     "rating_as_of": "2026-10-24T20:00:00Z",
     "last_played": "2026-10-18",
     "elo_raw": 1719.9,
-    "elo_now": 1686.0,
+    "elo_now": 1686.1,
     "elo": 1707.8
    },
    "team1": {
@@ -5722,152 +5669,6 @@
     "team0": 73,
     "team1": 27,
     "total_picks": 26
-   }
-  },
-  {
-   "id": "1079027",
-   "competition": "PRM 2nd Division 26-27 Fall",
-   "start_utc": "2026-10-25T16:00:00Z",
-   "tier": "c",
-   "stage": null,
-   "best_of": null,
-   "points": 10,
-   "hotspawn_url": "https://www.hotspawn.com/matches/babos-gaming-vs-hannover-esports-e-v-prm-2nd-division-26-27-fall-1079027",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "Prime League 2nd Division/2027 Season/Fall Split",
-   "team0": {
-    "name": "Babos Gaming",
-    "leaguepedia": "Babos Gaming",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 59,
-    "rating_as_of": "2026-10-25T16:00:00Z",
-    "last_played": "2026-10-23",
-    "elo_raw": 1650.7,
-    "elo_now": 1643.9,
-    "elo": 1635.4
-   },
-   "team1": {
-    "name": "Hannover Esports e.V.",
-    "leaguepedia": "Hannover Esports e.V.",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 22,
-    "rating_as_of": "2026-10-25T16:00:00Z",
-    "last_played": "2026-10-23",
-    "elo_raw": 1537.6,
-    "elo_now": 1523.6,
-    "elo": 1530.7
-   },
-   "p0": 0.6463,
-   "p1": 0.3537,
-   "method": "model",
-   "confidence": "medium",
-   "basis": "Elo line: Babos Gaming 1635 vs Hannover Esports e.V. 1531 (59/22 rated series).",
-   "flags": [
-    "start time has passed and Leaguepedia records completed series Babos Gaming 2-1 Hannover Esports e.V. (Leaguepedia Data:Prime League 2nd Division/2027 Season/Fall Split); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ],
-   "pick": {
-    "side": 0,
-    "team": "Babos Gaming",
-    "probability": 0.6463,
-    "other_probability": 0.3537
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": {
-    "winner_side": 0,
-    "score0": 2,
-    "score1": 1,
-    "leaguepedia_winner": "1",
-    "leaguepedia_match_id": "Prime League 2nd Division/2027 Season/Fall Split_Week 2_10",
-    "leaguepedia_page": "Prime League 2nd Division/2027 Season/Fall Split",
-    "utc": "2026-10-25T16:00:00Z",
-    "forfeit_flag": null,
-    "source": "https://lol.fandom.com/wiki/Data:Prime_League_2nd_Division/2027_Season/Fall_Split",
-    "note": "league result from community-maintained Leaguepedia"
-   },
-   "grade": "hit",
-   "community_pick_pct": {
-    "team0": 15,
-    "team1": 85,
-    "total_picks": 27
-   }
-  },
-  {
-   "id": "1079028",
-   "competition": "PRM 2nd Division 26-27 Fall",
-   "start_utc": "2026-10-25T16:00:00Z",
-   "tier": "c",
-   "stage": null,
-   "best_of": null,
-   "points": 10,
-   "hotspawn_url": "https://www.hotspawn.com/matches/reveal-multigaming-vs-acegaming-prm-2nd-division-26-27-fall-1079028",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "Prime League 2nd Division/2027 Season/Fall Split",
-   "team0": {
-    "name": "Reveal Multigaming",
-    "leaguepedia": "Reveal Multigaming",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 42,
-    "rating_as_of": "2026-10-25T16:00:00Z",
-    "last_played": "2026-10-23",
-    "elo_raw": 1567.9,
-    "elo_now": 1568.5,
-    "elo": 1560.7
-   },
-   "team1": {
-    "name": "AceGaming",
-    "leaguepedia": "AceGaming",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 17,
-    "rating_as_of": "2026-10-25T16:00:00Z",
-    "last_played": "2026-10-23",
-    "elo_raw": 1442.8,
-    "elo_now": 1448.6,
-    "elo": 1455.8
-   },
-   "p0": 0.6465,
-   "p1": 0.3535,
-   "method": "model",
-   "confidence": "medium",
-   "basis": "Elo line: Reveal Multigaming 1561 vs AceGaming 1456 (42/17 rated series).",
-   "flags": [
-    "start time has passed and Leaguepedia records completed series Reveal Multigaming 2-1 AceGaming (Leaguepedia Data:Prime League 2nd Division/2027 Season/Fall Split); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ],
-   "pick": {
-    "side": 0,
-    "team": "Reveal Multigaming",
-    "probability": 0.6465,
-    "other_probability": 0.3535
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": {
-    "winner_side": 0,
-    "score0": 2,
-    "score1": 1,
-    "leaguepedia_winner": "1",
-    "leaguepedia_match_id": "Prime League 2nd Division/2027 Season/Fall Split_Week 2_9",
-    "leaguepedia_page": "Prime League 2nd Division/2027 Season/Fall Split",
-    "utc": "2026-10-25T16:00:00Z",
-    "forfeit_flag": null,
-    "source": "https://lol.fandom.com/wiki/Data:Prime_League_2nd_Division/2027_Season/Fall_Split",
-    "note": "league result from community-maintained Leaguepedia"
-   },
-   "grade": "hit",
-   "community_pick_pct": {
-    "team0": 41,
-    "team1": 59,
-    "total_picks": 27
    }
   },
   {
@@ -6435,445 +6236,6 @@
    }
   },
   {
-   "id": "1080928",
-   "competition": "Tunisian Super League 2026",
-   "start_utc": "2026-10-25T17:00:00Z",
-   "tier": null,
-   "stage": null,
-   "best_of": null,
-   "points": 10,
-   "hotspawn_url": "https://www.hotspawn.com/matches/jsk-esports-vs-enfida-esports-tunisian-super-league-2026-1080928",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "Tunisian Super League/2026 Season",
-   "team0": {
-    "name": "JSK Esports",
-    "leaguepedia": "JSK Esports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 68,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-18",
-    "elo_raw": 1621.9,
-    "elo_now": 1615.4,
-    "elo": 1610.5
-   },
-   "team1": {
-    "name": "Enfida Esports",
-    "leaguepedia": "Enfida Esports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 7,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1378.0,
-    "elo_now": 1404.5,
-    "elo": 1410.1
-   },
-   "p0": 0.7602,
-   "p1": 0.2398,
-   "method": "model",
-   "confidence": "medium",
-   "basis": "Elo line: JSK Esports 1610 vs Enfida Esports 1410 (68/7 rated series).",
-   "flags": [
-    "start time has passed and Leaguepedia records completed series JSK Esports 1-0 Enfida Esports (Leaguepedia Data:Tunisian Super League/2026 Season); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ],
-   "pick": {
-    "side": 0,
-    "team": "JSK Esports",
-    "probability": 0.7602,
-    "other_probability": 0.2398
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": {
-    "winner_side": 0,
-    "score0": 1,
-    "score1": 0,
-    "leaguepedia_winner": "1",
-    "leaguepedia_match_id": "Tunisian Super League/2026 Season_Day 6_4",
-    "leaguepedia_page": "Tunisian Super League/2026 Season",
-    "utc": "2026-10-25T17:00:00Z",
-    "forfeit_flag": null,
-    "source": "https://lol.fandom.com/wiki/Data:Tunisian_Super_League/2026_Season",
-    "note": "league result from community-maintained Leaguepedia"
-   },
-   "grade": "hit",
-   "community_pick_pct": {
-    "team0": 81,
-    "team1": 19,
-    "total_picks": 27
-   }
-  },
-  {
-   "id": "1080929",
-   "competition": "Tunisian Super League 2026",
-   "start_utc": "2026-10-25T17:00:00Z",
-   "tier": null,
-   "stage": null,
-   "best_of": null,
-   "points": 10,
-   "hotspawn_url": "https://www.hotspawn.com/matches/olympique-mnihla-vs-jendouba-esports-tunisian-super-league-2026-1080929",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "Tunisian Super League/2026 Season",
-   "team0": {
-    "name": "Olympique Mnihla",
-    "leaguepedia": "Olympique Mnihla",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 41,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1528.3,
-    "elo_now": 1529.3,
-    "elo": 1520.3
-   },
-   "team1": {
-    "name": "Jendouba Esports",
-    "leaguepedia": "Jendouba Esports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 5,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1444.1,
-    "elo_now": 1443.7,
-    "elo": 1449.6
-   },
-   "p0": 0.6004,
-   "p1": 0.3996,
-   "method": "model",
-   "confidence": "medium",
-   "basis": "Elo line: Olympique Mnihla 1520 vs Jendouba Esports 1450 (41/5 rated series).",
-   "flags": [
-    "start time has passed and Leaguepedia records completed series Olympique Mnihla 1-0 Jendouba Esports (Leaguepedia Data:Tunisian Super League/2026 Season); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ],
-   "pick": {
-    "side": 0,
-    "team": "Olympique Mnihla",
-    "probability": 0.6004,
-    "other_probability": 0.3996
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": {
-    "winner_side": 0,
-    "score0": 1,
-    "score1": 0,
-    "leaguepedia_winner": "1",
-    "leaguepedia_match_id": "Tunisian Super League/2026 Season_Day 6_5",
-    "leaguepedia_page": "Tunisian Super League/2026 Season",
-    "utc": "2026-10-25T17:00:00Z",
-    "forfeit_flag": null,
-    "source": "https://lol.fandom.com/wiki/Data:Tunisian_Super_League/2026_Season",
-    "note": "league result from community-maintained Leaguepedia"
-   },
-   "grade": "hit",
-   "community_pick_pct": {
-    "team0": 96,
-    "team1": 4,
-    "total_picks": 27
-   }
-  },
-  {
-   "id": "1080930",
-   "competition": "Tunisian Super League 2026",
-   "start_utc": "2026-10-25T17:00:00Z",
-   "tier": null,
-   "stage": null,
-   "best_of": null,
-   "points": 10,
-   "hotspawn_url": "https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-el-menzah-esports-tunisian-super-league-2026-1080930",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "Tunisian Super League/2026 Season",
-   "team0": {
-    "name": "Olympique Mnihla Academy",
-    "leaguepedia": "Olympique Mnihla Academy",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 5,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1473.7,
-    "elo_now": 1457.4,
-    "elo": 1464.3
-   },
-   "team1": {
-    "name": "El Menzah Esports",
-    "leaguepedia": "El Menzah Esports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 4,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-18",
-    "elo_raw": 1438.5,
-    "elo_now": 1453.9,
-    "elo": 1447.6
-   },
-   "p0": 0.524,
-   "p1": 0.476,
-   "method": "provisional",
-   "confidence": "low",
-   "basis": "Elo line: Olympique Mnihla Academy 1464 vs El Menzah Esports 1448 (5/4 rated series).",
-   "flags": [
-    "fewer than 5 rated series for at least one team",
-    "start time has passed and Leaguepedia records completed series Olympique Mnihla Academy 0-1 El Menzah Esports (Leaguepedia Data:Tunisian Super League/2026 Season); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ],
-   "pick": {
-    "side": 0,
-    "team": "Olympique Mnihla Academy",
-    "probability": 0.524,
-    "other_probability": 0.476
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": {
-    "winner_side": 1,
-    "score0": 0,
-    "score1": 1,
-    "leaguepedia_winner": "2",
-    "leaguepedia_match_id": "Tunisian Super League/2026 Season_Day 6_2",
-    "leaguepedia_page": "Tunisian Super League/2026 Season",
-    "utc": "2026-10-25T17:00:00Z",
-    "forfeit_flag": null,
-    "source": "https://lol.fandom.com/wiki/Data:Tunisian_Super_League/2026_Season",
-    "note": "league result from community-maintained Leaguepedia"
-   },
-   "grade": "miss",
-   "community_pick_pct": {
-    "team0": 26,
-    "team1": 74,
-    "total_picks": 27
-   }
-  },
-  {
-   "id": "1080931",
-   "competition": "Tunisian Super League 2026",
-   "start_utc": "2026-10-25T17:00:00Z",
-   "tier": null,
-   "stage": null,
-   "best_of": null,
-   "points": 10,
-   "hotspawn_url": "https://www.hotspawn.com/matches/simplicity-gaming-vs-supreme-leaders-tunisian-super-league-2026-1080931",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "Tunisian Super League/2026 Season",
-   "team0": {
-    "name": "Simplicity Gaming",
-    "leaguepedia": "Simplicity Gaming",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 39,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1666.7,
-    "elo_now": 1648.2,
-    "elo": 1642.6
-   },
-   "team1": {
-    "name": "Supreme Leaders",
-    "leaguepedia": "Supreme Leaders",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 5,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1447.4,
-    "elo_now": 1447.7,
-    "elo": 1451.2
-   },
-   "p0": 0.7506,
-   "p1": 0.2494,
-   "method": "model",
-   "confidence": "medium",
-   "basis": "Elo line: Simplicity Gaming 1643 vs Supreme Leaders 1451 (39/5 rated series).",
-   "flags": [
-    "start time has passed and Leaguepedia records completed series Simplicity Gaming 1-0 Supreme Leaders (Leaguepedia Data:Tunisian Super League/2026 Season); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ],
-   "pick": {
-    "side": 0,
-    "team": "Simplicity Gaming",
-    "probability": 0.7506,
-    "other_probability": 0.2494
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": {
-    "winner_side": 0,
-    "score0": 1,
-    "score1": 0,
-    "leaguepedia_winner": "1",
-    "leaguepedia_match_id": "Tunisian Super League/2026 Season_Day 6_3",
-    "leaguepedia_page": "Tunisian Super League/2026 Season",
-    "utc": "2026-10-25T17:00:00Z",
-    "forfeit_flag": 2,
-    "source": "https://lol.fandom.com/wiki/Data:Tunisian_Super_League/2026_Season",
-    "note": "league result from community-maintained Leaguepedia"
-   },
-   "grade": "hit",
-   "community_pick_pct": {
-    "team0": 96,
-    "team1": 4,
-    "total_picks": 27
-   }
-  },
-  {
-   "id": "1080932",
-   "competition": "Tunisian Super League 2026",
-   "start_utc": "2026-10-25T17:00:00Z",
-   "tier": null,
-   "stage": null,
-   "best_of": null,
-   "points": 10,
-   "hotspawn_url": "https://www.hotspawn.com/matches/zahrouni-esports-vs-jsk-academy-tunisian-super-league-2026-1080932",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "Tunisian Super League/2026 Season",
-   "team0": {
-    "name": "Zahrouni Esports",
-    "leaguepedia": "Zahrouni Esports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 5,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1407.4,
-    "elo_now": 1423.2,
-    "elo": 1431.2
-   },
-   "team1": {
-    "name": "JSK Academy",
-    "leaguepedia": "JSK Academy",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 31,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1468.4,
-    "elo_now": 1482.0,
-    "elo": 1472.8
-   },
-   "p0": 0.4404,
-   "p1": 0.5596,
-   "method": "model",
-   "confidence": "medium",
-   "basis": "Elo line: Zahrouni Esports 1431 vs JSK Academy 1473 (5/31 rated series).",
-   "flags": [
-    "start time has passed and Leaguepedia records completed series Zahrouni Esports 0-1 JSK Academy (Leaguepedia Data:Tunisian Super League/2026 Season); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ],
-   "pick": {
-    "side": 1,
-    "team": "JSK Academy",
-    "probability": 0.5596,
-    "other_probability": 0.4404
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": {
-    "winner_side": 1,
-    "score0": 0,
-    "score1": 1,
-    "leaguepedia_winner": "2",
-    "leaguepedia_match_id": "Tunisian Super League/2026 Season_Day 6_1",
-    "leaguepedia_page": "Tunisian Super League/2026 Season",
-    "utc": "2026-10-25T17:00:00Z",
-    "forfeit_flag": null,
-    "source": "https://lol.fandom.com/wiki/Data:Tunisian_Super_League/2026_Season",
-    "note": "league result from community-maintained Leaguepedia"
-   },
-   "grade": "hit",
-   "community_pick_pct": {
-    "team0": 12,
-    "team1": 88,
-    "total_picks": 25
-   }
-  },
-  {
-   "id": "1075817",
-   "competition": "Worlds 2026 Main Event",
-   "start_utc": "2026-10-25T17:00:00Z",
-   "tier": "s",
-   "stage": null,
-   "best_of": null,
-   "points": 30,
-   "hotspawn_url": "https://www.hotspawn.com/matches/invictus-gaming-vs-hanwha-life-esports-worlds-2026-main-event-1075817",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "2026 Season World Championship/Main Event",
-   "team0": {
-    "name": "Invictus Gaming",
-    "leaguepedia": "Invictus Gaming",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 114,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1705.0,
-    "elo_now": 1716.0,
-    "elo": 1696.4
-   },
-   "team1": {
-    "name": "Hanwha Life Esports",
-    "leaguepedia": "Hanwha Life Esports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 143,
-    "rating_as_of": "2026-10-25T17:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1929.3,
-    "elo_now": 1901.9,
-    "elo": 1921.6
-   },
-   "p0": 0.2148,
-   "p1": 0.7852,
-   "method": "model",
-   "confidence": "medium",
-   "basis": "Elo line: Invictus Gaming 1696 vs Hanwha Life Esports 1922 (114/143 rated series).",
-   "flags": [
-    "start time has passed and Leaguepedia records completed series Hanwha Life Esports 0-1 Invictus Gaming (Leaguepedia Data:2026 Season World Championship/Main Event); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ],
-   "pick": {
-    "side": 1,
-    "team": "Hanwha Life Esports",
-    "probability": 0.7852,
-    "other_probability": 0.2148
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": {
-    "winner_side": 0,
-    "score0": 1,
-    "score1": 0,
-    "leaguepedia_winner": "2",
-    "leaguepedia_match_id": "2026 Season World Championship/Main Event_Round 3_1",
-    "leaguepedia_page": "2026 Season World Championship/Main Event",
-    "utc": "2026-10-25T17:00:00Z",
-    "forfeit_flag": null,
-    "source": "https://lol.fandom.com/wiki/Data:2026_Season_World_Championship/Main_Event",
-    "note": "league result from community-maintained Leaguepedia"
-   },
-   "grade": "miss",
-   "community_pick_pct": {
-    "team0": 10,
-    "team1": 90,
-    "total_picks": 10
-   }
-  },
-  {
    "id": "1074660",
    "competition": "RIVALS LEAGUE Season 2",
    "start_utc": "2026-10-25T17:30:00Z",
@@ -7123,206 +6485,6 @@
    }
   },
   {
-   "id": "1075816",
-   "competition": "Worlds 2026 Main Event",
-   "start_utc": "2026-10-25T18:00:00Z",
-   "tier": "s",
-   "stage": null,
-   "best_of": null,
-   "points": 30,
-   "hotspawn_url": "https://www.hotspawn.com/matches/top-esports-vs-g2-esports-worlds-2026-main-event-1075816",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "2026 Season World Championship/Main Event",
-   "team0": {
-    "name": "Top Esports",
-    "leaguepedia": "Top Esports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 138,
-    "rating_as_of": "2026-10-25T18:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1735.7,
-    "elo_now": 1752.8,
-    "elo": 1734.4
-   },
-   "team1": {
-    "name": "G2 Esports",
-    "leaguepedia": "G2 Esports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 114,
-    "rating_as_of": "2026-10-25T18:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1910.0,
-    "elo_now": 1883.0,
-    "elo": 1901.2
-   },
-   "p0": 0.2768,
-   "p1": 0.7232,
-   "method": "model",
-   "confidence": "medium",
-   "basis": "Elo line: Top Esports 1734 vs G2 Esports 1901 (138/114 rated series).",
-   "flags": [
-    "start time has passed and Leaguepedia records completed series Top Esports 1-0 G2 Esports (Leaguepedia Data:2026 Season World Championship/Main Event); probability reflects strictly pre-kickoff ratings while Hotspawn card remains open"
-   ],
-   "pick": {
-    "side": 1,
-    "team": "G2 Esports",
-    "probability": 0.7232,
-    "other_probability": 0.2768
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": {
-    "winner_side": 0,
-    "score0": 1,
-    "score1": 0,
-    "leaguepedia_winner": "1",
-    "leaguepedia_match_id": "2026 Season World Championship/Main Event_Round 3_2",
-    "leaguepedia_page": "2026 Season World Championship/Main Event",
-    "utc": "2026-10-25T18:00:00Z",
-    "forfeit_flag": null,
-    "source": "https://lol.fandom.com/wiki/Data:2026_Season_World_Championship/Main_Event",
-    "note": "league result from community-maintained Leaguepedia"
-   },
-   "grade": "miss",
-   "community_pick_pct": {
-    "team0": 20,
-    "team1": 80,
-    "total_picks": 10
-   }
-  },
-  {
-   "id": "1079029",
-   "competition": "PRM 2nd Division 26-27 Fall",
-   "start_utc": "2026-10-25T18:30:00Z",
-   "tier": "c",
-   "stage": null,
-   "best_of": null,
-   "points": 10,
-   "hotspawn_url": "https://www.hotspawn.com/matches/404-multigaming-e-v-vs-vfb-esports-prm-2nd-division-26-27-fall-1079029",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "Prime League 2nd Division/2027 Season/Fall Split",
-   "team0": {
-    "name": "404 Multigaming e.V.",
-    "leaguepedia": "404 Multigaming e.V.",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 48,
-    "rating_as_of": "2026-10-25T18:30:00Z",
-    "last_played": "2026-10-20",
-    "elo_raw": 1604.6,
-    "elo_now": 1594.7,
-    "elo": 1594.7
-   },
-   "team1": {
-    "name": "VfB eSports",
-    "leaguepedia": "VfB eSports",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 89,
-    "rating_as_of": "2026-10-25T18:30:00Z",
-    "last_played": "2026-10-18",
-    "elo_raw": 1529.8,
-    "elo_now": 1528.2,
-    "elo": 1528.2
-   },
-   "p0": 0.5945,
-   "p1": 0.4055,
-   "method": "model",
-   "confidence": "medium",
-   "basis": "Elo line: 404 Multigaming e.V. 1595 vs VfB eSports 1528 (48/89 rated series).",
-   "flags": [
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "pick": {
-    "side": 0,
-    "team": "404 Multigaming e.V.",
-    "probability": 0.5945,
-    "other_probability": 0.4055
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": null,
-   "grade": null,
-   "community_pick_pct": {
-    "team0": 20,
-    "team1": 80,
-    "total_picks": 25
-   }
-  },
-  {
-   "id": "1079030",
-   "competition": "PRM 2nd Division 26-27 Fall",
-   "start_utc": "2026-10-25T18:30:00Z",
-   "tier": "c",
-   "stage": null,
-   "best_of": null,
-   "points": 10,
-   "hotspawn_url": "https://www.hotspawn.com/matches/locked-in-vs-dkb-xperion-nxt-prm-2nd-division-26-27-fall-1079030",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "Prime League 2nd Division/2027 Season/Fall Split",
-   "team0": {
-    "name": "Locked IN",
-    "leaguepedia": "Locked In (Dutch Team)",
-    "join": "competition-page",
-    "join_notes": [
-     "resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Team)'"
-    ],
-    "rating_matches": 40,
-    "rating_as_of": "2026-10-25T18:30:00Z",
-    "last_played": "2026-10-23",
-    "elo_raw": 1516.5,
-    "elo_now": 1509.7,
-    "elo": 1509.7
-   },
-   "team1": {
-    "name": "DKB XPERION NXT",
-    "leaguepedia": "DKB XPERION NXT",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 91,
-    "rating_as_of": "2026-10-25T18:30:00Z",
-    "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
-   },
-   "p0": 0.3633,
-   "p1": 0.6367,
-   "method": "model",
-   "confidence": "medium",
-   "basis": "Elo line: Locked In (Dutch Team) 1510 vs DKB XPERION NXT 1607 (40/91 rated series).",
-   "flags": [
-    "resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Team)'",
-    "start time has passed but Hotspawn still lists the fixture as scheduled (reason unverified)"
-   ],
-   "pick": {
-    "side": 1,
-    "team": "DKB XPERION NXT",
-    "probability": 0.6367,
-    "other_probability": 0.3633
-   },
-   "pick_type": null,
-   "market": null,
-   "resolution": null,
-   "connected": true,
-   "stale": true,
-   "result": null,
-   "grade": null,
-   "community_pick_pct": {
-    "team0": 72,
-    "team1": 28,
-    "total_picks": 25
-   }
-  },
-  {
    "id": "1074663",
    "competition": "RIVALS LEAGUE Season 2",
    "start_utc": "2026-10-25T18:30:00Z",
@@ -7458,151 +6620,6 @@
    }
   },
   {
-   "id": "1075818",
-   "competition": "Worlds 2026 Main Event",
-   "start_utc": "2026-10-25T22:00:00Z",
-   "tier": "s",
-   "stage": null,
-   "best_of": null,
-   "points": 30,
-   "hotspawn_url": "https://www.hotspawn.com/matches/gen-g-vs-lyon-worlds-2026-main-event-1075818",
-   "pickem_url": "https://play.hotspawn.com/lol-pickems",
-   "leaguepedia_page": "2026 Season World Championship/Main Event",
-   "team0": {
-    "name": "Gen.G",
-    "leaguepedia": "Gen.G",
-    "join": "exact",
-    "join_notes": [],
-    "rating_matches": 135,
-    "rating_as_of": "2026-10-25T22:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1974.3,
-    "elo_now": 1964.5,
-    "elo": 1964.5
-   },
-   "team1": {
-    "name": "LYON",
-    "leaguepedia": "LYON (2024 American Team)",
-    "join": "competition-page",
-    "join_notes": [
-     "resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'"
-    ],
-    "rating_matches": 61,
-    "rating_as_of": "2026-10-25T22:00:00Z",
-    "last_played": "2026-10-24",
-    "elo_raw": 1860.2,
-    "elo_now": 1848.1,
-    "elo": 1848.1
-   },
-   "p0": 0.9032,
-   "p1": 0.0968,
-   "method": "market",
-   "confidence": "high",
-   "basis": "5-Venue Consensus de-vigged line (90.3% / 9.7%): Pinnacle 89.7%/10.3% (1.06/9.25), Polymarket 91.5%/8.5% (91.5¢/8.5¢), Kalshi 91.5%/8.5% (92¢/8¢), Bovada 89.5%/10.5% (1.06/9.00), Unibet 87.5%/12.5% (1.07/7.50).",
-   "flags": [
-    "market and model disagree by 24 pp (market 90.3% vs our Elo 66.2%) - the market side is published, the gap is disclosed",
-    "resolved within '2026 Season World Championship/Main Event' to 'LYON (2024 American Team)'"
-   ],
-   "pick": {
-    "side": 0,
-    "team": "Gen.G",
-    "probability": 0.9032,
-    "other_probability": 0.0968
-   },
-   "pick_type": null,
-   "market": {
-    "thin": false,
-    "thin_note": "",
-    "book": "5-Venue Consensus",
-    "kind": "bookmaker",
-    "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight",
-    "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight",
-    "market_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight",
-    "decimal": {
-     "home": 1.063,
-     "away": 9.25
-    },
-    "american": {
-     "home": -1575,
-     "away": 825
-    },
-    "p0": 0.9032,
-    "p1": 0.0968,
-    "overround": 0.0484,
-    "start_utc": "2026-10-25T22:15:00Z",
-    "league": "League of Legends - World Championship",
-    "venue_count": 5,
-    "rejected_venues": [],
-    "total_volume_usd": 493310.54,
-    "volume_usd": 493310.54,
-    "venues": [
-     {
-      "name": "Pinnacle",
-      "weight": 0.34,
-      "p0": 0.8969,
-      "p1": 0.1031,
-      "quote": "1.06/9.25",
-      "overround": 0.0484,
-      "observed_utc": "2026-10-25T20:54:00Z",
-      "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235121/markets/related/straight"
-     },
-     {
-      "name": "Polymarket",
-      "weight": 0.22,
-      "p0": 0.915,
-      "p1": 0.085,
-      "quote": "91.5¢/8.5¢",
-      "overround": 0.0,
-      "observed_utc": "2026-10-25T20:55:04Z",
-      "url": "https://polymarket.com/event/lol-gen-ly-2026-10-25",
-      "volume_usd": 493310.54
-     },
-     {
-      "name": "Kalshi",
-      "weight": 0.16,
-      "p0": 0.915,
-      "p1": 0.085,
-      "quote": "92¢/8¢",
-      "overround": 0.0,
-      "observed_utc": "2026-10-25T20:54:00Z",
-      "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct251500lygen"
-     },
-     {
-      "name": "Bovada",
-      "weight": 0.08,
-      "p0": 0.895,
-      "p1": 0.105,
-      "quote": "1.06/9.00",
-      "overround": 0.0585,
-      "observed_utc": "2026-10-25T20:54:00Z",
-      "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/gen-g-lyon-gaming-202610251800"
-     },
-     {
-      "name": "Unibet",
-      "weight": 0.06,
-      "p0": 0.8751,
-      "p1": 0.1249,
-      "quote": "1.07/7.50",
-      "overround": 0.0679,
-      "observed_utc": "2026-10-25T20:52:16Z",
-      "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621112.json?lang=en_GB&market=ZZ"
-     }
-    ],
-    "model_cross_check": 0.6615,
-    "start_mismatch_hours": 0.2
-   },
-   "resolution": null,
-   "connected": true,
-   "stale": false,
-   "result": null,
-   "grade": null,
-   "community_pick_pct": {
-    "team0": 92,
-    "team1": 8,
-    "total_picks": 13
-   }
-  },
-  {
    "id": "1075821",
    "competition": "Worlds 2026 Main Event",
    "start_utc": "2026-10-26T17:00:00Z",
@@ -7621,7 +6638,7 @@
     "rating_matches": 156,
     "rating_as_of": "2026-10-26T17:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1872.5,
+    "elo_raw": 1872.4,
     "elo_now": 1867.1,
     "elo": 1867.1
    },
@@ -7633,21 +6650,21 @@
     "rating_matches": 76,
     "rating_as_of": "2026-10-26T17:00:00Z",
     "last_played": "2026-10-24",
-    "elo_raw": 1744.2,
+    "elo_raw": 1744.1,
     "elo_now": 1741.4,
     "elo": 1741.4
    },
-   "p0": 0.8588,
-   "p1": 0.1412,
+   "p0": 0.8626,
+   "p1": 0.1374,
    "method": "market",
    "confidence": "high",
-   "basis": "6-Venue Consensus de-vigged line (85.9% / 14.1%): Pinnacle 84.3%/15.7% (1.13/6.05), Polymarket 88.5%/11.5% (88.5¢/11.5¢), Kalshi 88.4%/11.6% (88¢/12¢), Bovada 82.9%/17.1% (1.13/5.50), Unibet 82.8%/17.2% (1.12/5.40), Smarkets 85.8%/14.2% (88.2%/14.6%).",
+   "basis": "6-Venue Consensus de-vigged line (86.3% / 13.7%): Pinnacle 84.9%/15.2% (1.12/6.28), Polymarket 88.5%/11.5% (88.5¢/11.5¢), Kalshi 88.5%/11.5% (88¢/12¢), Bovada 82.9%/17.1% (1.13/5.50), Unibet 84.5%/15.5% (1.10/6.00), Smarkets 86.3%/13.7% (88.2%/14.0%).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "T1",
-    "probability": 0.8588,
-    "other_probability": 0.1412
+    "probability": 0.8626,
+    "other_probability": 0.1374
    },
    "pick_type": null,
    "market": {
@@ -7659,31 +6676,31 @@
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235122/markets/related/straight",
     "market_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235122/markets/related/straight",
     "decimal": {
-     "home": 1.129,
-     "away": 6.05
+     "home": 1.121,
+     "away": 6.28
     },
     "american": {
-     "home": -777,
-     "away": 505
+     "home": -826,
+     "away": 528
     },
-    "p0": 0.8588,
-    "p1": 0.1412,
-    "overround": 0.0513,
+    "p0": 0.8626,
+    "p1": 0.1374,
+    "overround": 0.0512,
     "start_utc": "2026-10-26T17:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 6,
     "rejected_venues": [],
-    "total_volume_usd": 125322.92,
-    "volume_usd": 125322.92,
+    "total_volume_usd": 156076.22,
+    "volume_usd": 156076.22,
     "venues": [
      {
       "name": "Pinnacle",
       "weight": 0.34,
-      "p0": 0.8428,
-      "p1": 0.1572,
-      "quote": "1.13/6.05",
-      "overround": 0.0513,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "p0": 0.8485,
+      "p1": 0.1515,
+      "quote": "1.12/6.28",
+      "overround": 0.0512,
+      "observed_utc": "2026-10-26T04:51:22Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639235122/markets/related/straight"
      },
      {
@@ -7693,18 +6710,18 @@
       "p1": 0.115,
       "quote": "88.5¢/11.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T20:55:04Z",
+      "observed_utc": "2026-10-26T04:52:33Z",
       "url": "https://polymarket.com/event/lol-t1-cfo-2026-10-26",
-      "volume_usd": 125322.92
+      "volume_usd": 156076.22
      },
      {
       "name": "Kalshi",
       "weight": 0.16,
-      "p0": 0.8838,
-      "p1": 0.1162,
+      "p0": 0.885,
+      "p1": 0.115,
       "quote": "88¢/12¢",
-      "overround": -0.01,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "overround": 0.0,
+      "observed_utc": "2026-10-26T04:51:22Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261400cfot1"
      },
      {
@@ -7714,27 +6731,27 @@
       "p1": 0.1709,
       "quote": "1.13/5.50",
       "overround": 0.0642,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "observed_utc": "2026-10-26T04:51:23Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/t1-ctbc-flying-oyster-202610261300"
      },
      {
       "name": "Unibet",
       "weight": 0.06,
-      "p0": 0.8282,
-      "p1": 0.1718,
-      "quote": "1.12/5.40",
-      "overround": 0.078,
-      "observed_utc": "2026-10-25T06:38:31Z",
+      "p0": 0.8451,
+      "p1": 0.1549,
+      "quote": "1.10/6.00",
+      "overround": 0.0758,
+      "observed_utc": "2026-10-26T03:26:54Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621121.json?lang=en_GB&market=ZZ"
      },
      {
       "name": "Smarkets",
       "weight": 0.14,
-      "p0": 0.8581,
-      "p1": 0.1419,
-      "quote": "88.2%/14.6%",
-      "overround": 0.0277,
-      "observed_utc": "2026-10-25T20:54:02Z",
+      "p0": 0.863,
+      "p1": 0.137,
+      "quote": "88.2%/14.0%",
+      "overround": 0.0219,
+      "observed_utc": "2026-10-26T04:51:25Z",
       "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/17-00/t1-vs-ctbc-flying-oyster/45400324/"
      }
     ],
@@ -7749,7 +6766,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 10
+    "total_picks": 15
    }
   },
   {
@@ -7809,7 +6826,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 12
+    "total_picks": 16
    }
   },
   {
@@ -7844,20 +6861,20 @@
     "rating_as_of": "2026-10-26T18:00:00Z",
     "last_played": "2026-10-25",
     "elo_raw": 1937.6,
-    "elo_now": 1930.0,
-    "elo": 1930.0
+    "elo_now": 1929.9,
+    "elo": 1929.9
    },
-   "p0": 0.2958,
-   "p1": 0.7042,
+   "p0": 0.296,
+   "p1": 0.704,
    "method": "market",
    "confidence": "high",
-   "basis": "6-Venue Consensus de-vigged line (29.6% / 70.4%): Pinnacle 28.3%/71.7% (3.38/1.33), Polymarket 29.5%/70.5% (29.5¢/70.5¢), Kalshi 29.8%/70.2% (30¢/70¢), Bovada 32.3%/67.7% (2.90/1.38), Unibet 32.6%/67.4% (2.85/1.38), Smarkets 29.7%/70.3% (29.6%/70.0%).",
+   "basis": "6-Venue Consensus de-vigged line (29.6% / 70.4%): Pinnacle 29.0%/71.0% (3.29/1.35), Polymarket 29.5%/70.5% (29.5¢/70.5¢), Kalshi 29.5%/70.5% (30¢/70¢), Bovada 30.3%/69.7% (3.10/1.35), Unibet 32.6%/67.4% (2.85/1.38), Smarkets 29.5%/70.5% (29.3%/70.0%).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Bilibili Gaming",
-    "probability": 0.7042,
-    "other_probability": 0.2958
+    "probability": 0.704,
+    "other_probability": 0.296
    },
    "pick_type": null,
    "market": {
@@ -7869,31 +6886,31 @@
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227252/markets/related/straight",
     "market_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227252/markets/related/straight",
     "decimal": {
-     "home": 3.38,
-     "away": 1.333
+     "home": 3.29,
+     "away": 1.347
     },
     "american": {
-     "home": 238,
-     "away": -300
+     "home": 229,
+     "away": -288
     },
-    "p0": 0.2958,
-    "p1": 0.7042,
-    "overround": 0.0459,
+    "p0": 0.296,
+    "p1": 0.704,
+    "overround": 0.0462,
     "start_utc": "2026-10-26T18:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 6,
     "rejected_venues": [],
-    "total_volume_usd": 104398.64,
-    "volume_usd": 104398.64,
+    "total_volume_usd": 116243.34,
+    "volume_usd": 116243.34,
     "venues": [
      {
       "name": "Pinnacle",
       "weight": 0.34,
-      "p0": 0.2829,
-      "p1": 0.7171,
-      "quote": "3.38/1.33",
-      "overround": 0.0459,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "p0": 0.2905,
+      "p1": 0.7095,
+      "quote": "3.29/1.35",
+      "overround": 0.0462,
+      "observed_utc": "2026-10-26T04:51:22Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227252/markets/related/straight"
      },
      {
@@ -7903,28 +6920,28 @@
       "p1": 0.705,
       "quote": "29.5¢/70.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T20:55:04Z",
+      "observed_utc": "2026-10-26T04:52:33Z",
       "url": "https://polymarket.com/event/lol-kc-blg-2026-10-26",
-      "volume_usd": 104398.64
+      "volume_usd": 116243.34
      },
      {
       "name": "Kalshi",
       "weight": 0.16,
-      "p0": 0.298,
-      "p1": 0.702,
+      "p0": 0.295,
+      "p1": 0.705,
       "quote": "30¢/70¢",
-      "overround": -0.01,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "overround": 0.0,
+      "observed_utc": "2026-10-26T04:51:22Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261300blgkc"
      },
      {
       "name": "Bovada",
       "weight": 0.08,
-      "p0": 0.3232,
-      "p1": 0.6768,
-      "quote": "2.90/1.38",
-      "overround": 0.0671,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "p0": 0.3035,
+      "p1": 0.6965,
+      "quote": "3.10/1.35",
+      "overround": 0.0628,
+      "observed_utc": "2026-10-26T04:51:23Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/karmine-corp-bilibili-gaming-202610261400"
      },
      {
@@ -7934,21 +6951,21 @@
       "p1": 0.6738,
       "quote": "2.85/1.38",
       "overround": 0.0755,
-      "observed_utc": "2026-10-25T06:38:24Z",
+      "observed_utc": "2026-10-26T03:45:30Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621120.json?lang=en_GB&market=ZZ"
      },
      {
       "name": "Smarkets",
       "weight": 0.14,
-      "p0": 0.2971,
-      "p1": 0.7029,
-      "quote": "29.6%/70.0%",
-      "overround": -0.0038,
-      "observed_utc": "2026-10-25T20:54:02Z",
+      "p0": 0.2949,
+      "p1": 0.7051,
+      "quote": "29.3%/70.0%",
+      "overround": -0.0071,
+      "observed_utc": "2026-10-26T04:51:25Z",
       "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/18-00/karmine-corp-vs-bilibili-gaming/45400323/"
      }
     ],
-    "model_cross_check": 0.4408,
+    "model_cross_check": 0.441,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -7957,9 +6974,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 40,
-    "team1": 60,
-    "total_picks": 10
+    "team0": 27,
+    "team1": 73,
+    "total_picks": 15
    }
   },
   {
@@ -8021,9 +7038,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 90,
-    "team1": 10,
-    "total_picks": 10
+    "team0": 93,
+    "team1": 7,
+    "total_picks": 15
    }
   },
   {
@@ -8083,9 +7100,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 41,
-    "team1": 59,
-    "total_picks": 22
+    "team0": 42,
+    "team1": 58,
+    "total_picks": 24
    }
   },
   {
@@ -8123,17 +7140,17 @@
     "elo_now": 1838.6,
     "elo": 1838.6
    },
-   "p0": 0.3496,
-   "p1": 0.6504,
+   "p0": 0.345,
+   "p1": 0.655,
    "method": "market",
    "confidence": "high",
-   "basis": "6-Venue Consensus de-vigged line (35.0% / 65.0%): Pinnacle 35.6%/64.3% (2.69/1.49), Polymarket 34.5%/65.5% (34.5¢/65.5¢), Kalshi 34.8%/65.1% (34¢/64¢), Bovada 32.9%/67.1% (2.85/1.40), Unibet 35.6%/64.4% (2.60/1.44), Smarkets 35.0%/65.0% (34.2%/63.7%).",
+   "basis": "6-Venue Consensus de-vigged line (34.5% / 65.5%): Pinnacle 34.4%/65.6% (2.79/1.46), Polymarket 34.5%/65.5% (34.5¢/65.5¢), Kalshi 34.8%/65.1% (34¢/64¢), Bovada 32.9%/67.1% (2.85/1.40), Unibet 35.8%/64.2% (2.60/1.45), Smarkets 34.8%/65.2% (34.2%/64.3%).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Team Secret Whales",
-    "probability": 0.6504,
-    "other_probability": 0.3496
+    "probability": 0.655,
+    "other_probability": 0.345
    },
    "pick_type": null,
    "market": {
@@ -8145,31 +7162,31 @@
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229311/markets/related/straight",
     "market_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229311/markets/related/straight",
     "decimal": {
-     "home": 2.69,
-     "away": 1.49
+     "home": 2.79,
+     "away": 1.461
     },
     "american": {
-     "home": 169,
-     "away": -204
+     "home": 179,
+     "away": -217
     },
-    "p0": 0.3496,
-    "p1": 0.6504,
-    "overround": 0.0428,
+    "p0": 0.345,
+    "p1": 0.655,
+    "overround": 0.043,
     "start_utc": "2026-10-26T19:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 6,
     "rejected_venues": [],
-    "total_volume_usd": 17747.63,
-    "volume_usd": 17747.63,
+    "total_volume_usd": 26097.55,
+    "volume_usd": 26097.55,
     "venues": [
      {
       "name": "Pinnacle",
       "weight": 0.34,
-      "p0": 0.3565,
-      "p1": 0.6435,
-      "quote": "2.69/1.49",
-      "overround": 0.0428,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "p0": 0.3437,
+      "p1": 0.6563,
+      "quote": "2.79/1.46",
+      "overround": 0.043,
+      "observed_utc": "2026-10-26T04:51:22Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639229311/markets/related/straight"
      },
      {
@@ -8179,9 +7196,9 @@
       "p1": 0.655,
       "quote": "34.5¢/65.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T20:55:04Z",
+      "observed_utc": "2026-10-26T04:52:33Z",
       "url": "https://polymarket.com/event/lol-los-tsw-2026-10-26",
-      "volume_usd": 17747.63
+      "volume_usd": 26097.55
      },
      {
       "name": "Kalshi",
@@ -8190,7 +7207,7 @@
       "p1": 0.6515,
       "quote": "34¢/64¢",
       "overround": -0.01,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "observed_utc": "2026-10-26T04:51:22Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261500tswlos"
      },
      {
@@ -8200,27 +7217,27 @@
       "p1": 0.6706,
       "quote": "2.85/1.40",
       "overround": 0.0652,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "observed_utc": "2026-10-26T04:51:23Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/los-grandes-team-secret-202610261500"
      },
      {
       "name": "Unibet",
       "weight": 0.06,
-      "p0": 0.3564,
-      "p1": 0.6436,
-      "quote": "2.60/1.44",
-      "overround": 0.0791,
-      "observed_utc": "2026-10-25T06:46:03Z",
+      "p0": 0.358,
+      "p1": 0.642,
+      "quote": "2.60/1.45",
+      "overround": 0.0743,
+      "observed_utc": "2026-10-26T04:06:05Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621122.json?lang=en_GB&market=ZZ"
      },
      {
       "name": "Smarkets",
       "weight": 0.14,
-      "p0": 0.3496,
-      "p1": 0.6504,
-      "quote": "34.2%/63.7%",
-      "overround": -0.0207,
-      "observed_utc": "2026-10-25T20:54:02Z",
+      "p0": 0.3475,
+      "p1": 0.6525,
+      "quote": "34.2%/64.3%",
+      "overround": -0.0149,
+      "observed_utc": "2026-10-26T04:51:25Z",
       "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/19-00/los-vs-team-secret-whales/45400326/"
      }
     ],
@@ -8235,7 +7252,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 10
+    "total_picks": 15
    }
   },
   {
@@ -8257,9 +7274,9 @@
     "rating_matches": 80,
     "rating_as_of": "2026-10-26T22:00:00Z",
     "last_played": "2026-10-25",
-    "elo_raw": 1823.5,
-    "elo_now": 1816.3,
-    "elo": 1816.3
+    "elo_raw": 1823.4,
+    "elo_now": 1816.1,
+    "elo": 1816.1
    },
    "team1": {
     "name": "Anyone's Legend",
@@ -8273,19 +7290,19 @@
     "elo_now": 1776.7,
     "elo": 1776.7
    },
-   "p0": 0.3087,
-   "p1": 0.6913,
+   "p0": 0.2985,
+   "p1": 0.7015,
    "method": "market",
    "confidence": "high",
-   "basis": "6-Venue Consensus de-vigged line (30.9% / 69.1%): Pinnacle 31.4%/68.6% (3.05/1.40), Polymarket 29.5%/70.5% (29.5¢/70.5¢), Kalshi 29.8%/70.2% (30¢/70¢), Bovada 31.2%/68.8% (3.00/1.36), Unibet 33.3%/66.7% (2.80/1.40), Smarkets 31.7%/68.3% (31.6%/68.3%).",
+   "basis": "6-Venue Consensus de-vigged line (29.8% / 70.2%): Pinnacle 30.1%/69.9% (3.18/1.37), Polymarket 28.5%/71.5% (28.5¢/71.5¢), Kalshi 29.5%/70.5% (30¢/70¢), Bovada 31.2%/68.8% (3.00/1.36), Unibet 31.9%/68.1% (2.90/1.36), Smarkets 30.2%/69.8% (30.4%/70.2%).",
    "flags": [
-    "market and model disagree by 25 pp (market 69.1% vs our Elo 55.7%) - the market side is published, the gap is disclosed"
+    "market and model disagree by 26 pp (market 70.2% vs our Elo 55.6%) - the market side is published, the gap is disclosed"
    ],
    "pick": {
     "side": 1,
     "team": "Anyone's Legend",
-    "probability": 0.6913,
-    "other_probability": 0.3087
+    "probability": 0.7015,
+    "other_probability": 0.2985
    },
    "pick_type": null,
    "market": {
@@ -8297,52 +7314,52 @@
     "api_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227251/markets/related/straight",
     "market_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227251/markets/related/straight",
     "decimal": {
-     "home": 3.05,
-     "away": 1.397
+     "home": 3.18,
+     "away": 1.368
     },
     "american": {
-     "home": 205,
-     "away": -252
+     "home": 218,
+     "away": -272
     },
-    "p0": 0.3087,
-    "p1": 0.6913,
-    "overround": 0.0438,
+    "p0": 0.2985,
+    "p1": 0.7015,
+    "overround": 0.0457,
     "start_utc": "2026-10-26T22:15:00Z",
     "league": "League of Legends - World Championship",
     "venue_count": 6,
     "rejected_venues": [],
-    "total_volume_usd": 13701.87,
-    "volume_usd": 13701.87,
+    "total_volume_usd": 21072.98,
+    "volume_usd": 21072.98,
     "venues": [
      {
       "name": "Pinnacle",
       "weight": 0.34,
-      "p0": 0.3141,
-      "p1": 0.6859,
-      "quote": "3.05/1.40",
-      "overround": 0.0438,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "p0": 0.3007,
+      "p1": 0.6993,
+      "quote": "3.18/1.37",
+      "overround": 0.0457,
+      "observed_utc": "2026-10-26T04:51:22Z",
       "url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639227251/markets/related/straight"
      },
      {
       "name": "Polymarket",
       "weight": 0.22,
-      "p0": 0.295,
-      "p1": 0.705,
-      "quote": "29.5¢/70.5¢",
+      "p0": 0.285,
+      "p1": 0.715,
+      "quote": "28.5¢/71.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T20:55:04Z",
+      "observed_utc": "2026-10-26T04:52:33Z",
       "url": "https://polymarket.com/event/lol-tl2-al-2026-10-26",
-      "volume_usd": 13701.87
+      "volume_usd": 21072.98
      },
      {
       "name": "Kalshi",
       "weight": 0.16,
-      "p0": 0.298,
-      "p1": 0.702,
+      "p0": 0.295,
+      "p1": 0.705,
       "quote": "30¢/70¢",
-      "overround": -0.01,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "overround": 0.0,
+      "observed_utc": "2026-10-26T04:51:22Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261800altl"
      },
      {
@@ -8352,31 +7369,31 @@
       "p1": 0.6875,
       "quote": "3.00/1.36",
       "overround": 0.0667,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "observed_utc": "2026-10-26T04:51:23Z",
       "url": "https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-anyone-s-legend-202610261800"
      },
      {
       "name": "Unibet",
       "weight": 0.06,
-      "p0": 0.3333,
-      "p1": 0.6667,
-      "quote": "2.80/1.40",
-      "overround": 0.0714,
-      "observed_utc": "2026-10-25T06:53:47Z",
+      "p0": 0.3192,
+      "p1": 0.6808,
+      "quote": "2.90/1.36",
+      "overround": 0.0801,
+      "observed_utc": "2026-10-26T04:29:08Z",
       "url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029621123.json?lang=en_GB&market=ZZ"
      },
      {
       "name": "Smarkets",
       "weight": 0.14,
-      "p0": 0.3166,
-      "p1": 0.6834,
-      "quote": "31.6%/68.3%",
-      "overround": -0.0008,
-      "observed_utc": "2026-10-25T20:54:02Z",
+      "p0": 0.3018,
+      "p1": 0.6982,
+      "quote": "30.4%/70.2%",
+      "overround": 0.0057,
+      "observed_utc": "2026-10-26T04:51:25Z",
       "url": "https://smarkets.com/esports/league-of-legends/worlds/group-stage/2026/10/26/22-00/team-liquid-vs-anyone-s-legend/45400325/"
      }
     ],
-    "model_cross_check": 0.5567,
+    "model_cross_check": 0.5565,
     "start_mismatch_hours": 0.2
    },
    "resolution": null,
@@ -8385,9 +7402,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 20,
-    "team1": 80,
-    "total_picks": 10
+    "team0": 13,
+    "team1": 87,
+    "total_picks": 15
    }
   },
   {
@@ -8425,17 +7442,17 @@
     "elo_now": 1834.3,
     "elo": 1834.3
    },
-   "p0": 0.3739,
-   "p1": 0.6261,
+   "p0": 0.3682,
+   "p1": 0.6318,
    "method": "market",
    "confidence": "high",
-   "basis": "2-Venue Consensus de-vigged line (37.4% / 62.6%): Polymarket 37.5%/62.5% (37.5¢/62.5¢), Kalshi 37.2%/62.7% (38¢/64¢).",
+   "basis": "2-Venue Consensus de-vigged line (36.8% / 63.2%): Polymarket 36.5%/63.5% (36.5¢/63.5¢), Kalshi 37.2%/62.7% (38¢/64¢).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Vitality Rising Bees",
-    "probability": 0.6261,
-    "other_probability": 0.3739
+    "probability": 0.6318,
+    "other_probability": 0.3682
    },
    "pick_type": null,
    "market": {
@@ -8448,8 +7465,8 @@
     "market_url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
     "decimal": null,
     "american": null,
-    "p0": 0.3739,
-    "p1": 0.6261,
+    "p0": 0.3682,
+    "p1": 0.6318,
     "overround": 0.0,
     "start_utc": "2026-10-27 16:00:00+00",
     "league": null,
@@ -8461,11 +7478,11 @@
      {
       "name": "Polymarket",
       "weight": 0.22,
-      "p0": 0.375,
-      "p1": 0.625,
-      "quote": "37.5¢/62.5¢",
+      "p0": 0.365,
+      "p1": 0.635,
+      "quote": "36.5¢/63.5¢",
       "overround": 0.0,
-      "observed_utc": "2026-10-25T20:55:04Z",
+      "observed_utc": "2026-10-26T04:52:33Z",
       "url": "https://polymarket.com/event/lol-rb-mr-2026-10-27",
       "volume_usd": 58.47
      },
@@ -8476,7 +7493,7 @@
       "p1": 0.6275,
       "quote": "38¢/64¢",
       "overround": 0.02,
-      "observed_utc": "2026-10-25T20:54:00Z",
+      "observed_utc": "2026-10-26T04:51:22Z",
       "url": "https://kalshi.com/markets/kxlolgame/kxlolgame-26oct271300rbmr"
      }
     ],
@@ -8490,7 +7507,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 14
+    "total_picks": 16
    }
   },
   {
@@ -8509,12 +7526,12 @@
     "leaguepedia": "DKB XPERION NXT",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 91,
+    "rating_matches": 92,
     "rating_as_of": "2026-10-27T17:00:00Z",
-    "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "last_played": "2026-10-25",
+    "elo_raw": 1624.3,
+    "elo_now": 1617.9,
+    "elo": 1617.9
    },
    "team1": {
     "name": "Phong Vũ Buffalo",
@@ -8530,19 +7547,19 @@
     "elo_now": 1560.7,
     "elo": 1560.7
    },
-   "p0": 0.5665,
-   "p1": 0.4335,
+   "p0": 0.5816,
+   "p1": 0.4184,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: DKB XPERION NXT 1607 vs PvB (Swiss Team) 1561 (91/36 rated series).",
+   "basis": "Elo line: DKB XPERION NXT 1618 vs PvB (Swiss Team) 1561 (92/36 rated series).",
    "flags": [
     "explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evidence (see Flagged for review)"
    ],
    "pick": {
     "side": 0,
     "team": "DKB XPERION NXT",
-    "probability": 0.5665,
-    "other_probability": 0.4335
+    "probability": 0.5816,
+    "other_probability": 0.4184
    },
    "pick_type": null,
    "market": null,
@@ -8554,7 +7571,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 23
+    "total_picks": 24
    }
   },
   {
@@ -8614,7 +7631,7 @@
    "community_pick_pct": {
     "team0": 83,
     "team1": 17,
-    "total_picks": 23
+    "total_picks": 24
    }
   },
   {
@@ -8674,7 +7691,7 @@
    "community_pick_pct": {
     "team0": 0,
     "team1": 100,
-    "total_picks": 9
+    "total_picks": 11
    }
   },
   {
@@ -8732,9 +7749,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 91,
-    "team1": 9,
-    "total_picks": 23
+    "team0": 92,
+    "team1": 8,
+    "total_picks": 24
    }
   },
   {
@@ -8753,12 +7770,12 @@
     "leaguepedia": "VfB eSports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 89,
+    "rating_matches": 90,
     "rating_as_of": "2026-10-27T19:30:00Z",
-    "last_played": "2026-10-18",
-    "elo_raw": 1529.8,
-    "elo_now": 1528.2,
-    "elo": 1528.2
+    "last_played": "2026-10-25",
+    "elo_raw": 1548.4,
+    "elo_now": 1545.9,
+    "elo": 1545.9
    },
    "team1": {
     "name": "regnum4games",
@@ -8772,17 +7789,17 @@
     "elo_now": 1553.2,
     "elo": 1553.2
    },
-   "p0": 0.4641,
-   "p1": 0.5359,
+   "p0": 0.4895,
+   "p1": 0.5105,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: VfB eSports 1528 vs regnum4games 1553 (89/72 rated series).",
+   "basis": "Elo line: VfB eSports 1546 vs regnum4games 1553 (90/72 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "regnum4games",
-    "probability": 0.5359,
-    "other_probability": 0.4641
+    "probability": 0.5105,
+    "other_probability": 0.4895
    },
    "pick_type": null,
    "market": null,
@@ -8794,7 +7811,7 @@
    "community_pick_pct": {
     "team0": 83,
     "team1": 17,
-    "total_picks": 23
+    "total_picks": 24
    }
   },
   {
@@ -8852,9 +7869,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 73,
-    "team1": 27,
-    "total_picks": 11
+    "team0": 77,
+    "team1": 23,
+    "total_picks": 13
    }
   },
   {
@@ -8912,9 +7929,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 92,
-    "team1": 8,
-    "total_picks": 13
+    "team0": 93,
+    "team1": 7,
+    "total_picks": 15
    }
   },
   {
@@ -8974,7 +7991,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 14
+    "total_picks": 16
    }
   },
   {
@@ -9032,9 +8049,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 81,
-    "team1": 19,
-    "total_picks": 27
+    "team0": 83,
+    "team1": 17,
+    "total_picks": 29
    }
   },
   {
@@ -9094,9 +8111,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 81,
-    "team1": 19,
-    "total_picks": 21
+    "team0": 83,
+    "team1": 17,
+    "total_picks": 23
    }
   },
   {
@@ -9154,9 +8171,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 80,
-    "team1": 20,
-    "total_picks": 25
+    "team0": 81,
+    "team1": 19,
+    "total_picks": 26
    }
   },
   {
@@ -9214,9 +8231,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 81,
-    "team1": 19,
-    "total_picks": 27
+    "team0": 82,
+    "team1": 18,
+    "total_picks": 28
    }
   },
   {
@@ -9274,9 +8291,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 71,
-    "team1": 29,
-    "total_picks": 7
+    "team0": 75,
+    "team1": 25,
+    "total_picks": 8
    }
   },
   {
@@ -9334,16 +8351,16 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 84,
-    "team1": 16,
-    "total_picks": 19
+    "team0": 85,
+    "team1": 15,
+    "total_picks": 20
    }
   },
   {
    "id": "1083039",
    "competition": "Komplettligaen 2026 Autumn Playoffs",
    "start_utc": "2026-10-30T17:00:00Z",
-   "tier": null,
+   "tier": "c",
    "stage": "playoffs",
    "best_of": null,
    "points": 10,
@@ -9394,16 +8411,16 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 71,
-    "team1": 29,
-    "total_picks": 7
+    "team0": 75,
+    "team1": 25,
+    "total_picks": 8
    }
   },
   {
    "id": "1083040",
    "competition": "Komplettligaen 2026 Autumn Playoffs",
    "start_utc": "2026-10-30T17:00:00Z",
-   "tier": null,
+   "tier": "c",
    "stage": "playoffs",
    "best_of": null,
    "points": 10,
@@ -9460,14 +8477,14 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 7
+    "total_picks": 8
    }
   },
   {
    "id": "1083041",
    "competition": "Komplettligaen 2026 Autumn Playoffs",
    "start_utc": "2026-10-30T17:00:00Z",
-   "tier": null,
+   "tier": "c",
    "stage": "playoffs",
    "best_of": null,
    "points": 10,
@@ -9518,9 +8535,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 14,
-    "team1": 86,
-    "total_picks": 7
+    "team0": 13,
+    "team1": 88,
+    "total_picks": 8
    }
   },
   {
@@ -9578,9 +8595,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 80,
-    "team1": 20,
-    "total_picks": 20
+    "team0": 81,
+    "team1": 19,
+    "total_picks": 21
    }
   },
   {
@@ -9640,7 +8657,7 @@
    "community_pick_pct": {
     "team0": 5,
     "team1": 95,
-    "total_picks": 21
+    "total_picks": 22
    }
   },
   {
@@ -9698,9 +8715,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 85,
-    "team1": 15,
-    "total_picks": 20
+    "team0": 86,
+    "team1": 14,
+    "total_picks": 21
    }
   },
   {
@@ -9719,12 +8736,12 @@
     "leaguepedia": "DKB XPERION NXT",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 91,
+    "rating_matches": 92,
     "rating_as_of": "2026-10-30T19:30:00Z",
-    "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "last_played": "2026-10-25",
+    "elo_raw": 1624.3,
+    "elo_now": 1617.9,
+    "elo": 1617.9
    },
    "team1": {
     "name": "regnum4games",
@@ -9738,17 +8755,17 @@
     "elo_now": 1553.2,
     "elo": 1553.2
    },
-   "p0": 0.5771,
-   "p1": 0.4229,
+   "p0": 0.592,
+   "p1": 0.408,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: DKB XPERION NXT 1607 vs regnum4games 1553 (91/72 rated series).",
+   "basis": "Elo line: DKB XPERION NXT 1618 vs regnum4games 1553 (92/72 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "DKB XPERION NXT",
-    "probability": 0.5771,
-    "other_probability": 0.4229
+    "probability": 0.592,
+    "other_probability": 0.408
    },
    "pick_type": null,
    "market": null,
@@ -9760,7 +8777,7 @@
    "community_pick_pct": {
     "team0": 100,
     "team1": 0,
-    "total_picks": 20
+    "total_picks": 21
    }
   },
   {
@@ -9779,12 +8796,12 @@
     "leaguepedia": "VfB eSports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 89,
+    "rating_matches": 90,
     "rating_as_of": "2026-10-30T19:30:00Z",
-    "last_played": "2026-10-18",
-    "elo_raw": 1529.8,
-    "elo_now": 1528.2,
-    "elo": 1528.2
+    "last_played": "2026-10-25",
+    "elo_raw": 1548.4,
+    "elo_now": 1545.9,
+    "elo": 1545.9
    },
    "team1": {
     "name": "Phong Vũ Buffalo",
@@ -9800,19 +8817,19 @@
     "elo_now": 1560.7,
     "elo": 1560.7
    },
-   "p0": 0.4534,
-   "p1": 0.5466,
+   "p0": 0.4787,
+   "p1": 0.5213,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: VfB eSports 1528 vs PvB (Swiss Team) 1561 (89/36 rated series).",
+   "basis": "Elo line: VfB eSports 1546 vs PvB (Swiss Team) 1561 (90/36 rated series).",
    "flags": [
     "explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evidence (see Flagged for review)"
    ],
    "pick": {
     "side": 1,
     "team": "Phong Vũ Buffalo",
-    "probability": 0.5466,
-    "other_probability": 0.4534
+    "probability": 0.5213,
+    "other_probability": 0.4787
    },
    "pick_type": null,
    "market": null,
@@ -9882,9 +8899,73 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 40,
-    "team1": 60,
-    "total_picks": 5
+    "team0": 33,
+    "team1": 67,
+    "total_picks": 6
+   }
+  },
+  {
+   "id": "1081088",
+   "competition": "LigaGG CELOL B 2026 Split 2 Playoffs",
+   "start_utc": "2026-10-31T15:00:00Z",
+   "tier": null,
+   "stage": "playoffs",
+   "best_of": null,
+   "points": 10,
+   "hotspawn_url": "https://www.hotspawn.com/matches/infinity-gaming-vs-cla-nkz-revengers-ligagg-celol-b-2026-split-2-playoffs-1081088",
+   "pickem_url": "https://play.hotspawn.com/lol-pickems",
+   "leaguepedia_page": "LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs",
+   "team0": {
+    "name": "Infinity Gaming",
+    "leaguepedia": "Infinity Gaming (Brazilian Team)",
+    "join": "competition-page",
+    "join_notes": [
+     "resolved within 'LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs' to 'Infinity Gaming (Brazilian Team)'"
+    ],
+    "rating_matches": 11,
+    "rating_as_of": "2026-10-31T15:00:00Z",
+    "last_played": "2026-10-24",
+    "elo_raw": 1556.8,
+    "elo_now": 1539.1,
+    "elo": 1539.1
+   },
+   "team1": {
+    "name": "Clã NKZ Revengers",
+    "leaguepedia": "Clã NKZ Revengers",
+    "join": "exact",
+    "join_notes": [],
+    "rating_matches": 11,
+    "rating_as_of": "2026-10-31T15:00:00Z",
+    "last_played": "2026-10-24",
+    "elo_raw": 1563.8,
+    "elo_now": 1543.9,
+    "elo": 1543.9
+   },
+   "p0": 0.4931,
+   "p1": 0.5069,
+   "method": "model",
+   "confidence": "medium",
+   "basis": "Elo line: Infinity Gaming (Brazilian Team) 1539 vs Clã NKZ Revengers 1544 (11/11 rated series).",
+   "flags": [
+    "resolved within 'LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs' to 'Infinity Gaming (Brazilian Team)'"
+   ],
+   "pick": {
+    "side": 1,
+    "team": "Clã NKZ Revengers",
+    "probability": 0.5069,
+    "other_probability": 0.4931
+   },
+   "pick_type": null,
+   "market": null,
+   "resolution": null,
+   "connected": true,
+   "stale": false,
+   "result": null,
+   "grade": null,
+   "community_pick_pct": {
+    "team0": 0,
+    "team1": 0,
+    "total_picks": 0
    }
   },
   {
@@ -9963,12 +9044,12 @@
     "leaguepedia": "JSK Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 69,
+    "rating_matches": 70,
     "rating_as_of": "2026-10-31T17:00:00Z",
     "last_played": "2026-10-25",
-    "elo_raw": 1627.0,
-    "elo_now": 1615.4,
-    "elo": 1615.4
+    "elo_raw": 1608.0,
+    "elo_now": 1597.8,
+    "elo": 1597.8
    },
    "team1": {
     "name": "Olympique Mnihla",
@@ -9982,17 +9063,17 @@
     "elo_now": 1529.3,
     "elo": 1529.3
    },
-   "p0": 0.6214,
-   "p1": 0.3786,
+   "p0": 0.5973,
+   "p1": 0.4027,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: JSK Esports 1615 vs Olympique Mnihla 1529 (69/42 rated series).",
+   "basis": "Elo line: JSK Esports 1598 vs Olympique Mnihla 1529 (70/42 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "JSK Esports",
-    "probability": 0.6214,
-    "other_probability": 0.3786
+    "probability": 0.5973,
+    "other_probability": 0.4027
    },
    "pick_type": null,
    "market": null,
@@ -10155,24 +9236,24 @@
     "leaguepedia": "El Menzah Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 5,
+    "rating_matches": 6,
     "rating_as_of": "2026-10-31T17:00:00Z",
     "last_played": "2026-10-25",
-    "elo_raw": 1452.8,
-    "elo_now": 1453.9,
-    "elo": 1453.9
+    "elo_raw": 1471.8,
+    "elo_now": 1464.2,
+    "elo": 1464.2
    },
-   "p0": 0.4559,
-   "p1": 0.5441,
+   "p0": 0.4413,
+   "p1": 0.5587,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Zahrouni Esports 1423 vs El Menzah Esports 1454 (6/5 rated series).",
+   "basis": "Elo line: Zahrouni Esports 1423 vs El Menzah Esports 1464 (6/6 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "El Menzah Esports",
-    "probability": 0.5441,
-    "other_probability": 0.4559
+    "probability": 0.5587,
+    "other_probability": 0.4413
    },
    "pick_type": null,
    "market": null,
@@ -10242,9 +9323,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 60,
-    "team1": 40,
-    "total_picks": 5
+    "team0": 67,
+    "team1": 33,
+    "total_picks": 6
    }
   },
   {
@@ -10366,9 +9447,69 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 40,
-    "team1": 60,
-    "total_picks": 5
+    "team0": 33,
+    "team1": 67,
+    "total_picks": 6
+   }
+  },
+  {
+   "id": "1081094",
+   "competition": "LigaGG CELOL B 2026 Split 2 Playoffs",
+   "start_utc": "2026-11-01T16:00:00Z",
+   "tier": null,
+   "stage": "playoffs",
+   "best_of": null,
+   "points": 10,
+   "hotspawn_url": "https://www.hotspawn.com/matches/viktus-vs-docta-esports-club-ligagg-celol-b-2026-split-2-playoffs-1081094",
+   "pickem_url": "https://play.hotspawn.com/lol-pickems",
+   "leaguepedia_page": "LigaGG/CELOL Série B/2026 Season/Split 2 Playoffs",
+   "team0": {
+    "name": "Viktus",
+    "leaguepedia": "Viktus",
+    "join": "exact",
+    "join_notes": [],
+    "rating_matches": 22,
+    "rating_as_of": "2026-11-01T16:00:00Z",
+    "last_played": "2026-10-24",
+    "elo_raw": 1576.9,
+    "elo_now": 1562.7,
+    "elo": 1562.7
+   },
+   "team1": {
+    "name": "Docta Esports Club",
+    "leaguepedia": "Docta Esports Club",
+    "join": "exact",
+    "join_notes": [],
+    "rating_matches": 22,
+    "rating_as_of": "2026-11-01T16:00:00Z",
+    "last_played": "2026-10-24",
+    "elo_raw": 1611.8,
+    "elo_now": 1591.1,
+    "elo": 1591.1
+   },
+   "p0": 0.4592,
+   "p1": 0.5408,
+   "method": "model",
+   "confidence": "medium",
+   "basis": "Elo line: Viktus 1563 vs Docta Esports Club 1591 (22/22 rated series).",
+   "flags": [],
+   "pick": {
+    "side": 1,
+    "team": "Docta Esports Club",
+    "probability": 0.5408,
+    "other_probability": 0.4592
+   },
+   "pick_type": null,
+   "market": null,
+   "resolution": null,
+   "connected": true,
+   "stale": false,
+   "result": null,
+   "grade": null,
+   "community_pick_pct": {
+    "team0": 0,
+    "team1": 100,
+    "total_picks": 1
    }
   },
   {
@@ -11419,12 +10560,12 @@
     "leaguepedia": "El Menzah Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 5,
+    "rating_matches": 6,
     "rating_as_of": "2026-11-01T17:00:00Z",
     "last_played": "2026-10-25",
-    "elo_raw": 1452.8,
-    "elo_now": 1453.9,
-    "elo": 1453.9
+    "elo_raw": 1471.8,
+    "elo_now": 1464.2,
+    "elo": 1464.2
    },
    "team1": {
     "name": "Enfida Esports",
@@ -11438,17 +10579,17 @@
     "elo_now": 1404.5,
     "elo": 1404.5
    },
-   "p0": 0.5706,
-   "p1": 0.4294,
+   "p0": 0.5851,
+   "p1": 0.4149,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: El Menzah Esports 1454 vs Enfida Esports 1404 (5/8 rated series).",
+   "basis": "Elo line: El Menzah Esports 1464 vs Enfida Esports 1404 (6/8 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "El Menzah Esports",
-    "probability": 0.5706,
-    "other_probability": 0.4294
+    "probability": 0.5851,
+    "other_probability": 0.4149
    },
    "pick_type": null,
    "market": null,
@@ -11611,24 +10752,24 @@
     "leaguepedia": "JSK Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 69,
+    "rating_matches": 70,
     "rating_as_of": "2026-11-01T17:00:00Z",
     "last_played": "2026-10-25",
-    "elo_raw": 1627.0,
-    "elo_now": 1615.4,
-    "elo": 1615.4
+    "elo_raw": 1608.0,
+    "elo_now": 1597.8,
+    "elo": 1597.8
    },
-   "p0": 0.5471,
-   "p1": 0.4529,
+   "p0": 0.572,
+   "p1": 0.428,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Simplicity Gaming 1648 vs JSK Esports 1615 (40/69 rated series).",
+   "basis": "Elo line: Simplicity Gaming 1648 vs JSK Esports 1598 (40/70 rated series).",
    "flags": [],
    "pick": {
     "side": 0,
     "team": "Simplicity Gaming",
-    "probability": 0.5471,
-    "other_probability": 0.4529
+    "probability": 0.572,
+    "other_probability": 0.428
    },
    "pick_type": null,
    "market": null,
@@ -11855,26 +10996,26 @@
     "join_notes": [
      "resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Team)'"
     ],
-    "rating_matches": 40,
+    "rating_matches": 41,
     "rating_as_of": "2026-11-01T18:30:00Z",
-    "last_played": "2026-10-23",
-    "elo_raw": 1516.5,
-    "elo_now": 1509.7,
-    "elo": 1509.7
+    "last_played": "2026-10-25",
+    "elo_raw": 1505.3,
+    "elo_now": 1499.9,
+    "elo": 1499.9
    },
-   "p0": 0.576,
-   "p1": 0.424,
+   "p0": 0.5897,
+   "p1": 0.4103,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: MT1 Esports 1563 vs Locked In (Dutch Team) 1510 (50/40 rated series).",
+   "basis": "Elo line: MT1 Esports 1563 vs Locked In (Dutch Team) 1500 (50/41 rated series).",
    "flags": [
     "resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Team)'"
    ],
    "pick": {
     "side": 0,
     "team": "MT1 Esports",
-    "probability": 0.576,
-    "other_probability": 0.424
+    "probability": 0.5897,
+    "other_probability": 0.4103
    },
    "pick_type": null,
    "market": null,
@@ -11917,24 +11058,24 @@
     "leaguepedia": "404 Multigaming e.V.",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 48,
+    "rating_matches": 49,
     "rating_as_of": "2026-11-01T18:30:00Z",
-    "last_played": "2026-10-20",
-    "elo_raw": 1604.6,
-    "elo_now": 1594.7,
-    "elo": 1594.7
+    "last_played": "2026-10-25",
+    "elo_raw": 1586.0,
+    "elo_now": 1578.0,
+    "elo": 1578.0
    },
-   "p0": 0.3984,
-   "p1": 0.6016,
+   "p0": 0.4216,
+   "p1": 0.5784,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: The Bandits Prime 1523 vs 404 Multigaming e.V. 1595 (8/48 rated series).",
+   "basis": "Elo line: The Bandits Prime 1523 vs 404 Multigaming e.V. 1578 (8/49 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "404 Multigaming e.V.",
-    "probability": 0.6016,
-    "other_probability": 0.3984
+    "probability": 0.5784,
+    "other_probability": 0.4216
    },
    "pick_type": null,
    "market": null,
@@ -12004,9 +11145,9 @@
    "result": null,
    "grade": null,
    "community_pick_pct": {
-    "team0": 40,
-    "team1": 60,
-    "total_picks": 5
+    "team0": 33,
+    "team1": 67,
+    "total_picks": 6
    }
   },
   {
@@ -12161,26 +11302,26 @@
     "leaguepedia": "404 Multigaming e.V.",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 48,
+    "rating_matches": 49,
     "rating_as_of": "2026-11-03T17:00:00Z",
-    "last_played": "2026-10-20",
-    "elo_raw": 1604.6,
-    "elo_now": 1594.7,
-    "elo": 1594.7
+    "last_played": "2026-10-25",
+    "elo_raw": 1586.0,
+    "elo_now": 1578.0,
+    "elo": 1578.0
    },
-   "p0": 0.4512,
-   "p1": 0.5488,
+   "p0": 0.4751,
+   "p1": 0.5249,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: PvB (Swiss Team) 1561 vs 404 Multigaming e.V. 1595 (36/48 rated series).",
+   "basis": "Elo line: PvB (Swiss Team) 1561 vs 404 Multigaming e.V. 1578 (36/49 rated series).",
    "flags": [
     "explicit alias to 'PvB (Swiss Team)' recorded in data/aliases.json with fixture-level evidence (see Flagged for review)"
    ],
    "pick": {
     "side": 1,
     "team": "404 Multigaming e.V.",
-    "probability": 0.5488,
-    "other_probability": 0.4512
+    "probability": 0.5249,
+    "other_probability": 0.4751
    },
    "pick_type": null,
    "market": null,
@@ -12285,24 +11426,24 @@
     "leaguepedia": "DKB XPERION NXT",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 91,
+    "rating_matches": 92,
     "rating_as_of": "2026-11-03T19:30:00Z",
-    "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "last_played": "2026-10-25",
+    "elo_raw": 1624.3,
+    "elo_now": 1617.9,
+    "elo": 1617.9
    },
-   "p0": 0.4366,
-   "p1": 0.5634,
+   "p0": 0.4215,
+   "p1": 0.5785,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: MT1 Esports 1563 vs DKB XPERION NXT 1607 (50/91 rated series).",
+   "basis": "Elo line: MT1 Esports 1563 vs DKB XPERION NXT 1618 (50/92 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "DKB XPERION NXT",
-    "probability": 0.5634,
-    "other_probability": 0.4366
+    "probability": 0.5785,
+    "other_probability": 0.4215
    },
    "pick_type": null,
    "market": null,
@@ -12513,36 +11654,36 @@
     "leaguepedia": "404 Multigaming e.V.",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 48,
+    "rating_matches": 49,
     "rating_as_of": "2026-11-06T17:00:00Z",
-    "last_played": "2026-10-20",
-    "elo_raw": 1604.6,
-    "elo_now": 1594.7,
-    "elo": 1594.7
+    "last_played": "2026-10-25",
+    "elo_raw": 1586.0,
+    "elo_now": 1578.0,
+    "elo": 1578.0
    },
    "team1": {
     "name": "DKB XPERION NXT",
     "leaguepedia": "DKB XPERION NXT",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 91,
+    "rating_matches": 92,
     "rating_as_of": "2026-11-06T17:00:00Z",
-    "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "last_played": "2026-10-25",
+    "elo_raw": 1624.3,
+    "elo_now": 1617.9,
+    "elo": 1617.9
    },
-   "p0": 0.482,
-   "p1": 0.518,
+   "p0": 0.4428,
+   "p1": 0.5572,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: 404 Multigaming e.V. 1595 vs DKB XPERION NXT 1607 (48/91 rated series).",
+   "basis": "Elo line: 404 Multigaming e.V. 1578 vs DKB XPERION NXT 1618 (49/92 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "DKB XPERION NXT",
-    "probability": 0.518,
-    "other_probability": 0.482
+    "probability": 0.5572,
+    "other_probability": 0.4428
    },
    "pick_type": null,
    "market": null,
@@ -12575,38 +11716,38 @@
     "join_notes": [
      "resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Team)'"
     ],
-    "rating_matches": 40,
+    "rating_matches": 41,
     "rating_as_of": "2026-11-06T17:00:00Z",
-    "last_played": "2026-10-23",
-    "elo_raw": 1516.5,
-    "elo_now": 1509.7,
-    "elo": 1509.7
+    "last_played": "2026-10-25",
+    "elo_raw": 1505.3,
+    "elo_now": 1499.9,
+    "elo": 1499.9
    },
    "team1": {
     "name": "VfB eSports",
     "leaguepedia": "VfB eSports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 89,
+    "rating_matches": 90,
     "rating_as_of": "2026-11-06T17:00:00Z",
-    "last_played": "2026-10-18",
-    "elo_raw": 1529.8,
-    "elo_now": 1528.2,
-    "elo": 1528.2
+    "last_played": "2026-10-25",
+    "elo_raw": 1548.4,
+    "elo_now": 1545.9,
+    "elo": 1545.9
    },
-   "p0": 0.4734,
-   "p1": 0.5266,
+   "p0": 0.4342,
+   "p1": 0.5658,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Locked In (Dutch Team) 1510 vs VfB eSports 1528 (40/89 rated series).",
+   "basis": "Elo line: Locked In (Dutch Team) 1500 vs VfB eSports 1546 (41/90 rated series).",
    "flags": [
     "resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Team)'"
    ],
    "pick": {
     "side": 1,
     "team": "VfB eSports",
-    "probability": 0.5266,
-    "other_probability": 0.4734
+    "probability": 0.5658,
+    "other_probability": 0.4342
    },
    "pick_type": null,
    "market": null,
@@ -12759,12 +11900,12 @@
     "leaguepedia": "El Menzah Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 5,
+    "rating_matches": 6,
     "rating_as_of": "2026-11-07T17:00:00Z",
     "last_played": "2026-10-25",
-    "elo_raw": 1452.8,
-    "elo_now": 1453.9,
-    "elo": 1453.9
+    "elo_raw": 1471.8,
+    "elo_now": 1464.2,
+    "elo": 1464.2
    },
    "team1": {
     "name": "Olympique Mnihla",
@@ -12778,17 +11919,17 @@
     "elo_now": 1529.3,
     "elo": 1529.3
    },
-   "p0": 0.3932,
-   "p1": 0.6068,
+   "p0": 0.4074,
+   "p1": 0.5926,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: El Menzah Esports 1454 vs Olympique Mnihla 1529 (5/42 rated series).",
+   "basis": "Elo line: El Menzah Esports 1464 vs Olympique Mnihla 1529 (6/42 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "Olympique Mnihla",
-    "probability": 0.6068,
-    "other_probability": 0.3932
+    "probability": 0.5926,
+    "other_probability": 0.4074
    },
    "pick_type": null,
    "market": null,
@@ -12831,24 +11972,24 @@
     "leaguepedia": "JSK Esports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 69,
+    "rating_matches": 70,
     "rating_as_of": "2026-11-07T17:00:00Z",
     "last_played": "2026-10-25",
-    "elo_raw": 1627.0,
-    "elo_now": 1615.4,
-    "elo": 1615.4
+    "elo_raw": 1608.0,
+    "elo_now": 1597.8,
+    "elo": 1597.8
    },
-   "p0": 0.3169,
-   "p1": 0.6831,
+   "p0": 0.3393,
+   "p1": 0.6607,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: JSK Academy 1482 vs JSK Esports 1615 (32/69 rated series).",
+   "basis": "Elo line: JSK Academy 1482 vs JSK Esports 1598 (32/70 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "JSK Esports",
-    "probability": 0.6831,
-    "other_probability": 0.3169
+    "probability": 0.6607,
+    "other_probability": 0.3393
    },
    "pick_type": null,
    "market": null,
@@ -14169,24 +13310,24 @@
     "leaguepedia": "VfB eSports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 89,
+    "rating_matches": 90,
     "rating_as_of": "2026-11-08T18:30:00Z",
-    "last_played": "2026-10-18",
-    "elo_raw": 1529.8,
-    "elo_now": 1528.2,
-    "elo": 1528.2
+    "last_played": "2026-10-25",
+    "elo_raw": 1548.4,
+    "elo_now": 1545.9,
+    "elo": 1545.9
    },
-   "p0": 0.4927,
-   "p1": 0.5073,
+   "p0": 0.4672,
+   "p1": 0.5328,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: The Bandits Prime 1523 vs VfB eSports 1528 (8/89 rated series).",
+   "basis": "Elo line: The Bandits Prime 1523 vs VfB eSports 1546 (8/90 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "VfB eSports",
-    "probability": 0.5073,
-    "other_probability": 0.4927
+    "probability": 0.5328,
+    "other_probability": 0.4672
    },
    "pick_type": null,
    "market": null,
@@ -14346,7 +13487,7 @@
     "rating_as_of": "2026-11-11T09:00:00Z",
     "last_played": "2026-08-15",
     "elo_raw": 1503.2,
-    "elo_now": 1507.3,
+    "elo_now": 1507.4,
     "elo": 1510.0
    },
    "team1": {
@@ -14358,7 +13499,7 @@
     "rating_as_of": "2026-11-11T09:00:00Z",
     "last_played": "2026-09-06",
     "elo_raw": 1714.4,
-    "elo_now": 1708.1,
+    "elo_now": 1708.0,
     "elo": 1703.2
    },
    "p0": 0.2475,
@@ -14466,38 +13607,38 @@
     "join_notes": [
      "resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Team)'"
     ],
-    "rating_matches": 40,
+    "rating_matches": 41,
     "rating_as_of": "2026-11-13T18:30:00Z",
-    "last_played": "2026-10-23",
-    "elo_raw": 1516.5,
-    "elo_now": 1509.7,
-    "elo": 1509.7
+    "last_played": "2026-10-25",
+    "elo_raw": 1505.3,
+    "elo_now": 1499.9,
+    "elo": 1499.9
    },
    "team1": {
     "name": "404 Multigaming e.V.",
     "leaguepedia": "404 Multigaming e.V.",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 48,
+    "rating_matches": 49,
     "rating_as_of": "2026-11-13T18:30:00Z",
-    "last_played": "2026-10-20",
-    "elo_raw": 1604.6,
-    "elo_now": 1594.7,
-    "elo": 1594.7
+    "last_played": "2026-10-25",
+    "elo_raw": 1586.0,
+    "elo_now": 1578.0,
+    "elo": 1578.0
    },
-   "p0": 0.3801,
-   "p1": 0.6199,
+   "p0": 0.3895,
+   "p1": 0.6105,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: Locked In (Dutch Team) 1510 vs 404 Multigaming e.V. 1595 (40/48 rated series).",
+   "basis": "Elo line: Locked In (Dutch Team) 1500 vs 404 Multigaming e.V. 1578 (41/49 rated series).",
    "flags": [
     "resolved within 'Prime League 2nd Division/2027 Season/Fall Split' to 'Locked In (Dutch Team)'"
    ],
    "pick": {
     "side": 1,
     "team": "404 Multigaming e.V.",
-    "probability": 0.6199,
-    "other_probability": 0.3801
+    "probability": 0.6105,
+    "other_probability": 0.3895
    },
    "pick_type": null,
    "market": null,
@@ -14652,36 +13793,36 @@
     "leaguepedia": "VfB eSports",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 89,
+    "rating_matches": 90,
     "rating_as_of": "2026-11-13T18:30:00Z",
-    "last_played": "2026-10-18",
-    "elo_raw": 1529.8,
-    "elo_now": 1528.2,
-    "elo": 1528.2
+    "last_played": "2026-10-25",
+    "elo_raw": 1548.4,
+    "elo_now": 1545.9,
+    "elo": 1545.9
    },
    "team1": {
     "name": "DKB XPERION NXT",
     "leaguepedia": "DKB XPERION NXT",
     "join": "exact",
     "join_notes": [],
-    "rating_matches": 91,
+    "rating_matches": 92,
     "rating_as_of": "2026-11-13T18:30:00Z",
-    "last_played": "2026-10-13",
-    "elo_raw": 1613.1,
-    "elo_now": 1607.2,
-    "elo": 1607.2
+    "last_played": "2026-10-25",
+    "elo_raw": 1624.3,
+    "elo_now": 1617.9,
+    "elo": 1617.9
    },
-   "p0": 0.3882,
-   "p1": 0.6118,
+   "p0": 0.3978,
+   "p1": 0.6022,
    "method": "model",
    "confidence": "medium",
-   "basis": "Elo line: VfB eSports 1528 vs DKB XPERION NXT 1607 (89/91 rated series).",
+   "basis": "Elo line: VfB eSports 1546 vs DKB XPERION NXT 1618 (90/92 rated series).",
    "flags": [],
    "pick": {
     "side": 1,
     "team": "DKB XPERION NXT",
-    "probability": 0.6118,
-    "other_probability": 0.3882
+    "probability": 0.6022,
+    "other_probability": 0.3978
    },
    "pick_type": null,
    "market": null,
