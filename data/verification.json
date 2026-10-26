@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-26T13:11:02Z",
+ "generated_utc": "2026-10-26T22:44:34Z",
  "checks": [
   {
    "name": "dataset present",
@@ -69,17 +69,17 @@
   {
    "name": "Pinnacle quote URLs point at collected matchups",
    "ok": true,
-   "detail": "4 matchup ids in feed; problems: []"
+   "detail": "0 matchup ids in feed; problems: []"
   },
   {
    "name": "all fresh Unibet/Kambi moneylines matched into market consensus",
    "ok": true,
-   "detail": "4/4 fresh Unibet fixtures matched; missing: []"
+   "detail": "0/0 fresh Unibet fixtures matched; missing: []"
   },
   {
    "name": "all fresh Smarkets exchange moneylines matched into market consensus",
    "ok": true,
-   "detail": "4/4 fresh Smarkets fixtures matched; missing: []"
+   "detail": "0/0 fresh Smarkets fixtures matched; missing: []"
   },
   {
    "name": "every official-forfeit resolution names a winner and a source URL",
@@ -144,7 +144,7 @@
   {
    "name": "executive summary and its unresolved block precede every list on the landing page",
    "ok": true,
-   "detail": "summary=2549 unresolved=9529 soon=17165 directory=23780"
+   "detail": "summary=2549 unresolved=9391 soon=17027 directory=23730"
   },
   {
    "name": "the unresolved block inside the summary states why each card has no probability",
@@ -164,7 +164,7 @@
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
-   "detail": "backtest series rendered: 3,958"
+   "detail": "backtest series rendered: 3,961"
   },
   {
    "name": "curated flags annotate every reference to a fixture that has left the list",
@@ -194,7 +194,7 @@
   {
    "name": "market hygiene publishes live-feed freshness and quote rejections",
    "ok": true,
-   "detail": "feeds tracked: ['Bovada', 'Kalshi', 'Pinnacle', 'Polymarket', 'Smarkets', 'Unibet']; 0 live quote rejection(s) this build"
+   "detail": "feeds tracked: ['Bovada', 'Kalshi', 'Pinnacle', 'Polymarket', 'Smarkets', 'Unibet']; 1 live quote rejection(s) this build"
   },
   {
    "name": "coverage matrix: every competition row links to a source",
@@ -204,17 +204,17 @@
   {
    "name": "external receipts validated against the dataset",
    "ok": true,
-   "detail": "3 usable receipts, 0 rejected, 1 diverging >8.0pp (non-blocking), 3 expired, 46 historic (not counted)"
+   "detail": "0 usable receipts, 0 rejected, 0 diverging >8.0pp (non-blocking), 6 expired, 46 historic (not counted)"
   },
   {
    "name": "corroboration ledger accounts for every receipt",
    "ok": true,
-   "detail": "receipts=54 = usable 3 + placeholder 2 + rejected 0 + expired 3 + historic 46"
+   "detail": "receipts=54 = usable 0 + placeholder 2 + rejected 0 + expired 6 + historic 46"
   },
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 89888 bytes"
+   "detail": "coverage.html 90284 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -239,7 +239,7 @@
   {
    "name": "method counts partition matches.json cleanly",
    "ok": true,
-   "detail": "counts={'model': 148, 'unresolved': 4, 'provisional': 55, 'market': 5} sum=212 rows=212"
+   "detail": "counts={'model': 152, 'unresolved': 4, 'provisional': 55, 'market': 1} sum=212 rows=212"
   },
   {
    "name": "source availability recorded",
@@ -293,10 +293,10 @@
  "rows_prob_ok": 212,
  "unverified": 59,
  "counts": {
-  "model": 148,
+  "model": 152,
   "unresolved": 4,
   "provisional": 55,
-  "market": 5
+  "market": 1
  },
  "internal_links": 507,
  "lookahead_violations": 0

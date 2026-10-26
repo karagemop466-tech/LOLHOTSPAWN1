@@ -10,7 +10,7 @@
 <body>
 <div class="canonbar"><div class="canonbar-in">
     <span class="cb-tag">SECONDARY VIEW</span>
-    <span class="cb-txt">Companion audit, <b>not</b> the canonical pick list. Canonical picks for all <b>212</b> listed matches: <a href="../index.html">executive summary ↗</a> · <a href="../table.html">one-table view ↗</a> · <a href="../unresolved.html">unresolved &amp; limitations ↗</a> · graded 33/52 correct. <a href="index.html#reconcile">Why the two dashboards differ</a>.</span>
+    <span class="cb-txt">Companion audit, <b>not</b> the canonical pick list. Canonical picks for all <b>212</b> listed matches: <a href="../index.html">executive summary ↗</a> · <a href="../table.html">one-table view ↗</a> · <a href="../unresolved.html">unresolved &amp; limitations ↗</a> · graded 35/55 correct. <a href="index.html#reconcile">Why the two dashboards differ</a>.</span>
   </div></div>
   <header class="site-header">
     <div class="header-inner">
@@ -30,7 +30,7 @@
   <div class="fresh-bar" data-generated-at="2026-10-26T22:25:08.786Z">
     <div class="fresh-inner">
       <span>Snapshot: <time class="mono" data-utc="2026-10-26T22:25:08.786Z">2026-10-26 22:25 UTC</time> · Auto-refresh every 6h</span>
-      <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-26 13:11 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
+      <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-26 22:44 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
   <main>
@@ -88,14 +88,14 @@
           <thead><tr><th>&nbsp;</th><th>⭐ Canonical dashboard (authoritative)</th><th>📈 This companion audit</th></tr></thead>
           <tbody>
             <tr><th scope="row">Opens at</th><td data-label="Canonical"><a href="../index.html">/LOLHOTSPAWN1/</a> — executive summary, then <a href="../table.html">one table with every match</a></td><td data-label="This view"><a href="index.html">/LOLHOTSPAWN1/docs/</a> — this audit suite</td></tr>
-            <tr><th scope="row">Snapshot</th><td data-label="Canonical">inventory 2026-10-26T13:09:11Z · built 2026-10-26T13:11:01Z</td><td data-label="This view">built 2026-10-26 22:25 UTC · Hotspawn feed 2026-10-26 22:25 UTC</td></tr>
+            <tr><th scope="row">Snapshot</th><td data-label="Canonical">inventory 2026-10-26T22:42:44Z · built 2026-10-26T22:44:33Z</td><td data-label="This view">built 2026-10-26 22:25 UTC · Hotspawn feed 2026-10-26 22:25 UTC</td></tr>
             <tr><th scope="row">Pipeline</th><td data-label="Canonical"><code>tools/collect.py → model.py → report.py → flags.py → site.py → corroborate.py → verify.py</code>, published by <code>refresh.yml</code>; a failing gate aborts the commit</td><td data-label="This view"><code>scripts/collect.mjs → analyze.mjs → build_site.mjs</code>, published by <code>refresh-docs.yml</code></td></tr>
-            <tr><th scope="row">Universe</th><td data-label="Canonical"><b>212</b> cards Hotspawn lists as <code>status=scheduled</code> (model 148 · unresolved 4 · provisional 55 · market 5)</td><td data-label="This view"><b>212</b> scheduled rows out of <b>545</b> fixtures in the archive (132 active, 80 stale, 264 ended, 23 forfeited, 46 cancelled)</td></tr>
+            <tr><th scope="row">Universe</th><td data-label="Canonical"><b>212</b> cards Hotspawn lists as <code>status=scheduled</code> (model 152 · unresolved 4 · provisional 55 · market 1)</td><td data-label="This view"><b>212</b> scheduled rows out of <b>545</b> fixtures in the archive (132 active, 80 stale, 264 ended, 23 forfeited, 46 cancelled)</td></tr>
             <tr><th scope="row">Overlap</th><td data-label="Canonical"><b>0</b> canonical cards are not in this view's snapshot</td><td data-label="This view"><b>212</b> of 212 scheduled rows are in the canonical snapshot; <b>0</b> are not</td></tr>
-            <tr><th scope="row">External venues</th><td data-label="Canonical"><b>6</b> — Pinnacle, Polymarket, Kalshi, Bovada, Unibet, Smarkets</td><td data-label="This view"><b>4</b> — Bovada, Pinnacle, Polymarket, Kalshi CFTC (9 quotes joined)</td></tr>
-            <tr><th scope="row">Originated line</th><td data-label="Canonical">Elo on Leaguepedia series results, window <code>MatchSchedule.DateTime_UTC &gt;= '2024-09-01 00:00:00'</code>, K=26, ratings as of kick-off · out-of-sample 65.06% over 3,958 series, Brier 0.2181</td><td data-label="This view">Elo/Bradley-Terry on Leaguepedia <b>and</b> Hotspawn series, tier prior + thin-history shrinkage, strictly pre-kickoff · walk-forward OOS Brier 0.2250 over 22,431 series</td></tr>
+            <tr><th scope="row">External venues</th><td data-label="Canonical"><b>2</b> — Polymarket, Kalshi</td><td data-label="This view"><b>4</b> — Bovada, Pinnacle, Polymarket, Kalshi CFTC (9 quotes joined)</td></tr>
+            <tr><th scope="row">Originated line</th><td data-label="Canonical">Elo on Leaguepedia series results, window <code>MatchSchedule.DateTime_UTC &gt;= '2024-09-01 00:00:00'</code>, K=26, ratings as of kick-off · out-of-sample 64.96% over 3,961 series, Brier 0.2183</td><td data-label="This view">Elo/Bradley-Terry on Leaguepedia <b>and</b> Hotspawn series, tier prior + thin-history shrinkage, strictly pre-kickoff · walk-forward OOS Brier 0.2250 over 22,431 series</td></tr>
             <tr><th scope="row">Unresolved</th><td data-label="Canonical"><b>4</b> — settlement-only cards (official forfeit), no probability invented · <a href="../unresolved.html">ledger ↗</a></td><td data-label="This view"><b>3</b> scheduled rows without a sporting pick (4 of them walkover settlements) · <a href="unresolved.html">ledger</a></td></tr>
-            <tr><th scope="row">Results grading</th><td data-label="Canonical"><a href="../results.html">canonical scoreboard ↗</a> — 33/52 graded picks correct (63.5%, Brier 0.2415) from Leaguepedia MatchSchedule (community-maintained), matched on team pair and kick-off within 12 h</td><td data-label="This view"><a href="results.html">this view's scoreboard</a> — pre-lock ledger graded against the official Hotspawn score; a forfeit with no recorded score is VOID, never 0–0</td></tr>
+            <tr><th scope="row">Results grading</th><td data-label="Canonical"><a href="../results.html">canonical scoreboard ↗</a> — 35/55 graded picks correct (63.6%, Brier 0.2396) from Leaguepedia MatchSchedule (community-maintained), matched on team pair and kick-off within 12 h</td><td data-label="This view"><a href="results.html">this view's scoreboard</a> — pre-lock ledger graded against the official Hotspawn score; a forfeit with no recorded score is VOID, never 0–0</td></tr>
             <tr><th scope="row">Series format</th><td data-label="Canonical">not rendered — Hotspawn publishes no <code>best_of</code> for these fixtures</td><td data-label="This view"><b>212</b> of 212 scheduled rows have no published format; rendered as <span class="mono">Bo —</span> and the model treats an unknown format as a single-map series</td></tr>
             <tr><th scope="row">Quotes after kick-off</th><td data-label="Canonical">none — every venue quote predates its listed kick-off</td><td data-label="This view"><b>1</b> row carries venue quotes observed after their listed kick-off; this snapshot was captured at 2026-10-26 22:25 UTC</td></tr>
             <tr><th scope="row">Use it for</th><td data-label="Canonical">the pick to submit and the probability to quote</td><td data-label="This view">auditing the canonical line, grading it against official results, calibration and run history</td></tr>
@@ -107,25 +107,65 @@
     </section>
 
     <div class="sec-head">
-      <h2>Where the Two Dashboards Disagree (33 fixtures)</h2>
+      <h2>Where the Two Dashboards Disagree (37 fixtures)</h2>
       <span>Published, not averaged away</span>
     </div>
     <section class="panel">
       <p>Of <b>205</b> fixtures where both views publish a probability for the same team ordering,
-      the mean absolute gap is <b>2.41 pp</b> and the largest is
-      <b>29.3 pp</b>
-      (89 rows differ by more than 2 pp, 25 by more than 5 pp, 1 by more than 10 pp).
-      <b>13</b> fixtures carry <b>opposite picks</b>; <b>7</b> have a probability on one view only and are left blank on the other rather than guessed.
+      the mean absolute gap is <b>2.69 pp</b> and the largest is
+      <b>22.3 pp</b>
+      (90 rows differ by more than 2 pp, 29 by more than 5 pp, 6 by more than 10 pp).
+      <b>14</b> fixtures carry <b>opposite picks</b>; <b>7</b> have a probability on one view only and are left blank on the other rather than guessed.
       Every divergent row is listed here and marked on its card.</p>
       <div class="table-wrap"><table class="data-table mobile-cards">
         <thead><tr><th>Kickoff (UTC)</th><th>Match</th><th>This view's pick</th><th>⭐ Canonical pick</th><th class="num">Gap</th><th>Sources</th></tr></thead>
         <tbody><tr>
-        <td data-label="Kickoff" class="mono"><time data-utc="2026-10-26T22:00:00.000Z">2026-10-26 22:00 UTC</time></td>
-        <td data-label="Match"><strong>Team Liquid</strong> vs <strong>Anyone's Legend</strong><br><span class="mono">#1075823 · Worlds 2026 Main Event</span></td>
-        <td data-label="This view">Team Liquid <b>57.7%</b> <span class="mono">(market)</span></td>
-        <td data-label="Canonical">Anyone's Legend <b>71.5%</b> <span class="mono">(market · high)</span></td>
-        <td data-label="Gap" class="num">+29.3 pp <span class="canon-diverge">OPPOSITE</span></td>
-        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1075823">Canonical card ↗</a><a class="src-link" href="table.html#row-1075823">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/team-liquid-vs-anyone-s-legend-worlds-2026-main-event-1075823" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+        <td data-label="Kickoff" class="mono"><time data-utc="2026-11-01T17:00:00.000Z">2026-11-01 17:00 UTC</time></td>
+        <td data-label="Match"><strong>Simplicity Gaming</strong> vs <strong>JSK Esports</strong><br><span class="mono">#1080941 · Tunisian Super League 2026</span></td>
+        <td data-label="This view">Simplicity Gaming <b>52.9%</b> <span class="mono">(model)</span></td>
+        <td data-label="Canonical">JSK Esports <b>69.4%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">+22.3 pp <span class="canon-diverge">OPPOSITE</span></td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1080941">Canonical card ↗</a><a class="src-link" href="table.html#row-1080941">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/simplicity-gaming-vs-jsk-esports-tunisian-super-league-2026-1080941" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+      </tr>
+<tr>
+        <td data-label="Kickoff" class="mono"><time data-utc="2026-10-26T17:00:00.000Z">2026-10-26 17:00 UTC</time></td>
+        <td data-label="Match"><strong>T1</strong> vs <strong>CTBC Flying Oyster</strong><br><span class="mono">#1075821 · Worlds 2026 Main Event</span></td>
+        <td data-label="This view">T1 <b>88.2%</b> <span class="mono">(market)</span></td>
+        <td data-label="Canonical">T1 <b>67.3%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">+20.9 pp</td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1075821">Canonical card ↗</a><a class="src-link" href="table.html#row-1075821">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/t1-vs-ctbc-flying-oyster-worlds-2026-main-event-1075821" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+      </tr>
+<tr>
+        <td data-label="Kickoff" class="mono"><time data-utc="2026-10-31T17:00:00.000Z">2026-10-31 17:00 UTC</time></td>
+        <td data-label="Match"><strong>Simplicity Gaming</strong> vs <strong>Jendouba Esports</strong><br><span class="mono">#1080936 · Tunisian Super League 2026</span></td>
+        <td data-label="This view">Simplicity Gaming <b>71.6%</b> <span class="mono">(model)</span></td>
+        <td data-label="Canonical">Simplicity Gaming <b>51.7%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">+19.9 pp</td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1080936">Canonical card ↗</a><a class="src-link" href="table.html#row-1080936">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/simplicity-gaming-vs-jendouba-esports-tunisian-super-league-2026-1080936" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+      </tr>
+<tr>
+        <td data-label="Kickoff" class="mono"><time data-utc="2026-11-07T17:00:00.000Z">2026-11-07 17:00 UTC</time></td>
+        <td data-label="Match"><strong>Olympique Mnihla Academy</strong> vs <strong>Simplicity Gaming</strong><br><span class="mono">#1080945 · Tunisian Super League 2026</span></td>
+        <td data-label="This view">Simplicity Gaming <b>69.3%</b> <span class="mono">(model)</span></td>
+        <td data-label="Canonical">Olympique Mnihla Academy <b>50.3%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">−19.6 pp <span class="canon-diverge">OPPOSITE</span></td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1080945">Canonical card ↗</a><a class="src-link" href="table.html#row-1080945">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-simplicity-gaming-tunisian-super-league-2026-1080945" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+      </tr>
+<tr>
+        <td data-label="Kickoff" class="mono"><time data-utc="2026-10-26T18:00:00.000Z">2026-10-26 18:00 UTC</time></td>
+        <td data-label="Match"><strong>Karmine Corp</strong> vs <strong>Bilibili Gaming</strong><br><span class="mono">#1075820 · Worlds 2026 Main Event</span></td>
+        <td data-label="This view">Bilibili Gaming <b>71.6%</b> <span class="mono">(market)</span></td>
+        <td data-label="Canonical">Bilibili Gaming <b>55.9%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">−15.7 pp</td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1075820">Canonical card ↗</a><a class="src-link" href="table.html#row-1075820">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/karmine-corp-vs-bilibili-gaming-worlds-2026-main-event-1075820" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+      </tr>
+<tr>
+        <td data-label="Kickoff" class="mono"><time data-utc="2026-10-26T19:00:00.000Z">2026-10-26 19:00 UTC</time></td>
+        <td data-label="Match"><strong>LØS</strong> vs <strong>Team Secret Whales</strong><br><span class="mono">#1075822 · Worlds 2026 Main Event</span></td>
+        <td data-label="This view">Team Secret Whales <b>69.5%</b> <span class="mono">(market)</span></td>
+        <td data-label="Canonical">Team Secret Whales <b>57.6%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">−11.9 pp</td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1075822">Canonical card ↗</a><a class="src-link" href="table.html#row-1075822">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/l-s-vs-team-secret-whales-worlds-2026-main-event-1075822" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
       </tr>
 <tr>
         <td data-label="Kickoff" class="mono"><time data-utc="2026-10-24T16:00:00.000Z">2026-10-24 16:00 UTC</time></td>
@@ -155,8 +195,8 @@
         <td data-label="Kickoff" class="mono"><time data-utc="2026-11-07T17:00:00.000Z">2026-11-07 17:00 UTC</time></td>
         <td data-label="Match"><strong>El Menzah Esports</strong> vs <strong>Olympique Mnihla</strong><br><span class="mono">#1080943 · Tunisian Super League 2026</span></td>
         <td data-label="This view">Olympique Mnihla <b>51.1%</b> <span class="mono">(model)</span></td>
-        <td data-label="Canonical">Olympique Mnihla <b>59.3%</b> <span class="mono">(model · medium)</span></td>
-        <td data-label="Gap" class="num">+8.2 pp</td>
+        <td data-label="Canonical">Olympique Mnihla <b>59.0%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">+7.9 pp</td>
         <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1080943">Canonical card ↗</a><a class="src-link" href="table.html#row-1080943">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/el-menzah-esports-vs-olympique-mnihla-tunisian-super-league-2026-1080943" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
       </tr>
 <tr>
@@ -195,17 +235,9 @@
         <td data-label="Kickoff" class="mono"><time data-utc="2026-11-08T16:00:00.000Z">2026-11-08 16:00 UTC</time></td>
         <td data-label="Match"><strong>AIX eSports</strong> vs <strong>BlackDivision</strong><br><span class="mono">#1075777 · PRM 3rd Division 26-27 Fall</span></td>
         <td data-label="This view">BlackDivision <b>61.3%</b> <span class="mono">(provisional)</span></td>
-        <td data-label="Canonical">BlackDivision <b>54.4%</b> <span class="mono">(provisional · low)</span></td>
+        <td data-label="Canonical">BlackDivision <b>54.3%</b> <span class="mono">(provisional · low)</span></td>
         <td data-label="Gap" class="num">−7.0 pp</td>
         <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1075777">Canonical card ↗</a><a class="src-link" href="table.html#row-1075777">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/aix-esports-vs-blackdivision-prm-3rd-division-26-27-fall-1075777" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
-      </tr>
-<tr>
-        <td data-label="Kickoff" class="mono"><time data-utc="2026-11-01T17:00:00.000Z">2026-11-01 17:00 UTC</time></td>
-        <td data-label="Match"><strong>Olympique Mnihla Academy</strong> vs <strong>Olympique Mnihla</strong><br><span class="mono">#1080940 · Tunisian Super League 2026</span></td>
-        <td data-label="This view">Olympique Mnihla <b>53.4%</b> <span class="mono">(model)</span></td>
-        <td data-label="Canonical">Olympique Mnihla <b>60.2%</b> <span class="mono">(model · medium)</span></td>
-        <td data-label="Gap" class="num">+6.8 pp</td>
-        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1080940">Canonical card ↗</a><a class="src-link" href="table.html#row-1080940">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-olympique-mnihla-tunisian-super-league-2026-1080940" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
       </tr>
 <tr>
         <td data-label="Kickoff" class="mono"><time data-utc="2026-10-16T15:00:00.000Z">2026-10-16 15:00 UTC</time></td>
@@ -216,12 +248,28 @@
         <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1082004">Canonical card ↗</a><a class="src-link" href="table.html#row-1082004">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/mtn-esports-team-vs-ratclub-arabian-regional-championship-2026-lebanon-libya-syria-palestine-1082004" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
       </tr>
 <tr>
+        <td data-label="Kickoff" class="mono"><time data-utc="2026-11-01T17:00:00.000Z">2026-11-01 17:00 UTC</time></td>
+        <td data-label="Match"><strong>Olympique Mnihla Academy</strong> vs <strong>Olympique Mnihla</strong><br><span class="mono">#1080940 · Tunisian Super League 2026</span></td>
+        <td data-label="This view">Olympique Mnihla <b>53.4%</b> <span class="mono">(model)</span></td>
+        <td data-label="Canonical">Olympique Mnihla <b>59.6%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">+6.2 pp</td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1080940">Canonical card ↗</a><a class="src-link" href="table.html#row-1080940">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-olympique-mnihla-tunisian-super-league-2026-1080940" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+      </tr>
+<tr>
         <td data-label="Kickoff" class="mono"><time data-utc="2026-11-15T16:00:00.000Z">2026-11-15 16:00 UTC</time></td>
         <td data-label="Match"><strong>Rich Gang</strong> vs <strong>Whalepower Humpbacks</strong><br><span class="mono">#1075803 · PRM 3rd Division 26-27 Fall</span></td>
         <td data-label="This view">Rich Gang <b>74.4%</b> <span class="mono">(model)</span></td>
         <td data-label="Canonical">Rich Gang <b>80.6%</b> <span class="mono">(model · medium)</span></td>
         <td data-label="Gap" class="num">−6.2 pp</td>
         <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1075803">Canonical card ↗</a><a class="src-link" href="table.html#row-1075803">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/rich-gang-vs-whalepower-humpbacks-prm-3rd-division-26-27-fall-1075803" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+      </tr>
+<tr>
+        <td data-label="Kickoff" class="mono"><time data-utc="2026-11-01T21:00:00.000Z">2026-11-01 21:00 UTC</time></td>
+        <td data-label="Match"><strong>Smoke Tram</strong> vs <strong>Marere E-Sports</strong><br><span class="mono">#1084906 · LigaGG CELOL A 2026 Split 2 Playoffs</span></td>
+        <td data-label="This view">Smoke Tram <b>67.5%</b> <span class="mono">(model)</span></td>
+        <td data-label="Canonical">Smoke Tram <b>73.5%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">−6.0 pp</td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1084906">Canonical card ↗</a><a class="src-link" href="table.html#row-1084906">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/smoke-tram-vs-marere-e-sports-ligagg-celol-a-2026-split-2-playoffs-1084906" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
       </tr>
 <tr>
         <td data-label="Kickoff" class="mono"><time data-utc="2026-10-30T17:00:00.000Z">2026-10-30 17:00 UTC</time></td>
@@ -240,14 +288,6 @@
         <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1075795">Canonical card ↗</a><a class="src-link" href="table.html#row-1075795">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/berlin-5-vs-emperors-bremen-prm-3rd-division-26-27-fall-1075795" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
       </tr>
 <tr>
-        <td data-label="Kickoff" class="mono"><time data-utc="2026-11-01T21:00:00.000Z">2026-11-01 21:00 UTC</time></td>
-        <td data-label="Match"><strong>Smoke Tram</strong> vs <strong>Marere E-Sports</strong><br><span class="mono">#1084906 · LigaGG CELOL A 2026 Split 2 Playoffs</span></td>
-        <td data-label="This view">Smoke Tram <b>67.5%</b> <span class="mono">(model)</span></td>
-        <td data-label="Canonical">Smoke Tram <b>73.4%</b> <span class="mono">(model · medium)</span></td>
-        <td data-label="Gap" class="num">−5.9 pp</td>
-        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1084906">Canonical card ↗</a><a class="src-link" href="table.html#row-1084906">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/smoke-tram-vs-marere-e-sports-ligagg-celol-a-2026-split-2-playoffs-1084906" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
-      </tr>
-<tr>
         <td data-label="Kickoff" class="mono"><time data-utc="2026-11-01T16:00:00.000Z">2026-11-01 16:00 UTC</time></td>
         <td data-label="Match"><strong>Berlin 5</strong> vs <strong>Sissi State Punks</strong><br><span class="mono">#1075763 · PRM 3rd Division 26-27 Fall</span></td>
         <td data-label="This view">Berlin 5 <b>50.4%</b> <span class="mono">(model)</span></td>
@@ -259,17 +299,25 @@
         <td data-label="Kickoff" class="mono"><time data-utc="2026-10-24T20:00:00.000Z">2026-10-24 20:00 UTC</time></td>
         <td data-label="Match"><strong>LØS Academy</strong> vs <strong>Marere E-Sports</strong><br><span class="mono">#1082915 · LigaGG CELOL A 2026 Split 2 Playoffs</span></td>
         <td data-label="This view">LØS Academy <b>68.9%</b> <span class="mono">(model)</span></td>
-        <td data-label="Canonical">LØS Academy <b>74.7%</b> <span class="mono">(model · medium)</span></td>
-        <td data-label="Gap" class="num">−5.8 pp</td>
+        <td data-label="Canonical">LØS Academy <b>74.6%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">−5.7 pp</td>
         <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1082915">Canonical card ↗</a><a class="src-link" href="table.html#row-1082915">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/l-s-academy-vs-marere-e-sports-ligagg-celol-a-2026-split-2-playoffs-1082915" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
       </tr>
 <tr>
-        <td data-label="Kickoff" class="mono"><time data-utc="2026-11-07T17:00:00.000Z">2026-11-07 17:00 UTC</time></td>
-        <td data-label="Match"><strong>Olympique Mnihla Academy</strong> vs <strong>Simplicity Gaming</strong><br><span class="mono">#1080945 · Tunisian Super League 2026</span></td>
-        <td data-label="This view">Simplicity Gaming <b>69.3%</b> <span class="mono">(model)</span></td>
-        <td data-label="Canonical">Simplicity Gaming <b>75.0%</b> <span class="mono">(model · medium)</span></td>
-        <td data-label="Gap" class="num">+5.7 pp</td>
-        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1080945">Canonical card ↗</a><a class="src-link" href="table.html#row-1080945">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/olympique-mnihla-academy-vs-simplicity-gaming-tunisian-super-league-2026-1080945" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+        <td data-label="Kickoff" class="mono"><time data-utc="2026-10-24T20:00:00.000Z">2026-10-24 20:00 UTC</time></td>
+        <td data-label="Match"><strong>Clã NKZ VÓRAX</strong> vs <strong>Neon eSports</strong><br><span class="mono">#1082914 · LigaGG CELOL A 2026 Split 2 Playoffs</span></td>
+        <td data-label="This view">Neon eSports <b>54.6%</b> <span class="mono">(model)</span></td>
+        <td data-label="Canonical">Clã NKZ VÓRAX <b>51.1%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">−5.7 pp <span class="canon-diverge">OPPOSITE</span></td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1082914">Canonical card ↗</a><a class="src-link" href="table.html#row-1082914">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/cla-nkz-vorax-vs-neon-esports-ligagg-celol-a-2026-split-2-playoffs-1082914" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
+      </tr>
+<tr>
+        <td data-label="Kickoff" class="mono"><time data-utc="2026-10-31T20:00:00.000Z">2026-10-31 20:00 UTC</time></td>
+        <td data-label="Match"><strong>Clã NKZ VÓRAX</strong> vs <strong>Neon eSports</strong><br><span class="mono">#1083015 · LigaGG CELOL A 2026 Split 2 Playoffs</span></td>
+        <td data-label="This view">Neon eSports <b>54.6%</b> <span class="mono">(model)</span></td>
+        <td data-label="Canonical">Clã NKZ VÓRAX <b>51.1%</b> <span class="mono">(model · medium)</span></td>
+        <td data-label="Gap" class="num">−5.7 pp <span class="canon-diverge">OPPOSITE</span></td>
+        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1083015">Canonical card ↗</a><a class="src-link" href="table.html#row-1083015">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/cla-nkz-vorax-vs-neon-esports-ligagg-celol-a-2026-split-2-playoffs-1083015" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
       </tr>
 <tr>
         <td data-label="Kickoff" class="mono"><time data-utc="2026-11-11T09:00:00.000Z">2026-11-11 09:00 UTC</time></td>
@@ -278,22 +326,6 @@
         <td data-label="Canonical">Frank Esports <b>75.3%</b> <span class="mono">(model · medium)</span></td>
         <td data-label="Gap" class="num">−5.6 pp</td>
         <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1081423">Canonical card ↗</a><a class="src-link" href="table.html#row-1081423">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/ground-zero-gaming-vs-frank-esports-lcp-2027-promotion-1081423" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
-      </tr>
-<tr>
-        <td data-label="Kickoff" class="mono"><time data-utc="2026-10-24T20:00:00.000Z">2026-10-24 20:00 UTC</time></td>
-        <td data-label="Match"><strong>Clã NKZ VÓRAX</strong> vs <strong>Neon eSports</strong><br><span class="mono">#1082914 · LigaGG CELOL A 2026 Split 2 Playoffs</span></td>
-        <td data-label="This view">Neon eSports <b>54.6%</b> <span class="mono">(model)</span></td>
-        <td data-label="Canonical">Clã NKZ VÓRAX <b>51.0%</b> <span class="mono">(model · medium)</span></td>
-        <td data-label="Gap" class="num">−5.6 pp <span class="canon-diverge">OPPOSITE</span></td>
-        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1082914">Canonical card ↗</a><a class="src-link" href="table.html#row-1082914">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/cla-nkz-vorax-vs-neon-esports-ligagg-celol-a-2026-split-2-playoffs-1082914" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
-      </tr>
-<tr>
-        <td data-label="Kickoff" class="mono"><time data-utc="2026-10-31T20:00:00.000Z">2026-10-31 20:00 UTC</time></td>
-        <td data-label="Match"><strong>Clã NKZ VÓRAX</strong> vs <strong>Neon eSports</strong><br><span class="mono">#1083015 · LigaGG CELOL A 2026 Split 2 Playoffs</span></td>
-        <td data-label="This view">Neon eSports <b>54.6%</b> <span class="mono">(model)</span></td>
-        <td data-label="Canonical">Clã NKZ VÓRAX <b>51.0%</b> <span class="mono">(model · medium)</span></td>
-        <td data-label="Gap" class="num">−5.6 pp <span class="canon-diverge">OPPOSITE</span></td>
-        <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1083015">Canonical card ↗</a><a class="src-link" href="table.html#row-1083015">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/cla-nkz-vorax-vs-neon-esports-ligagg-celol-a-2026-split-2-playoffs-1083015" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
       </tr>
 <tr>
         <td data-label="Kickoff" class="mono"><time data-utc="2026-11-07T09:00:00.000Z">2026-11-07 09:00 UTC</time></td>
@@ -382,9 +414,9 @@
         <td data-label="Canonical">Venus <b>50.6%</b> <span class="mono">(model · medium)</span></td>
         <td data-label="Gap" class="num">+0.6 pp <span class="canon-diverge">OPPOSITE</span></td>
         <td data-label="Sources"><div class="card-links" style="border:0;padding:0"><a class="src-link" href="../picks.html#match-1070209">Canonical card ↗</a><a class="src-link" href="table.html#row-1070209">This view ↗</a><a class="src-link" href="https://www.hotspawn.com/matches/triforce-esport-vs-venus-benelux-ascend-series-rising-2026-summer-playoffs-1070209" target="_blank" rel="noopener">Hotspawn ↗</a></div></td>
-      </tr></tbody></table></div><p class="recon-note"><b>Worked example — the largest gap (#1075823, Worlds 2026 Main Event, Team Liquid vs Anyone's Legend):</b>
-       this view prices it from a <b>4-venue de-vigged market consensus</b> (Pinnacle 91.6% for Team Liquid; Polymarket 42.5% for Team Liquid; Kalshi CFTC 42.1% for Team Liquid; Bovada 26.8% for Team Liquid) captured in this snapshot at 22:25 UTC → <b>57.7%</b> / 42.3%; the canonical dashboard prices it from a <b>market consensus</b> (<i>6-Venue Consensus de-vigged line (28.4% / 71.5%): Pinnacle 28.3%/71.7% (3.38/1.33), Polymarket 27.5%/72.5% (27.5¢/72.5¢), Kalshi 28.8%/71.2% (29¢/70¢), Bovada 28.9%/71.1% (3.25/1.32), Unibet 30.9%/69.1% (3.00/1.34), Smarkets 28.6%/71.4% (28.4%/70.7%).</i>) whose quotes were observed 09:40–13:10 UTC → <b>28.4%</b> / 71.5%.
-       One side is priced from real-money venues and the other from ratings, at two different snapshot times (this view 2026-10-26 22:25 UTC vs canonical inventory 2026-10-26T13:09:11Z), so the gap mixes a market read with a model read rather than comparing like with like. The gap is published rather than averaged away; where the two differ, <b>submit the canonical pick</b>.</p>
+      </tr></tbody></table></div><p class="recon-note"><b>Worked example — the largest gap (#1080941, Tunisian Super League 2026, Simplicity Gaming vs JSK Esports):</b>
+       this view prices it from its own <b>pre-kickoff ratings</b> — Simplicity Gaming 1673 (29 series) vs JSK Esports 1633 (68 series), shrunk to effective 1643 / 1623 → <b>52.9%</b> / 47.1%; the canonical dashboard prices it from its own <b>pre-kickoff Elo</b> — Simplicity Gaming 1455 (34 rated series) vs JSK Esports 1597 (70 rated series) (<i>Elo line: Simplicity Gaming 1455 vs JSK Esports 1597 (34/70 rated series).</i>) → <b>30.6%</b> / 69.4%.
+       Same fixture, same kick-off, two independently fitted pre-kickoff rating pools over different series sets and different thin-history shrinkage — a modelling difference, not a data error. The gap is published rather than averaged away; where the two differ, <b>submit the canonical pick</b>.</p>
     </section>
 
 
@@ -462,7 +494,7 @@
       <div class="prob-seg1" style="width:12%"></div>
     </div>
     <div class="card-meta">De-vigged consensus across Bovada (1.11/6.00) · spread 0.0 pp.</div>
-    <div class="canon"><span class="canon-tag">CANONICAL PICK</span><span>T1 <b>86.9%</b> vs 13.1% · <i>market consensus · 6 venues (Pinnacle, Polymarket, Kalshi, Bovada, Unibet, Smarkets) · confidence high</i> — <a href="../picks.html#match-1075821">canonical card ↗</a></span></div>
+    <div class="canon"><span class="canon-tag">CANONICAL PICK</span><span>T1 <b>67.3%</b> vs 32.7% · <i>originated Elo line · confidence medium</i> <span class="canon-diverge" title="This view and the canonical dashboard disagree">DIVERGES +20.9 pp</span>— <a href="../picks.html#match-1075821">canonical card ↗</a></span></div>
     <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/t1-vs-ctbc-flying-oyster-worlds-2026-main-event-1075821" target="_blank" rel="noopener">Hotspawn #1075821 ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/t1-ctbc-flying-oyster-202610261300" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
   </article>
 <article class="card" id="idx-m-1075820" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1075820 Worlds 2026 Main Event Karmine Corp Bilibili Gaming Karmine Corp Bilibili Gaming">
@@ -495,7 +527,7 @@
       <div class="prob-seg-win" style="width:72%"></div>
     </div>
     <div class="card-meta">De-vigged consensus across Bovada (3.10/1.35) · spread 0.0 pp.</div>
-    <div class="canon"><span class="canon-tag">CANONICAL PICK</span><span>Bilibili Gaming <b>69.2%</b> vs 30.8% · <i>market consensus · 6 venues (Pinnacle, Polymarket, Kalshi, Bovada, Unibet, Smarkets) · confidence high</i> — <a href="../picks.html#match-1075820">canonical card ↗</a></span></div>
+    <div class="canon"><span class="canon-tag">CANONICAL PICK</span><span>Bilibili Gaming <b>55.9%</b> vs 44.1% · <i>originated Elo line · confidence medium</i> <span class="canon-diverge" title="This view and the canonical dashboard disagree">DIVERGES −15.7 pp</span>— <a href="../picks.html#match-1075820">canonical card ↗</a></span></div>
     <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/karmine-corp-vs-bilibili-gaming-worlds-2026-main-event-1075820" target="_blank" rel="noopener">Hotspawn #1075820 ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/karmine-corp-bilibili-gaming-202610261400" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
   </article>
 <article class="card" id="idx-m-1075822" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1075822 Worlds 2026 Main Event LØS Team Secret Whales LØS Team Secret Whales">
@@ -528,7 +560,7 @@
       <div class="prob-seg-win" style="width:69%"></div>
     </div>
     <div class="card-meta">De-vigged consensus across Bovada (2.90/1.38) · spread 0.0 pp.</div>
-    <div class="canon"><span class="canon-tag">CANONICAL PICK</span><span>Team Secret Whales <b>66.1%</b> vs 33.9% · <i>market consensus · 6 venues (Pinnacle, Polymarket, Kalshi, Bovada, Unibet, Smarkets) · confidence high</i> — <a href="../picks.html#match-1075822">canonical card ↗</a></span></div>
+    <div class="canon"><span class="canon-tag">CANONICAL PICK</span><span>Team Secret Whales <b>57.6%</b> vs 42.4% · <i>originated Elo line · confidence medium</i> <span class="canon-diverge" title="This view and the canonical dashboard disagree">DIVERGES −11.9 pp</span>— <a href="../picks.html#match-1075822">canonical card ↗</a></span></div>
     <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/l-s-vs-team-secret-whales-worlds-2026-main-event-1075822" target="_blank" rel="noopener">Hotspawn #1075822 ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/los-grandes-team-secret-202610261500" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
   </article>
 <article class="card" id="idx-m-1075823" data-item="1" data-method="market" data-comp="Worlds 2026 Main Event" data-stale="0" data-search="1075823 Worlds 2026 Main Event Team Liquid Anyone's Legend Team Liquid Anyone's Legend">
@@ -561,7 +593,7 @@
       <div class="prob-seg1" style="width:42%"></div>
     </div>
     <div class="card-meta">De-vigged consensus across Pinnacle (1.08/8.45) + Polymarket + Kalshi CFTC + Bovada (3.25/1.32) · spread 64.8 pp.</div>
-    <div class="canon divergent"><span class="canon-tag">CANONICAL PICK</span><span>Anyone's Legend <b>71.5%</b> vs 28.4% · <i>market consensus · 6 venues (Pinnacle, Polymarket, Kalshi, Bovada, Unibet, Smarkets) · confidence high</i> <span class="canon-diverge" title="This view and the canonical dashboard disagree">OPPOSITE PICK +29.3 pp</span>— <a href="../picks.html#match-1075823">canonical card ↗</a></span></div>
+    <div class="canon"><span class="canon-tag">CANONICAL PICK</span><span>Team Liquid <b>55.7%</b> vs 44.3% · <i>originated Elo line · confidence medium</i> — <a href="../picks.html#match-1075823">canonical card ↗</a></span></div>
     <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/team-liquid-vs-anyone-s-legend-worlds-2026-main-event-1075823" target="_blank" rel="noopener">Hotspawn #1075823 ↗</a><a class="src-link" href="https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639294545/markets/related/straight" target="_blank" rel="noopener">Pinnacle ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct261800altl" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-tl2-al-2026-10-26" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://www.bovada.lv/sports/esports/league-of-legends/world-championship-26/team-liquid-anyone-s-legend-202610261800" target="_blank" rel="noopener">Bovada ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/2026_Season_World_Championship/Main_Event" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
   </article>
 <article class="card" id="idx-m-1079080" data-item="1" data-method="market" data-comp="LGC Rising 2026 Playoffs" data-stale="0" data-search="1079080 LGC Rising 2026 Playoffs Mental Rush Vitality Rising Bees Mental Rush Vitality Rising Bees">
@@ -594,7 +626,7 @@
       <div class="prob-seg-win" style="width:64%"></div>
     </div>
     <div class="card-meta">De-vigged consensus across Polymarket + Kalshi CFTC · spread 0.5 pp.</div>
-    <div class="canon"><span class="canon-tag">CANONICAL PICK</span><span>Vitality Rising Bees <b>65.0%</b> vs 35.0% · <i>market consensus · 2 venues (Polymarket, Kalshi) · confidence high</i> — <a href="../picks.html#match-1079080">canonical card ↗</a></span></div>
+    <div class="canon"><span class="canon-tag">CANONICAL PICK</span><span>Vitality Rising Bees <b>64.9%</b> vs 35.1% · <i>market consensus · 2 venues (Polymarket, Kalshi) · confidence high</i> — <a href="../picks.html#match-1079080">canonical card ↗</a></span></div>
     <div class="card-links"><a class="src-link" href="https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080" target="_blank" rel="noopener">Hotspawn #1079080 ↗</a><a class="src-link" href="https://kalshi.com/markets/kxlolgame/kxlolgame-26oct271300rbmr" target="_blank" rel="noopener">Kalshi CFTC ↗</a><a class="src-link" href="https://polymarket.com/event/lol-rb-mr-2026-10-27" target="_blank" rel="noopener">Polymarket ↗</a><a class="src-link" href="https://lol.fandom.com/wiki/LoL_Game_Changers/2026_Season/Playoffs" target="_blank" rel="noopener">Leaguepedia ↗</a></div>
   </article>
     </section>
