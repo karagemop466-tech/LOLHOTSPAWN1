@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-10-26T12:29:11.874Z",
+  "generated_at": "2026-10-26T22:25:08.786Z",
   "methodology": "Chronological pre-kickoff Elo/Bradley-Terry (initial 1500, dynamic K=38/28/22 with map-margin multiplier, empirical-Bayes tau=6 shrinkage, correlated-series damping alpha=0.72). Zero Hotspawn crowd/tier/points inputs; zero post-kickoff look-ahead.",
   "teams_rated": 4208,
   "calibration": {
-    "series_replayed": 32593,
-    "oos_evaluated": 22429,
+    "series_replayed": 32595,
+    "oos_evaluated": 22431,
     "brier": 0.225,
     "coinflip_brier": 0.25,
     "log_loss": 0.6414,
-    "accuracy": 0.641,
+    "accuracy": 0.6409,
     "reliability_bins": [
       {
         "bin": "0-10%",
@@ -25,20 +25,20 @@
       {
         "bin": "20-30%",
         "n": 1101,
-        "mean_pred": 0.257,
+        "mean_pred": 0.2569,
         "empirical_win_rate": 0.267
       },
       {
         "bin": "30-40%",
-        "n": 2521,
+        "n": 2523,
         "mean_pred": 0.3556,
-        "empirical_win_rate": 0.3491
+        "empirical_win_rate": 0.3492
       },
       {
         "bin": "40-50%",
-        "n": 6190,
+        "n": 6189,
         "mean_pred": 0.4607,
-        "empirical_win_rate": 0.4662
+        "empirical_win_rate": 0.4663
       },
       {
         "bin": "50-60%",
@@ -48,9 +48,9 @@
       },
       {
         "bin": "60-70%",
-        "n": 3064,
+        "n": 3065,
         "mean_pred": 0.6441,
-        "empirical_win_rate": 0.7252
+        "empirical_win_rate": 0.7253
       },
       {
         "bin": "70-80%",
@@ -5798,6 +5798,15 @@
       "last_played": "2025-08-01"
     },
     {
+      "team": "Movistar KOI Karps",
+      "elo": 1570.5,
+      "series": 23,
+      "wins": 13,
+      "losses": 10,
+      "maps": "26-22",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "Gwen.G",
       "elo": 1570.5,
       "series": 17,
@@ -7200,15 +7209,6 @@
       "losses": 2,
       "maps": "5-2",
       "last_played": "2024-09-08"
-    },
-    {
-      "team": "Movistar KOI Karps",
-      "elo": 1557.1,
-      "series": 22,
-      "wins": 12,
-      "losses": 10,
-      "maps": "24-22",
-      "last_played": "2026-10-18"
     },
     {
       "team": "meow:3",
@@ -18740,15 +18740,6 @@
       "last_played": "2025-05-24"
     },
     {
-      "team": "EK Esports",
-      "elo": 1499.7,
-      "series": 15,
-      "wins": 7,
-      "losses": 8,
-      "maps": "17-16",
-      "last_played": "2026-10-04"
-    },
-    {
       "team": "Team Nissaxter",
       "elo": 1499.6,
       "series": 10,
@@ -21429,6 +21420,15 @@
       "losses": 4,
       "maps": "7-9",
       "last_played": "2026-04-02"
+    },
+    {
+      "team": "EK Esports",
+      "elo": 1486.2,
+      "series": 16,
+      "wins": 7,
+      "losses": 9,
+      "maps": "17-18",
+      "last_played": "2026-10-25"
     },
     {
       "team": "University of California Los Angeles",
@@ -28505,15 +28505,6 @@
       "last_played": "2026-04-04"
     },
     {
-      "team": "Rich Gang Sweden",
-      "elo": 1462.7,
-      "series": 5,
-      "wins": 1,
-      "losses": 4,
-      "maps": "4-8",
-      "last_played": "2026-10-18"
-    },
-    {
       "team": "Team Jamba Juice",
       "elo": 1462.6,
       "series": 4,
@@ -33095,6 +33086,15 @@
       "last_played": "2025-04-19"
     },
     {
+      "team": "Rich Gang Sweden",
+      "elo": 1435.8,
+      "series": 6,
+      "wins": 1,
+      "losses": 5,
+      "maps": "4-10",
+      "last_played": "2026-10-24"
+    },
+    {
       "team": "Aliax Esports",
       "elo": 1435.8,
       "series": 4,
@@ -33770,6 +33770,15 @@
       "last_played": "2026-08-19"
     },
     {
+      "team": "Mazepa",
+      "elo": 1429.1,
+      "series": 11,
+      "wins": 3,
+      "losses": 8,
+      "maps": "8-18",
+      "last_played": "2026-10-25"
+    },
+    {
       "team": "Whalepower Humpbacks",
       "elo": 1429,
       "series": 28,
@@ -33876,15 +33885,6 @@
       "losses": 4,
       "maps": "1-7",
       "last_played": "2026-10-04"
-    },
-    {
-      "team": "Mazepa",
-      "elo": 1428.2,
-      "series": 11,
-      "wins": 3,
-      "losses": 8,
-      "maps": "8-18",
-      "last_played": "2026-10-25"
     },
     {
       "team": "Almeno Esport",
@@ -34776,6 +34776,15 @@
       "losses": 9,
       "maps": "3-10",
       "last_played": "2025-09-06"
+    },
+    {
+      "team": "OnlyWinByFF",
+      "elo": 1419.5,
+      "series": 15,
+      "wins": 4,
+      "losses": 11,
+      "maps": "11-23",
+      "last_played": "2026-10-25"
     },
     {
       "team": "FRK",
@@ -36135,15 +36144,6 @@
       "losses": 9,
       "maps": "1-9",
       "last_played": "2026-03-15"
-    },
-    {
-      "team": "OnlyWinByFF",
-      "elo": 1400.6,
-      "series": 14,
-      "wins": 3,
-      "losses": 11,
-      "maps": "9-23",
-      "last_played": "2026-10-25"
     },
     {
       "team": "Cuba (National Team)",
