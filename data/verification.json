@@ -1,15 +1,15 @@
 {
- "generated_utc": "2026-10-26T04:53:16Z",
+ "generated_utc": "2026-10-26T13:11:02Z",
  "checks": [
   {
    "name": "dataset present",
    "ok": true,
-   "detail": "222 matches loaded"
+   "detail": "212 matches loaded"
   },
   {
    "name": "complete inventory reconciliation",
    "ok": true,
-   "detail": "raw fixtures=222, published rows=222; exact ID multiset comparison"
+   "detail": "raw fixtures=212, published rows=212; exact ID multiset comparison"
   },
   {
    "name": "finite probabilities and correctly named picks",
@@ -19,22 +19,22 @@
   {
    "name": "every row links to its Hotspawn match card",
    "ok": true,
-   "detail": "222/222 rows carry a Hotspawn URL"
+   "detail": "212/212 rows carry a Hotspawn URL"
   },
   {
    "name": "probabilities sum to 100% (tolerance 0.2pp)",
    "ok": true,
-   "detail": "222 priced rows verified; problems: []"
+   "detail": "212 priced rows verified; problems: []"
   },
   {
    "name": "pick matches the higher probability",
    "ok": true,
-   "detail": "222 rows consistent; problems: []"
+   "detail": "212 rows consistent; problems: []"
   },
   {
    "name": "every match has a pick or is documented as unpickable",
    "ok": true,
-   "detail": "222 rows: 222 with a pick (4 settlement-only), 0 documented unpickable"
+   "detail": "212 rows: 212 with a pick (4 settlement-only), 0 documented unpickable"
   },
   {
    "name": "settlement picks name a participant and claim no probability",
@@ -54,7 +54,7 @@
   {
    "name": "no duplicate match ids",
    "ok": true,
-   "detail": "222 unique ids; duplicates: []"
+   "detail": "212 unique ids; duplicates: []"
   },
   {
    "name": "no '(Kills)' derivative market is used as a match line",
@@ -94,7 +94,7 @@
   {
    "name": "picks.csv mirrors the dataset",
    "ok": true,
-   "detail": "csv rows=222 json rows=222"
+   "detail": "csv rows=212 json rows=212"
   },
   {
    "name": "all site pages exist",
@@ -124,12 +124,12 @@
   {
    "name": "all matches rendered on the picks page",
    "ok": true,
-   "detail": "222/222 match cards found"
+   "detail": "212/212 match cards found"
   },
   {
    "name": "pick table renders one row per match",
    "ok": true,
-   "detail": "222/222 table rows"
+   "detail": "212/212 table rows"
   },
   {
    "name": "executive summary links to every picks view",
@@ -144,7 +144,7 @@
   {
    "name": "executive summary and its unresolved block precede every list on the landing page",
    "ok": true,
-   "detail": "summary=2549 unresolved=9529 soon=17165 directory=23765"
+   "detail": "summary=2549 unresolved=9529 soon=17165 directory=23780"
   },
   {
    "name": "the unresolved block inside the summary states why each card has no probability",
@@ -164,7 +164,7 @@
   {
    "name": "out-of-sample backtest & SVG calibration rendered on methodology page",
    "ok": true,
-   "detail": "backtest series rendered: 3,945"
+   "detail": "backtest series rendered: 3,958"
   },
   {
    "name": "curated flags annotate every reference to a fixture that has left the list",
@@ -199,7 +199,7 @@
   {
    "name": "coverage matrix: every competition row links to a source",
    "ok": true,
-   "detail": "29 competition rows; missing links: []"
+   "detail": "30 competition rows; missing links: []"
   },
   {
    "name": "external receipts validated against the dataset",
@@ -214,7 +214,7 @@
   {
    "name": "coverage page shows every match method and the unresolved ledger",
    "ok": true,
-   "detail": "coverage.html 89372 bytes"
+   "detail": "coverage.html 89888 bytes"
   },
   {
    "name": "external source research receipts are committed",
@@ -234,12 +234,12 @@
   {
    "name": "coverage arithmetic reconciles to the inventory",
    "ok": true,
-   "detail": "priced=218 + settlements=4 = 222; rows with a pick=222; inventory=222"
+   "detail": "priced=208 + settlements=4 = 212; rows with a pick=212; inventory=212"
   },
   {
    "name": "method counts partition matches.json cleanly",
    "ok": true,
-   "detail": "counts={'model': 157, 'unresolved': 4, 'provisional': 56, 'market': 5} sum=222 rows=222"
+   "detail": "counts={'model': 148, 'unresolved': 4, 'provisional': 55, 'market': 5} sum=212 rows=212"
   },
   {
    "name": "source availability recorded",
@@ -249,12 +249,12 @@
   {
    "name": "every Hotspawn fixture is in the dataset (1:1 ids)",
    "ok": true,
-   "detail": "feed=222 dataset=222 missing=[] extra=[]"
+   "detail": "feed=212 dataset=212 missing=[] extra=[]"
   },
   {
    "name": "per-tournament counts match the Hotspawn feed",
    "ok": true,
-   "detail": "29 tournaments; differences: []"
+   "detail": "30 tournaments; differences: []"
   },
   {
    "name": "no look-ahead: ratings use only results before kick-off",
@@ -279,7 +279,7 @@
   {
    "name": "landing-page tournament directory links every tournament to a filterable pick table",
    "ok": true,
-   "detail": "29 tournaments; missing links: []; missing table rows: []"
+   "detail": "30 tournaments; missing links: []; missing table rows: []"
   },
   {
    "name": "tournament deep links are honoured by the client filter",
@@ -288,16 +288,16 @@
   }
  ],
  "passed": true,
- "rows_checked": 222,
- "rows_with_source": 222,
- "rows_prob_ok": 222,
- "unverified": 60,
+ "rows_checked": 212,
+ "rows_with_source": 212,
+ "rows_prob_ok": 212,
+ "unverified": 59,
  "counts": {
-  "model": 157,
+  "model": 148,
   "unresolved": 4,
-  "provisional": 56,
+  "provisional": 55,
   "market": 5
  },
- "internal_links": 506,
+ "internal_links": 507,
  "lookahead_violations": 0
 }

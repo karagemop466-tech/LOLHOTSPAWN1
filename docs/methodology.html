@@ -10,7 +10,7 @@
 <body>
 <div class="canonbar"><div class="canonbar-in">
     <span class="cb-tag">SECONDARY VIEW</span>
-    <span class="cb-txt">Companion audit, <b>not</b> the canonical pick list. Canonical picks for all <b>222</b> listed matches: <a href="../index.html">executive summary ↗</a> · <a href="../table.html">one-table view ↗</a> · <a href="../unresolved.html">unresolved &amp; limitations ↗</a> · graded 34/52 correct. <a href="index.html#reconcile">Why the two dashboards differ</a>.</span>
+    <span class="cb-txt">Companion audit, <b>not</b> the canonical pick list. Canonical picks for all <b>212</b> listed matches: <a href="../index.html">executive summary ↗</a> · <a href="../table.html">one-table view ↗</a> · <a href="../unresolved.html">unresolved &amp; limitations ↗</a> · graded 33/52 correct. <a href="index.html#reconcile">Why the two dashboards differ</a>.</span>
   </div></div>
   <header class="site-header">
     <div class="header-inner">
@@ -22,7 +22,7 @@
         Menu ▾
       </button>
       <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 212 Table</span><span class="nav-cnt">212</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">132</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">5</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">200</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">4</span></a><a href="flagged.html"><span>Flagged</span><span class="nav-cnt">14</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html" class="active" aria-current="page"><span>Methodology</span></a><a href="../index.html"><span>⭐ Canonical picks</span><span class="nav-cnt">222</span></a>
+        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 212 Table</span><span class="nav-cnt">212</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">132</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">5</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">200</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">4</span></a><a href="flagged.html"><span>Flagged</span><span class="nav-cnt">14</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html" class="active" aria-current="page"><span>Methodology</span></a><a href="../index.html"><span>⭐ Canonical picks</span><span class="nav-cnt">212</span></a>
       </nav>
     </div>
   </header>
@@ -30,7 +30,7 @@
   <div class="fresh-bar" data-generated-at="2026-10-26T12:29:11.874Z">
     <div class="fresh-inner">
       <span>Snapshot: <time class="mono" data-utc="2026-10-26T12:29:11.874Z">2026-10-26 12:29 UTC</time> · Auto-refresh every 6h</span>
-      <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-26 04:53 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
+      <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-26 13:11 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
   <main>
@@ -47,7 +47,7 @@
     <div class="callout">
       <p>Two publishers run in this repository and both are served from one GitHub Pages domain. The
       <b>canonical</b> dashboard (<code>tools/</code> &rarr; repository root, <a href="../index.html">/LOLHOTSPAWN1/</a>,
-      data in <code>data/matches.json</code>) is the pick list: <b>222</b> cards Hotspawn lists as <code>status=scheduled</code>, priced from Pinnacle, Polymarket, Kalshi, Bovada, Unibet, Smarkets with an Elo model over Leaguepedia series results and a publish gate (<code>tools/verify.py</code>) that aborts the commit on any failed check.
+      data in <code>data/matches.json</code>) is the pick list: <b>212</b> cards Hotspawn lists as <code>status=scheduled</code>, priced from Pinnacle, Polymarket, Kalshi, Bovada, Unibet, Smarkets with an Elo model over Leaguepedia series results and a publish gate (<code>tools/verify.py</code>) that aborts the commit on any failed check.
       <b>This companion audit</b> (<code>scripts/</code> &rarr; <code>/docs/</code>, data in <code>data/node/**</code>) re-collects the same
       feed, fits its own ratings (Leaguepedia <i>and</i> Hotspawn series, tier prior, thin-history shrinkage) and grades
       recorded picks against official scores. Every card and table row here carries a
@@ -55,7 +55,7 @@
       two disagree by 5 pp or more — or name opposite winners — are marked
       <span class="canon-diverge">DIVERGES</span> and listed on the <a href="index.html#reconcile">overview</a>.
       Where they differ, <b>submit the canonical pick</b>; the gap is published as an audit finding, never averaged away.</p>
-      <p class="recon-note">Snapshot parity at this build: 211 of 212 scheduled rows appear in the canonical inventory; 1 rows here are not in it; 11 canonical cards are not in this snapshot; 204 rows have a probability on both sides, 12 of them opposite picks (mean |gap| 2.29 pp, max 9.8 pp).</p>
+      <p class="recon-note">Snapshot parity at this build: 212 of 212 scheduled rows appear in the canonical inventory; 0 rows here are not in it; 0 canonical cards are not in this snapshot; 205 rows have a probability on both sides, 12 of them opposite picks (mean |gap| 2.24 pp, max 9.8 pp).</p>
     </div>
 
     <div class="sec-head">
