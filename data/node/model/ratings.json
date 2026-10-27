@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-27T11:47:08.713Z",
+  "generated_at": "2026-10-27T17:40:42.858Z",
   "methodology": "Chronological pre-kickoff Elo/Bradley-Terry (initial 1500, dynamic K=38/28/22 with map-margin multiplier, empirical-Bayes tau=6 shrinkage, correlated-series damping alpha=0.72). Zero Hotspawn crowd/tier/points inputs; zero post-kickoff look-ahead.",
   "teams_rated": 4208,
   "calibration": {
-    "series_replayed": 32562,
-    "oos_evaluated": 22398,
+    "series_replayed": 32565,
+    "oos_evaluated": 22401,
     "brier": 0.2251,
     "coinflip_brier": 0.25,
     "log_loss": 0.6416,
@@ -24,9 +24,9 @@
       },
       {
         "bin": "20-30%",
-        "n": 1097,
-        "mean_pred": 0.257,
-        "empirical_win_rate": 0.2662
+        "n": 1098,
+        "mean_pred": 0.2569,
+        "empirical_win_rate": 0.2659
       },
       {
         "bin": "30-40%",
@@ -42,15 +42,15 @@
       },
       {
         "bin": "50-60%",
-        "n": 7022,
+        "n": 7023,
         "mean_pred": 0.5401,
         "empirical_win_rate": 0.6262
       },
       {
         "bin": "60-70%",
-        "n": 3069,
-        "mean_pred": 0.6441,
-        "empirical_win_rate": 0.7253
+        "n": 3070,
+        "mean_pred": 0.644,
+        "empirical_win_rate": 0.7251
       },
       {
         "bin": "70-80%",
@@ -560,6 +560,15 @@
       "last_played": "2024-12-27"
     },
     {
+      "team": "B2U",
+      "elo": 1713.2,
+      "series": 60,
+      "wins": 45,
+      "losses": 15,
+      "maps": "94-36",
+      "last_played": "2026-10-26"
+    },
+    {
       "team": "Bouftou",
       "elo": 1712.8,
       "series": 19,
@@ -585,15 +594,6 @@
       "losses": 10,
       "maps": "50-34",
       "last_played": "2025-11-15"
-    },
-    {
-      "team": "B2U",
-      "elo": 1709,
-      "series": 59,
-      "wins": 44,
-      "losses": 15,
-      "maps": "92-36",
-      "last_played": "2026-10-25"
     },
     {
       "team": "CITA Kaizen",
@@ -630,15 +630,6 @@
       "losses": 1,
       "maps": "20-1",
       "last_played": "2024-11-17"
-    },
-    {
-      "team": "Inari Esports (British Team)",
-      "elo": 1701.4,
-      "series": 22,
-      "wins": 18,
-      "losses": 4,
-      "maps": "34-11",
-      "last_played": "2026-10-22"
     },
     {
       "team": "Exalty",
@@ -855,6 +846,15 @@
       "losses": 15,
       "maps": "61-32",
       "last_played": "2026-10-22"
+    },
+    {
+      "team": "Inari Esports (British Team)",
+      "elo": 1682.9,
+      "series": 23,
+      "wins": 18,
+      "losses": 5,
+      "maps": "35-13",
+      "last_played": "2026-10-26"
     },
     {
       "team": "DI MONO TEAM",
@@ -3431,6 +3431,15 @@
       "last_played": "2025-10-01"
     },
     {
+      "team": "Bulldog Esports",
+      "elo": 1600.7,
+      "series": 57,
+      "wins": 31,
+      "losses": 26,
+      "maps": "48-50",
+      "last_played": "2026-10-26"
+    },
+    {
       "team": "LMS老人隊",
       "elo": 1600.7,
       "series": 12,
@@ -4383,15 +4392,6 @@
       "losses": 33,
       "maps": "77-63",
       "last_played": "2026-08-19"
-    },
-    {
-      "team": "Bulldog Esports",
-      "elo": 1586.2,
-      "series": 56,
-      "wins": 30,
-      "losses": 26,
-      "maps": "46-49",
-      "last_played": "2026-10-22"
     },
     {
       "team": "Team Bòng",
@@ -6147,6 +6147,15 @@
       "losses": 2,
       "maps": "7-4",
       "last_played": "2025-10-23"
+    },
+    {
+      "team": "Lund Esports Organization OGs",
+      "elo": 1566.9,
+      "series": 5,
+      "wins": 4,
+      "losses": 1,
+      "maps": "9-3",
+      "last_played": "2026-10-26"
     },
     {
       "team": "Team Diamondprox",
@@ -8192,15 +8201,6 @@
       "last_played": "2026-04-05"
     },
     {
-      "team": "Lund Esports Organization OGs",
-      "elo": 1548.5,
-      "series": 4,
-      "wins": 3,
-      "losses": 1,
-      "maps": "7-2",
-      "last_played": "2026-10-11"
-    },
-    {
       "team": "Finnish Red Mafia",
       "elo": 1548.5,
       "series": 38,
@@ -9999,15 +9999,6 @@
       "losses": 4,
       "maps": "9-7",
       "last_played": "2025-08-30"
-    },
-    {
-      "team": "Tung Sahur Mid",
-      "elo": 1537.5,
-      "series": 6,
-      "wins": 4,
-      "losses": 2,
-      "maps": "9-5",
-      "last_played": "2026-10-25"
     },
     {
       "team": "G2 RORB",
@@ -13581,6 +13572,15 @@
       "losses": 2,
       "maps": "3-2",
       "last_played": "2024-09-07"
+    },
+    {
+      "team": "Tung Sahur Mid",
+      "elo": 1519.1,
+      "series": 7,
+      "wins": 4,
+      "losses": 3,
+      "maps": "10-7",
+      "last_played": "2026-10-26"
     },
     {
       "team": "Furia XV",
@@ -33824,15 +33824,6 @@
       "last_played": "2026-10-18"
     },
     {
-      "team": "Mazepa",
-      "elo": 1428.8,
-      "series": 11,
-      "wins": 3,
-      "losses": 8,
-      "maps": "8-18",
-      "last_played": "2026-10-25"
-    },
-    {
       "team": "Esport Club Normandie",
       "elo": 1428.8,
       "series": 6,
@@ -34470,6 +34461,15 @@
       "losses": 4,
       "maps": "0-8",
       "last_played": "2026-03-28"
+    },
+    {
+      "team": "Mazepa",
+      "elo": 1423.5,
+      "series": 12,
+      "wins": 3,
+      "losses": 9,
+      "maps": "8-20",
+      "last_played": "2026-10-26"
     },
     {
       "team": "Schimerzed Schimers",
