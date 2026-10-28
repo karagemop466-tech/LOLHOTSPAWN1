@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T17:40:42.858Z",
-  "count": 15,
+  "generated_at": "2026-10-28T04:40:19.379Z",
+  "count": 13,
   "flags": [
     {
       "id": "dq-walkover-1071170",
@@ -87,30 +87,6 @@
       "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
     },
     {
-      "id": "venue-divergence-1079080",
-      "match_id": "1079080",
-      "severity": "low",
-      "kind": "cross-venue-divergence",
-      "competition": "LGC Rising 2026 Playoffs",
-      "matchup": "Mental Rush vs Vitality Rising Bees",
-      "state": "locked",
-      "detail": "Cross-venue implied probability spread is 11.9 pp across 3 independent venues.",
-      "hotspawn_url": "https://www.hotspawn.com/matches/mental-rush-vs-vitality-rising-bees-lgc-rising-2026-playoffs-1079080",
-      "source_url": "https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639313872/markets/related/straight"
-    },
-    {
-      "id": "entity-collision-1079031",
-      "match_id": "1079031",
-      "severity": "high",
-      "kind": "entity-collision",
-      "competition": "PRM 2nd Division 26-27 Fall",
-      "matchup": "DKB XPERION NXT vs Phong Vũ Buffalo",
-      "state": "locked",
-      "detail": "Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).",
-      "hotspawn_url": "https://www.hotspawn.com/matches/dkb-xperion-nxt-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079031",
-      "source_url": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
-    },
-    {
       "id": "entity-collision-1079038",
       "match_id": "1079038",
       "severity": "high",
@@ -176,7 +152,7 @@
       "severity": "medium",
       "kind": "unverified-field-left-blank",
       "competition": "LCP 2027 Promotion",
-      "matchup": "211 scheduled fixtures with best_of = null in the Hotspawn feed",
+      "matchup": "208 scheduled fixtures with best_of = null in the Hotspawn feed",
       "state": "open",
       "detail": "Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.",
       "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothinhere-lcp-2027-promotion-1081421",

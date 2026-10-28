@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-27T17:40:42.858Z",
+  "generated_at": "2026-10-28T04:40:19.379Z",
   "methodology": "Chronological pre-kickoff Elo/Bradley-Terry (initial 1500, dynamic K=38/28/22 with map-margin multiplier, empirical-Bayes tau=6 shrinkage, correlated-series damping alpha=0.72). Zero Hotspawn crowd/tier/points inputs; zero post-kickoff look-ahead.",
   "teams_rated": 4208,
   "calibration": {
-    "series_replayed": 32565,
-    "oos_evaluated": 22401,
+    "series_replayed": 32568,
+    "oos_evaluated": 22404,
     "brier": 0.2251,
     "coinflip_brier": 0.25,
     "log_loss": 0.6416,
@@ -30,9 +30,9 @@
       },
       {
         "bin": "30-40%",
-        "n": 2516,
+        "n": 2517,
         "mean_pred": 0.3557,
-        "empirical_win_rate": 0.3494
+        "empirical_win_rate": 0.3492
       },
       {
         "bin": "40-50%",
@@ -42,15 +42,15 @@
       },
       {
         "bin": "50-60%",
-        "n": 7023,
+        "n": 7024,
         "mean_pred": 0.5401,
-        "empirical_win_rate": 0.6262
+        "empirical_win_rate": 0.6263
       },
       {
         "bin": "60-70%",
-        "n": 3070,
-        "mean_pred": 0.644,
-        "empirical_win_rate": 0.7251
+        "n": 3071,
+        "mean_pred": 0.6441,
+        "empirical_win_rate": 0.7248
       },
       {
         "bin": "70-80%",
@@ -111,12 +111,12 @@
     },
     {
       "team": "Vitality Rising Bees",
-      "elo": 1833.9,
-      "series": 124,
-      "wins": 79,
+      "elo": 1845.6,
+      "series": 125,
+      "wins": 80,
       "losses": 45,
-      "maps": "119-64",
-      "last_played": "2026-10-20"
+      "maps": "122-64",
+      "last_played": "2026-10-27"
     },
     {
       "team": "Solary",
@@ -263,15 +263,6 @@
       "last_played": "2026-10-25"
     },
     {
-      "team": "Mental Rush",
-      "elo": 1769.8,
-      "series": 64,
-      "wins": 47,
-      "losses": 17,
-      "maps": "71-32",
-      "last_played": "2026-10-19"
-    },
-    {
       "team": "Team Heretics Academy",
       "elo": 1769,
       "series": 103,
@@ -297,6 +288,15 @@
       "losses": 30,
       "maps": "95-63",
       "last_played": "2026-10-13"
+    },
+    {
+      "team": "Mental Rush",
+      "elo": 1758.1,
+      "series": 65,
+      "wins": 47,
+      "losses": 18,
+      "maps": "71-35",
+      "last_played": "2026-10-27"
     },
     {
       "team": "GIANTX PRIDE",
@@ -2036,6 +2036,15 @@
       "last_played": "2025-03-16"
     },
     {
+      "team": "DKB XPERION NXT",
+      "elo": 1639.3,
+      "series": 92,
+      "wins": 57,
+      "losses": 35,
+      "maps": "151-99",
+      "last_played": "2026-10-27"
+    },
+    {
       "team": "SLTitans Esports",
       "elo": 1639.2,
       "series": 20,
@@ -2304,15 +2313,6 @@
       "losses": 1,
       "maps": "12-1",
       "last_played": "2026-05-03"
-    },
-    {
-      "team": "DKB XPERION NXT",
-      "elo": 1628.3,
-      "series": 91,
-      "wins": 56,
-      "losses": 35,
-      "maps": "149-99",
-      "last_played": "2026-10-25"
     },
     {
       "team": "Forsaken (Polish Team)",
@@ -4556,15 +4556,6 @@
       "last_played": "2026-10-06"
     },
     {
-      "team": "No Need Orga",
-      "elo": 1584.9,
-      "series": 40,
-      "wins": 23,
-      "losses": 17,
-      "maps": "58-44",
-      "last_played": "2026-10-13"
-    },
-    {
       "team": "aok",
       "elo": 1584.6,
       "series": 13,
@@ -4698,15 +4689,6 @@
       "losses": 1,
       "maps": "6-2",
       "last_played": "2025-05-10"
-    },
-    {
-      "team": "PvB (Swiss Team)",
-      "elo": 1583.4,
-      "series": 35,
-      "wins": 21,
-      "losses": 14,
-      "maps": "48-42",
-      "last_played": "2026-10-18"
     },
     {
       "team": "Team Taoyuan",
@@ -5645,6 +5627,15 @@
       "last_played": "2026-02-01"
     },
     {
+      "team": "PvB (Swiss Team)",
+      "elo": 1572.4,
+      "series": 36,
+      "wins": 21,
+      "losses": 15,
+      "maps": "48-44",
+      "last_played": "2026-10-27"
+    },
+    {
       "team": "AG Esports",
       "elo": 1572.2,
       "series": 31,
@@ -5949,6 +5940,15 @@
       "losses": 8,
       "maps": "13-8",
       "last_played": "2025-12-11"
+    },
+    {
+      "team": "No Need Orga",
+      "elo": 1569.4,
+      "series": 41,
+      "wins": 23,
+      "losses": 18,
+      "maps": "59-46",
+      "last_played": "2026-10-27"
     },
     {
       "team": "Cevapi i kobasice",
@@ -29702,6 +29702,15 @@
       "last_played": "2025-07-31"
     },
     {
+      "team": "AceGaming",
+      "elo": 1455.2,
+      "series": 19,
+      "wins": 6,
+      "losses": 13,
+      "maps": "19-32",
+      "last_played": "2026-10-27"
+    },
+    {
       "team": "Project Conquerors Athena",
       "elo": 1455.2,
       "series": 37,
@@ -33147,15 +33156,6 @@
       "losses": 22,
       "maps": "16-26",
       "last_played": "2025-11-08"
-    },
-    {
-      "team": "AceGaming",
-      "elo": 1435.5,
-      "series": 18,
-      "wins": 5,
-      "losses": 13,
-      "maps": "17-31",
-      "last_played": "2026-10-25"
     },
     {
       "team": "SNCF gaming PRO",
