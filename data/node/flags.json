@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T04:40:19.379Z",
+  "generated_at": "2026-10-28T12:20:47.239Z",
   "count": 13,
   "flags": [
     {
@@ -152,7 +152,7 @@
       "severity": "medium",
       "kind": "unverified-field-left-blank",
       "competition": "LCP 2027 Promotion",
-      "matchup": "208 scheduled fixtures with best_of = null in the Hotspawn feed",
+      "matchup": "204 scheduled fixtures with best_of = null in the Hotspawn feed",
       "state": "open",
       "detail": "Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.",
       "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothinhere-lcp-2027-promotion-1081421",
