@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-28T22:19:50.218Z",
+  "generated_at": "2026-10-29T04:52:59.309Z",
   "methodology": "Chronological pre-kickoff Elo/Bradley-Terry (initial 1500, dynamic K=38/28/22 with map-margin multiplier, empirical-Bayes tau=6 shrinkage, correlated-series damping alpha=0.72). Zero Hotspawn crowd/tier/points inputs; zero post-kickoff look-ahead.",
   "teams_rated": 4208,
   "calibration": {
-    "series_replayed": 32572,
-    "oos_evaluated": 22408,
+    "series_replayed": 32573,
+    "oos_evaluated": 22409,
     "brier": 0.2251,
     "coinflip_brier": 0.25,
     "log_loss": 0.6416,
@@ -30,9 +30,9 @@
       },
       {
         "bin": "30-40%",
-        "n": 2517,
+        "n": 2518,
         "mean_pred": 0.3557,
-        "empirical_win_rate": 0.3492
+        "empirical_win_rate": 0.3491
       },
       {
         "bin": "40-50%",
@@ -398,6 +398,15 @@
       "last_played": "2026-09-06"
     },
     {
+      "team": "T1",
+      "elo": 1733.6,
+      "series": 158,
+      "wins": 101,
+      "losses": 57,
+      "maps": "250-158",
+      "last_played": "2026-10-28"
+    },
+    {
       "team": "West Point Esports Academy",
       "elo": 1733.2,
       "series": 31,
@@ -477,15 +486,6 @@
       "losses": 17,
       "maps": "99-50",
       "last_played": "2026-05-09"
-    },
-    {
-      "team": "T1",
-      "elo": 1724.4,
-      "series": 157,
-      "wins": 100,
-      "losses": 57,
-      "maps": "248-158",
-      "last_played": "2026-10-26"
     },
     {
       "team": "Domino Computer",
@@ -2351,15 +2351,6 @@
       "last_played": "2026-04-19"
     },
     {
-      "team": "Movistar KOI",
-      "elo": 1626.9,
-      "series": 99,
-      "wins": 55,
-      "losses": 44,
-      "maps": "123-109",
-      "last_played": "2026-10-25"
-    },
-    {
       "team": "Свинобойня Даймонда",
       "elo": 1626.8,
       "series": 7,
@@ -2754,6 +2745,15 @@
       "losses": 19,
       "maps": "28-19",
       "last_played": "2026-09-11"
+    },
+    {
+      "team": "Movistar KOI",
+      "elo": 1617.7,
+      "series": 100,
+      "wins": 55,
+      "losses": 45,
+      "maps": "123-111",
+      "last_played": "2026-10-28"
     },
     {
       "team": "Zerance Bloom",
