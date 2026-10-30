@@ -22,14 +22,14 @@
         Menu ▾
       </button>
       <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 213 Table</span><span class="nav-cnt">213</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">122</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">2</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">192</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">16</span></a><a href="flagged.html" class="active" aria-current="page"><span>Flagged</span><span class="nav-cnt">25</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html"><span>Methodology</span></a><a href="../index.html"><span>⭐ Canonical picks</span><span class="nav-cnt">212</span></a>
+        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 210 Table</span><span class="nav-cnt">210</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">119</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">2</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">189</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">16</span></a><a href="flagged.html" class="active" aria-current="page"><span>Flagged</span><span class="nav-cnt">25</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html"><span>Methodology</span></a><a href="../index.html"><span>⭐ Canonical picks</span><span class="nav-cnt">212</span></a>
       </nav>
     </div>
   </header>
   <div id="stale-snapshot-alert" class="stale-alert" hidden></div>
-  <div class="fresh-bar" data-generated-at="2026-10-30T12:22:00.345Z">
+  <div class="fresh-bar" data-generated-at="2026-10-30T22:01:56.396Z">
     <div class="fresh-inner">
-      <span>Snapshot: <time class="mono" data-utc="2026-10-30T12:22:00.345Z">2026-10-30 12:22 UTC</time> · Auto-refresh every 6h</span>
+      <span>Snapshot: <time class="mono" data-utc="2026-10-30T22:01:56.396Z">2026-10-30 22:01 UTC</time> · Auto-refresh every 6h</span>
       <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-26 22:44 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
@@ -130,7 +130,7 @@
           </tr>
 <tr id="flag-entity-collision-1079038">
             <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">entity-collision</span></td>
-            <td><strong>VfB eSports vs Phong Vũ Buffalo</strong><br><span style="color:var(--text-muted)">PRM 2nd Division 26-27 Fall</span> · <span class="badge b-state">open</span></td>
+            <td><strong>VfB eSports vs Phong Vũ Buffalo</strong><br><span style="color:var(--text-muted)">PRM 2nd Division 26-27 Fall</span> · <span class="badge b-state">locked</span></td>
             <td>Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).</td>
             <td>
               <div class="card-links" style="border:0;padding:0">
@@ -317,7 +317,7 @@
           </tr>
 <tr id="flag-series-format-not-published">
             <td><span class="badge b-prov">MEDIUM</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">unverified-field-left-blank</span></td>
-            <td><strong>213 scheduled fixtures with best_of = null in the Hotspawn feed</strong><br><span style="color:var(--text-muted)">LCP 2027 Promotion</span> · <span class="badge b-state">open</span></td>
+            <td><strong>210 scheduled fixtures with best_of = null in the Hotspawn feed</strong><br><span style="color:var(--text-muted)">LCP 2027 Promotion</span> · <span class="badge b-state">open</span></td>
             <td>Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.</td>
             <td>
               <div class="card-links" style="border:0;padding:0">

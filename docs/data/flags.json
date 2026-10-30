@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T12:22:00.345Z",
+  "generated_at": "2026-10-30T22:01:56.396Z",
   "count": 25,
   "flags": [
     {
@@ -93,7 +93,7 @@
       "kind": "entity-collision",
       "competition": "PRM 2nd Division 26-27 Fall",
       "matchup": "VfB eSports vs Phong Vũ Buffalo",
-      "state": "open",
+      "state": "locked",
       "detail": "Hotspawn mis-bound Swiss Prime League Div 2 team 'PvB (Swiss Team)' to defunct Vietnamese VCS 'Phong Vũ Buffalo'; resolved to PvB (Swiss Team).",
       "hotspawn_url": "https://www.hotspawn.com/matches/vfb-esports-vs-phong-vu-buffalo-prm-2nd-division-26-27-fall-1079038",
       "source_url": "https://lol.fandom.com/wiki/Prime_League_2nd_Division/2027_Season/Fall_Split"
@@ -296,7 +296,7 @@
       "severity": "medium",
       "kind": "unverified-field-left-blank",
       "competition": "LCP 2027 Promotion",
-      "matchup": "213 scheduled fixtures with best_of = null in the Hotspawn feed",
+      "matchup": "210 scheduled fixtures with best_of = null in the Hotspawn feed",
       "state": "open",
       "detail": "Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.",
       "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothinhere-lcp-2027-promotion-1081421",
