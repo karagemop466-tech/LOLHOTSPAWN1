@@ -1,68 +1,68 @@
 {
-  "fetched_at": "2026-10-29T22:33:26.439Z",
-  "duration_s": 14,
-  "hotspawn_fixtures": 1597,
-  "hotspawn_lobby_ids": 114,
+  "fetched_at": "2026-10-30T04:52:46.759Z",
+  "duration_s": 13,
+  "hotspawn_fixtures": 1611,
+  "hotspawn_lobby_ids": 106,
   "pinnacle_leagues": 1,
-  "pinnacle_matchups": 3,
-  "pinnacle_excluded_kills": 1,
-  "polymarket_events": 16,
-  "kalshi_events": 4,
+  "pinnacle_matchups": 2,
+  "pinnacle_excluded_kills": 2,
+  "polymarket_events": 14,
+  "kalshi_events": 2,
   "bovada_events": 0,
   "kambi_events": 2,
   "smarkets_events": 2,
   "dq_competitions": 1,
   "log": [
     {
-      "ts": "2026-10-29T22:33:16.539Z",
+      "ts": "2026-10-30T04:52:35.144Z",
       "source": "hotspawn",
-      "msg": "fixtures API unreachable (HTTP 403) — preserved <24h snapshot (1597 fixtures from 2026-10-29T04:52:51.026Z)",
-      "ok": false
+      "msg": "fixtures API: 1611 LoL fixtures ({\"ended\":1243,\"cancelled\":85,\"scheduled\":218,\"forfeited\":64,\"started\":1})",
+      "ok": true
     },
     {
-      "ts": "2026-10-29T22:33:20.737Z",
+      "ts": "2026-10-30T04:52:36.863Z",
       "source": "hotspawn-lobby",
-      "msg": "SSR page unreachable (HTTP 403) — preserved <24h snapshot",
-      "ok": false
+      "msg": "SSR page fetched (1331187 bytes), 106 match permalinks, tiers counts [218]",
+      "ok": true
     },
     {
-      "ts": "2026-10-29T22:33:20.827Z",
+      "ts": "2026-10-30T04:52:37.015Z",
       "source": "pinnacle",
       "msg": "1 LoL leagues: League of Legends - World Championship(9587)",
       "ok": true
     },
     {
-      "ts": "2026-10-29T22:33:21.332Z",
+      "ts": "2026-10-30T04:52:37.548Z",
       "source": "polymarket",
-      "msg": "16 LoL events kept (1 pages fetched)",
+      "msg": "14 LoL events kept (1 pages fetched)",
       "ok": true
     },
     {
-      "ts": "2026-10-29T22:33:21.379Z",
+      "ts": "2026-10-30T04:52:37.706Z",
       "source": "kalshi",
-      "msg": "4 open CFTC KXLOLGAME match events",
+      "msg": "2 open CFTC KXLOLGAME match events",
       "ok": true
     },
     {
-      "ts": "2026-10-29T22:33:21.840Z",
+      "ts": "2026-10-30T04:52:38.014Z",
       "source": "bovada",
       "msg": "0 LoL Head-To-Head moneylines",
       "ok": true
     },
     {
-      "ts": "2026-10-29T22:33:22.102Z",
+      "ts": "2026-10-30T04:52:38.503Z",
       "source": "kambi",
       "msg": "2 Unibet/Kambi (ubse) LoL match moneylines",
       "ok": true
     },
     {
-      "ts": "2026-10-29T22:33:22.761Z",
+      "ts": "2026-10-30T04:52:42.667Z",
       "source": "smarkets",
-      "msg": "2 UKGC exchange WINNER_2_WAY LoL series markets",
-      "ok": true
+      "msg": "API unreachable (HTTP 403) — preserved <24h snapshot (2 events)",
+      "ok": false
     },
     {
-      "ts": "2026-10-29T22:33:26.439Z",
+      "ts": "2026-10-30T04:52:46.759Z",
       "source": "leaguepedia-dq",
       "msg": "wiki unreachable (HTTP 403) — preserved previous dqteams ledger",
       "ok": false
