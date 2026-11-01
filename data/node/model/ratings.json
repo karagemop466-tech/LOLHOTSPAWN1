@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-01T12:51:19.813Z",
+  "generated_at": "2026-11-01T21:48:31.391Z",
   "methodology": "Chronological pre-kickoff Elo/Bradley-Terry (initial 1500, dynamic K=38/28/22 with map-margin multiplier, empirical-Bayes tau=6 shrinkage, correlated-series damping alpha=0.72). Zero Hotspawn crowd/tier/points inputs; zero post-kickoff look-ahead.",
   "teams_rated": 4214,
   "calibration": {
-    "series_replayed": 32625,
-    "oos_evaluated": 22445,
+    "series_replayed": 32626,
+    "oos_evaluated": 22446,
     "brier": 0.2251,
     "coinflip_brier": 0.25,
     "log_loss": 0.6416,
@@ -54,9 +54,9 @@
       },
       {
         "bin": "70-80%",
-        "n": 1408,
+        "n": 1409,
         "mean_pred": 0.7429,
-        "empirical_win_rate": 0.7699
+        "empirical_win_rate": 0.77
       },
       {
         "bin": "80-90%",
@@ -236,6 +236,15 @@
       "last_played": "2026-09-25"
     },
     {
+      "team": "Dplus Kia Youth",
+      "elo": 1777.4,
+      "series": 107,
+      "wins": 77,
+      "losses": 30,
+      "maps": "178-98",
+      "last_played": "2026-11-01"
+    },
+    {
       "team": "Nightbirds",
       "elo": 1774.4,
       "series": 101,
@@ -252,15 +261,6 @@
       "losses": 12,
       "maps": "50-24",
       "last_played": "2026-06-13"
-    },
-    {
-      "team": "Dplus Kia Youth",
-      "elo": 1770.5,
-      "series": 106,
-      "wins": 76,
-      "losses": 30,
-      "maps": "175-97",
-      "last_played": "2026-10-25"
     },
     {
       "team": "Team Heretics Academy",
@@ -3350,15 +3350,6 @@
       "last_played": "2026-08-22"
     },
     {
-      "team": "Hanwha Life Esports Academy",
-      "elo": 1602.1,
-      "series": 101,
-      "wins": 63,
-      "losses": 38,
-      "maps": "149-104",
-      "last_played": "2026-10-31"
-    },
-    {
       "team": "Salsa y Picante",
       "elo": 1602,
       "series": 18,
@@ -3798,6 +3789,15 @@
       "losses": 56,
       "maps": "135-140",
       "last_played": "2026-10-14"
+    },
+    {
+      "team": "Hanwha Life Esports Academy",
+      "elo": 1595.2,
+      "series": 102,
+      "wins": 63,
+      "losses": 39,
+      "maps": "150-107",
+      "last_played": "2026-11-01"
     },
     {
       "team": "Die Pizzaboten",
