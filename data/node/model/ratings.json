@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-11-05T05:41:44.900Z",
+  "generated_at": "2026-11-05T14:14:41.916Z",
   "methodology": "Chronological pre-kickoff Elo/Bradley-Terry (initial 1500, dynamic K=38/28/22 with map-margin multiplier, empirical-Bayes tau=6 shrinkage, correlated-series damping alpha=0.72). Zero Hotspawn crowd/tier/points inputs; zero post-kickoff look-ahead.",
   "teams_rated": 4215,
   "calibration": {
-    "series_replayed": 32658,
-    "oos_evaluated": 22476,
-    "brier": 0.2252,
+    "series_replayed": 32662,
+    "oos_evaluated": 22479,
+    "brier": 0.2251,
     "coinflip_brier": 0.25,
-    "log_loss": 0.6417,
-    "accuracy": 0.6405,
+    "log_loss": 0.6416,
+    "accuracy": 0.6406,
     "reliability_bins": [
       {
         "bin": "0-10%",
@@ -30,9 +30,9 @@
       },
       {
         "bin": "30-40%",
-        "n": 2525,
+        "n": 2526,
         "mean_pred": 0.3557,
-        "empirical_win_rate": 0.3497
+        "empirical_win_rate": 0.3496
       },
       {
         "bin": "40-50%",
@@ -48,15 +48,15 @@
       },
       {
         "bin": "60-70%",
-        "n": 3081,
+        "n": 3082,
         "mean_pred": 0.644,
-        "empirical_win_rate": 0.7254
+        "empirical_win_rate": 0.7255
       },
       {
         "bin": "70-80%",
-        "n": 1410,
+        "n": 1411,
         "mean_pred": 0.7429,
-        "empirical_win_rate": 0.7695
+        "empirical_win_rate": 0.7697
       },
       {
         "bin": "80-90%",
@@ -137,6 +137,15 @@
       "last_played": "2026-09-13"
     },
     {
+      "team": "Gen.G",
+      "elo": 1823,
+      "series": 136,
+      "wins": 104,
+      "losses": 32,
+      "maps": "238-106",
+      "last_played": "2026-11-04"
+    },
+    {
       "team": "Bilibili Gaming",
       "elo": 1816,
       "series": 153,
@@ -144,15 +153,6 @@
       "losses": 44,
       "maps": "268-144",
       "last_played": "2026-10-31"
-    },
-    {
-      "team": "Gen.G",
-      "elo": 1815.1,
-      "series": 135,
-      "wins": 103,
-      "losses": 32,
-      "maps": "235-106",
-      "last_played": "2026-10-25"
     },
     {
       "team": "G2 NORD",
@@ -1037,6 +1037,15 @@
       "last_played": "2026-04-11"
     },
     {
+      "team": "HMBLE",
+      "elo": 1673.5,
+      "series": 52,
+      "wins": 37,
+      "losses": 15,
+      "maps": "67-28",
+      "last_played": "2026-11-04"
+    },
+    {
       "team": "LOMiks",
       "elo": 1673.1,
       "series": 37,
@@ -1197,15 +1206,6 @@
       "losses": 25,
       "maps": "131-76",
       "last_played": "2026-08-27"
-    },
-    {
-      "team": "HMBLE",
-      "elo": 1666.5,
-      "series": 51,
-      "wins": 36,
-      "losses": 15,
-      "maps": "65-28",
-      "last_played": "2026-09-30"
     },
     {
       "team": "Rising Gaming",
@@ -1676,6 +1676,15 @@
       "last_played": "2025-04-05"
     },
     {
+      "team": "Rich Gang (Norwegian Team)",
+      "elo": 1648.2,
+      "series": 58,
+      "wins": 37,
+      "losses": 21,
+      "maps": "69-59",
+      "last_played": "2026-11-04"
+    },
+    {
       "team": "L'Université du Québec à Montréal",
       "elo": 1648,
       "series": 11,
@@ -1728,15 +1737,6 @@
       "losses": 52,
       "maps": "169-130",
       "last_played": "2026-09-14"
-    },
-    {
-      "team": "LYON (2024 American Team)",
-      "elo": 1646.5,
-      "series": 64,
-      "wins": 35,
-      "losses": 29,
-      "maps": "93-73",
-      "last_played": "2026-10-31"
     },
     {
       "team": "Saigon Warriors",
@@ -1901,15 +1901,6 @@
       "last_played": "2026-10-17"
     },
     {
-      "team": "Rich Gang (Norwegian Team)",
-      "elo": 1641.9,
-      "series": 57,
-      "wins": 36,
-      "losses": 21,
-      "maps": "67-58",
-      "last_played": "2026-11-01"
-    },
-    {
       "team": "Team Th3Antonio",
       "elo": 1641.4,
       "series": 9,
@@ -2052,6 +2043,15 @@
       "losses": 10,
       "maps": "30-18",
       "last_played": "2025-06-07"
+    },
+    {
+      "team": "LYON (2024 American Team)",
+      "elo": 1638.6,
+      "series": 65,
+      "wins": 35,
+      "losses": 30,
+      "maps": "93-76",
+      "last_played": "2026-11-04"
     },
     {
       "team": "GRINGOS BANDITOS",
@@ -22268,15 +22268,6 @@
       "last_played": "2026-09-25"
     },
     {
-      "team": "1. Esport Club Frankfurt e.V.",
-      "elo": 1483.7,
-      "series": 23,
-      "wins": 10,
-      "losses": 13,
-      "maps": "22-30",
-      "last_played": "2026-10-24"
-    },
-    {
       "team": "Phoenix Gaming",
       "elo": 1483.7,
       "series": 3,
@@ -26237,6 +26228,15 @@
       "last_played": "2024-12-05"
     },
     {
+      "team": "1. Esport Club Frankfurt e.V.",
+      "elo": 1475.7,
+      "series": 24,
+      "wins": 10,
+      "losses": 14,
+      "maps": "23-32",
+      "last_played": "2026-11-04"
+    },
+    {
       "team": "Prosperity Esports",
       "elo": 1475.7,
       "series": 3,
@@ -26334,6 +26334,15 @@
       "losses": 5,
       "maps": "8-11",
       "last_played": "2026-07-11"
+    },
+    {
+      "team": "Team Aqua ASD",
+      "elo": 1475.2,
+      "series": 4,
+      "wins": 1,
+      "losses": 3,
+      "maps": "3-8",
+      "last_played": "2026-11-04"
     },
     {
       "team": "Divernex Reborn",
@@ -29250,15 +29259,6 @@
       "losses": 5,
       "maps": "2-5",
       "last_played": "2025-05-07"
-    },
-    {
-      "team": "Team Aqua ASD",
-      "elo": 1459.1,
-      "series": 3,
-      "wins": 0,
-      "losses": 3,
-      "maps": "1-7",
-      "last_played": "2026-09-22"
     },
     {
       "team": "LNG Esports",
@@ -35822,15 +35822,6 @@
       "last_played": "2026-04-19"
     },
     {
-      "team": "EKO Esports",
-      "elo": 1406,
-      "series": 53,
-      "wins": 17,
-      "losses": 36,
-      "maps": "25-64",
-      "last_played": "2026-08-27"
-    },
-    {
       "team": "Klappers",
       "elo": 1405.3,
       "series": 7,
@@ -36333,6 +36324,15 @@
       "losses": 10,
       "maps": "6-13",
       "last_played": "2025-02-22"
+    },
+    {
+      "team": "EKO Esports",
+      "elo": 1396.7,
+      "series": 54,
+      "wins": 17,
+      "losses": 37,
+      "maps": "26-66",
+      "last_played": "2026-11-04"
     },
     {
       "team": "CTBC University of Technology",
