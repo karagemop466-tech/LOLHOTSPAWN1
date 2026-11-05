@@ -1,68 +1,68 @@
 {
-  "fetched_at": "2026-11-04T23:22:03.292Z",
-  "duration_s": 9,
+  "fetched_at": "2026-11-05T05:41:44.868Z",
+  "duration_s": 12,
   "hotspawn_fixtures": 1673,
   "hotspawn_lobby_ids": 74,
   "pinnacle_leagues": 1,
-  "pinnacle_matchups": 4,
-  "pinnacle_excluded_kills": 4,
+  "pinnacle_matchups": 3,
+  "pinnacle_excluded_kills": 2,
   "polymarket_events": 15,
   "kalshi_events": 3,
   "bovada_events": 0,
-  "kambi_events": 2,
-  "smarkets_events": 2,
+  "kambi_events": 3,
+  "smarkets_events": 3,
   "dq_competitions": 1,
   "log": [
     {
-      "ts": "2026-11-04T23:21:56.103Z",
+      "ts": "2026-11-05T05:41:34.242Z",
       "source": "hotspawn",
-      "msg": "fixtures API: 1673 LoL fixtures ({\"ended\":1322,\"cancelled\":93,\"scheduled\":192,\"forfeited\":66})",
+      "msg": "fixtures API: 1673 LoL fixtures ({\"ended\":1322,\"cancelled\":93,\"scheduled\":191,\"forfeited\":66,\"started\":1})",
       "ok": true
     },
     {
-      "ts": "2026-11-04T23:21:57.541Z",
+      "ts": "2026-11-05T05:41:36.103Z",
       "source": "hotspawn-lobby",
-      "msg": "SSR page fetched (1053033 bytes), 74 match permalinks, tiers counts [192]",
+      "msg": "SSR page fetched (1052084 bytes), 74 match permalinks, tiers counts [191]",
       "ok": true
     },
     {
-      "ts": "2026-11-04T23:21:57.646Z",
+      "ts": "2026-11-05T05:41:36.259Z",
       "source": "pinnacle",
       "msg": "1 LoL leagues: League of Legends - World Championship(9587)",
       "ok": true
     },
     {
-      "ts": "2026-11-04T23:21:58.077Z",
+      "ts": "2026-11-05T05:41:37.103Z",
       "source": "polymarket",
       "msg": "15 LoL events kept (1 pages fetched)",
       "ok": true
     },
     {
-      "ts": "2026-11-04T23:21:58.180Z",
+      "ts": "2026-11-05T05:41:37.230Z",
       "source": "kalshi",
       "msg": "3 open CFTC KXLOLGAME match events",
       "ok": true
     },
     {
-      "ts": "2026-11-04T23:21:58.650Z",
+      "ts": "2026-11-05T05:41:39.751Z",
       "source": "bovada",
       "msg": "0 LoL Head-To-Head moneylines",
       "ok": true
     },
     {
-      "ts": "2026-11-04T23:21:58.963Z",
+      "ts": "2026-11-05T05:41:40.117Z",
       "source": "kambi",
-      "msg": "2 Unibet/Kambi (ubse) LoL match moneylines",
+      "msg": "3 Unibet/Kambi (ubse) LoL match moneylines",
       "ok": true
     },
     {
-      "ts": "2026-11-04T23:21:59.585Z",
+      "ts": "2026-11-05T05:41:41.068Z",
       "source": "smarkets",
-      "msg": "2 UKGC exchange WINNER_2_WAY LoL series markets",
+      "msg": "3 UKGC exchange WINNER_2_WAY LoL series markets",
       "ok": true
     },
     {
-      "ts": "2026-11-04T23:22:03.292Z",
+      "ts": "2026-11-05T05:41:44.868Z",
       "source": "leaguepedia-dq",
       "msg": "wiki unreachable (HTTP 403) — preserved previous dqteams ledger",
       "ok": false
