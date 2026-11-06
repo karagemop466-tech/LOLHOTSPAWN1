@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-05T14:14:41.916Z",
-  "count": 30,
+  "generated_at": "2026-11-06T05:39:15.420Z",
+  "count": 26,
   "flags": [
     {
       "id": "dq-walkover-1071170",
@@ -85,54 +85,6 @@
       "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and Team Spirit [resolved: Team Spirit (Bulgarian Team)] (0 prior official matches) prior to 2026-10-24T12:00:00.000Z. Left blank rather than inferred.",
       "hotspawn_url": "https://www.hotspawn.com/matches/team-spirit-vs-tupkachi-na-korici-logitech-g-superstrike-cup-qualifier-1083593",
       "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
-    },
-    {
-      "id": "unverified-zero-history-1083141",
-      "match_id": "1083141",
-      "severity": "low",
-      "kind": "unverified-zero-history",
-      "competition": "Predator League Vietnam 2027",
-      "matchup": "No Turning Back vs Saigon Warriors",
-      "state": "stale",
-      "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and No Turning Back (0 prior official matches) prior to 2026-11-05T08:00:00.000Z. Left blank rather than inferred.",
-      "hotspawn_url": "https://www.hotspawn.com/matches/no-turning-back-vs-saigon-warriors-predator-league-vietnam-2027-1083141",
-      "source_url": "https://lol.fandom.com/wiki/Special:Search?query=Predator%20League%20Vietnam%202027"
-    },
-    {
-      "id": "unverified-zero-history-1083142",
-      "match_id": "1083142",
-      "severity": "medium",
-      "kind": "unverified-zero-history",
-      "competition": "Predator League Vietnam 2027",
-      "matchup": "F6 Academy vs Shiba Team",
-      "state": "locked",
-      "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and F6 Academy (0 prior official matches) prior to 2026-11-05T09:00:00.000Z. Left blank rather than inferred.",
-      "hotspawn_url": "https://www.hotspawn.com/matches/f6-academy-vs-shiba-team-predator-league-vietnam-2027-1083142",
-      "source_url": "https://lol.fandom.com/wiki/Special:Search?query=Predator%20League%20Vietnam%202027"
-    },
-    {
-      "id": "unverified-zero-history-1083143",
-      "match_id": "1083143",
-      "severity": "medium",
-      "kind": "unverified-zero-history",
-      "competition": "Predator League Vietnam 2027",
-      "matchup": "9Gaming vs 1TAP Dino Red",
-      "state": "locked",
-      "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and 1TAP Dino Red (0 prior official matches) prior to 2026-11-05T10:00:00.000Z. Left blank rather than inferred.",
-      "hotspawn_url": "https://www.hotspawn.com/matches/9gaming-vs-1tap-dino-red-predator-league-vietnam-2027-1083143",
-      "source_url": "https://lol.fandom.com/wiki/Special:Search?query=Predator%20League%20Vietnam%202027"
-    },
-    {
-      "id": "unverified-zero-history-1083144",
-      "match_id": "1083144",
-      "severity": "medium",
-      "kind": "unverified-zero-history",
-      "competition": "Predator League Vietnam 2027",
-      "matchup": "Sống Bằng Tình Yêu vs CTB Esports",
-      "state": "locked",
-      "detail": "Unverified / insufficient pre-kickoff evidence: no external betting line and Sống Bằng Tình Yêu (0 prior official matches) & CTB Esports (0 prior official matches) prior to 2026-11-05T11:00:00.000Z. Left blank rather than inferred.",
-      "hotspawn_url": "https://www.hotspawn.com/matches/song-bang-tinh-yeu-vs-ctb-esports-predator-league-vietnam-2027-1083144",
-      "source_url": "https://lol.fandom.com/wiki/Special:Search?query=Predator%20League%20Vietnam%202027"
     },
     {
       "id": "entity-collision-1079053",
@@ -356,7 +308,7 @@
       "severity": "medium",
       "kind": "unverified-field-left-blank",
       "competition": "LCP 2027 Promotion",
-      "matchup": "193 scheduled fixtures with best_of = null in the Hotspawn feed",
+      "matchup": "191 scheduled fixtures with best_of = null in the Hotspawn feed",
       "state": "open",
       "detail": "Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.",
       "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothinhere-lcp-2027-promotion-1081421",
