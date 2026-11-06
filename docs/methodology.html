@@ -22,14 +22,14 @@
         Menu ▾
       </button>
       <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 188 Table</span><span class="nav-cnt">188</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">86</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">2</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">164</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">19</span></a><a href="flagged.html"><span>Flagged</span><span class="nav-cnt">26</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html" class="active" aria-current="page"><span>Methodology</span></a><a href="../index.html"><span>⭐ Canonical picks</span><span class="nav-cnt">212</span></a>
+        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 188 Table</span><span class="nav-cnt">188</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">85</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">4</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">162</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">19</span></a><a href="flagged.html"><span>Flagged</span><span class="nav-cnt">26</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html" class="active" aria-current="page"><span>Methodology</span></a><a href="../index.html"><span>⭐ Canonical picks</span><span class="nav-cnt">212</span></a>
       </nav>
     </div>
   </header>
   <div id="stale-snapshot-alert" class="stale-alert" hidden></div>
-  <div class="fresh-bar" data-generated-at="2026-11-06T13:54:38.765Z">
+  <div class="fresh-bar" data-generated-at="2026-11-06T22:50:04.908Z">
     <div class="fresh-inner">
-      <span>Snapshot: <time class="mono" data-utc="2026-11-06T13:54:38.765Z">2026-11-06 13:54 UTC</time> · Auto-refresh every 6h</span>
+      <span>Snapshot: <time class="mono" data-utc="2026-11-06T22:50:04.908Z">2026-11-06 22:50 UTC</time> · Auto-refresh every 6h</span>
       <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-26 22:44 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
@@ -144,7 +144,7 @@
     </div>
     <div class="callout">
       <ul>
-        <li><strong>Dataset:</strong> <code>32,674</code> completed non-forfeit Leaguepedia + Hotspawn LoL series replayed in strict chronological order; administrative forfeits (<code>ff</code>) are excluded from skill updates.</li>
+        <li><strong>Dataset:</strong> <code>32,676</code> completed non-forfeit Leaguepedia + Hotspawn LoL series replayed in strict chronological order; administrative forfeits (<code>ff</code>) are excluded from skill updates.</li>
         <li><strong>Zero look-ahead:</strong> Every Hotspawn fixture at timestamp <code>T</code> is scored exclusively from ratings accumulated across matches with <code>t &lt; T</code>.</li>
         <li><strong>Competition-scoped entity disambiguation:</strong> Teams are resolved inside their specific Leaguepedia tournament page before global matching, preventing cross-region homonym contamination (such as Bulgarian amateur <code>PNG</code> vs Brazilian <code>paiN Gaming</code> on <code>#1083097</code>, or Swiss <code>PvB (Swiss Team)</code> vs Vietnamese <code>Phong Vũ Buffalo</code> on <code>#1079031</code>).</li>
         <li><strong>Empirical-Bayes shrinkage &amp; series transform:</strong> Ratings initialize at <code>1500</code> with dynamic <code>K = 38 / 28 / 22</code>, shrink toward <code>1500</code> via <code>n / (n + 6)</code>, and map to Bo3/Bo5 series probabilities with correlated-game damping (<code>&alpha; = 0.72</code>). Full current ratings JSON: <a href="https://github.com/karagemop466-tech/LOLHOTSPAWN1/blob/main/data/node/model/ratings.json" target="_blank" rel="noopener">data/node/model/ratings.json ↗</a>.</li>
