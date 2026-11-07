@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-11-07T05:08:28.230Z",
+  "generated_at": "2026-11-07T12:39:35.264Z",
   "methodology": "Chronological pre-kickoff Elo/Bradley-Terry (initial 1500, dynamic K=38/28/22 with map-margin multiplier, empirical-Bayes tau=6 shrinkage, correlated-series damping alpha=0.72). Zero Hotspawn crowd/tier/points inputs; zero post-kickoff look-ahead.",
-  "teams_rated": 4216,
+  "teams_rated": 4217,
   "calibration": {
-    "series_replayed": 32680,
-    "oos_evaluated": 22490,
+    "series_replayed": 32687,
+    "oos_evaluated": 22495,
     "brier": 0.2251,
     "coinflip_brier": 0.25,
     "log_loss": 0.6416,
-    "accuracy": 0.6406,
+    "accuracy": 0.6407,
     "reliability_bins": [
       {
         "bin": "0-10%",
@@ -36,21 +36,21 @@
       },
       {
         "bin": "40-50%",
-        "n": 6205,
+        "n": 6206,
         "mean_pred": 0.4605,
-        "empirical_win_rate": 0.4664
+        "empirical_win_rate": 0.4665
       },
       {
         "bin": "50-60%",
-        "n": 7044,
-        "mean_pred": 0.5402,
-        "empirical_win_rate": 0.6261
+        "n": 7047,
+        "mean_pred": 0.5401,
+        "empirical_win_rate": 0.6262
       },
       {
         "bin": "60-70%",
-        "n": 3084,
+        "n": 3085,
         "mean_pred": 0.644,
-        "empirical_win_rate": 0.725
+        "empirical_win_rate": 0.7251
       },
       {
         "bin": "70-80%",
@@ -75,12 +75,12 @@
   "teams": [
     {
       "team": "T1 Esports Academy Rookies",
-      "elo": 1853.3,
-      "series": 110,
-      "wins": 92,
+      "elo": 1863.2,
+      "series": 111,
+      "wins": 93,
       "losses": 18,
-      "maps": "208-66",
-      "last_played": "2026-11-01"
+      "maps": "211-67",
+      "last_played": "2026-11-07"
     },
     {
       "team": "NEO ZEPHYR",
@@ -236,15 +236,6 @@
       "last_played": "2026-09-25"
     },
     {
-      "team": "Dplus Kia Youth",
-      "elo": 1777.4,
-      "series": 107,
-      "wins": 77,
-      "losses": 30,
-      "maps": "178-98",
-      "last_played": "2026-11-01"
-    },
-    {
       "team": "Nightbirds",
       "elo": 1774.4,
       "series": 101,
@@ -279,6 +270,15 @@
       "losses": 13,
       "maps": "87-34",
       "last_played": "2026-06-11"
+    },
+    {
+      "team": "Dplus Kia Youth",
+      "elo": 1767.5,
+      "series": 108,
+      "wins": 77,
+      "losses": 31,
+      "maps": "179-101",
+      "last_played": "2026-11-07"
     },
     {
       "team": "Movistar KOI Fénix",
@@ -335,13 +335,13 @@
       "last_played": "2025-11-16"
     },
     {
-      "team": "Karmine Corp",
-      "elo": 1748.9,
-      "series": 109,
-      "wins": 75,
-      "losses": 34,
-      "maps": "168-101",
-      "last_played": "2026-10-31"
+      "team": "T1",
+      "elo": 1746.8,
+      "series": 159,
+      "wins": 102,
+      "losses": 57,
+      "maps": "253-159",
+      "last_played": "2026-11-06"
     },
     {
       "team": "Full Sense",
@@ -380,6 +380,15 @@
       "last_played": "2026-02-08"
     },
     {
+      "team": "Karmine Corp",
+      "elo": 1735.7,
+      "series": 110,
+      "wins": 75,
+      "losses": 35,
+      "maps": "169-104",
+      "last_played": "2026-11-06"
+    },
+    {
       "team": "Luminosity Gaming",
       "elo": 1735.4,
       "series": 29,
@@ -396,15 +405,6 @@
       "losses": 32,
       "maps": "62-40",
       "last_played": "2026-09-06"
-    },
-    {
-      "team": "T1",
-      "elo": 1733.6,
-      "series": 158,
-      "wins": 101,
-      "losses": 57,
-      "maps": "250-158",
-      "last_played": "2026-10-28"
     },
     {
       "team": "West Point Esports Academy",
@@ -9947,6 +9947,15 @@
       "last_played": "2026-10-28"
     },
     {
+      "team": "Slam Dunk",
+      "elo": 1537.8,
+      "series": 6,
+      "wins": 4,
+      "losses": 2,
+      "maps": "9-7",
+      "last_played": "2026-11-06"
+    },
+    {
       "team": "伍伍陸捌捌",
       "elo": 1537.8,
       "series": 4,
@@ -13169,15 +13178,6 @@
       "last_played": "2025-05-10"
     },
     {
-      "team": "Slam Dunk",
-      "elo": 1520.4,
-      "series": 5,
-      "wins": 3,
-      "losses": 2,
-      "maps": "7-6",
-      "last_played": "2026-10-28"
-    },
-    {
       "team": "Fiesta (European Team)",
       "elo": 1520.3,
       "series": 8,
@@ -15840,6 +15840,15 @@
       "losses": 3,
       "maps": "4-3",
       "last_played": "2026-06-19"
+    },
+    {
+      "team": "9Gaming",
+      "elo": 1511.5,
+      "series": 29,
+      "wins": 15,
+      "losses": 14,
+      "maps": "36-34",
+      "last_played": "2026-11-07"
     },
     {
       "team": "mYinsanity",
@@ -19226,15 +19235,6 @@
       "last_played": "2025-03-09"
     },
     {
-      "team": "9Gaming",
-      "elo": 1498.5,
-      "series": 28,
-      "wins": 14,
-      "losses": 14,
-      "maps": "34-34",
-      "last_played": "2026-11-05"
-    },
-    {
       "team": "Pawn General Commander",
       "elo": 1498.5,
       "series": 8,
@@ -20558,15 +20558,6 @@
       "last_played": "2025-05-29"
     },
     {
-      "team": "New Era Team",
-      "elo": 1492.1,
-      "series": 8,
-      "wins": 3,
-      "losses": 5,
-      "maps": "8-10",
-      "last_played": "2026-10-28"
-    },
-    {
       "team": "ASPCT",
       "elo": 1491.9,
       "series": 26,
@@ -21701,6 +21692,15 @@
       "last_played": "2026-08-16"
     },
     {
+      "team": "Spartans EU",
+      "elo": 1485.6,
+      "series": 37,
+      "wins": 17,
+      "losses": 20,
+      "maps": "36-42",
+      "last_played": "2026-11-06"
+    },
+    {
       "team": "Team GMask",
       "elo": 1485.6,
       "series": 15,
@@ -21897,6 +21897,15 @@
       "losses": 2,
       "maps": "3-4",
       "last_played": "2025-04-27"
+    },
+    {
+      "team": "No Turning Back",
+      "elo": 1484.8,
+      "series": 3,
+      "wins": 1,
+      "losses": 2,
+      "maps": "2-4",
+      "last_played": "2026-11-07"
     },
     {
       "team": "DIS THUNDER THO",
@@ -25004,15 +25013,6 @@
       "last_played": "2025-09-13"
     },
     {
-      "team": "The ParadOx Invaders",
-      "elo": 1479.7,
-      "series": 6,
-      "wins": 2,
-      "losses": 4,
-      "maps": "4-8",
-      "last_played": "2026-08-25"
-    },
-    {
       "team": "FREEZŮV WOLT DŮCHOĎÁK",
       "elo": 1479.7,
       "series": 11,
@@ -25200,6 +25200,15 @@
       "losses": 6,
       "maps": "4-6",
       "last_played": "2024-11-23"
+    },
+    {
+      "team": "New Era Team",
+      "elo": 1479.2,
+      "series": 9,
+      "wins": 3,
+      "losses": 6,
+      "maps": "9-12",
+      "last_played": "2026-11-06"
     },
     {
       "team": "Rival Team(VSPO! SHOWDOWN)",
@@ -26453,15 +26462,6 @@
       "last_played": "2025-10-29"
     },
     {
-      "team": "Spartans EU",
-      "elo": 1474.8,
-      "series": 36,
-      "wins": 16,
-      "losses": 20,
-      "maps": "34-41",
-      "last_played": "2026-08-25"
-    },
-    {
       "team": "Kazakhstan (National Team)",
       "elo": 1474.7,
       "series": 8,
@@ -27056,6 +27056,15 @@
       "last_played": "2025-06-14"
     },
     {
+      "team": "AIX eSports",
+      "elo": 1470.6,
+      "series": 37,
+      "wins": 16,
+      "losses": 21,
+      "maps": "37-45",
+      "last_played": "2026-11-06"
+    },
+    {
       "team": "New Jersey Institute of Technology",
       "elo": 1470.5,
       "series": 12,
@@ -27531,15 +27540,6 @@
       "losses": 11,
       "maps": "8-11",
       "last_played": "2025-06-07"
-    },
-    {
-      "team": "Vortex Reborn",
-      "elo": 1467.8,
-      "series": 15,
-      "wins": 6,
-      "losses": 9,
-      "maps": "6-10",
-      "last_played": "2026-05-02"
     },
     {
       "team": "Fast8",
@@ -28829,6 +28829,15 @@
       "last_played": "2025-05-04"
     },
     {
+      "team": "The ParadOx Invaders",
+      "elo": 1461.8,
+      "series": 7,
+      "wins": 2,
+      "losses": 5,
+      "maps": "5-10",
+      "last_played": "2026-11-06"
+    },
+    {
       "team": "Shiro SmokeHouse",
       "elo": 1461.8,
       "series": 4,
@@ -29151,15 +29160,6 @@
       "losses": 3,
       "maps": "4-7",
       "last_played": "2026-09-05"
-    },
-    {
-      "team": "AIX eSports",
-      "elo": 1459.9,
-      "series": 36,
-      "wins": 15,
-      "losses": 21,
-      "maps": "35-45",
-      "last_played": "2026-11-01"
     },
     {
       "team": "ESEV Zephyr Theseus",
@@ -29862,6 +29862,15 @@
       "losses": 5,
       "maps": "2-5",
       "last_played": "2025-02-22"
+    },
+    {
+      "team": "Vortex Reborn",
+      "elo": 1454.1,
+      "series": 16,
+      "wins": 6,
+      "losses": 10,
+      "maps": "7-12",
+      "last_played": "2026-11-06"
     },
     {
       "team": "Zero Tenacity Academy",
@@ -35849,15 +35858,6 @@
       "last_played": "2025-04-19"
     },
     {
-      "team": "MT1 Vision",
-      "elo": 1405.2,
-      "series": 22,
-      "wins": 7,
-      "losses": 15,
-      "maps": "19-33",
-      "last_played": "2026-10-29"
-    },
-    {
       "team": "Direct Rising eSports",
       "elo": 1405.2,
       "series": 6,
@@ -36531,6 +36531,15 @@
       "losses": 32,
       "maps": "49-70",
       "last_played": "2025-12-07"
+    },
+    {
+      "team": "MT1 Vision",
+      "elo": 1391.7,
+      "series": 23,
+      "wins": 7,
+      "losses": 16,
+      "maps": "19-35",
+      "last_played": "2026-11-06"
     },
     {
       "team": "Imperial Eagles Female",

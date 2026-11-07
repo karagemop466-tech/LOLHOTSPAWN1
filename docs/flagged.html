@@ -22,21 +22,21 @@
         Menu ▾
       </button>
       <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 183 Table</span><span class="nav-cnt">183</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">80</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">2</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">159</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">19</span></a><a href="flagged.html" class="active" aria-current="page"><span>Flagged</span><span class="nav-cnt">26</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html"><span>Methodology</span></a><a href="../index.html"><span>⭐ Canonical picks</span><span class="nav-cnt">212</span></a>
+        <a href="index.html"><span>Overview</span></a><a href="table.html"><span>All 186 Table</span><span class="nav-cnt">186</span></a><a href="picks.html"><span>Active Picks</span><span class="nav-cnt">83</span></a><a href="featured.html"><span>Market Lines</span><span class="nav-cnt">2</span></a><a href="originated.html"><span>Model Picks</span><span class="nav-cnt">161</span></a><a href="tournaments.html"><span>Tournaments</span></a><a href="unresolved.html"><span>Unresolved</span><span class="nav-cnt">20</span></a><a href="flagged.html" class="active" aria-current="page"><span>Flagged</span><span class="nav-cnt">27</span></a><a href="results.html"><span>Results</span></a><a href="methodology.html"><span>Methodology</span></a><a href="../index.html"><span>⭐ Canonical picks</span><span class="nav-cnt">212</span></a>
       </nav>
     </div>
   </header>
   <div id="stale-snapshot-alert" class="stale-alert" hidden></div>
-  <div class="fresh-bar" data-generated-at="2026-11-07T05:08:28.230Z">
+  <div class="fresh-bar" data-generated-at="2026-11-07T12:39:35.264Z">
     <div class="fresh-inner">
-      <span>Snapshot: <time class="mono" data-utc="2026-11-07T05:08:28.230Z">2026-11-07 05:08 UTC</time> · Auto-refresh every 6h</span>
+      <span>Snapshot: <time class="mono" data-utc="2026-11-07T12:39:35.264Z">2026-11-07 12:39 UTC</time> · Auto-refresh every 6h</span>
       <span>Zero Hotspawn crowd/tier/points inputs · <a href="../index.html">Canonical dashboard ↗</a> (<a href="https://karagemop466-tech.github.io/LOLHOTSPAWN1/" target="_blank" rel="noopener">live ↗</a> · canonical snapshot 2026-10-26 22:44 UTC) · <a href="data/picks.csv">CSV</a> · <a href="data/picks.json">JSON</a></span>
     </div>
   </div>
   <main>
 
     <section class="page-hero">
-      <h1>Flagged for Review (26)</h1>
+      <h1>Flagged for Review (27)</h1>
       <p>Every upstream entity-resolution collision, mid-split league disqualification, unverified zero-history debut, cross-venue market spread, and multi-roster pooling notice — each backed by official Hotspawn and Leaguepedia/bookmaker source links.</p>
     </section>
 
@@ -282,6 +282,17 @@
               </div>
             </td>
           </tr>
+<tr id="flag-unverified-zero-history-1130706">
+            <td><span class="badge b-prov">MEDIUM</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">unverified-zero-history</span></td>
+            <td><strong>New Generation Gaming vs Zerolag eSports</strong><br><span style="color:var(--text-muted)">HLL 2026 Super Cup</span> · <span class="badge b-state">open</span></td>
+            <td>Unverified / insufficient pre-kickoff evidence: no external betting line and New Generation Gaming (0 prior official matches) prior to 2026-11-13T16:00:00.000Z. Left blank rather than inferred.</td>
+            <td>
+              <div class="card-links" style="border:0;padding:0">
+                <a class="src-link" href="https://www.hotspawn.com/matches/new-generation-gaming-vs-zerolag-esports-hll-2026-super-cup-1130706" target="_blank" rel="noopener">Hotspawn #1130706 ↗</a>
+                <a class="src-link" href="https://lol.fandom.com/wiki/Special:Search?query=HLL%202026%20Super%20Cup" target="_blank" rel="noopener">Official Source ↗</a>
+              </div>
+            </td>
+          </tr>
 <tr id="flag-entity-collision-1079057">
             <td><span class="badge b-unres">HIGH</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">entity-collision</span></td>
             <td><strong>Phong Vũ Buffalo vs regnum4games</strong><br><span style="color:var(--text-muted)">PRM 2nd Division 26-27 Fall</span> · <span class="badge b-state">open</span></td>
@@ -328,7 +339,7 @@
           </tr>
 <tr id="flag-series-format-not-published">
             <td><span class="badge b-prov">MEDIUM</span><br><span class="mono" style="font-size:0.74rem;color:var(--text-dim)">unverified-field-left-blank</span></td>
-            <td><strong>183 scheduled fixtures with best_of = null in the Hotspawn feed</strong><br><span style="color:var(--text-muted)">LCP 2027 Promotion</span> · <span class="badge b-state">open</span></td>
+            <td><strong>186 scheduled fixtures with best_of = null in the Hotspawn feed</strong><br><span style="color:var(--text-muted)">LCP 2027 Promotion</span> · <span class="badge b-state">open</span></td>
             <td>Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.</td>
             <td>
               <div class="card-links" style="border:0;padding:0">
