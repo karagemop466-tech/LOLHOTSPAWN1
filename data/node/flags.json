@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T14:49:47.351Z",
-  "count": 14,
+  "generated_at": "2026-11-12T23:19:08.830Z",
+  "count": 13,
   "flags": [
     {
       "id": "dq-walkover-1071170",
@@ -87,18 +87,6 @@
       "source_url": "https://lol.fandom.com/wiki/Logitech_G_SuperStrike_Cup/Qualifier"
     },
     {
-      "id": "venue-divergence-1081425",
-      "match_id": "1081425",
-      "severity": "low",
-      "kind": "cross-venue-divergence",
-      "competition": "LCP 2027 Promotion",
-      "matchup": "Saigon Warriors vs DetonatioN FocusMe",
-      "state": "open",
-      "detail": "Cross-venue implied probability spread is 12.0 pp across 3 independent venues.",
-      "hotspawn_url": "https://www.hotspawn.com/matches/saigon-warriors-vs-detonation-focusme-lcp-2027-promotion-1081425",
-      "source_url": "https://eu-offering-api.kambicdn.com/offering/v2018/ubse/betoffer/event/1029838990.json?lang=en_GB&market=ZZ"
-    },
-    {
       "id": "unverified-zero-history-1130706",
       "match_id": "1130706",
       "severity": "medium",
@@ -164,7 +152,7 @@
       "severity": "medium",
       "kind": "unverified-field-left-blank",
       "competition": "LCP 2027 Promotion",
-      "matchup": "157 scheduled fixtures with best_of = null in the Hotspawn feed",
+      "matchup": "159 scheduled fixtures with best_of = null in the Hotspawn feed",
       "state": "ended",
       "detail": "Hotspawn's fixtures API publishes no series format for any scheduled card, so this dashboard renders 'Bo —' and the CSV column is blank. The rating model assumes a single-map series when the format is unknown (mapProbToSeriesProb, no best-of amplification). That assumption is verifiably wrong for #1081421: Leaguepedia's raw wikitext for Data:LCP/2027 Season/Promotion opens its FFA Round 1 MatchSchedule/Start block with the parameters tab=FFA Round 1 | bestof=5 | shownname=LCP 2027 Promotion and lists team1=FENNEL | team2=Nothin'Here at 2026-11-10 14:00 KST (05:00 UTC) - a Bo5. Format-sensitive probabilities for such fixtures are understated in amplitude until a verified format source is joined.",
       "hotspawn_url": "https://www.hotspawn.com/matches/fennel-vs-nothin-here-lcp-2027-promotion-1081421",
