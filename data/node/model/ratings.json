@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-11-13T05:39:06.594Z",
+  "generated_at": "2026-11-13T14:09:02.232Z",
   "methodology": "Chronological pre-kickoff Elo/Bradley-Terry (initial 1500, dynamic K=38/28/22 with map-margin multiplier, empirical-Bayes tau=6 shrinkage, correlated-series damping alpha=0.72). Zero Hotspawn crowd/tier/points inputs; zero post-kickoff look-ahead.",
   "teams_rated": 4240,
   "calibration": {
-    "series_replayed": 32840,
-    "oos_evaluated": 22592,
+    "series_replayed": 32844,
+    "oos_evaluated": 22596,
     "brier": 0.2251,
     "coinflip_brier": 0.25,
-    "log_loss": 0.6417,
+    "log_loss": 0.6416,
     "accuracy": 0.6406,
     "reliability_bins": [
       {
@@ -36,9 +36,9 @@
       },
       {
         "bin": "40-50%",
-        "n": 6229,
+        "n": 6232,
         "mean_pred": 0.4605,
-        "empirical_win_rate": 0.4662
+        "empirical_win_rate": 0.4665
       },
       {
         "bin": "50-60%",
@@ -60,9 +60,9 @@
       },
       {
         "bin": "80-90%",
-        "n": 553,
-        "mean_pred": 0.8416,
-        "empirical_win_rate": 0.8282
+        "n": 554,
+        "mean_pred": 0.8417,
+        "empirical_win_rate": 0.8285
       },
       {
         "bin": "90-100%",
@@ -758,6 +758,15 @@
       "last_played": "2026-05-03"
     },
     {
+      "team": "Saigon Warriors",
+      "elo": 1692.6,
+      "series": 43,
+      "wins": 30,
+      "losses": 13,
+      "maps": "69-35",
+      "last_played": "2026-11-13"
+    },
+    {
       "team": "TLN Pirates",
       "elo": 1691.8,
       "series": 47,
@@ -783,15 +792,6 @@
       "losses": 43,
       "maps": "128-85",
       "last_played": "2026-10-20"
-    },
-    {
-      "team": "Saigon Warriors",
-      "elo": 1690.7,
-      "series": 42,
-      "wins": 29,
-      "losses": 13,
-      "maps": "66-34",
-      "last_played": "2026-11-12"
     },
     {
       "team": "S8UL Esports",
@@ -4115,15 +4115,6 @@
       "last_played": "2026-09-09"
     },
     {
-      "team": "Defiance eSports",
-      "elo": 1590.5,
-      "series": 22,
-      "wins": 15,
-      "losses": 7,
-      "maps": "33-20",
-      "last_played": "2026-11-10"
-    },
-    {
       "team": "KIT KAT KLAN",
       "elo": 1590.2,
       "series": 10,
@@ -4230,15 +4221,6 @@
       "losses": 6,
       "maps": "12-7",
       "last_played": "2026-07-05"
-    },
-    {
-      "team": "PNS",
-      "elo": 1588.3,
-      "series": 9,
-      "wins": 7,
-      "losses": 2,
-      "maps": "8-3",
-      "last_played": "2026-11-05"
     },
     {
       "team": "TALON (Hong Kong Team)",
@@ -4455,6 +4437,15 @@
       "losses": 7,
       "maps": "10-7",
       "last_played": "2025-09-06"
+    },
+    {
+      "team": "Crownless",
+      "elo": 1586,
+      "series": 8,
+      "wins": 6,
+      "losses": 2,
+      "maps": "7-3",
+      "last_played": "2026-11-12"
     },
     {
       "team": "AG.AL",
@@ -5726,6 +5717,15 @@
       "last_played": "2025-06-20"
     },
     {
+      "team": "Defiance eSports",
+      "elo": 1571.6,
+      "series": 23,
+      "wins": 15,
+      "losses": 8,
+      "maps": "33-22",
+      "last_played": "2026-11-12"
+    },
+    {
       "team": "The Bandits Prime",
       "elo": 1571.4,
       "series": 11,
@@ -5778,6 +5778,15 @@
       "losses": 14,
       "maps": "32-30",
       "last_played": "2026-09-05"
+    },
+    {
+      "team": "PNS",
+      "elo": 1571,
+      "series": 10,
+      "wins": 7,
+      "losses": 3,
+      "maps": "8-5",
+      "last_played": "2026-11-12"
     },
     {
       "team": "The Boys",
@@ -6660,15 +6669,6 @@
       "losses": 0,
       "maps": "7-2",
       "last_played": "2024-12-22"
-    },
-    {
-      "team": "Crownless",
-      "elo": 1562.5,
-      "series": 7,
-      "wins": 5,
-      "losses": 2,
-      "maps": "5-3",
-      "last_played": "2026-10-29"
     },
     {
       "team": "Team Pyrka",
@@ -8604,6 +8604,15 @@
       "losses": 12,
       "maps": "36-32",
       "last_played": "2026-04-18"
+    },
+    {
+      "team": "Cloud eSport",
+      "elo": 1545.8,
+      "series": 26,
+      "wins": 16,
+      "losses": 10,
+      "maps": "33-26",
+      "last_played": "2026-11-12"
     },
     {
       "team": "BorSuczki",
@@ -11214,15 +11223,6 @@
       "losses": 3,
       "maps": "5-3",
       "last_played": "2024-11-27"
-    },
-    {
-      "team": "Cloud eSport",
-      "elo": 1531,
-      "series": 25,
-      "wins": 15,
-      "losses": 10,
-      "maps": "31-26",
-      "last_played": "2026-11-11"
     },
     {
       "team": "Wtajemniczeni",
@@ -36974,15 +36974,6 @@
       "last_played": "2026-03-15"
     },
     {
-      "team": "AceGaming Hearts",
-      "elo": 1386.8,
-      "series": 11,
-      "wins": 2,
-      "losses": 9,
-      "maps": "6-18",
-      "last_played": "2026-11-08"
-    },
-    {
       "team": "UP2UMEDIA Cebulaki",
       "elo": 1386.6,
       "series": 7,
@@ -37107,6 +37098,15 @@
       "losses": 21,
       "maps": "19-40",
       "last_played": "2026-07-31"
+    },
+    {
+      "team": "Duplex Silva Pigeons Edition",
+      "elo": 1383.1,
+      "series": 20,
+      "wins": 6,
+      "losses": 14,
+      "maps": "11-26",
+      "last_played": "2026-11-12"
     },
     {
       "team": "Actions Per Minute Academy",
@@ -37550,6 +37550,15 @@
       "last_played": "2025-03-03"
     },
     {
+      "team": "AceGaming Hearts",
+      "elo": 1369.7,
+      "series": 12,
+      "wins": 2,
+      "losses": 10,
+      "maps": "6-20",
+      "last_played": "2026-11-12"
+    },
+    {
       "team": "Anis Esports",
       "elo": 1368.6,
       "series": 22,
@@ -37602,15 +37611,6 @@
       "losses": 10,
       "maps": "1-10",
       "last_played": "2025-08-02"
-    },
-    {
-      "team": "Duplex Silva Pigeons Edition",
-      "elo": 1366,
-      "series": 19,
-      "wins": 5,
-      "losses": 14,
-      "maps": "9-26",
-      "last_played": "2026-11-08"
     },
     {
       "team": "Dalhousie University",
@@ -38199,12 +38199,12 @@
     },
     {
       "team": "DetonatioN FocusMe",
-      "elo": 1258.3,
-      "series": 43,
+      "elo": 1256.4,
+      "series": 44,
       "wins": 6,
-      "losses": 37,
-      "maps": "21-82",
-      "last_played": "2026-08-15"
+      "losses": 38,
+      "maps": "22-85",
+      "last_played": "2026-11-13"
     },
     {
       "team": "Eunpyeong Meditech High School",
