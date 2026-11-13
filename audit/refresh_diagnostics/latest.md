@@ -1,13 +1,13 @@
 # refresh-docs verification output
 
-run 43439933178 attempt 1 · commit `d2bc358c3ce8c987bd77cec062878568eb543440` · 2026-11-13T14:09:02Z
+run 43526514563 attempt 1 · commit `fe3334ad5d5672e544cc2f2a1178937c3c3cecae` · 2026-11-13T23:21:57Z
 
 ## freshly generated snapshot
 ```
-generated_at 2026-11-13T14:09:02.232Z | raw feed 2026-11-13T14:08:53.988Z
-counts {"total_rows":454,"scheduled_total":155,"active_open_locked":63,"stale_scheduled":92,"ended_recent":265,"forfeited_recent":4,"cancelled_recent":30,"active_market":1,"active_model":58,"active_unresolved":4,"scheduled_market":1,"scheduled_model":143,"scheduled_walkover_settlement":4,"scheduled_unresolved":7,"by_source_scheduled":{"model":95,"walkover_settlement":4,"model_provisional":48,"unresolved":7,"market_consensus":1},"by_source_active":{"model_provisional":14,"model":44,"unresolved":4,"market_consensus":1},"flags":14}
+generated_at 2026-11-13T23:21:57.213Z | raw feed 2026-11-13T23:21:48.125Z
+counts {"total_rows":436,"scheduled_total":155,"active_open_locked":58,"stale_scheduled":97,"ended_recent":251,"forfeited_recent":3,"cancelled_recent":27,"active_market":1,"active_model":54,"active_unresolved":3,"scheduled_market":1,"scheduled_model":143,"scheduled_walkover_settlement":4,"scheduled_unresolved":7,"by_source_scheduled":{"model":95,"walkover_settlement":4,"model_provisional":48,"unresolved":7,"market_consensus":1},"by_source_active":{"model":42,"model_provisional":12,"unresolved":3,"market_consensus":1},"flags":14}
 calibration {"n":22596,"brier":0.2251,"series":32844}
-rows 454 | scheduled 155
+rows 436 | scheduled 155
 market rows: 1094982:5[Pinnacle+Unibet (Kambi)+Polymarket+Kalshi CFTC+Smarkets (UKGC)]
 scheduled rows with best_of != null: 0
 flags 14 | dq-walkover-1071170 unverified-zero-history-1074627 dq-walkover-1071200 dq-walkover-1071206 dq-walkover-1071186 unverified-zero-history-1082002 unverified-zero-history-1083593 unverified-zero-history-1130706 entity-collision-1079057 unverified-zero-history-1131686 unverified-zero-history-1131687 unverified-zero-history-1132746 org-pooling-rich-gang-prm3 series-format-not-published
@@ -16,7 +16,7 @@ flags 14 | dq-walkover-1071170 unverified-zero-history-1074627 dq-walkover-10712
 ## git diff --stat of this run's output
 ```
  data/node/raw/bovada_lol.json              |    2 +-
- data/node/raw/collect_log.json             |   38 +-
+ data/node/raw/collect_log.json             |   26 +-
  data/node/raw/hotspawn_lobby_check.json    |    2 +-
  data/node/raw/hotspawn_lol_fixtures.json   |    2 +-
  data/node/raw/kalshi_lol.json              |    2 +-
@@ -26,31 +26,31 @@ flags 14 | dq-walkover-1071170 unverified-zero-history-1074627 dq-walkover-10712
  data/node/raw/polymarket_lol.json          |    2 +-
  data/node/raw/smarkets_lol.json            |    2 +-
  docs/data/canonical_snapshot.json          |    2 +-
- docs/data/flags.json                       |   36 +-
- docs/data/picks.csv                        |   27 +-
- docs/data/picks.json                       | 3451 ++++++++++++++--------------
- docs/featured.html                         |   74 +-
- docs/flagged.html                          |   32 +-
- docs/index.html                            |  163 +-
- docs/methodology.html                      |   30 +-
- docs/originated.html                       |  471 ++--
- docs/picks.html                            |  423 ++--
- docs/results.html                          |  181 +-
- docs/table.html                            |  223 +-
- docs/tournaments.html                      |  202 +-
- docs/unresolved.html                       |   32 +-
- 32 files changed, 4885 insertions(+), 4785 deletions(-)
+ docs/data/flags.json                       |   10 +-
+ docs/data/picks.csv                        |   24 +-
+ docs/data/picks.json                       | 1487 ++--------------------------
+ docs/featured.html                         |   24 +-
+ docs/flagged.html                          |   14 +-
+ docs/index.html                            |   60 +-
+ docs/methodology.html                      |    6 +-
+ docs/originated.html                       |   36 +-
+ docs/picks.html                            |  180 +---
+ docs/results.html                          |  115 +--
+ docs/table.html                            |   46 +-
+ docs/tournaments.html                      |   32 +-
+ docs/unresolved.html                       |   60 +-
+ 32 files changed, 447 insertions(+), 3421 deletions(-)
 ```
 
 ## python3 audit/verify_docs.py
 ```
-PASS    1 docs/data/picks.json mirrors data/node/picks.json :: 1075937 bytes
-PASS    2 every active match with a pick rendered on picks.html :: 59 picked rows, missing: []
+PASS    1 docs/data/picks.json mirrors data/node/picks.json :: 1033741 bytes
+PASS    2 every active match with a pick rendered on picks.html :: 55 picked rows, missing: []
 PASS    3 rendered probabilities match JSON :: bad: []
-PASS    4 every active match without a pick is on unresolved.html and index.html :: 4 unresolved, missing: []
+PASS    4 every active match without a pick is on unresolved.html and index.html :: 3 unresolved, missing: []
 PASS    5 every rendered card links its Hotspawn match card :: missing: []
 PASS    6 market rows carry all matched venue source links :: 1 market rows, missing: []
-PASS    7 results.html renders only official scores (no fabricated fills) :: 269 ended/forfeited checked, bad: []
+PASS    7 results.html renders only official scores (no fabricated fills) :: 254 ended/forfeited checked, bad: []
 PASS    8 no ledger entry with an official result renders as pending :: bad: []
 PASS    9 navigation on every docs page :: []
 PASS  9.1 exec summary links every picks view & subpage :: []
@@ -62,7 +62,7 @@ PASS   14 no '(Kills)' derivative market used as a match line :: []
 PASS   15 cross-region homonym quarantines (#1083097, #1079031) & Solid Gaming DQ walkovers verified :: []
 PASS   16 every Flagged for Review item renders with Hotspawn + official source links :: 14 flags, bad=[]
 
-rows: 454 total | scheduled 155 | active 63 (59 with pick, 4 unresolved) | ended/forfeited 269 | flags 14 | ledger 381 entries
+rows: 436 total | scheduled 155 | active 58 (55 with pick, 3 unresolved) | ended/forfeited 254 | flags 14 | ledger 381 entries
 
 ALL DOCS CHECKS PASS
 exit=0
