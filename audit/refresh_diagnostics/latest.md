@@ -1,13 +1,13 @@
 # refresh-docs verification output
 
-run 44425383675 attempt 1 · commit `fefd6aa520fc06aed5c39eccde23faa6e01a4cff` · 2026-11-19T00:00:20Z
+run 44472492095 attempt 1 · commit `9b3a0175c9b98673b277ae91f74c98c853183679` · 2026-11-19T06:29:30Z
 
 ## freshly generated snapshot
 ```
-generated_at 2026-11-19T00:00:20.006Z | raw feed 2026-11-19T00:00:11.849Z
-counts {"total_rows":291,"scheduled_total":126,"active_open_locked":27,"stale_scheduled":99,"ended_recent":150,"forfeited_recent":3,"cancelled_recent":12,"active_market":0,"active_model":27,"active_unresolved":0,"scheduled_market":0,"scheduled_model":119,"scheduled_walkover_settlement":4,"scheduled_unresolved":3,"by_source_scheduled":{"model":78,"walkover_settlement":4,"model_provisional":41,"unresolved":3},"by_source_active":{"model":22,"model_provisional":5},"flags":9}
-calibration {"n":22642,"brier":0.2251,"series":32897}
-rows 291 | scheduled 126
+generated_at 2026-11-19T06:29:29.950Z | raw feed 2026-11-19T06:29:22.369Z
+counts {"total_rows":293,"scheduled_total":127,"active_open_locked":29,"stale_scheduled":98,"ended_recent":151,"forfeited_recent":3,"cancelled_recent":12,"active_market":0,"active_model":29,"active_unresolved":0,"scheduled_market":0,"scheduled_model":120,"scheduled_walkover_settlement":4,"scheduled_unresolved":3,"by_source_scheduled":{"model":79,"walkover_settlement":4,"model_provisional":41,"unresolved":3},"by_source_active":{"model_provisional":6,"model":23},"flags":9}
+calibration {"n":22643,"brier":0.2251,"series":32898}
+rows 293 | scheduled 127
 market rows: none
 scheduled rows with best_of != null: 0
 flags 9 | dq-walkover-1071170 unverified-zero-history-1074627 dq-walkover-1071200 dq-walkover-1071206 dq-walkover-1071186 unverified-zero-history-1082002 unverified-zero-history-1083593 org-pooling-rich-gang-prm3 series-format-not-published
@@ -16,7 +16,7 @@ flags 9 | dq-walkover-1071170 unverified-zero-history-1074627 dq-walkover-107120
 ## git diff --stat of this run's output
 ```
  data/node/raw/bovada_lol.json              |     2 +-
- data/node/raw/collect_log.json             |    44 +-
+ data/node/raw/collect_log.json             |    46 +-
  data/node/raw/hotspawn_lobby_check.json    |     2 +-
  data/node/raw/hotspawn_lol_fixtures.json   |     2 +-
  data/node/raw/kalshi_lol.json              |     2 +-
@@ -27,42 +27,42 @@ flags 9 | dq-walkover-1071170 unverified-zero-history-1074627 dq-walkover-107120
  data/node/raw/smarkets_lol.json            |     2 +-
  docs/data/canonical_snapshot.json          |     2 +-
  docs/data/flags.json                       |    42 +-
- docs/data/picks.csv                        |    58 +-
- docs/data/picks.json                       | 19783 ++++++++-------------------
+ docs/data/picks.csv                        |    59 +-
+ docs/data/picks.json                       | 19831 ++++++++-------------------
  docs/featured.html                         |    56 +-
  docs/flagged.html                          |    43 +-
  docs/index.html                            |   155 +-
  docs/methodology.html                      |    50 +-
- docs/originated.html                       |  1350 +-
- docs/picks.html                            |  1152 +-
- docs/results.html                          |  1477 +-
- docs/table.html                            |   580 +-
- docs/tournaments.html                      |   536 +-
+ docs/originated.html                       |  1415 +-
+ docs/picks.html                            |  1180 +-
+ docs/results.html                          |  1484 +-
+ docs/table.html                            |   595 +-
+ docs/tournaments.html                      |   645 +-
  docs/unresolved.html                       |    83 +-
- 32 files changed, 17661 insertions(+), 35924 deletions(-)
+ 32 files changed, 18116 insertions(+), 35869 deletions(-)
 ```
 
 ## python3 audit/verify_docs.py
 ```
-PASS    1 docs/data/picks.json mirrors data/node/picks.json :: 692009 bytes
-PASS    2 every active match with a pick rendered on picks.html :: 27 picked rows, missing: []
+PASS    1 docs/data/picks.json mirrors data/node/picks.json :: 696624 bytes
+PASS    2 every active match with a pick rendered on picks.html :: 29 picked rows, missing: []
 PASS    3 rendered probabilities match JSON :: bad: []
 PASS    4 every active match without a pick is on unresolved.html and index.html :: 0 unresolved, missing: []
 PASS    5 every rendered card links its Hotspawn match card :: missing: []
 PASS    6 market rows carry all matched venue source links :: 0 market rows, missing: []
-PASS    7 results.html renders only official scores (no fabricated fills) :: 153 ended/forfeited checked, bad: []
+PASS    7 results.html renders only official scores (no fabricated fills) :: 154 ended/forfeited checked, bad: []
 PASS    8 no ledger entry with an official result renders as pending :: bad: []
 PASS    9 navigation on every docs page :: []
 PASS  9.1 exec summary links every picks view & subpage :: []
 PASS   10 no broken internal links or fragments in docs/ :: []
 PASS   11 probabilities sum to 100% and pick = argmax :: bad: []
-PASS   12 all scheduled matches rendered 1:1 on docs/table.html with source links :: 126 scheduled rows, missing: []
+PASS   12 all scheduled matches rendered 1:1 on docs/table.html with source links :: 127 scheduled rows, missing: []
 PASS   13 all 10 docs/*.html category pages exist with mobile viewport :: missing=[] no_vp=[]
 PASS   14 no '(Kills)' derivative market used as a match line :: []
 PASS   15 cross-region homonym quarantines (#1083097, #1079031) & Solid Gaming DQ walkovers verified :: []
 PASS   16 every Flagged for Review item renders with Hotspawn + official source links :: 9 flags, bad=[]
 
-rows: 291 total | scheduled 126 | active 27 (27 with pick, 0 unresolved) | ended/forfeited 153 | flags 9 | ledger 393 entries
+rows: 293 total | scheduled 127 | active 29 (29 with pick, 0 unresolved) | ended/forfeited 154 | flags 9 | ledger 395 entries
 
 ALL DOCS CHECKS PASS
 exit=0
@@ -97,17 +97,17 @@ exit=1
 ```
 PASS    1 no docs page reuses a canonical title and every docs title says 'secondary' :: reused: []; unmarked: []
 PASS    2 secondary banner is first in <body> and every page links the canonical hub :: banner not first: []; no canonical link: []
-PASS    3 reconciliation + overview numbers reproduce both committed snapshots :: reconcile section: True; missing: []; oos series rendered: 22,642
-PASS    4 every scheduled row deep-links to a canonical anchor that exists :: 126 rows; missing link: []; dead anchor: []
+PASS    3 reconciliation + overview numbers reproduce both committed snapshots :: reconcile section: True; missing: []; oos series rendered: 22,643
+PASS    4 every scheduled row deep-links to a canonical anchor that exists :: 127 rows; missing link: []; dead anchor: []
 PASS    5 fixtures absent from the canonical snapshot are explained, not silently dropped :: unexplained: []
 PASS    6 canonical probabilities rendered in docs/ equal data/matches.json :: mismatched: []
 PASS    7 divergences (>= 5 pp or opposite pick) are marked and listed :: 16 divergent fixtures; unmarked rows: []; missing from overview ledger: []
-PASS    8 no series format is rendered that Hotspawn does not publish :: 126 rows have best_of=null in the feed; bad renders: []
+PASS    8 no series format is rendered that Hotspawn does not publish :: 127 rows have best_of=null in the feed; bad renders: []
 PASS    9 internal links and fragments resolve (including ../ into the root site) :: broken: []
 PASS   10 methodology documents the canonical relationship and the unpublished series format :: missing: []
 WARN      canonical cards missing from the secondary snapshot :: 117
 
-scheduled rows: 126 | shared with canonical: 95 | both priced: 88 | divergent: 16 | mean gap 2.391 pp | max gap 9.76 pp
+scheduled rows: 127 | shared with canonical: 95 | both priced: 88 | divergent: 16 | mean gap 2.391 pp | max gap 9.76 pp
 
 ALL DOCS-PARITY CHECKS PASS
 exit=0
