@@ -1,6 +1,6 @@
 # Live source verification
 
-- generated: `2026-11-18T12:12:19Z`
+- generated: `2026-11-19T12:06:03Z`
 - dataset: `2026-10-26T22:44:33Z`
 - rows: **212**
 - result: **FAIL**
@@ -11,7 +11,7 @@
 | priced rows sum to 100% (0.2pp) | PASS | [] |
 | pick is the higher-probability side (ties may take either side) | PASS | [] |
 | every row names a pick (priced or settlement/void) | PASS | 212/212 |
-| published inventory == live Hotspawn feed (1:1 ids, freshness) | FAIL | live=126 dataset=212 new on feed since publish=31 gone from feed=117 - dataset is stale: the scheduled refresh has not published |
+| published inventory == live Hotspawn feed (1:1 ids, freshness) | FAIL | live=128 dataset=212 new on feed since publish=33 gone from feed=117 - dataset is stale: the scheduled refresh has not published |
 | no broken hotspawn card URL | PASS | 212/212 resolved this run; causes={'resolved': 212} |
 | no broken market quote URL | PASS | 2/2 resolved this run; causes={'resolved': 2} |
 | no broken venue receipt URL | PASS | 1/2 resolved this run; causes={'resolved': 1, 'rate_limited': 1} |
