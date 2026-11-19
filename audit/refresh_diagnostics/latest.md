@@ -1,13 +1,13 @@
 # refresh-docs verification output
 
-run 44334081956 attempt 1 · commit `3a05e9a27594de0d93551f56e8f1fabe9637ce1a` · 2026-11-18T15:18:46Z
+run 44425383675 attempt 1 · commit `fefd6aa520fc06aed5c39eccde23faa6e01a4cff` · 2026-11-19T00:00:20Z
 
 ## freshly generated snapshot
 ```
-generated_at 2026-11-18T15:18:45.679Z | raw feed 2026-11-18T15:18:37.669Z
-counts {"total_rows":295,"scheduled_total":126,"active_open_locked":30,"stale_scheduled":96,"ended_recent":154,"forfeited_recent":3,"cancelled_recent":12,"active_market":0,"active_model":30,"active_unresolved":0,"scheduled_market":0,"scheduled_model":119,"scheduled_walkover_settlement":4,"scheduled_unresolved":3,"by_source_scheduled":{"model":78,"walkover_settlement":4,"model_provisional":41,"unresolved":3},"by_source_active":{"model_provisional":6,"model":24},"flags":9}
+generated_at 2026-11-19T00:00:20.006Z | raw feed 2026-11-19T00:00:11.849Z
+counts {"total_rows":291,"scheduled_total":126,"active_open_locked":27,"stale_scheduled":99,"ended_recent":150,"forfeited_recent":3,"cancelled_recent":12,"active_market":0,"active_model":27,"active_unresolved":0,"scheduled_market":0,"scheduled_model":119,"scheduled_walkover_settlement":4,"scheduled_unresolved":3,"by_source_scheduled":{"model":78,"walkover_settlement":4,"model_provisional":41,"unresolved":3},"by_source_active":{"model":22,"model_provisional":5},"flags":9}
 calibration {"n":22642,"brier":0.2251,"series":32897}
-rows 295 | scheduled 126
+rows 291 | scheduled 126
 market rows: none
 scheduled rows with best_of != null: 0
 flags 9 | dq-walkover-1071170 unverified-zero-history-1074627 dq-walkover-1071200 dq-walkover-1071206 dq-walkover-1071186 unverified-zero-history-1082002 unverified-zero-history-1083593 org-pooling-rich-gang-prm3 series-format-not-published
@@ -27,30 +27,30 @@ flags 9 | dq-walkover-1071170 unverified-zero-history-1074627 dq-walkover-107120
  data/node/raw/smarkets_lol.json            |     2 +-
  docs/data/canonical_snapshot.json          |     2 +-
  docs/data/flags.json                       |    42 +-
- docs/data/picks.csv                        |    56 +-
- docs/data/picks.json                       | 19883 ++++++++-------------------
+ docs/data/picks.csv                        |    58 +-
+ docs/data/picks.json                       | 19783 ++++++++-------------------
  docs/featured.html                         |    56 +-
  docs/flagged.html                          |    43 +-
  docs/index.html                            |   155 +-
  docs/methodology.html                      |    50 +-
- docs/originated.html                       |  1386 +-
- docs/picks.html                            |  1179 +-
- docs/results.html                          |  1449 +-
- docs/table.html                            |   574 +-
- docs/tournaments.html                      |   532 +-
+ docs/originated.html                       |  1350 +-
+ docs/picks.html                            |  1152 +-
+ docs/results.html                          |  1477 +-
+ docs/table.html                            |   580 +-
+ docs/tournaments.html                      |   536 +-
  docs/unresolved.html                       |    83 +-
- 32 files changed, 18137 insertions(+), 35681 deletions(-)
+ 32 files changed, 17661 insertions(+), 35924 deletions(-)
 ```
 
 ## python3 audit/verify_docs.py
 ```
-PASS    1 docs/data/picks.json mirrors data/node/picks.json :: 701319 bytes
-PASS    2 every active match with a pick rendered on picks.html :: 30 picked rows, missing: []
+PASS    1 docs/data/picks.json mirrors data/node/picks.json :: 692009 bytes
+PASS    2 every active match with a pick rendered on picks.html :: 27 picked rows, missing: []
 PASS    3 rendered probabilities match JSON :: bad: []
 PASS    4 every active match without a pick is on unresolved.html and index.html :: 0 unresolved, missing: []
 PASS    5 every rendered card links its Hotspawn match card :: missing: []
 PASS    6 market rows carry all matched venue source links :: 0 market rows, missing: []
-PASS    7 results.html renders only official scores (no fabricated fills) :: 157 ended/forfeited checked, bad: []
+PASS    7 results.html renders only official scores (no fabricated fills) :: 153 ended/forfeited checked, bad: []
 PASS    8 no ledger entry with an official result renders as pending :: bad: []
 PASS    9 navigation on every docs page :: []
 PASS  9.1 exec summary links every picks view & subpage :: []
@@ -62,7 +62,7 @@ PASS   14 no '(Kills)' derivative market used as a match line :: []
 PASS   15 cross-region homonym quarantines (#1083097, #1079031) & Solid Gaming DQ walkovers verified :: []
 PASS   16 every Flagged for Review item renders with Hotspawn + official source links :: 9 flags, bad=[]
 
-rows: 295 total | scheduled 126 | active 30 (30 with pick, 0 unresolved) | ended/forfeited 157 | flags 9 | ledger 393 entries
+rows: 291 total | scheduled 126 | active 27 (27 with pick, 0 unresolved) | ended/forfeited 153 | flags 9 | ledger 393 entries
 
 ALL DOCS CHECKS PASS
 exit=0
